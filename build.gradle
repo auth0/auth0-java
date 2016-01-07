@@ -1,0 +1,10 @@
+allprojects {
+    version = 'com.auth0.java'
+    group = '0.1-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+}
+
