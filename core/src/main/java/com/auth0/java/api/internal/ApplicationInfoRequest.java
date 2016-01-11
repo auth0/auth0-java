@@ -71,6 +71,9 @@ class ApplicationInfoRequest extends BaseRequest<Application> implements Callbac
         }
         try {
             String json = response.body().string();
+            if (json.length() < 16) {
+                throw new JSONException("Failed to parse JSONP");
+            }
             json = json.substring(16); // replaces tokenizer.skipPast("Auth0.setClient(") because official (not android's) org.json does not have the method
             JSONTokener tokenizer = new JSONTokener(json);
             //tokenizer.skipPast("Auth0.setClient(");
