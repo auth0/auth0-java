@@ -20,14 +20,29 @@ import java.util.TimeZone;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserProfile {
 
-    private String id;
-    private String name;
-    private String nickname;
-    private String email;
-    private String pictureURL;
-    private Date createdAt;
-    private Map<String, Object> extraInfo;
-    private List<UserIdentity> identities;
+    protected String id;
+    protected String name;
+    protected String nickname;
+    protected String email;
+    protected String pictureURL;
+    protected Date createdAt;
+    protected Map<String, Object> extraInfo;
+    protected List<UserIdentity> identities;
+
+    protected UserProfile(UserProfile userProfile) {
+        id = userProfile.id;
+        name = userProfile.name;
+        nickname = userProfile.nickname;
+        email = userProfile.email;
+        pictureURL = userProfile.pictureURL;
+        createdAt = userProfile.createdAt;
+        extraInfo = userProfile.extraInfo;
+        identities = userProfile.identities;
+    }
+
+    protected UserProfile() {
+
+    }
 
     @JsonCreator
     @SuppressWarnings("unchecked")

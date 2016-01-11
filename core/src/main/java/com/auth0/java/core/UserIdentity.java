@@ -19,13 +19,17 @@ public class UserIdentity {
     private static final String ACCESS_TOKEN_KEY = "access_token";
     private static final String ACCESS_TOKEN_SECRET_KEY = "access_token_secret";
     private static final String PROFILE_DATA_KEY = "profileData";
-    private String id;
-    private String connection;
-    private String provider;
-    private boolean social;
-    private String accessToken;
-    private String accessTokenSecret;
-    private Map<String, Object> profileInfo;
+    protected String id;
+    protected String connection;
+    protected String provider;
+    protected boolean social;
+    protected String accessToken;
+    protected String accessTokenSecret;
+    protected Map<String, Object> profileInfo;
+
+    protected UserIdentity() {
+
+    }
 
     @SuppressWarnings("unchecked")
     public UserIdentity(Map<String, Object> values) {

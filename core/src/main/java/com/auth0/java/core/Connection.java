@@ -15,9 +15,17 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Connection {
 
-    private String name;
+    protected String name;
+    protected Map<String, Object> values;
 
-    private Map<String, Object> values;
+    protected Connection(Connection connection) {
+        name = connection.name;
+        values = connection.values;
+    }
+
+    protected Connection() {
+
+    }
 
     /**
      * Creates a new connection instance

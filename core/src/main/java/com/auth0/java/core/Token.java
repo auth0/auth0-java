@@ -9,10 +9,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Token {
 
-    private String idToken;
-    private String accessToken;
-    private String type;
-    private String refreshToken;
+    protected String idToken;
+    protected String accessToken;
+    protected String type;
+    protected String refreshToken;
+
+    protected Token(Token token) {
+        idToken = token.idToken;
+        accessToken = token.accessToken;
+        type = token.type;
+        refreshToken = token.refreshToken;
+    }
+
+    protected Token() {
+
+    }
 
     public Token(@JsonProperty(value = "id_token", required = true) String idToken,
                  @JsonProperty(value = "access_token") String accessToken,
