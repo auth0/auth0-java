@@ -33,5 +33,6 @@ import com.auth0.java.api.callback.BaseCallback;
 public interface Request<T> {
 
     void start(BaseCallback<T> callback);
+    T execute() throws Throwable;
 
 }
