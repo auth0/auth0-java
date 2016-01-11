@@ -85,7 +85,7 @@ public class AuthenticationAPIClient {
         this(new Auth0(clientID, baseURL, configurationURL));
     }
 
-    AuthenticationAPIClient(Auth0 auth0, OkHttpClient client, ObjectMapper mapper) {
+    protected AuthenticationAPIClient(Auth0 auth0, OkHttpClient client, ObjectMapper mapper) {
         this.auth0 = auth0;
         this.client = client;
         this.mapper = mapper;
