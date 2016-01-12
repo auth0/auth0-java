@@ -32,9 +32,9 @@ public class Auth0 {
     private static final String AUTH0_US_CDN_URL = "https://cdn.auth0.com";
     private static final String DOT_AUTH0_DOT_COM = ".auth0.com";
 
-    private final String clientId;
-    private final String domainUrl;
-    private final String configurationUrl;
+    protected final String clientId;
+    protected final String domainUrl;
+    protected final String configurationUrl;
 
     public Auth0(String clientId, String domain) {
         this(clientId, domain, null);

@@ -38,7 +38,7 @@ public class RequestFactory {
 
     private static String CLIENT_INFO;
 
-    private RequestFactory() {}
+    protected RequestFactory() {}
 
     public static void setClientInfo(String clientInfo) {
         CLIENT_INFO = clientInfo;

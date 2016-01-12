@@ -26,6 +26,19 @@ public class Application {
     private List<Strategy> enterpriseStrategies;
     private Strategy databaseStrategy;
 
+    public Application(Application application) {
+        id = application.id;
+        tenant = application.tenant;
+        authorizeURL = application.authorizeURL;
+        callbackURL = application.callbackURL;
+        subscription = application.subscription;
+        hasAllowedOrigins = application.hasAllowedOrigins;
+        strategies = application.strategies;
+        socialStrategies = application.socialStrategies;
+        enterpriseStrategies = application.enterpriseStrategies;
+        databaseStrategy = application.databaseStrategy;
+    }
+
     /**
      * Creates a new application instance
      * @param id app id.
@@ -173,9 +186,11 @@ public class Application {
      * @return a {@link Strategy}
      */
     public Strategy strategyForConnection(Connection connection) {
-        for (Strategy strategy: this.strategies) {
-            if (strategy.getConnections().contains(connection)) {
-                return strategy;
+        for (Strategy strategy : this.strategies) {
+            for (Connection conn : strategy.getConnections()) {
+                if (conn.getName().equals(connection.getName())) {
+                    return strategy;
+                }
             }
         }
         return null;
