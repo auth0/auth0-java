@@ -43,8 +43,6 @@ import java.util.Map;
 
 abstract class BaseRequest<T> implements ParameterizableRequest<T>, AuthorizableRequest<T>, Callback {
 
-    private static final String TAG = BaseCallback.class.getName();
-
     private final Map<String, String> headers;
     private final Map<String, Object> parameters;
     protected final HttpUrl url;
@@ -77,7 +75,6 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
     }
 
     protected final void postOnFailure(final Throwable error) {
-        //Log.e(TAG, "Failed to make request to " + url, error);
         this.callback.onFailure(error);
     }
 
@@ -142,7 +139,6 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
             Request request = doBuildRequest(newBuilder());
             client.newCall(request).enqueue(this);
         } catch (RequestBodyBuildException e) {
-            //Log.e(TAG, "Failed to build JSON body with parameters " + parameters, e);
             callback.onFailure(new APIClientException("Failed to send request to " + url.toString(), e));
         }
     }

@@ -47,8 +47,6 @@ import static com.auth0.authentication.api.ParameterBuilder.GRANT_TYPE_PASSWORD;
  */
 public class AuthenticationAPIClient {
 
-    private static final String TAG = AuthenticationAPIClient.class.getName();
-
     private static final String USERNAME_KEY = "username";
     private static final String PASSWORD_KEY = "password";
     private static final String DEFAULT_DB_CONNECTION = "Username-Password-Authentication";
@@ -134,7 +132,6 @@ public class AuthenticationAPIClient {
                 .asDictionary();
         ParameterizableRequest<Token> request = RequestFactory.POST(url, client, mapper, Token.class)
                 .addParameters(requestParameters);
-        //Log.d(TAG, "Trying to login using " + url.toString() + " with parameters " + requestParameters);
         return request;
     }
 
@@ -170,8 +167,6 @@ public class AuthenticationAPIClient {
                 .setConnection(connection)
                 .setAccessToken(token)
                 .asDictionary();
-
-        //Log.v(TAG, "Performing OAuth access_token login with parameters " + parameters);
 
         final ParameterizableRequest<UserProfile> profileRequest = profileRequest();
         ParameterizableRequest<Token> credentialsRequest = RequestFactory.POST(url, client, mapper, Token.class)
@@ -223,7 +218,6 @@ public class AuthenticationAPIClient {
                 .clearAll()
                 .set(ID_TOKEN_KEY, idToken)
                 .asDictionary();
-        //Log.d(TAG, "Trying to fetch token with parameters " + requestParameters);
         return profileRequest()
                 .addParameters(requestParameters);
     }
@@ -247,7 +241,6 @@ public class AuthenticationAPIClient {
                 .setConnection(defaultDbConnection)
                 .setClientId(getClientId())
                 .asDictionary();
-        //Log.d(TAG, "Creating user with email " + email + " and username " + username);
         return RequestFactory.POST(url, client, mapper, DatabaseUser.class)
                 .addParameters(parameters);
     }

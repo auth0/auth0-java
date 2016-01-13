@@ -40,8 +40,6 @@ import java.util.Map;
 
 class VoidRequest extends BaseRequest<Void> implements Callback {
 
-    private static final String TAG = VoidRequest.class.getName();
-
     private final ObjectReader errorReader;
     private final String httpMethod;
 
@@ -54,7 +52,6 @@ class VoidRequest extends BaseRequest<Void> implements Callback {
 
     @Override
     public void onResponse(Response response) throws IOException {
-        //Log.d(TAG, String.format("Received response from request to %s with status code %d", response.request().urlString(), response.code()));
         final InputStream byteStream = response.body().byteStream();
         if (!response.isSuccessful()) {
             Throwable throwable;

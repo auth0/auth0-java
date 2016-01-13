@@ -43,8 +43,6 @@ import java.util.Map;
 
 class ApplicationInfoRequest extends BaseRequest<Application> implements Callback {
 
-    private static final String TAG = ApplicationInfoRequest.class.getName();
-
     public ApplicationInfoRequest(OkHttpClient client, HttpUrl url, ObjectMapper mapper) {
         super(url, client, mapper.reader(Application.class), null);
     }
@@ -52,7 +50,6 @@ class ApplicationInfoRequest extends BaseRequest<Application> implements Callbac
     @Override
     protected Request doBuildRequest(Request.Builder builder) {
         final Request request = builder.build();
-        //Log.v(TAG, "Fetching application info from " + request.urlString());
         return request;
     }
 
@@ -86,7 +83,6 @@ class ApplicationInfoRequest extends BaseRequest<Application> implements Callbac
                 postOnFailure(tokenizer.syntaxError("Invalid JSON value of App Info"));
             }
             JSONObject jsonObject = (JSONObject) nextValue;
-            //Log.d(TAG, "Obtained JSON object from JSONP: " + jsonObject);
             Application app = getReader().readValue(jsonObject.toString());
 
             postOnSuccess(app);

@@ -43,8 +43,6 @@ import java.util.Map;
 
 class SimpleRequest<T> extends BaseRequest<T> implements Request<T>, ParameterizableRequest<T>, Callback {
 
-    private static final String TAG = SimpleRequest.class.getName();
-
     private final ObjectReader errorReader;
     private final String method;
 
@@ -63,7 +61,6 @@ class SimpleRequest<T> extends BaseRequest<T> implements Request<T>, Parameteriz
 
     @Override
     public void onResponse(Response response) throws IOException {
-        //Log.d(TAG, String.format("Received response from request to %s with status code %d", response.request().urlString(), response.code()));
         final InputStream byteStream = response.body().byteStream();
         if (!response.isSuccessful()) {
             Throwable throwable;
@@ -78,7 +75,6 @@ class SimpleRequest<T> extends BaseRequest<T> implements Request<T>, Parameteriz
         }
 
         try {
-            //Log.d(TAG, "Received successful response from " + response.request().urlString());
             T payload = getReader().readValue(byteStream);
             postOnSuccess(payload);
         } catch (IOException e) {
