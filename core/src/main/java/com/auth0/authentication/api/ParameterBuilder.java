@@ -24,6 +24,7 @@
 
 package com.auth0.authentication.api;
 
+import com.auth0.authentication.PasswordlessType;
 import com.auth0.authentication.api.util.CheckHelper;
 
 import java.util.HashMap;
@@ -38,6 +39,7 @@ public class ParameterBuilder {
     public static final String SCOPE_OFFLINE_ACCESS = "openid offline_access";
     public static final String ACCESS_TOKEN = "access_token";
     public static final String CONNECTION = "connection";
+    public static final String SEND = "send";
 
     public static final String GRANT_TYPE_PASSWORD = "password";
     public static final String GRANT_TYPE_JWT = "urn:ietf:params:oauth:grant-type:jwt-bearer";
@@ -113,6 +115,25 @@ public class ParameterBuilder {
      */
     public ParameterBuilder setAccessToken(String accessToken) {
         return set(ACCESS_TOKEN, accessToken);
+    }
+
+    /**
+     * Sets the 'send' parameter
+     * @param passwordlessType the type of passwordless login
+     * @return itself
+     */
+    public ParameterBuilder setSend(PasswordlessType passwordlessType) {
+        switch (passwordlessType) {
+            default:
+            case CODE:
+                return set(SEND, "code");
+            case LINK:
+                return set(SEND, "link");
+            case LINK_ANDROID:
+                return set(SEND, "link_android");
+            case LINK_IOS:
+                return set(SEND, "link_ios");
+        }
     }
 
     /**

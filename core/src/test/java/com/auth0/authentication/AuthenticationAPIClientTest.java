@@ -486,7 +486,7 @@ public class AuthenticationAPIClientTest {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
         final MockBaseCallback<Void> callback = new MockBaseCallback<>();
-        client.passwordlessWithEmail("support@auth0.com", false)
+        client.passwordlessWithEmail("support@auth0.com", PasswordlessType.CODE)
                 .start(callback);
 
         final RecordedRequest request = mockAPI.takeRequest();
@@ -506,7 +506,27 @@ public class AuthenticationAPIClientTest {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
         final MockBaseCallback<Void> callback = new MockBaseCallback<>();
-        client.passwordlessWithEmail("support@auth0.com", true)
+        client.passwordlessWithEmail("support@auth0.com", PasswordlessType.LINK)
+                .start(callback);
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/passwordless/start"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("email", "support@auth0.com"));
+        assertThat(body, hasEntry("send", "link"));
+        assertThat(body, hasEntry("connection", "email"));
+
+        assertThat(callback, hasNoError());
+    }
+
+    @Test
+    public void shouldSendEmailLinkAndroid() throws Exception {
+        mockAPI.willReturnSuccessfulPasswordlessStart();
+
+        final MockBaseCallback<Void> callback = new MockBaseCallback<>();
+        client.passwordlessWithEmail("support@auth0.com", PasswordlessType.LINK_ANDROID)
                 .start(callback);
 
         final RecordedRequest request = mockAPI.takeRequest();
@@ -522,11 +542,31 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
+    public void shouldSendEmailLinkIOS() throws Exception {
+        mockAPI.willReturnSuccessfulPasswordlessStart();
+
+        final MockBaseCallback<Void> callback = new MockBaseCallback<>();
+        client.passwordlessWithEmail("support@auth0.com", PasswordlessType.LINK_IOS)
+                .start(callback);
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/passwordless/start"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("email", "support@auth0.com"));
+        assertThat(body, hasEntry("send", "link_ios"));
+        assertThat(body, hasEntry("connection", "email"));
+
+        assertThat(callback, hasNoError());
+    }
+
+    @Test
     public void shouldSendSMSCode() throws Exception {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
         final MockBaseCallback<Void> callback = new MockBaseCallback<>();
-        client.passwordlessWithSMS("+1123123123", false)
+        client.passwordlessWithSMS("+1123123123", PasswordlessType.CODE)
                 .start(callback);
 
         final RecordedRequest request = mockAPI.takeRequest();
@@ -546,7 +586,27 @@ public class AuthenticationAPIClientTest {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
         final MockBaseCallback<Void> callback = new MockBaseCallback<>();
-        client.passwordlessWithSMS("+1123123123", true)
+        client.passwordlessWithSMS("+1123123123", PasswordlessType.LINK)
+                .start(callback);
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/passwordless/start"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("phone_number", "+1123123123"));
+        assertThat(body, hasEntry("send", "link"));
+        assertThat(body, hasEntry("connection", "sms"));
+
+        assertThat(callback, hasNoError());
+    }
+
+    @Test
+    public void shouldSendSMSLinkAndroid() throws Exception {
+        mockAPI.willReturnSuccessfulPasswordlessStart();
+
+        final MockBaseCallback<Void> callback = new MockBaseCallback<>();
+        client.passwordlessWithSMS("+1123123123", PasswordlessType.LINK_ANDROID)
                 .start(callback);
 
         final RecordedRequest request = mockAPI.takeRequest();
@@ -556,6 +616,26 @@ public class AuthenticationAPIClientTest {
         assertThat(body, hasEntry("client_id", CLIENT_ID));
         assertThat(body, hasEntry("phone_number", "+1123123123"));
         assertThat(body, hasEntry("send", "link_android"));
+        assertThat(body, hasEntry("connection", "sms"));
+
+        assertThat(callback, hasNoError());
+    }
+
+    @Test
+    public void shouldSendSMSLinkIOS() throws Exception {
+        mockAPI.willReturnSuccessfulPasswordlessStart();
+
+        final MockBaseCallback<Void> callback = new MockBaseCallback<>();
+        client.passwordlessWithSMS("+1123123123", PasswordlessType.LINK_IOS)
+                .start(callback);
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/passwordless/start"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("phone_number", "+1123123123"));
+        assertThat(body, hasEntry("send", "link_ios"));
         assertThat(body, hasEntry("connection", "sms"));
 
         assertThat(callback, hasNoError());

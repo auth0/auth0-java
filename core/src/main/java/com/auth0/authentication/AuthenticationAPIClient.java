@@ -394,14 +394,14 @@ public class AuthenticationAPIClient {
     /**
      * Start a passwordless flow with either <a href="https://auth0.com/docs/auth-api#!#post--with_email">Email</a>
      * @param email that will receive a verification code to use for login
-     * @param useMagicLink whether the email should contain the magic link or the code
+     * @param passwordlessType indicate whether the email should contain a code, link or magic link (android & iOS)
      * @return a request to configure and start
      */
-    public ParameterizableRequest<Void> passwordlessWithEmail(String email, boolean useMagicLink) {
+    public ParameterizableRequest<Void> passwordlessWithEmail(String email, PasswordlessType passwordlessType) {
         Map<String, Object> parameters = ParameterBuilder.newBuilder()
                 .clearAll()
                 .set(EMAIL_KEY, email)
-                .set("send", useMagicLink ? "link_android" : "code")
+                .setSend(passwordlessType)
                 .setConnection("email")
                 .asDictionary();
         return passwordless()
@@ -411,14 +411,14 @@ public class AuthenticationAPIClient {
     /**
      * Start a passwordless flow with <a href="https://auth0.com/docs/auth-api#!#post--with_sms">SMS</a>
      * @param phoneNumber where an SMS with a verification code will be sent
-     * @param useMagicLink whether the SMS should contain the magic link or the code
-     * @return a request to configure and stat
+     * @param passwordlessType indicate whether the SMS should contain a code, link or magic link (android & iOS)
+     * @return a request to configure and start
      */
-    public ParameterizableRequest<Void> passwordlessWithSMS(String phoneNumber, boolean useMagicLink) {
+    public ParameterizableRequest<Void> passwordlessWithSMS(String phoneNumber, PasswordlessType passwordlessType) {
         Map<String, Object> parameters = ParameterBuilder.newBuilder()
                 .clearAll()
                 .set(PHONE_NUMBER_KEY, phoneNumber)
-                .set("send", useMagicLink ? "link_android" : "code")
+                .setSend(passwordlessType)
                 .setConnection("sms")
                 .asDictionary();
         return passwordless()
