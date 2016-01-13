@@ -116,25 +116,6 @@ public class AuthenticationAPIClient {
     }
 
     /**
-     * Log in a user using resource owner endpoint (<a href="https://auth0.com/docs/auth-api#!#post--oauth-ro">'/oauth/ro'</a>)
-     * @return a request to configure and start
-     */
-    public ParameterizableRequest<Token> loginWithResourceOwner() {
-        HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
-                .addPathSegment("oauth")
-                .addPathSegment("ro")
-                .build();
-
-        Map<String, Object> requestParameters = new ParameterBuilder()
-                .setClientId(getClientId())
-                .setConnection(defaultDbConnection)
-                .asDictionary();
-        ParameterizableRequest<Token> request = RequestFactory.POST(url, client, mapper, Token.class)
-                .addParameters(requestParameters);
-        return request;
-    }
-
-    /**
      * Log in a user with email/username and password using a DB connection and fetch it's profile from Auth0
      * @param usernameOrEmail of the user depending of the type of DB connection
      * @param password of the user
@@ -304,23 +285,6 @@ public class AuthenticationAPIClient {
     }
 
     /**
-     * Performs a <a href="https://auth0.com/docs/auth-api#!#post--delegation">delegation</a> request
-     * @return a request to configure and start
-     */
-    public ParameterizableRequest<Map<String, Object>> delegation() {
-        HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
-                .addPathSegment("delegation")
-                .build();
-        Map<String, Object> parameters = ParameterBuilder.newEmptyBuilder()
-                .clearAll()
-                .setClientId(getClientId())
-                .setGrantType(ParameterBuilder.GRANT_TYPE_JWT)
-                .asDictionary();
-        return RequestFactory.rawPOST(url, client, mapper)
-                .addParameters(parameters);
-    }
-
-    /**
      * Performs a <a href="https://auth0.com/docs/auth-api#!#post--delegation">delegation</a> request that will yield a new Auth0 'id_token'
      * @param idToken issued by Auth0 for the user. The token must not be expired.
      * @return a request to configure and start
@@ -372,26 +336,7 @@ public class AuthenticationAPIClient {
     }
 
     /**
-     * Start a passwordless flow with either <a href="https://auth0.com/docs/auth-api#!#post--with_email">Email</a> or <a href="https://auth0.com/docs/auth-api#!#post--with_sms">SMS</a>
-     * @return a request to configure and stat
-     */
-    public ParameterizableRequest<Void> passwordless() {
-        HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
-                .addPathSegment("passwordless")
-                .addPathSegment("start")
-                .build();
-
-        Map<String, Object> parameters = ParameterBuilder.newBuilder()
-                .clearAll()
-                .setClientId(getClientId())
-                .asDictionary();
-
-        return RequestFactory.POST(url, client, mapper)
-                .addParameters(parameters);
-    }
-
-    /**
-     * Start a passwordless flow with either <a href="https://auth0.com/docs/auth-api#!#post--with_email">Email</a>
+     * Start a passwordless flow with <a href="https://auth0.com/docs/auth-api#!#post--with_email">Email</a>
      * @param email that will receive a verification code to use for login
      * @param passwordlessType indicate whether the email should contain a code, link or magic link (android & iOS)
      * @return a request to configure and start
@@ -424,6 +369,49 @@ public class AuthenticationAPIClient {
                 .addParameters(parameters);
     }
 
+    protected ParameterizableRequest<Map<String, Object>> delegation() {
+        HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
+                .addPathSegment("delegation")
+                .build();
+        Map<String, Object> parameters = ParameterBuilder.newEmptyBuilder()
+                .clearAll()
+                .setClientId(getClientId())
+                .setGrantType(ParameterBuilder.GRANT_TYPE_JWT)
+                .asDictionary();
+        return RequestFactory.rawPOST(url, client, mapper)
+                .addParameters(parameters);
+    }
+
+    protected ParameterizableRequest<Void> passwordless() {
+        HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
+                .addPathSegment("passwordless")
+                .addPathSegment("start")
+                .build();
+
+        Map<String, Object> parameters = ParameterBuilder.newBuilder()
+                .clearAll()
+                .setClientId(getClientId())
+                .asDictionary();
+
+        return RequestFactory.POST(url, client, mapper)
+                .addParameters(parameters);
+    }
+
+    protected ParameterizableRequest<Token> loginWithResourceOwner() {
+        HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
+                .addPathSegment("oauth")
+                .addPathSegment("ro")
+                .build();
+
+        Map<String, Object> requestParameters = new ParameterBuilder()
+                .setClientId(getClientId())
+                .setConnection(defaultDbConnection)
+                .asDictionary();
+        ParameterizableRequest<Token> request = RequestFactory.POST(url, client, mapper, Token.class)
+                .addParameters(requestParameters);
+        return request;
+    }
+
     private ParameterizableRequest<UserProfile> profileRequest() {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment("tokeninfo")
@@ -439,5 +427,4 @@ public class AuthenticationAPIClient {
 
         return new AuthenticationRequest(credentialsRequest, profileRequest);
     }
-
 }
