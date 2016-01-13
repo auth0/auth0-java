@@ -1,5 +1,5 @@
 /*
- * AuthenticationClient.java
+ * AuthenticationAPIClient.java
  *
  * Copyright (c) 2015 Auth0 (http://auth0.com)
  *
