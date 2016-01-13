@@ -37,11 +37,16 @@ import java.util.Map;
 public class RequestFactory {
 
     private static String CLIENT_INFO;
+    private static String USER_AGENT;
 
     protected RequestFactory() {}
 
     public static void setClientInfo(String clientInfo) {
         CLIENT_INFO = clientInfo;
+    }
+
+    public static void setUserAgent(String userAgent) {
+        USER_AGENT = userAgent;
     }
 
     public static <T> ParameterizableRequest<T> GET(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
@@ -87,6 +92,9 @@ public class RequestFactory {
     private static <T> ParameterizableRequest<T> addMetricHeader(ParameterizableRequest<T> request) {
         if (CLIENT_INFO != null) {
             request.addHeader("Auth0-Client", CLIENT_INFO);
+        }
+        if (USER_AGENT != null) {
+            request.addHeader("User-Agent", USER_AGENT);
         }
         return request;
     }
