@@ -76,7 +76,7 @@ public class DelegationRequest {
      * @return itself
      */
     public DelegationRequest setApiType(String apiType) {
-        return addParameter(TARGET_KEY, apiType);
+        return addParameter(API_TYPE_KEY, apiType);
     }
 
     /**

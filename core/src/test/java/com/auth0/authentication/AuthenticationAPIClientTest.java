@@ -436,6 +436,31 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
+    public void shouldGetCustomizedDelegationRequest() throws Exception {
+        mockAPI.willReturnNewIdToken();
+
+        final MockRefreshIdTokenCallback callback = new MockRefreshIdTokenCallback();
+        client.delegationWithRefreshToken(REFRESH_TOKEN)
+                .setApiType("custom_api_type")
+                .setScope("custom_scope")
+                .setTarget("custom_target")
+                .start(callback);
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/delegation"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("grant_type", ParameterBuilder.GRANT_TYPE_JWT));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("api_type", "custom_api_type"));
+        assertThat(body, hasEntry("scope", "custom_scope"));
+        assertThat(body, hasEntry("target", "custom_target"));
+        assertThat(body, hasEntry("refresh_token", REFRESH_TOKEN));
+
+        assertThat(callback, hasPayload(NEW_ID_TOKEN));
+    }
+
+    @Test
     public void shouldUnlinkAccount() throws Exception {
         mockAPI.willReturnSuccessfulUnlinkAccount();
 
