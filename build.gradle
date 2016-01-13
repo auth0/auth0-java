@@ -1,6 +1,6 @@
 allprojects {
-    group = 'com.auth0.java'
-    version = '0.1-SNAPSHOT'
+    group = 'com.auth0'
+    version = '0.0.1-SNAPSHOT'
 
     repositories {
         mavenCentral()
