@@ -24,10 +24,12 @@
 
 package com.auth0.authentication;
 
+import com.auth0.authentication.api.ParameterBuilder;
 import com.auth0.authentication.api.ParameterizableRequest;
 import com.auth0.authentication.api.callback.BaseCallback;
 import com.auth0.authentication.api.callback.RefreshIdTokenCallback;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -39,10 +41,23 @@ public class DelegationRequest {
     private static final String EXPIRES_IN_KEY = "expires_in";
     private static final String ID_TOKEN_KEY = "id_token";
 
+    private static final String API_TYPE_KEY = "api_type";
+    private static final String DEFAULT_API_TYPE = "app";
+
+    private static final String TARGET_KEY = "target";
+
     private final ParameterizableRequest<Map<String, Object>> request;
 
     DelegationRequest(ParameterizableRequest<Map<String, Object>> request) {
         this.request = request;
+        addParameter(API_TYPE_KEY, DEFAULT_API_TYPE);
+    }
+
+    private DelegationRequest addParameter(String key, Object value) {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put(key, value);
+        request.addParameters(parameters);
+        return this;
     }
 
     /**
@@ -53,6 +68,33 @@ public class DelegationRequest {
     public DelegationRequest addParameters(Map<String, Object> parameters) {
         request.addParameters(parameters);
         return this;
+    }
+
+    /**
+     * Set the api_type parameter to be sent in the request
+     * @param apiType the delegation api type
+     * @return itself
+     */
+    public DelegationRequest setApiType(String apiType) {
+        return addParameter(TARGET_KEY, apiType);
+    }
+
+    /**
+     * Set the scope used to make the delegation
+     * @param scope value
+     * @return itself
+     */
+    public DelegationRequest setScope(String scope) {
+        return addParameters(new ParameterBuilder().clearAll().setScope(scope).asDictionary());
+    }
+
+    /**
+     * Set the target parameter to be sent in the request
+     * @param target the delegation target
+     * @return itself
+     */
+    public DelegationRequest setTarget(String target) {
+        return addParameter(TARGET_KEY, target);
     }
 
     /**

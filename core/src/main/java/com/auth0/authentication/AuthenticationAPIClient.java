@@ -53,8 +53,7 @@ public class AuthenticationAPIClient {
     private static final String ID_TOKEN_KEY = "id_token";
     private static final String EMAIL_KEY = "email";
     private static final String REFRESH_TOKEN_KEY = "refresh_token";
-    private static final String API_TYPE_KEY = "api_type";
-    private static final String DEFAULT_API_TYPE = "app";
+
     private static final String PHONE_NUMBER_KEY = "phone_number";
 
     private final Auth0 auth0;
@@ -331,7 +330,6 @@ public class AuthenticationAPIClient {
         Map<String, Object> parameters = new ParameterBuilder()
                 .clearAll()
                 .set(ID_TOKEN_KEY, idToken)
-                .set(API_TYPE_KEY, DEFAULT_API_TYPE)
                 .asDictionary();
         ParameterizableRequest<Map<String, Object>> request = delegation()
                 .addParameters(parameters);
@@ -348,7 +346,6 @@ public class AuthenticationAPIClient {
         Map<String, Object> parameters = new ParameterBuilder()
                 .clearAll()
                 .set(REFRESH_TOKEN_KEY, refreshToken)
-                .set(API_TYPE_KEY, DEFAULT_API_TYPE)
                 .asDictionary();
         ParameterizableRequest<Map<String, Object>> request = delegation()
                 .addParameters(parameters);
