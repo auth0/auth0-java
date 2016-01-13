@@ -89,4 +89,40 @@ class SimpleRequest<T> extends BaseRequest<T> implements Request<T>, Parameteriz
                 .method(method, body)
                 .build();
     }
+
+    @Override
+    public T execute() throws Throwable {
+        com.squareup.okhttp.Request request;
+        try {
+            request = doBuildRequest(newBuilder());
+        } catch (RequestBodyBuildException e) {
+            throw new APIClientException("Failed to send request to " + url.toString(), e);
+        }
+
+        Response response;
+        try {
+            response = client.newCall(request).execute();
+        } catch (IOException e) {
+            throw new APIClientException("Failed to execute request to " + url.toString(), e);
+        }
+
+        final InputStream byteStream = response.body().byteStream();
+        if (!response.isSuccessful()) {
+            Throwable throwable;
+            try {
+                Map<String, Object> payload = errorReader.readValue(byteStream);
+                throwable = new APIClientException("Request failed with response " + payload, response.code(), payload);
+            } catch (IOException e) {
+                throwable = new APIClientException("Request failed", response.code(), null);
+            }
+            throw throwable;
+        }
+
+        try {
+            T payload = getReader().readValue(byteStream);
+            return payload;
+        } catch (IOException e) {
+            throw new APIClientException("Request failed", response.code(), null);
+        }
+    }
 }

@@ -99,4 +99,14 @@ public class DelegationRequest<T> implements Request<T> {
     public void start(final BaseCallback<T> callback) {
         request.start(callback);
     }
+
+    /**
+     * Executes the HTTP request against Auth0 API
+     * @return the delegation response on success
+     * @throws Throwable on failure
+     */
+    @Override
+    public T execute() throws Throwable {
+        return request.execute();
+    }
 }

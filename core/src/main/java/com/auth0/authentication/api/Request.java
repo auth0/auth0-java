@@ -32,5 +32,16 @@ import com.auth0.authentication.api.callback.BaseCallback;
  */
 public interface Request<T> {
 
+    /**
+     * Performs an async HTTP request against Auth0 API
+     * @param callback called either on success or failure
+     */
     void start(BaseCallback<T> callback);
+
+    /**
+     * Executes the HTTP request against Auth0 API (blocking the current thread)
+     * @return the response on success
+     * @throws Throwable on failure
+     */
+    T execute() throws Throwable;
 }

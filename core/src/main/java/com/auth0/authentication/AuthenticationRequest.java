@@ -110,4 +110,22 @@ public class AuthenticationRequest implements Request<Authentication> {
             }
         });
     }
+
+    /**
+     * Executes the log in request and then fetches the user's profile
+     * @return authentication object on success
+     * @throws Throwable on failure
+     */
+    @Override
+    public Authentication execute() throws Throwable {
+        Token token = credentialsRequest.execute();
+        Map<String, Object> parameters = new ParameterBuilder()
+                .clearAll()
+                .set("id_token", token.getIdToken())
+                .asDictionary();
+        UserProfile profile = tokenInfoRequest
+                .addParameters(parameters)
+                .execute();
+        return new Authentication(profile, token);
+    }
 }

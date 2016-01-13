@@ -70,6 +70,11 @@ public class BaseRequestTest {
         HttpUrl url = HttpUrl.parse("https://auth0.com");
         baseRequest = new BaseRequest<String>(url, client, reader, writer, callback) {
             @Override
+            public String execute() throws Throwable {
+                return null;
+            }
+
+            @Override
             public void onResponse(Response response) throws IOException {
 
             }

@@ -89,4 +89,14 @@ public class ChangePasswordRequest implements ParameterizableRequest<Void> {
     public void start(final BaseCallback<Void> callback) {
         request.start(callback);
     }
+
+    /**
+     * Executes the HTTP request against Auth0 API
+     * @return Void on success
+     * @throws Throwable on failure
+     */
+    @Override
+    public Void execute() throws Throwable {
+        return request.execute();
+    }
 }

@@ -51,12 +51,7 @@ import static com.auth0.authentication.api.util.CallbackMatcher.hasNoError;
 import static com.auth0.authentication.api.util.CallbackMatcher.hasNoPayloadOfType;
 import static com.auth0.authentication.api.util.CallbackMatcher.hasPayload;
 import static com.auth0.authentication.api.util.CallbackMatcher.hasPayloadOfType;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasEntry;
-import static org.hamcrest.Matchers.hasKey;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 public class AuthenticationAPIClientTest {
@@ -103,12 +98,40 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
+    public void shouldLoadApplicationInfoFromConfigurationUrlSync() throws Throwable {
+        mockAPI.willReturnValidApplicationResponse();
+
+        final Application application = client
+                .fetchApplicationInfo()
+                .execute();
+
+        assertThat(mockAPI.takeRequest().getPath(), equalTo("/client/CLIENTID.js"));
+        assertThat(application, is(notNullValue()));
+    }
+
+    @Test
     public void shoulFailWithInvalidJSON() throws Exception {
         mockAPI.willReturnApplicationResponseWithBody("Auth0Client.set({ })", 200);
         final MockBaseCallback<Application> callback = new MockBaseCallback<>();
         client.fetchApplicationInfo()
                 .start(callback);
         assertThat(callback, hasNoPayloadOfType(Application.class));
+    }
+
+    @Test
+    public void shoulFailWithInvalidJSONSync() throws Exception {
+        mockAPI.willReturnApplicationResponseWithBody("Auth0Client.set({ })", 200);
+
+        Throwable throwable = null;
+        try {
+            client
+                    .fetchApplicationInfo()
+                    .execute();
+        } catch (Throwable e) {
+            throwable = e;
+        }
+
+        assertThat(throwable, is(notNullValue()));
     }
 
     @Test
@@ -121,6 +144,22 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
+    public void shoulFailWithInvalidJSONPSync() throws Exception {
+        mockAPI.willReturnApplicationResponseWithBody("INVALID_JSONP", 200);
+
+        Throwable throwable = null;
+        try {
+            client
+                    .fetchApplicationInfo()
+                    .execute();
+        } catch (Throwable e) {
+            throwable = e;
+        }
+
+        assertThat(throwable, is(notNullValue()));
+    }
+
+    @Test
     public void shouldFailWithFailedStatusCode() throws Exception {
         mockAPI.willReturnApplicationResponseWithBody("Not Found", 404);
         final MockBaseCallback<Application> callback = new MockBaseCallback<>();
@@ -129,6 +168,22 @@ public class AuthenticationAPIClientTest {
                 .start(callback);
 
         assertThat(callback, hasNoPayloadOfType(Application.class));
+    }
+
+    @Test
+    public void shouldFailWithFailedStatusCodeSync() throws Exception {
+        mockAPI.willReturnApplicationResponseWithBody("Not Found", 404);
+
+        Throwable throwable = null;
+        try {
+            client
+                    .fetchApplicationInfo()
+                    .execute();
+        } catch (Throwable e) {
+            throwable = e;
+        }
+
+        assertThat(throwable, is(notNullValue()));
     }
 
     @Test
@@ -161,6 +216,36 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
+    public void shouldLoginWithResourceOwnerSync() throws Throwable {
+        mockAPI.willReturnSuccessfulLogin();
+
+        final Map<String, Object> parameters = ParameterBuilder.newBuilder()
+                .setConnection("DB")
+                .setGrantType(ParameterBuilder.GRANT_TYPE_PASSWORD)
+                .set("username", "support@auth0.com")
+                .set("password", "notapassword")
+                .setScope(ParameterBuilder.SCOPE_OPENID)
+                .asDictionary();
+
+        final Token token = client
+                .loginWithResourceOwner()
+                .addParameters(parameters)
+                .execute();
+
+        assertThat(token, is(notNullValue()));
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/oauth/ro"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("connection", "DB"));
+        assertThat(body, hasEntry("grant_type", "password"));
+        assertThat(body, hasEntry("username", "support@auth0.com"));
+        assertThat(body, hasEntry("password", "notapassword"));
+        assertThat(body, hasEntry("scope", "openid"));
+    }
+
+    @Test
     public void shouldFailLoginWithResourceOwner() throws Exception {
         mockAPI.willReturnFailedLogin();
         final MockBaseCallback<Token> callback = new MockBaseCallback<>();
@@ -179,6 +264,30 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
+    public void shouldFailLoginWithResourceOwnerSync() throws Exception {
+        mockAPI.willReturnFailedLogin();
+        final MockBaseCallback<Token> callback = new MockBaseCallback<>();
+
+        final Map<String, Object> parameters = ParameterBuilder.newBuilder()
+                .setConnection(CONNECTION)
+                .setGrantType(ParameterBuilder.GRANT_TYPE_PASSWORD)
+                .set("username", "support@auth0.com")
+                .set("password", "notapassword")
+                .asDictionary();
+
+        Throwable throwable = null;
+        try {
+            client.loginWithResourceOwner()
+                    .addParameters(parameters)
+                    .execute();
+        } catch (Throwable e) {
+            throwable = e;
+        }
+
+        assertThat(throwable, is(notNullValue()));
+    }
+
+    @Test
     public void shouldLoginWithUserAndPassword() throws Exception {
         mockAPI
             .willReturnSuccessfulLogin()
@@ -192,6 +301,19 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
+    public void shouldLoginWithUserAndPasswordSync() throws Throwable {
+        mockAPI
+                .willReturnSuccessfulLogin()
+                .willReturnTokenInfo();
+
+        final Authentication authentication = client
+                .login("support@auth0.com", "voidpassword")
+                .execute();
+
+        assertThat(authentication, is(notNullValue()));
+    }
+
+    @Test
     public void shouldFetchTokenInfo() throws Exception {
         mockAPI.willReturnTokenInfo();
         final MockBaseCallback<UserProfile> callback = new MockBaseCallback<>();
@@ -200,6 +322,20 @@ public class AuthenticationAPIClientTest {
             .start(callback);
 
         assertThat(callback, hasPayloadOfType(UserProfile.class));
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/tokeninfo"));
+    }
+
+    @Test
+    public void shouldFetchTokenInfoSync() throws Throwable {
+        mockAPI.willReturnTokenInfo();
+
+        final UserProfile profile = client
+                .tokenInfo("ID_TOKEN")
+                .execute();
+
+        assertThat(profile, is(notNullValue()));
 
         final RecordedRequest request = mockAPI.takeRequest();
         assertThat(request.getPath(), equalTo("/tokeninfo"));
@@ -227,6 +363,27 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
+    public void shouldLoginWithOAuthAccessTokenSync() throws Throwable {
+        mockAPI
+                .willReturnSuccessfulLogin()
+                .willReturnTokenInfo();
+
+        final Authentication authentication = client
+                .loginWithOAuthAccessToken("fbtoken", "facebook")
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/oauth/access_token"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("connection", "facebook"));
+        assertThat(body, hasEntry("access_token", "fbtoken"));
+        assertThat(body, hasEntry("scope", "openid offline_access"));
+
+        assertThat(authentication, is(notNullValue()));
+    }
+
+    @Test
     public void shouldLoginWithPhoneNumber() throws Exception {
         mockAPI
                 .willReturnSuccessfulLogin()
@@ -246,6 +403,28 @@ public class AuthenticationAPIClientTest {
         assertThat(body, hasEntry("scope", "openid offline_access"));
 
         assertThat(callback, hasPayloadOfType(Authentication.class));
+    }
+
+    @Test
+    public void shouldLoginWithPhoneNumberSync() throws Throwable {
+        mockAPI
+                .willReturnSuccessfulLogin()
+                .willReturnTokenInfo();
+
+        final Authentication authentication = client
+                .loginWithPhoneNumber("+10101010101", "1234")
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/oauth/ro"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("connection", "sms"));
+        assertThat(body, hasEntry("username", "+10101010101"));
+        assertThat(body, hasEntry("password", "1234"));
+        assertThat(body, hasEntry("scope", "openid offline_access"));
+
+        assertThat(authentication, is(notNullValue()));
     }
 
     @Test
@@ -271,6 +450,28 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
+    public void shouldLoginWithEmailOnlySync() throws Throwable {
+        mockAPI
+                .willReturnSuccessfulLogin()
+                .willReturnTokenInfo();
+
+        final Authentication authentication = client
+                .loginWithEmail("support@auth0.com", "1234")
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/oauth/ro"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("connection", "email"));
+        assertThat(body, hasEntry("username", "support@auth0.com"));
+        assertThat(body, hasEntry("password", "1234"));
+        assertThat(body, hasEntry("scope", "openid offline_access"));
+
+        assertThat(authentication, is(notNullValue()));
+    }
+
+    @Test
     public void shouldCreateUser() throws Exception {
         mockAPI.willReturnSuccessfulSignUp();
 
@@ -287,7 +488,25 @@ public class AuthenticationAPIClientTest {
         assertThat(body, hasEntry("password", "123123123"));
 
         assertThat(callback, hasPayloadOfType(DatabaseUser.class));
+    }
 
+    @Test
+    public void shouldCreateUserSync() throws Throwable {
+        mockAPI.willReturnSuccessfulSignUp();
+
+        final DatabaseUser user = client
+                .createUser("support@auth0.com", "123123123", "support")
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/dbconnections/signup"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("email", "support@auth0.com"));
+        assertThat(body, hasEntry("username", "support"));
+        assertThat(body, hasEntry("password", "123123123"));
+
+        assertThat(user, is(notNullValue()));
     }
 
     @Test
@@ -307,6 +526,25 @@ public class AuthenticationAPIClientTest {
         assertThat(body, hasEntry("password", "123123123"));
 
         assertThat(callback, hasPayloadOfType(DatabaseUser.class));
+    }
+
+    @Test
+    public void shouldCreateUserWithoutUsernameSync() throws Throwable {
+        mockAPI.willReturnSuccessfulSignUp();
+
+        final DatabaseUser user = client
+                .createUser("support@auth0.com", "123123123")
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/dbconnections/signup"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("email", "support@auth0.com"));
+        assertThat(body, hasEntry("username", null));
+        assertThat(body, hasEntry("password", "123123123"));
+
+        assertThat(user, is(notNullValue()));
     }
 
     @Test
@@ -331,6 +569,27 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
+    public void shouldSignUpUserSync() throws Throwable {
+        mockAPI.willReturnSuccessfulSignUp()
+                .willReturnSuccessfulLogin()
+                .willReturnTokenInfo();
+
+        final Authentication authentication = client
+                .signUp("support@auth0.com", "123123123", "support")
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/dbconnections/signup"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("email", "support@auth0.com"));
+        assertThat(body, hasEntry("username", "support"));
+        assertThat(body, hasEntry("password", "123123123"));
+
+        assertThat(authentication, is(notNullValue()));
+    }
+
+    @Test
     public void shouldSignUpUserWithoutUsername() throws Exception {
         mockAPI.willReturnSuccessfulSignUp()
                 .willReturnSuccessfulLogin()
@@ -349,6 +608,27 @@ public class AuthenticationAPIClientTest {
         assertThat(body, hasEntry("password", "123123123"));
 
         assertThat(callback, hasPayloadOfType(Authentication.class));
+    }
+
+    @Test
+    public void shouldSignUpUserWithoutUsernameSync() throws Throwable {
+        mockAPI.willReturnSuccessfulSignUp()
+                .willReturnSuccessfulLogin()
+                .willReturnTokenInfo();
+
+        final Authentication authentication = client
+                .signUp("support@auth0.com", "123123123")
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/dbconnections/signup"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("email", "support@auth0.com"));
+        assertThat(body, hasEntry("username", null));
+        assertThat(body, hasEntry("password", "123123123"));
+
+        assertThat(authentication, is(notNullValue()));
     }
 
     @Test
@@ -372,6 +652,23 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
+    public void shouldChangePasswordSync() throws Throwable {
+        mockAPI.willReturnSuccessfulChangePassword();
+
+        client.changePassword("support@auth0.com")
+                .setNewPassword("123123123")
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/dbconnections/change_password"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("email", "support@auth0.com"));
+        assertThat(body, not(hasKey("username")));
+        assertThat(body, hasEntry("password", "123123123"));
+    }
+
+    @Test
     public void shouldRequestChangePassword() throws Exception {
         mockAPI.willReturnSuccessfulChangePassword();
 
@@ -388,6 +685,22 @@ public class AuthenticationAPIClientTest {
         assertThat(body, not(hasKey("password")));
 
         assertThat(callback, hasNoError());
+    }
+
+    @Test
+    public void shouldRequestChangePasswordSync() throws Throwable {
+        mockAPI.willReturnSuccessfulChangePassword();
+
+        client.changePassword("support@auth0.com")
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/dbconnections/change_password"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("email", "support@auth0.com"));
+        assertThat(body, not(hasKey("username")));
+        assertThat(body, not(hasKey("password")));
     }
 
     @Test
@@ -411,6 +724,26 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
+    public void shouldCallDelegationSync() throws Throwable {
+        mockAPI.willReturnGenericDelegationToken();
+
+        final Map<String, Object> response = client
+                .delegation()
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/delegation"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("grant_type", ParameterBuilder.GRANT_TYPE_JWT));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("token", GENERIC_TOKEN);
+        assertThat(response, is(equalTo(payload)));
+    }
+
+    @Test
     public void shouldGetNewIdTokenWithIdToken() throws Exception {
         mockAPI.willReturnNewIdToken();
 
@@ -428,6 +761,26 @@ public class AuthenticationAPIClientTest {
         assertThat(body, hasEntry("id_token", ID_TOKEN));
 
         assertThat(callback, hasPayloadOfType(Delegation.class));
+    }
+
+    @Test
+    public void shouldGetNewIdTokenWithIdTokenSync() throws Throwable {
+        mockAPI.willReturnNewIdToken();
+
+        final Delegation delegation = client
+                .delegationWithIdToken(ID_TOKEN)
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/delegation"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("grant_type", ParameterBuilder.GRANT_TYPE_JWT));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("api_type", "app"));
+        assertThat(body, hasEntry("id_token", ID_TOKEN));
+
+        assertThat(delegation, is(notNullValue()));
     }
 
     @Test
@@ -451,6 +804,26 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
+    public void shouldGetNewIdTokenWithRefreshTokenSync() throws Throwable {
+        mockAPI.willReturnNewIdToken();
+
+        final Delegation delegation = client
+                .delegationWithRefreshToken(REFRESH_TOKEN)
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/delegation"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("grant_type", ParameterBuilder.GRANT_TYPE_JWT));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("api_type", "app"));
+        assertThat(body, hasEntry("refresh_token", REFRESH_TOKEN));
+
+        assertThat(delegation, is(notNullValue()));
+    }
+
+    @Test
     public void shouldGetCustomizedDelegationRequest() throws Exception {
         mockAPI.willReturnNewIdToken();
 
@@ -459,6 +832,28 @@ public class AuthenticationAPIClientTest {
                 .setScope("custom_scope")
                 .setTarget("custom_target")
                 .start(callback);
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/delegation"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("grant_type", ParameterBuilder.GRANT_TYPE_JWT));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("api_type", "custom_api_type"));
+        assertThat(body, hasEntry("scope", "custom_scope"));
+        assertThat(body, hasEntry("target", "custom_target"));
+        assertThat(body, hasEntry("refresh_token", REFRESH_TOKEN));
+    }
+
+    @Test
+    public void shouldGetCustomizedDelegationRequestSync() throws Throwable {
+        mockAPI.willReturnNewIdToken();
+
+        client
+                .delegationWithRefreshToken(REFRESH_TOKEN, "custom_api_type")
+                .setScope("custom_scope")
+                .setTarget("custom_target")
+                .execute();
 
         final RecordedRequest request = mockAPI.takeRequest();
         assertThat(request.getPath(), equalTo("/delegation"));
@@ -492,6 +887,22 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
+    public void shouldUnlinkAccountSync() throws Throwable {
+        mockAPI.willReturnSuccessfulUnlinkAccount();
+
+        client.unlink("user id", "access token")
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/unlink"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("clientID", CLIENT_ID));
+        assertThat(body, hasEntry("user_id", "user id"));
+        assertThat(body, hasEntry("access_token", "access token"));
+    }
+
+    @Test
     public void shouldStartPasswordless() throws Exception {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
@@ -519,6 +930,31 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
+    public void shouldStartPasswordlessSync() throws Throwable {
+        mockAPI.willReturnSuccessfulPasswordlessStart();
+
+        final Map<String, Object> parameters = new ParameterBuilder()
+                .clearAll()
+                .setConnection("email")
+                .set("send", "code")
+                .set("email", "support@auth0.com")
+                .asDictionary();
+
+        client.passwordless()
+                .addParameters(parameters)
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/passwordless/start"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("email", "support@auth0.com"));
+        assertThat(body, hasEntry("send", "code"));
+        assertThat(body, hasEntry("connection", "email"));
+    }
+
+    @Test
     public void shouldSendEmailCode() throws Exception {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
@@ -536,6 +972,23 @@ public class AuthenticationAPIClientTest {
         assertThat(body, hasEntry("connection", "email"));
 
         assertThat(callback, hasNoError());
+    }
+
+    @Test
+    public void shouldSendEmailCodeSync() throws Throwable {
+        mockAPI.willReturnSuccessfulPasswordlessStart();
+
+        client.passwordlessWithEmail("support@auth0.com", PasswordlessType.CODE)
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/passwordless/start"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("email", "support@auth0.com"));
+        assertThat(body, hasEntry("send", "code"));
+        assertThat(body, hasEntry("connection", "email"));
     }
 
     @Test
@@ -559,6 +1012,23 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
+    public void shouldSendEmailLinkSync() throws Throwable {
+        mockAPI.willReturnSuccessfulPasswordlessStart();
+
+        client.passwordlessWithEmail("support@auth0.com", PasswordlessType.LINK)
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/passwordless/start"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("email", "support@auth0.com"));
+        assertThat(body, hasEntry("send", "link"));
+        assertThat(body, hasEntry("connection", "email"));
+    }
+
+    @Test
     public void shouldSendEmailLinkAndroid() throws Exception {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
@@ -576,6 +1046,23 @@ public class AuthenticationAPIClientTest {
         assertThat(body, hasEntry("connection", "email"));
 
         assertThat(callback, hasNoError());
+    }
+
+    @Test
+    public void shouldSendEmailLinkAndroidSync() throws Throwable {
+        mockAPI.willReturnSuccessfulPasswordlessStart();
+
+        client.passwordlessWithEmail("support@auth0.com", PasswordlessType.LINK_ANDROID)
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/passwordless/start"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("email", "support@auth0.com"));
+        assertThat(body, hasEntry("send", "link_android"));
+        assertThat(body, hasEntry("connection", "email"));
     }
 
     @Test
@@ -599,6 +1086,23 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
+    public void shouldSendEmailLinkIOSSync() throws Throwable {
+        mockAPI.willReturnSuccessfulPasswordlessStart();
+
+        client.passwordlessWithEmail("support@auth0.com", PasswordlessType.LINK_IOS)
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/passwordless/start"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("email", "support@auth0.com"));
+        assertThat(body, hasEntry("send", "link_ios"));
+        assertThat(body, hasEntry("connection", "email"));
+    }
+
+    @Test
     public void shouldSendSMSCode() throws Exception {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
@@ -616,6 +1120,23 @@ public class AuthenticationAPIClientTest {
         assertThat(body, hasEntry("connection", "sms"));
 
         assertThat(callback, hasNoError());
+    }
+
+    @Test
+    public void shouldSendSMSCodeSync() throws Throwable {
+        mockAPI.willReturnSuccessfulPasswordlessStart();
+
+        client.passwordlessWithSMS("+1123123123", PasswordlessType.CODE)
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/passwordless/start"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("phone_number", "+1123123123"));
+        assertThat(body, hasEntry("send", "code"));
+        assertThat(body, hasEntry("connection", "sms"));
     }
 
     @Test
@@ -639,6 +1160,23 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
+    public void shouldSendSMSLinkSync() throws Throwable {
+        mockAPI.willReturnSuccessfulPasswordlessStart();
+
+        client.passwordlessWithSMS("+1123123123", PasswordlessType.LINK)
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/passwordless/start"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("phone_number", "+1123123123"));
+        assertThat(body, hasEntry("send", "link"));
+        assertThat(body, hasEntry("connection", "sms"));
+    }
+
+    @Test
     public void shouldSendSMSLinkAndroid() throws Exception {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
@@ -659,6 +1197,23 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
+    public void shouldSendSMSLinkAndroidSync() throws Throwable {
+        mockAPI.willReturnSuccessfulPasswordlessStart();
+
+        client.passwordlessWithSMS("+1123123123", PasswordlessType.LINK_ANDROID)
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/passwordless/start"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("phone_number", "+1123123123"));
+        assertThat(body, hasEntry("send", "link_android"));
+        assertThat(body, hasEntry("connection", "sms"));
+    }
+
+    @Test
     public void shouldSendSMSLinkIOS() throws Exception {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
@@ -676,6 +1231,23 @@ public class AuthenticationAPIClientTest {
         assertThat(body, hasEntry("connection", "sms"));
 
         assertThat(callback, hasNoError());
+    }
+
+    @Test
+    public void shouldSendSMSLinkIOSSync() throws Throwable {
+        mockAPI.willReturnSuccessfulPasswordlessStart();
+
+        client.passwordlessWithSMS("+1123123123", PasswordlessType.LINK_IOS)
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/passwordless/start"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("phone_number", "+1123123123"));
+        assertThat(body, hasEntry("send", "link_ios"));
+        assertThat(body, hasEntry("connection", "sms"));
     }
 
     private Map<String, String> bodyFromRequest(RecordedRequest request) throws java.io.IOException {
