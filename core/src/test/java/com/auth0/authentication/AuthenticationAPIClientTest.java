@@ -57,11 +57,11 @@ import static com.auth0.authentication.api.util.CallbackMatcher.hasPayload;
 import static com.auth0.authentication.api.util.CallbackMatcher.hasPayloadOfType;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasEntry;
+import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
 
 public class AuthenticationAPIClientTest {
 
@@ -311,7 +311,6 @@ public class AuthenticationAPIClientTest {
         assertThat(body, hasEntry("password", "123123123"));
 
         assertThat(callback, hasPayloadOfType(DatabaseUser.class));
-
     }
 
     @Test
@@ -361,7 +360,8 @@ public class AuthenticationAPIClientTest {
         mockAPI.willReturnSuccessfulChangePassword();
 
         final MockBaseCallback<Void> callback = new MockBaseCallback<>();
-        client.changePassword("support@auth0.com", "123123123")
+        client.changePassword("support@auth0.com")
+                .setNewPassword("123123123")
                 .start(callback);
 
         final RecordedRequest request = mockAPI.takeRequest();
@@ -369,8 +369,27 @@ public class AuthenticationAPIClientTest {
 
         Map<String, String> body = bodyFromRequest(request);
         assertThat(body, hasEntry("email", "support@auth0.com"));
-        assertThat(body, not(hasEntry("username", "support")));
+        assertThat(body, not(hasKey("username")));
         assertThat(body, hasEntry("password", "123123123"));
+
+        assertThat(callback, hasNoError());
+    }
+
+    @Test
+    public void shouldRequestChangePassword() throws Exception {
+        mockAPI.willReturnSuccessfulChangePassword();
+
+        final MockBaseCallback<Void> callback = new MockBaseCallback<>();
+        client.changePassword("support@auth0.com")
+                .start(callback);
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/dbconnections/change_password"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("email", "support@auth0.com"));
+        assertThat(body, not(hasKey("username")));
+        assertThat(body, not(hasKey("password")));
 
         assertThat(callback, hasNoError());
     }

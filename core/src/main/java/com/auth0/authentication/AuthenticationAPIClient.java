@@ -284,10 +284,9 @@ public class AuthenticationAPIClient {
     /**
      * Perform a change password request using <a href="https://auth0.com/docs/auth-api#!#post--dbconnections-change_password">'/dbconnections/change_password'</a>
      * @param email of the user that changes the password. It's also where the confirmation email will be sent
-     * @param newPassword to use
      * @return a request to configure and start
      */
-    public ParameterizableRequest<Void> changePassword(String email, String newPassword) {
+    public ChangePasswordRequest changePassword(String email) {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment("dbconnections")
                 .addPathSegment("change_password")
@@ -295,13 +294,13 @@ public class AuthenticationAPIClient {
 
         Map<String, Object> parameters = ParameterBuilder.newBuilder()
                 .set(EMAIL_KEY, email)
-                .set(PASSWORD_KEY, newPassword)
                 .setClientId(getClientId())
                 .setConnection(defaultDbConnection)
                 .asDictionary();
 
-        return RequestFactory.POST(url, client, mapper)
+        ParameterizableRequest<Void> request = RequestFactory.POST(url, client, mapper)
                 .addParameters(parameters);
+        return new ChangePasswordRequest(request);
     }
 
     /**
