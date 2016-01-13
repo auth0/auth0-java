@@ -28,7 +28,6 @@ import com.auth0.java.api.APIClientException;
 import com.auth0.java.api.ParameterizableRequest;
 import com.auth0.java.api.Request;
 import com.auth0.java.api.RequestBodyBuildException;
-import com.auth0.java.util.Log;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
@@ -64,7 +63,7 @@ class SimpleRequest<T> extends BaseRequest<T> implements Request<T>, Parameteriz
 
     @Override
     public void onResponse(Response response) throws IOException {
-        Log.d(TAG, String.format("Received response from request to %s with status code %d", response.request().urlString(), response.code()));
+        //Log.d(TAG, String.format("Received response from request to %s with status code %d", response.request().urlString(), response.code()));
         final InputStream byteStream = response.body().byteStream();
         if (!response.isSuccessful()) {
             Throwable throwable;
@@ -79,7 +78,7 @@ class SimpleRequest<T> extends BaseRequest<T> implements Request<T>, Parameteriz
         }
 
         try {
-            Log.d(TAG, "Received successful response from " + response.request().urlString());
+            //Log.d(TAG, "Received successful response from " + response.request().urlString());
             T payload = getReader().readValue(byteStream);
             postOnSuccess(payload);
         } catch (IOException e) {

@@ -27,7 +27,6 @@ package com.auth0.java.api.internal;
 import com.auth0.java.api.APIClientException;
 import com.auth0.java.api.ParameterizableRequest;
 import com.auth0.java.core.Application;
-import com.auth0.java.util.Log;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.HttpUrl;
@@ -53,7 +52,7 @@ class ApplicationInfoRequest extends BaseRequest<Application> implements Callbac
     @Override
     protected Request doBuildRequest(Request.Builder builder) {
         final Request request = builder.build();
-        Log.v(TAG, "Fetching application info from " + request.urlString());
+        //Log.v(TAG, "Fetching application info from " + request.urlString());
         return request;
     }
 
@@ -87,8 +86,9 @@ class ApplicationInfoRequest extends BaseRequest<Application> implements Callbac
                 postOnFailure(tokenizer.syntaxError("Invalid JSON value of App Info"));
             }
             JSONObject jsonObject = (JSONObject) nextValue;
-            Log.d(TAG, "Obtained JSON object from JSONP: " + jsonObject);
+            //Log.d(TAG, "Obtained JSON object from JSONP: " + jsonObject);
             Application app = getReader().readValue(jsonObject.toString());
+
             postOnSuccess(app);
         } catch (JSONException | IOException e) {
             postOnFailure(new APIClientException("Failed to parse JSONP", e));

@@ -33,7 +33,6 @@ import com.auth0.java.core.Auth0;
 import com.auth0.java.core.DatabaseUser;
 import com.auth0.java.core.Token;
 import com.auth0.java.core.UserProfile;
-import com.auth0.java.util.Log;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
@@ -135,7 +134,7 @@ public class AuthenticationAPIClient {
                 .asDictionary();
         ParameterizableRequest<Token> request = RequestFactory.POST(url, client, mapper, Token.class)
                 .addParameters(requestParameters);
-        Log.d(TAG, "Trying to login using " + url.toString() + " with parameters " + requestParameters);
+        //Log.d(TAG, "Trying to login using " + url.toString() + " with parameters " + requestParameters);
         return request;
     }
 
@@ -172,7 +171,7 @@ public class AuthenticationAPIClient {
                 .setAccessToken(token)
                 .asDictionary();
 
-        Log.v(TAG, "Performing OAuth access_token login with parameters " + parameters);
+        //Log.v(TAG, "Performing OAuth access_token login with parameters " + parameters);
 
         final ParameterizableRequest<UserProfile> profileRequest = profileRequest();
         ParameterizableRequest<Token> credentialsRequest = RequestFactory.POST(url, client, mapper, Token.class)
@@ -224,7 +223,7 @@ public class AuthenticationAPIClient {
                 .clearAll()
                 .set(ID_TOKEN_KEY, idToken)
                 .asDictionary();
-        Log.d(TAG, "Trying to fetch token with parameters " + requestParameters);
+        //Log.d(TAG, "Trying to fetch token with parameters " + requestParameters);
         return profileRequest()
                 .addParameters(requestParameters);
     }
@@ -248,7 +247,7 @@ public class AuthenticationAPIClient {
                 .setConnection(defaultDbConnection)
                 .setClientId(getClientId())
                 .asDictionary();
-        Log.d(TAG, "Creating user with email " + email + " and username " + username);
+        //Log.d(TAG, "Creating user with email " + email + " and username " + username);
         return RequestFactory.POST(url, client, mapper, DatabaseUser.class)
                 .addParameters(parameters);
     }

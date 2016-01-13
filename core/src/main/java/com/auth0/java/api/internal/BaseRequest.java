@@ -29,10 +29,6 @@ import com.auth0.java.api.AuthorizableRequest;
 import com.auth0.java.api.ParameterizableRequest;
 import com.auth0.java.api.RequestBodyBuildException;
 import com.auth0.java.api.callback.BaseCallback;
-import com.auth0.java.util.Build;
-import com.auth0.java.util.Log;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.squareup.okhttp.Callback;
@@ -40,10 +36,8 @@ import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,11 +47,10 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
 
     private final Map<String, String> headers;
     private final Map<String, Object> parameters;
-    private final HttpUrl url;
-    private final OkHttpClient client;
+    protected final HttpUrl url;
+    protected final OkHttpClient client;
     private final ObjectReader reader;
     private final ObjectWriter writer;
-    protected final ObjectReader errorReader;
 
     private BaseCallback<T> callback;
 
@@ -73,9 +66,6 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
         this.callback = callback;
         this.headers = new HashMap<>();
         this.parameters = new HashMap<>();
-        this.headers.put("User-Agent", String.format("Android %s (%s %s;)", Build.VERSION.RELEASE, Build.MODEL, Build.MANUFACTURER));
-        // TODO fix this, pass object mapper as parameter
-        this.errorReader = new ObjectMapper().reader(new TypeReference<Map<String, Object>>() {});
     }
 
     protected void setCallback(BaseCallback<T> callback) {
@@ -87,7 +77,7 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
     }
 
     protected final void postOnFailure(final Throwable error) {
-        Log.e(TAG, "Failed to make request to " + url, error);
+        //Log.e(TAG, "Failed to make request to " + url, error);
         this.callback.onFailure(error);
     }
 
@@ -152,48 +142,8 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
             Request request = doBuildRequest(newBuilder());
             client.newCall(request).enqueue(this);
         } catch (RequestBodyBuildException e) {
-            Log.e(TAG, "Failed to build JSON body with parameters " + parameters, e);
+            //Log.e(TAG, "Failed to build JSON body with parameters " + parameters, e);
             callback.onFailure(new APIClientException("Failed to send request to " + url.toString(), e));
-        }
-    }
-
-    @Override
-    public T execute() throws Throwable {
-        Request request;
-        try {
-            request = doBuildRequest(newBuilder());
-        } catch (RequestBodyBuildException e) {
-            Log.e(TAG, "Failed to build JSON body with parameters " + parameters, e);
-            throw new APIClientException("Failed to send request to " + url.toString(), e);
-        }
-
-        Response response;
-        try {
-            response = client.newCall(request).execute();
-        } catch (IOException e) {
-            Log.e(TAG, "Request failed to execute", e);
-            throw new APIClientException("Failed to execute request to " + url.toString(), e);
-        }
-
-        Log.d(TAG, String.format("Received response from request to %s with status code %d", response.request().urlString(), response.code()));
-        final InputStream byteStream = response.body().byteStream();
-        if (!response.isSuccessful()) {
-            Throwable throwable;
-            try {
-                Map<String, Object> payload = errorReader.readValue(byteStream);
-                throwable = new APIClientException("Request failed with response " + payload, response.code(), payload);
-            } catch (IOException e) {
-                throwable = new APIClientException("Request failed", response.code(), null);
-            }
-            throw throwable;
-        }
-
-        try {
-            Log.d(TAG, "Received successful response from " + response.request().urlString());
-            T payload = getReader().readValue(byteStream);
-            return payload;
-        } catch (IOException e) {
-            throw new APIClientException("Request failed", response.code(), null);
         }
     }
 

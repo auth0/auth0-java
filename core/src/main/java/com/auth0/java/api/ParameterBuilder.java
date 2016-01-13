@@ -1,6 +1,5 @@
 package com.auth0.java.api;
 
-import com.auth0.java.util.Build;
 import com.auth0.java.util.CheckHelper;
 
 import java.util.HashMap;
@@ -66,16 +65,11 @@ public class ParameterBuilder {
     }
 
     /**
-     * Sets the 'scope' parameter. If the scope includes 'offline_access', it will set the 'device' parameter.
+     * Sets the 'scope' parameter.
      * @param scope a scope value
      * @return itself
      */
     public ParameterBuilder setScope(String scope) {
-        if (scope.contains("offline_access")) {
-            setDevice(Build.MODEL);
-        } else {
-            setDevice(null);
-        }
         return set("scope", scope);
     }
 

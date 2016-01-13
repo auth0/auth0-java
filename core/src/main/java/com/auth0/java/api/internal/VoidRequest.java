@@ -25,7 +25,6 @@
 package com.auth0.java.api.internal;
 
 import com.auth0.java.api.APIClientException;
-import com.auth0.java.util.Log;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
@@ -55,7 +54,7 @@ class VoidRequest extends BaseRequest<Void> implements Callback {
 
     @Override
     public void onResponse(Response response) throws IOException {
-        Log.d(TAG, String.format("Received response from request to %s with status code %d", response.request().urlString(), response.code()));
+        //Log.d(TAG, String.format("Received response from request to %s with status code %d", response.request().urlString(), response.code()));
         final InputStream byteStream = response.body().byteStream();
         if (!response.isSuccessful()) {
             Throwable throwable;
