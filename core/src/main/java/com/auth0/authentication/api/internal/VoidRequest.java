@@ -25,12 +25,14 @@
 package com.auth0.authentication.api.internal;
 
 import com.auth0.authentication.api.APIClientException;
+import com.auth0.authentication.api.RequestBodyBuildException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
@@ -69,10 +71,40 @@ class VoidRequest extends BaseRequest<Void> implements Callback {
     }
 
     @Override
-    protected com.squareup.okhttp.Request doBuildRequest(com.squareup.okhttp.Request.Builder builder) {
+    protected Request doBuildRequest(Request.Builder builder) {
         RequestBody body = buildBody();
         return newBuilder()
                 .method(httpMethod, body)
                 .build();
+    }
+
+    @Override
+    public Void execute() throws Throwable {
+        Request request;
+        try {
+            request = doBuildRequest(newBuilder());
+        } catch (RequestBodyBuildException e) {
+            throw new APIClientException("Failed to send request to " + url.toString(), e);
+        }
+
+        Response response;
+        try {
+            response = client.newCall(request).execute();
+        } catch (IOException e) {
+            throw new APIClientException("Failed to execute request to " + url.toString(), e);
+        }
+
+        final InputStream byteStream = response.body().byteStream();
+        if (!response.isSuccessful()) {
+            Throwable throwable;
+            try {
+                Map<String, Object> payload = errorReader.readValue(byteStream);
+                throwable = new APIClientException("Request failed with response " + payload, response.code(), payload);
+            } catch (IOException e) {
+                throwable = new APIClientException("Request failed", response.code(), null);
+            }
+            throw throwable;
+        }
+        return null;
     }
 }

@@ -103,4 +103,15 @@ public class SignUpRequest implements Request<Authentication> {
             }
         });
     }
+
+    /**
+     * Execute the create user request and then logs the user in.
+     * @return authentication object on success
+     * @throws Throwable on failure
+     */
+    @Override
+    public Authentication execute() throws Throwable {
+        signUpRequest.execute();
+        return authenticationRequest.execute();
+    }
 }
