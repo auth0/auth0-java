@@ -25,7 +25,7 @@
 package com.auth0.authentication;
 
 import com.auth0.authentication.api.ParameterizableRequest;
-import com.auth0.authentication.api.callback.AuthenticationCallback;
+import com.auth0.authentication.api.Request;
 import com.auth0.authentication.api.callback.BaseCallback;
 import com.auth0.DatabaseUser;
 
@@ -34,7 +34,7 @@ import java.util.Map;
 /**
  * Represent a request to create a user + log in + fetch user profile.
  */
-public class SignUpRequest {
+public class SignUpRequest implements Request<Authentication> {
 
     private final ParameterizableRequest<DatabaseUser> signUpRequest;
     private final AuthenticationRequest authenticationRequest;
@@ -88,7 +88,8 @@ public class SignUpRequest {
      * Starts to execute create user request and then logs the user in.
      * @param callback called on either success or failure.
      */
-    public void start(final AuthenticationCallback callback) {
+    @Override
+    public void start(final BaseCallback<Authentication> callback) {
         signUpRequest.start(new BaseCallback<DatabaseUser>() {
             @Override
             public void onSuccess(final DatabaseUser user) {

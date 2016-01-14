@@ -26,7 +26,7 @@ package com.auth0.authentication;
 
 import com.auth0.authentication.api.ParameterBuilder;
 import com.auth0.authentication.api.ParameterizableRequest;
-import com.auth0.authentication.api.callback.AuthenticationCallback;
+import com.auth0.authentication.api.Request;
 import com.auth0.authentication.api.callback.BaseCallback;
 import com.auth0.Token;
 import com.auth0.UserProfile;
@@ -36,7 +36,7 @@ import java.util.Map;
 /**
  * Represent a Authentication request that consist of a log in and a fetch profile requests
  */
-public class AuthenticationRequest {
+public class AuthenticationRequest implements Request<Authentication> {
 
     private final ParameterizableRequest<Token> credentialsRequest;
     private final ParameterizableRequest<UserProfile> tokenInfoRequest;
@@ -80,7 +80,8 @@ public class AuthenticationRequest {
      * Starts the log in request and then fetches the user's profile
      * @param callback called on either success or failure
      */
-    public void start(final AuthenticationCallback callback) {
+    @Override
+    public void start(final BaseCallback<Authentication> callback) {
         credentialsRequest.start(new BaseCallback<Token>() {
             @Override
             public void onSuccess(final Token token) {
@@ -93,7 +94,7 @@ public class AuthenticationRequest {
                         .start(new BaseCallback<UserProfile>() {
                             @Override
                             public void onSuccess(UserProfile profile) {
-                                callback.onSuccess(profile, token);
+                                callback.onSuccess(new Authentication(profile, token));
                             }
 
                             @Override
