@@ -26,8 +26,8 @@ package com.auth0.authentication;
 
 import com.auth0.authentication.api.ParameterBuilder;
 import com.auth0.authentication.api.ParameterizableRequest;
+import com.auth0.authentication.api.Request;
 import com.auth0.authentication.api.callback.BaseCallback;
-import com.auth0.authentication.api.callback.RefreshIdTokenCallback;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,29 +35,23 @@ import java.util.Map;
 /**
  * Represent a delegation request for Auth0 tokens that will yield a new 'id_token'
  */
-public class DelegationRequest {
-
-    private static final String TOKEN_TYPE_KEY = "token_type";
-    private static final String EXPIRES_IN_KEY = "expires_in";
-    private static final String ID_TOKEN_KEY = "id_token";
+public class DelegationRequest<T> implements Request<T> {
 
     private static final String API_TYPE_KEY = "api_type";
-    private static final String DEFAULT_API_TYPE = "app";
+    public static final String DEFAULT_API_TYPE = "app";
 
     private static final String TARGET_KEY = "target";
 
-    private final ParameterizableRequest<Map<String, Object>> request;
+    private final ParameterizableRequest<T> request;
 
-    DelegationRequest(ParameterizableRequest<Map<String, Object>> request) {
+    DelegationRequest(ParameterizableRequest<T> request) {
         this.request = request;
-        addParameter(API_TYPE_KEY, DEFAULT_API_TYPE);
     }
 
-    private DelegationRequest addParameter(String key, Object value) {
+    private DelegationRequest<T> addParameter(String key, Object value) {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put(key, value);
-        request.addParameters(parameters);
-        return this;
+        return addParameters(parameters);
     }
 
     /**
@@ -65,7 +59,7 @@ public class DelegationRequest {
      * @param parameters as a non-null dictionary
      * @return itself
      */
-    public DelegationRequest addParameters(Map<String, Object> parameters) {
+    public DelegationRequest<T> addParameters(Map<String, Object> parameters) {
         request.addParameters(parameters);
         return this;
     }
@@ -75,7 +69,7 @@ public class DelegationRequest {
      * @param apiType the delegation api type
      * @return itself
      */
-    public DelegationRequest setApiType(String apiType) {
+    public DelegationRequest<T> setApiType(String apiType) {
         return addParameter(API_TYPE_KEY, apiType);
     }
 
@@ -84,7 +78,7 @@ public class DelegationRequest {
      * @param scope value
      * @return itself
      */
-    public DelegationRequest setScope(String scope) {
+    public DelegationRequest<T> setScope(String scope) {
         return addParameters(new ParameterBuilder().clearAll().setScope(scope).asDictionary());
     }
 
@@ -93,7 +87,7 @@ public class DelegationRequest {
      * @param target the delegation target
      * @return itself
      */
-    public DelegationRequest setTarget(String target) {
+    public DelegationRequest<T> setTarget(String target) {
         return addParameter(TARGET_KEY, target);
     }
 
@@ -101,21 +95,8 @@ public class DelegationRequest {
      * Performs the HTTP request against Auth0 API
      * @param callback called either on success or failure
      */
-    public void start(final RefreshIdTokenCallback callback) {
-        request.start(new BaseCallback<Map<String, Object>>() {
-            @Override
-            public void onSuccess(final Map<String, Object> payload) {
-                final String id_token = (String) payload.get(ID_TOKEN_KEY);
-                final String token_type = (String) payload.get(TOKEN_TYPE_KEY);
-                final Integer expires_in = (Integer) payload.get(EXPIRES_IN_KEY);
-                callback.onSuccess(id_token, token_type, expires_in);
-            }
-
-            @Override
-            public void onFailure(Throwable error) {
-                callback.onFailure(error);
-            }
-        });
+    @Override
+    public void start(final BaseCallback<T> callback) {
+        request.start(callback);
     }
-
 }

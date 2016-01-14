@@ -289,14 +289,15 @@ public class AuthenticationAPIClient {
      * @param idToken issued by Auth0 for the user. The token must not be expired.
      * @return a request to configure and start
      */
-    public DelegationRequest delegationWithIdToken(String idToken) {
+    public DelegationRequest<Delegation> delegationWithIdToken(String idToken) {
         Map<String, Object> parameters = new ParameterBuilder()
                 .clearAll()
                 .set(ID_TOKEN_KEY, idToken)
                 .asDictionary();
-        ParameterizableRequest<Map<String, Object>> request = delegation()
+        ParameterizableRequest<Delegation> request = delegation(Delegation.class)
                 .addParameters(parameters);
-        return new DelegationRequest(request);
+        return new DelegationRequest<>(request)
+                .setApiType(DelegationRequest.DEFAULT_API_TYPE);
     }
 
     /**
@@ -305,14 +306,50 @@ public class AuthenticationAPIClient {
      * @param refreshToken issued by Auth0 for the user when using the 'offline_access' scope when logging in.
      * @return a request to configure and start
      */
-    public DelegationRequest delegationWithRefreshToken(String refreshToken) {
+    public DelegationRequest<Delegation> delegationWithRefreshToken(String refreshToken) {
         Map<String, Object> parameters = new ParameterBuilder()
                 .clearAll()
                 .set(REFRESH_TOKEN_KEY, refreshToken)
                 .asDictionary();
-        ParameterizableRequest<Map<String, Object>> request = delegation()
+        ParameterizableRequest<Delegation> request = delegation(Delegation.class)
                 .addParameters(parameters);
-        return new DelegationRequest(request);
+        return new DelegationRequest<>(request)
+                .setApiType(DelegationRequest.DEFAULT_API_TYPE);
+    }
+
+    /**
+     * Performs a <a href="https://auth0.com/docs/auth-api#!#post--delegation">delegation</a> request that will yield a delegation token.
+     * @param idToken issued by Auth0 for the user. The token must not be expired.
+     * @param apiType the delegation 'api_type' parameter
+     * @return a request to configure and start
+     */
+    public DelegationRequest<Map<String,Object>> delegationWithIdToken(String idToken, String apiType) {
+        Map<String, Object> parameters = new ParameterBuilder()
+                .clearAll()
+                .set(ID_TOKEN_KEY, idToken)
+                .asDictionary();
+        ParameterizableRequest<Map<String,Object>> request = delegation()
+                .addParameters(parameters);
+        return new DelegationRequest<>(request)
+                .setApiType(apiType);
+    }
+
+    /**
+     * Performs a <a href="https://auth0.com/docs/auth-api#!#post--delegation">delegation</a> request that will yield a delegation token.
+     * Check our <a href="https://auth0.com/docs/refresh-token">refresh token</a> docs for more information
+     * @param refreshToken issued by Auth0 for the user when using the 'offline_access' scope when logging in.
+     * @param apiType the delegation 'api_type' parameter
+     * @return a request to configure and start
+     */
+    public DelegationRequest<Map<String,Object>> delegationWithRefreshToken(String refreshToken, String apiType) {
+        Map<String, Object> parameters = new ParameterBuilder()
+                .clearAll()
+                .set(REFRESH_TOKEN_KEY, refreshToken)
+                .asDictionary();
+        ParameterizableRequest<Map<String,Object>> request = delegation()
+                .addParameters(parameters);
+        return new DelegationRequest<>(request)
+                .setApiType(apiType);
     }
 
     /**
@@ -379,6 +416,19 @@ public class AuthenticationAPIClient {
                 .setGrantType(ParameterBuilder.GRANT_TYPE_JWT)
                 .asDictionary();
         return RequestFactory.rawPOST(url, client, mapper)
+                .addParameters(parameters);
+    }
+
+    protected <T> ParameterizableRequest<T> delegation(Class<T> clazz) {
+        HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
+                .addPathSegment("delegation")
+                .build();
+        Map<String, Object> parameters = ParameterBuilder.newEmptyBuilder()
+                .clearAll()
+                .setClientId(getClientId())
+                .setGrantType(ParameterBuilder.GRANT_TYPE_JWT)
+                .asDictionary();
+        return RequestFactory.POST(url, client, mapper, clazz)
                 .addParameters(parameters);
     }
 
