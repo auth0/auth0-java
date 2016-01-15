@@ -32,9 +32,7 @@ import com.auth0.DatabaseUser;
 import com.auth0.Token;
 import com.auth0.UserProfile;
 import com.auth0.authentication.api.util.AuthenticationAPI;
-import com.auth0.authentication.api.util.MockAuthenticationCallback;
 import com.auth0.authentication.api.util.MockBaseCallback;
-import com.auth0.authentication.api.util.MockRefreshIdTokenCallback;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.mockwebserver.RecordedRequest;
@@ -48,9 +46,7 @@ import java.util.Map;
 
 import static com.auth0.authentication.api.util.AuthenticationAPI.GENERIC_TOKEN;
 import static com.auth0.authentication.api.util.AuthenticationAPI.ID_TOKEN;
-import static com.auth0.authentication.api.util.AuthenticationAPI.NEW_ID_TOKEN;
 import static com.auth0.authentication.api.util.AuthenticationAPI.REFRESH_TOKEN;
-import static com.auth0.authentication.api.util.AuthenticationCallbackMatcher.hasTokenAndProfile;
 import static com.auth0.authentication.api.util.CallbackMatcher.hasNoError;
 import static com.auth0.authentication.api.util.CallbackMatcher.hasNoPayloadOfType;
 import static com.auth0.authentication.api.util.CallbackMatcher.hasPayload;
@@ -187,12 +183,12 @@ public class AuthenticationAPIClientTest {
         mockAPI
             .willReturnSuccessfulLogin()
             .willReturnTokenInfo();
-        final MockAuthenticationCallback callback = new MockAuthenticationCallback();
+        final MockBaseCallback<Authentication> callback = new MockBaseCallback<>();
 
         client.login("support@auth0.com", "voidpassword")
             .start(callback);
 
-        assertThat(callback, hasTokenAndProfile());
+        assertThat(callback, hasPayloadOfType(Authentication.class));
     }
 
     @Test
@@ -215,7 +211,7 @@ public class AuthenticationAPIClientTest {
                 .willReturnSuccessfulLogin()
                 .willReturnTokenInfo();
 
-        final MockAuthenticationCallback callback = new MockAuthenticationCallback();
+        final MockBaseCallback<Authentication> callback = new MockBaseCallback<>();
         client.loginWithOAuthAccessToken("fbtoken", "facebook")
                 .start(callback);
 
@@ -227,7 +223,7 @@ public class AuthenticationAPIClientTest {
         assertThat(body, hasEntry("access_token", "fbtoken"));
         assertThat(body, hasEntry("scope", "openid offline_access"));
 
-        assertThat(callback, hasTokenAndProfile());
+        assertThat(callback, hasPayloadOfType(Authentication.class));
     }
 
     @Test
@@ -236,7 +232,7 @@ public class AuthenticationAPIClientTest {
                 .willReturnSuccessfulLogin()
                 .willReturnTokenInfo();
 
-        final MockAuthenticationCallback callback = new MockAuthenticationCallback();
+        final MockBaseCallback<Authentication> callback = new MockBaseCallback<>();
         client.loginWithPhoneNumber("+10101010101", "1234")
                 .start(callback);
 
@@ -249,7 +245,7 @@ public class AuthenticationAPIClientTest {
         assertThat(body, hasEntry("password", "1234"));
         assertThat(body, hasEntry("scope", "openid offline_access"));
 
-        assertThat(callback, hasTokenAndProfile());
+        assertThat(callback, hasPayloadOfType(Authentication.class));
     }
 
     @Test
@@ -258,7 +254,7 @@ public class AuthenticationAPIClientTest {
                 .willReturnSuccessfulLogin()
                 .willReturnTokenInfo();
 
-        final MockAuthenticationCallback callback = new MockAuthenticationCallback();
+        final MockBaseCallback<Authentication> callback = new MockBaseCallback<>();
         client.loginWithEmail("support@auth0.com", "1234")
                 .start(callback);
 
@@ -271,7 +267,7 @@ public class AuthenticationAPIClientTest {
         assertThat(body, hasEntry("password", "1234"));
         assertThat(body, hasEntry("scope", "openid offline_access"));
 
-        assertThat(callback, hasTokenAndProfile());
+        assertThat(callback, hasPayloadOfType(Authentication.class));
     }
 
     @Test
@@ -319,7 +315,7 @@ public class AuthenticationAPIClientTest {
                 .willReturnSuccessfulLogin()
                 .willReturnTokenInfo();
 
-        final MockAuthenticationCallback callback = new MockAuthenticationCallback();
+        final MockBaseCallback<Authentication> callback = new MockBaseCallback<>();
         client.signUp("support@auth0.com", "123123123", "support")
                 .start(callback);
 
@@ -331,7 +327,7 @@ public class AuthenticationAPIClientTest {
         assertThat(body, hasEntry("username", "support"));
         assertThat(body, hasEntry("password", "123123123"));
 
-        assertThat(callback, hasTokenAndProfile());
+        assertThat(callback, hasPayloadOfType(Authentication.class));
     }
 
     @Test
@@ -340,7 +336,7 @@ public class AuthenticationAPIClientTest {
                 .willReturnSuccessfulLogin()
                 .willReturnTokenInfo();
 
-        final MockAuthenticationCallback callback = new MockAuthenticationCallback();
+        final MockBaseCallback<Authentication> callback = new MockBaseCallback<>();
         client.signUp("support@auth0.com", "123123123")
                 .start(callback);
 
@@ -352,7 +348,7 @@ public class AuthenticationAPIClientTest {
         assertThat(body, not(hasEntry("username", "support")));
         assertThat(body, hasEntry("password", "123123123"));
 
-        assertThat(callback, hasTokenAndProfile());
+        assertThat(callback, hasPayloadOfType(Authentication.class));
     }
 
     @Test
@@ -418,7 +414,7 @@ public class AuthenticationAPIClientTest {
     public void shouldGetNewIdTokenWithIdToken() throws Exception {
         mockAPI.willReturnNewIdToken();
 
-        final MockRefreshIdTokenCallback callback = new MockRefreshIdTokenCallback();
+        final MockBaseCallback<Delegation> callback = new MockBaseCallback<>();
         client.delegationWithIdToken(ID_TOKEN)
                 .start(callback);
 
@@ -431,14 +427,14 @@ public class AuthenticationAPIClientTest {
         assertThat(body, hasEntry("api_type", "app"));
         assertThat(body, hasEntry("id_token", ID_TOKEN));
 
-        assertThat(callback, hasPayload(NEW_ID_TOKEN));
+        assertThat(callback, hasPayloadOfType(Delegation.class));
     }
 
     @Test
     public void shouldGetNewIdTokenWithRefreshToken() throws Exception {
         mockAPI.willReturnNewIdToken();
 
-        final MockRefreshIdTokenCallback callback = new MockRefreshIdTokenCallback();
+        final MockBaseCallback<Delegation> callback = new MockBaseCallback<>();
         client.delegationWithRefreshToken(REFRESH_TOKEN)
                 .start(callback);
 
@@ -451,16 +447,15 @@ public class AuthenticationAPIClientTest {
         assertThat(body, hasEntry("api_type", "app"));
         assertThat(body, hasEntry("refresh_token", REFRESH_TOKEN));
 
-        assertThat(callback, hasPayload(NEW_ID_TOKEN));
+        assertThat(callback, hasPayloadOfType(Delegation.class));
     }
 
     @Test
     public void shouldGetCustomizedDelegationRequest() throws Exception {
         mockAPI.willReturnNewIdToken();
 
-        final MockRefreshIdTokenCallback callback = new MockRefreshIdTokenCallback();
-        client.delegationWithRefreshToken(REFRESH_TOKEN)
-                .setApiType("custom_api_type")
+        final MockBaseCallback<Map<String,Object>> callback = new MockBaseCallback<>();
+        client.delegationWithRefreshToken(REFRESH_TOKEN, "custom_api_type")
                 .setScope("custom_scope")
                 .setTarget("custom_target")
                 .start(callback);
@@ -475,8 +470,6 @@ public class AuthenticationAPIClientTest {
         assertThat(body, hasEntry("scope", "custom_scope"));
         assertThat(body, hasEntry("target", "custom_target"));
         assertThat(body, hasEntry("refresh_token", REFRESH_TOKEN));
-
-        assertThat(callback, hasPayload(NEW_ID_TOKEN));
     }
 
     @Test
