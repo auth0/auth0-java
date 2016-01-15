@@ -28,12 +28,16 @@ package com.auth0.authentication;
 import com.auth0.Token;
 import com.auth0.UserProfile;
 
+import static com.auth0.authentication.api.util.CheckHelper.checkArgument;
+
 public class Authentication {
 
     private final UserProfile profile;
     private final Token token;
 
     public Authentication(UserProfile profile, Token token) {
+        checkArgument(profile != null, "profile must be non-null");
+        checkArgument(token != null, "token must be non-null");
         this.profile = profile;
         this.token = token;
     }
