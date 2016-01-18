@@ -24,6 +24,7 @@
 
 package com.auth0.authentication;
 
+import com.auth0.Auth0Exception;
 import com.auth0.authentication.api.ParameterBuilder;
 import com.auth0.authentication.api.ParameterizableRequest;
 import com.auth0.authentication.api.Request;
@@ -98,14 +99,14 @@ public class AuthenticationRequest implements Request<Authentication> {
                             }
 
                             @Override
-                            public void onFailure(Throwable error) {
+                            public void onFailure(Auth0Exception error) {
                                 callback.onFailure(error);
                             }
                         });
             }
 
             @Override
-            public void onFailure(Throwable error) {
+            public void onFailure(Auth0Exception error) {
                 callback.onFailure(error);
             }
         });
@@ -114,10 +115,10 @@ public class AuthenticationRequest implements Request<Authentication> {
     /**
      * Executes the log in request and then fetches the user's profile
      * @return authentication object on success
-     * @throws Throwable on failure
+     * @throws Auth0Exception on failure
      */
     @Override
-    public Authentication execute() throws Throwable {
+    public Authentication execute() throws Auth0Exception {
         Token token = credentialsRequest.execute();
         Map<String, Object> parameters = new ParameterBuilder()
                 .clearAll()
