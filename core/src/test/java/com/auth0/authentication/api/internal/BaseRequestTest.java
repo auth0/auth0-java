@@ -25,6 +25,7 @@
 package com.auth0.authentication.api.internal;
 
 
+import com.auth0.Auth0Exception;
 import com.auth0.authentication.api.RequestBodyBuildException;
 import com.auth0.authentication.api.callback.BaseCallback;
 import com.fasterxml.jackson.databind.ObjectReader;
@@ -54,11 +55,13 @@ public class BaseRequestTest {
     @Mock
     private BaseCallback<String> callback;
     @Mock
-    private Throwable throwable;
+    private Auth0Exception throwable;
     @Mock
     private OkHttpClient client;
     @Mock
     private ObjectReader reader;
+    @Mock
+    private ObjectReader errorReader;
     @Mock
     private ObjectWriter writer;
     @Captor
@@ -68,9 +71,9 @@ public class BaseRequestTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         HttpUrl url = HttpUrl.parse("https://auth0.com");
-        baseRequest = new BaseRequest<String>(url, client, reader, writer, callback) {
+        baseRequest = new BaseRequest<String>(url, client, reader, errorReader, writer, callback) {
             @Override
-            public String execute() throws Throwable {
+            public String execute() throws Auth0Exception {
                 return null;
             }
 

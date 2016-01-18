@@ -24,7 +24,8 @@
 
 package com.auth0.authentication.api.internal;
 
-import com.auth0.authentication.api.APIClientException;
+import com.auth0.Auth0Exception;
+import com.auth0.authentication.api.APIException;
 import com.auth0.authentication.api.AuthorizableRequest;
 import com.auth0.authentication.api.ParameterizableRequest;
 import com.auth0.authentication.api.RequestBodyBuildException;
@@ -36,8 +37,10 @@ import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,18 +51,20 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
     protected final HttpUrl url;
     protected final OkHttpClient client;
     private final ObjectReader reader;
+    private final ObjectReader errorReader;
     private final ObjectWriter writer;
 
     private BaseCallback<T> callback;
 
-    protected BaseRequest(HttpUrl url, OkHttpClient client, ObjectReader reader, ObjectWriter writer) {
-        this(url, client, reader, writer, null);
+    protected BaseRequest(HttpUrl url, OkHttpClient client, ObjectReader reader, ObjectReader errorReader, ObjectWriter writer) {
+        this(url, client, reader, errorReader, writer, null);
     }
 
-    public BaseRequest(HttpUrl url, OkHttpClient client, ObjectReader reader, ObjectWriter writer, BaseCallback<T> callback) {
+    public BaseRequest(HttpUrl url, OkHttpClient client, ObjectReader reader, ObjectReader errorReader, ObjectWriter writer, BaseCallback<T> callback) {
         this.url = url;
         this.client = client;
         this.reader = reader;
+        this.errorReader = errorReader;
         this.writer = writer;
         this.callback = callback;
         this.headers = new HashMap<>();
@@ -74,7 +79,7 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
         this.callback.onSuccess(payload);
     }
 
-    protected final void postOnFailure(final Throwable error) {
+    protected final void postOnFailure(final Auth0Exception error) {
         this.callback.onFailure(error);
     }
 
@@ -99,6 +104,16 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
         return JsonRequestBodyBuilder.createBody(parameters, writer);
     }
 
+    protected APIException parseUnsuccessfulResponse(Response response) {
+        try {
+            final InputStream byteStream = response.body().byteStream();
+            Map<String, Object> payload = errorReader.readValue(byteStream);
+            return new APIException("Request to " + url + " failed with response " + payload, response.code(), payload);
+        } catch (Exception e) {
+            return new APIException("Request to " + url + " failed", response.code(), null);
+        }
+    }
+
     private static abstract class CallbackTask<T> implements Runnable {
         protected final BaseCallback<T> callback;
 
@@ -109,7 +124,7 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
 
     @Override
     public void onFailure(Request request, IOException e) {
-        postOnFailure(e);
+        postOnFailure(new Auth0Exception("Failed to execute request to " + url.toString(), e));
     }
 
     @Override
@@ -139,7 +154,7 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
             Request request = doBuildRequest(newBuilder());
             client.newCall(request).enqueue(this);
         } catch (RequestBodyBuildException e) {
-            callback.onFailure(new APIClientException("Failed to send request to " + url.toString(), e));
+            callback.onFailure(e);
         }
     }
 

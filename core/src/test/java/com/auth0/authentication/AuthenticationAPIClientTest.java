@@ -25,12 +25,8 @@
 package com.auth0.authentication;
 
 
+import com.auth0.*;
 import com.auth0.authentication.api.ParameterBuilder;
-import com.auth0.Application;
-import com.auth0.Auth0;
-import com.auth0.DatabaseUser;
-import com.auth0.Token;
-import com.auth0.UserProfile;
 import com.auth0.authentication.api.util.AuthenticationAPI;
 import com.auth0.authentication.api.util.MockBaseCallback;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -98,7 +94,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldLoadApplicationInfoFromConfigurationUrlSync() throws Throwable {
+    public void shouldLoadApplicationInfoFromConfigurationUrlSync() throws Exception {
         mockAPI.willReturnValidApplicationResponse();
 
         final Application application = client
@@ -122,16 +118,16 @@ public class AuthenticationAPIClientTest {
     public void shoulFailWithInvalidJSONSync() throws Exception {
         mockAPI.willReturnApplicationResponseWithBody("Auth0Client.set({ })", 200);
 
-        Throwable throwable = null;
+        Exception exception = null;
         try {
             client
                     .fetchApplicationInfo()
                     .execute();
-        } catch (Throwable e) {
-            throwable = e;
+        } catch (Auth0Exception e) {
+            exception = e;
         }
 
-        assertThat(throwable, is(notNullValue()));
+        assertThat(exception, is(notNullValue()));
     }
 
     @Test
@@ -147,16 +143,16 @@ public class AuthenticationAPIClientTest {
     public void shoulFailWithInvalidJSONPSync() throws Exception {
         mockAPI.willReturnApplicationResponseWithBody("INVALID_JSONP", 200);
 
-        Throwable throwable = null;
+        Exception exception = null;
         try {
             client
                     .fetchApplicationInfo()
                     .execute();
-        } catch (Throwable e) {
-            throwable = e;
+        } catch (Auth0Exception e) {
+            exception = e;
         }
 
-        assertThat(throwable, is(notNullValue()));
+        assertThat(exception, is(notNullValue()));
     }
 
     @Test
@@ -174,16 +170,16 @@ public class AuthenticationAPIClientTest {
     public void shouldFailWithFailedStatusCodeSync() throws Exception {
         mockAPI.willReturnApplicationResponseWithBody("Not Found", 404);
 
-        Throwable throwable = null;
+        Exception exception = null;
         try {
             client
                     .fetchApplicationInfo()
                     .execute();
-        } catch (Throwable e) {
-            throwable = e;
+        } catch (Auth0Exception e) {
+            exception = e;
         }
 
-        assertThat(throwable, is(notNullValue()));
+        assertThat(exception, is(notNullValue()));
     }
 
     @Test
@@ -216,7 +212,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldLoginWithResourceOwnerSync() throws Throwable {
+    public void shouldLoginWithResourceOwnerSync() throws Exception {
         mockAPI.willReturnSuccessfulLogin();
 
         final Map<String, Object> parameters = ParameterBuilder.newBuilder()
@@ -275,16 +271,16 @@ public class AuthenticationAPIClientTest {
                 .set("password", "notapassword")
                 .asDictionary();
 
-        Throwable throwable = null;
+        Exception exception = null;
         try {
             client.loginWithResourceOwner()
                     .addParameters(parameters)
                     .execute();
-        } catch (Throwable e) {
-            throwable = e;
+        } catch (Auth0Exception e) {
+            exception = e;
         }
 
-        assertThat(throwable, is(notNullValue()));
+        assertThat(exception, is(notNullValue()));
     }
 
     @Test
@@ -301,7 +297,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldLoginWithUserAndPasswordSync() throws Throwable {
+    public void shouldLoginWithUserAndPasswordSync() throws Exception {
         mockAPI
                 .willReturnSuccessfulLogin()
                 .willReturnTokenInfo();
@@ -328,7 +324,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldFetchTokenInfoSync() throws Throwable {
+    public void shouldFetchTokenInfoSync() throws Exception {
         mockAPI.willReturnTokenInfo();
 
         final UserProfile profile = client
@@ -363,7 +359,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldLoginWithOAuthAccessTokenSync() throws Throwable {
+    public void shouldLoginWithOAuthAccessTokenSync() throws Exception {
         mockAPI
                 .willReturnSuccessfulLogin()
                 .willReturnTokenInfo();
@@ -406,7 +402,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldLoginWithPhoneNumberSync() throws Throwable {
+    public void shouldLoginWithPhoneNumberSync() throws Exception {
         mockAPI
                 .willReturnSuccessfulLogin()
                 .willReturnTokenInfo();
@@ -450,7 +446,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldLoginWithEmailOnlySync() throws Throwable {
+    public void shouldLoginWithEmailOnlySync() throws Exception {
         mockAPI
                 .willReturnSuccessfulLogin()
                 .willReturnTokenInfo();
@@ -491,7 +487,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldCreateUserSync() throws Throwable {
+    public void shouldCreateUserSync() throws Exception {
         mockAPI.willReturnSuccessfulSignUp();
 
         final DatabaseUser user = client
@@ -529,7 +525,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldCreateUserWithoutUsernameSync() throws Throwable {
+    public void shouldCreateUserWithoutUsernameSync() throws Exception {
         mockAPI.willReturnSuccessfulSignUp();
 
         final DatabaseUser user = client
@@ -569,7 +565,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldSignUpUserSync() throws Throwable {
+    public void shouldSignUpUserSync() throws Exception {
         mockAPI.willReturnSuccessfulSignUp()
                 .willReturnSuccessfulLogin()
                 .willReturnTokenInfo();
@@ -611,7 +607,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldSignUpUserWithoutUsernameSync() throws Throwable {
+    public void shouldSignUpUserWithoutUsernameSync() throws Exception {
         mockAPI.willReturnSuccessfulSignUp()
                 .willReturnSuccessfulLogin()
                 .willReturnTokenInfo();
@@ -652,7 +648,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldChangePasswordSync() throws Throwable {
+    public void shouldChangePasswordSync() throws Exception {
         mockAPI.willReturnSuccessfulChangePassword();
 
         client.changePassword("support@auth0.com")
@@ -688,7 +684,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldRequestChangePasswordSync() throws Throwable {
+    public void shouldRequestChangePasswordSync() throws Exception {
         mockAPI.willReturnSuccessfulChangePassword();
 
         client.changePassword("support@auth0.com")
@@ -724,7 +720,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldCallDelegationSync() throws Throwable {
+    public void shouldCallDelegationSync() throws Exception {
         mockAPI.willReturnGenericDelegationToken();
 
         final Map<String, Object> response = client
@@ -764,7 +760,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldGetNewIdTokenWithIdTokenSync() throws Throwable {
+    public void shouldGetNewIdTokenWithIdTokenSync() throws Exception {
         mockAPI.willReturnNewIdToken();
 
         final Delegation delegation = client
@@ -804,7 +800,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldGetNewIdTokenWithRefreshTokenSync() throws Throwable {
+    public void shouldGetNewIdTokenWithRefreshTokenSync() throws Exception {
         mockAPI.willReturnNewIdToken();
 
         final Delegation delegation = client
@@ -846,7 +842,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldGetCustomizedDelegationRequestSync() throws Throwable {
+    public void shouldGetCustomizedDelegationRequestSync() throws Exception {
         mockAPI.willReturnNewIdToken();
 
         client
@@ -887,7 +883,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldUnlinkAccountSync() throws Throwable {
+    public void shouldUnlinkAccountSync() throws Exception {
         mockAPI.willReturnSuccessfulUnlinkAccount();
 
         client.unlink("user id", "access token")
@@ -930,7 +926,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldStartPasswordlessSync() throws Throwable {
+    public void shouldStartPasswordlessSync() throws Exception {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
         final Map<String, Object> parameters = new ParameterBuilder()
@@ -975,7 +971,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldSendEmailCodeSync() throws Throwable {
+    public void shouldSendEmailCodeSync() throws Exception {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
         client.passwordlessWithEmail("support@auth0.com", PasswordlessType.CODE)
@@ -1012,7 +1008,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldSendEmailLinkSync() throws Throwable {
+    public void shouldSendEmailLinkSync() throws Exception {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
         client.passwordlessWithEmail("support@auth0.com", PasswordlessType.LINK)
@@ -1049,7 +1045,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldSendEmailLinkAndroidSync() throws Throwable {
+    public void shouldSendEmailLinkAndroidSync() throws Exception {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
         client.passwordlessWithEmail("support@auth0.com", PasswordlessType.LINK_ANDROID)
@@ -1086,7 +1082,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldSendEmailLinkIOSSync() throws Throwable {
+    public void shouldSendEmailLinkIOSSync() throws Exception {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
         client.passwordlessWithEmail("support@auth0.com", PasswordlessType.LINK_IOS)
@@ -1123,7 +1119,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldSendSMSCodeSync() throws Throwable {
+    public void shouldSendSMSCodeSync() throws Exception {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
         client.passwordlessWithSMS("+1123123123", PasswordlessType.CODE)
@@ -1160,7 +1156,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldSendSMSLinkSync() throws Throwable {
+    public void shouldSendSMSLinkSync() throws Exception {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
         client.passwordlessWithSMS("+1123123123", PasswordlessType.LINK)
@@ -1197,7 +1193,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldSendSMSLinkAndroidSync() throws Throwable {
+    public void shouldSendSMSLinkAndroidSync() throws Exception {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
         client.passwordlessWithSMS("+1123123123", PasswordlessType.LINK_ANDROID)
@@ -1234,7 +1230,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldSendSMSLinkIOSSync() throws Throwable {
+    public void shouldSendSMSLinkIOSSync() throws Exception {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
         client.passwordlessWithSMS("+1123123123", PasswordlessType.LINK_IOS)

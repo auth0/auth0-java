@@ -24,16 +24,16 @@
 
 package com.auth0.authentication.api.internal;
 
-import com.auth0.authentication.api.APIClientException;
+import com.auth0.Auth0Exception;
+import com.auth0.authentication.api.APIException;
 import com.auth0.authentication.api.ParameterizableRequest;
-import com.auth0.authentication.api.Request;
 import com.auth0.authentication.api.RequestBodyBuildException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
@@ -41,49 +41,39 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
-class SimpleRequest<T> extends BaseRequest<T> implements Request<T>, ParameterizableRequest<T>, Callback {
+class SimpleRequest<T> extends BaseRequest<T> implements ParameterizableRequest<T>, Callback {
 
-    private final ObjectReader errorReader;
     private final String method;
 
     public SimpleRequest(HttpUrl url, OkHttpClient client, ObjectMapper mapper, String httpMethod, Class<T> clazz) {
-        super(url, client, mapper.reader(clazz), mapper.writer());
-        this.errorReader = mapper.reader(new TypeReference<Map<String, Object>>() {});
+        super(url, client, mapper.reader(clazz), mapper.reader(new TypeReference<Map<String, Object>>() {}), mapper.writer());
         this.method = httpMethod;
     }
 
     public SimpleRequest(HttpUrl url, OkHttpClient client, ObjectMapper mapper, String httpMethod) {
-        super(url, client, mapper.reader(new TypeReference<Map<String, Object>>() {}), mapper.writer());
-        this.errorReader = mapper.reader(new TypeReference<Map<String, Object>>() {
-        });
+        super(url, client, mapper.reader(new TypeReference<Map<String, Object>>() {}), mapper.reader(new TypeReference<Map<String, Object>>() {}), mapper.writer());
         this.method = httpMethod;
     }
 
     @Override
     public void onResponse(Response response) throws IOException {
-        final InputStream byteStream = response.body().byteStream();
         if (!response.isSuccessful()) {
-            Throwable throwable;
-            try {
-                Map<String, Object> payload = errorReader.readValue(byteStream);
-                throwable = new APIClientException("Request failed with response " + payload, response.code(), payload);
-            } catch (IOException e) {
-                throwable = new APIClientException("Request failed", response.code(), null);
-            }
-            postOnFailure(throwable);
+            APIException exception = parseUnsuccessfulResponse(response);
+            postOnFailure(exception);
             return;
         }
 
         try {
+            final InputStream byteStream = response.body().byteStream();
             T payload = getReader().readValue(byteStream);
             postOnSuccess(payload);
-        } catch (IOException e) {
-            postOnFailure(new APIClientException("Request failed", response.code(), null));
+        } catch (Exception e) {
+            postOnFailure(new Auth0Exception("Failed to parse response to request to " + url, e));
         }
     }
 
     @Override
-    protected com.squareup.okhttp.Request doBuildRequest(com.squareup.okhttp.Request.Builder builder) throws RequestBodyBuildException {
+    protected Request doBuildRequest(Request.Builder builder) throws RequestBodyBuildException {
         RequestBody body = buildBody();
         return newBuilder()
                 .method(method, body)
@@ -91,38 +81,25 @@ class SimpleRequest<T> extends BaseRequest<T> implements Request<T>, Parameteriz
     }
 
     @Override
-    public T execute() throws Throwable {
-        com.squareup.okhttp.Request request;
-        try {
-            request = doBuildRequest(newBuilder());
-        } catch (RequestBodyBuildException e) {
-            throw new APIClientException("Failed to send request to " + url.toString(), e);
-        }
+    public T execute() throws Auth0Exception {
+        Request request = doBuildRequest(newBuilder());
 
         Response response;
         try {
             response = client.newCall(request).execute();
         } catch (IOException e) {
-            throw new APIClientException("Failed to execute request to " + url.toString(), e);
+            throw new Auth0Exception("Failed to execute request to " + url, e);
         }
 
-        final InputStream byteStream = response.body().byteStream();
         if (!response.isSuccessful()) {
-            Throwable throwable;
-            try {
-                Map<String, Object> payload = errorReader.readValue(byteStream);
-                throwable = new APIClientException("Request failed with response " + payload, response.code(), payload);
-            } catch (IOException e) {
-                throwable = new APIClientException("Request failed", response.code(), null);
-            }
-            throw throwable;
+            throw parseUnsuccessfulResponse(response);
         }
 
         try {
-            T payload = getReader().readValue(byteStream);
-            return payload;
-        } catch (IOException e) {
-            throw new APIClientException("Request failed", response.code(), null);
+            final InputStream byteStream = response.body().byteStream();
+            return getReader().readValue(byteStream);
+        } catch (Exception e) {
+            throw new Auth0Exception("Failed to parse response to request to " + url, e);
         }
     }
 }
