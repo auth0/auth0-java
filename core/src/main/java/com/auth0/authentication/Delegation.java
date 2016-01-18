@@ -30,16 +30,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import static com.auth0.authentication.api.util.CheckHelper.checkArgument;
 
+/**
+ * The result of a successful delegation to an Auth0 app.
+ * Contains a new Auth0 'id_token' to be used on the 'target' app
+ * See <a href="https://auth0.com/docs/auth-api#!#post--delegation">delegation</a> docs
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Delegation {
     private final String idToken;
     private final String type;
-    private final Integer expiresIn;
+    private final Long expiresIn;
 
     @JsonCreator
     public Delegation(@JsonProperty(value = "id_token") String idToken,
                       @JsonProperty(value = "token_type") String type,
-                      @JsonProperty(value = "expires_in") Integer expiresIn) {
+                      @JsonProperty(value = "expires_in") Long expiresIn) {
         checkArgument(idToken != null, "id_token must be non-null");
         checkArgument(type != null, "token_type must be non-null");
         checkArgument(expiresIn != null, "expires_in must be non-null");
@@ -48,15 +53,27 @@ public class Delegation {
         this.expiresIn = expiresIn;
     }
 
+    /**
+     * Id token
+     * @return the 'id_token' value
+     */
     public String getIdToken() {
         return idToken;
     }
 
+    /**
+     * Token type
+     * @return the 'token_type' value
+     */
     public String getType() {
         return type;
     }
 
-    public Integer getExpiresIn() {
+    /**
+     * Token expire time in milliseconds since January 1, 1970, 00:00:00 GMT
+     * @return the 'expires_in' value
+     */
+    public Long getExpiresIn() {
         return expiresIn;
     }
 }

@@ -30,6 +30,10 @@ import com.auth0.UserProfile;
 
 import static com.auth0.authentication.api.util.CheckHelper.checkArgument;
 
+/**
+ * The result of a successful authentication against Auth0
+ * Contains the logged in user's {@link Token} and {@link UserProfile}
+ */
 public class Authentication {
 
     private final UserProfile profile;
