@@ -24,13 +24,15 @@
 
 package com.auth0.authentication.api;
 
+import com.auth0.Auth0Exception;
+
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Internal exception raised when a request to the API fails
  */
-public class APIClientException extends RuntimeException {
+public class APIException extends Auth0Exception {
 
     private int statusCode;
 
@@ -41,7 +43,7 @@ public class APIClientException extends RuntimeException {
      * @param detailMessage error message
      * @param throwable the cause of the exception
      */
-    public APIClientException(String detailMessage, Throwable throwable) {
+    public APIException(String detailMessage, Throwable throwable) {
         super(detailMessage, throwable);
         this.statusCode = -1;
         this.responseError = new HashMap<>();
@@ -53,7 +55,7 @@ public class APIClientException extends RuntimeException {
      * @param statusCode status code returned by the server
      * @param responseError payload of the error returned by the server
      */
-    public APIClientException(String detailMessage, int statusCode, Map<String, Object> responseError) {
+    public APIException(String detailMessage, int statusCode, Map<String, Object> responseError) {
         super(detailMessage);
         this.statusCode = statusCode;
         this.responseError = responseError != null ? responseError : new HashMap<String, Object>();
@@ -66,7 +68,7 @@ public class APIClientException extends RuntimeException {
      * @param statusCode status code returned by the server
      * @param responseError payload of the error returned by the server
      */
-    public APIClientException(String detailMessage, Throwable throwable, int statusCode, Map<String, Object> responseError) {
+    public APIException(String detailMessage, Throwable throwable, int statusCode, Map<String, Object> responseError) {
         super(detailMessage, throwable);
         this.statusCode = statusCode;
         this.responseError = responseError != null ? responseError : new HashMap<String, Object>();

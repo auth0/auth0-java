@@ -24,6 +24,7 @@
 
 package com.auth0.authentication;
 
+import com.auth0.Auth0Exception;
 import com.auth0.authentication.api.ParameterBuilder;
 import com.auth0.authentication.api.ParameterizableRequest;
 import com.auth0.authentication.api.Request;
@@ -98,5 +99,15 @@ public class DelegationRequest<T> implements Request<T> {
     @Override
     public void start(final BaseCallback<T> callback) {
         request.start(callback);
+    }
+
+    /**
+     * Executes the HTTP request against Auth0 API
+     * @return the delegation response on success
+     * @throws Auth0Exception on failure
+     */
+    @Override
+    public T execute() throws Auth0Exception {
+        return request.execute();
     }
 }

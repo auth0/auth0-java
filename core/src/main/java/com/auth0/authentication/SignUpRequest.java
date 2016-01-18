@@ -24,6 +24,7 @@
 
 package com.auth0.authentication;
 
+import com.auth0.Auth0Exception;
 import com.auth0.authentication.api.ParameterizableRequest;
 import com.auth0.authentication.api.Request;
 import com.auth0.authentication.api.callback.BaseCallback;
@@ -98,9 +99,20 @@ public class SignUpRequest implements Request<Authentication> {
             }
 
             @Override
-            public void onFailure(Throwable error) {
+            public void onFailure(Auth0Exception error) {
                 callback.onFailure(error);
             }
         });
+    }
+
+    /**
+     * Execute the create user request and then logs the user in.
+     * @return authentication object on success
+     * @throws Auth0Exception on failure
+     */
+    @Override
+    public Authentication execute() throws Auth0Exception {
+        signUpRequest.execute();
+        return authenticationRequest.execute();
     }
 }
