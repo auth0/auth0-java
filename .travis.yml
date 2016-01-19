@@ -8,4 +8,8 @@ before_install:
   - chmod +x gradlew
 
 script:
-  - ./gradlew check
+  - ./gradlew clean check --continue
+
+branches:
+  only:
+  - master
