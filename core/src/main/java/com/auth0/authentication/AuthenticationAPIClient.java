@@ -406,7 +406,7 @@ public class AuthenticationAPIClient {
                 .addParameters(parameters);
     }
 
-    protected ParameterizableRequest<Map<String, Object>> delegation() {
+    public ParameterizableRequest<Map<String, Object>> delegation() {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment("delegation")
                 .build();
@@ -432,7 +432,7 @@ public class AuthenticationAPIClient {
                 .addParameters(parameters);
     }
 
-    protected ParameterizableRequest<Void> passwordless() {
+    public ParameterizableRequest<Void> passwordless() {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment("passwordless")
                 .addPathSegment("start")
@@ -447,7 +447,7 @@ public class AuthenticationAPIClient {
                 .addParameters(parameters);
     }
 
-    protected ParameterizableRequest<Token> loginWithResourceOwner() {
+    public ParameterizableRequest<Token> loginWithResourceOwner() {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment("oauth")
                 .addPathSegment("ro")
