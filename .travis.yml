@@ -1,15 +1,14 @@
 language: java
-
 jdk:
-  - oraclejdk7
-  - openjdk7
-
+- oraclejdk7
+- openjdk7
 before_install:
-  - chmod +x gradlew
-
+- chmod +x gradlew
 script:
-  - ./gradlew clean check --continue
-
+- "./gradlew clean check --continue"
 branches:
   only:
   - master
+notifications:
+  slack:
+    secure: kwwYDhmQFZ0wJFkPQurni7litDbloU3LqFlQ+0ZqvM8ZFuh1vBVE2E0T2it58RjugitH0RpI8HeRki8rBbt38Pz33MPDp8HOQM5GU7jhxImALQ3dDVT7ji2GfIZdoZR5sXL/XkawwGkols/fQk5WjGAIKjTtSn99GOU5MiZLQ11ajOr9bNUg6o1fBEa30edo5cXmYv39ELrNq+o3GaCPoq5ggBQoRS1/DfyHNh1kHbrtTRNMdEF77ANkZ7V0BevWmVMapRwWnZ3kCKJCKLcWdUl7EDcBDHI4mWANJGwj0kGf9e7HuNuO3UjLFmmPjCuIyB5j7bEjKBDfifQynzX0SmJYx5XBIO66NGLePzoqX2me8/CG8S23rkQcrgwHcCvtu2UavIiOT6iYNFy3CcJYXsaMkOcRP9l6I0FHYoUGunkHGBkpvhlDUnF4nQ9d/Ti6mb/SCe6/2X9+zvHJBN33+GaLCeNLe8ttoEOaFj0exupdzqKvjnZ552wmKb+7gjjdiXixq6hmPnkLOtYevVlk8arnjE6p7ZQF1efIavSPga6ypydScKRprT+Qexy7mFO12XxISew/k8jHAHr1cjK+L1C4buiI9vPtN2k1xKqs8EX9iaDHVNl94bVJLv9H/AN7vysDcadlczyxSyWQ5ZuyUPYBKC9CC4F8NBRGNaYkjIs=
