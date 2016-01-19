@@ -1,0 +1,15 @@
+language: java
+
+jdk:
+  - oraclejdk7
+  - openjdk7
+
+before_install:
+  - chmod +x gradlew
+
+script:
+  - ./gradlew clean check --continue
+
+branches:
+  only:
+  - master
