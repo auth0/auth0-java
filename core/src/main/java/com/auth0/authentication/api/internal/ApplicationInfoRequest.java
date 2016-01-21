@@ -99,7 +99,7 @@ class ApplicationInfoRequest extends BaseRequest<Application> implements Callbac
             if (json.length() < 16) {
                 throw new JSONException("Invalid App Info JSONP");
             }
-            json = json.substring(16); // replaces tokenizer.skipPast("Auth0.setClient(") because official (not android's) org.json does not have the method
+            json = json.substring("Auth0.setClient(".length()); // replaces tokenizer.skipPast("Auth0.setClient(") because official (not android's) org.json does not have the method
             JSONTokener tokenizer = new JSONTokener(json);
             if (!tokenizer.more()) {
                 throw tokenizer.syntaxError("Invalid App Info JSONP");
