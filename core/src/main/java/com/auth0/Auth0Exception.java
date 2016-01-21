@@ -25,7 +25,7 @@
 package com.auth0;
 
 /**
- * All exceptions from Auth0
+ * Base Exception for any error found during a request to Auth0's API
  */
 public class Auth0Exception extends RuntimeException {
 

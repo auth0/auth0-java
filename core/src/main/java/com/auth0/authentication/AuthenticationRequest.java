@@ -113,9 +113,9 @@ public class AuthenticationRequest implements Request<Authentication> {
     }
 
     /**
-     * Executes the log in request and then fetches the user's profile
-     * @return authentication object on success
-     * @throws Auth0Exception on failure
+     * Logs in the user with Auth0 and fetches it's profile.
+     * @return authentication object containing the user's tokens and profile
+     * @throws Auth0Exception when either authentication or profile fetch fails
      */
     @Override
     public Authentication execute() throws Auth0Exception {

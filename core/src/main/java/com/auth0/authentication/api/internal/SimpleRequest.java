@@ -67,7 +67,7 @@ class SimpleRequest<T> extends BaseRequest<T> implements ParameterizableRequest<
             final InputStream byteStream = response.body().byteStream();
             T payload = getReader().readValue(byteStream);
             postOnSuccess(payload);
-        } catch (Exception e) {
+        } catch (IOException e) {
             postOnFailure(new Auth0Exception("Failed to parse response to request to " + url, e));
         }
     }
@@ -98,7 +98,7 @@ class SimpleRequest<T> extends BaseRequest<T> implements ParameterizableRequest<
         try {
             final InputStream byteStream = response.body().byteStream();
             return getReader().readValue(byteStream);
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new Auth0Exception("Failed to parse response to request to " + url, e);
         }
     }

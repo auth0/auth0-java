@@ -26,7 +26,6 @@ package com.auth0.authentication.api.internal;
 
 import com.auth0.Auth0Exception;
 import com.auth0.authentication.api.APIException;
-import com.auth0.authentication.api.RequestBodyBuildException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.Callback;

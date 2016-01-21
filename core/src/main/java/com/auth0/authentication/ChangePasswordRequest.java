@@ -83,7 +83,7 @@ public class ChangePasswordRequest implements ParameterizableRequest<Void> {
     }
 
     /**
-     * Performs the HTTP request against Auth0 API
+     * Starts the change password request
      * @param callback called either on success or failure
      */
     @Override
@@ -92,9 +92,9 @@ public class ChangePasswordRequest implements ParameterizableRequest<Void> {
     }
 
     /**
-     * Executes the HTTP request against Auth0 API
-     * @return Void on success
-     * @throws Auth0Exception on failure
+     * Executes the change password request
+     * @return nothing on success
+     * @throws Auth0Exception when the change password request fails
      */
     @Override
     public Void execute() throws Auth0Exception {
