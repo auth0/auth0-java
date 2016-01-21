@@ -455,12 +455,8 @@ public class AuthenticationAPIClient {
         return RequestFactory.POST(url, client, mapper)
                 .addParameters(parameters);
     }
-
-    /**
-     * Perform a custom login request against the resource owner endpoint
-     * @return a request to configure and start
-     */
-    public ParameterizableRequest<Token> loginWithResourceOwner() {
+    
+    protected ParameterizableRequest<Token> loginWithResourceOwner() {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment("oauth")
                 .addPathSegment("ro")
