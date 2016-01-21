@@ -780,6 +780,50 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
+    public void shouldGetCustomizedDelegationRequestWithIdToken() throws Exception {
+        mockAPI.willReturnNewIdToken();
+
+        final MockBaseCallback<Map<String,Object>> callback = new MockBaseCallback<>();
+        client.delegationWithIdToken(ID_TOKEN, "custom_api_type")
+                .setScope("custom_scope")
+                .setTarget("custom_target")
+                .start(callback);
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/delegation"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("grant_type", ParameterBuilder.GRANT_TYPE_JWT));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("api_type", "custom_api_type"));
+        assertThat(body, hasEntry("scope", "custom_scope"));
+        assertThat(body, hasEntry("target", "custom_target"));
+        assertThat(body, hasEntry("id_token", ID_TOKEN));
+    }
+
+    @Test
+    public void shouldGetCustomizedDelegationRequestWithIdTokenSync() throws Exception {
+        mockAPI.willReturnNewIdToken();
+
+        client
+                .delegationWithIdToken(ID_TOKEN, "custom_api_type")
+                .setScope("custom_scope")
+                .setTarget("custom_target")
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/delegation"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("grant_type", ParameterBuilder.GRANT_TYPE_JWT));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("api_type", "custom_api_type"));
+        assertThat(body, hasEntry("scope", "custom_scope"));
+        assertThat(body, hasEntry("target", "custom_target"));
+        assertThat(body, hasEntry("id_token", ID_TOKEN));
+    }
+
+    @Test
     public void shouldGetNewIdTokenWithRefreshToken() throws Exception {
         mockAPI.willReturnNewIdToken();
 
@@ -820,7 +864,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldGetCustomizedDelegationRequest() throws Exception {
+    public void shouldGetCustomizedDelegationRequestWithRefreshToken() throws Exception {
         mockAPI.willReturnNewIdToken();
 
         final MockBaseCallback<Map<String,Object>> callback = new MockBaseCallback<>();
@@ -842,7 +886,7 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldGetCustomizedDelegationRequestSync() throws Exception {
+    public void shouldGetCustomizedDelegationRequestWithRefreshTokenSync() throws Exception {
         mockAPI.willReturnNewIdToken();
 
         client
