@@ -28,7 +28,6 @@ import com.auth0.authentication.api.ParameterBuilder;
 import com.auth0.authentication.api.ParameterizableRequest;
 import com.auth0.authentication.api.Request;
 import com.auth0.authentication.api.internal.RequestFactory;
-import com.auth0.Application;
 import com.auth0.Auth0;
 import com.auth0.DatabaseUser;
 import com.auth0.Token;
@@ -101,18 +100,6 @@ public class AuthenticationAPIClient {
      */
     public void setDefaultDbConnection(String defaultDbConnection) {
         this.defaultDbConnection = defaultDbConnection;
-    }
-
-    /**
-     * Fetch application information from Auth0
-     * @return a Auth0 request to start
-     */
-    public Request<Application> fetchApplicationInfo() {
-        HttpUrl url = HttpUrl.parse(auth0.getConfigurationUrl()).newBuilder()
-                .addPathSegment("client")
-                .addPathSegment(auth0.getClientId() + ".js")
-                .build();
-        return RequestFactory.newApplicationInfoRequest(url, client, mapper);
     }
 
     /**
