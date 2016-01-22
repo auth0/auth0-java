@@ -24,44 +24,34 @@
 
 package com.auth0.authentication.api.internal;
 
-import com.auth0.authentication.api.APIClientException;
+import com.auth0.Auth0Exception;
+import com.auth0.authentication.api.APIException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Map;
 
 class VoidRequest extends BaseRequest<Void> implements Callback {
 
-    private final ObjectReader errorReader;
     private final String httpMethod;
 
     public VoidRequest(HttpUrl url, OkHttpClient client, ObjectMapper mapper, String httpMethod) {
-        super(url, client, null, mapper.writer());
+        super(url, client, null, mapper.reader(new TypeReference<Map<String, Object>>() {}), mapper.writer());
         this.httpMethod = httpMethod;
-        this.errorReader = mapper.reader(new TypeReference<Map<String, Object>>() {
-        });
     }
 
     @Override
     public void onResponse(Response response) throws IOException {
-        final InputStream byteStream = response.body().byteStream();
         if (!response.isSuccessful()) {
-            Throwable throwable;
-            try {
-                Map<String, Object> payload = errorReader.readValue(byteStream);
-                throwable = new APIClientException("Request failed with response " + payload, response.code(), payload);
-            } catch (IOException e) {
-                throwable = new APIClientException("Request failed", response.code(), null);
-            }
-            postOnFailure(throwable);
+            APIException exception = parseUnsuccessfulResponse(response);
+            postOnFailure(exception);
             return;
         }
 
@@ -69,10 +59,27 @@ class VoidRequest extends BaseRequest<Void> implements Callback {
     }
 
     @Override
-    protected com.squareup.okhttp.Request doBuildRequest(com.squareup.okhttp.Request.Builder builder) {
+    protected Request doBuildRequest(Request.Builder builder) {
         RequestBody body = buildBody();
         return newBuilder()
                 .method(httpMethod, body)
                 .build();
+    }
+
+    @Override
+    public Void execute() throws Auth0Exception {
+        Request request = doBuildRequest(newBuilder());
+
+        Response response;
+        try {
+            response = client.newCall(request).execute();
+        } catch (IOException e) {
+            throw new Auth0Exception("Failed to execute request to " + url.toString(), e);
+        }
+
+        if (!response.isSuccessful()) {
+            throw parseUnsuccessfulResponse(response);
+        }
+        return null;
     }
 }

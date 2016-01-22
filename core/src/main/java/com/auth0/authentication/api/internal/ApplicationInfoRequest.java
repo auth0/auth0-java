@@ -24,16 +24,17 @@
 
 package com.auth0.authentication.api.internal;
 
-import com.auth0.authentication.api.APIClientException;
-import com.auth0.authentication.api.ParameterizableRequest;
 import com.auth0.Application;
+import com.auth0.Auth0Exception;
+import com.auth0.authentication.api.APIException;
+import com.auth0.authentication.api.ParameterizableRequest;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -44,50 +45,26 @@ import java.util.Map;
 class ApplicationInfoRequest extends BaseRequest<Application> implements Callback {
 
     public ApplicationInfoRequest(OkHttpClient client, HttpUrl url, ObjectMapper mapper) {
-        super(url, client, mapper.reader(Application.class), null);
+        super(url, client, mapper.reader(Application.class), mapper.reader(new TypeReference<Map<String, Object>>() {}), null);
     }
 
     @Override
     protected Request doBuildRequest(Request.Builder builder) {
-        final Request request = builder.build();
-        return request;
-    }
-
-    @Override
-    public void onFailure(Request request, IOException e) {
-        postOnFailure(e);
+        return builder.build();
     }
 
     @Override
     public void onResponse(Response response) throws IOException {
         if (!response.isSuccessful()) {
-            String message = "Received app info failed response with code " + response.code() + " and body " + response.body().string();
-            postOnFailure(new IOException(message));
+            APIException exception = parseUnsuccessfulResponse(response);
+            postOnFailure(exception);
             return;
         }
         try {
-            String json = response.body().string();
-            if (json.length() < 16) {
-                throw new JSONException("Failed to parse JSONP");
-            }
-            json = json.substring(16); // replaces tokenizer.skipPast("Auth0.setClient(") because official (not android's) org.json does not have the method
-            JSONTokener tokenizer = new JSONTokener(json);
-            //tokenizer.skipPast("Auth0.setClient(");
-            if (!tokenizer.more()) {
-                postOnFailure(tokenizer.syntaxError("Invalid App Info JSONP"));
-                return;
-            }
-            Object nextValue = tokenizer.nextValue();
-            if (!(nextValue instanceof JSONObject)) {
-                tokenizer.back();
-                postOnFailure(tokenizer.syntaxError("Invalid JSON value of App Info"));
-            }
-            JSONObject jsonObject = (JSONObject) nextValue;
-            Application app = getReader().readValue(jsonObject.toString());
-
+            Application app = parseJSONP(response);
             postOnSuccess(app);
-        } catch (JSONException | IOException e) {
-            postOnFailure(new APIClientException("Failed to parse JSONP", e));
+        } catch (Auth0Exception e) {
+            postOnFailure(e);
         }
     }
 
@@ -99,5 +76,43 @@ class ApplicationInfoRequest extends BaseRequest<Application> implements Callbac
     @Override
     public ParameterizableRequest<Application> addHeader(String name, String value) {
         return this;
+    }
+
+    @Override
+    public Application execute() throws Auth0Exception {
+        Request request = doBuildRequest(newBuilder());
+        Response response;
+        try {
+            response = client.newCall(request).execute();
+        } catch (IOException e) {
+            throw new Auth0Exception("Failed to execute request to " + url, e);
+        }
+        if (!response.isSuccessful()) {
+            throw parseUnsuccessfulResponse(response);
+        }
+        return parseJSONP(response);
+    }
+
+    private Application parseJSONP(Response response) {
+        try {
+            String json = response.body().string();
+            if (json.length() < 16) {
+                throw new JSONException("Invalid App Info JSONP");
+            }
+            json = json.substring(16); // replaces tokenizer.skipPast("Auth0.setClient(") because official (not android's) org.json does not have the method
+            JSONTokener tokenizer = new JSONTokener(json);
+            if (!tokenizer.more()) {
+                throw tokenizer.syntaxError("Invalid App Info JSONP");
+            }
+            Object nextValue = tokenizer.nextValue();
+            if (!(nextValue instanceof JSONObject)) {
+                tokenizer.back();
+                throw tokenizer.syntaxError("Invalid JSON value of App Info");
+            }
+            JSONObject jsonObject = (JSONObject) nextValue;
+            return getReader().readValue(jsonObject.toString());
+        } catch (IOException | JSONException e) {
+            throw new Auth0Exception("Failed to parse response to request to " + url, e);
+        }
     }
 }

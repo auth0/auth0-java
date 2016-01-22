@@ -24,6 +24,7 @@
 
 package com.auth0.authentication.api.util;
 
+import com.auth0.Auth0Exception;
 import com.auth0.authentication.api.callback.BaseCallback;
 
 import java.util.concurrent.Callable;
@@ -31,7 +32,7 @@ import java.util.concurrent.Callable;
 public class MockBaseCallback<T> implements BaseCallback<T> {
 
     private T payload;
-    private Throwable error;
+    private Auth0Exception error;
 
     @Override
     public void onSuccess(T payload) {
@@ -39,7 +40,7 @@ public class MockBaseCallback<T> implements BaseCallback<T> {
     }
 
     @Override
-    public void onFailure(Throwable error) {
+    public void onFailure(Auth0Exception error) {
         this.error = error;
     }
 
@@ -52,10 +53,10 @@ public class MockBaseCallback<T> implements BaseCallback<T> {
         };
     }
 
-    public Callable<Throwable> error() {
-        return new Callable<Throwable>() {
+    public Callable<Auth0Exception> error() {
+        return new Callable<Auth0Exception>() {
             @Override
-            public Throwable call() throws Exception {
+            public Auth0Exception call() throws Exception {
                 return error;
             }
         };

@@ -24,6 +24,7 @@
 
 package com.auth0.authentication;
 
+import com.auth0.Auth0Exception;
 import com.auth0.authentication.api.ParameterBuilder;
 import com.auth0.authentication.api.ParameterizableRequest;
 import com.auth0.authentication.api.Request;
@@ -33,7 +34,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represent a delegation request for Auth0 tokens that will yield a new 'id_token'
+ * Represents a delegation request for Auth0 tokens that will yield a new delegation token.
+ * The delegation response depends on the 'api_type' parameter.
+ * @param <T> type of object that will hold the delegation response. When requesting Auth0’s 'id_token' you can
+ *           use {@link Delegation}, otherwise you’ll need to provide an object that can be created from the JSON
+ *           payload or just use {@code Map<String, Object>}
  */
 public class DelegationRequest<T> implements Request<T> {
 
@@ -65,7 +70,7 @@ public class DelegationRequest<T> implements Request<T> {
     }
 
     /**
-     * Set the api_type parameter to be sent in the request
+     * Set the 'api_type' parameter to be sent in the request
      * @param apiType the delegation api type
      * @return itself
      */
@@ -74,7 +79,7 @@ public class DelegationRequest<T> implements Request<T> {
     }
 
     /**
-     * Set the scope used to make the delegation
+     * Set the 'scope' used to make the delegation
      * @param scope value
      * @return itself
      */
@@ -83,7 +88,7 @@ public class DelegationRequest<T> implements Request<T> {
     }
 
     /**
-     * Set the target parameter to be sent in the request
+     * Set the 'target' parameter to be sent in the request
      * @param target the delegation target
      * @return itself
      */
@@ -92,11 +97,21 @@ public class DelegationRequest<T> implements Request<T> {
     }
 
     /**
-     * Performs the HTTP request against Auth0 API
+     * Starts the delegation request against Auth0 API
      * @param callback called either on success or failure
      */
     @Override
     public void start(final BaseCallback<T> callback) {
         request.start(callback);
+    }
+
+    /**
+     * Executes the delegation request against Auth0 API
+     * @return the delegation response on success
+     * @throws Auth0Exception when the delegation request fails
+     */
+    @Override
+    public T execute() throws Auth0Exception {
+        return request.execute();
     }
 }

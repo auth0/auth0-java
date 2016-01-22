@@ -24,6 +24,7 @@
 
 package com.auth0.authentication;
 
+import com.auth0.Auth0Exception;
 import com.auth0.authentication.api.ParameterizableRequest;
 import com.auth0.authentication.api.callback.BaseCallback;
 
@@ -82,11 +83,21 @@ public class ChangePasswordRequest implements ParameterizableRequest<Void> {
     }
 
     /**
-     * Performs the HTTP request against Auth0 API
+     * Starts the change password request
      * @param callback called either on success or failure
      */
     @Override
     public void start(final BaseCallback<Void> callback) {
         request.start(callback);
+    }
+
+    /**
+     * Executes the change password request
+     * @return nothing on success
+     * @throws Auth0Exception when the change password request fails
+     */
+    @Override
+    public Void execute() throws Auth0Exception {
+        return request.execute();
     }
 }

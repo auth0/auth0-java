@@ -406,7 +406,12 @@ public class AuthenticationAPIClient {
                 .addParameters(parameters);
     }
 
-    protected ParameterizableRequest<Map<String, Object>> delegation() {
+    /**
+     * Performs a custom <a href="https://auth0.com/docs/auth-api#!#post--delegation">delegation</a> request that will
+     * yield a delegation token.
+     * @return a request to configure and start
+     */
+    public ParameterizableRequest<Map<String, Object>> delegation() {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment("delegation")
                 .build();
@@ -432,7 +437,11 @@ public class AuthenticationAPIClient {
                 .addParameters(parameters);
     }
 
-    protected ParameterizableRequest<Void> passwordless() {
+    /**
+     * Start a custom passwordless flow
+     * @return a request to configure and start
+     */
+    public ParameterizableRequest<Void> passwordless() {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment("passwordless")
                 .addPathSegment("start")
@@ -446,7 +455,7 @@ public class AuthenticationAPIClient {
         return RequestFactory.POST(url, client, mapper)
                 .addParameters(parameters);
     }
-
+    
     protected ParameterizableRequest<Token> loginWithResourceOwner() {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment("oauth")

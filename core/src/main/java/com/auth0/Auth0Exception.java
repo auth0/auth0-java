@@ -1,7 +1,7 @@
 /*
- * RequestBodyBuildException.java
+ * Auth0Exception.java
  *
- * Copyright (c) 2015 Auth0 (http://auth0.com)
+ * Copyright (c) 2016 Auth0 (http://auth0.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,17 +22,18 @@
  * THE SOFTWARE.
  */
 
-package com.auth0.authentication.api;
-
-import com.auth0.Auth0Exception;
+package com.auth0;
 
 /**
- * Exception that wraps errors when creating a body for a request
+ * Base Exception for any error found during a request to Auth0's API
  */
-public class RequestBodyBuildException extends Auth0Exception {
+public class Auth0Exception extends RuntimeException {
 
-    public RequestBodyBuildException(String message, Throwable cause) {
+    public Auth0Exception(String message, Throwable cause) {
         super(message, cause);
     }
 
+    public Auth0Exception(String message) {
+        super(message);
+    }
 }
