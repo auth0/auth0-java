@@ -25,12 +25,12 @@
 package com.auth0.authentication;
 
 import com.auth0.Auth0Exception;
-import com.auth0.authentication.api.ParameterBuilder;
-import com.auth0.authentication.api.ParameterizableRequest;
-import com.auth0.authentication.api.Request;
-import com.auth0.authentication.api.callback.BaseCallback;
-import com.auth0.Token;
-import com.auth0.UserProfile;
+import com.auth0.request.ParameterizableRequest;
+import com.auth0.request.Request;
+import com.auth0.callback.BaseCallback;
+import com.auth0.authentication.result.Token;
+import com.auth0.authentication.result.UserProfile;
+import com.auth0.authentication.result.Authentication;
 
 import java.util.Map;
 

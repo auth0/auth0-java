@@ -25,8 +25,8 @@
 package com.auth0.authentication;
 
 import com.auth0.Auth0Exception;
-import com.auth0.authentication.api.ParameterizableRequest;
-import com.auth0.authentication.api.callback.BaseCallback;
+import com.auth0.request.ParameterizableRequest;
+import com.auth0.callback.BaseCallback;
 
 import java.util.HashMap;
 import java.util.Map;

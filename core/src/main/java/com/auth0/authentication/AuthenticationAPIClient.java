@@ -24,21 +24,21 @@
 
 package com.auth0.authentication;
 
-import com.auth0.authentication.api.ParameterBuilder;
-import com.auth0.authentication.api.ParameterizableRequest;
-import com.auth0.authentication.api.Request;
-import com.auth0.authentication.api.internal.RequestFactory;
 import com.auth0.Auth0;
-import com.auth0.DatabaseUser;
-import com.auth0.Token;
-import com.auth0.UserProfile;
+import com.auth0.authentication.result.DatabaseUser;
+import com.auth0.authentication.result.Delegation;
+import com.auth0.authentication.result.Token;
+import com.auth0.authentication.result.UserProfile;
+import com.auth0.internal.RequestFactory;
+import com.auth0.request.ParameterizableRequest;
+import com.auth0.request.Request;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 
 import java.util.Map;
 
-import static com.auth0.authentication.api.ParameterBuilder.GRANT_TYPE_PASSWORD;
+import static com.auth0.authentication.ParameterBuilder.GRANT_TYPE_PASSWORD;
 
 /**
  * API client for Auth0 Authentication API.
