@@ -25,9 +25,6 @@
 package com.auth0;
 
 
-import com.auth0.UserIdentity;
-import com.auth0.UserProfile;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

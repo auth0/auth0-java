@@ -26,8 +26,6 @@ package com.auth0.authentication.api.internal;
 
 import com.auth0.authentication.api.AuthorizableRequest;
 import com.auth0.authentication.api.ParameterizableRequest;
-import com.auth0.authentication.api.Request;
-import com.auth0.Application;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
@@ -83,10 +81,6 @@ public class RequestFactory {
 
     public static <T> ParameterizableRequest<T> DELETE(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
         return addMetricHeader(new SimpleRequest<>(url, client, mapper, "DELETE", clazz));
-    }
-
-    public static Request<Application> newApplicationInfoRequest(HttpUrl url, OkHttpClient client, ObjectMapper mapper) {
-        return addMetricHeader(new ApplicationInfoRequest(client, url, mapper));
     }
 
     private static <T> ParameterizableRequest<T> addMetricHeader(ParameterizableRequest<T> request) {
