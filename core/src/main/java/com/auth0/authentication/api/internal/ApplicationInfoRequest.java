@@ -44,6 +44,8 @@ import java.util.Map;
 
 class ApplicationInfoRequest extends BaseRequest<Application> implements Callback {
 
+    private static final String JSONP_PREFIX = "Auth0.setClient(";
+
     public ApplicationInfoRequest(OkHttpClient client, HttpUrl url, ObjectMapper mapper) {
         super(url, client, mapper.reader(Application.class), mapper.reader(new TypeReference<Map<String, Object>>() {}), null);
     }
@@ -96,10 +98,11 @@ class ApplicationInfoRequest extends BaseRequest<Application> implements Callbac
     private Application parseJSONP(Response response) {
         try {
             String json = response.body().string();
-            if (json.length() < 16) {
+            final int length = JSONP_PREFIX.length();
+            if (json.length() < length) {
                 throw new JSONException("Invalid App Info JSONP");
             }
-            json = json.substring(16); // replaces tokenizer.skipPast("Auth0.setClient(") because official (not android's) org.json does not have the method
+            json = json.substring(length);
             JSONTokener tokenizer = new JSONTokener(json);
             if (!tokenizer.more()) {
                 throw tokenizer.syntaxError("Invalid App Info JSONP");
