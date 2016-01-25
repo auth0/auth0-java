@@ -26,6 +26,7 @@ package com.auth0.internal;
 
 import com.auth0.request.AuthorizableRequest;
 import com.auth0.request.ParameterizableRequest;
+import com.auth0.util.Metrics;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
@@ -36,8 +37,6 @@ public class RequestFactory {
 
     private static String CLIENT_INFO;
     private static String USER_AGENT;
-
-    protected RequestFactory() {}
 
     public static void setClientInfo(String clientInfo) {
         CLIENT_INFO = clientInfo;
@@ -85,7 +84,7 @@ public class RequestFactory {
 
     private static <T> ParameterizableRequest<T> addMetricHeader(ParameterizableRequest<T> request) {
         if (CLIENT_INFO != null) {
-            request.addHeader("Auth0-Client", CLIENT_INFO);
+            request.addHeader(Metrics.HEADER_NAME, CLIENT_INFO);
         }
         if (USER_AGENT != null) {
             request.addHeader("User-Agent", USER_AGENT);

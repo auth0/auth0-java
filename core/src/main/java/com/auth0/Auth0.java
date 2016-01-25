@@ -25,16 +25,22 @@
 package com.auth0;
 
 import com.auth0.authentication.AuthenticationAPIClient;
+import com.auth0.util.BaseMetrics;
+import com.auth0.util.Metrics;
 import com.squareup.okhttp.HttpUrl;
 
 public class Auth0 {
 
+    public static final String VERSION = "1.0.0";
+    public static final String NAME = "auth0-java";
+
     private static final String AUTH0_US_CDN_URL = "https://cdn.auth0.com";
     private static final String DOT_AUTH0_DOT_COM = ".auth0.com";
 
-    protected final String clientId;
-    protected final String domainUrl;
-    protected final String configurationUrl;
+    private final String clientId;
+    private final String domainUrl;
+    private final String configurationUrl;
+    private Metrics metrics;
 
     public Auth0(String clientId, String domain) {
         this(clientId, domain, null);
@@ -44,6 +50,8 @@ public class Auth0 {
         this.clientId = clientId;
         this.domainUrl = ensureUrlString(domain);
         this.configurationUrl = resolveConfiguration(configurationDomain, this.domainUrl);
+        this.metrics = new BaseMetrics();
+        this.metrics.usingLibrary(Auth0.NAME, Auth0.VERSION);
     }
 
     private String resolveConfiguration(String configurationDomain, String domainUrl) {
@@ -94,5 +102,17 @@ public class Auth0 {
                 .addEncodedPathSegment("authorize")
                 .build()
                 .toString();
+    }
+
+    public Metrics getMetrics() {
+        return metrics;
+    }
+
+    public void setMetrics(Metrics metrics) {
+        if (metrics == null) {
+            this.metrics = new BaseMetrics();
+        } else {
+            this.metrics = metrics;
+        }
     }
 }

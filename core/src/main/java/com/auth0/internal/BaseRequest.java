@@ -24,12 +24,12 @@
 
 package com.auth0.internal;
 
-import com.auth0.Auth0Exception;
 import com.auth0.APIException;
-import com.auth0.request.AuthorizableRequest;
-import com.auth0.request.ParameterizableRequest;
+import com.auth0.Auth0Exception;
 import com.auth0.RequestBodyBuildException;
 import com.auth0.callback.BaseCallback;
+import com.auth0.request.AuthorizableRequest;
+import com.auth0.request.ParameterizableRequest;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.squareup.okhttp.Callback;

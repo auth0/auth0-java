@@ -32,6 +32,8 @@ import com.auth0.authentication.result.UserProfile;
 import com.auth0.internal.RequestFactory;
 import com.auth0.request.ParameterizableRequest;
 import com.auth0.request.Request;
+import com.auth0.util.BaseMetrics;
+import com.auth0.util.Metrics;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
@@ -73,7 +75,7 @@ public class AuthenticationAPIClient {
      * Creates a new API client instance providing Auth API and Configuration Urls different than the default. (Useful for on premise deploys).
      * @param clientID Your application clientID.
      * @param baseURL Auth0's auth API endpoint
-     * @param configurationURL Auth0's enpoint where App info can be retrieved.
+     * @param configurationURL Auth0's endpoint where App info can be retrieved.
      */
     @SuppressWarnings("unused")
     public AuthenticationAPIClient(String clientID, String baseURL, String configurationURL) {
@@ -84,6 +86,10 @@ public class AuthenticationAPIClient {
         this.auth0 = auth0;
         this.client = client;
         this.mapper = mapper;
+        final Metrics metrics = auth0.getMetrics();
+        if (metrics != null) {
+            RequestFactory.setClientInfo(metrics.getValue());
+        }
     }
 
     public String getClientId() {
@@ -92,6 +98,14 @@ public class AuthenticationAPIClient {
 
     public String getBaseURL() {
         return auth0.getDomainUrl();
+    }
+
+    /**
+     * Set the value of 'User-Agent' header for every request to Auth0 Authentication API
+     * @param userAgent value to send in every request to Auth0
+     */
+    public void setUserAgent(String userAgent) {
+        RequestFactory.setUserAgent(userAgent);
     }
 
     /**
