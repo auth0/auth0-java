@@ -35,59 +35,59 @@ import java.util.Map;
 
 public class RequestFactory {
 
-    private static String CLIENT_INFO;
-    private static String USER_AGENT;
+    private String clientInfo;
+    private String userAgent;
 
-    public static void setClientInfo(String clientInfo) {
-        CLIENT_INFO = clientInfo;
+    public void setClientInfo(String clientInfo) {
+        this.clientInfo = clientInfo;
     }
 
-    public static void setUserAgent(String userAgent) {
-        USER_AGENT = userAgent;
+    public void setUserAgent(String userAgent) {
+        this.userAgent = userAgent;
     }
 
-    public static <T> ParameterizableRequest<T> GET(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
+    public <T> ParameterizableRequest<T> GET(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
         return addMetricHeader(new SimpleRequest<>(url, client, mapper, "GET", clazz));
     }
 
-    public static <T> ParameterizableRequest<T> POST(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
+    public <T> ParameterizableRequest<T> POST(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
         return addMetricHeader(new SimpleRequest<>(url, client, mapper, "POST", clazz));
     }
 
-    public static ParameterizableRequest<Map<String, Object>> rawPOST(HttpUrl url, OkHttpClient client, ObjectMapper mapper) {
+    public ParameterizableRequest<Map<String, Object>> rawPOST(HttpUrl url, OkHttpClient client, ObjectMapper mapper) {
         final SimpleRequest<Map<String, Object>> request = new SimpleRequest<>(url, client, mapper, "POST");
         addMetricHeader(request);
         return request;
     }
 
-    public static ParameterizableRequest<Void> POST(HttpUrl url, OkHttpClient client, ObjectMapper mapper) {
+    public ParameterizableRequest<Void> POST(HttpUrl url, OkHttpClient client, ObjectMapper mapper) {
         return addMetricHeader(new VoidRequest(url, client, mapper, "POST"));
     }
 
-    public static ParameterizableRequest<Void> POST(HttpUrl url, OkHttpClient client, ObjectMapper mapper, String jwt) {
+    public ParameterizableRequest<Void> POST(HttpUrl url, OkHttpClient client, ObjectMapper mapper, String jwt) {
         final AuthorizableRequest<Void> request = new VoidRequest(url, client, mapper, "POST")
                 .setBearer(jwt);
         return addMetricHeader(request);
     }
 
-    public static <T> ParameterizableRequest<T> PUT(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
+    public <T> ParameterizableRequest<T> PUT(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
         return addMetricHeader(new SimpleRequest<>(url, client, mapper, "PUT", clazz));
     }
 
-    public static <T> ParameterizableRequest<T> PATCH(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
+    public <T> ParameterizableRequest<T> PATCH(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
         return addMetricHeader(new SimpleRequest<>(url, client, mapper, "GET", clazz));
     }
 
-    public static <T> ParameterizableRequest<T> DELETE(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
+    public <T> ParameterizableRequest<T> DELETE(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
         return addMetricHeader(new SimpleRequest<>(url, client, mapper, "DELETE", clazz));
     }
 
-    private static <T> ParameterizableRequest<T> addMetricHeader(ParameterizableRequest<T> request) {
-        if (CLIENT_INFO != null) {
-            request.addHeader(Metrics.HEADER_NAME, CLIENT_INFO);
+    private <T> ParameterizableRequest<T> addMetricHeader(ParameterizableRequest<T> request) {
+        if (this.clientInfo != null) {
+            request.addHeader(Metrics.HEADER_NAME, this.clientInfo);
         }
-        if (USER_AGENT != null) {
-            request.addHeader("User-Agent", USER_AGENT);
+        if (this.userAgent!= null) {
+            request.addHeader("User-Agent", this.userAgent);
         }
         return request;
     }

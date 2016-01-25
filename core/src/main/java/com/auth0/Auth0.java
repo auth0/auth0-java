@@ -29,9 +29,22 @@ import com.auth0.util.BaseMetrics;
 import com.auth0.util.Metrics;
 import com.squareup.okhttp.HttpUrl;
 
+/**
+ * Represents your Auth0 account information (clientId & domain),
+ * and it's used to obtain clients for Auth0's APIs.
+ * <pre>{@code
+ * Auth0 auth0 = new Auth0("YOUR_CLIENT_ID", "YOUR_DOMAIN");
+ * }</pre>
+ */
 public class Auth0 {
 
+    /**
+     * Version of auth0-java
+     */
     public static final String VERSION = "1.0.0";
+    /**
+     * Name of the library auth0-java
+     */
     public static final String NAME = "auth0-java";
 
     private static final String AUTH0_US_CDN_URL = "https://cdn.auth0.com";
@@ -42,16 +55,86 @@ public class Auth0 {
     private final String configurationUrl;
     private Metrics metrics;
 
+    /**
+     * Creates a new object using clientId & domain
+     * @param clientId of your Auth0 application
+     * @param domain of your Auth0 account
+     */
     public Auth0(String clientId, String domain) {
         this(clientId, domain, null);
     }
 
+    /**
+     * Creates a new object using clientId, domain and configuration domain.
+     * Useful when using a on-premise auth0 server that is not in the public cloud,
+     * otherwise we recommend using the constructor {@link #Auth0(String, String)}
+     * @param clientId of your Auth0 application
+     * @param domain of your Auth0 account
+     * @param configurationDomain where Auth0's configuration will be fetched. By default is Auth0 public cloud
+     */
     public Auth0(String clientId, String domain, String configurationDomain) {
         this.clientId = clientId;
         this.domainUrl = ensureUrlString(domain);
         this.configurationUrl = resolveConfiguration(configurationDomain, this.domainUrl);
         this.metrics = new BaseMetrics();
         this.metrics.usingLibrary(Auth0.NAME, Auth0.VERSION);
+    }
+
+    /**
+     * @return your Auth0 application client identifier
+     */
+    public String getClientId() {
+        return clientId;
+    }
+
+    /**
+     * @return your Auth0 account domain url
+     */
+    public String getDomainUrl() {
+        return domainUrl;
+    }
+
+    /**
+     * @return your account configuration url
+     */
+    public String getConfigurationUrl() {
+        return configurationUrl;
+    }
+
+    /**
+     * @return a new Authentication API client using your account credentials
+     */
+    public AuthenticationAPIClient newAuthenticationAPIClient() {
+        return new AuthenticationAPIClient(this);
+    }
+
+    /**
+     * @return Url to perform the web flow of OAuth
+     */
+    public String getAuthorizeUrl() {
+        return HttpUrl.parse(domainUrl).newBuilder()
+                .addEncodedPathSegment("authorize")
+                .build()
+                .toString();
+    }
+
+    /**
+     * @return Auth0 metrics sent in every requests
+     */
+    public Metrics getMetrics() {
+        return metrics;
+    }
+
+    /**
+     * Define what metrics are sent to Auth0 on every request.
+     * @param metrics to send or nil to send nothing
+     */
+    public void setMetrics(Metrics metrics) {
+        if (metrics == null) {
+            this.metrics = new BaseMetrics();
+        } else {
+            this.metrics = metrics;
+        }
     }
 
     private String resolveConfiguration(String configurationDomain, String domainUrl) {
@@ -81,38 +164,4 @@ public class Auth0 {
         return safeUrl;
     }
 
-    public String getClientId() {
-        return clientId;
-    }
-
-    public String getDomainUrl() {
-        return domainUrl;
-    }
-
-    public String getConfigurationUrl() {
-        return configurationUrl;
-    }
-
-    public AuthenticationAPIClient newAuthenticationAPIClient() {
-        return new AuthenticationAPIClient(this);
-    }
-
-    public String getAuthorizeUrl() {
-        return HttpUrl.parse(domainUrl).newBuilder()
-                .addEncodedPathSegment("authorize")
-                .build()
-                .toString();
-    }
-
-    public Metrics getMetrics() {
-        return metrics;
-    }
-
-    public void setMetrics(Metrics metrics) {
-        if (metrics == null) {
-            this.metrics = new BaseMetrics();
-        } else {
-            this.metrics = metrics;
-        }
-    }
 }
