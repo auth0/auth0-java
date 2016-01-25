@@ -5,7 +5,6 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.4.1'
     compile 'com.fasterxml.jackson.core:jackson-core:2.4.1'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.1'
-    compile 'org.json:json:20151123'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.hamcrest:hamcrest-integration:1.3'

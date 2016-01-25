@@ -1,2 +1,2 @@
-rootProject.name = 'auth0-api-java'
-include 'core'
+rootProject.name = 'auth0-java'
+include 'lib'
