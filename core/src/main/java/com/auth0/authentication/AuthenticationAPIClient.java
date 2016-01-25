@@ -24,21 +24,23 @@
 
 package com.auth0.authentication;
 
-import com.auth0.authentication.api.ParameterBuilder;
-import com.auth0.authentication.api.ParameterizableRequest;
-import com.auth0.authentication.api.Request;
-import com.auth0.authentication.api.internal.RequestFactory;
 import com.auth0.Auth0;
-import com.auth0.DatabaseUser;
-import com.auth0.Token;
-import com.auth0.UserProfile;
+import com.auth0.authentication.result.DatabaseUser;
+import com.auth0.authentication.result.Delegation;
+import com.auth0.authentication.result.Token;
+import com.auth0.authentication.result.UserProfile;
+import com.auth0.internal.RequestFactory;
+import com.auth0.request.ParameterizableRequest;
+import com.auth0.request.Request;
+import com.auth0.util.BaseMetrics;
+import com.auth0.util.Metrics;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 
 import java.util.Map;
 
-import static com.auth0.authentication.api.ParameterBuilder.GRANT_TYPE_PASSWORD;
+import static com.auth0.authentication.ParameterBuilder.GRANT_TYPE_PASSWORD;
 
 /**
  * API client for Auth0 Authentication API.
@@ -58,6 +60,7 @@ public class AuthenticationAPIClient {
     private final Auth0 auth0;
     private final OkHttpClient client;
     private final ObjectMapper mapper;
+    private final RequestFactory factory;
 
     private String defaultDbConnection = DEFAULT_DB_CONNECTION;
 
@@ -73,17 +76,22 @@ public class AuthenticationAPIClient {
      * Creates a new API client instance providing Auth API and Configuration Urls different than the default. (Useful for on premise deploys).
      * @param clientID Your application clientID.
      * @param baseURL Auth0's auth API endpoint
-     * @param configurationURL Auth0's enpoint where App info can be retrieved.
+     * @param configurationURL Auth0's endpoint where App info can be retrieved.
      */
     @SuppressWarnings("unused")
     public AuthenticationAPIClient(String clientID, String baseURL, String configurationURL) {
         this(new Auth0(clientID, baseURL, configurationURL));
     }
 
-    protected AuthenticationAPIClient(Auth0 auth0, OkHttpClient client, ObjectMapper mapper) {
+    private AuthenticationAPIClient(Auth0 auth0, OkHttpClient client, ObjectMapper mapper) {
         this.auth0 = auth0;
         this.client = client;
         this.mapper = mapper;
+        this.factory = new RequestFactory();
+        final Metrics metrics = auth0.getMetrics();
+        if (metrics != null) {
+            factory.setClientInfo(metrics.getValue());
+        }
     }
 
     public String getClientId() {
@@ -92,6 +100,14 @@ public class AuthenticationAPIClient {
 
     public String getBaseURL() {
         return auth0.getDomainUrl();
+    }
+
+    /**
+     * Set the value of 'User-Agent' header for every request to Auth0 Authentication API
+     * @param userAgent value to send in every request to Auth0
+     */
+    public void setUserAgent(String userAgent) {
+        factory.setUserAgent(userAgent);
     }
 
     /**
@@ -136,7 +152,7 @@ public class AuthenticationAPIClient {
                 .asDictionary();
 
         final ParameterizableRequest<UserProfile> profileRequest = profileRequest();
-        ParameterizableRequest<Token> credentialsRequest = RequestFactory.POST(url, client, mapper, Token.class)
+        ParameterizableRequest<Token> credentialsRequest = factory.POST(url, client, mapper, Token.class)
                 .addParameters(parameters);
         return new AuthenticationRequest(credentialsRequest, profileRequest);
     }
@@ -208,7 +224,7 @@ public class AuthenticationAPIClient {
                 .setConnection(defaultDbConnection)
                 .setClientId(getClientId())
                 .asDictionary();
-        return RequestFactory.POST(url, client, mapper, DatabaseUser.class)
+        return factory.POST(url, client, mapper, DatabaseUser.class)
                 .addParameters(parameters);
     }
 
@@ -266,7 +282,7 @@ public class AuthenticationAPIClient {
                 .setConnection(defaultDbConnection)
                 .asDictionary();
 
-        ParameterizableRequest<Void> request = RequestFactory.POST(url, client, mapper)
+        ParameterizableRequest<Void> request = factory.POST(url, client, mapper)
                 .addParameters(parameters);
         return new ChangePasswordRequest(request);
     }
@@ -355,7 +371,7 @@ public class AuthenticationAPIClient {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment("unlink")
                 .build();
-        return RequestFactory.POST(url, client, mapper)
+        return factory.POST(url, client, mapper)
                 .addParameters(parameters);
     }
 
@@ -407,7 +423,7 @@ public class AuthenticationAPIClient {
                 .setClientId(getClientId())
                 .setGrantType(ParameterBuilder.GRANT_TYPE_JWT)
                 .asDictionary();
-        return RequestFactory.rawPOST(url, client, mapper)
+        return factory.rawPOST(url, client, mapper)
                 .addParameters(parameters);
     }
 
@@ -420,7 +436,7 @@ public class AuthenticationAPIClient {
                 .setClientId(getClientId())
                 .setGrantType(ParameterBuilder.GRANT_TYPE_JWT)
                 .asDictionary();
-        return RequestFactory.POST(url, client, mapper, clazz)
+        return factory.POST(url, client, mapper, clazz)
                 .addParameters(parameters);
     }
 
@@ -439,7 +455,7 @@ public class AuthenticationAPIClient {
                 .setClientId(getClientId())
                 .asDictionary();
 
-        return RequestFactory.POST(url, client, mapper)
+        return factory.POST(url, client, mapper)
                 .addParameters(parameters);
     }
     
@@ -453,7 +469,7 @@ public class AuthenticationAPIClient {
                 .setClientId(getClientId())
                 .setConnection(defaultDbConnection)
                 .asDictionary();
-        ParameterizableRequest<Token> request = RequestFactory.POST(url, client, mapper, Token.class)
+        ParameterizableRequest<Token> request = factory.POST(url, client, mapper, Token.class)
                 .addParameters(requestParameters);
         return request;
     }
@@ -462,7 +478,7 @@ public class AuthenticationAPIClient {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment("tokeninfo")
                 .build();
-        return RequestFactory.POST(url, client, mapper, UserProfile.class);
+        return factory.POST(url, client, mapper, UserProfile.class);
 
     }
 

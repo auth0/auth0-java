@@ -26,9 +26,13 @@ package com.auth0.authentication;
 
 
 import com.auth0.*;
-import com.auth0.authentication.api.ParameterBuilder;
-import com.auth0.authentication.api.util.AuthenticationAPI;
-import com.auth0.authentication.api.util.MockBaseCallback;
+import com.auth0.util.AuthenticationAPI;
+import com.auth0.util.MockBaseCallback;
+import com.auth0.authentication.result.Authentication;
+import com.auth0.authentication.result.DatabaseUser;
+import com.auth0.authentication.result.Delegation;
+import com.auth0.authentication.result.Token;
+import com.auth0.authentication.result.UserProfile;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.mockwebserver.RecordedRequest;
@@ -40,13 +44,13 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.auth0.authentication.api.util.AuthenticationAPI.GENERIC_TOKEN;
-import static com.auth0.authentication.api.util.AuthenticationAPI.ID_TOKEN;
-import static com.auth0.authentication.api.util.AuthenticationAPI.REFRESH_TOKEN;
-import static com.auth0.authentication.api.util.CallbackMatcher.hasNoError;
-import static com.auth0.authentication.api.util.CallbackMatcher.hasNoPayloadOfType;
-import static com.auth0.authentication.api.util.CallbackMatcher.hasPayload;
-import static com.auth0.authentication.api.util.CallbackMatcher.hasPayloadOfType;
+import static com.auth0.util.AuthenticationAPI.GENERIC_TOKEN;
+import static com.auth0.util.AuthenticationAPI.ID_TOKEN;
+import static com.auth0.util.AuthenticationAPI.REFRESH_TOKEN;
+import static com.auth0.util.CallbackMatcher.hasNoError;
+import static com.auth0.util.CallbackMatcher.hasNoPayloadOfType;
+import static com.auth0.util.CallbackMatcher.hasPayload;
+import static com.auth0.util.CallbackMatcher.hasPayloadOfType;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
