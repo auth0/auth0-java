@@ -28,6 +28,7 @@ import com.auth0.util.CheckHelper;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,8 +43,7 @@ import java.util.TimeZone;
  * Class that holds the information of a user's profile
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserProfile {
-
+public class UserProfile implements Serializable {
     protected String id;
     protected String name;
     protected String nickname;
@@ -118,6 +118,7 @@ public class UserProfile {
 
     /**
      * Returns extra information of the profile.
+     *
      * @return
      */
     public Map<String, Object> getExtraInfo() {
@@ -126,6 +127,7 @@ public class UserProfile {
 
     /**
      * List of the identities from a Identity Provider associated to the user.
+     *
      * @return
      */
     public List<UserIdentity> getIdentities() {
@@ -137,7 +139,7 @@ public class UserProfile {
             return Collections.emptyList();
         }
         List<UserIdentity> identities = new ArrayList<>(values.size());
-        for (Map<String, Object> value: values) {
+        for (Map<String, Object> value : values) {
             identities.add(new UserIdentity(value));
         }
         return identities;
