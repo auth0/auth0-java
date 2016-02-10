@@ -25,20 +25,20 @@
 package com.auth0.authentication;
 
 import com.auth0.Auth0Exception;
+import com.auth0.authentication.result.Delegation;
+import com.auth0.callback.BaseCallback;
 import com.auth0.request.ParameterizableRequest;
 import com.auth0.request.Request;
-import com.auth0.callback.BaseCallback;
-import com.auth0.authentication.result.Delegation;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Represents a delegation request for Auth0 tokens that will yield a new delegation token.
  * The delegation response depends on the 'api_type' parameter.
+ *
  * @param <T> type of object that will hold the delegation response. When requesting Auth0’s 'id_token' you can
- *           use {@link Delegation}, otherwise you’ll need to provide an object that can be created from the JSON
- *           payload or just use {@code Map<String, Object>}
+ *            use {@link Delegation}, otherwise you’ll need to provide an object that can be created from the JSON
+ *            payload or just use {@code Map<String, Object>}
  */
 public class DelegationRequest<T> implements Request<T> {
 
@@ -54,23 +54,24 @@ public class DelegationRequest<T> implements Request<T> {
     }
 
     private DelegationRequest<T> addParameter(String key, Object value) {
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put(key, value);
-        return addParameters(parameters);
+        request.getParameterBuilder().set(key, value);
+        return this;
     }
 
     /**
      * Add additional parameters to be sent in the request
+     *
      * @param parameters as a non-null dictionary
      * @return itself
      */
     public DelegationRequest<T> addParameters(Map<String, Object> parameters) {
-        request.addParameters(parameters);
+        request.getParameterBuilder().addAll(parameters);
         return this;
     }
 
     /**
      * Set the 'api_type' parameter to be sent in the request
+     *
      * @param apiType the delegation api type
      * @return itself
      */
@@ -80,15 +81,18 @@ public class DelegationRequest<T> implements Request<T> {
 
     /**
      * Set the 'scope' used to make the delegation
+     *
      * @param scope value
      * @return itself
      */
     public DelegationRequest<T> setScope(String scope) {
-        return addParameters(new ParameterBuilder().clearAll().setScope(scope).asDictionary());
+        request.getParameterBuilder().setScope(scope);
+        return this;
     }
 
     /**
      * Set the 'target' parameter to be sent in the request
+     *
      * @param target the delegation target
      * @return itself
      */
@@ -98,6 +102,7 @@ public class DelegationRequest<T> implements Request<T> {
 
     /**
      * Starts the delegation request against Auth0 API
+     *
      * @param callback called either on success or failure
      */
     @Override
@@ -107,6 +112,7 @@ public class DelegationRequest<T> implements Request<T> {
 
     /**
      * Executes the delegation request against Auth0 API
+     *
      * @return the delegation response on success
      * @throws Auth0Exception when the delegation request fails
      */

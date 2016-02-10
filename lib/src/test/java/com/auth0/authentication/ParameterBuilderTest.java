@@ -35,6 +35,7 @@ import org.junit.rules.ExpectedException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
@@ -54,32 +55,22 @@ public class ParameterBuilderTest {
 
     @Before
     public void setUp() throws Exception {
-        this.builder = ParameterBuilder.newBuilder();
+        this.builder = ParameterBuilder.newAuthenticationBuilder();
     }
 
     @Test
     public void shouldInstantiateWithNoArguments() throws Exception {
-        assertThat(new ParameterBuilder(), is(notNullValue()));
-        assertThat(ParameterBuilder.newBuilder(), is(notNullValue()));
+        assertThat(ParameterBuilder.newAuthenticationBuilder(), is(notNullValue()));
     }
 
     @Test
     public void shouldInstantiateWithDefaultScope() throws Exception {
-        assertThat(new ParameterBuilder().asDictionary(), hasEntry("scope", ParameterBuilder.SCOPE_OFFLINE_ACCESS));
-        assertThat(ParameterBuilder.newBuilder().asDictionary(), hasEntry("scope", ParameterBuilder.SCOPE_OFFLINE_ACCESS));
+        assertThat(ParameterBuilder.newAuthenticationBuilder().asDictionary(), hasEntry("scope", ParameterBuilder.SCOPE_OFFLINE_ACCESS));
     }
 
     @Test
     public void shouldInstantiateWithArguments() throws Exception {
-        assertThat(new ParameterBuilder(new HashMap<String, Object>()), is(notNullValue()));
         assertThat(ParameterBuilder.newBuilder(new HashMap<String, Object>()), is(notNullValue()));
-    }
-
-    @Test
-    public void shouldFailToInstantiateWithNullParameters() throws Exception {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage(equalToIgnoringCase("Must provide non-null parameters"));
-        new ParameterBuilder(null);
     }
 
     @Test
@@ -142,8 +133,18 @@ public class ParameterBuilderTest {
     @Test
     public void shouldProvideADictionaryCopy() throws Exception {
         Map<String, Object> parameters = builder.setClientId(CLIENT_ID).asDictionary();
-        parameters.put("key", "value");
-        assertThat(builder.asDictionary(), not(hasEntry("key", "value")));
+        builder.set("key", "value");
+        assertThat(parameters, not(hasEntry("key", "value")));
+    }
+
+    @Test
+    public void shouldProvideAnImmutableDictionary() throws Exception {
+        Map<String, Object> parameters = builder.setClientId(CLIENT_ID).asDictionary();
+        try {
+            parameters.put("key", "value");
+        } catch (Exception e) {
+            assertThat(e.getClass().getName(), is(equalTo(UnsupportedOperationException.class.getName())));
+        }
     }
 
     private static Matcher<Map<? extends String, ?>> hasEntry(String key, Object value) {

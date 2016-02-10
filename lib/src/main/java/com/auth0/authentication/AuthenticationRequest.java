@@ -39,6 +39,8 @@ import java.util.Map;
  */
 public class AuthenticationRequest implements Request<Authentication> {
 
+    private static final String ID_TOKEN_KEY = "id_token";
+
     private final ParameterizableRequest<Token> credentialsRequest;
     private final ParameterizableRequest<UserProfile> tokenInfoRequest;
 
@@ -49,36 +51,40 @@ public class AuthenticationRequest implements Request<Authentication> {
 
     /**
      * Adds additional parameters for the login request
+     *
      * @param parameters as a non-null dictionary
      * @return itself
      */
     public AuthenticationRequest addParameters(Map<String, Object> parameters) {
-        credentialsRequest.addParameters(parameters);
+        credentialsRequest.getParameterBuilder().addAll(parameters);
         return this;
     }
 
     /**
      * Set the scope used to authenticate the user
+     *
      * @param scope value
      * @return itself
      */
     public AuthenticationRequest setScope(String scope) {
-        credentialsRequest.addParameters(new ParameterBuilder().clearAll().setScope(scope).asDictionary());
+        credentialsRequest.getParameterBuilder().setScope(scope);
         return this;
     }
 
     /**
      * Set the connection used to authenticate
+     *
      * @param connection name
      * @return itself
      */
     public AuthenticationRequest setConnection(String connection) {
-        credentialsRequest.addParameters(new ParameterBuilder().clearAll().setConnection(connection).asDictionary());
+        credentialsRequest.getParameterBuilder().setConnection(connection);
         return this;
     }
 
     /**
      * Starts the log in request and then fetches the user's profile
+     *
      * @param callback called on either success or failure
      */
     @Override
@@ -86,12 +92,10 @@ public class AuthenticationRequest implements Request<Authentication> {
         credentialsRequest.start(new BaseCallback<Token>() {
             @Override
             public void onSuccess(final Token token) {
-                Map<String, Object> parameters = new ParameterBuilder()
-                        .clearAll()
-                        .set("id_token", token.getIdToken())
-                        .asDictionary();
                 tokenInfoRequest
-                        .addParameters(parameters)
+                        .getParameterBuilder()
+                        .set(ID_TOKEN_KEY, token.getIdToken());
+                tokenInfoRequest
                         .start(new BaseCallback<UserProfile>() {
                             @Override
                             public void onSuccess(UserProfile profile) {
@@ -114,18 +118,15 @@ public class AuthenticationRequest implements Request<Authentication> {
 
     /**
      * Logs in the user with Auth0 and fetches it's profile.
+     *
      * @return authentication object containing the user's tokens and profile
      * @throws Auth0Exception when either authentication or profile fetch fails
      */
     @Override
     public Authentication execute() throws Auth0Exception {
         Token token = credentialsRequest.execute();
-        Map<String, Object> parameters = new ParameterBuilder()
-                .clearAll()
-                .set("id_token", token.getIdToken())
-                .asDictionary();
+        tokenInfoRequest.getParameterBuilder().set(ID_TOKEN_KEY, token.getIdToken());
         UserProfile profile = tokenInfoRequest
-                .addParameters(parameters)
                 .execute();
         return new Authentication(profile, token);
     }
