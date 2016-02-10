@@ -26,6 +26,7 @@ package com.auth0.authentication;
 
 import com.auth0.util.CheckHelper;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -177,7 +178,7 @@ public class ParameterBuilder {
      *
      * @return itself
      */
-    public ParameterBuilder clearAllA() {
+    public ParameterBuilder clearAll() {
         parameters.clear();
         return this;
     }
@@ -185,10 +186,10 @@ public class ParameterBuilder {
     /**
      * Create a {@link Map} with all the parameters
      *
-     * @return a new map with the parameters
+     * @return an unmodifiable map with the parameters
      */
     public Map<String, Object> asDictionary() {
-        return new HashMap<>(this.parameters);
+        return Collections.unmodifiableMap(new HashMap<>(this.parameters));
     }
 
     /**

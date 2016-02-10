@@ -35,7 +35,9 @@ import org.junit.rules.ExpectedException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
+import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
@@ -132,8 +134,18 @@ public class ParameterBuilderTest {
     @Test
     public void shouldProvideADictionaryCopy() throws Exception {
         Map<String, Object> parameters = builder.setClientId(CLIENT_ID).asDictionary();
-        parameters.put("key", "value");
-        assertThat(builder.asDictionary(), not(hasEntry("key", "value")));
+        builder.set("key", "value");
+        assertThat(parameters, not(hasEntry("key", "value")));
+    }
+
+    @Test
+    public void shouldProvideAnImmutableDictionary() throws Exception {
+        Map<String, Object> parameters = builder.setClientId(CLIENT_ID).asDictionary();
+        try {
+            parameters.put("key", "value");
+        } catch (Exception e) {
+            assertThat(e.getClass().getName(), is(equalTo(UnsupportedOperationException.class.getName())));
+        }
     }
 
     private static Matcher<Map<? extends String, ?>> hasEntry(String key, Object value) {

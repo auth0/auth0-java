@@ -49,23 +49,22 @@ import static com.auth0.authentication.ParameterBuilder.GRANT_TYPE_PASSWORD;
  */
 public class AuthenticationAPIClient {
 
+    private static final String DEFAULT_DB_CONNECTION = "Username-Password-Authentication";
+    private static final String SMS_CONNECTION = "sms";
+    private static final String EMAIL_CONNECTION = "email";
     private static final String USERNAME_KEY = "username";
     private static final String PASSWORD_KEY = "password";
-    private static final String DEFAULT_DB_CONNECTION = "Username-Password-Authentication";
     private static final String ID_TOKEN_KEY = "id_token";
     private static final String EMAIL_KEY = "email";
     private static final String REFRESH_TOKEN_KEY = "refresh_token";
-
     private static final String PHONE_NUMBER_KEY = "phone_number";
+    private static final String USER_ID_KEY = "user_id";
+    private static final String DELEGATION_PATH = "delegation";
     private static final String ACCESS_TOKEN_PATH = "access_token";
-    private static final String SMS_CONNECTION = "sms";
-    private static final String EMAIL_CONNECTION = "email";
     private static final String SIGN_UP_PATH = "signup";
     private static final String DB_CONNECTIONS_PATH = "dbconnections";
     private static final String CHANGE_PASSWORD_PATH = "change_password";
     private static final String UNLINK_PATH = "unlink";
-    private static final String USER_ID_KEY = "user_id";
-    private static final String DELEGATION_PATH = "delegation";
     private static final String PASSWORDLESS_PATH = "passwordless";
     private static final String START_PATH = "start";
     private static final String OAUTH_PATH = "oauth";
