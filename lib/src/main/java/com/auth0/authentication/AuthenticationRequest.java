@@ -25,12 +25,12 @@
 package com.auth0.authentication;
 
 import com.auth0.Auth0Exception;
-import com.auth0.request.ParameterizableRequest;
-import com.auth0.request.Request;
-import com.auth0.callback.BaseCallback;
+import com.auth0.authentication.result.Authentication;
 import com.auth0.authentication.result.Token;
 import com.auth0.authentication.result.UserProfile;
-import com.auth0.authentication.result.Authentication;
+import com.auth0.callback.BaseCallback;
+import com.auth0.request.ParameterizableRequest;
+import com.auth0.request.Request;
 
 import java.util.Map;
 
@@ -49,6 +49,7 @@ public class AuthenticationRequest implements Request<Authentication> {
 
     /**
      * Adds additional parameters for the login request
+     *
      * @param parameters as a non-null dictionary
      * @return itself
      */
@@ -59,26 +60,29 @@ public class AuthenticationRequest implements Request<Authentication> {
 
     /**
      * Set the scope used to authenticate the user
+     *
      * @param scope value
      * @return itself
      */
     public AuthenticationRequest setScope(String scope) {
-        credentialsRequest.addParameters(new ParameterBuilder().clearAll().setScope(scope).asDictionary());
+        credentialsRequest.addParameters(new AuthenticationParameterBuilder().clearAll().setScope(scope).asDictionary());
         return this;
     }
 
     /**
      * Set the connection used to authenticate
+     *
      * @param connection name
      * @return itself
      */
     public AuthenticationRequest setConnection(String connection) {
-        credentialsRequest.addParameters(new ParameterBuilder().clearAll().setConnection(connection).asDictionary());
+        credentialsRequest.addParameters(new AuthenticationParameterBuilder().clearAll().setConnection(connection).asDictionary());
         return this;
     }
 
     /**
      * Starts the log in request and then fetches the user's profile
+     *
      * @param callback called on either success or failure
      */
     @Override
@@ -114,6 +118,7 @@ public class AuthenticationRequest implements Request<Authentication> {
 
     /**
      * Logs in the user with Auth0 and fetches it's profile.
+     *
      * @return authentication object containing the user's tokens and profile
      * @throws Auth0Exception when either authentication or profile fetch fails
      */
