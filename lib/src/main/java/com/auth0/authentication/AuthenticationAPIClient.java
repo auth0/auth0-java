@@ -54,9 +54,7 @@ public class AuthenticationAPIClient {
     private static final String EMAIL_CONNECTION = "email";
     private static final String USERNAME_KEY = "username";
     private static final String PASSWORD_KEY = "password";
-    private static final String ID_TOKEN_KEY = "id_token";
     private static final String EMAIL_KEY = "email";
-    private static final String REFRESH_TOKEN_KEY = "refresh_token";
     private static final String PHONE_NUMBER_KEY = "phone_number";
     private static final String USER_ID_KEY = "user_id";
     private static final String CLIENT_ID_KEY = "clientID";
@@ -222,7 +220,7 @@ public class AuthenticationAPIClient {
      */
     public Request<UserProfile> tokenInfo(String idToken) {
         ParameterizableRequest<UserProfile> request = profileRequest();
-        request.getParameterBuilder().set(ID_TOKEN_KEY, idToken);
+        request.getParameterBuilder().set(ParameterBuilder.ID_TOKEN_KEY, idToken);
         return request;
     }
 
@@ -318,7 +316,7 @@ public class AuthenticationAPIClient {
      */
     public DelegationRequest<Delegation> delegationWithIdToken(String idToken) {
         ParameterizableRequest<Delegation> request = delegation(Delegation.class);
-        request.getParameterBuilder().set(ID_TOKEN_KEY, idToken);
+        request.getParameterBuilder().set(ParameterBuilder.ID_TOKEN_KEY, idToken);
 
         return new DelegationRequest<>(request)
                 .setApiType(DelegationRequest.DEFAULT_API_TYPE);
@@ -333,7 +331,7 @@ public class AuthenticationAPIClient {
      */
     public DelegationRequest<Delegation> delegationWithRefreshToken(String refreshToken) {
         ParameterizableRequest<Delegation> request = delegation(Delegation.class);
-        request.getParameterBuilder().set(REFRESH_TOKEN_KEY, refreshToken);
+        request.getParameterBuilder().set(ParameterBuilder.REFRESH_TOKEN_KEY, refreshToken);
 
         return new DelegationRequest<>(request)
                 .setApiType(DelegationRequest.DEFAULT_API_TYPE);
@@ -348,7 +346,7 @@ public class AuthenticationAPIClient {
      */
     public DelegationRequest<Map<String, Object>> delegationWithIdToken(String idToken, String apiType) {
         ParameterizableRequest<Map<String, Object>> request = delegation();
-        request.getParameterBuilder().set(ID_TOKEN_KEY, idToken);
+        request.getParameterBuilder().set(ParameterBuilder.ID_TOKEN_KEY, idToken);
 
         return new DelegationRequest<>(request)
                 .setApiType(apiType);
@@ -364,7 +362,7 @@ public class AuthenticationAPIClient {
      */
     public DelegationRequest<Map<String, Object>> delegationWithRefreshToken(String refreshToken, String apiType) {
         ParameterizableRequest<Map<String, Object>> request = delegation();
-        request.getParameterBuilder().set(REFRESH_TOKEN_KEY, refreshToken);
+        request.getParameterBuilder().set(ParameterBuilder.REFRESH_TOKEN_KEY, refreshToken);
 
         return new DelegationRequest<>(request).setApiType(apiType);
     }
