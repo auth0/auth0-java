@@ -69,7 +69,7 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
         this.writer = writer;
         this.callback = callback;
         this.headers = new HashMap<>();
-        this.builder = ParameterBuilder.newEmptyBuilder();
+        this.builder = ParameterBuilder.newBuilder();
     }
 
     protected void setCallback(BaseCallback<T> callback) {

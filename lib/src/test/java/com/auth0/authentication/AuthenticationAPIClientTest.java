@@ -97,7 +97,7 @@ public class AuthenticationAPIClientTest {
         mockAPI.willReturnSuccessfulLogin();
         final MockBaseCallback<Token> callback = new MockBaseCallback<>();
 
-        final Map<String, Object> parameters = ParameterBuilder.newBuilder()
+        final Map<String, Object> parameters = ParameterBuilder.newAuthenticationBuilder()
                 .setConnection("DB")
                 .setGrantType(ParameterBuilder.GRANT_TYPE_PASSWORD)
                 .set("username", "support@auth0.com")
@@ -126,7 +126,7 @@ public class AuthenticationAPIClientTest {
     public void shouldLoginWithResourceOwnerSync() throws Exception {
         mockAPI.willReturnSuccessfulLogin();
 
-        final Map<String, Object> parameters = ParameterBuilder.newBuilder()
+        final Map<String, Object> parameters = ParameterBuilder.newAuthenticationBuilder()
                 .setConnection("DB")
                 .setGrantType(ParameterBuilder.GRANT_TYPE_PASSWORD)
                 .set("username", "support@auth0.com")
@@ -156,7 +156,7 @@ public class AuthenticationAPIClientTest {
         mockAPI.willReturnFailedLogin();
         final MockBaseCallback<Token> callback = new MockBaseCallback<>();
 
-        final Map<String, Object> parameters = ParameterBuilder.newBuilder()
+        final Map<String, Object> parameters = ParameterBuilder.newAuthenticationBuilder()
                 .setConnection(CONNECTION)
                 .setGrantType(ParameterBuilder.GRANT_TYPE_PASSWORD)
                 .set("username", "support@auth0.com")
@@ -174,7 +174,7 @@ public class AuthenticationAPIClientTest {
         mockAPI.willReturnFailedLogin();
         final MockBaseCallback<Token> callback = new MockBaseCallback<>();
 
-        final Map<String, Object> parameters = ParameterBuilder.newBuilder()
+        final Map<String, Object> parameters = ParameterBuilder.newAuthenticationBuilder()
                 .setConnection(CONNECTION)
                 .setGrantType(ParameterBuilder.GRANT_TYPE_PASSWORD)
                 .set("username", "support@auth0.com")
@@ -857,7 +857,7 @@ public class AuthenticationAPIClientTest {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
         final MockBaseCallback<Void> callback = new MockBaseCallback<>();
-        final Map<String, Object> parameters = ParameterBuilder.newEmptyBuilder()
+        final Map<String, Object> parameters = ParameterBuilder.newBuilder()
                 .setConnection("email")
                 .set("send", "code")
                 .set("email", "support@auth0.com")
@@ -883,7 +883,7 @@ public class AuthenticationAPIClientTest {
     public void shouldStartPasswordlessSync() throws Exception {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
-        final Map<String, Object> parameters = ParameterBuilder.newEmptyBuilder()
+        final Map<String, Object> parameters = ParameterBuilder.newBuilder()
                 .setConnection("email")
                 .set("send", "code")
                 .set("email", "support@auth0.com")

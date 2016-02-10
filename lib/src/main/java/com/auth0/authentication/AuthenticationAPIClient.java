@@ -145,7 +145,7 @@ public class AuthenticationAPIClient {
      * @return a request to configure and start that will yield {@link Token} and {@link UserProfile}
      */
     public AuthenticationRequest login(String usernameOrEmail, String password) {
-        Map<String, Object> requestParameters = ParameterBuilder.newBuilder()
+        Map<String, Object> requestParameters = ParameterBuilder.newAuthenticationBuilder()
                 .set(USERNAME_KEY, usernameOrEmail)
                 .set(PASSWORD_KEY, password)
                 .setGrantType(GRANT_TYPE_PASSWORD)
@@ -166,7 +166,7 @@ public class AuthenticationAPIClient {
                 .addPathSegment(ACCESS_TOKEN_PATH)
                 .build();
 
-        Map<String, Object> parameters = ParameterBuilder.newBuilder()
+        Map<String, Object> parameters = ParameterBuilder.newAuthenticationBuilder()
                 .setClientId(getClientId())
                 .setConnection(connection)
                 .setAccessToken(token)
@@ -186,7 +186,7 @@ public class AuthenticationAPIClient {
      * @return a request to configure and start that will yield {@link Token} and {@link UserProfile}
      */
     public AuthenticationRequest loginWithPhoneNumber(String phoneNumber, String verificationCode) {
-        Map<String, Object> parameters = ParameterBuilder.newBuilder()
+        Map<String, Object> parameters = ParameterBuilder.newAuthenticationBuilder()
                 .set(USERNAME_KEY, phoneNumber)
                 .set(PASSWORD_KEY, verificationCode)
                 .setGrantType(GRANT_TYPE_PASSWORD)
@@ -204,7 +204,7 @@ public class AuthenticationAPIClient {
      * @return a request to configure and start that will yield {@link Token} and {@link UserProfile}
      */
     public AuthenticationRequest loginWithEmail(String email, String verificationCode) {
-        Map<String, Object> parameters = ParameterBuilder.newBuilder()
+        Map<String, Object> parameters = ParameterBuilder.newAuthenticationBuilder()
                 .set(USERNAME_KEY, email)
                 .set(PASSWORD_KEY, verificationCode)
                 .setGrantType(GRANT_TYPE_PASSWORD)

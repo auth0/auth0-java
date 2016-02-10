@@ -51,14 +51,6 @@ public class ParameterBuilder {
     private Map<String, Object> parameters;
 
     /**
-     * Creates a new builder
-     */
-    private ParameterBuilder() {
-        this.parameters = new HashMap<>();
-        setScope(SCOPE_OFFLINE_ACCESS);
-    }
-
-    /**
      * Creates a new builder with default parameters
      *
      * @param parameters default parameters
@@ -197,8 +189,9 @@ public class ParameterBuilder {
      *
      * @return a new builder
      */
-    public static ParameterBuilder newBuilder() {
-        return new ParameterBuilder();
+    public static ParameterBuilder newAuthenticationBuilder() {
+        return newBuilder()
+                .setScope(SCOPE_OFFLINE_ACCESS);
     }
 
     /**
@@ -206,8 +199,8 @@ public class ParameterBuilder {
      *
      * @return a new builder
      */
-    public static ParameterBuilder newEmptyBuilder() {
-        return new ParameterBuilder(new HashMap<String, Object>());
+    public static ParameterBuilder newBuilder() {
+        return newBuilder(new HashMap<String, Object>());
     }
 
     /**

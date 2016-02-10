@@ -37,7 +37,6 @@ import java.util.Map;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
-import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
@@ -56,17 +55,17 @@ public class ParameterBuilderTest {
 
     @Before
     public void setUp() throws Exception {
-        this.builder = ParameterBuilder.newBuilder();
+        this.builder = ParameterBuilder.newAuthenticationBuilder();
     }
 
     @Test
     public void shouldInstantiateWithNoArguments() throws Exception {
-        assertThat(ParameterBuilder.newBuilder(), is(notNullValue()));
+        assertThat(ParameterBuilder.newAuthenticationBuilder(), is(notNullValue()));
     }
 
     @Test
     public void shouldInstantiateWithDefaultScope() throws Exception {
-        assertThat(ParameterBuilder.newBuilder().asDictionary(), hasEntry("scope", ParameterBuilder.SCOPE_OFFLINE_ACCESS));
+        assertThat(ParameterBuilder.newAuthenticationBuilder().asDictionary(), hasEntry("scope", ParameterBuilder.SCOPE_OFFLINE_ACCESS));
     }
 
     @Test
