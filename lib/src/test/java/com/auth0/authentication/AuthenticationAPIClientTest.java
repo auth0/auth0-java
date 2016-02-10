@@ -25,14 +25,15 @@
 package com.auth0.authentication;
 
 
-import com.auth0.*;
-import com.auth0.util.AuthenticationAPI;
-import com.auth0.util.MockBaseCallback;
+import com.auth0.Auth0;
+import com.auth0.Auth0Exception;
 import com.auth0.authentication.result.Authentication;
 import com.auth0.authentication.result.DatabaseUser;
 import com.auth0.authentication.result.Delegation;
 import com.auth0.authentication.result.Token;
 import com.auth0.authentication.result.UserProfile;
+import com.auth0.util.AuthenticationAPI;
+import com.auth0.util.MockBaseCallback;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.mockwebserver.RecordedRequest;
@@ -51,7 +52,12 @@ import static com.auth0.util.CallbackMatcher.hasNoError;
 import static com.auth0.util.CallbackMatcher.hasNoPayloadOfType;
 import static com.auth0.util.CallbackMatcher.hasPayload;
 import static com.auth0.util.CallbackMatcher.hasPayloadOfType;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasEntry;
+import static org.hamcrest.Matchers.hasKey;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 public class AuthenticationAPIClientTest {
@@ -90,16 +96,16 @@ public class AuthenticationAPIClientTest {
         mockAPI.willReturnSuccessfulLogin();
         final MockBaseCallback<Token> callback = new MockBaseCallback<>();
 
-        final Map<String, Object> parameters = ParameterBuilder.newBuilder()
+        final Map<String, Object> parameters = AuthenticationParameterBuilder.newBuilder()
                 .setConnection("DB")
-                .setGrantType(ParameterBuilder.GRANT_TYPE_PASSWORD)
+                .setGrantType(AuthenticationParameterBuilder.GRANT_TYPE_PASSWORD)
                 .set("username", "support@auth0.com")
                 .set("password", "notapassword")
-                .setScope(ParameterBuilder.SCOPE_OPENID)
+                .setScope(AuthenticationParameterBuilder.SCOPE_OPENID)
                 .asDictionary();
         client.loginWithResourceOwner()
-            .addParameters(parameters)
-            .start(callback);
+                .addParameters(parameters)
+                .start(callback);
 
         assertThat(callback, hasPayloadOfType(Token.class));
 
@@ -118,12 +124,12 @@ public class AuthenticationAPIClientTest {
     public void shouldLoginWithResourceOwnerSync() throws Exception {
         mockAPI.willReturnSuccessfulLogin();
 
-        final Map<String, Object> parameters = ParameterBuilder.newBuilder()
+        final Map<String, Object> parameters = AuthenticationParameterBuilder.newBuilder()
                 .setConnection("DB")
-                .setGrantType(ParameterBuilder.GRANT_TYPE_PASSWORD)
+                .setGrantType(AuthenticationParameterBuilder.GRANT_TYPE_PASSWORD)
                 .set("username", "support@auth0.com")
                 .set("password", "notapassword")
-                .setScope(ParameterBuilder.SCOPE_OPENID)
+                .setScope(AuthenticationParameterBuilder.SCOPE_OPENID)
                 .asDictionary();
 
         final Token token = client
@@ -149,9 +155,9 @@ public class AuthenticationAPIClientTest {
         mockAPI.willReturnFailedLogin();
         final MockBaseCallback<Token> callback = new MockBaseCallback<>();
 
-        final Map<String, Object> parameters = ParameterBuilder.newBuilder()
+        final Map<String, Object> parameters = AuthenticationParameterBuilder.newBuilder()
                 .setConnection(CONNECTION)
-                .setGrantType(ParameterBuilder.GRANT_TYPE_PASSWORD)
+                .setGrantType(AuthenticationParameterBuilder.GRANT_TYPE_PASSWORD)
                 .set("username", "support@auth0.com")
                 .set("password", "notapassword")
                 .asDictionary();
@@ -167,9 +173,9 @@ public class AuthenticationAPIClientTest {
         mockAPI.willReturnFailedLogin();
         final MockBaseCallback<Token> callback = new MockBaseCallback<>();
 
-        final Map<String, Object> parameters = ParameterBuilder.newBuilder()
+        final Map<String, Object> parameters = AuthenticationParameterBuilder.newBuilder()
                 .setConnection(CONNECTION)
-                .setGrantType(ParameterBuilder.GRANT_TYPE_PASSWORD)
+                .setGrantType(AuthenticationParameterBuilder.GRANT_TYPE_PASSWORD)
                 .set("username", "support@auth0.com")
                 .set("password", "notapassword")
                 .asDictionary();
@@ -189,12 +195,12 @@ public class AuthenticationAPIClientTest {
     @Test
     public void shouldLoginWithUserAndPassword() throws Exception {
         mockAPI
-            .willReturnSuccessfulLogin()
-            .willReturnTokenInfo();
+                .willReturnSuccessfulLogin()
+                .willReturnTokenInfo();
         final MockBaseCallback<Authentication> callback = new MockBaseCallback<>();
 
         client.login("support@auth0.com", "voidpassword")
-            .start(callback);
+                .start(callback);
 
         assertThat(callback, hasPayloadOfType(Authentication.class));
     }
@@ -218,7 +224,7 @@ public class AuthenticationAPIClientTest {
         final MockBaseCallback<UserProfile> callback = new MockBaseCallback<>();
 
         client.tokenInfo("ID_TOKEN")
-            .start(callback);
+                .start(callback);
 
         assertThat(callback, hasPayloadOfType(UserProfile.class));
 
@@ -614,7 +620,7 @@ public class AuthenticationAPIClientTest {
         assertThat(request.getPath(), equalTo("/delegation"));
 
         Map<String, String> body = bodyFromRequest(request);
-        assertThat(body, hasEntry("grant_type", ParameterBuilder.GRANT_TYPE_JWT));
+        assertThat(body, hasEntry("grant_type", AuthenticationParameterBuilder.GRANT_TYPE_JWT));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
 
         Map<String, Object> payload = new HashMap<>();
@@ -634,7 +640,7 @@ public class AuthenticationAPIClientTest {
         assertThat(request.getPath(), equalTo("/delegation"));
 
         Map<String, String> body = bodyFromRequest(request);
-        assertThat(body, hasEntry("grant_type", ParameterBuilder.GRANT_TYPE_JWT));
+        assertThat(body, hasEntry("grant_type", AuthenticationParameterBuilder.GRANT_TYPE_JWT));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
 
         Map<String, Object> payload = new HashMap<>();
@@ -654,7 +660,7 @@ public class AuthenticationAPIClientTest {
         assertThat(request.getPath(), equalTo("/delegation"));
 
         Map<String, String> body = bodyFromRequest(request);
-        assertThat(body, hasEntry("grant_type", ParameterBuilder.GRANT_TYPE_JWT));
+        assertThat(body, hasEntry("grant_type", AuthenticationParameterBuilder.GRANT_TYPE_JWT));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
         assertThat(body, hasEntry("api_type", "app"));
         assertThat(body, hasEntry("id_token", ID_TOKEN));
@@ -674,7 +680,7 @@ public class AuthenticationAPIClientTest {
         assertThat(request.getPath(), equalTo("/delegation"));
 
         Map<String, String> body = bodyFromRequest(request);
-        assertThat(body, hasEntry("grant_type", ParameterBuilder.GRANT_TYPE_JWT));
+        assertThat(body, hasEntry("grant_type", AuthenticationParameterBuilder.GRANT_TYPE_JWT));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
         assertThat(body, hasEntry("api_type", "app"));
         assertThat(body, hasEntry("id_token", ID_TOKEN));
@@ -686,7 +692,7 @@ public class AuthenticationAPIClientTest {
     public void shouldGetCustomizedDelegationRequestWithIdToken() throws Exception {
         mockAPI.willReturnNewIdToken();
 
-        final MockBaseCallback<Map<String,Object>> callback = new MockBaseCallback<>();
+        final MockBaseCallback<Map<String, Object>> callback = new MockBaseCallback<>();
         client.delegationWithIdToken(ID_TOKEN, "custom_api_type")
                 .setScope("custom_scope")
                 .setTarget("custom_target")
@@ -696,7 +702,7 @@ public class AuthenticationAPIClientTest {
         assertThat(request.getPath(), equalTo("/delegation"));
 
         Map<String, String> body = bodyFromRequest(request);
-        assertThat(body, hasEntry("grant_type", ParameterBuilder.GRANT_TYPE_JWT));
+        assertThat(body, hasEntry("grant_type", AuthenticationParameterBuilder.GRANT_TYPE_JWT));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
         assertThat(body, hasEntry("api_type", "custom_api_type"));
         assertThat(body, hasEntry("scope", "custom_scope"));
@@ -718,7 +724,7 @@ public class AuthenticationAPIClientTest {
         assertThat(request.getPath(), equalTo("/delegation"));
 
         Map<String, String> body = bodyFromRequest(request);
-        assertThat(body, hasEntry("grant_type", ParameterBuilder.GRANT_TYPE_JWT));
+        assertThat(body, hasEntry("grant_type", AuthenticationParameterBuilder.GRANT_TYPE_JWT));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
         assertThat(body, hasEntry("api_type", "custom_api_type"));
         assertThat(body, hasEntry("scope", "custom_scope"));
@@ -738,7 +744,7 @@ public class AuthenticationAPIClientTest {
         assertThat(request.getPath(), equalTo("/delegation"));
 
         Map<String, String> body = bodyFromRequest(request);
-        assertThat(body, hasEntry("grant_type", ParameterBuilder.GRANT_TYPE_JWT));
+        assertThat(body, hasEntry("grant_type", AuthenticationParameterBuilder.GRANT_TYPE_JWT));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
         assertThat(body, hasEntry("api_type", "app"));
         assertThat(body, hasEntry("refresh_token", REFRESH_TOKEN));
@@ -758,7 +764,7 @@ public class AuthenticationAPIClientTest {
         assertThat(request.getPath(), equalTo("/delegation"));
 
         Map<String, String> body = bodyFromRequest(request);
-        assertThat(body, hasEntry("grant_type", ParameterBuilder.GRANT_TYPE_JWT));
+        assertThat(body, hasEntry("grant_type", AuthenticationParameterBuilder.GRANT_TYPE_JWT));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
         assertThat(body, hasEntry("api_type", "app"));
         assertThat(body, hasEntry("refresh_token", REFRESH_TOKEN));
@@ -770,7 +776,7 @@ public class AuthenticationAPIClientTest {
     public void shouldGetCustomizedDelegationRequestWithRefreshToken() throws Exception {
         mockAPI.willReturnNewIdToken();
 
-        final MockBaseCallback<Map<String,Object>> callback = new MockBaseCallback<>();
+        final MockBaseCallback<Map<String, Object>> callback = new MockBaseCallback<>();
         client.delegationWithRefreshToken(REFRESH_TOKEN, "custom_api_type")
                 .setScope("custom_scope")
                 .setTarget("custom_target")
@@ -780,7 +786,7 @@ public class AuthenticationAPIClientTest {
         assertThat(request.getPath(), equalTo("/delegation"));
 
         Map<String, String> body = bodyFromRequest(request);
-        assertThat(body, hasEntry("grant_type", ParameterBuilder.GRANT_TYPE_JWT));
+        assertThat(body, hasEntry("grant_type", AuthenticationParameterBuilder.GRANT_TYPE_JWT));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
         assertThat(body, hasEntry("api_type", "custom_api_type"));
         assertThat(body, hasEntry("scope", "custom_scope"));
@@ -802,7 +808,7 @@ public class AuthenticationAPIClientTest {
         assertThat(request.getPath(), equalTo("/delegation"));
 
         Map<String, String> body = bodyFromRequest(request);
-        assertThat(body, hasEntry("grant_type", ParameterBuilder.GRANT_TYPE_JWT));
+        assertThat(body, hasEntry("grant_type", AuthenticationParameterBuilder.GRANT_TYPE_JWT));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
         assertThat(body, hasEntry("api_type", "custom_api_type"));
         assertThat(body, hasEntry("scope", "custom_scope"));
@@ -850,7 +856,7 @@ public class AuthenticationAPIClientTest {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
         final MockBaseCallback<Void> callback = new MockBaseCallback<>();
-        final Map<String, Object> parameters = new ParameterBuilder()
+        final Map<String, Object> parameters = new AuthenticationParameterBuilder()
                 .clearAll()
                 .setConnection("email")
                 .set("send", "code")
@@ -876,7 +882,7 @@ public class AuthenticationAPIClientTest {
     public void shouldStartPasswordlessSync() throws Exception {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
-        final Map<String, Object> parameters = new ParameterBuilder()
+        final Map<String, Object> parameters = new AuthenticationParameterBuilder()
                 .clearAll()
                 .setConnection("email")
                 .set("send", "code")
@@ -1194,6 +1200,7 @@ public class AuthenticationAPIClientTest {
     }
 
     private Map<String, String> bodyFromRequest(RecordedRequest request) throws java.io.IOException {
-        return new ObjectMapper().readValue(request.getBody().inputStream(), new TypeReference<Map<String, String>>() {});
+        return new ObjectMapper().readValue(request.getBody().inputStream(), new TypeReference<Map<String, String>>() {
+        });
     }
 }
