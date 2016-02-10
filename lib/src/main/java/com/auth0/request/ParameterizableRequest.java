@@ -24,24 +24,26 @@
 
 package com.auth0.request;
 
-import java.util.Map;
+import com.auth0.authentication.ParameterBuilder;
 
 /**
  * Defines a request that can be configured (payload and headers)
+ *
  * @param <T>
  */
 public interface ParameterizableRequest<T> extends Request<T> {
 
     /**
-     * Adds additional parameters to send in the request
-     * @param parameters as a non-null dictionary
-     * @return itself
+     * Getter for this request ParameterBuilder.
+     *
+     * @return the associated ParameterBuilder instance
      */
-    ParameterizableRequest<T> addParameters(Map<String, Object> parameters);
+    ParameterBuilder getParameterBuilder();
 
     /**
      * Adds an additional header for the request
-     * @param name of the header
+     *
+     * @param name  of the header
      * @param value of the header
      * @return itself
      */

@@ -52,7 +52,7 @@ public class SignUpRequest implements Request<Authentication> {
      * @return itself
      */
     public SignUpRequest addSignUpParameters(Map<String, Object> parameters) {
-        signUpRequest.addParameters(parameters);
+        signUpRequest.getParameterBuilder().addAll(parameters);
         return this;
     }
 

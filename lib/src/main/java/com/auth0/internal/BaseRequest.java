@@ -27,6 +27,7 @@ package com.auth0.internal;
 import com.auth0.APIException;
 import com.auth0.Auth0Exception;
 import com.auth0.RequestBodyBuildException;
+import com.auth0.authentication.ParameterBuilder;
 import com.auth0.callback.BaseCallback;
 import com.auth0.request.AuthorizableRequest;
 import com.auth0.request.ParameterizableRequest;
@@ -47,12 +48,12 @@ import java.util.Map;
 abstract class BaseRequest<T> implements ParameterizableRequest<T>, AuthorizableRequest<T>, Callback {
 
     private final Map<String, String> headers;
-    private final Map<String, Object> parameters;
     protected final HttpUrl url;
     protected final OkHttpClient client;
     private final ObjectReader reader;
     private final ObjectReader errorReader;
     private final ObjectWriter writer;
+    private final ParameterBuilder builder;
 
     private BaseCallback<T> callback;
 
@@ -68,7 +69,7 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
         this.writer = writer;
         this.callback = callback;
         this.headers = new HashMap<>();
-        this.parameters = new HashMap<>();
+        this.builder = ParameterBuilder.newEmptyBuilder();
     }
 
     protected void setCallback(BaseCallback<T> callback) {
@@ -92,16 +93,12 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
         return builder;
     }
 
-    protected Map<String, Object> getParameters() {
-        return parameters;
-    }
-
     protected ObjectReader getReader() {
         return reader;
     }
 
     protected RequestBody buildBody() throws RequestBodyBuildException {
-        return JsonRequestBodyBuilder.createBody(parameters, writer);
+        return JsonRequestBodyBuilder.createBody(builder.asDictionary(), writer);
     }
 
     protected APIException parseUnsuccessfulResponse(Response response) {
@@ -140,11 +137,8 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
     }
 
     @Override
-    public ParameterizableRequest<T> addParameters(Map<String, Object> parameters) {
-        if (parameters != null) {
-            this.parameters.putAll(parameters);
-        }
-        return this;
+    public ParameterBuilder getParameterBuilder() {
+        return builder;
     }
 
     @Override

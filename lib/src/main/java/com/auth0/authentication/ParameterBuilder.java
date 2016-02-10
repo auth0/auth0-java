@@ -177,7 +177,7 @@ public class ParameterBuilder {
      *
      * @return itself
      */
-    public ParameterBuilder clearAll() {
+    public ParameterBuilder clearAllA() {
         parameters.clear();
         return this;
     }

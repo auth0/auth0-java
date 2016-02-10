@@ -42,37 +42,34 @@ public class ChangePasswordRequest implements ParameterizableRequest<Void> {
 
     ChangePasswordRequest(ParameterizableRequest<Void> request) {
         this.request = request;
-    }
-
-    private ChangePasswordRequest addParameter(String key, Object value) {
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put(key, value);
-        return addParameters(parameters);
+        request.getParameterBuilder();
     }
 
     /**
      * Set the 'password' parameter to be sent in the request
+     *
      * @param newPassword the new password
      * @return itself
      */
     public ChangePasswordRequest setNewPassword(String newPassword) {
-        return addParameter(PASSWORD_KEY, newPassword);
-    }
-
-    /**
-     * Adds additional parameters to be sent in the request
-     * @param parameters as a non-null dictionary
-     * @return itself
-     */
-    @Override
-    public ChangePasswordRequest addParameters(Map<String, Object> parameters) {
-        request.addParameters(parameters);
+        request.getParameterBuilder().set(PASSWORD_KEY, newPassword);
         return this;
     }
 
     /**
+     * Getter for this request ParameterBuilder.
+     *
+     * @return the associated ParameterBuilder instance
+     */
+    @Override
+    public ParameterBuilder getParameterBuilder() {
+        return request.getParameterBuilder();
+    }
+
+    /**
      * Adds an additional header for the request
-     * @param name of the header
+     *
+     * @param name  of the header
      * @param value of the header
      * @return itself
      */
@@ -84,6 +81,7 @@ public class ChangePasswordRequest implements ParameterizableRequest<Void> {
 
     /**
      * Starts the change password request
+     *
      * @param callback called either on success or failure
      */
     @Override
@@ -93,6 +91,7 @@ public class ChangePasswordRequest implements ParameterizableRequest<Void> {
 
     /**
      * Executes the change password request
+     *
      * @return nothing on success
      * @throws Auth0Exception when the change password request fails
      */
