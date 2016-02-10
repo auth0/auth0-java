@@ -34,90 +34,102 @@ import java.util.Map;
  */
 public class ParameterBuilder {
 
-    public static final String SCOPE_OPENID = "openid";
-    public static final String SCOPE_OFFLINE_ACCESS = "openid offline_access";
-    public static final String ACCESS_TOKEN = "access_token";
-    public static final String CONNECTION = "connection";
-    public static final String SEND = "send";
-
     public static final String GRANT_TYPE_PASSWORD = "password";
     public static final String GRANT_TYPE_JWT = "urn:ietf:params:oauth:grant-type:jwt-bearer";
+    public static final String SCOPE_OPENID = "openid";
+    public static final String SCOPE_OFFLINE_ACCESS = "openid offline_access";
+
+    private static final String ACCESS_TOKEN_KEY = "access_token";
+    private static final String CONNECTION_KEY = "connection";
+    private static final String SEND_KEY = "send";
+    private static final String CLIENT_ID_KEY = "client_id";
+    private static final String GRANT_TYPE_KEY = "grant_type";
+    private static final String SCOPE_KEY = "scope";
+    private static final String DEVICE_KEY = "device";
 
     private Map<String, Object> parameters;
 
     /**
      * Creates a new builder
      */
-    public ParameterBuilder() {
+    private ParameterBuilder() {
         this.parameters = new HashMap<>();
         setScope(SCOPE_OFFLINE_ACCESS);
     }
 
     /**
      * Creates a new builder with default parameters
+     *
      * @param parameters default parameters
      */
-    public ParameterBuilder(Map<String, Object> parameters) {
+    private ParameterBuilder(Map<String, Object> parameters) {
         CheckHelper.checkArgument(parameters != null, "Must provide non-null parameters");
         this.parameters = new HashMap<>(parameters);
     }
 
     /**
      * Sets the 'client_id' parameter
+     *
      * @param clientId clientID
      * @return itself
      */
     public ParameterBuilder setClientId(String clientId) {
-        return set("client_id", clientId);
+        return set(CLIENT_ID_KEY, clientId);
     }
 
     /**
      * Sets the 'grant_type' parameter
+     *
      * @param grantType grant type
      * @return itself
      */
     public ParameterBuilder setGrantType(String grantType) {
-        return set("grant_type", grantType);
+        return set(GRANT_TYPE_KEY, grantType);
     }
 
     /**
      * Sets the 'connection' parameter
+     *
      * @param connection name of the connection
      * @return itself
      */
     public ParameterBuilder setConnection(String connection) {
-        return set(CONNECTION, connection);
+        return set(CONNECTION_KEY, connection);
     }
 
     /**
      * Sets the 'scope' parameter.
+     *
      * @param scope a scope value
      * @return itself
      */
     public ParameterBuilder setScope(String scope) {
-        return set("scope", scope);
+        return set(SCOPE_KEY, scope);
     }
 
     /**
      * Sets the 'device' parameter
+     *
      * @param device a device name
      * @return itself
      */
     public ParameterBuilder setDevice(String device) {
-        return set("device", device);
+        return set(DEVICE_KEY, device);
     }
 
     /**
      * Sets the 'access_token' parameter
+     *
      * @param accessToken a access token
      * @return itself
      */
     public ParameterBuilder setAccessToken(String accessToken) {
-        return set(ACCESS_TOKEN, accessToken);
+        return set(ACCESS_TOKEN_KEY, accessToken);
     }
 
     /**
      * Sets the 'send' parameter
+     *
      * @param passwordlessType the type of passwordless login
      * @return itself
      */
@@ -125,19 +137,20 @@ public class ParameterBuilder {
         switch (passwordlessType) {
             default:
             case CODE:
-                return set(SEND, "code");
+                return set(SEND_KEY, "code");
             case LINK:
-                return set(SEND, "link");
+                return set(SEND_KEY, "link");
             case LINK_ANDROID:
-                return set(SEND, "link_android");
+                return set(SEND_KEY, "link_android");
             case LINK_IOS:
-                return set(SEND, "link_ios");
+                return set(SEND_KEY, "link_ios");
         }
     }
 
     /**
      * Sets a parameter
-     * @param key parameter name
+     *
+     * @param key   parameter name
      * @param value parameter value
      * @return itself
      */
@@ -148,6 +161,7 @@ public class ParameterBuilder {
 
     /**
      * Adds all parameter from a map
+     *
      * @param parameters map with parameters to add
      * @return itself
      */
@@ -160,6 +174,7 @@ public class ParameterBuilder {
 
     /**
      * Clears all existing parameters
+     *
      * @return itself
      */
     public ParameterBuilder clearAll() {
@@ -169,6 +184,7 @@ public class ParameterBuilder {
 
     /**
      * Create a {@link Map} with all the parameters
+     *
      * @return a new map with the parameters
      */
     public Map<String, Object> asDictionary() {
@@ -177,6 +193,7 @@ public class ParameterBuilder {
 
     /**
      * Creates a new instance of the builder with default values
+     *
      * @return a new builder
      */
     public static ParameterBuilder newBuilder() {
@@ -185,6 +202,7 @@ public class ParameterBuilder {
 
     /**
      * Creates a new instance of the builder without any default values
+     *
      * @return a new builder
      */
     public static ParameterBuilder newEmptyBuilder() {
@@ -193,6 +211,7 @@ public class ParameterBuilder {
 
     /**
      * Creates a new instance of the builder with parameters.
+     *
      * @param parameters default parameters
      * @return a new builder
      */
