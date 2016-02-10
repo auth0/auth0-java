@@ -57,6 +57,20 @@ public class AuthenticationAPIClient {
     private static final String REFRESH_TOKEN_KEY = "refresh_token";
 
     private static final String PHONE_NUMBER_KEY = "phone_number";
+    private static final String ACCESS_TOKEN_PATH = "access_token";
+    private static final String SMS_CONNECTION = "sms";
+    private static final String EMAIL_CONNECTION = "email";
+    private static final String SIGN_UP_PATH = "signup";
+    private static final String DB_CONNECTIONS_PATH = "dbconnections";
+    private static final String CHANGE_PASSWORD_PATH = "change_password";
+    private static final String UNLINK_PATH = "unlink";
+    private static final String USER_ID_KEY = "user_id";
+    private static final String DELEGATION_PATH = "delegation";
+    private static final String PASSWORDLESS_PATH = "passwordless";
+    private static final String START_PATH = "start";
+    private static final String OAUTH_PATH = "oauth";
+    private static final String RESOURCE_OWNER_PATH = "ro";
+    private static final String TOKEN_INFO_PATH = "tokeninfo";
 
     private final Auth0 auth0;
     private final OkHttpClient client;
@@ -148,8 +162,8 @@ public class AuthenticationAPIClient {
      */
     public AuthenticationRequest loginWithOAuthAccessToken(String token, String connection) {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
-                .addPathSegment("oauth")
-                .addPathSegment("access_token")
+                .addPathSegment(OAUTH_PATH)
+                .addPathSegment(ACCESS_TOKEN_PATH)
                 .build();
 
         Map<String, Object> parameters = ParameterBuilder.newBuilder()
@@ -177,7 +191,7 @@ public class AuthenticationAPIClient {
                 .set(PASSWORD_KEY, verificationCode)
                 .setGrantType(GRANT_TYPE_PASSWORD)
                 .setClientId(getClientId())
-                .setConnection("sms")
+                .setConnection(SMS_CONNECTION)
                 .asDictionary();
         return newAuthenticationRequest(parameters);
     }
@@ -195,7 +209,7 @@ public class AuthenticationAPIClient {
                 .set(PASSWORD_KEY, verificationCode)
                 .setGrantType(GRANT_TYPE_PASSWORD)
                 .setClientId(getClientId())
-                .setConnection("email")
+                .setConnection(EMAIL_CONNECTION)
                 .asDictionary();
         return newAuthenticationRequest(parameters);
     }
@@ -222,8 +236,8 @@ public class AuthenticationAPIClient {
      */
     public ParameterizableRequest<DatabaseUser> createUser(String email, String password, String username) {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
-                .addPathSegment("dbconnections")
-                .addPathSegment("signup")
+                .addPathSegment(DB_CONNECTIONS_PATH)
+                .addPathSegment(SIGN_UP_PATH)
                 .build();
 
         ParameterizableRequest<DatabaseUser> request = factory.POST(url, client, mapper, DatabaseUser.class);
@@ -284,8 +298,8 @@ public class AuthenticationAPIClient {
      */
     public ChangePasswordRequest changePassword(String email) {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
-                .addPathSegment("dbconnections")
-                .addPathSegment("change_password")
+                .addPathSegment(DB_CONNECTIONS_PATH)
+                .addPathSegment(CHANGE_PASSWORD_PATH)
                 .build();
 
         ParameterizableRequest<Void> request = factory.POST(url, client, mapper);
@@ -365,14 +379,14 @@ public class AuthenticationAPIClient {
     public Request<Void> unlink(String userId, String accessToken) {
         //TODO: Test this after removing .set("clientID", getClientId())
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
-                .addPathSegment("unlink")
+                .addPathSegment(UNLINK_PATH)
                 .build();
 
         ParameterizableRequest<Void> request = factory.POST(url, client, mapper);
         request.getParameterBuilder()
                 .setClientId(getClientId())
                 .setAccessToken(accessToken)
-                .set("user_id", userId);
+                .set(USER_ID_KEY, userId);
         return request;
     }
 
@@ -388,7 +402,7 @@ public class AuthenticationAPIClient {
         request.getParameterBuilder()
                 .set(EMAIL_KEY, email)
                 .setSend(passwordlessType)
-                .setConnection("email");
+                .setConnection(EMAIL_CONNECTION);
         return request;
     }
 
@@ -404,7 +418,7 @@ public class AuthenticationAPIClient {
         request.getParameterBuilder()
                 .set(PHONE_NUMBER_KEY, phoneNumber)
                 .setSend(passwordlessType)
-                .setConnection("sms");
+                .setConnection(SMS_CONNECTION);
         return request;
     }
 
@@ -416,7 +430,7 @@ public class AuthenticationAPIClient {
      */
     public ParameterizableRequest<Map<String, Object>> delegation() {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
-                .addPathSegment("delegation")
+                .addPathSegment(DELEGATION_PATH)
                 .build();
 
         ParameterizableRequest<Map<String, Object>> request = factory.rawPOST(url, client, mapper);
@@ -428,7 +442,7 @@ public class AuthenticationAPIClient {
 
     protected <T> ParameterizableRequest<T> delegation(Class<T> clazz) {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
-                .addPathSegment("delegation")
+                .addPathSegment(DELEGATION_PATH)
                 .build();
 
         ParameterizableRequest<T> request = factory.POST(url, client, mapper, clazz);
@@ -446,8 +460,8 @@ public class AuthenticationAPIClient {
      */
     public ParameterizableRequest<Void> passwordless() {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
-                .addPathSegment("passwordless")
-                .addPathSegment("start")
+                .addPathSegment(PASSWORDLESS_PATH)
+                .addPathSegment(START_PATH)
                 .build();
 
         ParameterizableRequest<Void> request = factory.POST(url, client, mapper);
@@ -457,8 +471,8 @@ public class AuthenticationAPIClient {
 
     protected ParameterizableRequest<Token> loginWithResourceOwner() {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
-                .addPathSegment("oauth")
-                .addPathSegment("ro")
+                .addPathSegment(OAUTH_PATH)
+                .addPathSegment(RESOURCE_OWNER_PATH)
                 .build();
 
         ParameterizableRequest<Token> request = factory.POST(url, client, mapper, Token.class);
@@ -470,7 +484,7 @@ public class AuthenticationAPIClient {
 
     private ParameterizableRequest<UserProfile> profileRequest() {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
-                .addPathSegment("tokeninfo")
+                .addPathSegment(TOKEN_INFO_PATH)
                 .build();
 
         return factory.POST(url, client, mapper, UserProfile.class);
