@@ -59,6 +59,7 @@ public class AuthenticationAPIClient {
     private static final String REFRESH_TOKEN_KEY = "refresh_token";
     private static final String PHONE_NUMBER_KEY = "phone_number";
     private static final String USER_ID_KEY = "user_id";
+    private static final String CLIENT_ID_KEY = "clientID";
     private static final String DELEGATION_PATH = "delegation";
     private static final String ACCESS_TOKEN_PATH = "access_token";
     private static final String SIGN_UP_PATH = "signup";
@@ -376,15 +377,14 @@ public class AuthenticationAPIClient {
      * @return a request to start
      */
     public Request<Void> unlink(String userId, String accessToken) {
-        //TODO: Test this after removing .set("clientID", getClientId())
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment(UNLINK_PATH)
                 .build();
 
         ParameterizableRequest<Void> request = factory.POST(url, client, mapper);
         request.getParameterBuilder()
-                .setClientId(getClientId())
                 .setAccessToken(accessToken)
+                .set(CLIENT_ID_KEY, getClientId())
                 .set(USER_ID_KEY, userId);
         return request;
     }

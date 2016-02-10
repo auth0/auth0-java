@@ -829,8 +829,7 @@ public class AuthenticationAPIClientTest {
         assertThat(request.getPath(), equalTo("/unlink"));
 
         Map<String, String> body = bodyFromRequest(request);
-//        assertThat(body, hasEntry("clientID", CLIENT_ID));
-        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("clientID", CLIENT_ID));
         assertThat(body, hasEntry("user_id", "user id"));
         assertThat(body, hasEntry("access_token", "access token"));
 
@@ -848,8 +847,7 @@ public class AuthenticationAPIClientTest {
         assertThat(request.getPath(), equalTo("/unlink"));
 
         Map<String, String> body = bodyFromRequest(request);
-//        assertThat(body, hasEntry("clientID", CLIENT_ID));
-        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("clientID", CLIENT_ID));
         assertThat(body, hasEntry("user_id", "user id"));
         assertThat(body, hasEntry("access_token", "access token"));
     }
