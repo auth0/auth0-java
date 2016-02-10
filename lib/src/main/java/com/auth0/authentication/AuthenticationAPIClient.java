@@ -485,14 +485,13 @@ public class AuthenticationAPIClient {
                 .build();
 
         return factory.POST(url, client, mapper, UserProfile.class);
-
     }
 
     private AuthenticationRequest newAuthenticationRequest(Map<String, Object> parameters) {
         final ParameterizableRequest<Token> credentialsRequest = loginWithResourceOwner();
-        credentialsRequest.getParameterBuilder().addAll(parameters);
         final ParameterizableRequest<UserProfile> profileRequest = profileRequest();
 
-        return new AuthenticationRequest(credentialsRequest, profileRequest);
+        return new AuthenticationRequest(credentialsRequest, profileRequest)
+                .addParameters(parameters);
     }
 }

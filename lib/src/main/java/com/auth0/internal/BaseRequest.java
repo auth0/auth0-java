@@ -111,14 +111,6 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
         }
     }
 
-    private static abstract class CallbackTask<T> implements Runnable {
-        protected final BaseCallback<T> callback;
-
-        protected CallbackTask(BaseCallback<T> callback) {
-            this.callback = callback;
-        }
-    }
-
     @Override
     public void onFailure(Request request, IOException e) {
         postOnFailure(new Auth0Exception("Failed to execute request to " + url.toString(), e));
