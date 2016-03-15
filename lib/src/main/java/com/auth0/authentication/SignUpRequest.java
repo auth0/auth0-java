@@ -25,6 +25,7 @@
 package com.auth0.authentication;
 
 import com.auth0.Auth0Exception;
+import com.auth0.authentication.result.Token;
 import com.auth0.request.ParameterizableRequest;
 import com.auth0.request.Request;
 import com.auth0.callback.BaseCallback;
@@ -34,14 +35,14 @@ import com.auth0.authentication.result.Authentication;
 import java.util.Map;
 
 /**
- * Represent a request to create a user + log in + fetch user profile.
+ * Represent a request to create a user + log in
  */
-public class SignUpRequest implements Request<Authentication> {
+public class SignUpRequest implements Request<Token> {
 
     private final ParameterizableRequest<DatabaseUser> signUpRequest;
-    private final AuthenticationRequest authenticationRequest;
+    private final ParameterizableRequest<Token> authenticationRequest;
 
-    SignUpRequest(ParameterizableRequest<DatabaseUser> signUpRequest, AuthenticationRequest authenticationRequest) {
+    SignUpRequest(ParameterizableRequest<DatabaseUser> signUpRequest, ParameterizableRequest<Token> authenticationRequest) {
         this.signUpRequest = signUpRequest;
         this.authenticationRequest = authenticationRequest;
     }
@@ -62,7 +63,9 @@ public class SignUpRequest implements Request<Authentication> {
      * @return itself
      */
     public SignUpRequest addAuthenticationParameters(Map<String, Object> parameters) {
-        authenticationRequest.addParameters(parameters);
+        authenticationRequest
+                .getParameterBuilder()
+                .addAll(parameters);
         return this;
     }
 
@@ -72,7 +75,9 @@ public class SignUpRequest implements Request<Authentication> {
      * @return itself
      */
     public SignUpRequest setScope(String scope) {
-        authenticationRequest.setScope(scope);
+        authenticationRequest
+                .getParameterBuilder()
+                .setScope(scope);
         return this;
     }
 
@@ -82,7 +87,9 @@ public class SignUpRequest implements Request<Authentication> {
      * @return itself
      */
     public SignUpRequest setConnection(String connection) {
-        authenticationRequest.setConnection(connection);
+        authenticationRequest
+                .getParameterBuilder()
+                .setConnection(connection);
         return this;
     }
 
@@ -91,7 +98,7 @@ public class SignUpRequest implements Request<Authentication> {
      * @param callback called on either success or failure.
      */
     @Override
-    public void start(final BaseCallback<Authentication> callback) {
+    public void start(final BaseCallback<Token> callback) {
         signUpRequest.start(new BaseCallback<DatabaseUser>() {
             @Override
             public void onSuccess(final DatabaseUser user) {
@@ -112,7 +119,7 @@ public class SignUpRequest implements Request<Authentication> {
      * @throws Auth0Exception on failure
      */
     @Override
-    public Authentication execute() throws Auth0Exception {
+    public Token execute() throws Auth0Exception {
         signUpRequest.execute();
         return authenticationRequest.execute();
     }

@@ -69,6 +69,7 @@ public class AuthenticationAPIClient {
     private static final String OAUTH_PATH = "oauth";
     private static final String RESOURCE_OWNER_PATH = "ro";
     private static final String TOKEN_INFO_PATH = "tokeninfo";
+    private static final String ID_TOKEN = "id_token";
 
     private final Auth0 auth0;
     private final OkHttpClient client;
@@ -142,13 +143,13 @@ public class AuthenticationAPIClient {
      * @param password        of the user
      * @return a request to configure and start that will yield {@link Token} and {@link UserProfile}
      */
-    public AuthenticationRequest login(String usernameOrEmail, String password) {
+    public ParameterizableRequest<Token> login(String usernameOrEmail, String password) {
         Map<String, Object> requestParameters = ParameterBuilder.newAuthenticationBuilder()
                 .set(USERNAME_KEY, usernameOrEmail)
                 .set(PASSWORD_KEY, password)
                 .setGrantType(GRANT_TYPE_PASSWORD)
                 .asDictionary();
-        return newAuthenticationRequest(requestParameters);
+        return loginWithResourceOwner(requestParameters);
     }
 
     /**
@@ -158,7 +159,7 @@ public class AuthenticationAPIClient {
      * @param connection that will be used to authenticate the user, e.g. 'facebook'
      * @return a request to configure and start that will yield {@link Token} and {@link UserProfile}
      */
-    public AuthenticationRequest loginWithOAuthAccessToken(String token, String connection) {
+    public ParameterizableRequest<Token> loginWithOAuthAccessToken(String token, String connection) {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment(OAUTH_PATH)
                 .addPathSegment(ACCESS_TOKEN_PATH)
@@ -170,10 +171,9 @@ public class AuthenticationAPIClient {
                 .setAccessToken(token)
                 .asDictionary();
 
-        final ParameterizableRequest<UserProfile> profileRequest = profileRequest();
         ParameterizableRequest<Token> credentialsRequest = factory.POST(url, client, mapper, Token.class);
         credentialsRequest.getParameterBuilder().addAll(parameters);
-        return new AuthenticationRequest(credentialsRequest, profileRequest);
+        return credentialsRequest;
     }
 
     /**
@@ -183,7 +183,7 @@ public class AuthenticationAPIClient {
      * @param verificationCode sent by Auth0 via SMS
      * @return a request to configure and start that will yield {@link Token} and {@link UserProfile}
      */
-    public AuthenticationRequest loginWithPhoneNumber(String phoneNumber, String verificationCode) {
+    public ParameterizableRequest<Token> loginWithPhoneNumber(String phoneNumber, String verificationCode) {
         Map<String, Object> parameters = ParameterBuilder.newAuthenticationBuilder()
                 .set(USERNAME_KEY, phoneNumber)
                 .set(PASSWORD_KEY, verificationCode)
@@ -191,7 +191,7 @@ public class AuthenticationAPIClient {
                 .setClientId(getClientId())
                 .setConnection(SMS_CONNECTION)
                 .asDictionary();
-        return newAuthenticationRequest(parameters);
+        return loginWithResourceOwner(parameters);
     }
 
     /**
@@ -201,7 +201,7 @@ public class AuthenticationAPIClient {
      * @param verificationCode sent by Auth0 via Email
      * @return a request to configure and start that will yield {@link Token} and {@link UserProfile}
      */
-    public AuthenticationRequest loginWithEmail(String email, String verificationCode) {
+    public ParameterizableRequest<Token> loginWithEmail(String email, String verificationCode) {
         Map<String, Object> parameters = ParameterBuilder.newAuthenticationBuilder()
                 .set(USERNAME_KEY, email)
                 .set(PASSWORD_KEY, verificationCode)
@@ -209,7 +209,7 @@ public class AuthenticationAPIClient {
                 .setClientId(getClientId())
                 .setConnection(EMAIL_CONNECTION)
                 .asDictionary();
-        return newAuthenticationRequest(parameters);
+        return loginWithResourceOwner(parameters);
     }
 
     /**
@@ -269,8 +269,8 @@ public class AuthenticationAPIClient {
      * @return a request to configure and start that will yield {@link Token} and {@link UserProfile}
      */
     public SignUpRequest signUp(String email, String password, String username) {
-        ParameterizableRequest<DatabaseUser> createUserRequest = createUser(email, password, username);
-        AuthenticationRequest authenticationRequest = login(email, password);
+        final ParameterizableRequest<DatabaseUser> createUserRequest = createUser(email, password, username);
+        final ParameterizableRequest<Token> authenticationRequest = login(email, password);
         return new SignUpRequest(createUserRequest, authenticationRequest);
     }
 
@@ -284,7 +284,7 @@ public class AuthenticationAPIClient {
      */
     public SignUpRequest signUp(String email, String password) {
         ParameterizableRequest<DatabaseUser> createUserRequest = createUser(email, password);
-        AuthenticationRequest authenticationRequest = login(email, password);
+        final ParameterizableRequest<Token> authenticationRequest = login(email, password);
         return new SignUpRequest(createUserRequest, authenticationRequest);
     }
 
@@ -466,7 +466,12 @@ public class AuthenticationAPIClient {
         return request;
     }
 
-    protected ParameterizableRequest<Token> loginWithResourceOwner() {
+    public AuthenticationRequest getProfileAfter(ParameterizableRequest<Token> loginRequest) {
+        final ParameterizableRequest<UserProfile> profileRequest = profileRequest();
+        return new AuthenticationRequest(loginRequest, profileRequest);
+    }
+
+    protected ParameterizableRequest<Token> loginWithResourceOwner(Map<String, Object> parameters) {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment(OAUTH_PATH)
                 .addPathSegment(RESOURCE_OWNER_PATH)
@@ -475,7 +480,8 @@ public class AuthenticationAPIClient {
         ParameterizableRequest<Token> request = factory.POST(url, client, mapper, Token.class);
         request.getParameterBuilder()
                 .setClientId(getClientId())
-                .setConnection(defaultDbConnection);
+                .setConnection(defaultDbConnection)
+                .addAll(parameters);
         return request;
     }
 
@@ -485,13 +491,5 @@ public class AuthenticationAPIClient {
                 .build();
 
         return factory.POST(url, client, mapper, UserProfile.class);
-    }
-
-    private AuthenticationRequest newAuthenticationRequest(Map<String, Object> parameters) {
-        final ParameterizableRequest<Token> credentialsRequest = loginWithResourceOwner();
-        final ParameterizableRequest<UserProfile> profileRequest = profileRequest();
-
-        return new AuthenticationRequest(credentialsRequest, profileRequest)
-                .addParameters(parameters);
     }
 }
