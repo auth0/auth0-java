@@ -28,31 +28,34 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Class that holds a user's token information.
+ * Holds the user's credentials returned by Auth0.
+ * <ul>
+ *     <li><i>idToken</i>: Identity Token with user information</li>
+ *     <li><i>accessToken</i>: Access Token for Auth0 API</li>
+ *     <li><i>refreshToken</i>: Refresh Token that can be used to request new tokens without signing in again</li>
+ * </ul>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Token {
+public class Credentials {
 
     protected String idToken;
     protected String accessToken;
     protected String type;
     protected String refreshToken;
 
-    protected Token(Token token) {
-        idToken = token.idToken;
-        accessToken = token.accessToken;
-        type = token.type;
-        refreshToken = token.refreshToken;
+    protected Credentials(Credentials credentials) {
+        idToken = credentials.idToken;
+        accessToken = credentials.accessToken;
+        type = credentials.type;
+        refreshToken = credentials.refreshToken;
     }
 
-    protected Token() {
+    protected Credentials() { }
 
-    }
-
-    public Token(@JsonProperty(value = "id_token", required = true) String idToken,
-                 @JsonProperty(value = "access_token") String accessToken,
-                 @JsonProperty(value = "token_type") String type,
-                 @JsonProperty(value = "refresh_token") String refreshToken) {
+    public Credentials(@JsonProperty(value = "id_token", required = true) String idToken,
+                       @JsonProperty(value = "access_token") String accessToken,
+                       @JsonProperty(value = "token_type") String type,
+                       @JsonProperty(value = "refresh_token") String refreshToken) {
         this.idToken = idToken;
         this.accessToken = accessToken;
         this.type = type;

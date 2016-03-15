@@ -28,7 +28,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Value holder for Database Sign Up operation
+ * Auth0 user created in a Database connection.
+ *
+ * @see com.auth0.authentication.AuthenticationAPIClient#signUp(String, String)
+ * @see com.auth0.authentication.AuthenticationAPIClient#signUp(String, String, String)
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DatabaseUser {

@@ -25,10 +25,10 @@
 package com.auth0.authentication;
 
 import com.auth0.Auth0Exception;
+import com.auth0.authentication.result.Credentials;
 import com.auth0.request.ParameterizableRequest;
 import com.auth0.request.Request;
 import com.auth0.callback.BaseCallback;
-import com.auth0.authentication.result.Token;
 import com.auth0.authentication.result.UserProfile;
 import com.auth0.authentication.result.Authentication;
 
@@ -41,10 +41,10 @@ public class AuthenticationRequest implements Request<Authentication> {
 
     private static final String ID_TOKEN_KEY = "id_token";
 
-    private final ParameterizableRequest<Token> credentialsRequest;
+    private final ParameterizableRequest<Credentials> credentialsRequest;
     private final ParameterizableRequest<UserProfile> tokenInfoRequest;
 
-    AuthenticationRequest(ParameterizableRequest<Token> credentialsRequest, ParameterizableRequest<UserProfile> tokenInfoRequest) {
+    AuthenticationRequest(ParameterizableRequest<Credentials> credentialsRequest, ParameterizableRequest<UserProfile> tokenInfoRequest) {
         this.credentialsRequest = credentialsRequest;
         this.tokenInfoRequest = tokenInfoRequest;
     }
@@ -89,17 +89,17 @@ public class AuthenticationRequest implements Request<Authentication> {
      */
     @Override
     public void start(final BaseCallback<Authentication> callback) {
-        credentialsRequest.start(new BaseCallback<Token>() {
+        credentialsRequest.start(new BaseCallback<Credentials>() {
             @Override
-            public void onSuccess(final Token token) {
+            public void onSuccess(final Credentials credentials) {
                 tokenInfoRequest
                         .getParameterBuilder()
-                        .set(ID_TOKEN_KEY, token.getIdToken());
+                        .set(ID_TOKEN_KEY, credentials.getIdToken());
                 tokenInfoRequest
                         .start(new BaseCallback<UserProfile>() {
                             @Override
                             public void onSuccess(UserProfile profile) {
-                                callback.onSuccess(new Authentication(profile, token));
+                                callback.onSuccess(new Authentication(profile, credentials));
                             }
 
                             @Override
@@ -124,10 +124,10 @@ public class AuthenticationRequest implements Request<Authentication> {
      */
     @Override
     public Authentication execute() throws Auth0Exception {
-        Token token = credentialsRequest.execute();
-        tokenInfoRequest.getParameterBuilder().set(ID_TOKEN_KEY, token.getIdToken());
+        Credentials credentials = credentialsRequest.execute();
+        tokenInfoRequest.getParameterBuilder().set(ID_TOKEN_KEY, credentials.getIdToken());
         UserProfile profile = tokenInfoRequest
                 .execute();
-        return new Authentication(profile, token);
+        return new Authentication(profile, credentials);
     }
 }

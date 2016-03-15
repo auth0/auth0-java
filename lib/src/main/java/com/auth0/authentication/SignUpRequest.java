@@ -25,24 +25,23 @@
 package com.auth0.authentication;
 
 import com.auth0.Auth0Exception;
-import com.auth0.authentication.result.Token;
+import com.auth0.authentication.result.Credentials;
 import com.auth0.request.ParameterizableRequest;
 import com.auth0.request.Request;
 import com.auth0.callback.BaseCallback;
 import com.auth0.authentication.result.DatabaseUser;
-import com.auth0.authentication.result.Authentication;
 
 import java.util.Map;
 
 /**
  * Represent a request to create a user + log in
  */
-public class SignUpRequest implements Request<Token> {
+public class SignUpRequest implements Request<Credentials> {
 
     private final ParameterizableRequest<DatabaseUser> signUpRequest;
-    private final ParameterizableRequest<Token> authenticationRequest;
+    private final ParameterizableRequest<Credentials> authenticationRequest;
 
-    SignUpRequest(ParameterizableRequest<DatabaseUser> signUpRequest, ParameterizableRequest<Token> authenticationRequest) {
+    SignUpRequest(ParameterizableRequest<DatabaseUser> signUpRequest, ParameterizableRequest<Credentials> authenticationRequest) {
         this.signUpRequest = signUpRequest;
         this.authenticationRequest = authenticationRequest;
     }
@@ -98,7 +97,7 @@ public class SignUpRequest implements Request<Token> {
      * @param callback called on either success or failure.
      */
     @Override
-    public void start(final BaseCallback<Token> callback) {
+    public void start(final BaseCallback<Credentials> callback) {
         signUpRequest.start(new BaseCallback<DatabaseUser>() {
             @Override
             public void onSuccess(final DatabaseUser user) {
@@ -119,7 +118,7 @@ public class SignUpRequest implements Request<Token> {
      * @throws Auth0Exception on failure
      */
     @Override
-    public Token execute() throws Auth0Exception {
+    public Credentials execute() throws Auth0Exception {
         signUpRequest.execute();
         return authenticationRequest.execute();
     }

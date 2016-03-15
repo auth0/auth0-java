@@ -29,25 +29,26 @@ import static com.auth0.util.CheckHelper.checkArgument;
 
 /**
  * The result of a successful authentication against Auth0
- * Contains the logged in user's {@link Token} and {@link UserProfile}
+ * Contains the logged in user's {@link Credentials} and {@link UserProfile}.
+ * @see com.auth0.authentication.AuthenticationAPIClient#getProfileAfter(com.auth0.request.ParameterizableRequest)
  */
 public class Authentication {
 
     private final UserProfile profile;
-    private final Token token;
+    private final Credentials credentials;
 
-    public Authentication(UserProfile profile, Token token) {
+    public Authentication(UserProfile profile, Credentials credentials) {
         checkArgument(profile != null, "profile must be non-null");
-        checkArgument(token != null, "token must be non-null");
+        checkArgument(credentials != null, "credentials must be non-null");
         this.profile = profile;
-        this.token = token;
+        this.credentials = credentials;
     }
 
     public UserProfile getProfile() {
         return profile;
     }
 
-    public Token getToken() {
-        return token;
+    public Credentials getCredentials() {
+        return credentials;
     }
 }

@@ -25,9 +25,9 @@
 package com.auth0.authentication;
 
 import com.auth0.Auth0;
+import com.auth0.authentication.result.Credentials;
 import com.auth0.authentication.result.DatabaseUser;
 import com.auth0.authentication.result.Delegation;
-import com.auth0.authentication.result.Token;
 import com.auth0.authentication.result.UserProfile;
 import com.auth0.internal.RequestFactory;
 import com.auth0.request.ParameterizableRequest;
@@ -69,7 +69,6 @@ public class AuthenticationAPIClient {
     private static final String OAUTH_PATH = "oauth";
     private static final String RESOURCE_OWNER_PATH = "ro";
     private static final String TOKEN_INFO_PATH = "tokeninfo";
-    private static final String ID_TOKEN = "id_token";
 
     private final Auth0 auth0;
     private final OkHttpClient client;
@@ -137,13 +136,13 @@ public class AuthenticationAPIClient {
     }
 
     /**
-     * Log in a user with email/username and password using a DB connection and fetch it's profile from Auth0
+     * Log in a user with email/username and password using a DB connection
      *
      * @param usernameOrEmail of the user depending of the type of DB connection
      * @param password        of the user
-     * @return a request to configure and start that will yield {@link Token} and {@link UserProfile}
+     * @return a request to configure and start that will yield {@link Credentials}
      */
-    public ParameterizableRequest<Token> login(String usernameOrEmail, String password) {
+    public ParameterizableRequest<Credentials> login(String usernameOrEmail, String password) {
         Map<String, Object> requestParameters = ParameterBuilder.newAuthenticationBuilder()
                 .set(USERNAME_KEY, usernameOrEmail)
                 .set(PASSWORD_KEY, password)
@@ -157,9 +156,9 @@ public class AuthenticationAPIClient {
      *
      * @param token      obtained from the IdP
      * @param connection that will be used to authenticate the user, e.g. 'facebook'
-     * @return a request to configure and start that will yield {@link Token} and {@link UserProfile}
+     * @return a request to configure and start that will yield {@link Credentials}
      */
-    public ParameterizableRequest<Token> loginWithOAuthAccessToken(String token, String connection) {
+    public ParameterizableRequest<Credentials> loginWithOAuthAccessToken(String token, String connection) {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment(OAUTH_PATH)
                 .addPathSegment(ACCESS_TOKEN_PATH)
@@ -171,7 +170,7 @@ public class AuthenticationAPIClient {
                 .setAccessToken(token)
                 .asDictionary();
 
-        ParameterizableRequest<Token> credentialsRequest = factory.POST(url, client, mapper, Token.class);
+        ParameterizableRequest<Credentials> credentialsRequest = factory.POST(url, client, mapper, Credentials.class);
         credentialsRequest.getParameterBuilder().addAll(parameters);
         return credentialsRequest;
     }
@@ -181,9 +180,9 @@ public class AuthenticationAPIClient {
      *
      * @param phoneNumber      where the user received the verification code
      * @param verificationCode sent by Auth0 via SMS
-     * @return a request to configure and start that will yield {@link Token} and {@link UserProfile}
+     * @return a request to configure and start that will yield {@link Credentials}
      */
-    public ParameterizableRequest<Token> loginWithPhoneNumber(String phoneNumber, String verificationCode) {
+    public ParameterizableRequest<Credentials> loginWithPhoneNumber(String phoneNumber, String verificationCode) {
         Map<String, Object> parameters = ParameterBuilder.newAuthenticationBuilder()
                 .set(USERNAME_KEY, phoneNumber)
                 .set(PASSWORD_KEY, verificationCode)
@@ -199,9 +198,9 @@ public class AuthenticationAPIClient {
      *
      * @param email            where the user received the verification code
      * @param verificationCode sent by Auth0 via Email
-     * @return a request to configure and start that will yield {@link Token} and {@link UserProfile}
+     * @return a request to configure and start that will yield {@link Credentials}
      */
-    public ParameterizableRequest<Token> loginWithEmail(String email, String verificationCode) {
+    public ParameterizableRequest<Credentials> loginWithEmail(String email, String verificationCode) {
         Map<String, Object> parameters = ParameterBuilder.newAuthenticationBuilder()
                 .set(USERNAME_KEY, email)
                 .set(PASSWORD_KEY, verificationCode)
@@ -261,40 +260,40 @@ public class AuthenticationAPIClient {
 
     /**
      * Creates a user in a DB connection using <a href="https://auth0.com/docs/auth-api#!#post--dbconnections-signup">'/dbconnections/signup' endpoint</a>
-     * and then logs in and fetches it's user profile
+     * and then logs in
      *
      * @param email    of the user and must be non null
      * @param password of the user and must be non null
      * @param username of the user and must be non null
-     * @return a request to configure and start that will yield {@link Token} and {@link UserProfile}
+     * @return a request to configure and start that will yield {@link Credentials}
      */
     public SignUpRequest signUp(String email, String password, String username) {
         final ParameterizableRequest<DatabaseUser> createUserRequest = createUser(email, password, username);
-        final ParameterizableRequest<Token> authenticationRequest = login(email, password);
+        final ParameterizableRequest<Credentials> authenticationRequest = login(email, password);
         return new SignUpRequest(createUserRequest, authenticationRequest);
     }
 
     /**
      * Creates a user in a DB connection using <a href="https://auth0.com/docs/auth-api#!#post--dbconnections-signup">'/dbconnections/signup' endpoint</a>
-     * and then logs in and fetches it's user profile
+     * and then logs in
      *
      * @param email    of the user and must be non null
      * @param password of the user and must be non null
-     * @return a request to configure and start that will yield {@link Token} and {@link UserProfile}
+     * @return a request to configure and start that will yield {@link Credentials}
      */
     public SignUpRequest signUp(String email, String password) {
         ParameterizableRequest<DatabaseUser> createUserRequest = createUser(email, password);
-        final ParameterizableRequest<Token> authenticationRequest = login(email, password);
+        final ParameterizableRequest<Credentials> authenticationRequest = login(email, password);
         return new SignUpRequest(createUserRequest, authenticationRequest);
     }
 
     /**
-     * Perform a change password request using <a href="https://auth0.com/docs/auth-api#!#post--dbconnections-change_password">'/dbconnections/change_password'</a>
+     * Request a change password using <a href="https://auth0.com/docs/auth-api#!#post--dbconnections-change_password">'/dbconnections/change_password'</a>
      *
-     * @param email of the user that changes the password. It's also where the confirmation email will be sent
+     * @param email of the user that changes the password. It's also where the email will be sent with the link to perform the change password.
      * @return a request to configure and start
      */
-    public ChangePasswordRequest changePassword(String email) {
+    public ChangePasswordRequest requestChangePassword(String email) {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment(DB_CONNECTIONS_PATH)
                 .addPathSegment(CHANGE_PASSWORD_PATH)
@@ -466,18 +465,24 @@ public class AuthenticationAPIClient {
         return request;
     }
 
-    public AuthenticationRequest getProfileAfter(ParameterizableRequest<Token> loginRequest) {
+    /**
+     * Fetch the user's profile after it's authenticated by a login request.
+     * If the login request fails, the returned request will fail
+     * @param loginRequest that will authenticate a user with Auth0 and return a {@see Credentials}
+     * @return a {@see AuthenticationRequest} that first logins and the fetches the profile
+     */
+    public AuthenticationRequest getProfileAfter(ParameterizableRequest<Credentials> loginRequest) {
         final ParameterizableRequest<UserProfile> profileRequest = profileRequest();
         return new AuthenticationRequest(loginRequest, profileRequest);
     }
 
-    protected ParameterizableRequest<Token> loginWithResourceOwner(Map<String, Object> parameters) {
+    protected ParameterizableRequest<Credentials> loginWithResourceOwner(Map<String, Object> parameters) {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment(OAUTH_PATH)
                 .addPathSegment(RESOURCE_OWNER_PATH)
                 .build();
 
-        ParameterizableRequest<Token> request = factory.POST(url, client, mapper, Token.class);
+        ParameterizableRequest<Credentials> request = factory.POST(url, client, mapper, Credentials.class);
         request.getParameterBuilder()
                 .setClientId(getClientId())
                 .setConnection(defaultDbConnection)

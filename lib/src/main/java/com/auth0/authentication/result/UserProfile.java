@@ -40,7 +40,7 @@ import java.util.Map;
 import java.util.TimeZone;
 
 /**
- * Class that holds the information of a user's profile
+ * Class that holds the information of a user's profile in Auth0
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserProfile implements Serializable {
@@ -64,9 +64,7 @@ public class UserProfile implements Serializable {
         identities = userProfile.identities;
     }
 
-    protected UserProfile() {
-
-    }
+    protected UserProfile() { }
 
     @JsonCreator
     @SuppressWarnings("unchecked")
@@ -117,9 +115,9 @@ public class UserProfile implements Serializable {
     }
 
     /**
-     * Returns extra information of the profile.
+     * Returns extra information of the profile that is not part of the normalized profile
      *
-     * @return
+     * @return a map with user's extra information found in the profile
      */
     public Map<String, Object> getExtraInfo() {
         return new HashMap<>(extraInfo);
@@ -128,7 +126,7 @@ public class UserProfile implements Serializable {
     /**
      * List of the identities from a Identity Provider associated to the user.
      *
-     * @return
+     * @return a list of identity provider information.
      */
     public List<UserIdentity> getIdentities() {
         return identities;

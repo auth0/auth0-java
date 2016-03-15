@@ -31,8 +31,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import static com.auth0.util.CheckHelper.checkArgument;
 
 /**
- * The result of a successful delegation to an Auth0 app.
- * Contains a new Auth0 'id_token' to be used on the 'target' app
+ * The result of a successful delegation to an Auth0 application that contains a new Auth0 'id_token'
  * See <a href="https://auth0.com/docs/auth-api#!#post--delegation">delegation</a> docs
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -54,7 +53,7 @@ public class Delegation {
     }
 
     /**
-     * Id token
+     * Identity Token
      * @return the 'id_token' value
      */
     public String getIdToken() {
