@@ -26,12 +26,11 @@ package com.auth0.authentication;
 
 import com.auth0.Auth0Exception;
 import com.auth0.authentication.result.Credentials;
+import com.auth0.authentication.result.DatabaseUser;
+import com.auth0.callback.BaseCallback;
+import com.auth0.request.AuthenticationRequest;
 import com.auth0.request.ParameterizableRequest;
 import com.auth0.request.Request;
-import com.auth0.callback.BaseCallback;
-import com.auth0.authentication.result.DatabaseUser;
-
-import org.omg.Dynamic.Parameter;
 
 import java.util.Map;
 
@@ -41,9 +40,9 @@ import java.util.Map;
 public class SignUpRequest implements Request<Credentials> {
 
     private final ParameterizableRequest<DatabaseUser> signUpRequest;
-    private final ParameterizableRequest<Credentials> authenticationRequest;
+    private final AuthenticationRequest authenticationRequest;
 
-    SignUpRequest(ParameterizableRequest<DatabaseUser> signUpRequest, ParameterizableRequest<Credentials> authenticationRequest) {
+    SignUpRequest(ParameterizableRequest<DatabaseUser> signUpRequest, AuthenticationRequest authenticationRequest) {
         this.signUpRequest = signUpRequest;
         this.authenticationRequest = authenticationRequest;
     }
@@ -64,7 +63,7 @@ public class SignUpRequest implements Request<Credentials> {
      * @return itself
      */
     public SignUpRequest addAuthenticationParameters(Map<String, Object> parameters) {
-        authenticationRequest.addParameters(parameters);
+        authenticationRequest.addAuthenticationParameters(parameters);
         return this;
     }
 
@@ -74,7 +73,7 @@ public class SignUpRequest implements Request<Credentials> {
      * @return itself
      */
     public SignUpRequest setScope(String scope) {
-        authenticationRequest.addParameter(ParameterBuilder.SCOPE_KEY, scope);
+        authenticationRequest.setScope(scope);
         return this;
     }
 
@@ -84,7 +83,7 @@ public class SignUpRequest implements Request<Credentials> {
      * @return itself
      */
     public SignUpRequest setConnection(String connection) {
-        authenticationRequest.addParameter(ParameterBuilder.CONNECTION_KEY, connection);
+        authenticationRequest.setConnection(connection);
         return this;
     }
 

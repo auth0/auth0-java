@@ -24,6 +24,8 @@
 
 package com.auth0.internal;
 
+import com.auth0.authentication.result.Credentials;
+import com.auth0.request.AuthenticationRequest;
 import com.auth0.request.AuthorizableRequest;
 import com.auth0.request.ParameterizableRequest;
 import com.auth0.util.Metrics;
@@ -47,7 +49,15 @@ public class RequestFactory {
     }
 
     public <T> ParameterizableRequest<T> GET(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
-        return addMetricHeader(new SimpleRequest<>(url, client, mapper, "GET", clazz));
+        final SimpleRequest<T> request = new SimpleRequest<>(url, client, mapper, "GET", clazz);
+        addMetrics(request);
+        return request;
+    }
+
+    public AuthenticationRequest authenticationPOST(HttpUrl url, OkHttpClient client, ObjectMapper mapper) {
+        final BaseAuthenticationRequest request = new BaseAuthenticationRequest(url, client, mapper, "POST", Credentials.class);
+        addMetrics(request);
+        return request;
     }
 
     public <T> ParameterizableRequest<T> POST(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
@@ -90,5 +100,14 @@ public class RequestFactory {
             request.addHeader("User-Agent", this.userAgent);
         }
         return request;
+    }
+
+    private <T> void addMetrics(AuthorizableRequest<T> request) {
+        if (this.clientInfo != null) {
+            request.addHeader(Metrics.HEADER_NAME, this.clientInfo);
+        }
+        if (this.userAgent!= null) {
+            request.addHeader("User-Agent", this.userAgent);
+        }
     }
 }

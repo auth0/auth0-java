@@ -25,26 +25,27 @@
 package com.auth0.authentication;
 
 import com.auth0.Auth0Exception;
+import com.auth0.authentication.result.Authentication;
 import com.auth0.authentication.result.Credentials;
+import com.auth0.authentication.result.UserProfile;
+import com.auth0.callback.BaseCallback;
+import com.auth0.request.AuthenticationRequest;
 import com.auth0.request.ParameterizableRequest;
 import com.auth0.request.Request;
-import com.auth0.callback.BaseCallback;
-import com.auth0.authentication.result.UserProfile;
-import com.auth0.authentication.result.Authentication;
 
 import java.util.Map;
 
 /**
- * Represent a Authentication request that consist of a log in and a fetch profile requests
+ * Request to fetch a profile after a successful authentication with Auth0 Authentication API
  */
-public class AuthenticationRequest implements Request<Authentication> {
+public class ProfileRequest implements Request<Authentication> {
 
     private static final String ID_TOKEN_KEY = "id_token";
 
-    private final ParameterizableRequest<Credentials> credentialsRequest;
+    private final AuthenticationRequest credentialsRequest;
     private final ParameterizableRequest<UserProfile> tokenInfoRequest;
 
-    AuthenticationRequest(ParameterizableRequest<Credentials> credentialsRequest, ParameterizableRequest<UserProfile> tokenInfoRequest) {
+    ProfileRequest(AuthenticationRequest credentialsRequest, ParameterizableRequest<UserProfile> tokenInfoRequest) {
         this.credentialsRequest = credentialsRequest;
         this.tokenInfoRequest = tokenInfoRequest;
     }
@@ -55,8 +56,8 @@ public class AuthenticationRequest implements Request<Authentication> {
      * @param parameters as a non-null dictionary
      * @return itself
      */
-    public AuthenticationRequest addParameters(Map<String, Object> parameters) {
-        credentialsRequest.addParameters(parameters);
+    public ProfileRequest addParameters(Map<String, Object> parameters) {
+        credentialsRequest.addAuthenticationParameters(parameters);
         return this;
     }
 
@@ -66,8 +67,8 @@ public class AuthenticationRequest implements Request<Authentication> {
      * @param scope value
      * @return itself
      */
-    public AuthenticationRequest setScope(String scope) {
-        credentialsRequest.addParameter(ParameterBuilder.SCOPE_KEY, scope);
+    public ProfileRequest setScope(String scope) {
+        credentialsRequest.setScope(scope);
         return this;
     }
 
@@ -77,8 +78,8 @@ public class AuthenticationRequest implements Request<Authentication> {
      * @param connection name
      * @return itself
      */
-    public AuthenticationRequest setConnection(String connection) {
-        credentialsRequest.addParameter(ParameterBuilder.CONNECTION_KEY, connection);
+    public ProfileRequest setConnection(String connection) {
+        credentialsRequest.setConnection(connection);
         return this;
     }
 

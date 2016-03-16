@@ -30,6 +30,7 @@ import com.auth0.authentication.result.DatabaseUser;
 import com.auth0.authentication.result.Delegation;
 import com.auth0.authentication.result.UserProfile;
 import com.auth0.internal.RequestFactory;
+import com.auth0.request.AuthenticationRequest;
 import com.auth0.request.ParameterizableRequest;
 import com.auth0.request.Request;
 import com.auth0.util.Metrics;
@@ -39,7 +40,6 @@ import com.squareup.okhttp.OkHttpClient;
 
 import java.util.Map;
 
-import static com.auth0.authentication.ParameterBuilder.GRANT_TYPE_JWT;
 import static com.auth0.authentication.ParameterBuilder.GRANT_TYPE_PASSWORD;
 
 /**
@@ -142,7 +142,7 @@ public class AuthenticationAPIClient {
      * @param password        of the user
      * @return a request to configure and start that will yield {@link Credentials}
      */
-    public ParameterizableRequest<Credentials> login(String usernameOrEmail, String password) {
+    public AuthenticationRequest login(String usernameOrEmail, String password) {
         Map<String, Object> requestParameters = ParameterBuilder.newAuthenticationBuilder()
                 .set(USERNAME_KEY, usernameOrEmail)
                 .set(PASSWORD_KEY, password)
@@ -158,7 +158,7 @@ public class AuthenticationAPIClient {
      * @param connection that will be used to authenticate the user, e.g. 'facebook'
      * @return a request to configure and start that will yield {@link Credentials}
      */
-    public ParameterizableRequest<Credentials> loginWithOAuthAccessToken(String token, String connection) {
+    public AuthenticationRequest loginWithOAuthAccessToken(String token, String connection) {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment(OAUTH_PATH)
                 .addPathSegment(ACCESS_TOKEN_PATH)
@@ -170,8 +170,8 @@ public class AuthenticationAPIClient {
                 .setAccessToken(token)
                 .asDictionary();
 
-        return factory.POST(url, client, mapper, Credentials.class)
-                .addParameters(parameters);
+        return factory.authenticationPOST(url, client, mapper)
+                .addAuthenticationParameters(parameters);
     }
 
     /**
@@ -181,7 +181,7 @@ public class AuthenticationAPIClient {
      * @param verificationCode sent by Auth0 via SMS
      * @return a request to configure and start that will yield {@link Credentials}
      */
-    public ParameterizableRequest<Credentials> loginWithPhoneNumber(String phoneNumber, String verificationCode) {
+    public AuthenticationRequest loginWithPhoneNumber(String phoneNumber, String verificationCode) {
         Map<String, Object> parameters = ParameterBuilder.newAuthenticationBuilder()
                 .set(USERNAME_KEY, phoneNumber)
                 .set(PASSWORD_KEY, verificationCode)
@@ -199,7 +199,7 @@ public class AuthenticationAPIClient {
      * @param verificationCode sent by Auth0 via Email
      * @return a request to configure and start that will yield {@link Credentials}
      */
-    public ParameterizableRequest<Credentials> loginWithEmail(String email, String verificationCode) {
+    public AuthenticationRequest loginWithEmail(String email, String verificationCode) {
         Map<String, Object> parameters = ParameterBuilder.newAuthenticationBuilder()
                 .set(USERNAME_KEY, email)
                 .set(PASSWORD_KEY, verificationCode)
@@ -268,7 +268,7 @@ public class AuthenticationAPIClient {
      */
     public SignUpRequest signUp(String email, String password, String username) {
         final ParameterizableRequest<DatabaseUser> createUserRequest = createUser(email, password, username);
-        final ParameterizableRequest<Credentials> authenticationRequest = login(email, password);
+        final AuthenticationRequest authenticationRequest = login(email, password);
         return new SignUpRequest(createUserRequest, authenticationRequest);
     }
 
@@ -282,7 +282,7 @@ public class AuthenticationAPIClient {
      */
     public SignUpRequest signUp(String email, String password) {
         ParameterizableRequest<DatabaseUser> createUserRequest = createUser(email, password);
-        final ParameterizableRequest<Credentials> authenticationRequest = login(email, password);
+        final AuthenticationRequest authenticationRequest = login(email, password);
         return new SignUpRequest(createUserRequest, authenticationRequest);
     }
 
@@ -478,15 +478,15 @@ public class AuthenticationAPIClient {
     /**
      * Fetch the user's profile after it's authenticated by a login request.
      * If the login request fails, the returned request will fail
-     * @param loginRequest that will authenticate a user with Auth0 and return a {@see Credentials}
-     * @return a {@see AuthenticationRequest} that first logins and the fetches the profile
+     * @param authenticationRequest that will authenticate a user with Auth0 and return a {@see Credentials}
+     * @return a {@see ProfileRequest} that first logins and the fetches the profile
      */
-    public AuthenticationRequest getProfileAfter(ParameterizableRequest<Credentials> loginRequest) {
+    public ProfileRequest getProfileAfter(AuthenticationRequest authenticationRequest) {
         final ParameterizableRequest<UserProfile> profileRequest = profileRequest();
-        return new AuthenticationRequest(loginRequest, profileRequest);
+        return new ProfileRequest(authenticationRequest, profileRequest);
     }
 
-    protected ParameterizableRequest<Credentials> loginWithResourceOwner(Map<String, Object> parameters) {
+    protected AuthenticationRequest loginWithResourceOwner(Map<String, Object> parameters) {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment(OAUTH_PATH)
                 .addPathSegment(RESOURCE_OWNER_PATH)
@@ -497,8 +497,8 @@ public class AuthenticationAPIClient {
                 .setConnection(defaultDbConnection)
                 .addAll(parameters)
                 .asDictionary();
-        return factory.POST(url, client, mapper, Credentials.class)
-                .addParameters(requestParameters);
+        return factory.authenticationPOST(url, client, mapper)
+                .addAuthenticationParameters(requestParameters);
     }
 
     private ParameterizableRequest<UserProfile> profileRequest() {

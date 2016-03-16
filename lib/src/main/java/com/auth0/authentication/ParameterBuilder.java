@@ -43,12 +43,11 @@ public class ParameterBuilder {
     public static final String SCOPE_KEY = "scope";
     public static final String REFRESH_TOKEN_KEY = "refresh_token";
     public static final String CONNECTION_KEY = "connection";
-
-    private static final String ACCESS_TOKEN_KEY = "access_token";
-    private static final String SEND_KEY = "send";
-    private static final String CLIENT_ID_KEY = "client_id";
-    private static final String GRANT_TYPE_KEY = "grant_type";
-    private static final String DEVICE_KEY = "device";
+    public static final String ACCESS_TOKEN_KEY = "access_token";
+    public static final String SEND_KEY = "send";
+    public static final String CLIENT_ID_KEY = "client_id";
+    public static final String GRANT_TYPE_KEY = "grant_type";
+    public static final String DEVICE_KEY = "device";
 
     private Map<String, Object> parameters;
 
