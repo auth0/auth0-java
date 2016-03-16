@@ -139,12 +139,12 @@ public class AuthenticationAPIClient {
      * Log in a user with email/username and password using a DB connection.
      * Example usage:
      * <pre><code>
-     * client.login("username", "password")
+     * client.login("{username or email}", "{password}")
      *      .setConnection("second-database")
      *      .start(new BaseCallback<Credentials>() {
      *          {@literal@}Override
      *          public void onSuccess(Credentials payload) { }
-     * <p/>
+     *
      *          {@literal@}Override
      *          public void onFailure(Auth0Exception error) { }
      *      });
@@ -152,7 +152,7 @@ public class AuthenticationAPIClient {
      *
      * @param usernameOrEmail of the user depending of the type of DB connection
      * @param password        of the user
-     * @return a request to configure and start that will yield{@link Credentials}
+     * @return a request to configure and start that will yield {@link Credentials}
      */
     public AuthenticationRequest login(String usernameOrEmail, String password) {
         Map<String, Object> requestParameters = ParameterBuilder.newAuthenticationBuilder()
@@ -167,12 +167,12 @@ public class AuthenticationAPIClient {
      * Log in a user with a OAuth 'access_token' of a Identity Provider like Facebook or Twitter using <a href="https://auth0.com/docs/auth-api#!#post--oauth-access_token">'\oauth\access_token' endpoint</a>
      * Example usage:
      * <pre><code>
-     * client.loginWithOAuthAccessToken("token", "my-connection")
+     * client.loginWithOAuthAccessToken("{token}", "{connection name}")
      *      .setConnection("second-database")
      *      .start(new BaseCallback<Credentials>() {
      *          {@literal@}Override
      *          public void onSuccess(Credentials payload) { }
-     * <p/>
+
      *          {@literal@}Override
      *          public void onFailure(Auth0Exception error) { }
      *      });
@@ -202,11 +202,11 @@ public class AuthenticationAPIClient {
      * Log in a user using a phone number and a verification code received via SMS (Part of passwordless login flow)
      * Example usage:
      * <pre><code>
-     * client.loginWithPhoneNumber("1234567890", "000000")
+     * client.loginWithPhoneNumber("{phone number}", "{code}")
      *      .start(new BaseCallback<Credentials>() {
      *          {@literal@}Override
      *          public void onSuccess(Credentials payload) { }
-     * <p/>
+
      *          {@literal@}@Override
      *          public void onFailure(Auth0Exception error) { }
      *      });
@@ -231,11 +231,11 @@ public class AuthenticationAPIClient {
      * Log in a user using an email and a verification code received via Email (Part of passwordless login flow)
      * Example usage:
      * <pre><code>
-     * client.loginWithEmail("email@example.com", "000000")
+     * client.loginWithEmail("{email}", "{code}")
      *      .start(new BaseCallback<Credentials>() {
      *          {@literal@}Override
      *          public void onSuccess(Credentials payload) { }
-     * <p/>
+
      *          {@literal@}@Override
      *          public void onFailure(Auth0Exception error) { }
      *      });
@@ -260,11 +260,11 @@ public class AuthenticationAPIClient {
      * Fetch the token information from Auth0
      * Example usage:
      * <pre><code>
-     * client.tokenInfo("idToken")
+     * client.tokenInfo("{id_token}")
      *      .start(new BaseCallback<UserProfile>() {
      *          {@literal@}Override
      *          public void onSuccess(UserProfile payload) { }
-     * <p/>
+
      *          {@literal@}@Override
      *          public void onFailure(Auth0Exception error) { }
      *      });
@@ -282,12 +282,12 @@ public class AuthenticationAPIClient {
      * Creates a user in a DB connection using <a href="https://auth0.com/docs/auth-api#!#post--dbconnections-signup">'/dbconnections/signup' endpoint</a>
      * Example usage:
      * <pre><code>
-     * client.createUser("email@example.com", "password", "username")
-     *      .setConnection("Username-Password-Authentication")
+     * client.createUser("{email}", "{password}", "{username}")
+     *      .setConnection("{connection name}")
      *      .start(new BaseCallback<DatabaseUser>() {
      *          {@literal@}Override
      *          public void onSuccess(DatabaseUser payload) { }
-     * <p/>
+     *
      *          {@literal@}@Override
      *          public void onFailure(Auth0Exception error) { }
      *      });
@@ -320,12 +320,12 @@ public class AuthenticationAPIClient {
      * Creates a user in a DB connection using <a href="https://auth0.com/docs/auth-api#!#post--dbconnections-signup">'/dbconnections/signup' endpoint</a>
      * Example usage:
      * <pre><code>
-     * client.createUser("email@example.com", "password")
-     *      .setConnection("Username-Password-Authentication")
+     * client.createUser("{email}", "{password}")
+     *      .setConnection("{connection name}")
      *      .start(new BaseCallback<DatabaseUser>() {
      *          {@literal@}Override
      *          public void onSuccess(DatabaseUser payload) { }
-     * <p/>
+     *
      *          {@literal@}@Override
      *          public void onFailure(Auth0Exception error) { }
      *      });
@@ -344,12 +344,12 @@ public class AuthenticationAPIClient {
      * and then logs in
      * Example usage:
      * <pre><code>
-     * client.signUp("email@example.com", "password", "username")
-     *      .setConnection("Username-Password-Authentication")
+     * client.signUp("{email}", "{password}", "{username}")
+     *      .setConnection("{connection name}")
      *      .start(new BaseCallback<Credentials>() {
      *          {@literal@}Override
      *          public void onSuccess(Credentials payload) {}
-     * <p/>
+     *
      *          {@literal@}Override
      *          public void onFailure(Auth0Exception error) {}
      *      });
@@ -371,12 +371,12 @@ public class AuthenticationAPIClient {
      * and then logs in
      * Example usage:
      * <pre><code>
-     * client.signUp("email@example.com", "password")
-     *      .setConnection("Username-Password-Authentication")
+     * client.signUp("{email}", "{password}")
+     *      .setConnection("{connection name}")
      *      .start(new BaseCallback<Credentials>() {
      *          {@literal@}Override
      *          public void onSuccess(Credentials payload) {}
-     * <p/>
+     *
      *          {@literal@}Override
      *          public void onFailure(Auth0Exception error) {}
      *      });
@@ -396,11 +396,11 @@ public class AuthenticationAPIClient {
      * Request a change password using <a href="https://auth0.com/docs/auth-api#!#post--dbconnections-change_password">'/dbconnections/change_password'</a>
      * Example usage:
      * <pre><code>
-     * client.requestChangePassword("email@example.com")
+     * client.requestChangePassword("{email}")
      *      .start(new BaseCallback<Void>() {
      *          {@literal@}Override
      *          public void onSuccess(Void payload) {}
-     * <p/>
+     *
      *          {@literal@}Override
      *          public void onFailure(Auth0Exception error) {}
      *      });
@@ -429,11 +429,11 @@ public class AuthenticationAPIClient {
      * Performs a <a href="https://auth0.com/docs/auth-api#!#post--delegation">delegation</a> request that will yield a new Auth0 'id_token'
      * Example usage:
      * <pre><code>
-     * client.delegationWithIdToken("idToken")
+     * client.delegationWithIdToken("{id token}")
      *      .start(new BaseCallback<Delegation>() {
      *          {@literal@}Override
      *          public void onSuccess(Delegation payload) {}
-     * <p/>
+     *
      *          {@literal@}Override
      *          public void onFailure(Auth0Exception error) {}
      *      });
@@ -455,11 +455,11 @@ public class AuthenticationAPIClient {
      * Check our <a href="https://auth0.com/docs/refresh-token">refresh token</a> docs for more information
      * Example usage:
      * <pre><code>
-     * client.delegationWithRefreshToken("refreshToken")
+     * client.delegationWithRefreshToken("{refresh token}")
      *      .start(new BaseCallback<Delegation>() {
      *          {@literal@}Override
      *          public void onSuccess(Delegation payload) {}
-     * <p/>
+     *
      *          {@literal@}Override
      *          public void onFailure(Auth0Exception error) {}
      *      });
@@ -480,11 +480,11 @@ public class AuthenticationAPIClient {
      * Performs a <a href="https://auth0.com/docs/auth-api#!#post--delegation">delegation</a> request that will yield a delegation token.
      * Example usage:
      * <pre><code>
-     * client.delegationWithIdToken("idToken", "firebase")
+     * client.delegationWithIdToken("{id token}", "{app type, e.g. firebase}")
      *      .start(new BaseCallback<Map<String, Object>>() {
      *          {@literal@}Override
      *          public void onSuccess(Map<String, Object> payload) {}
-     * <p/>
+     *
      *          {@literal@}Override
      *          public void onFailure(Auth0Exception error) {}
      *      });
@@ -503,40 +503,14 @@ public class AuthenticationAPIClient {
     }
 
     /**
-     * Performs a <a href="https://auth0.com/docs/auth-api#!#post--delegation">delegation</a> request that will yield a delegation token.
-     * Check our <a href="https://auth0.com/docs/refresh-token">refresh token</a> docs for more information
-     * Example usage:
-     * <pre><code>
-     * client.delegationWithRefreshToken("idToken", "firebase")
-     *      .start(new BaseCallback<Map<String, Object>>() {
-     *          {@literal@}Override
-     *          public void onSuccess(Map<String, Object> payload) {}
-     * <p/>
-     *          {@literal@}Override
-     *          public void onFailure(Auth0Exception error) {}
-     *      });
-     * </code></pre>
-     *
-     * @param refreshToken issued by Auth0 for the user when using the 'offline_access' scope when logging in.
-     * @param apiType      the delegation 'api_type' parameter
-     * @return a request to configure and start
-     */
-    public DelegationRequest<Map<String, Object>> delegationWithRefreshToken(String refreshToken, String apiType) {
-        ParameterizableRequest<Map<String, Object>> request = delegation()
-                .addParameter(ParameterBuilder.REFRESH_TOKEN_KEY, refreshToken);
-
-        return new DelegationRequest<>(request).setApiType(apiType);
-    }
-
-    /**
      * Unlink a user identity calling <a href="https://auth0.com/docs/auth-api#!#post--unlink">'/unlink'</a> endpoint
      * Example usage:
      * <pre><code>
-     * client.unlink("auth0|userId", "accessToken")
+     * client.unlink("{auth0 user id}", "{user access token}")
      *      .start(new BaseCallback<Void>() {
      *          {@literal@}Override
      *          public void onSuccess(Void payload) {}
-     * <p/>
+     *
      *          {@literal@}Override
      *          public void onFailure(Auth0Exception error) {}
      *      });
@@ -565,11 +539,11 @@ public class AuthenticationAPIClient {
      * Start a passwordless flow with <a href="https://auth0.com/docs/auth-api#!#post--with_email">Email</a>
      * Example usage:
      * <pre><code>
-     * client.passwordlessWithEmail("email@example.com", PasswordlessType.CODE)
+     * client.passwordlessWithEmail("{email}", PasswordlessType.CODE)
      *      .start(new BaseCallback<Void>() {
      *          {@literal@}Override
      *          public void onSuccess(Void payload) {}
-     * <p/>
+     *
      *          {@literal@}Override
      *          public void onFailure(Auth0Exception error) {}
      *      });
@@ -594,11 +568,11 @@ public class AuthenticationAPIClient {
      * Start a passwordless flow with <a href="https://auth0.com/docs/auth-api#!#post--with_sms">SMS</a>
      * Example usage:
      * <pre><code>
-     * client.passwordlessWithSms("1234567890", PasswordlessType.CODE)
+     * client.passwordlessWithSms("{phone number}", PasswordlessType.CODE)
      *      .start(new BaseCallback<Void>() {
      *          {@literal@}Override
      *          public void onSuccess(Void payload) {}
-     * <p/>
+     *
      *          {@literal@}Override
      *          public void onFailure(Auth0Exception error) {}
      *      });
@@ -628,7 +602,7 @@ public class AuthenticationAPIClient {
      *      .start(new BaseCallback<Map<String, Object>>() {
      *          {@literal@}Override
      *          public void onSuccess(Map<String, Object> payload) {}
-     * <p/>
+     *
      *          {@literal@}Override
      *          public void onFailure(Auth0Exception error) {}
      *      });
