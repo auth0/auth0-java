@@ -42,7 +42,6 @@ public class ChangePasswordRequest implements ParameterizableRequest<Void> {
 
     ChangePasswordRequest(ParameterizableRequest<Void> request) {
         this.request = request;
-        request.getParameterBuilder();
     }
 
     /**
@@ -52,18 +51,20 @@ public class ChangePasswordRequest implements ParameterizableRequest<Void> {
      * @return itself
      */
     public ChangePasswordRequest setNewPassword(String newPassword) {
-        request.getParameterBuilder().set(PASSWORD_KEY, newPassword);
+        request.addParameter(PASSWORD_KEY, newPassword);
         return this;
     }
 
-    /**
-     * Getter for this request ParameterBuilder.
-     *
-     * @return the associated ParameterBuilder instance
-     */
     @Override
-    public ParameterBuilder getParameterBuilder() {
-        return request.getParameterBuilder();
+    public ChangePasswordRequest addParameters(Map<String, Object> parameters) {
+        request.addParameters(parameters);
+        return this;
+    }
+
+    @Override
+    public ChangePasswordRequest addParameter(String name, Object value) {
+        request.addParameter(name, value);
+        return this;
     }
 
     /**

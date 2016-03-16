@@ -851,9 +851,9 @@ public class AuthenticationAPIClientTest {
                 .set("email", "support@auth0.com")
                 .asDictionary();
 
-        ParameterizableRequest<Void> pwRequest = client.passwordless();
-        pwRequest.getParameterBuilder().addAll(parameters);
-        pwRequest.start(callback);
+        client.passwordless()
+                .addParameters(parameters)
+                .start(callback);
 
         final RecordedRequest request = mockAPI.takeRequest();
         assertThat(request.getPath(), equalTo("/passwordless/start"));
@@ -877,9 +877,9 @@ public class AuthenticationAPIClientTest {
                 .set("email", "support@auth0.com")
                 .asDictionary();
 
-        ParameterizableRequest<Void> pwRequest = client.passwordless();
-        pwRequest.getParameterBuilder().addAll(parameters);
-        pwRequest.execute();
+        client.passwordless()
+                .addParameters(parameters)
+                .execute();
 
         final RecordedRequest request = mockAPI.takeRequest();
         assertThat(request.getPath(), equalTo("/passwordless/start"));

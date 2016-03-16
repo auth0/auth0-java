@@ -53,11 +53,6 @@ public class DelegationRequest<T> implements Request<T> {
         this.request = request;
     }
 
-    private DelegationRequest<T> addParameter(String key, Object value) {
-        request.getParameterBuilder().set(key, value);
-        return this;
-    }
-
     /**
      * Add additional parameters to be sent in the request
      *
@@ -65,7 +60,7 @@ public class DelegationRequest<T> implements Request<T> {
      * @return itself
      */
     public DelegationRequest<T> addParameters(Map<String, Object> parameters) {
-        request.getParameterBuilder().addAll(parameters);
+        request.addParameters(parameters);
         return this;
     }
 
@@ -76,7 +71,8 @@ public class DelegationRequest<T> implements Request<T> {
      * @return itself
      */
     public DelegationRequest<T> setApiType(String apiType) {
-        return addParameter(API_TYPE_KEY, apiType);
+        request.addParameter(API_TYPE_KEY, apiType);
+        return this;
     }
 
     /**
@@ -86,7 +82,7 @@ public class DelegationRequest<T> implements Request<T> {
      * @return itself
      */
     public DelegationRequest<T> setScope(String scope) {
-        request.getParameterBuilder().setScope(scope);
+        request.addParameter(ParameterBuilder.SCOPE_KEY, scope);
         return this;
     }
 
@@ -97,7 +93,8 @@ public class DelegationRequest<T> implements Request<T> {
      * @return itself
      */
     public DelegationRequest<T> setTarget(String target) {
-        return addParameter(TARGET_KEY, target);
+        request.addParameter(TARGET_KEY, target);
+        return this;
     }
 
     /**

@@ -170,9 +170,8 @@ public class AuthenticationAPIClient {
                 .setAccessToken(token)
                 .asDictionary();
 
-        ParameterizableRequest<Credentials> credentialsRequest = factory.POST(url, client, mapper, Credentials.class);
-        credentialsRequest.getParameterBuilder().addAll(parameters);
-        return credentialsRequest;
+        return factory.POST(url, client, mapper, Credentials.class)
+                .addParameters(parameters);
     }
 
     /**
@@ -218,9 +217,8 @@ public class AuthenticationAPIClient {
      * @return a request to start
      */
     public Request<UserProfile> tokenInfo(String idToken) {
-        ParameterizableRequest<UserProfile> request = profileRequest();
-        request.getParameterBuilder().set(ParameterBuilder.ID_TOKEN_KEY, idToken);
-        return request;
+        return profileRequest()
+                .addParameter(ParameterBuilder.ID_TOKEN_KEY, idToken);
     }
 
     /**
@@ -237,14 +235,15 @@ public class AuthenticationAPIClient {
                 .addPathSegment(SIGN_UP_PATH)
                 .build();
 
-        ParameterizableRequest<DatabaseUser> request = factory.POST(url, client, mapper, DatabaseUser.class);
-        request.getParameterBuilder()
+        Map<String, Object> parameters = ParameterBuilder.newBuilder()
                 .set(USERNAME_KEY, username)
                 .set(EMAIL_KEY, email)
                 .set(PASSWORD_KEY, password)
                 .setConnection(defaultDbConnection)
-                .setClientId(getClientId());
-        return request;
+                .setClientId(getClientId())
+                .asDictionary();
+        return factory.POST(url, client, mapper, DatabaseUser.class)
+                .addParameters(parameters);
     }
 
     /**
@@ -299,11 +298,13 @@ public class AuthenticationAPIClient {
                 .addPathSegment(CHANGE_PASSWORD_PATH)
                 .build();
 
-        ParameterizableRequest<Void> request = factory.POST(url, client, mapper);
-        request.getParameterBuilder()
+        final Map<String, Object> parameters = ParameterBuilder.newBuilder()
                 .set(EMAIL_KEY, email)
                 .setClientId(getClientId())
-                .setConnection(defaultDbConnection);
+                .setConnection(defaultDbConnection)
+                .asDictionary();
+        ParameterizableRequest<Void> request = factory.POST(url, client, mapper)
+                .addParameters(parameters);
         return new ChangePasswordRequest(request);
     }
 
@@ -314,8 +315,8 @@ public class AuthenticationAPIClient {
      * @return a request to configure and start
      */
     public DelegationRequest<Delegation> delegationWithIdToken(String idToken) {
-        ParameterizableRequest<Delegation> request = delegation(Delegation.class);
-        request.getParameterBuilder().set(ParameterBuilder.ID_TOKEN_KEY, idToken);
+        ParameterizableRequest<Delegation> request = delegation(Delegation.class)
+                .addParameter(ParameterBuilder.ID_TOKEN_KEY, idToken);
 
         return new DelegationRequest<>(request)
                 .setApiType(DelegationRequest.DEFAULT_API_TYPE);
@@ -329,8 +330,8 @@ public class AuthenticationAPIClient {
      * @return a request to configure and start
      */
     public DelegationRequest<Delegation> delegationWithRefreshToken(String refreshToken) {
-        ParameterizableRequest<Delegation> request = delegation(Delegation.class);
-        request.getParameterBuilder().set(ParameterBuilder.REFRESH_TOKEN_KEY, refreshToken);
+        ParameterizableRequest<Delegation> request = delegation(Delegation.class)
+                .addParameter(ParameterBuilder.REFRESH_TOKEN_KEY, refreshToken);
 
         return new DelegationRequest<>(request)
                 .setApiType(DelegationRequest.DEFAULT_API_TYPE);
@@ -344,8 +345,8 @@ public class AuthenticationAPIClient {
      * @return a request to configure and start
      */
     public DelegationRequest<Map<String, Object>> delegationWithIdToken(String idToken, String apiType) {
-        ParameterizableRequest<Map<String, Object>> request = delegation();
-        request.getParameterBuilder().set(ParameterBuilder.ID_TOKEN_KEY, idToken);
+        ParameterizableRequest<Map<String, Object>> request = delegation()
+                .addParameter(ParameterBuilder.ID_TOKEN_KEY, idToken);
 
         return new DelegationRequest<>(request)
                 .setApiType(apiType);
@@ -360,8 +361,8 @@ public class AuthenticationAPIClient {
      * @return a request to configure and start
      */
     public DelegationRequest<Map<String, Object>> delegationWithRefreshToken(String refreshToken, String apiType) {
-        ParameterizableRequest<Map<String, Object>> request = delegation();
-        request.getParameterBuilder().set(ParameterBuilder.REFRESH_TOKEN_KEY, refreshToken);
+        ParameterizableRequest<Map<String, Object>> request = delegation()
+                .addParameter(ParameterBuilder.REFRESH_TOKEN_KEY, refreshToken);
 
         return new DelegationRequest<>(request).setApiType(apiType);
     }
@@ -378,12 +379,14 @@ public class AuthenticationAPIClient {
                 .addPathSegment(UNLINK_PATH)
                 .build();
 
-        ParameterizableRequest<Void> request = factory.POST(url, client, mapper);
-        request.getParameterBuilder()
+        final Map<String, Object> parameters = ParameterBuilder.newBuilder()
                 .setAccessToken(accessToken)
                 .set(CLIENT_ID_KEY, getClientId())
-                .set(USER_ID_KEY, userId);
-        return request;
+                .set(USER_ID_KEY, userId)
+                .asDictionary();
+
+        return factory.POST(url, client, mapper)
+                .addParameters(parameters);
     }
 
     /**
@@ -394,12 +397,14 @@ public class AuthenticationAPIClient {
      * @return a request to configure and start
      */
     public ParameterizableRequest<Void> passwordlessWithEmail(String email, PasswordlessType passwordlessType) {
-        ParameterizableRequest<Void> request = passwordless();
-        request.getParameterBuilder()
+        final Map<String, Object> parameters = ParameterBuilder.newBuilder()
                 .set(EMAIL_KEY, email)
                 .setSend(passwordlessType)
-                .setConnection(EMAIL_CONNECTION);
-        return request;
+                .setConnection(EMAIL_CONNECTION)
+                .asDictionary();
+
+        return passwordless()
+                .addParameters(parameters);
     }
 
     /**
@@ -410,12 +415,13 @@ public class AuthenticationAPIClient {
      * @return a request to configure and start
      */
     public ParameterizableRequest<Void> passwordlessWithSMS(String phoneNumber, PasswordlessType passwordlessType) {
-        ParameterizableRequest<Void> request = passwordless();
-        request.getParameterBuilder()
+        final Map<String, Object> parameters = ParameterBuilder.newBuilder()
                 .set(PHONE_NUMBER_KEY, phoneNumber)
                 .setSend(passwordlessType)
-                .setConnection(SMS_CONNECTION);
-        return request;
+                .setConnection(SMS_CONNECTION)
+                .asDictionary();
+        return passwordless()
+                .addParameters(parameters);
     }
 
     /**
@@ -429,11 +435,12 @@ public class AuthenticationAPIClient {
                 .addPathSegment(DELEGATION_PATH)
                 .build();
 
-        ParameterizableRequest<Map<String, Object>> request = factory.rawPOST(url, client, mapper);
-        request.getParameterBuilder()
+        final Map<String, Object> parameters = ParameterBuilder.newBuilder()
                 .setClientId(getClientId())
-                .setGrantType(ParameterBuilder.GRANT_TYPE_JWT);
-        return request;
+                .setGrantType(ParameterBuilder.GRANT_TYPE_JWT)
+                .asDictionary();
+        return factory.rawPOST(url, client, mapper)
+                .addParameters(parameters);
     }
 
     protected <T> ParameterizableRequest<T> delegation(Class<T> clazz) {
@@ -441,12 +448,13 @@ public class AuthenticationAPIClient {
                 .addPathSegment(DELEGATION_PATH)
                 .build();
 
-        ParameterizableRequest<T> request = factory.POST(url, client, mapper, clazz);
-        request.getParameterBuilder()
+        final Map<String, Object> parameters = ParameterBuilder.newBuilder()
                 .setClientId(getClientId())
-                .setGrantType(GRANT_TYPE_JWT);
+                .setGrantType(ParameterBuilder.GRANT_TYPE_JWT)
+                .asDictionary();
 
-        return request;
+        return factory.POST(url, client, mapper, clazz)
+                .addParameters(parameters);
     }
 
     /**
@@ -460,9 +468,11 @@ public class AuthenticationAPIClient {
                 .addPathSegment(START_PATH)
                 .build();
 
-        ParameterizableRequest<Void> request = factory.POST(url, client, mapper);
-        request.getParameterBuilder().setClientId(getClientId());
-        return request;
+        final Map<String, Object> parameters = ParameterBuilder.newBuilder()
+                .setClientId(getClientId())
+                .asDictionary();
+        return factory.POST(url, client, mapper)
+                .addParameters(parameters);
     }
 
     /**
@@ -482,12 +492,13 @@ public class AuthenticationAPIClient {
                 .addPathSegment(RESOURCE_OWNER_PATH)
                 .build();
 
-        ParameterizableRequest<Credentials> request = factory.POST(url, client, mapper, Credentials.class);
-        request.getParameterBuilder()
+        final Map<String, Object> requestParameters = ParameterBuilder.newBuilder()
                 .setClientId(getClientId())
                 .setConnection(defaultDbConnection)
-                .addAll(parameters);
-        return request;
+                .addAll(parameters)
+                .asDictionary();
+        return factory.POST(url, client, mapper, Credentials.class)
+                .addParameters(requestParameters);
     }
 
     private ParameterizableRequest<UserProfile> profileRequest() {

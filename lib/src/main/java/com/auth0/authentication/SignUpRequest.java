@@ -31,6 +31,8 @@ import com.auth0.request.Request;
 import com.auth0.callback.BaseCallback;
 import com.auth0.authentication.result.DatabaseUser;
 
+import org.omg.Dynamic.Parameter;
+
 import java.util.Map;
 
 /**
@@ -52,7 +54,7 @@ public class SignUpRequest implements Request<Credentials> {
      * @return itself
      */
     public SignUpRequest addSignUpParameters(Map<String, Object> parameters) {
-        signUpRequest.getParameterBuilder().addAll(parameters);
+        signUpRequest.addParameters(parameters);
         return this;
     }
 
@@ -62,9 +64,7 @@ public class SignUpRequest implements Request<Credentials> {
      * @return itself
      */
     public SignUpRequest addAuthenticationParameters(Map<String, Object> parameters) {
-        authenticationRequest
-                .getParameterBuilder()
-                .addAll(parameters);
+        authenticationRequest.addParameters(parameters);
         return this;
     }
 
@@ -74,9 +74,7 @@ public class SignUpRequest implements Request<Credentials> {
      * @return itself
      */
     public SignUpRequest setScope(String scope) {
-        authenticationRequest
-                .getParameterBuilder()
-                .setScope(scope);
+        authenticationRequest.addParameter(ParameterBuilder.SCOPE_KEY, scope);
         return this;
     }
 
@@ -86,9 +84,7 @@ public class SignUpRequest implements Request<Credentials> {
      * @return itself
      */
     public SignUpRequest setConnection(String connection) {
-        authenticationRequest
-                .getParameterBuilder()
-                .setConnection(connection);
+        authenticationRequest.addParameter(ParameterBuilder.CONNECTION_KEY, connection);
         return this;
     }
 

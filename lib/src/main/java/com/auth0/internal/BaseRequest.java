@@ -129,8 +129,15 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
     }
 
     @Override
-    public ParameterBuilder getParameterBuilder() {
-        return builder;
+    public ParameterizableRequest<T> addParameters(Map<String, Object> parameters) {
+        builder.addAll(parameters);
+        return this;
+    }
+
+    @Override
+    public ParameterizableRequest<T> addParameter(String name, Object value) {
+        builder.set(name, value);
+        return this;
     }
 
     @Override

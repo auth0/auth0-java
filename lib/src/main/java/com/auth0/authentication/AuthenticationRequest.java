@@ -56,7 +56,7 @@ public class AuthenticationRequest implements Request<Authentication> {
      * @return itself
      */
     public AuthenticationRequest addParameters(Map<String, Object> parameters) {
-        credentialsRequest.getParameterBuilder().addAll(parameters);
+        credentialsRequest.addParameters(parameters);
         return this;
     }
 
@@ -67,7 +67,7 @@ public class AuthenticationRequest implements Request<Authentication> {
      * @return itself
      */
     public AuthenticationRequest setScope(String scope) {
-        credentialsRequest.getParameterBuilder().setScope(scope);
+        credentialsRequest.addParameter(ParameterBuilder.SCOPE_KEY, scope);
         return this;
     }
 
@@ -78,7 +78,7 @@ public class AuthenticationRequest implements Request<Authentication> {
      * @return itself
      */
     public AuthenticationRequest setConnection(String connection) {
-        credentialsRequest.getParameterBuilder().setConnection(connection);
+        credentialsRequest.addParameter(ParameterBuilder.CONNECTION_KEY, connection);
         return this;
     }
 
@@ -93,9 +93,7 @@ public class AuthenticationRequest implements Request<Authentication> {
             @Override
             public void onSuccess(final Credentials credentials) {
                 tokenInfoRequest
-                        .getParameterBuilder()
-                        .set(ID_TOKEN_KEY, credentials.getIdToken());
-                tokenInfoRequest
+                        .addParameter(ID_TOKEN_KEY, credentials.getIdToken())
                         .start(new BaseCallback<UserProfile>() {
                             @Override
                             public void onSuccess(UserProfile profile) {
@@ -125,8 +123,8 @@ public class AuthenticationRequest implements Request<Authentication> {
     @Override
     public Authentication execute() throws Auth0Exception {
         Credentials credentials = credentialsRequest.execute();
-        tokenInfoRequest.getParameterBuilder().set(ID_TOKEN_KEY, credentials.getIdToken());
         UserProfile profile = tokenInfoRequest
+                .addParameter(ID_TOKEN_KEY, credentials.getIdToken())
                 .execute();
         return new Authentication(profile, credentials);
     }
