@@ -61,48 +61,49 @@ public class RequestFactory {
     }
 
     public <T> ParameterizableRequest<T> POST(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
-        return addMetricHeader(new SimpleRequest<>(url, client, mapper, "POST", clazz));
+        final SimpleRequest<T> request = new SimpleRequest<>(url, client, mapper, "POST", clazz);
+        addMetrics(request);
+        return request;
     }
 
     public ParameterizableRequest<Map<String, Object>> rawPOST(HttpUrl url, OkHttpClient client, ObjectMapper mapper) {
         final SimpleRequest<Map<String, Object>> request = new SimpleRequest<>(url, client, mapper, "POST");
-        addMetricHeader(request);
+        addMetrics(request);
         return request;
     }
 
     public ParameterizableRequest<Void> POST(HttpUrl url, OkHttpClient client, ObjectMapper mapper) {
-        return addMetricHeader(new VoidRequest(url, client, mapper, "POST"));
+        final VoidRequest request = new VoidRequest(url, client, mapper, "POST");
+        addMetrics(request);
+        return request;
     }
 
     public ParameterizableRequest<Void> POST(HttpUrl url, OkHttpClient client, ObjectMapper mapper, String jwt) {
         final AuthorizableRequest<Void> request = new VoidRequest(url, client, mapper, "POST")
                 .setBearer(jwt);
-        return addMetricHeader(request);
-    }
-
-    public <T> ParameterizableRequest<T> PUT(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
-        return addMetricHeader(new SimpleRequest<>(url, client, mapper, "PUT", clazz));
-    }
-
-    public <T> ParameterizableRequest<T> PATCH(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
-        return addMetricHeader(new SimpleRequest<>(url, client, mapper, "GET", clazz));
-    }
-
-    public <T> ParameterizableRequest<T> DELETE(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
-        return addMetricHeader(new SimpleRequest<>(url, client, mapper, "DELETE", clazz));
-    }
-
-    private <T> ParameterizableRequest<T> addMetricHeader(ParameterizableRequest<T> request) {
-        if (this.clientInfo != null) {
-            request.addHeader(Metrics.HEADER_NAME, this.clientInfo);
-        }
-        if (this.userAgent!= null) {
-            request.addHeader("User-Agent", this.userAgent);
-        }
+        addMetrics(request);
         return request;
     }
 
-    private <T> void addMetrics(AuthorizableRequest<T> request) {
+    public <T> ParameterizableRequest<T> PUT(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
+        final SimpleRequest<T> request = new SimpleRequest<>(url, client, mapper, "PUT", clazz);
+        addMetrics(request);
+        return request;
+    }
+
+    public <T> ParameterizableRequest<T> PATCH(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
+        final SimpleRequest<T> request = new SimpleRequest<>(url, client, mapper, "GET", clazz);
+        addMetrics(request);
+        return request;
+    }
+
+    public <T> ParameterizableRequest<T> DELETE(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
+        final SimpleRequest<T> request = new SimpleRequest<>(url, client, mapper, "DELETE", clazz);
+        addMetrics(request);
+        return request;
+    }
+
+    private <T> void addMetrics(ParameterizableRequest<T> request) {
         if (this.clientInfo != null) {
             request.addHeader(Metrics.HEADER_NAME, this.clientInfo);
         }

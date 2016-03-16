@@ -10,14 +10,6 @@ import java.util.Map;
 public interface AuthenticationRequest extends Request<Credentials> {
 
     /**
-     * Sets the 'client_id' parameter
-     *
-     * @param clientId clientID
-     * @return itself
-     */
-    AuthenticationRequest setClientId(String clientId);
-
-    /**
      * Sets the 'grant_type' parameter
      *
      * @param grantType grant type

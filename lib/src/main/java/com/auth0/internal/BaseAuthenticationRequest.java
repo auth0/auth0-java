@@ -9,7 +9,6 @@ import com.squareup.okhttp.OkHttpClient;
 import java.util.Map;
 
 import static com.auth0.authentication.ParameterBuilder.ACCESS_TOKEN_KEY;
-import static com.auth0.authentication.ParameterBuilder.CLIENT_ID_KEY;
 import static com.auth0.authentication.ParameterBuilder.CONNECTION_KEY;
 import static com.auth0.authentication.ParameterBuilder.DEVICE_KEY;
 import static com.auth0.authentication.ParameterBuilder.GRANT_TYPE_KEY;
@@ -26,18 +25,6 @@ public class BaseAuthenticationRequest extends SimpleRequest<Credentials> implem
 
     public BaseAuthenticationRequest(HttpUrl url, OkHttpClient client, ObjectMapper mapper, String httpMethod) {
         super(url, client, mapper, httpMethod);
-    }
-
-    /**
-     * Sets the 'client_id' parameter
-     *
-     * @param clientId clientID
-     * @return itself
-     */
-    @Override
-    public AuthenticationRequest setClientId(String clientId) {
-        addParameter(CLIENT_ID_KEY, clientId);
-        return this;
     }
 
     /**
