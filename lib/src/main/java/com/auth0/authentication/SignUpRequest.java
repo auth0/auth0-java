@@ -39,10 +39,10 @@ import java.util.Map;
  */
 public class SignUpRequest implements Request<Credentials> {
 
-    private final ParameterizableRequest<DatabaseUser> signUpRequest;
+    private final DatabaseConnectionRequest<DatabaseUser> signUpRequest;
     private final AuthenticationRequest authenticationRequest;
 
-    SignUpRequest(ParameterizableRequest<DatabaseUser> signUpRequest, AuthenticationRequest authenticationRequest) {
+    SignUpRequest(DatabaseConnectionRequest<DatabaseUser> signUpRequest, AuthenticationRequest authenticationRequest) {
         this.signUpRequest = signUpRequest;
         this.authenticationRequest = authenticationRequest;
     }
@@ -83,6 +83,7 @@ public class SignUpRequest implements Request<Credentials> {
      * @return itself
      */
     public SignUpRequest setConnection(String connection) {
+        signUpRequest.setConnection(connection);
         authenticationRequest.setConnection(connection);
         return this;
     }

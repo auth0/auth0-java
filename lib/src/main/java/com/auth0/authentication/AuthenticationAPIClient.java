@@ -229,7 +229,7 @@ public class AuthenticationAPIClient {
      * @param username of the user and must be non null
      * @return a request to start
      */
-    public ParameterizableRequest<DatabaseUser> createUser(String email, String password, String username) {
+    public DatabaseConnectionRequest<DatabaseUser> createUser(String email, String password, String username) {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment(DB_CONNECTIONS_PATH)
                 .addPathSegment(SIGN_UP_PATH)
@@ -242,8 +242,9 @@ public class AuthenticationAPIClient {
                 .setConnection(defaultDbConnection)
                 .setClientId(getClientId())
                 .asDictionary();
-        return factory.POST(url, client, mapper, DatabaseUser.class)
+        final ParameterizableRequest<DatabaseUser> request = factory.POST(url, client, mapper, DatabaseUser.class)
                 .addParameters(parameters);
+        return new DatabaseConnectionRequest(request);
     }
 
     /**
@@ -253,7 +254,7 @@ public class AuthenticationAPIClient {
      * @param password of the user and must be non null
      * @return a request to start
      */
-    public ParameterizableRequest<DatabaseUser> createUser(String email, String password) {
+    public DatabaseConnectionRequest<DatabaseUser> createUser(String email, String password) {
         return createUser(email, password, null);
     }
 
@@ -267,7 +268,7 @@ public class AuthenticationAPIClient {
      * @return a request to configure and start that will yield {@link Credentials}
      */
     public SignUpRequest signUp(String email, String password, String username) {
-        final ParameterizableRequest<DatabaseUser> createUserRequest = createUser(email, password, username);
+        final DatabaseConnectionRequest<DatabaseUser> createUserRequest = createUser(email, password, username);
         final AuthenticationRequest authenticationRequest = login(email, password);
         return new SignUpRequest(createUserRequest, authenticationRequest);
     }
@@ -281,7 +282,7 @@ public class AuthenticationAPIClient {
      * @return a request to configure and start that will yield {@link Credentials}
      */
     public SignUpRequest signUp(String email, String password) {
-        ParameterizableRequest<DatabaseUser> createUserRequest = createUser(email, password);
+        DatabaseConnectionRequest<DatabaseUser> createUserRequest = createUser(email, password);
         final AuthenticationRequest authenticationRequest = login(email, password);
         return new SignUpRequest(createUserRequest, authenticationRequest);
     }
@@ -292,7 +293,7 @@ public class AuthenticationAPIClient {
      * @param email of the user that changes the password. It's also where the email will be sent with the link to perform the change password.
      * @return a request to configure and start
      */
-    public ChangePasswordRequest requestChangePassword(String email) {
+    public ParameterizableRequest<Void> requestChangePassword(String email) {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment(DB_CONNECTIONS_PATH)
                 .addPathSegment(CHANGE_PASSWORD_PATH)
@@ -303,9 +304,8 @@ public class AuthenticationAPIClient {
                 .setClientId(getClientId())
                 .setConnection(defaultDbConnection)
                 .asDictionary();
-        ParameterizableRequest<Void> request = factory.POST(url, client, mapper)
+        return factory.POST(url, client, mapper)
                 .addParameters(parameters);
-        return new ChangePasswordRequest(request);
     }
 
     /**

@@ -531,7 +531,6 @@ public class AuthenticationAPIClientTest {
 
         final MockBaseCallback<Void> callback = new MockBaseCallback<>();
         client.requestChangePassword("support@auth0.com")
-                .setNewPassword("123123123")
                 .start(callback);
 
         final RecordedRequest request = mockAPI.takeRequest();
@@ -540,7 +539,6 @@ public class AuthenticationAPIClientTest {
         Map<String, String> body = bodyFromRequest(request);
         assertThat(body, hasEntry("email", "support@auth0.com"));
         assertThat(body, not(hasKey("username")));
-        assertThat(body, hasEntry("password", "123123123"));
 
         assertThat(callback, hasNoError());
     }
@@ -550,7 +548,6 @@ public class AuthenticationAPIClientTest {
         mockAPI.willReturnSuccessfulChangePassword();
 
         client.requestChangePassword("support@auth0.com")
-                .setNewPassword("123123123")
                 .execute();
 
         final RecordedRequest request = mockAPI.takeRequest();
@@ -559,7 +556,6 @@ public class AuthenticationAPIClientTest {
         Map<String, String> body = bodyFromRequest(request);
         assertThat(body, hasEntry("email", "support@auth0.com"));
         assertThat(body, not(hasKey("username")));
-        assertThat(body, hasEntry("password", "123123123"));
     }
 
     @Test
