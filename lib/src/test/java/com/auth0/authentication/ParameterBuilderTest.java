@@ -65,7 +65,7 @@ public class ParameterBuilderTest {
 
     @Test
     public void shouldInstantiateWithDefaultScope() throws Exception {
-        assertThat(ParameterBuilder.newAuthenticationBuilder().asDictionary(), hasEntry("scope", ParameterBuilder.SCOPE_OFFLINE_ACCESS));
+        assertThat(ParameterBuilder.newAuthenticationBuilder().asDictionary(), hasEntry("scope", ParameterBuilder.SCOPE_OPENID));
     }
 
     @Test
@@ -87,8 +87,8 @@ public class ParameterBuilderTest {
 
     @Test
     public void shouldSetScope() throws Exception {
-        Map<String, Object> parameters = builder.setScope(ParameterBuilder.SCOPE_OPENID).asDictionary();
-        assertThat(parameters, hasEntry("scope", ParameterBuilder.SCOPE_OPENID));
+        Map<String, Object> parameters = builder.setScope(ParameterBuilder.SCOPE_OFFLINE_ACCESS).asDictionary();
+        assertThat(parameters, hasEntry("scope", ParameterBuilder.SCOPE_OFFLINE_ACCESS));
     }
 
     @Test
@@ -127,7 +127,7 @@ public class ParameterBuilderTest {
 
     @Test
     public void shouldDoNothingWhenAddingNullParameters() throws Exception {
-        assertThat(builder.addAll(null).asDictionary(), hasEntry("scope", ParameterBuilder.SCOPE_OFFLINE_ACCESS));
+        assertThat(builder.addAll(null).asDictionary(), hasEntry("scope", ParameterBuilder.SCOPE_OPENID));
     }
 
     @Test

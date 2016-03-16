@@ -192,7 +192,7 @@ public class ParameterBuilder {
      */
     public static ParameterBuilder newAuthenticationBuilder() {
         return newBuilder()
-                .setScope(SCOPE_OFFLINE_ACCESS);
+                .setScope(SCOPE_OPENID);
     }
 
     /**

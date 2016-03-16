@@ -293,7 +293,7 @@ public class AuthenticationAPIClient {
      * @param email of the user that changes the password. It's also where the email will be sent with the link to perform the change password.
      * @return a request to configure and start
      */
-    public ParameterizableRequest<Void> requestChangePassword(String email) {
+    public DatabaseConnectionRequest<Void> requestChangePassword(String email) {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment(DB_CONNECTIONS_PATH)
                 .addPathSegment(CHANGE_PASSWORD_PATH)
@@ -304,8 +304,9 @@ public class AuthenticationAPIClient {
                 .setClientId(getClientId())
                 .setConnection(defaultDbConnection)
                 .asDictionary();
-        return factory.POST(url, client, mapper)
+        final ParameterizableRequest<Void> request = factory.POST(url, client, mapper)
                 .addParameters(parameters);
+        return new DatabaseConnectionRequest<>(request);
     }
 
     /**
