@@ -6,11 +6,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BaseMetrics implements Metrics {
+public class BaseTelemetry implements Telemetry {
 
     private final Map<String, String> values;
 
-    public BaseMetrics() {
+    public BaseTelemetry() {
         this.values = new HashMap<>();
     }
 

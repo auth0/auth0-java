@@ -22,13 +22,13 @@
  * THE SOFTWARE.
  */
 
-package com.auth0.internal;
+package com.auth0.request.internal;
 
 import com.auth0.authentication.result.Credentials;
 import com.auth0.request.AuthenticationRequest;
 import com.auth0.request.AuthorizableRequest;
 import com.auth0.request.ParameterizableRequest;
-import com.auth0.util.Metrics;
+import com.auth0.util.Telemetry;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
@@ -105,7 +105,7 @@ public class RequestFactory {
 
     private <T> void addMetrics(ParameterizableRequest<T> request) {
         if (this.clientInfo != null) {
-            request.addHeader(Metrics.HEADER_NAME, this.clientInfo);
+            request.addHeader(Telemetry.HEADER_NAME, this.clientInfo);
         }
         if (this.userAgent!= null) {
             request.addHeader("User-Agent", this.userAgent);

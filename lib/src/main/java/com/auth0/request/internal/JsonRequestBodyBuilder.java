@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package com.auth0.internal;
+package com.auth0.request.internal;
 
 import com.auth0.RequestBodyBuildException;
 import com.fasterxml.jackson.core.JsonProcessingException;

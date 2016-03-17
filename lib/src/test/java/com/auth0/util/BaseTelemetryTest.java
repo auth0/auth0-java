@@ -8,23 +8,23 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
-public class BaseMetricsTest {
+public class BaseTelemetryTest {
 
-    private BaseMetrics metrics;
+    private BaseTelemetry telemetry;
 
     @Before
     public void setUp() throws Exception {
-        metrics = new BaseMetrics();
+        telemetry = new BaseTelemetry();
     }
 
     @Test
     public void shouldReturnBase64() throws Exception {
-        metrics.usingLibrary("auth0-java", "1.0.0");
-        assertThat(metrics.getValue(), is(notNullValue()));
+        telemetry.usingLibrary("auth0-java", "1.0.0");
+        assertThat(telemetry.getValue(), is(notNullValue()));
     }
 
     @Test
     public void shouldReturnNullWhenNoInfoIsProvided() throws Exception {
-        assertThat(metrics.getValue(), is(nullValue()));
+        assertThat(telemetry.getValue(), is(nullValue()));
     }
 }

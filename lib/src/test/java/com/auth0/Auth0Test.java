@@ -31,6 +31,7 @@ import org.junit.Test;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.*;
 
 public class Auth0Test {
@@ -103,5 +104,12 @@ public class Auth0Test {
     public void shouldReturnAuthorizeUrl() throws Exception {
         Auth0 auth0 = new Auth0(CLIENT_ID, DOMAIN);
         assertThat(auth0.getAuthorizeUrl(), equalTo("https://samples.auth0.com/authorize"));
+    }
+
+    @Test
+    public void shouldNotReturnTelemetryWhenExplicitlyDisabledThem() throws Exception {
+        Auth0 auth0 = new Auth0(CLIENT_ID, DOMAIN);
+        auth0.doNotSendTelemetry();
+        assertThat(auth0.getTelemetry(), is(nullValue()));
     }
 }

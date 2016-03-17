@@ -1,6 +1,6 @@
 package com.auth0.util;
 
-public interface Metrics {
+public interface Telemetry {
     String NAME_KEY = "name";
     String VERSION_KEY = "version";
     String HEADER_NAME = "Auth0-Client";

@@ -29,11 +29,11 @@ import com.auth0.authentication.result.Credentials;
 import com.auth0.authentication.result.DatabaseUser;
 import com.auth0.authentication.result.Delegation;
 import com.auth0.authentication.result.UserProfile;
-import com.auth0.internal.RequestFactory;
+import com.auth0.request.internal.RequestFactory;
 import com.auth0.request.AuthenticationRequest;
 import com.auth0.request.ParameterizableRequest;
 import com.auth0.request.Request;
-import com.auth0.util.Metrics;
+import com.auth0.util.Telemetry;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
@@ -103,9 +103,9 @@ public class AuthenticationAPIClient {
         this.client = client;
         this.mapper = mapper;
         this.factory = new RequestFactory();
-        final Metrics metrics = auth0.getMetrics();
-        if (metrics != null) {
-            factory.setClientInfo(metrics.getValue());
+        final Telemetry telemetry = auth0.getTelemetry();
+        if (telemetry != null) {
+            factory.setClientInfo(telemetry.getValue());
         }
     }
 

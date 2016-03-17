@@ -1,4 +1,4 @@
-package com.auth0.internal;
+package com.auth0.request.internal;
 
 import com.auth0.authentication.result.Credentials;
 import com.auth0.request.AuthenticationRequest;
@@ -14,17 +14,10 @@ import static com.auth0.authentication.ParameterBuilder.DEVICE_KEY;
 import static com.auth0.authentication.ParameterBuilder.GRANT_TYPE_KEY;
 import static com.auth0.authentication.ParameterBuilder.SCOPE_KEY;
 
-/**
- * Created by hernan on 3/16/16.
- */
-public class BaseAuthenticationRequest extends SimpleRequest<Credentials> implements AuthenticationRequest {
+class BaseAuthenticationRequest extends SimpleRequest<Credentials> implements AuthenticationRequest {
 
     public BaseAuthenticationRequest(HttpUrl url, OkHttpClient client, ObjectMapper mapper, String httpMethod, Class clazz) {
         super(url, client, mapper, httpMethod, clazz);
-    }
-
-    public BaseAuthenticationRequest(HttpUrl url, OkHttpClient client, ObjectMapper mapper, String httpMethod) {
-        super(url, client, mapper, httpMethod);
     }
 
     /**

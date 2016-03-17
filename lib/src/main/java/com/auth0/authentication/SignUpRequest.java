@@ -29,13 +29,12 @@ import com.auth0.authentication.result.Credentials;
 import com.auth0.authentication.result.DatabaseUser;
 import com.auth0.callback.BaseCallback;
 import com.auth0.request.AuthenticationRequest;
-import com.auth0.request.ParameterizableRequest;
 import com.auth0.request.Request;
 
 import java.util.Map;
 
 /**
- * Represent a request to create a user + log in
+ * Represent a request that creates a user in a Auth0 Database connection and then logs in.
  */
 public class SignUpRequest implements Request<Credentials> {
 
@@ -48,8 +47,8 @@ public class SignUpRequest implements Request<Credentials> {
     }
 
     /**
-     * Add additional parameters for create user request
-     * @param parameters as a non-null dictionary
+     * Add additional parameters sent when creating a using.
+     * @param parameters sent with the request and must be non-null
      * @return itself
      */
     public SignUpRequest addSignUpParameters(Map<String, Object> parameters) {
@@ -58,9 +57,10 @@ public class SignUpRequest implements Request<Credentials> {
     }
 
     /**
-     * Add additional parameters for login request
-     * @param parameters as a non-null dictionary
+     * Add additional parameters sent when logging the user in
+     * @param parameters sent with the request and must be non-null
      * @return itself
+     * @see ParameterBuilder
      */
     public SignUpRequest addAuthenticationParameters(Map<String, Object> parameters) {
         authenticationRequest.addAuthenticationParameters(parameters);
@@ -68,7 +68,7 @@ public class SignUpRequest implements Request<Credentials> {
     }
 
     /**
-     * Set the scope used to authenticate the user
+     * Set the scope used to login the user
      * @param scope value
      * @return itself
      */
@@ -97,8 +97,7 @@ public class SignUpRequest implements Request<Credentials> {
         signUpRequest.start(new BaseCallback<DatabaseUser>() {
             @Override
             public void onSuccess(final DatabaseUser user) {
-                authenticationRequest
-                        .start(callback);
+                authenticationRequest.start(callback);
             }
 
             @Override

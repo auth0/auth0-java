@@ -25,8 +25,8 @@
 package com.auth0;
 
 import com.auth0.authentication.AuthenticationAPIClient;
-import com.auth0.util.BaseMetrics;
-import com.auth0.util.Metrics;
+import com.auth0.util.BaseTelemetry;
+import com.auth0.util.Telemetry;
 import com.squareup.okhttp.HttpUrl;
 
 /**
@@ -53,7 +53,7 @@ public class Auth0 {
     private final String clientId;
     private final String domainUrl;
     private final String configurationUrl;
-    private Metrics metrics;
+    private Telemetry telemetry;
 
     /**
      * Creates a new object using clientId & domain
@@ -76,8 +76,8 @@ public class Auth0 {
         this.clientId = clientId;
         this.domainUrl = ensureUrlString(domain);
         this.configurationUrl = resolveConfiguration(configurationDomain, this.domainUrl);
-        this.metrics = new BaseMetrics();
-        this.metrics.usingLibrary(Auth0.NAME, Auth0.VERSION);
+        this.telemetry = new BaseTelemetry();
+        this.telemetry.usingLibrary(Auth0.NAME, Auth0.VERSION);
     }
 
     /**
@@ -119,22 +119,17 @@ public class Auth0 {
     }
 
     /**
-     * @return Auth0 metrics sent in every requests
+     * @return Auth0 telemetry info sent in every request
      */
-    public Metrics getMetrics() {
-        return metrics;
+    public Telemetry getTelemetry() {
+        return telemetry;
     }
 
     /**
-     * Define what metrics are sent to Auth0 on every request.
-     * @param metrics to send or nil to send nothing
+     * Avoid sending telemetry in every request to Auth0
      */
-    public void setMetrics(Metrics metrics) {
-        if (metrics == null) {
-            this.metrics = new BaseMetrics();
-        } else {
-            this.metrics = metrics;
-        }
+    public void doNotSendTelemetry() {
+        this.telemetry = null;
     }
 
     private String resolveConfiguration(String configurationDomain, String domainUrl) {

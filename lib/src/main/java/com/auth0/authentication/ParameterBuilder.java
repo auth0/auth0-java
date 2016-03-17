@@ -31,14 +31,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Builder class for Auth API parameters.
+ * Builder for Auth0 Authentication API parameters
+ *
+ * You can build your parameters like this
+ * <pre><code>
+ *     Map<String, Object> parameters = ParameterBuilder.newBuilder()
+ *                                                      .setClientId("{CLIENT_ID}")
+ *                                                      .setConnection("{CONNECTION}")
+ *                                                      .set("{PARAMETER_NAME}", "{PARAMETER_VALUE}")
+ *                                                      .asDictionary();
+ * </code></pre>
+ *
+ * @see ParameterBuilder#newBuilder()
+ * @see ParameterBuilder#newAuthenticationBuilder()
  */
 public class ParameterBuilder {
 
     public static final String GRANT_TYPE_PASSWORD = "password";
     public static final String GRANT_TYPE_JWT = "urn:ietf:params:oauth:grant-type:jwt-bearer";
+
     public static final String SCOPE_OPENID = "openid";
     public static final String SCOPE_OFFLINE_ACCESS = "openid offline_access";
+
     public static final String ID_TOKEN_KEY = "id_token";
     public static final String SCOPE_KEY = "scope";
     public static final String REFRESH_TOKEN_KEY = "refresh_token";
@@ -51,11 +65,6 @@ public class ParameterBuilder {
 
     private Map<String, Object> parameters;
 
-    /**
-     * Creates a new builder with default parameters
-     *
-     * @param parameters default parameters
-     */
     private ParameterBuilder(Map<String, Object> parameters) {
         CheckHelper.checkArgument(parameters != null, "Must provide non-null parameters");
         this.parameters = new HashMap<>(parameters);
@@ -128,17 +137,7 @@ public class ParameterBuilder {
      * @return itself
      */
     public ParameterBuilder setSend(PasswordlessType passwordlessType) {
-        switch (passwordlessType) {
-            default:
-            case CODE:
-                return set(SEND_KEY, "code");
-            case LINK:
-                return set(SEND_KEY, "link");
-            case LINK_ANDROID:
-                return set(SEND_KEY, "link_android");
-            case LINK_IOS:
-                return set(SEND_KEY, "link_ios");
-        }
+        return set(SEND_KEY, passwordlessType.getValue());
     }
 
     /**
@@ -179,14 +178,14 @@ public class ParameterBuilder {
     /**
      * Create a {@link Map} with all the parameters
      *
-     * @return an unmodifiable map with the parameters
+     * @return all parameters added previously as a {@link Map}
      */
     public Map<String, Object> asDictionary() {
         return Collections.unmodifiableMap(new HashMap<>(this.parameters));
     }
 
     /**
-     * Creates a new instance of the builder with default values
+     * Creates a new instance of the builder using default values for login request, e.g. 'openid' for scope.
      *
      * @return a new builder
      */
@@ -196,7 +195,8 @@ public class ParameterBuilder {
     }
 
     /**
-     * Creates a new instance of the builder without any default values
+     * Creates a new instance of the builder.
+     * This builder wont have any default values
      *
      * @return a new builder
      */
@@ -205,9 +205,9 @@ public class ParameterBuilder {
     }
 
     /**
-     * Creates a new instance of the builder with parameters.
+     * Creates a new instance of the builder from some initial parameters.
      *
-     * @param parameters default parameters
+     * @param parameters initial parameters
      * @return a new builder
      */
     public static ParameterBuilder newBuilder(Map<String, Object> parameters) {

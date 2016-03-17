@@ -898,7 +898,7 @@ public class AuthenticationAPIClientTest {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
         final MockBaseCallback<Void> callback = new MockBaseCallback<>();
-        client.passwordlessWithEmail(SUPPORT_AUTH0_COM, PasswordlessType.LINK)
+        client.passwordlessWithEmail(SUPPORT_AUTH0_COM, PasswordlessType.LINK_WEB)
                 .start(callback);
 
         final RecordedRequest request = mockAPI.takeRequest();
@@ -917,7 +917,7 @@ public class AuthenticationAPIClientTest {
     public void shouldSendEmailLinkSync() throws Exception {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
-        client.passwordlessWithEmail(SUPPORT_AUTH0_COM, PasswordlessType.LINK)
+        client.passwordlessWithEmail(SUPPORT_AUTH0_COM, PasswordlessType.LINK_WEB)
                 .execute();
 
         final RecordedRequest request = mockAPI.takeRequest();
@@ -1046,7 +1046,7 @@ public class AuthenticationAPIClientTest {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
         final MockBaseCallback<Void> callback = new MockBaseCallback<>();
-        client.passwordlessWithSMS("+1123123123", PasswordlessType.LINK)
+        client.passwordlessWithSMS("+1123123123", PasswordlessType.LINK_WEB)
                 .start(callback);
 
         final RecordedRequest request = mockAPI.takeRequest();
@@ -1065,7 +1065,7 @@ public class AuthenticationAPIClientTest {
     public void shouldSendSMSLinkSync() throws Exception {
         mockAPI.willReturnSuccessfulPasswordlessStart();
 
-        client.passwordlessWithSMS("+1123123123", PasswordlessType.LINK)
+        client.passwordlessWithSMS("+1123123123", PasswordlessType.LINK_WEB)
                 .execute();
 
         final RecordedRequest request = mockAPI.takeRequest();

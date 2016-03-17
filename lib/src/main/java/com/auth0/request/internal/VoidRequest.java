@@ -1,5 +1,5 @@
 /*
- * SimpleRequest.java
+ * VoidRequest.java
  *
  * Copyright (c) 2015 Auth0 (http://auth0.com)
  *
@@ -22,12 +22,10 @@
  * THE SOFTWARE.
  */
 
-package com.auth0.internal;
+package com.auth0.request.internal;
 
 import com.auth0.Auth0Exception;
 import com.auth0.APIException;
-import com.auth0.request.ParameterizableRequest;
-import com.auth0.RequestBodyBuildException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.Callback;
@@ -38,21 +36,15 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Map;
 
-class SimpleRequest<T> extends BaseRequest<T> implements ParameterizableRequest<T>, Callback {
+class VoidRequest extends BaseRequest<Void> implements Callback {
 
-    private final String method;
+    private final String httpMethod;
 
-    public SimpleRequest(HttpUrl url, OkHttpClient client, ObjectMapper mapper, String httpMethod, Class<T> clazz) {
-        super(url, client, mapper.reader(clazz), mapper.reader(new TypeReference<Map<String, Object>>() {}), mapper.writer());
-        this.method = httpMethod;
-    }
-
-    public SimpleRequest(HttpUrl url, OkHttpClient client, ObjectMapper mapper, String httpMethod) {
-        super(url, client, mapper.reader(new TypeReference<Map<String, Object>>() {}), mapper.reader(new TypeReference<Map<String, Object>>() {}), mapper.writer());
-        this.method = httpMethod;
+    public VoidRequest(HttpUrl url, OkHttpClient client, ObjectMapper mapper, String httpMethod) {
+        super(url, client, null, mapper.reader(new TypeReference<Map<String, Object>>() {}), mapper.writer());
+        this.httpMethod = httpMethod;
     }
 
     @Override
@@ -63,43 +55,31 @@ class SimpleRequest<T> extends BaseRequest<T> implements ParameterizableRequest<
             return;
         }
 
-        try {
-            final InputStream byteStream = response.body().byteStream();
-            T payload = getReader().readValue(byteStream);
-            postOnSuccess(payload);
-        } catch (IOException e) {
-            postOnFailure(new Auth0Exception("Failed to parse response to request to " + url, e));
-        }
+        postOnSuccess(null);
     }
 
     @Override
-    protected Request doBuildRequest(Request.Builder builder) throws RequestBodyBuildException {
+    protected Request doBuildRequest(Request.Builder builder) {
         RequestBody body = buildBody();
         return newBuilder()
-                .method(method, body)
+                .method(httpMethod, body)
                 .build();
     }
 
     @Override
-    public T execute() throws Auth0Exception {
+    public Void execute() throws Auth0Exception {
         Request request = doBuildRequest(newBuilder());
 
         Response response;
         try {
             response = client.newCall(request).execute();
         } catch (IOException e) {
-            throw new Auth0Exception("Failed to execute request to " + url, e);
+            throw new Auth0Exception("Failed to execute request to " + url.toString(), e);
         }
 
         if (!response.isSuccessful()) {
             throw parseUnsuccessfulResponse(response);
         }
-
-        try {
-            final InputStream byteStream = response.body().byteStream();
-            return getReader().readValue(byteStream);
-        } catch (IOException e) {
-            throw new Auth0Exception("Failed to parse response to request to " + url, e);
-        }
+        return null;
     }
 }

@@ -25,11 +25,28 @@
 package com.auth0.authentication;
 
 /**
- * An enum with all passwordless login types available in Auth0
+ * Valid types of passwordless flows in Auth0
  */
 public enum PasswordlessType {
-    LINK,
+    /**
+     * Sends a link used to login
+     */
+    LINK_WEB,
     LINK_ANDROID,
     LINK_IOS,
-    CODE
+    CODE;
+
+    public String getValue() {
+        switch (this) {
+            default:
+            case CODE:
+                return "code";
+            case LINK_WEB:
+                return "link";
+            case LINK_ANDROID:
+                return "link_android";
+            case LINK_IOS:
+                return "link_ios";
+        }
+    }
 }
