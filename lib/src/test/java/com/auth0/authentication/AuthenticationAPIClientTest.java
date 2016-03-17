@@ -65,7 +65,6 @@ public class AuthenticationAPIClientTest {
 
     private static final String CLIENT_ID = "CLIENTID";
     private static final String DOMAIN = "samples.auth0.com";
-    private static final String CONNECTION = "DB";
     private static final String USERNAME_PASSWORD_AUTHENTICATION = "Username-Password-Authentication";
     private static final String PASSWORD = "123123123";
     private static final String SUPPORT_AUTH0_COM = "support@auth0.com";
@@ -99,104 +98,6 @@ public class AuthenticationAPIClientTest {
         assertThat(client, is(notNullValue()));
         assertThat(client.getClientId(), equalTo(CLIENT_ID));
         assertThat(client.getBaseURL(), equalTo("https://samples.auth0.com"));
-    }
-
-    @Test
-    public void shouldLoginWithResourceOwner() throws Exception {
-        mockAPI.willReturnSuccessfulLogin();
-        final MockBaseCallback<Credentials> callback = new MockBaseCallback<>();
-
-        final Map<String, Object> parameters = ParameterBuilder.newAuthenticationBuilder()
-                .setConnection("DB")
-                .setGrantType(ParameterBuilder.GRANT_TYPE_PASSWORD)
-                .set("username", SUPPORT_AUTH0_COM)
-                .set("password", "notapassword")
-                .setScope(ParameterBuilder.SCOPE_OPENID)
-                .asDictionary();
-        client
-                .loginWithResourceOwner(parameters)
-                .start(callback);
-
-        assertThat(callback, hasPayloadOfType(Credentials.class));
-
-        final RecordedRequest request = mockAPI.takeRequest();
-        assertThat(request.getPath(), equalTo("/oauth/ro"));
-
-        Map<String, String> body = bodyFromRequest(request);
-        assertThat(body, hasEntry("connection", "DB"));
-        assertThat(body, hasEntry("grant_type", "password"));
-        assertThat(body, hasEntry("username", SUPPORT_AUTH0_COM));
-        assertThat(body, hasEntry("password", "notapassword"));
-        assertThat(body, hasEntry("scope", OPENID));
-    }
-
-    @Test
-    public void shouldLoginWithResourceOwnerSync() throws Exception {
-        mockAPI.willReturnSuccessfulLogin();
-
-        final Map<String, Object> parameters = ParameterBuilder.newAuthenticationBuilder()
-                .setConnection("DB")
-                .setGrantType(ParameterBuilder.GRANT_TYPE_PASSWORD)
-                .set("username", SUPPORT_AUTH0_COM)
-                .set("password", "notapassword")
-                .setScope(ParameterBuilder.SCOPE_OPENID)
-                .asDictionary();
-
-        final Credentials credentials = client
-                .loginWithResourceOwner(parameters)
-                .execute();
-
-        assertThat(credentials, is(notNullValue()));
-
-        final RecordedRequest request = mockAPI.takeRequest();
-        assertThat(request.getPath(), equalTo("/oauth/ro"));
-
-        Map<String, String> body = bodyFromRequest(request);
-        assertThat(body, hasEntry("connection", "DB"));
-        assertThat(body, hasEntry("grant_type", "password"));
-        assertThat(body, hasEntry("username", SUPPORT_AUTH0_COM));
-        assertThat(body, hasEntry("password", "notapassword"));
-        assertThat(body, hasEntry("scope", OPENID));
-    }
-
-    @Test
-    public void shouldFailLoginWithResourceOwner() throws Exception {
-        mockAPI.willReturnFailedLogin();
-        final MockBaseCallback<Credentials> callback = new MockBaseCallback<>();
-
-        final Map<String, Object> parameters = ParameterBuilder.newAuthenticationBuilder()
-                .setConnection(CONNECTION)
-                .setGrantType(ParameterBuilder.GRANT_TYPE_PASSWORD)
-                .set("username", SUPPORT_AUTH0_COM)
-                .set("password", "notapassword")
-                .asDictionary();
-        client
-                .loginWithResourceOwner(parameters)
-                .start(callback);
-
-        assertThat(callback, hasNoPayloadOfType(Credentials.class));
-    }
-
-    @Test
-    public void shouldFailLoginWithResourceOwnerSync() throws Exception {
-        mockAPI.willReturnFailedLogin();
-        final MockBaseCallback<Credentials> callback = new MockBaseCallback<>();
-
-        final Map<String, Object> parameters = ParameterBuilder.newAuthenticationBuilder()
-                .setConnection(CONNECTION)
-                .setGrantType(ParameterBuilder.GRANT_TYPE_PASSWORD)
-                .set("username", SUPPORT_AUTH0_COM)
-                .set("password", "notapassword")
-                .asDictionary();
-
-        Exception exception = null;
-        try {
-            client.loginWithResourceOwner(parameters).execute();
-        } catch (Auth0Exception e) {
-            exception = e;
-        }
-
-        assertThat(exception, is(notNullValue()));
     }
 
     @Test

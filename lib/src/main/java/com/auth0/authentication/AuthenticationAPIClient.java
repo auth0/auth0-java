@@ -667,7 +667,7 @@ public class AuthenticationAPIClient {
         return new ProfileRequest(authenticationRequest, profileRequest);
     }
 
-    protected AuthenticationRequest loginWithResourceOwner(Map<String, Object> parameters) {
+    private AuthenticationRequest loginWithResourceOwner(Map<String, Object> parameters) {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment(OAUTH_PATH)
                 .addPathSegment(RESOURCE_OWNER_PATH)
