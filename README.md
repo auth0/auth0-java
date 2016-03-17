@@ -36,6 +36,22 @@ AuthenticationAPIClient client = auth0.newAuthenticationAPIClient();
 
 > Currently we only have a Authentication API Client, in future version we'll start adding Management API Client and methods.
 
+### Android
+
+You need to add the following to your `build.gradle` file:
+
+``` gradle
+android {
+
+    // Other config of your application
+    
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+}
+```
+
 ### Authentication API
 
 #### Making a request
