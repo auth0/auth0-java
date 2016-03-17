@@ -38,15 +38,6 @@ import com.squareup.okhttp.HttpUrl;
  */
 public class Auth0 {
 
-    /**
-     * Version of auth0-java
-     */
-    public static final String VERSION = "1.0.0";
-    /**
-     * Name of the library auth0-java
-     */
-    public static final String NAME = "auth0-java";
-
     private static final String AUTH0_US_CDN_URL = "https://cdn.auth0.com";
     private static final String DOT_AUTH0_DOT_COM = ".auth0.com";
 
@@ -89,7 +80,7 @@ public class Auth0 {
         this.domainUrl = ensureUrlString(domain);
         this.configurationUrl = resolveConfiguration(configurationDomain, this.domainUrl);
         this.telemetry = new BaseTelemetry();
-        this.telemetry.usingLibrary(Auth0.NAME, Auth0.VERSION);
+        this.telemetry.usingLibrary(BuildConfig.NAME, BuildConfig.VERSION);
     }
 
     /**
