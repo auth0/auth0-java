@@ -51,6 +51,7 @@ public class Auth0 {
     private static final String DOT_AUTH0_DOT_COM = ".auth0.com";
 
     private final String clientId;
+    private final String clientSecret;
     private final String domainUrl;
     private final String configurationUrl;
     private Telemetry telemetry;
@@ -61,7 +62,16 @@ public class Auth0 {
      * @param domain of your Auth0 account
      */
     public Auth0(String clientId, String domain) {
-        this(clientId, domain, null);
+        this(clientId, null, domain, null);
+    }
+
+    /**
+     * Creates a new object using clientId & domain
+     * @param clientId of your Auth0 application
+     * @param domain of your Auth0 account
+     */
+    public Auth0(String clientId, String clientSecret, String domain) {
+        this(clientId, clientSecret, domain, null);
     }
 
     /**
@@ -69,11 +79,13 @@ public class Auth0 {
      * Useful when using a on-premise auth0 server that is not in the public cloud,
      * otherwise we recommend using the constructor {@link #Auth0(String, String)}
      * @param clientId of your Auth0 application
+     * @param clientSecret of your Auth0 application. It can be null, specially if used for an Android application
      * @param domain of your Auth0 account
      * @param configurationDomain where Auth0's configuration will be fetched. By default is Auth0 public cloud
      */
-    public Auth0(String clientId, String domain, String configurationDomain) {
+    public Auth0(String clientId, String clientSecret, String domain, String configurationDomain) {
         this.clientId = clientId;
+        this.clientSecret = clientSecret;
         this.domainUrl = ensureUrlString(domain);
         this.configurationUrl = resolveConfiguration(configurationDomain, this.domainUrl);
         this.telemetry = new BaseTelemetry();
@@ -92,6 +104,13 @@ public class Auth0 {
      */
     public String getDomainUrl() {
         return domainUrl;
+    }
+
+    /**
+     * @return your Auth0 account client secret or null
+     */
+    public String getClientSecret() {
+        return clientSecret;
     }
 
     /**

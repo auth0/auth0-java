@@ -53,7 +53,7 @@ public class Auth0Test {
 
     @Test
     public void shouldBuildWithConfigurationDomainToo() throws Exception {
-        Auth0 auth0 = new Auth0(CLIENT_ID, DOMAIN, CONFIG_DOMAIN_CUSTOM);
+        Auth0 auth0 = new Auth0(CLIENT_ID, null, DOMAIN, CONFIG_DOMAIN_CUSTOM);
         assertThat(auth0.getClientId(), equalTo(CLIENT_ID));
         assertThat(auth0.getDomainUrl(), equalTo("https://samples.auth0.com"));
         assertThat(auth0.getConfigurationUrl(), equalTo("https://config.mydomain.com"));

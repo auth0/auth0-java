@@ -75,7 +75,7 @@ public class AuthenticationAPIClient {
     private final ObjectMapper mapper;
     private final RequestFactory factory;
 
-    private String defaultDbConnection = DEFAULT_DB_CONNECTION;
+    private String defaultDatabaseConnection = DEFAULT_DB_CONNECTION;
 
     /**
      * Creates a new API client instance providing Auth0 account info.
@@ -84,18 +84,6 @@ public class AuthenticationAPIClient {
      */
     public AuthenticationAPIClient(Auth0 auth0) {
         this(auth0, new OkHttpClient(), new ObjectMapper());
-    }
-
-    /**
-     * Creates a new API client instance providing Auth API and Configuration Urls different than the default. (Useful for on premise deploys).
-     *
-     * @param clientID         Your application clientID.
-     * @param baseURL          Auth0's auth API endpoint
-     * @param configurationURL Auth0's endpoint where App info can be retrieved.
-     */
-    @SuppressWarnings("unused")
-    public AuthenticationAPIClient(String clientID, String baseURL, String configurationURL) {
-        this(new Auth0(clientID, baseURL, configurationURL));
     }
 
     private AuthenticationAPIClient(Auth0 auth0, OkHttpClient client, ObjectMapper mapper) {
@@ -127,12 +115,12 @@ public class AuthenticationAPIClient {
     }
 
     /**
-     * Set the default DB connection name used. By default is 'Username-Password-Authentication'
+     * Set the default Auth0 database connection name used. By default is 'Username-Password-Authentication'
      *
-     * @param defaultDbConnection name to use on every login with DB connection
+     * @param defaultDatabaseConnection name to use on every login with DB connection
      */
-    public void setDefaultDbConnection(String defaultDbConnection) {
-        this.defaultDbConnection = defaultDbConnection;
+    public void setDefaultDatabaseConnection(String defaultDatabaseConnection) {
+        this.defaultDatabaseConnection = defaultDatabaseConnection;
     }
 
     /**
@@ -140,7 +128,7 @@ public class AuthenticationAPIClient {
      * Example usage:
      * <pre><code>
      * client.login("{username or email}", "{password}")
-     *      .setConnection("second-database")
+     *      .setConnection("{database connection name}")
      *      .start(new BaseCallback<Credentials>() {
      *          {@literal@}Override
      *          public void onSuccess(Credentials payload) { }
@@ -308,7 +296,7 @@ public class AuthenticationAPIClient {
                 .set(USERNAME_KEY, username)
                 .set(EMAIL_KEY, email)
                 .set(PASSWORD_KEY, password)
-                .setConnection(defaultDbConnection)
+                .setConnection(defaultDatabaseConnection)
                 .setClientId(getClientId())
                 .asDictionary();
         final ParameterizableRequest<DatabaseUser> request = factory.POST(url, client, mapper, DatabaseUser.class)
@@ -418,7 +406,7 @@ public class AuthenticationAPIClient {
         final Map<String, Object> parameters = ParameterBuilder.newBuilder()
                 .set(EMAIL_KEY, email)
                 .setClientId(getClientId())
-                .setConnection(defaultDbConnection)
+                .setConnection(defaultDatabaseConnection)
                 .asDictionary();
         final ParameterizableRequest<Void> request = factory.POST(url, client, mapper)
                 .addParameters(parameters);
@@ -675,7 +663,7 @@ public class AuthenticationAPIClient {
 
         final Map<String, Object> requestParameters = ParameterBuilder.newBuilder()
                 .setClientId(getClientId())
-                .setConnection(defaultDbConnection)
+                .setConnection(defaultDatabaseConnection)
                 .addAll(parameters)
                 .asDictionary();
         return factory.authenticationPOST(url, client, mapper)
