@@ -130,10 +130,10 @@ public class AuthenticationAPIClient {
      * client.login("{username or email}", "{password}")
      *      .setConnection("{database connection name}")
      *      .start(new BaseCallback<Credentials>() {
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onSuccess(Credentials payload) { }
      *
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onFailure(Auth0Exception error) { }
      *      });
      * </code></pre>
@@ -158,10 +158,10 @@ public class AuthenticationAPIClient {
      * client.loginWithOAuthAccessToken("{token}", "{connection name}")
      *      .setConnection("second-database")
      *      .start(new BaseCallback<Credentials>() {
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onSuccess(Credentials payload) { }
 
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onFailure(Auth0Exception error) { }
      *      });
      * </code></pre>
@@ -192,10 +192,10 @@ public class AuthenticationAPIClient {
      * <pre><code>
      * client.loginWithPhoneNumber("{phone number}", "{code}")
      *      .start(new BaseCallback<Credentials>() {
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onSuccess(Credentials payload) { }
 
-     *          {@literal@}@Override
+     *          {@literal}@Override
      *          public void onFailure(Auth0Exception error) { }
      *      });
      * </code></pre>
@@ -221,10 +221,10 @@ public class AuthenticationAPIClient {
      * <pre><code>
      * client.loginWithEmail("{email}", "{code}")
      *      .start(new BaseCallback<Credentials>() {
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onSuccess(Credentials payload) { }
 
-     *          {@literal@}@Override
+     *          {@literal}@Override
      *          public void onFailure(Auth0Exception error) { }
      *      });
      * </code></pre>
@@ -250,10 +250,10 @@ public class AuthenticationAPIClient {
      * <pre><code>
      * client.tokenInfo("{id_token}")
      *      .start(new BaseCallback<UserProfile>() {
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onSuccess(UserProfile payload) { }
 
-     *          {@literal@}@Override
+     *          {@literal}@Override
      *          public void onFailure(Auth0Exception error) { }
      *      });
      * </code></pre>
@@ -273,10 +273,10 @@ public class AuthenticationAPIClient {
      * client.createUser("{email}", "{password}", "{username}")
      *      .setConnection("{connection name}")
      *      .start(new BaseCallback<DatabaseUser>() {
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onSuccess(DatabaseUser payload) { }
      *
-     *          {@literal@}@Override
+     *          {@literal}@Override
      *          public void onFailure(Auth0Exception error) { }
      *      });
      * </code></pre>
@@ -311,10 +311,10 @@ public class AuthenticationAPIClient {
      * client.createUser("{email}", "{password}")
      *      .setConnection("{connection name}")
      *      .start(new BaseCallback<DatabaseUser>() {
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onSuccess(DatabaseUser payload) { }
      *
-     *          {@literal@}@Override
+     *          {@literal}@Override
      *          public void onFailure(Auth0Exception error) { }
      *      });
      * </code></pre>
@@ -335,10 +335,10 @@ public class AuthenticationAPIClient {
      * client.signUp("{email}", "{password}", "{username}")
      *      .setConnection("{connection name}")
      *      .start(new BaseCallback<Credentials>() {
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onSuccess(Credentials payload) {}
      *
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onFailure(Auth0Exception error) {}
      *      });
      * </code></pre>
@@ -362,10 +362,10 @@ public class AuthenticationAPIClient {
      * client.signUp("{email}", "{password}")
      *      .setConnection("{connection name}")
      *      .start(new BaseCallback<Credentials>() {
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onSuccess(Credentials payload) {}
      *
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onFailure(Auth0Exception error) {}
      *      });
      * </code></pre>
@@ -386,10 +386,10 @@ public class AuthenticationAPIClient {
      * <pre><code>
      * client.requestChangePassword("{email}")
      *      .start(new BaseCallback<Void>() {
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onSuccess(Void payload) {}
      *
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onFailure(Auth0Exception error) {}
      *      });
      * </code></pre>
@@ -419,10 +419,10 @@ public class AuthenticationAPIClient {
      * <pre><code>
      * client.delegationWithIdToken("{id token}")
      *      .start(new BaseCallback<Delegation>() {
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onSuccess(Delegation payload) {}
      *
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onFailure(Auth0Exception error) {}
      *      });
      * </code></pre>
@@ -445,10 +445,10 @@ public class AuthenticationAPIClient {
      * <pre><code>
      * client.delegationWithRefreshToken("{refresh token}")
      *      .start(new BaseCallback<Delegation>() {
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onSuccess(Delegation payload) {}
      *
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onFailure(Auth0Exception error) {}
      *      });
      * </code></pre>
@@ -470,10 +470,10 @@ public class AuthenticationAPIClient {
      * <pre><code>
      * client.delegationWithIdToken("{id token}", "{app type, e.g. firebase}")
      *      .start(new BaseCallback<Map<String, Object>>() {
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onSuccess(Map<String, Object> payload) {}
      *
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onFailure(Auth0Exception error) {}
      *      });
      * </code></pre>
@@ -496,10 +496,10 @@ public class AuthenticationAPIClient {
      * <pre><code>
      * client.unlink("{auth0 user id}", "{user access token}")
      *      .start(new BaseCallback<Void>() {
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onSuccess(Void payload) {}
      *
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onFailure(Auth0Exception error) {}
      *      });
      * </code></pre>
@@ -529,10 +529,10 @@ public class AuthenticationAPIClient {
      * <pre><code>
      * client.passwordlessWithEmail("{email}", PasswordlessType.CODE)
      *      .start(new BaseCallback<Void>() {
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onSuccess(Void payload) {}
      *
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onFailure(Auth0Exception error) {}
      *      });
      * </code></pre>
@@ -558,10 +558,10 @@ public class AuthenticationAPIClient {
      * <pre><code>
      * client.passwordlessWithSms("{phone number}", PasswordlessType.CODE)
      *      .start(new BaseCallback<Void>() {
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onSuccess(Void payload) {}
      *
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onFailure(Auth0Exception error) {}
      *      });
      * </code></pre>
@@ -588,10 +588,10 @@ public class AuthenticationAPIClient {
      * client.delegation()
      *      .addParameter("api_type", "firebase")
      *      .start(new BaseCallback<Map<String, Object>>() {
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onSuccess(Map<String, Object> payload) {}
      *
-     *          {@literal@}Override
+     *          {@literal}Override
      *          public void onFailure(Auth0Exception error) {}
      *      });
      * </code></pre>
@@ -647,8 +647,8 @@ public class AuthenticationAPIClient {
      * Fetch the user's profile after it's authenticated by a login request.
      * If the login request fails, the returned request will fail
      *
-     * @param authenticationRequest that will authenticate a user with Auth0 and return a {@see Credentials}
-     * @return a {@see ProfileRequest} that first logins and the fetches the profile
+     * @param authenticationRequest that will authenticate a user with Auth0 and return a {@link Credentials}
+     * @return a {@link ProfileRequest} that first logins and the fetches the profile
      */
     public ProfileRequest getProfileAfter(AuthenticationRequest authenticationRequest) {
         final ParameterizableRequest<UserProfile> profileRequest = profileRequest();

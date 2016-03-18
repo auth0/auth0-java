@@ -25,12 +25,14 @@
 package com.auth0.authentication.result;
 
 
+import com.auth0.request.AuthenticationRequest;
+
 import static com.auth0.util.CheckHelper.checkArgument;
 
 /**
  * The result of a successful authentication against Auth0
  * Contains the logged in user's {@link Credentials} and {@link UserProfile}.
- * @see com.auth0.authentication.AuthenticationAPIClient#getProfileAfter(com.auth0.request.ParameterizableRequest)
+ * @see com.auth0.authentication.AuthenticationAPIClient#getProfileAfter(AuthenticationRequest) 
  */
 public class Authentication {
 

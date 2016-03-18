@@ -18,11 +18,23 @@ dependencies {
 def semver = defineVersion()
 version = semver.stringVersion
 
-jar {
-    baseName = "auth0"
+logger.lifecycle("Using version ${version} for ${name}")
+
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
 }
 
-logger.lifecycle("Using version ${version} for ${name}")
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
 
 def defineVersion() {
     def current = describeGit(false)
