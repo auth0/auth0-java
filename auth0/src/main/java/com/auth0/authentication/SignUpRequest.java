@@ -36,7 +36,7 @@ import java.util.Map;
 /**
  * Represent a request that creates a user in a Auth0 Database connection and then logs in.
  */
-public class SignUpRequest implements Request<Credentials> {
+public class SignUpRequest implements Request<Credentials>, AuthenticationRequest {
 
     private final DatabaseConnectionRequest<DatabaseUser> signUpRequest;
     private final AuthenticationRequest authenticationRequest;
@@ -74,6 +74,24 @@ public class SignUpRequest implements Request<Credentials> {
      */
     public SignUpRequest setScope(String scope) {
         authenticationRequest.setScope(scope);
+        return this;
+    }
+
+    @Override
+    public AuthenticationRequest setDevice(String device) {
+        authenticationRequest.setDevice(device);
+        return this;
+    }
+
+    @Override
+    public AuthenticationRequest setAccessToken(String accessToken) {
+        authenticationRequest.setAccessToken(accessToken);
+        return this;
+    }
+
+    @Override
+    public AuthenticationRequest setGrantType(String grantType) {
+        authenticationRequest.setGrantType(grantType);
         return this;
     }
 
