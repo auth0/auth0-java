@@ -1,0 +1,33 @@
+def bintrayUser = getProperty('bintray.user')
+def bintrayApiKey = getProperty('bintray.key')
+def bintrayPassphrase = getProperty('bintray.gpg.password')
+
+if (bintrayUser != null && bintrayApiKey != null && bintrayPassphrase != null) {
+    apply plugin: 'com.jfrog.bintray'
+    bintray {
+        user = bintrayUser
+        key = bintrayApiKey
+        configurations = ['archives']
+        dryRun = project.version.endsWith("-SNAPSHOT")
+        publish = false
+        pkg {
+            repo = 'lock-android'
+            name = project.name
+            desc = 'Java client library for the Auth0 platform'
+            websiteUrl = 'https://github.com/auth0/auth0-api-java'
+            vcsUrl = 'scm:git@github.com:auth0/auth0-api-java.git'
+            licenses = ["MIT"]
+            userOrg = 'auth0'
+            publish = false
+            version {
+                gpg {
+                    sign = true
+                    passphrase = bintrayPassphrase
+                }
+                vcsTag = project.version
+                name = project.version
+                released = new Date()
+            }
+        }
+    }
+}

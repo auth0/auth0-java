@@ -36,6 +36,9 @@ artifacts {
     archives javadocJar
 }
 
+apply from: '../maven.gradle'
+apply from: '../bintray.gradle'
+
 def defineVersion() {
     def current = describeGit(false)
     def snapshot = current == null
