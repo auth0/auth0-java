@@ -1,8 +1,7 @@
-def bintrayUser = getProperty('bintray.user')
-def bintrayApiKey = getProperty('bintray.key')
-def bintrayPassphrase = getProperty('bintray.gpg.password')
-
-if (bintrayUser != null && bintrayApiKey != null && bintrayPassphrase != null) {
+if (hasProperty('bintray.user') && hasProperty('bintray.key') && hasProperty('bintray.gpg.password')) {
+    def bintrayUser = getProperty('bintray.user')
+    def bintrayApiKey = getProperty('bintray.key')
+    def bintrayPassphrase = getProperty('bintray.gpg.password')
     apply plugin: 'com.jfrog.bintray'
     bintray {
         user = bintrayUser
