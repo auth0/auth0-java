@@ -1,6 +1,9 @@
 # Auth0 Java
 
-[![Build status][travis-ci-badge]](travis-ci-url)
+[![Build][travis-ci-badge]][travis-ci-url]
+[![MIT][mit-badge]][mit-url]
+[![Maven][maven-badge]][maven-url]
+[![JCenter][jcenter-badge]][jcenter-url]
 
 Java client library for the [Auth0](https://auth0.com) platform.
 
@@ -121,5 +124,11 @@ This project is licensed under the MIT license. See the [LICENSE](LICENSE) file 
 
 <!-- Vars -->
 
-[travis-ci-badge]: https://travis-ci.org/auth0/auth0-api-java.svg?branch=master
-[tavis-ci-url]: https://travis-ci.org/auth0/auth0-api-java
+[travis-ci-badge]: https://travis-ci.org/auth0/auth0-java.svg?branch=master
+[travis-ci-url]: https://travis-ci.org/auth0/auth0-java
+[mit-badge]: http://img.shields.io/:license-mit-blue.svg?style=flat
+[mit-url]: https://raw.githubusercontent.com/auth0/auth0-java/master/LICENSE
+[maven-badge]: https://img.shields.io/maven-central/v/com.auth0/auth0.svg
+[maven-url]: http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.auth0%22%20AND%20a%3A%22auth0%22
+[jcenter-badge]: https://api.bintray.com/packages/auth0/lock-android/auth0/images/download.svg
+[jcenter-url]: https://bintray.com/auth0/lock-android/auth0/_latestVersion
