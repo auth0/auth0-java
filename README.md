@@ -14,7 +14,7 @@ Get Auth0 Java via Maven:
 ```xml
 <dependency>
   <groupId>com.auth0</groupId>
-  <artifactId>auth0-java</artifactId>
+  <artifactId>auth0</artifactId>
   <version>0.1.1</version>
 </dependency>
 ```
@@ -22,7 +22,7 @@ Get Auth0 Java via Maven:
 or Gradle:
 
 ```gradle
-compile 'com.auth0:auth0-java:0.1.1'
+compile 'com.auth0:auth0:0.1.1'
 ```
 
 ## Usage
