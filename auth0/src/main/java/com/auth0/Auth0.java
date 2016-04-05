@@ -25,7 +25,6 @@
 package com.auth0;
 
 import com.auth0.authentication.AuthenticationAPIClient;
-import com.auth0.util.BaseTelemetry;
 import com.auth0.util.Telemetry;
 import com.squareup.okhttp.HttpUrl;
 
@@ -79,8 +78,7 @@ public class Auth0 {
         this.clientSecret = clientSecret;
         this.domainUrl = ensureUrlString(domain);
         this.configurationUrl = resolveConfiguration(configurationDomain, this.domainUrl);
-        this.telemetry = new BaseTelemetry();
-        this.telemetry.usingLibrary(BuildConfig.NAME, BuildConfig.VERSION);
+        this.telemetry = new Telemetry(BuildConfig.NAME, BuildConfig.VERSION);
     }
 
     /**
