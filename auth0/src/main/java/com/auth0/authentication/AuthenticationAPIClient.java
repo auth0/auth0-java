@@ -29,10 +29,10 @@ import com.auth0.authentication.result.Credentials;
 import com.auth0.authentication.result.DatabaseUser;
 import com.auth0.authentication.result.Delegation;
 import com.auth0.authentication.result.UserProfile;
-import com.auth0.request.internal.RequestFactory;
 import com.auth0.request.AuthenticationRequest;
 import com.auth0.request.ParameterizableRequest;
 import com.auth0.request.Request;
+import com.auth0.request.internal.RequestFactory;
 import com.auth0.util.Telemetry;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.HttpUrl;
@@ -40,6 +40,7 @@ import com.squareup.okhttp.OkHttpClient;
 
 import java.util.Map;
 
+import static com.auth0.authentication.ParameterBuilder.GRANT_TYPE_AUTHORIZATION_CODE;
 import static com.auth0.authentication.ParameterBuilder.GRANT_TYPE_PASSWORD;
 
 /**
@@ -67,8 +68,12 @@ public class AuthenticationAPIClient {
     private static final String PASSWORDLESS_PATH = "passwordless";
     private static final String START_PATH = "start";
     private static final String OAUTH_PATH = "oauth";
+    private static final String TOKEN_PATH = "token";
     private static final String RESOURCE_OWNER_PATH = "ro";
     private static final String TOKEN_INFO_PATH = "tokeninfo";
+    private static final String OAUTH_CODE_KEY = "code";
+    private static final String OAUTH_CODE_VERIFIER_KEY = "code_verifier";
+    private static final String REDIRECT_URI_KEY = "redirect_uri";
 
     private final Auth0 auth0;
     private final OkHttpClient client;
@@ -160,7 +165,7 @@ public class AuthenticationAPIClient {
      *      .start(new BaseCallback<Credentials>() {
      *          {@literal}Override
      *          public void onSuccess(Credentials payload) { }
-
+     *
      *          {@literal}Override
      *          public void onFailure(Auth0Exception error) { }
      *      });
@@ -194,7 +199,7 @@ public class AuthenticationAPIClient {
      *      .start(new BaseCallback<Credentials>() {
      *          {@literal}Override
      *          public void onSuccess(Credentials payload) { }
-
+     *
      *          {@literal}@Override
      *          public void onFailure(Auth0Exception error) { }
      *      });
@@ -223,7 +228,7 @@ public class AuthenticationAPIClient {
      *      .start(new BaseCallback<Credentials>() {
      *          {@literal}Override
      *          public void onSuccess(Credentials payload) { }
-
+     *
      *          {@literal}@Override
      *          public void onFailure(Auth0Exception error) { }
      *      });
@@ -252,7 +257,7 @@ public class AuthenticationAPIClient {
      *      .start(new BaseCallback<UserProfile>() {
      *          {@literal}Override
      *          public void onSuccess(UserProfile payload) { }
-
+     *
      *          {@literal}@Override
      *          public void onFailure(Auth0Exception error) { }
      *      });
@@ -676,5 +681,31 @@ public class AuthenticationAPIClient {
                 .build();
 
         return factory.POST(url, client, mapper, UserProfile.class);
+    }
+
+    /**
+     * Fetch the token information from Auth0, using the authorization_code grant type
+     *
+     * @param authorizationCode the authorization code received from the /authorize call.
+     * @param codeVerifier      the code verifier used when requesting a code to /authorize.
+     * @param redirectUri       the uri to redirect after a successful request.
+     * @return a request to configure and start
+     */
+    public AuthenticationRequest token(String authorizationCode, String codeVerifier, String redirectUri) {
+        Map<String, Object> parameters = ParameterBuilder.newBuilder()
+                .setClientId(getClientId())
+                .setGrantType(GRANT_TYPE_AUTHORIZATION_CODE)
+                .set(OAUTH_CODE_KEY, authorizationCode)
+                .set(OAUTH_CODE_VERIFIER_KEY, codeVerifier)
+                .set(REDIRECT_URI_KEY, redirectUri)
+                .asDictionary();
+
+        HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
+                .addPathSegment(OAUTH_PATH)
+                .addPathSegment(TOKEN_PATH)
+                .build();
+
+        return factory.authenticationPOST(url, client, mapper)
+                .addAuthenticationParameters(parameters);
     }
 }
