@@ -40,6 +40,8 @@ public class AuthenticationAPI  {
     public static final String NEW_ID_TOKEN = "NEW_ID_TOKEN";
     public static final int EXPIRES_IN = 1234567890;
     public static final String TOKEN_TYPE = "TOKEN_TYPE";
+    public static final String CODE_VERIFIER = "CODE_VERIFIER";
+    public static final String REDIRECT_URI = "REDIRECT_URI";
 
     private MockWebServer server;
 
@@ -150,6 +152,18 @@ public class AuthenticationAPI  {
                 "  \"created_at\": \"2014-07-06T18:33:49.005Z\",\n" +
                 "  \"username\": \"p\",\n" +
                 "  \"updated_at\": \"2015-09-30T19:43:48.499Z\"\n" +
+                "}";
+        server.enqueue(responseWithJSON(json, 200));
+        return this;
+    }
+
+    public AuthenticationAPI willReturnAuthorizationCodeInfo() {
+        String json = "{\"" +
+                "redirect_uri\": \"" + REDIRECT_URI + "\"," +
+                "\"code_verifier\": \"" + CODE_VERIFIER + "\"," +
+                "\"client_id\":\"U5MhUrbyQHSVWjlEqZSTCBUFABLbJAS3\"," +
+                "\"code\": \"" + CODE_VERIFIER + "\",\n" +
+                "\"grant_type\":\"authorization_code\"" +
                 "}";
         server.enqueue(responseWithJSON(json, 200));
         return this;

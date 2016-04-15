@@ -26,13 +26,11 @@ package com.auth0.authentication;
 
 
 import com.auth0.Auth0;
-import com.auth0.Auth0Exception;
 import com.auth0.authentication.result.Authentication;
 import com.auth0.authentication.result.Credentials;
 import com.auth0.authentication.result.DatabaseUser;
 import com.auth0.authentication.result.Delegation;
 import com.auth0.authentication.result.UserProfile;
-import com.auth0.request.ParameterizableRequest;
 import com.auth0.util.AuthenticationAPI;
 import com.auth0.util.MockBaseCallback;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -50,7 +48,6 @@ import static com.auth0.util.AuthenticationAPI.GENERIC_TOKEN;
 import static com.auth0.util.AuthenticationAPI.ID_TOKEN;
 import static com.auth0.util.AuthenticationAPI.REFRESH_TOKEN;
 import static com.auth0.util.CallbackMatcher.hasNoError;
-import static com.auth0.util.CallbackMatcher.hasNoPayloadOfType;
 import static com.auth0.util.CallbackMatcher.hasPayload;
 import static com.auth0.util.CallbackMatcher.hasPayloadOfType;
 import static org.hamcrest.Matchers.equalTo;
@@ -769,7 +766,7 @@ public class AuthenticationAPIClientTest {
 
         assertThat(delegation, is(notNullValue()));
     }
-    
+
     @Test
     public void shouldUnlinkAccount() throws Exception {
         mockAPI.willReturnSuccessfulUnlinkAccount();
@@ -1173,7 +1170,29 @@ public class AuthenticationAPIClientTest {
         assertThat(secondRequest.getPath(), equalTo("/tokeninfo"));
 
         assertThat(callback, hasPayloadOfType(Authentication.class));
+    }
 
+    @Test
+    public void shouldGetOAuthToken() throws Exception {
+        mockAPI
+                .willReturnAuthorizationCodeInfo()
+                .willReturnTokenInfo();
+
+        final MockBaseCallback<Credentials> callback = new MockBaseCallback<>();
+        client.token("code", AuthenticationAPI.CODE_VERIFIER, AuthenticationAPI.REDIRECT_URI)
+                .start(callback);
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/oauth/token"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("redirect_uri", AuthenticationAPI.REDIRECT_URI));
+        assertThat(body, hasEntry("grant_type", ParameterBuilder.GRANT_TYPE_AUTHORIZATION_CODE));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("code_verifier", AuthenticationAPI.CODE_VERIFIER));
+        assertThat(body, hasEntry("code", "code"));
+
+        assertThat(callback, hasPayloadOfType(Credentials.class));
     }
 
     private Map<String, String> bodyFromRequest(RecordedRequest request) throws java.io.IOException {
