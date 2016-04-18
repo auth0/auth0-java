@@ -1,5 +1,19 @@
 # Change Log
 
+## [0.2.0](https://github.com/auth0/auth0-java/tree/0.2.0) (2016-04-18)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/0.1.2...0.2.0)
+
+**Merged pull requests:**
+
+- add method to call /oauth/token to the AuthenticationAPIClient [\#20](https://github.com/auth0/auth0-java/pull/20) ([lbalmaceda](https://github.com/lbalmaceda))
+
+## [0.1.2](https://github.com/auth0/auth0-java/tree/0.1.2) (2016-04-05)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/0.1.1...0.1.2)
+
+**Merged pull requests:**
+
+- Update telemetry classes [\#19](https://github.com/auth0/auth0-java/pull/19) ([hzalaz](https://github.com/hzalaz))
+
 ## [0.1.1](https://github.com/auth0/auth0-java/tree/0.1.1) (2016-03-18)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/0.1.0...0.1.1)
 
