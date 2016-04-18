@@ -32,7 +32,7 @@ import java.util.Map;
 
 /**
  * Builder for Auth0 Authentication API parameters
- *
+ * <p/>
  * You can build your parameters like this
  * <pre><code>
  *     Map<String, Object> parameters = ParameterBuilder.newBuilder()
@@ -49,6 +49,7 @@ public class ParameterBuilder {
 
     public static final String GRANT_TYPE_PASSWORD = "password";
     public static final String GRANT_TYPE_JWT = "urn:ietf:params:oauth:grant-type:jwt-bearer";
+    public static final String GRANT_TYPE_AUTHORIZATION_CODE = "authorization_code";
 
     public static final String SCOPE_OPENID = "openid";
     public static final String SCOPE_OFFLINE_ACCESS = "openid offline_access";
