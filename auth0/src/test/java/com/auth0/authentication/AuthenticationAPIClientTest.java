@@ -1173,24 +1173,24 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldGetOAuthToken() throws Exception {
+    public void shouldGetOAuthTokens() throws Exception {
         mockAPI
-                .willReturnAuthorizationCodeInfo()
+                .willReturnTokens()
                 .willReturnTokenInfo();
 
         final MockBaseCallback<Credentials> callback = new MockBaseCallback<>();
-        client.token("code", AuthenticationAPI.CODE_VERIFIER, AuthenticationAPI.REDIRECT_URI)
+        client.token("code", "codeVerifier", "http://redirect.uri")
                 .start(callback);
 
         final RecordedRequest request = mockAPI.takeRequest();
         assertThat(request.getPath(), equalTo("/oauth/token"));
 
         Map<String, String> body = bodyFromRequest(request);
-        assertThat(body, hasEntry("redirect_uri", AuthenticationAPI.REDIRECT_URI));
         assertThat(body, hasEntry("grant_type", ParameterBuilder.GRANT_TYPE_AUTHORIZATION_CODE));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
-        assertThat(body, hasEntry("code_verifier", AuthenticationAPI.CODE_VERIFIER));
         assertThat(body, hasEntry("code", "code"));
+        assertThat(body, hasEntry("code_verifier", "codeVerifier"));
+        assertThat(body, hasEntry("redirect_uri", "http://redirect.uri"));
 
         assertThat(callback, hasPayloadOfType(Credentials.class));
     }

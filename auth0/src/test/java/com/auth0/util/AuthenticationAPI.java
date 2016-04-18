@@ -30,7 +30,7 @@ import com.squareup.okhttp.mockwebserver.RecordedRequest;
 
 import java.io.IOException;
 
-public class AuthenticationAPI  {
+public class AuthenticationAPI {
 
     public static final String REFRESH_TOKEN = "REFRESH_TOKEN";
     public static final String ID_TOKEN = "ID_TOKEN";
@@ -38,10 +38,8 @@ public class AuthenticationAPI  {
     public static final String BEARER = "BEARER";
     public static final String GENERIC_TOKEN = "GENERIC_TOKEN";
     public static final String NEW_ID_TOKEN = "NEW_ID_TOKEN";
-    public static final int EXPIRES_IN = 1234567890;
     public static final String TOKEN_TYPE = "TOKEN_TYPE";
-    public static final String CODE_VERIFIER = "CODE_VERIFIER";
-    public static final String REDIRECT_URI = "REDIRECT_URI";
+    public static final int EXPIRES_IN = 1234567890;
 
     private MockWebServer server;
 
@@ -157,20 +155,19 @@ public class AuthenticationAPI  {
         return this;
     }
 
-    public AuthenticationAPI willReturnAuthorizationCodeInfo() {
+    public AuthenticationAPI willReturnTokens() {
         String json = "{\"" +
-                "redirect_uri\": \"" + REDIRECT_URI + "\"," +
-                "\"code_verifier\": \"" + CODE_VERIFIER + "\"," +
-                "\"client_id\":\"U5MhUrbyQHSVWjlEqZSTCBUFABLbJAS3\"," +
-                "\"code\": \"" + CODE_VERIFIER + "\",\n" +
-                "\"grant_type\":\"authorization_code\"" +
+                "access_token\": \"" + ACCESS_TOKEN + "\"," +
+                "\"refresh_token\": \"" + REFRESH_TOKEN + "\"," +
+                "\"id_token\":\"" + ID_TOKEN + "\"," +
+                "\"token_type\":\"Bearer\"" +
                 "}";
         server.enqueue(responseWithJSON(json, 200));
         return this;
     }
 
     public AuthenticationAPI willReturnApplicationResponseWithBody(String body, int statusCode) {
-        MockResponse response =  new MockResponse()
+        MockResponse response = new MockResponse()
                 .setResponseCode(statusCode)
                 .addHeader("Content-Type", "application/x-javascript")
                 .setBody(body);
