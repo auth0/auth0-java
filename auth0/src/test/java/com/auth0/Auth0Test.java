@@ -25,6 +25,7 @@
 package com.auth0;
 
 import com.auth0.authentication.AuthenticationAPIClient;
+import com.auth0.util.Telemetry;
 
 import org.junit.Test;
 
@@ -32,11 +33,13 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class Auth0Test {
 
     private static final String CLIENT_ID = "CLIENT_ID";
+    private static final String CLIENT_SECRET = "CLIENT_SECRET";
+    private static final String CONFIGURATION_DOMAIN = "CONFIGURATION_DOMAIN";
     private static final String DOMAIN = "samples.auth0.com";
     private static final String CONFIG_DOMAIN_CUSTOM = "config.mydomain.com";
     private static final String EU_DOMAIN = "samples.eu.auth0.com";
@@ -111,5 +114,13 @@ public class Auth0Test {
         Auth0 auth0 = new Auth0(CLIENT_ID, DOMAIN);
         auth0.doNotSendTelemetry();
         assertThat(auth0.getTelemetry(), is(nullValue()));
+    }
+
+    @Test
+    public void shouldSetCustomTelemetry() throws Exception {
+        Telemetry customTelemetry = new Telemetry("custom", "9.9.9", "1.1.1");
+        Auth0 auth0 = new Auth0(CLIENT_ID, DOMAIN);
+        auth0.setTelemetry(customTelemetry);
+        assertThat(auth0.getTelemetry(), is(equalTo(customTelemetry)));
     }
 }

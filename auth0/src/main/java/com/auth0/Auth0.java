@@ -48,8 +48,9 @@ public class Auth0 {
 
     /**
      * Creates a new object using clientId & domain
+     *
      * @param clientId of your Auth0 application
-     * @param domain of your Auth0 account
+     * @param domain   of your Auth0 account
      */
     public Auth0(String clientId, String domain) {
         this(clientId, null, domain, null);
@@ -57,8 +58,9 @@ public class Auth0 {
 
     /**
      * Creates a new object using clientId & domain
+     *
      * @param clientId of your Auth0 application
-     * @param domain of your Auth0 account
+     * @param domain   of your Auth0 account
      */
     public Auth0(String clientId, String clientSecret, String domain) {
         this(clientId, clientSecret, domain, null);
@@ -68,9 +70,10 @@ public class Auth0 {
      * Creates a new object using clientId, domain and configuration domain.
      * Useful when using a on-premise auth0 server that is not in the public cloud,
      * otherwise we recommend using the constructor {@link #Auth0(String, String)}
-     * @param clientId of your Auth0 application
-     * @param clientSecret of your Auth0 application. It can be null, specially if used for an Android application
-     * @param domain of your Auth0 account
+     *
+     * @param clientId            of your Auth0 application
+     * @param clientSecret        of your Auth0 application. It can be null, specially if used for an Android application
+     * @param domain              of your Auth0 account
      * @param configurationDomain where Auth0's configuration will be fetched. By default is Auth0 public cloud
      */
     public Auth0(String clientId, String clientSecret, String domain, String configurationDomain) {
@@ -133,6 +136,16 @@ public class Auth0 {
         return telemetry;
     }
 
+
+    /**
+     * Setter for the Telemetry to send in every request to Auth0.
+     *
+     * @param telemetry to send in every request to Auth0
+     */
+    public void setTelemetry(Telemetry telemetry) {
+        this.telemetry = telemetry;
+    }
+
     /**
      * Avoid sending telemetry in every request to Auth0
      */
@@ -148,7 +161,7 @@ public class Auth0 {
             if (host.endsWith(DOT_AUTH0_DOT_COM)) {
                 String[] parts = host.split("\\.");
                 if (parts.length > 3) {
-                    url = "https://cdn." + parts[parts.length-3] + DOT_AUTH0_DOT_COM;
+                    url = "https://cdn." + parts[parts.length - 3] + DOT_AUTH0_DOT_COM;
                 } else {
                     url = AUTH0_US_CDN_URL;
                 }
