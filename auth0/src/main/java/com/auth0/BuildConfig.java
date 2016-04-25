@@ -1,8 +1,6 @@
 package com.auth0;
 
-abstract class BuildConfig {
-
-    private BuildConfig() {}
+public abstract class BuildConfig {
 
     /**
      * Version of auth0-java
