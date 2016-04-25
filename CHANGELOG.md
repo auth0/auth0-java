@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.2.1](https://github.com/auth0/auth0-java/tree/0.2.1) (2016-04-25)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/0.2.0...0.2.1)
+
+**Merged pull requests:**
+
+- Customise Telemetry info [\#21](https://github.com/auth0/auth0-java/pull/21) ([lbalmaceda](https://github.com/lbalmaceda))
+
 ## [0.2.0](https://github.com/auth0/auth0-java/tree/0.2.0) (2016-04-18)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/0.1.2...0.2.0)
 
