@@ -57,4 +57,11 @@ public interface ParameterizableRequest<T> extends Request<T> {
      */
     ParameterizableRequest<T> addHeader(String name, String value);
 
+    /**
+     * Add query parameter to the request with a given name
+     * @param name of the parameter
+     * @param value of the parameter
+     * @return itself
+     */
+    ParameterizableRequest<T> addQueryParameter(String name, String value);
 }

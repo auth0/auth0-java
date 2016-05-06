@@ -55,6 +55,7 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
     private final TypeAdapter<T> adapter;
     private final Gson gson;
     private final ParameterBuilder builder;
+    private final Map<String, String> queryParameters;
 
     private BaseCallback<T> callback;
 
@@ -70,6 +71,7 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
         this.callback = callback;
         this.headers = new HashMap<>();
         this.builder = ParameterBuilder.newBuilder();
+        this.queryParameters = new HashMap<>();
     }
 
     protected void setCallback(BaseCallback<T> callback) {
@@ -85,8 +87,12 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
     }
 
     protected Request.Builder newBuilder() {
+        HttpUrl.Builder urlBuilder = url.newBuilder();
+        for (Map.Entry<String, String> entry : queryParameters.entrySet()) {
+            urlBuilder.addQueryParameter(entry.getKey(), entry.getValue());
+        }
         final Request.Builder builder = new Request.Builder()
-                .url(url);
+                .url(urlBuilder.build());
         for (Map.Entry<String, String> entry : headers.entrySet()) {
             builder.addHeader(entry.getKey(), entry.getValue());
         }
@@ -143,6 +149,12 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
     @Override
     public ParameterizableRequest<T> addParameter(String name, Object value) {
         builder.set(name, value);
+        return this;
+    }
+
+    @Override
+    public ParameterizableRequest<T> addQueryParameter(String name, String value) {
+        queryParameters.put(name, value);
         return this;
     }
 

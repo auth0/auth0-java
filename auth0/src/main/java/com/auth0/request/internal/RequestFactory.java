@@ -33,6 +33,7 @@ import com.google.gson.Gson;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 
+import java.util.List;
 import java.util.Map;
 
 public class RequestFactory {
@@ -48,8 +49,14 @@ public class RequestFactory {
         this.userAgent = userAgent;
     }
 
-    public <T> ParameterizableRequest<T> GET(HttpUrl url, OkHttpClient client, Gson gson, Class<T> clazz) {
+    public <T> AuthorizableRequest<T> GET(HttpUrl url, OkHttpClient client, Gson gson, Class<T> clazz) {
         final SimpleRequest<T> request = new SimpleRequest<>(url, client, gson, "GET", clazz);
+        addMetrics(request);
+        return request;
+    }
+
+    public AuthorizableRequest<List<Map<String, Object>>> rawGETList(HttpUrl url, OkHttpClient client, Gson gson) {
+        final SimpleRequest<List<Map<String, Object>>> request = new SimpleRequest<>(url, client, gson, "GET");
         addMetrics(request);
         return request;
     }
@@ -68,6 +75,12 @@ public class RequestFactory {
 
     public ParameterizableRequest<Map<String, Object>> rawPOST(HttpUrl url, OkHttpClient client, Gson gson) {
         final SimpleRequest<Map<String, Object>> request = new SimpleRequest<>(url, client, gson, "POST");
+        addMetrics(request);
+        return request;
+    }
+
+    public AuthorizableRequest<List<Map<String, Object>>> rawPOSTList(HttpUrl url, OkHttpClient client, Gson gson) {
+        final SimpleRequest<List<Map<String, Object>>> request = new SimpleRequest<>(url, client, gson, "POST");
         addMetrics(request);
         return request;
     }
@@ -91,14 +104,26 @@ public class RequestFactory {
         return request;
     }
 
-    public <T> ParameterizableRequest<T> PATCH(HttpUrl url, OkHttpClient client, Gson gson, Class<T> clazz) {
-        final SimpleRequest<T> request = new SimpleRequest<>(url, client, gson, "GET", clazz);
+    public <T> AuthorizableRequest<T> PATCH(HttpUrl url, OkHttpClient client, Gson gson, Class<T> clazz) {
+        final SimpleRequest<T> request = new SimpleRequest<>(url, client, gson, "PATCH", clazz);
         addMetrics(request);
         return request;
     }
 
     public <T> ParameterizableRequest<T> DELETE(HttpUrl url, OkHttpClient client, Gson gson, Class<T> clazz) {
         final SimpleRequest<T> request = new SimpleRequest<>(url, client, gson, "DELETE", clazz);
+        addMetrics(request);
+        return request;
+    }
+
+    public AuthorizableRequest<List<Map<String, Object>>> rawDELETEList(HttpUrl url, OkHttpClient client, Gson gson) {
+        final SimpleRequest<List<Map<String, Object>>> request = new SimpleRequest<>(url, client, gson, "DELETE");
+        addMetrics(request);
+        return request;
+    }
+
+    public AuthorizableRequest<Void> DELETE(HttpUrl url, OkHttpClient client, Gson gson) {
+        final VoidRequest request = new VoidRequest(url, client, gson, "DELETE");
         addMetrics(request);
         return request;
     }
