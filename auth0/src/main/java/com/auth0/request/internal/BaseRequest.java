@@ -98,7 +98,11 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
     }
 
     protected RequestBody buildBody() throws RequestBodyBuildException {
-        return JsonRequestBodyBuilder.createBody(builder.asDictionary(), writer);
+        Map<String, Object> dictionary = builder.asDictionary();
+        if (!dictionary.isEmpty()) {
+            return JsonRequestBodyBuilder.createBody(dictionary, writer);
+        }
+        return null;
     }
 
     protected APIException parseUnsuccessfulResponse(Response response) {
