@@ -323,7 +323,7 @@ public class AuthenticationAPIClientTest {
 
         Map<String, String> body = bodyFromRequest(request);
         assertThat(body, hasEntry("email", SUPPORT_AUTH0_COM));
-        assertThat(body, not(hasEntry("username", SUPPORT)));
+        assertThat(body, not(hasKey("username")));
         assertThat(body, hasEntry("password", PASSWORD));
 
         assertThat(callback, hasPayloadOfType(DatabaseUser.class));
@@ -342,7 +342,44 @@ public class AuthenticationAPIClientTest {
 
         Map<String, String> body = bodyFromRequest(request);
         assertThat(body, hasEntry("email", SUPPORT_AUTH0_COM));
-        assertThat(body, hasEntry("username", null));
+        assertThat(body, not(hasKey("username")));
+        assertThat(body, hasEntry("password", PASSWORD));
+
+        assertThat(user, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldNotSendNullUsernameOnSignUp() throws Exception {
+        mockAPI.willReturnSuccessfulSignUp();
+
+        final MockBaseCallback<DatabaseUser> callback = new MockBaseCallback<>();
+        client.createUser(SUPPORT_AUTH0_COM, PASSWORD, null)
+                .start(callback);
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/dbconnections/signup"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("email", SUPPORT_AUTH0_COM));
+        assertThat(body, not(hasKey("username")));
+        assertThat(body, hasEntry("password", PASSWORD));
+
+        assertThat(callback, hasPayloadOfType(DatabaseUser.class));
+    }
+
+    @Test
+    public void shouldNotSendNullUsernameOnSignUpSync() throws Exception {
+        mockAPI.willReturnSuccessfulSignUp();
+
+        final DatabaseUser user = client.createUser(SUPPORT_AUTH0_COM, PASSWORD, null)
+                .execute();
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/dbconnections/signup"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("email", SUPPORT_AUTH0_COM));
+        assertThat(body, not(hasKey("username")));
         assertThat(body, hasEntry("password", PASSWORD));
 
         assertThat(user, is(notNullValue()));
@@ -487,7 +524,7 @@ public class AuthenticationAPIClientTest {
 
         Map<String, String> body = bodyFromRequest(request);
         assertThat(body, hasEntry("email", SUPPORT_AUTH0_COM));
-        assertThat(body, not(hasEntry("username", SUPPORT)));
+        assertThat(body, not(hasKey("username")));
         assertThat(body, hasEntry("password", PASSWORD));
         assertThat(body, hasEntry("connection", USERNAME_PASSWORD_AUTHENTICATION));
 
@@ -509,7 +546,7 @@ public class AuthenticationAPIClientTest {
 
         Map<String, String> body = bodyFromRequest(request);
         assertThat(body, hasEntry("email", SUPPORT_AUTH0_COM));
-        assertThat(body, hasEntry("username", null));
+        assertThat(body, not(hasKey("username")));
         assertThat(body, hasEntry("password", PASSWORD));
         assertThat(body, hasEntry("connection", USERNAME_PASSWORD_AUTHENTICATION));
 
