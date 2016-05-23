@@ -297,15 +297,13 @@ public class AuthenticationAPIClient {
                 .addPathSegment(SIGN_UP_PATH)
                 .build();
 
-        final ParameterBuilder paramBuilder = ParameterBuilder.newBuilder()
+        final Map<String, Object> parameters = ParameterBuilder.newBuilder()
+                .set(USERNAME_KEY, username)
                 .set(EMAIL_KEY, email)
                 .set(PASSWORD_KEY, password)
                 .setConnection(defaultDatabaseConnection)
-                .setClientId(getClientId());
-        if (username != null) {
-            paramBuilder.set(USERNAME_KEY, username);
-        }
-        Map<String, Object> parameters = paramBuilder.asDictionary();
+                .setClientId(getClientId())
+                .asDictionary();
         final ParameterizableRequest<DatabaseUser> request = factory.POST(url, client, mapper, DatabaseUser.class)
                 .addParameters(parameters);
         return new DatabaseConnectionRequest<>(request);
