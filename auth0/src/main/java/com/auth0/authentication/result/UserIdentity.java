@@ -24,16 +24,13 @@
 
 package com.auth0.authentication.result;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.Map;
 
 /**
  * Class that holds the information from a Identity Provider like Facebook or Twitter.
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserIdentity {
 
     private static final String USER_ID_KEY = "user_id";
@@ -43,16 +40,23 @@ public class UserIdentity {
     private static final String ACCESS_TOKEN_KEY = "access_token";
     private static final String ACCESS_TOKEN_SECRET_KEY = "access_token_secret";
     private static final String PROFILE_DATA_KEY = "profileData";
+
+    @SerializedName(USER_ID_KEY)
     protected String id;
+    @SerializedName(CONNECTION_KEY)
     protected String connection;
+    @SerializedName(PROVIDER_KEY)
     protected String provider;
+    @SerializedName(IS_SOCIAL_KEY)
     protected boolean social;
+    @SerializedName(ACCESS_TOKEN_KEY)
     protected String accessToken;
+    @SerializedName(ACCESS_TOKEN_SECRET_KEY)
     protected String accessTokenSecret;
+    @SerializedName(PROFILE_DATA_KEY)
     protected Map<String, Object> profileInfo;
 
     protected UserIdentity() {
-
     }
 
     @SuppressWarnings("unchecked")
@@ -69,14 +73,8 @@ public class UserIdentity {
         this.profileInfo = (Map<String, Object>) values.get(PROFILE_DATA_KEY);
     }
 
-    @JsonCreator
-    public UserIdentity(@JsonProperty(value = USER_ID_KEY) String id,
-                        @JsonProperty(value = CONNECTION_KEY) String connection,
-                        @JsonProperty(value = PROVIDER_KEY) String provider,
-                        @JsonProperty(value = IS_SOCIAL_KEY) boolean social,
-                        @JsonProperty(value = ACCESS_TOKEN_KEY) String accessToken,
-                        @JsonProperty(value = ACCESS_TOKEN_SECRET_KEY) String accessTokenSecret,
-                        @JsonProperty(value = PROFILE_DATA_KEY) Map<String, Object> profileInfo) {
+    public UserIdentity(String id, String connection, String provider, boolean social,
+                        String accessToken, String accessTokenSecret, Map<String, Object> profileInfo) {
         this.id = id;
         this.connection = connection;
         this.provider = provider;

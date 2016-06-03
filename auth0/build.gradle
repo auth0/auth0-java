@@ -6,9 +6,7 @@ compileJava {
 
 dependencies {
     compile 'com.squareup.okhttp:okhttp:2.5.0'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.1'
-    compile 'com.fasterxml.jackson.core:jackson-core:2.4.1'
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.1'
+    compile "com.google.code.gson:gson:2.6.2"
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.hamcrest:hamcrest-integration:1.3'

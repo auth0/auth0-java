@@ -1,7 +1,7 @@
 /*
- * DatabaseUser.java
+ * JsonRequired.java
  *
- * Copyright (c) 2015 Auth0 (http://auth0.com)
+ * Copyright (c) 2016 Auth0 (http://auth0.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,39 +24,14 @@
 
 package com.auth0.authentication.result;
 
-import com.google.gson.annotations.SerializedName;
 
-/**
- * Auth0 user created in a Database connection.
- *
- * @see com.auth0.authentication.AuthenticationAPIClient#signUp(String, String)
- * @see com.auth0.authentication.AuthenticationAPIClient#signUp(String, String, String)
- */
-public class DatabaseUser {
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-    @SerializedName("email")
-    @JsonRequired
-    private final String email;
-    @SerializedName("username")
-    private final String username;
-    @SerializedName("email_verified")
-    private final boolean emailVerified;
 
-    public DatabaseUser(String email, String username, boolean emailVerified) {
-        this.email = email;
-        this.username = username;
-        this.emailVerified = emailVerified;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public boolean isEmailVerified() {
-        return emailVerified;
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface JsonRequired {
 }

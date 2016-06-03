@@ -28,8 +28,8 @@ package com.auth0.request.internal;
 import com.auth0.Auth0Exception;
 import com.auth0.RequestBodyBuildException;
 import com.auth0.callback.BaseCallback;
-import com.fasterxml.jackson.databind.ObjectReader;
-import com.fasterxml.jackson.databind.ObjectWriter;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -59,11 +59,7 @@ public class BaseRequestTest {
     @Mock
     private OkHttpClient client;
     @Mock
-    private ObjectReader reader;
-    @Mock
-    private ObjectReader errorReader;
-    @Mock
-    private ObjectWriter writer;
+    private TypeAdapter<String> adapter;
     @Captor
     private ArgumentCaptor<Runnable> captor;
 
@@ -71,7 +67,7 @@ public class BaseRequestTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         HttpUrl url = HttpUrl.parse("https://auth0.com");
-        baseRequest = new BaseRequest<String>(url, client, reader, errorReader, writer, callback) {
+        baseRequest = new BaseRequest<String>(url, client, new Gson(), adapter, callback) {
             @Override
             public String execute() throws Auth0Exception {
                 return null;

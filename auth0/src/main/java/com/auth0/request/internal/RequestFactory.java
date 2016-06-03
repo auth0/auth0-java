@@ -29,7 +29,7 @@ import com.auth0.request.AuthenticationRequest;
 import com.auth0.request.AuthorizableRequest;
 import com.auth0.request.ParameterizableRequest;
 import com.auth0.util.Telemetry;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 
@@ -48,57 +48,57 @@ public class RequestFactory {
         this.userAgent = userAgent;
     }
 
-    public <T> ParameterizableRequest<T> GET(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
-        final SimpleRequest<T> request = new SimpleRequest<>(url, client, mapper, "GET", clazz);
+    public <T> ParameterizableRequest<T> GET(HttpUrl url, OkHttpClient client, Gson gson, Class<T> clazz) {
+        final SimpleRequest<T> request = new SimpleRequest<>(url, client, gson, "GET", clazz);
         addMetrics(request);
         return request;
     }
 
-    public AuthenticationRequest authenticationPOST(HttpUrl url, OkHttpClient client, ObjectMapper mapper) {
-        final BaseAuthenticationRequest request = new BaseAuthenticationRequest(url, client, mapper, "POST", Credentials.class);
+    public AuthenticationRequest authenticationPOST(HttpUrl url, OkHttpClient client, Gson gson) {
+        final BaseAuthenticationRequest request = new BaseAuthenticationRequest(url, client, gson, "POST", Credentials.class);
         addMetrics(request);
         return request;
     }
 
-    public <T> ParameterizableRequest<T> POST(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
-        final SimpleRequest<T> request = new SimpleRequest<>(url, client, mapper, "POST", clazz);
+    public <T> ParameterizableRequest<T> POST(HttpUrl url, OkHttpClient client, Gson gson, Class<T> clazz) {
+        final SimpleRequest<T> request = new SimpleRequest<>(url, client, gson, "POST", clazz);
         addMetrics(request);
         return request;
     }
 
-    public ParameterizableRequest<Map<String, Object>> rawPOST(HttpUrl url, OkHttpClient client, ObjectMapper mapper) {
-        final SimpleRequest<Map<String, Object>> request = new SimpleRequest<>(url, client, mapper, "POST");
+    public ParameterizableRequest<Map<String, Object>> rawPOST(HttpUrl url, OkHttpClient client, Gson gson) {
+        final SimpleRequest<Map<String, Object>> request = new SimpleRequest<>(url, client, gson, "POST");
         addMetrics(request);
         return request;
     }
 
-    public ParameterizableRequest<Void> POST(HttpUrl url, OkHttpClient client, ObjectMapper mapper) {
-        final VoidRequest request = new VoidRequest(url, client, mapper, "POST");
+    public ParameterizableRequest<Void> POST(HttpUrl url, OkHttpClient client, Gson gson) {
+        final VoidRequest request = new VoidRequest(url, client, gson, "POST");
         addMetrics(request);
         return request;
     }
 
-    public ParameterizableRequest<Void> POST(HttpUrl url, OkHttpClient client, ObjectMapper mapper, String jwt) {
-        final AuthorizableRequest<Void> request = new VoidRequest(url, client, mapper, "POST")
+    public ParameterizableRequest<Void> POST(HttpUrl url, OkHttpClient client, Gson gson, String jwt) {
+        final AuthorizableRequest<Void> request = new VoidRequest(url, client, gson, "POST")
                 .setBearer(jwt);
         addMetrics(request);
         return request;
     }
 
-    public <T> ParameterizableRequest<T> PUT(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
-        final SimpleRequest<T> request = new SimpleRequest<>(url, client, mapper, "PUT", clazz);
+    public <T> ParameterizableRequest<T> PUT(HttpUrl url, OkHttpClient client, Gson gson, Class<T> clazz) {
+        final SimpleRequest<T> request = new SimpleRequest<>(url, client, gson, "PUT", clazz);
         addMetrics(request);
         return request;
     }
 
-    public <T> ParameterizableRequest<T> PATCH(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
-        final SimpleRequest<T> request = new SimpleRequest<>(url, client, mapper, "GET", clazz);
+    public <T> ParameterizableRequest<T> PATCH(HttpUrl url, OkHttpClient client, Gson gson, Class<T> clazz) {
+        final SimpleRequest<T> request = new SimpleRequest<>(url, client, gson, "GET", clazz);
         addMetrics(request);
         return request;
     }
 
-    public <T> ParameterizableRequest<T> DELETE(HttpUrl url, OkHttpClient client, ObjectMapper mapper, Class<T> clazz) {
-        final SimpleRequest<T> request = new SimpleRequest<>(url, client, mapper, "DELETE", clazz);
+    public <T> ParameterizableRequest<T> DELETE(HttpUrl url, OkHttpClient client, Gson gson, Class<T> clazz) {
+        final SimpleRequest<T> request = new SimpleRequest<>(url, client, gson, "DELETE", clazz);
         addMetrics(request);
         return request;
     }
@@ -107,7 +107,7 @@ public class RequestFactory {
         if (this.clientInfo != null) {
             request.addHeader(Telemetry.HEADER_NAME, this.clientInfo);
         }
-        if (this.userAgent!= null) {
+        if (this.userAgent != null) {
             request.addHeader("User-Agent", this.userAgent);
         }
     }

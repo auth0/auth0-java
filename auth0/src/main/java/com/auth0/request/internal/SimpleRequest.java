@@ -24,12 +24,12 @@
 
 package com.auth0.request.internal;
 
-import com.auth0.Auth0Exception;
 import com.auth0.APIException;
-import com.auth0.request.ParameterizableRequest;
+import com.auth0.Auth0Exception;
 import com.auth0.RequestBodyBuildException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.auth0.request.ParameterizableRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
@@ -38,20 +38,19 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Map;
+import java.io.Reader;
 
 class SimpleRequest<T> extends BaseRequest<T> implements ParameterizableRequest<T>, Callback {
 
     private final String method;
 
-    public SimpleRequest(HttpUrl url, OkHttpClient client, ObjectMapper mapper, String httpMethod, Class<T> clazz) {
-        super(url, client, mapper.reader(clazz), mapper.reader(new TypeReference<Map<String, Object>>() {}), mapper.writer());
+    public SimpleRequest(HttpUrl url, OkHttpClient client, Gson gson, String httpMethod, Class<T> clazz) {
+        super(url, client, gson, gson.getAdapter(clazz));
         this.method = httpMethod;
     }
 
-    public SimpleRequest(HttpUrl url, OkHttpClient client, ObjectMapper mapper, String httpMethod) {
-        super(url, client, mapper.reader(new TypeReference<Map<String, Object>>() {}), mapper.reader(new TypeReference<Map<String, Object>>() {}), mapper.writer());
+    public SimpleRequest(HttpUrl url, OkHttpClient client, Gson gson, String httpMethod) {
+        super(url, client, gson, gson.getAdapter(new TypeToken<T>(){}));
         this.method = httpMethod;
     }
 
@@ -64,8 +63,8 @@ class SimpleRequest<T> extends BaseRequest<T> implements ParameterizableRequest<
         }
 
         try {
-            final InputStream byteStream = response.body().byteStream();
-            T payload = getReader().readValue(byteStream);
+            Reader charStream = response.body().charStream();
+            T payload = getAdapter().fromJson(charStream);
             postOnSuccess(payload);
         } catch (IOException e) {
             postOnFailure(new Auth0Exception("Failed to parse response to request to " + url, e));
@@ -96,8 +95,8 @@ class SimpleRequest<T> extends BaseRequest<T> implements ParameterizableRequest<
         }
 
         try {
-            final InputStream byteStream = response.body().byteStream();
-            return getReader().readValue(byteStream);
+            Reader charStream = response.body().charStream();
+            return getAdapter().fromJson(charStream);
         } catch (IOException e) {
             throw new Auth0Exception("Failed to parse response to request to " + url, e);
         }

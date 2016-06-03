@@ -2,7 +2,7 @@ package com.auth0.request.internal;
 
 import com.auth0.authentication.result.Credentials;
 import com.auth0.request.AuthenticationRequest;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 
@@ -16,8 +16,8 @@ import static com.auth0.authentication.ParameterBuilder.SCOPE_KEY;
 
 class BaseAuthenticationRequest extends SimpleRequest<Credentials> implements AuthenticationRequest {
 
-    public BaseAuthenticationRequest(HttpUrl url, OkHttpClient client, ObjectMapper mapper, String httpMethod, Class clazz) {
-        super(url, client, mapper, httpMethod, clazz);
+    public BaseAuthenticationRequest(HttpUrl url, OkHttpClient client, Gson gson, String httpMethod, Class<Credentials> clazz) {
+        super(url, client, gson, httpMethod, clazz);
     }
 
     /**

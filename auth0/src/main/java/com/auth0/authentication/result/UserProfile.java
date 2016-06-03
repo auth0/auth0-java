@@ -25,8 +25,6 @@
 package com.auth0.authentication.result;
 
 import com.auth0.util.CheckHelper;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -42,7 +40,6 @@ import java.util.TimeZone;
 /**
  * Class that holds the information of a user's profile in Auth0
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserProfile implements Serializable {
     protected String id;
     protected String name;
@@ -64,9 +61,9 @@ public class UserProfile implements Serializable {
         identities = userProfile.identities;
     }
 
-    protected UserProfile() { }
+    protected UserProfile() {
+    }
 
-    @JsonCreator
     @SuppressWarnings("unchecked")
     public UserProfile(Map<String, Object> values) {
         CheckHelper.checkArgument(values != null, "must supply non-null values");

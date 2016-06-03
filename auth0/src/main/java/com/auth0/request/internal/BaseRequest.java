@@ -31,8 +31,9 @@ import com.auth0.authentication.ParameterBuilder;
 import com.auth0.callback.BaseCallback;
 import com.auth0.request.AuthorizableRequest;
 import com.auth0.request.ParameterizableRequest;
-import com.fasterxml.jackson.databind.ObjectReader;
-import com.fasterxml.jackson.databind.ObjectWriter;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
@@ -41,7 +42,8 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.Reader;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,23 +52,21 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
     private final Map<String, String> headers;
     protected final HttpUrl url;
     protected final OkHttpClient client;
-    private final ObjectReader reader;
-    private final ObjectReader errorReader;
-    private final ObjectWriter writer;
+    private final TypeAdapter<T> adapter;
+    private final Gson gson;
     private final ParameterBuilder builder;
 
     private BaseCallback<T> callback;
 
-    protected BaseRequest(HttpUrl url, OkHttpClient client, ObjectReader reader, ObjectReader errorReader, ObjectWriter writer) {
-        this(url, client, reader, errorReader, writer, null);
+    protected BaseRequest(HttpUrl url, OkHttpClient client, Gson gson, TypeAdapter<T> adapter) {
+        this(url, client, gson, adapter, null);
     }
 
-    public BaseRequest(HttpUrl url, OkHttpClient client, ObjectReader reader, ObjectReader errorReader, ObjectWriter writer, BaseCallback<T> callback) {
+    public BaseRequest(HttpUrl url, OkHttpClient client, Gson gson, TypeAdapter<T> adapter, BaseCallback<T> callback) {
         this.url = url;
         this.client = client;
-        this.reader = reader;
-        this.errorReader = errorReader;
-        this.writer = writer;
+        this.gson = gson;
+        this.adapter = adapter;
         this.callback = callback;
         this.headers = new HashMap<>();
         this.builder = ParameterBuilder.newBuilder();
@@ -93,22 +93,24 @@ abstract class BaseRequest<T> implements ParameterizableRequest<T>, Authorizable
         return builder;
     }
 
-    protected ObjectReader getReader() {
-        return reader;
+    protected TypeAdapter<T> getAdapter() {
+        return adapter;
     }
 
     protected RequestBody buildBody() throws RequestBodyBuildException {
         Map<String, Object> dictionary = builder.asDictionary();
         if (!dictionary.isEmpty()) {
-            return JsonRequestBodyBuilder.createBody(dictionary, writer);
+            return JsonRequestBodyBuilder.createBody(dictionary, gson);
         }
         return null;
     }
 
     protected APIException parseUnsuccessfulResponse(Response response) {
         try {
-            final InputStream byteStream = response.body().byteStream();
-            Map<String, Object> payload = errorReader.readValue(byteStream);
+            final Reader charStream = response.body().charStream();
+            Type mapType = new TypeToken<Map<String, Object>>() {
+            }.getType();
+            Map<String, Object> payload = gson.fromJson(charStream, mapType);
             return new APIException("Request to " + url + " failed with response " + payload, response.code(), payload);
         } catch (Exception e) {
             return new APIException("Request to " + url + " failed", response.code(), null);

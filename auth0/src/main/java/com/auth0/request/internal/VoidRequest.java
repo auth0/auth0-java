@@ -24,10 +24,9 @@
 
 package com.auth0.request.internal;
 
-import com.auth0.Auth0Exception;
 import com.auth0.APIException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.auth0.Auth0Exception;
+import com.google.gson.Gson;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
@@ -36,14 +35,13 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
-import java.util.Map;
 
 class VoidRequest extends BaseRequest<Void> implements Callback {
 
     private final String httpMethod;
 
-    public VoidRequest(HttpUrl url, OkHttpClient client, ObjectMapper mapper, String httpMethod) {
-        super(url, client, null, mapper.reader(new TypeReference<Map<String, Object>>() {}), mapper.writer());
+    public VoidRequest(HttpUrl url, OkHttpClient client, Gson gson, String httpMethod) {
+        super(url, client, gson, gson.getAdapter(Void.class));
         this.httpMethod = httpMethod;
     }
 
