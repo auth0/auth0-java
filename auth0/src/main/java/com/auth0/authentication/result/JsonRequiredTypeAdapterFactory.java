@@ -35,8 +35,8 @@ public class JsonRequiredTypeAdapterFactory implements TypeAdapterFactory {
                             if (f.get(pojo) == null) {
                                 throw new JsonParseException("Missing field in JSON: " + f.getName());
                             }
-                        } catch (IllegalArgumentException | IllegalAccessException ex) {
-                            ex.printStackTrace();
+                        } catch (IllegalAccessException ex) {
+                            throw new JsonParseException("Missing field in JSON: " + f.getName(), ex);
                         }
                     }
                 }
