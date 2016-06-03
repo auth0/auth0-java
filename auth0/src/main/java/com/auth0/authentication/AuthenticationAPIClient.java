@@ -297,7 +297,7 @@ public class AuthenticationAPIClient {
                 .addPathSegment(SIGN_UP_PATH)
                 .build();
 
-        Map<String, Object> parameters = ParameterBuilder.newBuilder()
+        final Map<String, Object> parameters = ParameterBuilder.newBuilder()
                 .set(USERNAME_KEY, username)
                 .set(EMAIL_KEY, email)
                 .set(PASSWORD_KEY, password)

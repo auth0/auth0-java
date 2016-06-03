@@ -119,10 +119,24 @@ public class ParameterBuilderTest {
     }
 
     @Test
+    public void shouldNotAddNullEntry() throws Exception {
+        assertThat(builder.set("key", null).asDictionary(), not(hasEntry("key", null)));
+    }
+
+    @Test
     public void shouldAddAllFromDictionary() throws Exception {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("key", "value");
         assertThat(builder.addAll(parameters).asDictionary(), hasEntry("key", "value"));
+    }
+
+    @Test
+    public void shouldSkipNullValuesOnAddAllFromDictionary() throws Exception {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("key", "value");
+        parameters.put("null", null);
+        assertThat(builder.addAll(parameters).asDictionary(), hasEntry("key", "value"));
+        assertThat(builder.addAll(parameters).asDictionary(), not(hasEntry("null", null)));
     }
 
     @Test

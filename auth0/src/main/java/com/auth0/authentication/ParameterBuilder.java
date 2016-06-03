@@ -145,23 +145,31 @@ public class ParameterBuilder {
      * Sets a parameter
      *
      * @param key   parameter name
-     * @param value parameter value
+     * @param value parameter value. A null value will remove the key if present.
      * @return itself
      */
     public ParameterBuilder set(String key, Object value) {
-        this.parameters.put(key, value);
+        if (value == null) {
+            this.parameters.remove(key);
+        } else {
+            this.parameters.put(key, value);
+        }
         return this;
     }
 
     /**
      * Adds all parameter from a map
      *
-     * @param parameters map with parameters to add
+     * @param parameters map with parameters to add. Null values will be skipped.
      * @return itself
      */
     public ParameterBuilder addAll(Map<String, Object> parameters) {
         if (parameters != null) {
-            this.parameters.putAll(parameters);
+            for (String k : parameters.keySet()) {
+                if (parameters.get(k) != null) {
+                    this.parameters.put(k, parameters.get(k));
+                }
+            }
         }
         return this;
     }
