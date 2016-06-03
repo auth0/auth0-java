@@ -1,5 +1,17 @@
 # Change Log
 
+## [0.3.0](https://github.com/auth0/auth0-java/tree/0.3.0) (2016-06-03)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/0.2.1...0.3.0)
+
+**Implemented enhancements:**
+
+- Migrate Jackson usage to Gson [\#26](https://github.com/auth0/auth0-java/pull/26) ([lbalmaceda](https://github.com/lbalmaceda))
+
+**Merged pull requests:**
+
+- Make ParameterBuilder ignore null parameters [\#25](https://github.com/auth0/auth0-java/pull/25) ([lbalmaceda](https://github.com/lbalmaceda))
+- Do not add request body if there's nothing to add [\#23](https://github.com/auth0/auth0-java/pull/23) ([nikolaseu](https://github.com/nikolaseu))
+
 ## [0.2.1](https://github.com/auth0/auth0-java/tree/0.2.1) (2016-04-25)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/0.2.0...0.2.1)
 
