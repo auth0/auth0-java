@@ -24,8 +24,7 @@
 
 package com.auth0.authentication.result;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Auth0 user created in a Database connection.
@@ -33,16 +32,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @see com.auth0.authentication.AuthenticationAPIClient#signUp(String, String)
  * @see com.auth0.authentication.AuthenticationAPIClient#signUp(String, String, String)
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class DatabaseUser {
 
+    @SerializedName("email")
     private final String email;
+    @SerializedName("username")
     private final String username;
+    @SerializedName("email_verified")
     private final boolean emailVerified;
 
-    public DatabaseUser(@JsonProperty(value = "email", required = true) String email,
-                        @JsonProperty("username") String username,
-                        @JsonProperty("email_verified") boolean emailVerified) {
+    public DatabaseUser(String email, String username, boolean emailVerified) {
         this.email = email;
         this.username = username;
         this.emailVerified = emailVerified;

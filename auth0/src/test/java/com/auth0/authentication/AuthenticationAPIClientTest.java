@@ -33,14 +33,16 @@ import com.auth0.authentication.result.Delegation;
 import com.auth0.authentication.result.UserProfile;
 import com.auth0.util.AuthenticationAPI;
 import com.auth0.util.MockBaseCallback;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.okhttp.mockwebserver.RecordedRequest;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -73,6 +75,7 @@ public class AuthenticationAPIClientTest {
     private static final String OPENID = "openid";
 
     private AuthenticationAPIClient client;
+    private Gson gson;
 
     private AuthenticationAPI mockAPI;
 
@@ -82,6 +85,7 @@ public class AuthenticationAPIClientTest {
         final String domain = mockAPI.getDomain();
         Auth0 auth0 = new Auth0(CLIENT_ID, domain, domain);
         client = new AuthenticationAPIClient(auth0);
+        gson = new GsonBuilder().serializeNulls().create();
     }
 
     @After
@@ -1233,7 +1237,8 @@ public class AuthenticationAPIClientTest {
     }
 
     private Map<String, String> bodyFromRequest(RecordedRequest request) throws java.io.IOException {
-        return new ObjectMapper().readValue(request.getBody().inputStream(), new TypeReference<Map<String, String>>() {
-        });
+        final Type mapType = new TypeToken<Map<String, String>>() {
+        }.getType();
+        return gson.fromJson(request.getBody().readUtf8(), mapType);
     }
 }

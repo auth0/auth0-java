@@ -25,8 +25,7 @@
 package com.auth0.request.internal;
 
 import com.auth0.RequestBodyBuildException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectWriter;
+import com.google.gson.Gson;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
 
@@ -37,10 +36,10 @@ abstract class JsonRequestBodyBuilder {
 
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    public static RequestBody createBody(Object pojo, ObjectWriter writer) throws RequestBodyBuildException {
+    public static RequestBody createBody(Object pojo, Gson gson) throws RequestBodyBuildException {
         try {
-            return RequestBody.create(JSON, writer.writeValueAsBytes(pojo));
-        } catch (JsonProcessingException e) {
+            return RequestBody.create(JSON, gson.toJson(pojo));
+        } catch (Exception e) {
             throw new RequestBodyBuildException("Failed to convert " + pojo.getClass().getName() + " to JSON", e);
         }
     }

@@ -34,7 +34,7 @@ import com.auth0.request.ParameterizableRequest;
 import com.auth0.request.Request;
 import com.auth0.request.internal.RequestFactory;
 import com.auth0.util.Telemetry;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 
@@ -77,7 +77,7 @@ public class AuthenticationAPIClient {
 
     private final Auth0 auth0;
     private final OkHttpClient client;
-    private final ObjectMapper mapper;
+    private final Gson gson;
     private final RequestFactory factory;
 
     private String defaultDatabaseConnection = DEFAULT_DB_CONNECTION;
@@ -88,13 +88,13 @@ public class AuthenticationAPIClient {
      * @param auth0 account information
      */
     public AuthenticationAPIClient(Auth0 auth0) {
-        this(auth0, new OkHttpClient(), new ObjectMapper());
+        this(auth0, new OkHttpClient(), new Gson());
     }
 
-    private AuthenticationAPIClient(Auth0 auth0, OkHttpClient client, ObjectMapper mapper) {
+    private AuthenticationAPIClient(Auth0 auth0, OkHttpClient client, Gson gson) {
         this.auth0 = auth0;
         this.client = client;
-        this.mapper = mapper;
+        this.gson = gson;
         this.factory = new RequestFactory();
         final Telemetry telemetry = auth0.getTelemetry();
         if (telemetry != null) {
@@ -187,7 +187,7 @@ public class AuthenticationAPIClient {
                 .setAccessToken(token)
                 .asDictionary();
 
-        return factory.authenticationPOST(url, client, mapper)
+        return factory.authenticationPOST(url, client, gson)
                 .addAuthenticationParameters(parameters);
     }
 
@@ -304,7 +304,7 @@ public class AuthenticationAPIClient {
                 .setConnection(defaultDatabaseConnection)
                 .setClientId(getClientId())
                 .asDictionary();
-        final ParameterizableRequest<DatabaseUser> request = factory.POST(url, client, mapper, DatabaseUser.class)
+        final ParameterizableRequest<DatabaseUser> request = factory.POST(url, client, gson, DatabaseUser.class)
                 .addParameters(parameters);
         return new DatabaseConnectionRequest<>(request);
     }
@@ -413,7 +413,7 @@ public class AuthenticationAPIClient {
                 .setClientId(getClientId())
                 .setConnection(defaultDatabaseConnection)
                 .asDictionary();
-        final ParameterizableRequest<Void> request = factory.POST(url, client, mapper)
+        final ParameterizableRequest<Void> request = factory.POST(url, client, gson)
                 .addParameters(parameters);
         return new DatabaseConnectionRequest<>(request);
     }
@@ -524,7 +524,7 @@ public class AuthenticationAPIClient {
                 .set(USER_ID_KEY, userId)
                 .asDictionary();
 
-        return factory.POST(url, client, mapper)
+        return factory.POST(url, client, gson)
                 .addParameters(parameters);
     }
 
@@ -612,7 +612,7 @@ public class AuthenticationAPIClient {
                 .setClientId(getClientId())
                 .setGrantType(ParameterBuilder.GRANT_TYPE_JWT)
                 .asDictionary();
-        return factory.rawPOST(url, client, mapper)
+        return factory.rawPOST(url, client, gson)
                 .addParameters(parameters);
     }
 
@@ -626,7 +626,7 @@ public class AuthenticationAPIClient {
                 .setGrantType(ParameterBuilder.GRANT_TYPE_JWT)
                 .asDictionary();
 
-        return factory.POST(url, client, mapper, clazz)
+        return factory.POST(url, client, gson, clazz)
                 .addParameters(parameters);
     }
 
@@ -644,7 +644,7 @@ public class AuthenticationAPIClient {
         final Map<String, Object> parameters = ParameterBuilder.newBuilder()
                 .setClientId(getClientId())
                 .asDictionary();
-        return factory.POST(url, client, mapper)
+        return factory.POST(url, client, gson)
                 .addParameters(parameters);
     }
 
@@ -671,7 +671,7 @@ public class AuthenticationAPIClient {
                 .setConnection(defaultDatabaseConnection)
                 .addAll(parameters)
                 .asDictionary();
-        return factory.authenticationPOST(url, client, mapper)
+        return factory.authenticationPOST(url, client, gson)
                 .addAuthenticationParameters(requestParameters);
     }
 
@@ -680,7 +680,7 @@ public class AuthenticationAPIClient {
                 .addPathSegment(TOKEN_INFO_PATH)
                 .build();
 
-        return factory.POST(url, client, mapper, UserProfile.class);
+        return factory.POST(url, client, gson, UserProfile.class);
     }
 
     /**
@@ -705,7 +705,7 @@ public class AuthenticationAPIClient {
                 .addPathSegment(TOKEN_PATH)
                 .build();
 
-        return factory.authenticationPOST(url, client, mapper)
+        return factory.authenticationPOST(url, client, gson)
                 .addAuthenticationParameters(parameters);
     }
 }
