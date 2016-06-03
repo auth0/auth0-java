@@ -150,12 +150,10 @@ public class ParameterBuilder {
      */
     public ParameterBuilder set(String key, Object value) {
         if (value == null) {
-            if (this.parameters.containsKey(key)) {
-                this.parameters.remove(key);
-            }
-            return this;
+            this.parameters.remove(key);
+        } else {
+            this.parameters.put(key, value);
         }
-        this.parameters.put(key, value);
         return this;
     }
 
