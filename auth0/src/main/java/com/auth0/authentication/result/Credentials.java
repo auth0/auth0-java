@@ -38,6 +38,7 @@ import com.google.gson.annotations.SerializedName;
 public class Credentials {
 
     @SerializedName("id_token")
+    @JsonRequired
     protected String idToken;
     @SerializedName("access_token")
     protected String accessToken;

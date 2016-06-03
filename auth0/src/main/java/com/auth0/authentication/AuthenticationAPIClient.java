@@ -28,6 +28,7 @@ import com.auth0.Auth0;
 import com.auth0.authentication.result.Credentials;
 import com.auth0.authentication.result.DatabaseUser;
 import com.auth0.authentication.result.Delegation;
+import com.auth0.authentication.result.JsonRequiredTypeAdapterFactory;
 import com.auth0.authentication.result.UserProfile;
 import com.auth0.request.AuthenticationRequest;
 import com.auth0.request.ParameterizableRequest;
@@ -35,6 +36,7 @@ import com.auth0.request.Request;
 import com.auth0.request.internal.RequestFactory;
 import com.auth0.util.Telemetry;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 
@@ -88,7 +90,7 @@ public class AuthenticationAPIClient {
      * @param auth0 account information
      */
     public AuthenticationAPIClient(Auth0 auth0) {
-        this(auth0, new OkHttpClient(), new Gson());
+        this(auth0, new OkHttpClient(), buildGson());
     }
 
     private AuthenticationAPIClient(Auth0 auth0, OkHttpClient client, Gson gson) {
@@ -707,5 +709,11 @@ public class AuthenticationAPIClient {
 
         return factory.authenticationPOST(url, client, gson)
                 .addAuthenticationParameters(parameters);
+    }
+
+    static Gson buildGson() {
+        return new GsonBuilder()
+                .registerTypeAdapterFactory(new JsonRequiredTypeAdapterFactory())
+                .create();
     }
 }
