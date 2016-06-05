@@ -9,13 +9,11 @@ import org.junit.rules.ExpectedException;
 
 import java.io.StringReader;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Collections;
 
 import static com.auth0.util.UserIdentityMatcher.isUserIdentity;
 import static com.auth0.util.UserProfileMatcher.isNormalizedProfile;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.hasEntry;
 import static org.junit.Assert.assertThat;
 
 public class UserProfileGsonTest extends GsonBaseTest {
@@ -34,13 +32,13 @@ public class UserProfileGsonTest extends GsonBaseTest {
     }
 
     @Test
-    public void shouldFailWithInvalidJsonProfile() throws Exception {
+    public void shouldFailWithInvalidJson() throws Exception {
         expectedException.expect(JsonParseException.class);
         pojoFrom(json(INVALID), UserProfile.class);
     }
 
     @Test
-    public void shouldFailWithEmptyJsonProfile() throws Exception {
+    public void shouldFailWithEmptyJson() throws Exception {
         expectedException.expect(JsonParseException.class);
         pojoFrom(json(EMPTY_OBJECT), UserProfile.class);
     }

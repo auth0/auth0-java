@@ -26,6 +26,8 @@ package com.auth0.authentication.result;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -33,18 +35,24 @@ import java.util.Map;
  */
 public class UserIdentity {
 
+    @JsonRequired
     @SerializedName("user_id")
     private String id;
+    @JsonRequired
     @SerializedName("connection")
     private String connection;
+    @JsonRequired
     @SerializedName("provider")
     private String provider;
+
     @SerializedName("isSocial")
     private boolean social;
+
     @SerializedName("access_token")
     private String accessToken;
     @SerializedName("access_token_secret")
     private String accessTokenSecret;
+
     @SerializedName("profileData")
     private Map<String, Object> profileInfo;
 
@@ -84,10 +92,6 @@ public class UserIdentity {
     }
 
     public Map<String, Object> getProfileInfo() {
-        return profileInfo;
-    }
-
-    public String getUserIdentityId() {
-        return String.format("%s|%s", this.provider, this.id);
+        return profileInfo != null ? new HashMap<>(profileInfo) : Collections.<String, Object>emptyMap();
     }
 }
