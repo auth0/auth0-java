@@ -25,6 +25,8 @@
 package com.auth0.authentication.result;
 
 import com.auth0.util.CheckHelper;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.internal.ObjectConstructor;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -41,13 +43,30 @@ import java.util.TimeZone;
  * Class that holds the information of a user's profile in Auth0
  */
 public class UserProfile implements Serializable {
+    @JsonRequired
+    @SerializedName("user_id")
     protected String id;
+    @JsonRequired
+    @SerializedName("name")
     protected String name;
+    @JsonRequired
+    @SerializedName("nickname")
     protected String nickname;
-    protected String email;
+    @JsonRequired
+    @SerializedName("picture")
     protected String pictureURL;
+
+    @SerializedName("email")
+    protected String email;
+
+    @SerializedName("user_metadata")
+    protected Map<String, Object> userMetadata;
+    @SerializedName("app_metadata")
+    protected Map<String, Object> appMetadata;
+    @SerializedName("created_at")
     protected Date createdAt;
     protected Map<String, Object> extraInfo;
+    @SerializedName("identities")
     protected List<UserIdentity> identities;
 
     protected UserProfile(UserProfile userProfile) {
@@ -109,6 +128,14 @@ public class UserProfile implements Serializable {
 
     public Date getCreatedAt() {
         return createdAt;
+    }
+
+    public Map<String, Object> getUserMetadata() {
+        return userMetadata != null ? userMetadata : Collections.<String, Object>emptyMap();
+    }
+
+    public Map<String, Object> getAppMetadata() {
+        return appMetadata != null ? appMetadata : Collections.<String, Object>emptyMap();
     }
 
     /**
