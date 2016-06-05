@@ -18,13 +18,10 @@ class UserProfileDeserializer implements JsonDeserializer<UserProfile> {
         }
 
         JsonObject object = json.getAsJsonObject();
-        final String id = context.deserialize(object.get("user_id"), String.class);
-        if (id == null) {
-            throw new JsonParseException(String.format("Missing attribute %s", "user_id"));
-        }
-        final String name = context.deserialize(object.get("name"), String.class);
-        final String nickname = context.deserialize(object.get("nickname"), String.class);
-        final String picture = context.deserialize(object.get("picture"), String.class);
+        final String id = requiredValue("user_id", String.class, object, context);
+        final String name = requiredValue("name", String.class, object, context);
+        final String nickname = requiredValue("nickname", String.class, object, context);
+        final String picture = requiredValue("picture", String.class, object, context);
 
         final String email = context.deserialize(object.get("email"), String.class);
         final Date createdAt = context.deserialize(object.get("created_at"), Date.class);
@@ -36,5 +33,13 @@ class UserProfileDeserializer implements JsonDeserializer<UserProfile> {
         Map<String, Object> userMetadata = context.deserialize(object.get("user_metadata"), metadataType);
         Map<String, Object> appMetadata = context.deserialize(object.get("app_metadata"), metadataType);
         return new UserProfile(id, name, nickname, picture, email, userMetadata, appMetadata, createdAt, identities, null);
+    }
+
+    private <T> T requiredValue(String name, Type type, JsonObject object, JsonDeserializationContext context) throws JsonParseException {
+        T value = context.deserialize(object.get(name), type);
+        if (value == null) {
+            throw new JsonParseException(String.format("Missing required attribute %s", name));
+        }
+        return value;
     }
 }

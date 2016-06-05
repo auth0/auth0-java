@@ -7,6 +7,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.io.StringReader;
 import java.text.SimpleDateFormat;
 
 import static com.auth0.util.UserIdentityMatcher.isUserIdentity;
@@ -40,6 +41,86 @@ public class UserProfileGsonTest extends GsonBaseTest {
     public void shouldFailWithEmptyJsonProfile() throws Exception {
         expectedException.expect(JsonParseException.class);
         pojoFrom(json(EMPTY_OBJECT), UserProfile.class);
+    }
+
+    @Test
+    public void shouldRequireUserId() throws Exception {
+        expectedException.expect(JsonParseException.class);
+        pojoFrom(new StringReader("{\n" +
+                "  \"picture\": \"https://secure.gravatar.com/avatar/cfacbe113a96fdfc85134534771d88b4?s=480&r=pg&d=https%3A%2F%2Fssl.gstatic.com%2Fs2%2Fprofiles%2Fimages%2Fsilhouette80.png\",\n" +
+                "  \"name\": \"info @ auth0\",\n" +
+                "  \"nickname\": \"a0\",\n" +
+                "  \"identities\": [\n" +
+                "    {\n" +
+                "      \"user_id\": \"1234567890\",\n" +
+                "      \"provider\": \"auth0\",\n" +
+                "      \"connection\": \"Username-Password-Authentication\",\n" +
+                "      \"isSocial\": false\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"created_at\": \"2014-07-06T18:33:49.005Z\"\n" +
+                "}"
+        ), UserProfile.class);
+    }
+
+    @Test
+    public void shouldRequireName() throws Exception {
+        expectedException.expect(JsonParseException.class);
+        pojoFrom(new StringReader("{\n" +
+                "  \"picture\": \"https://secure.gravatar.com/avatar/cfacbe113a96fdfc85134534771d88b4?s=480&r=pg&d=https%3A%2F%2Fssl.gstatic.com%2Fs2%2Fprofiles%2Fimages%2Fsilhouette80.png\",\n" +
+                "  \"nickname\": \"a0\",\n" +
+                "  \"user_id\": \"auth0|1234567890\",\n" +
+                "  \"identities\": [\n" +
+                "    {\n" +
+                "      \"user_id\": \"1234567890\",\n" +
+                "      \"provider\": \"auth0\",\n" +
+                "      \"connection\": \"Username-Password-Authentication\",\n" +
+                "      \"isSocial\": false\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"created_at\": \"2014-07-06T18:33:49.005Z\"\n" +
+                "}"
+        ), UserProfile.class);
+    }
+
+    @Test
+    public void shouldRequireNickname() throws Exception {
+        expectedException.expect(JsonParseException.class);
+        pojoFrom(new StringReader("{\n" +
+                "  \"picture\": \"https://secure.gravatar.com/avatar/cfacbe113a96fdfc85134534771d88b4?s=480&r=pg&d=https%3A%2F%2Fssl.gstatic.com%2Fs2%2Fprofiles%2Fimages%2Fsilhouette80.png\",\n" +
+                "  \"name\": \"info @ auth0\",\n" +
+                "  \"user_id\": \"auth0|1234567890\",\n" +
+                "  \"identities\": [\n" +
+                "    {\n" +
+                "      \"user_id\": \"1234567890\",\n" +
+                "      \"provider\": \"auth0\",\n" +
+                "      \"connection\": \"Username-Password-Authentication\",\n" +
+                "      \"isSocial\": false\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"created_at\": \"2014-07-06T18:33:49.005Z\"\n" +
+                "}"
+        ), UserProfile.class);
+    }
+
+    @Test
+    public void shouldRequirePicture() throws Exception {
+        expectedException.expect(JsonParseException.class);
+        pojoFrom(new StringReader("{\n" +
+                "  \"name\": \"info @ auth0\",\n" +
+                "  \"nickname\": \"a0\",\n" +
+                "  \"user_id\": \"auth0|1234567890\",\n" +
+                "  \"identities\": [\n" +
+                "    {\n" +
+                "      \"user_id\": \"1234567890\",\n" +
+                "      \"provider\": \"auth0\",\n" +
+                "      \"connection\": \"Username-Password-Authentication\",\n" +
+                "      \"isSocial\": false\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"created_at\": \"2014-07-06T18:33:49.005Z\"\n" +
+                "}"
+        ), UserProfile.class);
     }
 
     @Test
