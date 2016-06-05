@@ -28,7 +28,6 @@ import com.auth0.Auth0;
 import com.auth0.authentication.result.Credentials;
 import com.auth0.authentication.result.DatabaseUser;
 import com.auth0.authentication.result.Delegation;
-import com.auth0.authentication.result.JsonRequiredTypeAdapterFactory;
 import com.auth0.authentication.result.UserProfile;
 import com.auth0.request.AuthenticationRequest;
 import com.auth0.request.ParameterizableRequest;
@@ -36,7 +35,6 @@ import com.auth0.request.Request;
 import com.auth0.request.internal.RequestFactory;
 import com.auth0.util.Telemetry;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 
@@ -90,7 +88,7 @@ public class AuthenticationAPIClient {
      * @param auth0 account information
      */
     public AuthenticationAPIClient(Auth0 auth0) {
-        this(auth0, new OkHttpClient(), buildGson());
+        this(auth0, new OkHttpClient(), GsonProvider.buildGson());
     }
 
     private AuthenticationAPIClient(Auth0 auth0, OkHttpClient client, Gson gson) {
@@ -117,6 +115,7 @@ public class AuthenticationAPIClient {
      *
      * @param userAgent value to send in every request to Auth0
      */
+    @SuppressWarnings("unused")
     public void setUserAgent(String userAgent) {
         factory.setUserAgent(userAgent);
     }
@@ -126,6 +125,7 @@ public class AuthenticationAPIClient {
      *
      * @param defaultDatabaseConnection name to use on every login with DB connection
      */
+    @SuppressWarnings("unused")
     public void setDefaultDatabaseConnection(String defaultDatabaseConnection) {
         this.defaultDatabaseConnection = defaultDatabaseConnection;
     }
@@ -149,6 +149,7 @@ public class AuthenticationAPIClient {
      * @param password        of the user
      * @return a request to configure and start that will yield {@link Credentials}
      */
+    @SuppressWarnings("WeakerAccess")
     public AuthenticationRequest login(String usernameOrEmail, String password) {
         Map<String, Object> requestParameters = ParameterBuilder.newAuthenticationBuilder()
                 .set(USERNAME_KEY, usernameOrEmail)
@@ -177,6 +178,7 @@ public class AuthenticationAPIClient {
      * @param connection that will be used to authenticate the user, e.g. 'facebook'
      * @return a request to configure and start that will yield {@link Credentials}
      */
+    @SuppressWarnings("WeakerAccess")
     public AuthenticationRequest loginWithOAuthAccessToken(String token, String connection) {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment(OAUTH_PATH)
@@ -211,6 +213,7 @@ public class AuthenticationAPIClient {
      * @param verificationCode sent by Auth0 via SMS
      * @return a request to configure and start that will yield {@link Credentials}
      */
+    @SuppressWarnings("WeakerAccess")
     public AuthenticationRequest loginWithPhoneNumber(String phoneNumber, String verificationCode) {
         Map<String, Object> parameters = ParameterBuilder.newAuthenticationBuilder()
                 .set(USERNAME_KEY, phoneNumber)
@@ -240,6 +243,7 @@ public class AuthenticationAPIClient {
      * @param verificationCode sent by Auth0 via Email
      * @return a request to configure and start that will yield {@link Credentials}
      */
+    @SuppressWarnings("WeakerAccess")
     public AuthenticationRequest loginWithEmail(String email, String verificationCode) {
         Map<String, Object> parameters = ParameterBuilder.newAuthenticationBuilder()
                 .set(USERNAME_KEY, email)
@@ -268,6 +272,7 @@ public class AuthenticationAPIClient {
      * @param idToken used to fetch it's information
      * @return a request to start
      */
+    @SuppressWarnings("WeakerAccess")
     public Request<UserProfile> tokenInfo(String idToken) {
         return profileRequest()
                 .addParameter(ParameterBuilder.ID_TOKEN_KEY, idToken);
@@ -293,6 +298,7 @@ public class AuthenticationAPIClient {
      * @param username of the user and must be non null
      * @return a request to start
      */
+    @SuppressWarnings("WeakerAccess")
     public DatabaseConnectionRequest<DatabaseUser> createUser(String email, String password, String username) {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment(DB_CONNECTIONS_PATH)
@@ -330,6 +336,7 @@ public class AuthenticationAPIClient {
      * @param password of the user and must be non null
      * @return a request to start
      */
+    @SuppressWarnings("WeakerAccess")
     public DatabaseConnectionRequest<DatabaseUser> createUser(String email, String password) {
         return createUser(email, password, null);
     }
@@ -355,6 +362,7 @@ public class AuthenticationAPIClient {
      * @param username of the user and must be non null
      * @return a request to configure and start that will yield {@link Credentials}
      */
+    @SuppressWarnings("WeakerAccess")
     public SignUpRequest signUp(String email, String password, String username) {
         final DatabaseConnectionRequest<DatabaseUser> createUserRequest = createUser(email, password, username);
         final AuthenticationRequest authenticationRequest = login(email, password);
@@ -381,6 +389,7 @@ public class AuthenticationAPIClient {
      * @param password of the user and must be non null
      * @return a request to configure and start that will yield {@link Credentials}
      */
+    @SuppressWarnings("WeakerAccess")
     public SignUpRequest signUp(String email, String password) {
         DatabaseConnectionRequest<DatabaseUser> createUserRequest = createUser(email, password);
         final AuthenticationRequest authenticationRequest = login(email, password);
@@ -404,6 +413,7 @@ public class AuthenticationAPIClient {
      * @param email of the user that changes the password. It's also where the email will be sent with the link to perform the change password.
      * @return a request to configure and start
      */
+    @SuppressWarnings("WeakerAccess")
     public DatabaseConnectionRequest<Void> requestChangePassword(String email) {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment(DB_CONNECTIONS_PATH)
@@ -437,6 +447,7 @@ public class AuthenticationAPIClient {
      * @param idToken issued by Auth0 for the user. The token must not be expired.
      * @return a request to configure and start
      */
+    @SuppressWarnings("WeakerAccess")
     public DelegationRequest<Delegation> delegationWithIdToken(String idToken) {
         ParameterizableRequest<Delegation> request = delegation(Delegation.class)
                 .addParameter(ParameterBuilder.ID_TOKEN_KEY, idToken);
@@ -463,6 +474,7 @@ public class AuthenticationAPIClient {
      * @param refreshToken issued by Auth0 for the user when using the 'offline_access' scope when logging in.
      * @return a request to configure and start
      */
+    @SuppressWarnings("WeakerAccess")
     public DelegationRequest<Delegation> delegationWithRefreshToken(String refreshToken) {
         ParameterizableRequest<Delegation> request = delegation(Delegation.class)
                 .addParameter(ParameterBuilder.REFRESH_TOKEN_KEY, refreshToken);
@@ -489,6 +501,7 @@ public class AuthenticationAPIClient {
      * @param apiType the delegation 'api_type' parameter
      * @return a request to configure and start
      */
+    @SuppressWarnings("WeakerAccess")
     public DelegationRequest<Map<String, Object>> delegationWithIdToken(String idToken, String apiType) {
         ParameterizableRequest<Map<String, Object>> request = delegation()
                 .addParameter(ParameterBuilder.ID_TOKEN_KEY, idToken);
@@ -515,6 +528,7 @@ public class AuthenticationAPIClient {
      * @param accessToken of the main identity obtained after login
      * @return a request to start
      */
+    @SuppressWarnings("WeakerAccess")
     public Request<Void> unlink(String userId, String accessToken) {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment(UNLINK_PATH)
@@ -548,6 +562,7 @@ public class AuthenticationAPIClient {
      * @param passwordlessType indicate whether the email should contain a code, link or magic link (android & iOS)
      * @return a request to configure and start
      */
+    @SuppressWarnings("WeakerAccess")
     public ParameterizableRequest<Void> passwordlessWithEmail(String email, PasswordlessType passwordlessType) {
         final Map<String, Object> parameters = ParameterBuilder.newBuilder()
                 .set(EMAIL_KEY, email)
@@ -577,6 +592,7 @@ public class AuthenticationAPIClient {
      * @param passwordlessType indicate whether the SMS should contain a code, link or magic link (android & iOS)
      * @return a request to configure and start
      */
+    @SuppressWarnings("WeakerAccess")
     public ParameterizableRequest<Void> passwordlessWithSMS(String phoneNumber, PasswordlessType passwordlessType) {
         final Map<String, Object> parameters = ParameterBuilder.newBuilder()
                 .set(PHONE_NUMBER_KEY, phoneNumber)
@@ -605,6 +621,7 @@ public class AuthenticationAPIClient {
      *
      * @return a request to configure and start
      */
+    @SuppressWarnings("WeakerAccess")
     public ParameterizableRequest<Map<String, Object>> delegation() {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment(DELEGATION_PATH)
@@ -618,7 +635,7 @@ public class AuthenticationAPIClient {
                 .addParameters(parameters);
     }
 
-    protected <T> ParameterizableRequest<T> delegation(Class<T> clazz) {
+    private <T> ParameterizableRequest<T> delegation(Class<T> clazz) {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment(DELEGATION_PATH)
                 .build();
@@ -637,6 +654,7 @@ public class AuthenticationAPIClient {
      *
      * @return a request to configure and start
      */
+    @SuppressWarnings("WeakerAccess")
     public ParameterizableRequest<Void> passwordless() {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment(PASSWORDLESS_PATH)
@@ -709,11 +727,5 @@ public class AuthenticationAPIClient {
 
         return factory.authenticationPOST(url, client, gson)
                 .addAuthenticationParameters(parameters);
-    }
-
-    static Gson buildGson() {
-        return new GsonBuilder()
-                .registerTypeAdapterFactory(new JsonRequiredTypeAdapterFactory())
-                .create();
     }
 }

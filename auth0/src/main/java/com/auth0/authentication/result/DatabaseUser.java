@@ -24,6 +24,7 @@
 
 package com.auth0.authentication.result;
 
+import com.auth0.util.JsonRequired;
 import com.google.gson.annotations.SerializedName;
 
 /**

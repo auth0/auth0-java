@@ -1,5 +1,7 @@
 package com.auth0.authentication.result;
 
+import com.auth0.util.JsonRequired;
+import com.auth0.util.JsonRequiredTypeAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
@@ -35,7 +37,7 @@ public class JsonRequiredTypeAdapterFactoryTest {
         }
         assertThat(error, notNullValue());
         assertThat(error, instanceOf(JsonParseException.class));
-        assertThat(error.getMessage(), containsString("Missing field in JSON: value"));
+        assertThat(error.getMessage(), containsString("Missing required attribute value"));
     }
 
     @Test

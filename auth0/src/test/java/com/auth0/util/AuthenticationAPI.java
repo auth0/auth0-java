@@ -34,12 +34,12 @@ public class AuthenticationAPI {
 
     public static final String REFRESH_TOKEN = "REFRESH_TOKEN";
     public static final String ID_TOKEN = "ID_TOKEN";
-    public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
-    public static final String BEARER = "BEARER";
+    private static final String ACCESS_TOKEN = "ACCESS_TOKEN";
+    private static final String BEARER = "BEARER";
     public static final String GENERIC_TOKEN = "GENERIC_TOKEN";
-    public static final String NEW_ID_TOKEN = "NEW_ID_TOKEN";
-    public static final String TOKEN_TYPE = "TOKEN_TYPE";
-    public static final int EXPIRES_IN = 1234567890;
+    private static final String NEW_ID_TOKEN = "NEW_ID_TOKEN";
+    private static final String TOKEN_TYPE = "TOKEN_TYPE";
+    private static final int EXPIRES_IN = 1234567890;
 
     private MockWebServer server;
 
