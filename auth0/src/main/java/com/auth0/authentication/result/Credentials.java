@@ -37,28 +37,20 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Credentials {
 
-    @SerializedName("id_token")
-    protected String idToken;
-
     @JsonRequired
     @SerializedName("access_token")
-    protected String accessToken;
+    private String accessToken;
 
+    @JsonRequired
     @SerializedName("token_type")
-    protected String type;
+    private String type;
+
+    @SerializedName("id_token")
+    private String idToken;
+
 
     @SerializedName("refresh_token")
-    protected String refreshToken;
-
-    protected Credentials(Credentials credentials) {
-        idToken = credentials.idToken;
-        accessToken = credentials.accessToken;
-        type = credentials.type;
-        refreshToken = credentials.refreshToken;
-    }
-
-    protected Credentials() {
-    }
+    private String refreshToken;
 
     public Credentials(String idToken, String accessToken, String type, String refreshToken) {
         this.idToken = idToken;

@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 
 abstract class GsonBaseTest {
 
@@ -12,9 +13,9 @@ abstract class GsonBaseTest {
     static final String INVALID = "src/test/resources/invalid.json";
 
 
-    protected Gson gson;
+    Gson gson;
 
-    <T> T pojoFrom(FileReader json, Class<T> clazz) throws IOException {
+    <T> T pojoFrom(Reader json, Class<T> clazz) throws IOException {
         return gson.getAdapter(clazz).fromJson(json);
     }
 
