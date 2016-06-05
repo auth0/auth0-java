@@ -9,6 +9,8 @@ import org.junit.rules.ExpectedException;
 
 import java.io.StringReader;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Collections;
 
 import static com.auth0.util.UserIdentityMatcher.isUserIdentity;
 import static com.auth0.util.UserProfileMatcher.isNormalizedProfile;
@@ -131,6 +133,7 @@ public class UserProfileGsonTest extends GsonBaseTest {
         assertThat(profile.getIdentities(), hasItem(isUserIdentity("1234567890", "auth0", "Username-Password-Authentication")));
         assertThat(profile.getUserMetadata(), anEmptyMap());
         assertThat(profile.getAppMetadata(), anEmptyMap());
+        assertThat(profile.getExtraInfo(), notNullValue());
     }
 
     @Test
@@ -147,6 +150,15 @@ public class UserProfileGsonTest extends GsonBaseTest {
         assertThat(profile, isNormalizedProfile(ID, NAME, NICKNAME));
         assertThat(profile.getIdentities(), hasItem(isUserIdentity("1234567890", "auth0", "Username-Password-Authentication")));
         assertThat(profile.getIdentities(), hasItem(isUserIdentity("999997950999976", "facebook", "facebook")));
+    }
+
+    @Test
+    public void shouldReturnProfileWithExtraInfo() throws Exception {
+        UserProfile profile = pojoFrom(json(PROFILE_FULL), UserProfile.class);
+        assertThat(profile, isNormalizedProfile(ID, NAME, NICKNAME));
+        assertThat(profile.getExtraInfo(), hasEntry("multifactor", (Object) Collections.singletonList("google-authenticator")));
+        assertThat(profile.getExtraInfo(), not(anyOf(hasKey("user_id"), hasKey("name"), hasKey("nickname"), hasKey("picture"), hasKey("email"), hasKey("created_at"))));
+        assertThat(profile.getExtraInfo(), not(anyOf(hasKey("identities"), hasKey("user_metadata"), hasKey("app_metadata"))));
     }
 
     @Test

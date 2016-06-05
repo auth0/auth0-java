@@ -23,20 +23,21 @@ class UserProfileDeserializer implements JsonDeserializer<UserProfile> {
         final String nickname = requiredValue("nickname", String.class, object, context);
         final String picture = requiredValue("picture", String.class, object, context);
 
-        final String email = context.deserialize(object.get("email"), String.class);
-        final Date createdAt = context.deserialize(object.get("created_at"), Date.class);
+        final String email = context.deserialize(object.remove("email"), String.class);
+        final Date createdAt = context.deserialize(object.remove("created_at"), Date.class);
 
         final Type identitiesType = new TypeToken<List<UserIdentity>>(){}.getType();
-        final List<UserIdentity> identities = context.deserialize(object.get("identities"), identitiesType);
+        final List<UserIdentity> identities = context.deserialize(object.remove("identities"), identitiesType);
 
         final Type metadataType = new TypeToken<Map<String, Object>>() {}.getType();
-        Map<String, Object> userMetadata = context.deserialize(object.get("user_metadata"), metadataType);
-        Map<String, Object> appMetadata = context.deserialize(object.get("app_metadata"), metadataType);
-        return new UserProfile(id, name, nickname, picture, email, userMetadata, appMetadata, createdAt, identities, null);
+        Map<String, Object> userMetadata = context.deserialize(object.remove("user_metadata"), metadataType);
+        Map<String, Object> appMetadata = context.deserialize(object.remove("app_metadata"), metadataType);
+        Map<String, Object> extraInfo = context.deserialize(object, metadataType);
+        return new UserProfile(id, name, nickname, picture, email, userMetadata, appMetadata, createdAt, identities, extraInfo);
     }
 
     private <T> T requiredValue(String name, Type type, JsonObject object, JsonDeserializationContext context) throws JsonParseException {
-        T value = context.deserialize(object.get(name), type);
+        T value = context.deserialize(object.remove(name), type);
         if (value == null) {
             throw new JsonParseException(String.format("Missing required attribute %s", name));
         }

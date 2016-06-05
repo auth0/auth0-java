@@ -95,7 +95,7 @@ public class UserProfile implements Serializable {
      * @return a map with user's extra information found in the profile
      */
     public Map<String, Object> getExtraInfo() {
-        return new HashMap<>(extraInfo);
+        return extraInfo != null ? new HashMap<>(extraInfo) : Collections.<String, Object>emptyMap();
     }
 
     /**
