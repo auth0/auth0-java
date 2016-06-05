@@ -19,6 +19,9 @@ class UserProfileDeserializer implements JsonDeserializer<UserProfile> {
 
         JsonObject object = json.getAsJsonObject();
         final String id = context.deserialize(object.get("user_id"), String.class);
+        if (id == null) {
+            throw new JsonParseException(String.format("Missing attribute %s", "user_id"));
+        }
         final String name = context.deserialize(object.get("name"), String.class);
         final String nickname = context.deserialize(object.get("nickname"), String.class);
         final String picture = context.deserialize(object.get("picture"), String.class);

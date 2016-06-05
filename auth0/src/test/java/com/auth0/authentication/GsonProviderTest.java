@@ -4,11 +4,14 @@ import com.auth0.authentication.result.Credentials;
 import com.auth0.authentication.result.UserIdentity;
 import com.auth0.authentication.result.UserProfile;
 import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -30,11 +33,29 @@ public class GsonProviderTest {
     private static final String ID = "auth0|1234567890";
     private static final String NAME = "info @ auth0";
     private static final String NICKNAME = "a0";
+    private static final String EMPTY_OBJECT = "src/test/resources/empty_object.json";
+    private static final String INVALID = "src/test/resources/invalid.json";
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
     private Gson gson;
 
     @Before
     public void setUp() throws Exception {
         gson = GsonProvider.buildGson();
+    }
+
+    @Test
+    public void shouldFailWithEmptyJsonCredentials() throws Exception {
+        expectedException.expect(JsonParseException.class);
+        buildCredentialsFrom(json(EMPTY_OBJECT));
+    }
+
+    @Test
+    public void shouldFailWithInvalidJsonCredentials() throws Exception {
+        expectedException.expect(JsonParseException.class);
+        buildCredentialsFrom(json(INVALID));
     }
 
     @Test
@@ -65,6 +86,18 @@ public class GsonProviderTest {
         assertThat(credentials.getIdToken(), is(notNullValue()));
         assertThat(credentials.getType(), equalTo("bearer"));
         assertThat(credentials.getRefreshToken(), is(notNullValue()));
+    }
+
+    @Test
+    public void shouldFailWithInvalidJsonProfile() throws Exception {
+        expectedException.expect(JsonParseException.class);
+        pojoFrom(json(INVALID), UserProfile.class);
+    }
+
+    @Test
+    public void shouldFailWithEmptyJsonProfile() throws Exception {
+        expectedException.expect(JsonParseException.class);
+        pojoFrom(json(EMPTY_OBJECT), UserProfile.class);
     }
 
     @Test
