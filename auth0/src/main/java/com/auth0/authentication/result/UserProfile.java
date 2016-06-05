@@ -24,86 +24,37 @@
 
 package com.auth0.authentication.result;
 
-import com.auth0.util.CheckHelper;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.internal.ObjectConstructor;
-
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
+import java.util.*;
 
 /**
  * Class that holds the information of a user's profile in Auth0
  */
 public class UserProfile implements Serializable {
-    @JsonRequired
-    @SerializedName("user_id")
-    protected String id;
-    @JsonRequired
-    @SerializedName("name")
-    protected String name;
-    @JsonRequired
-    @SerializedName("nickname")
-    protected String nickname;
-    @JsonRequired
-    @SerializedName("picture")
-    protected String pictureURL;
+    private String id;
+    private String name;
+    private String nickname;
+    private String pictureURL;
 
-    @SerializedName("email")
-    protected String email;
+    private String email;
+    private Map<String, Object> userMetadata;
+    private Map<String, Object> appMetadata;
+    private Date createdAt;
+    private List<UserIdentity> identities;
 
-    @SerializedName("user_metadata")
-    protected Map<String, Object> userMetadata;
-    @SerializedName("app_metadata")
-    protected Map<String, Object> appMetadata;
-    @SerializedName("created_at")
-    protected Date createdAt;
-    protected Map<String, Object> extraInfo;
-    @SerializedName("identities")
-    protected List<UserIdentity> identities;
+    private Map<String, Object> extraInfo;
 
-    protected UserProfile(UserProfile userProfile) {
-        id = userProfile.id;
-        name = userProfile.name;
-        nickname = userProfile.nickname;
-        email = userProfile.email;
-        pictureURL = userProfile.pictureURL;
-        createdAt = userProfile.createdAt;
-        extraInfo = userProfile.extraInfo;
-        identities = userProfile.identities;
-    }
-
-    protected UserProfile() {
-    }
-
-    @SuppressWarnings("unchecked")
-    public UserProfile(Map<String, Object> values) {
-        CheckHelper.checkArgument(values != null, "must supply non-null values");
-        HashMap<String, Object> info = new HashMap<String, Object>(values);
-        String id = (String) info.remove("user_id");
-        CheckHelper.checkArgument(id != null, "profile must have a user id");
+    public UserProfile(String id, String name, String nickname, String pictureURL, String email, Map<String, Object> userMetadata, Map<String, Object> appMetadata, Date createdAt, List<UserIdentity> identities, Map<String, Object> extraInfo) {
         this.id = id;
-        this.name = (String) info.remove("name");
-        this.nickname = (String) info.remove("nickname");
-        this.email = (String) info.remove("email");
-        this.pictureURL = (String) info.remove("picture");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-        try {
-            String created_at = (String) info.remove("created_at");
-            this.createdAt = created_at != null ? sdf.parse(created_at) : null;
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("Invalid created_at value", e);
-        }
-        this.identities = buildIdentities((List<Map<String, Object>>) info.remove("identities"));
-        this.extraInfo = info;
+        this.name = name;
+        this.nickname = nickname;
+        this.pictureURL = pictureURL;
+        this.email = email;
+        this.userMetadata = userMetadata;
+        this.appMetadata = appMetadata;
+        this.createdAt = createdAt;
+        this.identities = identities;
+        this.extraInfo = extraInfo;
     }
 
     public String getId() {
@@ -153,17 +104,6 @@ public class UserProfile implements Serializable {
      * @return a list of identity provider information.
      */
     public List<UserIdentity> getIdentities() {
-        return identities;
-    }
-
-    private List<UserIdentity> buildIdentities(List<Map<String, Object>> values) {
-        if (values == null) {
-            return Collections.emptyList();
-        }
-        List<UserIdentity> identities = new ArrayList<>(values.size());
-        for (Map<String, Object> value : values) {
-            identities.add(new UserIdentity(value));
-        }
         return identities;
     }
 }
