@@ -37,6 +37,9 @@ public class UserProfile implements Serializable {
     private String pictureURL;
 
     private String email;
+    private boolean emailVerified;
+    private String givenName;
+    private String familyName;
     private Map<String, Object> userMetadata;
     private Map<String, Object> appMetadata;
     private Date createdAt;
@@ -44,12 +47,15 @@ public class UserProfile implements Serializable {
 
     private Map<String, Object> extraInfo;
 
-    public UserProfile(String id, String name, String nickname, String pictureURL, String email, Map<String, Object> userMetadata, Map<String, Object> appMetadata, Date createdAt, List<UserIdentity> identities, Map<String, Object> extraInfo) {
+    public UserProfile(String id, String name, String nickname, String pictureURL, String email, boolean emailVerified, String familyName, Date createdAt, List<UserIdentity> identities, Map<String, Object> extraInfo, Map<String, Object> userMetadata, Map<String, Object> appMetadata, String givenName) {
         this.id = id;
         this.name = name;
         this.nickname = nickname;
         this.pictureURL = pictureURL;
         this.email = email;
+        this.emailVerified = emailVerified;
+        this.givenName = givenName;
+        this.familyName = familyName;
         this.userMetadata = userMetadata;
         this.appMetadata = appMetadata;
         this.createdAt = createdAt;
@@ -73,12 +79,24 @@ public class UserProfile implements Serializable {
         return email;
     }
 
+    public boolean isEmailVerified() {
+        return emailVerified;
+    }
+
     public String getPictureURL() {
         return pictureURL;
     }
 
     public Date getCreatedAt() {
         return createdAt;
+    }
+
+    public String getGivenName() {
+        return givenName;
+    }
+
+    public String getFamilyName() {
+        return familyName;
     }
 
     public Map<String, Object> getUserMetadata() {

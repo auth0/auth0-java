@@ -4,6 +4,7 @@ import com.auth0.authentication.result.UserIdentity;
 import com.auth0.authentication.result.UserProfile;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.lang.reflect.Type;
 import java.util.Date;
@@ -24,6 +25,9 @@ class UserProfileDeserializer implements JsonDeserializer<UserProfile> {
         final String picture = requiredValue("picture", String.class, object, context);
 
         final String email = context.deserialize(object.remove("email"), String.class);
+        final String givenName = context.deserialize(object.remove("given_name"), String.class);
+        final String familyName = context.deserialize(object.remove("family_name"), String.class);
+        final Boolean emailVerified = object.has("email_verified") ? context.<Boolean>deserialize(object.remove("email_verified"), Boolean.class) : false;
         final Date createdAt = context.deserialize(object.remove("created_at"), Date.class);
 
         final Type identitiesType = new TypeToken<List<UserIdentity>>(){}.getType();
@@ -33,7 +37,7 @@ class UserProfileDeserializer implements JsonDeserializer<UserProfile> {
         Map<String, Object> userMetadata = context.deserialize(object.remove("user_metadata"), metadataType);
         Map<String, Object> appMetadata = context.deserialize(object.remove("app_metadata"), metadataType);
         Map<String, Object> extraInfo = context.deserialize(object, metadataType);
-        return new UserProfile(id, name, nickname, picture, email, userMetadata, appMetadata, createdAt, identities, extraInfo);
+        return new UserProfile(id, name, nickname, picture, email, emailVerified, familyName, createdAt, identities, extraInfo, userMetadata, appMetadata, givenName);
     }
 
     private <T> T requiredValue(String name, Type type, JsonObject object, JsonDeserializationContext context) throws JsonParseException {

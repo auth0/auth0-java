@@ -2,6 +2,7 @@ package com.auth0.authentication;
 
 import com.auth0.authentication.result.UserProfile;
 import com.google.gson.JsonParseException;
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -21,6 +22,7 @@ public class UserProfileGsonTest extends GsonBaseTest {
     private static final String NAME = "info @ auth0";
     private static final String ID = "auth0|1234567890";
     private static final String PROFILE_FULL = "src/test/resources/profile_full.json";
+    private static final String PROFILE_BASIC = "src/test/resources/profile_basic.json";
     private static final String PROFILE = "src/test/resources/profile.json";
 
     @Rule
@@ -124,6 +126,17 @@ public class UserProfileGsonTest extends GsonBaseTest {
     }
 
     @Test
+    public void shouldReturnProfileWithOnlyRequiredValues() throws Exception {
+        UserProfile profile = pojoFrom(json(PROFILE_BASIC), UserProfile.class);
+        assertThat(profile, isNormalizedProfile(ID, NAME, NICKNAME));
+        assertThat(profile.getIdentities(), hasSize(1));
+        assertThat(profile.getIdentities(), hasItem(isUserIdentity("1234567890", "auth0", "Username-Password-Authentication")));
+        assertThat(profile.getUserMetadata(), anEmptyMap());
+        assertThat(profile.getAppMetadata(), anEmptyMap());
+        assertThat(profile.getExtraInfo(), anEmptyMap());
+    }
+
+    @Test
     public void shouldReturnNormalizedProfile() throws Exception {
         UserProfile profile = pojoFrom(json(PROFILE), UserProfile.class);
         assertThat(profile, isNormalizedProfile(ID, NAME, NICKNAME));
@@ -139,6 +152,9 @@ public class UserProfileGsonTest extends GsonBaseTest {
         UserProfile profile = pojoFrom(json(PROFILE_FULL), UserProfile.class);
         assertThat(profile, isNormalizedProfile(ID, NAME, NICKNAME));
         assertThat(profile.getEmail(), equalTo("info@auth0.com"));
+        assertThat(profile.getGivenName(), equalTo("John"));
+        assertThat(profile.getFamilyName(), equalTo("Foobar"));
+        assertThat(profile.isEmailVerified(), is(false));
         assertThat(profile.getCreatedAt(), equalTo(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2014-07-06T18:33:49.005Z")));
     }
 

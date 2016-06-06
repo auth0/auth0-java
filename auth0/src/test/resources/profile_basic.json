@@ -1,0 +1,13 @@
+{
+  "picture": "https://secure.gravatar.com/avatar/cfacbe113a96fdfc85134534771d88b4?s=480&r=pg&d=https%3A%2F%2Fssl.gstatic.com%2Fs2%2Fprofiles%2Fimages%2Fsilhouette80.png",
+  "name": "info @ auth0",
+  "nickname": "a0",
+  "user_id": "auth0|1234567890",
+  "identities": [
+    {
+      "user_id": "1234567890",
+      "provider": "auth0",
+      "connection": "Username-Password-Authentication"
+    }
+  ]
+}
