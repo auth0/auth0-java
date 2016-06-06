@@ -3,14 +3,35 @@
 ## [0.4.0](https://github.com/auth0/auth0-java/tree/0.4.0) (2016-06-06)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/0.3.0...0.4.0)
 
+**Added**
+
+- `UserProfile` has now the following properties: `givenName`, `familyName`, `userMetadata`, `appMetadata` and `emailVerified` [\#28](https://github.com/auth0/auth0-java/pull/28) ([hzalaz](https://github.com/hzalaz))
+- New method `AuthenticationAPIClient#token(code, redirectURI)` to call `/oauth/token` endpoint. [\#27](https://github.com/auth0/auth0-java/pull/27) ([arcseldon](https://github.com/arcseldon), [hzalaz](https://github.com/hzalaz))
+
+**Fixed**
+
+- `UserProfile` was not properly parsed from JSON [\#28](https://github.com/auth0/auth0-java/pull/28) ([hzalaz](https://github.com/hzalaz))
+- 
+
 **Breaking changes**
 
-- The method `AuthenticationAPIClient#token(String, String, String)` was replaced by `AuthenticationAPIClient#token(String, String)`
+The method `AuthenticationAPIClient#token(code, codeVerifier, redirectURI)` was replaced by `AuthenticationAPIClient#token(String, String)`. To perform a request to `/oauth/token` you need to provide either a `client_secret` (private clients) or the `code_verifier` (public clients) used to generate the challenge sent to `/authorize`.
 
-**Merged pull requests:**
+```java
+AuthenticationAPIClient client = new AuthenticationAPIClient(new Auth0("your_clientId", "your_domain"));
 
-- Fix JSON mappings and auth result objects [\#28](https://github.com/auth0/auth0-java/pull/28) ([hzalaz](https://github.com/hzalaz))
-- Allow /oauth/token for private clients [\#27](https://github.com/auth0/auth0-java/pull/27) ([hzalaz](https://github.com/hzalaz))
+// Public clients
+client
+     .token("code", "redirect_uri")
+     .setCodeVerifier("code_verifier")
+     .start(new Callback<Credentials> {...});
+
+// Private clients
+ client
+     .token("code", "redirect_uri")
+     .setClientSecret("client_secret")
+     .start(new Callback<Credentials> {...});
+```
 
 ## [0.3.0](https://github.com/auth0/auth0-java/tree/0.3.0) (2016-06-03)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/0.2.1...0.3.0)
