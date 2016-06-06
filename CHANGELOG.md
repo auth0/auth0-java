@@ -1,5 +1,17 @@
 # Change Log
 
+## [0.4.0](https://github.com/auth0/auth0-java/tree/0.4.0) (2016-06-06)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/0.3.0...0.4.0)
+
+**Breaking changes**
+
+- The method `AuthenticationAPIClient#token(String, String, String)` was replaced by `AuthenticationAPIClient#token(String, String)`
+
+**Merged pull requests:**
+
+- Fix JSON mappings and auth result objects [\#28](https://github.com/auth0/auth0-java/pull/28) ([hzalaz](https://github.com/hzalaz))
+- Allow /oauth/token for private clients [\#27](https://github.com/auth0/auth0-java/pull/27) ([hzalaz](https://github.com/hzalaz))
+
 ## [0.3.0](https://github.com/auth0/auth0-java/tree/0.3.0) (2016-06-03)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/0.2.1...0.3.0)
 
