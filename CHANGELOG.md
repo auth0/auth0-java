@@ -11,7 +11,7 @@
 **Fixed**
 
 - `UserProfile` was not properly parsed from JSON [\#28](https://github.com/auth0/auth0-java/pull/28) ([hzalaz](https://github.com/hzalaz))
-- 
+
 
 **Breaking changes**
 
