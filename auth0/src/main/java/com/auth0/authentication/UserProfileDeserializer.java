@@ -4,7 +4,6 @@ import com.auth0.authentication.result.UserIdentity;
 import com.auth0.authentication.result.UserProfile;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.lang.reflect.Type;
 import java.util.Date;

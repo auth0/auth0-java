@@ -46,6 +46,10 @@ import static com.auth0.authentication.ParameterBuilder.GRANT_TYPE_PASSWORD;
 /**
  * API client for Auth0 Authentication API.
  *
+ * <pre><code>
+ * Auth0 auth0 = new Auth0("your_client_id", "your_domain");
+ * AuthenticationAPIClient client = new AuthenticationAPIClient(auth0);
+ * </code></pre>
  * @see <a href="https://auth0.com/docs/auth-api">Auth API docs</a>
  */
 public class AuthenticationAPIClient {
@@ -72,8 +76,6 @@ public class AuthenticationAPIClient {
     private static final String RESOURCE_OWNER_PATH = "ro";
     private static final String TOKEN_INFO_PATH = "tokeninfo";
     private static final String OAUTH_CODE_KEY = "code";
-    private static final String OAUTH_CODE_VERIFIER_KEY = "code_verifier";
-    private static final String OAUTH_CLIENT_SECRET_KEY = "client_secret";
     private static final String REDIRECT_URI_KEY = "redirect_uri";
 
     private final Auth0 auth0;
@@ -681,6 +683,52 @@ public class AuthenticationAPIClient {
         return new ProfileRequest(authenticationRequest, profileRequest);
     }
 
+    /**
+     * Fetch the token information from Auth0, using the authorization_code grant type
+     *
+     * For Public Client, e.g. Android apps ,you need to provide the code_verifier
+     * used to generate the challenge sent to Auth0 {@literal /authorize} method like:
+     *
+     * <pre>{@code
+     * AuthenticationAPIClient client = new AuthenticationAPIClient(new Auth0("clientId", "domain"));
+     * client
+     *     .token("code", "redirect_uri")
+     *     .setCodeVerifier("code_verifier")
+     *     .start(new Callback<Credentials> {...});
+     * }</pre>
+     *
+     * For the rest of clients, clients who can safely keep a {@literal client_secret}, you need to provide it instead like:
+     *
+     * <pre>{@code
+     * AuthenticationAPIClient client = new AuthenticationAPIClient(new Auth0("clientId", "domain"));
+     * client
+     *     .token("code", "redirect_uri")
+     *     .setClientSecret("client_secret")
+     *     .start(new Callback<Credentials> {...});
+     * }</pre>
+     *
+     * @param authorizationCode the authorization code received from the /authorize call.
+     * @param redirectUri       the uri sent to /authorize as the 'redirect_uri'.
+     * @return a request to obtain access_token by exchanging a authorization code.
+     */
+    @SuppressWarnings("WeakerAccess")
+    public TokenRequest token(String authorizationCode, String redirectUri) {
+        Map<String, Object> parameters = ParameterBuilder.newBuilder()
+                .setClientId(getClientId())
+                .setGrantType(GRANT_TYPE_AUTHORIZATION_CODE)
+                .set(OAUTH_CODE_KEY, authorizationCode)
+                .set(REDIRECT_URI_KEY, redirectUri)
+                .asDictionary();
+
+        HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
+                .addPathSegment(OAUTH_PATH)
+                .addPathSegment(TOKEN_PATH)
+                .build();
+
+        ParameterizableRequest<Credentials> request = factory.POST(url, client, gson, Credentials.class).addParameters(parameters);
+        return new TokenRequest(request);
+    }
+
     private AuthenticationRequest loginWithResourceOwner(Map<String, Object> parameters) {
         HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
                 .addPathSegment(OAUTH_PATH)
@@ -704,68 +752,4 @@ public class AuthenticationAPIClient {
         return factory.POST(url, client, gson, UserProfile.class);
     }
 
-    /**
-     * For backwards compatibility only
-     *
-     * @param authorizationCode
-     * @param codeVerifier
-     * @param redirectUri
-     * @return
-     */
-    @Deprecated
-    public AuthenticationRequest token(String authorizationCode, String codeVerifier, String redirectUri) {
-        return tokenUsingCodeVerifier(authorizationCode, codeVerifier, redirectUri);
-    }
-
-    /**
-     * Fetch the token information from Auth0, using the authorization_code grant type
-     *
-     * @param authorizationCode the authorization code received from the /authorize call.
-     * @param codeVerifier      the code verifier used when requesting a code to /authorize.
-     * @param redirectUri       the uri to redirect after a successful request.
-     * @return a request to configure and start
-     */
-    public AuthenticationRequest tokenUsingCodeVerifier(String authorizationCode, String codeVerifier, String redirectUri) {
-        Map<String, Object> parameters = ParameterBuilder.newBuilder()
-                .setClientId(getClientId())
-                .setGrantType(GRANT_TYPE_AUTHORIZATION_CODE)
-                .set(OAUTH_CODE_KEY, authorizationCode)
-                .set(OAUTH_CODE_VERIFIER_KEY, codeVerifier)
-                .set(REDIRECT_URI_KEY, redirectUri)
-                .asDictionary();
-
-        HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
-                .addPathSegment(OAUTH_PATH)
-                .addPathSegment(TOKEN_PATH)
-                .build();
-
-        return factory.authenticationPOST(url, client, gson)
-                .addAuthenticationParameters(parameters);
-    }
-
-    /**
-     * Fetch the token information from Auth0, using the authorization_code grant type
-     *
-     * @param authorizationCode the authorization code received from the /authorize call.
-     * @param clientSecret      the client secret used when requesting a code to /authorize.
-     * @param redirectUri       the uri to redirect after a successful request.
-     * @return a request to configure and start
-     */
-    public AuthenticationRequest tokenUsingClientSecret(final String authorizationCode, final String clientSecret, final String redirectUri) {
-        final Map<String, Object> parameters = ParameterBuilder.newBuilder()
-                .setClientId(getClientId())
-                .setGrantType(GRANT_TYPE_AUTHORIZATION_CODE)
-                .set(OAUTH_CODE_KEY, authorizationCode)
-                .set(OAUTH_CLIENT_SECRET_KEY, clientSecret)
-                .set(REDIRECT_URI_KEY, redirectUri)
-                .asDictionary();
-
-        final HttpUrl url = HttpUrl.parse(auth0.getDomainUrl()).newBuilder()
-                .addPathSegment(OAUTH_PATH)
-                .addPathSegment(TOKEN_PATH)
-                .build();
-
-        return factory.authenticationPOST(url, client, gson)
-                .addAuthenticationParameters(parameters);
-    }
 }
