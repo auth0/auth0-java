@@ -31,6 +31,7 @@ import com.auth0.authentication.result.Credentials;
 import com.auth0.authentication.result.DatabaseUser;
 import com.auth0.authentication.result.Delegation;
 import com.auth0.authentication.result.UserProfile;
+import com.auth0.request.ParameterizableRequest;
 import com.auth0.util.AuthenticationAPI;
 import com.auth0.util.MockBaseCallback;
 import com.google.gson.Gson;
@@ -1214,13 +1215,14 @@ public class AuthenticationAPIClientTest {
     }
 
     @Test
-    public void shouldGetOAuthTokens() throws Exception {
+    public void shouldGetOAuthTokensUsingCodeVerifier() throws Exception {
         mockAPI
                 .willReturnTokens()
                 .willReturnTokenInfo();
 
         final MockBaseCallback<Credentials> callback = new MockBaseCallback<>();
-        client.token("code", "codeVerifier", "http://redirect.uri")
+        client.token("code", "http://redirect.uri")
+                .setCodeVerifier("codeVerifier")
                 .start(callback);
 
         final RecordedRequest request = mockAPI.takeRequest();
@@ -1231,6 +1233,30 @@ public class AuthenticationAPIClientTest {
         assertThat(body, hasEntry("client_id", CLIENT_ID));
         assertThat(body, hasEntry("code", "code"));
         assertThat(body, hasEntry("code_verifier", "codeVerifier"));
+        assertThat(body, hasEntry("redirect_uri", "http://redirect.uri"));
+
+        assertThat(callback, hasPayloadOfType(Credentials.class));
+    }
+
+    @Test
+    public void shouldGetOAuthTokensUsingClientSecret() throws Exception {
+        mockAPI
+                .willReturnTokens()
+                .willReturnTokenInfo();
+
+        final MockBaseCallback<Credentials> callback = new MockBaseCallback<>();
+        client.token("code", "http://redirect.uri")
+                .setClientSecret("clientSecret")
+                .start(callback);
+
+        final RecordedRequest request = mockAPI.takeRequest();
+        assertThat(request.getPath(), equalTo("/oauth/token"));
+
+        Map<String, String> body = bodyFromRequest(request);
+        assertThat(body, hasEntry("grant_type", ParameterBuilder.GRANT_TYPE_AUTHORIZATION_CODE));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("code", "code"));
+        assertThat(body, hasEntry("client_secret", "clientSecret"));
         assertThat(body, hasEntry("redirect_uri", "http://redirect.uri"));
 
         assertThat(callback, hasPayloadOfType(Credentials.class));

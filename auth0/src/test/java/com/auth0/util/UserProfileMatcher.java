@@ -38,6 +38,6 @@ public class UserProfileMatcher extends AttributeMatcher<UserProfile> {
     }
 
     public static Matcher<UserProfile> isNormalizedProfile(String id, String name, String nickname) {
-        return new UserProfileMatcher(equalTo(id), equalTo(name), equalTo(nickname), not(isEmptyOrNullString()));
+        return new UserProfileMatcher(equalTo(id), equalTo(name), equalTo(nickname), not(emptyOrNullString()));
     }
 }
