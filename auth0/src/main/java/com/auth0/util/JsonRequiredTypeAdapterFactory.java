@@ -1,4 +1,4 @@
-package com.auth0.authentication.result;
+package com.auth0.util;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
@@ -33,10 +33,10 @@ public class JsonRequiredTypeAdapterFactory implements TypeAdapterFactory {
                         try {
                             f.setAccessible(true);
                             if (f.get(pojo) == null) {
-                                throw new JsonParseException("Missing field in JSON: " + f.getName());
+                                throw new JsonParseException(String.format("Missing required attribute %s", f.getName()));
                             }
                         } catch (IllegalAccessException ex) {
-                            throw new JsonParseException("Missing field in JSON: " + f.getName(), ex);
+                            throw new JsonParseException(String.format("Missing required attribute %s", f.getName()));
                         }
                     }
                 }

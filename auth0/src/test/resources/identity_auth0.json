@@ -1,0 +1,6 @@
+{
+  "user_id": "1234567890",
+  "provider": "auth0",
+  "connection": "Username-Password-Authentication",
+  "isSocial": false
+}

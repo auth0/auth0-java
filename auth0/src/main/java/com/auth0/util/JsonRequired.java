@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package com.auth0.authentication.result;
+package com.auth0.util;
 
 
 import java.lang.annotation.ElementType;

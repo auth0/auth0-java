@@ -24,67 +24,43 @@
 
 package com.auth0.authentication.result;
 
-import com.auth0.util.CheckHelper;
-
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
+import java.util.*;
 
 /**
  * Class that holds the information of a user's profile in Auth0
  */
 public class UserProfile implements Serializable {
-    protected String id;
-    protected String name;
-    protected String nickname;
-    protected String email;
-    protected String pictureURL;
-    protected Date createdAt;
-    protected Map<String, Object> extraInfo;
-    protected List<UserIdentity> identities;
+    private String id;
+    private String name;
+    private String nickname;
+    private String pictureURL;
 
-    protected UserProfile(UserProfile userProfile) {
-        id = userProfile.id;
-        name = userProfile.name;
-        nickname = userProfile.nickname;
-        email = userProfile.email;
-        pictureURL = userProfile.pictureURL;
-        createdAt = userProfile.createdAt;
-        extraInfo = userProfile.extraInfo;
-        identities = userProfile.identities;
-    }
+    private String email;
+    private boolean emailVerified;
+    private String givenName;
+    private String familyName;
+    private Map<String, Object> userMetadata;
+    private Map<String, Object> appMetadata;
+    private Date createdAt;
+    private List<UserIdentity> identities;
 
-    protected UserProfile() {
-    }
+    private Map<String, Object> extraInfo;
 
-    @SuppressWarnings("unchecked")
-    public UserProfile(Map<String, Object> values) {
-        CheckHelper.checkArgument(values != null, "must supply non-null values");
-        HashMap<String, Object> info = new HashMap<String, Object>(values);
-        String id = (String) info.remove("user_id");
-        CheckHelper.checkArgument(id != null, "profile must have a user id");
+    public UserProfile(String id, String name, String nickname, String pictureURL, String email, boolean emailVerified, String familyName, Date createdAt, List<UserIdentity> identities, Map<String, Object> extraInfo, Map<String, Object> userMetadata, Map<String, Object> appMetadata, String givenName) {
         this.id = id;
-        this.name = (String) info.remove("name");
-        this.nickname = (String) info.remove("nickname");
-        this.email = (String) info.remove("email");
-        this.pictureURL = (String) info.remove("picture");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-        try {
-            String created_at = (String) info.remove("created_at");
-            this.createdAt = created_at != null ? sdf.parse(created_at) : null;
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("Invalid created_at value", e);
-        }
-        this.identities = buildIdentities((List<Map<String, Object>>) info.remove("identities"));
-        this.extraInfo = info;
+        this.name = name;
+        this.nickname = nickname;
+        this.pictureURL = pictureURL;
+        this.email = email;
+        this.emailVerified = emailVerified;
+        this.givenName = givenName;
+        this.familyName = familyName;
+        this.userMetadata = userMetadata;
+        this.appMetadata = appMetadata;
+        this.createdAt = createdAt;
+        this.identities = identities;
+        this.extraInfo = extraInfo;
     }
 
     public String getId() {
@@ -103,6 +79,10 @@ public class UserProfile implements Serializable {
         return email;
     }
 
+    public boolean isEmailVerified() {
+        return emailVerified;
+    }
+
     public String getPictureURL() {
         return pictureURL;
     }
@@ -111,13 +91,29 @@ public class UserProfile implements Serializable {
         return createdAt;
     }
 
+    public String getGivenName() {
+        return givenName;
+    }
+
+    public String getFamilyName() {
+        return familyName;
+    }
+
+    public Map<String, Object> getUserMetadata() {
+        return userMetadata != null ? userMetadata : Collections.<String, Object>emptyMap();
+    }
+
+    public Map<String, Object> getAppMetadata() {
+        return appMetadata != null ? appMetadata : Collections.<String, Object>emptyMap();
+    }
+
     /**
      * Returns extra information of the profile that is not part of the normalized profile
      *
      * @return a map with user's extra information found in the profile
      */
     public Map<String, Object> getExtraInfo() {
-        return new HashMap<>(extraInfo);
+        return extraInfo != null ? new HashMap<>(extraInfo) : Collections.<String, Object>emptyMap();
     }
 
     /**
@@ -126,17 +122,6 @@ public class UserProfile implements Serializable {
      * @return a list of identity provider information.
      */
     public List<UserIdentity> getIdentities() {
-        return identities;
-    }
-
-    private List<UserIdentity> buildIdentities(List<Map<String, Object>> values) {
-        if (values == null) {
-            return Collections.emptyList();
-        }
-        List<UserIdentity> identities = new ArrayList<>(values.size());
-        for (Map<String, Object> value : values) {
-            identities.add(new UserIdentity(value));
-        }
         return identities;
     }
 }

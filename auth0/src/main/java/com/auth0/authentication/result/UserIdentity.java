@@ -24,54 +24,39 @@
 
 package com.auth0.authentication.result;
 
+import com.auth0.util.JsonRequired;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Class that holds the information from a Identity Provider like Facebook or Twitter.
  */
-public class UserIdentity {
+public class UserIdentity implements Serializable {
 
-    private static final String USER_ID_KEY = "user_id";
-    private static final String CONNECTION_KEY = "connection";
-    private static final String PROVIDER_KEY = "provider";
-    private static final String IS_SOCIAL_KEY = "isSocial";
-    private static final String ACCESS_TOKEN_KEY = "access_token";
-    private static final String ACCESS_TOKEN_SECRET_KEY = "access_token_secret";
-    private static final String PROFILE_DATA_KEY = "profileData";
+    @JsonRequired
+    @SerializedName("user_id")
+    private String id;
+    @JsonRequired
+    @SerializedName("connection")
+    private String connection;
+    @JsonRequired
+    @SerializedName("provider")
+    private String provider;
 
-    @SerializedName(USER_ID_KEY)
-    protected String id;
-    @SerializedName(CONNECTION_KEY)
-    protected String connection;
-    @SerializedName(PROVIDER_KEY)
-    protected String provider;
-    @SerializedName(IS_SOCIAL_KEY)
-    protected boolean social;
-    @SerializedName(ACCESS_TOKEN_KEY)
-    protected String accessToken;
-    @SerializedName(ACCESS_TOKEN_SECRET_KEY)
-    protected String accessTokenSecret;
-    @SerializedName(PROFILE_DATA_KEY)
-    protected Map<String, Object> profileInfo;
+    @SerializedName("isSocial")
+    private boolean social;
 
-    protected UserIdentity() {
-    }
+    @SerializedName("access_token")
+    private String accessToken;
+    @SerializedName("access_token_secret")
+    private String accessTokenSecret;
 
-    @SuppressWarnings("unchecked")
-    public UserIdentity(Map<String, Object> values) {
-        final Object idValue = values.get(USER_ID_KEY);
-        if (idValue != null) {
-            this.id = idValue.toString();
-        }
-        this.connection = (String) values.get(CONNECTION_KEY);
-        this.provider = (String) values.get(PROVIDER_KEY);
-        this.social = (boolean) values.get(IS_SOCIAL_KEY);
-        this.accessToken = (String) values.get(ACCESS_TOKEN_KEY);
-        this.accessTokenSecret = (String) values.get(ACCESS_TOKEN_SECRET_KEY);
-        this.profileInfo = (Map<String, Object>) values.get(PROFILE_DATA_KEY);
-    }
+    @SerializedName("profileData")
+    private Map<String, Object> profileInfo;
 
     public UserIdentity(String id, String connection, String provider, boolean social,
                         String accessToken, String accessTokenSecret, Map<String, Object> profileInfo) {
@@ -109,10 +94,6 @@ public class UserIdentity {
     }
 
     public Map<String, Object> getProfileInfo() {
-        return profileInfo;
-    }
-
-    public String getUserIdentityId() {
-        return String.format("%s|%s", this.provider, this.id);
+        return profileInfo != null ? new HashMap<>(profileInfo) : Collections.<String, Object>emptyMap();
     }
 }

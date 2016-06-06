@@ -1,0 +1,77 @@
+{
+  "email": "info@auth0.com",
+  "picture": "https://secure.gravatar.com/avatar/cfacbe113a96fdfc85134534771d88b4?s=480&r=pg&d=https%3A%2F%2Fssl.gstatic.com%2Fs2%2Fprofiles%2Fimages%2Fsilhouette80.png",
+  "name": "info @ auth0",
+  "nickname": "a0",
+  "username": "auth0",
+  "given_name": "John",
+  "family_name": "Foobar",
+  "app_metadata": {
+    "role": "admin",
+    "tier": 2,
+    "blocked": false
+  },
+  "multifactor": [
+    "google-authenticator"
+  ],
+  "user_metadata": {
+    "first_name": "Info",
+    "last_name": "Auth0"
+  },
+  "email_verified": false,
+  "clientID": "lEqU5MhUrbyQHSVWjZSTCBUFABLbJAS3",
+  "user_id": "auth0|1234567890",
+  "identities": [
+    {
+      "user_id": "1234567890",
+      "provider": "auth0",
+      "connection": "Username-Password-Authentication",
+      "isSocial": false
+    },
+    {
+      "profileData": {
+        "name": "Foobar John",
+        "email": "cs.auth0@gmail.com",
+        "given_name": "John",
+        "family_name": "Foobar",
+        "gender": "male",
+        "picture": "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/c15.0.50.50/p50x50/10354686_10150004552801856_220367501106153455_n.jpg?oh=e0b37ad2914032931c273619126878aa&oe=56496A2F&__gda__=1447695355_10ff74ec6ef8e26e46c4751a34c49bd0",
+        "age_range": {
+          "min": 21
+        },
+        "context": {
+          "mutual_likes": {
+            "data": [],
+            "summary": {
+              "total_count": 0
+            }
+          },
+          "id": "dXNlcl9jb250ZAXh0OgGQrD9tBkdCdc9yZCEuMNLb30EfjMBifT2tw1ZA0ZD"
+        },
+        "devices": [
+          {
+            "os": "Android"
+          }
+        ],
+        "updated_time": "2014-09-23T18:26:31+0000",
+        "installed": true,
+        "is_verified": false,
+        "link": "http://www.facebook.com/100007950452676",
+        "locale": "en_US",
+        "name_format": "{first} {last}",
+        "timezone": -3,
+        "third_party_id": "tQc5Y4aHE7Lu7fBQo5IB5OI2G6s",
+        "verified": true,
+        "email_verified": true
+      },
+      "access_token": "CAAHmNzUbD0eIBAOv4JlkCgMtfcvhjdNb4r9R39coDs3Dog33pgZBquVvUpRiphjZBHnU6TpXRMA5GLReamUwQ1AFl5UrjeksDYAD3Trq4SUxpGKTFuB7KxYhcjzJQxyZCoZBzEpNDkYrwo4tPgShBhCfhugO7yZCzdcgPDt2Oyu5hy8ROqZBfmjYIKKl8yhDbiSgH7Np9nJ9yeWqE9wzj8ZAKRMkHoHZCXb4zqWLxKfQTRG4PzM3fv3K",
+      "provider": "facebook",
+      "user_id": "999997950999976",
+      "connection": "facebook",
+      "isSocial": true
+    }
+  ],
+  "created_at": "2014-07-06T18:33:49.005Z",
+  "updated_at": "2016-06-04T20:43:53.486Z",
+  "global_client_id": "QaXhznFbjTaQbU5"
+}
