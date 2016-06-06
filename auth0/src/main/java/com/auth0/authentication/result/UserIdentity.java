@@ -27,6 +27,7 @@ package com.auth0.authentication.result;
 import com.auth0.util.JsonRequired;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +35,7 @@ import java.util.Map;
 /**
  * Class that holds the information from a Identity Provider like Facebook or Twitter.
  */
-public class UserIdentity {
+public class UserIdentity implements Serializable {
 
     @JsonRequired
     @SerializedName("user_id")
