@@ -166,7 +166,7 @@ public class AuthorizeUrlBuilderTest {
     }
 
     @Test
-    public void shouldThrowwithStateIsNull() throws Exception {
+    public void shouldThrowWithStateIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'state' cannot be null!");
         AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)

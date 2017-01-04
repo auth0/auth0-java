@@ -42,4 +42,15 @@ public class AuthAPI {
                 .withConnection(connection);
     }
 
+    /**
+     * Creates a new instance of the {@link AuthorizeUrlBuilder} with the given connection and redirect url parameters.
+     *
+     * @param returnToUrl the redirect_uri value to set. Must be already URL Encoded.
+     * @param setClientId whether the client_id value must be set or not. This affects the white-list that the Auth0's Dashboard uses to validate the returnTo url.
+     * @return a new instance of the {@link AuthorizeUrlBuilder} to configure.
+     */
+    public LogoutUrlBuilder logout(String returnToUrl, boolean setClientId) {
+        return LogoutUrlBuilder.newInstance(domain, clientId, returnToUrl, setClientId);
+    }
+
 }
