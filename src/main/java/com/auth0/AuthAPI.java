@@ -30,10 +30,16 @@ public class AuthAPI {
                 .build();
     }
 
-    // redirectUri should be urlEncoded
-    // sets response_type=code, client_id=clientId, connection=connection, redirect_uri=redirectUrl
-    public AuthorizeUrlBuilder authorize(String connection, String redirectUrl) {
-        return AuthorizeUrlBuilder.newInstance(domain, clientId, redirectUrl)
+    /**
+     * Creates a new instance of the {@link AuthorizeUrlBuilder} with the given connection and redirect url parameters.
+     *
+     * @param connection  the connection value to set
+     * @param redirectUri the redirect_uri value to set. Must be already URL Encoded.
+     * @return a new instance of the {@link AuthorizeUrlBuilder} to configure.
+     */
+    public AuthorizeUrlBuilder authorize(String connection, String redirectUri) {
+        return AuthorizeUrlBuilder.newInstance(domain, clientId, redirectUri)
                 .withConnection(connection);
     }
+
 }

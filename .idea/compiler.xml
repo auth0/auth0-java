@@ -18,9 +18,9 @@
         <processorPath useClasspath="true" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="auth0-java_main" target="1.5" />
-      <module name="auth0-java_test" target="1.5" />
+    <bytecodeTargetLevel target="1.7">
+      <module name="auth0-java_main" target="1.7" />
+      <module name="auth0-java_test" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
