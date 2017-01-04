@@ -16,7 +16,7 @@ public class LogoutUrlBuilder {
     /**
      * Creates a new instance of the {@link LogoutUrlBuilder} using the given domain and base parameters.
      *
-     * @param domain      the domain to use for this url
+     * @param domain      the domain to use for this URL. Must be a valid URL.
      * @param clientId    the client_id value to set
      * @param returnToUrl the returnTo value to set. Must be already URL Encoded and must be white-listed in your Auth0's dashboard.
      * @param setClientId whether the client_id value must be set or not. This affects the white-list that the Auth0's Dashboard uses to validate the returnTo url.

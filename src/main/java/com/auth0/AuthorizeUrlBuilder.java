@@ -16,7 +16,7 @@ public class AuthorizeUrlBuilder {
     /**
      * Creates a new instance of the {@link AuthorizeUrlBuilder} using the given domain and base parameters.
      *
-     * @param domain      the domain to use for this url
+     * @param domain      the domain to use for this URL. Must be a valid URL.
      * @param clientId    the client_id value to set
      * @param redirectUri the redirect_uri value to set. Must be already URL Encoded and must be white-listed in your Auth0's dashboard.
      * @return a new instance of the {@link AuthorizeUrlBuilder} to configure.

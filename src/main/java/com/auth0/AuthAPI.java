@@ -1,5 +1,7 @@
 package com.auth0;
 
+import com.auth0.json.UserInfo;
+import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -10,16 +12,19 @@ public class AuthAPI {
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
     private final OkHttpClient client;
-    private final String domain;
     private final String clientId;
     private final String clientSecret;
+    private final String baseUrl;
 
     public AuthAPI(String domain, String clientId, String clientSecret) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(clientId, "client id");
         Asserts.assertNotNull(clientSecret, "client secret");
 
-        this.domain = domain;
+        baseUrl = createBaseUrl(domain);
+        if (baseUrl == null) {
+            throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
+        }
         this.clientId = clientId;
         this.clientSecret = clientSecret;
 
@@ -30,6 +35,15 @@ public class AuthAPI {
                 .build();
     }
 
+    private String createBaseUrl(String domain) {
+        String url = domain;
+        if (!domain.startsWith("https://") && !domain.startsWith("http://")) {
+            url = "https://" + domain;
+        }
+        HttpUrl baseUrl = HttpUrl.parse(url);
+        return baseUrl == null ? null : baseUrl.newBuilder().scheme("https").build().toString();
+    }
+
     /**
      * Creates a new instance of the {@link AuthorizeUrlBuilder} with the given connection and redirect url parameters.
      *
@@ -38,7 +52,7 @@ public class AuthAPI {
      * @return a new instance of the {@link AuthorizeUrlBuilder} to configure.
      */
     public AuthorizeUrlBuilder authorize(String connection, String redirectUri) {
-        return AuthorizeUrlBuilder.newInstance(domain, clientId, redirectUri)
+        return AuthorizeUrlBuilder.newInstance(baseUrl, clientId, redirectUri)
                 .withConnection(connection);
     }
 
@@ -50,7 +64,24 @@ public class AuthAPI {
      * @return a new instance of the {@link AuthorizeUrlBuilder} to configure.
      */
     public LogoutUrlBuilder logout(String returnToUrl, boolean setClientId) {
-        return LogoutUrlBuilder.newInstance(domain, clientId, returnToUrl, setClientId);
+        return LogoutUrlBuilder.newInstance(baseUrl, clientId, returnToUrl, setClientId);
     }
 
+
+    /**
+     * Request the user information related to this access token.
+     *
+     * @param accessToken a valid access token belonging to an API signed with RS256 algorithm and containing the scope 'openid'.
+     * @return a Request to configure and execute.
+     */
+    public Request<UserInfo> userInfo(String accessToken) {
+        Asserts.assertNotNull(accessToken, "access token");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("userinfo")
+                .build()
+                .toString();
+        return new SimpleRequest<UserInfo>(client, url, "GET", UserInfo.class);
+    }
 }
