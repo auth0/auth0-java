@@ -190,7 +190,15 @@ public class AuthAPITest {
         MatcherAssert.assertThat(parsed.queryParameter("returnTo"), is("https://my.domain.com/welcome"));
     }
 
-    //Userinfo
+
+    //UserInfo
+
+    @Test
+    public void shouldThrowWhenUserInfoAccessTokenIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'access token' cannot be null!");
+        api.userInfo(null);
+    }
 
     @Test
     public void shouldCreateUserInfoRequest() throws Exception {
@@ -227,6 +235,23 @@ public class AuthAPITest {
         assertThat(identities.get(0), hasEntry("isSocial", (Object) false));
     }
 
+
+    //Reset Password
+
+    @Test
+    public void shouldThrowWhenResetPasswordEmailIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'email' cannot be null!");
+        api.resetPassword(null, "my-connection");
+    }
+
+    @Test
+    public void shouldThrowWhenResetPasswordConnectionIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'connection' cannot be null!");
+        api.resetPassword("me@auth0.com", null);
+    }
+
     @Test
     public void shouldCreateResetPasswordRequest() throws Exception {
         CustomRequest<Void> request = (CustomRequest<Void>) api.resetPassword("me@auth0.com", "db-connection");
@@ -243,10 +268,107 @@ public class AuthAPITest {
         assertThat(body, hasEntry("email", "me@auth0.com"));
         assertThat(body, hasEntry("connection", "db-connection"));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, not(hasKey("password")));
 
         assertThat(response, is(nullValue()));
     }
-    
+
+
+    //Sign Up
+
+    @Test
+    public void shouldThrowWhenSignUpEmailIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'email' cannot be null!");
+        api.signUp(null, "p455w0rd", "my-connection");
+    }
+
+    @Test
+    public void shouldThrowWhenSignUpPasswordIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'password' cannot be null!");
+        api.signUp("me@auth0.com", null, "my-connection");
+    }
+
+    @Test
+    public void shouldThrowWhenSignUpConnectionIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'connection' cannot be null!");
+        api.signUp("me@auth0.com", "p455w0rd", null);
+    }
+
+    @Test
+    public void shouldThrowWhenUsernameSignUpEmailIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'email' cannot be null!");
+        api.signUp(null, "me", "p455w0rd", "my-connection");
+    }
+
+    @Test
+    public void shouldThrowWhenUsernameSignUpUsernameIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'username' cannot be null!");
+        api.signUp("me@auth0.com", null, "p455w0rd", "my-connection");
+    }
+
+    @Test
+    public void shouldThrowWhenUsernameSignUpPasswordIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'password' cannot be null!");
+        api.signUp("me@auth0.com", "me", null, "my-connection");
+    }
+
+    @Test
+    public void shouldThrowWhenUsernameSignUpConnectionIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'connection' cannot be null!");
+        api.signUp("me@auth0.com", "me", "p455w0rd", null);
+    }
+
+    @Test
+    public void shouldCreateSignUpRequestWithUsername() throws Exception {
+        CustomRequest<Void> request = (CustomRequest<Void>) api.signUp("me@auth0.com", "me", "p455w0rd", "db-connection");
+        assertThat(request, is(notNullValue()));
+
+        server.signUpRequest();
+        Void response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest.getMethod(), is("POST"));
+        assertThat(recordedRequest.getPath(), is("/dbconnections/signup"));
+        assertThat(recordedRequest.getHeader("Content-Type"), is("application/json"));
+        Map<String, String> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("email", "me@auth0.com"));
+        assertThat(body, hasEntry("username", "me"));
+        assertThat(body, hasEntry("password", "p455w0rd"));
+        assertThat(body, hasEntry("connection", "db-connection"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+
+        assertThat(response, is(nullValue()));
+    }
+
+    @Test
+    public void shouldCreateSignUpRequest() throws Exception {
+        CustomRequest<Void> request = (CustomRequest<Void>) api.signUp("me@auth0.com", "p455w0rd", "db-connection");
+        assertThat(request, is(notNullValue()));
+
+        server.signUpRequest();
+        Void response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest.getMethod(), is("POST"));
+        assertThat(recordedRequest.getPath(), is("/dbconnections/signup"));
+        assertThat(recordedRequest.getHeader("Content-Type"), is("application/json"));
+        Map<String, String> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("email", "me@auth0.com"));
+        assertThat(body, hasEntry("password", "p455w0rd"));
+        assertThat(body, hasEntry("connection", "db-connection"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, not(hasKey("username")));
+
+        assertThat(response, is(nullValue()));
+    }
+
     private Map<String, String> bodyFromRequest(RecordedRequest request) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, String.class);

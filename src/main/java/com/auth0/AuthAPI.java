@@ -80,7 +80,7 @@ public class AuthAPI {
      * Request the user information related to this access token.
      *
      * @param accessToken a valid access token belonging to an API signed with RS256 algorithm and containing the scope 'openid'.
-     * @return a Request to configure and execute.
+     * @return a Request to execute.
      */
     public Request<UserInfo> userInfo(String accessToken) {
         Asserts.assertNotNull(accessToken, "access token");
@@ -116,6 +116,50 @@ public class AuthAPI {
         CustomRequest<Void> request = new CustomRequest<>(client, url, "POST", Void.class);
         request.addParameter("client_id", clientId);
         request.addParameter("email", email);
+        request.addParameter("connection", connection);
+        return request;
+    }
+
+    /**
+     * Creates a new sign up request with the given credentials and database connection.
+     *
+     * @param email      the desired user's email.
+     * @param username   the desired user's username.
+     * @param password   the desired user's password.
+     * @param connection the database connection where the user is going to be created.
+     * @return a Request to configure and execute.
+     */
+    public Request<Void> signUp(String email, String username, String password, String connection) {
+        Asserts.assertNotNull(username, "username");
+
+        CustomRequest<Void> request = (CustomRequest<Void>) this.signUp(email, password, connection);
+        request.addParameter("username", username);
+        return request;
+    }
+
+    /**
+     * Creates a new sign up request with the given credentials and database connection.
+     *
+     * @param email      the desired user's email.
+     * @param password   the desired user's password.
+     * @param connection the database connection where the user is going to be created.
+     * @return a Request to configure and execute.
+     */
+    public Request<Void> signUp(String email, String password, String connection) {
+        Asserts.assertNotNull(email, "email");
+        Asserts.assertNotNull(password, "password");
+        Asserts.assertNotNull(connection, "connection");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("dbconnections")
+                .addPathSegment("signup")
+                .build()
+                .toString();
+        CustomRequest<Void> request = new CustomRequest<>(client, url, "POST", Void.class);
+        request.addParameter("client_id", clientId);
+        request.addParameter("email", email);
+        request.addParameter("password", password);
         request.addParameter("connection", connection);
         return request;
     }

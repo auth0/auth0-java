@@ -61,4 +61,16 @@ public class MockServer {
                 .setBody("We've just sent you an email to reset your password.");
         server.enqueue(response);
     }
+
+    public void signUpRequest() {
+        MockResponse response = new MockResponse()
+                .setResponseCode(200)
+                .addHeader("Content-Type", "application/json")
+                .setBody("{\n" +
+                        "  \"_id\": \"58457fe6b27...\",\n" +
+                        "  \"email_verified\": false,\n" +
+                        "  \"email\": \"test.account@signup.com\"\n" +
+                        "}");
+        server.enqueue(response);
+    }
 }
