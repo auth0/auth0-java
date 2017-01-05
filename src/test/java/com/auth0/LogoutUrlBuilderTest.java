@@ -42,7 +42,7 @@ public class LogoutUrlBuilderTest {
     public void shouldThrowWhenDomainIsNotURL() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'domain' must be a valid URL!");
-        LogoutUrlBuilder.newInstance("something.com", CLIENT_ID, RETURN_TO_URL, true);
+        LogoutUrlBuilder.newInstance("something", CLIENT_ID, RETURN_TO_URL, true);
     }
 
     @Test

@@ -1,6 +1,8 @@
-package com.auth0;
+package com.auth0.net;
 
-public class RequestFailedException extends Exception {
+import java.io.IOException;
+
+public class RequestFailedException extends IOException {
 
     public RequestFailedException(String message, Throwable cause) {
         super("Request failed: " + message, cause);

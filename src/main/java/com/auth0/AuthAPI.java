@@ -1,15 +1,14 @@
 package com.auth0;
 
 import com.auth0.json.UserInfo;
+import com.auth0.net.CustomRequest;
+import com.auth0.net.Request;
 import okhttp3.HttpUrl;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 
 public class AuthAPI {
-
-    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
     private final OkHttpClient client;
     private final String clientId;
@@ -35,13 +34,17 @@ public class AuthAPI {
                 .build();
     }
 
+    String getBaseUrl(){
+        return baseUrl;
+    }
+
     private String createBaseUrl(String domain) {
         String url = domain;
         if (!domain.startsWith("https://") && !domain.startsWith("http://")) {
             url = "https://" + domain;
         }
         HttpUrl baseUrl = HttpUrl.parse(url);
-        return baseUrl == null ? null : baseUrl.newBuilder().scheme("https").build().toString();
+        return baseUrl == null ? null : baseUrl.newBuilder().build().toString();
     }
 
     /**
@@ -82,6 +85,8 @@ public class AuthAPI {
                 .addPathSegment("userinfo")
                 .build()
                 .toString();
-        return new SimpleRequest<UserInfo>(client, url, "GET", UserInfo.class);
+        CustomRequest<UserInfo> request = new CustomRequest<>(client, url, "GET", UserInfo.class);
+        request.addHeader("Authorization", "Bearer " + accessToken);
+        return request;
     }
 }

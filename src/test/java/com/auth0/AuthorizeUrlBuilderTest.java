@@ -39,7 +39,7 @@ public class AuthorizeUrlBuilderTest {
     public void shouldThrowWhenDomainIsNotURL() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'domain' must be a valid URL!");
-        AuthorizeUrlBuilder.newInstance("something.com", CLIENT_ID, REDIRECT_URI);
+        AuthorizeUrlBuilder.newInstance("something", CLIENT_ID, REDIRECT_URI);
     }
 
     @Test
