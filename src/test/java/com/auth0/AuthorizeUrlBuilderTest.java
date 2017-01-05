@@ -63,8 +63,19 @@ public class AuthorizeUrlBuilderTest {
     }
 
     @Test
-    public void shouldBuildValidAuthorizeUrl() throws Exception {
-        String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI).build();
+    public void shouldBuildValidAuthorizeUrlWithHttp() throws Exception {
+        String url = AuthorizeUrlBuilder.newInstance("http://domain.auth0.com", CLIENT_ID, REDIRECT_URI).build();
+        assertThat(url, not(isEmptyOrNullString()));
+        assertThat(HttpUrl.parse(url), is(notNullValue()));
+        assertThat(HttpUrl.parse(url).scheme(), is("http"));
+        assertThat(HttpUrl.parse(url).host(), is("domain.auth0.com"));
+        assertThat(HttpUrl.parse(url).pathSegments().size(), is(1));
+        assertThat(HttpUrl.parse(url).pathSegments().get(0), is("authorize"));
+    }
+
+    @Test
+    public void shouldBuildValidAuthorizeUrlWithHttps() throws Exception {
+        String url = AuthorizeUrlBuilder.newInstance("https://domain.auth0.com", CLIENT_ID, REDIRECT_URI).build();
         assertThat(url, not(isEmptyOrNullString()));
         assertThat(HttpUrl.parse(url), is(notNullValue()));
         assertThat(HttpUrl.parse(url).scheme(), is("https"));

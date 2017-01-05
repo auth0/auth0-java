@@ -32,7 +32,6 @@ public class LogoutUrlBuilder {
 
         parameters = new HashMap<>();
         builder = HttpUrl.parse(domain).newBuilder()
-                .scheme("https")
                 .addPathSegment("v2")
                 .addPathSegment("logout")
                 .addEncodedQueryParameter("returnTo", returnToUrl);

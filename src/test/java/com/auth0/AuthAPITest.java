@@ -52,6 +52,8 @@ public class AuthAPITest {
         server.stop();
     }
 
+    // Configuration
+
     @Test
     public void shouldAcceptDomainWithNoScheme() throws Exception {
         AuthAPI api = new AuthAPI("me.something.com", CLIENT_ID, CLIENT_SECRET);
@@ -78,6 +80,80 @@ public class AuthAPITest {
         exception.expectMessage("'domain' cannot be null!");
         new AuthAPI(null, CLIENT_ID, CLIENT_SECRET);
     }
+
+    //Authorize
+
+    @Test
+    public void shouldGetAuthorizeUrlBuilder() throws Exception {
+        AuthorizeUrlBuilder builder = api.authorize("my-connection", "https://domain.auth0.com/callback");
+        assertThat(builder, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldSetAuthorizeUrlBuilderDefaultValues() throws Exception {
+        AuthAPI api = new AuthAPI("domain.auth0.com", CLIENT_ID, CLIENT_SECRET);
+        String url = api.authorize("my-connection", "https://domain.auth0.com/callback").build();
+        HttpUrl parsed = HttpUrl.parse(url);
+
+        MatcherAssert.assertThat(url, not(isEmptyOrNullString()));
+        MatcherAssert.assertThat(parsed, is(notNullValue()));
+        MatcherAssert.assertThat(parsed.scheme(), is("https"));
+        MatcherAssert.assertThat(parsed.host(), is("domain.auth0.com"));
+        MatcherAssert.assertThat(parsed.pathSegments().size(), is(1));
+        MatcherAssert.assertThat(parsed.pathSegments().get(0), is("authorize"));
+
+        MatcherAssert.assertThat(parsed.queryParameter("response_type"), is("code"));
+        MatcherAssert.assertThat(parsed.queryParameter("client_id"), is(CLIENT_ID));
+        MatcherAssert.assertThat(parsed.queryParameter("redirect_uri"), is("https://domain.auth0.com/callback"));
+        MatcherAssert.assertThat(parsed.queryParameter("connection"), is("my-connection"));
+    }
+
+
+    //Logout
+
+    @Test
+    public void shouldGetLogoutUrlBuilder() throws Exception {
+        LogoutUrlBuilder builder = api.logout("https://domain.auth0.com/callback", true);
+        assertThat(builder, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldSetLogoutUrlBuilderDefaultValues() throws Exception {
+        AuthAPI api = new AuthAPI("domain.auth0.com", CLIENT_ID, CLIENT_SECRET);
+        String url = api.logout("https://my.domain.com/welcome", false).build();
+        HttpUrl parsed = HttpUrl.parse(url);
+
+        MatcherAssert.assertThat(url, not(isEmptyOrNullString()));
+        MatcherAssert.assertThat(parsed, is(notNullValue()));
+        MatcherAssert.assertThat(parsed.scheme(), is("https"));
+        MatcherAssert.assertThat(parsed.host(), is("domain.auth0.com"));
+        MatcherAssert.assertThat(parsed.pathSegments().size(), is(2));
+        MatcherAssert.assertThat(parsed.pathSegments().get(0), is("v2"));
+        MatcherAssert.assertThat(parsed.pathSegments().get(1), is("logout"));
+
+        MatcherAssert.assertThat(parsed.queryParameter("client_id"), is(nullValue()));
+        MatcherAssert.assertThat(parsed.queryParameter("returnTo"), is("https://my.domain.com/welcome"));
+    }
+
+    @Test
+    public void shouldSetLogoutUrlBuilderDefaultValuesAndClientId() throws Exception {
+        AuthAPI api = new AuthAPI("domain.auth0.com", CLIENT_ID, CLIENT_SECRET);
+        String url = api.logout("https://my.domain.com/welcome", true).build();
+        HttpUrl parsed = HttpUrl.parse(url);
+
+        MatcherAssert.assertThat(url, not(isEmptyOrNullString()));
+        MatcherAssert.assertThat(parsed, is(notNullValue()));
+        MatcherAssert.assertThat(parsed.scheme(), is("https"));
+        MatcherAssert.assertThat(parsed.host(), is("domain.auth0.com"));
+        MatcherAssert.assertThat(parsed.pathSegments().size(), is(2));
+        MatcherAssert.assertThat(parsed.pathSegments().get(0), is("v2"));
+        MatcherAssert.assertThat(parsed.pathSegments().get(1), is("logout"));
+
+        MatcherAssert.assertThat(parsed.queryParameter("client_id"), is(CLIENT_ID));
+        MatcherAssert.assertThat(parsed.queryParameter("returnTo"), is("https://my.domain.com/welcome"));
+    }
+
+    //Userinfo
 
     @Test
     public void shouldCreateUserInfoRequest() throws Exception {

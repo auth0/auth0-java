@@ -32,7 +32,6 @@ public class AuthorizeUrlBuilder {
 
         parameters = new HashMap<>();
         builder = HttpUrl.parse(domain).newBuilder()
-                .scheme("https")
                 .addPathSegment("authorize")
                 .addEncodedQueryParameter("redirect_uri", redirectUri)
                 .addQueryParameter("response_type", "code")

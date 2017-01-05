@@ -64,8 +64,20 @@ public class LogoutUrlBuilderTest {
     }
 
     @Test
-    public void shouldBuildValidLogoutUrl() throws Exception {
-        String url = LogoutUrlBuilder.newInstance(DOMAIN, CLIENT_ID, RETURN_TO_URL, true).build();
+    public void shouldBuildValidLogoutUrlWithHttp() throws Exception {
+        String url = LogoutUrlBuilder.newInstance("http://domain.auth0.com", CLIENT_ID, RETURN_TO_URL, true).build();
+        assertThat(url, not(isEmptyOrNullString()));
+        assertThat(HttpUrl.parse(url), is(notNullValue()));
+        assertThat(HttpUrl.parse(url).scheme(), is("http"));
+        assertThat(HttpUrl.parse(url).host(), is("domain.auth0.com"));
+        assertThat(HttpUrl.parse(url).pathSegments().size(), is(2));
+        assertThat(HttpUrl.parse(url).pathSegments().get(0), is("v2"));
+        assertThat(HttpUrl.parse(url).pathSegments().get(1), is("logout"));
+    }
+
+    @Test
+    public void shouldBuildValidLogoutUrlWithHttps() throws Exception {
+        String url = LogoutUrlBuilder.newInstance("https://domain.auth0.com", CLIENT_ID, RETURN_TO_URL, true).build();
         assertThat(url, not(isEmptyOrNullString()));
         assertThat(HttpUrl.parse(url), is(notNullValue()));
         assertThat(HttpUrl.parse(url).scheme(), is("https"));
