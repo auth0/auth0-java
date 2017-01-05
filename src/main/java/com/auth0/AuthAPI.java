@@ -34,7 +34,7 @@ public class AuthAPI {
                 .build();
     }
 
-    String getBaseUrl(){
+    String getBaseUrl() {
         return baseUrl;
     }
 
@@ -55,6 +55,9 @@ public class AuthAPI {
      * @return a new instance of the {@link AuthorizeUrlBuilder} to configure.
      */
     public AuthorizeUrlBuilder authorize(String connection, String redirectUri) {
+        Asserts.assertNotNull(connection, "connection");
+        Asserts.assertNotNull(redirectUri, "redirect uri");
+
         return AuthorizeUrlBuilder.newInstance(baseUrl, clientId, redirectUri)
                 .withConnection(connection);
     }
@@ -67,6 +70,8 @@ public class AuthAPI {
      * @return a new instance of the {@link AuthorizeUrlBuilder} to configure.
      */
     public LogoutUrlBuilder logout(String returnToUrl, boolean setClientId) {
+        Asserts.assertNotNull(returnToUrl, "return to url");
+
         return LogoutUrlBuilder.newInstance(baseUrl, clientId, returnToUrl, setClientId);
     }
 
@@ -87,6 +92,31 @@ public class AuthAPI {
                 .toString();
         CustomRequest<UserInfo> request = new CustomRequest<>(client, url, "GET", UserInfo.class);
         request.addHeader("Authorization", "Bearer " + accessToken);
+        return request;
+    }
+
+    /**
+     * Request a password reset for the given email and database connection. The response will always be successful even if
+     * there's no user associated to the given email for that database connection.
+     *
+     * @param email      the email associated to the database user.
+     * @param connection the database connection where the user was created.
+     * @return a Request to execute.
+     */
+    public Request<Void> resetPassword(String email, String connection) {
+        Asserts.assertNotNull(email, "email");
+        Asserts.assertNotNull(connection, "connection");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("dbconnections")
+                .addPathSegment("change_password")
+                .build()
+                .toString();
+        CustomRequest<Void> request = new CustomRequest<>(client, url, "POST", Void.class);
+        request.addParameter("client_id", clientId);
+        request.addParameter("email", email);
+        request.addParameter("connection", connection);
         return request;
     }
 }

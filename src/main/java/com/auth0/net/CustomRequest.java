@@ -1,5 +1,6 @@
 package com.auth0.net;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequest {
-    private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    private static final MediaType JSON = MediaType.parse("application/json");
 
     private final String url;
     private final String method;
@@ -49,8 +50,16 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
     protected T parseResponse(Response response) throws RequestFailedException {
         ResponseBody body = response.body();
         if (response.isSuccessful()) {
+            if (tClazz.equals(Void.class)) {
+                return null;
+            }
+            String payload = null;
             try {
-                return mapper.readValue(body.byteStream(), tClazz);
+                payload = body.string();
+                return mapper.readValue(payload, tClazz);
+            } catch (JsonParseException e) {
+                //Parse failed, maybe it's not a JSON.
+                throw new RequestFailedException(payload, e);
             } catch (IOException e) {
                 throw new RequestFailedException("Failed to convert", e);
             } finally {
@@ -89,7 +98,7 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
             return null;
         }
         try {
-            String jsonBody = mapper.writeValueAsString(parameters);
+            byte[] jsonBody = mapper.writeValueAsBytes(parameters);
             return RequestBody.create(JSON, jsonBody);
         } catch (JsonProcessingException e) {
             throw new RequestFailedException("Couldn't create the request body.", e);

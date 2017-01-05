@@ -53,4 +53,12 @@ public class MockServer {
                         "}");
         server.enqueue(response);
     }
+
+    public void resetPasswordRequest() {
+        MockResponse response = new MockResponse()
+                .setResponseCode(200)
+                .addHeader("Content-Type", "application/json")
+                .setBody("We've just sent you an email to reset your password.");
+        server.enqueue(response);
+    }
 }

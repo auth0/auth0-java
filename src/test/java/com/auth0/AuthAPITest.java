@@ -30,6 +30,7 @@ import static org.junit.Assert.assertThat;
 
 public class AuthAPITest {
 
+    private static final String DOMAIN = "domain.auth0.com";
     private static final String CLIENT_ID = "clientId";
     private static final String CLIENT_SECRET = "clientSecret";
 
@@ -81,7 +82,36 @@ public class AuthAPITest {
         new AuthAPI(null, CLIENT_ID, CLIENT_SECRET);
     }
 
+    @Test
+    public void shouldThrowWhenClientIdIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'client id' cannot be null!");
+        new AuthAPI(DOMAIN, null, CLIENT_SECRET);
+    }
+
+    @Test
+    public void shouldThrowWhenClientSecretIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'client secret' cannot be null!");
+        new AuthAPI(DOMAIN, CLIENT_ID, null);
+    }
+
+
     //Authorize
+
+    @Test
+    public void shouldThrowWhenAuthorizeUrlBuilderConnectionIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'connection' cannot be null!");
+        api.authorize(null, "https://domain.auth0.com/callback");
+    }
+
+    @Test
+    public void shouldThrowWhenAuthorizeUrlBuilderRedirectUriIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'redirect uri' cannot be null!");
+        api.authorize("my-connection", null);
+    }
 
     @Test
     public void shouldGetAuthorizeUrlBuilder() throws Exception {
@@ -110,6 +140,13 @@ public class AuthAPITest {
 
 
     //Logout
+
+    @Test
+    public void shouldThrowWhenLogoutUrlBuilderReturnToUrlIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'return to url' cannot be null!");
+        api.logout(null, true);
+    }
 
     @Test
     public void shouldGetLogoutUrlBuilder() throws Exception {
@@ -188,9 +225,28 @@ public class AuthAPITest {
         assertThat(identities.get(0), hasEntry("provider", (Object) "auth0"));
         assertThat(identities.get(0), hasEntry("connection", (Object) "Username-Password-Authentication"));
         assertThat(identities.get(0), hasEntry("isSocial", (Object) false));
-
     }
 
+    @Test
+    public void shouldCreateResetPasswordRequest() throws Exception {
+        CustomRequest<Void> request = (CustomRequest<Void>) api.resetPassword("me@auth0.com", "db-connection");
+        assertThat(request, is(notNullValue()));
+
+        server.resetPasswordRequest();
+        Void response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest.getMethod(), is("POST"));
+        assertThat(recordedRequest.getPath(), is("/dbconnections/change_password"));
+        assertThat(recordedRequest.getHeader("Content-Type"), is("application/json"));
+        Map<String, String> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("email", "me@auth0.com"));
+        assertThat(body, hasEntry("connection", "db-connection"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+
+        assertThat(response, is(nullValue()));
+    }
+    
     private Map<String, String> bodyFromRequest(RecordedRequest request) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, String.class);
