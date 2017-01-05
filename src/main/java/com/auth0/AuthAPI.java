@@ -3,6 +3,8 @@ package com.auth0;
 import com.auth0.json.UserInfo;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
+import com.auth0.net.SignUpRequest;
+import com.auth0.net.VoidRequest;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -103,7 +105,7 @@ public class AuthAPI {
      * @param connection the database connection where the user was created.
      * @return a Request to execute.
      */
-    public Request<Void> resetPassword(String email, String connection) {
+    public Request resetPassword(String email, String connection) {
         Asserts.assertNotNull(email, "email");
         Asserts.assertNotNull(connection, "connection");
 
@@ -113,7 +115,7 @@ public class AuthAPI {
                 .addPathSegment("change_password")
                 .build()
                 .toString();
-        CustomRequest<Void> request = new CustomRequest<>(client, url, "POST", Void.class);
+        VoidRequest request = new VoidRequest(client, url, "POST");
         request.addParameter("client_id", clientId);
         request.addParameter("email", email);
         request.addParameter("connection", connection);
@@ -122,6 +124,7 @@ public class AuthAPI {
 
     /**
      * Creates a new sign up request with the given credentials and database connection.
+     * "Requires Username" option must be turned on in the Connection's configuration first.
      *
      * @param email      the desired user's email.
      * @param username   the desired user's username.
@@ -129,10 +132,10 @@ public class AuthAPI {
      * @param connection the database connection where the user is going to be created.
      * @return a Request to configure and execute.
      */
-    public Request<Void> signUp(String email, String username, String password, String connection) {
+    public SignUpRequest signUp(String email, String username, String password, String connection) {
         Asserts.assertNotNull(username, "username");
 
-        CustomRequest<Void> request = (CustomRequest<Void>) this.signUp(email, password, connection);
+        VoidRequest request = (VoidRequest) this.signUp(email, password, connection);
         request.addParameter("username", username);
         return request;
     }
@@ -145,7 +148,7 @@ public class AuthAPI {
      * @param connection the database connection where the user is going to be created.
      * @return a Request to configure and execute.
      */
-    public Request<Void> signUp(String email, String password, String connection) {
+    public SignUpRequest signUp(String email, String password, String connection) {
         Asserts.assertNotNull(email, "email");
         Asserts.assertNotNull(password, "password");
         Asserts.assertNotNull(connection, "connection");
@@ -156,7 +159,7 @@ public class AuthAPI {
                 .addPathSegment("signup")
                 .build()
                 .toString();
-        CustomRequest<Void> request = new CustomRequest<>(client, url, "POST", Void.class);
+        VoidRequest request = new VoidRequest(client, url, "POST");
         request.addParameter("client_id", clientId);
         request.addParameter("email", email);
         request.addParameter("password", password);

@@ -1,7 +1,8 @@
 package com.auth0;
 
 import com.auth0.json.UserInfo;
-import com.auth0.net.CustomRequest;
+import com.auth0.net.Request;
+import com.auth0.net.SignUpRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.MapType;
 import okhttp3.HttpUrl;
@@ -202,7 +203,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateUserInfoRequest() throws Exception {
-        CustomRequest<UserInfo> request = (CustomRequest<UserInfo>) api.userInfo("accessToken");
+        Request<UserInfo> request = api.userInfo("accessToken");
         assertThat(request, is(notNullValue()));
 
         server.userInfoResponse();
@@ -254,7 +255,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateResetPasswordRequest() throws Exception {
-        CustomRequest<Void> request = (CustomRequest<Void>) api.resetPassword("me@auth0.com", "db-connection");
+        Request<Void> request = api.resetPassword("me@auth0.com", "db-connection");
         assertThat(request, is(notNullValue()));
 
         server.resetPasswordRequest();
@@ -264,10 +265,11 @@ public class AuthAPITest {
         assertThat(recordedRequest.getMethod(), is("POST"));
         assertThat(recordedRequest.getPath(), is("/dbconnections/change_password"));
         assertThat(recordedRequest.getHeader("Content-Type"), is("application/json"));
-        Map<String, String> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("email", "me@auth0.com"));
-        assertThat(body, hasEntry("connection", "db-connection"));
-        assertThat(body, hasEntry("client_id", CLIENT_ID));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("email", (Object) "me@auth0.com"));
+        assertThat(body, hasEntry("connection", (Object) "db-connection"));
+        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
         assertThat(body, not(hasKey("password")));
 
         assertThat(response, is(nullValue()));
@@ -327,7 +329,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateSignUpRequestWithUsername() throws Exception {
-        CustomRequest<Void> request = (CustomRequest<Void>) api.signUp("me@auth0.com", "me", "p455w0rd", "db-connection");
+        Request<Void> request = api.signUp("me@auth0.com", "me", "p455w0rd", "db-connection");
         assertThat(request, is(notNullValue()));
 
         server.signUpRequest();
@@ -337,19 +339,20 @@ public class AuthAPITest {
         assertThat(recordedRequest.getMethod(), is("POST"));
         assertThat(recordedRequest.getPath(), is("/dbconnections/signup"));
         assertThat(recordedRequest.getHeader("Content-Type"), is("application/json"));
-        Map<String, String> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("email", "me@auth0.com"));
-        assertThat(body, hasEntry("username", "me"));
-        assertThat(body, hasEntry("password", "p455w0rd"));
-        assertThat(body, hasEntry("connection", "db-connection"));
-        assertThat(body, hasEntry("client_id", CLIENT_ID));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("email", (Object) "me@auth0.com"));
+        assertThat(body, hasEntry("username", (Object) "me"));
+        assertThat(body, hasEntry("password", (Object) "p455w0rd"));
+        assertThat(body, hasEntry("connection", (Object) "db-connection"));
+        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
 
         assertThat(response, is(nullValue()));
     }
 
     @Test
     public void shouldCreateSignUpRequest() throws Exception {
-        CustomRequest<Void> request = (CustomRequest<Void>) api.signUp("me@auth0.com", "p455w0rd", "db-connection");
+        SignUpRequest request = api.signUp("me@auth0.com", "p455w0rd", "db-connection");
         assertThat(request, is(notNullValue()));
 
         server.signUpRequest();
@@ -359,19 +362,51 @@ public class AuthAPITest {
         assertThat(recordedRequest.getMethod(), is("POST"));
         assertThat(recordedRequest.getPath(), is("/dbconnections/signup"));
         assertThat(recordedRequest.getHeader("Content-Type"), is("application/json"));
-        Map<String, String> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("email", "me@auth0.com"));
-        assertThat(body, hasEntry("password", "p455w0rd"));
-        assertThat(body, hasEntry("connection", "db-connection"));
-        assertThat(body, hasEntry("client_id", CLIENT_ID));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("email", (Object) "me@auth0.com"));
+        assertThat(body, hasEntry("password", (Object) "p455w0rd"));
+        assertThat(body, hasEntry("connection", (Object) "db-connection"));
+        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
         assertThat(body, not(hasKey("username")));
 
         assertThat(response, is(nullValue()));
     }
 
-    private Map<String, String> bodyFromRequest(RecordedRequest request) throws IOException {
+    @Test
+    public void shouldCreateSignUpRequestWithCustomFields() throws Exception {
+        SignUpRequest request = api.signUp("me@auth0.com", "p455w0rd", "db-connection");
+        assertThat(request, is(notNullValue()));
+        Map<String, String> customFields = new HashMap<>();
+        customFields.put("age", "25");
+        customFields.put("address", "123, fake street");
+        request.setCustomFields(customFields);
+
+        server.signUpRequest();
+        Void response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest.getMethod(), is("POST"));
+        assertThat(recordedRequest.getPath(), is("/dbconnections/signup"));
+        assertThat(recordedRequest.getHeader("Content-Type"), is("application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("email", (Object) "me@auth0.com"));
+        assertThat(body, hasEntry("password", (Object) "p455w0rd"));
+        assertThat(body, hasEntry("connection", (Object) "db-connection"));
+        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
+        assertThat(body, hasKey("user_metadata"));
+        Map<String, String> metadata = (Map<String, String>) body.get("user_metadata");
+        assertThat(metadata, hasEntry("age", "25"));
+        assertThat(metadata, hasEntry("address", "123, fake street"));
+        assertThat(body, not(hasKey("username")));
+
+        assertThat(response, is(nullValue()));
+    }
+
+    private Map<String, Object> bodyFromRequest(RecordedRequest request) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, String.class);
+        MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
         Buffer body = request.getBody();
         try {
             return mapper.readValue(body.inputStream(), mapType);

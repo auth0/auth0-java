@@ -13,7 +13,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequest {
+public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequest<T> {
     private static final MediaType JSON = MediaType.parse("application/json");
 
     private final String url;
@@ -21,7 +21,7 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
     private final Class<T> tClazz;
     private final ObjectMapper mapper;
     private Map<String, String> headers;
-    private Map<String, String> parameters;
+    private Map<String, Object> parameters;
 
     public CustomRequest(OkHttpClient client, String url, String method, Class<T> tClazz) {
         super(client);
@@ -48,38 +48,24 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
 
     @Override
     protected T parseResponse(Response response) throws RequestFailedException {
-        ResponseBody body = response.body();
-        if (response.isSuccessful()) {
-            if (tClazz.equals(Void.class)) {
-                return null;
-            }
-            String payload = null;
-            try {
-                payload = body.string();
-                return mapper.readValue(payload, tClazz);
-            } catch (JsonParseException e) {
-                //Parse failed, maybe it's not a JSON.
-                throw new RequestFailedException(payload, e);
-            } catch (IOException e) {
-                throw new RequestFailedException("Failed to convert", e);
-            } finally {
-                body.close();
-            }
+        if (!response.isSuccessful()) {
+            parseResponseError(response);
+            return null;
         }
 
-        MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, String.class);
-        InputStream byteStream = body.byteStream();
+        ResponseBody body = response.body();
+        String payload = null;
         try {
-            Map<String, Object> payload = mapper.readValue(byteStream, mapType);
-            //create exception with payload
+            payload = body.string();
+            return mapper.readValue(payload, tClazz);
+        } catch (JsonParseException e) {
+            //Parse failed, maybe it's not a JSON.
+            throw new RequestFailedException(payload, e);
         } catch (IOException e) {
-            //create exception without payload
-            throw new RequestFailedException("Request failed", e);
+            throw new RequestFailedException("Failed to convert", e);
         } finally {
             body.close();
         }
-        //throw
-        return null;
     }
 
 
@@ -89,7 +75,7 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
     }
 
     @Override
-    public void addParameter(String name, String value) {
+    public void addParameter(String name, Object value) {
         parameters.put(name, value);
     }
 
@@ -103,5 +89,22 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
         } catch (JsonProcessingException e) {
             throw new RequestFailedException("Couldn't create the request body.", e);
         }
+    }
+
+    public void parseResponseError(Response response) throws RequestFailedException {
+        ResponseBody body = response.body();
+        InputStream byteStream = body.byteStream();
+        try {
+            MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, String.class);
+            Map<String, Object> payload = mapper.readValue(byteStream, mapType);
+            //create exception with payload
+        } catch (IOException e) {
+            //create exception without payload
+            throw new RequestFailedException("Request failed", e);
+        } finally {
+            body.close();
+        }
+        //throw
+        throw new RequestFailedException("Unknown error");
     }
 }
