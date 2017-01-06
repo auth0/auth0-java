@@ -11,8 +11,6 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.mockwebserver.RecordedRequest;
 import okio.Buffer;
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -63,9 +61,9 @@ public class AuthAPITest {
         AuthAPI api = new AuthAPI("me.something.com", CLIENT_ID, CLIENT_SECRET);
 
         HttpUrl parsed = HttpUrl.parse(api.getBaseUrl());
-        MatcherAssert.assertThat(parsed, CoreMatchers.is(notNullValue()));
-        MatcherAssert.assertThat(parsed.host(), CoreMatchers.is("me.something.com"));
-        MatcherAssert.assertThat(parsed.scheme(), CoreMatchers.is("https"));
+        assertThat(parsed, is(notNullValue()));
+        assertThat(parsed.host(), is("me.something.com"));
+        assertThat(parsed.scheme(), is("https"));
     }
 
     @Test
@@ -73,9 +71,9 @@ public class AuthAPITest {
         AuthAPI api = new AuthAPI("http://me.something.com", CLIENT_ID, CLIENT_SECRET);
 
         HttpUrl parsed = HttpUrl.parse(api.getBaseUrl());
-        MatcherAssert.assertThat(parsed, CoreMatchers.is(notNullValue()));
-        MatcherAssert.assertThat(parsed.host(), CoreMatchers.is("me.something.com"));
-        MatcherAssert.assertThat(parsed.scheme(), CoreMatchers.is("http"));
+        assertThat(parsed, is(notNullValue()));
+        assertThat(parsed.host(), is("me.something.com"));
+        assertThat(parsed.scheme(), is("http"));
     }
 
     @Test
@@ -128,17 +126,17 @@ public class AuthAPITest {
         String url = api.authorize("my-connection", "https://domain.auth0.com/callback").build();
         HttpUrl parsed = HttpUrl.parse(url);
 
-        MatcherAssert.assertThat(url, not(isEmptyOrNullString()));
-        MatcherAssert.assertThat(parsed, is(notNullValue()));
-        MatcherAssert.assertThat(parsed.scheme(), is("https"));
-        MatcherAssert.assertThat(parsed.host(), is("domain.auth0.com"));
-        MatcherAssert.assertThat(parsed.pathSegments().size(), is(1));
-        MatcherAssert.assertThat(parsed.pathSegments().get(0), is("authorize"));
+        assertThat(url, not(isEmptyOrNullString()));
+        assertThat(parsed, is(notNullValue()));
+        assertThat(parsed.scheme(), is("https"));
+        assertThat(parsed.host(), is("domain.auth0.com"));
+        assertThat(parsed.pathSegments().size(), is(1));
+        assertThat(parsed.pathSegments().get(0), is("authorize"));
 
-        MatcherAssert.assertThat(parsed.queryParameter("response_type"), is("code"));
-        MatcherAssert.assertThat(parsed.queryParameter("client_id"), is(CLIENT_ID));
-        MatcherAssert.assertThat(parsed.queryParameter("redirect_uri"), is("https://domain.auth0.com/callback"));
-        MatcherAssert.assertThat(parsed.queryParameter("connection"), is("my-connection"));
+        assertThat(parsed.queryParameter("response_type"), is("code"));
+        assertThat(parsed.queryParameter("client_id"), is(CLIENT_ID));
+        assertThat(parsed.queryParameter("redirect_uri"), is("https://domain.auth0.com/callback"));
+        assertThat(parsed.queryParameter("connection"), is("my-connection"));
     }
 
 
@@ -163,16 +161,16 @@ public class AuthAPITest {
         String url = api.logout("https://my.domain.com/welcome", false).build();
         HttpUrl parsed = HttpUrl.parse(url);
 
-        MatcherAssert.assertThat(url, not(isEmptyOrNullString()));
-        MatcherAssert.assertThat(parsed, is(notNullValue()));
-        MatcherAssert.assertThat(parsed.scheme(), is("https"));
-        MatcherAssert.assertThat(parsed.host(), is("domain.auth0.com"));
-        MatcherAssert.assertThat(parsed.pathSegments().size(), is(2));
-        MatcherAssert.assertThat(parsed.pathSegments().get(0), is("v2"));
-        MatcherAssert.assertThat(parsed.pathSegments().get(1), is("logout"));
+        assertThat(url, not(isEmptyOrNullString()));
+        assertThat(parsed, is(notNullValue()));
+        assertThat(parsed.scheme(), is("https"));
+        assertThat(parsed.host(), is("domain.auth0.com"));
+        assertThat(parsed.pathSegments().size(), is(2));
+        assertThat(parsed.pathSegments().get(0), is("v2"));
+        assertThat(parsed.pathSegments().get(1), is("logout"));
 
-        MatcherAssert.assertThat(parsed.queryParameter("client_id"), is(nullValue()));
-        MatcherAssert.assertThat(parsed.queryParameter("returnTo"), is("https://my.domain.com/welcome"));
+        assertThat(parsed.queryParameter("client_id"), is(nullValue()));
+        assertThat(parsed.queryParameter("returnTo"), is("https://my.domain.com/welcome"));
     }
 
     @Test
@@ -181,16 +179,16 @@ public class AuthAPITest {
         String url = api.logout("https://my.domain.com/welcome", true).build();
         HttpUrl parsed = HttpUrl.parse(url);
 
-        MatcherAssert.assertThat(url, not(isEmptyOrNullString()));
-        MatcherAssert.assertThat(parsed, is(notNullValue()));
-        MatcherAssert.assertThat(parsed.scheme(), is("https"));
-        MatcherAssert.assertThat(parsed.host(), is("domain.auth0.com"));
-        MatcherAssert.assertThat(parsed.pathSegments().size(), is(2));
-        MatcherAssert.assertThat(parsed.pathSegments().get(0), is("v2"));
-        MatcherAssert.assertThat(parsed.pathSegments().get(1), is("logout"));
+        assertThat(url, not(isEmptyOrNullString()));
+        assertThat(parsed, is(notNullValue()));
+        assertThat(parsed.scheme(), is("https"));
+        assertThat(parsed.host(), is("domain.auth0.com"));
+        assertThat(parsed.pathSegments().size(), is(2));
+        assertThat(parsed.pathSegments().get(0), is("v2"));
+        assertThat(parsed.pathSegments().get(1), is("logout"));
 
-        MatcherAssert.assertThat(parsed.queryParameter("client_id"), is(CLIENT_ID));
-        MatcherAssert.assertThat(parsed.queryParameter("returnTo"), is("https://my.domain.com/welcome"));
+        assertThat(parsed.queryParameter("client_id"), is(CLIENT_ID));
+        assertThat(parsed.queryParameter("returnTo"), is("https://my.domain.com/welcome"));
     }
 
 
@@ -260,7 +258,7 @@ public class AuthAPITest {
         Request<Void> request = api.resetPassword("me@auth0.com", "db-connection");
         assertThat(request, is(notNullValue()));
 
-        server.resetPasswordRequest();
+        server.resetPasswordResponse();
         Void response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -331,10 +329,10 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateSignUpRequestWithUsername() throws Exception {
-        Request<Void> request = api.signUp("me@auth0.com", "me", "p455w0rd", "db-connection");
+        SignUpRequest request = api.signUp("me@auth0.com", "me", "p455w0rd", "db-connection");
         assertThat(request, is(notNullValue()));
 
-        server.signUpRequest();
+        server.signUpResponse();
         Void response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -357,7 +355,7 @@ public class AuthAPITest {
         SignUpRequest request = api.signUp("me@auth0.com", "p455w0rd", "db-connection");
         assertThat(request, is(notNullValue()));
 
-        server.signUpRequest();
+        server.signUpResponse();
         Void response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -384,7 +382,7 @@ public class AuthAPITest {
         customFields.put("address", "123, fake street");
         request.setCustomFields(customFields);
 
-        server.signUpRequest();
+        server.signUpResponse();
         Void response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -405,6 +403,7 @@ public class AuthAPITest {
 
         assertThat(response, is(nullValue()));
     }
+
 
     //Log In with AuthorizationCode Grant
 
@@ -434,7 +433,7 @@ public class AuthAPITest {
         AuthRequest request = api.loginWithAuthorizationCode("code123", "https://domain.auth0.com/callback");
         assertThat(request, is(notNullValue()));
 
-        server.loginRequest();
+        server.loginResponse();
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -462,7 +461,7 @@ public class AuthAPITest {
         AuthRequest request = api.loginWithAuthorizationCode("code123");
         assertThat(request, is(notNullValue()));
 
-        server.loginRequest();
+        server.loginResponse();
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -493,7 +492,7 @@ public class AuthAPITest {
         request.setRealm("dbconnection");
         request.setScope("profile photos contacts");
 
-        server.loginRequest();
+        server.loginResponse();
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -548,7 +547,7 @@ public class AuthAPITest {
         AuthRequest request = api.loginWithPassword("me", "p455w0rd", "https://myapi.auth0.com/users");
         assertThat(request, is(notNullValue()));
 
-        server.loginRequest();
+        server.loginResponse();
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -576,11 +575,10 @@ public class AuthAPITest {
     public void shouldCreateLogInWithPasswordGrantRequestWithCustomParameters() throws Exception {
         AuthRequest request = api.loginWithPassword("me", "p455w0rd", "https://myapi.auth0.com/users");
         assertThat(request, is(notNullValue()));
-        request.setAudience("https://myapi.auth0.com/users");
         request.setRealm("dbconnection");
         request.setScope("profile photos contacts");
 
-        server.loginRequest();
+        server.loginResponse();
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -594,7 +592,6 @@ public class AuthAPITest {
         assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
         assertThat(body, hasEntry("username", (Object) "me"));
         assertThat(body, hasEntry("password", (Object) "p455w0rd"));
-        assertThat(body, hasEntry("audience", (Object) "https://myapi.auth0.com/users"));
         assertThat(body, hasEntry("realm", (Object) "dbconnection"));
         assertThat(body, hasEntry("scope", (Object) "profile photos contacts"));
 
@@ -628,7 +625,7 @@ public class AuthAPITest {
         AuthRequest request = api.loginWithPasswordRealm("me", "p455w0rd");
         assertThat(request, is(notNullValue()));
 
-        server.loginRequest();
+        server.loginResponse();
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -659,7 +656,7 @@ public class AuthAPITest {
         request.setRealm("dbconnection");
         request.setScope("profile photos contacts");
 
-        server.loginRequest();
+        server.loginResponse();
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -700,7 +697,7 @@ public class AuthAPITest {
         AuthRequest request = api.loginWithClientCredentials("https://myapi.auth0.com/users");
         assertThat(request, is(notNullValue()));
 
-        server.loginRequest();
+        server.loginResponse();
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -722,7 +719,7 @@ public class AuthAPITest {
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
-    
+
     // Utils
 
     private Map<String, Object> bodyFromRequest(RecordedRequest request) throws IOException {

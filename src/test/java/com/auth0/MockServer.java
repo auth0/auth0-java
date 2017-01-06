@@ -54,7 +54,7 @@ public class MockServer {
         server.enqueue(response);
     }
 
-    public void resetPasswordRequest() {
+    public void resetPasswordResponse() {
         MockResponse response = new MockResponse()
                 .setResponseCode(200)
                 .addHeader("Content-Type", "application/json")
@@ -62,7 +62,7 @@ public class MockServer {
         server.enqueue(response);
     }
 
-    public void signUpRequest() {
+    public void signUpResponse() {
         MockResponse response = new MockResponse()
                 .setResponseCode(200)
                 .addHeader("Content-Type", "application/json")
@@ -74,7 +74,7 @@ public class MockServer {
         server.enqueue(response);
     }
 
-    public void loginRequest() {
+    public void loginResponse() {
         MockResponse response = new MockResponse()
                 .setResponseCode(200)
                 .addHeader("Content-Type", "application/json")
