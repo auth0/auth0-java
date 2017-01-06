@@ -685,6 +685,44 @@ public class AuthAPITest {
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
+
+    //Log In with ClientCredentials grant
+
+    @Test
+    public void shouldThrowWhenLogInWithClientCredentialsAudienceIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'audience' cannot be null!");
+        api.loginWithClientCredentials(null);
+    }
+
+    @Test
+    public void shouldCreateLogInWithClientCredentialsGrantRequest() throws Exception {
+        AuthRequest request = api.loginWithClientCredentials("https://myapi.auth0.com/users");
+        assertThat(request, is(notNullValue()));
+
+        server.loginRequest();
+        TokenHolder response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest.getMethod(), is("POST"));
+        assertThat(recordedRequest.getPath(), is("/oauth/token"));
+        assertThat(recordedRequest.getHeader("Content-Type"), is("application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("grant_type", (Object) "client_credentials"));
+        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
+        assertThat(body, hasEntry("audience", (Object) "https://myapi.auth0.com/users"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
+        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
+        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+    
     // Utils
 
     private Map<String, Object> bodyFromRequest(RecordedRequest request) throws IOException {

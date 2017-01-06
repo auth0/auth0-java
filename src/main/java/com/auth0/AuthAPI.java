@@ -258,4 +258,28 @@ public class AuthAPI {
         request.addParameter("password", password);
         return request;
     }
+
+    /**
+     * Creates a new log in request using the 'Client Credentials' grant for the given audience.
+     * Default used realm and audience are defined in the "API Authorization Settings" in the account's advanced settings in the Auth0 Dashboard.
+     *
+     * @param audience the audience of the API to request access to.
+     * @return a Request to configure and execute.
+     */
+    public AuthRequest loginWithClientCredentials(String audience) {
+        Asserts.assertNotNull(audience, "audience");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("oauth")
+                .addPathSegment("token")
+                .build()
+                .toString();
+        TokenRequest request = new TokenRequest(client, url);
+        request.addParameter("client_id", clientId);
+        request.addParameter("client_secret", clientSecret);
+        request.addParameter("grant_type", "client_credentials");
+        request.addParameter("audience", audience);
+        return request;
+    }
 }
