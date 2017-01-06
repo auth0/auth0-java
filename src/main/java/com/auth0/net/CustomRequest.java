@@ -11,29 +11,36 @@ import okhttp3.*;
 import okhttp3.Request;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequest<T> {
     private static final MediaType JSON = MediaType.parse("application/json");
-
     private final String url;
     private final String method;
     private final Class<T> tClazz;
     private final ObjectMapper mapper;
-    private Map<String, String> headers;
-    private Map<String, Object> parameters;
+    private final Map<String, String> headers;
+    private final Map<String, Object> parameters;
 
-    public CustomRequest(OkHttpClient client, String url, String method, Class<T> tClazz) {
+    CustomRequest(OkHttpClient client, ObjectMapper mapper, String url, String method, Class<T> tClazz) {
         super(client);
         this.url = url;
         this.method = method;
         this.tClazz = tClazz;
-        this.mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        this.mapper = mapper;
         this.headers = new HashMap<>();
         this.parameters = new HashMap<>();
+    }
+
+    public CustomRequest(OkHttpClient client, String url, String method, Class<T> tClazz) {
+        this(client, createUnknownSafeMapper(), url, method, tClazz);
+    }
+
+    private static ObjectMapper createUnknownSafeMapper() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return mapper;
     }
 
     @Override
@@ -54,18 +61,14 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
             throw createResponseException(response);
         }
 
-        ResponseBody body = response.body();
         String payload;
         try {
-            payload = body.string();
+            payload = response.body().string();
             return mapper.readValue(payload, tClazz);
         } catch (IOException e) {
             throw new AuthenticationException(String.format("Failed to parse body as %s", tClazz.getSimpleName()), response.code(), e);
-        } finally {
-            body.close();
         }
     }
-
 
     @Override
     public void addHeader(String name, String value) {
@@ -89,21 +92,15 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
         }
     }
 
-    public Auth0Exception createResponseException(Response response) {
-        ResponseBody body = response.body();
-        InputStream byteStream = body.byteStream();
+    protected Auth0Exception createResponseException(Response response) {
+        String payload = null;
         try {
+            payload = response.body().string();
             MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
-            Map<String, Object> payload = mapper.readValue(byteStream, mapType);
-            return new AuthenticationException(payload, response.code());
+            Map<String, Object> values = mapper.readValue(payload, mapType);
+            return new AuthenticationException(values, response.code());
         } catch (IOException e) {
-            try {
-                return new AuthenticationException(body.string(), response.code(), e);
-            } catch (IOException e1) {
-                return new AuthenticationException("Unknown authentication error", response.code(), e1);
-            }
-        } finally {
-            body.close();
+            return new AuthenticationException(payload, response.code(), e);
         }
     }
 }

@@ -5,25 +5,19 @@ import com.auth0.json.UserInfo;
 import com.auth0.net.AuthRequest;
 import com.auth0.net.Request;
 import com.auth0.net.SignUpRequest;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.MapType;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 import okhttp3.mockwebserver.RecordedRequest;
-import okio.Buffer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.auth0.MockServer.bodyFromRequest;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.collection.IsMapContaining.hasEntry;
 import static org.hamcrest.collection.IsMapContaining.hasKey;
@@ -35,8 +29,6 @@ public class AuthAPITest {
     private static final String CLIENT_ID = "clientId";
     private static final String CLIENT_SECRET = "clientSecret";
 
-    @Mock
-    OkHttpClient client;
     private MockServer server;
     private AuthAPI api;
     @Rule
@@ -44,7 +36,6 @@ public class AuthAPITest {
 
     @Before
     public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
         server = new MockServer();
         api = new AuthAPI(server.getBaseUrl(), CLIENT_ID, CLIENT_SECRET);
     }
@@ -433,7 +424,7 @@ public class AuthAPITest {
         AuthRequest request = api.loginWithAuthorizationCode("code123", "https://domain.auth0.com/callback");
         assertThat(request, is(notNullValue()));
 
-        server.loginResponse();
+        server.tokensResponse();
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -461,7 +452,7 @@ public class AuthAPITest {
         AuthRequest request = api.loginWithAuthorizationCode("code123");
         assertThat(request, is(notNullValue()));
 
-        server.loginResponse();
+        server.tokensResponse();
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -492,7 +483,7 @@ public class AuthAPITest {
         request.setRealm("dbconnection");
         request.setScope("profile photos contacts");
 
-        server.loginResponse();
+        server.tokensResponse();
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -547,7 +538,7 @@ public class AuthAPITest {
         AuthRequest request = api.loginWithPassword("me", "p455w0rd", "https://myapi.auth0.com/users");
         assertThat(request, is(notNullValue()));
 
-        server.loginResponse();
+        server.tokensResponse();
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -578,7 +569,7 @@ public class AuthAPITest {
         request.setRealm("dbconnection");
         request.setScope("profile photos contacts");
 
-        server.loginResponse();
+        server.tokensResponse();
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -625,7 +616,7 @@ public class AuthAPITest {
         AuthRequest request = api.loginWithPasswordRealm("me", "p455w0rd");
         assertThat(request, is(notNullValue()));
 
-        server.loginResponse();
+        server.tokensResponse();
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -656,7 +647,7 @@ public class AuthAPITest {
         request.setRealm("dbconnection");
         request.setScope("profile photos contacts");
 
-        server.loginResponse();
+        server.tokensResponse();
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -697,7 +688,7 @@ public class AuthAPITest {
         AuthRequest request = api.loginWithClientCredentials("https://myapi.auth0.com/users");
         assertThat(request, is(notNullValue()));
 
-        server.loginResponse();
+        server.tokensResponse();
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -718,22 +709,5 @@ public class AuthAPITest {
         assertThat(response.getTokenType(), not(isEmptyOrNullString()));
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
-
-
-    // Utils
-
-    private Map<String, Object> bodyFromRequest(RecordedRequest request) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
-        Buffer body = request.getBody();
-        try {
-            return mapper.readValue(body.inputStream(), mapType);
-        } catch (IOException e) {
-            throw e;
-        } finally {
-            body.close();
-        }
-    }
-
 
 }

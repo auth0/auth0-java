@@ -1,0 +1,85 @@
+package com.auth0.net;
+
+import com.auth0.MockServer;
+import com.auth0.json.TokenHolder;
+import okhttp3.OkHttpClient;
+import okhttp3.mockwebserver.RecordedRequest;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.Map;
+
+import static com.auth0.MockServer.bodyFromRequest;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
+
+public class TokenRequestTest {
+
+    private OkHttpClient client;
+    private MockServer server;
+
+    @Before
+    public void setUp() throws Exception {
+        client = new OkHttpClient();
+        server = new MockServer();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        server.stop();
+    }
+
+    @Test
+    public void shouldCreateRequest() throws Exception {
+        TokenRequest request = new TokenRequest(client, server.getBaseUrl());
+        request.addParameter("non_empty", "body");
+        assertThat(request, is(notNullValue()));
+
+        server.tokensResponse();
+        TokenHolder response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+        assertThat(recordedRequest.getMethod(), is("POST"));
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldSetAudience() throws Exception {
+        TokenRequest request = new TokenRequest(client, server.getBaseUrl());
+        assertThat(request, is(notNullValue()));
+        request.setAudience("https://myapi.auth0.com/users");
+
+        server.tokensResponse();
+        request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+        Map<String, Object> values = bodyFromRequest(recordedRequest);
+        assertThat(values, hasEntry("audience", (Object) "https://myapi.auth0.com/users"));
+    }
+
+    @Test
+    public void shouldSetScope() throws Exception {
+        TokenRequest request = new TokenRequest(client, server.getBaseUrl());
+        assertThat(request, is(notNullValue()));
+        request.setScope("email profile photos");
+
+        server.tokensResponse();
+        request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+        Map<String, Object> values = bodyFromRequest(recordedRequest);
+        assertThat(values, hasEntry("scope", (Object) "email profile photos"));
+    }
+
+    @Test
+    public void shouldSetRealm() throws Exception {
+        TokenRequest request = new TokenRequest(client, server.getBaseUrl());
+        assertThat(request, is(notNullValue()));
+        request.setRealm("dbconnection");
+
+        server.tokensResponse();
+        request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+        Map<String, Object> values = bodyFromRequest(recordedRequest);
+        assertThat(values, hasEntry("realm", (Object) "dbconnection"));
+    }
+
+}

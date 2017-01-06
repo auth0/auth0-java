@@ -1,10 +1,15 @@
 package com.auth0;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.MapType;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
+import okio.Buffer;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MockServer {
 
@@ -74,7 +79,7 @@ public class MockServer {
         server.enqueue(response);
     }
 
-    public void loginResponse() {
+    public void tokensResponse() {
         MockResponse response = new MockResponse()
                 .setResponseCode(200)
                 .addHeader("Content-Type", "application/json")
@@ -86,5 +91,48 @@ public class MockServer {
                         "  \"expires_in\":86400\n" +
                         "}");
         server.enqueue(response);
+    }
+
+    public void JSONErrorResponse() {
+        MockResponse response = new MockResponse()
+                .setResponseCode(400)
+                .addHeader("Content-Type", "application/json")
+                .setBody("{" +
+                        "\"error\": \"invalid_request\"," +
+                        "\"code\": \"errorcode\"," +
+                        " \"error_description\": \"the connection was not found\"" +
+                        "}");
+        server.enqueue(response);
+    }
+
+    public void plainTextErrorResponse() {
+        MockResponse response = new MockResponse()
+                .setResponseCode(400)
+                .addHeader("Content-Type", "text/plain")
+                .setBody("A plain-text error response");
+        server.enqueue(response);
+    }
+
+    public void okResponse() {
+        MockResponse response = new MockResponse()
+                .setResponseCode(200)
+                .addHeader("Content-Type", "application/json")
+                .setBody("{" +
+                        "\"access_token\": \"accessToken\"" +
+                        "}");
+        server.enqueue(response);
+    }
+
+    public static Map<String, Object> bodyFromRequest(RecordedRequest request) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
+        Buffer body = request.getBody();
+        try {
+            return mapper.readValue(body.inputStream(), mapType);
+        } catch (IOException e) {
+            throw e;
+        } finally {
+            body.close();
+        }
     }
 }

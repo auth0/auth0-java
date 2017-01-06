@@ -25,6 +25,7 @@ public abstract class BaseRequest<T> implements Request<T> {
      * @return the response body JSON decoded as T
      * @throws Auth0Exception if the request execution fails.
      */
+    @Override
     public T execute() throws Auth0Exception {
         okhttp3.Request request = createRequest();
         Response response;

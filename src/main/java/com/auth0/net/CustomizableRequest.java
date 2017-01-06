@@ -1,6 +1,6 @@
 package com.auth0.net;
 
-public interface CustomizableRequest<T> extends Request<T> {
+interface CustomizableRequest<T> extends Request<T> {
 
     void addHeader(String name, String value);
 
