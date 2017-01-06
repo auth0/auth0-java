@@ -205,7 +205,6 @@ public class AuthAPI {
 
     /**
      * Creates a new log in request using the 'Password' grant and the given credentials.
-     * Default used realm is defined in the "API Authorization Settings" in the account's advanced settings in the Auth0 Dashboard.
      *
      * @param emailOrUsername the identity of the user.
      * @param password        the password of the user.
@@ -230,6 +229,33 @@ public class AuthAPI {
         request.addParameter("username", emailOrUsername);
         request.addParameter("password", password);
         request.addParameter("audience", audience);
+        return request;
+    }
+
+    /**
+     * Creates a new log in request using the 'Password Realm' grant and the given credentials.
+     * Default used realm and audience are defined in the "API Authorization Settings" in the account's advanced settings in the Auth0 Dashboard.
+     *
+     * @param emailOrUsername the identity of the user.
+     * @param password        the password of the user.
+     * @return a Request to configure and execute.
+     */
+    public AuthRequest loginWithPasswordRealm(String emailOrUsername, String password) {
+        Asserts.assertNotNull(emailOrUsername, "email or username");
+        Asserts.assertNotNull(password, "password");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("oauth")
+                .addPathSegment("token")
+                .build()
+                .toString();
+        TokenRequest request = new TokenRequest(client, url);
+        request.addParameter("client_id", clientId);
+        request.addParameter("client_secret", clientSecret);
+        request.addParameter("grant_type", "http://auth0.com/oauth/grant-type/password-realm");
+        request.addParameter("username", emailOrUsername);
+        request.addParameter("password", password);
         return request;
     }
 }
