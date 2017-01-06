@@ -520,6 +520,93 @@ public class AuthAPITest {
     }
 
 
+    //Log In with Password grant
+
+    @Test
+    public void shouldThrowWhenLogInWithPasswordUsernameIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'email or username' cannot be null!");
+        api.loginWithPassword(null, "p455w0rd", "https://myapi.auth0.com/users");
+    }
+
+    @Test
+    public void shouldThrowWhenLogInWithPasswordPasswordIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'password' cannot be null!");
+        api.loginWithPassword("me", null, "https://myapi.auth0.com/users");
+    }
+
+    @Test
+    public void shouldThrowWhenLogInWithPasswordAudienceIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'audience' cannot be null!");
+        api.loginWithPassword("me", "p455w0rd", null);
+    }
+
+    @Test
+    public void shouldCreateLogInWithPasswordGrantRequest() throws Exception {
+        AuthRequest request = api.loginWithPassword("me", "p455w0rd", "https://myapi.auth0.com/users");
+        assertThat(request, is(notNullValue()));
+
+        server.loginRequest();
+        TokenHolder response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest.getMethod(), is("POST"));
+        assertThat(recordedRequest.getPath(), is("/oauth/token"));
+        assertThat(recordedRequest.getHeader("Content-Type"), is("application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("grant_type", (Object) "password"));
+        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
+        assertThat(body, hasEntry("username", (Object) "me"));
+        assertThat(body, hasEntry("password", (Object) "p455w0rd"));
+        assertThat(body, hasEntry("audience", (Object) "https://myapi.auth0.com/users"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
+        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
+        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+    @Test
+    public void shouldCreateLogInWithPasswordGrantRequestWithCustomParameters() throws Exception {
+        AuthRequest request = api.loginWithPassword("me", "p455w0rd", "https://myapi.auth0.com/users");
+        assertThat(request, is(notNullValue()));
+        request.setAudience("https://myapi.auth0.com/users");
+        request.setRealm("dbconnection");
+        request.setScope("profile photos contacts");
+
+        server.loginRequest();
+        TokenHolder response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest.getMethod(), is("POST"));
+        assertThat(recordedRequest.getPath(), is("/oauth/token"));
+        assertThat(recordedRequest.getHeader("Content-Type"), is("application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("grant_type", (Object) "password"));
+        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
+        assertThat(body, hasEntry("username", (Object) "me"));
+        assertThat(body, hasEntry("password", (Object) "p455w0rd"));
+        assertThat(body, hasEntry("audience", (Object) "https://myapi.auth0.com/users"));
+        assertThat(body, hasEntry("realm", (Object) "dbconnection"));
+        assertThat(body, hasEntry("scope", (Object) "profile photos contacts"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
+        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
+        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+
     // Utils
 
     private Map<String, Object> bodyFromRequest(RecordedRequest request) throws IOException {
