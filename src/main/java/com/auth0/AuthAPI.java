@@ -1,10 +1,7 @@
 package com.auth0;
 
 import com.auth0.json.UserInfo;
-import com.auth0.net.CustomRequest;
-import com.auth0.net.Request;
-import com.auth0.net.SignUpRequest;
-import com.auth0.net.VoidRequest;
+import com.auth0.net.*;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -164,6 +161,45 @@ public class AuthAPI {
         request.addParameter("email", email);
         request.addParameter("password", password);
         request.addParameter("connection", connection);
+        return request;
+    }
+
+    /**
+     * Creates a new log in request using the 'Authorization Code' grant and the given code and redirect uri parameters.
+     *
+     * @param code        the authorization code received from the /authorize call.
+     * @param redirectUri the redirect uri sent on the /authorize call.
+     * @return a Request to configure and execute.
+     */
+    public AuthRequest loginWithAuthorizationCode(String code, String redirectUri) {
+        Asserts.assertNotNull(code, "code");
+        Asserts.assertNotNull(redirectUri, "redirect uri");
+
+        TokenRequest request = (TokenRequest) this.loginWithAuthorizationCode(code);
+        request.addParameter("redirect_uri", redirectUri);
+        return request;
+    }
+
+    /**
+     * Creates a new log in request using the 'Authorization Code' grant and the given code parameter.
+     *
+     * @param code the authorization code received from the /authorize call.
+     * @return a Request to configure and execute.
+     */
+    public AuthRequest loginWithAuthorizationCode(String code) {
+        Asserts.assertNotNull(code, "code");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("oauth")
+                .addPathSegment("token")
+                .build()
+                .toString();
+        TokenRequest request = new TokenRequest(client, url);
+        request.addParameter("client_id", clientId);
+        request.addParameter("grant_type", "authorization_code");
+        request.addParameter("code", code);
+        request.addParameter("client_secret", clientSecret);
         return request;
     }
 }

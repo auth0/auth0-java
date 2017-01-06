@@ -1,6 +1,8 @@
 package com.auth0;
 
+import com.auth0.json.TokenHolder;
 import com.auth0.json.UserInfo;
+import com.auth0.net.AuthRequest;
 import com.auth0.net.Request;
 import com.auth0.net.SignUpRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -374,7 +376,7 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldCreateSignUpRequestWithCustomFields() throws Exception {
+    public void shouldCreateSignUpRequestWithCustomParameters() throws Exception {
         SignUpRequest request = api.signUp("me@auth0.com", "p455w0rd", "db-connection");
         assertThat(request, is(notNullValue()));
         Map<String, String> customFields = new HashMap<>();
@@ -404,6 +406,122 @@ public class AuthAPITest {
         assertThat(response, is(nullValue()));
     }
 
+    //Log In with AuthorizationCode Grant
+
+    @Test
+    public void shouldThrowWhenLogInWithAuthorizationCodeGrantCodeIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'code' cannot be null!");
+        api.loginWithAuthorizationCode(null);
+    }
+
+    @Test
+    public void shouldThrowWhenLogInWithAuthorizationCodeGrantAndRedirectUriCodeIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'code' cannot be null!");
+        api.loginWithAuthorizationCode(null, "https://domain.auth0.com/callback");
+    }
+
+    @Test
+    public void shouldThrowWhenLogInWithAuthorizationCodeGrantAndRedirectUriRedirectUriIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'redirect uri' cannot be null!");
+        api.loginWithAuthorizationCode("code", null);
+    }
+
+    @Test
+    public void shouldCreateLogInWithAuthorizationCodeGrantRequestWithRedirectUri() throws Exception {
+        AuthRequest request = api.loginWithAuthorizationCode("code123", "https://domain.auth0.com/callback");
+        assertThat(request, is(notNullValue()));
+
+        server.loginRequest();
+        TokenHolder response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest.getMethod(), is("POST"));
+        assertThat(recordedRequest.getPath(), is("/oauth/token"));
+        assertThat(recordedRequest.getHeader("Content-Type"), is("application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("code", (Object) "code123"));
+        assertThat(body, hasEntry("redirect_uri", (Object) "https://domain.auth0.com/callback"));
+        assertThat(body, hasEntry("grant_type", (Object) "authorization_code"));
+        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
+        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
+        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+    @Test
+    public void shouldCreateLogInWithAuthorizationCodeGrantRequest() throws Exception {
+        AuthRequest request = api.loginWithAuthorizationCode("code123");
+        assertThat(request, is(notNullValue()));
+
+        server.loginRequest();
+        TokenHolder response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest.getMethod(), is("POST"));
+        assertThat(recordedRequest.getPath(), is("/oauth/token"));
+        assertThat(recordedRequest.getHeader("Content-Type"), is("application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("code", (Object) "code123"));
+        assertThat(body, hasEntry("grant_type", (Object) "authorization_code"));
+        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
+        assertThat(body, not(hasKey("redirect_uri")));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
+        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
+        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+    @Test
+    public void shouldCreateLogInWithAuthorizationCodeGrantRequestWithCustomParameters() throws Exception {
+        AuthRequest request = api.loginWithAuthorizationCode("code123");
+        assertThat(request, is(notNullValue()));
+        request.setAudience("https://myapi.auth0.com/users");
+        request.setRealm("dbconnection");
+        request.setScope("profile photos contacts");
+
+        server.loginRequest();
+        TokenHolder response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest.getMethod(), is("POST"));
+        assertThat(recordedRequest.getPath(), is("/oauth/token"));
+        assertThat(recordedRequest.getHeader("Content-Type"), is("application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("code", (Object) "code123"));
+        assertThat(body, hasEntry("grant_type", (Object) "authorization_code"));
+        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
+        assertThat(body, not(hasKey("redirect_uri")));
+        assertThat(body, hasEntry("audience", (Object) "https://myapi.auth0.com/users"));
+        assertThat(body, hasEntry("realm", (Object) "dbconnection"));
+        assertThat(body, hasEntry("scope", (Object) "profile photos contacts"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
+        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
+        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+
+    // Utils
+
     private Map<String, Object> bodyFromRequest(RecordedRequest request) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
@@ -416,4 +534,6 @@ public class AuthAPITest {
             body.close();
         }
     }
+
+
 }

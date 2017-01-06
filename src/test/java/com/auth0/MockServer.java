@@ -73,4 +73,18 @@ public class MockServer {
                         "}");
         server.enqueue(response);
     }
+
+    public void loginRequest() {
+        MockResponse response = new MockResponse()
+                .setResponseCode(200)
+                .addHeader("Content-Type", "application/json")
+                .setBody("{\n" +
+                        "  \"access_token\":\"eyJz93a...k4laUWw\",\n" +
+                        "  \"refresh_token\":\"GEbRxBN...edjnXbL\",\n" +
+                        "  \"id_token\":\"eyJ0XAi...4faeEoQ\",\n" +
+                        "  \"token_type\":\"Bearer\",\n" +
+                        "  \"expires_in\":86400\n" +
+                        "}");
+        server.enqueue(response);
+    }
 }
