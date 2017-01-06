@@ -1,22 +1,21 @@
 package com.auth0.net;
 
-import okhttp3.MediaType;
+import com.auth0.exception.Auth0Exception;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 import java.util.Map;
 
 public class VoidRequest extends CustomRequest<Void> implements SignUpRequest {
-    private static final MediaType JSON = MediaType.parse("application/json");
 
     public VoidRequest(OkHttpClient client, String url, String method) {
         super(client, url, method, Void.class);
     }
 
     @Override
-    protected Void parseResponse(Response response) throws RequestFailedException {
+    protected Void parseResponse(Response response) throws Auth0Exception {
         if (!response.isSuccessful()) {
-            super.parseResponseError(response);
+            throw super.createResponseException(response);
         }
         return null;
     }

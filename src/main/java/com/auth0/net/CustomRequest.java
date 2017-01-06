@@ -1,6 +1,8 @@
 package com.auth0.net;
 
-import com.fasterxml.jackson.core.JsonParseException;
+import com.auth0.exception.Auth0Exception;
+import com.auth0.exception.AuthenticationException;
+import com.auth0.exception.RequestFailedException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,7 +37,7 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
     }
 
     @Override
-    protected Request createRequest() throws RequestFailedException {
+    protected Request createRequest() throws Auth0Exception {
         Request.Builder builder = new Request.Builder()
                 .url(url)
                 .method(method, createBody());
@@ -47,22 +49,18 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
     }
 
     @Override
-    protected T parseResponse(Response response) throws RequestFailedException {
+    protected T parseResponse(Response response) throws Auth0Exception {
         if (!response.isSuccessful()) {
-            parseResponseError(response);
-            return null;
+            throw createResponseException(response);
         }
 
         ResponseBody body = response.body();
-        String payload = null;
+        String payload;
         try {
             payload = body.string();
             return mapper.readValue(payload, tClazz);
-        } catch (JsonParseException e) {
-            //Parse failed, maybe it's not a JSON.
-            throw new RequestFailedException(payload, e);
         } catch (IOException e) {
-            throw new RequestFailedException("Failed to convert", e);
+            throw new AuthenticationException(String.format("Failed to parse body as %s", tClazz.getSimpleName()), response.code(), e);
         } finally {
             body.close();
         }
@@ -91,20 +89,21 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
         }
     }
 
-    public void parseResponseError(Response response) throws RequestFailedException {
+    public Auth0Exception createResponseException(Response response) {
         ResponseBody body = response.body();
         InputStream byteStream = body.byteStream();
         try {
-            MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, String.class);
+            MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
             Map<String, Object> payload = mapper.readValue(byteStream, mapType);
-            //create exception with payload
+            return new AuthenticationException(payload, response.code());
         } catch (IOException e) {
-            //create exception without payload
-            throw new RequestFailedException("Request failed", e);
+            try {
+                return new AuthenticationException(body.string(), response.code(), e);
+            } catch (IOException e1) {
+                return new AuthenticationException("Unknown authentication error", response.code(), e1);
+            }
         } finally {
             body.close();
         }
-        //throw
-        throw new RequestFailedException("Unknown error");
     }
 }
