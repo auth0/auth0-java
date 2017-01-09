@@ -4,7 +4,6 @@ import java.util.Map;
 
 public class AuthenticationException extends Auth0Exception {
 
-    private String code;
     private String error;
     private String description;
     private int statusCode;
@@ -16,19 +15,27 @@ public class AuthenticationException extends Auth0Exception {
     }
 
     public AuthenticationException(Map<String, Object> values, int statusCode) {
-        super(createMessage((String) values.get("error_description"), statusCode));
-        this.code = (String) values.get("code");
-        this.error = (String) values.get("error");
-        this.description = (String) values.get("error_description");
+        super(createMessage(obtainExceptionMessage(values), statusCode));
+        this.error = (String) (values.containsKey("error") ? values.get("error") : values.get("code"));
+        this.description = (String) (values.containsKey("error_description") ? values.get("error_description") : values.get("description"));
         this.statusCode = statusCode;
+    }
+
+    private static String obtainExceptionMessage(Map<String, Object> values) {
+        if (values.containsKey("error_description")) {
+            return (String) values.get("error_description");
+        }
+        if (values.containsKey("description")) {
+            return (String) values.get("description");
+        }
+        if (values.containsKey("error")) {
+            return (String) values.get("error");
+        }
+        return "Unknown error";
     }
 
     public int getStatusCode() {
         return statusCode;
-    }
-
-    public String getCode() {
-        return code;
     }
 
     public String getError() {

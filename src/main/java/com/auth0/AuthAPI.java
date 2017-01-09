@@ -188,20 +188,6 @@ public class AuthAPI {
         Asserts.assertNotNull(code, "code");
         Asserts.assertNotNull(redirectUri, "redirect uri");
 
-        TokenRequest request = (TokenRequest) this.loginWithAuthorizationCode(code);
-        request.addParameter("redirect_uri", redirectUri);
-        return request;
-    }
-
-    /**
-     * Creates a new log in request using the 'Authorization Code' grant and the given code parameter.
-     *
-     * @param code the authorization code received from the /authorize call.
-     * @return a Request to configure and execute.
-     */
-    public AuthRequest loginWithAuthorizationCode(String code) {
-        Asserts.assertNotNull(code, "code");
-
         String url = HttpUrl.parse(baseUrl)
                 .newBuilder()
                 .addPathSegment(PATH_OAUTH)
@@ -213,6 +199,7 @@ public class AuthAPI {
         request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         request.addParameter(KEY_GRANT_TYPE, "authorization_code");
         request.addParameter("code", code);
+        request.addParameter("redirect_uri", redirectUri);
         return request;
     }
 
@@ -221,13 +208,11 @@ public class AuthAPI {
      *
      * @param emailOrUsername the identity of the user.
      * @param password        the password of the user.
-     * @param audience        the audience of the API to request access to.
      * @return a Request to configure and execute.
      */
-    public AuthRequest loginWithPassword(String emailOrUsername, String password, String audience) {
+    public AuthRequest loginWithPassword(String emailOrUsername, String password) {
         Asserts.assertNotNull(emailOrUsername, "email or username");
         Asserts.assertNotNull(password, "password");
-        Asserts.assertNotNull(audience, "audience");
 
         String url = HttpUrl.parse(baseUrl)
                 .newBuilder()
@@ -241,7 +226,6 @@ public class AuthAPI {
         request.addParameter(KEY_GRANT_TYPE, KEY_PASSWORD);
         request.addParameter(KEY_USERNAME, emailOrUsername);
         request.addParameter(KEY_PASSWORD, password);
-        request.addParameter(KEY_AUDIENCE, audience);
         return request;
     }
 
@@ -253,9 +237,10 @@ public class AuthAPI {
      * @param password        the password of the user.
      * @return a Request to configure and execute.
      */
-    public AuthRequest loginWithPasswordRealm(String emailOrUsername, String password) {
+    public AuthRequest loginWithPasswordRealm(String emailOrUsername, String password, String realm) {
         Asserts.assertNotNull(emailOrUsername, "email or username");
         Asserts.assertNotNull(password, "password");
+        Asserts.assertNotNull(realm, "realm");
 
         String url = HttpUrl.parse(baseUrl)
                 .newBuilder()
@@ -269,6 +254,7 @@ public class AuthAPI {
         request.addParameter(KEY_GRANT_TYPE, "http://auth0.com/oauth/grant-type/password-realm");
         request.addParameter(KEY_USERNAME, emailOrUsername);
         request.addParameter(KEY_PASSWORD, password);
+        request.addParameter("realm", realm);
         return request;
     }
 

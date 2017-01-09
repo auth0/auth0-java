@@ -399,13 +399,6 @@ public class AuthAPITest {
     //Log In with AuthorizationCode Grant
 
     @Test
-    public void shouldThrowWhenLogInWithAuthorizationCodeGrantCodeIsNull() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'code' cannot be null!");
-        api.loginWithAuthorizationCode(null);
-    }
-
-    @Test
     public void shouldThrowWhenLogInWithAuthorizationCodeGrantAndRedirectUriCodeIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'code' cannot be null!");
@@ -420,7 +413,7 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldCreateLogInWithAuthorizationCodeGrantRequestWithRedirectUri() throws Exception {
+    public void shouldCreateLogInWithAuthorizationCodeGrantRequest() throws Exception {
         AuthRequest request = api.loginWithAuthorizationCode("code123", "https://domain.auth0.com/callback");
         assertThat(request, is(notNullValue()));
 
@@ -448,36 +441,8 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldCreateLogInWithAuthorizationCodeGrantRequest() throws Exception {
-        AuthRequest request = api.loginWithAuthorizationCode("code123");
-        assertThat(request, is(notNullValue()));
-
-        server.tokensResponse();
-        TokenHolder response = request.execute();
-        RecordedRequest recordedRequest = server.takeRequest();
-
-        assertThat(recordedRequest.getMethod(), is("POST"));
-        assertThat(recordedRequest.getPath(), is("/oauth/token"));
-        assertThat(recordedRequest.getHeader("Content-Type"), is("application/json"));
-
-        Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("code", (Object) "code123"));
-        assertThat(body, hasEntry("grant_type", (Object) "authorization_code"));
-        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
-        assertThat(body, not(hasKey("redirect_uri")));
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
-        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
-        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
-        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
-        assertThat(response.getExpiresIn(), is(notNullValue()));
-    }
-
-    @Test
     public void shouldCreateLogInWithAuthorizationCodeGrantRequestWithCustomParameters() throws Exception {
-        AuthRequest request = api.loginWithAuthorizationCode("code123");
+        AuthRequest request = api.loginWithAuthorizationCode("code123", "https://domain.auth0.com/callback");
         assertThat(request, is(notNullValue()));
         request.setAudience("https://myapi.auth0.com/users");
         request.setRealm("dbconnection");
@@ -493,10 +458,10 @@ public class AuthAPITest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body, hasEntry("code", (Object) "code123"));
+        assertThat(body, hasEntry("redirect_uri", (Object) "https://domain.auth0.com/callback"));
         assertThat(body, hasEntry("grant_type", (Object) "authorization_code"));
         assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
         assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
-        assertThat(body, not(hasKey("redirect_uri")));
         assertThat(body, hasEntry("audience", (Object) "https://myapi.auth0.com/users"));
         assertThat(body, hasEntry("realm", (Object) "dbconnection"));
         assertThat(body, hasEntry("scope", (Object) "profile photos contacts"));
@@ -516,26 +481,19 @@ public class AuthAPITest {
     public void shouldThrowWhenLogInWithPasswordUsernameIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email or username' cannot be null!");
-        api.loginWithPassword(null, "p455w0rd", "https://myapi.auth0.com/users");
+        api.loginWithPassword(null, "p455w0rd");
     }
 
     @Test
     public void shouldThrowWhenLogInWithPasswordPasswordIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'password' cannot be null!");
-        api.loginWithPassword("me", null, "https://myapi.auth0.com/users");
-    }
-
-    @Test
-    public void shouldThrowWhenLogInWithPasswordAudienceIsNull() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'audience' cannot be null!");
-        api.loginWithPassword("me", "p455w0rd", null);
+        api.loginWithPassword("me", null);
     }
 
     @Test
     public void shouldCreateLogInWithPasswordGrantRequest() throws Exception {
-        AuthRequest request = api.loginWithPassword("me", "p455w0rd", "https://myapi.auth0.com/users");
+        AuthRequest request = api.loginWithPassword("me", "p455w0rd");
         assertThat(request, is(notNullValue()));
 
         server.tokensResponse();
@@ -552,7 +510,6 @@ public class AuthAPITest {
         assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
         assertThat(body, hasEntry("username", (Object) "me"));
         assertThat(body, hasEntry("password", (Object) "p455w0rd"));
-        assertThat(body, hasEntry("audience", (Object) "https://myapi.auth0.com/users"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
@@ -564,10 +521,11 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateLogInWithPasswordGrantRequestWithCustomParameters() throws Exception {
-        AuthRequest request = api.loginWithPassword("me", "p455w0rd", "https://myapi.auth0.com/users");
+        AuthRequest request = api.loginWithPassword("me", "p455w0rd");
         assertThat(request, is(notNullValue()));
         request.setRealm("dbconnection");
         request.setScope("profile photos contacts");
+        request.setAudience("https://myapi.auth0.com/users");
 
         server.tokensResponse();
         TokenHolder response = request.execute();
@@ -585,6 +543,7 @@ public class AuthAPITest {
         assertThat(body, hasEntry("password", (Object) "p455w0rd"));
         assertThat(body, hasEntry("realm", (Object) "dbconnection"));
         assertThat(body, hasEntry("scope", (Object) "profile photos contacts"));
+        assertThat(body, hasEntry("audience", (Object) "https://myapi.auth0.com/users"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
@@ -601,19 +560,26 @@ public class AuthAPITest {
     public void shouldThrowWhenLogInWithPasswordRealmUsernameIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email or username' cannot be null!");
-        api.loginWithPasswordRealm(null, "p455w0rd");
+        api.loginWithPasswordRealm(null, "p455w0rd", "realm");
     }
 
     @Test
     public void shouldThrowWhenLogInWithPasswordRealmPasswordIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'password' cannot be null!");
-        api.loginWithPasswordRealm("me", null);
+        api.loginWithPasswordRealm("me", null, "realm");
+    }
+
+    @Test
+    public void shouldThrowWhenLogInWithPasswordRealmRealmIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'realm' cannot be null!");
+        api.loginWithPasswordRealm("me", "p455w0rd", null);
     }
 
     @Test
     public void shouldCreateLogInWithPasswordRealmGrantRequest() throws Exception {
-        AuthRequest request = api.loginWithPasswordRealm("me", "p455w0rd");
+        AuthRequest request = api.loginWithPasswordRealm("me", "p455w0rd", "realm");
         assertThat(request, is(notNullValue()));
 
         server.tokensResponse();
@@ -630,6 +596,7 @@ public class AuthAPITest {
         assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
         assertThat(body, hasEntry("username", (Object) "me"));
         assertThat(body, hasEntry("password", (Object) "p455w0rd"));
+        assertThat(body, hasEntry("realm", (Object) "realm"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
@@ -641,7 +608,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateLogInWithPasswordRealmGrantRequestWithCustomParameters() throws Exception {
-        AuthRequest request = api.loginWithPasswordRealm("me", "p455w0rd");
+        AuthRequest request = api.loginWithPasswordRealm("me", "p455w0rd", "realm");
         assertThat(request, is(notNullValue()));
         request.setAudience("https://myapi.auth0.com/users");
         request.setRealm("dbconnection");

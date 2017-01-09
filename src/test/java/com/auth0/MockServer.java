@@ -93,15 +93,32 @@ public class MockServer {
         server.enqueue(response);
     }
 
-    public void JSONErrorResponse() {
+    public void JSONErrorResponseWithErrorDescription() {
         MockResponse response = new MockResponse()
                 .setResponseCode(400)
                 .addHeader("Content-Type", "application/json")
                 .setBody("{" +
                         "\"error\": \"invalid_request\"," +
-                        "\"code\": \"errorcode\"," +
                         " \"error_description\": \"the connection was not found\"" +
                         "}");
+        server.enqueue(response);
+    }
+
+    public void JSONErrorResponseWithError() {
+        MockResponse response = new MockResponse()
+                .setResponseCode(400)
+                .addHeader("Content-Type", "application/json")
+                .setBody("{" +
+                        "\"error\": \"missing username for Username-Password-Authentication connection with requires_username enabled\"" +
+                        "}");
+        server.enqueue(response);
+    }
+
+    public void JSONErrorResponseWithDescription() {
+        MockResponse response = new MockResponse()
+                .setResponseCode(400)
+                .addHeader("Content-Type", "application/json")
+                .setBody("{\"name\":\"BadRequestError\",\"code\":\"user_exists\",\"description\":\"The user already exists.\",\"statusCode\":400}");
         server.enqueue(response);
     }
 

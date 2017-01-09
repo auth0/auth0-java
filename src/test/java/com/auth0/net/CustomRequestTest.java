@@ -159,14 +159,13 @@ public class CustomRequestTest {
         AuthenticationException authException = (AuthenticationException) exception;
         assertThat(authException.getDescription(), is("Failed to parse body as List"));
         assertThat(authException.getError(), is(nullValue()));
-        assertThat(authException.getCode(), is(nullValue()));
         assertThat(authException.getStatusCode(), is(200));
     }
 
     @Test
-    public void shouldParseJSONErrorResponse() throws Exception {
+    public void shouldParseJSONErrorResponseWithErrorDescription() throws Exception {
         CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", List.class);
-        server.JSONErrorResponse();
+        server.JSONErrorResponseWithErrorDescription();
         Exception exception = null;
         try {
             request.execute();
@@ -181,7 +180,48 @@ public class CustomRequestTest {
         AuthenticationException authException = (AuthenticationException) exception;
         assertThat(authException.getDescription(), is("the connection was not found"));
         assertThat(authException.getError(), is("invalid_request"));
-        assertThat(authException.getCode(), is("errorcode"));
+        assertThat(authException.getStatusCode(), is(400));
+    }
+
+    @Test
+    public void shouldParseJSONErrorResponseWithError() throws Exception {
+        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", List.class);
+        server.JSONErrorResponseWithError();
+        Exception exception = null;
+        try {
+            request.execute();
+            server.takeRequest();
+        } catch (Exception e) {
+            exception = e;
+        }
+        assertThat(exception, is(notNullValue()));
+        assertThat(exception, is(instanceOf(AuthenticationException.class)));
+        assertThat(exception.getCause(), is(nullValue()));
+        assertThat(exception.getMessage(), is("Authentication failed with status code 400: missing username for Username-Password-Authentication connection with requires_username enabled"));
+        AuthenticationException authException = (AuthenticationException) exception;
+        assertThat(authException.getDescription(), is(nullValue()));
+        assertThat(authException.getError(), is("missing username for Username-Password-Authentication connection with requires_username enabled"));
+        assertThat(authException.getStatusCode(), is(400));
+    }
+
+    @Test
+    public void shouldParseJSONErrorResponseWithDescription() throws Exception {
+        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", List.class);
+        server.JSONErrorResponseWithDescription();
+        Exception exception = null;
+        try {
+            request.execute();
+            server.takeRequest();
+        } catch (Exception e) {
+            exception = e;
+        }
+        assertThat(exception, is(notNullValue()));
+        assertThat(exception, is(instanceOf(AuthenticationException.class)));
+        assertThat(exception.getCause(), is(nullValue()));
+        assertThat(exception.getMessage(), is("Authentication failed with status code 400: The user already exists."));
+        AuthenticationException authException = (AuthenticationException) exception;
+        assertThat(authException.getDescription(), is("The user already exists."));
+        assertThat(authException.getError(), is("user_exists"));
         assertThat(authException.getStatusCode(), is(400));
     }
 
@@ -203,7 +243,6 @@ public class CustomRequestTest {
         AuthenticationException authException = (AuthenticationException) exception;
         assertThat(authException.getDescription(), is("A plain-text error response"));
         assertThat(authException.getError(), is(nullValue()));
-        assertThat(authException.getCode(), is(nullValue()));
         assertThat(authException.getStatusCode(), is(400));
     }
 
