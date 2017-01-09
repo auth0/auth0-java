@@ -1,8 +1,7 @@
 package com.auth0.net;
 
 import com.auth0.exception.Auth0Exception;
-import com.auth0.exception.AuthenticationException;
-import com.auth0.exception.RequestFailedException;
+import com.auth0.exception.AuthAPIException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -67,7 +66,7 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
             payload = response.body().string();
             return mapper.readValue(payload, tClazz);
         } catch (IOException e) {
-            throw new AuthenticationException(String.format("Failed to parse body as %s", tClazz.getSimpleName()), response.code(), e);
+            throw new AuthAPIException(String.format("Failed to parse body as %s", tClazz.getSimpleName()), response.code(), e);
         }
     }
 
@@ -81,7 +80,7 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
         parameters.put(name, value);
     }
 
-    private RequestBody createBody() throws RequestFailedException {
+    private RequestBody createBody() throws Auth0Exception {
         if (parameters.isEmpty()) {
             return null;
         }
@@ -89,7 +88,7 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
             byte[] jsonBody = mapper.writeValueAsBytes(parameters);
             return RequestBody.create(MediaType.parse(CONTENT_TYPE_APPLICATION_JSON), jsonBody);
         } catch (JsonProcessingException e) {
-            throw new RequestFailedException("Couldn't create the request body.", e);
+            throw new Auth0Exception("Couldn't create the request body.", e);
         }
     }
 
@@ -99,9 +98,9 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
             payload = response.body().string();
             MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
             Map<String, Object> values = mapper.readValue(payload, mapType);
-            return new AuthenticationException(values, response.code());
+            return new AuthAPIException(values, response.code());
         } catch (IOException e) {
-            return new AuthenticationException(payload, response.code(), e);
+            return new AuthAPIException(payload, response.code(), e);
         }
     }
 }

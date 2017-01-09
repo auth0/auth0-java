@@ -92,29 +92,22 @@ public class AuthAPITest {
     //Authorize
 
     @Test
-    public void shouldThrowWhenAuthorizeUrlBuilderConnectionIsNull() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'connection' cannot be null!");
-        api.authorize(null, "https://domain.auth0.com/callback");
-    }
-
-    @Test
     public void shouldThrowWhenAuthorizeUrlBuilderRedirectUriIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'redirect uri' cannot be null!");
-        api.authorize("my-connection", null);
+        api.authorize(null);
     }
 
     @Test
     public void shouldGetAuthorizeUrlBuilder() throws Exception {
-        AuthorizeUrlBuilder builder = api.authorize("my-connection", "https://domain.auth0.com/callback");
+        AuthorizeUrlBuilder builder = api.authorize("https://domain.auth0.com/callback");
         assertThat(builder, is(notNullValue()));
     }
 
     @Test
     public void shouldSetAuthorizeUrlBuilderDefaultValues() throws Exception {
         AuthAPI api = new AuthAPI("domain.auth0.com", CLIENT_ID, CLIENT_SECRET);
-        String url = api.authorize("my-connection", "https://domain.auth0.com/callback").build();
+        String url = api.authorize("https://domain.auth0.com/callback").build();
         HttpUrl parsed = HttpUrl.parse(url);
 
         assertThat(url, not(isEmptyOrNullString()));
@@ -127,7 +120,7 @@ public class AuthAPITest {
         assertThat(parsed.queryParameter("response_type"), is("code"));
         assertThat(parsed.queryParameter("client_id"), is(CLIENT_ID));
         assertThat(parsed.queryParameter("redirect_uri"), is("https://domain.auth0.com/callback"));
-        assertThat(parsed.queryParameter("connection"), is("my-connection"));
+        assertThat(parsed.queryParameter("connection"), is(nullValue()));
     }
 
 

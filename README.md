@@ -81,10 +81,10 @@ Request<UserInfo> request = auth.userInfo("nisd1h9dk.....s1doWJOsaf");
 try {
     UserInfo info = request.execute();
     // info.getValues();
-} catch (RequestFailedException exception) {
-    // request error
-} catch (AuthenticationException exception) {
+} catch (AuthAPIException exception) {
     // api error
+} catch (Auth0Exception exception) {
+    // request error
 }
 ```
 
@@ -98,10 +98,10 @@ Example:
 Request request = auth.resetPassword("user@domain.com", "Username-Password-Authentication");
 try {
     request.execute();
-} catch (RequestFailedException exception) {
-    // request error
-} catch (AuthenticationException exception) {
+} catch (AuthAPIException exception) {
     // api error
+} catch (Auth0Exception exception) {
+    // request error
 }
 ```
 
@@ -122,10 +122,10 @@ fields.put("age", "25");
 request.setCustomFields(fields);
 try {
     request.execute();
-} catch (RequestFailedException exception) {
-    // request error
-} catch (AuthenticationException exception) {
+} catch (AuthAPIException exception) {
     // api error
+} catch (Auth0Exception exception) {
+    // request error
 }
 ```
 
@@ -143,10 +143,10 @@ request.setScope("openid contacts");
 try {
     TokenHolder holder = request.execute();
     // holder.getAccessToken();
-} catch (RequestFailedException exception) {
-    // request error
-} catch (AuthenticationException exception) {
+} catch (AuthAPIException exception) {
     // api error
+} catch (Auth0Exception exception) {
+    // request error
 }
 ```
 
@@ -164,10 +164,10 @@ request.setScope("openid contacts");
 try {
     TokenHolder holder = request.execute();
     // holder.getAccessToken();
-} catch (RequestFailedException exception) {
-    // request error
-} catch (AuthenticationException exception) {
+} catch (AuthAPIException exception) {
     // api error
+} catch (Auth0Exception exception) {
+    // request error
 }
 ```
 
@@ -185,10 +185,10 @@ request.setScope("openid contacts");
 try {
     TokenHolder holder = request.execute();
     // holder.getAccessToken();
-} catch (RequestFailedException exception) {
-    // request error
-} catch (AuthenticationException exception) {
+} catch (AuthAPIException exception) {
     // api error
+} catch (Auth0Exception exception) {
+    // request error
 }
 ```
 
@@ -205,10 +205,36 @@ request.setScope("openid contacts");
 try {
     TokenHolder holder = request.execute();
     // holder.getAccessToken();
-} catch (RequestFailedException exception) {
-    // request error
-} catch (AuthenticationException exception) {
+} catch (AuthAPIException exception) {
     // api error
+} catch (Auth0Exception exception) {
+    // request error
+}
+```
+
+## Exceptions
+
+### Auth0Exception
+Base checked exception thrown when a Request creation or execution fails.
+
+```java
+try {
+    request.execute();
+} catch(Auth0Exception e) {
+    e.getMessage(); // description
+}
+```
+
+### AuthAPIException
+Auth0Exception child thrown when the Request was executed fine but the Response was not successful.
+
+```java
+try {
+    request.execute();
+} catch(AuthAPIException e) {
+    e.getStatusCode(); // http status code
+    e.getError(); // error code
+    e.getDescription(); // error description
 }
 ```
 

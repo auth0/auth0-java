@@ -1,8 +1,8 @@
 package com.auth0.net;
 
 import com.auth0.MockServer;
-import com.auth0.exception.AuthenticationException;
-import com.auth0.exception.RequestFailedException;
+import com.auth0.exception.Auth0Exception;
+import com.auth0.exception.AuthAPIException;
 import com.auth0.json.TokenHolder;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -101,7 +101,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldThrowOnExecuteFailure() throws Exception {
-        exception.expect(RequestFailedException.class);
+        exception.expect(Auth0Exception.class);
         exception.expectCause(Matchers.<Throwable>instanceOf(IOException.class));
         exception.expectMessage("Failed to execute request");
 
@@ -120,7 +120,7 @@ public class CustomRequestTest {
 
         CustomRequest request = new CustomRequest<>(client, mapper, server.getBaseUrl(), "POST", Object.class);
         request.addParameter("name", "value");
-        exception.expect(RequestFailedException.class);
+        exception.expect(Auth0Exception.class);
         exception.expectCause(Matchers.<Throwable>instanceOf(JsonProcessingException.class));
         exception.expectMessage("Couldn't create the request body.");
         request.execute();
@@ -153,10 +153,10 @@ public class CustomRequestTest {
             exception = e;
         }
         assertThat(exception, is(notNullValue()));
-        assertThat(exception, is(instanceOf(AuthenticationException.class)));
+        assertThat(exception, is(instanceOf(AuthAPIException.class)));
         assertThat(exception.getCause(), is(instanceOf(JsonMappingException.class)));
         assertThat(exception.getMessage(), is("Authentication failed with status code 200: Failed to parse body as List"));
-        AuthenticationException authException = (AuthenticationException) exception;
+        AuthAPIException authException = (AuthAPIException) exception;
         assertThat(authException.getDescription(), is("Failed to parse body as List"));
         assertThat(authException.getError(), is(nullValue()));
         assertThat(authException.getStatusCode(), is(200));
@@ -174,10 +174,10 @@ public class CustomRequestTest {
             exception = e;
         }
         assertThat(exception, is(notNullValue()));
-        assertThat(exception, is(instanceOf(AuthenticationException.class)));
+        assertThat(exception, is(instanceOf(AuthAPIException.class)));
         assertThat(exception.getCause(), is(nullValue()));
         assertThat(exception.getMessage(), is("Authentication failed with status code 400: the connection was not found"));
-        AuthenticationException authException = (AuthenticationException) exception;
+        AuthAPIException authException = (AuthAPIException) exception;
         assertThat(authException.getDescription(), is("the connection was not found"));
         assertThat(authException.getError(), is("invalid_request"));
         assertThat(authException.getStatusCode(), is(400));
@@ -195,10 +195,10 @@ public class CustomRequestTest {
             exception = e;
         }
         assertThat(exception, is(notNullValue()));
-        assertThat(exception, is(instanceOf(AuthenticationException.class)));
+        assertThat(exception, is(instanceOf(AuthAPIException.class)));
         assertThat(exception.getCause(), is(nullValue()));
         assertThat(exception.getMessage(), is("Authentication failed with status code 400: missing username for Username-Password-Authentication connection with requires_username enabled"));
-        AuthenticationException authException = (AuthenticationException) exception;
+        AuthAPIException authException = (AuthAPIException) exception;
         assertThat(authException.getDescription(), is(nullValue()));
         assertThat(authException.getError(), is("missing username for Username-Password-Authentication connection with requires_username enabled"));
         assertThat(authException.getStatusCode(), is(400));
@@ -216,10 +216,10 @@ public class CustomRequestTest {
             exception = e;
         }
         assertThat(exception, is(notNullValue()));
-        assertThat(exception, is(instanceOf(AuthenticationException.class)));
+        assertThat(exception, is(instanceOf(AuthAPIException.class)));
         assertThat(exception.getCause(), is(nullValue()));
         assertThat(exception.getMessage(), is("Authentication failed with status code 400: The user already exists."));
-        AuthenticationException authException = (AuthenticationException) exception;
+        AuthAPIException authException = (AuthAPIException) exception;
         assertThat(authException.getDescription(), is("The user already exists."));
         assertThat(authException.getError(), is("user_exists"));
         assertThat(authException.getStatusCode(), is(400));
@@ -237,10 +237,10 @@ public class CustomRequestTest {
             exception = e;
         }
         assertThat(exception, is(notNullValue()));
-        assertThat(exception, is(instanceOf(AuthenticationException.class)));
+        assertThat(exception, is(instanceOf(AuthAPIException.class)));
         assertThat(exception.getCause(), is(instanceOf(JsonParseException.class)));
         assertThat(exception.getMessage(), is("Authentication failed with status code 400: A plain-text error response"));
-        AuthenticationException authException = (AuthenticationException) exception;
+        AuthAPIException authException = (AuthAPIException) exception;
         assertThat(authException.getDescription(), is("A plain-text error response"));
         assertThat(authException.getError(), is(nullValue()));
         assertThat(authException.getStatusCode(), is(400));

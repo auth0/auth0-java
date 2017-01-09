@@ -60,24 +60,21 @@ public class AuthAPI {
     }
 
     /**
-     * Creates a new instance of the {@link AuthorizeUrlBuilder} with the given connection and redirect url parameters.
+     * Creates a new instance of the {@link AuthorizeUrlBuilder} with the given redirect url.
      *
-     * @param connection  the connection value to set
-     * @param redirectUri the redirect_uri value to set. Must be already URL Encoded.
+     * @param redirectUri the redirect_uri value to set, white-listed in the client settings. Must be already URL Encoded.
      * @return a new instance of the {@link AuthorizeUrlBuilder} to configure.
      */
-    public AuthorizeUrlBuilder authorize(String connection, String redirectUri) {
-        Asserts.assertNotNull(connection, "connection");
+    public AuthorizeUrlBuilder authorize(String redirectUri) {
         Asserts.assertNotNull(redirectUri, "redirect uri");
 
-        return AuthorizeUrlBuilder.newInstance(baseUrl, clientId, redirectUri)
-                .withConnection(connection);
+        return AuthorizeUrlBuilder.newInstance(baseUrl, clientId, redirectUri);
     }
 
     /**
      * Creates a new instance of the {@link AuthorizeUrlBuilder} with the given connection and redirect url parameters.
      *
-     * @param returnToUrl the redirect_uri value to set. Must be already URL Encoded.
+     * @param returnToUrl the redirect_uri value to set, white-listed in the client settings. Must be already URL Encoded.
      * @param setClientId whether the client_id value must be set or not. This affects the white-list that the Auth0's Dashboard uses to validate the returnTo url.
      * @return a new instance of the {@link AuthorizeUrlBuilder} to configure.
      */
