@@ -15,7 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequest<T> {
-    private static final MediaType JSON = MediaType.parse("application/json");
+    private static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
+
     private final String url;
     private final String method;
     private final Class<T> tClazz;
@@ -51,7 +52,7 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
         for (Map.Entry<String, String> e : headers.entrySet()) {
             builder.addHeader(e.getKey(), e.getValue());
         }
-        builder.addHeader("Content-Type", "application/json");
+        builder.addHeader("Content-Type", CONTENT_TYPE_APPLICATION_JSON);
         return builder.build();
     }
 
@@ -86,7 +87,7 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
         }
         try {
             byte[] jsonBody = mapper.writeValueAsBytes(parameters);
-            return RequestBody.create(JSON, jsonBody);
+            return RequestBody.create(MediaType.parse(CONTENT_TYPE_APPLICATION_JSON), jsonBody);
         } catch (JsonProcessingException e) {
             throw new RequestFailedException("Couldn't create the request body.", e);
         }

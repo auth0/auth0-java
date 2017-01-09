@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class UserInfo {
 
-    Map<String, Object> values;
+    private Map<String, Object> values;
 
     public UserInfo() {
         values = new HashMap<>();

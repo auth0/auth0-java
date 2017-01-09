@@ -9,6 +9,19 @@ import okhttp3.logging.HttpLoggingInterceptor.Level;
 
 public class AuthAPI {
 
+    private static final String KEY_CLIENT_ID = "client_id";
+    private static final String KEY_CLIENT_SECRET = "client_secret";
+    private static final String KEY_GRANT_TYPE = "grant_type";
+    private static final String KEY_USERNAME = "username";
+    private static final String KEY_PASSWORD = "password";
+    private static final String KEY_AUDIENCE = "audience";
+    private static final String KEY_EMAIL = "email";
+    private static final String KEY_CONNECTION = "connection";
+
+    private static final String PATH_OAUTH = "oauth";
+    private static final String PATH_TOKEN = "token";
+    private static final String PATH_DBCONNECTIONS = "dbconnections";
+
     private final OkHttpClient client;
     private final String clientId;
     private final String clientSecret;
@@ -108,14 +121,14 @@ public class AuthAPI {
 
         String url = HttpUrl.parse(baseUrl)
                 .newBuilder()
-                .addPathSegment("dbconnections")
+                .addPathSegment(PATH_DBCONNECTIONS)
                 .addPathSegment("change_password")
                 .build()
                 .toString();
         VoidRequest request = new VoidRequest(client, url, "POST");
-        request.addParameter("client_id", clientId);
-        request.addParameter("email", email);
-        request.addParameter("connection", connection);
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_EMAIL, email);
+        request.addParameter(KEY_CONNECTION, connection);
         return request;
     }
 
@@ -133,7 +146,7 @@ public class AuthAPI {
         Asserts.assertNotNull(username, "username");
 
         VoidRequest request = (VoidRequest) this.signUp(email, password, connection);
-        request.addParameter("username", username);
+        request.addParameter(KEY_USERNAME, username);
         return request;
     }
 
@@ -152,15 +165,15 @@ public class AuthAPI {
 
         String url = HttpUrl.parse(baseUrl)
                 .newBuilder()
-                .addPathSegment("dbconnections")
+                .addPathSegment(PATH_DBCONNECTIONS)
                 .addPathSegment("signup")
                 .build()
                 .toString();
         VoidRequest request = new VoidRequest(client, url, "POST");
-        request.addParameter("client_id", clientId);
-        request.addParameter("email", email);
-        request.addParameter("password", password);
-        request.addParameter("connection", connection);
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_EMAIL, email);
+        request.addParameter(KEY_PASSWORD, password);
+        request.addParameter(KEY_CONNECTION, connection);
         return request;
     }
 
@@ -191,14 +204,14 @@ public class AuthAPI {
 
         String url = HttpUrl.parse(baseUrl)
                 .newBuilder()
-                .addPathSegment("oauth")
-                .addPathSegment("token")
+                .addPathSegment(PATH_OAUTH)
+                .addPathSegment(PATH_TOKEN)
                 .build()
                 .toString();
         TokenRequest request = new TokenRequest(client, url);
-        request.addParameter("client_id", clientId);
-        request.addParameter("client_secret", clientSecret);
-        request.addParameter("grant_type", "authorization_code");
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
+        request.addParameter(KEY_GRANT_TYPE, "authorization_code");
         request.addParameter("code", code);
         return request;
     }
@@ -218,17 +231,17 @@ public class AuthAPI {
 
         String url = HttpUrl.parse(baseUrl)
                 .newBuilder()
-                .addPathSegment("oauth")
-                .addPathSegment("token")
+                .addPathSegment(PATH_OAUTH)
+                .addPathSegment(PATH_TOKEN)
                 .build()
                 .toString();
         TokenRequest request = new TokenRequest(client, url);
-        request.addParameter("client_id", clientId);
-        request.addParameter("client_secret", clientSecret);
-        request.addParameter("grant_type", "password");
-        request.addParameter("username", emailOrUsername);
-        request.addParameter("password", password);
-        request.addParameter("audience", audience);
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
+        request.addParameter(KEY_GRANT_TYPE, KEY_PASSWORD);
+        request.addParameter(KEY_USERNAME, emailOrUsername);
+        request.addParameter(KEY_PASSWORD, password);
+        request.addParameter(KEY_AUDIENCE, audience);
         return request;
     }
 
@@ -246,16 +259,16 @@ public class AuthAPI {
 
         String url = HttpUrl.parse(baseUrl)
                 .newBuilder()
-                .addPathSegment("oauth")
-                .addPathSegment("token")
+                .addPathSegment(PATH_OAUTH)
+                .addPathSegment(PATH_TOKEN)
                 .build()
                 .toString();
         TokenRequest request = new TokenRequest(client, url);
-        request.addParameter("client_id", clientId);
-        request.addParameter("client_secret", clientSecret);
-        request.addParameter("grant_type", "http://auth0.com/oauth/grant-type/password-realm");
-        request.addParameter("username", emailOrUsername);
-        request.addParameter("password", password);
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
+        request.addParameter(KEY_GRANT_TYPE, "http://auth0.com/oauth/grant-type/password-realm");
+        request.addParameter(KEY_USERNAME, emailOrUsername);
+        request.addParameter(KEY_PASSWORD, password);
         return request;
     }
 
@@ -271,15 +284,15 @@ public class AuthAPI {
 
         String url = HttpUrl.parse(baseUrl)
                 .newBuilder()
-                .addPathSegment("oauth")
-                .addPathSegment("token")
+                .addPathSegment(PATH_OAUTH)
+                .addPathSegment(PATH_TOKEN)
                 .build()
                 .toString();
         TokenRequest request = new TokenRequest(client, url);
-        request.addParameter("client_id", clientId);
-        request.addParameter("client_secret", clientSecret);
-        request.addParameter("grant_type", "client_credentials");
-        request.addParameter("audience", audience);
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
+        request.addParameter(KEY_GRANT_TYPE, "client_credentials");
+        request.addParameter(KEY_AUDIENCE, audience);
         return request;
     }
 }
