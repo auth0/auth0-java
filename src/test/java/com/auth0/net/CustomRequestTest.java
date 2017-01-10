@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import static com.auth0.MockServer.bodyFromRequest;
+import static com.auth0.MockServer.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -49,7 +49,7 @@ public class CustomRequestTest {
         CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", TokenHolder.class);
         assertThat(request, is(notNullValue()));
 
-        server.okResponse();
+        server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder execute = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
         Assert.assertThat(recordedRequest.getMethod(), is("GET"));
@@ -62,7 +62,7 @@ public class CustomRequestTest {
         assertThat(request, is(notNullValue()));
         request.addParameter("non_empty", "body");
 
-        server.okResponse();
+        server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder execute = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
         Assert.assertThat(recordedRequest.getMethod(), is("POST"));
@@ -76,7 +76,7 @@ public class CustomRequestTest {
         request.addParameter("key", "value");
         request.addParameter("map", mapValue);
 
-        server.okResponse();
+        server.jsonResponse(AUTH_TOKENS, 200);
         request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
         Map<String, Object> values = bodyFromRequest(recordedRequest);
@@ -91,7 +91,7 @@ public class CustomRequestTest {
         request.addHeader("Content-Type", "application/json");
         request.addHeader("Authorization", "Bearer my_access_token");
 
-        server.okResponse();
+        server.jsonResponse(AUTH_TOKENS, 200);
         request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -129,7 +129,7 @@ public class CustomRequestTest {
     @Test
     public void shouldParseSuccessfulResponse() throws Exception {
         CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", TokenHolder.class);
-        server.tokensResponse();
+        server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder response = request.execute();
         server.takeRequest();
 
@@ -144,7 +144,7 @@ public class CustomRequestTest {
     @Test
     public void shouldThrowOnParseInvalidSuccessfulResponse() throws Exception {
         CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", List.class);
-        server.tokensResponse();
+        server.jsonResponse(AUTH_TOKENS, 200);
         Exception exception = null;
         try {
             request.execute();
@@ -165,7 +165,7 @@ public class CustomRequestTest {
     @Test
     public void shouldParseJSONErrorResponseWithErrorDescription() throws Exception {
         CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", List.class);
-        server.JSONErrorResponseWithErrorDescription();
+        server.jsonResponse(AUTH_ERROR_WITH_ERROR_DESCRIPTION, 400);
         Exception exception = null;
         try {
             request.execute();
@@ -186,7 +186,7 @@ public class CustomRequestTest {
     @Test
     public void shouldParseJSONErrorResponseWithError() throws Exception {
         CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", List.class);
-        server.JSONErrorResponseWithError();
+        server.jsonResponse(AUTH_ERROR_WITH_ERROR, 400);
         Exception exception = null;
         try {
             request.execute();
@@ -207,7 +207,7 @@ public class CustomRequestTest {
     @Test
     public void shouldParseJSONErrorResponseWithDescription() throws Exception {
         CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", List.class);
-        server.JSONErrorResponseWithDescription();
+        server.jsonResponse(AUTH_ERROR_WITH_DESCRIPTION, 400);
         Exception exception = null;
         try {
             request.execute();
@@ -228,7 +228,7 @@ public class CustomRequestTest {
     @Test
     public void shouldParsePlainTextErrorResponse() throws Exception {
         CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", List.class);
-        server.plainTextErrorResponse();
+        server.textResponse(AUTH_ERROR_PLAINTEXT, 400);
         Exception exception = null;
         try {
             request.execute();

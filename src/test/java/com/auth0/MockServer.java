@@ -8,10 +8,22 @@ import okhttp3.mockwebserver.RecordedRequest;
 import okio.Buffer;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MockServer {
+
+    public static String AUTH_USER_INFO = "src/test/resources/auth/user_info.json";
+    public static String AUTH_RESET_PASSWORD = "src/test/resources/auth/reset_password.json";
+    public static String AUTH_SIGN_UP = "src/test/resources/auth/sign_up.json";
+    public static String AUTH_TOKENS = "src/test/resources/auth/tokens.json";
+    public static String AUTH_ERROR_WITH_ERROR_DESCRIPTION = "src/test/resources/auth/error_with_error_description.json";
+    public static String AUTH_ERROR_WITH_ERROR = "src/test/resources/auth/error_with_error.json";
+    public static String AUTH_ERROR_WITH_DESCRIPTION = "src/test/resources/auth/error_with_description.json";
+    public static String AUTH_ERROR_PLAINTEXT = "src/test/resources/auth/error_plaintext.json";
+
 
     private final MockWebServer server;
 
@@ -32,111 +44,23 @@ public class MockServer {
         return server.takeRequest();
     }
 
-    public void userInfoResponse() {
+    private String readTextFile(String path) throws IOException {
+        return new String(Files.readAllBytes(Paths.get(path)));
+    }
+
+    public void jsonResponse(String path, int statusCode) throws IOException {
         MockResponse response = new MockResponse()
-                .setResponseCode(200)
+                .setResponseCode(statusCode)
                 .addHeader("Content-Type", "application/json")
-                .setBody("{\n" +
-                        "  \"email_verified\": false,\n" +
-                        "  \"email\": \"test.account@userinfo.com\",\n" +
-                        "  \"clientID\": \"q2hnj2iu...\",\n" +
-                        "  \"updated_at\": \"2016-12-05T15:15:40.545Z\",\n" +
-                        "  \"name\": \"test.account@userinfo.com\",\n" +
-                        "  \"picture\": \"https://s.gravatar.com/avatar/dummy.png\",\n" +
-                        "  \"user_id\": \"auth0|58454...\",\n" +
-                        "  \"nickname\": \"test.account\",\n" +
-                        "  \"identities\": [\n" +
-                        "    {\n" +
-                        "      \"user_id\": \"58454...\",\n" +
-                        "      \"provider\": \"auth0\",\n" +
-                        "      \"connection\": \"Username-Password-Authentication\",\n" +
-                        "      \"isSocial\": false\n" +
-                        "    }\n" +
-                        "  ],\n" +
-                        "  \"created_at\": \"2016-12-05T11:16:59.640Z\",\n" +
-                        "  \"sub\": \"auth0|58454...\"\n" +
-                        "}");
+                .setBody(readTextFile(path));
         server.enqueue(response);
     }
 
-    public void resetPasswordResponse() {
+    public void textResponse(String path, int statusCode) throws IOException {
         MockResponse response = new MockResponse()
-                .setResponseCode(200)
-                .addHeader("Content-Type", "application/json")
-                .setBody("We've just sent you an email to reset your password.");
-        server.enqueue(response);
-    }
-
-    public void signUpResponse() {
-        MockResponse response = new MockResponse()
-                .setResponseCode(200)
-                .addHeader("Content-Type", "application/json")
-                .setBody("{\n" +
-                        "  \"_id\": \"58457fe6b27...\",\n" +
-                        "  \"email_verified\": false,\n" +
-                        "  \"email\": \"test.account@signup.com\"\n" +
-                        "}");
-        server.enqueue(response);
-    }
-
-    public void tokensResponse() {
-        MockResponse response = new MockResponse()
-                .setResponseCode(200)
-                .addHeader("Content-Type", "application/json")
-                .setBody("{\n" +
-                        "  \"access_token\":\"eyJz93a...k4laUWw\",\n" +
-                        "  \"refresh_token\":\"GEbRxBN...edjnXbL\",\n" +
-                        "  \"id_token\":\"eyJ0XAi...4faeEoQ\",\n" +
-                        "  \"token_type\":\"Bearer\",\n" +
-                        "  \"expires_in\":86400\n" +
-                        "}");
-        server.enqueue(response);
-    }
-
-    public void JSONErrorResponseWithErrorDescription() {
-        MockResponse response = new MockResponse()
-                .setResponseCode(400)
-                .addHeader("Content-Type", "application/json")
-                .setBody("{" +
-                        "\"error\": \"invalid_request\"," +
-                        " \"error_description\": \"the connection was not found\"" +
-                        "}");
-        server.enqueue(response);
-    }
-
-    public void JSONErrorResponseWithError() {
-        MockResponse response = new MockResponse()
-                .setResponseCode(400)
-                .addHeader("Content-Type", "application/json")
-                .setBody("{" +
-                        "\"error\": \"missing username for Username-Password-Authentication connection with requires_username enabled\"" +
-                        "}");
-        server.enqueue(response);
-    }
-
-    public void JSONErrorResponseWithDescription() {
-        MockResponse response = new MockResponse()
-                .setResponseCode(400)
-                .addHeader("Content-Type", "application/json")
-                .setBody("{\"name\":\"BadRequestError\",\"code\":\"user_exists\",\"description\":\"The user already exists.\",\"statusCode\":400}");
-        server.enqueue(response);
-    }
-
-    public void plainTextErrorResponse() {
-        MockResponse response = new MockResponse()
-                .setResponseCode(400)
+                .setResponseCode(statusCode)
                 .addHeader("Content-Type", "text/plain")
-                .setBody("A plain-text error response");
-        server.enqueue(response);
-    }
-
-    public void okResponse() {
-        MockResponse response = new MockResponse()
-                .setResponseCode(200)
-                .addHeader("Content-Type", "application/json")
-                .setBody("{" +
-                        "\"access_token\": \"accessToken\"" +
-                        "}");
+                .setBody(readTextFile(path));
         server.enqueue(response);
     }
 

@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import java.util.Map;
 
+import static com.auth0.MockServer.AUTH_TOKENS;
 import static com.auth0.MockServer.bodyFromRequest;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
@@ -36,7 +37,7 @@ public class TokenRequestTest {
         request.addParameter("non_empty", "body");
         assertThat(request, is(notNullValue()));
 
-        server.tokensResponse();
+        server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
         assertThat(recordedRequest.getMethod(), is("POST"));
@@ -49,7 +50,7 @@ public class TokenRequestTest {
         assertThat(request, is(notNullValue()));
         request.setAudience("https://myapi.auth0.com/users");
 
-        server.tokensResponse();
+        server.jsonResponse(AUTH_TOKENS, 200);
         request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
         Map<String, Object> values = bodyFromRequest(recordedRequest);
@@ -62,7 +63,7 @@ public class TokenRequestTest {
         assertThat(request, is(notNullValue()));
         request.setScope("email profile photos");
 
-        server.tokensResponse();
+        server.jsonResponse(AUTH_TOKENS, 200);
         request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
         Map<String, Object> values = bodyFromRequest(recordedRequest);
@@ -75,7 +76,7 @@ public class TokenRequestTest {
         assertThat(request, is(notNullValue()));
         request.setRealm("dbconnection");
 
-        server.tokensResponse();
+        server.jsonResponse(AUTH_TOKENS, 200);
         request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
         Map<String, Object> values = bodyFromRequest(recordedRequest);

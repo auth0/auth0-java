@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.auth0.MockServer.bodyFromRequest;
+import static com.auth0.MockServer.*;
 import static com.auth0.RecordedRequestMatcher.hasHeader;
 import static com.auth0.RecordedRequestMatcher.hasMethodAndPath;
 import static com.auth0.UrlMatcher.hasQueryParameter;
@@ -164,7 +164,7 @@ public class AuthAPITest {
         Request<UserInfo> request = api.userInfo("accessToken");
         assertThat(request, is(notNullValue()));
 
-        server.userInfoResponse();
+        server.jsonResponse(AUTH_USER_INFO, 200);
         UserInfo response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -215,7 +215,7 @@ public class AuthAPITest {
         Request<Void> request = api.resetPassword("me@auth0.com", "db-connection");
         assertThat(request, is(notNullValue()));
 
-        server.resetPasswordResponse();
+        server.jsonResponse(AUTH_RESET_PASSWORD, 200);
         Void response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -288,7 +288,7 @@ public class AuthAPITest {
         SignUpRequest request = api.signUp("me@auth0.com", "me", "p455w0rd", "db-connection");
         assertThat(request, is(notNullValue()));
 
-        server.signUpResponse();
+        server.jsonResponse(AUTH_SIGN_UP, 200);
         Void response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -310,7 +310,7 @@ public class AuthAPITest {
         SignUpRequest request = api.signUp("me@auth0.com", "p455w0rd", "db-connection");
         assertThat(request, is(notNullValue()));
 
-        server.signUpResponse();
+        server.jsonResponse(AUTH_SIGN_UP, 200);
         Void response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -336,7 +336,7 @@ public class AuthAPITest {
         customFields.put("address", "123, fake street");
         request.setCustomFields(customFields);
 
-        server.signUpResponse();
+        server.jsonResponse(AUTH_SIGN_UP, 200);
         Void response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -379,7 +379,7 @@ public class AuthAPITest {
         AuthRequest request = api.loginWithAuthorizationCode("code123", "https://domain.auth0.com/callback");
         assertThat(request, is(notNullValue()));
 
-        server.tokensResponse();
+        server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -409,7 +409,7 @@ public class AuthAPITest {
         request.setRealm("dbconnection");
         request.setScope("profile photos contacts");
 
-        server.tokensResponse();
+        server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -456,7 +456,7 @@ public class AuthAPITest {
         AuthRequest request = api.loginWithPassword("me", "p455w0rd");
         assertThat(request, is(notNullValue()));
 
-        server.tokensResponse();
+        server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -486,7 +486,7 @@ public class AuthAPITest {
         request.setScope("profile photos contacts");
         request.setAudience("https://myapi.auth0.com/users");
 
-        server.tokensResponse();
+        server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -540,7 +540,7 @@ public class AuthAPITest {
         AuthRequest request = api.loginWithPasswordRealm("me", "p455w0rd", "realm");
         assertThat(request, is(notNullValue()));
 
-        server.tokensResponse();
+        server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -571,7 +571,7 @@ public class AuthAPITest {
         request.setRealm("dbconnection");
         request.setScope("profile photos contacts");
 
-        server.tokensResponse();
+        server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -611,7 +611,7 @@ public class AuthAPITest {
         AuthRequest request = api.loginWithClientCredentials("https://myapi.auth0.com/users");
         assertThat(request, is(notNullValue()));
 
-        server.tokensResponse();
+        server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 

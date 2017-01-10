@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.auth0.MockServer.AUTH_TOKENS;
 import static com.auth0.MockServer.bodyFromRequest;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
@@ -28,7 +29,7 @@ public class VoidRequestTest {
         VoidRequest request = new VoidRequest(client, server.getBaseUrl(), "GET");
         assertThat(request, is(notNullValue()));
 
-        server.okResponse();
+        server.jsonResponse(AUTH_TOKENS, 200);
         Void execute = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
         assertThat(recordedRequest.getMethod(), is("GET"));
@@ -41,7 +42,7 @@ public class VoidRequestTest {
         assertThat(request, is(notNullValue()));
         request.addParameter("non_empty", "body");
 
-        server.okResponse();
+        server.jsonResponse(AUTH_TOKENS, 200);
         Void execute = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
         assertThat(recordedRequest.getMethod(), is("POST"));
@@ -57,7 +58,7 @@ public class VoidRequestTest {
         customFields.put("age", "25");
         request.setCustomFields(customFields);
 
-        server.okResponse();
+        server.jsonResponse(AUTH_TOKENS, 200);
         request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
