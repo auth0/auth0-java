@@ -5,7 +5,6 @@ import com.auth0.json.UserInfo;
 import com.auth0.net.AuthRequest;
 import com.auth0.net.Request;
 import com.auth0.net.SignUpRequest;
-import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.After;
 import org.junit.Before;
@@ -18,6 +17,8 @@ import java.util.List;
 import java.util.Map;
 
 import static com.auth0.MockServer.bodyFromRequest;
+import static com.auth0.UrlMatcher.hasQueryParameter;
+import static com.auth0.UrlMatcher.isUrl;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.collection.IsMapContaining.hasEntry;
 import static org.hamcrest.collection.IsMapContaining.hasKey;
@@ -51,20 +52,14 @@ public class AuthAPITest {
     public void shouldAcceptDomainWithNoScheme() throws Exception {
         AuthAPI api = new AuthAPI("me.something.com", CLIENT_ID, CLIENT_SECRET);
 
-        HttpUrl parsed = HttpUrl.parse(api.getBaseUrl());
-        assertThat(parsed, is(notNullValue()));
-        assertThat(parsed.host(), is("me.something.com"));
-        assertThat(parsed.scheme(), is("https"));
+        assertThat(api.getBaseUrl(), isUrl("https", "me.something.com"));
     }
 
     @Test
     public void shouldAcceptDomainWithHttpScheme() throws Exception {
         AuthAPI api = new AuthAPI("http://me.something.com", CLIENT_ID, CLIENT_SECRET);
 
-        HttpUrl parsed = HttpUrl.parse(api.getBaseUrl());
-        assertThat(parsed, is(notNullValue()));
-        assertThat(parsed.host(), is("me.something.com"));
-        assertThat(parsed.scheme(), is("http"));
+        assertThat(api.getBaseUrl(), isUrl("http", "me.something.com"));
     }
 
     @Test
@@ -108,19 +103,12 @@ public class AuthAPITest {
     public void shouldSetAuthorizeUrlBuilderDefaultValues() throws Exception {
         AuthAPI api = new AuthAPI("domain.auth0.com", CLIENT_ID, CLIENT_SECRET);
         String url = api.authorize("https://domain.auth0.com/callback").build();
-        HttpUrl parsed = HttpUrl.parse(url);
 
-        assertThat(url, not(isEmptyOrNullString()));
-        assertThat(parsed, is(notNullValue()));
-        assertThat(parsed.scheme(), is("https"));
-        assertThat(parsed.host(), is("domain.auth0.com"));
-        assertThat(parsed.pathSegments().size(), is(1));
-        assertThat(parsed.pathSegments().get(0), is("authorize"));
-
-        assertThat(parsed.queryParameter("response_type"), is("code"));
-        assertThat(parsed.queryParameter("client_id"), is(CLIENT_ID));
-        assertThat(parsed.queryParameter("redirect_uri"), is("https://domain.auth0.com/callback"));
-        assertThat(parsed.queryParameter("connection"), is(nullValue()));
+        assertThat(url, isUrl("https", "domain.auth0.com", "/authorize"));
+        assertThat(url, hasQueryParameter("response_type", "code"));
+        assertThat(url, hasQueryParameter("client_id", CLIENT_ID));
+        assertThat(url, hasQueryParameter("redirect_uri", "https://domain.auth0.com/callback"));
+        assertThat(url, hasQueryParameter("connection", null));
     }
 
 
@@ -143,36 +131,20 @@ public class AuthAPITest {
     public void shouldSetLogoutUrlBuilderDefaultValues() throws Exception {
         AuthAPI api = new AuthAPI("domain.auth0.com", CLIENT_ID, CLIENT_SECRET);
         String url = api.logout("https://my.domain.com/welcome", false).build();
-        HttpUrl parsed = HttpUrl.parse(url);
 
-        assertThat(url, not(isEmptyOrNullString()));
-        assertThat(parsed, is(notNullValue()));
-        assertThat(parsed.scheme(), is("https"));
-        assertThat(parsed.host(), is("domain.auth0.com"));
-        assertThat(parsed.pathSegments().size(), is(2));
-        assertThat(parsed.pathSegments().get(0), is("v2"));
-        assertThat(parsed.pathSegments().get(1), is("logout"));
-
-        assertThat(parsed.queryParameter("client_id"), is(nullValue()));
-        assertThat(parsed.queryParameter("returnTo"), is("https://my.domain.com/welcome"));
+        assertThat(url, isUrl("https", "domain.auth0.com", "/v2/logout"));
+        assertThat(url, hasQueryParameter("client_id", null));
+        assertThat(url, hasQueryParameter("returnTo", "https://my.domain.com/welcome"));
     }
 
     @Test
     public void shouldSetLogoutUrlBuilderDefaultValuesAndClientId() throws Exception {
         AuthAPI api = new AuthAPI("domain.auth0.com", CLIENT_ID, CLIENT_SECRET);
         String url = api.logout("https://my.domain.com/welcome", true).build();
-        HttpUrl parsed = HttpUrl.parse(url);
 
-        assertThat(url, not(isEmptyOrNullString()));
-        assertThat(parsed, is(notNullValue()));
-        assertThat(parsed.scheme(), is("https"));
-        assertThat(parsed.host(), is("domain.auth0.com"));
-        assertThat(parsed.pathSegments().size(), is(2));
-        assertThat(parsed.pathSegments().get(0), is("v2"));
-        assertThat(parsed.pathSegments().get(1), is("logout"));
-
-        assertThat(parsed.queryParameter("client_id"), is(CLIENT_ID));
-        assertThat(parsed.queryParameter("returnTo"), is("https://my.domain.com/welcome"));
+        assertThat(url, isUrl("https", "domain.auth0.com", "/v2/logout"));
+        assertThat(url, hasQueryParameter("client_id", CLIENT_ID));
+        assertThat(url, hasQueryParameter("returnTo", "https://my.domain.com/welcome"));
     }
 
 

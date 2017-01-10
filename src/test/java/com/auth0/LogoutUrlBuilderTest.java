@@ -1,19 +1,15 @@
 package com.auth0;
 
-import okhttp3.HttpUrl;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.net.URLEncoder;
 
-import static org.hamcrest.CoreMatchers.containsString;
+import static com.auth0.UrlMatcher.*;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
 
 public class LogoutUrlBuilderTest {
 
@@ -66,57 +62,38 @@ public class LogoutUrlBuilderTest {
     @Test
     public void shouldBuildValidLogoutUrlWithHttp() throws Exception {
         String url = LogoutUrlBuilder.newInstance("http://domain.auth0.com", CLIENT_ID, RETURN_TO_URL, true).build();
-        assertThat(url, not(isEmptyOrNullString()));
-        assertThat(HttpUrl.parse(url), is(notNullValue()));
-        assertThat(HttpUrl.parse(url).scheme(), is("http"));
-        assertThat(HttpUrl.parse(url).host(), is("domain.auth0.com"));
-        assertThat(HttpUrl.parse(url).pathSegments().size(), is(2));
-        assertThat(HttpUrl.parse(url).pathSegments().get(0), is("v2"));
-        assertThat(HttpUrl.parse(url).pathSegments().get(1), is("logout"));
+        assertThat(url, isUrl("http", "domain.auth0.com", "/v2/logout"));
     }
 
     @Test
     public void shouldBuildValidLogoutUrlWithHttps() throws Exception {
         String url = LogoutUrlBuilder.newInstance("https://domain.auth0.com", CLIENT_ID, RETURN_TO_URL, true).build();
-        assertThat(url, not(isEmptyOrNullString()));
-        assertThat(HttpUrl.parse(url), is(notNullValue()));
-        assertThat(HttpUrl.parse(url).scheme(), is("https"));
-        assertThat(HttpUrl.parse(url).host(), is("domain.auth0.com"));
-        assertThat(HttpUrl.parse(url).pathSegments().size(), is(2));
-        assertThat(HttpUrl.parse(url).pathSegments().get(0), is("v2"));
-        assertThat(HttpUrl.parse(url).pathSegments().get(1), is("logout"));
+        assertThat(url, isUrl("https", "domain.auth0.com", "/v2/logout"));
     }
 
     @Test
     public void shouldAddReturnToURL() throws Exception {
         String url = LogoutUrlBuilder.newInstance(DOMAIN, CLIENT_ID, RETURN_TO_URL, true).build();
-        HttpUrl parsed = HttpUrl.parse(url);
-        assertThat(parsed.queryParameter("returnTo"), is(RETURN_TO_URL));
+        assertThat(url, hasQueryParameter("returnTo", RETURN_TO_URL));
     }
 
     @Test
     public void shouldNotEncodeTwiceTheReturnToURL() throws Exception {
         String encodedUrl = URLEncoder.encode("https://www.google.com/?src=her&q=ans", "UTF-8");
         String url = LogoutUrlBuilder.newInstance(DOMAIN, CLIENT_ID, encodedUrl, true).build();
-        HttpUrl parsed = HttpUrl.parse(url);
-
-        assertThat(parsed.queryParameter("returnTo"), is(notNullValue()));
-        assertThat(parsed.queryParameter("returnTo"), is(not(encodedUrl)));
-        assertThat(parsed.encodedQuery(), containsString("returnTo=" + encodedUrl));
+        assertThat(url, encodedQueryContains("returnTo=" + encodedUrl));
     }
 
     @Test
     public void shouldNotAddClientId() throws Exception {
         String url = LogoutUrlBuilder.newInstance(DOMAIN, CLIENT_ID, RETURN_TO_URL, false).build();
-        HttpUrl parsed = HttpUrl.parse(url);
-        assertThat(parsed.queryParameter("client_id"), is(nullValue()));
+        assertThat(url, hasQueryParameter("client_id", null));
     }
 
     @Test
     public void shouldAddClientId() throws Exception {
         String url = LogoutUrlBuilder.newInstance(DOMAIN, CLIENT_ID, RETURN_TO_URL, true).build();
-        HttpUrl parsed = HttpUrl.parse(url);
-        assertThat(parsed.queryParameter("client_id"), is(CLIENT_ID));
+        assertThat(url, hasQueryParameter("client_id", CLIENT_ID));
     }
 
     @Test
@@ -124,8 +101,7 @@ public class LogoutUrlBuilderTest {
         String url = LogoutUrlBuilder.newInstance(DOMAIN, CLIENT_ID, RETURN_TO_URL, true)
                 .withAccessToken("accessToken")
                 .build();
-        HttpUrl parsed = HttpUrl.parse(url);
-        assertThat(parsed.queryParameter("access_token"), is("accessToken"));
+        assertThat(url, hasQueryParameter("access_token", "accessToken"));
     }
 
     @Test
@@ -141,8 +117,7 @@ public class LogoutUrlBuilderTest {
         String url = LogoutUrlBuilder.newInstance(DOMAIN, CLIENT_ID, RETURN_TO_URL, true)
                 .useFederated(true)
                 .build();
-        HttpUrl parsed = HttpUrl.parse(url);
-        assertThat(parsed.queryParameter("federated"), is(notNullValue()));
+        assertThat(url, hasQueryParameter("federated", ""));
     }
 
     @Test
@@ -150,8 +125,7 @@ public class LogoutUrlBuilderTest {
         String url = LogoutUrlBuilder.newInstance(DOMAIN, CLIENT_ID, RETURN_TO_URL, true)
                 .useFederated(false)
                 .build();
-        HttpUrl parsed = HttpUrl.parse(url);
-        assertThat(parsed.queryParameter("federated"), is(nullValue()));
+        assertThat(url, hasQueryParameter("federated", null));
     }
 
 }

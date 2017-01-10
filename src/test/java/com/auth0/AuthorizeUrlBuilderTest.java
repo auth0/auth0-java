@@ -1,15 +1,14 @@
 package com.auth0;
 
-import okhttp3.HttpUrl;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.net.URLEncoder;
 
-import static org.hamcrest.CoreMatchers.*;
+import static com.auth0.UrlMatcher.*;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class AuthorizeUrlBuilderTest {
@@ -65,55 +64,39 @@ public class AuthorizeUrlBuilderTest {
     @Test
     public void shouldBuildValidAuthorizeUrlWithHttp() throws Exception {
         String url = AuthorizeUrlBuilder.newInstance("http://domain.auth0.com", CLIENT_ID, REDIRECT_URI).build();
-        assertThat(url, not(isEmptyOrNullString()));
-        assertThat(HttpUrl.parse(url), is(notNullValue()));
-        assertThat(HttpUrl.parse(url).scheme(), is("http"));
-        assertThat(HttpUrl.parse(url).host(), is("domain.auth0.com"));
-        assertThat(HttpUrl.parse(url).pathSegments().size(), is(1));
-        assertThat(HttpUrl.parse(url).pathSegments().get(0), is("authorize"));
+        assertThat(url, isUrl("http", "domain.auth0.com", "/authorize"));
     }
 
     @Test
     public void shouldBuildValidAuthorizeUrlWithHttps() throws Exception {
         String url = AuthorizeUrlBuilder.newInstance("https://domain.auth0.com", CLIENT_ID, REDIRECT_URI).build();
-        assertThat(url, not(isEmptyOrNullString()));
-        assertThat(HttpUrl.parse(url), is(notNullValue()));
-        assertThat(HttpUrl.parse(url).scheme(), is("https"));
-        assertThat(HttpUrl.parse(url).host(), is("domain.auth0.com"));
-        assertThat(HttpUrl.parse(url).pathSegments().size(), is(1));
-        assertThat(HttpUrl.parse(url).pathSegments().get(0), is("authorize"));
+        assertThat(url, isUrl("https", "domain.auth0.com", "/authorize"));
     }
 
     @Test
     public void shouldAddResponseTypeCode() throws Exception {
         String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI).build();
-        HttpUrl parsed = HttpUrl.parse(url);
-        assertThat(parsed.queryParameter("response_type"), is("code"));
+        assertThat(url, hasQueryParameter("response_type", "code"));
     }
 
     @Test
     public void shouldAddClientId() throws Exception {
         String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI).build();
-        HttpUrl parsed = HttpUrl.parse(url);
-        assertThat(parsed.queryParameter("client_id"), is(CLIENT_ID));
+        assertThat(url, hasQueryParameter("client_id", CLIENT_ID));
+
     }
 
     @Test
     public void shouldAddRedirectUri() throws Exception {
         String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI).build();
-        HttpUrl parsed = HttpUrl.parse(url);
-        assertThat(parsed.queryParameter("redirect_uri"), is(REDIRECT_URI));
+        assertThat(url, hasQueryParameter("redirect_uri", REDIRECT_URI));
     }
 
     @Test
     public void shouldNotEncodeTwiceTheRedirectUri() throws Exception {
         String encodedUrl = URLEncoder.encode("https://www.google.com/?src=her&q=ans", "UTF-8");
         String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, encodedUrl).build();
-        HttpUrl parsed = HttpUrl.parse(url);
-
-        assertThat(parsed.queryParameter("redirect_uri"), is(notNullValue()));
-        assertThat(parsed.queryParameter("redirect_uri"), is(not(encodedUrl)));
-        assertThat(parsed.encodedQuery(), containsString("redirect_uri=" + encodedUrl));
+        assertThat(url, encodedQueryContains("redirect_uri=" + encodedUrl));
     }
 
     @Test
@@ -121,8 +104,7 @@ public class AuthorizeUrlBuilderTest {
         String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
                 .withConnection("my-connection")
                 .build();
-        HttpUrl parsed = HttpUrl.parse(url);
-        assertThat(parsed.queryParameter("connection"), is("my-connection"));
+        assertThat(url, hasQueryParameter("connection", "my-connection"));
     }
 
     @Test
@@ -138,8 +120,7 @@ public class AuthorizeUrlBuilderTest {
         String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
                 .withAudience("https://myapi.domain.com/users")
                 .build();
-        HttpUrl parsed = HttpUrl.parse(url);
-        assertThat(parsed.queryParameter("audience"), is("https://myapi.domain.com/users"));
+        assertThat(url, hasQueryParameter("audience", "https://myapi.domain.com/users"));
     }
 
     @Test
@@ -155,8 +136,7 @@ public class AuthorizeUrlBuilderTest {
         String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
                 .withState("1234567890")
                 .build();
-        HttpUrl parsed = HttpUrl.parse(url);
-        assertThat(parsed.queryParameter("state"), is("1234567890"));
+        assertThat(url, hasQueryParameter("state", "1234567890"));
     }
 
     @Test
@@ -172,8 +152,7 @@ public class AuthorizeUrlBuilderTest {
         String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
                 .withScope("profile email contacts")
                 .build();
-        HttpUrl parsed = HttpUrl.parse(url);
-        assertThat(parsed.queryParameter("scope"), is("profile email contacts"));
+        assertThat(url, hasQueryParameter("scope", "profile email contacts"));
     }
 
     @Test
