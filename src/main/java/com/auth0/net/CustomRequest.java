@@ -3,8 +3,10 @@ package com.auth0.net;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.AuthAPIException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.type.MapType;
 import okhttp3.*;
 import okhttp3.Request;
@@ -18,23 +20,23 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
 
     private final String url;
     private final String method;
-    private final Class<T> tClazz;
     private final ObjectMapper mapper;
+    private final TypeReference<T> tType;
     private final Map<String, String> headers;
     private final Map<String, Object> parameters;
 
-    CustomRequest(OkHttpClient client, ObjectMapper mapper, String url, String method, Class<T> tClazz) {
+    CustomRequest(OkHttpClient client, String url, String method, ObjectMapper mapper, TypeReference<T> tType) {
         super(client);
         this.url = url;
         this.method = method;
-        this.tClazz = tClazz;
         this.mapper = mapper;
+        this.tType = tType;
         this.headers = new HashMap<>();
         this.parameters = new HashMap<>();
     }
 
-    public CustomRequest(OkHttpClient client, String url, String method, Class<T> tClazz) {
-        this(client, createUnknownSafeMapper(), url, method, tClazz);
+    public CustomRequest(OkHttpClient client, String url, String method, TypeReference<T> tType) {
+        this(client, url, method, createUnknownSafeMapper(), tType);
     }
 
     private static ObjectMapper createUnknownSafeMapper() {
@@ -64,9 +66,9 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
         String payload;
         try {
             payload = response.body().string();
-            return mapper.readValue(payload, tClazz);
+            return mapper.readValue(payload, tType);
         } catch (IOException e) {
-            throw new AuthAPIException(String.format("Failed to parse body as %s", tClazz.getSimpleName()), response.code(), e);
+            throw new AuthAPIException("Failed to parse json body", response.code(), e);
         }
     }
 

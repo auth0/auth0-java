@@ -2,6 +2,7 @@ package com.auth0;
 
 import com.auth0.json.UserInfo;
 import com.auth0.net.*;
+import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -99,7 +100,7 @@ public class AuthAPI {
                 .addPathSegment("userinfo")
                 .build()
                 .toString();
-        CustomRequest<UserInfo> request = new CustomRequest<>(client, url, "GET", UserInfo.class);
+        CustomRequest<UserInfo> request = new CustomRequest<>(client, url, "GET", new TypeReference<UserInfo>() {});
         request.addHeader("Authorization", "Bearer " + accessToken);
         return request;
     }
