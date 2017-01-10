@@ -153,7 +153,7 @@ public class AuthAPITest {
     //UserInfo
 
     @Test
-    public void shouldThrowWhenUserInfoAccessTokenIsNull() throws Exception {
+    public void shouldThrowOnUserInfoWithNullAccessToken() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'access token' cannot be null!");
         api.userInfo(null);
@@ -197,14 +197,14 @@ public class AuthAPITest {
     //Reset Password
 
     @Test
-    public void shouldThrowWhenResetPasswordEmailIsNull() throws Exception {
+    public void shouldThrowOnResetPasswordWithNullEmail() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email' cannot be null!");
         api.resetPassword(null, "my-connection");
     }
 
     @Test
-    public void shouldThrowWhenResetPasswordConnectionIsNull() throws Exception {
+    public void shouldThrowOnResetPasswordWithNullConnection() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection' cannot be null!");
         api.resetPassword("me@auth0.com", null);
@@ -235,49 +235,49 @@ public class AuthAPITest {
     //Sign Up
 
     @Test
-    public void shouldThrowWhenSignUpEmailIsNull() throws Exception {
+    public void shouldThrowOnSignUpWithNullEmail() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email' cannot be null!");
         api.signUp(null, "p455w0rd", "my-connection");
     }
 
     @Test
-    public void shouldThrowWhenSignUpPasswordIsNull() throws Exception {
+    public void shouldThrowOnSignUpWithNullPassword() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'password' cannot be null!");
         api.signUp("me@auth0.com", null, "my-connection");
     }
 
     @Test
-    public void shouldThrowWhenSignUpConnectionIsNull() throws Exception {
+    public void shouldThrowOnSignUpWithNullConnection() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection' cannot be null!");
         api.signUp("me@auth0.com", "p455w0rd", null);
     }
 
     @Test
-    public void shouldThrowWhenUsernameSignUpEmailIsNull() throws Exception {
+    public void shouldThrowOnUsernameSignUpWithNullEmail() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email' cannot be null!");
         api.signUp(null, "me", "p455w0rd", "my-connection");
     }
 
     @Test
-    public void shouldThrowWhenUsernameSignUpUsernameIsNull() throws Exception {
+    public void shouldThrowOnUsernameSignUpWithNullUsername() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'username' cannot be null!");
         api.signUp("me@auth0.com", null, "p455w0rd", "my-connection");
     }
 
     @Test
-    public void shouldThrowWhenUsernameSignUpPasswordIsNull() throws Exception {
+    public void shouldThrowOnUsernameSignUpWithNullPassword() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'password' cannot be null!");
         api.signUp("me@auth0.com", "me", null, "my-connection");
     }
 
     @Test
-    public void shouldThrowWhenUsernameSignUpConnectionIsNull() throws Exception {
+    public void shouldThrowOnUsernameSignUpWithNullConnection() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection' cannot be null!");
         api.signUp("me@auth0.com", "me", "p455w0rd", null);
@@ -361,14 +361,14 @@ public class AuthAPITest {
     //Log In with AuthorizationCode Grant
 
     @Test
-    public void shouldThrowWhenLogInWithAuthorizationCodeGrantAndRedirectUriCodeIsNull() throws Exception {
+    public void shouldThrowOnLogInWithAuthorizationCodeGrantAndRedirectUriWithNullCode() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'code' cannot be null!");
         api.loginWithAuthorizationCode(null, "https://domain.auth0.com/callback");
     }
 
     @Test
-    public void shouldThrowWhenLogInWithAuthorizationCodeGrantAndRedirectUriRedirectUriIsNull() throws Exception {
+    public void shouldThrowOnLogInWithAuthorizationCodeGrantAndRedirectUriWithNullRedirectUri() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'redirect uri' cannot be null!");
         api.loginWithAuthorizationCode("code", null);
@@ -438,14 +438,14 @@ public class AuthAPITest {
     //Log In with Password grant
 
     @Test
-    public void shouldThrowWhenLogInWithPasswordUsernameIsNull() throws Exception {
+    public void shouldThrowOnLogInWithPasswordWithNullUsername() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email or username' cannot be null!");
         api.loginWithPassword(null, "p455w0rd");
     }
 
     @Test
-    public void shouldThrowWhenLogInWithPasswordPasswordIsNull() throws Exception {
+    public void shouldThrowOnLogInWithPasswordWithNullPassword() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'password' cannot be null!");
         api.loginWithPassword("me", null);
@@ -515,21 +515,21 @@ public class AuthAPITest {
     //Log In with PasswordRealm grant
 
     @Test
-    public void shouldThrowWhenLogInWithPasswordRealmUsernameIsNull() throws Exception {
+    public void shouldThrowOnLogInWithPasswordRealmWithNullUsername() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email or username' cannot be null!");
         api.loginWithPasswordRealm(null, "p455w0rd", "realm");
     }
 
     @Test
-    public void shouldThrowWhenLogInWithPasswordRealmPasswordIsNull() throws Exception {
+    public void shouldThrowOnLogInWithPasswordRealmWithNullPassword() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'password' cannot be null!");
         api.loginWithPasswordRealm("me", null, "realm");
     }
 
     @Test
-    public void shouldThrowWhenLogInWithPasswordRealmRealmIsNull() throws Exception {
+    public void shouldThrowOnLogInWithPasswordRealmWithNullRealm() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'realm' cannot be null!");
         api.loginWithPasswordRealm("me", "p455w0rd", null);
@@ -600,7 +600,7 @@ public class AuthAPITest {
     //Log In with ClientCredentials grant
 
     @Test
-    public void shouldThrowWhenLogInWithClientCredentialsAudienceIsNull() throws Exception {
+    public void shouldThrowOnLogInWithClientCredentialsWithNullAudience() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'audience' cannot be null!");
         api.loginWithClientCredentials(null);
