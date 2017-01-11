@@ -1,6 +1,5 @@
 package com.auth0.json;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ClientGrant {
@@ -10,12 +9,12 @@ public class ClientGrant {
     private String audience;
     private String[] scope;
 
-    @JsonProperty("id")
+    @JsonProperty(value = "id", access = JsonProperty.Access.WRITE_ONLY)
     public String getId() {
         return id;
     }
 
-    @JsonIgnore
+    @JsonProperty(value = "id", access = JsonProperty.Access.WRITE_ONLY)
     public void setId(String id) {
         this.id = id;
     }
@@ -25,6 +24,7 @@ public class ClientGrant {
         return clientId;
     }
 
+    @JsonProperty("client_id")
     public void setClientId(String clientId) {
         this.clientId = clientId;
     }
@@ -34,6 +34,7 @@ public class ClientGrant {
         return audience;
     }
 
+    @JsonProperty("audience")
     public void setAudience(String audience) {
         this.audience = audience;
     }
@@ -43,6 +44,7 @@ public class ClientGrant {
         return scope;
     }
 
+    @JsonProperty("scope")
     public void setScope(String[] scope) {
         this.scope = scope;
     }

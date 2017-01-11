@@ -6,7 +6,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.type.MapType;
 import okhttp3.*;
 import okhttp3.Request;
@@ -24,6 +23,7 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
     private final TypeReference<T> tType;
     private final Map<String, String> headers;
     private final Map<String, Object> parameters;
+    private Object body;
 
     CustomRequest(OkHttpClient client, String url, String method, ObjectMapper mapper, TypeReference<T> tType) {
         super(client);
@@ -82,12 +82,17 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
         parameters.put(name, value);
     }
 
-    private RequestBody createBody() throws Auth0Exception {
-        if (parameters.isEmpty()) {
+    @Override
+    public void setBody(Object value) {
+        body = value;
+    }
+
+    protected RequestBody createBody() throws Auth0Exception {
+        if (body == null && parameters.isEmpty()) {
             return null;
         }
         try {
-            byte[] jsonBody = mapper.writeValueAsBytes(parameters);
+            byte[] jsonBody = mapper.writeValueAsBytes(body != null ? body : parameters);
             return RequestBody.create(MediaType.parse(CONTENT_TYPE_APPLICATION_JSON), jsonBody);
         } catch (JsonProcessingException e) {
             throw new Auth0Exception("Couldn't create the request body.", e);

@@ -25,6 +25,8 @@ public class MockServer {
     public static final String AUTH_ERROR_PLAINTEXT = "src/test/resources/auth/error_plaintext.json";
     public static final String MGMT_CLIENT_GRANTS_LIST = "src/test/resources/mgmt/client_grants_list.json";
     public static final String MGMT_CLIENT_GRANT = "src/test/resources/mgmt/client_grant.json";
+    public static final String MGMT_CLIENTS_LIST = "src/test/resources/mgmt/clients_list.json";
+    public static final String MGMT_CLIENT = "src/test/resources/mgmt/client.json";
     public static final String MGMT_EMPTY_LIST = "src/test/resources/mgmt/empty_list.json";
 
 
