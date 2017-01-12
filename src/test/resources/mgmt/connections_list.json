@@ -1,0 +1,22 @@
+[
+  {
+    "name": "My connection1",
+    "options": {},
+    "id": "con_0000000000000001",
+    "strategy": "auth0",
+    "enabled_clients": [
+      "avUAvH1pgnZGgAGlv8guZLPoaOnjVJsM",
+      "ScKKdrpyUwfkhOQP6KXItH32INgZf7Rb"
+    ]
+  },
+  {
+    "name": "My connection2",
+    "options": {},
+    "id": "con_0000000000000002",
+    "strategy": "auth0",
+    "enabled_clients": [
+      "avUAvH1pgnZGgAGlv8guZLPoaOnjVJsM",
+      "ScKKdrpyUwfkhOQP6KXItH32INgZf7Rb"
+    ]
+  }
+]

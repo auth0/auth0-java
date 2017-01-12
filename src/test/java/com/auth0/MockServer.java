@@ -27,6 +27,8 @@ public class MockServer {
     public static final String MGMT_CLIENT_GRANT = "src/test/resources/mgmt/client_grant.json";
     public static final String MGMT_CLIENTS_LIST = "src/test/resources/mgmt/clients_list.json";
     public static final String MGMT_CLIENT = "src/test/resources/mgmt/client.json";
+    public static final String MGMT_CONNECTIONS_LIST = "src/test/resources/mgmt/connections_list.json";
+    public static final String MGMT_CONNECTION = "src/test/resources/mgmt/connection.json";
     public static final String MGMT_EMPTY_LIST = "src/test/resources/mgmt/empty_list.json";
 
 

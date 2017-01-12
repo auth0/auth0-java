@@ -8,6 +8,7 @@ public class RecordedRequestMatcher extends TypeSafeDiagnosingMatcher<RecordedRe
 
     private static final int METHOD_PATH = 0;
     private static final int HEADER = 1;
+    private static final int QUERY_PARAMETER = 2;
 
     private final int checkingOption;
     private final String first;
@@ -33,6 +34,8 @@ public class RecordedRequestMatcher extends TypeSafeDiagnosingMatcher<RecordedRe
                 return matchesMethodAndPath(item, mismatchDescription);
             case HEADER:
                 return matchesHeader(item, mismatchDescription);
+            case QUERY_PARAMETER:
+                return matchesQueryParameter(item, mismatchDescription);
         }
     }
 
@@ -41,8 +44,13 @@ public class RecordedRequestMatcher extends TypeSafeDiagnosingMatcher<RecordedRe
             mismatchDescription.appendText("method was ").appendValue(item.getMethod());
             return false;
         }
-        if (!item.getPath().equals(second)) {
-            mismatchDescription.appendText("path was ").appendValue(item.getPath());
+        String path = item.getPath();
+        boolean hasQuery = path.indexOf("?") > 0;
+        if (hasQuery) {
+            path = path.substring(0, path.indexOf("?"));
+        }
+        if (!path.equals(second)) {
+            mismatchDescription.appendText("path was ").appendValue(path);
             return false;
         }
 
@@ -57,6 +65,25 @@ public class RecordedRequestMatcher extends TypeSafeDiagnosingMatcher<RecordedRe
         }
 
         return true;
+    }
+
+    private boolean matchesQueryParameter(RecordedRequest item, Description mismatchDescription) {
+        String path = item.getPath();
+        boolean hasQuery = path.indexOf("?") > 0;
+        if (!hasQuery) {
+            mismatchDescription.appendText(" query was empty");
+            return false;
+        }
+
+        String query = path.substring(path.indexOf("?") + 1, path.length());
+        String[] parameters = query.split("&");
+        for (String p : parameters) {
+            if (p.equals(String.format("%s=%s", first, second))) {
+                return true;
+            }
+        }
+        mismatchDescription.appendValueList("Query parameters were {", ", ", "}.", parameters);
+        return false;
     }
 
     @Override
@@ -75,6 +102,12 @@ public class RecordedRequestMatcher extends TypeSafeDiagnosingMatcher<RecordedRe
                         .appendText(" with value ")
                         .appendValue(second);
                 break;
+            case QUERY_PARAMETER:
+                description.appendText("A request containing query parameter ")
+                        .appendValue(first)
+                        .appendText(" with value ")
+                        .appendValue(second);
+                break;
         }
     }
 
@@ -84,5 +117,9 @@ public class RecordedRequestMatcher extends TypeSafeDiagnosingMatcher<RecordedRe
 
     public static RecordedRequestMatcher hasHeader(String name, String value) {
         return new RecordedRequestMatcher(name, value, HEADER);
+    }
+
+    public static RecordedRequestMatcher hasQueryParameter(String name, String value) {
+        return new RecordedRequestMatcher(name, value, QUERY_PARAMETER);
     }
 }
