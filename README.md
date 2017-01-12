@@ -25,6 +25,10 @@ or Gradle:
 compile 'com.auth0:auth0:0.4.0'
 ```
 
+### Android
+
+The Auth0 Authentication API and User's Management API are available for Android in the `auth0.android` library. Check https://github.com/auth0/auth0.android for more information.
+
 ## Usage
 
 First with your Auth0 account information
@@ -40,22 +44,6 @@ AuthenticationAPIClient client = auth0.newAuthenticationAPIClient();
 ```
 
 > Currently we only have a Authentication API Client, in future version we'll start adding Management API Client and methods.
-
-### Android
-
-You need to add the following to your `build.gradle` file:
-
-``` gradle
-android {
-
-    // Other config of your application
-    
-    packagingOptions {
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/NOTICE'
-    }
-}
-```
 
 ### Authentication API
 
