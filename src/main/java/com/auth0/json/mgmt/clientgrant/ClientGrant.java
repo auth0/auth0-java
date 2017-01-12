@@ -1,51 +1,47 @@
-package com.auth0.json;
+package com.auth0.json.mgmt.clientgrant;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClientGrant {
 
+    @JsonProperty("id")
     private String id;
+    @JsonProperty("client_id")
     private String clientId;
+    @JsonProperty("audience")
     private String audience;
-    private String[] scope;
+    @JsonProperty("scope")
+    private List<String> scope;
 
-    @JsonProperty(value = "id", access = JsonProperty.Access.WRITE_ONLY)
     public String getId() {
         return id;
     }
 
-    @JsonProperty(value = "id", access = JsonProperty.Access.WRITE_ONLY)
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    @JsonProperty("client_id")
     public String getClientId() {
         return clientId;
     }
 
-    @JsonProperty("client_id")
     public void setClientId(String clientId) {
         this.clientId = clientId;
     }
 
-    @JsonProperty("audience")
     public String getAudience() {
         return audience;
     }
 
-    @JsonProperty("audience")
     public void setAudience(String audience) {
         this.audience = audience;
     }
 
-    @JsonProperty("scope")
-    public String[] getScope() {
+    public List<String> getScope() {
         return scope;
     }
 
-    @JsonProperty("scope")
-    public void setScope(String[] scope) {
+    public void setScope(List<String> scope) {
         this.scope = scope;
     }
 }

@@ -1,29 +1,32 @@
 package com.auth0.json.mgmt.client;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Addon {
 
     @JsonUnwrapped
+    @JsonIgnore
     private Map<String, Object> properties;
 
+    public Addon() {
+        this.properties = new HashMap<>();
+    }
+
     @JsonAnySetter
-    private void setProperties(Map<String, Object> properties) {
-        this.properties = properties;
+    public void setProperty(String name, Object value) {
+        properties.put(name, value);
     }
 
     @JsonAnyGetter
-    private Map<String, Object> getProperties() {
+    public Map<String, Object> getProperties() {
         return properties;
     }
 
-    private Object getProperty(String name) {
+    public Object getProperty(String name) {
         return properties.get(name);
     }
 

@@ -7,8 +7,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EncryptionKey {
 
+    @JsonProperty("pub")
     private String pub;
+    @JsonProperty("cert")
     private String cert;
+    @JsonProperty("subject")
     private String subject;
 
     @JsonCreator
@@ -17,32 +20,26 @@ public class EncryptionKey {
         this.cert = cert;
     }
 
-    @JsonProperty("pub")
     public String getPub() {
         return pub;
     }
 
-    @JsonProperty("pub")
     public void setPub(String pub) {
         this.pub = pub;
     }
 
-    @JsonProperty("cert")
     public String getCert() {
         return cert;
     }
 
-    @JsonProperty("cert")
     public void setCert(String cert) {
         this.cert = cert;
     }
 
-    @JsonProperty("subject")
     public String getSubject() {
         return subject;
     }
 
-    @JsonProperty("subject")
     public void setSubject(String subject) {
         this.subject = subject;
     }

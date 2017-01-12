@@ -7,7 +7,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class IOS {
 
+    @JsonProperty("team_id")
     private String teamId;
+    @JsonProperty("app_bundle_identifier")
     private String appBundleIdentifier;
 
     @JsonCreator
@@ -16,22 +18,18 @@ public class IOS {
         this.appBundleIdentifier = appBundleIdentifier;
     }
 
-    @JsonProperty("team_id")
     public String getTeamId() {
         return teamId;
     }
 
-    @JsonProperty("team_id")
     public void setTeamId(String teamId) {
         this.teamId = teamId;
     }
 
-    @JsonProperty("app_bundle_identifier")
     public String getAppBundleIdentifier() {
         return appBundleIdentifier;
     }
 
-    @JsonProperty("app_bundle_identifier")
     public void setAppBundleIdentifier(String appBundleIdentifier) {
         this.appBundleIdentifier = appBundleIdentifier;
     }

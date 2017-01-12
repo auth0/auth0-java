@@ -1,11 +1,13 @@
-package com.auth0.json;
+package com.auth0.json.auth;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserInfo {
 
     private Map<String, Object> values;
@@ -15,7 +17,7 @@ public class UserInfo {
     }
 
     @JsonAnySetter
-    public void add(String key, Object value) {
+    public void setValue(String key, Object value) {
         values.put(key, value);
     }
 

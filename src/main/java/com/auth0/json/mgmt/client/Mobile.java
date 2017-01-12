@@ -7,7 +7,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Mobile {
 
+    @JsonProperty("android")
     private Android android;
+    @JsonProperty("ios")
     private IOS ios;
 
     @JsonCreator
@@ -16,22 +18,18 @@ public class Mobile {
         this.ios = ios;
     }
 
-    @JsonProperty("android")
     public Android getAndroid() {
         return android;
     }
 
-    @JsonProperty("android")
     public void setAndroid(Android android) {
         this.android = android;
     }
 
-    @JsonProperty("ios")
     public IOS getIos() {
         return ios;
     }
 
-    @JsonProperty("ios")
     public void setIos(IOS ios) {
         this.ios = ios;
     }

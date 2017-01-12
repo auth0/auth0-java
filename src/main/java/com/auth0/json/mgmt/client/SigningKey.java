@@ -7,8 +7,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SigningKey {
 
+    @JsonProperty("cert")
     private String cert;
+    @JsonProperty("pkcs7")
     private String pkcs7;
+    @JsonProperty("subject")
     private String subject;
 
     @JsonCreator
@@ -18,32 +21,26 @@ public class SigningKey {
         this.subject = subject;
     }
 
-    @JsonProperty("cert")
     public String getCert() {
         return cert;
     }
 
-    @JsonProperty("cert")
     public void setCert(String cert) {
         this.cert = cert;
     }
 
-    @JsonProperty("pkcs7")
     public String getPKCS7() {
         return pkcs7;
     }
 
-    @JsonProperty("pkcs7")
     public void setPKCS7(String pkcs7) {
         this.pkcs7 = pkcs7;
     }
 
-    @JsonProperty("subject")
     public String getSubject() {
         return subject;
     }
 
-    @JsonProperty("subject")
     public void setSubject(String subject) {
         this.subject = subject;
     }

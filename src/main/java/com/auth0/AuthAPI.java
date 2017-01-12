@@ -1,6 +1,6 @@
 package com.auth0;
 
-import com.auth0.json.UserInfo;
+import com.auth0.json.auth.UserInfo;
 import com.auth0.net.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;

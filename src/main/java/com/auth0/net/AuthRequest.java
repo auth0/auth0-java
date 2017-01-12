@@ -1,6 +1,6 @@
 package com.auth0.net;
 
-import com.auth0.json.TokenHolder;
+import com.auth0.json.auth.TokenHolder;
 
 public interface AuthRequest extends Request<TokenHolder> {
 

@@ -1,7 +1,7 @@
 package com.auth0;
 
-import com.auth0.json.TokenHolder;
-import com.auth0.json.UserInfo;
+import com.auth0.json.auth.TokenHolder;
+import com.auth0.json.auth.UserInfo;
 import com.auth0.net.AuthRequest;
 import com.auth0.net.Request;
 import com.auth0.net.SignUpRequest;

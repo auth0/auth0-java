@@ -10,7 +10,9 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Android {
 
+    @JsonProperty("app_package_name")
     private String appPackageName;
+    @JsonProperty("sha256_cert_fingerprints")
     private List<String> sha256CertFingerprints;
 
     @JsonCreator
@@ -19,22 +21,18 @@ public class Android {
         this.sha256CertFingerprints = sha256CertFingerprints;
     }
 
-    @JsonProperty("app_package_name")
     public String getAppPackageName() {
         return appPackageName;
     }
 
-    @JsonProperty("app_package_name")
     public void setAppPackageName(String appPackageName) {
         this.appPackageName = appPackageName;
     }
 
-    @JsonProperty("sha256_cert_fingerprints")
     public List<String> getSha256CertFingerprints() {
         return sha256CertFingerprints;
     }
 
-    @JsonProperty("sha256_cert_fingerprints")
     public void setSha256CertFingerprints(List<String> sha256CertFingerprints) {
         this.sha256CertFingerprints = sha256CertFingerprints;
     }

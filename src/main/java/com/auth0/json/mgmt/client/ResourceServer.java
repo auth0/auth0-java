@@ -10,7 +10,9 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResourceServer {
 
+    @JsonProperty("identifier")
     private String identifier;
+    @JsonProperty("scopes")
     private List<String> scopes;
 
     @JsonCreator
@@ -19,22 +21,18 @@ public class ResourceServer {
         this.scopes = scopes;
     }
 
-    @JsonProperty("identifier")
     public String getIdentifier() {
         return identifier;
     }
 
-    @JsonProperty("identifier")
     public void setIdentifier(String identifier) {
         this.identifier = identifier;
     }
 
-    @JsonProperty("scopes")
     public List<String> getScopes() {
         return scopes;
     }
 
-    @JsonProperty("scopes")
     public void setScopes(List<String> scopes) {
         this.scopes = scopes;
     }

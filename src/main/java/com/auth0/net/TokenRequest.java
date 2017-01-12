@@ -1,6 +1,6 @@
 package com.auth0.net;
 
-import com.auth0.json.TokenHolder;
+import com.auth0.json.auth.TokenHolder;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.OkHttpClient;
 

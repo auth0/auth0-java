@@ -1,6 +1,6 @@
 package com.auth0;
 
-import com.auth0.json.ClientGrant;
+import com.auth0.json.mgmt.clientgrant.ClientGrant;
 import com.auth0.json.mgmt.client.Client;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.EmptyBodyRequest;

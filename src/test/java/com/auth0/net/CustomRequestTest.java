@@ -3,7 +3,7 @@ package com.auth0.net;
 import com.auth0.MockServer;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.AuthAPIException;
-import com.auth0.json.TokenHolder;
+import com.auth0.json.auth.TokenHolder;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

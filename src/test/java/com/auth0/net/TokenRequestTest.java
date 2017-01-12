@@ -1,7 +1,7 @@
 package com.auth0.net;
 
 import com.auth0.MockServer;
-import com.auth0.json.TokenHolder;
+import com.auth0.json.auth.TokenHolder;
 import okhttp3.OkHttpClient;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.After;

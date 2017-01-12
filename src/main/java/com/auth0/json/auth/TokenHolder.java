@@ -1,7 +1,9 @@
-package com.auth0.json;
+package com.auth0.json.auth;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TokenHolder {
 
     @JsonProperty("access_token")
