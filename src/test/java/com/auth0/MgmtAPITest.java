@@ -4,6 +4,7 @@ import com.auth0.json.mgmt.Connection;
 import com.auth0.json.mgmt.DeviceCredentials;
 import com.auth0.json.mgmt.LogEvent;
 import com.auth0.json.mgmt.client.Client;
+import com.auth0.json.mgmt.client.ResourceServer;
 import com.auth0.json.mgmt.clientgrant.ClientGrant;
 import com.auth0.net.ConnectionFilter;
 import com.auth0.net.DeviceCredentialsFilter;
@@ -781,7 +782,6 @@ public class MgmtAPITest {
 
     // Logs Events
 
-
     @Test
     public void shouldListEventLogs() throws Exception {
         Request<List<LogEvent>> request = api.listLogEvents(null);
@@ -916,4 +916,140 @@ public class MgmtAPITest {
         assertThat(response, is(notNullValue()));
     }
 
+
+    //ResourceServers
+
+    @Test
+    public void shouldListResourceServers() throws Exception {
+        Request<List<ResourceServer>> request = api.listResourceServers();
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_RESOURCE_SERVERS_LIST, 200);
+        List<ResourceServer> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/resource-servers"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, hasSize(2));
+    }
+
+    @Test
+    public void shouldReturnEmptyResourceServers() throws Exception {
+        Request<List<ResourceServer>> request = api.listResourceServers();
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_EMPTY_LIST, 200);
+        List<ResourceServer> response = request.execute();
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, is(emptyCollectionOf(ResourceServer.class)));
+    }
+
+    @Test
+    public void shouldThrowOnGetResourceServerWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'resource server id' cannot be null!");
+        api.getResourceServer(null);
+    }
+
+    @Test
+    public void shouldGetResourceServer() throws Exception {
+        Request<ResourceServer> request = api.getResourceServer("1");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_RESOURCE_SERVER, 200);
+        ResourceServer response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/resource-servers/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnCreateResourceServerWithNullData() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'resource server' cannot be null!");
+        api.createResourceServer(null);
+    }
+
+    @Test
+    public void shouldCreateResourceServer() throws Exception {
+        Request<ResourceServer> request = api.createResourceServer(new ResourceServer("id"));
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_RESOURCE_SERVER, 200);
+        ResourceServer response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/resource-servers"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(1));
+        assertThat(body, hasEntry("identifier", (Object) "id"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnDeleteResourceServerWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'resource server id' cannot be null!");
+        api.deleteResourceServer(null);
+    }
+
+    @Test
+    public void shouldDeleteResourceServer() throws Exception {
+        Request request = api.deleteResourceServer("1");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_RESOURCE_SERVER, 200);
+        request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/resource-servers/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
+
+    @Test
+    public void shouldThrowOnUpdateResourceServerWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'resource server id' cannot be null!");
+        api.updateResourceServer(null, new ResourceServer("id"));
+    }
+
+    @Test
+    public void shouldThrowOnUpdateResourceServerWithNullData() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'resource server' cannot be null!");
+        api.updateResourceServer("1", null);
+    }
+
+    @Test
+    public void shouldUpdateResourceServer() throws Exception {
+        Request<ResourceServer> request = api.updateResourceServer("1", new ResourceServer("1"));
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_RESOURCE_SERVER, 200);
+        ResourceServer response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/resource-servers/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(1));
+        assertThat(body, hasEntry("identifier", (Object) "1"));
+
+        assertThat(response, is(notNullValue()));
+    }
 }

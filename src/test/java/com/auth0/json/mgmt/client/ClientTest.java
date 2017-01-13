@@ -45,7 +45,7 @@ public class ClientTest extends JsonTest<Client> {
         Addons addons = new Addons(new Addon(), new Addon(), new Addon(), new Addon());
         client.setAddons(addons);
         client.setTokenEndpointAuthMethod("method");
-        List<ResourceServer> serversList = Arrays.asList(new ResourceServer("server", null));
+        List<ResourceServer> serversList = Arrays.asList(new ResourceServer("server"));
         client.setResourceServers(serversList);
         Map<String, Object> metadata = Collections.singletonMap("key", (Object) "value");
         client.setClientMetadata(metadata);

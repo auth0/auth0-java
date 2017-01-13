@@ -1,0 +1,27 @@
+[
+  {
+    "id": "127b210ae0c4239e1",
+    "name": "JWKS",
+    "identifier": "https://apis.lbalmaceda.auth0.com",
+    "signing_alg": "RS256",
+    "scopes": [
+      {
+        "value": "read:client_grants"
+      }
+    ],
+    "token_lifetime": 86400,
+    "token_lifetime_for_web": 7200,
+    "allow_offline_access": true,
+    "skip_consent_for_verifiable_first_party_clients": true
+  },
+  {
+    "id": "127b210ae0c4239e9",
+    "name": "JWKS",
+    "identifier": "https://apis.lbalmaceda.auth0.com",
+    "signing_alg": "RS256",
+    "token_lifetime": 86400,
+    "token_lifetime_for_web": 7200,
+    "allow_offline_access": false,
+    "skip_consent_for_verifiable_first_party_clients": false
+  }
+]
