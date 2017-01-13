@@ -2,6 +2,7 @@ package com.auth0;
 
 import com.auth0.json.mgmt.Connection;
 import com.auth0.json.mgmt.DeviceCredentials;
+import com.auth0.json.mgmt.LogEvent;
 import com.auth0.json.mgmt.client.Client;
 import com.auth0.json.mgmt.clientgrant.ClientGrant;
 import com.auth0.net.*;
@@ -459,7 +460,7 @@ public class MgmtAPI {
     }
 
     /**
-     * Create a new Device Credentials. A token with scope create:device_credentials is needed.
+     * Create a new Device Credentials. A token with scope create:current_user_device_credentials is needed.
      *
      * @param deviceCredentials the device credentials data to set
      * @return a Request to execute.
@@ -504,4 +505,50 @@ public class MgmtAPI {
     }
 
 
+    /**
+     * Request all the Log Events. A token with scope read:logs is needed.
+     *
+     * @param filter the filter to use. Can be null
+     * @return a Request to execute.
+     */
+    public Request<List<LogEvent>> listLogEvents(LogEventFilter filter) {
+        HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("logs");
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+        String url = builder.build().toString();
+        CustomRequest<List<LogEvent>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<LogEvent>>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Request a Log Event. A token with scope read:logs is needed.
+     *
+     * @param logEventId the id of the connection to retrieve.
+     * @return a Request to execute.
+     */
+    public Request<LogEvent> getLogEvent(String logEventId) {
+        Asserts.assertNotNull(logEventId, "log event id");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("logs")
+                .addPathSegment(logEventId)
+                .build()
+                .toString();
+        CustomRequest<LogEvent> request = new CustomRequest<>(client, url, "GET", new TypeReference<LogEvent>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
 }

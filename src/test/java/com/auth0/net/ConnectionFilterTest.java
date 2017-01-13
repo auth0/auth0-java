@@ -36,6 +36,16 @@ public class ConnectionFilterTest {
     }
 
     @Test
+    public void shouldFilterByPage() throws Exception {
+        ConnectionFilter instance = filter.withPage(5, 10);
+
+        assertThat(filter, is(instance));
+        assertThat(filter.getAsMap(), is(notNullValue()));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("per_page", (Object) 10));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("page", (Object) 5));
+    }
+
+    @Test
     public void shouldFilterWithFields() throws Exception {
         ConnectionFilter instance = filter.withFields("a,b,c", true);
 

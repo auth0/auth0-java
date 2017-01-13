@@ -24,4 +24,17 @@ public class ConnectionFilter extends BaseFilter<ConnectionFilter> {
         return this;
     }
 
+    /**
+     * Filter by page
+     *
+     * @param pageNumber    the page number to retrieve.
+     * @param amountPerPage the amount of items per page to retrieve.
+     * @return this filter instance
+     */
+    public ConnectionFilter withPage(int pageNumber, int amountPerPage) {
+        filters.put("page", pageNumber);
+        filters.put("per_page", amountPerPage);
+        return this;
+    }
+
 }

@@ -2,10 +2,12 @@ package com.auth0;
 
 import com.auth0.json.mgmt.Connection;
 import com.auth0.json.mgmt.DeviceCredentials;
+import com.auth0.json.mgmt.LogEvent;
 import com.auth0.json.mgmt.client.Client;
 import com.auth0.json.mgmt.clientgrant.ClientGrant;
 import com.auth0.net.ConnectionFilter;
 import com.auth0.net.DeviceCredentialsFilter;
+import com.auth0.net.LogEventFilter;
 import com.auth0.net.Request;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.After;
@@ -774,6 +776,144 @@ public class MgmtAPITest {
         assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/device-credentials/1"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
+
+
+    // Logs Events
+
+
+    @Test
+    public void shouldListEventLogs() throws Exception {
+        Request<List<LogEvent>> request = api.listLogEvents(null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
+        List<LogEvent> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/logs"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, hasSize(2));
+    }
+
+    @Test
+    public void shouldListLogEventsWithPage() throws Exception {
+        LogEventFilter filter = new LogEventFilter().withPage(23, 5);
+        Request<List<LogEvent>> request = api.listLogEvents(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
+        List<LogEvent> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/logs"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("page", "23"));
+        assertThat(recordedRequest, hasQueryParameter("per_page", "5"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, hasSize(2));
+    }
+
+    @Test
+    public void shouldListLogEventsWithQuery() throws Exception {
+        LogEventFilter filter = new LogEventFilter().withQuery("sample", "date:1", true);
+        Request<List<LogEvent>> request = api.listLogEvents(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
+        List<LogEvent> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/logs"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("q", "sample"));
+        assertThat(recordedRequest, hasQueryParameter("sort", "date:1"));
+        assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, hasSize(2));
+    }
+
+
+    @Test
+    public void shouldListLogEventsWithCheckpoint() throws Exception {
+        LogEventFilter filter = new LogEventFilter().withCheckpoint("id3", 5);
+        Request<List<LogEvent>> request = api.listLogEvents(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
+        List<LogEvent> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/logs"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("from", "id3"));
+        assertThat(recordedRequest, hasQueryParameter("take", "5"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, hasSize(2));
+    }
+
+    @Test
+    public void shouldListLogEventsWithFields() throws Exception {
+        LogEventFilter filter = new LogEventFilter().withFields("some,random,fields", true);
+        Request<List<LogEvent>> request = api.listLogEvents(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
+        List<LogEvent> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/logs"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("fields", "some,random,fields"));
+        assertThat(recordedRequest, hasQueryParameter("include_fields", "true"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, hasSize(2));
+    }
+
+    @Test
+    public void shouldReturnEmptyLogEvents() throws Exception {
+        Request<List<LogEvent>> request = api.listLogEvents(null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_EMPTY_LIST, 200);
+        List<LogEvent> response = request.execute();
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, is(emptyCollectionOf(LogEvent.class)));
+    }
+
+    @Test
+    public void shouldThrowOnGetLogEventWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'log event id' cannot be null!");
+        api.getLogEvent(null);
+    }
+
+    @Test
+    public void shouldGetLogEvent() throws Exception {
+        Request<LogEvent> request = api.getLogEvent("1");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_LOG_EVENT, 200);
+        LogEvent response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/logs/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
     }
 
 }

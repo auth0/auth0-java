@@ -31,6 +31,8 @@ public class MockServer {
     public static final String MGMT_CONNECTION = "src/test/resources/mgmt/connection.json";
     public static final String MGMT_DEVICE_CREDENTIALS_LIST = "src/test/resources/mgmt/device_credentials_list.json";
     public static final String MGMT_DEVICE_CREDENTIALS = "src/test/resources/mgmt/device_credentials.json";
+    public static final String MGMT_LOG_EVENTS_LIST = "src/test/resources/mgmt/event_logs_list.json";
+    public static final String MGMT_LOG_EVENT = "src/test/resources/mgmt/event_log.json";
     public static final String MGMT_EMPTY_LIST = "src/test/resources/mgmt/empty_list.json";
 
 
