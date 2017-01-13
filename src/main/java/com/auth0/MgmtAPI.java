@@ -3,16 +3,14 @@ package com.auth0;
 import com.auth0.json.mgmt.Connection;
 import com.auth0.json.mgmt.client.Client;
 import com.auth0.json.mgmt.clientgrant.ClientGrant;
-import com.auth0.net.CustomRequest;
-import com.auth0.net.EmptyBodyRequest;
-import com.auth0.net.Request;
-import com.auth0.net.VoidRequest;
+import com.auth0.net.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 import java.util.List;
+import java.util.Map;
 
 public class MgmtAPI {
 
@@ -289,27 +287,19 @@ public class MgmtAPI {
     /**
      * Request all the Connections. A token with scope read:connections is needed.
      *
-     * @param strategy      only retrieve connections with this strategy. Can be null.
-     * @param name          only retrieve the connection with this name. Can be null.
-     * @param fields        a list of comma separated fields to retrieve from the connection. Can be null.
-     * @param includeFields whether to include or exclude the fields that were given.
+     * @param filter the filter to use. Can be null
      * @return a Request to execute.
      */
-    public Request<List<Connection>> listConnections(String strategy, String name, String fields, boolean includeFields) {
+    public Request<List<Connection>> listConnections(ConnectionFilter filter) {
         HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
                 .newBuilder()
                 .addPathSegment("api")
                 .addPathSegment("v2")
                 .addPathSegment("connections");
-        if (strategy != null) {
-            builder.addQueryParameter("strategy", strategy);
-        }
-        if (name != null) {
-            builder.addQueryParameter("name", name);
-        }
-        if (fields != null) {
-            builder.addQueryParameter("fields", fields);
-            builder.addQueryParameter("include_fields", String.valueOf(includeFields));
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
         }
         String url = builder.build().toString();
         CustomRequest<List<Connection>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Connection>>() {
@@ -321,12 +311,11 @@ public class MgmtAPI {
     /**
      * Request a Connection. A token with scope read:connections is needed.
      *
-     * @param connectionId  the id of the connection to retrieve.
-     * @param fields        a list of comma separated fields to retrieve from the connection. Can be null.
-     * @param includeFields whether to include or exclude the fields that were given.
+     * @param connectionId the id of the connection to retrieve.
+     * @param filter       the filter to use. Can be null
      * @return a Request to execute.
      */
-    public Request<Connection> getConnection(String connectionId, String fields, boolean includeFields) {
+    public Request<Connection> getConnection(String connectionId, ConnectionFilter filter) {
         Asserts.assertNotNull(connectionId, "connection id");
 
         HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
@@ -335,9 +324,10 @@ public class MgmtAPI {
                 .addPathSegment("v2")
                 .addPathSegment("connections")
                 .addPathSegment(connectionId);
-        if (fields != null) {
-            builder.addQueryParameter("fields", fields);
-            builder.addQueryParameter("include_fields", String.valueOf(includeFields));
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
         }
         String url = builder.build().toString();
         CustomRequest<Connection> request = new CustomRequest<>(client, url, "GET", new TypeReference<Connection>() {
@@ -395,7 +385,7 @@ public class MgmtAPI {
      * Update an existing Connection. A token with scope update:connections is needed. Note that if the 'options' value is present it will override all the 'options' values that currently exist.
      *
      * @param connectionId the connection id
-     * @param connection   the connection data to set
+     * @param connection   the connection data to set. It can't include name or strategy.
      * @return a Request to execute.
      */
     public Request<Connection> updateConnection(String connectionId, Connection connection) {
@@ -435,11 +425,11 @@ public class MgmtAPI {
                 .addPathSegment("connections")
                 .addPathSegment(connectionId)
                 .addPathSegment("users")
+                .addQueryParameter("email", email)
                 .build()
                 .toString();
         VoidRequest request = new VoidRequest(this.client, url, "DELETE");
         request.addHeader("Authorization", "Bearer " + apiToken);
-        request.addParameter("email", email);
         return request;
     }
 

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings("unused")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Connection {
 
@@ -21,6 +22,9 @@ public class Connection {
     @JsonProperty("enabled_clients")
     private List<String> enabledClients = null;
 
+    public Connection() {
+    }
+
     @JsonCreator
     public Connection(@JsonProperty("name") String name, @JsonProperty("strategy") String strategy) {
         this.name = name;
@@ -29,10 +33,6 @@ public class Connection {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Map<String, Object> getOptions() {
@@ -49,10 +49,6 @@ public class Connection {
 
     public String getStrategy() {
         return strategy;
-    }
-
-    public void setStrategy(String strategy) {
-        this.strategy = strategy;
     }
 
     public List<String> getEnabledClients() {

@@ -3,6 +3,7 @@ package com.auth0;
 import com.auth0.json.mgmt.Connection;
 import com.auth0.json.mgmt.client.Client;
 import com.auth0.json.mgmt.clientgrant.ClientGrant;
+import com.auth0.net.ConnectionFilter;
 import com.auth0.net.Request;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.After;
@@ -369,7 +370,7 @@ public class MgmtAPITest {
 
     @Test
     public void shouldListConnections() throws Exception {
-        Request<List<Connection>> request = api.listConnections(null, null, null, false);
+        Request<List<Connection>> request = api.listConnections(null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTIONS_LIST, 200);
@@ -385,8 +386,9 @@ public class MgmtAPITest {
     }
 
     @Test
-    public void shouldListConnectionsWithStrategies() throws Exception {
-        Request<List<Connection>> request = api.listConnections("auth0", null, null, false);
+    public void shouldListConnectionsWithStrategy() throws Exception {
+        ConnectionFilter filter = new ConnectionFilter().withStrategy("auth0");
+        Request<List<Connection>> request = api.listConnections(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTIONS_LIST, 200);
@@ -404,7 +406,8 @@ public class MgmtAPITest {
 
     @Test
     public void shouldListConnectionsWithName() throws Exception {
-        Request<List<Connection>> request = api.listConnections(null, "my-connection", null, false);
+        ConnectionFilter filter = new ConnectionFilter().withName("my-connection");
+        Request<List<Connection>> request = api.listConnections(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTIONS_LIST, 200);
@@ -422,7 +425,8 @@ public class MgmtAPITest {
 
     @Test
     public void shouldListConnectionsWithFields() throws Exception {
-        Request<List<Connection>> request = api.listConnections(null, null, "some,random,fields", true);
+        ConnectionFilter filter = new ConnectionFilter().withFields("some,random,fields", true);
+        Request<List<Connection>> request = api.listConnections(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTIONS_LIST, 200);
@@ -441,7 +445,7 @@ public class MgmtAPITest {
 
     @Test
     public void shouldReturnEmptyConnections() throws Exception {
-        Request<List<Connection>> request = api.listConnections(null, null, null, false);
+        Request<List<Connection>> request = api.listConnections(null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
@@ -455,12 +459,12 @@ public class MgmtAPITest {
     public void shouldThrowOnGetConnectionWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection id' cannot be null!");
-        api.getConnection(null, null, false);
+        api.getConnection(null, null);
     }
 
     @Test
     public void shouldGetConnection() throws Exception {
-        Request<Connection> request = api.getConnection("1", null, false);
+        Request<Connection> request = api.getConnection("1", null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTION, 200);
@@ -476,7 +480,8 @@ public class MgmtAPITest {
 
     @Test
     public void shouldGetConnectionWithFields() throws Exception {
-        Request<Connection> request = api.getConnection("1", "some,random,fields", true);
+        ConnectionFilter filter = new ConnectionFilter().withFields("some,random,fields", true);
+        Request<Connection> request = api.getConnection("1", filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTION, 200);
@@ -598,12 +603,11 @@ public class MgmtAPITest {
         server.jsonResponse(MGMT_CONNECTION, 200);
         request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
-        Map<String, Object> body = bodyFromRequest(recordedRequest);
 
         assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/connections/1/users"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-        assertThat(body, hasEntry("email", (Object) "user@domain.com"));
+        assertThat(recordedRequest, hasQueryParameter("email", "user@domain.com"));
     }
 
 }
