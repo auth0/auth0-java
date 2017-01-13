@@ -5,15 +5,33 @@ public class LogEventFilter extends BaseFilter<LogEventFilter> {
     /**
      * Filter by a query
      *
-     * @param query         the query expression using the following syntax https://auth0.com/docs/api/management/v2/query-string-syntax.
-     * @param sort          the field to use for sorting. Use 'field:order' where order is 1 for ascending and -1 for descending.
+     * @param query the query expression using the following syntax https://auth0.com/docs/api/management/v2/query-string-syntax.
+     * @return this filter instance
+     */
+    public LogEventFilter withQuery(String query) {
+        filters.put("q", query);
+        return this;
+    }
+
+    /**
+     * Include the query summary
+     *
      * @param includeTotals whether to include or not the query summary.
      * @return this filter instance
      */
-    public LogEventFilter withQuery(String query, String sort, boolean includeTotals) {
-        filters.put("q", query);
-        filters.put("sort", sort);
+    public LogEventFilter withTotals(boolean includeTotals) {
         filters.put("include_totals", includeTotals);
+        return this;
+    }
+
+    /**
+     * Sort the query
+     *
+     * @param sort the field to use for sorting. Use 'field:order' where order is 1 for ascending and -1 for descending.
+     * @return this filter instance
+     */
+    public LogEventFilter withSort(String sort) {
+        filters.put("sort", sort);
         return this;
     }
 

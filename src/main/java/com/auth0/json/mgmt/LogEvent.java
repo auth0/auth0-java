@@ -1,14 +1,18 @@
 package com.auth0.json.mgmt;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Map;
 
 @SuppressWarnings("unused")
+@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LogEvent {
 
+    @JsonProperty("_id")
+    private String id;
     @JsonProperty("date")
     private String date;
     @JsonProperty("type")
@@ -25,6 +29,10 @@ public class LogEvent {
     private Map<String, Object> locationInfo;
     @JsonProperty("details")
     private Map<String, Object> details;
+
+    public String getId() {
+        return id;
+    }
 
     public String getDate() {
         return date;

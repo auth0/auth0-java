@@ -3,6 +3,7 @@ package com.auth0;
 import com.auth0.json.mgmt.Connection;
 import com.auth0.json.mgmt.DeviceCredentials;
 import com.auth0.json.mgmt.LogEvent;
+import com.auth0.json.mgmt.LogEventsPage;
 import com.auth0.json.mgmt.client.Client;
 import com.auth0.json.mgmt.client.ResourceServer;
 import com.auth0.json.mgmt.clientgrant.ClientGrant;
@@ -523,7 +524,7 @@ public class MgmtAPI {
      * @param filter the filter to use. Can be null
      * @return a Request to execute.
      */
-    public Request<List<LogEvent>> listLogEvents(LogEventFilter filter) {
+    public Request<LogEventsPage> listLogEvents(LogEventFilter filter) {
         HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
                 .newBuilder()
                 .addPathSegment("api")
@@ -535,7 +536,7 @@ public class MgmtAPI {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<List<LogEvent>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<LogEvent>>() {
+        CustomRequest<LogEventsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<LogEventsPage>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -658,7 +659,7 @@ public class MgmtAPI {
      * Update an existing Resource Server. A token with scope update:resource_servers is needed.
      *
      * @param resourceServerId the resource server id
-     * @param resourceServer   the resource server data to set.
+     * @param resourceServer   the resource server data to set. It can't include identifier.
      * @return a Request to execute.
      */
     public Request<ResourceServer> updateResourceServer(String resourceServerId, ResourceServer resourceServer) {
