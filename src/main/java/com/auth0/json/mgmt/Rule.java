@@ -18,7 +18,7 @@ public class Rule {
     @JsonProperty("enabled")
     private Boolean enabled;
     @JsonProperty("order")
-    private String order;
+    private Integer order;
     @JsonProperty("stage")
     private String stage;
 
@@ -56,11 +56,11 @@ public class Rule {
         this.enabled = enabled;
     }
 
-    public String getOrder() {
+    public Integer getOrder() {
         return order;
     }
 
-    public void setOrder(String order) {
+    public void setOrder(Integer order) {
         this.order = order;
     }
 

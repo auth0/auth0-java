@@ -1,0 +1,12 @@
+{
+  "blocked_for": [
+    {
+      "identifier": "john.doe@gmail.com",
+      "ip": "10.0.0.1"
+    },
+    {
+      "identifier": "john.doe@gmail.com",
+      "ip": "10.0.0.2"
+    }
+  ]
+}

@@ -1284,4 +1284,97 @@ public class MgmtAPITest {
         assertThat(response, is(notNullValue()));
     }
 
+
+    // User Block
+
+    @Test
+    public void shouldThrowOnGetUserBlocksByIdentifierWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'identifier' cannot be null!");
+        api.getUserBlocksByIdentifier(null);
+    }
+
+    @Test
+    public void shouldGetUserBlocksByIdentifier() throws Exception {
+        Request<UserBlocks> request = api.getUserBlocksByIdentifier("username");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER_BLOCKS, 200);
+        UserBlocks response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/user-blocks"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("identifier", "username"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnGetUserBlocksWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'user id' cannot be null!");
+        api.getUserBlocks(null);
+    }
+
+    @Test
+    public void shouldGetUserBlocks() throws Exception {
+        Request<UserBlocks> request = api.getUserBlocks("1");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER_BLOCKS, 200);
+        UserBlocks response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/user-blocks/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnDeleteUserBlocksByIdentifierWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'identifier' cannot be null!");
+        api.deleteUserBlocksByIdentifier(null);
+    }
+
+    @Test
+    public void shouldDeleteUserBlocksByIdentifier() throws Exception {
+        Request request = api.deleteUserBlocksByIdentifier("username");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER_BLOCKS, 200);
+        request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/user-blocks"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("identifier", "username"));
+    }
+
+    @Test
+    public void shouldThrowOnDeleteUserBlocksWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'user id' cannot be null!");
+        api.deleteUserBlocks(null);
+    }
+
+    @Test
+    public void shouldDeleteUserBlocks() throws Exception {
+        Request request = api.deleteUserBlocks("1");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER_BLOCKS, 200);
+        request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/user-blocks/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
+
 }
