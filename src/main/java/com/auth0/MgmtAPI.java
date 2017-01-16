@@ -1,9 +1,6 @@
 package com.auth0;
 
-import com.auth0.json.mgmt.Connection;
-import com.auth0.json.mgmt.DeviceCredentials;
-import com.auth0.json.mgmt.LogEvent;
-import com.auth0.json.mgmt.LogEventsPage;
+import com.auth0.json.mgmt.*;
 import com.auth0.json.mgmt.client.Client;
 import com.auth0.json.mgmt.client.ResourceServer;
 import com.auth0.json.mgmt.clientgrant.ClientGrant;
@@ -77,9 +74,9 @@ public class MgmtAPI {
     /**
      * Create a new Client Grant. A token with scope create:client_grants is needed.
      *
-     * @param clientId the client id to associate this grant with
-     * @param audience the audience of the grant
-     * @param scope    the scope to grant
+     * @param clientId the client id to associate this grant with.
+     * @param audience the audience of the grant.
+     * @param scope    the scope to grant.
      * @return a Request to execute.
      */
     public Request<ClientGrant> createClientGrant(String clientId, String audience, String[] scope) {
@@ -107,7 +104,7 @@ public class MgmtAPI {
     /**
      * Delete an existing Client Grant. A token with scope delete:client_grants is needed.
      *
-     * @param clientGrantId the client grant id
+     * @param clientGrantId the client grant id.
      * @return a Request to execute.
      */
     public Request deleteClientGrant(String clientGrantId) {
@@ -129,8 +126,8 @@ public class MgmtAPI {
     /**
      * Update an existing Client Grant. A token with scope update:client_grants is needed.
      *
-     * @param clientGrantId the client grant id
-     * @param scope         the scope to grant
+     * @param clientGrantId the client grant id.
+     * @param scope         the scope to grant.
      * @return a Request to execute.
      */
     public Request<ClientGrant> updateClientGrant(String clientGrantId, String[] scope) {
@@ -177,7 +174,7 @@ public class MgmtAPI {
     /**
      * Request a Client. A token with scope read:clients is needed. If you also need the client_secret and encryption_key attributes the token must have read:client_keys scope.
      *
-     * @param clientId the client id
+     * @param clientId the client id.
      * @return a Request to execute.
      */
     public Request<Client> getClient(String clientId) {
@@ -200,7 +197,7 @@ public class MgmtAPI {
     /**
      * Create a new Client. A token with scope create:clients is needed.
      *
-     * @param client the client data to set
+     * @param client the client data to set.
      * @return a Request to execute.
      */
     public Request<Client> createClient(Client client) {
@@ -223,7 +220,7 @@ public class MgmtAPI {
     /**
      * Delete an existing Client. A token with scope delete:clients is needed.
      *
-     * @param clientId the client id
+     * @param clientId the client id.
      * @return a Request to execute.
      */
     public Request deleteClient(String clientId) {
@@ -245,8 +242,8 @@ public class MgmtAPI {
     /**
      * Update an existing Client. A token with scope update:clients is needed. If you also need to update the client_secret and encryption_key attributes the token must have update:client_keys scope.
      *
-     * @param clientId the client id
-     * @param client   the client data to set
+     * @param clientId the client id.
+     * @param client   the client data to set.
      * @return a Request to execute.
      */
     public Request<Client> updateClient(String clientId, Client client) {
@@ -271,7 +268,7 @@ public class MgmtAPI {
     /**
      * Rotates a Client secret. A token with scope update:client_keys is needed. Note that the generated secret is NOT base64 encoded.
      *
-     * @param clientId the client id
+     * @param clientId the client id.
      * @return a Request to execute.
      */
     public Request<Client> rotateClientSecret(String clientId) {
@@ -299,7 +296,7 @@ public class MgmtAPI {
     /**
      * Request all the Connections. A token with scope read:connections is needed.
      *
-     * @param filter the filter to use. Can be null
+     * @param filter the filter to use. Can be null.
      * @return a Request to execute.
      */
     public Request<List<Connection>> listConnections(ConnectionFilter filter) {
@@ -324,7 +321,7 @@ public class MgmtAPI {
      * Request a Connection. A token with scope read:connections is needed.
      *
      * @param connectionId the id of the connection to retrieve.
-     * @param filter       the filter to use. Can be null
+     * @param filter       the filter to use. Can be null.
      * @return a Request to execute.
      */
     public Request<Connection> getConnection(String connectionId, ConnectionFilter filter) {
@@ -351,7 +348,7 @@ public class MgmtAPI {
     /**
      * Create a new Connection. A token with scope create:connections is needed.
      *
-     * @param connection the connection data to set
+     * @param connection the connection data to set.
      * @return a Request to execute.
      */
     public Request<Connection> createConnection(Connection connection) {
@@ -374,7 +371,7 @@ public class MgmtAPI {
     /**
      * Delete an existing Connection. A token with scope delete:connections is needed.
      *
-     * @param connectionId the connection id
+     * @param connectionId the connection id.
      * @return a Request to execute.
      */
     public Request deleteConnection(String connectionId) {
@@ -396,7 +393,7 @@ public class MgmtAPI {
     /**
      * Update an existing Connection. A token with scope update:connections is needed. Note that if the 'options' value is present it will override all the 'options' values that currently exist.
      *
-     * @param connectionId the connection id
+     * @param connectionId the connection id.
      * @param connection   the connection data to set. It can't include name or strategy.
      * @return a Request to execute.
      */
@@ -422,8 +419,8 @@ public class MgmtAPI {
     /**
      * Delete an existing User from the given Database Connection. A token with scope delete:users is needed.
      *
-     * @param connectionId the connection id where the user is stored
-     * @param email        the email of the user to delete
+     * @param connectionId the connection id where the user is stored.
+     * @param email        the email of the user to delete.
      * @return a Request to execute.
      */
     public Request deleteConnectionUser(String connectionId, String email) {
@@ -451,7 +448,7 @@ public class MgmtAPI {
     /**
      * Request all the Device Credentials. A token with scope read:device_credentials is needed.
      *
-     * @param filter the filter to use. Can be null
+     * @param filter the filter to use. Can be null.
      * @return a Request to execute.
      */
     public Request<List<DeviceCredentials>> listDeviceCredentials(DeviceCredentialsFilter filter) {
@@ -475,7 +472,7 @@ public class MgmtAPI {
     /**
      * Create a new Device Credentials. A token with scope create:current_user_device_credentials is needed.
      *
-     * @param deviceCredentials the device credentials data to set
+     * @param deviceCredentials the device credentials data to set.
      * @return a Request to execute.
      */
     public Request<DeviceCredentials> createDeviceCredentials(DeviceCredentials deviceCredentials) {
@@ -521,7 +518,7 @@ public class MgmtAPI {
     /**
      * Request all the Log Events. A token with scope read:logs is needed.
      *
-     * @param filter the filter to use. Can be null
+     * @param filter the filter to use. Can be null.
      * @return a Request to execute.
      */
     public Request<LogEventsPage> listLogEvents(LogEventFilter filter) {
@@ -678,6 +675,132 @@ public class MgmtAPI {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(resourceServer);
+        return request;
+    }
+
+
+    //Rules
+
+    /**
+     * Request all the Rules. A token with scope read:rules is needed.
+     *
+     * @param filter the filter to use. Can be null.
+     * @return a Request to execute.
+     */
+    public Request<List<Rule>> listRules(RulesFilter filter) {
+        HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("rules");
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+        String url = builder.build().toString();
+        CustomRequest<List<Rule>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Rule>>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Request a Rule. A token with scope read:rules is needed.
+     *
+     * @param ruleId the id of the rule to retrieve.
+     * @param filter the filter to use. Can be null.
+     * @return a Request to execute.
+     */
+    public Request<Rule> getRule(String ruleId, RulesFilter filter) {
+        Asserts.assertNotNull(ruleId, "rule id");
+
+        HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("rules")
+                .addPathSegment(ruleId);
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+        String url = builder.build().toString();
+        CustomRequest<Rule> request = new CustomRequest<>(client, url, "GET", new TypeReference<Rule>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Create a new Rule. A token with scope create:rules is needed.
+     *
+     * @param rule the rule data to set
+     * @return a Request to execute.
+     */
+    public Request<Rule> createRule(Rule rule) {
+        Asserts.assertNotNull(rule, "rule");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("rules")
+                .build()
+                .toString();
+        CustomRequest<Rule> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<Rule>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.setBody(rule);
+        return request;
+    }
+
+    /**
+     * Delete an existing Rule. A token with scope delete:rules is needed.
+     *
+     * @param ruleId the rule id
+     * @return a Request to execute.
+     */
+    public Request deleteRule(String ruleId) {
+        Asserts.assertNotNull(ruleId, "rule id");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("rules")
+                .addPathSegment(ruleId)
+                .build()
+                .toString();
+        VoidRequest request = new VoidRequest(client, url, "DELETE");
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Update an existing Rule. A token with scope update:rules is needed.
+     *
+     * @param ruleId the rule id
+     * @param rule   the rule data to set. It can't include id.
+     * @return a Request to execute.
+     */
+    public Request<Rule> updateRule(String ruleId, Rule rule) {
+        Asserts.assertNotNull(ruleId, "rule id");
+        Asserts.assertNotNull(rule, "rule");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("rules")
+                .addPathSegment(ruleId)
+                .build()
+                .toString();
+        CustomRequest<Rule> request = new CustomRequest<>(this.client, url, "PATCH", new TypeReference<Rule>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.setBody(rule);
         return request;
     }
 }

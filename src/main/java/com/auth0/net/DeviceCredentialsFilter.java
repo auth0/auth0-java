@@ -8,7 +8,7 @@ public class DeviceCredentialsFilter extends BaseFilter<DeviceCredentialsFilter>
      * @param userId only retrieve items with this user id.
      */
     public DeviceCredentialsFilter withUserId(String userId) {
-        filters.put("user_id", userId);
+        parameters.put("user_id", userId);
         return this;
     }
 
@@ -18,7 +18,7 @@ public class DeviceCredentialsFilter extends BaseFilter<DeviceCredentialsFilter>
      * @param clientId only retrieve items with this client id.
      */
     public DeviceCredentialsFilter withClientId(String clientId) {
-        filters.put("client_id", clientId);
+        parameters.put("client_id", clientId);
         return this;
     }
 
@@ -28,7 +28,7 @@ public class DeviceCredentialsFilter extends BaseFilter<DeviceCredentialsFilter>
      * @param type only retrieve items with this type.
      */
     public DeviceCredentialsFilter withType(String type) {
-        filters.put("type", type);
+        parameters.put("type", type);
         return this;
     }
 

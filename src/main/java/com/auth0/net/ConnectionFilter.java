@@ -9,7 +9,7 @@ public class ConnectionFilter extends BaseFilter<ConnectionFilter> {
      * @return this filter instance
      */
     public ConnectionFilter withStrategy(String strategy) {
-        filters.put("strategy", strategy);
+        parameters.put("strategy", strategy);
         return this;
     }
 
@@ -20,7 +20,7 @@ public class ConnectionFilter extends BaseFilter<ConnectionFilter> {
      * @return this filter instance
      */
     public ConnectionFilter withName(String name) {
-        filters.put("name", name);
+        parameters.put("name", name);
         return this;
     }
 
@@ -32,8 +32,8 @@ public class ConnectionFilter extends BaseFilter<ConnectionFilter> {
      * @return this filter instance
      */
     public ConnectionFilter withPage(int pageNumber, int amountPerPage) {
-        filters.put("page", pageNumber);
-        filters.put("per_page", amountPerPage);
+        parameters.put("page", pageNumber);
+        parameters.put("per_page", amountPerPage);
         return this;
     }
 

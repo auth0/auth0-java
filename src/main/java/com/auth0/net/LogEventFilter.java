@@ -9,7 +9,7 @@ public class LogEventFilter extends BaseFilter<LogEventFilter> {
      * @return this filter instance
      */
     public LogEventFilter withQuery(String query) {
-        filters.put("q", query);
+        parameters.put("q", query);
         return this;
     }
 
@@ -20,7 +20,7 @@ public class LogEventFilter extends BaseFilter<LogEventFilter> {
      * @return this filter instance
      */
     public LogEventFilter withTotals(boolean includeTotals) {
-        filters.put("include_totals", includeTotals);
+        parameters.put("include_totals", includeTotals);
         return this;
     }
 
@@ -31,7 +31,7 @@ public class LogEventFilter extends BaseFilter<LogEventFilter> {
      * @return this filter instance
      */
     public LogEventFilter withSort(String sort) {
-        filters.put("sort", sort);
+        parameters.put("sort", sort);
         return this;
     }
 
@@ -43,8 +43,8 @@ public class LogEventFilter extends BaseFilter<LogEventFilter> {
      * @return this filter instance
      */
     public LogEventFilter withCheckpoint(String from, int take) {
-        filters.put("from", from);
-        filters.put("take", take);
+        parameters.put("from", from);
+        parameters.put("take", take);
         return this;
     }
 
@@ -56,8 +56,8 @@ public class LogEventFilter extends BaseFilter<LogEventFilter> {
      * @return this filter instance
      */
     public LogEventFilter withPage(int pageNumber, int amountPerPage) {
-        filters.put("page", pageNumber);
-        filters.put("per_page", amountPerPage);
+        parameters.put("page", pageNumber);
+        parameters.put("per_page", amountPerPage);
         return this;
     }
 

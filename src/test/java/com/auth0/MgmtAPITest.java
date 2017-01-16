@@ -1,20 +1,13 @@
 package com.auth0;
 
-import com.auth0.json.mgmt.Connection;
-import com.auth0.json.mgmt.DeviceCredentials;
-import com.auth0.json.mgmt.LogEvent;
-import com.auth0.json.mgmt.LogEventsPage;
+import com.auth0.json.mgmt.*;
 import com.auth0.json.mgmt.client.Client;
 import com.auth0.json.mgmt.client.ResourceServer;
 import com.auth0.json.mgmt.clientgrant.ClientGrant;
-import com.auth0.net.ConnectionFilter;
-import com.auth0.net.DeviceCredentialsFilter;
-import com.auth0.net.LogEventFilter;
-import com.auth0.net.Request;
+import com.auth0.net.*;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
@@ -35,7 +28,7 @@ public class MgmtAPITest {
 
     private MockServer server;
     private MgmtAPI api;
-    @Rule
+    @org.junit.Rule
     public ExpectedException exception = ExpectedException.none();
 
     @Before
@@ -1093,4 +1086,202 @@ public class MgmtAPITest {
 
         assertThat(response, is(notNullValue()));
     }
+
+
+    //Rule
+
+    @Test
+    public void shouldListRules() throws Exception {
+        Request<List<Rule>> request = api.listRules(null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_RULES_LIST, 200);
+        List<Rule> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/rules"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, hasSize(2));
+    }
+
+    @Test
+    public void shouldListRulesWithEnabled() throws Exception {
+        RulesFilter filter = new RulesFilter().withEnabled(true);
+        Request<List<Rule>> request = api.listRules(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_RULES_LIST, 200);
+        List<Rule> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/rules"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("enabled", "true"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, hasSize(2));
+    }
+
+    @Test
+    public void shouldListRulesWithFields() throws Exception {
+        RulesFilter filter = new RulesFilter().withFields("some,random,fields", true);
+        Request<List<Rule>> request = api.listRules(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_RULES_LIST, 200);
+        List<Rule> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/rules"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("fields", "some,random,fields"));
+        assertThat(recordedRequest, hasQueryParameter("include_fields", "true"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, hasSize(2));
+    }
+
+    @Test
+    public void shouldReturnEmptyRules() throws Exception {
+        Request<List<Rule>> request = api.listRules(null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_EMPTY_LIST, 200);
+        List<Rule> response = request.execute();
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, is(emptyCollectionOf(Rule.class)));
+    }
+
+    @Test
+    public void shouldThrowOnGetRuleWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'rule id' cannot be null!");
+        api.getRule(null, null);
+    }
+
+    @Test
+    public void shouldGetRule() throws Exception {
+        Request<Rule> request = api.getRule("1", null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_RULE, 200);
+        Rule response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/rules/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldGetRuleWithFields() throws Exception {
+        RulesFilter filter = new RulesFilter().withFields("some,random,fields", true);
+        Request<Rule> request = api.getRule("1", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_RULE, 200);
+        Rule response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/rules/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("fields", "some,random,fields"));
+        assertThat(recordedRequest, hasQueryParameter("include_fields", "true"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnCreateRuleWithNullData() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'rule' cannot be null!");
+        api.createRule(null);
+    }
+
+    @Test
+    public void shouldCreateRule() throws Exception {
+        Request<Rule> request = api.createRule(new Rule("my-rule", "function(){}"));
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_RULE, 200);
+        Rule response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/rules"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(2));
+        assertThat(body, hasEntry("name", (Object) "my-rule"));
+        assertThat(body, hasEntry("script", (Object) "function(){}"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnDeleteRuleWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'rule id' cannot be null!");
+        api.deleteRule(null);
+    }
+
+    @Test
+    public void shouldDeleteRule() throws Exception {
+        Request request = api.deleteRule("1");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_RULE, 200);
+        request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/rules/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
+
+    @Test
+    public void shouldThrowOnUpdateRuleWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'rule id' cannot be null!");
+        api.updateRule(null, new Rule("my-rule", "function(){}"));
+    }
+
+    @Test
+    public void shouldThrowOnUpdateRuleWithNullData() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'rule' cannot be null!");
+        api.updateRule("1", null);
+    }
+
+    @Test
+    public void shouldUpdateRule() throws Exception {
+        Request<Rule> request = api.updateRule("1", new Rule("my-rule", "function(){}"));
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CONNECTION, 200);
+        Rule response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/rules/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(2));
+        assertThat(body, hasEntry("name", (Object) "my-rule"));
+        assertThat(body, hasEntry("script", (Object) "function(){}"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
 }

@@ -1,0 +1,18 @@
+[
+  {
+    "name": "rule_1",
+    "id": "con_0000000000000001",
+    "enabled": true,
+    "script": "function (user, context, callback) {\n  callback(null, user, context);\n}",
+    "order": 1,
+    "stage": "login_success"
+  },
+  {
+    "name": "rule_2",
+    "id": "con_0000000000000002",
+    "enabled": true,
+    "script": "function (user, context, callback) {\n  callback(null, user, context);\n}",
+    "order": 1,
+    "stage": "login_success"
+  }
+]

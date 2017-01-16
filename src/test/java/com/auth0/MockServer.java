@@ -36,6 +36,8 @@ public class MockServer {
     public static final String MGMT_LOG_EVENT = "src/test/resources/mgmt/event_log.json";
     public static final String MGMT_RESOURCE_SERVERS_LIST = "src/test/resources/mgmt/resource_servers_list.json";
     public static final String MGMT_RESOURCE_SERVER = "src/test/resources/mgmt/resource_server.json";
+    public static final String MGMT_RULES_LIST = "src/test/resources/mgmt/rules_list.json";
+    public static final String MGMT_RULE = "src/test/resources/mgmt/rule.json";
     public static final String MGMT_EMPTY_LIST = "src/test/resources/mgmt/empty_list.json";
 
 

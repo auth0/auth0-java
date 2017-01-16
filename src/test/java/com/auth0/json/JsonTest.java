@@ -13,6 +13,7 @@ public class JsonTest<T> {
 
     public JsonTest() {
         this.mapper = new ObjectMapper();
+        //TODO: Remove the configuration
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
