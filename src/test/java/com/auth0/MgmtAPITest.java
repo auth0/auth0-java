@@ -1285,7 +1285,7 @@ public class MgmtAPITest {
     }
 
 
-    // User Block
+    // User Blocks
 
     @Test
     public void shouldThrowOnGetUserBlocksByIdentifierWithNullId() throws Exception {
@@ -1375,6 +1375,58 @@ public class MgmtAPITest {
         assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/user-blocks/1"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
+
+    // Blacklists
+
+    @Test
+    public void shouldThrowOnGetBlacklistedTokensWithNullAudience() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'audience' cannot be null!");
+        api.getBlacklistedTokens(null);
+    }
+
+    @Test
+    public void shouldGetBlacklistedTokens() throws Exception {
+        Request<List<Token>> request = api.getBlacklistedTokens("myapi");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_BLACKLISTED_TOKENS_LIST, 200);
+        List<Token> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/blacklists/tokens"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("aud", "myapi"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, hasSize(2));
+    }
+
+    @Test
+    public void shouldThrowOnBlacklistTokensWithNullToken() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'token' cannot be null!");
+        api.blacklistToken(null);
+    }
+
+    @Test
+    public void shouldBlacklistToken() throws Exception {
+        Request request = api.blacklistToken(new Token("id"));
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_BLACKLISTED_TOKENS_LIST, 200);
+        request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/blacklists/tokens"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(1));
+        assertThat(body, hasEntry("jti", (Object) "id"));
     }
 
 }
