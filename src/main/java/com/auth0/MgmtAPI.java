@@ -946,4 +946,99 @@ public class MgmtAPI {
         request.setBody(token);
         return request;
     }
+
+
+    //Email Providers
+
+    /**
+     * Request the Email Provider. A token with scope read:email_provider is needed.
+     *
+     * @param filter the filter to use. Can be null.
+     * @return a Request to execute.
+     */
+    public Request<EmailProvider> getEmailProvider(EmailProviderFilter filter) {
+        HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("emails")
+                .addPathSegment("provider");
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+        String url = builder.build().toString();
+        CustomRequest<EmailProvider> request = new CustomRequest<>(client, url, "GET", new TypeReference<EmailProvider>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Setup the Email Provider. A token with scope create:email_provider is needed.
+     *
+     * @param emailProvider the email provider data to set
+     * @return a Request to execute.
+     */
+    public Request<EmailProvider> setupEmailProvider(EmailProvider emailProvider) {
+        Asserts.assertNotNull(emailProvider, "email provider");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("emails")
+                .addPathSegment("provider")
+                .build()
+                .toString();
+        CustomRequest<EmailProvider> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<EmailProvider>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.setBody(emailProvider);
+        return request;
+    }
+
+    /**
+     * Delete the existing Email Provider. A token with scope delete:email_provider is needed.
+     *
+     * @return a Request to execute.
+     */
+    public Request deleteEmailProvider() {
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("emails")
+                .addPathSegment("provider")
+                .build()
+                .toString();
+        VoidRequest request = new VoidRequest(client, url, "DELETE");
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Update the existing Email Provider. A token with scope update:email_provider is needed.
+     *
+     * @param emailProvider the email provider data to set.
+     * @return a Request to execute.
+     */
+    public Request<EmailProvider> updateEmailProvider(EmailProvider emailProvider) {
+        Asserts.assertNotNull(emailProvider, "email provider");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("emails")
+                .addPathSegment("provider")
+                .build()
+                .toString();
+        CustomRequest<EmailProvider> request = new CustomRequest<>(this.client, url, "PATCH", new TypeReference<EmailProvider>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.setBody(emailProvider);
+        return request;
+    }
 }

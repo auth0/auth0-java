@@ -1429,4 +1429,111 @@ public class MgmtAPITest {
         assertThat(body, hasEntry("jti", (Object) "id"));
     }
 
+
+    //Email Providers
+
+    @Test
+    public void shouldGetEmailProvider() throws Exception {
+        Request<EmailProvider> request = api.getEmailProvider(null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_EMAIL_PROVIDER, 200);
+        EmailProvider response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/emails/provider"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldGetEmailProviderWithFields() throws Exception {
+        EmailProviderFilter filter = new EmailProviderFilter().withFields("some,random,fields", true);
+        Request<EmailProvider> request = api.getEmailProvider(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_EMAIL_PROVIDER, 200);
+        EmailProvider response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/emails/provider"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("fields", "some,random,fields"));
+        assertThat(recordedRequest, hasQueryParameter("include_fields", "true"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnSetupEmailProviderWithNullData() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'email provider' cannot be null!");
+        api.setupEmailProvider(null);
+    }
+
+    @Test
+    public void shouldSetupEmailProvider() throws Exception {
+        Request<EmailProvider> request = api.setupEmailProvider(new EmailProvider("provider"));
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_EMAIL_PROVIDER, 200);
+        EmailProvider response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/emails/provider"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(1));
+        assertThat(body, hasEntry("name", (Object) "provider"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldDeleteEmailProvider() throws Exception {
+        Request request = api.deleteEmailProvider();
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_EMAIL_PROVIDER, 200);
+        request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/emails/provider"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
+
+    @Test
+    public void shouldThrowOnUpdateEmailProviderWithNullData() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'email provider' cannot be null!");
+        api.updateEmailProvider(null);
+    }
+
+    @Test
+    public void shouldUpdateEmailProvider() throws Exception {
+        Request<EmailProvider> request = api.updateEmailProvider(new EmailProvider("name"));
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_EMAIL_PROVIDER, 200);
+        EmailProvider response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/emails/provider"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(1));
+        assertThat(body, hasEntry("name", (Object) "name"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+
 }
