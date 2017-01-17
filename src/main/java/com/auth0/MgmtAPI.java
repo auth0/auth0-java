@@ -898,6 +898,136 @@ public class MgmtAPI {
     }
 
 
+    //Users
+
+    //Users
+
+    /**
+     * Request all the Users. A token with scope read:users is needed.
+     * If you want the identities.access_token property to be included, you will also need the scope read:user_idp_tokens.
+     *
+     * @param filter the filter to use. Can be null.
+     * @return a Request to execute.
+     */
+    public Request<UsersPage> listUsers(UserFilter filter) {
+        HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("users");
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+        String url = builder.build().toString();
+        CustomRequest<UsersPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<UsersPage>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Request a User. A token with scope read:users is needed.
+     * If you want the identities.access_token property to be included, you will also need the scope read:user_idp_tokens.
+     *
+     * @param userId the id of the user to retrieve.
+     * @param filter the filter to use. Can be null.
+     * @return a Request to execute.
+     */
+    public Request<User> getUser(String userId, UserFilter filter) {
+        Asserts.assertNotNull(userId, "user id");
+
+        HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("users")
+                .addPathSegment(userId);
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+        String url = builder.build().toString();
+        CustomRequest<User> request = new CustomRequest<>(client, url, "GET", new TypeReference<User>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Create a new User. A token with scope create:users is needed.
+     *
+     * @param user the user data to set
+     * @return a Request to execute.
+     */
+    public Request<User> createUser(User user) {
+        Asserts.assertNotNull(user, "user");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("users")
+                .build()
+                .toString();
+        CustomRequest<User> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<User>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.setBody(user);
+        return request;
+    }
+
+    /**
+     * Delete an existing User. A token with scope delete:users is needed.
+     *
+     * @param userId the user id
+     * @return a Request to execute.
+     */
+    public Request deleteUser(String userId) {
+        Asserts.assertNotNull(userId, "user id");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("users")
+                .addPathSegment(userId)
+                .build()
+                .toString();
+        VoidRequest request = new VoidRequest(client, url, "DELETE");
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Update an existing User. A token with scope update:users is needed.
+     *
+     * @param userId the user id
+     * @param user   the user data to set. It can't include id.
+     * @return a Request to execute.
+     */
+    public Request<User> updateUser(String userId, User user) {
+        Asserts.assertNotNull(userId, "user id");
+        Asserts.assertNotNull(user, "user");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("users")
+                .addPathSegment(userId)
+                .build()
+                .toString();
+        CustomRequest<User> request = new CustomRequest<>(this.client, url, "PATCH", new TypeReference<User>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.setBody(user);
+        return request;
+    }
+
+
     // Blacklisted Tokens
 
     /**

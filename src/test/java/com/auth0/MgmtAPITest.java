@@ -1377,7 +1377,266 @@ public class MgmtAPITest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     }
 
-    // Blacklists
+
+    //Users
+
+    @Test
+    public void shouldListUsers() throws Exception {
+        Request<UsersPage> request = api.listUsers(null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USERS_LIST, 200);
+        UsersPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
+    @Test
+    public void shouldListUsersWithPage() throws Exception {
+        UserFilter filter = new UserFilter().withPage(23, 5);
+        Request<UsersPage> request = api.listUsers(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USERS_LIST, 200);
+        UsersPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("page", "23"));
+        assertThat(recordedRequest, hasQueryParameter("per_page", "5"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
+    @Test
+    public void shouldListUsersWithTotals() throws Exception {
+        UserFilter filter = new UserFilter().withTotals(true);
+        Request<UsersPage> request = api.listUsers(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USERS_PAGED_LIST, 200);
+        UsersPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+        assertThat(response.getStart(), is(0));
+        assertThat(response.getLength(), is(14));
+        assertThat(response.getTotal(), is(14));
+        assertThat(response.getLimit(), is(50));
+    }
+
+    @Test
+    public void shouldListUsersWithSort() throws Exception {
+        UserFilter filter = new UserFilter().withSort("date:1");
+        Request<UsersPage> request = api.listUsers(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USERS_LIST, 200);
+        UsersPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("sort", "date:1"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
+    @Test
+    public void shouldListUsersWithQuery() throws Exception {
+        UserFilter filter = new UserFilter().withQuery("sample");
+        Request<UsersPage> request = api.listUsers(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USERS_LIST, 200);
+        UsersPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("search_engine", "v2"));
+        assertThat(recordedRequest, hasQueryParameter("q", "sample"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
+    @Test
+    public void shouldListUsersWithFields() throws Exception {
+        UserFilter filter = new UserFilter().withFields("some,random,fields", true);
+        Request<UsersPage> request = api.listUsers(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USERS_LIST, 200);
+        UsersPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("fields", "some,random,fields"));
+        assertThat(recordedRequest, hasQueryParameter("include_fields", "true"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
+    @Test
+    public void shouldReturnEmptyUsers() throws Exception {
+        Request<UsersPage> request = api.listUsers(null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_EMPTY_LIST, 200);
+        UsersPage response = request.execute();
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), is(emptyCollectionOf(User.class)));
+    }
+
+    @Test
+    public void shouldThrowOnGetUserWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'user id' cannot be null!");
+        api.getUser(null, null);
+    }
+
+    @Test
+    public void shouldGetUser() throws Exception {
+        Request<User> request = api.getUser("1", null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER, 200);
+        User response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldGetUserWithFields() throws Exception {
+        UserFilter filter = new UserFilter().withFields("some,random,fields", true);
+        Request<User> request = api.getUser("1", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER, 200);
+        User response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("fields", "some,random,fields"));
+        assertThat(recordedRequest, hasQueryParameter("include_fields", "true"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnCreateUserWithNullData() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'user' cannot be null!");
+        api.createUser(null);
+    }
+
+    @Test
+    public void shouldCreateUser() throws Exception {
+        Request<User> request = api.createUser(new User("auth0"));
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER, 200);
+        User response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/users"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(1));
+        assertThat(body, hasEntry("connection", (Object) "auth0"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnDeleteUserWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'user id' cannot be null!");
+        api.deleteUserBlocks(null);
+    }
+
+    @Test
+    public void shouldDeleteUser() throws Exception {
+        Request request = api.deleteUser("1");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER, 200);
+        request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/users/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
+
+    @Test
+    public void shouldThrowOnUpdateUserWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'user id' cannot be null!");
+        api.updateUser(null, new User("auth0"));
+    }
+
+    @Test
+    public void shouldThrowOnUpdateUserWithNullData() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'user' cannot be null!");
+        api.updateUser("1", null);
+    }
+
+    @Test
+    public void shouldUpdateUser() throws Exception {
+        Request<User> request = api.updateUser("1", new User("auth0"));
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER, 200);
+        User response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/users/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(1));
+        assertThat(body, hasEntry("connection", (Object) "auth0"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+
+    // Blacklisted Tokens
 
     @Test
     public void shouldThrowOnGetBlacklistedTokensWithNullAudience() throws Exception {

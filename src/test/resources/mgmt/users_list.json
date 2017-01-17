@@ -1,0 +1,62 @@
+[
+  {
+    "email": "john.doe@gmail.com",
+    "email_verified": false,
+    "username": "johndoe",
+    "phone_number": "+199999999999999",
+    "phone_verified": false,
+    "user_id": "usr_5457edea1b8f33391a000004",
+    "created_at": "",
+    "updated_at": "",
+    "identities": [
+      {
+        "connection": "Initial-Connection",
+        "user_id": "5457edea1b8f22891a000004",
+        "provider": "auth0",
+        "isSocial": false
+      }
+    ],
+    "app_metadata": {},
+    "user_metadata": {},
+    "picture": "",
+    "name": "",
+    "nickname": "",
+    "multifactor": [],
+    "last_ip": "",
+    "last_login": "",
+    "logins_count": 0,
+    "blocked": false,
+    "given_name": "",
+    "family_name": ""
+  },
+  {
+    "email": "john.doe2@gmail.com",
+    "email_verified": false,
+    "username": "johndoe2",
+    "phone_number": "+199999999999999",
+    "phone_verified": false,
+    "user_id": "usr_5457edea1b8f33391a000004",
+    "created_at": "",
+    "updated_at": "",
+    "identities": [
+      {
+        "connection": "Initial-Connection",
+        "user_id": "5457edea1b8f22891a000004",
+        "provider": "auth0",
+        "isSocial": false
+      }
+    ],
+    "app_metadata": {},
+    "user_metadata": {},
+    "picture": "",
+    "name": "",
+    "nickname": "",
+    "multifactor": [],
+    "last_ip": "",
+    "last_login": "",
+    "logins_count": 0,
+    "blocked": false,
+    "given_name": "",
+    "family_name": ""
+  }
+]
