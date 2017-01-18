@@ -1,0 +1,14 @@
+[
+  {
+    "connection": "Someconnetion",
+    "user_id": "5457edea1b8f22891a000002",
+    "provider": "facebook",
+    "isSocial": true
+  },
+  {
+    "connection": "Initial-Connection",
+    "user_id": "5457edea1b8f22891a000004",
+    "provider": "auth0",
+    "isSocial": false
+  }
+]

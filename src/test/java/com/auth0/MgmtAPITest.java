@@ -1636,6 +1636,299 @@ public class MgmtAPITest {
     }
 
 
+    @Test
+    public void shouldThrowOnGetUserGuardianEnrollmentsWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'user id' cannot be null!");
+        api.getUserGuardianEnrollments(null);
+    }
+
+    @Test
+    public void shouldGetUserGuardianEnrollments() throws Exception {
+        Request<List<GuardianEnrollment>> request = api.getUserGuardianEnrollments("1");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_GUARDIAN_ENROLLMENTS_LIST, 200);
+        List<GuardianEnrollment> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/enrollments"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnGetUserLogEventsWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'user id' cannot be null!");
+        api.getUserLogEvents(null, null);
+    }
+
+    @Test
+    public void shouldGetUserLogEvents() throws Exception {
+        Request<LogEventsPage> request = api.getUserLogEvents("1", null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
+        LogEventsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/logs"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldGetUserLogEventsWithPage() throws Exception {
+        LogEventFilter filter = new LogEventFilter().withPage(23, 5);
+        Request<LogEventsPage> request = api.getUserLogEvents("1", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
+        LogEventsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/logs"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("page", "23"));
+        assertThat(recordedRequest, hasQueryParameter("per_page", "5"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
+    @Test
+    public void shouldGetUserLogEventsWithTotals() throws Exception {
+        LogEventFilter filter = new LogEventFilter().withTotals(true);
+        Request<LogEventsPage> request = api.getUserLogEvents("1", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_LOG_EVENTS_PAGED_LIST, 200);
+        LogEventsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/logs"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+        assertThat(response.getStart(), is(0));
+        assertThat(response.getLength(), is(14));
+        assertThat(response.getTotal(), is(14));
+        assertThat(response.getLimit(), is(50));
+    }
+
+    @Test
+    public void shouldGetUserLogEventsWithSort() throws Exception {
+        LogEventFilter filter = new LogEventFilter().withSort("date:1");
+        Request<LogEventsPage> request = api.getUserLogEvents("1", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
+        LogEventsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/logs"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("sort", "date:1"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
+    @Test
+    public void shouldGetUserLogEventsWithFields() throws Exception {
+        LogEventFilter filter = new LogEventFilter().withFields("some,random,fields", true);
+        Request<LogEventsPage> request = api.getUserLogEvents("1", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
+        LogEventsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/logs"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("fields", "some,random,fields"));
+        assertThat(recordedRequest, hasQueryParameter("include_fields", "true"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
+    @Test
+    public void shouldReturnEmptyUserLogEvents() throws Exception {
+        Request<LogEventsPage> request = api.getUserLogEvents("1", null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_EMPTY_LIST, 200);
+        LogEventsPage response = request.execute();
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), is(emptyCollectionOf(LogEvent.class)));
+    }
+
+    @Test
+    public void shouldThrowOnDeleteUserMultifactorProviderWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'user id' cannot be null!");
+        api.deleteUserMultifactorProvider(null, "duo");
+    }
+
+    @Test
+    public void shouldThrowOnDeleteUserMultifactorProviderWithNullProvider() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'provider' cannot be null!");
+        api.deleteUserMultifactorProvider("1", null);
+    }
+
+    @Test
+    public void shouldDeleteUserMultifactorProvider() throws Exception {
+        Request request = api.deleteUserMultifactorProvider("1", "duo");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_EMAIL_PROVIDER, 200);
+        request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/users/1/multifactor/duo"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
+
+    @Test
+    public void shouldThrowOnRotateUserRecoveryCodeWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'user id' cannot be null!");
+        api.rotateUserRecoveryCode(null);
+    }
+
+    @Test
+    public void shouldRotateUserRecoveryCode() throws Exception {
+        Request<RecoveryCode> request = api.rotateUserRecoveryCode("1");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_RECOVERY_CODE, 200);
+        RecoveryCode response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/users/1/recovery-code-regeneration"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnLinkUserIdentityWithNullPrimaryId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'primary user id' cannot be null!");
+        api.linkUserIdentity(null, "2", "auth0", null);
+    }
+
+    @Test
+    public void shouldThrowOnLinkUserIdentityWithNullSecondaryId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'secondary user id' cannot be null!");
+        api.linkUserIdentity("1", null, "auth0", null);
+    }
+
+    @Test
+    public void shouldThrowOnLinkUserIdentityWithNullProvider() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'provider' cannot be null!");
+        api.linkUserIdentity("1", "2", null, null);
+    }
+
+    @Test
+    public void shouldLinkUserIdentity() throws Exception {
+        Request<List<Identity>> request = api.linkUserIdentity("1", "2", "auth0", null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_IDENTITIES_LIST, 200);
+        List<Identity> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/users/1/identities"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(2));
+        assertThat(body, hasEntry("provider", (Object) "auth0"));
+        assertThat(body, hasEntry("user_id", (Object) "2"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldLinkUserIdentityWithConnectionId() throws Exception {
+        Request<List<Identity>> request = api.linkUserIdentity("1", "2", "auth0", "123456790");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_IDENTITIES_LIST, 200);
+        List<Identity> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/users/1/identities"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(3));
+        assertThat(body, hasEntry("provider", (Object) "auth0"));
+        assertThat(body, hasEntry("user_id", (Object) "2"));
+        assertThat(body, hasEntry("connection_id", (Object) "123456790"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnUnlinkUserIdentityWithNullPrimaryId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'primary user id' cannot be null!");
+        api.unlinkUserIdentity(null, "2", "auth0");
+    }
+
+    @Test
+    public void shouldThrowOnUnlinkUserIdentityWithNullSecondaryId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'secondary user id' cannot be null!");
+        api.unlinkUserIdentity("1", null, "auth0");
+    }
+
+    @Test
+    public void shouldThrowOnUnlinkUserIdentityWithNullProvider() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'provider' cannot be null!");
+        api.unlinkUserIdentity("1", "2", null);
+    }
+
+    @Test
+    public void shouldUnlinkUserIdentity() throws Exception {
+        Request<List<Identity>> request = api.unlinkUserIdentity("1", "2", "auth0");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_IDENTITIES_LIST, 200);
+        List<Identity> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/users/1/identities/auth0/2"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    
     // Blacklisted Tokens
 
     @Test

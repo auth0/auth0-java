@@ -44,6 +44,9 @@ public class MockServer {
     public static final String MGMT_USERS_LIST = "src/test/resources/mgmt/users_list.json";
     public static final String MGMT_USERS_PAGED_LIST = "src/test/resources/mgmt/users_paged_list.json";
     public static final String MGMT_USER = "src/test/resources/mgmt/user.json";
+    public static final String MGMT_GUARDIAN_ENROLLMENTS_LIST = "src/test/resources/mgmt/guardian_enrollments_list.json";
+    public static final String MGMT_RECOVERY_CODE = "src/test/resources/mgmt/recovery_code.json";
+    public static final String MGMT_IDENTITIES_LIST = "src/test/resources/mgmt/identities_list.json";
     public static final String MGMT_EMPTY_LIST = "src/test/resources/mgmt/empty_list.json";
 
 

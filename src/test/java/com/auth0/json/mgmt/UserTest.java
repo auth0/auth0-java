@@ -16,11 +16,15 @@ public class UserTest extends JsonTest<User> {
     @Test
     public void shouldSerialize() throws Exception {
         User user = new User("auth0");
-        user.setPassword("pwd", true);
+        user.setPassword("pwd");
+        user.setVerifyPassword(true);
         user.setUsername("usr");
-        user.setEmail("me@auth0.com", "client123", true);
+        user.setEmail("me@auth0.com");
+        user.setClientId("client123");
+        user.setVerifyEmail(true);
         user.setEmailVerified(true);
-        user.setPhoneNumber("1234567890", true);
+        user.setPhoneNumber("1234567890");
+        user.setVerifyPhoneNumber(true);
         user.setPhoneVerified(true);
         user.setPicture("https://pic.ture/12");
         user.setName("John");

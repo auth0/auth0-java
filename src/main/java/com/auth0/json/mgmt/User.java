@@ -77,9 +77,8 @@ public class User {
         this.connection = connection;
     }
 
-    public void setPassword(String password, Boolean needsVerification) {
+    public void setPassword(String password) {
         this.password = password;
-        this.verifyPassword = needsVerification;
     }
 
     public String getUsername() {
@@ -94,10 +93,8 @@ public class User {
         return email;
     }
 
-    public void setEmail(String email, String clientId, Boolean needsVerification) {
+    public void setEmail(String email) {
         this.email = email;
-        this.clientId = clientId;
-        this.verifyEmail = needsVerification;
     }
 
     public Boolean getEmailVerified() {
@@ -112,9 +109,8 @@ public class User {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber, Boolean needsVerification) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-        this.verifyPhoneNumber = needsVerification;
     }
 
     public Boolean getPhoneVerified() {
@@ -247,6 +243,22 @@ public class User {
 
     public void setBlocked(Boolean blocked) {
         this.blocked = blocked;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
+    public void setVerifyPassword(Boolean verifyPassword) {
+        this.verifyPassword = verifyPassword;
+    }
+
+    public void setVerifyEmail(Boolean verifyEmail) {
+        this.verifyEmail = verifyEmail;
+    }
+
+    public void setVerifyPhoneNumber(Boolean verifyPhoneNumber) {
+        this.verifyPhoneNumber = verifyPhoneNumber;
     }
 
     String getPassword() {
