@@ -44,9 +44,16 @@ public class MockServer {
     public static final String MGMT_USERS_LIST = "src/test/resources/mgmt/users_list.json";
     public static final String MGMT_USERS_PAGED_LIST = "src/test/resources/mgmt/users_paged_list.json";
     public static final String MGMT_USER = "src/test/resources/mgmt/user.json";
-    public static final String MGMT_GUARDIAN_ENROLLMENTS_LIST = "src/test/resources/mgmt/guardian_enrollments_list.json";
     public static final String MGMT_RECOVERY_CODE = "src/test/resources/mgmt/recovery_code.json";
     public static final String MGMT_IDENTITIES_LIST = "src/test/resources/mgmt/identities_list.json";
+    public static final String MGMT_GUARDIAN_ENROLLMENT = "src/test/resources/mgmt/guardian_enrollment.json";
+    public static final String MGMT_GUARDIAN_ENROLLMENTS_LIST = "src/test/resources/mgmt/guardian_enrollments_list.json";
+    public static final String MGMT_GUARDIAN_ENROLLMENT_TICKET = "src/test/resources/mgmt/guardian_enrollment_ticket.json";
+    public static final String MGMT_GUARDIAN_FACTOR = "src/test/resources/mgmt/guardian_factor.json";
+    public static final String MGMT_GUARDIAN_FACTORS_LIST = "src/test/resources/mgmt/guardian_factors_list.json";
+    public static final String MGMT_GUARDIAN_TEMPLATES = "src/test/resources/mgmt/guardian_templates.json";
+    public static final String MGMT_GUARDIAN_SNS_FACTOR_PROVIDER = "src/test/resources/mgmt/guardian_sns_factor_provider.json";
+    public static final String MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER = "src/test/resources/mgmt/guardian_twilio_factor_provider.json";
     public static final String MGMT_EMPTY_LIST = "src/test/resources/mgmt/empty_list.json";
 
 

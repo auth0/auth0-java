@@ -28,7 +28,6 @@ public class GuardianEnrollment {
     @JsonProperty("last_auth")
     private String lastAuth;
 
-
     public String getId() {
         return id;
     }

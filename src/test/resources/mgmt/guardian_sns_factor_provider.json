@@ -1,0 +1,7 @@
+{
+  "aws_access_key_id": "123123132",
+  "aws_secret_access_key": "aac",
+  "aws_region": "us",
+  "sns_apns_platform_application_arn": "132",
+  "sns_gcm_platform_application_arn": "3123"
+}
