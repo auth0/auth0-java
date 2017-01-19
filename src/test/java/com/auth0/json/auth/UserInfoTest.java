@@ -9,16 +9,13 @@ import static org.hamcrest.Matchers.*;
 
 public class UserInfoTest extends JsonTest<UserInfo> {
 
-    private static final String json = "{\"email_verified\":false,\"clientID\":\"q2hnj2iu...\",\"updated_at\":\"2016-12-05T15:15:40.545Z\",\"name\":\"test.account@userinfo.com\",\"email\":\"test.account@userinfo.com\"}";
+    private static final String json = "{\"email\":\"test.account@userinfo.com\",\"client_id\":\"q2hnj2iu...\"}";
 
     @Test
     public void shouldSerialize() throws Exception {
         UserInfo info = new UserInfo();
-        info.setValue("email_verified", false);
         info.setValue("email", "test.account@userinfo.com");
-        info.setValue("clientID", "q2hnj2iu...");
-        info.setValue("updated_at", "2016-12-05T15:15:40.545Z");
-        info.setValue("name", "test.account@userinfo.com");
+        info.setValue("client_id", "q2hnj2iu...");
 
         String serialized = toJSON(info);
         assertThat(serialized, is(notNullValue()));
@@ -31,10 +28,7 @@ public class UserInfoTest extends JsonTest<UserInfo> {
 
         assertThat(info, is(notNullValue()));
 
-        assertThat(info.getValues(), IsMapContaining.hasEntry("email_verified", (Object) false));
         assertThat(info.getValues(), IsMapContaining.hasEntry("email", (Object) "test.account@userinfo.com"));
-        assertThat(info.getValues(), IsMapContaining.hasEntry("clientID", (Object) "q2hnj2iu..."));
-        assertThat(info.getValues(), IsMapContaining.hasEntry("updated_at", (Object) "2016-12-05T15:15:40.545Z"));
-        assertThat(info.getValues(), IsMapContaining.hasEntry("name", (Object) "test.account@userinfo.com"));
+        assertThat(info.getValues(), IsMapContaining.hasEntry("client_id", (Object) "q2hnj2iu..."));
     }
 }

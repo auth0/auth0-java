@@ -30,7 +30,7 @@ public class MgmtAPI {
         this.apiToken = apiToken;
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        logging.setLevel(HttpLoggingInterceptor.Level.NONE);
         client = new OkHttpClient.Builder()
                 .addInterceptor(logging)
                 .build();

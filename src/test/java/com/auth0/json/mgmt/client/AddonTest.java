@@ -9,13 +9,12 @@ import static org.hamcrest.Matchers.*;
 
 public class AddonTest extends JsonTest<Addon> {
 
-    private static final String json = "{\"a-boolean\":true,\"a-string\":\"text\"}";
+    private static final String json = "{\"a-boolean\":true}";
 
     @Test
     public void shouldSerialize() throws Exception {
         Addon addon = new Addon();
         addon.setProperty("a-boolean", true);
-        addon.setProperty("a-string", "text");
 
         String serialized = toJSON(addon);
         assertThat(serialized, is(notNullValue()));
@@ -29,8 +28,6 @@ public class AddonTest extends JsonTest<Addon> {
         assertThat(addon, is(notNullValue()));
 
         assertThat(addon.getProperties(), IsMapContaining.hasEntry("a-boolean", (Object) true));
-        assertThat(addon.getProperties(), IsMapContaining.hasEntry("a-string", (Object) "text"));
         assertThat(addon.getProperty("a-boolean"), is((Object) true));
-        assertThat(addon.getProperty("a-string"), is((Object) "text"));
     }
 }

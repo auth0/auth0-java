@@ -1660,6 +1660,18 @@ public class MgmtAPITest {
     }
 
     @Test
+    public void shouldReturnEmptyUserGuardianEnrollments() throws Exception {
+        Request<List<GuardianEnrollment>> request = api.getUserGuardianEnrollments("1");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_EMPTY_LIST, 200);
+        List<GuardianEnrollment> response = request.execute();
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, is(emptyCollectionOf(GuardianEnrollment.class)));
+    }
+
+    @Test
     public void shouldThrowOnGetUserLogEventsWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'user id' cannot be null!");
@@ -1775,8 +1787,6 @@ public class MgmtAPITest {
         assertThat(response, is(notNullValue()));
         assertThat(response.getItems(), is(emptyCollectionOf(LogEvent.class)));
     }
-
-    //TODO: Add empty arrays validation
 
     @Test
     public void shouldThrowOnDeleteUserMultifactorProviderWithNullId() throws Exception {
@@ -1956,6 +1966,18 @@ public class MgmtAPITest {
 
         assertThat(response, is(notNullValue()));
         assertThat(response, hasSize(2));
+    }
+
+    @Test
+    public void shouldReturnEmptyBlacklistedTokens() throws Exception {
+        Request<List<Token>> request = api.getBlacklistedTokens("myapi");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_EMPTY_LIST, 200);
+        List<Token> response = request.execute();
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, is(emptyCollectionOf(Token.class)));
     }
 
     @Test
@@ -2194,6 +2216,18 @@ public class MgmtAPITest {
 
         assertThat(response, is(notNullValue()));
         assertThat(response, hasSize(2));
+    }
+
+    @Test
+    public void shouldReturnEmptyGuardianFactors() throws Exception {
+        Request<List<GuardianFactor>> request = api.listGuardianFactors();
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_EMPTY_LIST, 200);
+        List<GuardianFactor> response = request.execute();
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, is(emptyCollectionOf(GuardianFactor.class)));
     }
 
     @Test

@@ -41,7 +41,7 @@ public class AuthAPI {
         this.clientSecret = clientSecret;
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(Level.BODY);
+        logging.setLevel(Level.NONE);
         client = new OkHttpClient.Builder()
                 .addInterceptor(logging)
                 .build();
@@ -100,7 +100,8 @@ public class AuthAPI {
                 .addPathSegment("userinfo")
                 .build()
                 .toString();
-        CustomRequest<UserInfo> request = new CustomRequest<>(client, url, "GET", new TypeReference<UserInfo>() {});
+        CustomRequest<UserInfo> request = new CustomRequest<>(client, url, "GET", new TypeReference<UserInfo>() {
+        });
         request.addHeader("Authorization", "Bearer " + accessToken);
         return request;
     }

@@ -22,7 +22,7 @@ jacocoTestReport {
 
 test {
     testLogging {
-        events "passed", "skipped", "failed", "standardError"
+        events "skipped", "failed"
         exceptionFormat "short"
     }
 }
