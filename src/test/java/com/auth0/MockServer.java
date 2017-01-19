@@ -54,6 +54,11 @@ public class MockServer {
     public static final String MGMT_GUARDIAN_TEMPLATES = "src/test/resources/mgmt/guardian_templates.json";
     public static final String MGMT_GUARDIAN_SNS_FACTOR_PROVIDER = "src/test/resources/mgmt/guardian_sns_factor_provider.json";
     public static final String MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER = "src/test/resources/mgmt/guardian_twilio_factor_provider.json";
+    public static final String MGMT_TENANT = "src/test/resources/mgmt/tenant.json";
+    public static final String MGMT_ACTIVE_USERS_COUNT = "src/test/resources/mgmt/active_users_count.json";
+    public static final String MGMT_DAILY_STATS_LIST = "src/test/resources/mgmt/daily_stats_list.json";
+    public static final String MGMT_PASSWORD_CHANGE_TICKET = "src/test/resources/mgmt/password_change_ticket.json";
+    public static final String MGMT_EMAIL_VERIFICATION_TICKET = "src/test/resources/mgmt/email_verification_ticket.json";
     public static final String MGMT_EMPTY_LIST = "src/test/resources/mgmt/empty_list.json";
 
 

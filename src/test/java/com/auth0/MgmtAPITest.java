@@ -1776,6 +1776,8 @@ public class MgmtAPITest {
         assertThat(response.getItems(), is(emptyCollectionOf(LogEvent.class)));
     }
 
+    //TODO: Add empty arrays validation
+
     @Test
     public void shouldThrowOnDeleteUserMultifactorProviderWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
@@ -2002,7 +2004,7 @@ public class MgmtAPITest {
 
     @Test
     public void shouldGetEmailProviderWithFields() throws Exception {
-        EmailProviderFilter filter = new EmailProviderFilter().withFields("some,random,fields", true);
+        FieldsFilter filter = new FieldsFilter().withFields("some,random,fields", true);
         Request<EmailProvider> request = api.getEmailProvider(filter);
         assertThat(request, is(notNullValue()));
 
@@ -2318,4 +2320,184 @@ public class MgmtAPITest {
         assertThat(response, is(notNullValue()));
     }
 
+
+    //Stats
+
+
+    @Test
+    public void shouldGetActiveUsersCount() throws Exception {
+        Request<Integer> request = api.getActiveUsersCount();
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_ACTIVE_USERS_COUNT, 200);
+        Integer response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/stats/active-users"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnGetDailyStatsWithNullDateFrom() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'date from' cannot be null!");
+        api.getDailyStats(null, "20161011");
+    }
+
+    @Test
+    public void shouldThrowOnGetDailyStatsWithNullDateTo() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'date to' cannot be null!");
+        api.getDailyStats("20161011", null);
+    }
+
+    @Test
+    public void shouldGetDailyStats() throws Exception {
+        Request<List<DailyStats>> request = api.getDailyStats("20161011", "20161011");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_DAILY_STATS_LIST, 200);
+        List<DailyStats> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/stats/daily"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldReturnEmptyDailyStats() throws Exception {
+        Request<List<DailyStats>> request = api.getDailyStats("20161011", "20161011");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_EMPTY_LIST, 200);
+        List<DailyStats> response = request.execute();
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, is(emptyCollectionOf(DailyStats.class)));
+    }
+
+
+    //Tenants
+
+    @Test
+    public void shouldGetTenantSettings() throws Exception {
+        Request<Tenant> request = api.getTenantSettings(null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_TENANT, 200);
+        Tenant response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/tenants/settings"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldGetTenantSettingsWithFields() throws Exception {
+        FieldsFilter filter = new FieldsFilter().withFields("some,random,fields", true);
+        Request<Tenant> request = api.getTenantSettings(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_TENANT, 200);
+        Tenant response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/tenants/settings"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("fields", "some,random,fields"));
+        assertThat(recordedRequest, hasQueryParameter("include_fields", "true"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnUpdateTenantSettingsWithNullData() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'tenant' cannot be null!");
+        api.updateTenantSettings(null);
+    }
+
+    @Test
+    public void shouldUpdateTenantSettings() throws Exception {
+        Request<Tenant> request = api.updateTenantSettings(new Tenant());
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_TENANT, 200);
+        Tenant response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/tenants/settings"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+
+    //Tickets
+
+
+    @Test
+    public void shouldThrowOnCreateEmailVerificationTicketWithNullData() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'email verification ticket' cannot be null!");
+        api.createEmailVerificationTicket(null);
+    }
+
+    @Test
+    public void shouldCreateEmailVerificationTicket() throws Exception {
+        Request<EmailVerificationTicket> request = api.createEmailVerificationTicket(new EmailVerificationTicket("uid123"));
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_EMAIL_VERIFICATION_TICKET, 200);
+        EmailVerificationTicket response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/tickets/email-verification"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(1));
+        assertThat(body, hasEntry("user_id", (Object) "uid123"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnCreatePasswordChangeTicketWithNullData() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'password change ticket' cannot be null!");
+        api.createPasswordChangeTicket(null);
+    }
+
+    @Test
+    public void shouldCreatePasswordChangeTicket() throws Exception {
+        Request<PasswordChangeTicket> request = api.createPasswordChangeTicket(new PasswordChangeTicket("uid123"));
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_PASSWORD_CHANGE_TICKET, 200);
+        PasswordChangeTicket response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/tickets/password-change"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(1));
+        assertThat(body, hasEntry("user_id", (Object) "uid123"));
+
+        assertThat(response, is(notNullValue()));
+    }
 }

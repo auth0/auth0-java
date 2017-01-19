@@ -1255,7 +1255,7 @@ public class MgmtAPI {
      * @param filter the filter to use. Can be null.
      * @return a Request to execute.
      */
-    public Request<EmailProvider> getEmailProvider(EmailProviderFilter filter) {
+    public Request<EmailProvider> getEmailProvider(FieldsFilter filter) {
         HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
                 .newBuilder()
                 .addPathSegment("api")
@@ -1587,5 +1587,162 @@ public class MgmtAPI {
         request.setBody(provider);
         return request;
     }
+
+
+    //Stats
+
+    /**
+     * Request the Active Users Count (logged in during the last 30 days). A token with scope read:stats is needed.
+     *
+     * @return a Request to execute.
+     */
+    public Request<Integer> getActiveUsersCount() {
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("stats")
+                .addPathSegment("active-users")
+                .build()
+                .toString();
+
+        CustomRequest<Integer> request = new CustomRequest<>(client, url, "GET", new TypeReference<Integer>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Request the Daily Stats for a given period. A token with scope read:stats is needed.
+     *
+     * @param dateFrom the first day of the period (inclusive). Must have YYYYMMDD format.
+     * @param dateTo   the last day of the period (inclusive). Must have YYYYMMDD format.
+     * @return a Request to execute.
+     */
+    public Request<List<DailyStats>> getDailyStats(String dateFrom, String dateTo) {
+        Asserts.assertNotNull(dateFrom, "date from");
+        Asserts.assertNotNull(dateTo, "date to");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("stats")
+                .addPathSegment("daily")
+                .build()
+                .toString();
+
+        CustomRequest<List<DailyStats>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<DailyStats>>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+
+    //Tenants
+
+    /**
+     * Request the Tenant Settings. A token with scope read:tenant_settings is needed.
+     *
+     * @param filter the filter to use. Can be null.
+     * @return a Request to execute.
+     */
+    public Request<Tenant> getTenantSettings(FieldsFilter filter) {
+        HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("tenants")
+                .addPathSegment("settings");
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+        String url = builder.build().toString();
+        CustomRequest<Tenant> request = new CustomRequest<>(client, url, "GET", new TypeReference<Tenant>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Update the Tenant Settings. A token with scope update:tenant_settings is needed.
+     *
+     * @param tenant the tenant data to set.
+     * @return a Request to execute.
+     */
+    public Request<Tenant> updateTenantSettings(Tenant tenant) {
+        Asserts.assertNotNull(tenant, "tenant");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("tenants")
+                .addPathSegment("settings")
+                .build()
+                .toString();
+
+        CustomRequest<Tenant> request = new CustomRequest<>(client, url, "PATCH", new TypeReference<Tenant>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.setBody(tenant);
+        return request;
+    }
+
+
+    //Tickets
+
+    /**
+     * Create an Email Verification Ticket. A token with scope create:user_tickets is needed.
+     *
+     * @param emailVerificationTicket the email verification ticket data to set.
+     * @return a Request to execute.
+     */
+    public Request<EmailVerificationTicket> createEmailVerificationTicket(EmailVerificationTicket emailVerificationTicket) {
+        Asserts.assertNotNull(emailVerificationTicket, "email verification ticket");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("tickets")
+                .addPathSegment("email-verification")
+                .build()
+                .toString();
+
+        CustomRequest<EmailVerificationTicket> request = new CustomRequest<>(client, url, "POST", new TypeReference<EmailVerificationTicket>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.setBody(emailVerificationTicket);
+        return request;
+    }
+
+    /**
+     * Create a Password Change Ticket. A token with scope create:user_tickets is needed.
+     *
+     * @param passwordChangeTicket the password change ticket data to set.
+     * @return a Request to execute.
+     */
+    public Request<PasswordChangeTicket> createPasswordChangeTicket(PasswordChangeTicket passwordChangeTicket) {
+        Asserts.assertNotNull(passwordChangeTicket, "password change ticket");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("tickets")
+                .addPathSegment("password-change")
+                .build()
+                .toString();
+
+        CustomRequest<PasswordChangeTicket> request = new CustomRequest<>(client, url, "POST", new TypeReference<PasswordChangeTicket>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.setBody(passwordChangeTicket);
+        return request;
+    }
+
 
 }

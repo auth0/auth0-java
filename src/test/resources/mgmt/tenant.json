@@ -1,0 +1,31 @@
+{
+  "change_password": {
+    "enabled": false,
+    "html": ""
+  },
+  "guardian_mfa_page": {
+    "enabled": false,
+    "html": ""
+  },
+  "default_audience": "",
+  "default_directory": "",
+  "error_page": {
+    "html": "",
+    "show_log_link": false,
+    "url": "https://mycompany.org/error"
+  },
+  "flags": {
+    "change_pwd_flow_v1": false,
+    "enable_client_connections": false,
+    "enable_apis_section": false,
+    "enable_pipeline2": false,
+    "enable_dynamic_client_registration": false
+  },
+  "friendly_name": "My Company",
+  "picture_url": "https://mycompany.org/logo.png",
+  "support_email": "support@mycompany.org",
+  "support_url": "https://mycompany.org/support",
+  "allowed_logout_urls": [
+    "https://mycompany.org/logoutCallback"
+  ]
+}
