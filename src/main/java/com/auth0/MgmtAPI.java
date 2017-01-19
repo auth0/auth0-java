@@ -1345,30 +1345,6 @@ public class MgmtAPI {
     // Guardian
 
     /**
-     * Request a Guardian Enrollment. A token with scope read:guardian_enrollments is needed.
-     *
-     * @param enrollmentId the id of the enrollment to retrieve.
-     * @return a Request to execute.
-     */
-    public Request<GuardianEnrollment> getGuardianEnrollment(String enrollmentId) {
-        Asserts.assertNotNull(enrollmentId, "enrollment id");
-
-        String url = HttpUrl.parse(baseUrl)
-                .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("guardian")
-                .addPathSegment("enrollments")
-                .addPathSegment(enrollmentId)
-                .build()
-                .toString();
-        CustomRequest<GuardianEnrollment> request = new CustomRequest<>(client, url, "GET", new TypeReference<GuardianEnrollment>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
-    }
-
-    /**
      * Delete an existing Guardian Enrollment. A token with scope read:guardian_enrollments is needed.
      *
      * @param enrollmentId the id of the enrollment to retrieve.

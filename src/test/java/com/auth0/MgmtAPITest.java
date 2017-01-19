@@ -2091,29 +2091,6 @@ public class MgmtAPITest {
     //Guardian
 
     @Test
-    public void shouldThrowOnGetGuardianEnrollmentWithNullId() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'enrollment id' cannot be null!");
-        api.getGuardianEnrollment(null);
-    }
-
-    @Test
-    public void shouldGetGuardianEnrollment() throws Exception {
-        Request<GuardianEnrollment> request = api.getGuardianEnrollment("1");
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MGMT_GUARDIAN_ENROLLMENT, 200);
-        GuardianEnrollment response = request.execute();
-        RecordedRequest recordedRequest = server.takeRequest();
-
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/guardian/enrollments/1"));
-        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
-        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-
-        assertThat(response, is(notNullValue()));
-    }
-
-    @Test
     public void shouldThrowOnDeleteGuardianEnrollmentWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'enrollment id' cannot be null!");
@@ -2163,7 +2140,7 @@ public class MgmtAPITest {
 
     @Test
     public void shouldGetGuardianTemplates() throws Exception {
-        Request<GuardianTemplates> request = api.getGuardianTemplates("1");
+        Request<GuardianTemplates> request = api.getGuardianTemplates();
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_TEMPLATES, 200);
