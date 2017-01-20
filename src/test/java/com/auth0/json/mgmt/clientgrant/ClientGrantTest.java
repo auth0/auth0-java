@@ -1,5 +1,6 @@
 package com.auth0.json.mgmt.clientgrant;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
@@ -22,7 +23,9 @@ public class ClientGrantTest extends JsonTest<ClientGrant> {
 
         String serialized = toJSON(grant);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, is(equalTo(json)));
+        assertThat(serialized, JsonMatcher.hasEntry("client_id", "clientId"));
+        assertThat(serialized, JsonMatcher.hasEntry("audience", "aud"));
+        assertThat(serialized, JsonMatcher.hasEntry("scope", Arrays.asList("one", "two")));
     }
 
     @Test

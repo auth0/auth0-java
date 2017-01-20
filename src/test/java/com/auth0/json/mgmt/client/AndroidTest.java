@@ -1,8 +1,10 @@
 package com.auth0.json.mgmt.client;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -18,8 +20,10 @@ public class AndroidTest extends JsonTest<Android> {
 
         String serialized = toJSON(android);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, is(equalTo(json)));
+        assertThat(serialized, JsonMatcher.hasEntry("app_package_name", "pkg"));
+        assertThat(serialized, JsonMatcher.hasEntry("sha256_cert_fingerprints", Arrays.asList("cert1", "cert2")));
     }
+
 
     @Test
     public void shouldDeserialize() throws Exception {

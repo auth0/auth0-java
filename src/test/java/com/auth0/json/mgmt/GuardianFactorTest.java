@@ -1,5 +1,6 @@
 package com.auth0.json.mgmt;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
@@ -17,7 +18,7 @@ public class GuardianFactorTest extends JsonTest<GuardianFactor> {
 
         String serialized = toJSON(factor);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, is(equalTo(json)));
+        assertThat(serialized, JsonMatcher.hasEntry("enabled", true));
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.auth0.json.mgmt.client;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
@@ -17,7 +18,9 @@ public class EncryptionKeyTest extends JsonTest<EncryptionKey> {
 
         String serialized = toJSON(key);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, is(equalTo(json)));
+        assertThat(serialized, JsonMatcher.hasEntry("pub", "pub"));
+        assertThat(serialized, JsonMatcher.hasEntry("cert", "cert"));
+        assertThat(serialized, JsonMatcher.hasEntry("subject", "subject"));
     }
 
     @Test

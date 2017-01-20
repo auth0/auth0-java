@@ -1,10 +1,14 @@
 package com.auth0.json.mgmt.client;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
+import java.util.Collections;
+
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class AddonsTest extends JsonTest<Addons> {
 
@@ -19,7 +23,11 @@ public class AddonsTest extends JsonTest<Addons> {
 
         String serialized = toJSON(addons);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, is(equalTo(json)));
+        assertThat(serialized, JsonMatcher.hasEntry("rms", Collections.singletonMap("key", "value")));
+        assertThat(serialized, JsonMatcher.hasEntry("mscrm", Collections.singletonMap("key", "value")));
+        assertThat(serialized, JsonMatcher.hasEntry("slack", Collections.singletonMap("key", "value")));
+        assertThat(serialized, JsonMatcher.hasEntry("layer", Collections.singletonMap("key", "value")));
+        assertThat(serialized, JsonMatcher.hasEntry("other", Collections.singletonMap("key", "value")));
     }
 
     @Test

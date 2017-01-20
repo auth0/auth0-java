@@ -1,5 +1,6 @@
 package com.auth0.json.mgmt.client;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
@@ -18,7 +19,8 @@ public class MobileTest extends JsonTest<Mobile> {
 
         String serialized = toJSON(mobile);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, is(equalTo(json)));
+        assertThat(serialized, JsonMatcher.hasEntry("android", notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("ios", notNullValue()));
     }
 
     @Test

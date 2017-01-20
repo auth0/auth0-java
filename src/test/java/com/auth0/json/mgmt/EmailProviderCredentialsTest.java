@@ -1,5 +1,6 @@
 package com.auth0.json.mgmt;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
@@ -24,7 +25,15 @@ public class EmailProviderCredentialsTest extends JsonTest<EmailProviderCredenti
 
         String serialized = toJSON(credentials);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, is(equalTo(json)));
+        assertThat(serialized, JsonMatcher.hasEntry("api_key", "key123"));
+        assertThat(serialized, JsonMatcher.hasEntry("api_user", "username"));
+        assertThat(serialized, JsonMatcher.hasEntry("accessKeyId", "id"));
+        assertThat(serialized, JsonMatcher.hasEntry("secretAccessKey", "secret"));
+        assertThat(serialized, JsonMatcher.hasEntry("region", "ar"));
+        assertThat(serialized, JsonMatcher.hasEntry("smtp_host", "host"));
+        assertThat(serialized, JsonMatcher.hasEntry("smtp_port", 1234));
+        assertThat(serialized, JsonMatcher.hasEntry("smtp_user", "usr"));
+        assertThat(serialized, JsonMatcher.hasEntry("smtp_pass", "pwd"));
     }
 
     @Test

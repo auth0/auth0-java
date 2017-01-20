@@ -1,5 +1,6 @@
 package com.auth0.json.mgmt.client;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.hamcrest.collection.IsMapContaining;
 import org.junit.Test;
@@ -54,6 +55,31 @@ public class ClientTest extends JsonTest<Client> {
 
         String serialized = toJSON(client);
         assertThat(serialized, is(notNullValue()));
+
+        assertThat(serialized, JsonMatcher.hasEntry("name", "name"));
+        assertThat(serialized, JsonMatcher.hasEntry("client_secret", "secret"));
+        assertThat(serialized, JsonMatcher.hasEntry("app_type", "type"));
+        assertThat(serialized, JsonMatcher.hasEntry("logo_uri", "uri"));
+        assertThat(serialized, JsonMatcher.hasEntry("oidc_conformant", true));
+        assertThat(serialized, JsonMatcher.hasEntry("callbacks", Arrays.asList("value")));
+        assertThat(serialized, JsonMatcher.hasEntry("allowed_origins", Arrays.asList("value")));
+        assertThat(serialized, JsonMatcher.hasEntry("client_aliases", Arrays.asList("value")));
+        assertThat(serialized, JsonMatcher.hasEntry("allowed_clients", Arrays.asList("value")));
+        assertThat(serialized, JsonMatcher.hasEntry("allowed_logout_urls", Arrays.asList("value")));
+        assertThat(serialized, JsonMatcher.hasEntry("jwt_configuration", notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("encryption_key", notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("sso", true));
+        assertThat(serialized, JsonMatcher.hasEntry("sso_disabled", true));
+        assertThat(serialized, JsonMatcher.hasEntry("custom_login_page_on", true));
+        assertThat(serialized, JsonMatcher.hasEntry("custom_login_page", "custom"));
+        assertThat(serialized, JsonMatcher.hasEntry("custom_login_page_preview", "preview"));
+        assertThat(serialized, JsonMatcher.hasEntry("form_template", "template"));
+        assertThat(serialized, JsonMatcher.hasEntry("addons", notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("token_endpoint_auth_method", "method"));
+        assertThat(serialized, JsonMatcher.hasEntry("resource_servers", notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("client_metadata", notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("mobile", notNullValue()));
+
         assertThat(serialized, is(equalTo(json)));
     }
 

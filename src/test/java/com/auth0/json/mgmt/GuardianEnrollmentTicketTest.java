@@ -1,5 +1,6 @@
 package com.auth0.json.mgmt;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
@@ -19,7 +20,9 @@ public class GuardianEnrollmentTicketTest extends JsonTest<GuardianEnrollmentTic
 
         String serialized = toJSON(ticket);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, is(equalTo(json)));
+        assertThat(serialized, JsonMatcher.hasEntry("user_id", "1"));
+        assertThat(serialized, JsonMatcher.hasEntry("send_email", true));
+        assertThat(serialized, JsonMatcher.hasEntry("email", "me@auth0.com"));
     }
 
     @Test

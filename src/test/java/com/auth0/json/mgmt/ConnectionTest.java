@@ -1,5 +1,6 @@
 package com.auth0.json.mgmt;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
@@ -22,7 +23,10 @@ public class ConnectionTest extends JsonTest<Connection> {
 
         String serialized = toJSON(connection);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, is(equalTo(json)));
+        assertThat(serialized, JsonMatcher.hasEntry("name", "my-connection"));
+        assertThat(serialized, JsonMatcher.hasEntry("strategy", "auth0"));
+        assertThat(serialized, JsonMatcher.hasEntry("options", notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("enabled_clients", Arrays.asList("client1", "client2")));
     }
 
     @Test

@@ -17,7 +17,7 @@ public class AuthAPIException extends Auth0Exception {
     public AuthAPIException(Map<String, Object> values, int statusCode) {
         super(createMessage(obtainExceptionMessage(values), statusCode));
         this.error = (String) (values.containsKey("error") ? values.get("error") : values.get("code"));
-        this.description = (String) (values.containsKey("error_description") ? values.get("error_description") : values.get("description"));
+        this.description = obtainExceptionMessage(values);
         this.statusCode = statusCode;
     }
 
@@ -27,6 +27,9 @@ public class AuthAPIException extends Auth0Exception {
         }
         if (values.containsKey("description")) {
             return (String) values.get("description");
+        }
+        if (values.containsKey("message")) {
+            return (String) values.get("message");
         }
         if (values.containsKey("error")) {
             return (String) values.get("error");

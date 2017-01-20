@@ -1,5 +1,6 @@
 package com.auth0.json.mgmt.client;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.hamcrest.collection.IsMapContaining;
 import org.junit.Test;
@@ -8,7 +9,8 @@ import java.util.Collections;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class JwtConfigurationTest extends JsonTest<JwtConfiguration> {
 
@@ -21,7 +23,9 @@ public class JwtConfigurationTest extends JsonTest<JwtConfiguration> {
 
         String serialized = toJSON(config);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, is(equalTo(json)));
+        assertThat(serialized, JsonMatcher.hasEntry("lifetime_in_seconds", 123));
+        assertThat(serialized, JsonMatcher.hasEntry("scopes", Collections.singletonMap("key", "value")));
+        assertThat(serialized, JsonMatcher.hasEntry("alg", "alg"));
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.auth0.json.mgmt.client;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
@@ -16,7 +17,8 @@ public class IOSTest extends JsonTest<IOS> {
 
         String serialized = toJSON(ios);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, is(equalTo(json)));
+        assertThat(serialized, JsonMatcher.hasEntry("team_id", "team"));
+        assertThat(serialized, JsonMatcher.hasEntry("app_bundle_identifier", "identifier"));
     }
 
     @Test

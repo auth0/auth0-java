@@ -1,10 +1,12 @@
 package com.auth0.json.mgmt;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class RuleTest extends JsonTest<Rule> {
 
@@ -19,7 +21,10 @@ public class RuleTest extends JsonTest<Rule> {
 
         String serialized = toJSON(rule);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, is(equalTo(json)));
+        assertThat(serialized, JsonMatcher.hasEntry("name", "my-rule"));
+        assertThat(serialized, JsonMatcher.hasEntry("script", "function(user,context,callback){}"));
+        assertThat(serialized, JsonMatcher.hasEntry("enabled", true));
+        assertThat(serialized, JsonMatcher.hasEntry("order", 1));
     }
 
     @Test

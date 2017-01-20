@@ -41,9 +41,12 @@ public class CustomRequestTest {
     public void setUp() throws Exception {
         server = new MockServer();
         client = new OkHttpClient();
-        tokenHolderType = new TypeReference<TokenHolder>(){};
-        listType = new TypeReference<List>(){};
-        voidType = new TypeReference<Void>(){};
+        tokenHolderType = new TypeReference<TokenHolder>() {
+        };
+        listType = new TypeReference<List>() {
+        };
+        voidType = new TypeReference<Void>() {
+        };
     }
 
     @After
@@ -206,7 +209,7 @@ public class CustomRequestTest {
         assertThat(exception.getCause(), is(nullValue()));
         assertThat(exception.getMessage(), is("Authentication failed with status code 400: missing username for Username-Password-Authentication connection with requires_username enabled"));
         AuthAPIException authException = (AuthAPIException) exception;
-        assertThat(authException.getDescription(), is(nullValue()));
+        assertThat(authException.getDescription(), is("missing username for Username-Password-Authentication connection with requires_username enabled"));
         assertThat(authException.getError(), is("missing username for Username-Password-Authentication connection with requires_username enabled"));
         assertThat(authException.getStatusCode(), is(400));
     }

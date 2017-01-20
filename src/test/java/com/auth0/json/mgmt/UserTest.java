@@ -1,12 +1,14 @@
 package com.auth0.json.mgmt;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
 import java.util.Collections;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class UserTest extends JsonTest<User> {
 
@@ -43,7 +45,32 @@ public class UserTest extends JsonTest<User> {
 
         String serialized = toJSON(user);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, is(equalTo(json)));
+
+        assertThat(serialized, JsonMatcher.hasEntry("connection", "auth0"));
+        assertThat(serialized, JsonMatcher.hasEntry("password", "pwd"));
+        assertThat(serialized, JsonMatcher.hasEntry("verify_password", true));
+        assertThat(serialized, JsonMatcher.hasEntry("username", "usr"));
+        assertThat(serialized, JsonMatcher.hasEntry("email", "me@auth0.com"));
+        assertThat(serialized, JsonMatcher.hasEntry("verify_email", true));
+        assertThat(serialized, JsonMatcher.hasEntry("email_verified", true));
+        assertThat(serialized, JsonMatcher.hasEntry("client_id", "client123"));
+        assertThat(serialized, JsonMatcher.hasEntry("phone_number", "1234567890"));
+        assertThat(serialized, JsonMatcher.hasEntry("verify_phone_number", true));
+        assertThat(serialized, JsonMatcher.hasEntry("phone_verified", true));
+        assertThat(serialized, JsonMatcher.hasEntry("picture", "https://pic.ture/12"));
+        assertThat(serialized, JsonMatcher.hasEntry("name", "John"));
+        assertThat(serialized, JsonMatcher.hasEntry("nickname", "Johny"));
+        assertThat(serialized, JsonMatcher.hasEntry("given_name", "John"));
+        assertThat(serialized, JsonMatcher.hasEntry("family_name", "Walker"));
+        assertThat(serialized, JsonMatcher.hasEntry("created_at", "12:12:12"));
+        assertThat(serialized, JsonMatcher.hasEntry("updated_at", "12:12:12"));
+        assertThat(serialized, JsonMatcher.hasEntry("identities", notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("user_metadata", notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("app_metadata", notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("last_ip", "10.0.0.1"));
+        assertThat(serialized, JsonMatcher.hasEntry("last_login", "12:12:12"));
+        assertThat(serialized, JsonMatcher.hasEntry("logins_count", 10));
+        assertThat(serialized, JsonMatcher.hasEntry("blocked", true));
     }
 
     @Test

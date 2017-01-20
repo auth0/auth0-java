@@ -1,10 +1,12 @@
 package com.auth0.json.mgmt;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class PageCustomizationTest extends JsonTest<PageCustomization> {
 
@@ -20,7 +22,10 @@ public class PageCustomizationTest extends JsonTest<PageCustomization> {
 
         String serialized = toJSON(customization);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, is(equalTo(json)));
+        assertThat(serialized, JsonMatcher.hasEntry("enabled", true));
+        assertThat(serialized, JsonMatcher.hasEntry("html", "thewebpage"));
+        assertThat(serialized, JsonMatcher.hasEntry("show_log_link", true));
+        assertThat(serialized, JsonMatcher.hasEntry("url", "https://page.auth0.com/main"));
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.auth0.json.mgmt;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
@@ -16,7 +17,8 @@ public class TokenTest extends JsonTest<Token> {
 
         String serialized = toJSON(token);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, is(equalTo(json)));
+        assertThat(serialized, JsonMatcher.hasEntry("jti", "id"));
+        assertThat(serialized, JsonMatcher.hasEntry("aud", "myapi"));
     }
 
     @Test

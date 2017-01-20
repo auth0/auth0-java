@@ -1,8 +1,10 @@
 package com.auth0.json.mgmt;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -29,7 +31,18 @@ public class TenantTest extends JsonTest<Tenant> {
 
         String serialized = toJSON(tenant);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, is(equalTo(json)));
+
+        assertThat(serialized, JsonMatcher.hasEntry("change_password", notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("guardian_mfa_page", notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("default_audience", "https://domain.auth0.com/myapi"));
+        assertThat(serialized, JsonMatcher.hasEntry("default_directory", "Username-Password-Authentication"));
+        assertThat(serialized, JsonMatcher.hasEntry("error_page", notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("flags", notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("friendly_name", "My-Tenant"));
+        assertThat(serialized, JsonMatcher.hasEntry("picture_url", "https://pic.to/123"));
+        assertThat(serialized, JsonMatcher.hasEntry("support_email", "support@auth0.com"));
+        assertThat(serialized, JsonMatcher.hasEntry("support_url", "https://support.auth0.com"));
+        assertThat(serialized, JsonMatcher.hasEntry("allowed_logout_urls", Arrays.asList("https://domain.auth0.com/logout")));
     }
 
     @Test

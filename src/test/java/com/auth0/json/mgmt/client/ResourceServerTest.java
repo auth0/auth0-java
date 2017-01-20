@@ -1,5 +1,6 @@
 package com.auth0.json.mgmt.client;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
@@ -22,7 +23,8 @@ public class ResourceServerTest extends JsonTest<ResourceServer> {
 
         String serialized = toJSON(server);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, is(equalTo(json)));
+        assertThat(serialized, JsonMatcher.hasEntry("identifier", "id"));
+        assertThat(serialized, JsonMatcher.hasEntry("scopes", notNullValue()));
     }
 
     @Test

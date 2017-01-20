@@ -1,5 +1,6 @@
 package com.auth0.json.mgmt;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
@@ -18,7 +19,12 @@ public class DeviceCredentialsTest extends JsonTest<DeviceCredentials> {
 
         String serialized = toJSON(credentials);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, is(equalTo(json)));
+        assertThat(serialized, JsonMatcher.hasEntry("device_name", "devName"));
+        assertThat(serialized, JsonMatcher.hasEntry("type", "publicKey"));
+        assertThat(serialized, JsonMatcher.hasEntry("value", "val123"));
+        assertThat(serialized, JsonMatcher.hasEntry("device_id", "dev123"));
+        assertThat(serialized, JsonMatcher.hasEntry("client_id", "client123"));
+        assertThat(serialized, JsonMatcher.hasEntry("user_id", "theUserId"));
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.auth0.json.mgmt;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
@@ -19,7 +20,9 @@ public class EmailVerificationTicketTest extends JsonTest<EmailVerificationTicke
 
         String serialized = toJSON(ticket);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, is(equalTo(json)));
+        assertThat(serialized, JsonMatcher.hasEntry("user_id", "usr123"));
+        assertThat(serialized, JsonMatcher.hasEntry("result_url", "https://page.auth0.com/result"));
+        assertThat(serialized, JsonMatcher.hasEntry("ttl_sec", 36000));
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.auth0.json.mgmt;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
@@ -20,7 +21,10 @@ public class GuardianTwilioFactorProviderTest extends JsonTest<GuardianTwilioFac
 
         String serialized = toJSON(provider);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, is(equalTo(json)));
+        assertThat(serialized, JsonMatcher.hasEntry("from", "+12356789"));
+        assertThat(serialized, JsonMatcher.hasEntry("messaging_service_sid", "id321"));
+        assertThat(serialized, JsonMatcher.hasEntry("auth_token", "atokEn"));
+        assertThat(serialized, JsonMatcher.hasEntry("sid", "id123"));
     }
 
     @Test

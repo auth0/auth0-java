@@ -1,5 +1,6 @@
 package com.auth0.json.mgmt;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
@@ -21,7 +22,11 @@ public class GuardianSnsFactorProviderTest extends JsonTest<GuardianSnsFactorPro
 
         String serialized = toJSON(provider);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, is(equalTo(json)));
+        assertThat(serialized, JsonMatcher.hasEntry("aws_access_key_id", "akey"));
+        assertThat(serialized, JsonMatcher.hasEntry("aws_secret_access_key", "secretakey"));
+        assertThat(serialized, JsonMatcher.hasEntry("aws_region", "ar"));
+        assertThat(serialized, JsonMatcher.hasEntry("sns_apns_platform_application_arn", "arn1"));
+        assertThat(serialized, JsonMatcher.hasEntry("sns_gcm_platform_application_arn", "arn2"));
     }
 
     @Test

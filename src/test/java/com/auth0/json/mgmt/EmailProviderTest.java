@@ -1,12 +1,14 @@
 package com.auth0.json.mgmt;
 
+import com.auth0.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
 import java.util.Collections;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class EmailProviderTest extends JsonTest<EmailProvider> {
 
@@ -22,7 +24,11 @@ public class EmailProviderTest extends JsonTest<EmailProvider> {
 
         String serialized = toJSON(provider);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, is(equalTo(json)));
+        assertThat(serialized, JsonMatcher.hasEntry("name", "provider"));
+        assertThat(serialized, JsonMatcher.hasEntry("enabled", true));
+        assertThat(serialized, JsonMatcher.hasEntry("default_from_address", "https://google.com"));
+        assertThat(serialized, JsonMatcher.hasEntry("credentials", Collections.singletonMap("api_key", "key123")));
+        assertThat(serialized, JsonMatcher.hasEntry("settings", notNullValue()));
     }
 
     @Test
