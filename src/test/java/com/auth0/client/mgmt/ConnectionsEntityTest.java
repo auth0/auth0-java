@@ -18,7 +18,7 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldListConnections() throws Exception {
-        Request<List<Connection>> request = api.connections().listConnections(null);
+        Request<List<Connection>> request = api.connections().list(null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTIONS_LIST, 200);
@@ -36,7 +36,7 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListConnectionsWithStrategy() throws Exception {
         ConnectionFilter filter = new ConnectionFilter().withStrategy("auth0");
-        Request<List<Connection>> request = api.connections().listConnections(filter);
+        Request<List<Connection>> request = api.connections().list(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTIONS_LIST, 200);
@@ -55,7 +55,7 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListConnectionsWithName() throws Exception {
         ConnectionFilter filter = new ConnectionFilter().withName("my-connection");
-        Request<List<Connection>> request = api.connections().listConnections(filter);
+        Request<List<Connection>> request = api.connections().list(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTIONS_LIST, 200);
@@ -74,7 +74,7 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListConnectionsWithFields() throws Exception {
         ConnectionFilter filter = new ConnectionFilter().withFields("some,random,fields", true);
-        Request<List<Connection>> request = api.connections().listConnections(filter);
+        Request<List<Connection>> request = api.connections().list(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTIONS_LIST, 200);
@@ -93,7 +93,7 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldReturnEmptyConnections() throws Exception {
-        Request<List<Connection>> request = api.connections().listConnections(null);
+        Request<List<Connection>> request = api.connections().list(null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
@@ -107,12 +107,12 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnGetConnectionWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection id' cannot be null!");
-        api.connections().getConnection(null, null);
+        api.connections().get(null, null);
     }
 
     @Test
     public void shouldGetConnection() throws Exception {
-        Request<Connection> request = api.connections().getConnection("1", null);
+        Request<Connection> request = api.connections().get("1", null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTION, 200);
@@ -129,7 +129,7 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldGetConnectionWithFields() throws Exception {
         ConnectionFilter filter = new ConnectionFilter().withFields("some,random,fields", true);
-        Request<Connection> request = api.connections().getConnection("1", filter);
+        Request<Connection> request = api.connections().get("1", filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTION, 200);
@@ -149,12 +149,12 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnCreateConnectionWithNullData() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection' cannot be null!");
-        api.connections().createConnection(null);
+        api.connections().create(null);
     }
 
     @Test
     public void shouldCreateConnection() throws Exception {
-        Request<Connection> request = api.connections().createConnection(new Connection("my-connection", "auth0"));
+        Request<Connection> request = api.connections().create(new Connection("my-connection", "auth0"));
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTION, 200);
@@ -177,12 +177,12 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnDeleteConnectionWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection id' cannot be null!");
-        api.connections().deleteConnection(null);
+        api.connections().delete(null);
     }
 
     @Test
     public void shouldDeleteConnection() throws Exception {
-        Request request = api.connections().deleteConnection("1");
+        Request request = api.connections().delete("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTION, 200);
@@ -198,19 +198,19 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnUpdateConnectionWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection id' cannot be null!");
-        api.connections().updateConnection(null, new Connection("my-connection", "auth0"));
+        api.connections().update(null, new Connection("my-connection", "auth0"));
     }
 
     @Test
     public void shouldThrowOnUpdateConnectionWithNullData() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection' cannot be null!");
-        api.connections().updateConnection("1", null);
+        api.connections().update("1", null);
     }
 
     @Test
     public void shouldUpdateConnection() throws Exception {
-        Request<Connection> request = api.connections().updateConnection("1", new Connection("my-connection", "auth0"));
+        Request<Connection> request = api.connections().update("1", new Connection("my-connection", "auth0"));
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTION, 200);
@@ -233,19 +233,19 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnDeleteConnectionUserWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection id' cannot be null!");
-        api.connections().deleteConnectionUser(null, "user@domain.com");
+        api.connections().deleteUser(null, "user@domain.com");
     }
 
     @Test
     public void shouldThrowOnDeleteConnectionUserWithNullEmail() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email' cannot be null!");
-        api.connections().deleteConnectionUser("1", null);
+        api.connections().deleteUser("1", null);
     }
 
     @Test
     public void shouldDeleteConnectionUser() throws Exception {
-        Request request = api.connections().deleteConnectionUser("1", "user@domain.com");
+        Request request = api.connections().deleteUser("1", "user@domain.com");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTION, 200);

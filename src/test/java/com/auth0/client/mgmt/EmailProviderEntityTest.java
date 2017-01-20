@@ -14,10 +14,10 @@ import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
-public class EmailProvidersEntityTest extends BaseMgmtEntityTest {
+public class EmailProviderEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldGetEmailProvider() throws Exception {
-        Request<EmailProvider> request = api.emailProviders().getEmailProvider(null);
+        Request<EmailProvider> request = api.emailProvider().get(null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMAIL_PROVIDER, 200);
@@ -34,7 +34,7 @@ public class EmailProvidersEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldGetEmailProviderWithFields() throws Exception {
         FieldsFilter filter = new FieldsFilter().withFields("some,random,fields", true);
-        Request<EmailProvider> request = api.emailProviders().getEmailProvider(filter);
+        Request<EmailProvider> request = api.emailProvider().get(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMAIL_PROVIDER, 200);
@@ -54,12 +54,12 @@ public class EmailProvidersEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnSetupEmailProviderWithNullData() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email provider' cannot be null!");
-        api.emailProviders().setupEmailProvider(null);
+        api.emailProvider().setup(null);
     }
 
     @Test
     public void shouldSetupEmailProvider() throws Exception {
-        Request<EmailProvider> request = api.emailProviders().setupEmailProvider(new EmailProvider("provider"));
+        Request<EmailProvider> request = api.emailProvider().setup(new EmailProvider("provider"));
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMAIL_PROVIDER, 200);
@@ -79,7 +79,7 @@ public class EmailProvidersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldDeleteEmailProvider() throws Exception {
-        Request request = api.emailProviders().deleteEmailProvider();
+        Request request = api.emailProvider().delete();
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMAIL_PROVIDER, 200);
@@ -95,12 +95,12 @@ public class EmailProvidersEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnUpdateEmailProviderWithNullData() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email provider' cannot be null!");
-        api.emailProviders().updateEmailProvider(null);
+        api.emailProvider().update(null);
     }
 
     @Test
     public void shouldUpdateEmailProvider() throws Exception {
-        Request<EmailProvider> request = api.emailProviders().updateEmailProvider(new EmailProvider("name"));
+        Request<EmailProvider> request = api.emailProvider().update(new EmailProvider("name"));
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMAIL_PROVIDER, 200);

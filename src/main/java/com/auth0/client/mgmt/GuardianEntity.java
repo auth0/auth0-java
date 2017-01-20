@@ -18,12 +18,38 @@ public class GuardianEntity extends BaseManagementEntity {
     }
 
     /**
-     * Delete an existing Guardian Enrollment. A token with scope read:guardian_enrollments is needed.
+     * Create a new Guardian Enrollment Ticket. A token with scope create:guardian_enrollment_tickets is needed.
+     *
+     * @param enrollmentTicket the enrollment ticket data to set.
+     * @return a Request to execute.
+     */
+    public Request<EnrollmentTicket> createEnrollmentTicket(EnrollmentTicket enrollmentTicket) {
+        Asserts.assertNotNull(enrollmentTicket, "enrollment ticket");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("guardian")
+                .addPathSegment("enrollments")
+                .addPathSegment("ticket")
+                .build()
+                .toString();
+
+        CustomRequest<EnrollmentTicket> request = new CustomRequest<>(client, url, "POST", new TypeReference<EnrollmentTicket>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.setBody(enrollmentTicket);
+        return request;
+    }
+
+    /**
+     * Delete an existing Guardian Enrollment. A token with scope delete:guardian_enrollments is needed.
      *
      * @param enrollmentId the id of the enrollment to retrieve.
      * @return a Request to execute.
      */
-    public Request deleteGuardianEnrollment(String enrollmentId) {
+    public Request deleteEnrollment(String enrollmentId) {
         Asserts.assertNotNull(enrollmentId, "enrollment id");
 
         String url = HttpUrl.parse(baseUrl)
@@ -41,37 +67,11 @@ public class GuardianEntity extends BaseManagementEntity {
     }
 
     /**
-     * Create a new Guardian Enrollment Ticket. A token with scope create:guardian_enrollment_tickets is needed.
-     *
-     * @param enrollmentTicket the enrollment ticket data to set.
-     * @return a Request to execute.
-     */
-    public Request<GuardianEnrollmentTicket> createGuardianEnrollmentTicket(GuardianEnrollmentTicket enrollmentTicket) {
-        Asserts.assertNotNull(enrollmentTicket, "enrollment ticket");
-
-        String url = HttpUrl.parse(baseUrl)
-                .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("guardian")
-                .addPathSegment("enrollments")
-                .addPathSegment("ticket")
-                .build()
-                .toString();
-
-        CustomRequest<GuardianEnrollmentTicket> request = new CustomRequest<>(client, url, "POST", new TypeReference<GuardianEnrollmentTicket>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.setBody(enrollmentTicket);
-        return request;
-    }
-
-    /**
      * Request the Guardian enrollment and verification Templates. A token with scope read:guardian_factors is needed.
      *
      * @return a Request to execute.
      */
-    public Request<GuardianTemplates> getGuardianTemplates() {
+    public Request<GuardianTemplates> getTemplates() {
         String url = HttpUrl.parse(baseUrl)
                 .newBuilder()
                 .addPathSegment("api")
@@ -94,7 +94,7 @@ public class GuardianEntity extends BaseManagementEntity {
      * @param guardianTemplates the templates data to set.
      * @return a Request to execute.
      */
-    public Request<GuardianTemplates> updateGuardianTemplates(GuardianTemplates guardianTemplates) {
+    public Request<GuardianTemplates> updateTemplates(GuardianTemplates guardianTemplates) {
         Asserts.assertNotNull(guardianTemplates, "guardian templates");
 
         String url = HttpUrl.parse(baseUrl)
@@ -119,7 +119,7 @@ public class GuardianEntity extends BaseManagementEntity {
      *
      * @return a Request to execute.
      */
-    public Request<List<GuardianFactor>> listGuardianFactors() {
+    public Request<List<Factor>> listFactors() {
         String url = HttpUrl.parse(baseUrl)
                 .newBuilder()
                 .addPathSegment("api")
@@ -128,7 +128,7 @@ public class GuardianEntity extends BaseManagementEntity {
                 .addPathSegment("factors")
                 .build()
                 .toString();
-        CustomRequest<List<GuardianFactor>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<GuardianFactor>>() {
+        CustomRequest<List<Factor>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Factor>>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -139,7 +139,7 @@ public class GuardianEntity extends BaseManagementEntity {
      *
      * @return a Request to execute.
      */
-    public Request<GuardianFactor> updateGuardianFactor(String name, Boolean enabled) {
+    public Request<Factor> updateFactor(String name, Boolean enabled) {
         Asserts.assertNotNull(name, "name");
         Asserts.assertNotNull(enabled, "enabled");
 
@@ -152,7 +152,7 @@ public class GuardianEntity extends BaseManagementEntity {
                 .addPathSegment(name)
                 .build()
                 .toString();
-        CustomRequest<GuardianFactor> request = new CustomRequest<>(client, url, "PUT", new TypeReference<GuardianFactor>() {
+        CustomRequest<Factor> request = new CustomRequest<>(client, url, "PUT", new TypeReference<Factor>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.addParameter("enabled", enabled);
@@ -164,7 +164,7 @@ public class GuardianEntity extends BaseManagementEntity {
      *
      * @return a Request to execute.
      */
-    public Request<GuardianTwilioFactorProvider> getGuardianTwilioFactorProvider() {
+    public Request<TwilioFactorProvider> getTwilioFactorProvider() {
 
         String url = HttpUrl.parse(baseUrl)
                 .newBuilder()
@@ -177,7 +177,7 @@ public class GuardianEntity extends BaseManagementEntity {
                 .addPathSegment("twilio")
                 .build()
                 .toString();
-        CustomRequest<GuardianTwilioFactorProvider> request = new CustomRequest<>(client, url, "GET", new TypeReference<GuardianTwilioFactorProvider>() {
+        CustomRequest<TwilioFactorProvider> request = new CustomRequest<>(client, url, "GET", new TypeReference<TwilioFactorProvider>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -189,7 +189,7 @@ public class GuardianEntity extends BaseManagementEntity {
      * @param provider the provider data to set.
      * @return a Request to execute.
      */
-    public Request<GuardianTwilioFactorProvider> updateGuardianTwilioFactorProvider(GuardianTwilioFactorProvider provider) {
+    public Request<TwilioFactorProvider> updateTwilioFactorProvider(TwilioFactorProvider provider) {
         Asserts.assertNotNull(provider, "provider");
 
         String url = HttpUrl.parse(baseUrl)
@@ -203,7 +203,7 @@ public class GuardianEntity extends BaseManagementEntity {
                 .addPathSegment("twilio")
                 .build()
                 .toString();
-        CustomRequest<GuardianTwilioFactorProvider> request = new CustomRequest<>(client, url, "PUT", new TypeReference<GuardianTwilioFactorProvider>() {
+        CustomRequest<TwilioFactorProvider> request = new CustomRequest<>(client, url, "PUT", new TypeReference<TwilioFactorProvider>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(provider);
@@ -215,7 +215,7 @@ public class GuardianEntity extends BaseManagementEntity {
      *
      * @return a Request to execute.
      */
-    public Request<GuardianSnsFactorProvider> getGuardianSnsFactorProvider() {
+    public Request<SnsFactorProvider> getSnsFactorProvider() {
 
         String url = HttpUrl.parse(baseUrl)
                 .newBuilder()
@@ -228,7 +228,7 @@ public class GuardianEntity extends BaseManagementEntity {
                 .addPathSegment("sns")
                 .build()
                 .toString();
-        CustomRequest<GuardianSnsFactorProvider> request = new CustomRequest<>(client, url, "GET", new TypeReference<GuardianSnsFactorProvider>() {
+        CustomRequest<SnsFactorProvider> request = new CustomRequest<>(client, url, "GET", new TypeReference<SnsFactorProvider>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -240,7 +240,7 @@ public class GuardianEntity extends BaseManagementEntity {
      * @param provider the provider data to set.
      * @return a Request to execute.
      */
-    public Request<GuardianSnsFactorProvider> updateGuardianSnsFactorProvider(GuardianSnsFactorProvider provider) {
+    public Request<SnsFactorProvider> updateSnsFactorProvider(SnsFactorProvider provider) {
         Asserts.assertNotNull(provider, "provider");
 
         String url = HttpUrl.parse(baseUrl)
@@ -254,7 +254,7 @@ public class GuardianEntity extends BaseManagementEntity {
                 .addPathSegment("sns")
                 .build()
                 .toString();
-        CustomRequest<GuardianSnsFactorProvider> request = new CustomRequest<>(client, url, "PUT", new TypeReference<GuardianSnsFactorProvider>() {
+        CustomRequest<SnsFactorProvider> request = new CustomRequest<>(client, url, "PUT", new TypeReference<SnsFactorProvider>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(provider);

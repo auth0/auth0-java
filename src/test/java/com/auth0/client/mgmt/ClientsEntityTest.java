@@ -18,7 +18,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldListClients() throws Exception {
-        Request<List<Client>> request = api.clients().listClients();
+        Request<List<Client>> request = api.clients().list();
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENTS_LIST, 200);
@@ -35,7 +35,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldReturnEmptyClients() throws Exception {
-        Request<List<Client>> request = api.clients().listClients();
+        Request<List<Client>> request = api.clients().list();
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
@@ -49,12 +49,12 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnGetClientWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client id' cannot be null!");
-        api.clients().getClient(null);
+        api.clients().get(null);
     }
 
     @Test
     public void shouldGetClient() throws Exception {
-        Request<Client> request = api.clients().getClient("1");
+        Request<Client> request = api.clients().get("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT, 200);
@@ -72,12 +72,12 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnCreateClientWithNullData() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client' cannot be null!");
-        api.clients().createClient(null);
+        api.clients().create(null);
     }
 
     @Test
     public void shouldCreateClient() throws Exception {
-        Request<Client> request = api.clients().createClient(new Client("My Application"));
+        Request<Client> request = api.clients().create(new Client("My Application"));
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT, 200);
@@ -99,12 +99,12 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnDeleteClientWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client id' cannot be null!");
-        api.clients().deleteClient(null);
+        api.clients().delete(null);
     }
 
     @Test
     public void shouldDeleteClient() throws Exception {
-        Request request = api.clients().deleteClient("1");
+        Request request = api.clients().delete("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT, 200);
@@ -120,19 +120,19 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnUpdateClientWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client id' cannot be null!");
-        api.clients().updateClient(null, new Client("name"));
+        api.clients().update(null, new Client("name"));
     }
 
     @Test
     public void shouldThrowOnUpdateClientWithNullData() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client' cannot be null!");
-        api.clients().updateClient("clientId", null);
+        api.clients().update("clientId", null);
     }
 
     @Test
     public void shouldUpdateClient() throws Exception {
-        Request<Client> request = api.clients().updateClient("1", new Client("My Application"));
+        Request<Client> request = api.clients().update("1", new Client("My Application"));
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT, 200);
@@ -154,12 +154,12 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnRotateClientSecretWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client id' cannot be null!");
-        api.clients().rotateClientSecret(null);
+        api.clients().rotateSecret(null);
     }
 
     @Test
     public void shouldRotateClientSecret() throws Exception {
-        Request<Client> request = api.clients().rotateClientSecret("1");
+        Request<Client> request = api.clients().rotateSecret("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT, 200);

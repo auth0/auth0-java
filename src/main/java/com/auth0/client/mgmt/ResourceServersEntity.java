@@ -22,7 +22,7 @@ public class ResourceServersEntity extends BaseManagementEntity {
      *
      * @return a Request to execute.
      */
-    public Request<List<ResourceServer>> listResourceServers() {
+    public Request<List<ResourceServer>> list() {
         String url = HttpUrl.parse(baseUrl)
                 .newBuilder()
                 .addPathSegment("api")
@@ -42,7 +42,7 @@ public class ResourceServersEntity extends BaseManagementEntity {
      * @param resourceServerId the id of the resource server to retrieve.
      * @return a Request to execute.
      */
-    public Request<ResourceServer> getResourceServer(String resourceServerId) {
+    public Request<ResourceServer> get(String resourceServerId) {
         Asserts.assertNotNull(resourceServerId, "resource server id");
 
         String url = HttpUrl.parse(baseUrl)
@@ -65,7 +65,7 @@ public class ResourceServersEntity extends BaseManagementEntity {
      * @param resourceServer the resource server data to set
      * @return a Request to execute.
      */
-    public Request<ResourceServer> createResourceServer(ResourceServer resourceServer) {
+    public Request<ResourceServer> create(ResourceServer resourceServer) {
         Asserts.assertNotNull(resourceServer, "resource server");
 
         String url = HttpUrl.parse(baseUrl)
@@ -88,7 +88,7 @@ public class ResourceServersEntity extends BaseManagementEntity {
      * @param resourceServerId the resource server id
      * @return a Request to execute.
      */
-    public Request deleteResourceServer(String resourceServerId) {
+    public Request delete(String resourceServerId) {
         Asserts.assertNotNull(resourceServerId, "resource server id");
 
         String url = HttpUrl.parse(baseUrl)
@@ -111,7 +111,7 @@ public class ResourceServersEntity extends BaseManagementEntity {
      * @param resourceServer   the resource server data to set. It can't include identifier.
      * @return a Request to execute.
      */
-    public Request<ResourceServer> updateResourceServer(String resourceServerId, ResourceServer resourceServer) {
+    public Request<ResourceServer> update(String resourceServerId, ResourceServer resourceServer) {
         Asserts.assertNotNull(resourceServerId, "resource server id");
         Asserts.assertNotNull(resourceServer, "resource server");
 

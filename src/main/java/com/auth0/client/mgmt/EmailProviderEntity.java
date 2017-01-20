@@ -12,8 +12,8 @@ import okhttp3.OkHttpClient;
 
 import java.util.Map;
 
-public class EmailProvidersEntity extends BaseManagementEntity {
-    EmailProvidersEntity(OkHttpClient client, String baseUrl, String apiToken) {
+public class EmailProviderEntity extends BaseManagementEntity {
+    EmailProviderEntity(OkHttpClient client, String baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
@@ -23,7 +23,7 @@ public class EmailProvidersEntity extends BaseManagementEntity {
      * @param filter the filter to use. Can be null.
      * @return a Request to execute.
      */
-    public Request<EmailProvider> getEmailProvider(FieldsFilter filter) {
+    public Request<EmailProvider> get(FieldsFilter filter) {
         HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
                 .newBuilder()
                 .addPathSegment("api")
@@ -48,7 +48,7 @@ public class EmailProvidersEntity extends BaseManagementEntity {
      * @param emailProvider the email provider data to set
      * @return a Request to execute.
      */
-    public Request<EmailProvider> setupEmailProvider(EmailProvider emailProvider) {
+    public Request<EmailProvider> setup(EmailProvider emailProvider) {
         Asserts.assertNotNull(emailProvider, "email provider");
 
         String url = HttpUrl.parse(baseUrl)
@@ -71,7 +71,7 @@ public class EmailProvidersEntity extends BaseManagementEntity {
      *
      * @return a Request to execute.
      */
-    public Request deleteEmailProvider() {
+    public Request delete() {
         String url = HttpUrl.parse(baseUrl)
                 .newBuilder()
                 .addPathSegment("api")
@@ -91,7 +91,7 @@ public class EmailProvidersEntity extends BaseManagementEntity {
      * @param emailProvider the email provider data to set.
      * @return a Request to execute.
      */
-    public Request<EmailProvider> updateEmailProvider(EmailProvider emailProvider) {
+    public Request<EmailProvider> update(EmailProvider emailProvider) {
         Asserts.assertNotNull(emailProvider, "email provider");
 
         String url = HttpUrl.parse(baseUrl)

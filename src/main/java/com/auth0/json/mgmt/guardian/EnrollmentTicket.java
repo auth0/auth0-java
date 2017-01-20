@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @SuppressWarnings("unused")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class GuardianEnrollmentTicket {
+public class EnrollmentTicket {
 
     @JsonProperty("user_id")
     private String userId;
@@ -21,12 +21,12 @@ public class GuardianEnrollmentTicket {
     @JsonProperty("ticket_url")
     private String ticketUrl;
 
-    public GuardianEnrollmentTicket(String userId) {
+    public EnrollmentTicket(String userId) {
         this.userId = userId;
     }
 
     @JsonCreator
-    GuardianEnrollmentTicket(@JsonProperty("ticket_id") String ticketId, @JsonProperty("ticket_url") String ticketUrl) {
+    EnrollmentTicket(@JsonProperty("ticket_id") String ticketId, @JsonProperty("ticket_url") String ticketUrl) {
         this.ticketId = ticketId;
         this.ticketUrl = ticketUrl;
     }

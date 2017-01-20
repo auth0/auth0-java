@@ -25,7 +25,7 @@ public class DeviceCredentialsEntity extends BaseManagementEntity {
      * @param filter the filter to use. Can be null.
      * @return a Request to execute.
      */
-    public Request<List<DeviceCredentials>> listDeviceCredentials(DeviceCredentialsFilter filter) {
+    public Request<List<DeviceCredentials>> list(DeviceCredentialsFilter filter) {
         HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
                 .newBuilder()
                 .addPathSegment("api")
@@ -49,7 +49,7 @@ public class DeviceCredentialsEntity extends BaseManagementEntity {
      * @param deviceCredentials the device credentials data to set.
      * @return a Request to execute.
      */
-    public Request<DeviceCredentials> createDeviceCredentials(DeviceCredentials deviceCredentials) {
+    public Request<DeviceCredentials> create(DeviceCredentials deviceCredentials) {
         Asserts.assertNotNull(deviceCredentials, "device credentials");
 
         String url = HttpUrl.parse(baseUrl)
@@ -72,7 +72,7 @@ public class DeviceCredentialsEntity extends BaseManagementEntity {
      * @param deviceCredentialsId the device credentials id
      * @return a Request to execute.
      */
-    public Request deleteDeviceCredentials(String deviceCredentialsId) {
+    public Request delete(String deviceCredentialsId) {
         Asserts.assertNotNull(deviceCredentialsId, "device credentials id");
 
         String url = HttpUrl.parse(baseUrl)

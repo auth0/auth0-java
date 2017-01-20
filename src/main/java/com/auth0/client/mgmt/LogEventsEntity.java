@@ -24,7 +24,7 @@ public class LogEventsEntity extends BaseManagementEntity {
      * @param filter the filter to use. Can be null.
      * @return a Request to execute.
      */
-    public Request<LogEventsPage> listLogEvents(LogEventFilter filter) {
+    public Request<LogEventsPage> list(LogEventFilter filter) {
         HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
                 .newBuilder()
                 .addPathSegment("api")
@@ -48,7 +48,7 @@ public class LogEventsEntity extends BaseManagementEntity {
      * @param logEventId the id of the connection to retrieve.
      * @return a Request to execute.
      */
-    public Request<LogEvent> getLogEvent(String logEventId) {
+    public Request<LogEvent> get(String logEventId) {
         Asserts.assertNotNull(logEventId, "log event id");
 
         String url = HttpUrl.parse(baseUrl)

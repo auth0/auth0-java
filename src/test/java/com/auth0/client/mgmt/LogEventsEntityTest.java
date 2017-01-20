@@ -16,7 +16,7 @@ public class LogEventsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldListEventLogs() throws Exception {
-        Request<LogEventsPage> request = api.logEvents().listLogEvents(null);
+        Request<LogEventsPage> request = api.logEvents().list(null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
@@ -34,7 +34,7 @@ public class LogEventsEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListLogEventsWithPage() throws Exception {
         LogEventFilter filter = new LogEventFilter().withPage(23, 5);
-        Request<LogEventsPage> request = api.logEvents().listLogEvents(filter);
+        Request<LogEventsPage> request = api.logEvents().list(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
@@ -54,7 +54,7 @@ public class LogEventsEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListLogEventsWithTotals() throws Exception {
         LogEventFilter filter = new LogEventFilter().withTotals(true);
-        Request<LogEventsPage> request = api.logEvents().listLogEvents(filter);
+        Request<LogEventsPage> request = api.logEvents().list(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_EVENTS_PAGED_LIST, 200);
@@ -77,7 +77,7 @@ public class LogEventsEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListLogEventsWithSort() throws Exception {
         LogEventFilter filter = new LogEventFilter().withSort("date:1");
-        Request<LogEventsPage> request = api.logEvents().listLogEvents(filter);
+        Request<LogEventsPage> request = api.logEvents().list(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
@@ -96,7 +96,7 @@ public class LogEventsEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListLogEventsWithQuery() throws Exception {
         LogEventFilter filter = new LogEventFilter().withQuery("sample");
-        Request<LogEventsPage> request = api.logEvents().listLogEvents(filter);
+        Request<LogEventsPage> request = api.logEvents().list(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
@@ -116,7 +116,7 @@ public class LogEventsEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListLogEventsWithCheckpoint() throws Exception {
         LogEventFilter filter = new LogEventFilter().withCheckpoint("id3", 5);
-        Request<LogEventsPage> request = api.logEvents().listLogEvents(filter);
+        Request<LogEventsPage> request = api.logEvents().list(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
@@ -136,7 +136,7 @@ public class LogEventsEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListLogEventsWithFields() throws Exception {
         LogEventFilter filter = new LogEventFilter().withFields("some,random,fields", true);
-        Request<LogEventsPage> request = api.logEvents().listLogEvents(filter);
+        Request<LogEventsPage> request = api.logEvents().list(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
@@ -155,7 +155,7 @@ public class LogEventsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldReturnEmptyLogEvents() throws Exception {
-        Request<LogEventsPage> request = api.logEvents().listLogEvents(null);
+        Request<LogEventsPage> request = api.logEvents().list(null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
@@ -169,12 +169,12 @@ public class LogEventsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnGetLogEventWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'log event id' cannot be null!");
-        api.logEvents().getLogEvent(null);
+        api.logEvents().get(null);
     }
 
     @Test
     public void shouldGetLogEvent() throws Exception {
-        Request<LogEvent> request = api.logEvents().getLogEvent("1");
+        Request<LogEvent> request = api.logEvents().get("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_EVENT, 200);

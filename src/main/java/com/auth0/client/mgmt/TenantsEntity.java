@@ -23,7 +23,7 @@ public class TenantsEntity extends BaseManagementEntity {
      * @param filter the filter to use. Can be null.
      * @return a Request to execute.
      */
-    public Request<Tenant> getTenantSettings(FieldsFilter filter) {
+    public Request<Tenant> get(FieldsFilter filter) {
         HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
                 .newBuilder()
                 .addPathSegment("api")
@@ -48,7 +48,7 @@ public class TenantsEntity extends BaseManagementEntity {
      * @param tenant the tenant data to set.
      * @return a Request to execute.
      */
-    public Request<Tenant> updateTenantSettings(Tenant tenant) {
+    public Request<Tenant> update(Tenant tenant) {
         Asserts.assertNotNull(tenant, "tenant");
 
         String url = HttpUrl.parse(baseUrl)

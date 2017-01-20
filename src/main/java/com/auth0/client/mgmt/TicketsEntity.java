@@ -21,7 +21,7 @@ public class TicketsEntity extends BaseManagementEntity {
      * @param emailVerificationTicket the email verification ticket data to set.
      * @return a Request to execute.
      */
-    public Request<EmailVerificationTicket> createEmailVerificationTicket(EmailVerificationTicket emailVerificationTicket) {
+    public Request<EmailVerificationTicket> requestEmailVerification(EmailVerificationTicket emailVerificationTicket) {
         Asserts.assertNotNull(emailVerificationTicket, "email verification ticket");
 
         String url = HttpUrl.parse(baseUrl)
@@ -46,7 +46,7 @@ public class TicketsEntity extends BaseManagementEntity {
      * @param passwordChangeTicket the password change ticket data to set.
      * @return a Request to execute.
      */
-    public Request<PasswordChangeTicket> createPasswordChangeTicket(PasswordChangeTicket passwordChangeTicket) {
+    public Request<PasswordChangeTicket> requestPasswordChange(PasswordChangeTicket passwordChangeTicket) {
         Asserts.assertNotNull(passwordChangeTicket, "password change ticket");
 
         String url = HttpUrl.parse(baseUrl)
@@ -64,6 +64,5 @@ public class TicketsEntity extends BaseManagementEntity {
         request.setBody(passwordChangeTicket);
         return request;
     }
-
 
 }

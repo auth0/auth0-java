@@ -17,12 +17,12 @@ public class UserBlocksEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnGetUserBlocksByIdentifierWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'identifier' cannot be null!");
-        api.userBlocks().getUserBlocksByIdentifier(null);
+        api.userBlocks().getByIdentifier(null);
     }
 
     @Test
     public void shouldGetUserBlocksByIdentifier() throws Exception {
-        Request<UserBlocks> request = api.userBlocks().getUserBlocksByIdentifier("username");
+        Request<UserBlocks> request = api.userBlocks().getByIdentifier("username");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER_BLOCKS, 200);
@@ -41,12 +41,12 @@ public class UserBlocksEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnGetUserBlocksWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'user id' cannot be null!");
-        api.userBlocks().getUserBlocks(null);
+        api.userBlocks().get(null);
     }
 
     @Test
     public void shouldGetUserBlocks() throws Exception {
-        Request<UserBlocks> request = api.userBlocks().getUserBlocks("1");
+        Request<UserBlocks> request = api.userBlocks().get("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER_BLOCKS, 200);
@@ -64,12 +64,12 @@ public class UserBlocksEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnDeleteUserBlocksByIdentifierWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'identifier' cannot be null!");
-        api.userBlocks().deleteUserBlocksByIdentifier(null);
+        api.userBlocks().deleteByIdentifier(null);
     }
 
     @Test
     public void shouldDeleteUserBlocksByIdentifier() throws Exception {
-        Request request = api.userBlocks().deleteUserBlocksByIdentifier("username");
+        Request request = api.userBlocks().deleteByIdentifier("username");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER_BLOCKS, 200);
@@ -86,12 +86,12 @@ public class UserBlocksEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnDeleteUserBlocksWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'user id' cannot be null!");
-        api.userBlocks().deleteUserBlocks(null);
+        api.userBlocks().delete(null);
     }
 
     @Test
     public void shouldDeleteUserBlocks() throws Exception {
-        Request request = api.userBlocks().deleteUserBlocks("1");
+        Request request = api.userBlocks().delete("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER_BLOCKS, 200);

@@ -17,7 +17,7 @@ import static org.junit.Assert.assertThat;
 public class ResourceServersEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListResourceServers() throws Exception {
-        Request<List<ResourceServer>> request = api.resourceServers().listResourceServers();
+        Request<List<ResourceServer>> request = api.resourceServers().list();
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RESOURCE_SERVERS_LIST, 200);
@@ -34,7 +34,7 @@ public class ResourceServersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldReturnEmptyResourceServers() throws Exception {
-        Request<List<ResourceServer>> request = api.resourceServers().listResourceServers();
+        Request<List<ResourceServer>> request = api.resourceServers().list();
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
@@ -48,12 +48,12 @@ public class ResourceServersEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnGetResourceServerWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'resource server id' cannot be null!");
-        api.resourceServers().getResourceServer(null);
+        api.resourceServers().get(null);
     }
 
     @Test
     public void shouldGetResourceServer() throws Exception {
-        Request<ResourceServer> request = api.resourceServers().getResourceServer("1");
+        Request<ResourceServer> request = api.resourceServers().get("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RESOURCE_SERVER, 200);
@@ -71,12 +71,12 @@ public class ResourceServersEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnCreateResourceServerWithNullData() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'resource server' cannot be null!");
-        api.resourceServers().createResourceServer(null);
+        api.resourceServers().create(null);
     }
 
     @Test
     public void shouldCreateResourceServer() throws Exception {
-        Request<ResourceServer> request = api.resourceServers().createResourceServer(new ResourceServer("id"));
+        Request<ResourceServer> request = api.resourceServers().create(new ResourceServer("id"));
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RESOURCE_SERVER, 200);
@@ -98,12 +98,12 @@ public class ResourceServersEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnDeleteResourceServerWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'resource server id' cannot be null!");
-        api.resourceServers().deleteResourceServer(null);
+        api.resourceServers().delete(null);
     }
 
     @Test
     public void shouldDeleteResourceServer() throws Exception {
-        Request request = api.resourceServers().deleteResourceServer("1");
+        Request request = api.resourceServers().delete("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RESOURCE_SERVER, 200);
@@ -119,19 +119,19 @@ public class ResourceServersEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnUpdateResourceServerWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'resource server id' cannot be null!");
-        api.resourceServers().updateResourceServer(null, new ResourceServer("id"));
+        api.resourceServers().update(null, new ResourceServer("id"));
     }
 
     @Test
     public void shouldThrowOnUpdateResourceServerWithNullData() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'resource server' cannot be null!");
-        api.resourceServers().updateResourceServer("1", null);
+        api.resourceServers().update("1", null);
     }
 
     @Test
     public void shouldUpdateResourceServer() throws Exception {
-        Request<ResourceServer> request = api.resourceServers().updateResourceServer("1", new ResourceServer("1"));
+        Request<ResourceServer> request = api.resourceServers().update("1", new ResourceServer("1"));
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RESOURCE_SERVER, 200);

@@ -21,7 +21,7 @@ public class UserBlocksEntity extends BaseManagementEntity {
      * @param identifier the identifier. Either a username, phone_number, or email.
      * @return a Request to execute.
      */
-    public Request<UserBlocks> getUserBlocksByIdentifier(String identifier) {
+    public Request<UserBlocks> getByIdentifier(String identifier) {
         Asserts.assertNotNull(identifier, "identifier");
 
         String url = HttpUrl.parse(baseUrl)
@@ -39,12 +39,34 @@ public class UserBlocksEntity extends BaseManagementEntity {
     }
 
     /**
+     * Delete any existing User Blocks for a given identifier. A token with scope update:users is needed.
+     *
+     * @param identifier the identifier. Either a username, phone_number, or email.
+     * @return a Request to execute.
+     */
+    public Request deleteByIdentifier(String identifier) {
+        Asserts.assertNotNull(identifier, "identifier");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment("api")
+                .addPathSegment("v2")
+                .addPathSegment("user-blocks")
+                .addQueryParameter("identifier", identifier)
+                .build()
+                .toString();
+        VoidRequest request = new VoidRequest(client, url, "DELETE");
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
      * Request all the User Blocks. A token with scope read:users is needed.
      *
      * @param userId the user id.
      * @return a Request to execute.
      */
-    public Request<UserBlocks> getUserBlocks(String userId) {
+    public Request<UserBlocks> get(String userId) {
         Asserts.assertNotNull(userId, "user id");
 
         String url = HttpUrl.parse(baseUrl)
@@ -62,34 +84,12 @@ public class UserBlocksEntity extends BaseManagementEntity {
     }
 
     /**
-     * Delete any existing User Blocks for a given identifier. A token with scope update:users is needed.
-     *
-     * @param identifier the identifier. Either a username, phone_number, or email.
-     * @return a Request to execute.
-     */
-    public Request deleteUserBlocksByIdentifier(String identifier) {
-        Asserts.assertNotNull(identifier, "identifier");
-
-        String url = HttpUrl.parse(baseUrl)
-                .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("user-blocks")
-                .addQueryParameter("identifier", identifier)
-                .build()
-                .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
-    }
-
-    /**
      * Delete any existing User Blocks. A token with scope update:users is needed.
      *
      * @param userId the user id.
      * @return a Request to execute.
      */
-    public Request deleteUserBlocks(String userId) {
+    public Request delete(String userId) {
         Asserts.assertNotNull(userId, "user id");
 
         String url = HttpUrl.parse(baseUrl)

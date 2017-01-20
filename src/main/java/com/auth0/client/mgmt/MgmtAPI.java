@@ -81,8 +81,8 @@ public class MgmtAPI {
         return new BlacklistsEntity(client, baseUrl, apiToken);
     }
 
-    public EmailProvidersEntity emailProviders() {
-        return new EmailProvidersEntity(client, baseUrl, apiToken);
+    public EmailProviderEntity emailProvider() {
+        return new EmailProviderEntity(client, baseUrl, apiToken);
     }
 
     public GuardianEntity guardian() {

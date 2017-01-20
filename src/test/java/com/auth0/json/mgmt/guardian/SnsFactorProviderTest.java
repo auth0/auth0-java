@@ -8,13 +8,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
-public class GuardianSnsFactorProviderTest extends JsonTest<GuardianSnsFactorProvider> {
+public class SnsFactorProviderTest extends JsonTest<SnsFactorProvider> {
 
     private static final String json = "{\"aws_access_key_id\":\"akey\",\"aws_secret_access_key\":\"secretakey\",\"aws_region\":\"ar\",\"sns_apns_platform_application_arn\":\"arn1\",\"sns_gcm_platform_application_arn\":\"arn2\"}";
 
     @Test
     public void shouldSerialize() throws Exception {
-        GuardianSnsFactorProvider provider = new GuardianSnsFactorProvider();
+        SnsFactorProvider provider = new SnsFactorProvider();
         provider.setAwsRegion("ar");
         provider.setAwsAccessKeyId("akey");
         provider.setAwsSecretAccessKey("secretakey");
@@ -32,7 +32,7 @@ public class GuardianSnsFactorProviderTest extends JsonTest<GuardianSnsFactorPro
 
     @Test
     public void shouldDeserialize() throws Exception {
-        GuardianSnsFactorProvider provider = fromJSON(json, GuardianSnsFactorProvider.class);
+        SnsFactorProvider provider = fromJSON(json, SnsFactorProvider.class);
 
         assertThat(provider, is(notNullValue()));
         assertThat(provider.getAwsRegion(), is("ar"));

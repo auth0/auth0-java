@@ -25,7 +25,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
      * @param filter the filter to use. Can be null.
      * @return a Request to execute.
      */
-    public Request<List<Connection>> listConnections(ConnectionFilter filter) {
+    public Request<List<Connection>> list(ConnectionFilter filter) {
         HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
                 .newBuilder()
                 .addPathSegment("api")
@@ -50,7 +50,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
      * @param filter       the filter to use. Can be null.
      * @return a Request to execute.
      */
-    public Request<Connection> getConnection(String connectionId, ConnectionFilter filter) {
+    public Request<Connection> get(String connectionId, ConnectionFilter filter) {
         Asserts.assertNotNull(connectionId, "connection id");
 
         HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
@@ -77,7 +77,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
      * @param connection the connection data to set.
      * @return a Request to execute.
      */
-    public Request<Connection> createConnection(Connection connection) {
+    public Request<Connection> create(Connection connection) {
         Asserts.assertNotNull(connection, "connection");
 
         String url = HttpUrl.parse(baseUrl)
@@ -100,7 +100,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
      * @param connectionId the connection id.
      * @return a Request to execute.
      */
-    public Request deleteConnection(String connectionId) {
+    public Request delete(String connectionId) {
         Asserts.assertNotNull(connectionId, "connection id");
 
         String url = HttpUrl.parse(baseUrl)
@@ -123,7 +123,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
      * @param connection   the connection data to set. It can't include name or strategy.
      * @return a Request to execute.
      */
-    public Request<Connection> updateConnection(String connectionId, Connection connection) {
+    public Request<Connection> update(String connectionId, Connection connection) {
         Asserts.assertNotNull(connectionId, "connection id");
         Asserts.assertNotNull(connection, "connection");
 
@@ -149,7 +149,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
      * @param email        the email of the user to delete.
      * @return a Request to execute.
      */
-    public Request deleteConnectionUser(String connectionId, String email) {
+    public Request deleteUser(String connectionId, String email) {
         Asserts.assertNotNull(connectionId, "connection id");
         Asserts.assertNotNull(email, "email");
 

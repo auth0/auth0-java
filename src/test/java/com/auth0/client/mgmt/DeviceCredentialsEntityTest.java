@@ -17,7 +17,7 @@ import static org.junit.Assert.assertThat;
 public class DeviceCredentialsEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListDeviceCredentials() throws Exception {
-        Request<List<DeviceCredentials>> request = api.deviceCredentials().listDeviceCredentials(null);
+        Request<List<DeviceCredentials>> request = api.deviceCredentials().list(null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_DEVICE_CREDENTIALS_LIST, 200);
@@ -35,7 +35,7 @@ public class DeviceCredentialsEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListDeviceCredentialsWithClientId() throws Exception {
         DeviceCredentialsFilter filter = new DeviceCredentialsFilter().withClientId("client_23");
-        Request<List<DeviceCredentials>> request = api.deviceCredentials().listDeviceCredentials(filter);
+        Request<List<DeviceCredentials>> request = api.deviceCredentials().list(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_DEVICE_CREDENTIALS_LIST, 200);
@@ -54,7 +54,7 @@ public class DeviceCredentialsEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListDeviceCredentialsWithUserId() throws Exception {
         DeviceCredentialsFilter filter = new DeviceCredentialsFilter().withUserId("user_23");
-        Request<List<DeviceCredentials>> request = api.deviceCredentials().listDeviceCredentials(filter);
+        Request<List<DeviceCredentials>> request = api.deviceCredentials().list(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_DEVICE_CREDENTIALS_LIST, 200);
@@ -74,7 +74,7 @@ public class DeviceCredentialsEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListDeviceCredentialsWithType() throws Exception {
         DeviceCredentialsFilter filter = new DeviceCredentialsFilter().withType("public_key");
-        Request<List<DeviceCredentials>> request = api.deviceCredentials().listDeviceCredentials(filter);
+        Request<List<DeviceCredentials>> request = api.deviceCredentials().list(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_DEVICE_CREDENTIALS_LIST, 200);
@@ -94,7 +94,7 @@ public class DeviceCredentialsEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListDeviceCredentialsWithFields() throws Exception {
         DeviceCredentialsFilter filter = new DeviceCredentialsFilter().withFields("some,random,fields", true);
-        Request<List<DeviceCredentials>> request = api.deviceCredentials().listDeviceCredentials(filter);
+        Request<List<DeviceCredentials>> request = api.deviceCredentials().list(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_DEVICE_CREDENTIALS_LIST, 200);
@@ -113,7 +113,7 @@ public class DeviceCredentialsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldReturnEmptyDeviceCredentials() throws Exception {
-        Request<List<DeviceCredentials>> request = api.deviceCredentials().listDeviceCredentials(null);
+        Request<List<DeviceCredentials>> request = api.deviceCredentials().list(null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
@@ -127,12 +127,12 @@ public class DeviceCredentialsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnCreateDeviceCredentialsWithNullData() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'device credentials' cannot be null!");
-        api.deviceCredentials().createDeviceCredentials(null);
+        api.deviceCredentials().create(null);
     }
 
     @Test
     public void shouldCreateDeviceCredentials() throws Exception {
-        Request<DeviceCredentials> request = api.deviceCredentials().createDeviceCredentials(new DeviceCredentials("device", "public_key", "val123", "id123", "clientId"));
+        Request<DeviceCredentials> request = api.deviceCredentials().create(new DeviceCredentials("device", "public_key", "val123", "id123", "clientId"));
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_DEVICE_CREDENTIALS, 200);
@@ -158,12 +158,12 @@ public class DeviceCredentialsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnDeleteDeviceCredentialsWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'device credentials id' cannot be null!");
-        api.deviceCredentials().deleteDeviceCredentials(null);
+        api.deviceCredentials().delete(null);
     }
 
     @Test
     public void shouldDeleteDeviceCredentials() throws Exception {
-        Request request = api.deviceCredentials().deleteDeviceCredentials("1");
+        Request request = api.deviceCredentials().delete("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_DEVICE_CREDENTIALS, 200);

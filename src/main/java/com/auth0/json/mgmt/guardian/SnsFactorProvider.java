@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @SuppressWarnings("unused")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class GuardianSnsFactorProvider {
+public class SnsFactorProvider {
 
     @JsonProperty("aws_access_key_id")
     private String awsAccessKeyId;

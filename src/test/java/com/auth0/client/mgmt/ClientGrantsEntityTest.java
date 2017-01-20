@@ -19,7 +19,7 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldListClientGrants() throws Exception {
-        Request<List<ClientGrant>> request = api.clientGrants().listClientGrants();
+        Request<List<ClientGrant>> request = api.clientGrants().list();
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT_GRANTS_LIST, 200);
@@ -36,7 +36,7 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldReturnEmptyClientGrants() throws Exception {
-        Request<List<ClientGrant>> request = api.clientGrants().listClientGrants();
+        Request<List<ClientGrant>> request = api.clientGrants().list();
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
@@ -50,26 +50,26 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnCreateClientGrantWithNullClientId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client id' cannot be null!");
-        api.clientGrants().createClientGrant(null, "audience", new String[]{"openid"});
+        api.clientGrants().create(null, "audience", new String[]{"openid"});
     }
 
     @Test
     public void shouldThrowOnCreateClientGrantWithNullAudience() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'audience' cannot be null!");
-        api.clientGrants().createClientGrant("clientId", null, new String[]{"openid"});
+        api.clientGrants().create("clientId", null, new String[]{"openid"});
     }
 
     @Test
     public void shouldThrowOnCreateClientGrantWithNullScope() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'scope' cannot be null!");
-        api.clientGrants().createClientGrant("clientId", "audience", null);
+        api.clientGrants().create("clientId", "audience", null);
     }
 
     @Test
     public void shouldCreateClientGrant() throws Exception {
-        Request<ClientGrant> request = api.clientGrants().createClientGrant("clientId", "audience", new String[]{"openid"});
+        Request<ClientGrant> request = api.clientGrants().create("clientId", "audience", new String[]{"openid"});
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT_GRANT, 200);
@@ -94,12 +94,12 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnDeleteClientGrantWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client grant id' cannot be null!");
-        api.clientGrants().deleteClientGrant(null);
+        api.clientGrants().delete(null);
     }
 
     @Test
     public void shouldDeleteClientGrant() throws Exception {
-        Request request = api.clientGrants().deleteClientGrant("1");
+        Request request = api.clientGrants().delete("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT_GRANT, 200);
@@ -115,19 +115,19 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnUpdateClientGrantWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client grant id' cannot be null!");
-        api.clientGrants().updateClientGrant(null, new String[]{});
+        api.clientGrants().update(null, new String[]{});
     }
 
     @Test
     public void shouldThrowOnUpdateClientGrantWithNullScope() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'scope' cannot be null!");
-        api.clientGrants().updateClientGrant("clientGrantId", null);
+        api.clientGrants().update("clientGrantId", null);
     }
 
     @Test
     public void shouldUpdateClientGrant() throws Exception {
-        Request<ClientGrant> request = api.clientGrants().updateClientGrant("1", new String[]{"openid", "profile"});
+        Request<ClientGrant> request = api.clientGrants().update("1", new String[]{"openid", "profile"});
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT_GRANT, 200);

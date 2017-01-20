@@ -23,7 +23,7 @@ public class BlacklistsEntity extends BaseManagementEntity {
      * @param audience the token audience (aud).
      * @return a Request to execute.
      */
-    public Request<List<Token>> getBlacklistedTokens(String audience) {
+    public Request<List<Token>> getBlacklist(String audience) {
         Asserts.assertNotNull(audience, "audience");
 
         String url = HttpUrl.parse(baseUrl)

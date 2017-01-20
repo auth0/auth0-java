@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @SuppressWarnings("unused")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class GuardianFactor {
+public class Factor {
 
     @JsonProperty("enabled")
     private Boolean enabled;
@@ -18,7 +18,7 @@ public class GuardianFactor {
     private String name;
 
     @JsonCreator
-    public GuardianFactor(@JsonProperty("enabled") Boolean enabled) {
+    public Factor(@JsonProperty("enabled") Boolean enabled) {
         this.enabled = enabled;
     }
 

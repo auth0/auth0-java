@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @SuppressWarnings("unused")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class GuardianEnrollment {
+public class Enrollment {
 
     @JsonProperty("id")
     private String id;

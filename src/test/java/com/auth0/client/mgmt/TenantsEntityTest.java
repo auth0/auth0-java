@@ -16,7 +16,7 @@ public class TenantsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldGetTenantSettings() throws Exception {
-        Request<Tenant> request = api.tenants().getTenantSettings(null);
+        Request<Tenant> request = api.tenants().get(null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_TENANT, 200);
@@ -33,7 +33,7 @@ public class TenantsEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldGetTenantSettingsWithFields() throws Exception {
         FieldsFilter filter = new FieldsFilter().withFields("some,random,fields", true);
-        Request<Tenant> request = api.tenants().getTenantSettings(filter);
+        Request<Tenant> request = api.tenants().get(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_TENANT, 200);
@@ -53,12 +53,12 @@ public class TenantsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnUpdateTenantSettingsWithNullData() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'tenant' cannot be null!");
-        api.tenants().updateTenantSettings(null);
+        api.tenants().update(null);
     }
 
     @Test
     public void shouldUpdateTenantSettings() throws Exception {
-        Request<Tenant> request = api.tenants().updateTenantSettings(new Tenant());
+        Request<Tenant> request = api.tenants().update(new Tenant());
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_TENANT, 200);

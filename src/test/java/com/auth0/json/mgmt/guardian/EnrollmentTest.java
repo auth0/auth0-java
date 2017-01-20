@@ -7,13 +7,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
-public class GuardianEnrollmentTest extends JsonTest<GuardianEnrollment> {
+public class EnrollmentTest extends JsonTest<Enrollment> {
 
     private static final String json = "{\"id\":\"123\",\"status\":\"confirmed\",\"type\":\"idk\",\"name\":\"auth0\",\"identifier\":\"id123\",\"phone_number\":\"1234567890\", \"auth_method\":\"authenticator\",\"enrolled_at\":\"12:12:12\",\"last_auth\":\"12:12:12\"}";
 
     @Test
     public void shouldDeserialize() throws Exception {
-        GuardianEnrollment enrollment = fromJSON(json, GuardianEnrollment.class);
+        Enrollment enrollment = fromJSON(json, Enrollment.class);
 
         assertThat(enrollment, is(notNullValue()));
         assertThat(enrollment.getId(), is("123"));

@@ -23,7 +23,7 @@ public class ClientsEntity extends BaseManagementEntity {
      *
      * @return a Request to execute.
      */
-    public Request<List<Client>> listClients() {
+    public Request<List<Client>> list() {
         String url = HttpUrl.parse(baseUrl)
                 .newBuilder()
                 .addPathSegment("api")
@@ -43,7 +43,7 @@ public class ClientsEntity extends BaseManagementEntity {
      * @param clientId the client id.
      * @return a Request to execute.
      */
-    public Request<Client> getClient(String clientId) {
+    public Request<Client> get(String clientId) {
         Asserts.assertNotNull(clientId, "client id");
 
         String url = HttpUrl.parse(baseUrl)
@@ -66,7 +66,7 @@ public class ClientsEntity extends BaseManagementEntity {
      * @param client the client data to set.
      * @return a Request to execute.
      */
-    public Request<Client> createClient(Client client) {
+    public Request<Client> create(Client client) {
         Asserts.assertNotNull(client, "client");
 
         String url = HttpUrl.parse(baseUrl)
@@ -89,7 +89,7 @@ public class ClientsEntity extends BaseManagementEntity {
      * @param clientId the client id.
      * @return a Request to execute.
      */
-    public Request deleteClient(String clientId) {
+    public Request delete(String clientId) {
         Asserts.assertNotNull(clientId, "client id");
 
         String url = HttpUrl.parse(baseUrl)
@@ -112,7 +112,7 @@ public class ClientsEntity extends BaseManagementEntity {
      * @param client   the client data to set.
      * @return a Request to execute.
      */
-    public Request<Client> updateClient(String clientId, Client client) {
+    public Request<Client> update(String clientId, Client client) {
         Asserts.assertNotNull(clientId, "client id");
         Asserts.assertNotNull(client, "client");
 
@@ -137,7 +137,7 @@ public class ClientsEntity extends BaseManagementEntity {
      * @param clientId the client id.
      * @return a Request to execute.
      */
-    public Request<Client> rotateClientSecret(String clientId) {
+    public Request<Client> rotateSecret(String clientId) {
         Asserts.assertNotNull(clientId, "client id");
         Asserts.assertNotNull(client, "client");
 

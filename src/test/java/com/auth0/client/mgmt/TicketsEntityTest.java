@@ -20,12 +20,12 @@ public class TicketsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnCreateEmailVerificationTicketWithNullData() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email verification ticket' cannot be null!");
-        api.tickets().createEmailVerificationTicket(null);
+        api.tickets().requestEmailVerification(null);
     }
 
     @Test
     public void shouldCreateEmailVerificationTicket() throws Exception {
-        Request<EmailVerificationTicket> request = api.tickets().createEmailVerificationTicket(new EmailVerificationTicket("uid123"));
+        Request<EmailVerificationTicket> request = api.tickets().requestEmailVerification(new EmailVerificationTicket("uid123"));
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMAIL_VERIFICATION_TICKET, 200);
@@ -47,12 +47,12 @@ public class TicketsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnCreatePasswordChangeTicketWithNullData() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'password change ticket' cannot be null!");
-        api.tickets().createPasswordChangeTicket(null);
+        api.tickets().requestPasswordChange(null);
     }
 
     @Test
     public void shouldCreatePasswordChangeTicket() throws Exception {
-        Request<PasswordChangeTicket> request = api.tickets().createPasswordChangeTicket(new PasswordChangeTicket("uid123"));
+        Request<PasswordChangeTicket> request = api.tickets().requestPasswordChange(new PasswordChangeTicket("uid123"));
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_PASSWORD_CHANGE_TICKET, 200);

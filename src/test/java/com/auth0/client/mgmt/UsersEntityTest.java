@@ -2,7 +2,7 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.LogEventFilter;
 import com.auth0.client.mgmt.filter.UserFilter;
-import com.auth0.json.mgmt.guardian.GuardianEnrollment;
+import com.auth0.json.mgmt.guardian.Enrollment;
 import com.auth0.json.mgmt.logevents.LogEvent;
 import com.auth0.json.mgmt.logevents.LogEventsPage;
 import com.auth0.json.mgmt.users.Identity;
@@ -25,7 +25,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldListUsers() throws Exception {
-        Request<UsersPage> request = api.users().listUsers(null);
+        Request<UsersPage> request = api.users().list(null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USERS_LIST, 200);
@@ -43,7 +43,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListUsersWithPage() throws Exception {
         UserFilter filter = new UserFilter().withPage(23, 5);
-        Request<UsersPage> request = api.users().listUsers(filter);
+        Request<UsersPage> request = api.users().list(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USERS_LIST, 200);
@@ -63,7 +63,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListUsersWithTotals() throws Exception {
         UserFilter filter = new UserFilter().withTotals(true);
-        Request<UsersPage> request = api.users().listUsers(filter);
+        Request<UsersPage> request = api.users().list(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USERS_PAGED_LIST, 200);
@@ -86,7 +86,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListUsersWithSort() throws Exception {
         UserFilter filter = new UserFilter().withSort("date:1");
-        Request<UsersPage> request = api.users().listUsers(filter);
+        Request<UsersPage> request = api.users().list(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USERS_LIST, 200);
@@ -105,7 +105,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListUsersWithQuery() throws Exception {
         UserFilter filter = new UserFilter().withQuery("sample");
-        Request<UsersPage> request = api.users().listUsers(filter);
+        Request<UsersPage> request = api.users().list(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USERS_LIST, 200);
@@ -125,7 +125,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListUsersWithFields() throws Exception {
         UserFilter filter = new UserFilter().withFields("some,random,fields", true);
-        Request<UsersPage> request = api.users().listUsers(filter);
+        Request<UsersPage> request = api.users().list(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USERS_LIST, 200);
@@ -144,7 +144,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldReturnEmptyUsers() throws Exception {
-        Request<UsersPage> request = api.users().listUsers(null);
+        Request<UsersPage> request = api.users().list(null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
@@ -158,12 +158,12 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnGetUserWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'user id' cannot be null!");
-        api.users().getUser(null, null);
+        api.users().get(null, null);
     }
 
     @Test
     public void shouldGetUser() throws Exception {
-        Request<User> request = api.users().getUser("1", null);
+        Request<User> request = api.users().get("1", null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER, 200);
@@ -180,7 +180,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldGetUserWithFields() throws Exception {
         UserFilter filter = new UserFilter().withFields("some,random,fields", true);
-        Request<User> request = api.users().getUser("1", filter);
+        Request<User> request = api.users().get("1", filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER, 200);
@@ -200,12 +200,12 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnCreateUserWithNullData() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'user' cannot be null!");
-        api.users().createUser(null);
+        api.users().create(null);
     }
 
     @Test
     public void shouldCreateUser() throws Exception {
-        Request<User> request = api.users().createUser(new User("auth0"));
+        Request<User> request = api.users().create(new User("auth0"));
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER, 200);
@@ -227,12 +227,12 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnDeleteUserWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'user id' cannot be null!");
-        api.users().deleteUser(null);
+        api.users().delete(null);
     }
 
     @Test
     public void shouldDeleteUser() throws Exception {
-        Request request = api.users().deleteUser("1");
+        Request request = api.users().delete("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER, 200);
@@ -248,19 +248,19 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnUpdateUserWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'user id' cannot be null!");
-        api.users().updateUser(null, new User("auth0"));
+        api.users().update(null, new User("auth0"));
     }
 
     @Test
     public void shouldThrowOnUpdateUserWithNullData() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'user' cannot be null!");
-        api.users().updateUser("1", null);
+        api.users().update("1", null);
     }
 
     @Test
     public void shouldUpdateUser() throws Exception {
-        Request<User> request = api.users().updateUser("1", new User("auth0"));
+        Request<User> request = api.users().update("1", new User("auth0"));
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER, 200);
@@ -283,16 +283,16 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnGetUserGuardianEnrollmentsWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'user id' cannot be null!");
-        api.users().getUserGuardianEnrollments(null);
+        api.users().getEnrollments(null);
     }
 
     @Test
     public void shouldGetUserGuardianEnrollments() throws Exception {
-        Request<List<GuardianEnrollment>> request = api.users().getUserGuardianEnrollments("1");
+        Request<List<Enrollment>> request = api.users().getEnrollments("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_ENROLLMENTS_LIST, 200);
-        List<GuardianEnrollment> response = request.execute();
+        List<Enrollment> response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/enrollments"));
@@ -304,26 +304,26 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldReturnEmptyUserGuardianEnrollments() throws Exception {
-        Request<List<GuardianEnrollment>> request = api.users().getUserGuardianEnrollments("1");
+        Request<List<Enrollment>> request = api.users().getEnrollments("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
-        List<GuardianEnrollment> response = request.execute();
+        List<Enrollment> response = request.execute();
 
         assertThat(response, is(notNullValue()));
-        assertThat(response, is(emptyCollectionOf(GuardianEnrollment.class)));
+        assertThat(response, is(emptyCollectionOf(Enrollment.class)));
     }
 
     @Test
     public void shouldThrowOnGetUserLogEventsWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'user id' cannot be null!");
-        api.users().getUserLogEvents(null, null);
+        api.users().getLogEvents(null, null);
     }
 
     @Test
     public void shouldGetUserLogEvents() throws Exception {
-        Request<LogEventsPage> request = api.users().getUserLogEvents("1", null);
+        Request<LogEventsPage> request = api.users().getLogEvents("1", null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
@@ -340,7 +340,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldGetUserLogEventsWithPage() throws Exception {
         LogEventFilter filter = new LogEventFilter().withPage(23, 5);
-        Request<LogEventsPage> request = api.users().getUserLogEvents("1", filter);
+        Request<LogEventsPage> request = api.users().getLogEvents("1", filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
@@ -360,7 +360,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldGetUserLogEventsWithTotals() throws Exception {
         LogEventFilter filter = new LogEventFilter().withTotals(true);
-        Request<LogEventsPage> request = api.users().getUserLogEvents("1", filter);
+        Request<LogEventsPage> request = api.users().getLogEvents("1", filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_EVENTS_PAGED_LIST, 200);
@@ -383,7 +383,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldGetUserLogEventsWithSort() throws Exception {
         LogEventFilter filter = new LogEventFilter().withSort("date:1");
-        Request<LogEventsPage> request = api.users().getUserLogEvents("1", filter);
+        Request<LogEventsPage> request = api.users().getLogEvents("1", filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
@@ -402,7 +402,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldGetUserLogEventsWithFields() throws Exception {
         LogEventFilter filter = new LogEventFilter().withFields("some,random,fields", true);
-        Request<LogEventsPage> request = api.users().getUserLogEvents("1", filter);
+        Request<LogEventsPage> request = api.users().getLogEvents("1", filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
@@ -421,7 +421,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldReturnEmptyUserLogEvents() throws Exception {
-        Request<LogEventsPage> request = api.users().getUserLogEvents("1", null);
+        Request<LogEventsPage> request = api.users().getLogEvents("1", null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
@@ -435,19 +435,19 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnDeleteUserMultifactorProviderWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'user id' cannot be null!");
-        api.users().deleteUserMultifactorProvider(null, "duo");
+        api.users().deleteMultifactorProvider(null, "duo");
     }
 
     @Test
     public void shouldThrowOnDeleteUserMultifactorProviderWithNullProvider() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'provider' cannot be null!");
-        api.users().deleteUserMultifactorProvider("1", null);
+        api.users().deleteMultifactorProvider("1", null);
     }
 
     @Test
     public void shouldDeleteUserMultifactorProvider() throws Exception {
-        Request request = api.users().deleteUserMultifactorProvider("1", "duo");
+        Request request = api.users().deleteMultifactorProvider("1", "duo");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMAIL_PROVIDER, 200);
@@ -463,12 +463,12 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnRotateUserRecoveryCodeWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'user id' cannot be null!");
-        api.users().rotateUserRecoveryCode(null);
+        api.users().rotateRecoveryCode(null);
     }
 
     @Test
     public void shouldRotateUserRecoveryCode() throws Exception {
-        Request<RecoveryCode> request = api.users().rotateUserRecoveryCode("1");
+        Request<RecoveryCode> request = api.users().rotateRecoveryCode("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RECOVERY_CODE, 200);
@@ -486,26 +486,26 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnLinkUserIdentityWithNullPrimaryId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'primary user id' cannot be null!");
-        api.users().linkUserIdentity(null, "2", "auth0", null);
+        api.users().linkIdentity(null, "2", "auth0", null);
     }
 
     @Test
     public void shouldThrowOnLinkUserIdentityWithNullSecondaryId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'secondary user id' cannot be null!");
-        api.users().linkUserIdentity("1", null, "auth0", null);
+        api.users().linkIdentity("1", null, "auth0", null);
     }
 
     @Test
     public void shouldThrowOnLinkUserIdentityWithNullProvider() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'provider' cannot be null!");
-        api.users().linkUserIdentity("1", "2", null, null);
+        api.users().linkIdentity("1", "2", null, null);
     }
 
     @Test
     public void shouldLinkUserIdentity() throws Exception {
-        Request<List<Identity>> request = api.users().linkUserIdentity("1", "2", "auth0", null);
+        Request<List<Identity>> request = api.users().linkIdentity("1", "2", "auth0", null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_IDENTITIES_LIST, 200);
@@ -526,7 +526,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldLinkUserIdentityWithConnectionId() throws Exception {
-        Request<List<Identity>> request = api.users().linkUserIdentity("1", "2", "auth0", "123456790");
+        Request<List<Identity>> request = api.users().linkIdentity("1", "2", "auth0", "123456790");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_IDENTITIES_LIST, 200);
@@ -550,26 +550,26 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnUnlinkUserIdentityWithNullPrimaryId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'primary user id' cannot be null!");
-        api.users().unlinkUserIdentity(null, "2", "auth0");
+        api.users().unlinkIdentity(null, "2", "auth0");
     }
 
     @Test
     public void shouldThrowOnUnlinkUserIdentityWithNullSecondaryId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'secondary user id' cannot be null!");
-        api.users().unlinkUserIdentity("1", null, "auth0");
+        api.users().unlinkIdentity("1", null, "auth0");
     }
 
     @Test
     public void shouldThrowOnUnlinkUserIdentityWithNullProvider() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'provider' cannot be null!");
-        api.users().unlinkUserIdentity("1", "2", null);
+        api.users().unlinkIdentity("1", "2", null);
     }
 
     @Test
     public void shouldUnlinkUserIdentity() throws Exception {
-        Request<List<Identity>> request = api.users().unlinkUserIdentity("1", "2", "auth0");
+        Request<List<Identity>> request = api.users().unlinkIdentity("1", "2", "auth0");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_IDENTITIES_LIST, 200);

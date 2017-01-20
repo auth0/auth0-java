@@ -19,12 +19,12 @@ public class BlacklistsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnGetBlacklistedTokensWithNullAudience() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'audience' cannot be null!");
-        api.blacklists().getBlacklistedTokens(null);
+        api.blacklists().getBlacklist(null);
     }
 
     @Test
     public void shouldGetBlacklistedTokens() throws Exception {
-        Request<List<Token>> request = api.blacklists().getBlacklistedTokens("myapi");
+        Request<List<Token>> request = api.blacklists().getBlacklist("myapi");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_BLACKLISTED_TOKENS_LIST, 200);
@@ -42,7 +42,7 @@ public class BlacklistsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldReturnEmptyBlacklistedTokens() throws Exception {
-        Request<List<Token>> request = api.blacklists().getBlacklistedTokens("myapi");
+        Request<List<Token>> request = api.blacklists().getBlacklist("myapi");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);

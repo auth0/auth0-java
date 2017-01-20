@@ -22,7 +22,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
      *
      * @return a Request to execute.
      */
-    public Request<List<ClientGrant>> listClientGrants() {
+    public Request<List<ClientGrant>> list() {
         String url = HttpUrl.parse(baseUrl)
                 .newBuilder()
                 .addPathSegment("api")
@@ -44,7 +44,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
      * @param scope    the scope to grant.
      * @return a Request to execute.
      */
-    public Request<ClientGrant> createClientGrant(String clientId, String audience, String[] scope) {
+    public Request<ClientGrant> create(String clientId, String audience, String[] scope) {
         Asserts.assertNotNull(clientId, "client id");
         Asserts.assertNotNull(audience, "audience");
         Asserts.assertNotNull(scope, "scope");
@@ -72,7 +72,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
      * @param clientGrantId the client grant id.
      * @return a Request to execute.
      */
-    public Request deleteClientGrant(String clientGrantId) {
+    public Request delete(String clientGrantId) {
         Asserts.assertNotNull(clientGrantId, "client grant id");
 
         String url = HttpUrl.parse(baseUrl)
@@ -95,7 +95,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
      * @param scope         the scope to grant.
      * @return a Request to execute.
      */
-    public Request<ClientGrant> updateClientGrant(String clientGrantId, String[] scope) {
+    public Request<ClientGrant> update(String clientGrantId, String[] scope) {
         Asserts.assertNotNull(clientGrantId, "client grant id");
         Asserts.assertNotNull(scope, "scope");
 

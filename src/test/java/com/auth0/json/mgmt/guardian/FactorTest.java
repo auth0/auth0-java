@@ -8,14 +8,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
-public class GuardianFactorTest extends JsonTest<GuardianFactor> {
+public class FactorTest extends JsonTest<Factor> {
 
     private static final String json = "{\"enabled\":true}";
     private static final String readOnlyJson = "{\"name\":\"sms\",\"trial_expired\":true}";
 
     @Test
     public void shouldSerialize() throws Exception {
-        GuardianFactor factor = new GuardianFactor(true);
+        Factor factor = new Factor(true);
 
         String serialized = toJSON(factor);
         assertThat(serialized, is(notNullValue()));
@@ -24,7 +24,7 @@ public class GuardianFactorTest extends JsonTest<GuardianFactor> {
 
     @Test
     public void shouldDeserialize() throws Exception {
-        GuardianFactor factor = fromJSON(json, GuardianFactor.class);
+        Factor factor = fromJSON(json, Factor.class);
 
         assertThat(factor, is(notNullValue()));
         assertThat(factor.getEnabled(), is(true));
@@ -32,7 +32,7 @@ public class GuardianFactorTest extends JsonTest<GuardianFactor> {
 
     @Test
     public void shouldIncludeReadOnlyValuesOnDeserialize() throws Exception {
-        GuardianFactor ticket = fromJSON(readOnlyJson, GuardianFactor.class);
+        Factor ticket = fromJSON(readOnlyJson, Factor.class);
         assertThat(ticket, is(notNullValue()));
 
         assertThat(ticket.getName(), is("sms"));

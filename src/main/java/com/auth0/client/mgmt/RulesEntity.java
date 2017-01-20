@@ -25,7 +25,7 @@ public class RulesEntity extends BaseManagementEntity {
      * @param filter the filter to use. Can be null.
      * @return a Request to execute.
      */
-    public Request<List<Rule>> listRules(RulesFilter filter) {
+    public Request<List<Rule>> list(RulesFilter filter) {
         HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
                 .newBuilder()
                 .addPathSegment("api")
@@ -50,7 +50,7 @@ public class RulesEntity extends BaseManagementEntity {
      * @param filter the filter to use. Can be null.
      * @return a Request to execute.
      */
-    public Request<Rule> getRule(String ruleId, RulesFilter filter) {
+    public Request<Rule> get(String ruleId, RulesFilter filter) {
         Asserts.assertNotNull(ruleId, "rule id");
 
         HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
@@ -77,7 +77,7 @@ public class RulesEntity extends BaseManagementEntity {
      * @param rule the rule data to set
      * @return a Request to execute.
      */
-    public Request<Rule> createRule(Rule rule) {
+    public Request<Rule> create(Rule rule) {
         Asserts.assertNotNull(rule, "rule");
 
         String url = HttpUrl.parse(baseUrl)
@@ -100,7 +100,7 @@ public class RulesEntity extends BaseManagementEntity {
      * @param ruleId the rule id
      * @return a Request to execute.
      */
-    public Request deleteRule(String ruleId) {
+    public Request delete(String ruleId) {
         Asserts.assertNotNull(ruleId, "rule id");
 
         String url = HttpUrl.parse(baseUrl)
@@ -123,7 +123,7 @@ public class RulesEntity extends BaseManagementEntity {
      * @param rule   the rule data to set. It can't include id.
      * @return a Request to execute.
      */
-    public Request<Rule> updateRule(String ruleId, Rule rule) {
+    public Request<Rule> update(String ruleId, Rule rule) {
         Asserts.assertNotNull(ruleId, "rule id");
         Asserts.assertNotNull(rule, "rule");
 

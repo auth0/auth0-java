@@ -8,13 +8,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
-public class GuardianTwilioFactorProviderTest extends JsonTest<GuardianTwilioFactorProvider> {
+public class TwilioFactorProviderTest extends JsonTest<TwilioFactorProvider> {
 
     private static final String json = "{\"from\":\"+12356789\",\"messaging_service_sid\":\"id321\",\"auth_token\":\"atokEn\",\"sid\":\"id123\"}";
 
     @Test
     public void shouldSerialize() throws Exception {
-        GuardianTwilioFactorProvider provider = new GuardianTwilioFactorProvider();
+        TwilioFactorProvider provider = new TwilioFactorProvider();
         provider.setAuthToken("atokEn");
         provider.setFrom("+12356789");
         provider.setMessagingServiceSid("id321");
@@ -30,7 +30,7 @@ public class GuardianTwilioFactorProviderTest extends JsonTest<GuardianTwilioFac
 
     @Test
     public void shouldDeserialize() throws Exception {
-        GuardianTwilioFactorProvider provider = fromJSON(json, GuardianTwilioFactorProvider.class);
+        TwilioFactorProvider provider = fromJSON(json, TwilioFactorProvider.class);
 
         assertThat(provider, is(notNullValue()));
         assertThat(provider.getAuthToken(), is("atokEn"));

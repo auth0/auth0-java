@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @SuppressWarnings("unused")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class GuardianTwilioFactorProvider {
+public class TwilioFactorProvider {
 
     @JsonProperty("from")
     private String from;

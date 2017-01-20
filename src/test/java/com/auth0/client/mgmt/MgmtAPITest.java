@@ -114,8 +114,8 @@ public class MgmtAPITest {
     }
 
     @Test
-    public void shouldGetEmailProviders() throws Exception {
-        assertThat(api.emailProviders(), notNullValue());
+    public void shouldGetEmailProvider() throws Exception {
+        assertThat(api.emailProvider(), notNullValue());
     }
 
     @Test

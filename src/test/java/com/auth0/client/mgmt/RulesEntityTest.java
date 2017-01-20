@@ -18,7 +18,7 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldListRules() throws Exception {
-        Request<List<Rule>> request = api.rules().listRules(null);
+        Request<List<Rule>> request = api.rules().list(null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RULES_LIST, 200);
@@ -36,7 +36,7 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListRulesWithEnabled() throws Exception {
         RulesFilter filter = new RulesFilter().withEnabled(true);
-        Request<List<Rule>> request = api.rules().listRules(filter);
+        Request<List<Rule>> request = api.rules().list(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RULES_LIST, 200);
@@ -55,7 +55,7 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListRulesWithFields() throws Exception {
         RulesFilter filter = new RulesFilter().withFields("some,random,fields", true);
-        Request<List<Rule>> request = api.rules().listRules(filter);
+        Request<List<Rule>> request = api.rules().list(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RULES_LIST, 200);
@@ -74,7 +74,7 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldReturnEmptyRules() throws Exception {
-        Request<List<Rule>> request = api.rules().listRules(null);
+        Request<List<Rule>> request = api.rules().list(null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
@@ -88,12 +88,12 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnGetRuleWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'rule id' cannot be null!");
-        api.rules().getRule(null, null);
+        api.rules().get(null, null);
     }
 
     @Test
     public void shouldGetRule() throws Exception {
-        Request<Rule> request = api.rules().getRule("1", null);
+        Request<Rule> request = api.rules().get("1", null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RULE, 200);
@@ -110,7 +110,7 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldGetRuleWithFields() throws Exception {
         RulesFilter filter = new RulesFilter().withFields("some,random,fields", true);
-        Request<Rule> request = api.rules().getRule("1", filter);
+        Request<Rule> request = api.rules().get("1", filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RULE, 200);
@@ -130,12 +130,12 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnCreateRuleWithNullData() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'rule' cannot be null!");
-        api.rules().createRule(null);
+        api.rules().create(null);
     }
 
     @Test
     public void shouldCreateRule() throws Exception {
-        Request<Rule> request = api.rules().createRule(new Rule("my-rule", "function(){}"));
+        Request<Rule> request = api.rules().create(new Rule("my-rule", "function(){}"));
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RULE, 200);
@@ -158,12 +158,12 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnDeleteRuleWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'rule id' cannot be null!");
-        api.rules().deleteRule(null);
+        api.rules().delete(null);
     }
 
     @Test
     public void shouldDeleteRule() throws Exception {
-        Request request = api.rules().deleteRule("1");
+        Request request = api.rules().delete("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RULE, 200);
@@ -179,19 +179,19 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnUpdateRuleWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'rule id' cannot be null!");
-        api.rules().updateRule(null, new Rule("my-rule", "function(){}"));
+        api.rules().update(null, new Rule("my-rule", "function(){}"));
     }
 
     @Test
     public void shouldThrowOnUpdateRuleWithNullData() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'rule' cannot be null!");
-        api.rules().updateRule("1", null);
+        api.rules().update("1", null);
     }
 
     @Test
     public void shouldUpdateRule() throws Exception {
-        Request<Rule> request = api.rules().updateRule("1", new Rule("my-rule", "function(){}"));
+        Request<Rule> request = api.rules().update("1", new Rule("my-rule", "function(){}"));
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTION, 200);
