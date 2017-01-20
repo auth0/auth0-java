@@ -10,7 +10,8 @@ import java.util.Map;
 public class VoidRequest extends CustomRequest<Void> implements SignUpRequest {
 
     public VoidRequest(OkHttpClient client, String url, String method) {
-        super(client, url, method, new TypeReference<Void>() {});
+        super(client, url, method, new TypeReference<Void>() {
+        });
     }
 
     @Override

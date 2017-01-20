@@ -2,7 +2,6 @@ package com.auth0.json;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -13,8 +12,6 @@ public class JsonTest<T> {
 
     public JsonTest() {
         this.mapper = new ObjectMapper();
-        //TODO: Remove the configuration
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
     public String toJSON(T value) throws JsonProcessingException {

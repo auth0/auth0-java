@@ -4,7 +4,6 @@ import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.AuthAPIException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.MapType;
 import okhttp3.*;
@@ -36,13 +35,7 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
     }
 
     public CustomRequest(OkHttpClient client, String url, String method, TypeReference<T> tType) {
-        this(client, url, method, createUnknownSafeMapper(), tType);
-    }
-
-    private static ObjectMapper createUnknownSafeMapper() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return mapper;
+        this(client, url, method, new ObjectMapper(), tType);
     }
 
     @Override

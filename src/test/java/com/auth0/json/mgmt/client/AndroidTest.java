@@ -1,10 +1,9 @@
 package com.auth0.json.mgmt.client;
 
-import com.auth0.JsonMatcher;
+import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.hamcrest.MatcherAssert.assertThat;

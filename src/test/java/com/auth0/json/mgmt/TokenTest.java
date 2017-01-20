@@ -1,11 +1,12 @@
 package com.auth0.json.mgmt;
 
-import com.auth0.JsonMatcher;
+import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class TokenTest extends JsonTest<Token> {
     private static final String json = "{\"jti\":\"id\",\"aud\":\"myapi\"}";

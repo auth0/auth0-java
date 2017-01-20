@@ -1,5 +1,6 @@
 package com.auth0.net;
 
+import com.auth0.client.mgmt.filter.DeviceCredentialsFilter;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;

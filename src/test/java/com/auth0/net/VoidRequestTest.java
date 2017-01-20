@@ -1,6 +1,6 @@
 package com.auth0.net;
 
-import com.auth0.MockServer;
+import com.auth0.client.MockServer;
 import okhttp3.OkHttpClient;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Before;
@@ -9,8 +9,8 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.auth0.MockServer.AUTH_TOKENS;
-import static com.auth0.MockServer.bodyFromRequest;
+import static com.auth0.client.MockServer.AUTH_TOKENS;
+import static com.auth0.client.MockServer.bodyFromRequest;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 

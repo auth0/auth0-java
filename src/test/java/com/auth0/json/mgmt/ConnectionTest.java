@@ -1,6 +1,6 @@
 package com.auth0.json.mgmt;
 
-import com.auth0.JsonMatcher;
+import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 

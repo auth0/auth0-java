@@ -1,6 +1,6 @@
 package com.auth0.net;
 
-import com.auth0.MockServer;
+import com.auth0.client.MockServer;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.AuthAPIException;
 import com.auth0.json.auth.TokenHolder;
@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import static com.auth0.MockServer.*;
+import static com.auth0.client.MockServer.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.any;
