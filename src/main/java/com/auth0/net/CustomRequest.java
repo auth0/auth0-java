@@ -1,7 +1,7 @@
 package com.auth0.net;
 
 import com.auth0.exception.Auth0Exception;
-import com.auth0.exception.AuthAPIException;
+import com.auth0.exception.APIException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -61,7 +61,7 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
             payload = response.body().string();
             return mapper.readValue(payload, tType);
         } catch (IOException e) {
-            throw new AuthAPIException("Failed to parse json body", response.code(), e);
+            throw new APIException("Failed to parse json body", response.code(), e);
         }
     }
 
@@ -98,9 +98,9 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
             payload = response.body().string();
             MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
             Map<String, Object> values = mapper.readValue(payload, mapType);
-            return new AuthAPIException(values, response.code());
+            return new APIException(values, response.code());
         } catch (IOException e) {
-            return new AuthAPIException(payload, response.code(), e);
+            return new APIException(payload, response.code(), e);
         }
     }
 }

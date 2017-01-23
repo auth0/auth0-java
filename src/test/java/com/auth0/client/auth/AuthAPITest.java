@@ -66,6 +66,13 @@ public class AuthAPITest {
     }
 
     @Test
+    public void shouldThrowWhenDomainIsInvalid() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("The domain had an invalid format and couldn't be parsed as an URL.");
+        new AuthAPI("", CLIENT_ID, CLIENT_SECRET);
+    }
+
+    @Test
     public void shouldThrowWhenDomainIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'domain' cannot be null!");

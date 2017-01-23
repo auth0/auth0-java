@@ -2,7 +2,7 @@ package com.auth0.net;
 
 import com.auth0.client.MockServer;
 import com.auth0.exception.Auth0Exception;
-import com.auth0.exception.AuthAPIException;
+import com.auth0.exception.APIException;
 import com.auth0.json.auth.TokenHolder;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -163,10 +163,10 @@ public class CustomRequestTest {
             exception = e;
         }
         assertThat(exception, is(notNullValue()));
-        assertThat(exception, is(instanceOf(AuthAPIException.class)));
+        assertThat(exception, is(instanceOf(APIException.class)));
         assertThat(exception.getCause(), is(instanceOf(JsonMappingException.class)));
-        assertThat(exception.getMessage(), is("Authentication failed with status code 200: Failed to parse json body"));
-        AuthAPIException authException = (AuthAPIException) exception;
+        assertThat(exception.getMessage(), is("Request failed with status code 200: Failed to parse json body"));
+        APIException authException = (APIException) exception;
         assertThat(authException.getDescription(), is("Failed to parse json body"));
         assertThat(authException.getError(), is(nullValue()));
         assertThat(authException.getStatusCode(), is(200));
@@ -184,10 +184,10 @@ public class CustomRequestTest {
             exception = e;
         }
         assertThat(exception, is(notNullValue()));
-        assertThat(exception, is(instanceOf(AuthAPIException.class)));
+        assertThat(exception, is(instanceOf(APIException.class)));
         assertThat(exception.getCause(), is(nullValue()));
-        assertThat(exception.getMessage(), is("Authentication failed with status code 400: the connection was not found"));
-        AuthAPIException authException = (AuthAPIException) exception;
+        assertThat(exception.getMessage(), is("Request failed with status code 400: the connection was not found"));
+        APIException authException = (APIException) exception;
         assertThat(authException.getDescription(), is("the connection was not found"));
         assertThat(authException.getError(), is("invalid_request"));
         assertThat(authException.getStatusCode(), is(400));
@@ -205,10 +205,10 @@ public class CustomRequestTest {
             exception = e;
         }
         assertThat(exception, is(notNullValue()));
-        assertThat(exception, is(instanceOf(AuthAPIException.class)));
+        assertThat(exception, is(instanceOf(APIException.class)));
         assertThat(exception.getCause(), is(nullValue()));
-        assertThat(exception.getMessage(), is("Authentication failed with status code 400: missing username for Username-Password-Authentication connection with requires_username enabled"));
-        AuthAPIException authException = (AuthAPIException) exception;
+        assertThat(exception.getMessage(), is("Request failed with status code 400: missing username for Username-Password-Authentication connection with requires_username enabled"));
+        APIException authException = (APIException) exception;
         assertThat(authException.getDescription(), is("missing username for Username-Password-Authentication connection with requires_username enabled"));
         assertThat(authException.getError(), is("missing username for Username-Password-Authentication connection with requires_username enabled"));
         assertThat(authException.getStatusCode(), is(400));
@@ -226,12 +226,33 @@ public class CustomRequestTest {
             exception = e;
         }
         assertThat(exception, is(notNullValue()));
-        assertThat(exception, is(instanceOf(AuthAPIException.class)));
+        assertThat(exception, is(instanceOf(APIException.class)));
         assertThat(exception.getCause(), is(nullValue()));
-        assertThat(exception.getMessage(), is("Authentication failed with status code 400: The user already exists."));
-        AuthAPIException authException = (AuthAPIException) exception;
+        assertThat(exception.getMessage(), is("Request failed with status code 400: The user already exists."));
+        APIException authException = (APIException) exception;
         assertThat(authException.getDescription(), is("The user already exists."));
         assertThat(authException.getError(), is("user_exists"));
+        assertThat(authException.getStatusCode(), is(400));
+    }
+
+    @Test
+    public void shouldParseJSONErrorResponseWithMessage() throws Exception {
+        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
+        server.jsonResponse(MGMT_ERROR_WITH_MESSAGE, 400);
+        Exception exception = null;
+        try {
+            request.execute();
+            server.takeRequest();
+        } catch (Exception e) {
+            exception = e;
+        }
+        assertThat(exception, is(notNullValue()));
+        assertThat(exception, is(instanceOf(APIException.class)));
+        assertThat(exception.getCause(), is(nullValue()));
+        assertThat(exception.getMessage(), is("Request failed with status code 400: Query validation error: 'String 'invalid_field' does not match pattern. Must be a comma separated list of the following values: allowed_logout_urls,change_password."));
+        APIException authException = (APIException) exception;
+        assertThat(authException.getDescription(), is("Query validation error: 'String 'invalid_field' does not match pattern. Must be a comma separated list of the following values: allowed_logout_urls,change_password."));
+        assertThat(authException.getError(), is("invalid_query_string"));
         assertThat(authException.getStatusCode(), is(400));
     }
 
@@ -247,10 +268,10 @@ public class CustomRequestTest {
             exception = e;
         }
         assertThat(exception, is(notNullValue()));
-        assertThat(exception, is(instanceOf(AuthAPIException.class)));
+        assertThat(exception, is(instanceOf(APIException.class)));
         assertThat(exception.getCause(), is(instanceOf(JsonParseException.class)));
-        assertThat(exception.getMessage(), is("Authentication failed with status code 400: A plain-text error response"));
-        AuthAPIException authException = (AuthAPIException) exception;
+        assertThat(exception.getMessage(), is("Request failed with status code 400: A plain-text error response"));
+        APIException authException = (APIException) exception;
         assertThat(authException.getDescription(), is("A plain-text error response"));
         assertThat(authException.getError(), is(nullValue()));
         assertThat(authException.getStatusCode(), is(400));

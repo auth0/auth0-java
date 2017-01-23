@@ -81,7 +81,7 @@ Request<UserInfo> request = auth.userInfo("nisd1h9dk.....s1doWJOsaf");
 try {
     UserInfo info = request.execute();
     // info.getValues();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -98,7 +98,7 @@ Example:
 Request request = auth.resetPassword("user@domain.com", "Username-Password-Authentication");
 try {
     request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -122,7 +122,7 @@ fields.put("age", "25");
 request.setCustomFields(fields);
 try {
     request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -143,7 +143,7 @@ request.setScope("openid contacts");
 try {
     TokenHolder holder = request.execute();
     // holder.getAccessToken();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -164,7 +164,7 @@ request.setScope("openid contacts");
 try {
     TokenHolder holder = request.execute();
     // holder.getAccessToken();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -185,7 +185,7 @@ request.setScope("openid contacts");
 try {
     TokenHolder holder = request.execute();
     // holder.getAccessToken();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -205,7 +205,7 @@ request.setScope("openid contacts");
 try {
     TokenHolder holder = request.execute();
     // holder.getAccessToken();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -238,7 +238,7 @@ Example:
 Request<List<ClientGrant>> request = mgmt.clientGrants().list();
 try {
     List<ClientGrant> response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -256,7 +256,7 @@ Example:
 Request<ClientGrant> request = mgmt.clientGrants().create("A2gnGsRYhk1v9Sf", "https://api.me.auth0.com/users", new String[]{"openid"});
 try {
     ClientGrant response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -274,7 +274,7 @@ Example:
 Request request = mgmt.clientGrants().delete("912");
 try {
     request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -292,7 +292,7 @@ Example:
 Request request = mgmt.clientGrants().update("912", new String[]{"openid profile"});
 try {
     ClientGrant response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -315,7 +315,7 @@ Example:
 Request<List<Client>> request = mgmt.clients().list();
 try {
     List<Client> response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -333,7 +333,7 @@ Example:
 Request<Client> request = mgmt.clients().get("A2gnGsRYhk1v9Sf");
 try {
     Client response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -352,7 +352,7 @@ Client data = new Client(...);
 Request<Client> request = mgmt.clients().create(data);
 try {
     Client response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -370,7 +370,7 @@ Example:
 Request request = mgmt.clients().delete("A2gnGsRYhk1v9Sf");
 try {
     request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -389,7 +389,7 @@ Client data = new Client(...);
 Request request = mgmt.clients().update("A2gnGsRYhk1v9Sf", data);
 try {
     Client response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -407,7 +407,7 @@ Example:
 Request<Client> request = mgmt.clients().rotateSecret("A2gnGsRYhk1v9Sf");
 try {
     Client response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -422,7 +422,7 @@ To access the entity methods call `mgmt.connections()`.
 #### List
 
 Creates a new request to list the Connections. An API Token with scope `read:connections` is needed.
-You can pass a Filter to narrow the results in the response.
+You can pass an optional Filter to narrow the results in the response.
 
 `Request<List<Connection>> list({FILTER})`
 
@@ -432,7 +432,7 @@ ConnectionFilter filter = new ConnectionFilter(...);
 Request<List<Connection>> request = mgmt.connections().list(filter);
 try {
     List<Connection> response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -442,7 +442,7 @@ try {
 #### Get
 
 Creates a new request to get a Connection. An API Token with scope `read:connections` is needed.
-You can pass a Filter to narrow the results in the response.
+You can pass an optional Filter to narrow the results in the response.
 
 `Request<Connection> get("{CONNECTION_ID}", {FILTER})`
 
@@ -452,7 +452,7 @@ ConnectionFilter filter = new ConnectionFilter(...);
 Request<Connection> request = mgmt.connections().get("123", filter);
 try {
     Connection response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -471,7 +471,7 @@ Connection data = new Connection(...);
 Request<Connection> request = mgmt.connections().create(data);
 try {
     Connection response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -489,7 +489,7 @@ Example:
 Request request = mgmt.connections().delete("123");
 try {
     request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -508,7 +508,7 @@ Connection data = new Connection(...);
 Request request = mgmt.connections().update("123", data);
 try {
     Connection response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -526,7 +526,7 @@ Example:
 Request request = mgmt.connections().deleteUser("123", "me@auth0.com");
 try {
     request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -541,7 +541,7 @@ To access the entity methods call `mgmt.deviceCredentials()`.
 #### List
 
 Creates a new request to list the Device Credentials. An API Token with scope `read:device_credentials` is needed.
-You can pass a Filter to narrow the results in the response.
+You can pass an optional Filter to narrow the results in the response.
 
 `Request<List<DeviceCredentials>> list({FILTER})`
 
@@ -551,7 +551,7 @@ DeviceCredentialsFilter filter = new DeviceCredentialsFilter(...);
 Request<List<DeviceCredentials>> request = mgmt.deviceCredentials().list(filter);
 try {
     List<DeviceCredentials> response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -570,7 +570,7 @@ DeviceCredentials data = new DeviceCredentials(...);
 Request<DeviceCredentials> request = mgmt.deviceCredentials().create(data);
 try {
     DeviceCredentials response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -588,7 +588,7 @@ Example:
 Request request = mgmt.deviceCredentials().delete("123");
 try {
     request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -603,7 +603,7 @@ To access the entity methods call `mgmt.logEvents()`.
 #### List
 
 Creates a new request to list the Log Events. An API Token with scope `read:logs` is needed.
-You can pass a Filter to narrow the results in the response.
+You can pass an optional Filter to narrow the results in the response.
 
 `Request<LogEventsPage> list({FILTER})`
 
@@ -613,7 +613,7 @@ LogEventFilter filter = new LogEventFilter(...);
 Request<LogEventsPage> request = mgmt.logEvents().list(filter);
 try {
     LogEventsPage response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -631,7 +631,7 @@ Example:
 Request<LogEvent> request = mgmt.logEvents().get("123");
 try {
     LogEvent response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -654,7 +654,7 @@ Example:
 Request<List<ResourceServer>> request = mgmt.resourceServers().list();
 try {
     List<ResourceServer> response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -672,7 +672,7 @@ Example:
 Request<ResourceServer> request = mgmt.resourceServers().get("123");
 try {
     ResourceServer response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -691,7 +691,7 @@ ResourceServer data = new ResourceServer(...);
 Request<ResourceServer> request = mgmt.resourceServers().create(data);
 try {
     ResourceServer response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -709,7 +709,7 @@ Example:
 Request request = mgmt.resourceServers().delete("123");
 try {
     request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -728,7 +728,7 @@ ResourceServer data = new ResourceServer(...);
 Request request = mgmt.resourceServers().update("123", data);
 try {
     ResourceServer response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -743,7 +743,7 @@ To access the entity methods call `mgmt.rules()`.
 #### List
 
 Creates a new request to list the Rules. An API Token with scope `read:rules` is needed.
-You can pass a Filter to narrow the results in the response.
+You can pass an optional Filter to narrow the results in the response.
 
 `Request<List<Rule>> list({FILTER})`
 
@@ -752,7 +752,7 @@ Example:
 Request<List<Rule>> request = mgmt.rules().list(filter);
 try {
     List<Rule> response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -762,7 +762,7 @@ try {
 #### Get
 
 Creates a new request to get a Rule. An API Token with scope `read:rules` is needed.
-You can pass a Filter to narrow the results in the response.
+You can pass an optional Filter to narrow the results in the response.
 
 `Request<Rule> get("{RULE_ID}", {FILTER})`
 
@@ -771,7 +771,7 @@ Example:
 Request<Rule> request = mgmt.rules().get("123", filter);
 try {
     Rule response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -790,7 +790,7 @@ Rule data = new Rule(...);
 Request<Rule> request = mgmt.rules().create(data);
 try {
     Rule response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -808,7 +808,7 @@ Example:
 Request request = mgmt.rules().delete("123");
 try {
     request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -827,7 +827,7 @@ Rule data = new Rule(...);
 Request request = mgmt.rules().update("123", data);
 try {
     Rule response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -850,7 +850,7 @@ Example:
 Request<UserBlocks> request = mgmt.userBlocks().get("auth0|123");
 try {
     UserBlocks response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -868,7 +868,7 @@ Example:
 Request<UserBlocks> request = mgmt.userBlocks().getByIdentifier("me@auth0.com");
 try {
     UserBlocks response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -886,7 +886,7 @@ Example:
 Request request = mgmt.userBlocks().delete("auth0|123");
 try {
     request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -904,7 +904,7 @@ Example:
 Request request = mgmt.userBlocks().deleteByIdentifier("auth0|123");
 try {
     request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -919,7 +919,7 @@ To access the entity methods call `mgmt.users()`.
 #### List
 
 Creates a new request to list the Users. An API Token with scope `read:users` is needed. If you want the identities.access_token property to be included, you will also need the scope `read:user_idp_tokens`.
-You can pass a Filter to narrow the results in the response.
+You can pass an optional Filter to narrow the results in the response.
 
 `Request<UsersPage> list({FILTER})`
 
@@ -929,7 +929,7 @@ UserFilter filter = new UserFilter(...);
 Request<UsersPage> request = mgmt.users().list(filter);
 try {
     UsersPage response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -939,7 +939,7 @@ try {
 #### Get
 
 Creates a new request to get a User. An API Token with scope `read:users` is needed. If you want the identities.access_token property to be included, you will also need the scope `read:user_idp_tokens`.
-You can pass a Filter to narrow the results in the response.
+You can pass an optional Filter to narrow the results in the response.
 
 `Request<User> get("{USER_ID}", {FILTER})`
 
@@ -949,7 +949,7 @@ UserFilter filter = new UserFilter(...);
 Request<User> request = mgmt.users().get("auth0|123", filter);
 try {
     User response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -968,7 +968,7 @@ User data = new User(...);
 Request<User> request = mgmt.users().create(data);
 try {
     User response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -986,7 +986,7 @@ Example:
 Request request = mgmt.users().delete("auth0|123");
 try {
     request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1005,7 +1005,7 @@ User data = new User(...);
 Request request = mgmt.users().update("auth0|123", data);
 try {
     User response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1023,7 +1023,7 @@ Example:
 Request<List<Enrollment>> request = mgmt.users().getEnrollments("auth0|123");
 try {
     List<Enrollment> response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1033,7 +1033,7 @@ try {
 #### Get Log Events
 
 Creates a new request to list the User's Log Events. An API Token with scope `read:logs` is needed.
-You can pass a Filter to narrow the results in the response.
+You can pass an optional Filter to narrow the results in the response.
 
 `Request<LogEventsPage> getLogEvents("{USER_ID}", {FILTER})`
 
@@ -1043,7 +1043,7 @@ LogEventFilter filter = new LogEventFilter(...);
 Request<LogEventsPage> request = mgmt.users().getLogEvents("auth0|123", filter);
 try {
     LogEventsPage response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1062,7 +1062,7 @@ Example:
 Request request = mgmt.users().deleteMultifactorProvider("auth0|123", "duo");
 try {
     request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1080,7 +1080,7 @@ Example:
 Request<RecoveryCode> request = mgmt.users().rotateRecoveryCode("auth0|123");
 try {
     RecoveryCode response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1098,7 +1098,7 @@ Example:
 Request<List<Identities>> request = mgmt.users().linkIdentity("auth0|123", "124", "facebook", "c90");
 try {
     List<Identities> response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1116,7 +1116,7 @@ Example:
 Request<List<Identities>> request = mgmt.users().unlinkIdentity("auth0|123", "124", "facebook");
 try {
     List<Identities> response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1139,7 +1139,7 @@ Example:
 Request<List<Token>> request = mgmt.blacklists().getBlacklist("https://api.me.auth0.com/users");
 try {
     List<Token> response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1158,7 +1158,7 @@ Token data = new Token(...);
 Request request = mgmt.blacklists().blacklistToken(data);
 try {
     request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1173,7 +1173,7 @@ To access the entity methods call `mgmt.emailProvider()`.
 #### Get
 
 Creates a new request to get the Email Provider. An API Token with scope `read:email_provider` is required.
-You can pass a Filter to narrow the results in the response.
+You can pass an optional Filter to narrow the results in the response.
 
 `Request<EmailProvider> get({FILTER})`
 
@@ -1183,7 +1183,7 @@ FieldsFilter filter = new FieldsFilter(...);
 Request<EmailProvider> request = mgmt.emailProvider().get();
 try {
     EmailProvider response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1202,7 +1202,7 @@ EmailProvider data = new EmailProvider(...);
 Request<EmailProvider> request = mgmt.emailProvider().setup(data);
 try {
     EmailProvider response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1220,7 +1220,7 @@ Example:
 Request request = mgmt.emailProvider().delete();
 try {
     request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1239,7 +1239,7 @@ EmailProvider data = new EmailProvider(...);
 Request<EmailProvider> request = mgmt.emailProvider().update(data);
 try {
     EmailProvider response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1263,7 +1263,7 @@ EnrollmentTicket data = new EnrollmentTicket(...);
 Request<EnrollmentTicket> request = mgmt.guardian().createEnrollmentTicket(data);
 try {
     EnrollmentTicket response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1281,7 +1281,7 @@ Example:
 Request request = mgmt.guardian().deleteEnrollment("123");
 try {
     request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1299,7 +1299,7 @@ Example:
 Request<GuardianTemplates> request = mgmt.guardian().getTemplates();
 try {
     GuardianTemplates response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1318,7 +1318,7 @@ GuardianTemplates data = new GuardianTemplates(...);
 Request<GuardianTemplates> request = mgmt.guardian().updateTemplates(data);
 try {
     GuardianTemplates response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1336,7 +1336,7 @@ Example:
 Request<List<Factor>> request = mgmt.guardian().listFactors();
 try {
     List<Factor> response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1354,7 +1354,7 @@ Example:
 Request<Factor> request = mgmt.guardian().updateFactor("sms", true);
 try {
     Factor response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1372,7 +1372,7 @@ Example:
 Request<TwilioFactorProvider> request = mgmt.guardian().getTwilioFactorProvider();
 try {
     TwilioFactorProvider response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1391,7 +1391,7 @@ TwilioFactorProvider data = new TwilioFactorProvider(...);
 Request<TwilioFactorProvider> request = mgmt.guardian().updateTwilioFactorProvider(data);
 try {
     TwilioFactorProvider response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1409,7 +1409,7 @@ Example:
 Request<SnsFactorProvider> request = mgmt.guardian().getSnsFactorProvider();
 try {
     SnsFactorProvider response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1428,7 +1428,7 @@ SnsFactorProvider data = new SnsFactorProvider(...);
 Request<SnsFactorProvider> request = mgmt.guardian().updateSnsFactorProvider(data);
 try {
     SnsFactorProvider response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1452,7 +1452,7 @@ Example:
 Request<Integer> request = mgmt.stats().getActiveUsersCount();
 try {
     Integer response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1470,7 +1470,7 @@ Example:
 Request<List<DailyStats>> request = mgmt.stats().getDailyStats("20170110", "20170210");
 try {
     List<DailyStats> response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1486,7 +1486,7 @@ To access the entity methods call `mgmt.tenants()`.
 #### Get
 
 Creates a new request to get the Tenant settings. An API Token with scope `read:tenant_settings` is needed.
-You can pass a Filter to narrow the results in the response.
+You can pass an optional Filter to narrow the results in the response.
 
 `Request<Tenant> get({FILTER})`
 
@@ -1496,7 +1496,7 @@ FieldsFilter filter = new FieldsFilter(...);
 Request<Tenant> request = mgmt.tenants().get(filter);
 try {
     Tenant response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1515,7 +1515,7 @@ Tenant data = new Tenant(...);
 Request<Tenant> request = mgmt.tenants().update(data);
 try {
     Tenant response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1538,7 +1538,7 @@ EmailVerificationTicket data = new EmailVerificationTicket(...);
 Request<EmailVerificationTicket> request = mgmt.tickets().requestEmailVerification(data);
 try {
     EmailVerificationTicket response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1557,7 +1557,7 @@ PasswordChangeTicket data = new PasswordChangeTicket(...);
 Request<PasswordChangeTicket> request = mgmt.tickets().requestPasswordChange(data);
 try {
     PasswordChangeTicket response = request.execute();
-} catch (AuthAPIException exception) {
+} catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
     // request error
@@ -1579,16 +1579,16 @@ try {
 }
 ```
 
-### AuthAPIException
+### APIException
 Auth0Exception child thrown when the Request was executed fine but the Response was not successful.
 
 ```java
 try {
     request.execute();
-} catch(AuthAPIException e) {
+} catch(APIException e) {
     e.getStatusCode(); // http status code
-    e.getError(); // error code
-    e.getDescription(); // error description
+    e.getError(); // api error code
+    e.getDescription(); // api error description
 }
 ```
 

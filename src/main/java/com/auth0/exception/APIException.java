@@ -2,21 +2,21 @@ package com.auth0.exception;
 
 import java.util.Map;
 
-public class AuthAPIException extends Auth0Exception {
+public class APIException extends Auth0Exception {
 
     private String error;
     private String description;
     private int statusCode;
 
-    public AuthAPIException(String payload, int statusCode, Throwable cause) {
+    public APIException(String payload, int statusCode, Throwable cause) {
         super(createMessage(payload, statusCode), cause);
         this.description = payload;
         this.statusCode = statusCode;
     }
 
-    public AuthAPIException(Map<String, Object> values, int statusCode) {
+    public APIException(Map<String, Object> values, int statusCode) {
         super(createMessage(obtainExceptionMessage(values), statusCode));
-        this.error = (String) (values.containsKey("error") ? values.get("error") : values.get("code"));
+        this.error = obtainExceptionError(values);
         this.description = obtainExceptionMessage(values);
         this.statusCode = statusCode;
     }
@@ -34,6 +34,19 @@ public class AuthAPIException extends Auth0Exception {
         if (values.containsKey("error")) {
             return (String) values.get("error");
         }
+        return "Unknown exception";
+    }
+
+    private static String obtainExceptionError(Map<String, Object> values) {
+        if (values.containsKey("errorCode")) {
+            return (String) values.get("errorCode");
+        }
+        if (values.containsKey("error")) {
+            return (String) values.get("error");
+        }
+        if (values.containsKey("code")) {
+            return (String) values.get("code");
+        }
         return "Unknown error";
     }
 
@@ -50,6 +63,6 @@ public class AuthAPIException extends Auth0Exception {
     }
 
     private static String createMessage(String description, int statusCode) {
-        return String.format("Authentication failed with status code %d: %s", statusCode, description);
+        return String.format("Request failed with status code %d: %s", statusCode, description);
     }
 }

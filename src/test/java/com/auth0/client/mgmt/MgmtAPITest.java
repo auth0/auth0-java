@@ -48,6 +48,13 @@ public class MgmtAPITest {
     }
 
     @Test
+    public void shouldThrowWhenDomainIsInvalid() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("The domain had an invalid format and couldn't be parsed as an URL.");
+        new MgmtAPI("", API_TOKEN);
+    }
+
+    @Test
     public void shouldThrowWhenDomainIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'domain' cannot be null!");
