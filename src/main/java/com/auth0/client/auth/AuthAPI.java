@@ -28,6 +28,8 @@ public class AuthAPI {
     private final String clientId;
     private final String clientSecret;
     private final String baseUrl;
+    private final TelemetryInterceptor telemetry;
+    private final HttpLoggingInterceptor logging;
 
     public AuthAPI(String domain, String clientId, String clientSecret) {
         Asserts.assertNotNull(domain, "domain");
@@ -41,13 +43,35 @@ public class AuthAPI {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
 
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        telemetry = new TelemetryInterceptor();
+        logging = new HttpLoggingInterceptor();
         logging.setLevel(Level.NONE);
         client = new OkHttpClient.Builder()
                 .addInterceptor(logging)
+                .addInterceptor(telemetry)
                 .build();
     }
 
+    /**
+     * Avoid sending Telemetry data in every request to the Auth0 servers.
+     */
+    public void doNotSendTelemetry() {
+        telemetry.setEnabled(false);
+    }
+
+    /**
+     * Whether to enable or not the current Http Logger for every Request, Response and other sensitive information.
+     */
+    public void setLoggingEnabled(boolean enabled) {
+        logging.setLevel(enabled ? Level.BODY : Level.NONE);
+    }
+
+    //Visible for Testing
+    OkHttpClient getClient() {
+        return client;
+    }
+
+    //Visible for Testing
     String getBaseUrl() {
         return baseUrl;
     }

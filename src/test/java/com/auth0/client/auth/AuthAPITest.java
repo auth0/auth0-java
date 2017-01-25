@@ -6,6 +6,10 @@ import com.auth0.json.auth.UserInfo;
 import com.auth0.net.AuthRequest;
 import com.auth0.net.Request;
 import com.auth0.net.SignUpRequest;
+import com.auth0.net.TelemetryInterceptor;
+import okhttp3.Interceptor;
+import okhttp3.logging.HttpLoggingInterceptor;
+import okhttp3.logging.HttpLoggingInterceptor.Level;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.After;
 import org.junit.Before;
@@ -93,6 +97,73 @@ public class AuthAPITest {
         new AuthAPI(DOMAIN, CLIENT_ID, null);
     }
 
+    @Test
+    public void shouldAddAndEnableTelemetryInterceptor() throws Exception {
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
+        assertThat(api.getClient().interceptors(), hasItem(isA(TelemetryInterceptor.class)));
+
+        for (Interceptor i : api.getClient().interceptors()) {
+            if (i instanceof TelemetryInterceptor) {
+                TelemetryInterceptor telemetry = (TelemetryInterceptor) i;
+                assertThat(telemetry.isEnabled(), is(true));
+            }
+        }
+    }
+
+    @Test
+    public void shouldDisableTelemetryInterceptor() throws Exception {
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
+        assertThat(api.getClient().interceptors(), hasItem(isA(TelemetryInterceptor.class)));
+        api.doNotSendTelemetry();
+
+        for (Interceptor i : api.getClient().interceptors()) {
+            if (i instanceof TelemetryInterceptor) {
+                TelemetryInterceptor telemetry = (TelemetryInterceptor) i;
+                assertThat(telemetry.isEnabled(), is(false));
+            }
+        }
+    }
+
+    @Test
+    public void shouldAddAndDisableLoggingInterceptor() throws Exception {
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
+        assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
+
+        for (Interceptor i : api.getClient().interceptors()) {
+            if (i instanceof HttpLoggingInterceptor) {
+                HttpLoggingInterceptor logging = (HttpLoggingInterceptor) i;
+                assertThat(logging.getLevel(), is(Level.NONE));
+            }
+        }
+    }
+
+    @Test
+    public void shouldEnableLoggingInterceptor() throws Exception {
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
+        assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
+        api.setLoggingEnabled(true);
+
+        for (Interceptor i : api.getClient().interceptors()) {
+            if (i instanceof HttpLoggingInterceptor) {
+                HttpLoggingInterceptor logging = (HttpLoggingInterceptor) i;
+                assertThat(logging.getLevel(), is(Level.BODY));
+            }
+        }
+    }
+
+    @Test
+    public void shouldDisableLoggingInterceptor() throws Exception {
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
+        assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
+        api.setLoggingEnabled(false);
+
+        for (Interceptor i : api.getClient().interceptors()) {
+            if (i instanceof HttpLoggingInterceptor) {
+                HttpLoggingInterceptor logging = (HttpLoggingInterceptor) i;
+                assertThat(logging.getLevel(), is(Level.NONE));
+            }
+        }
+    }
 
     //Authorize
 

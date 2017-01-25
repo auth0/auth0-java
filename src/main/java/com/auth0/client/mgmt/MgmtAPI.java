@@ -1,15 +1,19 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.Asserts;
+import com.auth0.net.TelemetryInterceptor;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import okhttp3.logging.HttpLoggingInterceptor.Level;
 
 public class MgmtAPI {
 
     private final String baseUrl;
     private final String apiToken;
     private final OkHttpClient client;
+    private final TelemetryInterceptor telemetry;
+    private final HttpLoggingInterceptor logging;
 
     public MgmtAPI(String domain, String apiToken) {
         Asserts.assertNotNull(domain, "domain");
@@ -21,13 +25,35 @@ public class MgmtAPI {
         }
         this.apiToken = apiToken;
 
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        telemetry = new TelemetryInterceptor();
+        logging = new HttpLoggingInterceptor();
+        logging.setLevel(Level.NONE);
         client = new OkHttpClient.Builder()
                 .addInterceptor(logging)
+                .addInterceptor(telemetry)
                 .build();
     }
 
+    /**
+     * Avoid sending Telemetry data in every request to the Auth0 servers.
+     */
+    public void doNotSendTelemetry() {
+        telemetry.setEnabled(false);
+    }
+
+    /**
+     * Whether to enable or not the current Http Logger for every Request, Response and other sensitive information.
+     */
+    public void setLoggingEnabled(boolean enabled) {
+        logging.setLevel(enabled ? Level.BODY : Level.NONE);
+    }
+
+    //Visible for testing
+    OkHttpClient getClient() {
+        return client;
+    }
+
+    //Visible for testing
     String getBaseUrl() {
         return baseUrl;
     }

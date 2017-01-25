@@ -31,6 +31,7 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.8.5'
+    compile 'commons-codec:commons-codec:1.10'
 
     testCompile 'org.mockito:mockito-core:2.5.4'
     testCompile 'com.squareup.okhttp3:mockwebserver:3.5.0'

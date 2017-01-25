@@ -1,13 +1,17 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.MockServer;
+import com.auth0.net.TelemetryInterceptor;
+import okhttp3.Interceptor;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import static com.auth0.client.UrlMatcher.isUrl;
-import static org.hamcrest.Matchers.notNullValue;
+import static okhttp3.logging.HttpLoggingInterceptor.Level;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 public class MgmtAPITest {
@@ -66,6 +70,74 @@ public class MgmtAPITest {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'api token' cannot be null!");
         new MgmtAPI(DOMAIN, null);
+    }
+
+    @Test
+    public void shouldAddAndEnableTelemetryInterceptor() throws Exception {
+        MgmtAPI api = new MgmtAPI(DOMAIN, API_TOKEN);
+        assertThat(api.getClient().interceptors(), hasItem(isA(TelemetryInterceptor.class)));
+
+        for (Interceptor i : api.getClient().interceptors()) {
+            if (i instanceof TelemetryInterceptor) {
+                TelemetryInterceptor telemetry = (TelemetryInterceptor) i;
+                assertThat(telemetry.isEnabled(), is(true));
+            }
+        }
+    }
+
+    @Test
+    public void shouldDisableTelemetryInterceptor() throws Exception {
+        MgmtAPI api = new MgmtAPI(DOMAIN, API_TOKEN);
+        assertThat(api.getClient().interceptors(), hasItem(isA(TelemetryInterceptor.class)));
+        api.doNotSendTelemetry();
+
+        for (Interceptor i : api.getClient().interceptors()) {
+            if (i instanceof TelemetryInterceptor) {
+                TelemetryInterceptor telemetry = (TelemetryInterceptor) i;
+                assertThat(telemetry.isEnabled(), is(false));
+            }
+        }
+    }
+
+    @Test
+    public void shouldAddAndDisableLoggingInterceptor() throws Exception {
+        MgmtAPI api = new MgmtAPI(DOMAIN, API_TOKEN);
+        assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
+
+        for (Interceptor i : api.getClient().interceptors()) {
+            if (i instanceof HttpLoggingInterceptor) {
+                HttpLoggingInterceptor logging = (HttpLoggingInterceptor) i;
+                assertThat(logging.getLevel(), is(Level.NONE));
+            }
+        }
+    }
+
+    @Test
+    public void shouldEnableLoggingInterceptor() throws Exception {
+        MgmtAPI api = new MgmtAPI(DOMAIN, API_TOKEN);
+        assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
+        api.setLoggingEnabled(true);
+
+        for (Interceptor i : api.getClient().interceptors()) {
+            if (i instanceof HttpLoggingInterceptor) {
+                HttpLoggingInterceptor logging = (HttpLoggingInterceptor) i;
+                assertThat(logging.getLevel(), is(Level.BODY));
+            }
+        }
+    }
+
+    @Test
+    public void shouldDisableLoggingInterceptor() throws Exception {
+        MgmtAPI api = new MgmtAPI(DOMAIN, API_TOKEN);
+        assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
+        api.setLoggingEnabled(false);
+
+        for (Interceptor i : api.getClient().interceptors()) {
+            if (i instanceof HttpLoggingInterceptor) {
+                HttpLoggingInterceptor logging = (HttpLoggingInterceptor) i;
+                assertThat(logging.getLevel(), is(Level.NONE));
+            }
+        }
     }
 
     //Entities
