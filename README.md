@@ -1562,29 +1562,23 @@ try {
 
 
 
-## Exceptions
+## Error Handling
 
-### Auth0Exception
-Base checked exception thrown when a Request creation or execution fails.
+The API Clients throw `Auth0Exception` when an unexpected error happens on a request execution, i.e. Connectivity or Timeout error. 
 
-```java
-try {
-    request.execute();
-} catch(Auth0Exception e) {
-    e.getMessage(); // description
-}
+If you need to handle different error scenarios you need to catch first `APIException`, which provides methods to get a clue of what went wrong.
+
+The APIExplorer includes a list of response messages for each endpoint. You can get a clue of what went wrong by asking the Http status code: `exception.getStatusCode()`. i.e. a `status_code=403` would mean that the token has an insufficient scope. 
+
+An error code will be included to categorize the type of error, you can get it by calling `exception.getError()`. If you want to see a user friendly description of what happened and why the request is failing check the `exception.getDescription()`. 
+
+
 ```
-
-### APIException
-Auth0Exception child thrown when the Request was executed fine but the Response was not successful.
-
-```java
-try {
-    request.execute();
-} catch(APIException e) {
-    e.getStatusCode(); // http status code
-    e.getError(); // api error code
-    e.getDescription(); // api error description
+Example exception data
+{
+  statusCode: 400,
+  description: "Query validation error: 'String 'users' does not match pattern. Must be a comma separated list of the following values: name,strategy,options,enabled_clients,id,provisioning_ticket_url' on property fields (A comma separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields).",
+  error: "invalid_query_string"
 }
 ```
 
