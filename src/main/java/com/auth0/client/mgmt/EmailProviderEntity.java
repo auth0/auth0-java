@@ -1,6 +1,6 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.Asserts;
+import com.auth0.utils.Asserts;
 import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.json.mgmt.emailproviders.EmailProvider;
 import com.auth0.net.CustomRequest;

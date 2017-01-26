@@ -1,6 +1,6 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.Asserts;
+import com.auth0.utils.Asserts;
 import com.auth0.json.mgmt.tickets.EmailVerificationTicket;
 import com.auth0.json.mgmt.tickets.PasswordChangeTicket;
 import com.auth0.net.CustomRequest;

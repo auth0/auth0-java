@@ -5,8 +5,8 @@ import okhttp3.HttpUrl;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.auth0.Asserts.assertNotNull;
-import static com.auth0.Asserts.assertValidUrl;
+import static com.auth0.utils.Asserts.assertNotNull;
+import static com.auth0.utils.Asserts.assertValidUrl;
 
 public class LogoutUrlBuilder {
 

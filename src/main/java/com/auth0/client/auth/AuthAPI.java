@@ -1,6 +1,6 @@
 package com.auth0.client.auth;
 
-import com.auth0.Asserts;
+import com.auth0.utils.Asserts;
 import com.auth0.json.auth.UserInfo;
 import com.auth0.net.*;
 import com.fasterxml.jackson.core.type.TypeReference;

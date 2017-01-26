@@ -1,6 +1,6 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.Asserts;
+import com.auth0.utils.Asserts;
 import com.auth0.net.TelemetryInterceptor;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
