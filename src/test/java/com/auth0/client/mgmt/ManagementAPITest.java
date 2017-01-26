@@ -6,6 +6,7 @@ import okhttp3.Interceptor;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
@@ -14,20 +15,20 @@ import static okhttp3.logging.HttpLoggingInterceptor.Level;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
-public class MgmtAPITest {
+public class ManagementAPITest {
 
     private static final String DOMAIN = "domain.auth0.com";
     private static final String API_TOKEN = "apiToken";
 
     private MockServer server;
-    private MgmtAPI api;
-    @org.junit.Rule
+    private ManagementAPI api;
+    @Rule
     public ExpectedException exception = ExpectedException.none();
 
     @Before
     public void setUp() throws Exception {
         server = new MockServer();
-        api = new MgmtAPI(server.getBaseUrl(), API_TOKEN);
+        api = new ManagementAPI(server.getBaseUrl(), API_TOKEN);
     }
 
     @After
@@ -39,14 +40,14 @@ public class MgmtAPITest {
 
     @Test
     public void shouldAcceptDomainWithNoScheme() throws Exception {
-        MgmtAPI api = new MgmtAPI("me.something.com", API_TOKEN);
+        ManagementAPI api = new ManagementAPI("me.something.com", API_TOKEN);
 
         assertThat(api.getBaseUrl(), isUrl("https", "me.something.com"));
     }
 
     @Test
     public void shouldAcceptDomainWithHttpScheme() throws Exception {
-        MgmtAPI api = new MgmtAPI("http://me.something.com", API_TOKEN);
+        ManagementAPI api = new ManagementAPI("http://me.something.com", API_TOKEN);
 
         assertThat(api.getBaseUrl(), isUrl("http", "me.something.com"));
     }
@@ -55,26 +56,26 @@ public class MgmtAPITest {
     public void shouldThrowWhenDomainIsInvalid() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("The domain had an invalid format and couldn't be parsed as an URL.");
-        new MgmtAPI("", API_TOKEN);
+        new ManagementAPI("", API_TOKEN);
     }
 
     @Test
     public void shouldThrowWhenDomainIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'domain' cannot be null!");
-        new MgmtAPI(null, API_TOKEN);
+        new ManagementAPI(null, API_TOKEN);
     }
 
     @Test
     public void shouldThrowWhenApiTokenIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'api token' cannot be null!");
-        new MgmtAPI(DOMAIN, null);
+        new ManagementAPI(DOMAIN, null);
     }
 
     @Test
     public void shouldAddAndEnableTelemetryInterceptor() throws Exception {
-        MgmtAPI api = new MgmtAPI(DOMAIN, API_TOKEN);
+        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN);
         assertThat(api.getClient().interceptors(), hasItem(isA(TelemetryInterceptor.class)));
 
         for (Interceptor i : api.getClient().interceptors()) {
@@ -87,7 +88,7 @@ public class MgmtAPITest {
 
     @Test
     public void shouldDisableTelemetryInterceptor() throws Exception {
-        MgmtAPI api = new MgmtAPI(DOMAIN, API_TOKEN);
+        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN);
         assertThat(api.getClient().interceptors(), hasItem(isA(TelemetryInterceptor.class)));
         api.doNotSendTelemetry();
 
@@ -101,7 +102,7 @@ public class MgmtAPITest {
 
     @Test
     public void shouldAddAndDisableLoggingInterceptor() throws Exception {
-        MgmtAPI api = new MgmtAPI(DOMAIN, API_TOKEN);
+        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN);
         assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
 
         for (Interceptor i : api.getClient().interceptors()) {
@@ -114,7 +115,7 @@ public class MgmtAPITest {
 
     @Test
     public void shouldEnableLoggingInterceptor() throws Exception {
-        MgmtAPI api = new MgmtAPI(DOMAIN, API_TOKEN);
+        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN);
         assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
         api.setLoggingEnabled(true);
 
@@ -128,7 +129,7 @@ public class MgmtAPITest {
 
     @Test
     public void shouldDisableLoggingInterceptor() throws Exception {
-        MgmtAPI api = new MgmtAPI(DOMAIN, API_TOKEN);
+        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN);
         assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
         api.setLoggingEnabled(false);
 

@@ -7,7 +7,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 
-public class MgmtAPI {
+public class ManagementAPI {
 
     private final String baseUrl;
     private final String apiToken;
@@ -15,7 +15,7 @@ public class MgmtAPI {
     private final TelemetryInterceptor telemetry;
     private final HttpLoggingInterceptor logging;
 
-    public MgmtAPI(String domain, String apiToken) {
+    public ManagementAPI(String domain, String apiToken) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(apiToken, "api token");
 

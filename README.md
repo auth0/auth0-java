@@ -213,10 +213,10 @@ try {
 
 The implementation is based on the [Management API Docs](https://auth0.com/docs/api/management/v2).
 
-Create a new `MgmtAPI` instance by providing the domain from the [client dashboard](https://manage.auth0.com/#/clients) and the API Token. Click [here](https://auth0.com/docs/api/management/v2#!/Introduction/Getting_an_API_token) for more information on how to obtain a valid API Token.
+Create a new `ManagementAPI` instance by providing the domain from the [client dashboard](https://manage.auth0.com/#/clients) and the API Token. Click [here](https://auth0.com/docs/api/management/v2#!/Introduction/Getting_an_API_token) for more information on how to obtain a valid API Token.
 
 ```java
-MgmtAPI mgmt = new MgmtAPI("{YOUR_DOMAIN}", "{YOUR_API_TOKEN}");
+ManagementAPI mgmt = new ManagementAPI("{YOUR_DOMAIN}", "{YOUR_API_TOKEN}");
 ```
 
 ### Client Grants
