@@ -171,19 +171,19 @@ public class AuthAPITest {
     public void shouldThrowWhenAuthorizeUrlBuilderRedirectUriIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'redirect uri' cannot be null!");
-        api.authorize(null);
+        api.authorizeUrl(null);
     }
 
     @Test
     public void shouldGetAuthorizeUrlBuilder() throws Exception {
-        AuthorizeUrlBuilder builder = api.authorize("https://domain.auth0.com/callback");
+        AuthorizeUrlBuilder builder = api.authorizeUrl("https://domain.auth0.com/callback");
         assertThat(builder, is(notNullValue()));
     }
 
     @Test
     public void shouldSetAuthorizeUrlBuilderDefaultValues() throws Exception {
         AuthAPI api = new AuthAPI("domain.auth0.com", CLIENT_ID, CLIENT_SECRET);
-        String url = api.authorize("https://domain.auth0.com/callback").build();
+        String url = api.authorizeUrl("https://domain.auth0.com/callback").build();
 
         assertThat(url, isUrl("https", "domain.auth0.com", "/authorize"));
         assertThat(url, hasQueryParameter("response_type", "code"));
@@ -199,19 +199,19 @@ public class AuthAPITest {
     public void shouldThrowWhenLogoutUrlBuilderReturnToUrlIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'return to url' cannot be null!");
-        api.logout(null, true);
+        api.logoutUrl(null, true);
     }
 
     @Test
     public void shouldGetLogoutUrlBuilder() throws Exception {
-        LogoutUrlBuilder builder = api.logout("https://domain.auth0.com/callback", true);
+        LogoutUrlBuilder builder = api.logoutUrl("https://domain.auth0.com/callback", true);
         assertThat(builder, is(notNullValue()));
     }
 
     @Test
     public void shouldSetLogoutUrlBuilderDefaultValues() throws Exception {
         AuthAPI api = new AuthAPI("domain.auth0.com", CLIENT_ID, CLIENT_SECRET);
-        String url = api.logout("https://my.domain.com/welcome", false).build();
+        String url = api.logoutUrl("https://my.domain.com/welcome", false).build();
 
         assertThat(url, isUrl("https", "domain.auth0.com", "/v2/logout"));
         assertThat(url, hasQueryParameter("client_id", null));
@@ -221,7 +221,7 @@ public class AuthAPITest {
     @Test
     public void shouldSetLogoutUrlBuilderDefaultValuesAndClientId() throws Exception {
         AuthAPI api = new AuthAPI("domain.auth0.com", CLIENT_ID, CLIENT_SECRET);
-        String url = api.logout("https://my.domain.com/welcome", true).build();
+        String url = api.logoutUrl("https://my.domain.com/welcome", true).build();
 
         assertThat(url, isUrl("https", "domain.auth0.com", "/v2/logout"));
         assertThat(url, hasQueryParameter("client_id", CLIENT_ID));
@@ -443,19 +443,19 @@ public class AuthAPITest {
     public void shouldThrowOnLogInWithAuthorizationCodeGrantAndRedirectUriWithNullCode() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'code' cannot be null!");
-        api.loginWithAuthorizationCode(null, "https://domain.auth0.com/callback");
+        api.exchangeCode(null, "https://domain.auth0.com/callback");
     }
 
     @Test
     public void shouldThrowOnLogInWithAuthorizationCodeGrantAndRedirectUriWithNullRedirectUri() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'redirect uri' cannot be null!");
-        api.loginWithAuthorizationCode("code", null);
+        api.exchangeCode("code", null);
     }
 
     @Test
     public void shouldCreateLogInWithAuthorizationCodeGrantRequest() throws Exception {
-        AuthRequest request = api.loginWithAuthorizationCode("code123", "https://domain.auth0.com/callback");
+        AuthRequest request = api.exchangeCode("code123", "https://domain.auth0.com/callback");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
@@ -482,7 +482,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateLogInWithAuthorizationCodeGrantRequestWithCustomParameters() throws Exception {
-        AuthRequest request = api.loginWithAuthorizationCode("code123", "https://domain.auth0.com/callback");
+        AuthRequest request = api.exchangeCode("code123", "https://domain.auth0.com/callback");
         assertThat(request, is(notNullValue()));
         request.setAudience("https://myapi.auth0.com/users");
         request.setRealm("dbconnection");
@@ -520,19 +520,19 @@ public class AuthAPITest {
     public void shouldThrowOnLogInWithPasswordWithNullUsername() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email or username' cannot be null!");
-        api.loginWithPassword(null, "p455w0rd");
+        api.login(null, "p455w0rd");
     }
 
     @Test
     public void shouldThrowOnLogInWithPasswordWithNullPassword() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'password' cannot be null!");
-        api.loginWithPassword("me", null);
+        api.login("me", null);
     }
 
     @Test
     public void shouldCreateLogInWithPasswordGrantRequest() throws Exception {
-        AuthRequest request = api.loginWithPassword("me", "p455w0rd");
+        AuthRequest request = api.login("me", "p455w0rd");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
@@ -559,7 +559,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateLogInWithPasswordGrantRequestWithCustomParameters() throws Exception {
-        AuthRequest request = api.loginWithPassword("me", "p455w0rd");
+        AuthRequest request = api.login("me", "p455w0rd");
         assertThat(request, is(notNullValue()));
         request.setRealm("dbconnection");
         request.setScope("profile photos contacts");
@@ -597,26 +597,26 @@ public class AuthAPITest {
     public void shouldThrowOnLogInWithPasswordRealmWithNullUsername() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email or username' cannot be null!");
-        api.loginWithPasswordRealm(null, "p455w0rd", "realm");
+        api.login(null, "p455w0rd", "realm");
     }
 
     @Test
     public void shouldThrowOnLogInWithPasswordRealmWithNullPassword() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'password' cannot be null!");
-        api.loginWithPasswordRealm("me", null, "realm");
+        api.login("me", null, "realm");
     }
 
     @Test
     public void shouldThrowOnLogInWithPasswordRealmWithNullRealm() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'realm' cannot be null!");
-        api.loginWithPasswordRealm("me", "p455w0rd", null);
+        api.login("me", "p455w0rd", null);
     }
 
     @Test
     public void shouldCreateLogInWithPasswordRealmGrantRequest() throws Exception {
-        AuthRequest request = api.loginWithPasswordRealm("me", "p455w0rd", "realm");
+        AuthRequest request = api.login("me", "p455w0rd", "realm");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
@@ -644,7 +644,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateLogInWithPasswordRealmGrantRequestWithCustomParameters() throws Exception {
-        AuthRequest request = api.loginWithPasswordRealm("me", "p455w0rd", "realm");
+        AuthRequest request = api.login("me", "p455w0rd", "realm");
         assertThat(request, is(notNullValue()));
         request.setAudience("https://myapi.auth0.com/users");
         request.setRealm("dbconnection");
@@ -682,12 +682,12 @@ public class AuthAPITest {
     public void shouldThrowOnLogInWithClientCredentialsWithNullAudience() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'audience' cannot be null!");
-        api.loginWithClientCredentials(null);
+        api.requestToken(null);
     }
 
     @Test
     public void shouldCreateLogInWithClientCredentialsGrantRequest() throws Exception {
-        AuthRequest request = api.loginWithClientCredentials("https://myapi.auth0.com/users");
+        AuthRequest request = api.requestToken("https://myapi.auth0.com/users");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);

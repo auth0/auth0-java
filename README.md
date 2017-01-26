@@ -42,32 +42,28 @@ AuthAPI auth = new AuthAPI("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SE
 
 Creates an `AuthorizeUrlBuilder` to authenticate the user with an OAuth provider. The `redirectUri` must be white-listed in the "Allowed Callback URLs" section of the Client Settings. Parameters can be added to the final url by using the builder methods. When ready, call `build()` and obtain the Url.
 
-`AuthorizeUrlBuilder authorize("{CONNECTION}", "{REDIRECT_URI}")`
+`AuthorizeUrlBuilder authorizeUrl("{REDIRECT_URI}")`
 
 Example:
 ```java
-AuthorizeUrlBuilder builder = auth.authorize("facebook", "https://me.auth0.com/callback");
-builder.withAudience("https://api.me.auth0.com/users");
-builder.withScope("openid contacts");
-builder.withState("state123");
-
-String url = builder.build();
-// https://me.auth0.com/authorize?redirect_uri=https://me.auth0.com/callback&response_type=code&client_id=iaih2D7AC56kksdkPtWAsjI3li&audience=https://api.me.auth0.com/users&scope=openid%20contacts&connection=facebook&state=state123
+String url = auth.authorizeUrl("https://me.auth0.com/callback")
+    .withConnection("facebook")
+    .withAudience("https://api.me.auth0.com/users")
+    .withScope("openid contacts")
+    .withState("state123")
+    .build();
 ```
 
 ### Logout - /v2/logout
 Creates a `LogoutUrlBuilder` to log out the user. The `returnToUrl` must be white-listed in the "Allowed Logout URLs" section of the Client Settings. Parameters can be added to the final url by using the builder methods. When ready, call `build()` and obtain the Url.
 
-`LogoutUrlBuilder logout("{RETURN_TO_URL}", "{SEND_CLIENT_ID}")`
+`LogoutUrlBuilder logoutUrl("{RETURN_TO_URL}", "{SEND_CLIENT_ID}")`
 
 Example:
 ```java
-LogoutUrlBuilder builder = auth.logout("https://me.auth0.com/home", true);
-builder.useFederated(true);
-builder.withAccessToken("aToKen");
-
-String url = builder.build();
-// https://me.auth0.com/v2/logout?returnTo=https://me.auth0.com/home&client_id=iaih2D7AC56kksdkPtWAsjI3li&access_token=aToKen&federated=
+String url = auth.logoutUrl("https://me.auth0.com/home", true)
+    .useFederated(true)
+    .withAccessToken("aToKen");
 ```
 
 ### UserInfo - /userinfo
@@ -129,15 +125,15 @@ try {
 }
 ```
 
-### Log In with Authorization Code - /oauth/token
+### Exchange the Authorization Code - /oauth/token
 
-Creates a new request to log in the user with a `code` previously obtained by calling the /authorize endpoint. The redirect uri must be the one sent in the /authorize call.
+Creates a new request to exchange the `code` previously obtained by calling the /authorize endpoint. The redirect uri must be the one sent in the /authorize call.
 
-`AuthRequest loginWithAuthorizationCode("{CODE}", "{REDIRECT_URI}")`
+`AuthRequest exchangeCode("{CODE}", "{REDIRECT_URI}")`
 
 Example:
 ```java
-AuthRequest request = loginWithAuthorizationCode("asdfgh", "https://me.auth0.com/callback");
+AuthRequest request = exchangeCode("asdfgh", "https://me.auth0.com/callback");
 request.setAudience("https://api.me.auth0.com/users");
 request.setScope("openid contacts");
 try {
@@ -154,11 +150,11 @@ try {
 
 Creates a new request to log in the user with `username` and `password`. The connection used is the one defined as "Default Directory" in the account settings.
 
-`AuthRequest loginWithPassword("{USERNAME_OR_EMAIL}", "{PASSWORD}")`
+`AuthRequest login("{USERNAME_OR_EMAIL}", "{PASSWORD}")`
 
 Example:
 ```java
-AuthRequest request = loginWithPassword("me@domain.com", "password123");
+AuthRequest request = login("me@domain.com", "password123");
 request.setAudience("https://api.me.auth0.com/users");
 request.setScope("openid contacts");
 try {
@@ -175,11 +171,11 @@ try {
 
 Creates a new request to log in the user with `username` and `password` using the Password Realm.
 
-`AuthRequest loginWithPasswordRealm("{USERNAME_OR_EMAIL}", "{PASSWORD}", "{REALM}")`
+`AuthRequest login("{USERNAME_OR_EMAIL}", "{PASSWORD}", "{REALM}")`
 
 Example:
 ```java
-AuthRequest request = loginWithPasswordRealm("me@domain.com", "password123", "Username-Password-Authentication");
+AuthRequest request = login("me@domain.com", "password123", "Username-Password-Authentication");
 request.setAudience("https://api.me.auth0.com/users");
 request.setScope("openid contacts");
 try {
@@ -192,15 +188,15 @@ try {
 }
 ```
 
-### Log In with Client Credentials - /oauth/token
+### Request Token for Audience - /oauth/token
 
-Creates a new request to log in the user using the Client Credentials.
+Creates a new request to get a Token for the given Audience.
 
-`AuthRequest loginWithClientCredentials("{AUDIENCE}")`
+`AuthRequest requestToken("{AUDIENCE}")`
 
 Example:
 ```java
-AuthRequest request = loginWithClientCredentials("https://api.me.auth0.com/users");
+AuthRequest request = requestToken("https://api.me.auth0.com/users");
 request.setScope("openid contacts");
 try {
     TokenHolder holder = request.execute();

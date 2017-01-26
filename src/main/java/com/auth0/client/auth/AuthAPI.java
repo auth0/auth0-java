@@ -91,7 +91,7 @@ public class AuthAPI {
      * @param redirectUri the redirect_uri value to set, white-listed in the client settings. Must be already URL Encoded.
      * @return a new instance of the {@link AuthorizeUrlBuilder} to configure.
      */
-    public AuthorizeUrlBuilder authorize(String redirectUri) {
+    public AuthorizeUrlBuilder authorizeUrl(String redirectUri) {
         Asserts.assertNotNull(redirectUri, "redirect uri");
 
         return AuthorizeUrlBuilder.newInstance(baseUrl, clientId, redirectUri);
@@ -104,7 +104,7 @@ public class AuthAPI {
      * @param setClientId whether the client_id value must be set or not. This affects the white-list that the Auth0's Dashboard uses to validate the returnTo url.
      * @return a new instance of the {@link AuthorizeUrlBuilder} to configure.
      */
-    public LogoutUrlBuilder logout(String returnToUrl, boolean setClientId) {
+    public LogoutUrlBuilder logoutUrl(String returnToUrl, boolean setClientId) {
         Asserts.assertNotNull(returnToUrl, "return to url");
 
         return LogoutUrlBuilder.newInstance(baseUrl, clientId, returnToUrl, setClientId);
@@ -112,7 +112,7 @@ public class AuthAPI {
 
 
     /**
-     * Request the user information related to this access token.
+     * Request the user information related to the access token.
      *
      * @param accessToken a valid access token belonging to an API signed with RS256 algorithm and containing the scope 'openid'.
      * @return a Request to execute.
@@ -202,39 +202,13 @@ public class AuthAPI {
     }
 
     /**
-     * Creates a new log in request using the 'Authorization Code' grant and the given code and redirect uri parameters.
-     *
-     * @param code        the authorization code received from the /authorize call.
-     * @param redirectUri the redirect uri sent on the /authorize call.
-     * @return a Request to configure and execute.
-     */
-    public AuthRequest loginWithAuthorizationCode(String code, String redirectUri) {
-        Asserts.assertNotNull(code, "code");
-        Asserts.assertNotNull(redirectUri, "redirect uri");
-
-        String url = HttpUrl.parse(baseUrl)
-                .newBuilder()
-                .addPathSegment(PATH_OAUTH)
-                .addPathSegment(PATH_TOKEN)
-                .build()
-                .toString();
-        TokenRequest request = new TokenRequest(client, url);
-        request.addParameter(KEY_CLIENT_ID, clientId);
-        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
-        request.addParameter(KEY_GRANT_TYPE, "authorization_code");
-        request.addParameter("code", code);
-        request.addParameter("redirect_uri", redirectUri);
-        return request;
-    }
-
-    /**
      * Creates a new log in request using the 'Password' grant and the given credentials.
      *
      * @param emailOrUsername the identity of the user.
      * @param password        the password of the user.
      * @return a Request to configure and execute.
      */
-    public AuthRequest loginWithPassword(String emailOrUsername, String password) {
+    public AuthRequest login(String emailOrUsername, String password) {
         Asserts.assertNotNull(emailOrUsername, "email or username");
         Asserts.assertNotNull(password, "password");
 
@@ -261,7 +235,7 @@ public class AuthAPI {
      * @param password        the password of the user.
      * @return a Request to configure and execute.
      */
-    public AuthRequest loginWithPasswordRealm(String emailOrUsername, String password, String realm) {
+    public AuthRequest login(String emailOrUsername, String password, String realm) {
         Asserts.assertNotNull(emailOrUsername, "email or username");
         Asserts.assertNotNull(password, "password");
         Asserts.assertNotNull(realm, "realm");
@@ -283,13 +257,13 @@ public class AuthAPI {
     }
 
     /**
-     * Creates a new log in request using the 'Client Credentials' grant for the given audience.
+     * Creates a new request using the 'Client Credentials' grant to get a Token for the given audience.
      * Default used realm and audience are defined in the "API Authorization Settings" in the account's advanced settings in the Auth0 Dashboard.
      *
      * @param audience the audience of the API to request access to.
      * @return a Request to configure and execute.
      */
-    public AuthRequest loginWithClientCredentials(String audience) {
+    public AuthRequest requestToken(String audience) {
         Asserts.assertNotNull(audience, "audience");
 
         String url = HttpUrl.parse(baseUrl)
@@ -303,6 +277,32 @@ public class AuthAPI {
         request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         request.addParameter(KEY_GRANT_TYPE, "client_credentials");
         request.addParameter(KEY_AUDIENCE, audience);
+        return request;
+    }
+
+    /**
+     * Creates a new request using the 'Authorization Code' grant to exchange the code obtained in the /authorize call.
+     *
+     * @param code        the authorization code received from the /authorize call.
+     * @param redirectUri the redirect uri sent on the /authorize call.
+     * @return a Request to configure and execute.
+     */
+    public AuthRequest exchangeCode(String code, String redirectUri) {
+        Asserts.assertNotNull(code, "code");
+        Asserts.assertNotNull(redirectUri, "redirect uri");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment(PATH_OAUTH)
+                .addPathSegment(PATH_TOKEN)
+                .build()
+                .toString();
+        TokenRequest request = new TokenRequest(client, url);
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
+        request.addParameter(KEY_GRANT_TYPE, "authorization_code");
+        request.addParameter("code", code);
+        request.addParameter("redirect_uri", redirectUri);
         return request;
     }
 }
