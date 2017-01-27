@@ -1,9 +1,11 @@
 package com.auth0.json.mgmt.logevents;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -16,8 +18,9 @@ public class LogEvent {
 
     @JsonProperty("_id")
     private String id;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @JsonProperty("date")
-    private String date;
+    private Date date;
     @JsonProperty("type")
     private String type;
     @JsonProperty("client_id")
@@ -48,8 +51,9 @@ public class LogEvent {
      *
      * @return the date.
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @JsonProperty("date")
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
@@ -89,7 +93,7 @@ public class LogEvent {
      * @return the IP address.
      */
     @JsonProperty("ip")
-    public String getIp() {
+    public String getIP() {
         return ip;
     }
 

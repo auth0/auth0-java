@@ -5,11 +5,12 @@ import com.auth0.net.Request;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static com.auth0.client.MockServer.*;
-import static com.auth0.client.RecordedRequestMatcher.hasHeader;
-import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
+import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
@@ -35,19 +36,27 @@ public class StatsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnGetDailyStatsWithNullDateFrom() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'date from' cannot be null!");
-        api.stats().getDailyStats(null, "20161011");
+        api.stats().getDailyStats(null, new Date());
     }
 
     @Test
     public void shouldThrowOnGetDailyStatsWithNullDateTo() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'date to' cannot be null!");
-        api.stats().getDailyStats("20161011", null);
+        api.stats().getDailyStats(new Date(), null);
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldGetDailyStats() throws Exception {
-        Request<List<DailyStats>> request = api.stats().getDailyStats("20161011", "20161011");
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, 2016);
+        calendar.set(Calendar.MONTH, Calendar.OCTOBER);
+        calendar.set(Calendar.DATE, 11);
+        Date dateFrom = calendar.getTime();
+        calendar.set(Calendar.DATE, 12);
+        Date dateTo = calendar.getTime();
+        Request<List<DailyStats>> request = api.stats().getDailyStats(dateFrom, dateTo);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_DAILY_STATS_LIST, 200);
@@ -57,13 +66,15 @@ public class StatsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/stats/daily"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("from", "20161011"));
+        assertThat(recordedRequest, hasQueryParameter("to", "20161012"));
 
         assertThat(response, is(notNullValue()));
     }
 
     @Test
     public void shouldReturnEmptyDailyStats() throws Exception {
-        Request<List<DailyStats>> request = api.stats().getDailyStats("20161011", "20161011");
+        Request<List<DailyStats>> request = api.stats().getDailyStats(new Date(), new Date());
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
@@ -71,5 +82,17 @@ public class StatsEntityTest extends BaseMgmtEntityTest {
 
         assertThat(response, is(notNullValue()));
         assertThat(response, is(emptyCollectionOf(DailyStats.class)));
+    }
+
+    @Test
+    public void shouldFormatDateToYYYYMMDD() throws Exception {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, 2010);
+        //Calendar.MONTH starts at 0 being January
+        calendar.set(Calendar.MONTH, Calendar.JANUARY);
+        calendar.set(Calendar.DATE, 22);
+
+        assertThat(api.stats().formatDate(calendar.getTime()), is("20100122"));
+
     }
 }

@@ -1,8 +1,11 @@
 package com.auth0.json.mgmt.guardian;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.Date;
 
 /**
  * Class that represents an Auth0 Guardian Enrollment object. Related to the {@link com.auth0.client.mgmt.GuardianEntity()} entity.
@@ -26,10 +29,12 @@ public class Enrollment {
     private String phoneNumber;
     @JsonProperty("auth_method")
     private String authMethod;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @JsonProperty("enrolled_at")
-    private String enrolledAt;
+    private Date enrolledAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @JsonProperty("last_auth")
-    private String lastAuth;
+    private Date lastAuth;
 
     /**
      * Getter for the enrollment ID
@@ -106,8 +111,9 @@ public class Enrollment {
      *
      * @return the enrolled at.
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @JsonProperty("enrolled_at")
-    public String getEnrolledAt() {
+    public Date getEnrolledAt() {
         return enrolledAt;
     }
 
@@ -116,8 +122,9 @@ public class Enrollment {
      *
      * @return the last authentication.
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @JsonProperty("last_auth")
-    public String getLastAuth() {
+    public Date getLastAuth() {
         return lastAuth;
     }
 }

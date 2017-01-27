@@ -1,8 +1,11 @@
 package com.auth0.json.mgmt;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.Date;
 
 /**
  * Class that represents an Auth0 Daily Stats object. Related to the {@link com.auth0.client.mgmt.StatsEntity()} entity.
@@ -14,8 +17,9 @@ public class DailyStats {
 
     @JsonProperty("logins")
     private Integer logins;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @JsonProperty("date")
-    private String date;
+    private Date date;
 
     /**
      * Getter for the amount of logins on the date
@@ -32,8 +36,9 @@ public class DailyStats {
      *
      * @return the date to which the stats belong
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @JsonProperty("date")
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 }

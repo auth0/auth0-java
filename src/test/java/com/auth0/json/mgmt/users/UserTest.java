@@ -13,7 +13,7 @@ import static org.hamcrest.Matchers.notNullValue;
 public class UserTest extends JsonTest<User> {
 
     private static final String json = "{\"connection\":\"auth0\",\"client_id\":\"client123\",\"password\":\"pwd\",\"verify_password\":true,\"username\":\"usr\",\"email\":\"me@auth0.com\",\"email_verified\":true,\"verify_email\":true,\"phone_number\":\"1234567890\",\"phone_verified\":true,\"verify_phone_number\":true,\"picture\":\"https://pic.ture/12\",\"name\":\"John\",\"nickname\":\"Johny\",\"given_name\":\"John\",\"family_name\":\"Walker\",\"app_metadata\":{},\"user_metadata\":{},\"blocked\":true}";
-    private static final String readOnlyJson = "{\"user_id\":\"user|123\",\"last_ip\":\"10.0.0.1\",\"last_login\":\"12:12:12\",\"logins_count\":10,\"created_at\":\"12:12:12\",\"updated_at\":\"12:12:12\",\"identities\":[]}";
+    private static final String readOnlyJson = "{\"user_id\":\"user|123\",\"last_ip\":\"10.0.0.1\",\"last_login\":\"2016-02-23T19:57:29.532Z\",\"logins_count\":10,\"created_at\":\"2016-02-23T19:57:29.532Z\",\"updated_at\":\"2016-02-23T19:57:29.532Z\",\"identities\":[]}";
 
     @Test
     public void shouldSerialize() throws Exception {
@@ -93,11 +93,11 @@ public class UserTest extends JsonTest<User> {
         assertThat(user, is(notNullValue()));
 
         assertThat(user.getId(), is("user|123"));
-        assertThat(user.getCreatedAt(), is("12:12:12"));
-        assertThat(user.getUpdatedAt(), is("12:12:12"));
+        assertThat(user.getCreatedAt(), is(parseJSONDate("2016-02-23T19:57:29.532Z")));
+        assertThat(user.getUpdatedAt(), is(parseJSONDate("2016-02-23T19:57:29.532Z")));
+        assertThat(user.getLastLogin(), is(parseJSONDate("2016-02-23T19:57:29.532Z")));
         assertThat(user.getIdentities(), is(notNullValue()));
         assertThat(user.getLastIP(), is("10.0.0.1"));
-        assertThat(user.getLastLogin(), is("12:12:12"));
         assertThat(user.getLoginsCount(), is(10));
     }
 }

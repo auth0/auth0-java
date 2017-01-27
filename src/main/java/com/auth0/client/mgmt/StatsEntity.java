@@ -1,13 +1,15 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.utils.Asserts;
 import com.auth0.json.mgmt.DailyStats;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
+import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,20 +48,24 @@ public class StatsEntity extends BaseManagementEntity {
      * Request the Daily Stats for a given period. A token with scope read:stats is needed.
      * See https://auth0.com/docs/api/management/v2#!/Stats/get_daily
      *
-     * @param dateFrom the first day of the period (inclusive). Must have YYYYMMDD format.
-     * @param dateTo   the last day of the period (inclusive). Must have YYYYMMDD format.
+     * @param from the first day of the period (inclusive). Time is not taken into account.
+     * @param to   the last day of the period (inclusive). Time is not taken into account.
      * @return a Request to execute.
      */
-    public Request<List<DailyStats>> getDailyStats(String dateFrom, String dateTo) {
-        Asserts.assertNotNull(dateFrom, "date from");
-        Asserts.assertNotNull(dateTo, "date to");
+    public Request<List<DailyStats>> getDailyStats(Date from, Date to) {
+        Asserts.assertNotNull(from, "date from");
+        Asserts.assertNotNull(to, "date to");
 
+        String dateFrom = formatDate(from);
+        String dateTo = formatDate(to);
         String url = HttpUrl.parse(baseUrl)
                 .newBuilder()
                 .addPathSegment("api")
                 .addPathSegment("v2")
                 .addPathSegment("stats")
                 .addPathSegment("daily")
+                .addQueryParameter("from", dateFrom)
+                .addQueryParameter("to", dateTo)
                 .build()
                 .toString();
 
@@ -67,6 +73,11 @@ public class StatsEntity extends BaseManagementEntity {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
+    }
+
+    protected String formatDate(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        return sdf.format(date);
     }
 
 }

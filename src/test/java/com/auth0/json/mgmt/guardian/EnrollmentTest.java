@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.notNullValue;
 
 public class EnrollmentTest extends JsonTest<Enrollment> {
 
-    private static final String json = "{\"id\":\"123\",\"status\":\"confirmed\",\"type\":\"idk\",\"name\":\"auth0\",\"identifier\":\"id123\",\"phone_number\":\"1234567890\", \"auth_method\":\"authenticator\",\"enrolled_at\":\"12:12:12\",\"last_auth\":\"12:12:12\"}";
+    private static final String json = "{\"id\":\"123\",\"status\":\"confirmed\",\"type\":\"idk\",\"name\":\"auth0\",\"identifier\":\"id123\",\"phone_number\":\"1234567890\", \"auth_method\":\"authenticator\",\"enrolled_at\":\"2016-02-23T19:57:29.532Z\",\"last_auth\":\"2016-02-23T19:57:29.532Z\"}";
 
     @Test
     public void shouldDeserialize() throws Exception {
@@ -23,7 +23,7 @@ public class EnrollmentTest extends JsonTest<Enrollment> {
         assertThat(enrollment.getIdentifier(), is("id123"));
         assertThat(enrollment.getPhoneNumber(), is("1234567890"));
         assertThat(enrollment.getAuthMethod(), is("authenticator"));
-        assertThat(enrollment.getEnrolledAt(), is("12:12:12"));
-        assertThat(enrollment.getLastAuth(), is("12:12:12"));
+        assertThat(enrollment.getEnrolledAt(), is(parseJSONDate("2016-02-23T19:57:29.532Z")));
+        assertThat(enrollment.getLastAuth(), is(parseJSONDate("2016-02-23T19:57:29.532Z")));
     }
 }

@@ -1,10 +1,8 @@
 package com.auth0.json.mgmt.users;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -50,10 +48,12 @@ public class User {
     private String givenName;
     @JsonProperty("family_name")
     private String familyName;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @JsonProperty("created_at")
-    private String createdAt;
+    private Date createdAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @JsonProperty("updated_at")
-    private String updatedAt;
+    private Date updatedAt;
     @JsonProperty("identities")
     private List<Identity> identities;
     @JsonProperty("app_metadata")
@@ -64,8 +64,9 @@ public class User {
     private List<String> multifactor;
     @JsonProperty("last_ip")
     private String lastIp;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @JsonProperty("last_login")
-    private String lastLogin;
+    private Date lastLogin;
     @JsonProperty("logins_count")
     private Integer loginsCount;
     @JsonProperty("blocked")
@@ -311,8 +312,9 @@ public class User {
      *
      * @return the created at.
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @JsonProperty("created_at")
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
@@ -321,8 +323,9 @@ public class User {
      *
      * @return the updated at.
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @JsonProperty("updated_at")
-    public String getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
@@ -401,8 +404,9 @@ public class User {
      *
      * @return the last login.
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @JsonProperty("last_login")
-    public String getLastLogin() {
+    public Date getLastLogin() {
         return lastLogin;
     }
 
