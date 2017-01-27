@@ -124,15 +124,6 @@ public class ManagementAPI {
     }
 
     /**
-     * Getter for the Resource Servers entity.
-     *
-     * @return the Resource Servers entity.
-     */
-    public ResourceServersEntity resourceServers() {
-        return new ResourceServersEntity(client, baseUrl, apiToken);
-    }
-
-    /**
      * Getter for the Rules entity.
      *
      * @return the Rules entity.

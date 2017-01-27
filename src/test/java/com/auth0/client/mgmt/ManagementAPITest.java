@@ -169,11 +169,6 @@ public class ManagementAPITest {
     }
 
     @Test
-    public void shouldGetResourceServers() throws Exception {
-        assertThat(api.resourceServers(), notNullValue());
-    }
-
-    @Test
     public void shouldGetRules() throws Exception {
         assertThat(api.rules(), notNullValue());
     }

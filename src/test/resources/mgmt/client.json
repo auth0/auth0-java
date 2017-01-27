@@ -47,14 +47,6 @@
     "layer": {},
     "zoom": {}
   },
-  "resource_servers": [
-    {
-      "identifier": "api.tenant.com",
-      "scopes": [
-        "read:something"
-      ]
-    }
-  ],
   "client_metadata": {},
   "mobile": {
     "android": {

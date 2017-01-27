@@ -64,8 +64,6 @@ public class Client {
     private Addons addons;
     @JsonProperty("token_endpoint_auth_method")
     private String tokenEndpointAuthMethod;
-    @JsonProperty("resource_servers")
-    private List<ResourceServer> resourceServers;
     @JsonProperty("client_metadata")
     private Map<String, Object> clientMetadata;
     @JsonProperty("mobile")
@@ -519,14 +517,6 @@ public class Client {
     @JsonProperty("token_endpoint_auth_method")
     public void setTokenEndpointAuthMethod(String authMethod) {
         this.tokenEndpointAuthMethod = authMethod;
-    }
-
-    public List<ResourceServer> getResourceServers() {
-        return resourceServers;
-    }
-
-    public void setResourceServers(List<ResourceServer> resourceServers) {
-        this.resourceServers = resourceServers;
     }
 
     /**
