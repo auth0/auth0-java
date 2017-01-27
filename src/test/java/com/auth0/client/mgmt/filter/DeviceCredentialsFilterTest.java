@@ -1,6 +1,5 @@
-package com.auth0.net;
+package com.auth0.client.mgmt.filter;
 
-import com.auth0.client.mgmt.filter.ConnectionFilter;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,46 +8,45 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
-public class ConnectionFilterTest {
+public class DeviceCredentialsFilterTest {
 
-    private ConnectionFilter filter;
+    private DeviceCredentialsFilter filter;
 
     @Before
     public void setUp() throws Exception {
-        filter = new ConnectionFilter();
+        filter = new DeviceCredentialsFilter();
     }
 
     @Test
-    public void shouldFilterByStrategy() throws Exception {
-        ConnectionFilter instance = filter.withStrategy("auth0");
+    public void shouldFilterByClientId() throws Exception {
+        DeviceCredentialsFilter instance = filter.withClientId("1234567890");
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("strategy", (Object) "auth0"));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("client_id", (Object) "1234567890"));
     }
 
     @Test
-    public void shouldFilterByName() throws Exception {
-        ConnectionFilter instance = filter.withName("my-connection");
+    public void shouldFilterByType() throws Exception {
+        DeviceCredentialsFilter instance = filter.withType("public_key");
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("name", (Object) "my-connection"));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("type", (Object) "public_key"));
     }
 
     @Test
-    public void shouldFilterByPage() throws Exception {
-        ConnectionFilter instance = filter.withPage(5, 10);
+    public void shouldFilterByUserId() throws Exception {
+        DeviceCredentialsFilter instance = filter.withUserId("1234567890");
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("per_page", (Object) 10));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("page", (Object) 5));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("user_id", (Object) "1234567890"));
     }
 
     @Test
     public void shouldFilterWithFields() throws Exception {
-        ConnectionFilter instance = filter.withFields("a,b,c", true);
+        DeviceCredentialsFilter instance = filter.withFields("a,b,c", true);
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
@@ -58,7 +56,7 @@ public class ConnectionFilterTest {
 
     @Test
     public void shouldFilterWithoutFields() throws Exception {
-        ConnectionFilter instance = filter.withFields("a,b,c", false);
+        DeviceCredentialsFilter instance = filter.withFields("a,b,c", false);
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));

@@ -3,7 +3,7 @@ package com.auth0.client.mgmt.filter;
 /**
  * Class used to filter the results received when calling the Rules endpoint. Related to the {@link com.auth0.client.mgmt.RulesEntity()} entity.
  */
-public class RulesFilter extends BaseFilter<RulesFilter> {
+public class RulesFilter extends FieldsFilter {
 
     /**
      * Filter by enabled value
@@ -15,4 +15,9 @@ public class RulesFilter extends BaseFilter<RulesFilter> {
         return this;
     }
 
+    @Override
+    public RulesFilter withFields(String fields, boolean includeFields) {
+        super.withFields(fields, includeFields);
+        return this;
+    }
 }

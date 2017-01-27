@@ -3,7 +3,7 @@ package com.auth0.client.mgmt.filter;
 /**
  * Class used to filter the results received when calling the Connections endpoint. Related to the {@link com.auth0.client.mgmt.ConnectionsEntity()} entity.
  */
-public class ConnectionFilter extends BaseFilter<ConnectionFilter> {
+public class ConnectionFilter extends FieldsFilter {
 
     /**
      * Filter by strategy
@@ -40,4 +40,9 @@ public class ConnectionFilter extends BaseFilter<ConnectionFilter> {
         return this;
     }
 
+    @Override
+    public ConnectionFilter withFields(String fields, boolean includeFields) {
+        super.withFields(fields, includeFields);
+        return this;
+    }
 }

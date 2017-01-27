@@ -1,6 +1,6 @@
 package com.auth0.client.mgmt.filter;
 
-public abstract class QueryFilter<T extends QueryFilter> extends BaseFilter<T> {
+public class QueryFilter extends FieldsFilter {
 
     /**
      * Filter by a query
@@ -8,9 +8,9 @@ public abstract class QueryFilter<T extends QueryFilter> extends BaseFilter<T> {
      * @param query the query expression using the following syntax https://auth0.com/docs/api/management/v2/query-string-syntax.
      * @return this filter instance
      */
-    public T withQuery(String query) {
+    public QueryFilter withQuery(String query) {
         parameters.put("q", query);
-        return (T) this;
+        return this;
     }
 
     /**
@@ -19,9 +19,9 @@ public abstract class QueryFilter<T extends QueryFilter> extends BaseFilter<T> {
      * @param includeTotals whether to include or not the query summary.
      * @return this filter instance
      */
-    public T withTotals(boolean includeTotals) {
+    public QueryFilter withTotals(boolean includeTotals) {
         parameters.put("include_totals", includeTotals);
-        return (T) this;
+        return this;
     }
 
     /**
@@ -30,9 +30,9 @@ public abstract class QueryFilter<T extends QueryFilter> extends BaseFilter<T> {
      * @param sort the field to use for sorting. Use 'field:order' where order is 1 for ascending and -1 for descending.
      * @return this filter instance
      */
-    public T withSort(String sort) {
+    public QueryFilter withSort(String sort) {
         parameters.put("sort", sort);
-        return (T) this;
+        return this;
     }
 
     /**
@@ -42,10 +42,16 @@ public abstract class QueryFilter<T extends QueryFilter> extends BaseFilter<T> {
      * @param amountPerPage the amount of items per page to retrieve.
      * @return this filter instance
      */
-    public T withPage(int pageNumber, int amountPerPage) {
+    public QueryFilter withPage(int pageNumber, int amountPerPage) {
         parameters.put("page", pageNumber);
         parameters.put("per_page", amountPerPage);
-        return (T) this;
+        return this;
+    }
+
+    @Override
+    public QueryFilter withFields(String fields, boolean includeFields) {
+        super.withFields(fields, includeFields);
+        return this;
     }
 
 }
