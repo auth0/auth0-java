@@ -1,6 +1,5 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.utils.Asserts;
 import com.auth0.client.mgmt.filter.LogEventFilter;
 import com.auth0.client.mgmt.filter.UserFilter;
 import com.auth0.json.mgmt.guardian.Enrollment;
@@ -13,6 +12,7 @@ import com.auth0.net.CustomRequest;
 import com.auth0.net.EmptyBodyRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -20,6 +20,10 @@ import okhttp3.OkHttpClient;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class that provides an implementation of the Users methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Users
+ */
+@SuppressWarnings("WeakerAccess")
 public class UsersEntity extends BaseManagementEntity {
 
     UsersEntity(OkHttpClient client, String baseUrl, String apiToken) {
@@ -29,6 +33,7 @@ public class UsersEntity extends BaseManagementEntity {
     /**
      * Request all the Users. A token with scope read:users is needed.
      * If you want the identities.access_token property to be included, you will also need the scope read:user_idp_tokens.
+     * See https://auth0.com/docs/api/management/v2#!/Users/get_users
      *
      * @param filter the filter to use. Can be null.
      * @return a Request to execute.
@@ -54,6 +59,7 @@ public class UsersEntity extends BaseManagementEntity {
     /**
      * Request a User. A token with scope read:users is needed.
      * If you want the identities.access_token property to be included, you will also need the scope read:user_idp_tokens.
+     * See https://auth0.com/docs/api/management/v2#!/Users/get_users_by_id
      *
      * @param userId the id of the user to retrieve.
      * @param filter the filter to use. Can be null.
@@ -82,6 +88,7 @@ public class UsersEntity extends BaseManagementEntity {
 
     /**
      * Create a new User. A token with scope create:users is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Users/post_users
      *
      * @param user the user data to set
      * @return a Request to execute.
@@ -105,6 +112,7 @@ public class UsersEntity extends BaseManagementEntity {
 
     /**
      * Delete an existing User. A token with scope delete:users is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Users/delete_users_by_id
      *
      * @param userId the user id
      * @return a Request to execute.
@@ -127,6 +135,7 @@ public class UsersEntity extends BaseManagementEntity {
 
     /**
      * Update an existing User. A token with scope update:users is needed. If you're updating app_metadata you'll also need update:users_app_metadata scope.
+     * See https://auth0.com/docs/api/management/v2#!/Users/patch_users_by_id
      *
      * @param userId the user id
      * @param user   the user data to set. It can't include id.
@@ -153,6 +162,7 @@ public class UsersEntity extends BaseManagementEntity {
 
     /**
      * Request all the Guardian Enrollments for a given User. A token with scope read:users is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Users/get_enrollments
      *
      * @param userId the id of the user to retrieve.
      * @return a Request to execute.
@@ -178,6 +188,7 @@ public class UsersEntity extends BaseManagementEntity {
 
     /**
      * Request all the Events Log for a given User. A token with scope read:logs is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Users/get_logs_by_user
      *
      * @param userId the id of the user to retrieve.
      * @param filter the filter to use.
@@ -207,6 +218,7 @@ public class UsersEntity extends BaseManagementEntity {
 
     /**
      * Delete an existing User's Multifactor Provider. A token with scope update:users is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Users/delete_multifactor_by_provider
      *
      * @param userId   the user id
      * @param provider the multifactor provider
@@ -233,6 +245,7 @@ public class UsersEntity extends BaseManagementEntity {
 
     /**
      * Rotates a User's Recovery Code. A token with scope update:users is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Users/post_recovery_code_regeneration
      *
      * @param userId the user id
      * @return a Request to execute.
@@ -258,6 +271,7 @@ public class UsersEntity extends BaseManagementEntity {
 
     /**
      * Links two User's Identities. A token with scope update:users is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Users/post_identities
      *
      * @param primaryUserId   the primary identity's user id
      * @param secondaryUserId the secondary identity's user id
@@ -293,6 +307,7 @@ public class UsersEntity extends BaseManagementEntity {
 
     /**
      * Un-links two User's Identities. A token with scope update:users is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Users/delete_provider_by_user_id
      *
      * @param primaryUserId   the primary identity's user id
      * @param secondaryUserId the secondary identity's user id

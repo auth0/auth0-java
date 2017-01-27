@@ -36,8 +36,8 @@ public class AddonsTest extends JsonTest<Addons> {
 
         assertThat(addons, is(notNullValue()));
 
-        assertThat(addons.getRms(), is(notNullValue()));
-        assertThat(addons.getMscrm(), is(notNullValue()));
+        assertThat(addons.getRMS(), is(notNullValue()));
+        assertThat(addons.getMSCRM(), is(notNullValue()));
         assertThat(addons.getSlack(), is(notNullValue()));
         assertThat(addons.getLayer(), is(notNullValue()));
         assertThat(addons.getAdditionalAddons(), is(notNullValue()));

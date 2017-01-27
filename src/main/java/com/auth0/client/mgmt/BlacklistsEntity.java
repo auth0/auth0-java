@@ -1,16 +1,20 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.utils.Asserts;
 import com.auth0.json.mgmt.Token;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
 import java.util.List;
 
+/**
+ * Class that provides an implementation of the Blacklists methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Blacklists
+ */
+@SuppressWarnings("WeakerAccess")
 public class BlacklistsEntity extends BaseManagementEntity {
 
     BlacklistsEntity(OkHttpClient client, String baseUrl, String apiToken) {
@@ -19,6 +23,7 @@ public class BlacklistsEntity extends BaseManagementEntity {
 
     /**
      * Request all the Blacklisted Tokens with a given audience. A token with scope blacklist:tokens is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Blacklists/get_tokens.
      *
      * @param audience the token audience (aud).
      * @return a Request to execute.
@@ -43,6 +48,7 @@ public class BlacklistsEntity extends BaseManagementEntity {
 
     /**
      * Add a Token to the Blacklist. A token with scope blacklist:tokens is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Blacklists/post_tokens.
      *
      * @param token the token to blacklist.
      * @return a Request to execute.

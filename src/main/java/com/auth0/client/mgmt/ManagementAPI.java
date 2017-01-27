@@ -1,12 +1,17 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.utils.Asserts;
 import com.auth0.net.TelemetryInterceptor;
+import com.auth0.utils.Asserts;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 
+/**
+ * Class that provides an implementation of the Management API methods defined in https://auth0.com/docs/api/management/v2.
+ * To begin create a new instance of {@link #ManagementAPI(String, String)} using the tenant domain and API token.
+ */
+@SuppressWarnings("WeakerAccess")
 public class ManagementAPI {
 
     private final String baseUrl;
@@ -15,6 +20,12 @@ public class ManagementAPI {
     private final TelemetryInterceptor telemetry;
     private final HttpLoggingInterceptor logging;
 
+    /**
+     * Create a new instance with the given tenant's domain and API token.
+     *
+     * @param domain   the tenant's domain.
+     * @param apiToken the token to authenticate the calls with. See the "Getting an API token" section to learn how to obtain a token.
+     */
     public ManagementAPI(String domain, String apiToken) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(apiToken, "api token");
@@ -67,62 +78,137 @@ public class ManagementAPI {
         return baseUrl == null ? null : baseUrl.newBuilder().build().toString();
     }
 
+    /**
+     * Getter for the Client Grants entity.
+     *
+     * @return the Client Grants entity.
+     */
     public ClientGrantsEntity clientGrants() {
         return new ClientGrantsEntity(client, baseUrl, apiToken);
     }
 
+    /**
+     * Getter for the Clients entity.
+     *
+     * @return the Clients entity.
+     */
     public ClientsEntity clients() {
         return new ClientsEntity(client, baseUrl, apiToken);
     }
 
+    /**
+     * Getter for the Connections entity.
+     *
+     * @return the Connections entity.
+     */
     public ConnectionsEntity connections() {
         return new ConnectionsEntity(client, baseUrl, apiToken);
     }
 
+    /**
+     * Getter for the Device Credentials entity.
+     *
+     * @return the Device Credentials entity.
+     */
     public DeviceCredentialsEntity deviceCredentials() {
         return new DeviceCredentialsEntity(client, baseUrl, apiToken);
     }
 
+    /**
+     * Getter for the Log Events entity.
+     *
+     * @return the Log Events entity.
+     */
     public LogEventsEntity logEvents() {
         return new LogEventsEntity(client, baseUrl, apiToken);
     }
 
+    /**
+     * Getter for the Resource Servers entity.
+     *
+     * @return the Resource Servers entity.
+     */
     public ResourceServersEntity resourceServers() {
         return new ResourceServersEntity(client, baseUrl, apiToken);
     }
 
+    /**
+     * Getter for the Rules entity.
+     *
+     * @return the Rules entity.
+     */
     public RulesEntity rules() {
         return new RulesEntity(client, baseUrl, apiToken);
     }
 
+    /**
+     * Getter for the User Blocks entity.
+     *
+     * @return the User Blocks entity.
+     */
     public UserBlocksEntity userBlocks() {
         return new UserBlocksEntity(client, baseUrl, apiToken);
     }
 
+    /**
+     * Getter for the Users entity.
+     *
+     * @return the Users entity.
+     */
     public UsersEntity users() {
         return new UsersEntity(client, baseUrl, apiToken);
     }
 
+    /**
+     * Getter for the Blacklists entity.
+     *
+     * @return the Blacklists entity.
+     */
     public BlacklistsEntity blacklists() {
         return new BlacklistsEntity(client, baseUrl, apiToken);
     }
 
+    /**
+     * Getter for the Email Provider entity.
+     *
+     * @return the Email Provider entity.
+     */
     public EmailProviderEntity emailProvider() {
         return new EmailProviderEntity(client, baseUrl, apiToken);
     }
 
+    /**
+     * Getter for the Guardian entity.
+     *
+     * @return the Guardian entity.
+     */
     public GuardianEntity guardian() {
         return new GuardianEntity(client, baseUrl, apiToken);
     }
 
+    /**
+     * Getter for the Stats entity.
+     *
+     * @return the Stats entity.
+     */
     public StatsEntity stats() {
         return new StatsEntity(client, baseUrl, apiToken);
     }
 
+    /**
+     * Getter for the Tenants entity.
+     *
+     * @return the Tenants entity.
+     */
     public TenantsEntity tenants() {
         return new TenantsEntity(client, baseUrl, apiToken);
     }
 
+    /**
+     * Getter for the Tickets entity.
+     *
+     * @return the Tickets entity.
+     */
     public TicketsEntity tickets() {
         return new TicketsEntity(client, baseUrl, apiToken);
     }

@@ -213,11 +213,11 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldGetGuardianSnsFactorProvider() throws Exception {
-        Request<SnsFactorProvider> request = api.guardian().getSnsFactorProvider();
+        Request<SNSFactorProvider> request = api.guardian().getSNSFactorProvider();
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_SNS_FACTOR_PROVIDER, 200);
-        SnsFactorProvider response = request.execute();
+        SNSFactorProvider response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/guardian/factors/push-notification/providers/sns"));
@@ -231,18 +231,18 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnUpdateGuardianSnsFactorProviderWithNullData() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'provider' cannot be null!");
-        api.guardian().updateSnsFactorProvider(null);
+        api.guardian().updateSNSFactorProvider(null);
     }
 
     @Test
     public void shouldUpdateGuardianSnsFactorProvider() throws Exception {
-        SnsFactorProvider provider = new SnsFactorProvider();
-        provider.setAwsRegion("region");
-        Request<SnsFactorProvider> request = api.guardian().updateSnsFactorProvider(provider);
+        SNSFactorProvider provider = new SNSFactorProvider();
+        provider.setAWSRegion("region");
+        Request<SNSFactorProvider> request = api.guardian().updateSNSFactorProvider(provider);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_SNS_FACTOR_PROVIDER, 200);
-        SnsFactorProvider response = request.execute();
+        SNSFactorProvider response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/guardian/factors/push-notification/providers/sns"));

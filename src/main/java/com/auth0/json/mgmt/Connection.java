@@ -8,7 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Map;
 
-@SuppressWarnings("unused")
+/**
+ * Class that represents an Auth0 Connection object. Related to the {@link com.auth0.client.mgmt.ConnectionsEntity()} entity.
+ */
+@SuppressWarnings({"unused", "WeakerAccess"})
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Connection {
@@ -33,30 +36,72 @@ public class Connection {
         this.strategy = strategy;
     }
 
+    /**
+     * Getter for the name of the connection.
+     *
+     * @return the name.
+     */
+    @JsonProperty("name")
     public String getName() {
         return name;
     }
 
+    /**
+     * Getter for the connection options.
+     *
+     * @return the connection options.
+     */
+    @JsonProperty("options")
     public Map<String, Object> getOptions() {
         return options;
     }
 
+    /**
+     * Getter for the connection options.
+     *
+     * @param options the connection options.
+     */
+    @JsonProperty("options")
     public void setOptions(Map<String, Object> options) {
         this.options = options;
     }
 
+    /**
+     * Getter for the id of this connection.
+     *
+     * @return the id.
+     */
+    @JsonProperty("id")
     public String getId() {
         return id;
     }
 
+    /**
+     * Getter for the type of the connection, related to the identity provider.
+     *
+     * @return the strategy.
+     */
+    @JsonProperty("strategy")
     public String getStrategy() {
         return strategy;
     }
 
+    /**
+     * Getter for the list of clients this connection is enabled for.
+     *
+     * @return the list of enabled clients.
+     */
+    @JsonProperty("enabled_clients")
     public List<String> getEnabledClients() {
         return enabledClients;
     }
 
+    /**
+     * Setter for the list of clients this connection is enabled for.
+     *
+     * @param enabledClients the list of enabled clients to set.
+     */
+    @JsonProperty("enabled_clients")
     public void setEnabledClients(List<String> enabledClients) {
         this.enabledClients = enabledClients;
     }

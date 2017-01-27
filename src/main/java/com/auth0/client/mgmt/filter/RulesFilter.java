@@ -1,5 +1,8 @@
 package com.auth0.client.mgmt.filter;
 
+/**
+ * Class used to filter the results received when calling the Rules endpoint. Related to the {@link com.auth0.client.mgmt.RulesEntity()} entity.
+ */
 public class RulesFilter extends BaseFilter<RulesFilter> {
 
     /**

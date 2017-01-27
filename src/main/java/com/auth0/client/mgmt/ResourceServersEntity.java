@@ -1,16 +1,20 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.utils.Asserts;
 import com.auth0.json.mgmt.client.ResourceServer;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
 import java.util.List;
 
+/**
+ * Class that provides an implementation of the Resource Servers methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Resource_Servers
+ */
+@SuppressWarnings("WeakerAccess")
 public class ResourceServersEntity extends BaseManagementEntity {
 
     ResourceServersEntity(OkHttpClient client, String baseUrl, String apiToken) {
@@ -19,6 +23,7 @@ public class ResourceServersEntity extends BaseManagementEntity {
 
     /**
      * Request all the Resource Servers. A token with scope read:resource_servers is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Resource_Servers/get_resource_servers
      *
      * @return a Request to execute.
      */
@@ -38,6 +43,7 @@ public class ResourceServersEntity extends BaseManagementEntity {
 
     /**
      * Request a Resource Server. A token with scope read:resource_servers is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Resource_Servers/get_resource_servers_by_id
      *
      * @param resourceServerId the id of the resource server to retrieve.
      * @return a Request to execute.
@@ -61,6 +67,7 @@ public class ResourceServersEntity extends BaseManagementEntity {
 
     /**
      * Create a new Resource Server. A token with scope create:resource_servers is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Resource_Servers/post_resource_servers
      *
      * @param resourceServer the resource server data to set
      * @return a Request to execute.
@@ -84,6 +91,7 @@ public class ResourceServersEntity extends BaseManagementEntity {
 
     /**
      * Delete an existing Resource Server. A token with scope delete:resource_servers is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Resource_Servers/delete_resource_servers_by_id
      *
      * @param resourceServerId the resource server id
      * @return a Request to execute.
@@ -106,6 +114,7 @@ public class ResourceServersEntity extends BaseManagementEntity {
 
     /**
      * Update an existing Resource Server. A token with scope update:resource_servers is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Resource_Servers/patch_resource_servers_by_id
      *
      * @param resourceServerId the resource server id
      * @param resourceServer   the resource server data to set. It can't include identifier.

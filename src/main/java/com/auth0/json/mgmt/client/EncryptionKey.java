@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@SuppressWarnings({"WeakerAccess", "unused"})
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EncryptionKey {
@@ -22,26 +23,32 @@ public class EncryptionKey {
         this.cert = cert;
     }
 
+    @JsonProperty("pub")
     public String getPub() {
         return pub;
     }
 
+    @JsonProperty("pub")
     public void setPub(String pub) {
         this.pub = pub;
     }
 
+    @JsonProperty("cert")
     public String getCert() {
         return cert;
     }
 
+    @JsonProperty("cert")
     public void setCert(String cert) {
         this.cert = cert;
     }
 
+    @JsonProperty("subject")
     public String getSubject() {
         return subject;
     }
 
+    @JsonProperty("subject")
     public void setSubject(String subject) {
         this.subject = subject;
     }

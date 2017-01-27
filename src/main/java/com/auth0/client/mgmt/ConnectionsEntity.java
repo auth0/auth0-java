@@ -1,11 +1,11 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.utils.Asserts;
 import com.auth0.client.mgmt.filter.ConnectionFilter;
 import com.auth0.json.mgmt.Connection;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -13,6 +13,10 @@ import okhttp3.OkHttpClient;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class that provides an implementation of the Clients methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Connections
+ */
+@SuppressWarnings("WeakerAccess")
 public class ConnectionsEntity extends BaseManagementEntity {
 
     ConnectionsEntity(OkHttpClient client, String baseUrl, String apiToken) {
@@ -21,6 +25,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
 
     /**
      * Request all the ConnectionsEntity. A token with scope read:connections is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Connections/get_connections
      *
      * @param filter the filter to use. Can be null.
      * @return a Request to execute.
@@ -45,6 +50,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
 
     /**
      * Request a Connection. A token with scope read:connections is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Connections/get_connections_by_id
      *
      * @param connectionId the id of the connection to retrieve.
      * @param filter       the filter to use. Can be null.
@@ -73,6 +79,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
 
     /**
      * Create a new Connection. A token with scope create:connections is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Connections/post_connections
      *
      * @param connection the connection data to set.
      * @return a Request to execute.
@@ -96,6 +103,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
 
     /**
      * Delete an existing Connection. A token with scope delete:connections is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Connections/delete_connections_by_id
      *
      * @param connectionId the connection id.
      * @return a Request to execute.
@@ -118,6 +126,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
 
     /**
      * Update an existing Connection. A token with scope update:connections is needed. Note that if the 'options' value is present it will override all the 'options' values that currently exist.
+     * See https://auth0.com/docs/api/management/v2#!/Connections/patch_connections_by_id
      *
      * @param connectionId the connection id.
      * @param connection   the connection data to set. It can't include name or strategy.
@@ -144,6 +153,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
 
     /**
      * Delete an existing User from the given Database Connection. A token with scope delete:users is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Connections/delete_users_by_email
      *
      * @param connectionId the connection id where the user is stored.
      * @param email        the email of the user to delete.

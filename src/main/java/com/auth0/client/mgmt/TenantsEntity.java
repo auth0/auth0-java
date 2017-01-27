@@ -1,16 +1,20 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.utils.Asserts;
 import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.json.mgmt.tenants.Tenant;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
+import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
 import java.util.Map;
 
+/**
+ * Class that provides an implementation of the Tenants methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Tenants
+ */
+@SuppressWarnings("WeakerAccess")
 public class TenantsEntity extends BaseManagementEntity {
 
     TenantsEntity(OkHttpClient client, String baseUrl, String apiToken) {
@@ -19,6 +23,7 @@ public class TenantsEntity extends BaseManagementEntity {
 
     /**
      * Request the Tenant Settings. A token with scope read:tenant_settings is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Tenants/get_settings
      *
      * @param filter the filter to use. Can be null.
      * @return a Request to execute.
@@ -44,6 +49,7 @@ public class TenantsEntity extends BaseManagementEntity {
 
     /**
      * Update the Tenant Settings. A token with scope update:tenant_settings is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Tenants/patch_settings
      *
      * @param tenant the tenant data to set.
      * @return a Request to execute.

@@ -1,14 +1,18 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.utils.Asserts;
 import com.auth0.json.mgmt.tickets.EmailVerificationTicket;
 import com.auth0.json.mgmt.tickets.PasswordChangeTicket;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
+import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
+/**
+ * Class that provides an implementation of the Tickets methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Tickets
+ */
+@SuppressWarnings("WeakerAccess")
 public class TicketsEntity extends BaseManagementEntity {
 
     TicketsEntity(OkHttpClient client, String baseUrl, String apiToken) {
@@ -17,6 +21,7 @@ public class TicketsEntity extends BaseManagementEntity {
 
     /**
      * Create an Email Verification Ticket. A token with scope create:user_tickets is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Tickets/post_email_verification
      *
      * @param emailVerificationTicket the email verification ticket data to set.
      * @return a Request to execute.
@@ -42,6 +47,7 @@ public class TicketsEntity extends BaseManagementEntity {
 
     /**
      * Create a Password Change Ticket. A token with scope create:user_tickets is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Tickets/post_password_change
      *
      * @param passwordChangeTicket the password change ticket data to set.
      * @return a Request to execute.

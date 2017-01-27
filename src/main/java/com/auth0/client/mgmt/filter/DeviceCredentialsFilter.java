@@ -1,5 +1,8 @@
 package com.auth0.client.mgmt.filter;
 
+/**
+ * Class used to filter the results received when calling the Device Credentials endpoint. Related to the {@link com.auth0.client.mgmt.DeviceCredentialsEntity()} entity.
+ */
 public class DeviceCredentialsFilter extends BaseFilter<DeviceCredentialsFilter> {
 
     /**

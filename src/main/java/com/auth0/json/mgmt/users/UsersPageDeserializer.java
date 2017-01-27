@@ -12,12 +12,13 @@ import com.fasterxml.jackson.databind.type.CollectionType;
 import java.io.IOException;
 import java.util.List;
 
-public class UsersPageDeserializer extends StdDeserializer<UsersPage> {
-    public UsersPageDeserializer(JavaType valueType) {
+@SuppressWarnings({"unused", "WeakerAccess"})
+class UsersPageDeserializer extends StdDeserializer<UsersPage> {
+    UsersPageDeserializer(JavaType valueType) {
         super(valueType);
     }
 
-    public UsersPageDeserializer() {
+    UsersPageDeserializer() {
         this(null);
     }
 

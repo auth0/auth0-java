@@ -10,6 +10,10 @@ import okhttp3.OkHttpClient;
 
 import java.util.List;
 
+/**
+ * Class that provides an implementation of the Stats methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Stats
+ */
+@SuppressWarnings("WeakerAccess")
 public class StatsEntity extends BaseManagementEntity {
 
     StatsEntity(OkHttpClient client, String baseUrl, String apiToken) {
@@ -18,6 +22,7 @@ public class StatsEntity extends BaseManagementEntity {
 
     /**
      * Request the Active Users Count (logged in during the last 30 days). A token with scope read:stats is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Stats/get_active_users
      *
      * @return a Request to execute.
      */
@@ -39,6 +44,7 @@ public class StatsEntity extends BaseManagementEntity {
 
     /**
      * Request the Daily Stats for a given period. A token with scope read:stats is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Stats/get_daily
      *
      * @param dateFrom the first day of the period (inclusive). Must have YYYYMMDD format.
      * @param dateTo   the last day of the period (inclusive). Must have YYYYMMDD format.

@@ -1,11 +1,11 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.utils.Asserts;
 import com.auth0.client.mgmt.filter.DeviceCredentialsFilter;
 import com.auth0.json.mgmt.DeviceCredentials;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -13,6 +13,10 @@ import okhttp3.OkHttpClient;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class that provides an implementation of the Device Credentials methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Device_Credentials
+ */
+@SuppressWarnings("WeakerAccess")
 public class DeviceCredentialsEntity extends BaseManagementEntity {
 
     DeviceCredentialsEntity(OkHttpClient client, String baseUrl, String apiToken) {
@@ -21,6 +25,7 @@ public class DeviceCredentialsEntity extends BaseManagementEntity {
 
     /**
      * Request all the Device Credentials. A token with scope read:device_credentials is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Device_Credentials/get_device_credentials
      *
      * @param filter the filter to use. Can be null.
      * @return a Request to execute.
@@ -45,6 +50,7 @@ public class DeviceCredentialsEntity extends BaseManagementEntity {
 
     /**
      * Create a new Device Credentials. A token with scope create:current_user_device_credentials is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Device_Credentials/post_device_credentials
      *
      * @param deviceCredentials the device credentials data to set.
      * @return a Request to execute.
@@ -68,6 +74,7 @@ public class DeviceCredentialsEntity extends BaseManagementEntity {
 
     /**
      * Delete an existing Device Credentials. A token with scope delete:device_credentials is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Device_Credentials/post_device_credentials
      *
      * @param deviceCredentialsId the device credentials id
      * @return a Request to execute.

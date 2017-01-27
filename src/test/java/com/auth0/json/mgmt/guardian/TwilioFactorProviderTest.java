@@ -17,8 +17,8 @@ public class TwilioFactorProviderTest extends JsonTest<TwilioFactorProvider> {
         TwilioFactorProvider provider = new TwilioFactorProvider();
         provider.setAuthToken("atokEn");
         provider.setFrom("+12356789");
-        provider.setMessagingServiceSid("id321");
-        provider.setSid("id123");
+        provider.setMessagingServiceSID("id321");
+        provider.setSID("id123");
 
         String serialized = toJSON(provider);
         assertThat(serialized, is(notNullValue()));
@@ -35,8 +35,8 @@ public class TwilioFactorProviderTest extends JsonTest<TwilioFactorProvider> {
         assertThat(provider, is(notNullValue()));
         assertThat(provider.getAuthToken(), is("atokEn"));
         assertThat(provider.getFrom(), is("+12356789"));
-        assertThat(provider.getMessagingServiceSid(), is("id321"));
-        assertThat(provider.getSid(), is("id123"));
+        assertThat(provider.getMessagingServiceSID(), is("id321"));
+        assertThat(provider.getSID(), is("id123"));
     }
 
 }

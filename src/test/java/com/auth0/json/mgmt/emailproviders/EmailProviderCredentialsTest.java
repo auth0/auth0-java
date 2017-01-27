@@ -19,10 +19,10 @@ public class EmailProviderCredentialsTest extends JsonTest<EmailProviderCredenti
         credentials.setAccessKeyId("id");
         credentials.setSecretAccessKey("secret");
         credentials.setRegion("ar");
-        credentials.setSmtpHost("host");
-        credentials.setSmtpPort(1234);
-        credentials.setSmtpUser("usr");
-        credentials.setSmtpPass("pwd");
+        credentials.setSMTPHost("host");
+        credentials.setSMTPPort(1234);
+        credentials.setSMTPUser("usr");
+        credentials.setSMTPPass("pwd");
 
         String serialized = toJSON(credentials);
         assertThat(serialized, is(notNullValue()));
@@ -47,9 +47,9 @@ public class EmailProviderCredentialsTest extends JsonTest<EmailProviderCredenti
         assertThat(credentials.getAccessKeyId(), is("id"));
         assertThat(credentials.getSecretAccessKey(), is("secret"));
         assertThat(credentials.getRegion(), is("ar"));
-        assertThat(credentials.getSmtpHost(), is("host"));
-        assertThat(credentials.getSmtpPort(), is(1234));
-        assertThat(credentials.getSmtpUser(), is("usr"));
-        assertThat(credentials.getSmtpPass(), is("pwd"));
+        assertThat(credentials.getSMTPHost(), is("host"));
+        assertThat(credentials.getSMTPPort(), is(1234));
+        assertThat(credentials.getSMTPUser(), is("usr"));
+        assertThat(credentials.getSMTPPass(), is("pwd"));
     }
 }

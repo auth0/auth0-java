@@ -7,8 +7,9 @@ import org.apache.commons.codec.binary.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Telemetry {
-    public static final String HEADER_NAME = "Auth0-Client";
+@SuppressWarnings("WeakerAccess")
+class Telemetry {
+    static final String HEADER_NAME = "Auth0-Client";
 
     private static final String NAME_KEY = "name";
     private static final String VERSION_KEY = "version";
@@ -16,7 +17,7 @@ public class Telemetry {
     private final String name;
     private final String version;
 
-    public Telemetry(String name, String version) {
+    Telemetry(String name, String version) {
         this.name = name;
         this.version = version;
     }

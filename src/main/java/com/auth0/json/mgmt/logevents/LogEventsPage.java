@@ -7,12 +7,14 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.List;
 
-@SuppressWarnings("unused")
+/**
+ * Class that represents a Page of Auth0 Events objects. Related to the {@link com.auth0.client.mgmt.LogEventsEntity()} entity.
+ */
+@SuppressWarnings({"unused", "WeakerAccess"})
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonDeserialize(using = LogEventsPageDeserializer.class)
 public class LogEventsPage extends Page<LogEvent> {
-
 
     public LogEventsPage(List<LogEvent> items) {
         super(items);

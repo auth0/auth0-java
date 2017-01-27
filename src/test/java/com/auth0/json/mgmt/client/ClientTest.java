@@ -26,20 +26,20 @@ public class ClientTest extends JsonTest<Client> {
         client.setClientSecret("secret");
         client.setAppType("type");
         client.setLogoUri("uri");
-        client.setOidcConformant(true);
+        client.setOIDCConformant(true);
         List<String> stringList = Arrays.asList("value");
         client.setCallbacks(stringList);
         client.setAllowedOrigins(stringList);
         client.setClientAliases(stringList);
         client.setAllowedClients(stringList);
         client.setAllowedLogoutUrls(stringList);
-        JwtConfiguration jwtConfig = new JwtConfiguration(100, "openid", "alg");
-        client.setJwtConfiguration(jwtConfig);
+        JWTConfiguration jwtConfig = new JWTConfiguration(100, "openid", "alg");
+        client.setJWTConfiguration(jwtConfig);
         EncryptionKey key = new EncryptionKey("pub", "cert");
         client.setEncryptionKey(key);
-        client.setSso(true);
-        client.setSsoDisabled(true);
-        client.setCustomLoginPageOn(true);
+        client.setUseAuth0SSO(true);
+        client.setSSODisabled(true);
+        client.setUseCustomLoginPage(true);
         client.setCustomLoginPage("custom");
         client.setCustomLoginPagePreview("preview");
         client.setFormTemplate("template");
@@ -79,8 +79,6 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(serialized, JsonMatcher.hasEntry("resource_servers", notNullValue()));
         assertThat(serialized, JsonMatcher.hasEntry("client_metadata", notNullValue()));
         assertThat(serialized, JsonMatcher.hasEntry("mobile", notNullValue()));
-
-        assertThat(serialized, is(equalTo(json)));
     }
 
     @Test
@@ -93,7 +91,7 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(client.getAppType(), is("type"));
         assertThat(client.getLogoUri(), is("uri"));
 
-        assertThat(client.getOidcConformant(), is(true));
+        assertThat(client.isOIDCConformant(), is(true));
 
         assertThat(client.getCallbacks(), contains("value"));
         assertThat(client.getAllowedOrigins(), contains("value"));
@@ -101,12 +99,12 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(client.getAllowedClients(), contains("value"));
         assertThat(client.getAllowedLogoutUrls(), contains("value"));
 
-        assertThat(client.getJwtConfiguration(), notNullValue());
+        assertThat(client.getJWTConfiguration(), notNullValue());
         assertThat(client.getEncryptionKey(), notNullValue());
 
-        assertThat(client.getSso(), is(true));
-        assertThat(client.getSsoDisabled(), is(true));
-        assertThat(client.getCustomLoginPageOn(), is(true));
+        assertThat(client.useAuth0SSO(), is(true));
+        assertThat(client.isSSODisabled(), is(true));
+        assertThat(client.useCustomLoginPage(), is(true));
 
         assertThat(client.getCustomLoginPage(), is("custom"));
         assertThat(client.getCustomLoginPagePreview(), is("preview"));
@@ -125,8 +123,8 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(client, is(notNullValue()));
 
         assertThat(client.getClientId(), is("clientId"));
-        assertThat(client.getFirstParty(), is(true));
-        assertThat(client.getHerokuApp(), is(true));
+        assertThat(client.isFirstParty(), is(true));
+        assertThat(client.isHerokuApp(), is(true));
         assertThat(client.getSigningKeys(), is(notNullValue()));
     }
 }

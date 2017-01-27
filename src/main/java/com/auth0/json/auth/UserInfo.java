@@ -8,21 +8,29 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class that holds the Information related to a User's Access Token. Obtained after a call to {@link com.auth0.client.auth.AuthAPI#userInfo(String)}.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserInfo {
 
     private Map<String, Object> values;
 
-    public UserInfo() {
+    UserInfo() {
         values = new HashMap<>();
     }
 
     @JsonAnySetter
-    public void setValue(String key, Object value) {
+    void setValue(String key, Object value) {
         values.put(key, value);
     }
 
+    /**
+     * Getter for the values contained in this object
+     *
+     * @return the values contained in the object.
+     */
     @JsonAnyGetter
     public Map<String, Object> getValues() {
         return values;

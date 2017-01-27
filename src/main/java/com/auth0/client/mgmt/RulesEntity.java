@@ -1,11 +1,11 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.utils.Asserts;
 import com.auth0.client.mgmt.filter.RulesFilter;
 import com.auth0.json.mgmt.Rule;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -13,6 +13,10 @@ import okhttp3.OkHttpClient;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class that provides an implementation of the Rules methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Rules
+ */
+@SuppressWarnings("WeakerAccess")
 public class RulesEntity extends BaseManagementEntity {
 
     RulesEntity(OkHttpClient client, String baseUrl, String apiToken) {
@@ -21,6 +25,7 @@ public class RulesEntity extends BaseManagementEntity {
 
     /**
      * Request all the Rules. A token with scope read:rules is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Rules/get_rules
      *
      * @param filter the filter to use. Can be null.
      * @return a Request to execute.
@@ -45,6 +50,7 @@ public class RulesEntity extends BaseManagementEntity {
 
     /**
      * Request a Rule. A token with scope read:rules is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Rules/get_rules_by_id
      *
      * @param ruleId the id of the rule to retrieve.
      * @param filter the filter to use. Can be null.
@@ -73,6 +79,7 @@ public class RulesEntity extends BaseManagementEntity {
 
     /**
      * Create a new Rule. A token with scope create:rules is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Rules/post_rules
      *
      * @param rule the rule data to set
      * @return a Request to execute.
@@ -96,6 +103,7 @@ public class RulesEntity extends BaseManagementEntity {
 
     /**
      * Delete an existing Rule. A token with scope delete:rules is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Rules/delete_rules_by_id
      *
      * @param ruleId the rule id
      * @return a Request to execute.
@@ -118,6 +126,7 @@ public class RulesEntity extends BaseManagementEntity {
 
     /**
      * Update an existing Rule. A token with scope update:rules is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Rules/patch_rules_by_id
      *
      * @param ruleId the rule id
      * @param rule   the rule data to set. It can't include id.

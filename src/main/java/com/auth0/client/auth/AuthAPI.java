@@ -1,14 +1,19 @@
 package com.auth0.client.auth;
 
-import com.auth0.utils.Asserts;
 import com.auth0.json.auth.UserInfo;
 import com.auth0.net.*;
+import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 
+/**
+ * Class that provides an implementation of some of the Authentication and Authorization API methods defined in https://auth0.com/docs/api/authentication.
+ * To begin create a new instance of {@link #AuthAPI(String, String, String)} using the tenant domain, client id and client secret.
+ */
+@SuppressWarnings("WeakerAccess")
 public class AuthAPI {
 
     private static final String KEY_CLIENT_ID = "client_id";
@@ -31,6 +36,13 @@ public class AuthAPI {
     private final TelemetryInterceptor telemetry;
     private final HttpLoggingInterceptor logging;
 
+    /**
+     * Create a new instance with the given tenant's domain, client id and client secret. These values can be obtained at https://manage.auth0.com/#/clients/{YOUR_CLIENT_ID}/settings.
+     *
+     * @param domain       tenant's domain.
+     * @param clientId     the client's id.
+     * @param clientSecret the client's secret.
+     */
     public AuthAPI(String domain, String clientId, String clientSecret) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(clientId, "client id");
@@ -98,11 +110,11 @@ public class AuthAPI {
     }
 
     /**
-     * Creates a new instance of the {@link AuthorizeUrlBuilder} with the given connection and redirect url parameters.
+     * Creates a new instance of the {@link LogoutUrlBuilder} with the given return-to url.
      *
      * @param returnToUrl the redirect_uri value to set, white-listed in the client settings. Must be already URL Encoded.
      * @param setClientId whether the client_id value must be set or not. This affects the white-list that the Auth0's Dashboard uses to validate the returnTo url.
-     * @return a new instance of the {@link AuthorizeUrlBuilder} to configure.
+     * @return a new instance of the {@link LogoutUrlBuilder} to configure.
      */
     public LogoutUrlBuilder logoutUrl(String returnToUrl, boolean setClientId) {
         Asserts.assertNotNull(returnToUrl, "return to url");
@@ -257,7 +269,7 @@ public class AuthAPI {
     }
 
     /**
-     * Creates a new request using the 'Client Credentials' grant to get a Token for the given audience.
+     * Creates a new request to get a Token for the given audience using the 'Client Credentials' grant.
      * Default used realm and audience are defined in the "API Authorization Settings" in the account's advanced settings in the Auth0 Dashboard.
      *
      * @param audience the audience of the API to request access to.
@@ -281,7 +293,7 @@ public class AuthAPI {
     }
 
     /**
-     * Creates a new request using the 'Authorization Code' grant to exchange the code obtained in the /authorize call.
+     * Creates a new request to exchange the code obtained in the /authorize call using the 'Authorization Code' grant.
      *
      * @param code        the authorization code received from the /authorize call.
      * @param redirectUri the redirect uri sent on the /authorize call.

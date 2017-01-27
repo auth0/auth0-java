@@ -7,12 +7,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.List;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "WeakerAccess"})
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonDeserialize(using = UsersPageDeserializer.class)
 public class UsersPage extends Page<User> {
-
 
     public UsersPage(List<User> items) {
         super(items);

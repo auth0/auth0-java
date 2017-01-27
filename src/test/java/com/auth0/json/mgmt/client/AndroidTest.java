@@ -31,7 +31,7 @@ public class AndroidTest extends JsonTest<Android> {
         assertThat(android, is(notNullValue()));
 
         assertThat(android.getAppPackageName(), is("pkg"));
-        assertThat(android.getSha256CertFingerprints(), contains("cert1", "cert2"));
-        assertThat(android.getSha256CertFingerprints().size(), is(2));
+        assertThat(android.getSHA256CertFingerprints(), contains("cert1", "cert2"));
+        assertThat(android.getSHA256CertFingerprints().size(), is(2));
     }
 }

@@ -27,7 +27,7 @@ public class FactorTest extends JsonTest<Factor> {
         Factor factor = fromJSON(json, Factor.class);
 
         assertThat(factor, is(notNullValue()));
-        assertThat(factor.getEnabled(), is(true));
+        assertThat(factor.isEnabled(), is(true));
     }
 
     @Test
@@ -36,7 +36,7 @@ public class FactorTest extends JsonTest<Factor> {
         assertThat(ticket, is(notNullValue()));
 
         assertThat(ticket.getName(), is("sms"));
-        assertThat(ticket.getTrialExpired(), is(true));
+        assertThat(ticket.isTrialExpired(), is(true));
     }
 
 }

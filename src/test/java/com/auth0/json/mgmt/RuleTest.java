@@ -35,7 +35,7 @@ public class RuleTest extends JsonTest<Rule> {
         assertThat(rule.getName(), is("my-rule"));
         assertThat(rule.getScript(), is("function(user,context,callback){}"));
         assertThat(rule.getOrder(), is(1));
-        assertThat(rule.getEnabled(), is(true));
+        assertThat(rule.isEnabled(), is(true));
     }
 
     @Test

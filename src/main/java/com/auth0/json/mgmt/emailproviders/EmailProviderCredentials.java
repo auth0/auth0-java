@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "WeakerAccess"})
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EmailProviderCredentials {
@@ -34,75 +34,93 @@ public class EmailProviderCredentials {
         this.apiKey = apiKey;
     }
 
+    @JsonProperty("api_user")
     public String getApiUser() {
         return apiUser;
     }
 
+    @JsonProperty("api_user")
     public void setApiUser(String apiUser) {
         this.apiUser = apiUser;
     }
 
+    @JsonProperty("api_key")
     public String getApiKey() {
         return apiKey;
     }
 
+    @JsonProperty("api_key")
     public void setApiKey(String apiKey) {
         this.apiKey = apiKey;
     }
 
+    @JsonProperty("accessKeyId")
     public String getAccessKeyId() {
         return accessKeyId;
     }
 
+    @JsonProperty("accessKeyId")
     public void setAccessKeyId(String accessKeyId) {
         this.accessKeyId = accessKeyId;
     }
 
+    @JsonProperty("secretAccessKey")
     public String getSecretAccessKey() {
         return secretAccessKey;
     }
 
+    @JsonProperty("secretAccessKey")
     public void setSecretAccessKey(String secretAccessKey) {
         this.secretAccessKey = secretAccessKey;
     }
 
+    @JsonProperty("region")
     public String getRegion() {
         return region;
     }
 
+    @JsonProperty("region")
     public void setRegion(String region) {
         this.region = region;
     }
 
-    public String getSmtpHost() {
+    @JsonProperty("smtp_host")
+    public String getSMTPHost() {
         return smtpHost;
     }
 
-    public void setSmtpHost(String smtpHost) {
+    @JsonProperty("smtp_host")
+    public void setSMTPHost(String smtpHost) {
         this.smtpHost = smtpHost;
     }
 
-    public Integer getSmtpPort() {
+    @JsonProperty("smtp_port")
+    public Integer getSMTPPort() {
         return smtpPort;
     }
 
-    public void setSmtpPort(Integer smtpPort) {
+    @JsonProperty("smtp_port")
+    public void setSMTPPort(Integer smtpPort) {
         this.smtpPort = smtpPort;
     }
 
-    public String getSmtpUser() {
+    @JsonProperty("smtp_user")
+    public String getSMTPUser() {
         return smtpUser;
     }
 
-    public void setSmtpUser(String smtpUser) {
+    @JsonProperty("smtp_user")
+    public void setSMTPUser(String smtpUser) {
         this.smtpUser = smtpUser;
     }
 
-    public String getSmtpPass() {
+    @JsonProperty("smtp_pass")
+    public String getSMTPPass() {
         return smtpPass;
     }
 
-    public void setSmtpPass(String smtpPass) {
+    @JsonProperty("smtp_pass")
+    public void setSMTPPass(String smtpPass) {
         this.smtpPass = smtpPass;
     }
 }

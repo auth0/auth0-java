@@ -1,17 +1,21 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.utils.Asserts;
 import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.json.mgmt.emailproviders.EmailProvider;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
 import java.util.Map;
 
+/**
+ * Class that provides an implementation of the Emails methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Emails
+ */
+@SuppressWarnings("WeakerAccess")
 public class EmailProviderEntity extends BaseManagementEntity {
     EmailProviderEntity(OkHttpClient client, String baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
@@ -19,6 +23,7 @@ public class EmailProviderEntity extends BaseManagementEntity {
 
     /**
      * Request the Email Provider. A token with scope read:email_provider is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Emails/get_provider
      *
      * @param filter the filter to use. Can be null.
      * @return a Request to execute.
@@ -44,6 +49,7 @@ public class EmailProviderEntity extends BaseManagementEntity {
 
     /**
      * Setup the Email Provider. A token with scope create:email_provider is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Emails/post_provider
      *
      * @param emailProvider the email provider data to set
      * @return a Request to execute.
@@ -68,6 +74,7 @@ public class EmailProviderEntity extends BaseManagementEntity {
 
     /**
      * Delete the existing Email Provider. A token with scope delete:email_provider is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Emails/delete_provider
      *
      * @return a Request to execute.
      */
@@ -87,6 +94,7 @@ public class EmailProviderEntity extends BaseManagementEntity {
 
     /**
      * Update the existing Email Provider. A token with scope update:email_provider is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Emails/patch_provider
      *
      * @param emailProvider the email provider data to set.
      * @return a Request to execute.

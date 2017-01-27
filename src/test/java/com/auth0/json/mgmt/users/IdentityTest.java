@@ -18,7 +18,7 @@ public class IdentityTest extends JsonTest<Identity> {
         assertThat(identity, is(notNullValue()));
         assertThat(identity.getConnection(), is("auth0"));
         assertThat(identity.getUserId(), is("user|123"));
-        assertThat(identity.getSocial(), is(true));
+        assertThat(identity.isSocial(), is(true));
         assertThat(identity.getProvider(), is("oauth"));
         assertThat(identity.getAccessToken(), is("aTokEn"));
         assertThat(identity.getProfileData(), is(notNullValue()));

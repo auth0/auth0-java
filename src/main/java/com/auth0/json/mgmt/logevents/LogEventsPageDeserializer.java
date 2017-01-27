@@ -12,12 +12,13 @@ import com.fasterxml.jackson.databind.type.CollectionType;
 import java.io.IOException;
 import java.util.List;
 
-public class LogEventsPageDeserializer extends StdDeserializer<LogEventsPage> {
-    public LogEventsPageDeserializer(JavaType valueType) {
+@SuppressWarnings({"unused", "WeakerAccess"})
+class LogEventsPageDeserializer extends StdDeserializer<LogEventsPage> {
+    LogEventsPageDeserializer(JavaType valueType) {
         super(valueType);
     }
 
-    public LogEventsPageDeserializer() {
+    LogEventsPageDeserializer() {
         this(null);
     }
 

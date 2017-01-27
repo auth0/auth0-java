@@ -6,7 +6,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@SuppressWarnings("unused")
+/**
+ * Class that represents an Auth0 Password Change Ticket object. Related to the {@link com.auth0.client.mgmt.TicketsEntity()} entity.
+ */
+@SuppressWarnings({"unused", "WeakerAccess", "FieldCanBeLocal"})
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PasswordChangeTicket {
@@ -36,54 +39,72 @@ public class PasswordChangeTicket {
         this.connectionId = connectionId;
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
+    /**
+     * Setter for the id of the user this ticket is meant to.
+     *
+     * @param userId the user id to set.
+     */
+    @JsonProperty("user_id")
     public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public String getResultUrl() {
-        return resultUrl;
-    }
-
+    /**
+     * Setter for the url the user will be redirected to after using the ticket.
+     *
+     * @param resultUrl the result url.
+     */
+    @JsonProperty("result_url")
     public void setResultUrl(String resultUrl) {
         this.resultUrl = resultUrl;
     }
 
-    public Integer getTtlSec() {
-        return ttlSec;
+    /**
+     * The ticket's lifetime in seconds starting from the moment of creation. After expiration the ticket can not be used to verify the users's email. If not specified or if you send 0 the Auth0 default lifetime will be applied.
+     *
+     * @param seconds the lifetime in seconds to set.
+     */
+    @JsonProperty("ttl_sec")
+    public void setTTLSeconds(Integer seconds) {
+        this.ttlSec = seconds;
     }
 
-    public void setTtlSec(Integer ttlSec) {
-        this.ttlSec = ttlSec;
-    }
-
-    public String getNewPassword() {
-        return newPassword;
-    }
-
+    /**
+     * Setter for the new password to set after the ticket is used.
+     *
+     * @param newPassword the new password to set.
+     */
+    @JsonProperty("new_password")
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
     }
 
-    public String getConnectionId() {
-        return connectionId;
-    }
-
+    /**
+     * Setter for the id of the connection the user's email should be search in.
+     *
+     * @param connectionId the connection id
+     */
+    @JsonProperty("connection_id")
     public void setConnectionId(String connectionId) {
         this.connectionId = connectionId;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
+    /**
+     * Setter for the user's email.
+     *
+     * @param email the user email to set.
+     */
+    @JsonProperty("email")
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Getter for the ticket url.
+     *
+     * @return the ticket url.
+     */
+    @JsonProperty("ticket")
     public String getTicket() {
         return ticket;
     }

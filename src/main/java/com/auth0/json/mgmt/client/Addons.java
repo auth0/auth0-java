@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings({"WeakerAccess", "unused"})
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Addons {
@@ -31,34 +32,42 @@ public class Addons {
         this.layer = layer;
     }
 
-    public Addon getRms() {
+    @JsonProperty("rms")
+    public Addon getRMS() {
         return rms;
     }
 
-    public void setRms(Addon rms) {
+    @JsonProperty("rms")
+    public void setRMS(Addon rms) {
         this.rms = rms;
     }
 
-    public Addon getMscrm() {
+    @JsonProperty("mscrm")
+    public Addon getMSCRM() {
         return mscrm;
     }
 
-    public void setMscrm(Addon mscrm) {
+    @JsonProperty("mscrm")
+    public void setMSCRM(Addon mscrm) {
         this.mscrm = mscrm;
     }
 
+    @JsonProperty("slack")
     public Addon getSlack() {
         return slack;
     }
 
+    @JsonProperty("slack")
     public void setSlack(Addon slack) {
         this.slack = slack;
     }
 
+    @JsonProperty("layer")
     public Addon getLayer() {
         return layer;
     }
 
+    @JsonProperty("layer")
     public void setLayer(Addon layer) {
         this.layer = layer;
     }

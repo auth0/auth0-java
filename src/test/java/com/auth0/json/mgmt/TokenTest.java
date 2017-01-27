@@ -28,7 +28,7 @@ public class TokenTest extends JsonTest<Token> {
 
         assertThat(token, is(notNullValue()));
         assertThat(token.getAud(), is("myapi"));
-        assertThat(token.getJti(), is("id"));
+        assertThat(token.getJTI(), is("id"));
     }
 
 }

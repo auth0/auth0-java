@@ -37,7 +37,7 @@ public class EmailProviderTest extends JsonTest<EmailProvider> {
 
         assertThat(provider, is(notNullValue()));
         assertThat(provider.getName(), is("provider"));
-        assertThat(provider.getEnabled(), is(true));
+        assertThat(provider.isEnabled(), is(true));
         assertThat(provider.getDefaultFromAddress(), is("https://google.com"));
         assertThat(provider.getSettings(), is(notNullValue()));
         assertThat(provider.getCredentials(), is(notNullValue()));

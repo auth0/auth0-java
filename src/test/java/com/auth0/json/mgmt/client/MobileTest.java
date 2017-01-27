@@ -30,6 +30,6 @@ public class MobileTest extends JsonTest<Mobile> {
 
         assertThat(mobile, is(notNullValue()));
         assertThat(mobile.getAndroid(), is(notNullValue()));
-        assertThat(mobile.getIos(), is(notNullValue()));
+        assertThat(mobile.getIOS(), is(notNullValue()));
     }
 }

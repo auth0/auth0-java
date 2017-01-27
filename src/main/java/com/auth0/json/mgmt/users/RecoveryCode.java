@@ -12,6 +12,7 @@ public class RecoveryCode {
     @JsonProperty("recovery_code")
     private String code;
 
+    @JsonProperty("recovery_code")
     public String getCode() {
         return code;
     }

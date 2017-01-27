@@ -1,17 +1,21 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.utils.Asserts;
 import com.auth0.client.mgmt.filter.LogEventFilter;
 import com.auth0.json.mgmt.logevents.LogEvent;
 import com.auth0.json.mgmt.logevents.LogEventsPage;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
+import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
 import java.util.Map;
 
+/**
+ * Class that provides an implementation of the Events methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Logs
+ */
+@SuppressWarnings("WeakerAccess")
 public class LogEventsEntity extends BaseManagementEntity {
 
     LogEventsEntity(OkHttpClient client, String baseUrl, String apiToken) {
@@ -20,6 +24,7 @@ public class LogEventsEntity extends BaseManagementEntity {
 
     /**
      * Request all the Log Events. A token with scope read:logs is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Logs/get_logs
      *
      * @param filter the filter to use. Can be null.
      * @return a Request to execute.
@@ -44,6 +49,7 @@ public class LogEventsEntity extends BaseManagementEntity {
 
     /**
      * Request a Log Event. A token with scope read:logs is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Logs/get_logs_by_id
      *
      * @param logEventId the id of the connection to retrieve.
      * @return a Request to execute.

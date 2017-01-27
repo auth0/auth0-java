@@ -17,12 +17,12 @@ public class ProfileDataTest extends JsonTest<ProfileData> {
 
         assertThat(data, is(notNullValue()));
         assertThat(data.getEmail(), is("me@auth0.com"));
-        assertThat(data.getEmailVerified(), is(true));
+        assertThat(data.isEmailVerified(), is(true));
         assertThat(data.getName(), is("John"));
         assertThat(data.getUsername(), is("usr"));
         assertThat(data.getGivenName(), is("John"));
         assertThat(data.getFamilyName(), is("Walker"));
         assertThat(data.getPhoneNumber(), is("1234567890"));
-        assertThat(data.getPhoneVerified(), is(true));
+        assertThat(data.isPhoneVerified(), is(true));
     }
 }

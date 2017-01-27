@@ -1,16 +1,20 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.utils.Asserts;
 import com.auth0.json.mgmt.guardian.*;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
 import java.util.List;
 
+/**
+ * Class that provides an implementation of the Guardian methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Guardian
+ */
+@SuppressWarnings("WeakerAccess")
 public class GuardianEntity extends BaseManagementEntity {
 
     GuardianEntity(OkHttpClient client, String baseUrl, String apiToken) {
@@ -19,6 +23,7 @@ public class GuardianEntity extends BaseManagementEntity {
 
     /**
      * Create a new Guardian Enrollment Ticket. A token with scope create:guardian_enrollment_tickets is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Guardian/post_ticket
      *
      * @param enrollmentTicket the enrollment ticket data to set.
      * @return a Request to execute.
@@ -45,6 +50,7 @@ public class GuardianEntity extends BaseManagementEntity {
 
     /**
      * Delete an existing Guardian Enrollment. A token with scope delete:guardian_enrollments is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Guardian/delete_enrollments_by_id
      *
      * @param enrollmentId the id of the enrollment to retrieve.
      * @return a Request to execute.
@@ -68,6 +74,7 @@ public class GuardianEntity extends BaseManagementEntity {
 
     /**
      * Request the Guardian enrollment and verification Templates. A token with scope read:guardian_factors is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Guardian/get_templates
      *
      * @return a Request to execute.
      */
@@ -90,6 +97,7 @@ public class GuardianEntity extends BaseManagementEntity {
 
     /**
      * Updates the existing Guardian enrollment and verification Templates. A token with scope update:guardian_factors is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Guardian/put_templates
      *
      * @param guardianTemplates the templates data to set.
      * @return a Request to execute.
@@ -116,6 +124,7 @@ public class GuardianEntity extends BaseManagementEntity {
 
     /**
      * Request all the Guardian Factors. A token with scope read:guardian_factors is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Guardian/get_factors
      *
      * @return a Request to execute.
      */
@@ -136,6 +145,7 @@ public class GuardianEntity extends BaseManagementEntity {
 
     /**
      * Update an existing Guardian Factor. A token with scope update:guardian_factors is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Guardian/put_factors_by_name
      *
      * @return a Request to execute.
      */
@@ -161,6 +171,7 @@ public class GuardianEntity extends BaseManagementEntity {
 
     /**
      * Request the Guardian's Twilio Factor Provider. A token with scope read:guardian_factors is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Guardian/get_twilio
      *
      * @return a Request to execute.
      */
@@ -185,6 +196,7 @@ public class GuardianEntity extends BaseManagementEntity {
 
     /**
      * Update the existing Guardian's Twilio Factor Provider. A token with scope update:guardian_factors is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Guardian/put_twilio
      *
      * @param provider the provider data to set.
      * @return a Request to execute.
@@ -212,10 +224,11 @@ public class GuardianEntity extends BaseManagementEntity {
 
     /**
      * Request the Guardian's Sns Factor Provider. A token with scope read:guardian_factors is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Guardian/get_sns
      *
      * @return a Request to execute.
      */
-    public Request<SnsFactorProvider> getSnsFactorProvider() {
+    public Request<SNSFactorProvider> getSNSFactorProvider() {
 
         String url = HttpUrl.parse(baseUrl)
                 .newBuilder()
@@ -228,7 +241,7 @@ public class GuardianEntity extends BaseManagementEntity {
                 .addPathSegment("sns")
                 .build()
                 .toString();
-        CustomRequest<SnsFactorProvider> request = new CustomRequest<>(client, url, "GET", new TypeReference<SnsFactorProvider>() {
+        CustomRequest<SNSFactorProvider> request = new CustomRequest<>(client, url, "GET", new TypeReference<SNSFactorProvider>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -236,11 +249,12 @@ public class GuardianEntity extends BaseManagementEntity {
 
     /**
      * Update the existing Guardian's Sns Factor Provider. A token with scope update:guardian_factors is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Guardian/put_sns
      *
      * @param provider the provider data to set.
      * @return a Request to execute.
      */
-    public Request<SnsFactorProvider> updateSnsFactorProvider(SnsFactorProvider provider) {
+    public Request<SNSFactorProvider> updateSNSFactorProvider(SNSFactorProvider provider) {
         Asserts.assertNotNull(provider, "provider");
 
         String url = HttpUrl.parse(baseUrl)
@@ -254,7 +268,7 @@ public class GuardianEntity extends BaseManagementEntity {
                 .addPathSegment("sns")
                 .build()
                 .toString();
-        CustomRequest<SnsFactorProvider> request = new CustomRequest<>(client, url, "PUT", new TypeReference<SnsFactorProvider>() {
+        CustomRequest<SNSFactorProvider> request = new CustomRequest<>(client, url, "PUT", new TypeReference<SNSFactorProvider>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(provider);

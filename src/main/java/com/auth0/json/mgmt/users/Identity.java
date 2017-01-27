@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "WeakerAccess"})
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Identity {
@@ -22,26 +22,32 @@ public class Identity {
     @JsonProperty("profileData")
     private ProfileData profileData;
 
+    @JsonProperty("connection")
     public String getConnection() {
         return connection;
     }
 
+    @JsonProperty("user_id")
     public String getUserId() {
         return userId;
     }
 
+    @JsonProperty("provider")
     public String getProvider() {
         return provider;
     }
 
-    public Boolean getSocial() {
+    @JsonProperty("isSocial")
+    public Boolean isSocial() {
         return isSocial;
     }
 
+    @JsonProperty("access_token")
     public String getAccessToken() {
         return accessToken;
     }
 
+    @JsonProperty("profileData")
     public ProfileData getProfileData() {
         return profileData;
     }

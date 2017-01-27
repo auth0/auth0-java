@@ -17,6 +17,6 @@ public class BlockDetailsTest extends JsonTest<BlockDetails> {
 
         assertThat(details, is(notNullValue()));
         assertThat(details.getIdentifier(), is("username"));
-        assertThat(details.getIp(), is("10.0.0.1"));
+        assertThat(details.getIP(), is("10.0.0.1"));
     }
 }

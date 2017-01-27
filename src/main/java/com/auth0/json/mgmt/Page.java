@@ -6,6 +6,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/**
+ * Class that represents a paginated list of objects.
+ *
+ * @param <T> the type of the object this page contains.
+ */
 @SuppressWarnings("unused")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -33,22 +38,51 @@ public abstract class Page<T> {
         this.items = items;
     }
 
+    /**
+     * Getter for the position of the item this page starts from.
+     *
+     * @return the start value.
+     */
+    @JsonProperty("start")
     public Integer getStart() {
         return start;
     }
 
+    /**
+     * Getter for the amount of items per page.
+     *
+     * @return the length value.
+     */
+    @JsonProperty("length")
     public Integer getLength() {
         return length;
     }
 
+    /**
+     * Getter for the total amount of items.
+     *
+     * @return the total value.
+     */
+    @JsonProperty("total")
     public Integer getTotal() {
         return total;
     }
 
+    /**
+     * Getter for the items amount limit.
+     *
+     * @return the limit value.
+     */
+    @JsonProperty("limit")
     public Integer getLimit() {
         return limit;
     }
 
+    /**
+     * Getter for the list of items.
+     *
+     * @return the list of items.
+     */
     public List<T> getItems() {
         return items;
     }

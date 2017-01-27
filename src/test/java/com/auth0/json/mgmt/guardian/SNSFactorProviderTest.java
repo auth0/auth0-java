@@ -8,18 +8,18 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
-public class SnsFactorProviderTest extends JsonTest<SnsFactorProvider> {
+public class SNSFactorProviderTest extends JsonTest<SNSFactorProvider> {
 
     private static final String json = "{\"aws_access_key_id\":\"akey\",\"aws_secret_access_key\":\"secretakey\",\"aws_region\":\"ar\",\"sns_apns_platform_application_arn\":\"arn1\",\"sns_gcm_platform_application_arn\":\"arn2\"}";
 
     @Test
     public void shouldSerialize() throws Exception {
-        SnsFactorProvider provider = new SnsFactorProvider();
-        provider.setAwsRegion("ar");
-        provider.setAwsAccessKeyId("akey");
-        provider.setAwsSecretAccessKey("secretakey");
-        provider.setSnsApnsPlatformApplicationArn("arn1");
-        provider.setSnsGcmPlatformApplicationArn("arn2");
+        SNSFactorProvider provider = new SNSFactorProvider();
+        provider.setAWSRegion("ar");
+        provider.setAWSAccessKeyId("akey");
+        provider.setAWSSecretAccessKey("secretakey");
+        provider.setSNSAPNSPlatformApplicationARN("arn1");
+        provider.setSNSGCMPlatformApplicationARN("arn2");
 
         String serialized = toJSON(provider);
         assertThat(serialized, is(notNullValue()));
@@ -32,14 +32,14 @@ public class SnsFactorProviderTest extends JsonTest<SnsFactorProvider> {
 
     @Test
     public void shouldDeserialize() throws Exception {
-        SnsFactorProvider provider = fromJSON(json, SnsFactorProvider.class);
+        SNSFactorProvider provider = fromJSON(json, SNSFactorProvider.class);
 
         assertThat(provider, is(notNullValue()));
-        assertThat(provider.getAwsRegion(), is("ar"));
-        assertThat(provider.getAwsAccessKeyId(), is("akey"));
-        assertThat(provider.getAwsSecretAccessKey(), is("secretakey"));
-        assertThat(provider.getSnsApnsPlatformApplicationArn(), is("arn1"));
-        assertThat(provider.getSnsGcmPlatformApplicationArn(), is("arn2"));
+        assertThat(provider.getAWSRegion(), is("ar"));
+        assertThat(provider.getAWSAccessKeyId(), is("akey"));
+        assertThat(provider.getAWSSecretAccessKey(), is("secretakey"));
+        assertThat(provider.getSNSAPNSPlatformApplicationARN(), is("arn1"));
+        assertThat(provider.getSNSGCMPlatformApplicationARN(), is("arn2"));
     }
 
 }
