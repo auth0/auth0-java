@@ -4,8 +4,8 @@ apply plugin: 'jacoco'
 logger.lifecycle("Using version ${version} for ${name}")
 
 oss {
-    name 'Auth0-Java'
-    repository 'Auth0-Java'
+    name 'auth0'
+    repository 'auth0-java'
     organization 'auth0'
     description 'Java client library for the Auth0 platform.'
 
@@ -33,7 +33,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7'
         classpath "gradle.plugin.com.auth0.gradle:oss-library:0.6.0"
     }
 }
