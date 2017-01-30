@@ -28,6 +28,11 @@ compile 'com.auth0:auth0:1.0.0'
 Make sure your client type is set to `Non Interactive Client`.
 
 
+### Android
+
+The Auth0 Authentication API and User's Management API are available for Android in the `auth0.android` library. Check https://github.com/auth0/auth0.android for more information.
+
+
 ## Auth API
 
 The implementation is based on the [Authentication API Docs](https://auth0.com/docs/api/authentication).
