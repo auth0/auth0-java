@@ -1,3 +1,5 @@
+group = 'com.auth0'
+
 apply plugin: 'com.auth0.gradle.oss-library.java'
 apply plugin: 'jacoco'
 
