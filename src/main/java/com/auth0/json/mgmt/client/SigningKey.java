@@ -37,7 +37,7 @@ public class SigningKey {
     /**
      * Setter for the signing public key.
      *
-     * @return the public key to use.
+     * @param cert the certificate to set.
      */
     @JsonProperty("cert")
     public void setCert(String cert) {

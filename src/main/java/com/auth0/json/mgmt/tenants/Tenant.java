@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Class that represents an Auth0 Tenant Settings object. Related to the {@link com.auth0.client.mgmt.TenantsEntity()} entity.
+ * Class that represents an Auth0 Tenant Settings object. Related to the {@link com.auth0.client.mgmt.TenantsEntity} entity.
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 @JsonIgnoreProperties(ignoreUnknown = true)

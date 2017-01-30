@@ -147,6 +147,8 @@ public class GuardianEntity extends BaseManagementEntity {
      * Update an existing Guardian Factor. A token with scope update:guardian_factors is needed.
      * See https://auth0.com/docs/api/management/v2#!/Guardian/put_factors_by_name
      *
+     * @param name    the name of the Factor to update.
+     * @param enabled whether to enable or disable the Factor.
      * @return a Request to execute.
      */
     public Request<Factor> updateFactor(String name, Boolean enabled) {

@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 
 /**
- * Class that represents an Auth0 Email Provider object. Related to the {@link com.auth0.client.mgmt.EmailProviderEntity()} entity.
+ * Class that represents an Auth0 Email Provider object. Related to the {@link com.auth0.client.mgmt.EmailProviderEntity} entity.
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 @JsonIgnoreProperties(ignoreUnknown = true)

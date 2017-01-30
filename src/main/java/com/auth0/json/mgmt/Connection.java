@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Class that represents an Auth0 Connection object. Related to the {@link com.auth0.client.mgmt.ConnectionsEntity()} entity.
+ * Class that represents an Auth0 Connection object. Related to the {@link com.auth0.client.mgmt.ConnectionsEntity} entity.
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 @JsonIgnoreProperties(ignoreUnknown = true)

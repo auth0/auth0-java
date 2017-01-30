@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 /**
- * Class that represents an Auth0 Client Grant object. Related to the {@link com.auth0.client.mgmt.ClientGrantsEntity()} entity.
+ * Class that represents an Auth0 Client Grant object. Related to the {@link com.auth0.client.mgmt.ClientGrantsEntity} entity.
  */
 @SuppressWarnings("unused")
 @JsonIgnoreProperties(ignoreUnknown = true)

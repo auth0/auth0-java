@@ -53,7 +53,9 @@ public class ManagementAPI {
     }
 
     /**
-     * Whether to enable or not the current Http Logger for every Request, Response and other sensitive information.
+     * Whether to enable or not the current HTTP Logger for every Request, Response and other sensitive information.
+     *
+     * @param enabled whether to enable the HTTP logger or not.
      */
     public void setLoggingEnabled(boolean enabled) {
         logging.setLevel(enabled ? Level.BODY : Level.NONE);

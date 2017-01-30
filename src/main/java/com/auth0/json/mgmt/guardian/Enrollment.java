@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 
 /**
- * Class that represents an Auth0 Guardian Enrollment object. Related to the {@link com.auth0.client.mgmt.GuardianEntity()} entity.
+ * Class that represents an Auth0 Guardian Enrollment object. Related to the {@link com.auth0.client.mgmt.GuardianEntity} entity.
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 @JsonIgnoreProperties(ignoreUnknown = true)

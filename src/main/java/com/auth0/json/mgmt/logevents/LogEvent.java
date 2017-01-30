@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * Class that represents an Auth0 Events object. Related to the {@link com.auth0.client.mgmt.LogEventsEntity()} entity.
+ * Class that represents an Auth0 Events object. Related to the {@link com.auth0.client.mgmt.LogEventsEntity} entity.
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 @JsonIgnoreProperties(ignoreUnknown = true)

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 /**
- * Class that represents an Auth0 User Block object. Related to the {@link com.auth0.client.mgmt.UserBlocksEntity()} entity.
+ * Class that represents an Auth0 User Block object. Related to the {@link com.auth0.client.mgmt.UserBlocksEntity} entity.
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 @JsonIgnoreProperties(ignoreUnknown = true)

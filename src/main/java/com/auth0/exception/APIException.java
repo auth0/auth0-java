@@ -4,14 +4,13 @@ import java.util.Map;
 
 /**
  * Class that represents an Auth0 Server error captured from a http response. Provides different methods to get a clue of why the request failed.
- * <p>
+ * i.e.:
  * <pre>
  * {@code
- * Sample exception data.
  * {
- * statusCode: 400,
- * description: "Query validation error: 'String 'users' does not match pattern. Must be a comma separated list of the following values: name,strategy,options,enabled_clients,id,provisioning_ticket_url' on property fields (A comma separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields).",
- * error: "invalid_query_string"
+ *      statusCode: 400,
+ *      description: "Query validation error: 'String 'users' does not match pattern. Must be a comma separated list of the following values: name,strategy,options,enabled_clients,id,provisioning_ticket_url' on property fields (A comma separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields).",
+ *      error: "invalid_query_string"
  * }
  * }
  * </pre>

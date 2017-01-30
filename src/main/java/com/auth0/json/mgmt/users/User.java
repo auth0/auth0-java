@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Class that represents an Auth0 User object. Related to the {@link com.auth0.client.mgmt.UsersEntity()} entity.
+ * Class that represents an Auth0 User object. Related to the {@link com.auth0.client.mgmt.UsersEntity} entity.
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 @JsonIgnoreProperties(ignoreUnknown = true)

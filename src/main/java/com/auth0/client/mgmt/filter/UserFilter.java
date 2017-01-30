@@ -1,7 +1,7 @@
 package com.auth0.client.mgmt.filter;
 
 /**
- * Class used to filter the results received when calling the Users endpoint. Related to the {@link com.auth0.client.mgmt.UsersEntity()} entity.
+ * Class used to filter the results received when calling the Users endpoint. Related to the {@link com.auth0.client.mgmt.UsersEntity} entity.
  */
 public class UserFilter extends QueryFilter {
 

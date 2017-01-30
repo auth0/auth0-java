@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Class that represents an Auth0 Guardian Factor object. Related to the {@link com.auth0.client.mgmt.GuardianEntity()} entity.
+ * Class that represents an Auth0 Guardian Factor object. Related to the {@link com.auth0.client.mgmt.GuardianEntity} entity.
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 @JsonIgnoreProperties(ignoreUnknown = true)

@@ -72,7 +72,9 @@ public class AuthAPI {
     }
 
     /**
-     * Whether to enable or not the current Http Logger for every Request, Response and other sensitive information.
+     * Whether to enable or not the current HTTP Logger for every Request, Response and other sensitive information.
+     *
+     * @param enabled whether to enable the HTTP logger or not.
      */
     public void setLoggingEnabled(boolean enabled) {
         logging.setLevel(enabled ? Level.BODY : Level.NONE);
@@ -100,15 +102,16 @@ public class AuthAPI {
     /**
      * Creates a new instance of the {@link AuthorizeUrlBuilder} with the given redirect url.
      * i.e.:
-     * <p>
      * <pre>
-     *     AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
-     *     String url = auth.authorizeUrl("https://me.auth0.com/callback")
-     *          .withConnection("facebook")
-     *          .withAudience("https://api.me.auth0.com/users")
-     *          .withScope("openid contacts")
-     *          .withState("my-custom-state")
-     *          .build();
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * String url = auth.authorizeUrl("https://me.auth0.com/callback")
+     *      .withConnection("facebook")
+     *      .withAudience("https://api.me.auth0.com/users")
+     *      .withScope("openid contacts")
+     *      .withState("my-custom-state")
+     *      .build();
+     * }
      * </pre>
      *
      * @param redirectUri the redirect_uri value to set, white-listed in the client settings. Must be already URL Encoded.
@@ -123,12 +126,13 @@ public class AuthAPI {
     /**
      * Creates a new instance of the {@link LogoutUrlBuilder} with the given return-to url.
      * i.e.:
-     * <p>
      * <pre>
-     *     AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
-     *     String url = auth.logoutUrl("https://me.auth0.com/home", true)
-     *          .useFederated(true)
-     *          .withAccessToken("A9CvPwFojaBIA9CvI");
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * String url = auth.logoutUrl("https://me.auth0.com/home", true)
+     *      .useFederated(true)
+     *      .withAccessToken("A9CvPwFojaBIA9CvI");
+     * }
      * </pre>
      *
      * @param returnToUrl the redirect_uri value to set, white-listed in the client settings. Must be already URL Encoded.
@@ -145,14 +149,15 @@ public class AuthAPI {
     /**
      * Request the user information related to the access token.
      * i.e.:
-     * <p>
      * <pre>
-     *     AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
-     *     try {
-     *         UserInfo result = auth.userInfo("A9CvPwFojaBIA9CvI").execute();
-     *     } catch (Auth0Exception e) {
-     *         //Something happened
-     *     }
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * try {
+     *      UserInfo result = auth.userInfo("A9CvPwFojaBIA9CvI").execute();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
      * </pre>
      *
      * @param accessToken a valid access token belonging to an API signed with RS256 algorithm and containing the scope 'openid'.
@@ -176,14 +181,15 @@ public class AuthAPI {
      * Request a password reset for the given email and database connection. The response will always be successful even if
      * there's no user associated to the given email for that database connection.
      * i.e.:
-     * <p>
      * <pre>
-     *     AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
-     *     try {
-     *         auth.resetPassword("me@auth0.com", "db-connection").execute();
-     *     } catch (Auth0Exception e) {
-     *         //Something happened
-     *     }
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * try {
+     *      auth.resetPassword("me@auth0.com", "db-connection").execute();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
      * </pre>
      *
      * @param email      the email associated to the database user.
@@ -211,19 +217,20 @@ public class AuthAPI {
      * Creates a new sign up request with the given credentials and database connection.
      * "Requires Username" option must be turned on in the Connection's configuration first.
      * i.e.:
-     * <p>
      * <pre>
-     *     AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
-     *     try {
-     *         Map<String, String> fields = new HashMap<String, String>();
-     *         fields.put("age", "25);
-     *         fields.put("city", "Buenos Aires");
-     *         auth.signUp("me@auth0.com", "myself", "topsecret", "db-connection")
-     *               .setCustomFields(fields)
-     *               .execute();
-     *     } catch (Auth0Exception e) {
-     *         //Something happened
-     *     }
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * try {
+     *      Map<String, String> fields = new HashMap<String, String>();
+     *      fields.put("age", "25);
+     *      fields.put("city", "Buenos Aires");
+     *      auth.signUp("me@auth0.com", "myself", "topsecret", "db-connection")
+     *          .setCustomFields(fields)
+     *          .execute();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
      * </pre>
      *
      * @param email      the desired user's email.
@@ -243,19 +250,20 @@ public class AuthAPI {
     /**
      * Creates a new sign up request with the given credentials and database connection.
      * i.e.:
-     * <p>
      * <pre>
-     *     AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
-     *     try {
-     *         Map<String, String> fields = new HashMap<String, String>();
-     *         fields.put("age", "25);
-     *         fields.put("city", "Buenos Aires");
-     *         auth.signUp("me@auth0.com", "topsecret", "db-connection")
-     *               .setCustomFields(fields)
-     *               .execute();
-     *     } catch (Auth0Exception e) {
-     *         //Something happened
-     *     }
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * try {
+     *      Map<String, String> fields = new HashMap<String, String>();
+     *      fields.put("age", "25);
+     *      fields.put("city", "Buenos Aires");
+     *      auth.signUp("me@auth0.com", "topsecret", "db-connection")
+     *          .setCustomFields(fields)
+     *          .execute();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
      * </pre>
      *
      * @param email      the desired user's email.
@@ -285,16 +293,17 @@ public class AuthAPI {
     /**
      * Creates a new log in request using the 'Password' grant and the given credentials.
      * i.e.:
-     * <p>
      * <pre>
-     *     AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
-     *     try {
-     *         TokenHolder result = auth.login("me@auth0.com", "topsecret")
-     *              .setScope("openid email nickname")
-     *              .execute();
-     *     } catch (Auth0Exception e) {
-     *         //Something happened
-     *     }
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * try {
+     *      TokenHolder result = auth.login("me@auth0.com", "topsecret")
+     *          .setScope("openid email nickname")
+     *          .execute();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
      * </pre>
      *
      * @param emailOrUsername the identity of the user.
@@ -323,20 +332,22 @@ public class AuthAPI {
     /**
      * Creates a new log in request using the 'Password Realm' grant and the given credentials.
      * Default used realm and audience are defined in the "API Authorization Settings" in the account's advanced settings in the Auth0 Dashboard.
-     * <p>
      * <pre>
-     *     AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
-     *     try {
-     *         TokenHolder result = auth.login("me@auth0.com", "topsecret", "my-realm")
-     *              .setAudience("https://myapi.me.auth0.com/users")
-     *              .execute();
-     *     } catch (Auth0Exception e) {
-     *         //Something happened
-     *     }
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * try {
+     *      TokenHolder result = auth.login("me@auth0.com", "topsecret", "my-realm")
+     *          .setAudience("https://myapi.me.auth0.com/users")
+     *          .execute();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
      * </pre>
      *
      * @param emailOrUsername the identity of the user.
      * @param password        the password of the user.
+     * @param realm           the realm to use.
      * @return a Request to configure and execute.
      */
     public AuthRequest login(String emailOrUsername, String password, String realm) {
@@ -363,16 +374,17 @@ public class AuthAPI {
     /**
      * Creates a new request to get a Token for the given audience using the 'Client Credentials' grant.
      * Default used realm is defined in the "API Authorization Settings" in the account's advanced settings in the Auth0 Dashboard.
-     * <p>
      * <pre>
-     *     AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
-     *     try {
-     *         TokenHolder result = auth.requestToken("https://myapi.me.auth0.com/users")
-     *              .setRealm("my-realm")
-     *              .execute();
-     *     } catch (Auth0Exception e) {
-     *         //Something happened
-     *     }
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * try {
+     *      TokenHolder result = auth.requestToken("https://myapi.me.auth0.com/users")
+     *          .setRealm("my-realm")
+     *          .execute();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
      * </pre>
      *
      * @param audience the audience of the API to request access to.
@@ -397,16 +409,17 @@ public class AuthAPI {
 
     /**
      * Creates a new request to exchange the code obtained in the /authorize call using the 'Authorization Code' grant.
-     * <p>
      * <pre>
-     *     AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
-     *     try {
-     *         TokenHolder result = auth.exchangeCode("SnWoFLMzApDskr", "https://me.auth0.com/callback")
-     *              .setScope("openid name nickname")
-     *              .execute();
-     *     } catch (Auth0Exception e) {
-     *         //Something happened
-     *     }
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * try {
+     *      TokenHolder result = auth.exchangeCode("SnWoFLMzApDskr", "https://me.auth0.com/callback")
+     *          .setScope("openid name nickname")
+     *          .execute();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
      * </pre>
      *
      * @param code        the authorization code received from the /authorize call.

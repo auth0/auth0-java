@@ -1,7 +1,7 @@
 package com.auth0.client.mgmt.filter;
 
 /**
- * Class used to filter the results received when calling the Connections endpoint. Related to the {@link com.auth0.client.mgmt.ConnectionsEntity()} entity.
+ * Class used to filter the results received when calling the Connections endpoint. Related to the {@link com.auth0.client.mgmt.ConnectionsEntity} entity.
  */
 public class ConnectionFilter extends FieldsFilter {
 

@@ -7,6 +7,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.List;
 
+/**
+ * Class that represents an Auth0 User object. Related to the {@link com.auth0.client.mgmt.UsersEntity} entity.
+ */
 @SuppressWarnings({"unused", "WeakerAccess"})
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)

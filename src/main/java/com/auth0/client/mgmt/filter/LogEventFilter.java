@@ -1,7 +1,7 @@
 package com.auth0.client.mgmt.filter;
 
 /**
- * Class used to filter the results received when calling the Logs endpoint. Related to the {@link com.auth0.client.mgmt.LogEventsEntity()} entity.
+ * Class used to filter the results received when calling the Logs endpoint. Related to the {@link com.auth0.client.mgmt.LogEventsEntity} entity.
  */
 public class LogEventFilter extends QueryFilter {
 
