@@ -1,23 +1,45 @@
-group 'com.auth0'
-version '2.0-SNAPSHOT'
-
+apply plugin: 'com.auth0.gradle.oss-library.java'
 apply plugin: 'jacoco'
-apply plugin: 'java'
+
+logger.lifecycle("Using version ${version} for ${name}")
+
+oss {
+    name 'Auth0-Java'
+    repository 'Auth0-Java'
+    organization 'auth0'
+    description 'Java client library for the Auth0 platform.'
+
+    developers {
+        auth0 {
+            displayName = 'Auth0'
+            email = 'oss@auth0.com'
+        }
+        lbalmaceda {
+            displayName = 'Luciano Balmaceda'
+            email = 'luciano.balmaceda@auth0.com'
+        }
+    }
+}
 
 compileJava {
     sourceCompatibility '1.7'
     targetCompatibility '1.7'
 }
 
-repositories {
-    mavenCentral()
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6'
+        classpath "gradle.plugin.com.auth0.gradle:oss-library:0.6.0"
+    }
 }
 
-jacocoTestReport {
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
+repositories {
+    mavenCentral()
 }
 
 test {
