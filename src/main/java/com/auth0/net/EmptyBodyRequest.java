@@ -17,7 +17,8 @@ public class EmptyBodyRequest<T> extends CustomRequest<T> {
     }
 
     @Override
-    public void addParameter(String name, Object value) {
+    public EmptyBodyRequest<T> addParameter(String name, Object value) {
         //do nothing
+        return this;
     }
 }

@@ -11,6 +11,7 @@ import static com.auth0.utils.Asserts.assertValidUrl;
 /**
  * Class that provides the methods to generate a valid Auth0 Authorize Url. It's based on the https://auth0.com/docs/api/authentication#social docs.
  */
+@SuppressWarnings("WeakerAccess")
 public class AuthorizeUrlBuilder {
 
     private final HttpUrl.Builder builder;

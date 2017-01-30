@@ -12,17 +12,20 @@ public class TokenRequest extends CustomRequest<TokenHolder> implements AuthRequ
     }
 
     @Override
-    public void setRealm(String realm) {
+    public TokenRequest setRealm(String realm) {
         super.addParameter("realm", realm);
+        return this;
     }
 
     @Override
-    public void setAudience(String audience) {
+    public TokenRequest setAudience(String audience) {
         super.addParameter("audience", audience);
+        return this;
     }
 
     @Override
-    public void setScope(String scope) {
+    public TokenRequest setScope(String scope) {
         super.addParameter("scope", scope);
+        return this;
     }
 }

@@ -116,11 +116,11 @@ Creates a new request to create a new user. Up to 10 additional Sign Up fields c
 
 Example:
 ```java
-SignUpRequest request = auth.signUp("user@domain.com", "username", "password123", "Username-Password-Authentication");
 Map<String, String> fields = new HashMap<>();
-fields.put("location", "Buenos Aires");
 fields.put("age", "25");
-request.setCustomFields(fields);
+fields.put("city", "Buenos Aires");
+SignUpRequest request = auth.signUp("user@domain.com", "username", "password123", "Username-Password-Authentication")
+    .setCustomFields(fields);
 try {
     request.execute();
 } catch (APIException exception) {
@@ -138,12 +138,11 @@ Creates a new request to exchange the `code` previously obtained by calling the 
 
 Example:
 ```java
-AuthRequest request = exchangeCode("asdfgh", "https://me.auth0.com/callback");
-request.setAudience("https://api.me.auth0.com/users");
-request.setScope("openid contacts");
+AuthRequest request = exchangeCode("asdfgh", "https://me.auth0.com/callback")
+    .setAudience("https://api.me.auth0.com/users")
+    .setScope("openid contacts");
 try {
     TokenHolder holder = request.execute();
-    // holder.getAccessToken();
 } catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
@@ -159,12 +158,11 @@ Creates a new request to log in the user with `username` and `password`. The con
 
 Example:
 ```java
-AuthRequest request = login("me@domain.com", "password123");
-request.setAudience("https://api.me.auth0.com/users");
-request.setScope("openid contacts");
+AuthRequest request = login("me@domain.com", "password123")
+    .setAudience("https://api.me.auth0.com/users")
+    .setScope("openid contacts");
 try {
     TokenHolder holder = request.execute();
-    // holder.getAccessToken();
 } catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
@@ -180,12 +178,11 @@ Creates a new request to log in the user with `username` and `password` using th
 
 Example:
 ```java
-AuthRequest request = login("me@domain.com", "password123", "Username-Password-Authentication");
-request.setAudience("https://api.me.auth0.com/users");
-request.setScope("openid contacts");
+AuthRequest request = login("me@domain.com", "password123", "Username-Password-Authentication")
+    .setAudience("https://api.me.auth0.com/users")
+    .setScope("openid contacts");
 try {
     TokenHolder holder = request.execute();
-    // holder.getAccessToken();
 } catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
@@ -201,11 +198,10 @@ Creates a new request to get a Token for the given Audience.
 
 Example:
 ```java
-AuthRequest request = requestToken("https://api.me.auth0.com/users");
-request.setScope("openid contacts");
+AuthRequest request = requestToken("https://api.me.auth0.com/users")
+    .setScope("openid contacts");
 try {
     TokenHolder holder = request.execute();
-    // holder.getAccessToken();
 } catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {

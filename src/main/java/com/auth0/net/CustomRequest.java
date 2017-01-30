@@ -1,7 +1,7 @@
 package com.auth0.net;
 
-import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.APIException;
+import com.auth0.exception.Auth0Exception;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("WeakerAccess")
 public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequest<T> {
     private static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
 
@@ -66,18 +67,21 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
     }
 
     @Override
-    public void addHeader(String name, String value) {
+    public CustomRequest<T> addHeader(String name, String value) {
         headers.put(name, value);
+        return this;
     }
 
     @Override
-    public void addParameter(String name, Object value) {
+    public CustomRequest<T> addParameter(String name, Object value) {
         parameters.put(name, value);
+        return this;
     }
 
     @Override
-    public void setBody(Object value) {
+    public CustomRequest<T> setBody(Object value) {
         body = value;
+        return this;
     }
 
     protected RequestBody createBody() throws Auth0Exception {

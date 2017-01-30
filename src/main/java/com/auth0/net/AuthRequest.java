@@ -11,20 +11,23 @@ public interface AuthRequest extends Request<TokenHolder> {
      * Setter for the realm value to request
      *
      * @param realm the realm to request
+     * @return this request instance.
      */
-    void setRealm(String realm);
+    AuthRequest setRealm(String realm);
 
     /**
      * Setter for the audience value to request
      *
      * @param audience the audience to request
+     * @return this request instance.
      */
-    void setAudience(String audience);
+    AuthRequest setAudience(String audience);
 
     /**
      * Setter for the scope value to request
      *
      * @param scope the scope to request
+     * @return this request instance.
      */
-    void setScope(String scope);
+    AuthRequest setScope(String scope);
 }

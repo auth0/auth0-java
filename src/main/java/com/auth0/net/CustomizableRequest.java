@@ -2,9 +2,9 @@ package com.auth0.net;
 
 interface CustomizableRequest<T> extends Request<T> {
 
-    void addHeader(String name, String value);
+    CustomizableRequest<T> addHeader(String name, String value);
 
-    void addParameter(String name, Object value);
+    CustomizableRequest<T> addParameter(String name, Object value);
 
-    void setBody(Object body);
+    CustomizableRequest<T> setBody(Object body);
 }

@@ -11,6 +11,7 @@ import static com.auth0.utils.Asserts.assertValidUrl;
 /**
  * Class that provides the methods to generate a valid Auth0 Logout Url. It's based on the https://auth0.com/docs/api/authentication#logout docs.
  */
+@SuppressWarnings("WeakerAccess")
 public class LogoutUrlBuilder {
 
     private final HttpUrl.Builder builder;

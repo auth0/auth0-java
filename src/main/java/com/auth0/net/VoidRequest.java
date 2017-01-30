@@ -23,7 +23,8 @@ public class VoidRequest extends CustomRequest<Void> implements SignUpRequest {
     }
 
     @Override
-    public void setCustomFields(Map<String, String> customFields) {
+    public VoidRequest setCustomFields(Map<String, String> customFields) {
         super.addParameter("user_metadata", customFields);
+        return this;
     }
 }

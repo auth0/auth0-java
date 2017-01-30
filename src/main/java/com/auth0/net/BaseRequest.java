@@ -10,7 +10,7 @@ public abstract class BaseRequest<T> implements Request<T> {
 
     private final OkHttpClient client;
 
-    public BaseRequest(OkHttpClient client) {
+    BaseRequest(OkHttpClient client) {
         this.client = client;
     }
 
