@@ -4,6 +4,7 @@
 [![MIT][mit-badge]][mit-url]
 [![Maven][maven-badge]][maven-url]
 [![JCenter][jcenter-badge]][jcenter-url]
+[![codecov][codecov-badge]][codecov-url]
 
 Java client library for the [Auth0](https://auth0.com) platform.
 
@@ -45,7 +46,7 @@ AuthAPI auth = new AuthAPI("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SE
 
 Creates an `AuthorizeUrlBuilder` to authenticate the user with an OAuth provider. The `redirectUri` must be white-listed in the "Allowed Callback URLs" section of the Client Settings. Parameters can be added to the final url by using the builder methods. When ready, call `build()` and obtain the Url.
 
-`AuthorizeUrlBuilder authorizeUrl("{REDIRECT_URI}")`
+```AuthorizeUrlBuilder authorizeUrl(String redirectUri)```
 
 Example:
 ```java
@@ -60,7 +61,7 @@ String url = auth.authorizeUrl("https://me.auth0.com/callback")
 ### Logout - /v2/logout
 Creates a `LogoutUrlBuilder` to log out the user. The `returnToUrl` must be white-listed in the "Allowed Logout URLs" section of the Client Settings. Parameters can be added to the final url by using the builder methods. When ready, call `build()` and obtain the Url.
 
-`LogoutUrlBuilder logoutUrl("{RETURN_TO_URL}", "{SEND_CLIENT_ID}")`
+`LogoutUrlBuilder logoutUrl(String returnToUrl, boolean setClientId)`
 
 Example:
 ```java
@@ -72,7 +73,7 @@ String url = auth.logoutUrl("https://me.auth0.com/home", true)
 ### UserInfo - /userinfo
 Creates a new request to get the user information associated to a given access token. This will only work if the token has been granted the `openid` scope.
 
-`Request<UserInfo> userInfo("{ACCESS_TOKEN}")`
+`Request<UserInfo> userInfo(String accessToken)`
 
 Example:
 ```java
@@ -90,7 +91,7 @@ try {
 ### Reset Password - /dbconnections/change_password
 Creates a new request to reset the user's password. This will only work for db connections.
 
-`Request resetPassword("{EMAIL}", "{CONNECTION}")`
+`Request resetPassword(String email, String connection)`
 
 Example:
 ```java
@@ -108,9 +109,9 @@ try {
 ### Sign Up - /dbconnections/signup
 Creates a new request to create a new user. Up to 10 additional Sign Up fields can be added to the request. This will only work for db connections.
 
-`SignUpRequest signUp("{EMAIL}", "{USERNAME}", "{PASSWORD}", "{CONNECTION}")`
+`SignUpRequest signUp(String email, String username, String password, String connection)`
 
-`SignUpRequest signUp("{EMAIL}", "{PASSWORD}", "{CONNECTION}")`
+`SignUpRequest signUp(String email, String password, String connection)`
 
 Example:
 ```java
@@ -132,7 +133,7 @@ try {
 
 Creates a new request to exchange the `code` previously obtained by calling the /authorize endpoint. The redirect uri must be the one sent in the /authorize call.
 
-`AuthRequest exchangeCode("{CODE}", "{REDIRECT_URI}")`
+`AuthRequest exchangeCode(String code, String redirectUri)`
 
 Example:
 ```java
@@ -152,7 +153,7 @@ try {
 
 Creates a new request to log in the user with `username` and `password`. The connection used is the one defined as "Default Directory" in the account settings.
 
-`AuthRequest login("{USERNAME_OR_EMAIL}", "{PASSWORD}")`
+`AuthRequest login(String emailOrUsername, String password)`
 
 Example:
 ```java
@@ -172,7 +173,7 @@ try {
 
 Creates a new request to log in the user with `username` and `password` using the Password Realm.
 
-`AuthRequest login("{USERNAME_OR_EMAIL}", "{PASSWORD}", "{REALM}")`
+`AuthRequest login(String emailOrUsername, String password, String realm)`
 
 Example:
 ```java
@@ -192,7 +193,7 @@ try {
 
 Creates a new request to get a Token for the given Audience.
 
-`AuthRequest requestToken("{AUDIENCE}")`
+`AuthRequest requestToken(String audience)`
 
 Example:
 ```java
@@ -243,7 +244,7 @@ The Management API is divided into different entities. Each of them have the lis
 Creates a new request to list the Users. An API Token with scope `read:users` is needed. If you want the identities.access_token property to be included, you will also need the scope `read:user_idp_tokens`.
 You can pass an optional Filter to narrow the results in the response.
 
-`Request<UsersPage> list({FILTER})`
+`Request<UsersPage> list(UserFilter filter)`
 
 Example:
 ```java
@@ -263,7 +264,7 @@ try {
 Creates a new request to get a User. An API Token with scope `read:users` is needed. If you want the identities.access_token property to be included, you will also need the scope `read:user_idp_tokens`.
 You can pass an optional Filter to narrow the results in the response.
 
-`Request<User> get("{USER_ID}", {FILTER})`
+`Request<User> get(String userId, UserFilter filter)`
 
 Example:
 ```java
@@ -282,7 +283,7 @@ try {
 
 Creates a new request to create a new User. An API Token with scope `create:users` is needed.
 
-`Request<User> create({DATA})`
+`Request<User> create(User user)`
 
 Example:
 ```java
@@ -301,7 +302,7 @@ try {
 
 Creates a new request to delete a User. An API Token with scope `delete:users` is needed.
 
-`Request delete("{USER_ID}")`
+`Request delete(String userId)`
 
 Example:
 ```java
@@ -319,7 +320,7 @@ try {
 
 Creates a new request to update a User. An API Token with scope `update:users` is needed. If you're updating app_metadata you'll also need `update:users_app_metadata` scope.
 
-`Request<User> update("{USER_ID}", {DATA})`
+`Request<User> update(String userId, User user)`
 
 Example:
 ```java
@@ -338,7 +339,7 @@ try {
 
 Creates a new request to list the User's Guardian Enrollments. An API Token with scope `read:users` is needed.
 
-`Request<List<Enrollment>> getEnrollments("{USER_ID}")`
+`Request<List<Enrollment>> getEnrollments(String userId)`
 
 Example:
 ```java
@@ -357,7 +358,7 @@ try {
 Creates a new request to list the User's Log Events. An API Token with scope `read:logs` is needed.
 You can pass an optional Filter to narrow the results in the response.
 
-`Request<LogEventsPage> getLogEvents("{USER_ID}", {FILTER})`
+`Request<LogEventsPage> getLogEvents(String userId, LogEventFilter filter)`
 
 Example:
 ```java
@@ -377,7 +378,7 @@ try {
 
 Creates a new request to delete the User's Multifactor Provider. An API Token with scope `update:users` is needed.
 
-`Request deleteMultifactorProvider("{USER_ID}", "{MULTIFACTOR_PROVIDER}")`
+`Request deleteMultifactorProvider(String userId, String provider)`
 
 Example:
 ```java
@@ -395,7 +396,7 @@ try {
 
 Creates a new request to rotate the User's Recovery Code. An API Token with scope `update:users` is needed.
 
-`Request<RecoveryCode> rotateRecoveryCode("{USER_ID}")`
+`Request<RecoveryCode> rotateRecoveryCode(String userId)`
 
 Example:
 ```java
@@ -413,7 +414,7 @@ try {
 
 Creates a new request to link two User identities. An API Token with scope `update:users` is needed.
 
-`Request<List<Identities>> linkIdentity("{PRIMARY_USER_ID}", "{SECONDARY_USER_ID}", "{PROVIDER}", "{CONNECTION_ID}")`
+`Request<List<Identity>> linkIdentity(String primaryUserId, String secondaryUserId, String provider, String connectionId)`
 
 Example:
 ```java
@@ -431,7 +432,7 @@ try {
 
 Creates a new request to un-link two User identities. An API Token with scope `update:users` is needed.
 
-`Request<List<Identities>> unlinkIdentity("{PRIMARY_USER_ID}", "{SECONDARY_USER_ID}", "{PROVIDER}")`
+`Request<List<Identity>> unlinkIdentity(String primaryUserId, String secondaryUserId, String provider)`
 
 Example:
 ```java
@@ -510,3 +511,5 @@ This project is licensed under the MIT license. See the [LICENSE](LICENSE) file 
 [maven-url]: http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.auth0%22%20AND%20a%3A%22auth0%22
 [jcenter-badge]: https://api.bintray.com/packages/auth0/java/auth0/images/download.svg
 [jcenter-url]: https://bintray.com/auth0/java/auth0/_latestVersion
+[codecov-badge]: https://codecov.io/gh/auth0/auth0-java/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/auth0/auth0-java

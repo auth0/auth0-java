@@ -20,4 +20,3 @@ after_failure:
 branches:
   only:
   - master
-  - v1
