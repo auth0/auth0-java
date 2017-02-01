@@ -29,12 +29,9 @@ public class EmailProviderEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request<EmailProvider> get(FieldsFilter filter) {
-        HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
+        HttpUrl.Builder builder = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("emails")
-                .addPathSegment("provider");
+                .addPathSegments("api/v2/emails/provider");
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
                 builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
@@ -57,12 +54,9 @@ public class EmailProviderEntity extends BaseManagementEntity {
     public Request<EmailProvider> setup(EmailProvider emailProvider) {
         Asserts.assertNotNull(emailProvider, "email provider");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("emails")
-                .addPathSegment("provider")
+                .addPathSegments("api/v2/emails/provider")
                 .build()
                 .toString();
         CustomRequest<EmailProvider> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<EmailProvider>() {
@@ -79,12 +73,9 @@ public class EmailProviderEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request delete() {
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("emails")
-                .addPathSegment("provider")
+                .addPathSegments("api/v2/emails/provider")
                 .build()
                 .toString();
         VoidRequest request = new VoidRequest(client, url, "DELETE");
@@ -102,12 +93,9 @@ public class EmailProviderEntity extends BaseManagementEntity {
     public Request<EmailProvider> update(EmailProvider emailProvider) {
         Asserts.assertNotNull(emailProvider, "email provider");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("emails")
-                .addPathSegment("provider")
+                .addPathSegments("api/v2/emails/provider")
                 .build()
                 .toString();
         CustomRequest<EmailProvider> request = new CustomRequest<>(this.client, url, "PATCH", new TypeReference<EmailProvider>() {
@@ -116,5 +104,4 @@ public class EmailProviderEntity extends BaseManagementEntity {
         request.setBody(emailProvider);
         return request;
     }
-
 }

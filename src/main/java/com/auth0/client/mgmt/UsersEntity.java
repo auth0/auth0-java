@@ -39,11 +39,9 @@ public class UsersEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request<UsersPage> list(UserFilter filter) {
-        HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
+        HttpUrl.Builder builder = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("users");
+                .addPathSegments("api/v2/users");
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
                 builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
@@ -68,11 +66,9 @@ public class UsersEntity extends BaseManagementEntity {
     public Request<User> get(String userId, UserFilter filter) {
         Asserts.assertNotNull(userId, "user id");
 
-        HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
+        HttpUrl.Builder builder = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("users")
+                .addPathSegments("api/v2/users")
                 .addPathSegment(userId);
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
@@ -96,11 +92,9 @@ public class UsersEntity extends BaseManagementEntity {
     public Request<User> create(User user) {
         Asserts.assertNotNull(user, "user");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("users")
+                .addPathSegments("api/v2/users")
                 .build()
                 .toString();
         CustomRequest<User> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<User>() {
@@ -120,11 +114,9 @@ public class UsersEntity extends BaseManagementEntity {
     public Request delete(String userId) {
         Asserts.assertNotNull(userId, "user id");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("users")
+                .addPathSegments("api/v2/users")
                 .addPathSegment(userId)
                 .build()
                 .toString();
@@ -145,11 +137,9 @@ public class UsersEntity extends BaseManagementEntity {
         Asserts.assertNotNull(userId, "user id");
         Asserts.assertNotNull(user, "user");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("users")
+                .addPathSegments("api/v2/users")
                 .addPathSegment(userId)
                 .build()
                 .toString();
@@ -170,11 +160,9 @@ public class UsersEntity extends BaseManagementEntity {
     public Request<List<Enrollment>> getEnrollments(String userId) {
         Asserts.assertNotNull(userId, "user id");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("users")
+                .addPathSegments("api/v2/users")
                 .addPathSegment(userId)
                 .addPathSegment("enrollments")
                 .build()
@@ -197,11 +185,9 @@ public class UsersEntity extends BaseManagementEntity {
     public Request<LogEventsPage> getLogEvents(String userId, LogEventFilter filter) {
         Asserts.assertNotNull(userId, "user id");
 
-        HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
+        HttpUrl.Builder builder = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("users")
+                .addPathSegments("api/v2/users")
                 .addPathSegment(userId)
                 .addPathSegment("logs");
         if (filter != null) {
@@ -228,11 +214,9 @@ public class UsersEntity extends BaseManagementEntity {
         Asserts.assertNotNull(userId, "user id");
         Asserts.assertNotNull(provider, "provider");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("users")
+                .addPathSegments("api/v2/users")
                 .addPathSegment(userId)
                 .addPathSegment("multifactor")
                 .addPathSegment(provider)
@@ -253,11 +237,9 @@ public class UsersEntity extends BaseManagementEntity {
     public Request<RecoveryCode> rotateRecoveryCode(String userId) {
         Asserts.assertNotNull(userId, "user id");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("users")
+                .addPathSegments("api/v2/users")
                 .addPathSegment(userId)
                 .addPathSegment("recovery-code-regeneration")
                 .build()
@@ -284,11 +266,9 @@ public class UsersEntity extends BaseManagementEntity {
         Asserts.assertNotNull(secondaryUserId, "secondary user id");
         Asserts.assertNotNull(provider, "provider");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("users")
+                .addPathSegments("api/v2/users")
                 .addPathSegment(primaryUserId)
                 .addPathSegment("identities")
                 .build()
@@ -319,11 +299,9 @@ public class UsersEntity extends BaseManagementEntity {
         Asserts.assertNotNull(secondaryUserId, "secondary user id");
         Asserts.assertNotNull(provider, "provider");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("users")
+                .addPathSegments("api/v2/users")
                 .addPathSegment(primaryUserId)
                 .addPathSegment("identities")
                 .addPathSegment(provider)
@@ -336,5 +314,4 @@ public class UsersEntity extends BaseManagementEntity {
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
-
 }

@@ -31,11 +31,9 @@ public class ConnectionsEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request<List<Connection>> list(ConnectionFilter filter) {
-        HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
+        HttpUrl.Builder builder = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("connections");
+                .addPathSegments("api/v2/connections");
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
                 builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
@@ -59,11 +57,9 @@ public class ConnectionsEntity extends BaseManagementEntity {
     public Request<Connection> get(String connectionId, ConnectionFilter filter) {
         Asserts.assertNotNull(connectionId, "connection id");
 
-        HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
+        HttpUrl.Builder builder = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("connections")
+                .addPathSegments("api/v2/connections")
                 .addPathSegment(connectionId);
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
@@ -87,11 +83,9 @@ public class ConnectionsEntity extends BaseManagementEntity {
     public Request<Connection> create(Connection connection) {
         Asserts.assertNotNull(connection, "connection");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("connections")
+                .addPathSegments("api/v2/connections")
                 .build()
                 .toString();
         CustomRequest<Connection> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<Connection>() {
@@ -111,11 +105,9 @@ public class ConnectionsEntity extends BaseManagementEntity {
     public Request delete(String connectionId) {
         Asserts.assertNotNull(connectionId, "connection id");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("connections")
+                .addPathSegments("api/v2/connections")
                 .addPathSegment(connectionId)
                 .build()
                 .toString();
@@ -136,11 +128,9 @@ public class ConnectionsEntity extends BaseManagementEntity {
         Asserts.assertNotNull(connectionId, "connection id");
         Asserts.assertNotNull(connection, "connection");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("connections")
+                .addPathSegments("api/v2/connections")
                 .addPathSegment(connectionId)
                 .build()
                 .toString();
@@ -163,11 +153,9 @@ public class ConnectionsEntity extends BaseManagementEntity {
         Asserts.assertNotNull(connectionId, "connection id");
         Asserts.assertNotNull(email, "email");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("connections")
+                .addPathSegments("api/v2/connections")
                 .addPathSegment(connectionId)
                 .addPathSegment("users")
                 .addQueryParameter("email", email)
@@ -177,6 +165,4 @@ public class ConnectionsEntity extends BaseManagementEntity {
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
-
-
 }

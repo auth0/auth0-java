@@ -29,12 +29,9 @@ public class TicketsEntity extends BaseManagementEntity {
     public Request<EmailVerificationTicket> requestEmailVerification(EmailVerificationTicket emailVerificationTicket) {
         Asserts.assertNotNull(emailVerificationTicket, "email verification ticket");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("tickets")
-                .addPathSegment("email-verification")
+                .addPathSegments("api/v2/tickets/email-verification")
                 .build()
                 .toString();
 
@@ -55,12 +52,9 @@ public class TicketsEntity extends BaseManagementEntity {
     public Request<PasswordChangeTicket> requestPasswordChange(PasswordChangeTicket passwordChangeTicket) {
         Asserts.assertNotNull(passwordChangeTicket, "password change ticket");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("tickets")
-                .addPathSegment("password-change")
+                .addPathSegments("api/v2/tickets/password-change")
                 .build()
                 .toString();
 
@@ -70,5 +64,4 @@ public class TicketsEntity extends BaseManagementEntity {
         request.setBody(passwordChangeTicket);
         return request;
     }
-
 }

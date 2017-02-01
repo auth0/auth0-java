@@ -28,11 +28,9 @@ public class ClientGrantsEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request<List<ClientGrant>> list() {
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("client-grants")
+                .addPathSegments("api/v2/client-grants")
                 .build()
                 .toString();
         CustomRequest<List<ClientGrant>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<ClientGrant>>() {
@@ -55,11 +53,9 @@ public class ClientGrantsEntity extends BaseManagementEntity {
         Asserts.assertNotNull(audience, "audience");
         Asserts.assertNotNull(scope, "scope");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("client-grants")
+                .addPathSegments("api/v2/client-grants")
                 .build()
                 .toString();
         CustomRequest<ClientGrant> request = new CustomRequest<>(client, url, "POST", new TypeReference<ClientGrant>() {
@@ -82,11 +78,9 @@ public class ClientGrantsEntity extends BaseManagementEntity {
     public Request delete(String clientGrantId) {
         Asserts.assertNotNull(clientGrantId, "client grant id");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("client-grants")
+                .addPathSegments("api/v2/client-grants")
                 .addPathSegment(clientGrantId)
                 .build()
                 .toString();
@@ -107,11 +101,9 @@ public class ClientGrantsEntity extends BaseManagementEntity {
         Asserts.assertNotNull(clientGrantId, "client grant id");
         Asserts.assertNotNull(scope, "scope");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("client-grants")
+                .addPathSegments("api/v2/client-grants")
                 .addPathSegment(clientGrantId)
                 .build()
                 .toString();
@@ -121,5 +113,4 @@ public class ClientGrantsEntity extends BaseManagementEntity {
         request.addParameter("scope", scope);
         return request;
     }
-
 }

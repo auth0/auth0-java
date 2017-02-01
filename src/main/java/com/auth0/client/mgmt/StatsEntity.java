@@ -29,12 +29,9 @@ public class StatsEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request<Integer> getActiveUsersCount() {
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("stats")
-                .addPathSegment("active-users")
+                .addPathSegments("api/v2/stats/active-users")
                 .build()
                 .toString();
 
@@ -58,12 +55,9 @@ public class StatsEntity extends BaseManagementEntity {
 
         String dateFrom = formatDate(from);
         String dateTo = formatDate(to);
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("stats")
-                .addPathSegment("daily")
+                .addPathSegments("api/v2/stats/daily")
                 .addQueryParameter("from", dateFrom)
                 .addQueryParameter("to", dateTo)
                 .build()
@@ -79,5 +73,4 @@ public class StatsEntity extends BaseManagementEntity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         return sdf.format(date);
     }
-
 }
