@@ -1,5 +1,6 @@
 package com.auth0.json.mgmt.guardian;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -25,6 +26,24 @@ public class SNSFactorProvider {
     private String snsGCMPlatformApplicationArn;
 
     /**
+     * Creates a SNS settings object
+     *
+     * @param awsAccessKeyId the Amazon Web Services access key id.
+     * @param awsSecretAccessKey the Amazon Web Services secret access key.
+     * @param awsRegion the Amazon Web Services region.
+     * @param snsAPNSPlatformApplicationArn the Apple Push Notification Service platform application Amazon Resource Name.
+     * @param snsGCMPlatformApplicationArn the Google Cloud Messaging platform application Amazon Resource Name.
+     */
+    @JsonCreator
+    public SNSFactorProvider(@JsonProperty("aws_access_key_id") String awsAccessKeyId, @JsonProperty("aws_secret_access_key") String awsSecretAccessKey, @JsonProperty("aws_region") String awsRegion, @JsonProperty("sns_apns_platform_application_arn") String snsAPNSPlatformApplicationArn, @JsonProperty("sns_gcm_platform_application_arn") String snsGCMPlatformApplicationArn) {
+        this.awsAccessKeyId = awsAccessKeyId;
+        this.awsSecretAccessKey = awsSecretAccessKey;
+        this.awsRegion = awsRegion;
+        this.snsAPNSPlatformApplicationArn = snsAPNSPlatformApplicationArn;
+        this.snsGCMPlatformApplicationArn = snsGCMPlatformApplicationArn;
+    }
+
+    /**
      * Getter for the Amazon Web Services access key id.
      *
      * @return the AWS access key id.
@@ -32,16 +51,6 @@ public class SNSFactorProvider {
     @JsonProperty("aws_access_key_id")
     public String getAWSAccessKeyId() {
         return awsAccessKeyId;
-    }
-
-    /**
-     * Setter for the Amazon Web Services access key id.
-     *
-     * @param awsAccessKeyId the AWS access key id to set.
-     */
-    @JsonProperty("aws_access_key_id")
-    public void setAWSAccessKeyId(String awsAccessKeyId) {
-        this.awsAccessKeyId = awsAccessKeyId;
     }
 
     /**
@@ -55,16 +64,6 @@ public class SNSFactorProvider {
     }
 
     /**
-     * Setter for the Amazon Web Services secret access key.
-     *
-     * @param awsSecretAccessKey the AWS secret access key to set.
-     */
-    @JsonProperty("aws_secret_access_key")
-    public void setAWSSecretAccessKey(String awsSecretAccessKey) {
-        this.awsSecretAccessKey = awsSecretAccessKey;
-    }
-
-    /**
      * Getter for the Amazon Web Services region.
      *
      * @return the AWS region.
@@ -72,16 +71,6 @@ public class SNSFactorProvider {
     @JsonProperty("aws_region")
     public String getAWSRegion() {
         return awsRegion;
-    }
-
-    /**
-     * Setter for the Amazon Web Services region.
-     *
-     * @param awsRegion the AWS region to set.
-     */
-    @JsonProperty("aws_region")
-    public void setAWSRegion(String awsRegion) {
-        this.awsRegion = awsRegion;
     }
 
     /**
@@ -95,16 +84,6 @@ public class SNSFactorProvider {
     }
 
     /**
-     * Setter for the Simple Notification Service Apple Push Notification service platform application Amazon Resource Name.
-     *
-     * @param apnARN the SNS APNs ARN to set.
-     */
-    @JsonProperty("sns_apns_platform_application_arn")
-    public void setSNSAPNSPlatformApplicationARN(String apnARN) {
-        this.snsAPNSPlatformApplicationArn = apnARN;
-    }
-
-    /**
      * Getter for the Simple Notification Service Google Cloud Messaging platform application Amazon Resource Name.
      *
      * @return the SNS GCM ARN.
@@ -112,15 +91,5 @@ public class SNSFactorProvider {
     @JsonProperty("sns_gcm_platform_application_arn")
     public String getSNSGCMPlatformApplicationARN() {
         return snsGCMPlatformApplicationArn;
-    }
-
-    /**
-     * Setter for the Simple Notification Service Google Cloud Messaging platform application Amazon Resource Name.
-     *
-     * @param gcmARN the SNS GCM ARN to set.
-     */
-    @JsonProperty("sns_gcm_platform_application_arn")
-    public void setSNSGCMPlatformApplicationARN(String gcmARN) {
-        this.snsGCMPlatformApplicationArn = gcmARN;
     }
 }

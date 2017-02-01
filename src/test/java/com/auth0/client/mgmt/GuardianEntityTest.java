@@ -191,8 +191,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldUpdateGuardianTwilioFactorProvider() throws Exception {
-        TwilioFactorProvider provider = new TwilioFactorProvider();
-        provider.setAuthToken("token");
+        TwilioFactorProvider provider = new TwilioFactorProvider("from", "messagingServiceSID", "authToken", "sid");
         Request<TwilioFactorProvider> request = api.guardian().updateTwilioFactorProvider(provider);
         assertThat(request, is(notNullValue()));
 
@@ -205,8 +204,11 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body.size(), is(1));
-        assertThat(body, hasEntry("auth_token", (Object) "token"));
+        assertThat(body.size(), is(4));
+        assertThat(body, hasEntry("from", "from"));
+        assertThat(body, hasEntry("messaging_service_sid", "messagingServiceSID"));
+        assertThat(body, hasEntry("auth_token", "authToken"));
+        assertThat(body, hasEntry("sid", "sid"));
 
         assertThat(response, is(notNullValue()));
     }
@@ -236,8 +238,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldUpdateGuardianSnsFactorProvider() throws Exception {
-        SNSFactorProvider provider = new SNSFactorProvider();
-        provider.setAWSRegion("region");
+        SNSFactorProvider provider = new SNSFactorProvider("awsAccessKeyId", "awsSecretAccessKey", "us-west-2", "APNS:platform:arn", "GCM:platform:arn");
         Request<SNSFactorProvider> request = api.guardian().updateSNSFactorProvider(provider);
         assertThat(request, is(notNullValue()));
 
@@ -250,8 +251,12 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body.size(), is(1));
-        assertThat(body, hasEntry("aws_region", (Object) "region"));
+        assertThat(body.size(), is(5));
+        assertThat(body, hasEntry("aws_access_key_id", "awsAccessKeyId"));
+        assertThat(body, hasEntry("aws_secret_access_key", "awsSecretAccessKey"));
+        assertThat(body, hasEntry("aws_region", "us-west-2"));
+        assertThat(body, hasEntry("sns_apns_platform_application_arn", "APNS:platform:arn"));
+        assertThat(body, hasEntry("sns_gcm_platform_application_arn", "GCM:platform:arn"));
 
         assertThat(response, is(notNullValue()));
     }

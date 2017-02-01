@@ -10,8 +10,7 @@ import static org.hamcrest.Matchers.notNullValue;
 
 public class FactorTest extends JsonTest<Factor> {
 
-    private static final String json = "{\"enabled\":true}";
-    private static final String readOnlyJson = "{\"name\":\"sms\",\"trial_expired\":true}";
+    private static final String json = "{\"enabled\":true,\"name\":\"sms\",\"trial_expired\":true}";
 
     @Test
     public void shouldSerialize() throws Exception {
@@ -28,15 +27,7 @@ public class FactorTest extends JsonTest<Factor> {
 
         assertThat(factor, is(notNullValue()));
         assertThat(factor.isEnabled(), is(true));
+        assertThat(factor.getName(), is("sms"));
+        assertThat(factor.isTrialExpired(), is(true));
     }
-
-    @Test
-    public void shouldIncludeReadOnlyValuesOnDeserialize() throws Exception {
-        Factor ticket = fromJSON(readOnlyJson, Factor.class);
-        assertThat(ticket, is(notNullValue()));
-
-        assertThat(ticket.getName(), is("sms"));
-        assertThat(ticket.isTrialExpired(), is(true));
-    }
-
 }
