@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Class that represents an Auth0 Guardian Templates object. Related to the {@link com.auth0.client.mgmt.GuardianEntity} entity.
+ * Class that represents an Auth0 Guardian SMS Templates object. Related to the {@link com.auth0.client.mgmt.GuardianEntity} entity.
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -25,7 +25,7 @@ public class GuardianTemplates {
     }
 
     /**
-     * Getter for the message to send when the user is invited to enroll with a phone number.
+     * Getter for the message to send when the user enrolls with SMS.
      *
      * @return the message to send upon enrollment.
      */
@@ -35,7 +35,7 @@ public class GuardianTemplates {
     }
 
     /**
-     * Setter for the message to send when the user is invited to enroll with a phone number.
+     * Setter for the message to send when the user enrolls with SMS.
      *
      * @param enrollmentMessage the message to send upon enrollment.
      */
@@ -45,7 +45,7 @@ public class GuardianTemplates {
     }
 
     /**
-     * Getter for the message to send when the user is prompted to verify their account.
+     * Getter for the message to send when the user is prompted to verify their account via SMS.
      *
      * @return the message to send upon verification.
      */
@@ -55,7 +55,7 @@ public class GuardianTemplates {
     }
 
     /**
-     * Setter for the message to send when the user is prompted to verify their account.
+     * Setter for the message to send when the user is prompted to verify their account via SMS.
      *
      * @param verificationMessage the message to send upon verification.
      */

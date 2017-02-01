@@ -5,7 +5,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Class that represents an Auth0 Guardian SNS Factor Provider object. Related to the {@link com.auth0.client.mgmt.GuardianEntity} entity.
+ * Class that represents a Guardian's push-notification Factor Provider for Amazon's Simple Notification Service (SNS).
+ * Related to the {@link com.auth0.client.mgmt.GuardianEntity} entity.
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 @JsonIgnoreProperties(ignoreUnknown = true)

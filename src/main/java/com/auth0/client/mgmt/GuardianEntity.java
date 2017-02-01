@@ -23,6 +23,7 @@ public class GuardianEntity extends BaseManagementEntity {
 
     /**
      * Create a new Guardian Enrollment Ticket. A token with scope create:guardian_enrollment_tickets is needed.
+     * <p/>
      * See https://auth0.com/docs/api/management/v2#!/Guardian/post_ticket
      *
      * @param enrollmentTicket the enrollment ticket data to set.
@@ -50,6 +51,7 @@ public class GuardianEntity extends BaseManagementEntity {
 
     /**
      * Delete an existing Guardian Enrollment. A token with scope delete:guardian_enrollments is needed.
+     * <p/>
      * See https://auth0.com/docs/api/management/v2#!/Guardian/delete_enrollments_by_id
      *
      * @param enrollmentId the id of the enrollment to retrieve.
@@ -73,7 +75,9 @@ public class GuardianEntity extends BaseManagementEntity {
     }
 
     /**
-     * Request the Guardian enrollment and verification Templates. A token with scope read:guardian_factors is needed.
+     * Request the Guardian SMS enrollment and verification templates.
+     * A token with scope read:guardian_factors is needed.
+     * <p/>
      * See https://auth0.com/docs/api/management/v2#!/Guardian/get_templates
      *
      * @return a Request to execute.
@@ -96,7 +100,9 @@ public class GuardianEntity extends BaseManagementEntity {
     }
 
     /**
-     * Updates the existing Guardian enrollment and verification Templates. A token with scope update:guardian_factors is needed.
+     * Updates the existing Guardian SMS enrollment and verification templates.
+     * A token with scope update:guardian_factors is needed.
+     * <p/>
      * See https://auth0.com/docs/api/management/v2#!/Guardian/put_templates
      *
      * @param guardianTemplates the templates data to set.
@@ -124,6 +130,7 @@ public class GuardianEntity extends BaseManagementEntity {
 
     /**
      * Request all the Guardian Factors. A token with scope read:guardian_factors is needed.
+     * <p/>
      * See https://auth0.com/docs/api/management/v2#!/Guardian/get_factors
      *
      * @return a Request to execute.
@@ -145,6 +152,7 @@ public class GuardianEntity extends BaseManagementEntity {
 
     /**
      * Update an existing Guardian Factor. A token with scope update:guardian_factors is needed.
+     * <p/>
      * See https://auth0.com/docs/api/management/v2#!/Guardian/put_factors_by_name
      *
      * @param name    the name of the Factor to update.
@@ -172,7 +180,8 @@ public class GuardianEntity extends BaseManagementEntity {
     }
 
     /**
-     * Request the Guardian's Twilio Factor Provider. A token with scope read:guardian_factors is needed.
+     * Request Guardian's Twilio SMS Factor Provider settings. A token with scope read:guardian_factors is needed.
+     * <p/>
      * See https://auth0.com/docs/api/management/v2#!/Guardian/get_twilio
      *
      * @return a Request to execute.
@@ -197,7 +206,8 @@ public class GuardianEntity extends BaseManagementEntity {
     }
 
     /**
-     * Update the existing Guardian's Twilio Factor Provider. A token with scope update:guardian_factors is needed.
+     * Update Guardian's Twilio SMS Factor Provider. A token with scope update:guardian_factors is needed.
+     * <p/>
      * See https://auth0.com/docs/api/management/v2#!/Guardian/put_twilio
      *
      * @param provider the provider data to set.
@@ -225,7 +235,7 @@ public class GuardianEntity extends BaseManagementEntity {
     }
 
     /**
-     * Request the Guardian's Sns Factor Provider. A token with scope read:guardian_factors is needed.
+     * Request Guardian's SNS push-notification Factor Provider. A token with scope read:guardian_factors is needed.
      * See https://auth0.com/docs/api/management/v2#!/Guardian/get_sns
      *
      * @return a Request to execute.
@@ -250,7 +260,7 @@ public class GuardianEntity extends BaseManagementEntity {
     }
 
     /**
-     * Update the existing Guardian's Sns Factor Provider. A token with scope update:guardian_factors is needed.
+     * Update Guardian's SNS push-notification Factor Provider. A token with scope update:guardian_factors is needed.
      * See https://auth0.com/docs/api/management/v2#!/Guardian/put_sns
      *
      * @param provider the provider data to set.
