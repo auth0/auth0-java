@@ -205,10 +205,29 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(4));
-        assertThat(body, hasEntry("from", "from"));
-        assertThat(body, hasEntry("messaging_service_sid", "messagingServiceSID"));
-        assertThat(body, hasEntry("auth_token", "authToken"));
-        assertThat(body, hasEntry("sid", "sid"));
+        assertThat(body, hasEntry("from", (Object) "from"));
+        assertThat(body, hasEntry("messaging_service_sid", (Object) "messagingServiceSID"));
+        assertThat(body, hasEntry("auth_token", (Object) "authToken"));
+        assertThat(body, hasEntry("sid", (Object) "sid"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldResetGuardianTwilioFactorProvider() throws Exception {
+        Request<TwilioFactorProvider> request = api.guardian().resetTwilioFactorProvider();
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER, 200);
+        TwilioFactorProvider response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/guardian/factors/sms/providers/twilio"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(0));
 
         assertThat(response, is(notNullValue()));
     }
@@ -252,11 +271,30 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(5));
-        assertThat(body, hasEntry("aws_access_key_id", "awsAccessKeyId"));
-        assertThat(body, hasEntry("aws_secret_access_key", "awsSecretAccessKey"));
-        assertThat(body, hasEntry("aws_region", "us-west-2"));
-        assertThat(body, hasEntry("sns_apns_platform_application_arn", "APNS:platform:arn"));
-        assertThat(body, hasEntry("sns_gcm_platform_application_arn", "GCM:platform:arn"));
+        assertThat(body, hasEntry("aws_access_key_id", (Object) "awsAccessKeyId"));
+        assertThat(body, hasEntry("aws_secret_access_key", (Object) "awsSecretAccessKey"));
+        assertThat(body, hasEntry("aws_region", (Object) "us-west-2"));
+        assertThat(body, hasEntry("sns_apns_platform_application_arn", (Object) "APNS:platform:arn"));
+        assertThat(body, hasEntry("sns_gcm_platform_application_arn", (Object) "GCM:platform:arn"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldResetGuardianSnsFactorProvider() throws Exception {
+        Request<SNSFactorProvider> request = api.guardian().resetSNSFactorProvider();
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_GUARDIAN_SNS_FACTOR_PROVIDER, 200);
+        SNSFactorProvider response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/guardian/factors/push-notification/providers/sns"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(0));
 
         assertThat(response, is(notNullValue()));
     }
