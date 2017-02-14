@@ -57,9 +57,8 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
             throw createResponseException(response);
         }
 
-        String payload;
-        try {
-            payload = response.body().string();
+        try (ResponseBody body = response.body()) {
+            String payload = body.string();
             return mapper.readValue(payload, tType);
         } catch (IOException e) {
             throw new APIException("Failed to parse json body", response.code(), e);
@@ -98,8 +97,8 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
 
     protected Auth0Exception createResponseException(Response response) {
         String payload = null;
-        try {
-            payload = response.body().string();
+        try (ResponseBody body = response.body()) {
+            payload = body.string();
             MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
             Map<String, Object> values = mapper.readValue(payload, mapType);
             return new APIException(values, response.code());
