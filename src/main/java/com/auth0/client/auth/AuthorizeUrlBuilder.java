@@ -38,8 +38,8 @@ public class AuthorizeUrlBuilder {
         builder = HttpUrl.parse(domain).newBuilder()
                 .addPathSegment("authorize")
                 .addEncodedQueryParameter("redirect_uri", redirectUri)
-                .addQueryParameter("response_type", "code")
                 .addQueryParameter("client_id", clientId);
+        withParameter("response_type", "code");
     }
 
     /**
@@ -87,6 +87,32 @@ public class AuthorizeUrlBuilder {
     public AuthorizeUrlBuilder withScope(String scope) {
         assertNotNull(scope, "scope");
         parameters.put("scope", scope);
+        return this;
+    }
+
+    /**
+     * Sets the response type value.
+     *
+     * @param responseType response type to set
+     * @return the builder instance
+     */
+    public AuthorizeUrlBuilder withResponseType(String responseType) {
+        assertNotNull(responseType, "response type");
+        parameters.put("response_type", responseType);
+        return this;
+    }
+
+    /**
+     * Sets an additional parameter.
+     *
+     * @param name  name of the parameter
+     * @param value value of the parameter to set
+     * @return the builder instance
+     */
+    public AuthorizeUrlBuilder withParameter(String name, String value) {
+        assertNotNull(name, "name");
+        assertNotNull(value, "value");
+        parameters.put(name, value);
         return this;
     }
 
