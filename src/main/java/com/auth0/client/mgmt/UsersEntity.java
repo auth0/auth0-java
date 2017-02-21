@@ -228,11 +228,11 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
-     * Rotates a User's Recovery Code. A token with scope update:users is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Users/post_recovery_code_regeneration
+     * Rotates a User's Guardian recovery code. A token with scope update:users is needed.
      *
      * @param userId the user id
      * @return a Request to execute.
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Users/post_recovery_code_regeneration">Management API2 docs</a>
      */
     public Request<RecoveryCode> rotateRecoveryCode(String userId) {
         Asserts.assertNotNull(userId, "user id");

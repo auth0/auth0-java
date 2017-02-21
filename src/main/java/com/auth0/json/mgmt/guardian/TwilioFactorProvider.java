@@ -1,11 +1,13 @@
 package com.auth0.json.mgmt.guardian;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Class that represents an Auth0 Guardian Twilio Factor Provider object. Related to the {@link com.auth0.client.mgmt.GuardianEntity} entity.
+ * Class that represents a Guardian's SMS Factor Provider for Twilio.
+ * Related to the {@link com.auth0.client.mgmt.GuardianEntity} entity.
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -21,6 +23,21 @@ public class TwilioFactorProvider {
     @JsonProperty("sid")
     private String sid;
 
+    /**
+     * Creates a Twilio settings object
+     *
+     * @param from the Twilio From number.
+     * @param messagingServiceSID the Twilio Messaging Service SID.
+     * @param authToken the Twilio auth token.
+     * @param sid the Twilio SID.
+     */
+    @JsonCreator
+    public TwilioFactorProvider(@JsonProperty("from") String from, @JsonProperty("messaging_service_sid") String messagingServiceSID, @JsonProperty("auth_token") String authToken, @JsonProperty("sid") String sid) {
+        this.from = from;
+        this.messagingServiceSID = messagingServiceSID;
+        this.authToken = authToken;
+        this.sid = sid;
+    }
 
     /**
      * Getter for the Twilio From number.
@@ -36,6 +53,7 @@ public class TwilioFactorProvider {
      * Setter for the Twilio From number.
      *
      * @param from the from number to set.
+     * @deprecated use the constructor instead
      */
     @JsonProperty("from")
     public void setFrom(String from) {
@@ -56,6 +74,7 @@ public class TwilioFactorProvider {
      * Setter for the Twilio Messaging Service SID.
      *
      * @param messagingServiceSID the messaging service SID.
+     * @deprecated use the constructor instead
      */
     @JsonProperty("messaging_service_sid")
     public void setMessagingServiceSID(String messagingServiceSID) {
@@ -76,6 +95,7 @@ public class TwilioFactorProvider {
      * Setter for the Twilio auth token.
      *
      * @param authToken the Twilio auth token to set.
+     * @deprecated use the constructor instead
      */
     @JsonProperty("auth_token")
     public void setAuthToken(String authToken) {
@@ -96,6 +116,7 @@ public class TwilioFactorProvider {
      * Setter for the Twilio SID
      *
      * @param SID the Twilio SID to set.
+     * @deprecated use the constructor instead
      */
     @JsonProperty("sid")
     public void setSID(String SID) {
