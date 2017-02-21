@@ -36,16 +36,6 @@ public class Factor {
     }
 
     /**
-     * Sets whether this factor is enabled or not.
-     *
-     * @param enabled whether this factor is enabled or not.
-     */
-    @JsonProperty("enabled")
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    /**
      * Whether the trial has already expired or not.
      *
      * @return true if the trial has expired, false otherwise.
@@ -56,7 +46,7 @@ public class Factor {
     }
 
     /**
-     * Getter fot the name of this factor.
+     * Getter for the name of this factor.
      *
      * @return the factor name.
      */

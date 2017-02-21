@@ -244,8 +244,9 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
-     * Rotates a User's Recovery Code. A token with scope update:users is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Users/post_recovery_code_regeneration
+     * Rotates a User's Guardian Recovery Code. A token with scope update:users is needed.
+     * <p>
+     * See <a href="https://auth0.com/docs/api/management/v2#!/Users/post_recovery_code_regeneration">https://auth0.com/docs/api/management/v2#!/Users/post_recovery_code_regeneration</a>
      *
      * @param userId the user id
      * @return a Request to execute.

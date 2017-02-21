@@ -14,11 +14,7 @@ public class TwilioFactorProviderTest extends JsonTest<TwilioFactorProvider> {
 
     @Test
     public void shouldSerialize() throws Exception {
-        TwilioFactorProvider provider = new TwilioFactorProvider();
-        provider.setAuthToken("atokEn");
-        provider.setFrom("+12356789");
-        provider.setMessagingServiceSID("id321");
-        provider.setSID("id123");
+        TwilioFactorProvider provider = new TwilioFactorProvider("+12356789", "id321", "atokEn", "id123");
 
         String serialized = toJSON(provider);
         assertThat(serialized, is(notNullValue()));

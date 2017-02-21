@@ -67,7 +67,7 @@ public class Enrollment {
     }
 
     /**
-     * Getter for the enrollment name. This is usually the phone number.
+     * Getter for the enrollment name. This is usually the phone name. Only for 'guardian' enrollments.
      *
      * @return the name.
      */
@@ -77,7 +77,7 @@ public class Enrollment {
     }
 
     /**
-     * Getter for the device identifier. This is usually the phone identifier.
+     * Getter for the device identifier. This is usually a unique phone identifier. Only for 'guardian' enrollments.
      *
      * @return the identifier.
      */
@@ -87,7 +87,7 @@ public class Enrollment {
     }
 
     /**
-     * Getter for the phone number.
+     * Getter for the phone number. Only for 'sms' enrollments.
      *
      * @return the phone number.
      */
