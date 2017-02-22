@@ -13,6 +13,22 @@ public class TwilioFactorProviderTest extends JsonTest<TwilioFactorProvider> {
     private static final String json = "{\"from\":\"+12356789\",\"messaging_service_sid\":\"id321\",\"auth_token\":\"atokEn\",\"sid\":\"id123\"}";
 
     @Test
+    public void shouldSerializeWithDeprecatedSetters() throws Exception {
+        TwilioFactorProvider provider = new TwilioFactorProvider();
+        provider.setAuthToken("atokEn");
+        provider.setFrom("+12356789");
+        provider.setMessagingServiceSID("id321");
+        provider.setSID("id123");
+
+        String serialized = toJSON(provider);
+        assertThat(serialized, is(notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("from", "+12356789"));
+        assertThat(serialized, JsonMatcher.hasEntry("messaging_service_sid", "id321"));
+        assertThat(serialized, JsonMatcher.hasEntry("auth_token", "atokEn"));
+        assertThat(serialized, JsonMatcher.hasEntry("sid", "id123"));
+    }
+
+    @Test
     public void shouldSerialize() throws Exception {
         TwilioFactorProvider provider = new TwilioFactorProvider("+12356789", "id321", "atokEn", "id123");
 

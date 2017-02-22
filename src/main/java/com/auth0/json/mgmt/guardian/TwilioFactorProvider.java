@@ -24,6 +24,15 @@ public class TwilioFactorProvider {
     private String sid;
 
     /**
+     * Creates an empty Twilio settings object
+     *
+     * @deprecated use the full constructor instead
+     */
+    @Deprecated
+    public TwilioFactorProvider() {
+    }
+
+    /**
      * Creates a Twilio settings object
      *
      * @param from the Twilio From number.
@@ -55,6 +64,7 @@ public class TwilioFactorProvider {
      * @param from the from number to set.
      * @deprecated use the constructor instead
      */
+    @Deprecated
     @JsonProperty("from")
     public void setFrom(String from) {
         this.from = from;
@@ -76,6 +86,7 @@ public class TwilioFactorProvider {
      * @param messagingServiceSID the messaging service SID.
      * @deprecated use the constructor instead
      */
+    @Deprecated
     @JsonProperty("messaging_service_sid")
     public void setMessagingServiceSID(String messagingServiceSID) {
         this.messagingServiceSID = messagingServiceSID;
@@ -97,6 +108,7 @@ public class TwilioFactorProvider {
      * @param authToken the Twilio auth token to set.
      * @deprecated use the constructor instead
      */
+    @Deprecated
     @JsonProperty("auth_token")
     public void setAuthToken(String authToken) {
         this.authToken = authToken;
@@ -118,6 +130,7 @@ public class TwilioFactorProvider {
      * @param SID the Twilio SID to set.
      * @deprecated use the constructor instead
      */
+    @Deprecated
     @JsonProperty("sid")
     public void setSID(String SID) {
         this.sid = SID;

@@ -68,7 +68,6 @@ public class EnrollmentTicket {
      * Getter for the id of the User this ticket was made for.
      *
      * @return the user id.
-     * @deprecated
      */
     @JsonProperty("user_id")
     public String getUserId() {
@@ -81,6 +80,7 @@ public class EnrollmentTicket {
      * @param userId the user id to set.
      * @deprecated use the constructor instead
      */
+    @Deprecated
     @JsonProperty("user_id")
     public void setUserId(String userId) {
         this.userId = userId;
@@ -90,7 +90,6 @@ public class EnrollmentTicket {
      * Whether to send and email for enrollment or not.
      *
      * @return true is this ticket will send an email upon enrollment, false otherwise.
-     * @deprecated
      */
     @JsonProperty("send_mail")
     public Boolean willSendEmail() {
@@ -103,6 +102,7 @@ public class EnrollmentTicket {
      * @param sendEmail whether this ticket will send an email upon enrollment or not.
      * @deprecated use the constructor instead
      */
+    @Deprecated
     @JsonProperty("send_mail")
     public void setSendEmail(Boolean sendEmail) {
         this.sendEmail = sendEmail;
@@ -112,7 +112,6 @@ public class EnrollmentTicket {
      * Getter for the email to which the ticket will be sent.
      *
      * @return the email.
-     * @deprecated
      */
     @JsonProperty("email")
     public String getEmail() {
@@ -125,6 +124,7 @@ public class EnrollmentTicket {
      * @param email the email to sent the ticket to.
      * @deprecated use the constructor instead
      */
+    @Deprecated
     @JsonProperty("email")
     public void setEmail(String email) {
         this.email = email;

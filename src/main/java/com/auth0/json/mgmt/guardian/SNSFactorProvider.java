@@ -26,6 +26,15 @@ public class SNSFactorProvider {
     private String snsGCMPlatformApplicationArn;
 
     /**
+     * Creates an empty SNS settings object
+     *
+     * @deprecated use the full constructor instead
+     */
+    @Deprecated
+    public SNSFactorProvider() {
+    }
+
+    /**
      * Creates a SNS settings object
      *
      * @param awsAccessKeyId the Amazon Web Services access key id.
@@ -59,6 +68,7 @@ public class SNSFactorProvider {
      * @param awsAccessKeyId the AWS access key id to set.
      * @deprecated use the constructor instead
      */
+    @Deprecated
     @JsonProperty("aws_access_key_id")
     public void setAWSAccessKeyId(String awsAccessKeyId) {
         this.awsAccessKeyId = awsAccessKeyId;
@@ -80,6 +90,7 @@ public class SNSFactorProvider {
      * @param awsSecretAccessKey the AWS secret access key to set.
      * @deprecated use the constructor instead
      */
+    @Deprecated
     @JsonProperty("aws_secret_access_key")
     public void setAWSSecretAccessKey(String awsSecretAccessKey) {
         this.awsSecretAccessKey = awsSecretAccessKey;
@@ -101,6 +112,7 @@ public class SNSFactorProvider {
      * @param awsRegion the AWS region to set.
      * @deprecated use the constructor instead
      */
+    @Deprecated
     @JsonProperty("aws_region")
     public void setAWSRegion(String awsRegion) {
         this.awsRegion = awsRegion;
@@ -122,6 +134,7 @@ public class SNSFactorProvider {
      * @param apnARN the SNS APNs ARN to set.
      * @deprecated use the constructor instead
      */
+    @Deprecated
     @JsonProperty("sns_apns_platform_application_arn")
     public void setSNSAPNSPlatformApplicationARN(String apnARN) {
         this.snsAPNSPlatformApplicationArn = apnARN;
@@ -143,6 +156,7 @@ public class SNSFactorProvider {
      * @param gcmARN the SNS GCM ARN to set.
      * @deprecated use the constructor instead
      */
+    @Deprecated
     @JsonProperty("sns_gcm_platform_application_arn")
     public void setSNSGCMPlatformApplicationARN(String gcmARN) {
         this.snsGCMPlatformApplicationArn = gcmARN;
