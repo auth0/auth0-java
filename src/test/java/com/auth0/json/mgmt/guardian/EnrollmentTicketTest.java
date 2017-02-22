@@ -24,6 +24,25 @@ public class EnrollmentTicketTest extends JsonTest<EnrollmentTicket> {
     }
 
     @Test
+    public void shouldSerializeDataToBeSentOnlyUserId() throws Exception {
+        EnrollmentTicket ticket = new EnrollmentTicket("1");
+
+        String serialized = toJSON(ticket);
+        assertThat(serialized, is(notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("user_id", "1"));
+    }
+
+    @Test
+    public void shouldSerializeDataToBeSentOnlyUserIdAndSendEmail() throws Exception {
+        EnrollmentTicket ticket = new EnrollmentTicket("1", true);
+
+        String serialized = toJSON(ticket);
+        assertThat(serialized, is(notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("user_id", "1"));
+        assertThat(serialized, JsonMatcher.hasEntry("send_mail", true));
+    }
+
+    @Test
     public void shouldIncludeReadOnlyValuesOnDeserialize() throws Exception {
         EnrollmentTicket ticket = fromJSON(readOnlyJson, EnrollmentTicket.class);
         assertThat(ticket, is(notNullValue()));
