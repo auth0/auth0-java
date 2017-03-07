@@ -1,8 +1,9 @@
 package com.auth0.json.mgmt.users;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -21,6 +22,21 @@ public class Identity {
     private String accessToken;
     @JsonProperty("profileData")
     private ProfileData profileData;
+    private Map<String, Object> values;
+
+    public Identity() {
+        values = new HashMap<>();
+    }
+
+    @JsonAnySetter
+    void setValue(String key, Object value) {
+        values.put(key, value);
+    }
+
+    @JsonAnyGetter
+    public Map<String, Object> getValues() {
+        return values;
+    }
 
     @JsonProperty("connection")
     public String getConnection() {
