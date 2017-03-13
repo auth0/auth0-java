@@ -2,53 +2,123 @@ package com.auth0.json.mgmt.guardian;
 
 import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 
 public class TwilioFactorProviderTest extends JsonTest<TwilioFactorProvider> {
 
-    private static final String json = "{\"from\":\"+12356789\",\"messaging_service_sid\":\"id321\",\"auth_token\":\"atokEn\",\"sid\":\"id123\"}";
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
+
+    private static final String JSON_WITH_FROM = "{\"from\":\"+12356789\",\"auth_token\":\"atokEn\",\"sid\":\"id123\"}";
+    private static final String JSON_WITH_MESSAGING_SERVICE_SID = "{\"messaging_service_sid\":\"id321\",\"auth_token\":\"atokEn\",\"sid\":\"id123\"}";
 
     @Test
-    public void shouldSerializeWithDeprecatedSetters() throws Exception {
+    public void shouldFailConstructionWithBothFromAndMessagingServiceSID() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("You must specify either `from` or `messagingServiceSID`, but not both");
+
+        new TwilioFactorProvider("+12356789", "messaging_service_sid", "atokEn", "id123");
+    }
+
+    @Test
+    public void shouldFailWhenSettingFromAndMessagingServiceSIDWasAlreadySet() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("You must specify either `from` or `messagingServiceSID`, but not both");
+
+        TwilioFactorProvider provider = new TwilioFactorProvider();
+        provider.setFrom("+12356789");
+        provider.setMessagingServiceSID("id321");
+    }
+
+    @Test
+    public void shouldFailWhenSettingMessagingServiceSIDAndFromWasAlreadySet() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("You must specify either `from` or `messagingServiceSID`, but not both");
+
+        TwilioFactorProvider provider = new TwilioFactorProvider();
+        provider.setMessagingServiceSID("id321");
+        provider.setFrom("+12356789");
+    }
+
+    @Test
+    public void shouldSerializeWithDeprecatedSettersWithFrom() throws Exception {
         TwilioFactorProvider provider = new TwilioFactorProvider();
         provider.setAuthToken("atokEn");
         provider.setFrom("+12356789");
-        provider.setMessagingServiceSID("id321");
         provider.setSID("id123");
 
         String serialized = toJSON(provider);
         assertThat(serialized, is(notNullValue()));
         assertThat(serialized, JsonMatcher.hasEntry("from", "+12356789"));
-        assertThat(serialized, JsonMatcher.hasEntry("messaging_service_sid", "id321"));
         assertThat(serialized, JsonMatcher.hasEntry("auth_token", "atokEn"));
         assertThat(serialized, JsonMatcher.hasEntry("sid", "id123"));
+        assertThat(serialized, not(containsString("\"messaging_service_sid\"")));
     }
 
     @Test
-    public void shouldSerialize() throws Exception {
-        TwilioFactorProvider provider = new TwilioFactorProvider("+12356789", "id321", "atokEn", "id123");
+    public void shouldSerializeWithDeprecatedSettersWithMessagingServiceSID() throws Exception {
+        TwilioFactorProvider provider = new TwilioFactorProvider();
+        provider.setAuthToken("atokEn");
+        provider.setMessagingServiceSID("id321");
+        provider.setSID("id123");
+
+        String serialized = toJSON(provider);
+        assertThat(serialized, is(notNullValue()));
+
+        assertThat(serialized, JsonMatcher.hasEntry("messaging_service_sid", "id321"));
+        assertThat(serialized, JsonMatcher.hasEntry("auth_token", "atokEn"));
+        assertThat(serialized, JsonMatcher.hasEntry("sid", "id123"));
+        assertThat(serialized, not(containsString("\"from\"")));
+    }
+
+    @Test
+    public void shouldSerializeWithFrom() throws Exception {
+        TwilioFactorProvider provider = new TwilioFactorProvider("+12356789", null, "atokEn", "id123");
 
         String serialized = toJSON(provider);
         assertThat(serialized, is(notNullValue()));
         assertThat(serialized, JsonMatcher.hasEntry("from", "+12356789"));
-        assertThat(serialized, JsonMatcher.hasEntry("messaging_service_sid", "id321"));
         assertThat(serialized, JsonMatcher.hasEntry("auth_token", "atokEn"));
         assertThat(serialized, JsonMatcher.hasEntry("sid", "id123"));
+        assertThat(serialized, not(containsString("\"messaging_service_sid\"")));
     }
 
     @Test
-    public void shouldDeserialize() throws Exception {
-        TwilioFactorProvider provider = fromJSON(json, TwilioFactorProvider.class);
+    public void shouldSerializeWithMessaginServiceSID() throws Exception {
+        TwilioFactorProvider provider = new TwilioFactorProvider(null, "id321", "atokEn", "id123");
+
+        String serialized = toJSON(provider);
+        assertThat(serialized, is(notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("messaging_service_sid", "id321"));
+        assertThat(serialized, JsonMatcher.hasEntry("auth_token", "atokEn"));
+        assertThat(serialized, JsonMatcher.hasEntry("sid", "id123"));
+        assertThat(serialized, not(containsString("\"from\"")));
+    }
+
+    @Test
+    public void shouldDeserializeWithFrom() throws Exception {
+        TwilioFactorProvider provider = fromJSON(JSON_WITH_FROM, TwilioFactorProvider.class);
 
         assertThat(provider, is(notNullValue()));
         assertThat(provider.getAuthToken(), is("atokEn"));
         assertThat(provider.getFrom(), is("+12356789"));
-        assertThat(provider.getMessagingServiceSID(), is("id321"));
+        assertThat(provider.getMessagingServiceSID(), is(nullValue()));
         assertThat(provider.getSID(), is("id123"));
     }
 
+    @Test
+    public void shouldDeserializeWithMessagingServiceSID() throws Exception {
+        TwilioFactorProvider provider = fromJSON(JSON_WITH_MESSAGING_SERVICE_SID, TwilioFactorProvider.class);
+
+        assertThat(provider, is(notNullValue()));
+        assertThat(provider.getAuthToken(), is("atokEn"));
+        assertThat(provider.getFrom(), is(nullValue()));
+        assertThat(provider.getMessagingServiceSID(), is("id321"));
+        assertThat(provider.getSID(), is("id123"));
+    }
 }

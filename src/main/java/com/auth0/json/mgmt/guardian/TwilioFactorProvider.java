@@ -35,13 +35,20 @@ public class TwilioFactorProvider {
     /**
      * Creates a Twilio settings object
      *
+     * You must only specify either a non-null `from` or `messagingServiceSID`, but not both.
+     *
      * @param from the Twilio From number.
      * @param messagingServiceSID the Twilio Messaging Service SID.
      * @param authToken the Twilio auth token.
      * @param sid the Twilio SID.
+     * @throws IllegalArgumentException when both `from` and `messagingServiceSID` are set
      */
     @JsonCreator
-    public TwilioFactorProvider(@JsonProperty("from") String from, @JsonProperty("messaging_service_sid") String messagingServiceSID, @JsonProperty("auth_token") String authToken, @JsonProperty("sid") String sid) {
+    public TwilioFactorProvider(@JsonProperty("from") String from, @JsonProperty("messaging_service_sid") String messagingServiceSID, @JsonProperty("auth_token") String authToken, @JsonProperty("sid") String sid)
+            throws IllegalArgumentException {
+        if (from != null && messagingServiceSID != null) {
+            throw new IllegalArgumentException("You must specify either `from` or `messagingServiceSID`, but not both");
+        }
         this.from = from;
         this.messagingServiceSID = messagingServiceSID;
         this.authToken = authToken;
@@ -62,11 +69,15 @@ public class TwilioFactorProvider {
      * Setter for the Twilio From number.
      *
      * @param from the from number to set.
+     * @throws IllegalArgumentException when both `from` and `messagingServiceSID` are set
      * @deprecated use the constructor instead
      */
     @Deprecated
     @JsonProperty("from")
-    public void setFrom(String from) {
+    public void setFrom(String from) throws IllegalArgumentException {
+        if (messagingServiceSID != null) {
+            throw new IllegalArgumentException("You must specify either `from` or `messagingServiceSID`, but not both");
+        }
         this.from = from;
     }
 
@@ -84,11 +95,15 @@ public class TwilioFactorProvider {
      * Setter for the Twilio Messaging Service SID.
      *
      * @param messagingServiceSID the messaging service SID.
+     * @throws IllegalArgumentException when both `from` and `messagingServiceSID` are set
      * @deprecated use the constructor instead
      */
     @Deprecated
     @JsonProperty("messaging_service_sid")
-    public void setMessagingServiceSID(String messagingServiceSID) {
+    public void setMessagingServiceSID(String messagingServiceSID) throws IllegalArgumentException {
+        if (from != null) {
+            throw new IllegalArgumentException("You must specify either `from` or `messagingServiceSID`, but not both");
+        }
         this.messagingServiceSID = messagingServiceSID;
     }
 
