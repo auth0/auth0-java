@@ -4,12 +4,11 @@ import com.auth0.json.JsonTest;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 
 public class IdentityTest extends JsonTest<Identity> {
 
-    private static final String json = "{\"connection\":\"auth0\",\"user_id\":\"user|123\",\"isSocial\":true,\"provider\":\"oauth\",\"access_token\":\"aTokEn\",\"profileData\":{}}";
+    private static final String json = "{\"connection\":\"auth0\",\"user_id\":\"user|123\",\"isSocial\":true,\"provider\":\"oauth\",\"access_token\":\"aTokEn\",\"profileData\":{},\"access_token_secret\":\"s3cr3t\"}";
 
     @Test
     public void shouldDeserialize() throws Exception {
@@ -22,5 +21,7 @@ public class IdentityTest extends JsonTest<Identity> {
         assertThat(identity.getProvider(), is("oauth"));
         assertThat(identity.getAccessToken(), is("aTokEn"));
         assertThat(identity.getProfileData(), is(notNullValue()));
+        assertThat(identity.getValues(), is(notNullValue()));
+        assertThat(identity.getValues(), hasEntry("access_token_secret", (Object) "s3cr3t"));
     }
 }
