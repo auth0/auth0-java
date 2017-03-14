@@ -30,11 +30,9 @@ public class LogEventsEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request<LogEventsPage> list(LogEventFilter filter) {
-        HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
+        HttpUrl.Builder builder = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("logs");
+                .addPathSegments("api/v2/logs");
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
                 builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
@@ -57,11 +55,9 @@ public class LogEventsEntity extends BaseManagementEntity {
     public Request<LogEvent> get(String logEventId) {
         Asserts.assertNotNull(logEventId, "log event id");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("logs")
+                .addPathSegments("api/v2/logs")
                 .addPathSegment(logEventId)
                 .build()
                 .toString();

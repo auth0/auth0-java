@@ -31,12 +31,9 @@ public class BlacklistsEntity extends BaseManagementEntity {
     public Request<List<Token>> getBlacklist(String audience) {
         Asserts.assertNotNull(audience, "audience");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("blacklists")
-                .addPathSegment("tokens")
+                .addPathSegments("api/v2/blacklists/tokens")
                 .addQueryParameter("aud", audience)
                 .build()
                 .toString();
@@ -56,12 +53,9 @@ public class BlacklistsEntity extends BaseManagementEntity {
     public Request blacklistToken(Token token) {
         Asserts.assertNotNull(token, "token");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("blacklists")
-                .addPathSegment("tokens")
+                .addPathSegments("api/v2/blacklists/tokens")
                 .build()
                 .toString();
         VoidRequest request = new VoidRequest(client, url, "POST");
@@ -69,6 +63,4 @@ public class BlacklistsEntity extends BaseManagementEntity {
         request.setBody(token);
         return request;
     }
-
-
 }

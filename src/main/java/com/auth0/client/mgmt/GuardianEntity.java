@@ -31,13 +31,9 @@ public class GuardianEntity extends BaseManagementEntity {
     public Request<EnrollmentTicket> createEnrollmentTicket(EnrollmentTicket enrollmentTicket) {
         Asserts.assertNotNull(enrollmentTicket, "enrollment ticket");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("guardian")
-                .addPathSegment("enrollments")
-                .addPathSegment("ticket")
+                .addPathSegments("api/v2/guardian/enrollments/ticket")
                 .build()
                 .toString();
 
@@ -58,12 +54,9 @@ public class GuardianEntity extends BaseManagementEntity {
     public Request deleteEnrollment(String enrollmentId) {
         Asserts.assertNotNull(enrollmentId, "enrollment id");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("guardian")
-                .addPathSegment("enrollments")
+                .addPathSegments("api/v2/guardian/enrollments")
                 .addPathSegment(enrollmentId)
                 .build()
                 .toString();
@@ -79,14 +72,9 @@ public class GuardianEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request<GuardianTemplates> getTemplates() {
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("guardian")
-                .addPathSegment("factors")
-                .addPathSegment("sms")
-                .addPathSegment("templates")
+                .addPathSegments("api/v2/guardian/factors/sms/templates")
                 .build()
                 .toString();
         CustomRequest<GuardianTemplates> request = new CustomRequest<>(client, url, "GET", new TypeReference<GuardianTemplates>() {
@@ -105,14 +93,9 @@ public class GuardianEntity extends BaseManagementEntity {
     public Request<GuardianTemplates> updateTemplates(GuardianTemplates guardianTemplates) {
         Asserts.assertNotNull(guardianTemplates, "guardian templates");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("guardian")
-                .addPathSegment("factors")
-                .addPathSegment("sms")
-                .addPathSegment("templates")
+                .addPathSegments("api/v2/guardian/factors/sms/templates")
                 .build()
                 .toString();
         CustomRequest<GuardianTemplates> request = new CustomRequest<>(client, url, "PUT", new TypeReference<GuardianTemplates>() {
@@ -129,12 +112,9 @@ public class GuardianEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request<List<Factor>> listFactors() {
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("guardian")
-                .addPathSegment("factors")
+                .addPathSegments("api/v2/guardian/factors")
                 .build()
                 .toString();
         CustomRequest<List<Factor>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Factor>>() {
@@ -155,12 +135,9 @@ public class GuardianEntity extends BaseManagementEntity {
         Asserts.assertNotNull(name, "name");
         Asserts.assertNotNull(enabled, "enabled");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("guardian")
-                .addPathSegment("factors")
+                .addPathSegments("api/v2/guardian/factors")
                 .addPathSegment(name)
                 .build()
                 .toString();
@@ -179,15 +156,9 @@ public class GuardianEntity extends BaseManagementEntity {
      */
     public Request<TwilioFactorProvider> getTwilioFactorProvider() {
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("guardian")
-                .addPathSegment("factors")
-                .addPathSegment("sms")
-                .addPathSegment("providers")
-                .addPathSegment("twilio")
+                .addPathSegments("api/v2/guardian/factors/sms/providers/twilio")
                 .build()
                 .toString();
         CustomRequest<TwilioFactorProvider> request = new CustomRequest<>(client, url, "GET", new TypeReference<TwilioFactorProvider>() {
@@ -206,15 +177,9 @@ public class GuardianEntity extends BaseManagementEntity {
     public Request<TwilioFactorProvider> updateTwilioFactorProvider(TwilioFactorProvider provider) {
         Asserts.assertNotNull(provider, "provider");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("guardian")
-                .addPathSegment("factors")
-                .addPathSegment("sms")
-                .addPathSegment("providers")
-                .addPathSegment("twilio")
+                .addPathSegments("api/v2/guardian/factors/sms/providers/twilio")
                 .build()
                 .toString();
         CustomRequest<TwilioFactorProvider> request = new CustomRequest<>(client, url, "PUT", new TypeReference<TwilioFactorProvider>() {
@@ -232,15 +197,9 @@ public class GuardianEntity extends BaseManagementEntity {
      */
     public Request<SNSFactorProvider> getSNSFactorProvider() {
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("guardian")
-                .addPathSegment("factors")
-                .addPathSegment("push-notification")
-                .addPathSegment("providers")
-                .addPathSegment("sns")
+                .addPathSegments("api/v2/guardian/factors/push-notification/providers/sns")
                 .build()
                 .toString();
         CustomRequest<SNSFactorProvider> request = new CustomRequest<>(client, url, "GET", new TypeReference<SNSFactorProvider>() {
@@ -259,15 +218,9 @@ public class GuardianEntity extends BaseManagementEntity {
     public Request<SNSFactorProvider> updateSNSFactorProvider(SNSFactorProvider provider) {
         Asserts.assertNotNull(provider, "provider");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("guardian")
-                .addPathSegment("factors")
-                .addPathSegment("push-notification")
-                .addPathSegment("providers")
-                .addPathSegment("sns")
+                .addPathSegments("api/v2/guardian/factors/push-notification/providers/sns")
                 .build()
                 .toString();
         CustomRequest<SNSFactorProvider> request = new CustomRequest<>(client, url, "PUT", new TypeReference<SNSFactorProvider>() {
@@ -276,6 +229,4 @@ public class GuardianEntity extends BaseManagementEntity {
         request.setBody(provider);
         return request;
     }
-
-
 }

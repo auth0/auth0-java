@@ -29,11 +29,9 @@ public class ClientsEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request<List<Client>> list() {
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("clients")
+                .addPathSegments("api/v2/clients")
                 .build()
                 .toString();
         CustomRequest<List<Client>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Client>>() {
@@ -52,11 +50,9 @@ public class ClientsEntity extends BaseManagementEntity {
     public Request<Client> get(String clientId) {
         Asserts.assertNotNull(clientId, "client id");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("clients")
+                .addPathSegments("api/v2/clients")
                 .addPathSegment(clientId)
                 .build()
                 .toString();
@@ -76,11 +72,9 @@ public class ClientsEntity extends BaseManagementEntity {
     public Request<Client> create(Client client) {
         Asserts.assertNotNull(client, "client");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("clients")
+                .addPathSegments("api/v2/clients")
                 .build()
                 .toString();
         CustomRequest<Client> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<Client>() {
@@ -100,11 +94,9 @@ public class ClientsEntity extends BaseManagementEntity {
     public Request delete(String clientId) {
         Asserts.assertNotNull(clientId, "client id");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("clients")
+                .addPathSegments("api/v2/clients")
                 .addPathSegment(clientId)
                 .build()
                 .toString();
@@ -125,11 +117,9 @@ public class ClientsEntity extends BaseManagementEntity {
         Asserts.assertNotNull(clientId, "client id");
         Asserts.assertNotNull(client, "client");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("clients")
+                .addPathSegments("api/v2/clients")
                 .addPathSegment(clientId)
                 .build()
                 .toString();
@@ -151,11 +141,9 @@ public class ClientsEntity extends BaseManagementEntity {
         Asserts.assertNotNull(clientId, "client id");
         Asserts.assertNotNull(client, "client");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("clients")
+                .addPathSegments("api/v2/clients")
                 .addPathSegment(clientId)
                 .addPathSegment("rotate-secret")
                 .build()
@@ -165,5 +153,4 @@ public class ClientsEntity extends BaseManagementEntity {
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
-
 }

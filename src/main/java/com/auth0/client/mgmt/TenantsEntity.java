@@ -29,12 +29,9 @@ public class TenantsEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request<Tenant> get(FieldsFilter filter) {
-        HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
+        HttpUrl.Builder builder = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("tenants")
-                .addPathSegment("settings");
+                .addPathSegments("api/v2/tenants/settings");
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
                 builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
@@ -57,12 +54,9 @@ public class TenantsEntity extends BaseManagementEntity {
     public Request<Tenant> update(Tenant tenant) {
         Asserts.assertNotNull(tenant, "tenant");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("tenants")
-                .addPathSegment("settings")
+                .addPathSegments("api/v2/tenants/settings")
                 .build()
                 .toString();
 
@@ -72,6 +66,4 @@ public class TenantsEntity extends BaseManagementEntity {
         request.setBody(tenant);
         return request;
     }
-
-
 }

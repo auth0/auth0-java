@@ -31,11 +31,9 @@ public class RulesEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request<List<Rule>> list(RulesFilter filter) {
-        HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
+        HttpUrl.Builder builder = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("rules");
+                .addPathSegments("api/v2/rules");
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
                 builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
@@ -59,11 +57,9 @@ public class RulesEntity extends BaseManagementEntity {
     public Request<Rule> get(String ruleId, RulesFilter filter) {
         Asserts.assertNotNull(ruleId, "rule id");
 
-        HttpUrl.Builder builder = HttpUrl.parse(baseUrl)
+        HttpUrl.Builder builder = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("rules")
+                .addPathSegments("api/v2/rules")
                 .addPathSegment(ruleId);
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
@@ -87,11 +83,9 @@ public class RulesEntity extends BaseManagementEntity {
     public Request<Rule> create(Rule rule) {
         Asserts.assertNotNull(rule, "rule");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("rules")
+                .addPathSegments("api/v2/rules")
                 .build()
                 .toString();
         CustomRequest<Rule> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<Rule>() {
@@ -111,11 +105,9 @@ public class RulesEntity extends BaseManagementEntity {
     public Request delete(String ruleId) {
         Asserts.assertNotNull(ruleId, "rule id");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("rules")
+                .addPathSegments("api/v2/rules")
                 .addPathSegment(ruleId)
                 .build()
                 .toString();
@@ -136,11 +128,9 @@ public class RulesEntity extends BaseManagementEntity {
         Asserts.assertNotNull(ruleId, "rule id");
         Asserts.assertNotNull(rule, "rule");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("rules")
+                .addPathSegments("api/v2/rules")
                 .addPathSegment(ruleId)
                 .build()
                 .toString();
@@ -150,6 +140,4 @@ public class RulesEntity extends BaseManagementEntity {
         request.setBody(rule);
         return request;
     }
-
-
 }

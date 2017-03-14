@@ -29,11 +29,9 @@ public class UserBlocksEntity extends BaseManagementEntity {
     public Request<UserBlocks> getByIdentifier(String identifier) {
         Asserts.assertNotNull(identifier, "identifier");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("user-blocks")
+                .addPathSegments("api/v2/user-blocks")
                 .addQueryParameter("identifier", identifier)
                 .build()
                 .toString();
@@ -53,11 +51,9 @@ public class UserBlocksEntity extends BaseManagementEntity {
     public Request deleteByIdentifier(String identifier) {
         Asserts.assertNotNull(identifier, "identifier");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("user-blocks")
+                .addPathSegments("api/v2/user-blocks")
                 .addQueryParameter("identifier", identifier)
                 .build()
                 .toString();
@@ -76,11 +72,9 @@ public class UserBlocksEntity extends BaseManagementEntity {
     public Request<UserBlocks> get(String userId) {
         Asserts.assertNotNull(userId, "user id");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("user-blocks")
+                .addPathSegments("api/v2/user-blocks")
                 .addPathSegment(userId)
                 .build()
                 .toString();
@@ -100,11 +94,9 @@ public class UserBlocksEntity extends BaseManagementEntity {
     public Request delete(String userId) {
         Asserts.assertNotNull(userId, "user id");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
-                .addPathSegment("api")
-                .addPathSegment("v2")
-                .addPathSegment("user-blocks")
+                .addPathSegments("api/v2/user-blocks")
                 .addPathSegment(userId)
                 .build()
                 .toString();
@@ -112,6 +104,4 @@ public class UserBlocksEntity extends BaseManagementEntity {
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
-
-
 }
