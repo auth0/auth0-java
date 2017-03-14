@@ -53,8 +53,11 @@ public class MockServer {
     public static final String MGMT_GUARDIAN_FACTOR = "src/test/resources/mgmt/guardian_factor.json";
     public static final String MGMT_GUARDIAN_FACTORS_LIST = "src/test/resources/mgmt/guardian_factors_list.json";
     public static final String MGMT_GUARDIAN_TEMPLATES = "src/test/resources/mgmt/guardian_templates.json";
+    public static final String MGMT_GUARDIAN_SNS_FACTOR_PROVIDER_EMPTY = "src/test/resources/mgmt/guardian_sns_factor_provider_empty.json";
     public static final String MGMT_GUARDIAN_SNS_FACTOR_PROVIDER = "src/test/resources/mgmt/guardian_sns_factor_provider.json";
-    public static final String MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER = "src/test/resources/mgmt/guardian_twilio_factor_provider.json";
+    public static final String MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER_EMPTY = "src/test/resources/mgmt/guardian_twilio_factor_provider_empty.json";
+    public static final String MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER_WITH_FROM = "src/test/resources/mgmt/guardian_twilio_factor_provider_with_from.json";
+    public static final String MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER_WITH_MSSID = "src/test/resources/mgmt/guardian_twilio_factor_provider_with_messaging_service_sid.json";
     public static final String MGMT_TENANT = "src/test/resources/mgmt/tenant.json";
     public static final String MGMT_ACTIVE_USERS_COUNT = "src/test/resources/mgmt/active_users_count.json";
     public static final String MGMT_DAILY_STATS_LIST = "src/test/resources/mgmt/daily_stats_list.json";

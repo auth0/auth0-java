@@ -56,7 +56,7 @@ public class Factor {
     }
 
     /**
-     * Getter fot the name of this factor.
+     * Getter for the name of this factor.
      *
      * @return the factor name.
      */
