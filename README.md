@@ -1,6 +1,7 @@
 # Auth0 Java
 
-[![Build][travis-ci-badge]][travis-ci-url]
+[![Build-Circle][circle-ci-badge]][circle-ci-url]
+[![Build-Travis][travis-ci-badge]][travis-ci-url]
 [![MIT][mit-badge]][mit-url]
 [![Maven][maven-badge]][maven-url]
 [![JCenter][jcenter-badge]][jcenter-url]
@@ -503,6 +504,8 @@ This project is licensed under the MIT license. See the [LICENSE](LICENSE) file 
 
 <!-- Vars -->
 
+[circle-ci-badge]: https://img.shields.io/circleci/project/github/auth0/auth0-java.svg?style=flat
+[circle-ci-url]: https://circleci.com/gh/auth0/auth0-java/tree/master
 [travis-ci-badge]: https://travis-ci.org/auth0/auth0-java.svg?branch=master
 [travis-ci-url]: https://travis-ci.org/auth0/auth0-java
 [mit-badge]: http://img.shields.io/:license-mit-blue.svg?style=flat
