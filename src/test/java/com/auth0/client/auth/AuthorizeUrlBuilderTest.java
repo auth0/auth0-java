@@ -156,11 +156,50 @@ public class AuthorizeUrlBuilderTest {
     }
 
     @Test
-    public void shouldThrowWithStateIsNull() throws Exception {
+    public void shouldThrowWhenScopeIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'state' cannot be null!");
+        exception.expectMessage("'scope' cannot be null!");
         AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
-                .withState(null);
+                .withScope(null);
     }
 
+    @Test
+    public void shouldSetResponseType() throws Exception {
+        String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
+                .withResponseType("token id_token")
+                .build();
+        assertThat(url, hasQueryParameter("response_type", "token id_token"));
+    }
+
+    @Test
+    public void shouldThrowWhenResponseTypeIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'response type' cannot be null!");
+        AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
+                .withResponseType(null);
+    }
+
+    @Test
+    public void shouldSetCustomParameter() throws Exception {
+        String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
+                .withParameter("name", "value")
+                .build();
+        assertThat(url, hasQueryParameter("name", "value"));
+    }
+
+    @Test
+    public void shouldThrowWhenCustomParameterNameIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'name' cannot be null!");
+        AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
+                .withParameter(null, "value");
+    }
+
+    @Test
+    public void shouldThrowWhenCustomParameterValueIsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'value' cannot be null!");
+        AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
+                .withParameter("name", null);
+    }
 }
