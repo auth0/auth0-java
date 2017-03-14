@@ -167,11 +167,27 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldGetGuardianTwilioFactorProvider() throws Exception {
+    public void shouldGetGuardianTwilioFactorProviderWithMSSID() throws Exception {
         Request<TwilioFactorProvider> request = api.guardian().getTwilioFactorProvider();
         assertThat(request, is(notNullValue()));
 
-        server.jsonResponse(MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER, 200);
+        server.jsonResponse(MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER_WITH_MSSID, 200);
+        TwilioFactorProvider response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/guardian/factors/sms/providers/twilio"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldGetGuardianTwilioFactorProviderWithFrom() throws Exception {
+        Request<TwilioFactorProvider> request = api.guardian().getTwilioFactorProvider();
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER_WITH_FROM, 200);
         TwilioFactorProvider response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -190,12 +206,12 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldUpdateGuardianTwilioFactorProvider() throws Exception {
-        TwilioFactorProvider provider = new TwilioFactorProvider("from", "messagingServiceSID", "authToken", "sid");
+    public void shouldUpdateGuardianTwilioFactorProviderWithFrom() throws Exception {
+        TwilioFactorProvider provider = new TwilioFactorProvider("+156789", null, "aToKen", "3123");
         Request<TwilioFactorProvider> request = api.guardian().updateTwilioFactorProvider(provider);
         assertThat(request, is(notNullValue()));
 
-        server.jsonResponse(MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER, 200);
+        server.jsonResponse(MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER_WITH_FROM, 200);
         TwilioFactorProvider response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -204,13 +220,43 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body.size(), is(4));
-        assertThat(body, hasEntry("from", (Object) "from"));
-        assertThat(body, hasEntry("messaging_service_sid", (Object) "messagingServiceSID"));
-        assertThat(body, hasEntry("auth_token", (Object) "authToken"));
-        assertThat(body, hasEntry("sid", (Object) "sid"));
+        assertThat(body.size(), is(3));
+        assertThat(body, hasEntry("from", (Object) "+156789"));
+        assertThat(body, hasEntry("auth_token", (Object) "aToKen"));
+        assertThat(body, hasEntry("sid", (Object) "3123"));
 
         assertThat(response, is(notNullValue()));
+        assertThat(response.getFrom(), is(equalTo("+156789")));
+        assertThat(response.getMessagingServiceSID(), is(nullValue()));
+        assertThat(response.getAuthToken(), is(equalTo("aToKen")));
+        assertThat(response.getSID(), is(equalTo("3123")));
+    }
+
+    @Test
+    public void shouldUpdateGuardianTwilioFactorProviderWithMSSID() throws Exception {
+        TwilioFactorProvider provider = new TwilioFactorProvider(null, "aac", "aToKen", "3123");
+        Request<TwilioFactorProvider> request = api.guardian().updateTwilioFactorProvider(provider);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER_WITH_MSSID, 200);
+        TwilioFactorProvider response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/guardian/factors/sms/providers/twilio"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(3));
+        assertThat(body, hasEntry("messaging_service_sid", (Object) "aac"));
+        assertThat(body, hasEntry("auth_token", (Object) "aToKen"));
+        assertThat(body, hasEntry("sid", (Object) "3123"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getFrom(), is(nullValue()));
+        assertThat(response.getMessagingServiceSID(), is(equalTo("aac")));
+        assertThat(response.getAuthToken(), is(equalTo("aToKen")));
+        assertThat(response.getSID(), is(equalTo("3123")));
     }
 
     @Test
@@ -218,7 +264,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         Request<TwilioFactorProvider> request = api.guardian().resetTwilioFactorProvider();
         assertThat(request, is(notNullValue()));
 
-        server.jsonResponse(MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER, 200);
+        server.jsonResponse(MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER_EMPTY, 200);
         TwilioFactorProvider response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -230,6 +276,10 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(body.size(), is(0));
 
         assertThat(response, is(notNullValue()));
+        assertThat(response.getFrom(), is(nullValue()));
+        assertThat(response.getMessagingServiceSID(), is(nullValue()));
+        assertThat(response.getAuthToken(), is(nullValue()));
+        assertThat(response.getSID(), is(nullValue()));
     }
 
     @Test
@@ -285,7 +335,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         Request<SNSFactorProvider> request = api.guardian().resetSNSFactorProvider();
         assertThat(request, is(notNullValue()));
 
-        server.jsonResponse(MGMT_GUARDIAN_SNS_FACTOR_PROVIDER, 200);
+        server.jsonResponse(MGMT_GUARDIAN_SNS_FACTOR_PROVIDER_EMPTY, 200);
         SNSFactorProvider response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -297,5 +347,10 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(body.size(), is(0));
 
         assertThat(response, is(notNullValue()));
+        assertThat(response.getAWSAccessKeyId(), is(nullValue()));
+        assertThat(response.getAWSRegion(), is(nullValue()));
+        assertThat(response.getAWSSecretAccessKey(), is(nullValue()));
+        assertThat(response.getSNSAPNSPlatformApplicationARN(), is(nullValue()));
+        assertThat(response.getSNSGCMPlatformApplicationARN(), is(nullValue()));
     }
 }
