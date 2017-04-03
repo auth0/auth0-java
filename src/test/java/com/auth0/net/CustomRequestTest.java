@@ -1,8 +1,8 @@
 package com.auth0.net;
 
 import com.auth0.client.MockServer;
-import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.APIException;
+import com.auth0.exception.Auth0Exception;
 import com.auth0.json.auth.TokenHolder;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -98,15 +98,27 @@ public class CustomRequestTest {
     public void shouldAddHeaders() throws Exception {
         CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), "POST", tokenHolderType);
         request.addParameter("non_empty", "body");
-        request.addHeader("Content-Type", "application/json");
+        request.addHeader("Content-Type", "application/x-www-form-urlencoded");
         request.addHeader("Authorization", "Bearer my_access_token");
 
         server.jsonResponse(AUTH_TOKENS, 200);
         request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest.getHeader("Content-Type"), is("application/json"));
+        assertThat(recordedRequest.getHeader("Content-Type"), is("application/x-www-form-urlencoded"));
         assertThat(recordedRequest.getHeader("Authorization"), is("Bearer my_access_token"));
+    }
+
+    @Test
+    public void shouldAddDefaultJSONContentTypeHeader() throws Exception {
+        CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), "POST", tokenHolderType);
+        request.addParameter("non_empty", "body");
+
+        server.jsonResponse(AUTH_TOKENS, 200);
+        request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest.getHeader("Content-Type"), is("application/json"));
     }
 
     @Test

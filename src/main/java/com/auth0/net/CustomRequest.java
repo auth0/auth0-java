@@ -16,6 +16,7 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequest<T> {
     private static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
+    private static final String CONTENT_TYPE_HEADER = "content-type";
 
     private final String url;
     private final String method;
@@ -47,7 +48,9 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
         for (Map.Entry<String, String> e : headers.entrySet()) {
             builder.addHeader(e.getKey(), e.getValue());
         }
-        builder.addHeader("Content-Type", CONTENT_TYPE_APPLICATION_JSON);
+        if (!headers.containsKey(CONTENT_TYPE_HEADER)) {
+            builder.addHeader(CONTENT_TYPE_HEADER, CONTENT_TYPE_APPLICATION_JSON);
+        }
         return builder.build();
     }
 
@@ -67,7 +70,7 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
 
     @Override
     public CustomRequest<T> addHeader(String name, String value) {
-        headers.put(name, value);
+        headers.put(name.toLowerCase(), value);
         return this;
     }
 
@@ -89,7 +92,8 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
         }
         try {
             byte[] jsonBody = mapper.writeValueAsBytes(body != null ? body : parameters);
-            return RequestBody.create(MediaType.parse(CONTENT_TYPE_APPLICATION_JSON), jsonBody);
+            String mediaTypeDef = headers.containsKey(CONTENT_TYPE_HEADER) ? headers.get(CONTENT_TYPE_HEADER) : CONTENT_TYPE_APPLICATION_JSON;
+            return RequestBody.create(MediaType.parse(mediaTypeDef), jsonBody);
         } catch (JsonProcessingException e) {
             throw new Auth0Exception("Couldn't create the request body.", e);
         }
