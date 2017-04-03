@@ -19,6 +19,7 @@ public class MockServer {
     public static final String AUTH_RESET_PASSWORD = "src/test/resources/auth/reset_password.json";
     public static final String AUTH_SIGN_UP = "src/test/resources/auth/sign_up.json";
     public static final String AUTH_TOKENS = "src/test/resources/auth/tokens.json";
+    public static final String AUTH_INTROSPECTION = "src/test/resources/auth/introspection.json";
     public static final String AUTH_ERROR_WITH_ERROR_DESCRIPTION = "src/test/resources/auth/error_with_error_description.json";
     public static final String AUTH_ERROR_WITH_ERROR = "src/test/resources/auth/error_with_error.json";
     public static final String AUTH_ERROR_WITH_DESCRIPTION = "src/test/resources/auth/error_with_description.json";

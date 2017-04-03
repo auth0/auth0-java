@@ -9,6 +9,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 
+import java.util.Map;
+
 /**
  * Class that provides an implementation of some of the Authentication and Authorization API methods defined in https://auth0.com/docs/api/authentication.
  * To begin create a new instance of {@link #AuthAPI(String, String, String)} using the tenant domain, client id and client secret.
@@ -24,10 +26,14 @@ public class AuthAPI {
     private static final String KEY_AUDIENCE = "audience";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_CONNECTION = "connection";
+    private static final String KEY_CLIENT_ASSERTION_TYPE = "client_assertion_type";
+    private static final String KEY_CLIENT_ASSERTION = "client_assertion";
+    private static final String KEY_TOKEN = "token";
 
     private static final String PATH_OAUTH = "oauth";
     private static final String PATH_TOKEN = "token";
     private static final String PATH_DBCONNECTIONS = "dbconnections";
+    private static final String PATH_INTROSPECT = "introspect";
 
     private final OkHttpClient client;
     private final String clientId;
@@ -442,6 +448,53 @@ public class AuthAPI {
         request.addParameter(KEY_GRANT_TYPE, "authorization_code");
         request.addParameter("code", code);
         request.addParameter("redirect_uri", redirectUri);
+        return request;
+    }
+
+    /**
+     * Creates a new request to introspect a given Token with an assertion.
+     * The assertion must be a JWT signed with the same Client's OAuth algorithm and Secret or Private Key, containing
+     * the following claims:
+     * <ul>
+     * <li>"aud": with the full domain of the client, including the https scheme.</li>
+     * <li>"iss": with the audience or API identifier, including the https scheme.</li>
+     * <li>"aud": with the audience or API identifier, including the https scheme.</li>
+     * <li>"exp": with time at which this assertion will expire.</li>
+     * </ul>
+     * <p>
+     * The result assertion JWT can be reused until "exp" is reached.
+     * <p>
+     * <pre>
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * try {
+     * Map<String, Object> result = auth.introspect("S33nfzA0skr...MzApDskrwn34wj", "2e6w5E8zNEzj...hdsU1Iej3ao9f")
+     * .execute();
+     * } catch (Auth0Exception e) {
+     * //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param token     the Json Web Token to introspect. Can be the access_token, id_token or refresh_token.
+     * @param assertion the Json Web Token assertion.
+     * @return a Request to configure and execute.
+     */
+    public Request<Map<String, Object>> introspect(String token, String assertion) {
+        Asserts.assertNotNull(token, "token");
+        Asserts.assertNotNull(assertion, "assertion");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment(PATH_OAUTH)
+                .addPathSegment(PATH_INTROSPECT)
+                .build()
+                .toString();
+        CustomRequest<Map<String, Object>> request = new CustomRequest<>(client, url, "POST", new TypeReference<Map<String, Object>>() {
+        });
+        request.addParameter(KEY_CLIENT_ASSERTION_TYPE, "urn:ietf:params:oauth:client-assertion-type:jwt-bearer");
+        request.addParameter(KEY_CLIENT_ASSERTION, assertion);
+        request.addParameter(KEY_TOKEN, token);
         return request;
     }
 }

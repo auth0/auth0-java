@@ -711,4 +711,42 @@ public class AuthAPITest {
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
+
+    //Introspect Token
+
+    @Test
+    public void shouldThrowOnIntrospectTokenWithNullToken() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'token' cannot be null!");
+        api.introspect(null, "some.jwt.assertion");
+    }
+
+    @Test
+    public void shouldThrowOnIntrospectTokenWithNullAssertion() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'assertion' cannot be null!");
+        api.introspect("some.jwt.token", null);
+    }
+
+    @Test
+    public void shouldCreateIntrospectRequest() throws Exception {
+        Request<Map<String, Object>> request = api.introspect("some.jwt.token", "some.jwt.assertion");
+        assertThat(request, is(notNullValue()));
+
+        //FIXME: Use real introspection response sample below. Also add this method to the README
+        server.jsonResponse(AUTH_INTROSPECTION, 200);
+        Map<String, Object> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/introspect"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("client_assertion_type", (Object) "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"));
+        assertThat(body, hasEntry("client_assertion", (Object) "some.jwt.assertion"));
+        assertThat(body, hasEntry("token", (Object) "some.jwt.token"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, hasEntry("missing_key", (Object)"missing_value"));
+    }
 }
