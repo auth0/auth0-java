@@ -138,7 +138,7 @@ Creates a new request to exchange the `code` previously obtained by calling the 
 
 Example:
 ```java
-AuthRequest request = exchangeCode("asdfgh", "https://me.auth0.com/callback")
+AuthRequest request = auth.exchangeCode("asdfgh", "https://me.auth0.com/callback")
     .setAudience("https://api.me.auth0.com/users")
     .setScope("openid contacts");
 try {
@@ -158,7 +158,7 @@ Creates a new request to log in the user with `username` and `password`. The con
 
 Example:
 ```java
-AuthRequest request = login("me@domain.com", "password123")
+AuthRequest request = auth.login("me@domain.com", "password123")
     .setAudience("https://api.me.auth0.com/users")
     .setScope("openid contacts");
 try {
@@ -178,7 +178,7 @@ Creates a new request to log in the user with `username` and `password` using th
 
 Example:
 ```java
-AuthRequest request = login("me@domain.com", "password123", "Username-Password-Authentication")
+AuthRequest request = auth.login("me@domain.com", "password123", "Username-Password-Authentication")
     .setAudience("https://api.me.auth0.com/users")
     .setScope("openid contacts");
 try {
@@ -198,10 +198,28 @@ Creates a new request to get a Token for the given Audience.
 
 Example:
 ```java
-AuthRequest request = requestToken("https://api.me.auth0.com/users")
+AuthRequest request = auth.requestToken("https://api.me.auth0.com/users")
     .setScope("openid contacts");
 try {
     TokenHolder holder = request.execute();
+} catch (APIException exception) {
+    // api error
+} catch (Auth0Exception exception) {
+    // request error
+}
+```
+
+### Revoke Refresh Token
+
+Creates a new request to revoke an existing Refresh Token.
+
+`Request<Void> revokeToken(String refreshToken)`
+
+Example:
+```java
+Request<Void> request = auth.revokeToken("nisd1h9dks1doWJOsaf");
+try {
+    request.execute();
 } catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {

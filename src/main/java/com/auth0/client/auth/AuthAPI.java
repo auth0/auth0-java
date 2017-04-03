@@ -24,10 +24,12 @@ public class AuthAPI {
     private static final String KEY_AUDIENCE = "audience";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_CONNECTION = "connection";
+    private static final String KEY_TOKEN = "token";
 
     private static final String PATH_OAUTH = "oauth";
     private static final String PATH_TOKEN = "token";
     private static final String PATH_DBCONNECTIONS = "dbconnections";
+    private static final String PATH_REVOKE = "revoke";
 
     private final OkHttpClient client;
     private final String clientId;
@@ -404,6 +406,39 @@ public class AuthAPI {
         request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         request.addParameter(KEY_GRANT_TYPE, "client_credentials");
         request.addParameter(KEY_AUDIENCE, audience);
+        return request;
+    }
+
+    /**
+     * Creates a new request to revoke an existing Refresh Token.
+     * <pre>
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * try {
+     *      auth.revokeToken("ej2E8zNEzjrcSD2edjaE")
+     *          .execute();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param refreshToken the refresh token to revoke.
+     * @return a Request to configure and execute.
+     */
+    public Request<Void> revokeToken(String refreshToken) {
+        Asserts.assertNotNull(refreshToken, "refresh token");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment(PATH_OAUTH)
+                .addPathSegment(PATH_REVOKE)
+                .build()
+                .toString();
+        VoidRequest request = new VoidRequest(client, url, "POST");
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
+        request.addParameter(KEY_TOKEN, refreshToken);
         return request;
     }
 

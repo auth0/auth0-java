@@ -105,6 +105,12 @@ public class MockServer {
         server.enqueue(response);
     }
 
+    public void emptyResponse(int statusCode) throws IOException {
+        MockResponse response = new MockResponse()
+                .setResponseCode(statusCode);
+        server.enqueue(response);
+    }
+
     public static Map<String, Object> bodyFromRequest(RecordedRequest request) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
