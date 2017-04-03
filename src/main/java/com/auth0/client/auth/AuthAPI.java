@@ -25,6 +25,7 @@ public class AuthAPI {
     private static final String KEY_EMAIL = "email";
     private static final String KEY_CONNECTION = "connection";
     private static final String KEY_TOKEN = "token";
+    private static final String KEY_REFRESH_TOKEN = "refresh_token";
 
     private static final String PATH_OAUTH = "oauth";
     private static final String PATH_TOKEN = "token";
@@ -439,6 +440,41 @@ public class AuthAPI {
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         request.addParameter(KEY_TOKEN, refreshToken);
+        return request;
+    }
+
+
+    /**
+     * Creates a new request to renew the authentication and get fresh new credentials using a valid Refresh Token and the 'refresh_token' grant.
+     * <pre>
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * try {
+     *      TokenHolder result = auth.renewAuth("ej2E8zNEzjrcSD2edjaE")
+     *          .execute();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param refreshToken the refresh token to use to get fresh new credentials.
+     * @return a Request to configure and execute.
+     */
+    public AuthRequest renewAuth(String refreshToken) {
+        Asserts.assertNotNull(refreshToken, "refresh token");
+
+        String url = HttpUrl.parse(baseUrl)
+                .newBuilder()
+                .addPathSegment(PATH_OAUTH)
+                .addPathSegment(PATH_TOKEN)
+                .build()
+                .toString();
+        TokenRequest request = new TokenRequest(client, url);
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
+        request.addParameter(KEY_GRANT_TYPE, "refresh_token");
+        request.addParameter(KEY_REFRESH_TOKEN, refreshToken);
         return request;
     }
 

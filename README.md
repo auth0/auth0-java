@@ -226,6 +226,24 @@ try {
 }
 ```
 
+### Renew Authentication
+
+Creates a new request to renew the authentication and get fresh new credentials using a valid Refresh Token.
+
+`AuthRequest renewAuth(String refreshToken)`
+
+Example:
+```java
+AuthRequest request = auth.renewAuth("nisd1h9dks1doWJOsaf");
+try {
+    TokenHolder holder = request.execute();
+} catch (APIException exception) {
+    // api error
+} catch (Auth0Exception exception) {
+    // request error
+}
+```
+
 
 ## Management API
 

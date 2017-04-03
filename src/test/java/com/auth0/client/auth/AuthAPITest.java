@@ -714,7 +714,6 @@ public class AuthAPITest {
 
     //Revoke a Token
 
-
     @Test
     public void shouldThrowOnRevokeTokenWithNullToken() throws Exception {
         exception.expect(IllegalArgumentException.class);
@@ -740,6 +739,42 @@ public class AuthAPITest {
         assertThat(body, hasEntry("token", (Object) "2679NfkaBn62e6w5E8zNEzjr"));
 
         assertThat(response, is(nullValue()));
+    }
+
+
+    //Renew Authentication using Refresh Token
+
+    @Test
+    public void shouldThrowOnRenewAuthWithNullRefreshToken() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'refresh token' cannot be null!");
+        api.renewAuth(null);
+    }
+
+    @Test
+    public void shouldCreateRenewAuthRequest() throws Exception {
+        AuthRequest request = api.renewAuth("ej2E8zNEzjrcSD2edjaE");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("grant_type", (Object) "refresh_token"));
+        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
+        assertThat(body, hasEntry("refresh_token", (Object) "ej2E8zNEzjrcSD2edjaE"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
+        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
+        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
 }
