@@ -711,4 +711,35 @@ public class AuthAPITest {
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
+
+    //Revoke a Token
+
+
+    @Test
+    public void shouldThrowOnRevokeTokenWithNullToken() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'refresh token' cannot be null!");
+        api.revokeToken(null);
+    }
+
+    @Test
+    public void shouldCreateRevokeTokenRequest() throws Exception {
+        Request<Void> request = api.revokeToken("2679NfkaBn62e6w5E8zNEzjr");
+        assertThat(request, is(notNullValue()));
+
+        server.emptyResponse(200);
+        Void response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/revoke"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
+        assertThat(body, hasEntry("token", (Object) "2679NfkaBn62e6w5E8zNEzjr"));
+
+        assertThat(response, is(nullValue()));
+    }
+
 }
