@@ -42,14 +42,16 @@ public class ManagementAPITest {
     public void shouldAcceptDomainWithNoScheme() throws Exception {
         ManagementAPI api = new ManagementAPI("me.something.com", API_TOKEN);
 
-        assertThat(api.getBaseUrl(), isUrl("https", "me.something.com"));
+        assertThat(api.getBaseUrl(), is(notNullValue()));
+        assertThat(api.getBaseUrl().toString(), isUrl("https", "me.something.com"));
     }
 
     @Test
     public void shouldAcceptDomainWithHttpScheme() throws Exception {
         ManagementAPI api = new ManagementAPI("http://me.something.com", API_TOKEN);
 
-        assertThat(api.getBaseUrl(), isUrl("http", "me.something.com"));
+        assertThat(api.getBaseUrl(), is(notNullValue()));
+        assertThat(api.getBaseUrl().toString(), isUrl("http", "me.something.com"));
     }
 
     @Test

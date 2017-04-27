@@ -35,8 +35,7 @@ public class AuthAPI {
     private final OkHttpClient client;
     private final String clientId;
     private final String clientSecret;
-    private final String baseUrl;
-    private final HttpUrl httpUrl;
+    private final HttpUrl baseUrl;
     private final TelemetryInterceptor telemetry;
     private final HttpLoggingInterceptor logging;
 
@@ -52,11 +51,10 @@ public class AuthAPI {
         Asserts.assertNotNull(clientId, "client id");
         Asserts.assertNotNull(clientSecret, "client secret");
 
-        baseUrl = createBaseUrl(domain);
+        this.baseUrl = createBaseUrl(domain);
         if (baseUrl == null) {
             throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
         }
-        this.httpUrl = HttpUrl.parse(baseUrl);
         this.clientId = clientId;
         this.clientSecret = clientSecret;
 
@@ -91,17 +89,16 @@ public class AuthAPI {
     }
 
     //Visible for Testing
-    String getBaseUrl() {
+    HttpUrl getBaseUrl() {
         return baseUrl;
     }
 
-    private String createBaseUrl(String domain) {
+    private HttpUrl createBaseUrl(String domain) {
         String url = domain;
         if (!domain.startsWith("https://") && !domain.startsWith("http://")) {
             url = "https://" + domain;
         }
-        HttpUrl baseUrl = HttpUrl.parse(url);
-        return baseUrl == null ? null : baseUrl.newBuilder().build().toString();
+        return HttpUrl.parse(url);
     }
 
     /**
@@ -123,7 +120,7 @@ public class AuthAPI {
      * @return a new instance of the {@link AuthorizeUrlBuilder} to configure.
      */
     public AuthorizeUrlBuilder authorizeUrl(String redirectUri) {
-        Asserts.assertNotNull(redirectUri, "redirect uri");
+        Asserts.assertValidUrl(redirectUri, "redirect uri");
 
         return AuthorizeUrlBuilder.newInstance(baseUrl, clientId, redirectUri);
     }
@@ -145,7 +142,7 @@ public class AuthAPI {
      * @return a new instance of the {@link LogoutUrlBuilder} to configure.
      */
     public LogoutUrlBuilder logoutUrl(String returnToUrl, boolean setClientId) {
-        Asserts.assertNotNull(returnToUrl, "return to url");
+        Asserts.assertValidUrl(returnToUrl, "return to url");
 
         return LogoutUrlBuilder.newInstance(baseUrl, clientId, returnToUrl, setClientId);
     }
@@ -171,7 +168,7 @@ public class AuthAPI {
     public Request<UserInfo> userInfo(String accessToken) {
         Asserts.assertNotNull(accessToken, "access token");
 
-        String url = httpUrl
+        String url = baseUrl
                 .newBuilder()
                 .addPathSegment("userinfo")
                 .build()
@@ -205,7 +202,7 @@ public class AuthAPI {
         Asserts.assertNotNull(email, "email");
         Asserts.assertNotNull(connection, "connection");
 
-        String url = httpUrl
+        String url = baseUrl
                 .newBuilder()
                 .addPathSegment(PATH_DBCONNECTIONS)
                 .addPathSegment("change_password")
@@ -281,7 +278,7 @@ public class AuthAPI {
         Asserts.assertNotNull(password, "password");
         Asserts.assertNotNull(connection, "connection");
 
-        String url = httpUrl
+        String url = baseUrl
                 .newBuilder()
                 .addPathSegment(PATH_DBCONNECTIONS)
                 .addPathSegment("signup")
@@ -319,7 +316,7 @@ public class AuthAPI {
         Asserts.assertNotNull(emailOrUsername, "email or username");
         Asserts.assertNotNull(password, "password");
 
-        String url = httpUrl
+        String url = baseUrl
                 .newBuilder()
                 .addPathSegment(PATH_OAUTH)
                 .addPathSegment(PATH_TOKEN)
@@ -360,7 +357,7 @@ public class AuthAPI {
         Asserts.assertNotNull(password, "password");
         Asserts.assertNotNull(realm, "realm");
 
-        String url = httpUrl
+        String url = baseUrl
                 .newBuilder()
                 .addPathSegment(PATH_OAUTH)
                 .addPathSegment(PATH_TOKEN)
@@ -398,7 +395,7 @@ public class AuthAPI {
     public AuthRequest requestToken(String audience) {
         Asserts.assertNotNull(audience, "audience");
 
-        String url = httpUrl
+        String url = baseUrl
                 .newBuilder()
                 .addPathSegment(PATH_OAUTH)
                 .addPathSegment(PATH_TOKEN)
@@ -432,7 +429,7 @@ public class AuthAPI {
     public Request<Void> revokeToken(String refreshToken) {
         Asserts.assertNotNull(refreshToken, "refresh token");
 
-        String url = httpUrl
+        String url = baseUrl
                 .newBuilder()
                 .addPathSegment(PATH_OAUTH)
                 .addPathSegment(PATH_REVOKE)
@@ -466,7 +463,7 @@ public class AuthAPI {
     public AuthRequest renewAuth(String refreshToken) {
         Asserts.assertNotNull(refreshToken, "refresh token");
 
-        String url = httpUrl
+        String url = baseUrl
                 .newBuilder()
                 .addPathSegment(PATH_OAUTH)
                 .addPathSegment(PATH_TOKEN)
@@ -503,7 +500,7 @@ public class AuthAPI {
         Asserts.assertNotNull(code, "code");
         Asserts.assertNotNull(redirectUri, "redirect uri");
 
-        String url = httpUrl
+        String url = baseUrl
                 .newBuilder()
                 .addPathSegment(PATH_OAUTH)
                 .addPathSegment(PATH_TOKEN)

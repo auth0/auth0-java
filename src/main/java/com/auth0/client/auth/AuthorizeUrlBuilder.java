@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.auth0.utils.Asserts.assertNotNull;
-import static com.auth0.utils.Asserts.assertValidUrl;
 
 /**
  * Class that provides the methods to generate a valid Auth0 Authorize Url. It's based on the https://auth0.com/docs/api/authentication#social docs.
@@ -20,22 +19,22 @@ public class AuthorizeUrlBuilder {
     /**
      * Creates an instance of the {@link AuthorizeUrlBuilder} using the given domain and base parameters.
      *
-     * @param domain      the domain to use for this URL. Must be a valid URL.
+     * @param baseUrl         the base url constructed from a valid domain.
      * @param clientId    the client_id value to set
      * @param redirectUri the redirect_uri value to set. Must be already URL Encoded and must be white-listed in your Auth0's dashboard.
      * @return a new instance of the {@link AuthorizeUrlBuilder} to configure.
      */
-    static AuthorizeUrlBuilder newInstance(String domain, String clientId, String redirectUri) {
-        return new AuthorizeUrlBuilder(domain, clientId, redirectUri);
+    static AuthorizeUrlBuilder newInstance(HttpUrl baseUrl, String clientId, String redirectUri) {
+        return new AuthorizeUrlBuilder(baseUrl, clientId, redirectUri);
     }
 
-    private AuthorizeUrlBuilder(String domain, String clientId, String redirectUri) {
-        assertValidUrl(domain, "domain");
+    private AuthorizeUrlBuilder(HttpUrl url, String clientId, String redirectUri) {
+        assertNotNull(url, "base url");
         assertNotNull(clientId, "client id");
         assertNotNull(redirectUri, "redirect uri");
 
         parameters = new HashMap<>();
-        builder = HttpUrl.parse(domain).newBuilder()
+        builder = url.newBuilder()
                 .addPathSegment("authorize")
                 .addEncodedQueryParameter("redirect_uri", redirectUri)
                 .addQueryParameter("client_id", clientId);

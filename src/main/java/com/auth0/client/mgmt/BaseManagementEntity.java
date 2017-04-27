@@ -8,9 +8,9 @@ abstract class BaseManagementEntity {
     protected final HttpUrl baseUrl;
     protected final String apiToken;
 
-    BaseManagementEntity(OkHttpClient client, String baseUrl, String apiToken) {
+    BaseManagementEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
         this.client = client;
-        this.baseUrl = HttpUrl.parse(baseUrl);
+        this.baseUrl = baseUrl;
         this.apiToken = apiToken;
     }
 }

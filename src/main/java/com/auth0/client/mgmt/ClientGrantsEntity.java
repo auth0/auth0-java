@@ -17,7 +17,7 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class ClientGrantsEntity extends BaseManagementEntity {
 
-    ClientGrantsEntity(OkHttpClient client, String baseUrl, String apiToken) {
+    ClientGrantsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

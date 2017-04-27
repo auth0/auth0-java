@@ -1,5 +1,6 @@
 package com.auth0.client.auth;
 
+import okhttp3.HttpUrl;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -13,7 +14,7 @@ import static org.hamcrest.Matchers.notNullValue;
 
 public class AuthorizeUrlBuilderTest {
 
-    private static final String DOMAIN = "https://domain.auth0.com";
+    private static final HttpUrl DOMAIN = HttpUrl.parse("https://domain.auth0.com");
     private static final String CLIENT_ID = "clientId";
     private static final String REDIRECT_URI = "https://domain.auth0.com/callback";
 
@@ -21,24 +22,10 @@ public class AuthorizeUrlBuilderTest {
     public ExpectedException exception = ExpectedException.none();
 
     @Test
-    public void shouldThrowWhenDomainIsNull() throws Exception {
+    public void shouldThrowWhenBaseUrlIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'domain' must be a valid URL!");
+        exception.expectMessage("'base url' cannot be null!");
         AuthorizeUrlBuilder.newInstance(null, CLIENT_ID, REDIRECT_URI);
-    }
-
-    @Test
-    public void shouldThrowWhenDomainHasNoScheme() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'domain' must be a valid URL!");
-        AuthorizeUrlBuilder.newInstance("me.something.com", CLIENT_ID, REDIRECT_URI);
-    }
-
-    @Test
-    public void shouldThrowWhenDomainIsNotURL() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'domain' must be a valid URL!");
-        AuthorizeUrlBuilder.newInstance("something", CLIENT_ID, REDIRECT_URI);
     }
 
     @Test
@@ -63,13 +50,15 @@ public class AuthorizeUrlBuilderTest {
 
     @Test
     public void shouldBuildValidAuthorizeUrlWithHttp() throws Exception {
-        String url = AuthorizeUrlBuilder.newInstance("http://domain.auth0.com", CLIENT_ID, REDIRECT_URI).build();
+        HttpUrl httpBaseUrl = HttpUrl.parse("http://domain.auth0.com");
+        String url = AuthorizeUrlBuilder.newInstance(httpBaseUrl, CLIENT_ID, REDIRECT_URI).build();
         assertThat(url, isUrl("http", "domain.auth0.com", "/authorize"));
     }
 
     @Test
     public void shouldBuildValidAuthorizeUrlWithHttps() throws Exception {
-        String url = AuthorizeUrlBuilder.newInstance("https://domain.auth0.com", CLIENT_ID, REDIRECT_URI).build();
+        HttpUrl httpsBaseUrl = HttpUrl.parse("https://domain.auth0.com");
+        String url = AuthorizeUrlBuilder.newInstance(httpsBaseUrl, CLIENT_ID, REDIRECT_URI).build();
         assertThat(url, isUrl("https", "domain.auth0.com", "/authorize"));
     }
 

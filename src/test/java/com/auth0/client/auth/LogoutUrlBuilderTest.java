@@ -1,5 +1,6 @@
 package com.auth0.client.auth;
 
+import okhttp3.HttpUrl;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -13,7 +14,7 @@ import static org.hamcrest.Matchers.notNullValue;
 
 public class LogoutUrlBuilderTest {
 
-    private static final String DOMAIN = "https://domain.auth0.com";
+    private static final HttpUrl DOMAIN = HttpUrl.parse("https://domain.auth0.com");
     private static final String CLIENT_ID = "clientId";
     private static final String RETURN_TO_URL = "https://domain.auth0.com/callback";
 
@@ -21,24 +22,10 @@ public class LogoutUrlBuilderTest {
     public ExpectedException exception = ExpectedException.none();
 
     @Test
-    public void shouldThrowWhenDomainIsNull() throws Exception {
+    public void shouldThrowWhenBaseUrlIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'domain' must be a valid URL!");
+        exception.expectMessage("'base url' cannot be null!");
         LogoutUrlBuilder.newInstance(null, CLIENT_ID, RETURN_TO_URL, true);
-    }
-
-    @Test
-    public void shouldThrowWhenDomainHasNoScheme() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'domain' must be a valid URL!");
-        LogoutUrlBuilder.newInstance("me.something.com", CLIENT_ID, RETURN_TO_URL, true);
-    }
-
-    @Test
-    public void shouldThrowWhenDomainIsNotURL() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'domain' must be a valid URL!");
-        LogoutUrlBuilder.newInstance("something", CLIENT_ID, RETURN_TO_URL, true);
     }
 
     @Test
@@ -61,13 +48,15 @@ public class LogoutUrlBuilderTest {
 
     @Test
     public void shouldBuildValidLogoutUrlWithHttp() throws Exception {
-        String url = LogoutUrlBuilder.newInstance("http://domain.auth0.com", CLIENT_ID, RETURN_TO_URL, true).build();
+        HttpUrl httpBaseUrl = HttpUrl.parse("http://domain.auth0.com");
+        String url = LogoutUrlBuilder.newInstance(httpBaseUrl, CLIENT_ID, RETURN_TO_URL, true).build();
         assertThat(url, isUrl("http", "domain.auth0.com", "/v2/logout"));
     }
 
     @Test
     public void shouldBuildValidLogoutUrlWithHttps() throws Exception {
-        String url = LogoutUrlBuilder.newInstance("https://domain.auth0.com", CLIENT_ID, RETURN_TO_URL, true).build();
+        HttpUrl httpsBaseUrl = HttpUrl.parse("https://domain.auth0.com");
+        String url = LogoutUrlBuilder.newInstance(httpsBaseUrl, CLIENT_ID, RETURN_TO_URL, true).build();
         assertThat(url, isUrl("https", "domain.auth0.com", "/v2/logout"));
     }
 

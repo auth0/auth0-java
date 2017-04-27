@@ -14,7 +14,7 @@ import okhttp3.logging.HttpLoggingInterceptor.Level;
 @SuppressWarnings("WeakerAccess")
 public class ManagementAPI {
 
-    private final String baseUrl;
+    private final HttpUrl baseUrl;
     private final String apiToken;
     private final OkHttpClient client;
     private final TelemetryInterceptor telemetry;
@@ -30,7 +30,7 @@ public class ManagementAPI {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(apiToken, "api token");
 
-        baseUrl = createBaseUrl(domain);
+        this.baseUrl = createBaseUrl(domain);
         if (baseUrl == null) {
             throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
         }
@@ -67,17 +67,16 @@ public class ManagementAPI {
     }
 
     //Visible for testing
-    String getBaseUrl() {
+    HttpUrl getBaseUrl() {
         return baseUrl;
     }
 
-    private String createBaseUrl(String domain) {
+    private HttpUrl createBaseUrl(String domain) {
         String url = domain;
         if (!domain.startsWith("https://") && !domain.startsWith("http://")) {
             url = "https://" + domain;
         }
-        HttpUrl baseUrl = HttpUrl.parse(url);
-        return baseUrl == null ? null : baseUrl.newBuilder().build().toString();
+        return HttpUrl.parse(url);
     }
 
     /**

@@ -59,14 +59,16 @@ public class AuthAPITest {
     public void shouldAcceptDomainWithNoScheme() throws Exception {
         AuthAPI api = new AuthAPI("me.something.com", CLIENT_ID, CLIENT_SECRET);
 
-        assertThat(api.getBaseUrl(), isUrl("https", "me.something.com"));
+        assertThat(api.getBaseUrl(), is(notNullValue()));
+        assertThat(api.getBaseUrl().toString(), isUrl("https", "me.something.com"));
     }
 
     @Test
     public void shouldAcceptDomainWithHttpScheme() throws Exception {
         AuthAPI api = new AuthAPI("http://me.something.com", CLIENT_ID, CLIENT_SECRET);
 
-        assertThat(api.getBaseUrl(), isUrl("http", "me.something.com"));
+        assertThat(api.getBaseUrl(), is(notNullValue()));
+        assertThat(api.getBaseUrl().toString(), isUrl("http", "me.something.com"));
     }
 
     @Test
@@ -170,8 +172,15 @@ public class AuthAPITest {
     @Test
     public void shouldThrowWhenAuthorizeUrlBuilderRedirectUriIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'redirect uri' cannot be null!");
+        exception.expectMessage("'redirect uri' must be a valid URL!");
         api.authorizeUrl(null);
+    }
+
+    @Test
+    public void shouldThrowWhenAuthorizeUrlBuilderRedirectUriIsNotValidURL() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'redirect uri' must be a valid URL!");
+        api.authorizeUrl("notvalid.url");
     }
 
     @Test
@@ -198,8 +207,15 @@ public class AuthAPITest {
     @Test
     public void shouldThrowWhenLogoutUrlBuilderReturnToUrlIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'return to url' cannot be null!");
+        exception.expectMessage("'return to url' must be a valid URL!");
         api.logoutUrl(null, true);
+    }
+
+    @Test
+    public void shouldThrowWhenLogoutUrlBuilderRedirectUriIsNotValidURL() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'return to url' must be a valid URL!");
+        api.logoutUrl("notvalid.url", true);
     }
 
     @Test

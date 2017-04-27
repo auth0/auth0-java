@@ -26,7 +26,7 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class UsersEntity extends BaseManagementEntity {
 
-    UsersEntity(OkHttpClient client, String baseUrl, String apiToken) {
+    UsersEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

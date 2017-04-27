@@ -19,7 +19,7 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class ConnectionsEntity extends BaseManagementEntity {
 
-    ConnectionsEntity(OkHttpClient client, String baseUrl, String apiToken) {
+    ConnectionsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
