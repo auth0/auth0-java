@@ -424,7 +424,7 @@ public class AuthAPI {
      * </pre>
      *
      * @param refreshToken the refresh token to revoke.
-     * @return a Request to configure and execute.
+     * @return a Request to execute.
      */
     public Request<Void> revokeToken(String refreshToken) {
         Asserts.assertNotNull(refreshToken, "refresh token");
