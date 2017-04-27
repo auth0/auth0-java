@@ -17,7 +17,7 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class ClientGrantsEntity extends BaseManagementEntity {
 
-    ClientGrantsEntity(OkHttpClient client, String baseUrl, String apiToken) {
+    ClientGrantsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
@@ -40,7 +40,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
     }
 
     /**
-     * Create a new Client Grant. A token with scope create:client_grants is needed.
+     * Create a Client Grant. A token with scope create:client_grants is needed.
      * See https://auth0.com/docs/api/management/v2#!/Client_Grants/post_client_grants
      *
      * @param clientId the client id to associate this grant with.

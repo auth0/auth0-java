@@ -9,19 +9,19 @@ import okhttp3.logging.HttpLoggingInterceptor.Level;
 
 /**
  * Class that provides an implementation of the Management API methods defined in https://auth0.com/docs/api/management/v2.
- * To begin create a new instance of {@link #ManagementAPI(String, String)} using the tenant domain and API token.
+ * To begin create an instance of {@link #ManagementAPI(String, String)} using the tenant domain and API token.
  */
 @SuppressWarnings("WeakerAccess")
 public class ManagementAPI {
 
-    private final String baseUrl;
+    private final HttpUrl baseUrl;
     private final String apiToken;
     private final OkHttpClient client;
     private final TelemetryInterceptor telemetry;
     private final HttpLoggingInterceptor logging;
 
     /**
-     * Create a new instance with the given tenant's domain and API token.
+     * Create an instance with the given tenant's domain and API token.
      *
      * @param domain   the tenant's domain.
      * @param apiToken the token to authenticate the calls with. See the "Getting an API token" section to learn how to obtain a token.
@@ -30,7 +30,7 @@ public class ManagementAPI {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(apiToken, "api token");
 
-        baseUrl = createBaseUrl(domain);
+        this.baseUrl = createBaseUrl(domain);
         if (baseUrl == null) {
             throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
         }
@@ -67,17 +67,16 @@ public class ManagementAPI {
     }
 
     //Visible for testing
-    String getBaseUrl() {
+    HttpUrl getBaseUrl() {
         return baseUrl;
     }
 
-    private String createBaseUrl(String domain) {
+    private HttpUrl createBaseUrl(String domain) {
         String url = domain;
         if (!domain.startsWith("https://") && !domain.startsWith("http://")) {
             url = "https://" + domain;
         }
-        HttpUrl baseUrl = HttpUrl.parse(url);
-        return baseUrl == null ? null : baseUrl.newBuilder().build().toString();
+        return HttpUrl.parse(url);
     }
 
     /**

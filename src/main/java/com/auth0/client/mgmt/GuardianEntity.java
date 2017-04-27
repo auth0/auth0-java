@@ -17,12 +17,12 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class GuardianEntity extends BaseManagementEntity {
 
-    GuardianEntity(OkHttpClient client, String baseUrl, String apiToken) {
+    GuardianEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
     /**
-     * Create a new Guardian Enrollment Ticket. A token with scope create:guardian_enrollment_tickets is needed.
+     * Create a Guardian Enrollment Ticket. A token with scope create:guardian_enrollment_tickets is needed.
      *
      * @param enrollmentTicket the enrollment ticket data to set.
      * @return a Request to execute.

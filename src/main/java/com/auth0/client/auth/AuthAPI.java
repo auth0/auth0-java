@@ -25,6 +25,7 @@ public class AuthAPI {
     private static final String KEY_EMAIL = "email";
     private static final String KEY_CONNECTION = "connection";
     private static final String KEY_TOKEN = "token";
+    private static final String KEY_REFRESH_TOKEN = "refresh_token";
 
     private static final String PATH_OAUTH = "oauth";
     private static final String PATH_TOKEN = "token";
@@ -34,7 +35,7 @@ public class AuthAPI {
     private final OkHttpClient client;
     private final String clientId;
     private final String clientSecret;
-    private final String baseUrl;
+    private final HttpUrl baseUrl;
     private final TelemetryInterceptor telemetry;
     private final HttpLoggingInterceptor logging;
 
@@ -50,7 +51,7 @@ public class AuthAPI {
         Asserts.assertNotNull(clientId, "client id");
         Asserts.assertNotNull(clientSecret, "client secret");
 
-        baseUrl = createBaseUrl(domain);
+        this.baseUrl = createBaseUrl(domain);
         if (baseUrl == null) {
             throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
         }
@@ -88,21 +89,20 @@ public class AuthAPI {
     }
 
     //Visible for Testing
-    String getBaseUrl() {
+    HttpUrl getBaseUrl() {
         return baseUrl;
     }
 
-    private String createBaseUrl(String domain) {
+    private HttpUrl createBaseUrl(String domain) {
         String url = domain;
         if (!domain.startsWith("https://") && !domain.startsWith("http://")) {
             url = "https://" + domain;
         }
-        HttpUrl baseUrl = HttpUrl.parse(url);
-        return baseUrl == null ? null : baseUrl.newBuilder().build().toString();
+        return HttpUrl.parse(url);
     }
 
     /**
-     * Creates a new instance of the {@link AuthorizeUrlBuilder} with the given redirect url.
+     * Creates an instance of the {@link AuthorizeUrlBuilder} with the given redirect url.
      * i.e.:
      * <pre>
      * {@code
@@ -120,13 +120,13 @@ public class AuthAPI {
      * @return a new instance of the {@link AuthorizeUrlBuilder} to configure.
      */
     public AuthorizeUrlBuilder authorizeUrl(String redirectUri) {
-        Asserts.assertNotNull(redirectUri, "redirect uri");
+        Asserts.assertValidUrl(redirectUri, "redirect uri");
 
         return AuthorizeUrlBuilder.newInstance(baseUrl, clientId, redirectUri);
     }
 
     /**
-     * Creates a new instance of the {@link LogoutUrlBuilder} with the given return-to url.
+     * Creates an instance of the {@link LogoutUrlBuilder} with the given return-to url.
      * i.e.:
      * <pre>
      * {@code
@@ -142,7 +142,7 @@ public class AuthAPI {
      * @return a new instance of the {@link LogoutUrlBuilder} to configure.
      */
     public LogoutUrlBuilder logoutUrl(String returnToUrl, boolean setClientId) {
-        Asserts.assertNotNull(returnToUrl, "return to url");
+        Asserts.assertValidUrl(returnToUrl, "return to url");
 
         return LogoutUrlBuilder.newInstance(baseUrl, clientId, returnToUrl, setClientId);
     }
@@ -168,7 +168,7 @@ public class AuthAPI {
     public Request<UserInfo> userInfo(String accessToken) {
         Asserts.assertNotNull(accessToken, "access token");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
                 .addPathSegment("userinfo")
                 .build()
@@ -202,7 +202,7 @@ public class AuthAPI {
         Asserts.assertNotNull(email, "email");
         Asserts.assertNotNull(connection, "connection");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
                 .addPathSegment(PATH_DBCONNECTIONS)
                 .addPathSegment("change_password")
@@ -216,7 +216,7 @@ public class AuthAPI {
     }
 
     /**
-     * Creates a new sign up request with the given credentials and database connection.
+     * Creates a sign up request with the given credentials and database connection.
      * "Requires Username" option must be turned on in the Connection's configuration first.
      * i.e.:
      * <pre>
@@ -250,7 +250,7 @@ public class AuthAPI {
     }
 
     /**
-     * Creates a new sign up request with the given credentials and database connection.
+     * Creates a sign up request with the given credentials and database connection.
      * i.e.:
      * <pre>
      * {@code
@@ -278,7 +278,7 @@ public class AuthAPI {
         Asserts.assertNotNull(password, "password");
         Asserts.assertNotNull(connection, "connection");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
                 .addPathSegment(PATH_DBCONNECTIONS)
                 .addPathSegment("signup")
@@ -293,7 +293,7 @@ public class AuthAPI {
     }
 
     /**
-     * Creates a new log in request using the 'Password' grant and the given credentials.
+     * Creates a log in request using the 'Password' grant and the given credentials.
      * i.e.:
      * <pre>
      * {@code
@@ -316,7 +316,7 @@ public class AuthAPI {
         Asserts.assertNotNull(emailOrUsername, "email or username");
         Asserts.assertNotNull(password, "password");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
                 .addPathSegment(PATH_OAUTH)
                 .addPathSegment(PATH_TOKEN)
@@ -332,7 +332,7 @@ public class AuthAPI {
     }
 
     /**
-     * Creates a new log in request using the 'Password Realm' grant and the given credentials.
+     * Creates a log in request using the 'Password Realm' grant and the given credentials.
      * Default used realm and audience are defined in the "API Authorization Settings" in the account's advanced settings in the Auth0 Dashboard.
      * <pre>
      * {@code
@@ -357,7 +357,7 @@ public class AuthAPI {
         Asserts.assertNotNull(password, "password");
         Asserts.assertNotNull(realm, "realm");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
                 .addPathSegment(PATH_OAUTH)
                 .addPathSegment(PATH_TOKEN)
@@ -374,7 +374,7 @@ public class AuthAPI {
     }
 
     /**
-     * Creates a new request to get a Token for the given audience using the 'Client Credentials' grant.
+     * Creates a request to get a Token for the given audience using the 'Client Credentials' grant.
      * Default used realm is defined in the "API Authorization Settings" in the account's advanced settings in the Auth0 Dashboard.
      * <pre>
      * {@code
@@ -395,7 +395,7 @@ public class AuthAPI {
     public AuthRequest requestToken(String audience) {
         Asserts.assertNotNull(audience, "audience");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
                 .addPathSegment(PATH_OAUTH)
                 .addPathSegment(PATH_TOKEN)
@@ -410,7 +410,7 @@ public class AuthAPI {
     }
 
     /**
-     * Creates a new request to revoke an existing Refresh Token.
+     * Creates a request to revoke an existing Refresh Token.
      * <pre>
      * {@code
      * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
@@ -429,7 +429,7 @@ public class AuthAPI {
     public Request<Void> revokeToken(String refreshToken) {
         Asserts.assertNotNull(refreshToken, "refresh token");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
                 .addPathSegment(PATH_OAUTH)
                 .addPathSegment(PATH_REVOKE)
@@ -442,8 +442,43 @@ public class AuthAPI {
         return request;
     }
 
+
     /**
-     * Creates a new request to exchange the code obtained in the /authorize call using the 'Authorization Code' grant.
+     * Creates a request to renew the authentication and get fresh new credentials using a valid Refresh Token and the 'refresh_token' grant.
+     * <pre>
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * try {
+     *      TokenHolder result = auth.renewAuth("ej2E8zNEzjrcSD2edjaE")
+     *          .execute();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param refreshToken the refresh token to use to get fresh new credentials.
+     * @return a Request to configure and execute.
+     */
+    public AuthRequest renewAuth(String refreshToken) {
+        Asserts.assertNotNull(refreshToken, "refresh token");
+
+        String url = baseUrl
+                .newBuilder()
+                .addPathSegment(PATH_OAUTH)
+                .addPathSegment(PATH_TOKEN)
+                .build()
+                .toString();
+        TokenRequest request = new TokenRequest(client, url);
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
+        request.addParameter(KEY_GRANT_TYPE, "refresh_token");
+        request.addParameter(KEY_REFRESH_TOKEN, refreshToken);
+        return request;
+    }
+
+    /**
+     * Creates a request to exchange the code obtained in the /authorize call using the 'Authorization Code' grant.
      * <pre>
      * {@code
      * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
@@ -465,7 +500,7 @@ public class AuthAPI {
         Asserts.assertNotNull(code, "code");
         Asserts.assertNotNull(redirectUri, "redirect uri");
 
-        String url = HttpUrl.parse(baseUrl)
+        String url = baseUrl
                 .newBuilder()
                 .addPathSegment(PATH_OAUTH)
                 .addPathSegment(PATH_TOKEN)

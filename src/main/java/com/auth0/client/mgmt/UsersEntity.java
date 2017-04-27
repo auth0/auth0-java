@@ -26,7 +26,7 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class UsersEntity extends BaseManagementEntity {
 
-    UsersEntity(OkHttpClient client, String baseUrl, String apiToken) {
+    UsersEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
@@ -83,7 +83,7 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
-     * Create a new User. A token with scope create:users is needed.
+     * Create a User. A token with scope create:users is needed.
      * See https://auth0.com/docs/api/management/v2#!/Users/post_users
      *
      * @param user the user data to set

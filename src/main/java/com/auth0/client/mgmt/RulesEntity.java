@@ -19,7 +19,7 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class RulesEntity extends BaseManagementEntity {
 
-    RulesEntity(OkHttpClient client, String baseUrl, String apiToken) {
+    RulesEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
@@ -74,7 +74,7 @@ public class RulesEntity extends BaseManagementEntity {
     }
 
     /**
-     * Create a new Rule. A token with scope create:rules is needed.
+     * Create a Rule. A token with scope create:rules is needed.
      * See https://auth0.com/docs/api/management/v2#!/Rules/post_rules
      *
      * @param rule the rule data to set

@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.auth0.utils.Asserts.assertNotNull;
-import static com.auth0.utils.Asserts.assertValidUrl;
 
 /**
  * Class that provides the methods to generate a valid Auth0 Logout Url. It's based on the https://auth0.com/docs/api/authentication#logout docs.
@@ -18,24 +17,24 @@ public class LogoutUrlBuilder {
     private final HashMap<String, String> parameters;
 
     /**
-     * Creates a new instance of the {@link LogoutUrlBuilder} using the given domain and base parameters.
+     * Creates a instance of the {@link LogoutUrlBuilder} using the given domain and base parameters.
      *
-     * @param domain      the domain to use for this URL. Must be a valid URL.
+     * @param baseUrl     the base url constructed from a valid domain.
      * @param clientId    the client_id value to set
      * @param returnToUrl the returnTo value to set. Must be already URL Encoded and must be white-listed in your Auth0's dashboard.
      * @param setClientId whether the client_id value must be set or not. This affects the white-list that the Auth0's Dashboard uses to validate the returnTo url.
      * @return a new instance of the {@link LogoutUrlBuilder} to configure.
      */
-    static LogoutUrlBuilder newInstance(String domain, String clientId, String returnToUrl, boolean setClientId) {
-        return new LogoutUrlBuilder(domain, setClientId ? clientId : null, returnToUrl);
+    static LogoutUrlBuilder newInstance(HttpUrl baseUrl, String clientId, String returnToUrl, boolean setClientId) {
+        return new LogoutUrlBuilder(baseUrl, setClientId ? clientId : null, returnToUrl);
     }
 
-    private LogoutUrlBuilder(String domain, String clientId, String returnToUrl) {
-        assertValidUrl(domain, "domain");
+    private LogoutUrlBuilder(HttpUrl url, String clientId, String returnToUrl) {
+        assertNotNull(url, "base url");
         assertNotNull(returnToUrl, "return to url");
 
         parameters = new HashMap<>();
-        builder = HttpUrl.parse(domain).newBuilder()
+        builder = url.newBuilder()
                 .addPathSegment("v2")
                 .addPathSegment("logout")
                 .addEncodedQueryParameter("returnTo", returnToUrl);

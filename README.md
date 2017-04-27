@@ -36,7 +36,7 @@ The Auth0 Authentication API and User's Management API are available for Android
 
 The implementation is based on the [Authentication API Docs](https://auth0.com/docs/api/authentication).
 
-Create a new `AuthAPI` instance by providing the client data from the [dashboard](https://manage.auth0.com/#/clients).
+Create an `AuthAPI` instance by providing the client data from the [dashboard](https://manage.auth0.com/#/clients).
 
 ```java
 AuthAPI auth = new AuthAPI("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}");
@@ -71,7 +71,7 @@ String url = auth.logoutUrl("https://me.auth0.com/home", true)
 ```
 
 ### UserInfo - /userinfo
-Creates a new request to get the user information associated to a given access token. This will only work if the token has been granted the `openid` scope.
+Creates a request to get the user information associated to a given access token. This will only work if the token has been granted the `openid` scope.
 
 `Request<UserInfo> userInfo(String accessToken)`
 
@@ -89,7 +89,7 @@ try {
 ```
 
 ### Reset Password - /dbconnections/change_password
-Creates a new request to reset the user's password. This will only work for db connections.
+Creates a request to reset the user's password. This will only work for db connections.
 
 `Request resetPassword(String email, String connection)`
 
@@ -107,7 +107,7 @@ try {
 
 
 ### Sign Up - /dbconnections/signup
-Creates a new request to create a new user. Up to 10 additional Sign Up fields can be added to the request. This will only work for db connections.
+Creates a request to create a user. Up to 10 additional Sign Up fields can be added to the request. This will only work for db connections.
 
 `SignUpRequest signUp(String email, String username, String password, String connection)`
 
@@ -131,7 +131,7 @@ try {
 
 ### Exchange the Authorization Code - /oauth/token
 
-Creates a new request to exchange the `code` previously obtained by calling the /authorize endpoint. The redirect uri must be the one sent in the /authorize call.
+Creates a request to exchange the `code` previously obtained by calling the /authorize endpoint. The redirect uri must be the one sent in the /authorize call.
 
 `AuthRequest exchangeCode(String code, String redirectUri)`
 
@@ -151,7 +151,7 @@ try {
 
 ### Log In with Password - /oauth/token
 
-Creates a new request to log in the user with `username` and `password`. The connection used is the one defined as "Default Directory" in the account settings.
+Creates a request to log in the user with `username` and `password`. The connection used is the one defined as "Default Directory" in the account settings.
 
 `AuthRequest login(String emailOrUsername, String password)`
 
@@ -171,7 +171,7 @@ try {
 
 ### Log In with Password Realm - /oauth/token
 
-Creates a new request to log in the user with `username` and `password` using the Password Realm.
+Creates a request to log in the user with `username` and `password` using the Password Realm.
 
 `AuthRequest login(String emailOrUsername, String password, String realm)`
 
@@ -191,7 +191,7 @@ try {
 
 ### Request Token for Audience - /oauth/token
 
-Creates a new request to get a Token for the given Audience.
+Creates a request to get a Token for the given Audience.
 
 `AuthRequest requestToken(String audience)`
 
@@ -210,7 +210,7 @@ try {
 
 ### Revoke Refresh Token
 
-Creates a new request to revoke an existing Refresh Token.
+Creates a request to revoke an existing Refresh Token.
 
 `Request<Void> revokeToken(String refreshToken)`
 
@@ -226,12 +226,30 @@ try {
 }
 ```
 
+### Renew Authentication
+
+Creates a request to renew the authentication and get fresh new credentials using a valid Refresh Token.
+
+`AuthRequest renewAuth(String refreshToken)`
+
+Example:
+```java
+AuthRequest request = auth.renewAuth("nisd1h9dks1doWJOsaf");
+try {
+    TokenHolder holder = request.execute();
+} catch (APIException exception) {
+    // api error
+} catch (Auth0Exception exception) {
+    // request error
+}
+```
+
 
 ## Management API
 
 The implementation is based on the [Management API Docs](https://auth0.com/docs/api/management/v2).
 
-Create a new `ManagementAPI` instance by providing the domain from the [client dashboard](https://manage.auth0.com/#/clients) and the API Token. Click [here](https://auth0.com/docs/api/management/v2#!/Introduction/Getting_an_API_token) for more information on how to obtain a valid API Token.
+Create a `ManagementAPI` instance by providing the domain from the [client dashboard](https://manage.auth0.com/#/clients) and the API Token. Click [here](https://auth0.com/docs/api/management/v2#!/Introduction/Getting_an_API_token) for more information on how to obtain a valid API Token.
 
 ```java
 ManagementAPI mgmt = new ManagementAPI("{YOUR_DOMAIN}", "{YOUR_API_TOKEN}");
@@ -259,7 +277,7 @@ The Management API is divided into different entities. Each of them have the lis
 
 #### List
 
-Creates a new request to list the Users. An API Token with scope `read:users` is needed. If you want the identities.access_token property to be included, you will also need the scope `read:user_idp_tokens`.
+Creates a request to list the Users. An API Token with scope `read:users` is needed. If you want the identities.access_token property to be included, you will also need the scope `read:user_idp_tokens`.
 You can pass an optional Filter to narrow the results in the response.
 
 `Request<UsersPage> list(UserFilter filter)`
@@ -279,7 +297,7 @@ try {
 
 #### Get
 
-Creates a new request to get a User. An API Token with scope `read:users` is needed. If you want the identities.access_token property to be included, you will also need the scope `read:user_idp_tokens`.
+Creates a request to get a User. An API Token with scope `read:users` is needed. If you want the identities.access_token property to be included, you will also need the scope `read:user_idp_tokens`.
 You can pass an optional Filter to narrow the results in the response.
 
 `Request<User> get(String userId, UserFilter filter)`
@@ -299,7 +317,7 @@ try {
 
 #### Create
 
-Creates a new request to create a new User. An API Token with scope `create:users` is needed.
+Creates a request to create a User. An API Token with scope `create:users` is needed.
 
 `Request<User> create(User user)`
 
@@ -318,7 +336,7 @@ try {
 
 #### Delete
 
-Creates a new request to delete a User. An API Token with scope `delete:users` is needed.
+Creates a request to delete a User. An API Token with scope `delete:users` is needed.
 
 `Request delete(String userId)`
 
@@ -336,7 +354,7 @@ try {
 
 #### Update
 
-Creates a new request to update a User. An API Token with scope `update:users` is needed. If you're updating app_metadata you'll also need `update:users_app_metadata` scope.
+Creates a request to update a User. An API Token with scope `update:users` is needed. If you're updating app_metadata you'll also need `update:users_app_metadata` scope.
 
 `Request<User> update(String userId, User user)`
 
@@ -355,7 +373,7 @@ try {
 
 #### Get Guardian Enrollments
 
-Creates a new request to list the User's Guardian Enrollments. An API Token with scope `read:users` is needed.
+Creates a request to list the User's Guardian Enrollments. An API Token with scope `read:users` is needed.
 
 `Request<List<Enrollment>> getEnrollments(String userId)`
 
@@ -373,7 +391,7 @@ try {
 
 #### Get Log Events
 
-Creates a new request to list the User's Log Events. An API Token with scope `read:logs` is needed.
+Creates a request to list the User's Log Events. An API Token with scope `read:logs` is needed.
 You can pass an optional Filter to narrow the results in the response.
 
 `Request<LogEventsPage> getLogEvents(String userId, LogEventFilter filter)`
@@ -394,7 +412,7 @@ try {
 
 #### Delete Multifactor Provider
 
-Creates a new request to delete the User's Multifactor Provider. An API Token with scope `update:users` is needed.
+Creates a request to delete the User's Multifactor Provider. An API Token with scope `update:users` is needed.
 
 `Request deleteMultifactorProvider(String userId, String provider)`
 
@@ -412,7 +430,7 @@ try {
 
 #### Rotate Recovery Code
 
-Creates a new request to rotate the User's Recovery Code. An API Token with scope `update:users` is needed.
+Creates a request to rotate the User's Recovery Code. An API Token with scope `update:users` is needed.
 
 `Request<RecoveryCode> rotateRecoveryCode(String userId)`
 
@@ -430,7 +448,7 @@ try {
 
 #### Link Identities
 
-Creates a new request to link two User identities. An API Token with scope `update:users` is needed.
+Creates a request to link two User identities. An API Token with scope `update:users` is needed.
 
 `Request<List<Identity>> linkIdentity(String primaryUserId, String secondaryUserId, String provider, String connectionId)`
 
@@ -448,7 +466,7 @@ try {
 
 #### Un-Link Identities
 
-Creates a new request to un-link two User identities. An API Token with scope `update:users` is needed.
+Creates a request to un-link two User identities. An API Token with scope `update:users` is needed.
 
 `Request<List<Identity>> unlinkIdentity(String primaryUserId, String secondaryUserId, String provider)`
 

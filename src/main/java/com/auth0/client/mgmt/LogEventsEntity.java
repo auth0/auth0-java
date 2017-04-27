@@ -18,7 +18,7 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class LogEventsEntity extends BaseManagementEntity {
 
-    LogEventsEntity(OkHttpClient client, String baseUrl, String apiToken) {
+    LogEventsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

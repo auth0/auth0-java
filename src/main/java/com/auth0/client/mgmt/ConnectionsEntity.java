@@ -19,7 +19,7 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class ConnectionsEntity extends BaseManagementEntity {
 
-    ConnectionsEntity(OkHttpClient client, String baseUrl, String apiToken) {
+    ConnectionsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
@@ -74,7 +74,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
     }
 
     /**
-     * Create a new Connection. A token with scope create:connections is needed.
+     * Create a Connection. A token with scope create:connections is needed.
      * See https://auth0.com/docs/api/management/v2#!/Connections/post_connections
      *
      * @param connection the connection data to set.

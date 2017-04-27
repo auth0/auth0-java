@@ -18,7 +18,7 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class StatsEntity extends BaseManagementEntity {
 
-    StatsEntity(OkHttpClient client, String baseUrl, String apiToken) {
+    StatsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
