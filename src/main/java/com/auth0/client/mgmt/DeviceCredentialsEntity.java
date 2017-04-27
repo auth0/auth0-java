@@ -47,7 +47,7 @@ public class DeviceCredentialsEntity extends BaseManagementEntity {
     }
 
     /**
-     * Create a new Device Credentials. A token with scope create:current_user_device_credentials is needed.
+     * Create a Device Credentials. A token with scope create:current_user_device_credentials is needed.
      * See https://auth0.com/docs/api/management/v2#!/Device_Credentials/post_device_credentials
      *
      * @param deviceCredentials the device credentials data to set.

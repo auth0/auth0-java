@@ -74,7 +74,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
     }
 
     /**
-     * Create a new Connection. A token with scope create:connections is needed.
+     * Create a Connection. A token with scope create:connections is needed.
      * See https://auth0.com/docs/api/management/v2#!/Connections/post_connections
      *
      * @param connection the connection data to set.

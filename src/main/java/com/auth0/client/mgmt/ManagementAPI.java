@@ -9,7 +9,7 @@ import okhttp3.logging.HttpLoggingInterceptor.Level;
 
 /**
  * Class that provides an implementation of the Management API methods defined in https://auth0.com/docs/api/management/v2.
- * To begin create a new instance of {@link #ManagementAPI(String, String)} using the tenant domain and API token.
+ * To begin create an instance of {@link #ManagementAPI(String, String)} using the tenant domain and API token.
  */
 @SuppressWarnings("WeakerAccess")
 public class ManagementAPI {
@@ -21,7 +21,7 @@ public class ManagementAPI {
     private final HttpLoggingInterceptor logging;
 
     /**
-     * Create a new instance with the given tenant's domain and API token.
+     * Create an instance with the given tenant's domain and API token.
      *
      * @param domain   the tenant's domain.
      * @param apiToken the token to authenticate the calls with. See the "Getting an API token" section to learn how to obtain a token.

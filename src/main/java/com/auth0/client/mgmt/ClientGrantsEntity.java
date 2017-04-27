@@ -40,7 +40,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
     }
 
     /**
-     * Create a new Client Grant. A token with scope create:client_grants is needed.
+     * Create a Client Grant. A token with scope create:client_grants is needed.
      * See https://auth0.com/docs/api/management/v2#!/Client_Grants/post_client_grants
      *
      * @param clientId the client id to associate this grant with.

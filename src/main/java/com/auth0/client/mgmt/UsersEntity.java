@@ -83,7 +83,7 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
-     * Create a new User. A token with scope create:users is needed.
+     * Create a User. A token with scope create:users is needed.
      * See https://auth0.com/docs/api/management/v2#!/Users/post_users
      *
      * @param user the user data to set

@@ -18,7 +18,7 @@ public class LogoutUrlBuilder {
     private final HashMap<String, String> parameters;
 
     /**
-     * Creates a new instance of the {@link LogoutUrlBuilder} using the given domain and base parameters.
+     * Creates a instance of the {@link LogoutUrlBuilder} using the given domain and base parameters.
      *
      * @param domain      the domain to use for this URL. Must be a valid URL.
      * @param clientId    the client_id value to set

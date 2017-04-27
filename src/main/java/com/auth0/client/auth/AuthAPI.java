@@ -103,7 +103,7 @@ public class AuthAPI {
     }
 
     /**
-     * Creates a new instance of the {@link AuthorizeUrlBuilder} with the given redirect url.
+     * Creates an instance of the {@link AuthorizeUrlBuilder} with the given redirect url.
      * i.e.:
      * <pre>
      * {@code
@@ -127,7 +127,7 @@ public class AuthAPI {
     }
 
     /**
-     * Creates a new instance of the {@link LogoutUrlBuilder} with the given return-to url.
+     * Creates an instance of the {@link LogoutUrlBuilder} with the given return-to url.
      * i.e.:
      * <pre>
      * {@code
@@ -217,7 +217,7 @@ public class AuthAPI {
     }
 
     /**
-     * Creates a new sign up request with the given credentials and database connection.
+     * Creates a sign up request with the given credentials and database connection.
      * "Requires Username" option must be turned on in the Connection's configuration first.
      * i.e.:
      * <pre>
@@ -251,7 +251,7 @@ public class AuthAPI {
     }
 
     /**
-     * Creates a new sign up request with the given credentials and database connection.
+     * Creates a sign up request with the given credentials and database connection.
      * i.e.:
      * <pre>
      * {@code
@@ -294,7 +294,7 @@ public class AuthAPI {
     }
 
     /**
-     * Creates a new log in request using the 'Password' grant and the given credentials.
+     * Creates a log in request using the 'Password' grant and the given credentials.
      * i.e.:
      * <pre>
      * {@code
@@ -333,7 +333,7 @@ public class AuthAPI {
     }
 
     /**
-     * Creates a new log in request using the 'Password Realm' grant and the given credentials.
+     * Creates a log in request using the 'Password Realm' grant and the given credentials.
      * Default used realm and audience are defined in the "API Authorization Settings" in the account's advanced settings in the Auth0 Dashboard.
      * <pre>
      * {@code
@@ -375,7 +375,7 @@ public class AuthAPI {
     }
 
     /**
-     * Creates a new request to get a Token for the given audience using the 'Client Credentials' grant.
+     * Creates a request to get a Token for the given audience using the 'Client Credentials' grant.
      * Default used realm is defined in the "API Authorization Settings" in the account's advanced settings in the Auth0 Dashboard.
      * <pre>
      * {@code
@@ -411,7 +411,7 @@ public class AuthAPI {
     }
 
     /**
-     * Creates a new request to revoke an existing Refresh Token.
+     * Creates a request to revoke an existing Refresh Token.
      * <pre>
      * {@code
      * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
@@ -445,7 +445,7 @@ public class AuthAPI {
 
 
     /**
-     * Creates a new request to renew the authentication and get fresh new credentials using a valid Refresh Token and the 'refresh_token' grant.
+     * Creates a request to renew the authentication and get fresh new credentials using a valid Refresh Token and the 'refresh_token' grant.
      * <pre>
      * {@code
      * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
@@ -479,7 +479,7 @@ public class AuthAPI {
     }
 
     /**
-     * Creates a new request to exchange the code obtained in the /authorize call using the 'Authorization Code' grant.
+     * Creates a request to exchange the code obtained in the /authorize call using the 'Authorization Code' grant.
      * <pre>
      * {@code
      * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
