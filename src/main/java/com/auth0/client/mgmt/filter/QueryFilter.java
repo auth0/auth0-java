@@ -1,6 +1,11 @@
 package com.auth0.client.mgmt.filter;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 public class QueryFilter extends FieldsFilter {
+
+    public static final String KEY_QUERY = "q";
 
     /**
      * Filter by a query
@@ -8,8 +13,9 @@ public class QueryFilter extends FieldsFilter {
      * @param query the query expression using the following syntax https://auth0.com/docs/api/management/v2/query-string-syntax.
      * @return this filter instance
      */
-    public QueryFilter withQuery(String query) {
-        parameters.put("q", query);
+    public QueryFilter withQuery(String query) throws UnsupportedEncodingException {
+        String encodedQuery = URLEncoder.encode(query, "UTF-8");
+        parameters.put(KEY_QUERY, encodedQuery);
         return this;
     }
 
