@@ -1,5 +1,23 @@
 # Change Log
 
+## [1.1.0](https://github.com/auth0/auth0-java/tree/1.1.0) (2017-05-23)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.0.0...1.1.0)
+
+**Added**
+- Add getter for User and ProfileData extra properties [\#56](https://github.com/auth0/auth0-java/pull/56) ([lbalmaceda](https://github.com/lbalmaceda))
+- Add renew authentication endpoint [\#51](https://github.com/auth0/auth0-java/pull/51) ([lbalmaceda](https://github.com/lbalmaceda))
+- Add revoke token endpoint [\#50](https://github.com/auth0/auth0-java/pull/50) ([lbalmaceda](https://github.com/lbalmaceda))
+- Add getter for Identity extra properties  [\#45](https://github.com/auth0/auth0-java/pull/45) ([lbalmaceda](https://github.com/lbalmaceda))
+- Add response_type and custom parameter setter for AuthorizeUrlBuilder [\#40](https://github.com/auth0/auth0-java/pull/40) ([lbalmaceda](https://github.com/lbalmaceda))
+
+**Changed**
+- Improve Guardian section [\#39](https://github.com/auth0/auth0-java/pull/39) ([nikolaseu](https://github.com/nikolaseu))
+- Simplify/reduce amount of code [\#36](https://github.com/auth0/auth0-java/pull/36) ([nikolaseu](https://github.com/nikolaseu))
+
+**Fixed**
+- Fix "q" query parameter encoding [\#55](https://github.com/auth0/auth0-java/pull/55) ([lbalmaceda](https://github.com/lbalmaceda))
+- Close the ResponseBody after its parsed [\#38](https://github.com/auth0/auth0-java/pull/38) ([lbalmaceda](https://github.com/lbalmaceda))
+
 ## [1.0.0](https://github.com/auth0/auth0-java/tree/1.0.0) (2017-01-30)
 
 Reworked Auth0 SDK for java by providing better support for non-Android application (for Android please use [Auth0.Android](https://github.com/auth0/Auth0.Android)).
