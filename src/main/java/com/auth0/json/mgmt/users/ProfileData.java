@@ -1,8 +1,9 @@
 package com.auth0.json.mgmt.users;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -25,7 +26,11 @@ public class ProfileData {
     private Boolean phoneVerified;
     @JsonProperty("family_name")
     private String familyName;
+    private Map<String, Object> values;
 
+    public ProfileData() {
+        values = new HashMap<>();
+    }
 
     @JsonProperty("email")
     public String getEmail() {
@@ -65,5 +70,15 @@ public class ProfileData {
     @JsonProperty("family_name")
     public String getFamilyName() {
         return familyName;
+    }
+
+    @JsonAnySetter
+    void setValue(String key, Object value) {
+        values.put(key, value);
+    }
+
+    @JsonAnyGetter
+    public Map<String, Object> getValues() {
+        return values;
     }
 }

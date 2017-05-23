@@ -9,10 +9,11 @@ import java.util.Collections;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.collection.IsMapContaining.hasEntry;
 
 public class UserTest extends JsonTest<User> {
 
-    private static final String json = "{\"connection\":\"auth0\",\"client_id\":\"client123\",\"password\":\"pwd\",\"verify_password\":true,\"username\":\"usr\",\"email\":\"me@auth0.com\",\"email_verified\":true,\"verify_email\":true,\"phone_number\":\"1234567890\",\"phone_verified\":true,\"verify_phone_number\":true,\"picture\":\"https://pic.ture/12\",\"name\":\"John\",\"nickname\":\"Johny\",\"given_name\":\"John\",\"family_name\":\"Walker\",\"app_metadata\":{},\"user_metadata\":{},\"blocked\":true}";
+    private static final String json = "{\"connection\":\"auth0\",\"client_id\":\"client123\",\"password\":\"pwd\",\"verify_password\":true,\"username\":\"usr\",\"email\":\"me@auth0.com\",\"email_verified\":true,\"verify_email\":true,\"phone_number\":\"1234567890\",\"phone_verified\":true,\"verify_phone_number\":true,\"picture\":\"https://pic.ture/12\",\"name\":\"John\",\"nickname\":\"Johny\",\"given_name\":\"John\",\"family_name\":\"Walker\",\"app_metadata\":{},\"user_metadata\":{},\"blocked\":true,\"context\":\"extra information\"}";
     private static final String readOnlyJson = "{\"user_id\":\"user|123\",\"last_ip\":\"10.0.0.1\",\"last_login\":\"2016-02-23T19:57:29.532Z\",\"logins_count\":10,\"created_at\":\"2016-02-23T19:57:29.532Z\",\"updated_at\":\"2016-02-23T19:57:29.532Z\",\"identities\":[]}";
 
     @Test
@@ -85,6 +86,8 @@ public class UserTest extends JsonTest<User> {
         assertThat(user.getUserMetadata(), is(notNullValue()));
         assertThat(user.getAppMetadata(), is(notNullValue()));
         assertThat(user.isBlocked(), is(true));
+        assertThat(user.getValues(), is(notNullValue()));
+        assertThat(user.getValues(), hasEntry("context", (Object) "extra information"));
     }
 
     @Test

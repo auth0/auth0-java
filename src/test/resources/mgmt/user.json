@@ -9,10 +9,27 @@
   "updated_at": "",
   "identities": [
     {
-      "connection": "Initial-Connection",
-      "user_id": "5457edea1b8f22891a000004",
-      "provider": "auth0",
-      "isSocial": false
+      "provider": "facebook",
+      "user_id": "5457edea1b8f2289",
+      "connection": "facebook",
+      "isSocial": true
+    },
+    {
+      "profileData": {
+        "name": "Auth0️",
+        "picture": "https://pbs.twimg.com/profile_images/auth0/5457ed_normal.jpg",
+        "created_at": "Fri May 20 17:13:23 +0000 2011",
+        "description": "My twitter bio",
+        "lang": "es",
+        "location": "Palermo, Buenos Aires.",
+        "screen_name": "auth0",
+        "time_zone": "Buenos Aires",
+        "utc_offset": -10800
+      },
+      "provider": "twitter",
+      "user_id": "5457ed",
+      "connection": "twitter",
+      "isSocial": true
     }
   ],
   "app_metadata": {},
