@@ -12,6 +12,8 @@ import okhttp3.OkHttpClient;
 
 import java.util.Map;
 
+import static com.auth0.client.mgmt.filter.QueryFilter.KEY_QUERY;
+
 /**
  * Class that provides an implementation of the Events methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Logs
  */
@@ -35,7 +37,11 @@ public class LogEventsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/logs");
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                if (KEY_QUERY.equals(e.getKey())) {
+                    builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                } else {
+                    builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                }
             }
         }
         String url = builder.build().toString();

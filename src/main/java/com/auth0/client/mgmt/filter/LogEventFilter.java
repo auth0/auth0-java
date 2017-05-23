@@ -1,5 +1,7 @@
 package com.auth0.client.mgmt.filter;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * Class used to filter the results received when calling the Logs endpoint. Related to the {@link com.auth0.client.mgmt.LogEventsEntity} entity.
  */
@@ -25,7 +27,7 @@ public class LogEventFilter extends QueryFilter {
     }
 
     @Override
-    public LogEventFilter withQuery(String query) {
+    public LogEventFilter withQuery(String query) throws UnsupportedEncodingException {
         super.withQuery(query);
         return this;
     }

@@ -95,7 +95,7 @@ public class LogEventsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldListLogEventsWithQuery() throws Exception {
-        LogEventFilter filter = new LogEventFilter().withQuery("sample");
+        LogEventFilter filter = new LogEventFilter().withQuery("email:\\*@gmail.com");
         Request<LogEventsPage> request = api.logEvents().list(filter);
         assertThat(request, is(notNullValue()));
 
@@ -106,12 +106,11 @@ public class LogEventsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/logs"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-        assertThat(recordedRequest, hasQueryParameter("q", "sample"));
+        assertThat(recordedRequest, hasQueryParameter("q", "email%3A%5C*%40gmail.com"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getItems(), hasSize(2));
     }
-
 
     @Test
     public void shouldListLogEventsWithCheckpoint() throws Exception {

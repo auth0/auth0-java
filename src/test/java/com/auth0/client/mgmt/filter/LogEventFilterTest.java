@@ -42,7 +42,7 @@ public class LogEventFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("q", (Object) "id=log123"));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("q", (Object) "id%3Dlog123"));
     }
 
     @Test
