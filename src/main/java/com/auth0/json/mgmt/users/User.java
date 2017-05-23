@@ -3,6 +3,7 @@ package com.auth0.json.mgmt.users;
 import com.fasterxml.jackson.annotation.*;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -71,9 +72,15 @@ public class User {
     private Integer loginsCount;
     @JsonProperty("blocked")
     private Boolean blocked;
+    private Map<String, Object> values;
+
+    User() {
+        this(null);
+    }
 
     @JsonCreator
     public User(@JsonProperty("connection") String connection) {
+        this.values = new HashMap<>();
         this.connection = connection;
     }
 
@@ -508,5 +515,15 @@ public class User {
     @JsonProperty("connection")
     String getConnection() {
         return connection;
+    }
+
+    @JsonAnySetter
+    void setValue(String key, Object value) {
+        values.put(key, value);
+    }
+
+    @JsonAnyGetter
+    public Map<String, Object> getValues() {
+        return values;
     }
 }
