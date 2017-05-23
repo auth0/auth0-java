@@ -17,6 +17,16 @@ public class UserTest extends JsonTest<User> {
     private static final String readOnlyJson = "{\"user_id\":\"user|123\",\"last_ip\":\"10.0.0.1\",\"last_login\":\"2016-02-23T19:57:29.532Z\",\"logins_count\":10,\"created_at\":\"2016-02-23T19:57:29.532Z\",\"updated_at\":\"2016-02-23T19:57:29.532Z\",\"identities\":[]}";
 
     @Test
+    public void shouldHaveEmptyValuesByDefault() throws Exception{
+        User user = new User();
+        assertThat(user.getValues(), is(notNullValue()));
+
+        User user2 = new User("my-connection");
+        assertThat(user2.getConnection(), is("my-connection"));
+        assertThat(user2.getValues(), is(notNullValue()));
+    }
+
+    @Test
     public void shouldSerialize() throws Exception {
         User user = new User("auth0");
         user.setPassword("pwd");
