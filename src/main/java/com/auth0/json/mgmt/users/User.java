@@ -74,7 +74,7 @@ public class User {
     private Boolean blocked;
     private Map<String, Object> values;
 
-    User() {
+    public User() {
         this(null);
     }
 
