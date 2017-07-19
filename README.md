@@ -59,7 +59,7 @@ String url = auth.authorizeUrl("https://me.auth0.com/callback")
 ```
 
 ### Logout - /v2/logout
-Creates a `LogoutUrlBuilder` to log out the user. The `returnToUrl` must be white-listed in the "Allowed Logout URLs" section of the Client Settings. Parameters can be added to the final url by using the builder methods. When ready, call `build()` and obtain the Url.
+Creates a `LogoutUrlBuilder` to log out the user. The `returnToUrl` must be white-listed in the "Allowed Logout URLs" section of the Dashboard, depending on the value of `setClientId` this configuration should be set in the Client or in the Tenant. Parameters can be added to the final url by using the builder methods. When ready, call `build()` and obtain the Url.
 
 `LogoutUrlBuilder logoutUrl(String returnToUrl, boolean setClientId)`
 
@@ -67,7 +67,7 @@ Example:
 ```java
 String url = auth.logoutUrl("https://me.auth0.com/home", true)
     .useFederated(true)
-    .withAccessToken("aToKen");
+    .build();
 ```
 
 ### UserInfo - /userinfo

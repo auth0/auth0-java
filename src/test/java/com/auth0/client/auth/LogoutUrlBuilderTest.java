@@ -86,22 +86,6 @@ public class LogoutUrlBuilderTest {
     }
 
     @Test
-    public void shouldSetAccessToken() throws Exception {
-        String url = LogoutUrlBuilder.newInstance(DOMAIN, CLIENT_ID, RETURN_TO_URL, true)
-                .withAccessToken("accessToken")
-                .build();
-        assertThat(url, hasQueryParameter("access_token", "accessToken"));
-    }
-
-    @Test
-    public void shouldThrowWhenAccessTokenIsNull() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'access token' cannot be null!");
-        LogoutUrlBuilder.newInstance(DOMAIN, CLIENT_ID, RETURN_TO_URL, true)
-                .withAccessToken(null);
-    }
-
-    @Test
     public void shouldUseFederated() throws Exception {
         String url = LogoutUrlBuilder.newInstance(DOMAIN, CLIENT_ID, RETURN_TO_URL, true)
                 .useFederated(true)
