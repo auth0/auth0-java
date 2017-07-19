@@ -23,6 +23,7 @@ public class LogoutUrlBuilder {
      * @param clientId    the client_id value to set
      * @param returnToUrl the returnTo value to set. Must be already URL Encoded and must be white-listed in your Auth0's dashboard.
      * @param setClientId whether the client_id value must be set or not. This affects the white-list that the Auth0's Dashboard uses to validate the returnTo url.
+     *                    If the client_id is set, the white-list is read from the Client configuration. If the client_id is not set, the white-list is read from the Tenant configuration.
      * @return a new instance of the {@link LogoutUrlBuilder} to configure.
      */
     static LogoutUrlBuilder newInstance(HttpUrl baseUrl, String clientId, String returnToUrl, boolean setClientId) {
@@ -41,18 +42,6 @@ public class LogoutUrlBuilder {
         if (clientId != null) {
             builder.addQueryParameter("client_id", clientId);
         }
-    }
-
-    /**
-     * Sets the access token value.
-     *
-     * @param accessToken access token to set
-     * @return the builder instance
-     */
-    public LogoutUrlBuilder withAccessToken(String accessToken) {
-        assertNotNull(accessToken, "access token");
-        parameters.put("access_token", accessToken);
-        return this;
     }
 
     /**
