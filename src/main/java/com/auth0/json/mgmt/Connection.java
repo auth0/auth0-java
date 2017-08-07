@@ -26,6 +26,8 @@ public class Connection {
     private String strategy;
     @JsonProperty("enabled_clients")
     private List<String> enabledClients = null;
+    @JsonProperty("provisioning_ticket_url")
+    private String provisioningTicketUrl;
 
     public Connection() {
     }
@@ -104,6 +106,16 @@ public class Connection {
     @JsonProperty("enabled_clients")
     public void setEnabledClients(List<String> enabledClients) {
         this.enabledClients = enabledClients;
+    }
+    
+    /**
+     * Getter for the ad/ldap connection's ticket url.
+     *
+     * @return the provisioning ticket url.
+     */
+    @JsonProperty("provisioning_ticket_url")
+    public String getProvisioningTicketUrl() {
+        return provisioningTicketUrl;
     }
 
 }
