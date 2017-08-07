@@ -1,5 +1,17 @@
 # Change Log
 
+## [1.2.0](https://github.com/auth0/auth0-java/tree/1.2.0) (2017-08-07)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.1.0...1.2.0)
+**Closed issues**
+- Get AD connection's provisioning_ticket_url property [\#66](https://github.com/auth0/auth0-java/issues/66)
+
+**Added**
+- Add support for provisioning_ticket_url property to Connection POJO [\#67](https://github.com/auth0/auth0-java/pull/67) ([unnamed38](https://github.com/unnamed38))
+- Add public User constructor without parameters [\#59](https://github.com/auth0/auth0-java/pull/59) ([lbalmaceda](https://github.com/lbalmaceda))
+
+**Removed**
+- Remove invalid Logout URL parameter [\#65](https://github.com/auth0/auth0-java/pull/65) ([lbalmaceda](https://github.com/lbalmaceda))
+
 ## [1.1.0](https://github.com/auth0/auth0-java/tree/1.1.0) (2017-05-23)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.0.0...1.1.0)
 
