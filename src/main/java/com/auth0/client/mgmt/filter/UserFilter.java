@@ -1,7 +1,5 @@
 package com.auth0.client.mgmt.filter;
 
-import java.io.UnsupportedEncodingException;
-
 /**
  * Class used to filter the results received when calling the Users endpoint. Related to the {@link com.auth0.client.mgmt.UsersEntity} entity.
  */
@@ -21,7 +19,7 @@ public class UserFilter extends QueryFilter {
     }
 
     @Override
-    public UserFilter withQuery(String query) throws UnsupportedEncodingException {
+    public UserFilter withQuery(String query) {
         super.withQuery(query);
         return this;
     }

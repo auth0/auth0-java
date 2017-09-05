@@ -13,10 +13,21 @@ public class QueryFilter extends FieldsFilter {
      * @param query the query expression using the following syntax https://auth0.com/docs/api/management/v2/query-string-syntax.
      * @return this filter instance
      */
-    public QueryFilter withQuery(String query) throws UnsupportedEncodingException {
-        String encodedQuery = URLEncoder.encode(query, "UTF-8");
-        parameters.put(KEY_QUERY, encodedQuery);
-        return this;
+    public QueryFilter withQuery(String query) {
+        try {
+            String encodedQuery = urlEncode(query);
+            parameters.put(KEY_QUERY, encodedQuery);
+            return this;
+        } catch (UnsupportedEncodingException ex) {
+            //"Every implementation of the Java platform is required to support the following standard charsets [...]: UTF-8"
+            //cf. https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html
+            throw new IllegalStateException("UTF-8 encoding not supported by current Java platform implementation.", ex);
+        }
+        
+    }
+
+    String urlEncode(String query) throws UnsupportedEncodingException {
+        return URLEncoder.encode(query, "UTF-8");
     }
 
     /**
