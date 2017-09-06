@@ -24,7 +24,7 @@ public class GrantsEntity extends BaseManagementEntity {
     }
 
     /**
-     * Request all Grants. A token with scope read:client_grants is needed.
+     * Request all Grants. A token with scope read:grants is needed
      * See https://auth0.com/docs/api/management/v2#!/Grants/get_grants
      *
      * @param userId The user id of the grants to retrieve 
@@ -46,7 +46,7 @@ public class GrantsEntity extends BaseManagementEntity {
     }
 
     /**
-     * Delete an existing Grant. A token with scope delete:client_grants is needed.
+     * Delete an existing Grant. A token with scope delete:grants is needed.
      * See https://auth0.com/docs/api/management/v2#!/Grants/delete_grants_by_id<br>
      *
      * @param grantId The id of the grant to delete.
@@ -67,7 +67,7 @@ public class GrantsEntity extends BaseManagementEntity {
     }
     
     /**
-     * Deletes all Grants of a given user. A token with scope delete:client_grants is needed.
+     * Deletes all Grants of a given user. A token with scope delete:grants is needed.
      * See https://auth0.com/docs/api/management/v2#!/Grants/delete_grants_by_id<br>
      *
      * @param userId The id of the user whose grants are deleted.
