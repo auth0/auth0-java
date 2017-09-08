@@ -6,9 +6,20 @@ import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.Matchers.isA;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.spy;
+
+import java.io.UnsupportedEncodingException;
+
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 
 public class QueryFilterTest {
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     private QueryFilter filter;
 
@@ -73,4 +84,16 @@ public class QueryFilterTest {
         assertThat(filter.getAsMap(), Matchers.hasEntry("fields", (Object) "a,b,c"));
         assertThat(filter.getAsMap(), Matchers.hasEntry("include_fields", (Object) false));
     }
+
+    @Test
+    public void shouldThrowIllegalStateExceptionWhenUtf8IsNotSupported() throws Exception {
+        exception.expect(IllegalStateException.class);
+        exception.expectMessage("UTF-8 encoding not supported by current Java platform implementation.");
+        exception.expectCause(isA(UnsupportedEncodingException.class));
+        String value = "my test value";
+        QueryFilter filter = spy(new QueryFilter());
+        doThrow(UnsupportedEncodingException.class).when(filter).urlEncode(value);
+        filter.withQuery(value);
+    }
+
 }
