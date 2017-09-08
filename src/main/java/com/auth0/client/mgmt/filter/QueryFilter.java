@@ -23,11 +23,6 @@ public class QueryFilter extends FieldsFilter {
             //cf. https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html
             throw new IllegalStateException("UTF-8 encoding not supported by current Java platform implementation.", ex);
         }
-        
-    }
-
-    String urlEncode(String query) throws UnsupportedEncodingException {
-        return URLEncoder.encode(query, "UTF-8");
     }
 
     /**
@@ -69,6 +64,11 @@ public class QueryFilter extends FieldsFilter {
     public QueryFilter withFields(String fields, boolean includeFields) {
         super.withFields(fields, includeFields);
         return this;
+    }
+    
+    //Visible for testing
+    String urlEncode(String query) throws UnsupportedEncodingException {
+        return URLEncoder.encode(query, "UTF-8");
     }
 
 }
