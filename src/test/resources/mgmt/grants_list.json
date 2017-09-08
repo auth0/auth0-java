@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "clientID": "clientId1",
+    "audience": "audience1",
+    "user_id": "userId",
+    "scope": [
+      "openid",
+      "profile"
+    ]
+  },
+  {
+    "id": "2",
+    "clientID": "clientId2",
+    "user_id": "userId",
+    "audience": "audience2",
+    "scope": [
+      "openid",
+      "profile"
+    ]
+  }
+]

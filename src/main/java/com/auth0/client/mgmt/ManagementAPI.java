@@ -114,6 +114,15 @@ public class ManagementAPI {
     public DeviceCredentialsEntity deviceCredentials() {
         return new DeviceCredentialsEntity(client, baseUrl, apiToken);
     }
+    
+    /**
+     * Getter for the Grants entity.
+     *
+     * @return the Grants entity.
+     */
+    public GrantsEntity grants() {
+        return new GrantsEntity(client, baseUrl, apiToken);
+    }
 
     /**
      * Getter for the Log Events entity.
