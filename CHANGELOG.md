@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.3.0](https://github.com/auth0/auth0-java/tree/1.3.0) (2017-09-08)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.2.0...1.3.0)
+
+**Added**
+- implemented /api/v2/grants endpoint of auth0 management api [\#74](https://github.com/auth0/auth0-java/pull/74) ([neshanjo](https://github.com/neshanjo))
+
+**Changed**
+- removed unmotivated throwing of UnsupportedEncodingException [\#75](https://github.com/auth0/auth0-java/pull/75) ([neshanjo](https://github.com/neshanjo))
+
 ## [1.2.0](https://github.com/auth0/auth0-java/tree/1.2.0) (2017-08-07)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.1.0...1.2.0)
 **Closed issues**
