@@ -1,5 +1,13 @@
 # Change Log
 
+## [1.3.1](https://github.com/auth0/auth0-java/tree/1.3.1) (2017-11-01)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.3.0...1.3.1)
+**Closed issues**
+- NullPointerException, StdDeserializer [\#78](https://github.com/auth0/auth0-java/issues/78)
+
+**Fixed**
+- Upgrade Jackson-databind dependency [\#82](https://github.com/auth0/auth0-java/pull/82) ([LuisSaybe](https://github.com/LuisSaybe))
+
 ## [1.3.0](https://github.com/auth0/auth0-java/tree/1.3.0) (2017-09-08)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.2.0...1.3.0)
 
