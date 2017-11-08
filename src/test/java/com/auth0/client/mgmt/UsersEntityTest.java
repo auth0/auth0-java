@@ -1,5 +1,6 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.client.mgmt.filter.LogEventFilter;
 import com.auth0.client.mgmt.filter.UserFilter;
 import com.auth0.json.mgmt.guardian.Enrollment;
@@ -22,6 +23,57 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 public class UsersEntityTest extends BaseMgmtEntityTest {
+
+    @Test
+    public void shouldListUsersByEmail() throws Exception {
+        Request<List<User>> request = api.users().listByEmail("johndoe@auth0.com", null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USERS_LIST, 200);
+        List<User> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users-by-email"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("email", "johndoe@auth0.com"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, hasSize(2));
+    }
+
+    @Test
+    public void shouldListUsersByEmailWithFields() throws Exception {
+        FieldsFilter filter = new FieldsFilter().withFields("some,random,fields", true);
+        Request<List<User>> request = api.users().listByEmail("johndoe@auth0.com", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USERS_LIST, 200);
+        List<User> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users-by-email"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("email", "johndoe@auth0.com"));
+        assertThat(recordedRequest, hasQueryParameter("fields", "some,random,fields"));
+        assertThat(recordedRequest, hasQueryParameter("include_fields", "true"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, hasSize(2));
+    }
+
+    @Test
+    public void shouldReturnEmptyUsersByEmail() throws Exception {
+        Request<List<User>> request = api.users().listByEmail("missing@auth0.com", null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_EMPTY_LIST, 200);
+        List<User> response = request.execute();
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, is(emptyCollectionOf(User.class)));
+    }
 
     @Test
     public void shouldListUsers() throws Exception {

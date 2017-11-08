@@ -1,5 +1,6 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.client.mgmt.filter.LogEventFilter;
 import com.auth0.client.mgmt.filter.UserFilter;
 import com.auth0.json.mgmt.guardian.Enrollment;
@@ -23,13 +24,42 @@ import java.util.Map;
 import static com.auth0.client.mgmt.filter.QueryFilter.KEY_QUERY;
 
 /**
- * Class that provides an implementation of the Users methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Users
+ * Class that provides an implementation of the Users methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Users and https://auth0.com/docs/api/management/v2#!/Users_By_Email
  */
 @SuppressWarnings("WeakerAccess")
 public class UsersEntity extends BaseManagementEntity {
 
     UsersEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
+    }
+
+    /**
+     * Request all the Users that match a given email. A token with scope read:users is needed.
+     * If you want the identities.access_token property to be included, you will also need the scope read:user_idp_tokens.
+     * See https://auth0.com/docs/api/management/v2#!/Users_By_Email/get_users_by_email
+     *
+     * @param email  the email of the users to look up.
+     * @param filter the filter to use. Can be null.
+     * @return a Request to execute.
+     */
+    public Request<List<User>> listByEmail(String email, FieldsFilter filter) {
+        Asserts.assertNotNull(email, "email");
+
+        HttpUrl.Builder builder = baseUrl
+                .newBuilder()
+                .addPathSegments("api/v2/users-by-email");
+        builder.addQueryParameter("email", email);
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+
+        String url = builder.build().toString();
+        CustomRequest<List<User>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<User>>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
     }
 
     /**

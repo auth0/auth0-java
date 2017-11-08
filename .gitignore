@@ -119,6 +119,7 @@ gradle-app.setting
 modules.xml
 .idea/misc.xml
 *.ipr
+/out/
 
 # End of https://www.gitignore.io/api/intellij+iml
 
