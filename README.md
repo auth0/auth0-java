@@ -285,7 +285,7 @@ You can pass an optional Filter to narrow the results in the response.
 Example:
 ```java
 FieldsFilter filter = new FieldsFilter(...);
-Request<UsersPage> request = mgmt.users().list("johndoe@auth0.com", filter);
+Request<UsersPage> request = mgmt.users().listByEmail("johndoe@auth0.com", filter);
 try {
     UsersPage response = request.execute();
 } catch (APIException exception) {
