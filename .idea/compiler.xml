@@ -5,7 +5,7 @@
       <module name="auth0-java_main" target="1.7" />
       <module name="auth0-java_test" target="1.7" />
       <module name="auth0_main" target="1.7" />
-      <module name="auth0_test" target="1.7" />
+      <module name="auth0_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
