@@ -1,0 +1,44 @@
+[
+  {
+    "id": "23445566abab",
+    "name": "Some API",
+    "identifier": "https://api.my-company.com/api/v2/",
+    "signing_alg": "RS256",
+    "token_lifetime": 86400,
+    "token_lifetime_for_web": 7200,
+    "allow_offline_access": false,
+    "skip_consent_for_verifiable_first_party_clients": false,
+    "scopes": [
+      {
+        "description": "Read Client Grants",
+        "value": "read:client_grants"
+      },
+      {
+        "description": "Create Client Grants",
+        "value": "create:client_grants"
+      }
+    ],
+    "is_system": true
+  },
+  {
+    "id": "3223232da",
+    "name": "Another API",
+    "identifier": "https://another-api.my-company.com/api/v2/",
+    "signing_alg": "RS256",
+    "token_lifetime": 86400,
+    "token_lifetime_for_web": 7200,
+    "allow_offline_access": false,
+    "skip_consent_for_verifiable_first_party_clients": false,
+    "scopes": [
+      {
+        "description": "Read Client Grants",
+        "value": "read:client_grants"
+      },
+      {
+        "description": "Create Client Grants",
+        "value": "create:client_grants"
+      }
+    ],
+    "is_system": true
+  }
+]
