@@ -1,25 +1,27 @@
 package com.auth0.client.mgmt;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import com.auth0.client.mgmt.builder.RequestBuilder;
 import com.auth0.json.mgmt.DailyStats;
-import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
 /**
  * Class that provides an implementation of the Stats methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Stats
  */
 @SuppressWarnings("WeakerAccess")
-public class StatsEntity extends BaseManagementEntity {
+public class StatsEntity {
+    private final static SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyyMMdd");
+    private final RequestBuilder requestBuilder;
 
     StatsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+        requestBuilder = new RequestBuilder(client, baseUrl, apiToken);
     }
 
     /**
@@ -29,16 +31,9 @@ public class StatsEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request<Integer> getActiveUsersCount() {
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/stats/active-users")
-                .build()
-                .toString();
-
-        CustomRequest<Integer> request = new CustomRequest<>(client, url, "GET", new TypeReference<Integer>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.get("api/v2/stats/active-users")
+                             .request(new TypeReference<Integer>() {
+                             });
     }
 
     /**
@@ -53,24 +48,14 @@ public class StatsEntity extends BaseManagementEntity {
         Asserts.assertNotNull(from, "date from");
         Asserts.assertNotNull(to, "date to");
 
-        String dateFrom = formatDate(from);
-        String dateTo = formatDate(to);
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/stats/daily")
-                .addQueryParameter("from", dateFrom)
-                .addQueryParameter("to", dateTo)
-                .build()
-                .toString();
-
-        CustomRequest<List<DailyStats>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<DailyStats>>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.get("api/v2/stats/daily")
+                             .queryParameter("from", formatDate(from))
+                             .queryParameter("to", formatDate(to))
+                             .request(new TypeReference<List<DailyStats>>() {
+                             });
     }
 
     protected String formatDate(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        return sdf.format(date);
+        return SIMPLE_DATE_FORMAT.format(date);
     }
 }

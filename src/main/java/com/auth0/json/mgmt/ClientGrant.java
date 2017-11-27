@@ -1,10 +1,10 @@
 package com.auth0.json.mgmt;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.List;
 
 /**
  * Class that represents an Auth0 Client Grant object. Related to the {@link com.auth0.client.mgmt.ClientGrantsEntity} entity.
@@ -22,6 +22,15 @@ public class ClientGrant {
     private String audience;
     @JsonProperty("scope")
     private List<String> scope;
+
+    public ClientGrant() {
+    }
+
+    public ClientGrant(String clientId, String audience, List<String> scope) {
+        this.clientId = clientId;
+        this.audience = audience;
+        this.scope = scope;
+    }
 
     /**
      * Getter for the id of the client grant.

@@ -1,26 +1,24 @@
 package com.auth0.client.mgmt;
 
+import java.util.List;
+
+import com.auth0.client.mgmt.builder.RequestBuilder;
 import com.auth0.client.mgmt.filter.RulesFilter;
 import com.auth0.json.mgmt.Rule;
-import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
-import com.auth0.net.VoidRequest;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * Class that provides an implementation of the Rules methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Rules
  */
 @SuppressWarnings("WeakerAccess")
-public class RulesEntity extends BaseManagementEntity {
-
+public class RulesEntity {
+    private final RequestBuilder requestBuilder;
     RulesEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+        requestBuilder = new RequestBuilder(client, baseUrl, apiToken);
     }
 
     /**
@@ -31,19 +29,11 @@ public class RulesEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request<List<Rule>> list(RulesFilter filter) {
-        HttpUrl.Builder builder = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/rules");
-        if (filter != null) {
-            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
-            }
-        }
-        String url = builder.build().toString();
-        CustomRequest<List<Rule>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Rule>>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+
+        return requestBuilder.get("api/v2/rules")
+                             .queryParameters(filter)
+                             .request(new TypeReference<List<Rule>>() {
+                             });
     }
 
     /**
@@ -57,20 +47,10 @@ public class RulesEntity extends BaseManagementEntity {
     public Request<Rule> get(String ruleId, RulesFilter filter) {
         Asserts.assertNotNull(ruleId, "rule id");
 
-        HttpUrl.Builder builder = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/rules")
-                .addPathSegment(ruleId);
-        if (filter != null) {
-            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
-            }
-        }
-        String url = builder.build().toString();
-        CustomRequest<Rule> request = new CustomRequest<>(client, url, "GET", new TypeReference<Rule>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.get("api/v2/rules", ruleId)
+                             .queryParameters(filter)
+                             .request(new TypeReference<Rule>() {
+                             });
     }
 
     /**
@@ -83,16 +63,10 @@ public class RulesEntity extends BaseManagementEntity {
     public Request<Rule> create(Rule rule) {
         Asserts.assertNotNull(rule, "rule");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/rules")
-                .build()
-                .toString();
-        CustomRequest<Rule> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<Rule>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.setBody(rule);
-        return request;
+        return requestBuilder.post("api/v2/rules")
+                             .body(rule)
+                             .request(new TypeReference<Rule>() {
+                             });
     }
 
     /**
@@ -105,15 +79,8 @@ public class RulesEntity extends BaseManagementEntity {
     public Request delete(String ruleId) {
         Asserts.assertNotNull(ruleId, "rule id");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/rules")
-                .addPathSegment(ruleId)
-                .build()
-                .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.delete("api/v2/rules", ruleId)
+                             .request();
     }
 
     /**
@@ -128,16 +95,9 @@ public class RulesEntity extends BaseManagementEntity {
         Asserts.assertNotNull(ruleId, "rule id");
         Asserts.assertNotNull(rule, "rule");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/rules")
-                .addPathSegment(ruleId)
-                .build()
-                .toString();
-        CustomRequest<Rule> request = new CustomRequest<>(this.client, url, "PATCH", new TypeReference<Rule>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.setBody(rule);
-        return request;
+        return requestBuilder.patch("api/v2/rules", ruleId)
+                             .body(rule)
+                             .request(new TypeReference<Rule>() {
+                             });
     }
 }

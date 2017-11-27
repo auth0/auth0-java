@@ -1,24 +1,24 @@
 package com.auth0.client.mgmt;
 
+import java.util.List;
+
+import com.auth0.client.mgmt.builder.RequestBuilder;
 import com.auth0.json.mgmt.Token;
-import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
-import com.auth0.net.VoidRequest;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
-import java.util.List;
-
 /**
  * Class that provides an implementation of the Blacklists methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Blacklists
  */
 @SuppressWarnings("WeakerAccess")
-public class BlacklistsEntity extends BaseManagementEntity {
+public class BlacklistsEntity {
+    private final RequestBuilder requestBuilder;
 
     BlacklistsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+        requestBuilder = new RequestBuilder(client, baseUrl, apiToken);
     }
 
     /**
@@ -31,16 +31,10 @@ public class BlacklistsEntity extends BaseManagementEntity {
     public Request<List<Token>> getBlacklist(String audience) {
         Asserts.assertNotNull(audience, "audience");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/blacklists/tokens")
-                .addQueryParameter("aud", audience)
-                .build()
-                .toString();
-        CustomRequest<List<Token>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Token>>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.get("api/v2/blacklists/tokens")
+                             .queryParameter("aud", audience)
+                             .request(new TypeReference<List<Token>>() {
+                             });
     }
 
     /**
@@ -53,14 +47,8 @@ public class BlacklistsEntity extends BaseManagementEntity {
     public Request blacklistToken(Token token) {
         Asserts.assertNotNull(token, "token");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/blacklists/tokens")
-                .build()
-                .toString();
-        VoidRequest request = new VoidRequest(client, url, "POST");
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.setBody(token);
-        return request;
+        return requestBuilder.post("api/v2/blacklists/tokens")
+                             .body(token)
+                             .request();
     }
 }

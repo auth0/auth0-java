@@ -2,10 +2,9 @@ package com.auth0.client.mgmt;
 
 import java.util.List;
 
+import com.auth0.client.mgmt.builder.RequestBuilder;
 import com.auth0.json.mgmt.ResourceServer;
-import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
-import com.auth0.net.VoidRequest;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
@@ -15,14 +14,10 @@ import okhttp3.OkHttpClient;
  * Class that provides an implementation of the Resource Server methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Resource_Servers
  */
 public class ResourceServerEntity  {
-    private OkHttpClient client;
-    private HttpUrl baseUrl;
-    private String apiToken;
+    private final RequestBuilder requestBuilder;
 
     ResourceServerEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        this.client = client;
-        this.baseUrl = baseUrl;
-        this.apiToken = apiToken;
+        requestBuilder = new RequestBuilder(client, baseUrl, apiToken);
     }
 
     /**
@@ -33,16 +28,9 @@ public class ResourceServerEntity  {
      */
     public Request<List<ResourceServer>> list() {
 
-        HttpUrl.Builder builder = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/resource-servers");
-
-        String url = builder.build().toString();
-        CustomRequest<List<ResourceServer>> request = new CustomRequest<>(client, url, "GET",
-                                                                          new TypeReference<List<ResourceServer>>() {
-                                                                          });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.get("api/v2/resource-servers")
+                             .request(new TypeReference<List<ResourceServer>>() {
+                             });
     }
 
     /**
@@ -55,17 +43,9 @@ public class ResourceServerEntity  {
     public Request<ResourceServer> get(String resourceServerIdOrIdentifier) {
         Asserts.assertNotNull(resourceServerIdOrIdentifier, "Resource server ID");
 
-        HttpUrl.Builder builder = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/resource-servers")
-                .addPathSegment(resourceServerIdOrIdentifier);
-
-        String url = builder.build().toString();
-        CustomRequest<ResourceServer> request = new CustomRequest<>(client, url, "GET",
-                                                                    new TypeReference<ResourceServer>() {
-                                                                    });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.get("api/v2/resource-servers", resourceServerIdOrIdentifier)
+                             .request(new TypeReference<ResourceServer>() {
+                             });
     }
 
     /**
@@ -78,17 +58,10 @@ public class ResourceServerEntity  {
     public Request<ResourceServer> create(ResourceServer resourceServer) {
         Asserts.assertNotNull(resourceServer, "Resource server");
 
-        HttpUrl.Builder builder = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/resource-servers");
-
-        String url = builder.build().toString();
-        CustomRequest<ResourceServer> request = new CustomRequest<>(client, url, "POST",
-                                                                    new TypeReference<ResourceServer>() {
-                                                                    });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.setBody(resourceServer);
-        return request;
+        return requestBuilder.post("api/v2/resource-servers")
+                             .body(resourceServer)
+                             .request(new TypeReference<ResourceServer>() {
+                             });
     }
 
     /**
@@ -101,15 +74,8 @@ public class ResourceServerEntity  {
     public Request<Void> delete(String resourceServerId) {
         Asserts.assertNotNull(resourceServerId, "Resource server ID");
 
-        HttpUrl.Builder builder = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/resource-servers")
-                .addPathSegment(resourceServerId);
-
-        String url = builder.build().toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.delete("api/v2/resource-servers", resourceServerId)
+                             .request();
     }
 
     /**
@@ -124,17 +90,9 @@ public class ResourceServerEntity  {
         Asserts.assertNotNull(resourceServerId, "resourceServerId");
         Asserts.assertNotNull(resourceServer, "resourceServer");
 
-        HttpUrl.Builder builder = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/resource-servers")
-                .addPathSegment(resourceServerId);
-
-        String url = builder.build().toString();
-        CustomRequest<ResourceServer> request = new CustomRequest<ResourceServer>(client, url, "PATCH",
-                                                                                  new TypeReference<ResourceServer>() {
-                                                                                  });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.setBody(resourceServer);
-        return request;
+        return requestBuilder.patch("api/v2/resource-servers", resourceServerId)
+                             .body(resourceServer)
+                             .request(new TypeReference<ResourceServer>() {
+                             });
     }
 }

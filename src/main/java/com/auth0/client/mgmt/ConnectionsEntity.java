@@ -1,26 +1,26 @@
 package com.auth0.client.mgmt;
 
+import java.util.List;
+
+import com.auth0.client.mgmt.builder.RequestBuilder;
 import com.auth0.client.mgmt.filter.ConnectionFilter;
 import com.auth0.json.mgmt.Connection;
-import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
-import com.auth0.net.VoidRequest;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * Class that provides an implementation of the Clients methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Connections
  */
 @SuppressWarnings("WeakerAccess")
-public class ConnectionsEntity extends BaseManagementEntity {
+public class ConnectionsEntity {
+
+    private final RequestBuilder requestBuilder;
 
     ConnectionsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+        requestBuilder = new RequestBuilder(client, baseUrl, apiToken);
     }
 
     /**
@@ -31,19 +31,10 @@ public class ConnectionsEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request<List<Connection>> list(ConnectionFilter filter) {
-        HttpUrl.Builder builder = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/connections");
-        if (filter != null) {
-            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
-            }
-        }
-        String url = builder.build().toString();
-        CustomRequest<List<Connection>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Connection>>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.get("api/v2/connections")
+                             .queryParameters(filter)
+                             .request(new TypeReference<List<Connection>>() {
+                             });
     }
 
     /**
@@ -56,21 +47,10 @@ public class ConnectionsEntity extends BaseManagementEntity {
      */
     public Request<Connection> get(String connectionId, ConnectionFilter filter) {
         Asserts.assertNotNull(connectionId, "connection id");
-
-        HttpUrl.Builder builder = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/connections")
-                .addPathSegment(connectionId);
-        if (filter != null) {
-            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
-            }
-        }
-        String url = builder.build().toString();
-        CustomRequest<Connection> request = new CustomRequest<>(client, url, "GET", new TypeReference<Connection>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.get("api/v2/connections", connectionId)
+                             .queryParameters(filter)
+                             .request(new TypeReference<Connection>() {
+                             });
     }
 
     /**
@@ -83,16 +63,10 @@ public class ConnectionsEntity extends BaseManagementEntity {
     public Request<Connection> create(Connection connection) {
         Asserts.assertNotNull(connection, "connection");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/connections")
-                .build()
-                .toString();
-        CustomRequest<Connection> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<Connection>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.setBody(connection);
-        return request;
+        return requestBuilder.post("api/v2/connections")
+                             .body(connection)
+                             .request(new TypeReference<Connection>() {
+                             });
     }
 
     /**
@@ -105,15 +79,8 @@ public class ConnectionsEntity extends BaseManagementEntity {
     public Request delete(String connectionId) {
         Asserts.assertNotNull(connectionId, "connection id");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/connections")
-                .addPathSegment(connectionId)
-                .build()
-                .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.delete("api/v2/connections", connectionId)
+                             .request();
     }
 
     /**
@@ -128,17 +95,10 @@ public class ConnectionsEntity extends BaseManagementEntity {
         Asserts.assertNotNull(connectionId, "connection id");
         Asserts.assertNotNull(connection, "connection");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/connections")
-                .addPathSegment(connectionId)
-                .build()
-                .toString();
-        CustomRequest<Connection> request = new CustomRequest<>(this.client, url, "PATCH", new TypeReference<Connection>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.setBody(connection);
-        return request;
+        return requestBuilder.patch("api/v2/connections", connectionId)
+                             .body(connection)
+                             .request(new TypeReference<Connection>() {
+                             });
     }
 
     /**
@@ -153,16 +113,8 @@ public class ConnectionsEntity extends BaseManagementEntity {
         Asserts.assertNotNull(connectionId, "connection id");
         Asserts.assertNotNull(email, "email");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/connections")
-                .addPathSegment(connectionId)
-                .addPathSegment("users")
-                .addQueryParameter("email", email)
-                .build()
-                .toString();
-        VoidRequest request = new VoidRequest(this.client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.delete("api/v2/connections", connectionId, "users")
+                             .queryParameter("email", email)
+                             .request();
     }
 }

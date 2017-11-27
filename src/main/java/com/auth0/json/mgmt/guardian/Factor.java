@@ -21,7 +21,7 @@ public class Factor {
     private String name;
 
     @JsonCreator
-    Factor(@JsonProperty("enabled") Boolean enabled) {
+    public Factor(@JsonProperty("enabled") Boolean enabled) {
         this.enabled = enabled;
     }
 

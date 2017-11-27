@@ -1,5 +1,10 @@
 package com.auth0.client.mgmt;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.auth0.client.mgmt.builder.RequestBuilder;
 import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.client.mgmt.filter.LogEventFilter;
 import com.auth0.client.mgmt.filter.UserFilter;
@@ -9,28 +14,21 @@ import com.auth0.json.mgmt.users.Identity;
 import com.auth0.json.mgmt.users.RecoveryCode;
 import com.auth0.json.mgmt.users.User;
 import com.auth0.json.mgmt.users.UsersPage;
-import com.auth0.net.CustomRequest;
-import com.auth0.net.EmptyBodyRequest;
 import com.auth0.net.Request;
-import com.auth0.net.VoidRequest;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
-import java.util.List;
-import java.util.Map;
-
-import static com.auth0.client.mgmt.filter.QueryFilter.KEY_QUERY;
-
 /**
  * Class that provides an implementation of the Users methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Users and https://auth0.com/docs/api/management/v2#!/Users_By_Email
  */
 @SuppressWarnings("WeakerAccess")
-public class UsersEntity extends BaseManagementEntity {
+public class UsersEntity {
+    private final RequestBuilder requestBuilder;
 
     UsersEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+        requestBuilder = new RequestBuilder(client, baseUrl, apiToken);
     }
 
     /**
@@ -45,21 +43,11 @@ public class UsersEntity extends BaseManagementEntity {
     public Request<List<User>> listByEmail(String email, FieldsFilter filter) {
         Asserts.assertNotNull(email, "email");
 
-        HttpUrl.Builder builder = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/users-by-email");
-        builder.addQueryParameter("email", email);
-        if (filter != null) {
-            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
-            }
-        }
-
-        String url = builder.build().toString();
-        CustomRequest<List<User>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<User>>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+       return requestBuilder.get("api/v2/users-by-email")
+                      .queryParameter("email", email)
+                      .queryParameters(filter)
+                      .request(new TypeReference<List<User>>() {
+                      });
     }
 
     /**
@@ -71,23 +59,11 @@ public class UsersEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request<UsersPage> list(UserFilter filter) {
-        HttpUrl.Builder builder = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/users");
-        if (filter != null) {
-            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                if (KEY_QUERY.equals(e.getKey())) {
-                    builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
-                } else {
-                    builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
-                }
-            }
-        }
-        String url = builder.build().toString();
-        CustomRequest<UsersPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<UsersPage>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+
+        return requestBuilder.get("api/v2/users")
+                             .queryParameters(filter)
+                             .request(new TypeReference<UsersPage>() {
+                             });
     }
 
     /**
@@ -102,20 +78,10 @@ public class UsersEntity extends BaseManagementEntity {
     public Request<User> get(String userId, UserFilter filter) {
         Asserts.assertNotNull(userId, "user id");
 
-        HttpUrl.Builder builder = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/users")
-                .addPathSegment(userId);
-        if (filter != null) {
-            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
-            }
-        }
-        String url = builder.build().toString();
-        CustomRequest<User> request = new CustomRequest<>(client, url, "GET", new TypeReference<User>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.get("api/v2/users", userId)
+                             .queryParameters(filter)
+                             .request(new TypeReference<User>() {
+                             });
     }
 
     /**
@@ -128,16 +94,10 @@ public class UsersEntity extends BaseManagementEntity {
     public Request<User> create(User user) {
         Asserts.assertNotNull(user, "user");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/users")
-                .build()
-                .toString();
-        CustomRequest<User> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<User>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.setBody(user);
-        return request;
+        return requestBuilder.post("api/v2/users")
+                             .body(user)
+                             .request(new TypeReference<User>() {
+                             });
     }
 
     /**
@@ -150,15 +110,8 @@ public class UsersEntity extends BaseManagementEntity {
     public Request delete(String userId) {
         Asserts.assertNotNull(userId, "user id");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/users")
-                .addPathSegment(userId)
-                .build()
-                .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.delete("api/v2/users", userId)
+                             .request();
     }
 
     /**
@@ -173,17 +126,10 @@ public class UsersEntity extends BaseManagementEntity {
         Asserts.assertNotNull(userId, "user id");
         Asserts.assertNotNull(user, "user");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/users")
-                .addPathSegment(userId)
-                .build()
-                .toString();
-        CustomRequest<User> request = new CustomRequest<>(this.client, url, "PATCH", new TypeReference<User>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.setBody(user);
-        return request;
+        return requestBuilder.patch("api/v2/users", userId)
+                             .body(user)
+                             .request(new TypeReference<User>() {
+                             });
     }
 
     /**
@@ -196,18 +142,9 @@ public class UsersEntity extends BaseManagementEntity {
     public Request<List<Enrollment>> getEnrollments(String userId) {
         Asserts.assertNotNull(userId, "user id");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/users")
-                .addPathSegment(userId)
-                .addPathSegment("enrollments")
-                .build()
-                .toString();
-
-        CustomRequest<List<Enrollment>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Enrollment>>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.get("api/v2/users", userId, "enrollments")
+                             .request(new TypeReference<List<Enrollment>>() {
+                             });
     }
 
     /**
@@ -221,21 +158,10 @@ public class UsersEntity extends BaseManagementEntity {
     public Request<LogEventsPage> getLogEvents(String userId, LogEventFilter filter) {
         Asserts.assertNotNull(userId, "user id");
 
-        HttpUrl.Builder builder = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/users")
-                .addPathSegment(userId)
-                .addPathSegment("logs");
-        if (filter != null) {
-            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
-            }
-        }
-        String url = builder.build().toString();
-        CustomRequest<LogEventsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<LogEventsPage>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.get("api/v2/users", userId, "logs")
+                             .queryParameters(filter)
+                             .request(new TypeReference<LogEventsPage>() {
+                             });
     }
 
     /**
@@ -250,17 +176,8 @@ public class UsersEntity extends BaseManagementEntity {
         Asserts.assertNotNull(userId, "user id");
         Asserts.assertNotNull(provider, "provider");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/users")
-                .addPathSegment(userId)
-                .addPathSegment("multifactor")
-                .addPathSegment(provider)
-                .build()
-                .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.delete("api/v2/users", userId, "multifactor", provider)
+                             .request();
     }
 
     /**
@@ -273,18 +190,9 @@ public class UsersEntity extends BaseManagementEntity {
     public Request<RecoveryCode> rotateRecoveryCode(String userId) {
         Asserts.assertNotNull(userId, "user id");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/users")
-                .addPathSegment(userId)
-                .addPathSegment("recovery-code-regeneration")
-                .build()
-                .toString();
-
-        EmptyBodyRequest<RecoveryCode> request = new EmptyBodyRequest<>(client, url, "POST", new TypeReference<RecoveryCode>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.post("api/v2/users", userId, "recovery-code-regeneration")
+                             .request(new TypeReference<RecoveryCode>() {
+                             });
     }
 
     /**
@@ -302,23 +210,17 @@ public class UsersEntity extends BaseManagementEntity {
         Asserts.assertNotNull(secondaryUserId, "secondary user id");
         Asserts.assertNotNull(provider, "provider");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/users")
-                .addPathSegment(primaryUserId)
-                .addPathSegment("identities")
-                .build()
-                .toString();
-
-        CustomRequest<List<Identity>> request = new CustomRequest<>(client, url, "POST", new TypeReference<List<Identity>>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.addParameter("provider", provider);
-        request.addParameter("user_id", secondaryUserId);
+        Map<String, String> body = new HashMap<>();
+        body.put("provider", provider);
+        body.put("user_id", secondaryUserId);
         if (connectionId != null) {
-            request.addParameter("connection_id", connectionId);
+            body.put("connection_id", connectionId);
         }
-        return request;
+
+        return requestBuilder.post("api/v2/users", primaryUserId, "identities")
+                             .body(body)
+                             .request(new TypeReference<List<Identity>>() {
+                             });
     }
 
     /**
@@ -335,19 +237,8 @@ public class UsersEntity extends BaseManagementEntity {
         Asserts.assertNotNull(secondaryUserId, "secondary user id");
         Asserts.assertNotNull(provider, "provider");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/users")
-                .addPathSegment(primaryUserId)
-                .addPathSegment("identities")
-                .addPathSegment(provider)
-                .addPathSegment(secondaryUserId)
-                .build()
-                .toString();
-
-        CustomRequest<List<Identity>> request = new CustomRequest<>(client, url, "DELETE", new TypeReference<List<Identity>>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.delete("api/v2/users", primaryUserId, "identities", provider, secondaryUserId)
+                             .request(new TypeReference<List<Identity>>() {
+                             });
     }
 }

@@ -1,24 +1,22 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.client.mgmt.builder.RequestBuilder;
 import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.json.mgmt.emailproviders.EmailProvider;
-import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
-import com.auth0.net.VoidRequest;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
-import java.util.Map;
-
 /**
  * Class that provides an implementation of the Emails methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Emails
  */
 @SuppressWarnings("WeakerAccess")
-public class EmailProviderEntity extends BaseManagementEntity {
+public class EmailProviderEntity {
+    private final RequestBuilder requestBuilder;
     EmailProviderEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+        requestBuilder = new RequestBuilder(client, baseUrl, apiToken);
     }
 
     /**
@@ -29,19 +27,10 @@ public class EmailProviderEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request<EmailProvider> get(FieldsFilter filter) {
-        HttpUrl.Builder builder = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/emails/provider");
-        if (filter != null) {
-            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
-            }
-        }
-        String url = builder.build().toString();
-        CustomRequest<EmailProvider> request = new CustomRequest<>(client, url, "GET", new TypeReference<EmailProvider>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.get("api/v2/emails/provider")
+                             .queryParameters(filter)
+                             .request(new TypeReference<EmailProvider>() {
+                             });
     }
 
     /**
@@ -54,16 +43,10 @@ public class EmailProviderEntity extends BaseManagementEntity {
     public Request<EmailProvider> setup(EmailProvider emailProvider) {
         Asserts.assertNotNull(emailProvider, "email provider");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/emails/provider")
-                .build()
-                .toString();
-        CustomRequest<EmailProvider> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<EmailProvider>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.setBody(emailProvider);
-        return request;
+        return requestBuilder.post("api/v2/emails/provider")
+                             .body(emailProvider)
+                             .request(new TypeReference<EmailProvider>() {
+                             });
     }
 
     /**
@@ -73,14 +56,8 @@ public class EmailProviderEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request delete() {
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/emails/provider")
-                .build()
-                .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.delete("api/v2/emails/provider")
+                             .request();
     }
 
     /**
@@ -93,15 +70,9 @@ public class EmailProviderEntity extends BaseManagementEntity {
     public Request<EmailProvider> update(EmailProvider emailProvider) {
         Asserts.assertNotNull(emailProvider, "email provider");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/emails/provider")
-                .build()
-                .toString();
-        CustomRequest<EmailProvider> request = new CustomRequest<>(this.client, url, "PATCH", new TypeReference<EmailProvider>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.setBody(emailProvider);
-        return request;
+        return requestBuilder.patch("api/v2/emails/provider")
+                             .body(emailProvider)
+                             .request(new TypeReference<EmailProvider>() {
+                             });
     }
 }

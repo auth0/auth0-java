@@ -1,8 +1,8 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.client.mgmt.builder.RequestBuilder;
 import com.auth0.json.mgmt.tickets.EmailVerificationTicket;
 import com.auth0.json.mgmt.tickets.PasswordChangeTicket;
-import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -13,10 +13,11 @@ import okhttp3.OkHttpClient;
  * Class that provides an implementation of the Tickets methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Tickets
  */
 @SuppressWarnings("WeakerAccess")
-public class TicketsEntity extends BaseManagementEntity {
+public class TicketsEntity {
+    private final RequestBuilder requestBuilder;
 
     TicketsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+        requestBuilder = new RequestBuilder(client, baseUrl, apiToken);
     }
 
     /**
@@ -29,17 +30,10 @@ public class TicketsEntity extends BaseManagementEntity {
     public Request<EmailVerificationTicket> requestEmailVerification(EmailVerificationTicket emailVerificationTicket) {
         Asserts.assertNotNull(emailVerificationTicket, "email verification ticket");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/tickets/email-verification")
-                .build()
-                .toString();
-
-        CustomRequest<EmailVerificationTicket> request = new CustomRequest<>(client, url, "POST", new TypeReference<EmailVerificationTicket>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.setBody(emailVerificationTicket);
-        return request;
+        return requestBuilder.post("api/v2/tickets/email-verification")
+                             .body(emailVerificationTicket)
+                             .request(new TypeReference<EmailVerificationTicket>() {
+                             });
     }
 
     /**
@@ -52,16 +46,9 @@ public class TicketsEntity extends BaseManagementEntity {
     public Request<PasswordChangeTicket> requestPasswordChange(PasswordChangeTicket passwordChangeTicket) {
         Asserts.assertNotNull(passwordChangeTicket, "password change ticket");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/tickets/password-change")
-                .build()
-                .toString();
-
-        CustomRequest<PasswordChangeTicket> request = new CustomRequest<>(client, url, "POST", new TypeReference<PasswordChangeTicket>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.setBody(passwordChangeTicket);
-        return request;
+        return requestBuilder.post("api/v2/tickets/password-change")
+                             .body(passwordChangeTicket)
+                             .request(new TypeReference<PasswordChangeTicket>() {
+                             });
     }
 }

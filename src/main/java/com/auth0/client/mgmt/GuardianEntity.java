@@ -1,24 +1,27 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.json.mgmt.guardian.*;
-import com.auth0.net.CustomRequest;
+import java.util.List;
+
+import com.auth0.client.mgmt.builder.RequestBuilder;
+import com.auth0.json.mgmt.guardian.EnrollmentTicket;
+import com.auth0.json.mgmt.guardian.Factor;
+import com.auth0.json.mgmt.guardian.GuardianTemplates;
+import com.auth0.json.mgmt.guardian.SNSFactorProvider;
+import com.auth0.json.mgmt.guardian.TwilioFactorProvider;
 import com.auth0.net.Request;
-import com.auth0.net.VoidRequest;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
-import java.util.List;
-
 /**
  * Class that provides an implementation of the Guardian methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Guardian
  */
 @SuppressWarnings("WeakerAccess")
-public class GuardianEntity extends BaseManagementEntity {
-
+public class GuardianEntity {
+    private final RequestBuilder requestBuilder;
     GuardianEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+        requestBuilder = new RequestBuilder(client, baseUrl, apiToken);
     }
 
     /**
@@ -31,17 +34,10 @@ public class GuardianEntity extends BaseManagementEntity {
     public Request<EnrollmentTicket> createEnrollmentTicket(EnrollmentTicket enrollmentTicket) {
         Asserts.assertNotNull(enrollmentTicket, "enrollment ticket");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/guardian/enrollments/ticket")
-                .build()
-                .toString();
-
-        CustomRequest<EnrollmentTicket> request = new CustomRequest<>(client, url, "POST", new TypeReference<EnrollmentTicket>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.setBody(enrollmentTicket);
-        return request;
+        return requestBuilder.post("api/v2/guardian/enrollments/ticket")
+                             .body(enrollmentTicket)
+                             .request(new TypeReference<EnrollmentTicket>() {
+                             });
     }
 
     /**
@@ -54,15 +50,8 @@ public class GuardianEntity extends BaseManagementEntity {
     public Request deleteEnrollment(String enrollmentId) {
         Asserts.assertNotNull(enrollmentId, "enrollment id");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/guardian/enrollments")
-                .addPathSegment(enrollmentId)
-                .build()
-                .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.delete("api/v2/guardian/enrollments", enrollmentId)
+                             .request();
     }
 
     /**
@@ -73,15 +62,10 @@ public class GuardianEntity extends BaseManagementEntity {
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Guardian/get_templates">Management API2 docs</a>
      */
     public Request<GuardianTemplates> getTemplates() {
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/guardian/factors/sms/templates")
-                .build()
-                .toString();
-        CustomRequest<GuardianTemplates> request = new CustomRequest<>(client, url, "GET", new TypeReference<GuardianTemplates>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+
+        return requestBuilder.get("api/v2/guardian/factors/sms/templates")
+                             .request(new TypeReference<GuardianTemplates>() {
+                             });
     }
 
     /**
@@ -95,16 +79,10 @@ public class GuardianEntity extends BaseManagementEntity {
     public Request<GuardianTemplates> updateTemplates(GuardianTemplates guardianTemplates) {
         Asserts.assertNotNull(guardianTemplates, "guardian templates");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/guardian/factors/sms/templates")
-                .build()
-                .toString();
-        CustomRequest<GuardianTemplates> request = new CustomRequest<>(client, url, "PUT", new TypeReference<GuardianTemplates>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.setBody(guardianTemplates);
-        return request;
+        return requestBuilder.put("api/v2/guardian/factors/sms/templates")
+                             .body(guardianTemplates)
+                             .request(new TypeReference<GuardianTemplates>() {
+                             });
     }
 
     /**
@@ -114,15 +92,9 @@ public class GuardianEntity extends BaseManagementEntity {
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Guardian/get_factors">Management API2 docs</a>
      */
     public Request<List<Factor>> listFactors() {
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/guardian/factors")
-                .build()
-                .toString();
-        CustomRequest<List<Factor>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Factor>>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.get("api/v2/guardian/factors")
+                             .request(new TypeReference<List<Factor>>() {
+                             });
     }
 
     /**
@@ -137,17 +109,10 @@ public class GuardianEntity extends BaseManagementEntity {
         Asserts.assertNotNull(name, "name");
         Asserts.assertNotNull(enabled, "enabled");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/guardian/factors")
-                .addPathSegment(name)
-                .build()
-                .toString();
-        CustomRequest<Factor> request = new CustomRequest<>(client, url, "PUT", new TypeReference<Factor>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.addParameter("enabled", enabled);
-        return request;
+        return requestBuilder.put("api/v2/guardian/factors", name)
+                             .body(new Factor(enabled))
+                             .request(new TypeReference<Factor>() {
+                             });
     }
 
     /**
@@ -157,16 +122,9 @@ public class GuardianEntity extends BaseManagementEntity {
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Guardian/get_twilio">Management API2 docs</a>
      */
     public Request<TwilioFactorProvider> getTwilioFactorProvider() {
-
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/guardian/factors/sms/providers/twilio")
-                .build()
-                .toString();
-        CustomRequest<TwilioFactorProvider> request = new CustomRequest<>(client, url, "GET", new TypeReference<TwilioFactorProvider>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.get("api/v2/guardian/factors/sms/providers/twilio")
+                             .request(new TypeReference<TwilioFactorProvider>() {
+                             });
     }
 
     /**
@@ -179,16 +137,10 @@ public class GuardianEntity extends BaseManagementEntity {
     public Request<TwilioFactorProvider> updateTwilioFactorProvider(TwilioFactorProvider provider) {
         Asserts.assertNotNull(provider, "provider");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/guardian/factors/sms/providers/twilio")
-                .build()
-                .toString();
-        CustomRequest<TwilioFactorProvider> request = new CustomRequest<>(client, url, "PUT", new TypeReference<TwilioFactorProvider>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.setBody(provider);
-        return request;
+        return requestBuilder.put("api/v2/guardian/factors/sms/providers/twilio")
+                             .body(provider)
+                             .request(new TypeReference<TwilioFactorProvider>() {
+                             });
     }
 
     /**
@@ -210,15 +162,9 @@ public class GuardianEntity extends BaseManagementEntity {
      */
     public Request<SNSFactorProvider> getSNSFactorProvider() {
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/guardian/factors/push-notification/providers/sns")
-                .build()
-                .toString();
-        CustomRequest<SNSFactorProvider> request = new CustomRequest<>(client, url, "GET", new TypeReference<SNSFactorProvider>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.get("api/v2/guardian/factors/push-notification/providers/sns")
+                             .request(new TypeReference<SNSFactorProvider>() {
+                             });
     }
 
     /**
@@ -231,16 +177,10 @@ public class GuardianEntity extends BaseManagementEntity {
     public Request<SNSFactorProvider> updateSNSFactorProvider(SNSFactorProvider provider) {
         Asserts.assertNotNull(provider, "provider");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/guardian/factors/push-notification/providers/sns")
-                .build()
-                .toString();
-        CustomRequest<SNSFactorProvider> request = new CustomRequest<>(client, url, "PUT", new TypeReference<SNSFactorProvider>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.setBody(provider);
-        return request;
+        return requestBuilder.put("api/v2/guardian/factors/push-notification/providers/sns")
+                             .body(provider)
+                             .request(new TypeReference<SNSFactorProvider>() {
+                             });
     }
 
     /**

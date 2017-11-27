@@ -1,24 +1,24 @@
 package com.auth0.client.mgmt;
 
+import java.util.Arrays;
+import java.util.List;
+
+import com.auth0.client.mgmt.builder.RequestBuilder;
 import com.auth0.json.mgmt.ClientGrant;
-import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
-import com.auth0.net.VoidRequest;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
-import java.util.List;
-
 /**
  * Class that provides an implementation of the Client Grants methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Client_Grants
  */
 @SuppressWarnings("WeakerAccess")
-public class ClientGrantsEntity extends BaseManagementEntity {
-
+public class ClientGrantsEntity {
+    private final RequestBuilder requestBuilder;
     ClientGrantsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+        requestBuilder = new RequestBuilder(client, baseUrl, apiToken);
     }
 
     /**
@@ -28,15 +28,9 @@ public class ClientGrantsEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request<List<ClientGrant>> list() {
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/client-grants")
-                .build()
-                .toString();
-        CustomRequest<List<ClientGrant>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<ClientGrant>>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.get("api/v2/client-grants")
+                             .request(new TypeReference<List<ClientGrant>>() {
+                             });
     }
 
     /**
@@ -53,18 +47,10 @@ public class ClientGrantsEntity extends BaseManagementEntity {
         Asserts.assertNotNull(audience, "audience");
         Asserts.assertNotNull(scope, "scope");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/client-grants")
-                .build()
-                .toString();
-        CustomRequest<ClientGrant> request = new CustomRequest<>(client, url, "POST", new TypeReference<ClientGrant>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.addParameter("client_id", clientId);
-        request.addParameter("audience", audience);
-        request.addParameter("scope", scope);
-        return request;
+        return requestBuilder.post("api/v2/client-grants")
+                             .body(new ClientGrant(clientId, audience, Arrays.asList(scope)))
+                             .request(new TypeReference<ClientGrant>() {
+                             });
     }
 
 
@@ -78,15 +64,8 @@ public class ClientGrantsEntity extends BaseManagementEntity {
     public Request delete(String clientGrantId) {
         Asserts.assertNotNull(clientGrantId, "client grant id");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/client-grants")
-                .addPathSegment(clientGrantId)
-                .build()
-                .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return requestBuilder.delete("api/v2/client-grants", clientGrantId)
+                             .request();
     }
 
     /**
@@ -101,16 +80,9 @@ public class ClientGrantsEntity extends BaseManagementEntity {
         Asserts.assertNotNull(clientGrantId, "client grant id");
         Asserts.assertNotNull(scope, "scope");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/client-grants")
-                .addPathSegment(clientGrantId)
-                .build()
-                .toString();
-        CustomRequest<ClientGrant> request = new CustomRequest<>(client, url, "PATCH", new TypeReference<ClientGrant>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.addParameter("scope", scope);
-        return request;
+        return requestBuilder.patch("api/v2/client-grants", clientGrantId)
+                             .body(new ClientGrant(null, null, Arrays.asList(scope)))
+                             .request(new TypeReference<ClientGrant>() {
+                             });
     }
 }
