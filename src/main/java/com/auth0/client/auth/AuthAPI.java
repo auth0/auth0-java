@@ -244,7 +244,7 @@ public class AuthAPI {
     public SignUpRequest signUp(String email, String username, String password, String connection) {
         Asserts.assertNotNull(username, "username");
 
-        VoidRequest request = (VoidRequest) this.signUp(email, password, connection);
+        CreateUserRequest request = (CreateUserRequest) this.signUp(email, password, connection);
         request.addParameter(KEY_USERNAME, username);
         return request;
     }
@@ -284,7 +284,7 @@ public class AuthAPI {
                 .addPathSegment("signup")
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "POST");
+        CreateUserRequest request = new CreateUserRequest(client, url);
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_EMAIL, email);
         request.addParameter(KEY_PASSWORD, password);
