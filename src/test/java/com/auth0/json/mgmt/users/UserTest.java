@@ -13,7 +13,7 @@ import static org.hamcrest.collection.IsMapContaining.hasEntry;
 
 public class UserTest extends JsonTest<User> {
 
-    private static final String json = "{\"connection\":\"auth0\",\"client_id\":\"client123\",\"password\":\"pwd\",\"verify_password\":true,\"username\":\"usr\",\"email\":\"me@auth0.com\",\"email_verified\":true,\"verify_email\":true,\"phone_number\":\"1234567890\",\"phone_verified\":true,\"verify_phone_number\":true,\"picture\":\"https://pic.ture/12\",\"name\":\"John\",\"nickname\":\"Johny\",\"given_name\":\"John\",\"family_name\":\"Walker\",\"app_metadata\":{},\"user_metadata\":{},\"blocked\":true,\"context\":\"extra information\"}";
+    private static final String json = "{\"user_id\":\"user|123\",\"connection\":\"auth0\",\"client_id\":\"client123\",\"password\":\"pwd\",\"verify_password\":true,\"username\":\"usr\",\"email\":\"me@auth0.com\",\"email_verified\":true,\"verify_email\":true,\"phone_number\":\"1234567890\",\"phone_verified\":true,\"verify_phone_number\":true,\"picture\":\"https://pic.ture/12\",\"name\":\"John\",\"nickname\":\"Johny\",\"given_name\":\"John\",\"family_name\":\"Walker\",\"app_metadata\":{},\"user_metadata\":{},\"blocked\":true,\"context\":\"extra information\"}";
     private static final String readOnlyJson = "{\"user_id\":\"user|123\",\"last_ip\":\"10.0.0.1\",\"last_login\":\"2016-02-23T19:57:29.532Z\",\"logins_count\":10,\"created_at\":\"2016-02-23T19:57:29.532Z\",\"updated_at\":\"2016-02-23T19:57:29.532Z\",\"identities\":[]}";
 
     @Test
@@ -29,6 +29,7 @@ public class UserTest extends JsonTest<User> {
     @Test
     public void shouldSerialize() throws Exception {
         User user = new User("auth0");
+        user.setId("123456789");
         user.setPassword("pwd");
         user.setVerifyPassword(true);
         user.setUsername("usr");
@@ -52,6 +53,7 @@ public class UserTest extends JsonTest<User> {
         assertThat(serialized, is(notNullValue()));
 
         assertThat(serialized, JsonMatcher.hasEntry("connection", "auth0"));
+        assertThat(serialized, JsonMatcher.hasEntry("user_id", "123456789"));
         assertThat(serialized, JsonMatcher.hasEntry("password", "pwd"));
         assertThat(serialized, JsonMatcher.hasEntry("verify_password", true));
         assertThat(serialized, JsonMatcher.hasEntry("username", "usr"));
@@ -77,6 +79,7 @@ public class UserTest extends JsonTest<User> {
         User user = fromJSON(json, User.class);
 
         assertThat(user, is(notNullValue()));
+        assertThat(user.getId(), is("user|123"));
         assertThat(user.getConnection(), is("auth0"));
         assertThat(user.getPassword(), is("pwd"));
         assertThat(user.willVerifyPassword(), is(true));

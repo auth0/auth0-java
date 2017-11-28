@@ -215,6 +215,16 @@ public class User {
     }
 
     /**
+     * Setter for the user's unique identifier. This is only valid when creating a new user, as the property can't change once set.
+     * The server will prepend the connection name and a pipe character before the given id value.
+     * i.e. For "auth0" connection with user id "123456789" the final user id would be "auth0|123456789".
+     */
+    @JsonProperty("user_id")
+    public void setId(String userId) {
+        this.userId = userId;
+    }
+
+    /**
      * Getter for the user's picture url.
      *
      * @return the picture url.
