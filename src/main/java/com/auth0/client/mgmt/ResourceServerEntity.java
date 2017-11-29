@@ -46,16 +46,16 @@ public class ResourceServerEntity  {
      * Cretes request for fetching single resource server by it's ID.
      * See <a href=https://auth0.com/docs/api/management/v2#!/Resource_Servers/get_resource_servers_by_id>API documentation</a>
      *
-     * @param resourceServerId {@link ResourceServer#id} field
+     * @param resourceServerIdOrIdentifier {@link ResourceServer#id} or {@link ResourceServer#identifier} (audience) field
      * @return request to execute
      */
-    public Request<ResourceServer> get(String resourceServerId) {
-        Asserts.assertNotNull(resourceServerId, "Resource server ID");
+    public Request<ResourceServer> get(String resourceServerIdOrIdentifier) {
+        Asserts.assertNotNull(resourceServerIdOrIdentifier, "Resource server ID");
 
         HttpUrl.Builder builder = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/resource-servers")
-                .addPathSegment(resourceServerId);
+                .addPathSegment(resourceServerIdOrIdentifier);
 
         String url = builder.build().toString();
         CustomRequest<ResourceServer> request = new CustomRequest<>(client, url, "GET",

@@ -42,22 +42,18 @@ public class ResourceServerEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldUpdateResourceServer() throws Exception {
+        ResourceServer resourceServer = new ResourceServer("https://api.my-company.com/api/v2/");
+        resourceServer.setId("23445566abab");
+        resourceServer.setName("Some API");
+        resourceServer.setScopes(Collections.singletonList(new Scope("update:something")));
+        resourceServer.setSigningAlgorithm("RS256");
+        resourceServer.setSigningSecret("secret");
+        resourceServer.setAllowOfflineAccess(false);
+        resourceServer.setSkipConsentForVerifiableFirstPartyClients(false);
+        resourceServer.setTokenLifetime(0);
+        resourceServer.setVerificationLocation("verification_location");
         Request<ResourceServer> request = api.resourceServers()
-                                             .update("23445566abab",
-                                                     new ResourceServer("23445566abab",
-                                                                        "Some API",
-                                                                        "https://api.my-company.com/api/v2/",
-                                                                        Collections.singletonList(
-                                                                                new Scope("update:something",
-                                                                                          "Description")),
-                                                                        "RS256",
-                                                                        "secret",
-                                                                        false,
-                                                                        false,
-                                                                        0,
-                                                                        "verification_key",
-                                                                        "verification_location",
-                                                                        false));
+                                             .update("23445566abab", resourceServer);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RESOURCE_SERVER, 200);

@@ -7,19 +7,20 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@SuppressWarnings({"WeakerAccess", "unused"})
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResourceServer {
-    @JsonProperty
+    @JsonProperty("id")
     private String id;
-    @JsonProperty
+    @JsonProperty("name")
     private String name;
     @JsonProperty("identifier")
     private String identifier;
     @JsonProperty("scopes")
     private List<Scope> scopes;
-    @JsonProperty("signing_alg")
-    private String signingAlg;
+    @JsonProperty("signing_algorithm")
+    private String signingAlgorithm;
     @JsonProperty("signing_secret")
     private String signingSecret;
     @JsonProperty("allow_offline_access")
@@ -28,138 +29,129 @@ public class ResourceServer {
     private Boolean skipConsentForVerifiableFirstPartyClients;
     @JsonProperty("token_lifetime")
     private Integer tokenLifetime;
-    @JsonProperty("verificationKey")
-    private String verificationKey;
+    @JsonProperty("token_lifetime_for_web")
+    private Integer tokenLifetimeForWeb;
     @JsonProperty("verificationLocation")
     private String verificationLocation;
     @JsonProperty("is_system")
     private Boolean isSystem;
 
-    public ResourceServer(String identifier) {
-        this.identifier = identifier;
-    }
-
     @JsonCreator
-    public ResourceServer(@JsonProperty("id") String id,
-                          @JsonProperty("name") String name,
-                          @JsonProperty("identifier") String identifier,
-                          @JsonProperty("scopes") List<Scope> scopes,
-                          @JsonProperty("signing_alg") String signingAlg,
-                          @JsonProperty("signing_secret") String signingSecret,
-                          @JsonProperty("allow_offline_access") Boolean allowOfflineAccess,
-                          @JsonProperty("skip_consent_for_verifiable_first_party_clients")
-                                  Boolean skipConsentForVerifiableFirstPartyClients,
-                          @JsonProperty("token_lifetime") Integer tokenLifetime,
-                          @JsonProperty("verificationKey") String verificationKey,
-                          @JsonProperty("verificationLocation") String verificationLocation,
-                          @JsonProperty("is_system") Boolean isSystem) {
-        this.id = id;
-        this.name = name;
+    public ResourceServer(@JsonProperty("identifier") String identifier) {
         this.identifier = identifier;
-        this.scopes = scopes;
-        this.signingAlg = signingAlg;
-        this.signingSecret = signingSecret;
-        this.allowOfflineAccess = allowOfflineAccess;
-        this.skipConsentForVerifiableFirstPartyClients = skipConsentForVerifiableFirstPartyClients;
-        this.tokenLifetime = tokenLifetime;
-        this.verificationKey = verificationKey;
-        this.verificationLocation = verificationLocation;
-        this.isSystem = isSystem;
     }
 
+    public ResourceServer() {
+    }
+
+    @JsonProperty("id")
     public String getId() {
         return id;
     }
 
+    @JsonProperty("id")
     public void setId(String id) {
         this.id = id;
     }
 
+    @JsonProperty("name")
     public String getName() {
         return name;
     }
 
+    @JsonProperty("name")
     public void setName(String name) {
         this.name = name;
     }
 
-    public Boolean getIsSystem() {
+    @JsonProperty("is_system")
+    public Boolean isSystem() {
         return isSystem;
     }
 
-    public void setIsSystem(Boolean system) {
-        isSystem = system;
-    }
-
+    @JsonProperty("identifier")
     public String getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
-    }
-
+    @JsonProperty("scopes")
     public List<Scope> getScopes() {
         return scopes;
     }
 
+    @JsonProperty("scopes")
     public void setScopes(List<Scope> scopes) {
         this.scopes = scopes;
     }
 
-    public String getSigningAlg() {
-        return signingAlg;
+    @JsonProperty("signing_algorithm")
+    public String getSigningAlgorithm() {
+        return signingAlgorithm;
     }
 
-    public void setSigningAlg(String signingAlg) {
-        this.signingAlg = signingAlg;
+    @JsonProperty("signing_algorithm")
+    public void setSigningAlgorithm(String signingAlgorithm) {
+        this.signingAlgorithm = signingAlgorithm;
     }
 
+    @JsonProperty("signing_secret")
     public String getSigningSecret() {
         return signingSecret;
     }
 
+    @JsonProperty("signing_secret")
     public void setSigningSecret(String signingSecret) {
         this.signingSecret = signingSecret;
     }
 
+    @JsonProperty("allow_offline_access")
     public Boolean getAllowOfflineAccess() {
         return allowOfflineAccess;
     }
 
+    @JsonProperty("allow_offline_access")
     public void setAllowOfflineAccess(Boolean allowOfflineAccess) {
         this.allowOfflineAccess = allowOfflineAccess;
     }
 
+    @JsonProperty("skip_consent_for_verifiable_first_party_clients")
     public Boolean getSkipConsentForVerifiableFirstPartyClients() {
         return skipConsentForVerifiableFirstPartyClients;
     }
 
+    @JsonProperty("skip_consent_for_verifiable_first_party_clients")
     public void setSkipConsentForVerifiableFirstPartyClients(Boolean skipConsentForVerifiableFirstPartyClients) {
         this.skipConsentForVerifiableFirstPartyClients = skipConsentForVerifiableFirstPartyClients;
     }
 
+    @JsonProperty("token_lifetime")
     public Integer getTokenLifetime() {
         return tokenLifetime;
     }
 
+    @JsonProperty("token_lifetime")
     public void setTokenLifetime(Integer tokenLifetime) {
         this.tokenLifetime = tokenLifetime;
     }
 
-    public String getVerificationKey() {
-        return verificationKey;
-    }
-
-    public void setVerificationKey(String verificationKey) {
-        this.verificationKey = verificationKey;
-    }
-
+    @JsonProperty("verificationLocation")
     public String getVerificationLocation() {
         return verificationLocation;
     }
 
+    @JsonProperty("verificationLocation")
     public void setVerificationLocation(String verificationLocation) {
         this.verificationLocation = verificationLocation;
     }
+
+    @JsonProperty("token_lifetime_for_web")
+    public Integer getTokenLifetimeForWeb() {
+        return tokenLifetimeForWeb;
+    }
+
+    @JsonProperty("token_lifetime_for_web")
+    public void setTokenLifetimeForWeb(Integer tokenLifetimeForWeb) {
+        this.tokenLifetimeForWeb = tokenLifetimeForWeb;
+    }
+
 }
