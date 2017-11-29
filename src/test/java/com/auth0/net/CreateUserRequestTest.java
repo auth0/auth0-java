@@ -1,7 +1,7 @@
 package com.auth0.net;
 
 import com.auth0.client.MockServer;
-import com.auth0.json.auth.UserInfo;
+import com.auth0.json.auth.CreatedUser;
 import okhttp3.OkHttpClient;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Before;
@@ -32,7 +32,7 @@ public class CreateUserRequestTest {
         request.addParameter("non_empty", "body");
 
         server.jsonResponse(AUTH_SIGN_UP, 200);
-        UserInfo execute = request.execute();
+        CreatedUser execute = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
         assertThat(recordedRequest.getMethod(), is("POST"));
         assertThat(execute, is(notNullValue()));

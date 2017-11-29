@@ -1,6 +1,7 @@
 package com.auth0.client.auth;
 
 import com.auth0.client.MockServer;
+import com.auth0.json.auth.CreatedUser;
 import com.auth0.json.auth.TokenHolder;
 import com.auth0.json.auth.UserInfo;
 import com.auth0.net.AuthRequest;
@@ -384,7 +385,7 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_SIGN_UP_USERNAME, 200);
-        UserInfo response = request.execute();
+        CreatedUser response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/dbconnections/signup"));
@@ -398,11 +399,10 @@ public class AuthAPITest {
         assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getValues(), hasKey("_id"));
-        assertThat((String) response.getValues().get("_id"), not(isEmptyOrNullString()));
-        assertThat(response.getValues(), hasEntry("email", (Object) "me@auth0.com"));
-        assertThat(response.getValues(), hasEntry("email_verified", (Object) false));
-        assertThat(response.getValues(), hasEntry("username", (Object) "me"));
+        assertThat(response.getUserId(), is("58457fe6b27"));
+        assertThat(response.getEmail(), is("me@auth0.com"));
+        assertThat(response.isEmailVerified(), is(false));
+        assertThat(response.getUsername(), is("me"));
     }
 
     @Test
@@ -411,7 +411,7 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_SIGN_UP, 200);
-        UserInfo response = request.execute();
+        CreatedUser response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/dbconnections/signup"));
@@ -425,11 +425,10 @@ public class AuthAPITest {
         assertThat(body, not(hasKey("username")));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getValues(), hasKey("_id"));
-        assertThat((String) response.getValues().get("_id"), not(isEmptyOrNullString()));
-        assertThat(response.getValues(), hasEntry("email", (Object) "me@auth0.com"));
-        assertThat(response.getValues(), hasEntry("email_verified", (Object) false));
-        assertThat(response.getValues(), not(hasKey("username")));
+        assertThat(response.getUserId(), is("58457fe6b27"));
+        assertThat(response.getEmail(), is("me@auth0.com"));
+        assertThat(response.isEmailVerified(), is(false));
+        assertThat(response.getUsername(), is(nullValue()));
     }
 
     @Test
@@ -442,7 +441,7 @@ public class AuthAPITest {
         request.setCustomFields(customFields);
 
         server.jsonResponse(AUTH_SIGN_UP, 200);
-        UserInfo response = request.execute();
+        CreatedUser response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/dbconnections/signup"));
@@ -460,11 +459,10 @@ public class AuthAPITest {
         assertThat(body, not(hasKey("username")));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getValues(), hasEntry("email", (Object) "me@auth0.com"));
-        assertThat(response.getValues(), hasEntry("email_verified", (Object) false));
-        assertThat(response.getValues(), hasKey("_id"));
-        assertThat((String) response.getValues().get("_id"), not(isEmptyOrNullString()));
-        assertThat(response.getValues(), not(hasKey("username")));
+        assertThat(response.getUserId(), is("58457fe6b27"));
+        assertThat(response.getEmail(), is("me@auth0.com"));
+        assertThat(response.isEmailVerified(), is(false));
+        assertThat(response.getUsername(), is(nullValue()));
     }
 
 
