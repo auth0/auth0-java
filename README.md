@@ -121,7 +121,7 @@ fields.put("city", "Buenos Aires");
 SignUpRequest request = auth.signUp("user@domain.com", "username", "password123", "Username-Password-Authentication")
     .setCustomFields(fields);
 try {
-    request.execute();
+    CreatedUser user = request.execute();
 } catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
