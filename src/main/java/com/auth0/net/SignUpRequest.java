@@ -1,11 +1,14 @@
 package com.auth0.net;
 
+import com.auth0.json.auth.CreatedUser;
+
 import java.util.Map;
 
 /**
  * Class that represents a Create User call.
  */
-public interface SignUpRequest extends Request<Void> {
+@SuppressWarnings("UnusedReturnValue")
+public interface SignUpRequest extends Request<CreatedUser> {
 
     /**
      * Setter for the additional fields to set when creating a user.

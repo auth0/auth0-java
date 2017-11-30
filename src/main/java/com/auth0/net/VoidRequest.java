@@ -7,7 +7,7 @@ import okhttp3.Response;
 
 import java.util.Map;
 
-public class VoidRequest extends CustomRequest<Void> implements SignUpRequest {
+public class VoidRequest extends CustomRequest<Void> {
 
     public VoidRequest(OkHttpClient client, String url, String method) {
         super(client, url, method, new TypeReference<Void>() {
@@ -20,11 +20,5 @@ public class VoidRequest extends CustomRequest<Void> implements SignUpRequest {
             throw super.createResponseException(response);
         }
         return null;
-    }
-
-    @Override
-    public VoidRequest setCustomFields(Map<String, String> customFields) {
-        super.addParameter("user_metadata", customFields);
-        return this;
     }
 }
