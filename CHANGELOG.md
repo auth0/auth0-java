@@ -1,5 +1,15 @@
 # Change Log
 
+## [1.4.0](https://github.com/auth0/auth0-java/tree/1.4.0) (2017-11-30)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.3.1...1.4.0)
+
+**Added**
+- Add user_id setter [\#93](https://github.com/auth0/auth0-java/pull/93) ([lbalmaceda](https://github.com/lbalmaceda))
+- Add /v2/users-by-email endpoint [\#87](https://github.com/auth0/auth0-java/pull/87) ([lbalmaceda](https://github.com/lbalmaceda))
+
+**Breaking changes**
+- Include a proper SignUp response [\#92](https://github.com/auth0/auth0-java/pull/92) ([lbalmaceda](https://github.com/lbalmaceda))
+
 ## [1.3.1](https://github.com/auth0/auth0-java/tree/1.3.1) (2017-11-01)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.3.0...1.3.1)
 **Closed issues**
