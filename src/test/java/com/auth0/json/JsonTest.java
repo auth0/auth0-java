@@ -1,14 +1,16 @@
 package com.auth0.json;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonTest<T> {
 
@@ -30,6 +32,10 @@ public class JsonTest<T> {
 
     public T fromJSON(String json, TypeReference<T> tReference) throws IOException {
         return mapper.readValue(json, tReference);
+    }
+
+    public String readTextFile(String path) throws IOException {
+        return new String(Files.readAllBytes(Paths.get(path)));
     }
 
     protected Date parseJSONDate(String dateString) throws ParseException {

@@ -19,7 +19,7 @@ public class ResourceServer {
     private String identifier;
     @JsonProperty("scopes")
     private List<Scope> scopes;
-    @JsonProperty("signing_algorithm")
+    @JsonProperty("signing_alg")
     private String signingAlgorithm;
     @JsonProperty("signing_secret")
     private String signingSecret;
@@ -31,7 +31,7 @@ public class ResourceServer {
     private Integer tokenLifetime;
     @JsonProperty("token_lifetime_for_web")
     private Integer tokenLifetimeForWeb;
-    @JsonProperty("verificationLocation")
+    @JsonProperty("verification_location")
     private String verificationLocation;
     @JsonProperty("is_system")
     private Boolean isSystem;
@@ -84,12 +84,12 @@ public class ResourceServer {
         this.scopes = scopes;
     }
 
-    @JsonProperty("signing_algorithm")
+    @JsonProperty("signing_alg")
     public String getSigningAlgorithm() {
         return signingAlgorithm;
     }
 
-    @JsonProperty("signing_algorithm")
+    @JsonProperty("signing_alg")
     public void setSigningAlgorithm(String signingAlgorithm) {
         this.signingAlgorithm = signingAlgorithm;
     }
@@ -134,12 +134,12 @@ public class ResourceServer {
         this.tokenLifetime = tokenLifetime;
     }
 
-    @JsonProperty("verificationLocation")
+    @JsonProperty("verification_location")
     public String getVerificationLocation() {
         return verificationLocation;
     }
 
-    @JsonProperty("verificationLocation")
+    @JsonProperty("verification_location")
     public void setVerificationLocation(String verificationLocation) {
         this.verificationLocation = verificationLocation;
     }
