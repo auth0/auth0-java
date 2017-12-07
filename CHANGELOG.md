@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.5.0](https://github.com/auth0/auth0-java/tree/1.5.0) (2017-12-07)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.4.0...1.5.0)
+
+**Added**
+- Resource server [\#77](https://github.com/auth0/auth0-java/pull/77) ([mfarsikov](https://github.com/mfarsikov))
+
 ## [1.4.0](https://github.com/auth0/auth0-java/tree/1.4.0) (2017-11-30)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.3.1...1.4.0)
 

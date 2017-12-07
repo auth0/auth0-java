@@ -11,6 +11,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
+/**
+ * Class that provides an implementation of the Resource Server methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Resource_Servers
+ */
 public class ResourceServerEntity  {
     private OkHttpClient client;
     private HttpUrl baseUrl;

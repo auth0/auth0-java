@@ -114,7 +114,7 @@ public class ManagementAPI {
     public DeviceCredentialsEntity deviceCredentials() {
         return new DeviceCredentialsEntity(client, baseUrl, apiToken);
     }
-    
+
     /**
      * Getter for the Grants entity.
      *
@@ -214,6 +214,11 @@ public class ManagementAPI {
         return new TicketsEntity(client, baseUrl, apiToken);
     }
 
+    /**
+     * Getter for the Resource Servers entity.
+     *
+     * @return the Resource Servers entity.
+     */
     public ResourceServerEntity resourceServers(){
         return new ResourceServerEntity(client, baseUrl, apiToken);
     }
