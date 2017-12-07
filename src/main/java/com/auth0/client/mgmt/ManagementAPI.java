@@ -213,4 +213,8 @@ public class ManagementAPI {
     public TicketsEntity tickets() {
         return new TicketsEntity(client, baseUrl, apiToken);
     }
+
+    public ResourceServerEntity resourceServers(){
+        return new ResourceServerEntity(client, baseUrl, apiToken);
+    }
 }
