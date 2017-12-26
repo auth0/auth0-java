@@ -5,8 +5,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
-import java.util.Map;
-
 public class VoidRequest extends CustomRequest<Void> {
 
     public VoidRequest(OkHttpClient client, String url, String method) {
@@ -19,6 +17,7 @@ public class VoidRequest extends CustomRequest<Void> {
         if (!response.isSuccessful()) {
             throw super.createResponseException(response);
         }
+        response.close();
         return null;
     }
 }
