@@ -255,6 +255,17 @@ Create a `ManagementAPI` instance by providing the domain from the [client dashb
 ManagementAPI mgmt = new ManagementAPI("{YOUR_DOMAIN}", "{YOUR_API_TOKEN}");
 ```
 
+You can use the Authentication API to obtain a token for a previously authorized client:
+
+```java
+AuthAPI authAPI = new AuthAPI(domain, clientId, clientSecret);
+AuthRequest authRequest = authAPI.requestToken("https://" + domain + "/api/v2/");
+TokenHolder holder = authRequest.execute();
+ManagementAPI mgmt = new ManagementAPI(domain, holder.getAccessToken());
+```
+
+(Note that the simplified should have error handling, and ideally cache the obtained token until it expires instead of requesting one access token for each Management API v2 invocation).
+
 The Management API is divided into different entities. Each of them have the list, create, update, delete and update methods plus a few more if corresponds. The calls are authenticated using the API Token given in the `ManagementAPI` instance creation and must contain the `scope` required by each entity. See the javadoc for details on which `scope` is expected for each call.
 
 * **Client Grants:** See [Docs](https://auth0.com/docs/api/management/v2#!/Client_Grants/get_client_grants). Access the methods by calling `mgmt.clientGrants()`.
