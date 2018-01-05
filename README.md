@@ -275,7 +275,7 @@ The Management API is divided into different entities. Each of them have the lis
 * **Logs:** See [Docs](https://auth0.com/docs/api/management/v2#!/Logs/get_logs). Access the methods by calling `mgmt.logEvents()`.
 * **Rules:** See [Docs](https://auth0.com/docs/api/management/v2#!/Rules/get_rules). Access the methods by calling `mgmt.rules()`.
 * **User Blocks:** See [Docs](https://auth0.com/docs/api/management/v2#!/User_Blocks/get_user_blocks). Access the methods by calling `mgmt.userBlocks()`.
-* **Users:** See [this](https://auth0.com/docs/api/management/v2#!/Users/get_users) and [this](https://auth0.com/docs/api/management/v2#!/Users_By_Email) Docs. Access the methods by calling `mgmt.users()`.
+* **Users:** See [this](https://auth0.com/docs/api/management/v2#!/Users/get_users) and [this](https://auth0.com/docs/api/management/v2#!/Users_By_Email) doc. Access the methods by calling `mgmt.users()`.
 * **Blacklists:** See [Docs](https://auth0.com/docs/api/management/v2#!/Blacklists/get_tokens). Access the methods by calling `mgmt.blacklists()`.
 * **Emails:** See [Docs](https://auth0.com/docs/api/management/v2#!/Emails/get_provider). Access the methods by calling `mgmt.emailProvider()`.
 * **Guardian:** See [Docs](https://auth0.com/docs/api/management/v2#!/Guardian/get_factors). Access the methods by calling `mgmt.guardian()`.
@@ -292,14 +292,14 @@ The Management API is divided into different entities. Each of them have the lis
 Creates a request to list the Users by Email. This is the preferred and fastest way to query Users by Email, and should be used instead of calling the generic list method with an email query. An API Token with scope `read:users` is needed. If you want the identities.access_token property to be included, you will also need the scope `read:user_idp_tokens`.
 You can pass an optional Filter to narrow the results in the response.
 
-`Request<UsersPage> listByEmail(String email, UserFilter filter)`
+`Request<List<User>> listByEmail(String email, UserFilter filter)`
 
 Example:
 ```java
 FieldsFilter filter = new FieldsFilter(...);
-Request<UsersPage> request = mgmt.users().listByEmail("johndoe@auth0.com", filter);
+Request<List<User>> request = mgmt.users().listByEmail("johndoe@auth0.com", filter);
 try {
-    UsersPage response = request.execute();
+    List<User> response = request.execute();
 } catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
