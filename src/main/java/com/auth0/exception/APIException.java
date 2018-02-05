@@ -74,7 +74,13 @@ public class APIException extends Auth0Exception {
             return (String) values.get("error_description");
         }
         if (values.containsKey("description")) {
-            return (String) values.get("description");
+            Object description = values.get("description");
+            if(description instanceof String) {
+                return (String) description;
+            } else{
+                PasswordStrengthErrorParser policy = new PasswordStrengthErrorParser((Map<String, Object>) description);
+                return policy.getDescription();
+            }
         }
         if (values.containsKey("message")) {
             return (String) values.get("message");
