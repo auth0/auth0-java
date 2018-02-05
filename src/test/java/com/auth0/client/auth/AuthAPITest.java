@@ -41,7 +41,8 @@ public class AuthAPITest {
     private static final String DOMAIN = "domain.auth0.com";
     private static final String CLIENT_ID = "clientId";
     private static final String CLIENT_SECRET = "clientSecret";
-    private static final String PASSWORD_STRENGTH_ERROR_RESPONSE = "src/test/resources/auth/password_strength_error.json";
+    private static final String PASSWORD_STRENGTH_ERROR_RESPONSE_NONE = "src/test/resources/auth/password_strength_error_none.json";
+    private static final String PASSWORD_STRENGTH_ERROR_RESPONSE_SOME = "src/test/resources/auth/password_strength_error_some.json";
 
     private MockServer server;
     private AuthAPI api;
@@ -387,11 +388,22 @@ public class AuthAPITest {
     @Test
     public void shouldHaveNotStrongPasswordWithDetailedDescription() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        FileReader fr = new FileReader(PASSWORD_STRENGTH_ERROR_RESPONSE);
+        FileReader fr = new FileReader(PASSWORD_STRENGTH_ERROR_RESPONSE_NONE);
         Map<String, Object> mapPayload = mapper.readValue(fr, new TypeReference<Map<String, Object>>() {});
         APIException ex = new APIException(mapPayload, 400);
         assertThat(ex.getError(), is("invalid_password"));
         String expectedDescription = "At least 10 characters in length; Contain at least 3 of the following 4 types of characters: lower case letters (a-z), upper case letters (A-Z), numbers (i.e. 0-9), special characters (e.g. !@#$%^&*); Should contain: lower case letters (a-z), upper case letters (A-Z), numbers (i.e. 0-9), special characters (e.g. !@#$%^&*); No more than 2 identical characters in a row (e.g., \"aaa\" not allowed)";
+        assertThat(ex.getDescription(), is(expectedDescription));
+    }
+
+    @Test
+    public void shouldHaveNotStrongPasswordWithShortDetailedDescription() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        FileReader fr = new FileReader(PASSWORD_STRENGTH_ERROR_RESPONSE_SOME);
+        Map<String, Object> mapPayload = mapper.readValue(fr, new TypeReference<Map<String, Object>>() {});
+        APIException ex = new APIException(mapPayload, 400);
+        assertThat(ex.getError(), is("invalid_password"));
+        String expectedDescription = "Should contain: lower case letters (a-z), upper case letters (A-Z), numbers (i.e. 0-9), special characters (e.g. !@#$%^&*)";
         assertThat(ex.getDescription(), is(expectedDescription));
     }
 
