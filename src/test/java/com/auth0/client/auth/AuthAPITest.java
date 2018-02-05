@@ -1,6 +1,7 @@
 package com.auth0.client.auth;
 
 import com.auth0.client.MockServer;
+import com.auth0.exception.APIException;
 import com.auth0.json.auth.CreatedUser;
 import com.auth0.json.auth.TokenHolder;
 import com.auth0.json.auth.UserInfo;
@@ -8,6 +9,8 @@ import com.auth0.net.AuthRequest;
 import com.auth0.net.Request;
 import com.auth0.net.SignUpRequest;
 import com.auth0.net.TelemetryInterceptor;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.Interceptor;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
@@ -18,6 +21,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.io.FileReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +41,7 @@ public class AuthAPITest {
     private static final String DOMAIN = "domain.auth0.com";
     private static final String CLIENT_ID = "clientId";
     private static final String CLIENT_SECRET = "clientSecret";
+    private static final String PASSWORD_STRENGTH_ERROR_RESPONSE = "src/test/resources/auth/password_strength_error.json";
 
     private MockServer server;
     private AuthAPI api;
@@ -377,6 +382,17 @@ public class AuthAPITest {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection' cannot be null!");
         api.signUp("me@auth0.com", "me", "p455w0rd", null);
+    }
+
+    @Test
+    public void shouldHaveNotStrongPasswordWithDetailedDescription() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        FileReader fr = new FileReader(PASSWORD_STRENGTH_ERROR_RESPONSE);
+        Map<String, Object> mapPayload = mapper.readValue(fr, new TypeReference<Map<String, Object>>() {});
+        APIException ex = new APIException(mapPayload, 400);
+        assertThat(ex.getError(), is("invalid_password"));
+        String expectedDescription = "At least 10 characters in length; Contain at least 3 of the following 4 types of characters: lower case letters (a-z), upper case letters (A-Z), numbers (i.e. 0-9), special characters (e.g. !@#$%^&*); Should contain: lower case letters (a-z), upper case letters (A-Z), numbers (i.e. 0-9), special characters (e.g. !@#$%^&*); No more than 2 identical characters in a row (e.g., \"aaa\" not allowed)";
+        assertThat(ex.getDescription(), is(expectedDescription));
     }
 
     @Test
