@@ -1,10 +1,13 @@
 package com.auth0.net;
 
 import com.auth0.exception.Auth0Exception;
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 
 public abstract class BaseRequest<T> implements Request<T> {
 
@@ -35,6 +38,23 @@ public abstract class BaseRequest<T> implements Request<T> {
         }
 
         return parseResponse(response);
+    }
+
+    @Override
+    public CompletableFuture<T> executeAsync() {
+        okhttp3.Request request = createRequest();
+        final CompletableFuture<T> future = CompletableFuture<T>();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                future.completeExceptionally(new Auth0Exception("Failed to execute request", e));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                future.complete(parseResponse(response));
+            }
+        });
     }
 
 }
