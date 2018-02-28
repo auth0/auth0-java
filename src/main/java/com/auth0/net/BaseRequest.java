@@ -55,6 +55,7 @@ public abstract class BaseRequest<T> implements Request<T> {
                 future.complete(parseResponse(response));
             }
         });
+        return future;
     }
 
 }
