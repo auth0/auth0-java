@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.5.1](https://github.com/auth0/auth0-java/tree/1.5.1) (2018-03-01)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.5.0...1.5.1)
+
+**Fixed**
+- Support password policy error response [\#108](https://github.com/auth0/auth0-java/pull/108) ([lbalmaceda](https://github.com/lbalmaceda))
+- Close ResponseBody buffer after read [\#101](https://github.com/auth0/auth0-java/pull/101) ([lbalmaceda](https://github.com/lbalmaceda))
+
 ## [1.5.0](https://github.com/auth0/auth0-java/tree/1.5.0) (2017-12-07)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.4.0...1.5.0)
 
