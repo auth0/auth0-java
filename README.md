@@ -249,7 +249,7 @@ try {
 
 The implementation is based on the [Management API Docs](https://auth0.com/docs/api/management/v2).
 
-Create a `ManagementAPI` instance by providing the domain from the [client dashboard](https://manage.auth0.com/#/clients) and the API Token. Click [here](https://auth0.com/docs/api/management/v2#!/Introduction/Getting_an_API_token) for more information on how to obtain a valid API Token.
+Create a `ManagementAPI` instance by providing the domain from the [client dashboard](https://manage.auth0.com/#/clients) and a valid API Token.
 
 ```java
 ManagementAPI mgmt = new ManagementAPI("{YOUR_DOMAIN}", "{YOUR_API_TOKEN}");
@@ -258,13 +258,15 @@ ManagementAPI mgmt = new ManagementAPI("{YOUR_DOMAIN}", "{YOUR_API_TOKEN}");
 You can use the Authentication API to obtain a token for a previously authorized client:
 
 ```java
-AuthAPI authAPI = new AuthAPI(domain, clientId, clientSecret);
-AuthRequest authRequest = authAPI.requestToken("https://" + domain + "/api/v2/");
+AuthAPI authAPI = new AuthAPI("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}");
+AuthRequest authRequest = authAPI.requestToken("https://{YOUR_DOMAIN}/api/v2/");
 TokenHolder holder = authRequest.execute();
-ManagementAPI mgmt = new ManagementAPI(domain, holder.getAccessToken());
+ManagementAPI mgmt = new ManagementAPI("{YOUR_DOMAIN}", holder.getAccessToken());
 ```
 
 (Note that the simplified should have error handling, and ideally cache the obtained token until it expires instead of requesting one access token for each Management API v2 invocation).
+
+Click [here](https://auth0.com/docs/api/management/v2/tokens) for more information on how to obtain API Tokens.
 
 The Management API is divided into different entities. Each of them have the list, create, update, delete and update methods plus a few more if corresponds. The calls are authenticated using the API Token given in the `ManagementAPI` instance creation and must contain the `scope` required by each entity. See the javadoc for details on which `scope` is expected for each call.
 
