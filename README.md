@@ -247,13 +247,26 @@ try {
 
 ## Management API
 
-The implementation is based on the [Management API Docs](https://auth0.com/docs/api/management/v2).
+The implementation is based on the [Management API Docs](https://auth0.com/docs/api/management/v2). 
 
-Create a `ManagementAPI` instance by providing the domain from the [client dashboard](https://manage.auth0.com/#/clients) and the API Token. Click [here](https://auth0.com/docs/api/management/v2#!/Introduction/Getting_an_API_token) for more information on how to obtain a valid API Token.
+Create a `ManagementAPI` instance by providing the domain from the [client dashboard](https://manage.auth0.com/#/clients) and a valid API Token.
 
 ```java
 ManagementAPI mgmt = new ManagementAPI("{YOUR_DOMAIN}", "{YOUR_API_TOKEN}");
 ```
+
+You can use the Authentication API to obtain a token for a previously authorized client:
+
+```java
+AuthAPI authAPI = new AuthAPI("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}");
+AuthRequest authRequest = authAPI.requestToken("https://{YOUR_DOMAIN}/api/v2/");
+TokenHolder holder = authRequest.execute();
+ManagementAPI mgmt = new ManagementAPI("{YOUR_DOMAIN}", holder.getAccessToken());
+```
+
+(Note that the simplified should have error handling, and ideally cache the obtained token until it expires instead of requesting one access token for each Management API v2 invocation).
+
+Click [here](https://auth0.com/docs/api/management/v2/tokens) for more information on how to obtain API Tokens.
 
 The Management API is divided into different entities. Each of them have the list, create, update, delete and update methods plus a few more if corresponds. The calls are authenticated using the API Token given in the `ManagementAPI` instance creation and must contain the `scope` required by each entity. See the javadoc for details on which `scope` is expected for each call.
 
@@ -264,7 +277,7 @@ The Management API is divided into different entities. Each of them have the lis
 * **Logs:** See [Docs](https://auth0.com/docs/api/management/v2#!/Logs/get_logs). Access the methods by calling `mgmt.logEvents()`.
 * **Rules:** See [Docs](https://auth0.com/docs/api/management/v2#!/Rules/get_rules). Access the methods by calling `mgmt.rules()`.
 * **User Blocks:** See [Docs](https://auth0.com/docs/api/management/v2#!/User_Blocks/get_user_blocks). Access the methods by calling `mgmt.userBlocks()`.
-* **Users:** See [this](https://auth0.com/docs/api/management/v2#!/Users/get_users) and [this](https://auth0.com/docs/api/management/v2#!/Users_By_Email) Docs. Access the methods by calling `mgmt.users()`.
+* **Users:** See [this](https://auth0.com/docs/api/management/v2#!/Users/get_users) and [this](https://auth0.com/docs/api/management/v2#!/Users_By_Email) doc. Access the methods by calling `mgmt.users()`.
 * **Blacklists:** See [Docs](https://auth0.com/docs/api/management/v2#!/Blacklists/get_tokens). Access the methods by calling `mgmt.blacklists()`.
 * **Emails:** See [Docs](https://auth0.com/docs/api/management/v2#!/Emails/get_provider). Access the methods by calling `mgmt.emailProvider()`.
 * **Guardian:** See [Docs](https://auth0.com/docs/api/management/v2#!/Guardian/get_factors). Access the methods by calling `mgmt.guardian()`.
@@ -281,14 +294,14 @@ The Management API is divided into different entities. Each of them have the lis
 Creates a request to list the Users by Email. This is the preferred and fastest way to query Users by Email, and should be used instead of calling the generic list method with an email query. An API Token with scope `read:users` is needed. If you want the identities.access_token property to be included, you will also need the scope `read:user_idp_tokens`.
 You can pass an optional Filter to narrow the results in the response.
 
-`Request<UsersPage> listByEmail(String email, UserFilter filter)`
+`Request<List<User>> listByEmail(String email, UserFilter filter)`
 
 Example:
 ```java
 FieldsFilter filter = new FieldsFilter(...);
-Request<UsersPage> request = mgmt.users().listByEmail("johndoe@auth0.com", filter);
+Request<List<User>> request = mgmt.users().listByEmail("johndoe@auth0.com", filter);
 try {
-    UsersPage response = request.execute();
+    List<User> response = request.execute();
 } catch (APIException exception) {
     // api error
 } catch (Auth0Exception exception) {
