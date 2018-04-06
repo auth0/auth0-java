@@ -247,7 +247,7 @@ try {
 
 ## Management API
 
-The implementation is based on the [Management API Docs](https://auth0.com/docs/api/management/v2).
+The implementation is based on the [Management API Docs](https://auth0.com/docs/api/management/v2). 
 
 Create a `ManagementAPI` instance by providing the domain from the [client dashboard](https://manage.auth0.com/#/clients) and a valid API Token.
 
