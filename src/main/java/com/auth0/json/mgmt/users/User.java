@@ -458,9 +458,9 @@ public class User {
     }
 
     /**
-     * Setter for the Auth0 client ID. Only useful when updating the email.
+     * Setter for the Auth0 Application's client ID. Only useful when updating the email.
      *
-     * @param clientId the client ID to set.
+     * @param clientId the application's client ID to set.
      */
     @JsonProperty("client_id")
     public void setClientId(String clientId) {

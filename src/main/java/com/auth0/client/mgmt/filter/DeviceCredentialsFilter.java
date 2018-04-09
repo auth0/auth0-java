@@ -17,7 +17,7 @@ public class DeviceCredentialsFilter extends FieldsFilter {
     }
 
     /**
-     * Filter by client id
+     * Filter by application's client id
      *
      * @param clientId only retrieve items with this client id.
      * @return this filter instance.

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Class that provides an implementation of the Clients methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Connections
+ * Class that provides an implementation of the Connections methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Connections
  */
 @SuppressWarnings("WeakerAccess")
 public class ConnectionsEntity extends BaseManagementEntity {

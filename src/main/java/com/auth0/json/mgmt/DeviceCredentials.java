@@ -118,9 +118,9 @@ public class DeviceCredentials {
     }
 
     /**
-     * Setter for the client id of the client for which the credential will be created.
+     * Setter for the client id of the application for which the credential will be created.
      *
-     * @param clientId the client id to set.
+     * @param clientId the application's client id to set.
      */
     @JsonProperty("client_id")
     public void setClientId(String clientId) {

@@ -34,9 +34,9 @@ public class ClientGrant {
     }
 
     /**
-     * Getter for the id of the client.
+     * Getter for the client id of the application.
      *
-     * @return the client id.
+     * @return the application's client id.
      */
     @JsonProperty("client_id")
     public String getClientId() {
@@ -44,9 +44,9 @@ public class ClientGrant {
     }
 
     /**
-     * Setter for the client id.
+     * Setter for the application's client id.
      *
-     * @param clientId the client id to set.
+     * @param clientId the application's client id to set.
      */
     @JsonProperty("client_id")
     public void setClientId(String clientId) {

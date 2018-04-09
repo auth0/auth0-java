@@ -89,9 +89,9 @@ public class ManagementAPI {
     }
 
     /**
-     * Getter for the Clients entity.
+     * Getter for the Applications entity.
      *
-     * @return the Clients entity.
+     * @return the Applications entity.
      */
     public ClientsEntity clients() {
         return new ClientsEntity(client, baseUrl, apiToken);

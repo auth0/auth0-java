@@ -68,9 +68,9 @@ public class LogEvent {
     }
 
     /**
-     * Getter for the client id related to this event.
+     * Getter for the application's client id related to this event.
      *
-     * @return the client id.
+     * @return the application's client id.
      */
     @JsonProperty("client_id")
     public String getClientId() {
@@ -78,9 +78,9 @@ public class LogEvent {
     }
 
     /**
-     * Getter for the client name related to this event.
+     * Getter for the application's client name related to this event.
      *
-     * @return the client name.
+     * @return the application's client name.
      */
     @JsonProperty("client_name")
     public String getClientName() {

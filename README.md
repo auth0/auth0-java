@@ -36,7 +36,7 @@ The Auth0 Authentication API and User's Management API are available for Android
 
 The implementation is based on the [Authentication API Docs](https://auth0.com/docs/api/authentication).
 
-Create an `AuthAPI` instance by providing the client data from the [dashboard](https://manage.auth0.com/#/clients).
+Create an `AuthAPI` instance by providing the Application details from the [dashboard](https://manage.auth0.com/#/applications).
 
 ```java
 AuthAPI auth = new AuthAPI("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}");
@@ -44,7 +44,7 @@ AuthAPI auth = new AuthAPI("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SE
 
 ### Authorize - /authorize
 
-Creates an `AuthorizeUrlBuilder` to authenticate the user with an OAuth provider. The `redirectUri` must be white-listed in the "Allowed Callback URLs" section of the Client Settings. Parameters can be added to the final url by using the builder methods. When ready, call `build()` and obtain the Url.
+Creates an `AuthorizeUrlBuilder` to authenticate the user with an OAuth provider. The `redirectUri` must be white-listed in the "Allowed Callback URLs" section of the Applications Settings. Parameters can be added to the final url by using the builder methods. When ready, call `build()` and obtain the Url.
 
 ```AuthorizeUrlBuilder authorizeUrl(String redirectUri)```
 
@@ -59,7 +59,7 @@ String url = auth.authorizeUrl("https://me.auth0.com/callback")
 ```
 
 ### Logout - /v2/logout
-Creates a `LogoutUrlBuilder` to log out the user. The `returnToUrl` must be white-listed in the "Allowed Logout URLs" section of the Dashboard, depending on the value of `setClientId` this configuration should be set in the Client or in the Tenant. Parameters can be added to the final url by using the builder methods. When ready, call `build()` and obtain the Url.
+Creates a `LogoutUrlBuilder` to log out the user. The `returnToUrl` must be white-listed in the "Allowed Logout URLs" section of the Dashboard, depending on the value of `setClientId` this configuration should be set in the Application or in the Tenant Settings. Parameters can be added to the final url by using the builder methods. When ready, call `build()` and obtain the Url.
 
 `LogoutUrlBuilder logoutUrl(String returnToUrl, boolean setClientId)`
 
@@ -249,13 +249,13 @@ try {
 
 The implementation is based on the [Management API Docs](https://auth0.com/docs/api/management/v2). 
 
-Create a `ManagementAPI` instance by providing the domain from the [client dashboard](https://manage.auth0.com/#/clients) and a valid API Token.
+Create a `ManagementAPI` instance by providing the domain from the [Application dashboard](https://manage.auth0.com/#/applications) and a valid API Token.
 
 ```java
 ManagementAPI mgmt = new ManagementAPI("{YOUR_DOMAIN}", "{YOUR_API_TOKEN}");
 ```
 
-You can use the Authentication API to obtain a token for a previously authorized client:
+You can use the Authentication API to obtain a token for a previously authorized Application:
 
 ```java
 AuthAPI authAPI = new AuthAPI("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}");
@@ -546,7 +546,7 @@ For more information about [auth0](http://auth0.com) check our [documentation pa
 
 Auth0 helps you to:
 
-* Add authentication with [multiple authentication sources](https://docs.auth0.com/identityproviders), either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, amont others**, or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
+* Add authentication with [multiple authentication sources](https://docs.auth0.com/identityproviders), either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, among others**, or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
 * Add authentication through more traditional **[username/password databases](https://docs.auth0.com/mysql-connection-tutorial)**.
 * Add support for **[linking different user accounts](https://docs.auth0.com/link-accounts)** with the same user.
 * Support for generating signed [Json Web Tokens](https://docs.auth0.com/jwt) to call your APIs and **flow the user identity** securely.

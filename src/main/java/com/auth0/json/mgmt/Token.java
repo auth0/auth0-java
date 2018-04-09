@@ -24,7 +24,7 @@ public class Token {
     }
 
     /**
-     * Getter for the JWT's aud claim. This is the client id of the client for which this token was issued.
+     * Getter for the JWT's aud claim. This is the client id of the application for which this token was issued.
      *
      * @return the audience.
      */
@@ -34,7 +34,7 @@ public class Token {
     }
 
     /**
-     * Setter for the JWT's aud claim. This is the client id of the client for which this token was issued.
+     * Setter for the JWT's aud claim. This is the client id of the application for which this token was issued.
      *
      * @param aud the audience to blacklist.
      */
