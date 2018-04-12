@@ -45,6 +45,7 @@ public class MockServer {
     public static final String MGMT_USER_BLOCKS = "src/test/resources/mgmt/user_blocks.json";
     public static final String MGMT_BLACKLISTED_TOKENS_LIST = "src/test/resources/mgmt/blacklisted_tokens_list.json";
     public static final String MGMT_EMAIL_PROVIDER = "src/test/resources/mgmt/email_provider.json";
+    public static final String MGMT_EMAIL_TEMPLATE = "src/test/resources/mgmt/email_template.json";
     public static final String MGMT_USERS_LIST = "src/test/resources/mgmt/users_list.json";
     public static final String MGMT_USERS_PAGED_LIST = "src/test/resources/mgmt/users_paged_list.json";
     public static final String MGMT_USER = "src/test/resources/mgmt/user.json";
