@@ -74,30 +74,6 @@ public class EmailTemplatesEntity extends BaseManagementEntity {
      * Patches the existing Email Template. A token with scope update:email_templates is needed.
      * See https://auth0.com/docs/api/management/v2#!/Email_Templates/patch_email_templates_by_templateName
      *
-     * @param templateName the name of the template to patch. You can use any of the constants defined in {@link EmailTemplatesEntity}
-     * @param template     the email template data to set.
-     * @return a Request to execute.
-     */
-    public Request<EmailTemplate> patch(String templateName, EmailTemplate template) {
-        Asserts.assertNotNull(templateName, "template name");
-        Asserts.assertNotNull(template, "template");
-
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/email-templates")
-                .build()
-                .toString();
-        CustomRequest<EmailTemplate> request = new CustomRequest<>(this.client, url, "PATCH", new TypeReference<EmailTemplate>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.setBody(template);
-        return request;
-    }
-
-    /**
-     * Update the existing Email Template. A token with scope update:email_templates is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Email_Templates/put_email_templates_by_templateName
-     *
      * @param templateName the name of the template to update. You can use any of the constants defined in {@link EmailTemplatesEntity}
      * @param template     the email template data to set.
      * @return a Request to execute.
@@ -109,9 +85,10 @@ public class EmailTemplatesEntity extends BaseManagementEntity {
         String url = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/email-templates")
+                .addPathSegment(templateName)
                 .build()
                 .toString();
-        CustomRequest<EmailTemplate> request = new CustomRequest<>(this.client, url, "PUT", new TypeReference<EmailTemplate>() {
+        CustomRequest<EmailTemplate> request = new CustomRequest<>(this.client, url, "PATCH", new TypeReference<EmailTemplate>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(template);
