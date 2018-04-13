@@ -11,7 +11,7 @@ import okhttp3.logging.HttpLoggingInterceptor.Level;
 
 /**
  * Class that provides an implementation of some of the Authentication and Authorization API methods defined in https://auth0.com/docs/api/authentication.
- * To begin create a new instance of {@link #AuthAPI(String, String, String)} using the tenant domain, client id and client secret.
+ * To begin create a new instance of {@link #AuthAPI(String, String, String)} using the tenant domain, and the Application's client id and client secret.
  */
 @SuppressWarnings("WeakerAccess")
 public class AuthAPI {
@@ -40,11 +40,11 @@ public class AuthAPI {
     private final HttpLoggingInterceptor logging;
 
     /**
-     * Create a new instance with the given tenant's domain, client id and client secret. These values can be obtained at https://manage.auth0.com/#/clients/{YOUR_CLIENT_ID}/settings.
+     * Create a new instance with the given tenant's domain, application's client id and client secret. These values can be obtained at https://manage.auth0.com/#/applications/{YOUR_CLIENT_ID}/settings.
      *
      * @param domain       tenant's domain.
-     * @param clientId     the client's id.
-     * @param clientSecret the client's secret.
+     * @param clientId     the application's client id.
+     * @param clientSecret the application's client secret.
      */
     public AuthAPI(String domain, String clientId, String clientSecret) {
         Asserts.assertNotNull(domain, "domain");
@@ -116,7 +116,7 @@ public class AuthAPI {
      * }
      * </pre>
      *
-     * @param redirectUri the redirect_uri value to set, white-listed in the client settings. Must be already URL Encoded.
+     * @param redirectUri the redirect_uri value to set, white-listed in the Application settings. Must be already URL Encoded.
      * @return a new instance of the {@link AuthorizeUrlBuilder} to configure.
      */
     public AuthorizeUrlBuilder authorizeUrl(String redirectUri) {
@@ -137,7 +137,7 @@ public class AuthAPI {
      * }
      * </pre>
      *
-     * @param returnToUrl the redirect_uri value to set, white-listed in the client settings. Must be already URL Encoded.
+     * @param returnToUrl the redirect_uri value to set, white-listed in the Application settings. Must be already URL Encoded.
      * @param setClientId whether the client_id value must be set or not. This affects the white-list that the Auth0's Dashboard uses to validate the returnTo url.
      * @return a new instance of the {@link LogoutUrlBuilder} to configure.
      */

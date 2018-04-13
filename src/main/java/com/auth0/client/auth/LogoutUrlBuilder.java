@@ -20,10 +20,10 @@ public class LogoutUrlBuilder {
      * Creates a instance of the {@link LogoutUrlBuilder} using the given domain and base parameters.
      *
      * @param baseUrl     the base url constructed from a valid domain.
-     * @param clientId    the client_id value to set
+     * @param clientId    the application's client_id value to set
      * @param returnToUrl the returnTo value to set. Must be already URL Encoded and must be white-listed in your Auth0's dashboard.
      * @param setClientId whether the client_id value must be set or not. This affects the white-list that the Auth0's Dashboard uses to validate the returnTo url.
-     *                    If the client_id is set, the white-list is read from the Client configuration. If the client_id is not set, the white-list is read from the Tenant configuration.
+     *                    If the client_id is set, the white-list is read from the Application's settings. If the client_id is not set, the white-list is read from the Tenant's settings.
      * @return a new instance of the {@link LogoutUrlBuilder} to configure.
      */
     static LogoutUrlBuilder newInstance(HttpUrl baseUrl, String clientId, String returnToUrl, boolean setClientId) {

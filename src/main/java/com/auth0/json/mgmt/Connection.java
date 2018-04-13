@@ -89,9 +89,9 @@ public class Connection {
     }
 
     /**
-     * Getter for the list of clients this connection is enabled for.
+     * Getter for the list of applications this connection is enabled for.
      *
-     * @return the list of enabled clients.
+     * @return the list of enabled applications.
      */
     @JsonProperty("enabled_clients")
     public List<String> getEnabledClients() {
@@ -99,9 +99,9 @@ public class Connection {
     }
 
     /**
-     * Setter for the list of clients this connection is enabled for.
+     * Setter for the list of applications this connection is enabled for.
      *
-     * @param enabledClients the list of enabled clients to set.
+     * @param enabledClients the list of enabled applications to set.
      */
     @JsonProperty("enabled_clients")
     public void setEnabledClients(List<String> enabledClients) {

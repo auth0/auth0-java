@@ -48,9 +48,9 @@ public class JWTConfiguration {
     }
 
     /**
-     * Whether the client secret is base64 encoded or not.
+     * Whether the application's client secret is base64 encoded or not.
      *
-     * @return true if the client secret is base64 encoded, false otherwise.
+     * @return true if the application secret is base64 encoded, false otherwise.
      */
     @JsonProperty("secret_encoded")
     public Boolean isSecretEncoded() {
