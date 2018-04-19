@@ -49,8 +49,8 @@ public class EmailTemplatesEntity extends BaseManagementEntity {
     }
 
     /**
-     * Create a Rule. A token with scope create:rules is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Rules/post_rules
+     * Create an Email Template. A token with scope create:email_templates is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Email_Templates/post_email_templates
      *
      * @param template the template data to set
      * @return a Request to execute.
