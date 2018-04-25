@@ -222,4 +222,13 @@ public class ManagementAPI {
     public ResourceServerEntity resourceServers(){
         return new ResourceServerEntity(client, baseUrl, apiToken);
     }
+
+    /**
+     * Getter for Jobs entity.
+     *
+     * @return the Jobs entity.
+     */
+    public JobsEntity jobs() {
+        return new JobsEntity(client, baseUrl, apiToken);
+    }
 }
