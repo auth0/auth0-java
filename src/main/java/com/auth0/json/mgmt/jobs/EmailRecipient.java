@@ -37,9 +37,4 @@ public class EmailRecipient {
     public void setClientId(String clientId) {
         this.clientId = clientId;
     }
-
-    @JsonProperty("user_id")
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 }

@@ -49,23 +49,8 @@ public class Job {
         return id;
     }
 
-    @JsonProperty("status")
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    @JsonProperty("type")
-    public void setType(String type) {
-        this.type = type;
-    }
-
     @JsonProperty("created_at")
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
-    }
-
-    @JsonProperty("id")
-    public void setId(String id) {
-        this.id = id;
     }
 }
