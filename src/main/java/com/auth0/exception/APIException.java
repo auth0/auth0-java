@@ -33,8 +33,8 @@ public class APIException extends Auth0Exception {
     public APIException(Map<String, Object> values, int statusCode) {
         super(createMessage(obtainExceptionMessage(values), statusCode));
         this.values = Collections.unmodifiableMap(values);
-        this.error = obtainExceptionError(values);
-        this.description = obtainExceptionMessage(values);
+        this.error = obtainExceptionError(this.values);
+        this.description = obtainExceptionMessage(this.values);
         this.statusCode = statusCode;
     }
 
