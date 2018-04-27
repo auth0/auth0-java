@@ -297,6 +297,7 @@ public class CustomRequestTest {
         APIException authException = (APIException) exception;
         assertThat(authException.getDescription(), is("A plain-text error response"));
         assertThat(authException.getError(), is(nullValue()));
+        assertThat(authException.getValue("non_existing_key"), is(nullValue()));
         assertThat(authException.getStatusCode(), is(400));
     }
 
