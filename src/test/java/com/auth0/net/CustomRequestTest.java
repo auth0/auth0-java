@@ -1,8 +1,8 @@
 package com.auth0.net;
 
 import com.auth0.client.MockServer;
-import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.APIException;
+import com.auth0.exception.Auth0Exception;
 import com.auth0.json.auth.TokenHolder;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -211,6 +211,29 @@ public class CustomRequestTest {
         APIException authException = (APIException) exception;
         assertThat(authException.getDescription(), is("missing username for Username-Password-Authentication connection with requires_username enabled"));
         assertThat(authException.getError(), is("missing username for Username-Password-Authentication connection with requires_username enabled"));
+        assertThat(authException.getStatusCode(), is(400));
+    }
+
+    @Test
+    public void shouldParseJSONErrorResponseWithDescriptionAndExtraProperties() throws Exception {
+        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
+        server.jsonResponse(AUTH_ERROR_WITH_DESCRIPTION_AND_EXTRA_PROPERTIES, 400);
+        Exception exception = null;
+        try {
+            request.execute();
+            server.takeRequest();
+        } catch (Exception e) {
+            exception = e;
+        }
+        assertThat(exception, is(notNullValue()));
+        assertThat(exception, is(instanceOf(APIException.class)));
+        assertThat(exception.getCause(), is(nullValue()));
+        assertThat(exception.getMessage(), is("Request failed with status code 400: Multifactor authentication required"));
+        APIException authException = (APIException) exception;
+        assertThat(authException.getDescription(), is("Multifactor authentication required"));
+        assertThat(authException.getError(), is("mfa_required"));
+        assertThat(authException.getValue("mfa_token"), is("Fe26...Ha"));
+        assertThat(authException.getValue("non_existing_key"), is(nullValue()));
         assertThat(authException.getStatusCode(), is(400));
     }
 
