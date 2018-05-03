@@ -1,5 +1,6 @@
 package com.auth0.exception;
 
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -21,6 +22,7 @@ public class APIException extends Auth0Exception {
     private String error;
     private String description;
     private int statusCode;
+    private Map<String, Object> values;
 
     public APIException(String payload, int statusCode, Throwable cause) {
         super(createMessage(payload, statusCode), cause);
@@ -30,8 +32,9 @@ public class APIException extends Auth0Exception {
 
     public APIException(Map<String, Object> values, int statusCode) {
         super(createMessage(obtainExceptionMessage(values), statusCode));
-        this.error = obtainExceptionError(values);
-        this.description = obtainExceptionMessage(values);
+        this.values = Collections.unmodifiableMap(values);
+        this.error = obtainExceptionError(this.values);
+        this.description = obtainExceptionMessage(this.values);
         this.statusCode = statusCode;
     }
 
@@ -56,6 +59,19 @@ public class APIException extends Auth0Exception {
     }
 
     /**
+     * Returns a value from the error map, if any.
+     *
+     * @param key key of the value to return
+     * @return the value if found or null
+     */
+    public Object getValue(String key) {
+        if (values == null) {
+            return null;
+        }
+        return values.get(key);
+    }
+
+    /**
      * Getter for the exception user friendly description of why the request failed.
      * i.e. the description may say which query parameters are valid for that endpoint.
      *
@@ -75,9 +91,9 @@ public class APIException extends Auth0Exception {
         }
         if (values.containsKey("description")) {
             Object description = values.get("description");
-            if(description instanceof String) {
+            if (description instanceof String) {
                 return (String) description;
-            } else{
+            } else {
                 PasswordStrengthErrorParser policy = new PasswordStrengthErrorParser((Map<String, Object>) description);
                 return policy.getDescription();
             }
