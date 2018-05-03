@@ -214,6 +214,7 @@ public class CustomRequestTest {
         assertThat(authException.getStatusCode(), is(400));
     }
 
+    @SuppressWarnings("RedundantCast")
     @Test
     public void shouldParseJSONErrorResponseWithDescriptionAndExtraProperties() throws Exception {
         CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
@@ -232,7 +233,7 @@ public class CustomRequestTest {
         APIException authException = (APIException) exception;
         assertThat(authException.getDescription(), is("Multifactor authentication required"));
         assertThat(authException.getError(), is("mfa_required"));
-        assertThat(authException.getValue("mfa_token"), is("Fe26...Ha"));
+        assertThat(authException.getValue("mfa_token"), is((Object) "Fe26...Ha"));
         assertThat(authException.getValue("non_existing_key"), is(nullValue()));
         assertThat(authException.getStatusCode(), is(400));
     }
