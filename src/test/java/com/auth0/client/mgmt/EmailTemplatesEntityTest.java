@@ -121,7 +121,7 @@ public class EmailTemplatesEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldThrowOnPatchEmailTemplateWithNullName() throws Exception {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'template' cannot be null!");
+        exception.expectMessage("'template name' cannot be null!");
         api.emailTemplates().update(null, new EmailTemplate());
     }
 }
