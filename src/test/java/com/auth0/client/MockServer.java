@@ -23,6 +23,7 @@ public class MockServer {
     public static final String AUTH_ERROR_WITH_ERROR_DESCRIPTION = "src/test/resources/auth/error_with_error_description.json";
     public static final String AUTH_ERROR_WITH_ERROR = "src/test/resources/auth/error_with_error.json";
     public static final String AUTH_ERROR_WITH_DESCRIPTION = "src/test/resources/auth/error_with_description.json";
+    public static final String AUTH_ERROR_WITH_DESCRIPTION_AND_EXTRA_PROPERTIES = "src/test/resources/auth/error_with_description_and_extra_properties.json";
     public static final String AUTH_ERROR_PLAINTEXT = "src/test/resources/auth/error_plaintext.json";
     public static final String MGMT_ERROR_WITH_MESSAGE = "src/test/resources/mgmt/error_with_message.json";
     public static final String MGMT_CLIENT_GRANTS_LIST = "src/test/resources/mgmt/client_grants_list.json";

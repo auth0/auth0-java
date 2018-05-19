@@ -526,7 +526,7 @@ If you need to handle different error scenarios you need to catch first `APIExce
 
 The APIExplorer includes a list of response messages for each endpoint. You can get a clue of what went wrong by asking the Http status code: `exception.getStatusCode()`. i.e. a `status_code=403` would mean that the token has an insufficient scope.
 
-An error code will be included to categorize the type of error, you can get it by calling `exception.getError()`. If you want to see a user friendly description of what happened and why the request is failing check the `exception.getDescription()`.
+An error code will be included to categorize the type of error, you can get it by calling `exception.getError()`. If you want to see a user friendly description of what happened and why the request is failing check the `exception.getDescription()`. Finally, if the error response includes additional properties they can be obtained by calling `exception.getValue("{THE_KEY}")`.
 
 
 ```
