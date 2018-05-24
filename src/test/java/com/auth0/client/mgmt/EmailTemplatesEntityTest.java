@@ -99,13 +99,13 @@ public class EmailTemplatesEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body.size(), is(3));
+        assertThat(body.size(), is(4));
         assertThat(body, hasEntry("resultUrl", (Object) "https://somewhere.com"));
         assertThat(body, hasEntry("body", (Object) "<html>New</html>"));
+        assertThat(body, hasEntry("syntax", (Object) "liquid"));
         assertThat(body, hasEntry("urlLifetimeInSeconds", (Object) 123));
         assertThat(body, not(hasKey("template")));
         assertThat(body, not(hasKey("from")));
-        assertThat(body, not(hasKey("syntax")));
         assertThat(body, not(hasKey("enabled")));
 
         assertThat(response, is(notNullValue()));
