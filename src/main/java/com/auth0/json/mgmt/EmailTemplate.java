@@ -29,6 +29,11 @@ public class EmailTemplate {
     @JsonProperty("enabled")
     private Boolean enabled;
 
+    public EmailTemplate() {
+        //Only here to set the syntax default value
+        this.syntax = "liquid";
+    }
+
     /**
      * Getter for the name of the template.
      *
@@ -139,6 +144,7 @@ public class EmailTemplate {
 
     /**
      * Sets for the syntax to be used in the template's code.
+     * Default value is 'liquid'
      *
      * @param syntax the syntax to be used in the template's code.
      */
