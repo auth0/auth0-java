@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.List;
 
 /**
- * Class that represents a given Page of Log Events. Related to the {@link com.auth0.client.mgmt.LogEventsEntity} entity.
+ * Class that represents a given page of Log Events. Related to the {@link com.auth0.client.mgmt.LogEventsEntity} entity.
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 @JsonIgnoreProperties(ignoreUnknown = true)

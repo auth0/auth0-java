@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.List;
 
 /**
- * Class that represents a given Page of Clients. Related to the {@link com.auth0.client.mgmt.ClientsEntity} entity.
+ * Class that represents a given page of Clients. Related to the {@link com.auth0.client.mgmt.ClientsEntity} entity.
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 @JsonIgnoreProperties(ignoreUnknown = true)
