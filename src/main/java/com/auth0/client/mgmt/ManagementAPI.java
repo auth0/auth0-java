@@ -170,6 +170,15 @@ public class ManagementAPI {
     }
 
     /**
+     * Getter for the Email Templates entity.
+     *
+     * @return the Email Templates entity.
+     */
+    public EmailTemplatesEntity emailTemplates() {
+        return new EmailTemplatesEntity(client, baseUrl, apiToken);
+    }
+
+    /**
      * Getter for the Email Provider entity.
      *
      * @return the Email Provider entity.
@@ -219,7 +228,7 @@ public class ManagementAPI {
      *
      * @return the Resource Servers entity.
      */
-    public ResourceServerEntity resourceServers(){
+    public ResourceServerEntity resourceServers() {
         return new ResourceServerEntity(client, baseUrl, apiToken);
     }
 }
