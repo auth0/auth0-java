@@ -23,7 +23,7 @@ public class Job {
     private String id;
 
     @JsonCreator
-    public Job(@JsonProperty("status") String status, @JsonProperty("type") String type, @JsonProperty("id") String id) {
+    private Job(@JsonProperty("status") String status, @JsonProperty("type") String type, @JsonProperty("id") String id) {
         this.status = status;
         this.type = type;
         this.id = id;
