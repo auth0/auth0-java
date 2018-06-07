@@ -32,7 +32,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(1));
-        assertThat(body, hasEntry("user_id", "google-oauth2|1234"));
+        assertThat(body, hasEntry("user_id", (Object) "google-oauth2|1234"));
 
         assertThat(response, is(notNullValue()));
     }
