@@ -1,0 +1,8 @@
+{
+  "template": "welcome_email",
+  "from": "me@auth0.com",
+  "subject": "Some subject",
+  "syntax": "liquid",
+  "body": "<html> </html>",
+  "enabled": false
+}
