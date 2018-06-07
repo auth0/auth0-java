@@ -38,7 +38,7 @@ public class JobsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        Map<String, Object> requestBody = new HashMap<>();
+        Map<String, String> requestBody = new HashMap<>();
         requestBody.put("user_id", userId);
         if (clientId != null && !clientId.isEmpty()) {
             requestBody.put("client_id", clientId);
