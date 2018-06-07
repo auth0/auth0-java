@@ -47,7 +47,7 @@ public class JobsEntity extends BaseManagementEntity {
         CustomRequest<Job> request = new CustomRequest<>(client, url, "POST", new TypeReference<Job>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
-        request.setBody(requestBody);
+        request.setBody((Object) requestBody);
         return request;
     }
 }
