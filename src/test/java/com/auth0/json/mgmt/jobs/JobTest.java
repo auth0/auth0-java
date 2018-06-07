@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
 
 public class JobTest extends JsonTest<Job> {
 
-    private static final String json = "{\"status\": \"completed\",\"type\": \"verification_email\",\"created_at\": \"12/09/2025\",\"id\": \"job_0000000000000001\"}";
+    private static final String json = "{\"status\": \"completed\",\"type\": \"verification_email\",\"created_at\": \"2016-02-23T19:57:29.532Z\",\"id\": \"job_0000000000000001\"}";
 
     @Test
     public void shouldDeserialize() throws Exception {
@@ -19,6 +19,6 @@ public class JobTest extends JsonTest<Job> {
         assertThat(job.getId(), is("job_0000000000000001"));
         assertThat(job.getStatus(), is("completed"));
         assertThat(job.getType(), is("verification_email"));
-        assertThat(job.getCreatedAt(), is("12/09/2025"));
+        assertThat(job.getCreatedAt(), is(parseJSONDate("2016-02-23T19:57:29.532Z")));
     }
 }

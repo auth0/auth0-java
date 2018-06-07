@@ -1,6 +1,5 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.json.mgmt.jobs.EmailRecipient;
 import com.auth0.json.mgmt.jobs.Job;
 import com.auth0.net.Request;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -20,7 +19,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldSendAUserAVerificationEmail() throws Exception {
-        Request<Job> request = api.jobs().sendVerificationEmail(new EmailRecipient("google-oauth2|1234"));
+        Request<Job> request = api.jobs().sendVerificationEmail("google-oauth2|1234", null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_JOB_POST_VERIFICATION_EMAIL, 200);
@@ -32,8 +31,8 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body.size(), is(1));
-        assertThat(body, hasEntry("user_id", (Object) "google-oauth2|1234"));
+//        assertThat(body.size(), is(1));
+        assertThat(body, hasEntry("user_id", "google-oauth2|1234"));
 
         assertThat(response, is(notNullValue()));
     }
@@ -42,6 +41,6 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnNullEmailRecipient() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'recipient' cannot be null!");
-        api.jobs().sendVerificationEmail(null);
+        api.jobs().sendVerificationEmail(null, null);
     }
 }
