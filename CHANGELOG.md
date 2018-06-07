@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.6.0](https://github.com/auth0/auth0-java/tree/1.6.0) (2018-06-04)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.5.1...1.6.0)
+
+**Added**
+- Expose additional error response properties in the Exception [\#123](https://github.com/auth0/auth0-java/pull/123) ([lbalmaceda](https://github.com/lbalmaceda))
+- Add email-templates endpoints [\#117](https://github.com/auth0/auth0-java/pull/117) ([lbalmaceda](https://github.com/lbalmaceda))
+
 ## [1.5.1](https://github.com/auth0/auth0-java/tree/1.5.1) (2018-03-01)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.5.0...1.5.1)
 
