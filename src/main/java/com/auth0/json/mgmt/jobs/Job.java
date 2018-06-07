@@ -39,6 +39,7 @@ public class Job {
         return type;
     }
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @JsonProperty("created_at")
     public Date getCreatedAt() {
         return createdAt;
@@ -47,11 +48,5 @@ public class Job {
     @JsonProperty("id")
     public String getId() {
         return id;
-    }
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-    @JsonProperty("created_at")
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 }
