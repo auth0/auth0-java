@@ -31,7 +31,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-//        assertThat(body.size(), is(1));
+        assertThat(body.size(), is(1));
         assertThat(body, hasEntry("user_id", "google-oauth2|1234"));
 
         assertThat(response, is(notNullValue()));
