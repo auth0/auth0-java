@@ -233,7 +233,7 @@ public class ManagementAPI {
     }
 
     /**
-     * Getter for Jobs entity.
+     * Getter for the Jobs entity.
      *
      * @return the Jobs entity.
      */

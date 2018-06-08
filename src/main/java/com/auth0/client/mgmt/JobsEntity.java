@@ -30,7 +30,7 @@ public class JobsEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request<Job> sendVerificationEmail(String userId, String clientId) {
-        Asserts.assertNotNull(userId, "recipient");
+        Asserts.assertNotNull(userId, "user id");
 
         String url = baseUrl
                 .newBuilder()
@@ -47,7 +47,7 @@ public class JobsEntity extends BaseManagementEntity {
         CustomRequest<Job> request = new CustomRequest<>(client, url, "POST", new TypeReference<Job>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
-        request.setBody((Object) requestBody);
+        request.setBody(requestBody);
         return request;
     }
 }
