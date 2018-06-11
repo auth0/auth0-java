@@ -1,6 +1,8 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.client.mgmt.filter.ClientFilter;
 import com.auth0.json.mgmt.client.Client;
+import com.auth0.json.mgmt.client.ClientsPage;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.EmptyBodyRequest;
 import com.auth0.net.Request;
@@ -11,6 +13,7 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class that provides an implementation of the Application methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Clients
@@ -35,6 +38,29 @@ public class ClientsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
         CustomRequest<List<Client>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Client>>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Request all the Applications. A token with scope read:clients is needed. If you also need the client_secret and encryption_key attributes the token must have read:client_keys scope.
+     * See https://auth0.com/docs/api/management/v2#!/Clients/get_clients
+     *
+     * @param filter the filter to use. Can be null.
+     * @return a Request to execute.
+     */
+    public Request<ClientsPage> list(ClientFilter filter) {
+        HttpUrl.Builder builder = baseUrl
+                .newBuilder()
+                .addPathSegments("api/v2/clients");
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+        String url = builder.build().toString();
+        CustomRequest<ClientsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<ClientsPage>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;

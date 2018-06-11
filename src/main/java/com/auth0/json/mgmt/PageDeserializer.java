@@ -1,0 +1,58 @@
+package com.auth0.json.mgmt;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.type.CollectionType;
+
+import java.io.IOException;
+import java.util.List;
+
+public abstract class PageDeserializer<T, U> extends StdDeserializer<T> {
+
+    private String itemsPropertyName;
+    private Class<U> uClazz;
+
+    protected PageDeserializer(Class<U> clazz, String arrayName) {
+        super(Object.class);
+        this.uClazz = clazz;
+        this.itemsPropertyName = arrayName;
+    }
+
+    @Override
+    public T deserialize(JsonParser p, DeserializationContext ctx) throws IOException {
+        JsonNode node = p.getCodec().readTree(p);
+        ObjectMapper mapper = new ObjectMapper();
+        if (node.isArray()) {
+            return createPage(getArrayElements((ArrayNode) node, mapper));
+        }
+
+        Integer start = getIntegerValue(node.get("start"));
+        Integer length = getIntegerValue(node.get("length"));
+        Integer total = getIntegerValue(node.get("total"));
+        Integer limit = getIntegerValue(node.get("limit"));
+        ArrayNode array = (ArrayNode) node.get(itemsPropertyName);
+
+        return createPage(start, length, total, limit, getArrayElements(array, mapper));
+    }
+
+    protected abstract T createPage(List<U> items);
+
+    protected abstract T createPage(Integer start, Integer length, Integer total, Integer limit, List<U> items);
+
+    private Integer getIntegerValue(JsonNode node) {
+        if (node == null || node.isNull()) {
+            return null;
+        } else {
+            return node.intValue();
+        }
+    }
+
+    private List<U> getArrayElements(ArrayNode array, ObjectMapper mapper) throws IOException {
+        CollectionType type = mapper.getTypeFactory().constructCollectionType(List.class, uClazz);
+        return mapper.readerFor(type).readValue(array);
+    }
+}
