@@ -1,5 +1,18 @@
 # Change Log
 
+## [1.7.0](https://github.com/auth0/auth0-java/tree/1.7.0) (2018-06-11)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.6.0...1.7.0)
+
+**Added**
+- Support pagination on the Clients entity [\#124](https://github.com/auth0/auth0-java/pull/124) ([lbalmaceda](https://github.com/lbalmaceda))
+- Add Resend verification email functionality [\#120](https://github.com/auth0/auth0-java/pull/120) ([minhlongdo](https://github.com/minhlongdo))
+
+**Deprecated**
+- Deprecate ClientsEntity#list() method [\#128](https://github.com/auth0/auth0-java/pull/128) ([lbalmaceda](https://github.com/lbalmaceda))
+
+**Security**
+- Security fix and dependencies update [\#129](https://github.com/auth0/auth0-java/pull/129) ([lbalmaceda](https://github.com/lbalmaceda))
+
 ## [1.6.0](https://github.com/auth0/auth0-java/tree/1.6.0) (2018-06-04)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.5.1...1.6.0)
 
