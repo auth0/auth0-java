@@ -30,7 +30,10 @@ public class ClientsEntity extends BaseManagementEntity {
      * See https://auth0.com/docs/api/management/v2#!/Clients/get_clients
      *
      * @return a Request to execute.
+     * @deprecated Calling this method will soon stop returning the complete list of clients and instead, limit to the first page of results.
+     * Please use {@link #list(ClientFilter)} instead as it provides pagination support.
      */
+    @Deprecated
     public Request<List<Client>> list() {
         String url = baseUrl
                 .newBuilder()
