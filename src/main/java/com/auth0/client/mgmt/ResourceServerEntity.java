@@ -1,8 +1,8 @@
 package com.auth0.client.mgmt;
 
-import java.util.List;
-
+import com.auth0.client.mgmt.filter.ResourceServersFilter;
 import com.auth0.json.mgmt.ResourceServer;
+import com.auth0.json.mgmt.ResourceServersPage;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
@@ -11,10 +11,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Class that provides an implementation of the Resource Server methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Resource_Servers
  */
-public class ResourceServerEntity  {
+public class ResourceServerEntity {
     private OkHttpClient client;
     private HttpUrl baseUrl;
     private String apiToken;
@@ -31,16 +34,40 @@ public class ResourceServerEntity  {
      *
      * @return request to execute
      */
-    public Request<List<ResourceServer>> list() {
+    public Request<ResourceServersPage> list(ResourceServersFilter filter) {
+        HttpUrl.Builder builder = baseUrl
+                .newBuilder()
+                .addPathSegments("api/v2/resource-servers");
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
 
+        String url = builder.build().toString();
+        CustomRequest<ResourceServersPage> request = new CustomRequest<>(client, url, "GET",
+                new TypeReference<ResourceServersPage>() {
+                });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Creates request to fetch all resource servers.
+     * See <a href=https://auth0.com/docs/api/management/v2#!/Resource_Servers/get_resource_servers>API documentation</a>
+     *
+     * @return request to execute
+     */
+    public Request<List<ResourceServer>> list() {
+        //TODO: Deprecate
         HttpUrl.Builder builder = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/resource-servers");
 
         String url = builder.build().toString();
         CustomRequest<List<ResourceServer>> request = new CustomRequest<>(client, url, "GET",
-                                                                          new TypeReference<List<ResourceServer>>() {
-                                                                          });
+                new TypeReference<List<ResourceServer>>() {
+                });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
@@ -62,8 +89,8 @@ public class ResourceServerEntity  {
 
         String url = builder.build().toString();
         CustomRequest<ResourceServer> request = new CustomRequest<>(client, url, "GET",
-                                                                    new TypeReference<ResourceServer>() {
-                                                                    });
+                new TypeReference<ResourceServer>() {
+                });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
@@ -84,8 +111,8 @@ public class ResourceServerEntity  {
 
         String url = builder.build().toString();
         CustomRequest<ResourceServer> request = new CustomRequest<>(client, url, "POST",
-                                                                    new TypeReference<ResourceServer>() {
-                                                                    });
+                new TypeReference<ResourceServer>() {
+                });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(resourceServer);
         return request;
@@ -131,8 +158,8 @@ public class ResourceServerEntity  {
 
         String url = builder.build().toString();
         CustomRequest<ResourceServer> request = new CustomRequest<ResourceServer>(client, url, "PATCH",
-                                                                                  new TypeReference<ResourceServer>() {
-                                                                                  });
+                new TypeReference<ResourceServer>() {
+                });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(resourceServer);
         return request;

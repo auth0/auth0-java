@@ -1,27 +1,85 @@
 package com.auth0.client.mgmt;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
+import com.auth0.client.mgmt.filter.ResourceServersFilter;
 import com.auth0.json.mgmt.ResourceServer;
+import com.auth0.json.mgmt.ResourceServersPage;
 import com.auth0.json.mgmt.Scope;
 import com.auth0.net.Request;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
 
-import static com.auth0.client.MockServer.MGMT_RESOURCE_SERVER;
-import static com.auth0.client.MockServer.MGMT_RESOURCE_SERVERS_LIST;
-import static com.auth0.client.MockServer.bodyFromRequest;
-import static com.auth0.client.RecordedRequestMatcher.hasHeader;
-import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
-import static org.hamcrest.Matchers.hasEntry;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import static com.auth0.client.MockServer.*;
+import static com.auth0.client.RecordedRequestMatcher.*;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 public class ResourceServerEntityTest extends BaseMgmtEntityTest {
+
+
+    @Test
+    public void shouldListResourceServerWithoutFilter() throws Exception {
+        Request<ResourceServersPage> request = api.resourceServers().list(null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_RESOURCE_SERVERS_LIST, 200);
+        ResourceServersPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/resource-servers"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
+    @Test
+    public void shouldListResourceServerWithPage() throws Exception {
+        ResourceServersFilter filter = new ResourceServersFilter().withPage(23, 5);
+        Request<ResourceServersPage> request = api.resourceServers().list(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_RESOURCE_SERVERS_LIST, 200);
+        ResourceServersPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/resource-servers"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("page", "23"));
+        assertThat(recordedRequest, hasQueryParameter("per_page", "5"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
+    @Test
+    public void shouldListResourceServerWithTotals() throws Exception {
+        ResourceServersFilter filter = new ResourceServersFilter().withTotals(true);
+        Request<ResourceServersPage> request = api.resourceServers().list(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_RESOURCE_SERVERS_PAGED_LIST, 200);
+        ResourceServersPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/resource-servers"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+        assertThat(response.getStart(), is(0));
+        assertThat(response.getLength(), is(14));
+        assertThat(response.getTotal(), is(14));
+        assertThat(response.getLimit(), is(50));
+    }
+
     @Test
     public void shouldListResourceServers() throws Exception {
         Request<List<ResourceServer>> request = api.resourceServers().list();
@@ -53,7 +111,7 @@ public class ResourceServerEntityTest extends BaseMgmtEntityTest {
         resourceServer.setTokenLifetime(0);
         resourceServer.setVerificationLocation("verification_location");
         Request<ResourceServer> request = api.resourceServers()
-                                             .update("23445566abab", resourceServer);
+                .update("23445566abab", resourceServer);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RESOURCE_SERVER, 200);
@@ -74,7 +132,7 @@ public class ResourceServerEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldGetResourceServerById() throws Exception {
         Request<ResourceServer> request = api.resourceServers()
-                                             .get("23445566abab");
+                .get("23445566abab");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RESOURCE_SERVER, 200);
@@ -91,7 +149,7 @@ public class ResourceServerEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldCreateResourceServer() throws Exception {
         Request<ResourceServer> request = api.resourceServers()
-                                             .create(new ResourceServer("https://api.my-company.com/api/v2/"));
+                .create(new ResourceServer("https://api.my-company.com/api/v2/"));
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RESOURCE_SERVER, 200);
@@ -112,7 +170,7 @@ public class ResourceServerEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldDeleteResourceServer() throws Exception {
         Request<Void> request = api.resourceServers()
-                                   .delete("23445566abab");
+                .delete("23445566abab");
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(200);
