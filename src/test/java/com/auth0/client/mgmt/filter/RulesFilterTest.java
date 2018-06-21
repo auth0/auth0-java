@@ -45,4 +45,23 @@ public class RulesFilterTest {
         assertThat(filter.getAsMap(), Matchers.hasEntry("fields", (Object) "a,b,c"));
         assertThat(filter.getAsMap(), Matchers.hasEntry("include_fields", (Object) false));
     }
+
+    @Test
+    public void shouldIncludeTotals() throws Exception {
+        RulesFilter instance = filter.withTotals(true);
+
+        assertThat(filter, is(instance));
+        assertThat(filter.getAsMap(), is(notNullValue()));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("include_totals", (Object) true));
+    }
+
+    @Test
+    public void shouldFilterByPage() throws Exception {
+        RulesFilter instance = filter.withPage(15, 50);
+
+        assertThat(filter, is(instance));
+        assertThat(filter.getAsMap(), is(notNullValue()));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("page", (Object) 15));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("per_page", (Object) 50));
+    }
 }
