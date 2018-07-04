@@ -55,9 +55,11 @@ public class ConnectionsEntity extends BaseManagementEntity {
      *
      * @param filter the filter to use. Can be null.
      * @return a Request to execute.
+     * @deprecated Calling this method will soon stop returning the complete list of connections and instead, limit to the first page of results.
+     * Please use {@link #listAll(ConnectionFilter)} instead as it provides pagination support.
      */
+    @Deprecated
     public Request<List<Connection>> list(ConnectionFilter filter) {
-        //TODO: Deprecate
         HttpUrl.Builder builder = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/connections");

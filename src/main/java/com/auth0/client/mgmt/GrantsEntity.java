@@ -57,9 +57,11 @@ public class GrantsEntity extends BaseManagementEntity {
      *
      * @param userId The user id of the grants to retrieve
      * @return a Request to execute.
+     * @deprecated Calling this method will soon stop returning the complete list of grants and instead, limit to the first page of results.
+     * Please use {@link #list(String, GrantsFilter)} instead as it provides pagination support.
      */
+    @Deprecated
     public Request<List<Grant>> list(String userId) {
-        //TODO: Deprecate
         Asserts.assertNotNull(userId, "user id");
 
         String url = baseUrl

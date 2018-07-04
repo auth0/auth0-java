@@ -53,9 +53,11 @@ public class RulesEntity extends BaseManagementEntity {
      *
      * @param filter the filter to use. Can be null.
      * @return a Request to execute.
+     * @deprecated Calling this method will soon stop returning the complete list of rules and instead, limit to the first page of results.
+     * Please use {@link #listAll(RulesFilter)} instead as it provides pagination support.
      */
+    @Deprecated
     public Request<List<Rule>> list(RulesFilter filter) {
-        //TODO: Deprecate. Warn page params are not going to work on this method
         HttpUrl.Builder builder = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/rules");
