@@ -2,6 +2,7 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.ConnectionFilter;
 import com.auth0.json.mgmt.Connection;
+import com.auth0.json.mgmt.ConnectionsPage;
 import com.auth0.net.Request;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
@@ -90,6 +91,86 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
         assertThat(response, is(notNullValue()));
         assertThat(response, hasSize(2));
     }
+
+    @Test
+    public void shouldListConnectionsWithoutFilter() throws Exception {
+        Request<ConnectionsPage> request = api.connections().listAll(null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CONNECTIONS_LIST, 200);
+        ConnectionsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/rules"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
+    @Test
+    public void shouldNotListConnectionsWithTotals() throws Exception {
+        ConnectionFilter filter = new ConnectionFilter().withTotals(true);
+        Request<List<Connection>> request = api.connections().list(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CONNECTIONS_LIST, 200);
+        List<Connection> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/connections"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, not(hasQueryParameter("include_totals")));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, hasSize(2));
+    }
+
+    @Test
+    public void shouldListConnectionsWithPage() throws Exception {
+        ConnectionFilter filter = new ConnectionFilter().withPage(23, 5);
+        Request<ConnectionsPage> request = api.connections().listAll(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CONNECTIONS_LIST, 200);
+        ConnectionsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/connections"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("page", "23"));
+        assertThat(recordedRequest, hasQueryParameter("per_page", "5"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
+    @Test
+    public void shouldListConnectionsWithTotals() throws Exception {
+        ConnectionFilter filter = new ConnectionFilter().withTotals(true);
+        Request<ConnectionsPage> request = api.connections().listAll(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CONNECTIONS_PAGED_LIST, 200);
+        ConnectionsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/connections"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+        assertThat(response.getStart(), is(0));
+        assertThat(response.getLength(), is(14));
+        assertThat(response.getTotal(), is(14));
+        assertThat(response.getLimit(), is(50));
+    }
+
 
     @Test
     public void shouldReturnEmptyConnections() throws Exception {

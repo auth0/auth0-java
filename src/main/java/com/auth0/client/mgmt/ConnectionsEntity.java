@@ -2,6 +2,7 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.ConnectionFilter;
 import com.auth0.json.mgmt.Connection;
+import com.auth0.json.mgmt.ConnectionsPage;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
@@ -23,6 +24,31 @@ public class ConnectionsEntity extends BaseManagementEntity {
         super(client, baseUrl, apiToken);
     }
 
+
+    /**
+     * Request all the ConnectionsEntity. A token with scope read:connections is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Connections/get_connections
+     *
+     * @param filter the filter to use. Can be null.
+     * @return a Request to execute.
+     */
+    public Request<ConnectionsPage> listAll(ConnectionFilter filter) {
+        HttpUrl.Builder builder = baseUrl
+                .newBuilder()
+                .addPathSegments("api/v2/connections");
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+        String url = builder.build().toString();
+        CustomRequest<ConnectionsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<ConnectionsPage>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+
     /**
      * Request all the ConnectionsEntity. A token with scope read:connections is needed.
      * See https://auth0.com/docs/api/management/v2#!/Connections/get_connections
@@ -31,12 +57,16 @@ public class ConnectionsEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request<List<Connection>> list(ConnectionFilter filter) {
+        //TODO: Deprecate
         HttpUrl.Builder builder = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/connections");
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                //This check below is to prevent JSON parsing errors
+                if (!e.getKey().equalsIgnoreCase("include_totals")) {
+                    builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                }
             }
         }
         String url = builder.build().toString();
