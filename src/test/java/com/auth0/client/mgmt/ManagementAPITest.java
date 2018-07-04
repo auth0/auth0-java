@@ -146,6 +146,11 @@ public class ManagementAPITest {
     //Entities
 
     @Test
+    public void shouldGetBlacklists() throws Exception {
+        assertThat(api.blacklists(), notNullValue());
+    }
+
+    @Test
     public void shouldGetClientGrants() throws Exception {
         assertThat(api.clientGrants(), notNullValue());
     }
@@ -166,38 +171,43 @@ public class ManagementAPITest {
     }
 
     @Test
-    public void shouldGetLogEvents() throws Exception {
-        assertThat(api.logEvents(), notNullValue());
-    }
-
-    @Test
-    public void shouldGetRules() throws Exception {
-        assertThat(api.rules(), notNullValue());
-    }
-
-    @Test
-    public void shouldGetUserBlocks() throws Exception {
-        assertThat(api.userBlocks(), notNullValue());
-    }
-
-    @Test
-    public void shouldGetUsers() throws Exception {
-        assertThat(api.users(), notNullValue());
-    }
-
-    @Test
-    public void shouldGetBlacklists() throws Exception {
-        assertThat(api.blacklists(), notNullValue());
-    }
-
-    @Test
     public void shouldGetEmailProvider() throws Exception {
         assertThat(api.emailProvider(), notNullValue());
     }
 
     @Test
+    public void shouldGetEmailTemplates() throws Exception {
+        assertThat(api.emailTemplates(), notNullValue());
+    }
+
+    @Test
+    public void shouldGetGrants() throws Exception {
+        assertThat(api.grants(), notNullValue());
+    }
+
+    @Test
     public void shouldGetGuardian() throws Exception {
         assertThat(api.guardian(), notNullValue());
+    }
+
+    @Test
+    public void shouldGetJobs() throws Exception {
+        assertThat(api.jobs(), notNullValue());
+    }
+
+    @Test
+    public void shouldGetLogEvents() throws Exception {
+        assertThat(api.logEvents(), notNullValue());
+    }
+
+    @Test
+    public void shouldGetResourceServers() throws Exception {
+        assertThat(api.resourceServers(), notNullValue());
+    }
+
+    @Test
+    public void shouldGetRules() throws Exception {
+        assertThat(api.rules(), notNullValue());
     }
 
     @Test
@@ -214,4 +224,15 @@ public class ManagementAPITest {
     public void shouldGetTickets() throws Exception {
         assertThat(api.tickets(), notNullValue());
     }
+
+    @Test
+    public void shouldGetUserBlocks() throws Exception {
+        assertThat(api.userBlocks(), notNullValue());
+    }
+
+    @Test
+    public void shouldGetUsers() throws Exception {
+        assertThat(api.users(), notNullValue());
+    }
+
 }
