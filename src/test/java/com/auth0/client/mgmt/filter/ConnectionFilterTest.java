@@ -1,6 +1,5 @@
 package com.auth0.client.mgmt.filter;
 
-import com.auth0.client.mgmt.filter.ConnectionFilter;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;

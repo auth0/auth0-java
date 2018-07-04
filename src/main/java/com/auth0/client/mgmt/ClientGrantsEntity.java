@@ -1,6 +1,8 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.client.mgmt.filter.ClientGrantsFilter;
 import com.auth0.json.mgmt.ClientGrant;
+import com.auth0.json.mgmt.ClientGrantsPage;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
@@ -10,6 +12,7 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class that provides an implementation of the Client Grants methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Client_Grants
@@ -25,9 +28,34 @@ public class ClientGrantsEntity extends BaseManagementEntity {
      * Request all the Client Grants. A token with scope read:client_grants is needed.
      * See https://auth0.com/docs/api/management/v2#!/Client_Grants/get_client_grants
      *
+     * @param filter the filter to use. Can be null
+     * @return a Request to execute.
+     */
+    public Request<ClientGrantsPage> list(ClientGrantsFilter filter) {
+        HttpUrl.Builder builder = baseUrl
+                .newBuilder()
+                .addPathSegments("api/v2/client-grants");
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+
+        String url = builder.build().toString();
+        CustomRequest<ClientGrantsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<ClientGrantsPage>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Request all the Client Grants. A token with scope read:client_grants is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Client_Grants/get_client_grants
+     *
      * @return a Request to execute.
      */
     public Request<List<ClientGrant>> list() {
+        //TODO Deprecate
         String url = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/client-grants")

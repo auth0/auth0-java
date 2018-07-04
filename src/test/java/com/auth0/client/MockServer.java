@@ -27,6 +27,7 @@ public class MockServer {
     public static final String AUTH_ERROR_PLAINTEXT = "src/test/resources/auth/error_plaintext.json";
     public static final String MGMT_ERROR_WITH_MESSAGE = "src/test/resources/mgmt/error_with_message.json";
     public static final String MGMT_CLIENT_GRANTS_LIST = "src/test/resources/mgmt/client_grants_list.json";
+    public static final String MGMT_CLIENT_GRANTS_PAGED_LIST = "src/test/resources/mgmt/client_grants_paged_list.json";
     public static final String MGMT_CLIENT_GRANT = "src/test/resources/mgmt/client_grant.json";
     public static final String MGMT_CLIENTS_LIST = "src/test/resources/mgmt/clients_list.json";
     public static final String MGMT_CLIENTS_PAGED_LIST = "src/test/resources/mgmt/clients_paged_list.json";
@@ -36,12 +37,15 @@ public class MockServer {
     public static final String MGMT_DEVICE_CREDENTIALS_LIST = "src/test/resources/mgmt/device_credentials_list.json";
     public static final String MGMT_DEVICE_CREDENTIALS = "src/test/resources/mgmt/device_credentials.json";
     public static final String MGMT_GRANTS_LIST = "src/test/resources/mgmt/grants_list.json";
+    public static final String MGMT_GRANTS_PAGED_LIST = "src/test/resources/mgmt/grants_paged_list.json";
     public static final String MGMT_LOG_EVENTS_LIST = "src/test/resources/mgmt/event_logs_list.json";
     public static final String MGMT_LOG_EVENTS_PAGED_LIST = "src/test/resources/mgmt/event_logs_paged_list.json";
     public static final String MGMT_LOG_EVENT = "src/test/resources/mgmt/event_log.json";
     public static final String MGMT_RESOURCE_SERVERS_LIST = "src/test/resources/mgmt/resource_servers_list.json";
+    public static final String MGMT_RESOURCE_SERVERS_PAGED_LIST = "src/test/resources/mgmt/resource_servers_paged_list.json";
     public static final String MGMT_RESOURCE_SERVER = "src/test/resources/mgmt/resource_server.json";
     public static final String MGMT_RULES_LIST = "src/test/resources/mgmt/rules_list.json";
+    public static final String MGMT_RULES_PAGED_LIST = "src/test/resources/mgmt/rules_paged_list.json";
     public static final String MGMT_RULE = "src/test/resources/mgmt/rule.json";
     public static final String MGMT_USER_BLOCKS = "src/test/resources/mgmt/user_blocks.json";
     public static final String MGMT_BLACKLISTED_TOKENS_LIST = "src/test/resources/mgmt/blacklisted_tokens_list.json";

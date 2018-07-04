@@ -2,6 +2,7 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.RulesFilter;
 import com.auth0.json.mgmt.Rule;
+import com.auth0.json.mgmt.RulesPage;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
@@ -30,7 +31,31 @@ public class RulesEntity extends BaseManagementEntity {
      * @param filter the filter to use. Can be null.
      * @return a Request to execute.
      */
+    public Request<RulesPage> listAll(RulesFilter filter) {
+        HttpUrl.Builder builder = baseUrl
+                .newBuilder()
+                .addPathSegments("api/v2/rules");
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+        String url = builder.build().toString();
+        CustomRequest<RulesPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<RulesPage>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Request all the Rules. A token with scope read:rules is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Rules/get_rules
+     *
+     * @param filter the filter to use. Can be null.
+     * @return a Request to execute.
+     */
     public Request<List<Rule>> list(RulesFilter filter) {
+        //TODO: Deprecate. Warn page params are not going to work on this method
         HttpUrl.Builder builder = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/rules");

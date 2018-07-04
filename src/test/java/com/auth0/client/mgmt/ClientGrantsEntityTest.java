@@ -1,6 +1,8 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.client.mgmt.filter.ClientGrantsFilter;
 import com.auth0.json.mgmt.ClientGrant;
+import com.auth0.json.mgmt.ClientGrantsPage;
 import com.auth0.net.Request;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
@@ -10,12 +12,94 @@ import java.util.List;
 import java.util.Map;
 
 import static com.auth0.client.MockServer.*;
-import static com.auth0.client.RecordedRequestMatcher.hasHeader;
-import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
+import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
+
+    @Test
+    public void shouldListClientGrantsWithoutFilter() throws Exception {
+        Request<ClientGrantsPage> request = api.clientGrants().list(null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CLIENT_GRANTS_LIST, 200);
+        ClientGrantsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/client-grants"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
+    @Test
+    public void shouldListClientGrantsWithPage() throws Exception {
+        ClientGrantsFilter filter = new ClientGrantsFilter().withPage(23, 5);
+        Request<ClientGrantsPage> request = api.clientGrants().list(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CLIENT_GRANTS_LIST, 200);
+        ClientGrantsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/client-grants"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("page", "23"));
+        assertThat(recordedRequest, hasQueryParameter("per_page", "5"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
+    @Test
+    public void shouldListClientGrantsWithTotals() throws Exception {
+        ClientGrantsFilter filter = new ClientGrantsFilter().withTotals(true);
+        Request<ClientGrantsPage> request = api.clientGrants().list(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CLIENT_GRANTS_PAGED_LIST, 200);
+        ClientGrantsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/client-grants"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+        assertThat(response.getStart(), is(0));
+        assertThat(response.getLength(), is(14));
+        assertThat(response.getTotal(), is(14));
+        assertThat(response.getLimit(), is(50));
+    }
+
+    @Test
+    public void shouldListClientGrantsWithAdditionalProperties() throws Exception {
+        ClientGrantsFilter filter = new ClientGrantsFilter()
+                .withAudience("https://myapi.auth0.com")
+                .withClientId("u9e3hh3e9j2fj9092ked");
+        Request<ClientGrantsPage> request = api.clientGrants().list(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CLIENT_GRANTS_LIST, 200);
+        ClientGrantsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/client-grants"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("audience", "https://myapi.auth0.com"));
+        assertThat(recordedRequest, hasQueryParameter("client_id", "u9e3hh3e9j2fj9092ked"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
 
     @Test
     public void shouldListClientGrants() throws Exception {
