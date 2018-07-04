@@ -101,7 +101,7 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
         ConnectionsPage response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/rules"));
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/connections"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
