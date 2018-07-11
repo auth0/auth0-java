@@ -26,6 +26,10 @@ or Gradle:
 compile 'com.auth0:auth0:1.7.0'
 ```
 
+### Compatibility Warning
+
+This library's minimum compatibility is guaranteed to be Java 7 until version `1.8.0`. Moving forward the new minimum requirement is Java 8 and we will stop building and running tests against JDK 7 since it has [reached EOL](https://java.com/en/download/faq/java_7.xml) on 2015. 
+
 
 ### Android
 
