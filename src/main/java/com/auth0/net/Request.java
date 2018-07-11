@@ -3,6 +3,8 @@ package com.auth0.net;
 import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Class that represents an HTTP Request that can be executed.
  *
@@ -18,4 +20,12 @@ public interface Request<T> {
      * @throws Auth0Exception if the request couldn't be created or executed successfully.
      */
     T execute() throws Auth0Exception;
+
+    /**
+     * Executes this request asynchronously
+     *
+     * @return the response body JSON decoded as T, asynchronously.
+     */
+    CompletableFuture<T> executeAsync();
+
 }
