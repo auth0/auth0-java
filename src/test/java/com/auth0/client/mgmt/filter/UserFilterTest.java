@@ -18,9 +18,18 @@ public class UserFilterTest {
     }
 
     @Test
-    public void shouldUseSearchEngineV2() throws Exception {
+    public void shouldUseSearchEngineV2ByDefault() throws Exception {
         assertThat(filter.getAsMap(), is(notNullValue()));
         assertThat(filter.getAsMap(), Matchers.hasEntry("search_engine", (Object) "v2"));
+    }
+
+    @Test
+    public void shouldSetSearchEngine() throws Exception {
+        UserFilter instance = filter.withSearchEngine("v3");
+
+        assertThat(filter, is(instance));
+        assertThat(filter.getAsMap(), is(notNullValue()));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("search_engine", (Object) "v3"));
     }
 
     @Test
