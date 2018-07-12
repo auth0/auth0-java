@@ -15,16 +15,17 @@ import okhttp3.logging.HttpLoggingInterceptor.Level;
 public class ManagementAPI {
 
     private final HttpUrl baseUrl;
-    private final String apiToken;
+    private String apiToken;
     private final OkHttpClient client;
     private final TelemetryInterceptor telemetry;
     private final HttpLoggingInterceptor logging;
 
     /**
      * Create an instance with the given tenant's domain and API token.
+     * See the Management API section in the readme or visit https://auth0.com/docs/api/management/v2/tokens to learn how to obtain a token.
      *
      * @param domain   the tenant's domain.
-     * @param apiToken the token to authenticate the calls with. See the "Getting an API token" section to learn how to obtain a token.
+     * @param apiToken the token to authenticate the calls with.
      */
     public ManagementAPI(String domain, String apiToken) {
         Asserts.assertNotNull(domain, "domain");
@@ -43,6 +44,18 @@ public class ManagementAPI {
                 .addInterceptor(logging)
                 .addInterceptor(telemetry)
                 .build();
+    }
+
+    /**
+     * Update the API token to use on new calls. This is useful when the token is about to expire or it already has.
+     * Please note you'll need to obtain the correspondent entity again for this to apply. e.g. call {@link #clients()} again.
+     * See the Management API section in the readme or visit https://auth0.com/docs/api/management/v2/tokens to learn how to obtain a token.
+     *
+     * @param apiToken the token to authenticate the calls with.
+     */
+    public void setApiToken(String apiToken) {
+        Asserts.assertNotNull(apiToken, "api token");
+        this.apiToken = apiToken;
     }
 
     /**

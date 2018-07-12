@@ -268,6 +268,9 @@ ManagementAPI mgmt = new ManagementAPI("{YOUR_DOMAIN}", holder.getAccessToken())
 
 Click [here](https://auth0.com/docs/api/management/v2/tokens) for more information on how to obtain API Tokens.
 
+In the event of token expiration a new one can be set to an existing `ManagementAPI` instance by calling the `setApiToken` method with the new token.
+
+
 The Management API is divided into different entities. Each of them have the list, create, update, delete and update methods plus a few more if corresponds. The calls are authenticated using the API Token given in the `ManagementAPI` instance creation and must contain the `scope` required by each entity. See the javadoc for details on which `scope` is expected for each call.
 
 * **Blacklists:** See [Docs](https://auth0.com/docs/api/management/v2#!/Blacklists/get_tokens). Access the methods by calling `mgmt.blacklists()`.
