@@ -53,9 +53,11 @@ public class ClientGrantsEntity extends BaseManagementEntity {
      * See https://auth0.com/docs/api/management/v2#!/Client_Grants/get_client_grants
      *
      * @return a Request to execute.
+     * @deprecated Calling this method will soon stop returning the complete list of client grants and instead, limit to the first page of results.
+     * Please use {@link #list(ClientGrantsFilter)} instead as it provides pagination support.
      */
+    @Deprecated
     public Request<List<ClientGrant>> list() {
-        //TODO Deprecate
         String url = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/client-grants")

@@ -57,9 +57,11 @@ public class ResourceServerEntity {
      * See <a href=https://auth0.com/docs/api/management/v2#!/Resource_Servers/get_resource_servers>API documentation</a>
      *
      * @return request to execute
+     * @deprecated Calling this method will soon stop returning the complete list of resource servers and instead, limit to the first page of results.
+     * Please use {@link #list(ResourceServersFilter)} instead as it provides pagination support.
      */
+    @Deprecated
     public Request<List<ResourceServer>> list() {
-        //TODO: Deprecate
         HttpUrl.Builder builder = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/resource-servers");
