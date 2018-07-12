@@ -10,7 +10,7 @@ public class QueryFilter extends FieldsFilter {
     /**
      * Filter by a query
      *
-     * @param query the query expression using the following syntax https://auth0.com/docs/api/management/v2/query-string-syntax.
+     * @param query the query expression to use
      * @return this filter instance
      */
     public QueryFilter withQuery(String query) {
@@ -65,7 +65,7 @@ public class QueryFilter extends FieldsFilter {
         super.withFields(fields, includeFields);
         return this;
     }
-    
+
     //Visible for testing
     String urlEncode(String query) throws UnsupportedEncodingException {
         return URLEncoder.encode(query, "UTF-8");
