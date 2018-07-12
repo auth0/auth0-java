@@ -270,22 +270,27 @@ Click [here](https://auth0.com/docs/api/management/v2/tokens) for more informati
 
 The Management API is divided into different entities. Each of them have the list, create, update, delete and update methods plus a few more if corresponds. The calls are authenticated using the API Token given in the `ManagementAPI` instance creation and must contain the `scope` required by each entity. See the javadoc for details on which `scope` is expected for each call.
 
-* **Client Grants:** See [Docs](https://auth0.com/docs/api/management/v2#!/Client_Grants/get_client_grants). Access the methods by calling `mgmt.clientGrants()`.
-* **Clients:** See [Docs](https://auth0.com/docs/api/management/v2#!/Clients/get_clients). Access the methods by calling `mgmt.clients()`.
-* **Connections:** See [Docs](https://auth0.com/docs/api/management/v2#!/Connections/get_connections). Access the methods by calling `mgmt.connections()`.
-* **Device Credentials:** See [Docs](https://auth0.com/docs/api/management/v2#!/Device_Credentials/get_device_credentials). Access the methods by calling `mgmt.deviceCredentials()`.
-* **Logs:** See [Docs](https://auth0.com/docs/api/management/v2#!/Logs/get_logs). Access the methods by calling `mgmt.logEvents()`.
-* **Rules:** See [Docs](https://auth0.com/docs/api/management/v2#!/Rules/get_rules). Access the methods by calling `mgmt.rules()`.
-* **User Blocks:** See [Docs](https://auth0.com/docs/api/management/v2#!/User_Blocks/get_user_blocks). Access the methods by calling `mgmt.userBlocks()`.
-* **Users:** See [this](https://auth0.com/docs/api/management/v2#!/Users/get_users) and [this](https://auth0.com/docs/api/management/v2#!/Users_By_Email) doc. Access the methods by calling `mgmt.users()`.
 * **Blacklists:** See [Docs](https://auth0.com/docs/api/management/v2#!/Blacklists/get_tokens). Access the methods by calling `mgmt.blacklists()`.
+* **Client Grants:** See [Docs](https://auth0.com/docs/api/management/v2#!/Client_Grants/get_client_grants). Access the methods by calling `mgmt.clientGrants()`. This endpoint supports pagination.
+* **Clients:** See [Docs](https://auth0.com/docs/api/management/v2#!/Clients/get_clients). Access the methods by calling `mgmt.clients()`. This endpoint supports pagination.
+* **Connections:** See [Docs](https://auth0.com/docs/api/management/v2#!/Connections/get_connections). Access the methods by calling `mgmt.connections()`. This endpoint supports pagination.
+* **Device Credentials:** See [Docs](https://auth0.com/docs/api/management/v2#!/Device_Credentials/get_device_credentials). Access the methods by calling `mgmt.deviceCredentials()`.
 * **Email Providers:** See [Docs](https://auth0.com/docs/api/management/v2#!/Emails/get_provider). Access the methods by calling `mgmt.emailProvider()`.
 * **Email Templates:** See [Docs](https://auth0.com/docs/api/management/v2#!/Email_Templates/get_email_templates_by_templateName). Access the methods by calling `mgmt.emailTemplates()`.
+* **Grants:** See [Docs](https://auth0.com/docs/api/management/v2#!/Grants/get_grants). Access the methods by calling `mgmt.grants()`. This endpoint supports pagination.
 * **Guardian:** See [Docs](https://auth0.com/docs/api/management/v2#!/Guardian/get_factors). Access the methods by calling `mgmt.guardian()`.
+* **Jobs:** See [Docs](https://auth0.com/docs/api/management/v2#!/Jobs/get_jobs_by_id). Access the methods by calling `mgmt.jobs()`.
+* **Logs:** See [Docs](https://auth0.com/docs/api/management/v2#!/Logs/get_logs). Access the methods by calling `mgmt.logEvents()`. This endpoint supports pagination.
+* **Resource Servers:** See [Docs](https://auth0.com/docs/api/management/v2#!/Resource_Servers/get_resource_servers). Access the methods by calling `mgmt.resourceServers()`. This endpoint supports pagination.
+* **Rules:** See [Docs](https://auth0.com/docs/api/management/v2#!/Rules/get_rules). Access the methods by calling `mgmt.rules()`. This endpoint supports pagination.
 * **Stats:** See [Docs](https://auth0.com/docs/api/management/v2#!/Stats/get_active_users). Access the methods by calling `mgmt.stats()`.
 * **Tenants:** See [Docs](https://auth0.com/docs/api/management/v2#!/Tenants/get_settings). Access the methods by calling `mgmt.tenants()`.
 * **Tickets:** See [Docs](https://auth0.com/docs/api/management/v2#!/Tickets/post_email_verification). Access the methods by calling `mgmt.tickets()`.
-* **Resource Servers:** See [Docs](https://auth0.com/docs/api/management/v2#!/Resource_Servers/get_resource_servers). Access the methods by calling `mgmt.resourceServers()`.
+* **User Blocks:** See [Docs](https://auth0.com/docs/api/management/v2#!/User_Blocks/get_user_blocks). Access the methods by calling `mgmt.userBlocks()`.
+* **Users:** See [this](https://auth0.com/docs/api/management/v2#!/Users/get_users) and [this](https://auth0.com/docs/api/management/v2#!/Users_By_Email) doc. Access the methods by calling `mgmt.users()`. This endpoint supports pagination.
+
+
+> Some of the endpoints above indicate they support paginated responses. You can request a page of items by passing in the filter instance the `page` and `per_page` parameters, and optionally `include_totals` to obtain a summary of the results. Refer to the "List Users" example below for details. 
 
 
 ### Users
@@ -299,7 +304,8 @@ You can pass an optional Filter to narrow the results in the response.
 
 Example:
 ```java
-FieldsFilter filter = new FieldsFilter(...);
+FieldsFilter filter = new FieldsFilter();
+//...
 Request<List<User>> request = mgmt.users().listByEmail("johndoe@auth0.com", filter);
 try {
     List<User> response = request.execute();
@@ -319,7 +325,9 @@ You can pass an optional Filter to narrow the results in the response.
 
 Example:
 ```java
-UserFilter filter = new UserFilter(...);
+UserFilter filter = new UserFilter()
+    .withPage(1, 20);
+//...
 Request<UsersPage> request = mgmt.users().list(filter);
 try {
     UsersPage response = request.execute();
@@ -339,7 +347,8 @@ You can pass an optional Filter to narrow the results in the response.
 
 Example:
 ```java
-UserFilter filter = new UserFilter(...);
+UserFilter filter = new UserFilter();
+//...
 Request<User> request = mgmt.users().get("auth0|123", filter);
 try {
     User response = request.execute();
@@ -358,7 +367,8 @@ Creates a request to create a User. An API Token with scope `create:users` is ne
 
 Example:
 ```java
-User data = new User(...);
+User data = new User("my-connection");
+//...
 Request<User> request = mgmt.users().create(data);
 try {
     User response = request.execute();
@@ -395,7 +405,8 @@ Creates a request to update a User. An API Token with scope `update:users` is ne
 
 Example:
 ```java
-User data = new User(...);
+User data = new User();
+//...
 Request request = mgmt.users().update("auth0|123", data);
 try {
     User response = request.execute();
@@ -433,7 +444,8 @@ You can pass an optional Filter to narrow the results in the response.
 
 Example:
 ```java
-LogEventFilter filter = new LogEventFilter(...);
+LogEventFilter filter = new LogEventFilter();
+//...
 Request<LogEventsPage> request = mgmt.users().getLogEvents("auth0|123", filter);
 try {
     LogEventsPage response = request.execute();

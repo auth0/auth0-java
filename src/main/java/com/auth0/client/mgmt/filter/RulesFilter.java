@@ -24,6 +24,7 @@ public class RulesFilter extends FieldsFilter {
 
     /**
      * Include the query summary
+     * Warning: Can only be used with {@link com.auth0.client.mgmt.RulesEntity#listAll(RulesFilter)}
      *
      * @param includeTotals whether to include or not the query summary.
      * @return this filter instance

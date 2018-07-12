@@ -40,6 +40,18 @@ public class ConnectionFilter extends FieldsFilter {
         return this;
     }
 
+    /**
+     * Include the query summary.
+     * Warning: Can only be used with {@link com.auth0.client.mgmt.ConnectionsEntity#listAll(ConnectionFilter)}
+     *
+     * @param includeTotals whether to include or not the query summary.
+     * @return this filter instance
+     */
+    public ConnectionFilter withTotals(boolean includeTotals) {
+        parameters.put("include_totals", includeTotals);
+        return this;
+    }
+
     @Override
     public ConnectionFilter withFields(String fields, boolean includeFields) {
         super.withFields(fields, includeFields);

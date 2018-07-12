@@ -56,6 +56,15 @@ public class ConnectionFilterTest {
     }
 
     @Test
+    public void shouldIncludeTotals() throws Exception {
+        ConnectionFilter instance = filter.withTotals(true);
+
+        assertThat(filter, is(instance));
+        assertThat(filter.getAsMap(), is(notNullValue()));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("include_totals", (Object) true));
+    }
+
+    @Test
     public void shouldFilterWithoutFields() throws Exception {
         ConnectionFilter instance = filter.withFields("a,b,c", false);
 

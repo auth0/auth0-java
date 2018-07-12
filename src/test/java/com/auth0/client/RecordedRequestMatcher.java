@@ -9,6 +9,7 @@ public class RecordedRequestMatcher extends TypeSafeDiagnosingMatcher<RecordedRe
     private static final int METHOD_PATH = 0;
     private static final int HEADER = 1;
     private static final int QUERY_PARAMETER = 2;
+    private static final int QUERY_PARAMETER_PRESENCE = 3;
 
     private final int checkingOption;
     private final String first;
@@ -36,6 +37,8 @@ public class RecordedRequestMatcher extends TypeSafeDiagnosingMatcher<RecordedRe
                 return matchesHeader(item, mismatchDescription);
             case QUERY_PARAMETER:
                 return matchesQueryParameter(item, mismatchDescription);
+            case QUERY_PARAMETER_PRESENCE:
+                return hasQueryParameter(item, mismatchDescription);
         }
     }
 
@@ -86,6 +89,25 @@ public class RecordedRequestMatcher extends TypeSafeDiagnosingMatcher<RecordedRe
         return false;
     }
 
+    private boolean hasQueryParameter(RecordedRequest item, Description mismatchDescription) {
+        String path = item.getPath();
+        boolean hasQuery = path.indexOf("?") > 0;
+        if (!hasQuery) {
+            mismatchDescription.appendText(" query was empty");
+            return false;
+        }
+
+        String query = path.substring(path.indexOf("?") + 1, path.length());
+        String[] parameters = query.split("&");
+        for (String p : parameters) {
+            if (p.startsWith(String.format("%s=", first))) {
+                return true;
+            }
+        }
+        mismatchDescription.appendValueList("Query parameters were {", ", ", "}.", parameters);
+        return false;
+    }
+
     @Override
     public void describeTo(Description description) {
         switch (checkingOption) {
@@ -108,6 +130,10 @@ public class RecordedRequestMatcher extends TypeSafeDiagnosingMatcher<RecordedRe
                         .appendText(" with value ")
                         .appendValue(second);
                 break;
+            case QUERY_PARAMETER_PRESENCE:
+                description.appendText("A request containing query parameter ")
+                        .appendValue(first);
+                break;
         }
     }
 
@@ -121,5 +147,9 @@ public class RecordedRequestMatcher extends TypeSafeDiagnosingMatcher<RecordedRe
 
     public static RecordedRequestMatcher hasQueryParameter(String name, String value) {
         return new RecordedRequestMatcher(name, value, QUERY_PARAMETER);
+    }
+
+    public static RecordedRequestMatcher hasQueryParameter(String name) {
+        return new RecordedRequestMatcher(name, null, QUERY_PARAMETER_PRESENCE);
     }
 }

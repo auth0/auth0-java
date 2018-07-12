@@ -91,7 +91,26 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldListClientsWithPage() throws Exception {
+    public void shouldNotListRulesWithTotals() throws Exception {
+        RulesFilter filter = new RulesFilter().withTotals(true);
+        Request<List<Rule>> request = api.rules().list(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_RULES_LIST, 200);
+        List<Rule> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/rules"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, not(hasQueryParameter("include_totals")));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, hasSize(2));
+    }
+
+    @Test
+    public void shouldListRulesWithPage() throws Exception {
         RulesFilter filter = new RulesFilter().withPage(23, 5);
         Request<RulesPage> request = api.rules().listAll(filter);
         assertThat(request, is(notNullValue()));
@@ -111,7 +130,7 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldListClientsWithTotals() throws Exception {
+    public void shouldListRulesWithTotals() throws Exception {
         RulesFilter filter = new RulesFilter().withTotals(true);
         Request<RulesPage> request = api.rules().listAll(filter);
         assertThat(request, is(notNullValue()));
