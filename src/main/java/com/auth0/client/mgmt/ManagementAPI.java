@@ -47,8 +47,8 @@ public class ManagementAPI {
     }
 
     /**
-     * Update the API token to use on new calls. This is useful when the token is about to expire or it already has.
-     * Please note you'll need to obtain the correspondent entity again for this to apply. e.g. call {@link #clients()} again.
+     * Update the API token to use on new calls. This is useful when the token is about to expire or already has.
+     * Please note you'll need to obtain the corresponding entity again for this to apply. e.g. call {@link #clients()} again.
      * See the Management API section in the readme or visit https://auth0.com/docs/api/management/v2/tokens to learn how to obtain a token.
      *
      * @param apiToken the token to authenticate the calls with.
