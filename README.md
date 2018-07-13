@@ -264,9 +264,12 @@ TokenHolder holder = authRequest.execute();
 ManagementAPI mgmt = new ManagementAPI("{YOUR_DOMAIN}", holder.getAccessToken());
 ```
 
-(Note that the simplified should have error handling, and ideally cache the obtained token until it expires instead of requesting one access token for each Management API v2 invocation).
+(Note that the snippet above should have error handling, and ideally cache the obtained token until it expires instead of requesting one access token for each Management API v2 invocation). 
+
+An expired token for an existing `ManagementAPI` instance can be replaced by calling the `setApiToken` method with the new token.
 
 Click [here](https://auth0.com/docs/api/management/v2/tokens) for more information on how to obtain API Tokens.
+
 
 The Management API is divided into different entities. Each of them have the list, create, update, delete and update methods plus a few more if corresponds. The calls are authenticated using the API Token given in the `ManagementAPI` instance creation and must contain the `scope` required by each entity. See the javadoc for details on which `scope` is expected for each call.
 
