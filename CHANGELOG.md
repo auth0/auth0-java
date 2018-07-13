@@ -1,5 +1,17 @@
 # Change Log
 
+## [1.8.0](https://github.com/auth0/auth0-java/tree/1.8.0) (2018-07-13)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.7.0...1.8.0)
+
+**Added**
+- Allow to update the Management API token [\#141](https://github.com/auth0/auth0-java/pull/141) ([lbalmaceda](https://github.com/lbalmaceda))
+- Allow to set search_engine version for Users API [\#140](https://github.com/auth0/auth0-java/pull/140) ([lbalmaceda](https://github.com/lbalmaceda))
+- Make Connections accept include_totals parameter [\#135](https://github.com/auth0/auth0-java/pull/135) ([lbalmaceda](https://github.com/lbalmaceda))
+- Add pagination support to Client Grants, Grants, Resource Servers and Rules [\#132](https://github.com/auth0/auth0-java/pull/132) ([lbalmaceda](https://github.com/lbalmaceda))
+
+**Deprecated**
+- Deprecate old list methods that do not support pagination [\#136](https://github.com/auth0/auth0-java/pull/136) ([lbalmaceda](https://github.com/lbalmaceda))
+
 ## [1.7.0](https://github.com/auth0/auth0-java/tree/1.7.0) (2018-06-11)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.6.0...1.7.0)
 
