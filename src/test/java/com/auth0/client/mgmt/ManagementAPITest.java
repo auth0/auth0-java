@@ -77,9 +77,11 @@ public class ManagementAPITest {
 
     @Test
     public void shouldThrowOnUpdateWhenApiTokenIsNull() throws Exception {
+        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN);
+
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'api token' cannot be null!");
-        new ManagementAPI(DOMAIN, null);
+        api.setApiToken(null);
     }
 
     @Test
