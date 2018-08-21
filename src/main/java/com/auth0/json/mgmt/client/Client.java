@@ -18,6 +18,8 @@ public class Client {
 
     @JsonProperty("name")
     private String name;
+    @JsonProperty("description")
+    private String description;
     @JsonProperty("client_id")
     private String clientId;
     @JsonProperty("client_secret")
@@ -97,6 +99,26 @@ public class Client {
     @JsonProperty("name")
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * Getter for the description of the application.
+     *
+     * @return the description.
+     */
+    @JsonProperty("description")
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Setter for the description of the application.
+     *
+     * @param description the description to use.
+     */
+    @JsonProperty("description")
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
