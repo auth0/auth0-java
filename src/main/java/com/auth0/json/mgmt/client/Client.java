@@ -268,7 +268,7 @@ public class Client {
      *
      * @param webOrigins the web origins to set.
      */
-    @JsonProperty("allowed_origins")
+    @JsonProperty("web_origins")
     public void setWebOrigins(List<String> webOrigins) {
         this.webOrigins = webOrigins;
     }
@@ -278,7 +278,7 @@ public class Client {
      *
      * @return the list of web origins.
      */
-    @JsonProperty("allowed_origins")
+    @JsonProperty("web_origins")
     public List<String> getWebOrigins() {
         return webOrigins;
     }
