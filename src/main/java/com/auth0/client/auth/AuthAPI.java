@@ -47,6 +47,18 @@ public class AuthAPI {
      * @param clientSecret the application's client secret.
      */
     public AuthAPI(String domain, String clientId, String clientSecret) {
+        this(domain, clientId, clientSecret, new OkHttpClient.Builder());
+    }
+
+    /**
+     * Create a new instance with the given tenant's domain, application's client id and client secret. These values can be obtained at https://manage.auth0.com/#/applications/{YOUR_CLIENT_ID}/settings.
+     *
+     * @param domain       tenant's domain.
+     * @param clientId     the application's client id.
+     * @param clientSecret the application's client secret.
+     * @param okhttpBuilder the {@link OkHttpClient.Builder} used to construct an {@link OkHttpClient} instance.
+     */
+    public AuthAPI(String domain, String clientId, String clientSecret, OkHttpClient.Builder okhttpBuilder) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(clientId, "client id");
         Asserts.assertNotNull(clientSecret, "client secret");
@@ -61,7 +73,7 @@ public class AuthAPI {
         telemetry = new TelemetryInterceptor();
         logging = new HttpLoggingInterceptor();
         logging.setLevel(Level.NONE);
-        client = new OkHttpClient.Builder()
+        this.client = okhttpBuilder
                 .addInterceptor(logging)
                 .addInterceptor(telemetry)
                 .build();
