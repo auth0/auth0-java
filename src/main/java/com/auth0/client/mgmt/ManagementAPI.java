@@ -2,10 +2,17 @@ package com.auth0.client.mgmt;
 
 import com.auth0.net.TelemetryInterceptor;
 import com.auth0.utils.Asserts;
+import okhttp3.Authenticator;
+import okhttp3.Credentials;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
+import okhttp3.Response;
+import okhttp3.Route;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
+
+import java.net.PasswordAuthentication;
+import java.net.Proxy;
 
 /**
  * Class that provides an implementation of the Management API methods defined in https://auth0.com/docs/api/management/v2.
@@ -28,18 +35,6 @@ public class ManagementAPI {
      * @param apiToken the token to authenticate the calls with.
      */
     public ManagementAPI(String domain, String apiToken) {
-        this(domain, apiToken, new OkHttpClient.Builder());
-    }
-
-    /**
-     * Create an instance with the given tenant's domain and API token.
-     * See the Management API section in the readme or visit https://auth0.com/docs/api/management/v2/tokens to learn how to obtain a token.
-     *
-     * @param domain   the tenant's domain.
-     * @param apiToken the token to authenticate the calls with.
-     * @param okhttpBuilder the {@link OkHttpClient.Builder} used to construct an {@link OkHttpClient} instance.
-     */
-    public ManagementAPI(String domain, String apiToken, OkHttpClient.Builder okhttpBuilder) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(apiToken, "api token");
 
@@ -52,10 +47,97 @@ public class ManagementAPI {
         telemetry = new TelemetryInterceptor();
         logging = new HttpLoggingInterceptor();
         logging.setLevel(Level.NONE);
-        this.client = okhttpBuilder
+        this.client = constructOkHttpClient(null, null);
+    }
+
+    /**
+     * Create an instance with the given tenant's domain and API token.
+     * See the Management API section in the readme or visit https://auth0.com/docs/api/management/v2/tokens to learn how to obtain a token.
+     *
+     * @param domain   the tenant's domain.
+     * @param apiToken the token to authenticate the calls with.
+     * @param proxy    the {@link Proxy} instance.
+     */
+    public ManagementAPI(String domain, String apiToken, Proxy proxy) {
+        Asserts.assertNotNull(domain, "domain");
+        Asserts.assertNotNull(apiToken, "api token");
+
+        this.baseUrl = createBaseUrl(domain);
+        if (baseUrl == null) {
+            throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
+        }
+        this.apiToken = apiToken;
+
+        telemetry = new TelemetryInterceptor();
+        logging = new HttpLoggingInterceptor();
+        logging.setLevel(Level.NONE);
+        this.client = constructOkHttpClient(proxy, null);
+    }
+
+    /**
+     * Create an instance with the given tenant's domain and API token.
+     * See the Management API section in the readme or visit https://auth0.com/docs/api/management/v2/tokens to learn how to obtain a token.
+     *
+     * @param domain                 the tenant's domain.
+     * @param apiToken               the token to authenticate the calls with.
+     * @param proxy                  the {@link Proxy} instance.
+     * @param passwordAuthentication the {@link PasswordAuthentication} instance.
+     */
+    public ManagementAPI(String domain, String apiToken, Proxy proxy, PasswordAuthentication passwordAuthentication) {
+        Asserts.assertNotNull(domain, "domain");
+        Asserts.assertNotNull(apiToken, "api token");
+
+        this.baseUrl = createBaseUrl(domain);
+        if (baseUrl == null) {
+            throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
+        }
+        this.apiToken = apiToken;
+
+        telemetry = new TelemetryInterceptor();
+        logging = new HttpLoggingInterceptor();
+        logging.setLevel(Level.NONE);
+        this.client = constructOkHttpClient(proxy, passwordAuthentication);
+    }
+
+    /**
+     * Constructs an instance of {@link OkHttpClient}. Visible for Testing.
+     *
+     * @param proxy                  the {@link Proxy} instance.
+     * @param passwordAuthentication the {@link PasswordAuthentication} instance.
+     * @return
+     */
+    OkHttpClient constructOkHttpClient(Proxy proxy, PasswordAuthentication passwordAuthentication) {
+        OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder()
                 .addInterceptor(logging)
                 .addInterceptor(telemetry)
-                .build();
+                .proxy(proxy);
+        if(passwordAuthentication != null) {
+            okHttpClientBuilder.authenticator(constructAuthenticator(passwordAuthentication));
+        }
+        return okHttpClientBuilder.build();
+    }
+
+    /**
+     * Constructs an instance of {@link Authenticator}. Visible for Testing.
+     *
+     * @param passwordAuthentication the {@link PasswordAuthentication} instance.
+     * @return
+     */
+    Authenticator constructAuthenticator(final PasswordAuthentication passwordAuthentication) {
+        Asserts.assertNotNull(passwordAuthentication, "password authentication");
+        return new Authenticator() {
+            @Override
+            public okhttp3.Request authenticate(Route route, Response response) {
+                if (response.request().header("Authorization") != null) {
+                    return null; // Give up, we've already attempted to authenticate.
+                }
+                String credential = Credentials.basic(passwordAuthentication.getUserName(),
+                        new String(passwordAuthentication.getPassword()));
+                return response.request().newBuilder()
+                        .header("Authorization", credential)
+                        .build();
+            }
+        };
     }
 
     /**

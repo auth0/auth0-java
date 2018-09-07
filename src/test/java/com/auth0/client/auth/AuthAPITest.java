@@ -12,6 +12,7 @@ import com.auth0.net.TelemetryInterceptor;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -22,6 +23,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.io.FileReader;
+import java.net.InetSocketAddress;
+import java.net.PasswordAuthentication;
+import java.net.Proxy;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,11 +52,17 @@ public class AuthAPITest {
     private AuthAPI api;
     @Rule
     public ExpectedException exception = ExpectedException.none();
+    private PasswordAuthentication passwordAuthentication;
+    private InetSocketAddress socketAddress;
+    private Proxy proxy;
 
     @Before
     public void setUp() throws Exception {
         server = new MockServer();
         api = new AuthAPI(server.getBaseUrl(), CLIENT_ID, CLIENT_SECRET);
+        passwordAuthentication = new PasswordAuthentication("test", "pass".toCharArray());
+        socketAddress = new InetSocketAddress(0);
+        proxy = new Proxy(Proxy.Type.HTTP, socketAddress);
     }
 
     @After
@@ -832,6 +842,30 @@ public class AuthAPITest {
         assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
         assertThat(response.getTokenType(), not(isEmptyOrNullString()));
         assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+    @Test
+    public void testConstructOkHttpClientWithProxyNoAuth() {
+        OkHttpClient okHttpClient = api.constructOkHttpClient(proxy, null);
+        assertThat(okHttpClient.authenticator(), notNullValue());
+        assertThat(okHttpClient.proxy(), notNullValue());
+        assertThat(okHttpClient.proxy().address(), equalTo(socketAddress));
+        assertThat(okHttpClient, notNullValue());
+    }
+
+    @Test
+    public void testConstructOkHttpClientWithProxyWithAuth() {
+        OkHttpClient okHttpClient = api.constructOkHttpClient(proxy, passwordAuthentication);
+        assertThat(okHttpClient, notNullValue());
+        assertThat(okHttpClient.authenticator(), notNullValue());
+        assertThat(okHttpClient.proxy(), notNullValue());
+        assertThat(okHttpClient.proxy().address(), equalTo(socketAddress));
+    }
+
+    @Test
+    public void testProxyAuthenticator() {
+        okhttp3.Authenticator authenticator = api.constructAuthenticator(passwordAuthentication);
+        assertThat(authenticator, notNullValue());
     }
 
 }

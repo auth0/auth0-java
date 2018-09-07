@@ -3,6 +3,7 @@ package com.auth0.client.mgmt;
 import com.auth0.client.MockServer;
 import com.auth0.net.TelemetryInterceptor;
 import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.junit.After;
 import org.junit.Before;
@@ -10,9 +11,18 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.net.InetSocketAddress;
+import java.net.PasswordAuthentication;
+import java.net.Proxy;
+import java.net.SocketAddress;
+
 import static com.auth0.client.UrlMatcher.isUrl;
 import static okhttp3.logging.HttpLoggingInterceptor.Level;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isA;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 public class ManagementAPITest {
@@ -22,6 +32,9 @@ public class ManagementAPITest {
 
     private MockServer server;
     private ManagementAPI api;
+    private PasswordAuthentication passwordAuthentication;
+    private InetSocketAddress socketAddress;
+    private Proxy proxy;
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
@@ -29,6 +42,9 @@ public class ManagementAPITest {
     public void setUp() throws Exception {
         server = new MockServer();
         api = new ManagementAPI(server.getBaseUrl(), API_TOKEN);
+        passwordAuthentication = new PasswordAuthentication("test", "pass".toCharArray());
+        socketAddress = new InetSocketAddress(0);
+        proxy = new Proxy(Proxy.Type.HTTP, socketAddress);
     }
 
     @After
@@ -289,6 +305,30 @@ public class ManagementAPITest {
     @Test
     public void shouldGetUsers() throws Exception {
         assertThat(api.users(), notNullValue());
+    }
+
+    @Test
+    public void testConstructOkHttpClientWithProxyNoAuth() {
+        OkHttpClient okHttpClient = api.constructOkHttpClient(proxy, null);
+        assertThat(okHttpClient.authenticator(), notNullValue());
+        assertThat(okHttpClient.proxy(), notNullValue());
+        assertThat(okHttpClient.proxy().address(), equalTo(socketAddress));
+        assertThat(okHttpClient, notNullValue());
+    }
+
+    @Test
+    public void testConstructOkHttpClientWithProxyWithAuth() {
+        OkHttpClient okHttpClient = api.constructOkHttpClient(proxy, passwordAuthentication);
+        assertThat(okHttpClient, notNullValue());
+        assertThat(okHttpClient.authenticator(), notNullValue());
+        assertThat(okHttpClient.proxy(), notNullValue());
+        assertThat(okHttpClient.proxy().address(), equalTo(socketAddress));
+    }
+
+    @Test
+    public void testProxyAuthenticator() {
+        okhttp3.Authenticator authenticator = api.constructAuthenticator(passwordAuthentication);
+        assertThat(authenticator, notNullValue());
     }
 
 }

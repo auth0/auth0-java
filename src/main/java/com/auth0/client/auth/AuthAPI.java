@@ -1,13 +1,27 @@
 package com.auth0.client.auth;
 
 import com.auth0.json.auth.UserInfo;
-import com.auth0.net.*;
+import com.auth0.net.AuthRequest;
+import com.auth0.net.CreateUserRequest;
+import com.auth0.net.CustomRequest;
+import com.auth0.net.Request;
+import com.auth0.net.SignUpRequest;
+import com.auth0.net.TelemetryInterceptor;
+import com.auth0.net.TokenRequest;
+import com.auth0.net.VoidRequest;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
+import okhttp3.Authenticator;
+import okhttp3.Credentials;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
+import okhttp3.Response;
+import okhttp3.Route;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
+
+import java.net.PasswordAuthentication;
+import java.net.Proxy;
 
 /**
  * Class that provides an implementation of some of the Authentication and Authorization API methods defined in https://auth0.com/docs/api/authentication.
@@ -47,7 +61,20 @@ public class AuthAPI {
      * @param clientSecret the application's client secret.
      */
     public AuthAPI(String domain, String clientId, String clientSecret) {
-        this(domain, clientId, clientSecret, new OkHttpClient.Builder());
+        Asserts.assertNotNull(domain, "domain");
+        Asserts.assertNotNull(clientId, "client id");
+        Asserts.assertNotNull(clientSecret, "client secret");
+        this.baseUrl = createBaseUrl(domain);
+        if (baseUrl == null) {
+            throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
+        }
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+
+        this.telemetry = new TelemetryInterceptor();
+        this.logging = new HttpLoggingInterceptor();
+        this.logging.setLevel(Level.NONE);
+        this.client = constructOkHttpClient(null, null);
     }
 
     /**
@@ -56,13 +83,12 @@ public class AuthAPI {
      * @param domain       tenant's domain.
      * @param clientId     the application's client id.
      * @param clientSecret the application's client secret.
-     * @param okhttpBuilder the {@link OkHttpClient.Builder} used to construct an {@link OkHttpClient} instance.
+     * @param proxy        the {@link Proxy} instance.
      */
-    public AuthAPI(String domain, String clientId, String clientSecret, OkHttpClient.Builder okhttpBuilder) {
+    public AuthAPI(String domain, String clientId, String clientSecret, Proxy proxy) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(clientId, "client id");
         Asserts.assertNotNull(clientSecret, "client secret");
-
         this.baseUrl = createBaseUrl(domain);
         if (baseUrl == null) {
             throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
@@ -70,13 +96,79 @@ public class AuthAPI {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
 
-        telemetry = new TelemetryInterceptor();
-        logging = new HttpLoggingInterceptor();
-        logging.setLevel(Level.NONE);
-        this.client = okhttpBuilder
+        this.telemetry = new TelemetryInterceptor();
+        this.logging = new HttpLoggingInterceptor();
+        this.logging.setLevel(Level.NONE);
+        this.client = constructOkHttpClient(proxy, null);
+    }
+
+    /**
+     * Create a new instance with the given tenant's domain, application's client id and client secret. These values can be obtained at https://manage.auth0.com/#/applications/{YOUR_CLIENT_ID}/settings.
+     *
+     * @param domain                 tenant's domain.
+     * @param clientId               the application's client id.
+     * @param clientSecret           the application's client secret.
+     * @param proxy                  the {@link Proxy} instance.
+     * @param passwordAuthentication the {@link PasswordAuthentication} instance.
+     */
+    public AuthAPI(String domain, String clientId, String clientSecret, Proxy proxy, PasswordAuthentication passwordAuthentication) {
+        Asserts.assertNotNull(domain, "domain");
+        Asserts.assertNotNull(clientId, "client id");
+        Asserts.assertNotNull(clientSecret, "client secret");
+        Asserts.assertNotNull(proxy, "proxy");
+        Asserts.assertNotNull(passwordAuthentication, "password authentication");
+        this.baseUrl = createBaseUrl(domain);
+        if (baseUrl == null) {
+            throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
+        }
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+
+        this.telemetry = new TelemetryInterceptor();
+        this.logging = new HttpLoggingInterceptor();
+        this.logging.setLevel(Level.NONE);
+        this.client = constructOkHttpClient(proxy, passwordAuthentication);
+    }
+
+    /**
+     * Constructs an instance of {@link OkHttpClient}. Visible for Testing.
+     *
+     * @param proxy                  the {@link Proxy} instance.
+     * @param passwordAuthentication the {@link PasswordAuthentication} instance.
+     * @return
+     */
+    OkHttpClient constructOkHttpClient(Proxy proxy, PasswordAuthentication passwordAuthentication) {
+        OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder()
                 .addInterceptor(logging)
                 .addInterceptor(telemetry)
-                .build();
+                .proxy(proxy);
+        if(passwordAuthentication != null) {
+            okHttpClientBuilder.authenticator(constructAuthenticator(passwordAuthentication));
+        }
+        return okHttpClientBuilder.build();
+    }
+
+    /**
+     * Constructs an instance of {@link Authenticator}. Visible for Testing.
+     *
+     * @param passwordAuthentication the {@link PasswordAuthentication} instance.
+     * @return
+     */
+    Authenticator constructAuthenticator(final PasswordAuthentication passwordAuthentication) {
+        Asserts.assertNotNull(passwordAuthentication, "password authentication");
+        return new Authenticator() {
+            @Override
+            public okhttp3.Request authenticate(Route route, Response response) {
+                if (response.request().header("Authorization") != null) {
+                    return null; // Give up, we've already attempted to authenticate.
+                }
+                String credential = Credentials.basic(passwordAuthentication.getUserName(),
+                        new String(passwordAuthentication.getPassword()));
+                return response.request().newBuilder()
+                        .header("Authorization", credential)
+                        .build();
+            }
+        };
     }
 
     /**
