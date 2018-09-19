@@ -1,0 +1,29 @@
+{
+  "status": "completed",
+  "type": "users_export",
+  "created_at": "",
+  "id": "job_0000000000000001",
+  "connection_id": "con_0000000000000001",
+  "format": "csv",
+  "limit": 5,
+  "fields": [
+    [
+      {
+        "name": "user_id"
+      },
+      {
+        "name": "name"
+      },
+      {
+        "name": "email"
+      },
+      {
+        "name": "identities[0].connection",
+        "export_as": "provider"
+      },
+      {
+        "name": "user_metadata.some_field"
+      }
+    ]
+  ]
+}

@@ -21,4 +21,21 @@ public class JobTest extends JsonTest<Job> {
         assertThat(job.getType(), is("verification_email"));
         assertThat(job.getCreatedAt(), is(parseJSONDate("2016-02-23T19:57:29.532Z")));
     }
+
+    @Test
+    public void shouldSetValues() throws Exception {
+        Job job = fromJSON(json, Job.class);
+        job.setLocation("https://test.auth0.com/mock_endpoint.gz");
+        job.setPercentageDone(100);
+        job.setTimeLeftSeconds(0);
+
+        assertThat(job, is(notNullValue()));
+        assertThat(job.getId(), is("job_0000000000000001"));
+        assertThat(job.getStatus(), is("completed"));
+        assertThat(job.getType(), is("verification_email"));
+        assertThat(job.getCreatedAt(), is(parseJSONDate("2016-02-23T19:57:29.532Z")));
+        assertThat(job.getLocation(), is("https://test.auth0.com/mock_endpoint.gz"));
+        assertThat(job.getPercentageDone(), is(100));
+        assertThat(job.getTimeLeftSeconds(), is(0));
+    }
 }

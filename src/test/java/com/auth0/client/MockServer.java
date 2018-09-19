@@ -75,6 +75,9 @@ public class MockServer {
     public static final String MGMT_EMAIL_VERIFICATION_TICKET = "src/test/resources/mgmt/email_verification_ticket.json";
     public static final String MGMT_EMPTY_LIST = "src/test/resources/mgmt/empty_list.json";
     public static final String MGMT_JOB_POST_VERIFICATION_EMAIL = "src/test/resources/mgmt/post_verification_email.json";
+    public static final String MGMT_JOB_POST_USERS_EXPORT = "src/test/resources/mgmt/post_users_export.json";
+    public static final String MGMT_JOB_GET = "src/test/resources/mgmt/get_job.json";
+    public static final String MGMT_JOB_ERROR_GET = "src/test/resources/mgmt/get_job_error.json";
 
     private final MockWebServer server;
 

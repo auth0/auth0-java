@@ -1,0 +1,10 @@
+{
+  "status": "pending",
+  "type": "users_export",
+  "created_at": "",
+  "id": "job_0000000000000001",
+  "connection_id": "con_0000000000000001",
+  "location": "",
+  "percentage_done": 0,
+  "time_left_seconds": 0
+}
