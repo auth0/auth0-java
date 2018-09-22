@@ -2,6 +2,7 @@ package com.auth0.net;
 
 import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
+import com.auth0.exception.RateLimitException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -96,6 +97,13 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
     }
 
     protected Auth0Exception createResponseException(Response response) {
+        if (response.code() == 429) {
+            long limit = parseRateLimitHeader("X-RateLimit-Limit", response);
+            long remaining = parseRateLimitHeader("X-RateLimit-Remaining", response);
+            long reset = parseRateLimitHeader("X-RateLimit-Reset", response);
+            return new RateLimitException(limit, remaining, reset, "Rate limits reached");
+        }
+        
         String payload = null;
         try (ResponseBody body = response.body()) {
             payload = body.string();
@@ -105,5 +113,10 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
         } catch (IOException e) {
             return new APIException(payload, response.code(), e);
         }
+    }
+
+    private long parseRateLimitHeader(String header, Response response) {
+        // -1 as default value if the header could not be found.
+        return Long.parseLong(response.header(header, "-1"));
     }
 }

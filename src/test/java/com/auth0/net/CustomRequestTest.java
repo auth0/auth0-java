@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.auth0.client.MockServer.*;
+import com.auth0.exception.RateLimitException;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -300,6 +301,29 @@ public class CustomRequestTest {
         assertThat(authException.getError(), is(nullValue()));
         assertThat(authException.getValue("non_existing_key"), is(nullValue()));
         assertThat(authException.getStatusCode(), is(400));
+    }
+    
+    @Test
+    public void shouldReceiveRateLimitsResponse() throws Exception {
+        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
+        server.textResponse(AUTH_ERROR_PLAINTEXT, 429);
+        Exception exception = null;
+        try {
+            request.execute();
+            server.takeRequest();
+        } catch (Exception e) {
+            exception = e;
+        }
+        assertThat(exception, is(notNullValue()));
+        assertThat(exception, is(instanceOf(APIException.class)));
+        assertThat(exception, is(instanceOf(RateLimitException.class)));
+        assertThat(exception.getCause(), is(nullValue()));
+        assertThat(exception.getMessage(), is("Request failed with status code 429: Rate limits reached"));
+        APIException authException = (APIException) exception;
+        assertThat(authException.getDescription(), is("Rate limits reached"));
+        assertThat(authException.getError(), is(nullValue()));
+        assertThat(authException.getValue("non_existing_key"), is(nullValue()));
+        assertThat(authException.getStatusCode(), is(429));
     }
 
 }
