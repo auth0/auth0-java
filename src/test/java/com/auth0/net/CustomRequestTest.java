@@ -306,7 +306,7 @@ public class CustomRequestTest {
     @Test
     public void shouldReceiveRateLimitsResponse() throws Exception {
         CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
-        server.textResponse(AUTH_ERROR_PLAINTEXT, 429);
+        server.rateLimitResponse();
         Exception exception = null;
         try {
             request.execute();
@@ -324,6 +324,11 @@ public class CustomRequestTest {
         assertThat(authException.getError(), is(nullValue()));
         assertThat(authException.getValue("non_existing_key"), is(nullValue()));
         assertThat(authException.getStatusCode(), is(429));
+        
+        RateLimitException rateLimitException = (RateLimitException) authException;
+        assertThat(rateLimitException.getLimit(), is(100L));
+        assertThat(rateLimitException.getRemaining(), is(10L));
+        assertThat(rateLimitException.getReset(), is(-1L));
     }
 
 }
