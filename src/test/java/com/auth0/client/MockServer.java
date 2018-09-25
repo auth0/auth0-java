@@ -10,7 +10,6 @@ import okio.Buffer;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -109,11 +108,12 @@ public class MockServer {
         server.enqueue(response);
     }
     
-    public void rateLimitResponse() throws IOException {
+    public void rateLimitReachedResponse(long limit, long remaining, long reset) throws IOException {
         MockResponse response = new MockResponse()
                 .setResponseCode(429)
-                .addHeader("X-RateLimit-Limit", "100")
-                .addHeader("X-RateLimit-Remaining", "10");
+                .addHeader("X-RateLimit-Limit", String.valueOf(limit))
+                .addHeader("X-RateLimit-Remaining", String.valueOf(remaining))
+                .addHeader("X-RateLimit-Reset", String.valueOf(reset));
         server.enqueue(response);
     }
 

@@ -306,7 +306,7 @@ public class CustomRequestTest {
     @Test
     public void shouldReceiveRateLimitsResponse() throws Exception {
         CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
-        server.rateLimitResponse();
+        server.rateLimitReachedResponse(100, 10, 5);
         Exception exception = null;
         try {
             request.execute();
@@ -319,16 +319,14 @@ public class CustomRequestTest {
         assertThat(exception, is(instanceOf(RateLimitException.class)));
         assertThat(exception.getCause(), is(nullValue()));
         assertThat(exception.getMessage(), is("Request failed with status code 429: Rate limits reached"));
-        APIException authException = (APIException) exception;
-        assertThat(authException.getDescription(), is("Rate limits reached"));
-        assertThat(authException.getError(), is(nullValue()));
-        assertThat(authException.getValue("non_existing_key"), is(nullValue()));
-        assertThat(authException.getStatusCode(), is(429));
-        
-        RateLimitException rateLimitException = (RateLimitException) authException;
+        RateLimitException rateLimitException = (RateLimitException) exception;
+        assertThat(rateLimitException.getDescription(), is("Rate limits reached"));
+        assertThat(rateLimitException.getError(), is(nullValue()));
+        assertThat(rateLimitException.getValue("non_existing_key"), is(nullValue()));
+        assertThat(rateLimitException.getStatusCode(), is(429));
         assertThat(rateLimitException.getLimit(), is(100L));
         assertThat(rateLimitException.getRemaining(), is(10L));
-        assertThat(rateLimitException.getReset(), is(-1L));
+        assertThat(rateLimitException.getReset(), is(5L));
     }
 
 }
