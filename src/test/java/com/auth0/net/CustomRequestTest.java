@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.auth0.client.MockServer.*;
+import com.auth0.exception.RateLimitException;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -300,6 +301,56 @@ public class CustomRequestTest {
         assertThat(authException.getError(), is(nullValue()));
         assertThat(authException.getValue("non_existing_key"), is(nullValue()));
         assertThat(authException.getStatusCode(), is(400));
+    }
+    
+    @Test
+    public void shouldParseRateLimitsHeaders() throws Exception {
+        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
+        server.rateLimitReachedResponse(100, 10, 5);
+        Exception exception = null;
+        try {
+            request.execute();
+            server.takeRequest();
+        } catch (Exception e) {
+            exception = e;
+        }
+        assertThat(exception, is(notNullValue()));
+        assertThat(exception, is(instanceOf(RateLimitException.class)));
+        assertThat(exception.getCause(), is(nullValue()));
+        assertThat(exception.getMessage(), is("Request failed with status code 429: Rate limit reached"));
+        RateLimitException rateLimitException = (RateLimitException) exception;
+        assertThat(rateLimitException.getDescription(), is("Rate limit reached"));
+        assertThat(rateLimitException.getError(), is(nullValue()));
+        assertThat(rateLimitException.getValue("non_existing_key"), is(nullValue()));
+        assertThat(rateLimitException.getStatusCode(), is(429));
+        assertThat(rateLimitException.getLimit(), is(100L));
+        assertThat(rateLimitException.getRemaining(), is(10L));
+        assertThat(rateLimitException.getReset(), is(5L));
+    }
+    
+    @Test
+    public void shouldDefaultRateLimitsHeadersWhenMissing() throws Exception {
+        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
+        server.rateLimitReachedResponse(-1, -1, -1);
+        Exception exception = null;
+        try {
+            request.execute();
+            server.takeRequest();
+        } catch (Exception e) {
+            exception = e;
+        }
+        assertThat(exception, is(notNullValue()));
+        assertThat(exception, is(instanceOf(RateLimitException.class)));
+        assertThat(exception.getCause(), is(nullValue()));
+        assertThat(exception.getMessage(), is("Request failed with status code 429: Rate limit reached"));
+        RateLimitException rateLimitException = (RateLimitException) exception;
+        assertThat(rateLimitException.getDescription(), is("Rate limit reached"));
+        assertThat(rateLimitException.getError(), is(nullValue()));
+        assertThat(rateLimitException.getValue("non_existing_key"), is(nullValue()));
+        assertThat(rateLimitException.getStatusCode(), is(429));
+        assertThat(rateLimitException.getLimit(), is(-1L));
+        assertThat(rateLimitException.getRemaining(), is(-1L));
+        assertThat(rateLimitException.getReset(), is(-1L));
     }
 
 }

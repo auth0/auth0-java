@@ -76,7 +76,6 @@ public class MockServer {
     public static final String MGMT_EMPTY_LIST = "src/test/resources/mgmt/empty_list.json";
     public static final String MGMT_JOB_POST_VERIFICATION_EMAIL = "src/test/resources/mgmt/post_verification_email.json";
 
-
     private final MockWebServer server;
 
     public MockServer() throws Exception {
@@ -105,6 +104,20 @@ public class MockServer {
                 .setResponseCode(statusCode)
                 .addHeader("Content-Type", "application/json")
                 .setBody(readTextFile(path));
+        server.enqueue(response);
+    }
+
+    public void rateLimitReachedResponse(long limit, long remaining, long reset) throws IOException {
+        MockResponse response = new MockResponse().setResponseCode(429);
+        if (limit != -1) {
+            response.addHeader("X-RateLimit-Limit", String.valueOf(limit));
+        }
+        if (remaining != -1) {
+            response.addHeader("X-RateLimit-Remaining", String.valueOf(remaining));
+        }
+        if (reset != -1) {
+            response.addHeader("X-RateLimit-Reset", String.valueOf(reset));
+        }
         server.enqueue(response);
     }
 

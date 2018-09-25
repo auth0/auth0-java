@@ -2,6 +2,7 @@ package com.auth0.net;
 
 import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
+import com.auth0.exception.RateLimitException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,6 +16,7 @@ import java.util.Map;
 
 @SuppressWarnings("WeakerAccess")
 public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequest<T> {
+
     private static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
 
     private final String url;
@@ -24,6 +26,8 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
     private final Map<String, String> headers;
     private final Map<String, Object> parameters;
     private Object body;
+
+    private static final int STATUS_CODE_TOO_MANY_REQUEST = 429;
 
     CustomRequest(OkHttpClient client, String url, String method, ObjectMapper mapper, TypeReference<T> tType) {
         super(client);
@@ -96,6 +100,10 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
     }
 
     protected Auth0Exception createResponseException(Response response) {
+        if (response.code() == STATUS_CODE_TOO_MANY_REQUEST) {
+            return createRateLimitException(response);
+        }
+
         String payload = null;
         try (ResponseBody body = response.body()) {
             payload = body.string();
@@ -105,5 +113,13 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
         } catch (IOException e) {
             return new APIException(payload, response.code(), e);
         }
+    }
+
+    private RateLimitException createRateLimitException(Response response) {
+        // -1 as default value if the header could not be found.
+        long limit = Long.parseLong(response.header("X-RateLimit-Limit", "-1"));
+        long remaining = Long.parseLong(response.header("X-RateLimit-Remaining", "-1"));
+        long reset = Long.parseLong(response.header("X-RateLimit-Reset", "-1"));
+        return new RateLimitException(limit, remaining, reset);
     }
 }
