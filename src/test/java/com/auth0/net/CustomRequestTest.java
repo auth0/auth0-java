@@ -306,7 +306,7 @@ public class CustomRequestTest {
     @Test
     public void shouldReceiveRateLimitsResponse() throws Exception {
         CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
-        server.rateLimitReachedResponse(100, 10, 5);
+        server.rateLimitReachedResponse(100, -1, 5);
         Exception exception = null;
         try {
             request.execute();
@@ -324,8 +324,33 @@ public class CustomRequestTest {
         assertThat(rateLimitException.getValue("non_existing_key"), is(nullValue()));
         assertThat(rateLimitException.getStatusCode(), is(429));
         assertThat(rateLimitException.getLimit(), is(100L));
-        assertThat(rateLimitException.getRemaining(), is(10L));
+        assertThat(rateLimitException.getRemaining(), is(-1L));
         assertThat(rateLimitException.getReset(), is(5L));
+    }
+    
+    @Test
+    public void shouldReceiveDefaultsRateLimitsResponse() throws Exception {
+        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
+        server.rateLimitReachedResponse(-1, -1, -1);
+        Exception exception = null;
+        try {
+            request.execute();
+            server.takeRequest();
+        } catch (Exception e) {
+            exception = e;
+        }
+        assertThat(exception, is(notNullValue()));
+        assertThat(exception, is(instanceOf(RateLimitException.class)));
+        assertThat(exception.getCause(), is(nullValue()));
+        assertThat(exception.getMessage(), is("Request failed with status code 429: Rate limit reached"));
+        RateLimitException rateLimitException = (RateLimitException) exception;
+        assertThat(rateLimitException.getDescription(), is("Rate limit reached"));
+        assertThat(rateLimitException.getError(), is(nullValue()));
+        assertThat(rateLimitException.getValue("non_existing_key"), is(nullValue()));
+        assertThat(rateLimitException.getStatusCode(), is(429));
+        assertThat(rateLimitException.getLimit(), is(-1L));
+        assertThat(rateLimitException.getRemaining(), is(-1L));
+        assertThat(rateLimitException.getReset(), is(-1L));
     }
 
 }
