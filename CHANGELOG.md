@@ -1,5 +1,13 @@
 # Change Log
 
+## [1.9.0](https://github.com/auth0/auth0-java/tree/1.9.0) (2018-09-25)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.8.0...1.9.0)
+
+**Added**
+- Allow to retrieve Rate Limit headers [\#153](https://github.com/auth0/auth0-java/pull/153) ([rvillablanca](https://github.com/rvillablanca))
+- Add web_origins attribute to the Client class [\#148](https://github.com/auth0/auth0-java/pull/148) ([lbalmaceda](https://github.com/lbalmaceda))
+- Application (aka Client) description field support [\#147](https://github.com/auth0/auth0-java/pull/147) ([rrybalkin](https://github.com/rrybalkin))
+
 ## [1.8.0](https://github.com/auth0/auth0-java/tree/1.8.0) (2018-07-13)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.7.0...1.8.0)
 
