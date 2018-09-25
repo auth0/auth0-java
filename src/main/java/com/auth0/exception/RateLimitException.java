@@ -6,7 +6,7 @@ package com.auth0.exception;
  * Getters for {@code limit, remaining} and {@code reset} corresponds to {@code X-RateLimit-Limit, X-RateLimit-Remaining} and {@code X-RateLimit-Reset} HTTP headers.
  * If the value of any headers is missing, then a default value -1 will assigned.
  * <p>
- * "To learn more about rate limits, visit <a href="https://auth0.com/docs/policies/rate-limits">https://auth0.com/docs/policies/rate-limits</a>
+ * To learn more about rate limits, visit <a href="https://auth0.com/docs/policies/rate-limits">https://auth0.com/docs/policies/rate-limits</a>
  */
 public class RateLimitException extends APIException {
 
@@ -25,7 +25,7 @@ public class RateLimitException extends APIException {
 
     /**
      * Getter for the maximum number of requests available in the current time frame.
-     * @return The maximun number of requests.
+     * @return The maximum number of requests or -1 if missing.
      */
     public long getLimit() {
         return limit;
@@ -33,7 +33,7 @@ public class RateLimitException extends APIException {
 
     /**
      * Getter for the number of remaining requests in the current time frame.
-     * @return Number of remaining requests.
+     * @return Number of remaining requests or -1 if missing.
      */
     public long getRemaining() {
         return remaining;
@@ -41,7 +41,7 @@ public class RateLimitException extends APIException {
 
     /**
      * Getter for the UNIX timestamp of the expected time when the rate limit will reset.
-     * @return The UNIX timestamp.
+     * @return The UNIX timestamp or -1 if missing.
      */
     public long getReset() {
         return reset;
