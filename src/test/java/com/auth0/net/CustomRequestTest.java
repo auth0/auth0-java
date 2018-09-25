@@ -315,12 +315,11 @@ public class CustomRequestTest {
             exception = e;
         }
         assertThat(exception, is(notNullValue()));
-        assertThat(exception, is(instanceOf(APIException.class)));
         assertThat(exception, is(instanceOf(RateLimitException.class)));
         assertThat(exception.getCause(), is(nullValue()));
-        assertThat(exception.getMessage(), is("Request failed with status code 429: Rate limits reached"));
+        assertThat(exception.getMessage(), is("Request failed with status code 429: Rate limit reached"));
         RateLimitException rateLimitException = (RateLimitException) exception;
-        assertThat(rateLimitException.getDescription(), is("Rate limits reached"));
+        assertThat(rateLimitException.getDescription(), is("Rate limit reached"));
         assertThat(rateLimitException.getError(), is(nullValue()));
         assertThat(rateLimitException.getValue("non_existing_key"), is(nullValue()));
         assertThat(rateLimitException.getStatusCode(), is(429));
