@@ -304,9 +304,9 @@ public class CustomRequestTest {
     }
     
     @Test
-    public void shouldReceiveRateLimitsResponse() throws Exception {
+    public void shouldParseRateLimitsHeaders() throws Exception {
         CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
-        server.rateLimitReachedResponse(100, -1, 5);
+        server.rateLimitReachedResponse(100, 10, 5);
         Exception exception = null;
         try {
             request.execute();
@@ -324,12 +324,12 @@ public class CustomRequestTest {
         assertThat(rateLimitException.getValue("non_existing_key"), is(nullValue()));
         assertThat(rateLimitException.getStatusCode(), is(429));
         assertThat(rateLimitException.getLimit(), is(100L));
-        assertThat(rateLimitException.getRemaining(), is(-1L));
+        assertThat(rateLimitException.getRemaining(), is(10L));
         assertThat(rateLimitException.getReset(), is(5L));
     }
     
     @Test
-    public void shouldReceiveDefaultsRateLimitsResponse() throws Exception {
+    public void shouldDefaultRateLimitsHeadersWhenMissing() throws Exception {
         CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
         server.rateLimitReachedResponse(-1, -1, -1);
         Exception exception = null;
