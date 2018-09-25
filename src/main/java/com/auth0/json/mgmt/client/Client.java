@@ -36,6 +36,8 @@ public class Client {
     private List<String> callbacks;
     @JsonProperty("allowed_origins")
     private List<String> allowedOrigins;
+    @JsonProperty("web_origins")
+    private List<String> webOrigins;
     @JsonProperty("client_aliases")
     private List<String> clientAliases;
     @JsonProperty("allowed_clients")
@@ -260,6 +262,27 @@ public class Client {
     public void setAllowedOrigins(List<String> allowedOrigins) {
         this.allowedOrigins = allowedOrigins;
     }
+
+    /**
+     * Setter for the list of web origins for the application.
+     *
+     * @param webOrigins the web origins to set.
+     */
+    @JsonProperty("web_origins")
+    public void setWebOrigins(List<String> webOrigins) {
+        this.webOrigins = webOrigins;
+    }
+
+    /**
+     * Getter for the list of web origins for the application.
+     *
+     * @return the list of web origins.
+     */
+    @JsonProperty("web_origins")
+    public List<String> getWebOrigins() {
+        return webOrigins;
+    }
+
 
     /**
      * Getter for the list of application aliases.
