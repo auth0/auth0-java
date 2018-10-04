@@ -23,7 +23,7 @@ Get Auth0 Java via Maven:
 or Gradle:
 
 ```gradle
-compile 'com.auth0:auth0:1.9.0'
+implementation 'com.auth0:auth0:1.9.0'
 ```
 
 
