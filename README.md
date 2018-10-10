@@ -44,7 +44,7 @@ AuthAPI auth = new AuthAPI("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SE
 
 ### Authorize - /authorize
 
-Creates an `AuthorizeUrlBuilder` to authenticate the user with an OAuth provider. The `redirectUri` must be white-listed in the "Allowed Callback URLs" section of the Applications Settings. Parameters can be added to the final url by using the builder methods. When ready, call `build()` and obtain the Url.
+Creates an `AuthorizeUrlBuilder` to authenticate the user with an OAuth provider. The `redirectUri` must be white-listed in the "Allowed Callback URLs" section of the Applications Settings. Parameters can be added to the final url by using the builder methods. When ready, call `build()` and obtain the URL.
 
 ```AuthorizeUrlBuilder authorizeUrl(String redirectUri)```
 
@@ -59,7 +59,7 @@ String url = auth.authorizeUrl("https://me.auth0.com/callback")
 ```
 
 ### Logout - /v2/logout
-Creates a `LogoutUrlBuilder` to log out the user. The `returnToUrl` must be white-listed in the "Allowed Logout URLs" section of the Dashboard, depending on the value of `setClientId` this configuration should be set in the Application or in the Tenant Settings. Parameters can be added to the final url by using the builder methods. When ready, call `build()` and obtain the Url.
+Creates a `LogoutUrlBuilder` to log out the user. The `returnToUrl` must be white-listed in the "Allowed Logout URLs" section of the Dashboard, depending on the value of `setClientId` this configuration should be set in the Application or in the Tenant Settings. Parameters can be added to the final URL by using the builder methods. When ready, call `build()` and obtain the URL.
 
 `LogoutUrlBuilder logoutUrl(String returnToUrl, boolean setClientId)`
 
