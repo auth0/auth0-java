@@ -50,7 +50,7 @@ Creates an `AuthorizeUrlBuilder` to authenticate the user with an OAuth provider
 
 Example:
 ```java
-String url = auth.authorizeUrl("https://me.auth0.com/callback")
+String URL = auth.authorizeUrl("https://me.auth0.com/callback")
     .withConnection("facebook")
     .withAudience("https://api.me.auth0.com/users")
     .withScope("openid contacts")
@@ -65,7 +65,7 @@ Creates a `LogoutUrlBuilder` to log out the user. The `returnToUrl` must be whit
 
 Example:
 ```java
-String url = auth.logoutUrl("https://me.auth0.com/home", true)
+String URL = auth.logoutUrl("https://me.auth0.com/home", true)
     .useFederated(true)
     .build();
 ```
