@@ -44,7 +44,7 @@ AuthAPI auth = new AuthAPI("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SE
 
 ### Authorize - /authorize
 
-Creates an `AuthorizeUrlBuilder` to authenticate the user with an OAuth provider. The `redirectUri` must be white-listed in the "Allowed Callback URLs" section of the Applications Settings. Parameters can be added to the final url by using the builder methods. When ready, call `build()` and obtain the Url.
+Creates an `AuthorizeUrlBuilder` to authenticate the user with an OAuth provider. The `redirectUri` must be white-listed in the "Allowed Callback URLs" section of the Applications Settings. Parameters can be added to the final URL by using the builder methods. When ready, call `build()` and obtain the URL.
 
 ```AuthorizeUrlBuilder authorizeUrl(String redirectUri)```
 
@@ -59,7 +59,7 @@ String url = auth.authorizeUrl("https://me.auth0.com/callback")
 ```
 
 ### Logout - /v2/logout
-Creates a `LogoutUrlBuilder` to log out the user. The `returnToUrl` must be white-listed in the "Allowed Logout URLs" section of the Dashboard, depending on the value of `setClientId` this configuration should be set in the Application or in the Tenant Settings. Parameters can be added to the final url by using the builder methods. When ready, call `build()` and obtain the Url.
+Creates a `LogoutUrlBuilder` to log out the user. The `returnToUrl` must be white-listed in the "Allowed Logout URLs" section of the Dashboard, depending on the value of `setClientId` this configuration should be set in the Application or in the Tenant Settings. Parameters can be added to the final URL by using the builder methods. When ready, call `build()` and obtain the URL.
 
 `LogoutUrlBuilder logoutUrl(String returnToUrl, boolean setClientId)`
 
@@ -131,7 +131,7 @@ try {
 
 ### Exchange the Authorization Code - /oauth/token
 
-Creates a request to exchange the `code` previously obtained by calling the /authorize endpoint. The redirect uri must be the one sent in the /authorize call.
+Creates a request to exchange the `code` previously obtained by calling the /authorize endpoint. The redirect URI must be the one sent in the /authorize call.
 
 `AuthRequest exchangeCode(String code, String redirectUri)`
 
@@ -556,7 +556,7 @@ Example exception data
 
 ## Documentation
 
-For more information about [auth0](http://auth0.com) check our [documentation page](http://docs.auth0.com/).
+For more information about [Auth0](http://auth0.com) check our [documentation page](http://docs.auth0.com/).
 
 ## What is Auth0?
 
