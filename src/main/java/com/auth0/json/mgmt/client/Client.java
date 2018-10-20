@@ -38,6 +38,8 @@ public class Client {
     private List<String> allowedOrigins;
     @JsonProperty("web_origins")
     private List<String> webOrigins;
+    @JsonProperty("grant_types")
+    private List<String> grantTypes;
     @JsonProperty("client_aliases")
     private List<String> clientAliases;
     @JsonProperty("allowed_clients")
@@ -283,6 +285,23 @@ public class Client {
         return webOrigins;
     }
 
+    /**
+     * Setter for the list of grant types for the application.
+     */
+    @JsonProperty("grant_types")
+    public void setGrantTypes(List<String> grantTypes) {
+        this.grantTypes = grantTypes;
+    }
+
+    /**
+     * Getter for the list of grant types for the application.
+     *
+     * @return the list of grant types. 
+     */
+    @JsonProperty("grant_types")
+    public List<String> getGrantTypes() {
+        return grantTypes;
+    }
 
     /**
      * Getter for the list of application aliases.
