@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.9.1](https://github.com/auth0/auth0-java/tree/1.9.1) (2018-10-23)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.9.0...1.9.1)
+
+**Security**
+- Use jackson-databind 2.9.7 [\#168](https://github.com/auth0/auth0-java/pull/168) ([lbalmaceda](https://github.com/lbalmaceda))
+
 ## [1.9.0](https://github.com/auth0/auth0-java/tree/1.9.0) (2018-09-25)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.8.0...1.9.0)
 
