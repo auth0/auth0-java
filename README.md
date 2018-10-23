@@ -16,14 +16,14 @@ Get Auth0 Java via Maven:
 <dependency>
   <groupId>com.auth0</groupId>
   <artifactId>auth0</artifactId>
-  <version>1.9.0</version>
+  <version>1.9.1</version>
 </dependency>
 ```
 
 or Gradle:
 
 ```gradle
-compile 'com.auth0:auth0:1.9.0'
+compile 'com.auth0:auth0:1.9.1'
 ```
 
 
@@ -44,7 +44,7 @@ AuthAPI auth = new AuthAPI("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SE
 
 ### Authorize - /authorize
 
-Creates an `AuthorizeUrlBuilder` to authenticate the user with an OAuth provider. The `redirectUri` must be white-listed in the "Allowed Callback URLs" section of the Applications Settings. Parameters can be added to the final url by using the builder methods. When ready, call `build()` and obtain the URL.
+Creates an `AuthorizeUrlBuilder` to authenticate the user with an OAuth provider. The `redirectUri` must be white-listed in the "Allowed Callback URLs" section of the Applications Settings. Parameters can be added to the final URL by using the builder methods. When ready, call `build()` and obtain the URL.
 
 ```AuthorizeUrlBuilder authorizeUrl(String redirectUri)```
 
@@ -131,7 +131,7 @@ try {
 
 ### Exchange the Authorization Code - /oauth/token
 
-Creates a request to exchange the `code` previously obtained by calling the /authorize endpoint. The redirect uri must be the one sent in the /authorize call.
+Creates a request to exchange the `code` previously obtained by calling the /authorize endpoint. The redirect URI must be the one sent in the /authorize call.
 
 `AuthRequest exchangeCode(String code, String redirectUri)`
 
@@ -556,7 +556,7 @@ Example exception data
 
 ## Documentation
 
-For more information about [auth0](http://auth0.com) check our [documentation page](http://docs.auth0.com/).
+For more information about [Auth0](http://auth0.com) check our [documentation page](http://docs.auth0.com/).
 
 ## What is Auth0?
 
