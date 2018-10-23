@@ -17,7 +17,7 @@ jobs:
       - run:
           name: Upload Coverage
           when: on_success
-          command: bash <(curl -s https://codecov.io/bash)
+          command: bash <(curl -s https://codecov.io/bash) -Z -C $CIRCLE_SHA1
       - save_cache:
           paths:
             - ~/.m2
