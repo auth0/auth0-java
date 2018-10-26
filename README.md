@@ -1,7 +1,7 @@
 # Auth0 Java
 
 [![Build-Circle][circle-ci-badge]][circle-ci-url]
-[![MIT][mit-badge]][mit-url]
+[![MIT licensed](https://img.shields.io/dub/l/vibe-d.svg?style=flat)](https://github.com/auth0/auth0-java/blob/master/LICENSE)
 [![Maven][maven-badge]][maven-url]
 [![JCenter][jcenter-badge]][jcenter-url]
 [![codecov][codecov-badge]][codecov-url]
