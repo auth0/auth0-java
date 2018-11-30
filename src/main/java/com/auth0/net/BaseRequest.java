@@ -1,5 +1,6 @@
 package com.auth0.net;
 
+import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
@@ -27,14 +28,12 @@ public abstract class BaseRequest<T> implements Request<T> {
     @Override
     public T execute() throws Auth0Exception {
         okhttp3.Request request = createRequest();
-        Response response;
-        try {
-            response = client.newCall(request).execute();
+        try (Response response = client.newCall(request).execute()) {
+            return parseResponse(response);
+        } catch (APIException e) {
+            throw e;
         } catch (IOException e) {
             throw new Auth0Exception("Failed to execute request", e);
         }
-
-        return parseResponse(response);
     }
-
 }

@@ -100,11 +100,12 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
     }
 
     protected Auth0Exception createResponseException(Response response) {
+        if (response.code() == STATUS_CODE_TOO_MANY_REQUEST) {
+            return createRateLimitException(response);
+        }
+        
         String payload = null;
         try (ResponseBody body = response.body()) {
-            if (response.code() == STATUS_CODE_TOO_MANY_REQUEST) {
-                return createRateLimitException(response);
-            }
             payload = body.string();
             MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
             Map<String, Object> values = mapper.readValue(payload, mapType);
