@@ -103,7 +103,7 @@ public class CustomRequest<T> extends BaseRequest<T> implements CustomizableRequ
         if (response.code() == STATUS_CODE_TOO_MANY_REQUEST) {
             return createRateLimitException(response);
         }
-        
+
         String payload = null;
         try (ResponseBody body = response.body()) {
             payload = body.string();

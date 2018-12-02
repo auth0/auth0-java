@@ -9,13 +9,21 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.util.HashMap;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.any;
+
+// FIXME: These test require mocking of the final class okhttp3.Response. To do so
+//  an opt-in incubating Mockito feature is used, for more information see:
+//  https://github.com/mockito/mockito/wiki/What%27s-new-in-Mockito-2#mock-the-unmockable-opt-in-mocking-of-final-classesmethods
 public class BaseRequestTest {
 
     private Response response;
@@ -24,13 +32,13 @@ public class BaseRequestTest {
 
     @Before
     public void setUp() throws Exception {
-        response = Mockito.mock(Response.class);
+        response = mock(Response.class);
 
-        call = Mockito.mock(Call.class);
-        Mockito.when(call.execute()).thenReturn(response);
+        call = mock(Call.class);
+        when(call.execute()).thenReturn(response);
 
-        client = Mockito.mock(OkHttpClient.class);
-        Mockito.when(client.newCall(Mockito.any())).thenReturn(call);
+        client = mock(OkHttpClient.class);
+        when(client.newCall(any())).thenReturn(call);
     }
 
     @Test
@@ -48,7 +56,7 @@ public class BaseRequestTest {
         }
 
         assertThat(exception, is(nullValue()));
-        Mockito.verify(response, Mockito.times(1)).close();
+        verify(response, times(1)).close();
     }
 
     @Test
@@ -67,7 +75,7 @@ public class BaseRequestTest {
 
         assertThat(exception, is(notNullValue()));
         assertThat(exception, is(instanceOf(RateLimitException.class)));
-        Mockito.verify(response, Mockito.times(1)).close();
+        verify(response, times(1)).close();
     }
 
     @Test
@@ -86,7 +94,7 @@ public class BaseRequestTest {
 
         assertThat(exception, is(notNullValue()));
         assertThat(exception, is(instanceOf(APIException.class)));
-        Mockito.verify(response, Mockito.times(1)).close();
+        verify(response, times(1)).close();
     }
 
     @Test
@@ -105,7 +113,7 @@ public class BaseRequestTest {
 
         assertThat(exception, is(notNullValue()));
         assertThat(exception, is(instanceOf(Auth0Exception.class)));
-        Mockito.verify(response, Mockito.times(1)).close();
+        verify(response, times(1)).close();
     }
 
     private abstract class MockBaseRequest<String> extends BaseRequest {
