@@ -10,8 +10,6 @@ import okhttp3.Response;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -75,6 +73,7 @@ public class BaseRequestTest {
 
         assertThat(exception, is(notNullValue()));
         assertThat(exception, is(instanceOf(RateLimitException.class)));
+        assertThat(exception.getMessage(), is("Request failed with status code 429: Rate limit reached"));
         verify(response, times(1)).close();
     }
 
@@ -85,7 +84,7 @@ public class BaseRequestTest {
             new MockBaseRequest<String>(client) {
                 @Override
                 protected String parseResponse(Response response) throws Auth0Exception {
-                    throw new APIException(new HashMap<>(), 500);
+                    throw new APIException("APIException", 500, null);
                 }
             }.execute();
         } catch (Exception e) {
@@ -94,6 +93,7 @@ public class BaseRequestTest {
 
         assertThat(exception, is(notNullValue()));
         assertThat(exception, is(instanceOf(APIException.class)));
+        assertThat(exception.getMessage(), is("Request failed with status code 500: APIException"));
         verify(response, times(1)).close();
     }
 
@@ -113,6 +113,7 @@ public class BaseRequestTest {
 
         assertThat(exception, is(notNullValue()));
         assertThat(exception, is(instanceOf(Auth0Exception.class)));
+        assertThat(exception.getMessage(), is("Auth0Exception"));
         verify(response, times(1)).close();
     }
 
