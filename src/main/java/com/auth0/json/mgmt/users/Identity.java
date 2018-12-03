@@ -2,13 +2,14 @@ package com.auth0.json.mgmt.users;
 
 import com.fasterxml.jackson.annotation.*;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Identity {
+public class Identity implements Serializable {
 
     @JsonProperty("connection")
     private String connection;
