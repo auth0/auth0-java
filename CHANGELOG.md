@@ -1,5 +1,18 @@
 # Change Log
 
+## [1.10.0](https://github.com/auth0/auth0-java/tree/1.10.0) (2019-01-03)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.9.1...1.10.0)
+
+**Added**
+- Add Serializable to the user data. [\#178](https://github.com/auth0/auth0-java/pull/178) ([dfredell](https://github.com/dfredell))
+- Include grant_types in Client [\#166](https://github.com/auth0/auth0-java/pull/166) ([osule](https://github.com/osule))
+
+**Fixed**
+- Closing response body on RateLimitException [\#175](https://github.com/auth0/auth0-java/pull/175) ([j-m-x](https://github.com/j-m-x))
+
+**Security**
+- Bump jackson-databind to patch security issues. [\#181](https://github.com/auth0/auth0-java/pull/181) ([gkwang](https://github.com/gkwang))
+
 ## [1.9.1](https://github.com/auth0/auth0-java/tree/1.9.1) (2018-10-23)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.9.0...1.9.1)
 
