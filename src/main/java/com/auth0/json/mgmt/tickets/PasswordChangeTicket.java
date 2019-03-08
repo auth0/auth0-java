@@ -106,7 +106,7 @@ public class PasswordChangeTicket {
      *
      * @param  markEmailAsVerified true if email_verified attribute must be set to true once password is changed, false if email_verified attribute should not be updated.
      */
-    @JsonProperty("set_email_as_verified")
+    @JsonProperty("mark_email_as_verified")
     public void setMarkEmailAsVerified(Boolean markEmailAsVerified){
         this.markEmailAsVerified = markEmailAsVerified;
     }
