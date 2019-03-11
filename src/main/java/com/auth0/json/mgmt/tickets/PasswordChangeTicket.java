@@ -28,6 +28,8 @@ public class PasswordChangeTicket {
     private String email;
     @JsonProperty("ticket")
     private String ticket;
+    @JsonProperty("mark_email_as_verified")
+    private Boolean markEmailAsVerified;
 
     @JsonCreator
     public PasswordChangeTicket(@JsonProperty("user_id") String userId) {
@@ -97,6 +99,16 @@ public class PasswordChangeTicket {
     @JsonProperty("email")
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * Setter for the mark_email_as_verified to define if user.email_verified should be set to true after ticket is consumed.
+     *
+     * @param  markEmailAsVerified true if email_verified attribute must be set to true once password is changed, false if email_verified attribute should not be updated.
+     */
+    @JsonProperty("mark_email_as_verified")
+    public void setMarkEmailAsVerified(Boolean markEmailAsVerified){
+        this.markEmailAsVerified = markEmailAsVerified;
     }
 
     /**
