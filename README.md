@@ -344,7 +344,7 @@ try {
 #### Get
 
 Creates a request to get a User. An API Token with scope `read:users` is needed. If you want the identities.access_token property to be included, you will also need the scope `read:user_idp_tokens`.
-You can pass an optional Filter to narrow the results in the response.
+You can pass an optional Filter to specify the fields you want to include or exclude from the response.
 
 `Request<User> get(String userId, UserFilter filter)`
 
