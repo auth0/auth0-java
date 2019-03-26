@@ -1,8 +1,40 @@
 package com.auth0.client.mgmt;
 
+import static com.auth0.client.MockServer.MGMT_EMAIL_PROVIDER;
+import static com.auth0.client.MockServer.MGMT_EMPTY_LIST;
+import static com.auth0.client.MockServer.MGMT_GUARDIAN_ENROLLMENTS_LIST;
+import static com.auth0.client.MockServer.MGMT_IDENTITIES_LIST;
+import static com.auth0.client.MockServer.MGMT_LOG_EVENTS_LIST;
+import static com.auth0.client.MockServer.MGMT_LOG_EVENTS_PAGED_LIST;
+import static com.auth0.client.MockServer.MGMT_RECOVERY_CODE;
+import static com.auth0.client.MockServer.MGMT_USER;
+import static com.auth0.client.MockServer.MGMT_USERS_LIST;
+import static com.auth0.client.MockServer.MGMT_USERS_PAGED_LIST;
+import static com.auth0.client.MockServer.MGMT_USER_PERMISSIONS_LIST;
+import static com.auth0.client.MockServer.MGMT_USER_PERMISSIONS_PAGED_LIST;
+import static com.auth0.client.MockServer.MGMT_USER_ROLES_LIST;
+import static com.auth0.client.MockServer.MGMT_USER_ROLES_PAGED_LIST;
+import static com.auth0.client.MockServer.bodyFromRequest;
+import static com.auth0.client.RecordedRequestMatcher.hasHeader;
+import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
+import static com.auth0.client.RecordedRequestMatcher.hasQueryParameter;
+import static org.hamcrest.Matchers.emptyCollectionOf;
+import static org.hamcrest.Matchers.hasEntry;
+import static org.hamcrest.Matchers.hasKey;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertThat;
+
 import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.client.mgmt.filter.LogEventFilter;
+import com.auth0.client.mgmt.filter.PageFilter;
 import com.auth0.client.mgmt.filter.UserFilter;
+import com.auth0.json.mgmt.Permission;
+import com.auth0.json.mgmt.PermissionsPage;
+import com.auth0.json.mgmt.Role;
+import com.auth0.json.mgmt.RolesPage;
 import com.auth0.json.mgmt.guardian.Enrollment;
 import com.auth0.json.mgmt.logevents.LogEvent;
 import com.auth0.json.mgmt.logevents.LogEventsPage;
@@ -11,16 +43,12 @@ import com.auth0.json.mgmt.users.RecoveryCode;
 import com.auth0.json.mgmt.users.User;
 import com.auth0.json.mgmt.users.UsersPage;
 import com.auth0.net.Request;
-import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Test;
-
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
-import static com.auth0.client.MockServer.*;
-import static com.auth0.client.RecordedRequestMatcher.*;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import okhttp3.mockwebserver.RecordedRequest;
+import org.junit.Test;
 
 public class UsersEntityTest extends BaseMgmtEntityTest {
 
@@ -633,5 +661,355 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnListRolesWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'user id' cannot be null!");
+        api.users().listRoles(null);
+    }
+
+    @Test
+    public void shouldListRolesWithoutFilter() throws Exception {
+        Request<RolesPage> request = api.users().listRoles("1", null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER_ROLES_PAGED_LIST, 200);
+        RolesPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/roles"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
+    @Test
+    public void shouldListRolesWithPage() throws Exception {
+        PageFilter filter = new PageFilter().withPage(23, 5);
+        Request<RolesPage> request = api.users().listRoles("1", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER_ROLES_PAGED_LIST, 200);
+        RolesPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/roles"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("page", "23"));
+        assertThat(recordedRequest, hasQueryParameter("per_page", "5"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
+    @Test
+    public void shouldListRolesWithTotals() throws Exception {
+        PageFilter filter = new PageFilter().withTotals(true);
+        Request<RolesPage> request = api.users().listRoles("1", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER_ROLES_PAGED_LIST, 200);
+        RolesPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/roles"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+        assertThat(response.getStart(), is(0));
+        assertThat(response.getLength(), is(14));
+        assertThat(response.getTotal(), is(14));
+        assertThat(response.getLimit(), is(50));
+    }
+
+    @Test
+    public void shouldListRoles() throws Exception {
+        Request<List<Role>> request = api.users().listRoles("1");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER_ROLES_LIST, 200);
+        List<Role> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/roles"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, hasSize(2));
+        for (Role role : response) {
+            assertThat(role.getName(), notNullValue());
+            assertThat(role.getDescription(), notNullValue());
+            assertThat(role.getId(), notNullValue());
+        }
+    }
+
+    @Test
+    public void shouldThrowOnAddRolesWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'user id' cannot be null!");
+        api.users().addRoles(null, Collections.emptyList());
+    }
+
+    @Test
+    public void shouldThrowOnAddRolesWithNullList() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'roles' cannot be null!");
+        api.users().addRoles("1", null);
+    }
+
+    @Test
+    public void shouldThrowOnAddRolesWithEmptyList() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'roles' cannot be empty!");
+        api.users().addRoles("1", Collections.emptyList());
+    }
+
+    @Test
+    public void shouldAddRoles() throws Exception {
+        Role role = new Role();
+        role.setName("roleId");
+
+        Request request = api.users().addRoles("1",  Collections.singletonList(role));
+        assertThat(request, is(notNullValue()));
+
+        server.emptyResponse(200);
+        Object response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/users/1/roles"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(1));
+        assertThat(body, hasKey("roles"));
+
+        assertThat(response, is(nullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnRemoveRolesWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'user id' cannot be null!");
+        api.users().removeRoles(null, Collections.emptyList());
+    }
+
+    @Test
+    public void shouldThrowOnRemoveRolesWithNullList() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'roles' cannot be null!");
+        api.users().removeRoles("1", null);
+    }
+
+    @Test
+    public void shouldThrowOnRemoveRolesWithEmptyList() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'roles' cannot be empty!");
+        api.users().removeRoles("1", Collections.emptyList());
+    }
+
+    @Test
+    public void shouldRemoveRoles() throws Exception {
+        Role role = new Role();
+        role.setName("roleId");
+
+        Request request = api.users().removeRoles("1", Collections.singletonList(role));
+        assertThat(request, is(notNullValue()));
+
+        server.emptyResponse( 200);
+        Object response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/users/1/roles"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(1));
+        assertThat(body, hasKey("roles"));
+
+        assertThat(response, is(nullValue()));
+    }
+
+    @Test
+    public void shouldListPermissionsWithoutFilter() throws Exception {
+        Request<PermissionsPage> request = api.users().listPermissions("1", null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER_PERMISSIONS_PAGED_LIST, 200);
+        PermissionsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/permissions"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
+    @Test
+    public void shouldListPermissionsWithPage() throws Exception {
+        PageFilter filter = new PageFilter().withPage(23, 5);
+        Request<PermissionsPage> request = api.users().listPermissions("1", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER_PERMISSIONS_PAGED_LIST, 200);
+        PermissionsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/permissions"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("page", "23"));
+        assertThat(recordedRequest, hasQueryParameter("per_page", "5"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
+    @Test
+    public void shouldListPermissionsWithTotal() throws Exception {
+        PageFilter filter = new PageFilter().withTotals(true);
+        Request<PermissionsPage> request = api.users().listPermissions("1", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER_PERMISSIONS_PAGED_LIST, 200);
+        PermissionsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/permissions"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+        assertThat(response.getStart(), is(0));
+        assertThat(response.getLength(), is(14));
+        assertThat(response.getTotal(), is(14));
+        assertThat(response.getLimit(), is(50));
+    }
+
+    @Test
+    public void shouldListPermissions() throws Exception {
+        Request<List<Permission>> request = api.users().listPermissions("1");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER_PERMISSIONS_LIST, 200);
+        List<Permission> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/permissions"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, hasSize(2));
+        for (Permission permission : response) {
+            assertThat(permission.getName(), notNullValue());
+            assertThat(permission.getDescription(), notNullValue());
+            assertThat(permission.getResourceServerId(), notNullValue());
+            assertThat(permission.getResourceServerName(), notNullValue());
+        }
+    }
+
+    @Test
+    public void shouldThrowOnAddPermissionsWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'user id' cannot be null!");
+        api.users().addPermissions(null, Collections.emptyList());
+    }
+
+    @Test
+    public void shouldThrowOnAddPermissionsWithNullList() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'permissions' cannot be null!");
+        api.users().addPermissions("1", null);
+    }
+
+    @Test
+    public void shouldThrowOnAddPermissionsWithEmptyList() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'permissions' cannot be empty!");
+        api.users().addPermissions("1", Collections.emptyList());
+    }
+
+    @Test
+    public void shouldAddPermissions() throws Exception {
+        List<Permission> permissions = new ArrayList<>();
+        Permission permission = new Permission();
+        permission.setName("permissionName");
+        permissions.add(permission);
+        Request request = api.users().addPermissions("1", permissions);
+        assertThat(request, is(notNullValue()));
+
+        server.emptyResponse(200);
+        Object response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/users/1/permissions"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(1));
+        assertThat(body, hasKey("permissions"));
+
+        assertThat(response, is(nullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnRemovePermissionsWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'user id' cannot be null!");
+        api.users().removePermissions(null, Collections.emptyList());
+    }
+
+    @Test
+    public void shouldThrowOnRemovePermissionsWithNullList() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'permissions' cannot be null!");
+        api.users().removePermissions("roleId", null);
+    }
+
+    @Test
+    public void shouldThrowOnRemovePermissionsWithEmptyList() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'permissions' cannot be empty!");
+        api.users().removePermissions("roleId", Collections.emptyList());
+    }
+
+    @Test
+    public void shouldRemovePermissions() throws Exception {
+        List<Permission> permissions = new ArrayList<>();
+        Permission permission = new Permission();
+        permission.setName("permissionName");
+        permissions.add(permission);
+        Request request = api.users().removePermissions("1", permissions);
+        assertThat(request, is(notNullValue()));
+
+        server.emptyResponse(200);
+        Object response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/users/1/permissions"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(1));
+        assertThat(body, hasKey("permissions"));
+
+        assertThat(response, is(nullValue()));
     }
 }

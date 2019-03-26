@@ -1,8 +1,15 @@
 package com.auth0.client.mgmt;
 
+import static com.auth0.client.mgmt.filter.QueryFilter.KEY_QUERY;
+
 import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.client.mgmt.filter.LogEventFilter;
+import com.auth0.client.mgmt.filter.PageFilter;
 import com.auth0.client.mgmt.filter.UserFilter;
+import com.auth0.json.mgmt.Permission;
+import com.auth0.json.mgmt.PermissionsPage;
+import com.auth0.json.mgmt.Role;
+import com.auth0.json.mgmt.RolesPage;
 import com.auth0.json.mgmt.guardian.Enrollment;
 import com.auth0.json.mgmt.logevents.LogEventsPage;
 import com.auth0.json.mgmt.users.Identity;
@@ -15,13 +22,11 @@ import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.auth0.client.mgmt.filter.QueryFilter.KEY_QUERY;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
 
 /**
  * Class that provides an implementation of the Users methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Users and https://auth0.com/docs/api/management/v2#!/Users_By_Email
@@ -347,6 +352,215 @@ public class UsersEntity extends BaseManagementEntity {
 
         CustomRequest<List<Identity>> request = new CustomRequest<>(client, url, "DELETE", new TypeReference<List<Identity>>() {
         });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+
+    /**
+     * Get the permissions associated to the user. A token with read:users is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Users/get_permissions
+     *
+     * @param userId the role id
+     * @return a Request to execute
+     */
+    public Request<List<Permission>> listPermissions(String userId) {
+        Asserts.assertNotNull(userId, "user id");
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegments(userId)
+            .addPathSegments("permissions").build().toString();
+        CustomRequest<List<Permission>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Permission>>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Get the permissions associated to the user. A token with read:users is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Users/get_permissions
+     *
+     * @param userId the role id
+     * @param filter an optional pagination filter
+     * @return a Request to execute
+     */
+    public Request<PermissionsPage> listPermissions(String userId, PageFilter filter) {
+        Asserts.assertNotNull(userId, "user id");
+        HttpUrl.Builder builder = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegments(userId)
+            .addPathSegments("permissions");
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+        String url = builder.build().toString();
+        CustomRequest<PermissionsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<PermissionsPage>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+
+    /**
+     * Remove permissions from a user. A token with update:users is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Users/delete_permissions
+     *
+     * @param userId the user id
+     * @param permissions a list of permission objects to remove from the user
+     * @return a Request to execute
+     */
+    public Request removePermissions(String userId, List<Permission> permissions) {
+        Asserts.assertNotNull(userId, "user id");
+        Asserts.assertNotEmpty(permissions, "permissions");
+
+        Map<String, List<Permission>> body = new HashMap<>();
+        body.put("permissions", permissions);
+
+        final String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegments(userId)
+            .addPathSegments("permissions")
+            .build()
+            .toString();
+        VoidRequest request = new VoidRequest(this.client, url, "DELETE");
+        request.setBody(body);
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Assign permissions to a user. A token with update:users is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Users/post_permissions
+     *
+     * @param userId the user id
+     * @param permissions a list of permission objects to assign to the user
+     * @return a Request to execute
+     */
+    public Request addPermissions(String userId, List<Permission> permissions) {
+        Asserts.assertNotNull(userId, "user id");
+        Asserts.assertNotEmpty(permissions, "permissions");
+
+        Map<String, List<Permission>> body = new HashMap<>();
+        body.put("permissions", permissions);
+
+        final String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegments(userId)
+            .addPathSegments("permissions")
+            .build()
+            .toString();
+        VoidRequest request = new VoidRequest(this.client, url, "POST");
+        request.setBody(body);
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Get the roles associated with a user.
+     * See https://auth0.com/docs/api/management/v2#!/Users/get_roles
+     *
+     * @param userId the role id
+     * @return a Request to execute
+     */
+    public Request<List<Role>> listRoles(String userId) {
+        Asserts.assertNotNull(userId, "user id");
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegments(userId)
+            .addPathSegments("roles").build().toString();
+        CustomRequest<List<Role>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Role>>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Get the roles associated with a user.
+     * See https://auth0.com/docs/api/management/v2#!/Users/get_roles
+     *
+     * @param userId the role id
+     * @param filter an optional pagination filter
+     * @return a Request to execute
+     */
+    public Request<RolesPage> listRoles(String userId, PageFilter filter) {
+        Asserts.assertNotNull(userId, "user id");
+        HttpUrl.Builder builder = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegments(userId)
+            .addPathSegments("roles");
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+        String url = builder.build().toString();
+        CustomRequest<RolesPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<RolesPage>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+
+    /**
+     * Remove roles from a user. A token with update:users is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Users/delete_roles
+     *
+     * @param userId the user id
+     * @param roles a list of role objects to remove from the user
+     * @return a Request to execute
+     */
+    public Request removeRoles(String userId, List<Role> roles) {
+        Asserts.assertNotNull(userId, "user id");
+        Asserts.assertNotEmpty(roles, "roles");
+
+        Map<String, List<Role>> body = new HashMap<>();
+        body.put("roles", roles);
+
+        final String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegments(userId)
+            .addPathSegments("roles")
+            .build()
+            .toString();
+        VoidRequest request = new VoidRequest(this.client, url, "DELETE");
+        request.setBody(body);
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Assign roles to a user. A token with update:users is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Users/post_roles
+     *
+     * @param userId the user id
+     * @param roles a list of role objects to assign to the user
+     * @return a Request to execute
+     */
+    public Request addRoles(String userId, List<Role> roles) {
+        Asserts.assertNotNull(userId, "user id");
+        Asserts.assertNotEmpty(roles, "roles");
+
+        Map<String, List<Role>> body = new HashMap<>();
+        body.put("roles", roles);
+
+        final String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegments(userId)
+            .addPathSegments("roles")
+            .build()
+            .toString();
+        VoidRequest request = new VoidRequest(this.client, url, "POST");
+        request.setBody(body);
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }

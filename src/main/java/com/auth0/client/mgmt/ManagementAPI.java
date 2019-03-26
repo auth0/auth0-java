@@ -253,4 +253,13 @@ public class ManagementAPI {
     public JobsEntity jobs() {
         return new JobsEntity(client, baseUrl, apiToken);
     }
+
+    /**
+     * Getter for the Roles entity.
+     *
+     * @return the Roles entity.
+     */
+    public RolesEntity roles() {
+        return new RolesEntity(client, baseUrl, apiToken);
+    }
 }
