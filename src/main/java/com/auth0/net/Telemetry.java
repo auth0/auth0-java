@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings("WeakerAccess")
-class Telemetry {
+public class Telemetry {
     static final String HEADER_NAME = "Auth0-Client";
 
     private static final String NAME_KEY = "name";
@@ -24,11 +24,11 @@ class Telemetry {
     private final Map<String, String> env;
     private final String value;
 
-    Telemetry(String name, String version) {
+    public Telemetry(String name, String version) {
         this(name, version, null);
     }
 
-    Telemetry(String name, String version, String core) {
+    public Telemetry(String name, String version, String core) {
         this.name = name;
         this.version = version;
         this.core = core;
