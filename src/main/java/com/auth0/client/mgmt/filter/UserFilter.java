@@ -6,14 +6,13 @@ package com.auth0.client.mgmt.filter;
 public class UserFilter extends QueryFilter {
 
     /**
-     * Creates a new instance using the search engine 'v2'.
+     * Creates a new instance using the latest search engine version.
      * <p>
-     * This version of the search engine is now deprecated and will stop working on November 13th 2018.
-     * Please, migrate as soon as possible and use the {@link #withSearchEngine(String)} method to specify version 'v3'.
-     * See the migration guide at https://auth0.com/docs/users/search/v3#migrate-from-search-engine-v2-to-v3
+     * Since version 1.12.0 this SDK no longer specifies a search engine version by default. If you need to use
+     * a version different than the latest one, please set it explicitly by calling {@link #withSearchEngine(String)}.
+     * See the latest user search doc: https://auth0.com/docs/users/search/
      */
     public UserFilter() {
-        withSearchEngine("v2");
     }
 
     @Override
@@ -23,10 +22,9 @@ public class UserFilter extends QueryFilter {
     }
 
     /**
-     * Selects which Search Engine version to use.
+     * Selects which Search Engine version to use when querying for users.
      * <p>
-     * Version 2 is now deprecated and will stop working on November 13th 2018. Please, migrate as soon as possible to 'v3'.
-     * See the migration guide at https://auth0.com/docs/users/search/v3#migrate-from-search-engine-v2-to-v3
+     * See the latest user search doc: https://auth0.com/docs/users/search/
      *
      * @param searchEngineVersion the search engine version to use on queries.
      * @return this filter instance

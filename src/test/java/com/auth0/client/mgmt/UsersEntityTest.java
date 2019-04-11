@@ -195,7 +195,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-        assertThat(recordedRequest, hasQueryParameter("search_engine", "v2"));
+        assertThat(recordedRequest, not(hasQueryParameter("search_engine")));
         assertThat(recordedRequest, hasQueryParameter("q", "email%3A%5C*%40gmail.com"));
 
         assertThat(response, is(notNullValue()));
