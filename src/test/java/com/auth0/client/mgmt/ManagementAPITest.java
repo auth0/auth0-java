@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.MockServer;
+import com.auth0.net.Telemetry;
 import com.auth0.net.TelemetryInterceptor;
 import okhttp3.Interceptor;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -9,6 +10,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mockito.Mockito;
 
 import static com.auth0.client.UrlMatcher.isUrl;
 import static okhttp3.logging.HttpLoggingInterceptor.Level;
@@ -142,6 +144,33 @@ public class ManagementAPITest {
                 assertThat(telemetry.isEnabled(), is(true));
             }
         }
+    }
+
+    @Test
+    public void shouldUseCustomTelemetry() throws Exception {
+        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN);
+        assertThat(api.getClient().interceptors(), hasItem(isA(TelemetryInterceptor.class)));
+
+        Telemetry currentTelemetry = null;
+        for (Interceptor i : api.getClient().interceptors()) {
+            if (i instanceof TelemetryInterceptor) {
+                TelemetryInterceptor interceptor = (TelemetryInterceptor) i;
+                currentTelemetry = interceptor.getTelemetry();
+            }
+        }
+        assertThat(currentTelemetry, is(notNullValue()));
+
+        Telemetry newTelemetry = Mockito.mock(Telemetry.class);
+        api.setTelemetry(newTelemetry);
+
+        Telemetry updatedTelemetry = null;
+        for (Interceptor i : api.getClient().interceptors()) {
+            if (i instanceof TelemetryInterceptor) {
+                TelemetryInterceptor interceptor = (TelemetryInterceptor) i;
+                updatedTelemetry = interceptor.getTelemetry();
+            }
+        }
+        assertThat(updatedTelemetry, is(newTelemetry));
     }
 
     @Test
