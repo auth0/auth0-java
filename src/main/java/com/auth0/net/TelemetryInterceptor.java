@@ -33,6 +33,14 @@ public class TelemetryInterceptor implements Interceptor {
         return chain.proceed(request);
     }
 
+    public void setTelemetry(Telemetry telemetry) {
+        this.telemetry = telemetry;
+    }
+
+    public Telemetry getTelemetry() {
+        return this.telemetry;
+    }
+
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }

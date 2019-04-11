@@ -5,10 +5,7 @@ import com.auth0.exception.APIException;
 import com.auth0.json.auth.CreatedUser;
 import com.auth0.json.auth.TokenHolder;
 import com.auth0.json.auth.UserInfo;
-import com.auth0.net.AuthRequest;
-import com.auth0.net.Request;
-import com.auth0.net.SignUpRequest;
-import com.auth0.net.TelemetryInterceptor;
+import com.auth0.net.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.Interceptor;
@@ -20,6 +17,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mockito.Mockito;
 
 import java.io.FileReader;
 import java.util.HashMap;
@@ -104,6 +102,33 @@ public class AuthAPITest {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client secret' cannot be null!");
         new AuthAPI(DOMAIN, CLIENT_ID, null);
+    }
+
+    @Test
+    public void shouldUseCustomTelemetry() throws Exception {
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
+        assertThat(api.getClient().interceptors(), hasItem(isA(TelemetryInterceptor.class)));
+
+        Telemetry currentTelemetry = null;
+        for (Interceptor i : api.getClient().interceptors()) {
+            if (i instanceof TelemetryInterceptor) {
+                TelemetryInterceptor interceptor = (TelemetryInterceptor) i;
+                currentTelemetry = interceptor.getTelemetry();
+            }
+        }
+        assertThat(currentTelemetry, is(notNullValue()));
+
+        Telemetry newTelemetry = Mockito.mock(Telemetry.class);
+        api.setTelemetry(newTelemetry);
+
+        Telemetry updatedTelemetry = null;
+        for (Interceptor i : api.getClient().interceptors()) {
+            if (i instanceof TelemetryInterceptor) {
+                TelemetryInterceptor interceptor = (TelemetryInterceptor) i;
+                updatedTelemetry = interceptor.getTelemetry();
+            }
+        }
+        assertThat(updatedTelemetry, is(newTelemetry));
     }
 
     @Test
@@ -389,7 +414,8 @@ public class AuthAPITest {
     public void shouldHaveNotStrongPasswordWithDetailedDescription() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         FileReader fr = new FileReader(PASSWORD_STRENGTH_ERROR_RESPONSE_NONE);
-        Map<String, Object> mapPayload = mapper.readValue(fr, new TypeReference<Map<String, Object>>() {});
+        Map<String, Object> mapPayload = mapper.readValue(fr, new TypeReference<Map<String, Object>>() {
+        });
         APIException ex = new APIException(mapPayload, 400);
         assertThat(ex.getError(), is("invalid_password"));
         String expectedDescription = "At least 10 characters in length; Contain at least 3 of the following 4 types of characters: lower case letters (a-z), upper case letters (A-Z), numbers (i.e. 0-9), special characters (e.g. !@#$%^&*); Should contain: lower case letters (a-z), upper case letters (A-Z), numbers (i.e. 0-9), special characters (e.g. !@#$%^&*); No more than 2 identical characters in a row (e.g., \"aaa\" not allowed)";
@@ -400,7 +426,8 @@ public class AuthAPITest {
     public void shouldHaveNotStrongPasswordWithShortDetailedDescription() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         FileReader fr = new FileReader(PASSWORD_STRENGTH_ERROR_RESPONSE_SOME);
-        Map<String, Object> mapPayload = mapper.readValue(fr, new TypeReference<Map<String, Object>>() {});
+        Map<String, Object> mapPayload = mapper.readValue(fr, new TypeReference<Map<String, Object>>() {
+        });
         APIException ex = new APIException(mapPayload, 400);
         assertThat(ex.getError(), is("invalid_password"));
         String expectedDescription = "Should contain: lower case letters (a-z), upper case letters (A-Z), numbers (i.e. 0-9), special characters (e.g. !@#$%^&*)";
