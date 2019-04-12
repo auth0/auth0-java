@@ -4,8 +4,7 @@ import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 public class UserFilterTest {
@@ -18,9 +17,9 @@ public class UserFilterTest {
     }
 
     @Test
-    public void shouldUseSearchEngineV2ByDefault() throws Exception {
+    public void shouldNotSetADefaultSearchEngineValue() throws Exception {
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("search_engine", (Object) "v2"));
+        assertThat(filter.getAsMap(), not(Matchers.hasKey("search_engine")));
     }
 
     @Test
