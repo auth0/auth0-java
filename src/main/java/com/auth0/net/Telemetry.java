@@ -14,13 +14,13 @@ public class Telemetry {
 
     private static final String NAME_KEY = "name";
     private static final String VERSION_KEY = "version";
-    private static final String CORE_KEY = "core";
+    private static final String LIBRARY_VERSION_KEY = "auth0-java";
     private static final String ENV_KEY = "env";
     private static final String JAVA_KEY = "java";
 
     private final String name;
     private final String version;
-    private final String core;
+    private final String libraryVersion;
     private final Map<String, String> env;
     private final String value;
 
@@ -28,23 +28,27 @@ public class Telemetry {
         this(name, version, null);
     }
 
-    public Telemetry(String name, String version, String core) {
+    public Telemetry(String name, String version, String libraryVersion) {
         this.name = name;
         this.version = version;
-        this.core = core;
+        this.libraryVersion = libraryVersion;
+
+        if (name == null) {
+            env = Collections.emptyMap();
+            value = null;
+            return;
+        }
 
         Map<String, Object> values = new HashMap<>();
-        if (name != null) {
-            values.put(NAME_KEY, name);
-        }
+        values.put(NAME_KEY, name);
         if (version != null) {
             values.put(VERSION_KEY, version);
         }
 
         HashMap<String, String> tmpEnv = new HashMap<>();
         tmpEnv.put(JAVA_KEY, Runtime.class.getPackage().getSpecificationVersion());
-        if (core != null) {
-            tmpEnv.put(CORE_KEY, core);
+        if (libraryVersion != null) {
+            tmpEnv.put(LIBRARY_VERSION_KEY, libraryVersion);
         }
         this.env = Collections.unmodifiableMap(tmpEnv);
         values.put(ENV_KEY, env);
@@ -70,7 +74,7 @@ public class Telemetry {
 
     //Visible for testing
     String getLibraryVersion() {
-        return core;
+        return libraryVersion;
     }
 
     //Visible for testing
