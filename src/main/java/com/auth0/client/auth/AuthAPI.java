@@ -75,6 +75,15 @@ public class AuthAPI {
     }
 
     /**
+     * Setter for the Telemetry to send in every request to Auth0.
+     *
+     * @param telemetry to send in every request to Auth0
+     */
+    public void setTelemetry(Telemetry telemetry) {
+        this.telemetry.setTelemetry(telemetry);
+    }
+
+    /**
      * Whether to enable or not the current HTTP Logger for every Request, Response and other sensitive information.
      *
      * @param enabled whether to enable the HTTP logger or not.
