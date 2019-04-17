@@ -39,7 +39,8 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
-     * Request all the Users that match a given email. A token with scope read:users is needed.
+     * Request all the Users that match a given email.
+     * A token with scope read:users is needed.
      * If you want the identities.access_token property to be included, you will also need the scope read:user_idp_tokens.
      * See https://auth0.com/docs/api/management/v2#!/Users_By_Email/get_users_by_email
      *
@@ -68,7 +69,8 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
-     * Request all the Users. A token with scope read:users is needed.
+     * Request all the Users.
+     * A token with scope read:users is needed.
      * If you want the identities.access_token property to be included, you will also need the scope read:user_idp_tokens.
      * See https://auth0.com/docs/api/management/v2#!/Users/get_users
      *
@@ -96,7 +98,8 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
-     * Request a User. A token with scope read:users is needed.
+     * Request a User.
+     * A token with scope read:users is needed.
      * If you want the identities.access_token property to be included, you will also need the scope read:user_idp_tokens.
      * See https://auth0.com/docs/api/management/v2#!/Users/get_users_by_id
      *
@@ -124,7 +127,8 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
-     * Create a User. A token with scope create:users is needed.
+     * Create a User.
+     * A token with scope create:users is needed.
      * See https://auth0.com/docs/api/management/v2#!/Users/post_users
      *
      * @param user the user data to set
@@ -146,7 +150,8 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
-     * Delete an existing User. A token with scope delete:users is needed.
+     * Delete an existing User.
+     * A token with scope delete:users is needed.
      * See https://auth0.com/docs/api/management/v2#!/Users/delete_users_by_id
      *
      * @param userId the user id
@@ -167,7 +172,9 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
-     * Update an existing User. A token with scope update:users is needed. If you're updating app_metadata you'll also need update:users_app_metadata scope.
+     * Update an existing User.
+     * A token with scope update:users is needed.
+     * If you're updating app_metadata you'll also need update:users_app_metadata scope.
      * See https://auth0.com/docs/api/management/v2#!/Users/patch_users_by_id
      *
      * @param userId the user id
@@ -192,7 +199,8 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
-     * Request all the Guardian Enrollments for a given User. A token with scope read:users is needed.
+     * Request all the Guardian Enrollments for a given User.
+     * A token with scope read:users is needed.
      * See https://auth0.com/docs/api/management/v2#!/Users/get_enrollments
      *
      * @param userId the id of the user to retrieve.
@@ -216,7 +224,8 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
-     * Request all the Events Log for a given User. A token with scope read:logs is needed.
+     * Request all the Events Log for a given User.
+     * A token with scope read:logs is needed.
      * See https://auth0.com/docs/api/management/v2#!/Users/get_logs_by_user
      *
      * @param userId the id of the user to retrieve.
@@ -244,7 +253,8 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
-     * Delete an existing User's Multifactor Provider. A token with scope update:users is needed.
+     * Delete an existing User's Multifactor Provider.
+     * A token with scope update:users is needed.
      * See https://auth0.com/docs/api/management/v2#!/Users/delete_multifactor_by_provider
      *
      * @param userId   the user id
@@ -269,7 +279,8 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
-     * Rotates a User's Guardian recovery code. A token with scope update:users is needed.
+     * Rotates a User's Guardian recovery code.
+     * A token with scope update:users is needed.
      *
      * @param userId the user id
      * @return a Request to execute.
@@ -293,7 +304,8 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
-     * Links two User's Identities. A token with scope update:users is needed.
+     * Links two User's Identities.
+     * A token with scope update:users is needed.
      * See https://auth0.com/docs/api/management/v2#!/Users/post_identities
      *
      * @param primaryUserId   the primary identity's user id
@@ -327,7 +339,8 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
-     * Un-links two User's Identities. A token with scope update:users is needed.
+     * Un-links two User's Identities.
+     * A token with scope update:users is needed.
      * See https://auth0.com/docs/api/management/v2#!/Users/delete_provider_by_user_id
      *
      * @param primaryUserId   the primary identity's user id
@@ -356,29 +369,9 @@ public class UsersEntity extends BaseManagementEntity {
         return request;
     }
 
-
     /**
-     * Get the permissions associated to the user. A token with read:users is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Users/get_permissions
-     *
-     * @param userId the role id
-     * @return a Request to execute
-     */
-    public Request<List<Permission>> listPermissions(String userId) {
-        Asserts.assertNotNull(userId, "user id");
-        String url = baseUrl
-            .newBuilder()
-            .addPathSegments("api/v2/users")
-            .addPathSegments(userId)
-            .addPathSegments("permissions").build().toString();
-        CustomRequest<List<Permission>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Permission>>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
-    }
-
-    /**
-     * Get the permissions associated to the user. A token with read:users is needed.
+     * Get the permissions associated to the user.
+     * A token with read:users is needed.
      * See https://auth0.com/docs/api/management/v2#!/Users/get_permissions
      *
      * @param userId the role id
@@ -406,7 +399,8 @@ public class UsersEntity extends BaseManagementEntity {
 
 
     /**
-     * Remove permissions from a user. A token with update:users is needed.
+     * Remove permissions from a user.
+     * A token with update:users is needed.
      * See https://auth0.com/docs/api/management/v2#!/Users/delete_permissions
      *
      * @param userId the user id
@@ -434,7 +428,8 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
-     * Assign permissions to a user. A token with update:users is needed.
+     * Assign permissions to a user.
+     * A token with update:users is needed.
      * See https://auth0.com/docs/api/management/v2#!/Users/post_permissions
      *
      * @param userId the user id
@@ -463,27 +458,8 @@ public class UsersEntity extends BaseManagementEntity {
 
     /**
      * Get the roles associated with a user.
-     * See https://auth0.com/docs/api/management/v2#!/Users/get_roles
-     *
-     * @param userId the role id
-     * @return a Request to execute
-     */
-    public Request<List<Role>> listRoles(String userId) {
-        Asserts.assertNotNull(userId, "user id");
-        String url = baseUrl
-            .newBuilder()
-            .addPathSegments("api/v2/users")
-            .addPathSegments(userId)
-            .addPathSegments("roles").build().toString();
-        CustomRequest<List<Role>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Role>>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
-    }
-
-    /**
-     * Get the roles associated with a user.
-     * See https://auth0.com/docs/api/management/v2#!/Users/get_roles
+     * A token with read:users and read:roles is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Users/get_user_roles
      *
      * @param userId the role id
      * @param filter an optional pagination filter
@@ -510,8 +486,9 @@ public class UsersEntity extends BaseManagementEntity {
 
 
     /**
-     * Remove roles from a user. A token with update:users is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Users/delete_roles
+     * Remove roles from a user.
+     * A token with update:users is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Users/delete_user_roles
      *
      * @param userId the user id
      * @param roles a list of role objects to remove from the user
@@ -538,8 +515,9 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
-     * Assign roles to a user. A token with update:users is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Users/post_roles
+     * Assign roles to a user.
+     * A token with update:users is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Users/post_user_roles
      *
      * @param userId the user id
      * @param roles a list of role objects to assign to the user

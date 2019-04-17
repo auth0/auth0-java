@@ -667,7 +667,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnListRolesWithNullId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'user id' cannot be null!");
-        api.users().listRoles(null);
+        api.users().listRoles(null, null);
     }
 
     @Test
@@ -728,28 +728,6 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(response.getLength(), is(14));
         assertThat(response.getTotal(), is(14));
         assertThat(response.getLimit(), is(50));
-    }
-
-    @Test
-    public void shouldListRoles() throws Exception {
-        Request<List<Role>> request = api.users().listRoles("1");
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MGMT_USER_ROLES_LIST, 200);
-        List<Role> response = request.execute();
-        RecordedRequest recordedRequest = server.takeRequest();
-
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/roles"));
-        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
-        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response, hasSize(2));
-        for (Role role : response) {
-            assertThat(role.getName(), notNullValue());
-            assertThat(role.getDescription(), notNullValue());
-            assertThat(role.getId(), notNullValue());
-        }
     }
 
     @Test
@@ -898,29 +876,6 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(response.getLength(), is(14));
         assertThat(response.getTotal(), is(14));
         assertThat(response.getLimit(), is(50));
-    }
-
-    @Test
-    public void shouldListPermissions() throws Exception {
-        Request<List<Permission>> request = api.users().listPermissions("1");
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MGMT_USER_PERMISSIONS_LIST, 200);
-        List<Permission> response = request.execute();
-        RecordedRequest recordedRequest = server.takeRequest();
-
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/permissions"));
-        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
-        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response, hasSize(2));
-        for (Permission permission : response) {
-            assertThat(permission.getName(), notNullValue());
-            assertThat(permission.getDescription(), notNullValue());
-            assertThat(permission.getResourceServerId(), notNullValue());
-            assertThat(permission.getResourceServerName(), notNullValue());
-        }
     }
 
     @Test

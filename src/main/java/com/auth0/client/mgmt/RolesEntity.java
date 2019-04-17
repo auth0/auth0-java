@@ -31,22 +31,6 @@ public class RolesEntity extends BaseManagementEntity {
    * A token with read:roles is needed
    * See https://auth0.com/docs/api/management/v2#!/Roles/get_roles
    *
-   * @return a Request to execute
-   */
-  public Request<List<Role>> list() {
-    String url = baseUrl
-        .newBuilder()
-        .addEncodedPathSegments("api/v2/roles").build().toString();
-    CustomRequest<List<Role>> request = new CustomRequest<>(this.client, url, "GET", new TypeReference<List<Role>>() {});
-    request.addHeader("Authorization", "Bearer " + apiToken);
-    return request;
-  }
-
-  /**
-   * Request all Roles created by this tenant that can be assigned to a given user or user group.
-   * A token with read:roles is needed
-   * See https://auth0.com/docs/api/management/v2#!/Roles/get_roles
-   *
    * @param filter optional filtering and pagination criteria
    * @return a Request to execute
    */
@@ -68,7 +52,6 @@ public class RolesEntity extends BaseManagementEntity {
   /**
    * Get a single role created by this tenant that can be assigned to a given user or user group.
    * A token with scope read:roles is needed.
-   * If you want the identities.access_token property to be included, you will also need the scope read:user_idp_tokens.
    * See https://auth0.com/docs/api/management/v2#!/Roles/get_roles_by_id
    *
    * @param roleId the id of the user to retrieve.
@@ -90,7 +73,8 @@ public class RolesEntity extends BaseManagementEntity {
 
 
   /**
-   * Create a Role. A token with scope create:roles is needed.
+   * Create a Role.
+   * A token with scope create:roles is needed.
    * See https://auth0.com/docs/api/management/v2#!/Roles/post_roles
    *
    * @param role the role data to set
@@ -111,7 +95,8 @@ public class RolesEntity extends BaseManagementEntity {
   }
 
   /**
-   * Delete an existing Role. A token with scope delete:roles is needed.
+   * Delete an existing Role.
+   * A token with scope delete:roles is needed.
    * See https://auth0.com/docs/api/management/v2#!/Roles/delete_roles_by_id
    *
    * @param roleId The id of the role to delete.
@@ -132,7 +117,8 @@ public class RolesEntity extends BaseManagementEntity {
   }
 
   /**
-   * Update an existing Role. A token with scope update:roles is needed.
+   * Update an existing Role.
+   * A token with scope update:roles is needed.
    * See https://auth0.com/docs/api/management/v2#!/Roles/patch_roles_by_id
    *
    * @param roleId the role id
@@ -157,27 +143,9 @@ public class RolesEntity extends BaseManagementEntity {
 
   /**
    * Lists the users that have been associated with a given role.
-   * See https://auth0.com/docs/api/management/v2#!/Roles/get_users
+   * A token with scope read:users and read:roles is needed.
    *
-   * @param roleId the role id
-   * @return a Request to execute
-   */
-  public Request<List<User>> listUsers(String roleId) {
-    Asserts.assertNotNull(roleId, "role id");
-    String url = baseUrl
-        .newBuilder()
-        .addEncodedPathSegments("api/v2/roles")
-        .addEncodedPathSegments(roleId)
-        .addEncodedPathSegments("users")
-        .build().toString();
-    CustomRequest<List<User>> request = new CustomRequest<>(this.client, url, "GET", new TypeReference<List<User>>() {});
-    request.addHeader("Authorization", "Bearer " + apiToken);
-    return request;
-  }
-
-  /**
-   * Lists the users that have been associated with a given role.
-   * See https://auth0.com/docs/api/management/v2#!/Roles/get_users
+   * See https://auth0.com/docs/api/management/v2#!/Roles/get_role_user
    *
    * @param roleId the role id
    * @param filter an optional pagination filter
@@ -202,8 +170,9 @@ public class RolesEntity extends BaseManagementEntity {
   }
 
   /**
-   * Assign users to a role. A token with update:roles is needed.
-   * See https://auth0.com/docs/api/management/v2#!/Roles/post_users
+   * Assign users to a role.
+   * A token with update:roles is needed.
+   * See https://auth0.com/docs/api/management/v2#!/Roles/post_role_users
    *
    * @param roleId the role id
    * @param userIds a list of user ids to assign to the role
@@ -230,27 +199,8 @@ public class RolesEntity extends BaseManagementEntity {
   }
 
   /**
-   * Get the permissions associated to the role. A token with read:roles is needed.
-   * See https://auth0.com/docs/api/management/v2#!/Roles/get_permissions
-   *
-   * @param roleId the role id
-   * @return a Request to execute
-   */
-  public Request<List<Permission>> listPermissions(String roleId) {
-    Asserts.assertNotNull(roleId, "role id");
-
-    String url = baseUrl
-        .newBuilder()
-        .addEncodedPathSegments("api/v2/roles")
-        .addEncodedPathSegments(roleId)
-        .addEncodedPathSegments("permissions").build().toString();
-    CustomRequest<List<Permission>> request = new CustomRequest<>(this.client, url, "GET", new TypeReference<List<Permission>>() {});
-    request.addHeader("Authorization", "Bearer " + apiToken);
-    return request;
-  }
-
-  /**
-   * Get the permissions associated to the role. A token with read:roles is needed.
+   * Get the permissions associated to the role.
+   * A token with read:roles is needed.
    * See https://auth0.com/docs/api/management/v2#!/Roles/get_permissions
    *
    * @param roleId the role id
@@ -277,8 +227,9 @@ public class RolesEntity extends BaseManagementEntity {
   }
 
   /**
-   * Un-associate permissions from a role. A token with update:roles is needed.
-   * See https://auth0.com/docs/api/management/v2#!/Roles/delete_permissions
+   * Un-associate permissions from a role.
+   * A token with update:roles is needed.
+   * See https://auth0.com/docs/api/management/v2#!/Roles/delete_role_permission_assignment
    *
    * @param roleId the role id
    * @param permissions a list of permission objects to un-associate from the role
@@ -308,7 +259,7 @@ public class RolesEntity extends BaseManagementEntity {
    * Associate permissions with a role. Only the `permission_name` and
    * `resource_server_identifier` Permission attributes should be specified.
    * A token with update:roles is needed.
-   * See https://auth0.com/docs/api/management/v2#!/Roles/post_permissions
+   * See https://auth0.com/docs/api/management/v2#!/Roles/post_role_permission_assignment
    *
    * @param roleId the role id
    * @param permissions a list of permission objects to associate to the role

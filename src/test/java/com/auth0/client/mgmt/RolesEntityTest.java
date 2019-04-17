@@ -101,41 +101,6 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
   }
 
   @Test
-  public void shouldListRoles() throws Exception {
-    Request<List<Role>> request = api.roles().list();
-    assertThat(request, is(notNullValue()));
-
-    server.jsonResponse(MGMT_ROLES_LIST, 200);
-    List<Role> response = request.execute();
-    RecordedRequest recordedRequest = server.takeRequest();
-
-    assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/roles"));
-    assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
-    assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-
-    assertThat(response, is(notNullValue()));
-    assertThat(response, hasSize(2));
-    for (Role role : response) {
-      assertThat(role.getName(), notNullValue());
-      assertThat(role.getId(), notNullValue());
-      assertThat(role.getDescription(), notNullValue());
-      assertThat(role.getName(), equalTo("roleId"));
-    }
-  }
-
-  @Test
-  public void shouldReturnEmptyRoles() throws Exception {
-    Request<List<Role>> request = api.roles().list();
-    assertThat(request, is(notNullValue()));
-
-    server.jsonResponse(MGMT_EMPTY_LIST, 200);
-    List<Role> response = request.execute();
-
-    assertThat(response, is(notNullValue()));
-    assertThat(response, is(emptyCollectionOf(Role.class)));
-  }
-
-  @Test
   public void shouldGetRole() throws Exception {
     Request<Role> request = api.roles().get("1");
     assertThat(request, is(notNullValue()));
@@ -248,7 +213,7 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
   public void shouldThrowOnListUsersWithNullId() throws Exception {
     exception.expect(IllegalArgumentException.class);
     exception.expectMessage("'role id' cannot be null!");
-    api.roles().listUsers(null);
+    api.roles().listUsers(null, null);
   }
 
   @Test
@@ -309,27 +274,6 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
     assertThat(response.getLength(), is(14));
     assertThat(response.getTotal(), is(14));
     assertThat(response.getLimit(), is(50));
-  }
-
-  @Test
-  public void shouldListUsers() throws Exception {
-    Request<List<User>> request = api.roles().listUsers("1");
-    assertThat(request, is(notNullValue()));
-
-    server.jsonResponse(MGMT_ROLE_USERS_LIST, 200);
-    List<User> response = request.execute();
-    RecordedRequest recordedRequest = server.takeRequest();
-
-    assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/roles/1/users"));
-    assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
-    assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-
-    assertThat(response, is(notNullValue()));
-    assertThat(response, hasSize(2));
-    for (User user : response) {
-      assertThat(user.getName(), notNullValue());
-      assertThat(user.getEmail(), notNullValue());
-    }
   }
 
   @Test
@@ -433,29 +377,6 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
     assertThat(response.getLength(), is(14));
     assertThat(response.getTotal(), is(14));
     assertThat(response.getLimit(), is(50));
-  }
-
-  @Test
-  public void shouldListPermissions() throws Exception {
-    Request<List<Permission>> request = api.roles().listPermissions("1");
-    assertThat(request, is(notNullValue()));
-
-    server.jsonResponse(MGMT_ROLE_PERMISSIONS_LIST, 200);
-    List<Permission> response = request.execute();
-    RecordedRequest recordedRequest = server.takeRequest();
-
-    assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/roles/1/permissions"));
-    assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
-    assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-
-    assertThat(response, is(notNullValue()));
-    assertThat(response, hasSize(2));
-    for (Permission permission : response) {
-      assertThat(permission.getName(), notNullValue());
-      assertThat(permission.getDescription(), notNullValue());
-      assertThat(permission.getResourceServerId(), notNullValue());
-      assertThat(permission.getResourceServerName(), notNullValue());
-    }
   }
 
   @Test

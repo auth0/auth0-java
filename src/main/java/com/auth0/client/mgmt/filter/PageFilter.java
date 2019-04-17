@@ -1,7 +1,7 @@
 package com.auth0.client.mgmt.filter;
 
 /**
- * Class used to filter the results received when calling the Grants endpoint. Related to the {@link com.auth0.client.mgmt.RolesEntity} entity.
+ * Class used to filter the results received when calling an endpoint that supports Pagination.
  */
 public class PageFilter extends BaseFilter {
     /**
