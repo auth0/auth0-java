@@ -61,9 +61,7 @@ public class MockServer {
     public static final String MGMT_EMAIL_TEMPLATE = "src/test/resources/mgmt/email_template.json";
     public static final String MGMT_USERS_LIST = "src/test/resources/mgmt/users_list.json";
     public static final String MGMT_USERS_PAGED_LIST = "src/test/resources/mgmt/users_paged_list.json";
-    public static final String MGMT_USER_PERMISSIONS_LIST = "src/test/resources/mgmt/user_permissions_list.json";
     public static final String MGMT_USER_PERMISSIONS_PAGED_LIST = "src/test/resources/mgmt/user_permissions_paged_list.json";
-    public static final String MGMT_USER_ROLES_LIST = "src/test/resources/mgmt/user_roles_list.json";
     public static final String MGMT_USER_ROLES_PAGED_LIST = "src/test/resources/mgmt/user_roles_paged_list.json";
     public static final String MGMT_USER = "src/test/resources/mgmt/user.json";
     public static final String MGMT_RECOVERY_CODE = "src/test/resources/mgmt/recovery_code.json";
