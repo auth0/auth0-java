@@ -1,5 +1,20 @@
 # Change Log
 
+## [1.12.0](https://github.com/auth0/auth0-java/tree/1.12.0) (2019-04-17)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.11.0...1.12.0)
+
+**Added**
+- Update Telemetry format and allow to customize it [\#195](https://github.com/auth0/auth0-java/pull/195) ([lbalmaceda](https://github.com/lbalmaceda))
+
+**Changed**
+- Remove default version for search_engine [\#194](https://github.com/auth0/auth0-java/pull/194) ([lbalmaceda](https://github.com/lbalmaceda))
+
+## [1.11.0](https://github.com/auth0/auth0-java/tree/1.11.0) (2019-03-14)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.10.0...1.11.0)
+
+**Added**
+- Add "mark_email_as_verified" property to PasswordChangeTicket [\#189](https://github.com/auth0/auth0-java/pull/189) ([akvamalin](https://github.com/akvamalin))
+
 ## [1.10.0](https://github.com/auth0/auth0-java/tree/1.10.0) (2019-01-03)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.9.1...1.10.0)
 

@@ -16,14 +16,14 @@ Get Auth0 Java via Maven:
 <dependency>
   <groupId>com.auth0</groupId>
   <artifactId>auth0</artifactId>
-  <version>1.10.0</version>
+  <version>1.12.0</version>
 </dependency>
 ```
 
 or Gradle:
 
 ```gradle
-implementation 'com.auth0:auth0:1.10.0'
+implementation 'com.auth0:auth0:1.12.0'
 ```
 
 
@@ -285,6 +285,7 @@ The Management API is divided into different entities. Each of them have the lis
 * **Jobs:** See [Docs](https://auth0.com/docs/api/management/v2#!/Jobs/get_jobs_by_id). Access the methods by calling `mgmt.jobs()`.
 * **Logs:** See [Docs](https://auth0.com/docs/api/management/v2#!/Logs/get_logs). Access the methods by calling `mgmt.logEvents()`. This endpoint supports pagination.
 * **Resource Servers:** See [Docs](https://auth0.com/docs/api/management/v2#!/Resource_Servers/get_resource_servers). Access the methods by calling `mgmt.resourceServers()`. This endpoint supports pagination.
+* **Roles:** See [Docs](https://auth0.com/docs/api/management/v2#!/Roles/get_roles). Access the methods by calling `mgmt.roles()`. This endpoint supports pagination.
 * **Rules:** See [Docs](https://auth0.com/docs/api/management/v2#!/Rules/get_rules). Access the methods by calling `mgmt.rules()`. This endpoint supports pagination.
 * **Stats:** See [Docs](https://auth0.com/docs/api/management/v2#!/Stats/get_active_users). Access the methods by calling `mgmt.stats()`.
 * **Tenants:** See [Docs](https://auth0.com/docs/api/management/v2#!/Tenants/get_settings). Access the methods by calling `mgmt.tenants()`.
@@ -344,7 +345,7 @@ try {
 #### Get
 
 Creates a request to get a User. An API Token with scope `read:users` is needed. If you want the identities.access_token property to be included, you will also need the scope `read:user_idp_tokens`.
-You can pass an optional Filter to narrow the results in the response.
+You can pass an optional Filter to specify the fields you want to include or exclude from the response.
 
 `Request<User> get(String userId, UserFilter filter)`
 
