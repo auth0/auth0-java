@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.13.0](https://github.com/auth0/auth0-java/tree/1.13.0) (2019-04-23)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.12.0...1.13.0)
+
+**Added**
+- Add support for Core Authorization's User Roles and Permissions [\#193](https://github.com/auth0/auth0-java/pull/193) ([jakbutler](https://github.com/jakbutler))
+
 ## [1.12.0](https://github.com/auth0/auth0-java/tree/1.12.0) (2019-04-17)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.11.0...1.12.0)
 
