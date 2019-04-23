@@ -33,6 +33,26 @@ public class PasswordChangeTicketTest extends JsonTest<PasswordChangeTicket> {
         assertThat(serialized, JsonMatcher.hasEntry("mark_email_as_verified", true));
     }
 
+    
+    @Test
+    public void shouldSerializeWithCustomizedConnection() throws Exception {
+        PasswordChangeTicket ticket = new PasswordChangeTicket("user@emailprovider.com", "connid123");
+        ticket.setResultUrl("https://page.auth0.com/result");
+        ticket.setTTLSeconds(36000);
+        ticket.setEmail("me@auth0.com");
+        ticket.setNewPassword("pass123");
+        ticket.setUserId("usr123");
+
+        String serialized = toJSON(ticket);
+        assertThat(serialized, is(notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("user_id", "usr123"));
+        assertThat(serialized, JsonMatcher.hasEntry("result_url", "https://page.auth0.com/result"));
+        assertThat(serialized, JsonMatcher.hasEntry("ttl_sec", 36000));
+        assertThat(serialized, JsonMatcher.hasEntry("new_password", "pass123"));
+        assertThat(serialized, JsonMatcher.hasEntry("connection_id", "connid123"));
+        assertThat(serialized, JsonMatcher.hasEntry("email", "me@auth0.com"));
+    }
+    
     @Test
     public void shouldIncludeReadOnlyValuesOnDeserialize() throws Exception {
         PasswordChangeTicket ticket = fromJSON(readOnlyJson, PasswordChangeTicket.class);
