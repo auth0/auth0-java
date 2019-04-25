@@ -739,23 +739,20 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldThrowOnAddRolesWithNullList() throws Exception {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'roles' cannot be null!");
+        exception.expectMessage("'role ids' cannot be null!");
         api.users().addRoles("1", null);
     }
 
     @Test
     public void shouldThrowOnAddRolesWithEmptyList() throws Exception {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'roles' cannot be empty!");
+        exception.expectMessage("'role ids' cannot be empty!");
         api.users().addRoles("1", Collections.emptyList());
     }
 
     @Test
     public void shouldAddRoles() throws Exception {
-        Role role = new Role();
-        role.setName("roleId");
-
-        Request request = api.users().addRoles("1",  Collections.singletonList(role));
+        Request request = api.users().addRoles("1",  Collections.singletonList("roleId"));
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(200);
@@ -783,23 +780,20 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldThrowOnRemoveRolesWithNullList() throws Exception {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'roles' cannot be null!");
+        exception.expectMessage("'role ids' cannot be null!");
         api.users().removeRoles("1", null);
     }
 
     @Test
     public void shouldThrowOnRemoveRolesWithEmptyList() throws Exception {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'roles' cannot be empty!");
+        exception.expectMessage("'role ids' cannot be empty!");
         api.users().removeRoles("1", Collections.emptyList());
     }
 
     @Test
     public void shouldRemoveRoles() throws Exception {
-        Role role = new Role();
-        role.setName("roleId");
-
-        Request request = api.users().removeRoles("1", Collections.singletonList(role));
+        Request request = api.users().removeRoles("1", Collections.singletonList("roleId"));
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse( 200);

@@ -491,15 +491,15 @@ public class UsersEntity extends BaseManagementEntity {
      * See https://auth0.com/docs/api/management/v2#!/Users/delete_user_roles
      *
      * @param userId the user id
-     * @param roles a list of role objects to remove from the user
+     * @param roleIds a list of role ids to remove from the user
      * @return a Request to execute
      */
-    public Request removeRoles(String userId, List<Role> roles) {
+    public Request removeRoles(String userId, List<String> roleIds) {
         Asserts.assertNotNull(userId, "user id");
-        Asserts.assertNotEmpty(roles, "roles");
+        Asserts.assertNotEmpty(roleIds, "role ids");
 
-        Map<String, List<Role>> body = new HashMap<>();
-        body.put("roles", roles);
+        Map<String, List<String>> body = new HashMap<>();
+        body.put("roles", roleIds);
 
         final String url = baseUrl
             .newBuilder()
@@ -520,15 +520,15 @@ public class UsersEntity extends BaseManagementEntity {
      * See https://auth0.com/docs/api/management/v2#!/Users/post_user_roles
      *
      * @param userId the user id
-     * @param roles a list of role objects to assign to the user
+     * @param roleIds a list of role ids to assign to the user
      * @return a Request to execute
      */
-    public Request addRoles(String userId, List<Role> roles) {
+    public Request addRoles(String userId, List<String> roleIds) {
         Asserts.assertNotNull(userId, "user id");
-        Asserts.assertNotEmpty(roles, "roles");
+        Asserts.assertNotEmpty(roleIds, "role ids");
 
-        Map<String, List<Role>> body = new HashMap<>();
-        body.put("roles", roles);
+        Map<String, List<String>> body = new HashMap<>();
+        body.put("roles", roleIds);
 
         final String url = baseUrl
             .newBuilder()
