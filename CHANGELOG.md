@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.13.1](https://github.com/auth0/auth0-java/tree/1.13.1) (2019-04-25)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.13.0...1.13.1)
+
+**Fixed**
+- Fix for issue #198: Core Authorization fails when adding Roles to User [\#199](https://github.com/auth0/auth0-java/pull/199) ([jakbutler](https://github.com/jakbutler))
+
 ## [1.13.0](https://github.com/auth0/auth0-java/tree/1.13.0) (2019-04-23)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.12.0...1.13.0)
 
