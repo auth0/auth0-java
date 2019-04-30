@@ -1,6 +1,5 @@
 package com.auth0.net;
 
-import com.auth0.BuildConfig;
 import okhttp3.Interceptor;
 import okhttp3.Response;
 
@@ -12,7 +11,7 @@ public class TelemetryInterceptor implements Interceptor {
     private boolean enabled;
 
     public TelemetryInterceptor() {
-        this(new Telemetry(BuildConfig.NAME, BuildConfig.VERSION));
+        this(new Telemetry("auth0-java", Telemetry.class.getPackage().getImplementationVersion()));
     }
 
     TelemetryInterceptor(Telemetry telemetry) {
