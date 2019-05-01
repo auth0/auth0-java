@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.13.2](https://github.com/auth0/auth0-java/tree/1.13.2) (2019-05-01)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.13.1...1.13.2)
+
+**Fixed**
+- Dynamically obtain the project version for telemetry [\#201](https://github.com/auth0/auth0-java/pull/201) ([lbalmaceda](https://github.com/lbalmaceda))
+
 ## [1.13.1](https://github.com/auth0/auth0-java/tree/1.13.1) (2019-04-25)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.13.0...1.13.1)
 
