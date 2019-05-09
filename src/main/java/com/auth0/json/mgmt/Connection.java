@@ -28,6 +28,8 @@ public class Connection {
     private List<String> enabledClients = null;
     @JsonProperty("provisioning_ticket_url")
     private String provisioningTicketUrl;
+    @JsonProperty("metadata")
+    private Map<String, String> metadata;
 
     public Connection() {
     }
@@ -118,4 +120,23 @@ public class Connection {
         return provisioningTicketUrl;
     }
 
+    /**
+     * Getter for the metadata of this connection.
+     * 
+     * @return the map of metadata key-values.
+     */
+    @JsonProperty("metadata")
+    public Map<String, String> getMetadata() {
+    	return metadata;
+    }
+    
+    /**
+     * Setter for the metadata of this connection.
+     * 
+     * @param metadata the map of metadata key-values.
+     */
+    @JsonProperty("metadata")
+    public void setMetadata(Map<String, String> metadata) {
+    	this.metadata = metadata;
+    }
 }

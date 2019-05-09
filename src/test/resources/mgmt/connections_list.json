@@ -7,7 +7,10 @@
     "enabled_clients": [
       "avUAvH1pgnZGgAGlv8guZLPoaOnjVJsM",
       "ScKKdrpyUwfkhOQP6KXItH32INgZf7Rb"
-    ]
+    ],
+    "metadata": {
+      "key": "value"
+    }
   },
   {
     "name": "My connection2",
