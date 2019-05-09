@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.*;
 
 public class ConnectionTest extends JsonTest<Connection> {
 
-    private static final String json = "{\"name\":\"my-connection\",\"strategy\":\"auth0\",\"options\":{},\"enabled_clients\":[\"client1\",\"client2\"]}";
+    private static final String json = "{\"name\": \"my-connection\",\"strategy\": \"auth0\",\"options\": {},\"enabled_clients\": [\"client1\",\"client2\"],\"metadata\": {\"key\": \"value\"}}";
     private static final String readOnlyJson = "{\"id\":\"connectionId\"}";
 
     private static final String jsonAd = "{\"name\":\"my-ad-connection\",\"strategy\":\"ad\",\"provisioning_ticket_url\":\"https://demo.auth0.com/p/ad/ddQTRlVt\",\"options\":{},\"enabled_clients\":[\"client1\",\"client2\"]}";
@@ -22,6 +22,7 @@ public class ConnectionTest extends JsonTest<Connection> {
         Connection connection = new Connection("my-connection", "auth0");
         connection.setOptions(new HashMap<String, Object>());
         connection.setEnabledClients(Arrays.asList("client1", "client2"));
+        connection.setMetadata(new HashMap<String, String>());
 
         String serialized = toJSON(connection);
         assertThat(serialized, is(notNullValue()));
@@ -30,6 +31,7 @@ public class ConnectionTest extends JsonTest<Connection> {
         assertThat(serialized, JsonMatcher.hasEntry("options", notNullValue()));
         assertThat(serialized, JsonMatcher.hasEntry("enabled_clients", Arrays.asList("client1", "client2")));
         assertThat(serialized, JsonMatcher.hasEntry("provisioning_ticket_url", null));
+        assertThat(serialized, JsonMatcher.hasEntry("metadata", notNullValue()));
     }
 
     @Test
@@ -42,6 +44,7 @@ public class ConnectionTest extends JsonTest<Connection> {
         assertThat(connection.getStrategy(), is("auth0"));
         assertThat(connection.getEnabledClients(), contains("client1", "client2"));
         assertThat(connection.getProvisioningTicketUrl(), is(nullValue()));
+        assertThat(connection.getMetadata(), is(notNullValue()));
     }
 
     @Test
@@ -54,6 +57,7 @@ public class ConnectionTest extends JsonTest<Connection> {
         assertThat(connection.getStrategy(), is("ad"));
         assertThat(connection.getEnabledClients(), contains("client1", "client2"));
         assertThat(connection.getProvisioningTicketUrl(), is("https://demo.auth0.com/p/ad/ddQTRlVt"));
+        assertThat(connection.getMetadata(), is(nullValue()));
     }
 
     @Test
