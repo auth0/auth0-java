@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.13.3](https://github.com/auth0/auth0-java/tree/1.13.3) (2019-05-22)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.13.2...1.13.3)
+
+**Fixed**
+- Add missing metadata field to Connection object [\#206](https://github.com/auth0/auth0-java/pull/206) ([AlisonT1230](https://github.com/AlisonT1230))
+
+**Security**
+- Bump dependencies and solve security issues [\#209](https://github.com/auth0/auth0-java/pull/209) ([lbalmaceda](https://github.com/lbalmaceda))
+
 ## [1.13.2](https://github.com/auth0/auth0-java/tree/1.13.2) (2019-05-01)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.13.1...1.13.2)
 
