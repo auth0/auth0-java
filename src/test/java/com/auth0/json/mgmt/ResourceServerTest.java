@@ -24,8 +24,10 @@ public class ResourceServerTest extends JsonTest<ResourceServer> {
         assertThat(deserialized.getScopes(), hasSize(2));
         assertThat(deserialized.getSigningAlgorithm(), is("RS256"));
         assertThat(deserialized.getSigningSecret(), is("secret"));
+        assertThat(deserialized.isSystem(), is(true));
         assertThat(deserialized.getAllowOfflineAccess(), is(false));
         assertThat(deserialized.getSkipConsentForVerifiableFirstPartyClients(), is(false));
+        assertThat(deserialized.getTokenDialect(), is("access_token"));
         assertThat(deserialized.getTokenLifetime(), is(86400));
         assertThat(deserialized.getVerificationLocation(), is("verification_location"));
     }
@@ -46,9 +48,11 @@ public class ResourceServerTest extends JsonTest<ResourceServer> {
         entity.setScopes(scopes);
         entity.setSigningAlgorithm("RS256");
         entity.setSigningSecret("secret");
+        entity.setEnforcePolicies(true);
         entity.setAllowOfflineAccess(false);
         entity.setSkipConsentForVerifiableFirstPartyClients(false);
         entity.setTokenLifetime(86400);
+        entity.setTokenDialect("access_token_authz");
         entity.setVerificationLocation("verification_location");
 
         String json = toJSON(entity);
@@ -58,9 +62,11 @@ public class ResourceServerTest extends JsonTest<ResourceServer> {
         assertThat(json, hasEntry("identifier", "https://api.my-company.com/api/v2/"));
         assertThat(json, hasEntry("signing_alg", "RS256"));
         assertThat(json, hasEntry("signing_secret", "secret"));
+        assertThat(json, hasEntry("enforce_policies", true));
         assertThat(json, hasEntry("allow_offline_access", false));
         assertThat(json, hasEntry("skip_consent_for_verifiable_first_party_clients", false));
         assertThat(json, hasEntry("token_lifetime", 86400));
+        assertThat(json, hasEntry("token_dialect", "access_token_authz"));
         assertThat(json, hasEntry("verification_location", "verification_location"));
     }
 }

@@ -6,18 +6,18 @@ import com.auth0.json.mgmt.Permission;
 import com.auth0.json.mgmt.PermissionsPage;
 import com.auth0.json.mgmt.Role;
 import com.auth0.json.mgmt.RolesPage;
-import com.auth0.json.mgmt.users.User;
 import com.auth0.json.mgmt.users.UsersPage;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 public class RolesEntity extends BaseManagementEntity {
 
