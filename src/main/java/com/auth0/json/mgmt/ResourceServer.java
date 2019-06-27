@@ -1,11 +1,11 @@
 package com.auth0.json.mgmt;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -29,12 +29,16 @@ public class ResourceServer {
     private Boolean skipConsentForVerifiableFirstPartyClients;
     @JsonProperty("token_lifetime")
     private Integer tokenLifetime;
+    @JsonProperty("token_dialect")
+    private String tokenDialect;
     @JsonProperty("token_lifetime_for_web")
     private Integer tokenLifetimeForWeb;
     @JsonProperty("verification_location")
     private String verificationLocation;
     @JsonProperty("is_system")
     private Boolean isSystem;
+    @JsonProperty("enforce_policies")
+    private Boolean enforcePolicies;
 
     @JsonCreator
     public ResourceServer(@JsonProperty("identifier") String identifier) {
@@ -67,6 +71,16 @@ public class ResourceServer {
     @JsonProperty("is_system")
     public Boolean isSystem() {
         return isSystem;
+    }
+
+    @JsonProperty("enforce_policies")
+    public Boolean enforcePolicies() {
+        return enforcePolicies;
+    }
+
+    @JsonProperty("enforce_policies")
+    public void setEnforcePolicies(Boolean enforcePolicies) {
+        this.enforcePolicies = enforcePolicies;
     }
 
     @JsonProperty("identifier")
@@ -132,6 +146,16 @@ public class ResourceServer {
     @JsonProperty("token_lifetime")
     public void setTokenLifetime(Integer tokenLifetime) {
         this.tokenLifetime = tokenLifetime;
+    }
+
+    @JsonProperty("token_dialect")
+    public String getTokenDialect() {
+        return tokenDialect;
+    }
+
+    @JsonProperty("token_dialect")
+    public void setTokenDialect(String tokenDialect) {
+        this.tokenDialect = tokenDialect;
     }
 
     @JsonProperty("verification_location")

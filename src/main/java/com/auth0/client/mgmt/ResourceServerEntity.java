@@ -27,6 +27,7 @@ public class ResourceServerEntity extends BaseManagementEntity {
      * Creates request to fetch all resource servers.
      * See <a href=https://auth0.com/docs/api/management/v2#!/Resource_Servers/get_resource_servers>API documentation</a>
      *
+     * @param filter the filter to use. Can be null.
      * @return request to execute
      */
     public Request<ResourceServersPage> list(ResourceServersFilter filter) {

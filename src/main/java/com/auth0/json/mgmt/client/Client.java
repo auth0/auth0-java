@@ -288,6 +288,8 @@ public class Client {
     /**
      * Setter for the list of grant types for the application.
      * See allowed values at https://auth0.com/docs/applications/application-grant-types.
+     *
+     * @param grantTypes the list of grant types to set.
      */
     @JsonProperty("grant_types")
     public void setGrantTypes(List<String> grantTypes) {
@@ -297,7 +299,7 @@ public class Client {
     /**
      * Getter for the list of grant types for the application.
      *
-     * @return the list of grant types. 
+     * @return the list of grant types.
      */
     @JsonProperty("grant_types")
     public List<String> getGrantTypes() {

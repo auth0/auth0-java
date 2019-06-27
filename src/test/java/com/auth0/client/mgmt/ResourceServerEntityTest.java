@@ -107,7 +107,9 @@ public class ResourceServerEntityTest extends BaseMgmtEntityTest {
         resourceServer.setSigningAlgorithm("RS256");
         resourceServer.setSigningSecret("secret");
         resourceServer.setAllowOfflineAccess(false);
+        resourceServer.setEnforcePolicies(true);
         resourceServer.setSkipConsentForVerifiableFirstPartyClients(false);
+        resourceServer.setTokenDialect("access_token");
         resourceServer.setTokenLifetime(0);
         resourceServer.setVerificationLocation("verification_location");
         Request<ResourceServer> request = api.resourceServers()
@@ -123,7 +125,7 @@ public class ResourceServerEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body.size(), is(10));
+        assertThat(body.size(), is(12));
         assertThat(body, hasEntry("identifier", (Object) "https://api.my-company.com/api/v2/"));
 
         assertThat(response.getIdentifier(), is("https://api.my-company.com/api/v2/"));

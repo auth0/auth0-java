@@ -29,6 +29,7 @@ public class GrantsEntity extends BaseManagementEntity {
      * See https://auth0.com/docs/api/management/v2#!/Grants/get_grants
      *
      * @param userId The user id of the grants to retrieve
+     * @param filter the filter to use. Can be null.
      * @return a Request to execute.
      */
     public Request<GrantsPage> list(String userId, GrantsFilter filter) {
