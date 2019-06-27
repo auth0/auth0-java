@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.notNullValue;
 
 public class DeviceCredentialsTest extends JsonTest<DeviceCredentials> {
 
-    private static final String json = "{\"device_name\":\"devName\",\"type\":\"publicKey\",\"device_id\":\"dev123\",\"user_id\":\"theUserId\"}";
+    private static final String json = "{\"device_name\":\"devName\",\"type\":\"publicKey\",\"device_id\":\"dev123\",\"user_id\":\"theUserId\",\"client_id\":\"client123\"}";
     private static final String readOnlyJson = "{\"id\":\"credentialsId\"}";
 
     @Test
@@ -37,6 +37,7 @@ public class DeviceCredentialsTest extends JsonTest<DeviceCredentials> {
         assertThat(credentials.getType(), is("publicKey"));
         assertThat(credentials.getDeviceId(), is("dev123"));
         assertThat(credentials.getUserId(), is("theUserId"));
+        assertThat(credentials.getClientId(), is("client123"));
     }
 
     @Test

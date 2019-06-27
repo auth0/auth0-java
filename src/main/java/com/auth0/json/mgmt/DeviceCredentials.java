@@ -128,6 +128,17 @@ public class DeviceCredentials {
     }
 
     /**
+     * Getter for the client id of the application for which the credential is created.
+     *
+     * @return the client id.
+     */
+    @JsonProperty("client_id")
+    public String getClientId() {
+        return clientId;
+    }
+
+
+    /**
      * Getter for the user id of the device
      *
      * @return the user if
