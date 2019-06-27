@@ -46,6 +46,8 @@ public class EmailTemplate {
 
     /**
      * Sets the name of the template.
+     *
+     * @param name the name to set for this template
      */
     @JsonProperty("template")
     public void setName(String name) {
