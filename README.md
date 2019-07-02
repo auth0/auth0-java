@@ -16,14 +16,14 @@ Get Auth0 Java via Maven:
 <dependency>
   <groupId>com.auth0</groupId>
   <artifactId>auth0</artifactId>
-  <version>1.13.3</version>
+  <version>1.14.0</version>
 </dependency>
 ```
 
 or Gradle:
 
 ```gradle
-implementation 'com.auth0:auth0:1.13.3'
+implementation 'com.auth0:auth0:1.14.0'
 ```
 
 
