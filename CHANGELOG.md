@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.14.0](https://github.com/auth0/auth0-java/tree/1.14.0) (2019-07-02)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.13.3...1.14.0)
+
+**Added**
+- Add getter for DeviceCredentials client_id [\#215](https://github.com/auth0/auth0-java/pull/215) ([lbalmaceda](https://github.com/lbalmaceda))
+- Add missing ResourceServer properties [\#214](https://github.com/auth0/auth0-java/pull/214) ([lbalmaceda](https://github.com/lbalmaceda))
+
 ## [1.13.3](https://github.com/auth0/auth0-java/tree/1.13.3) (2019-05-22)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.13.2...1.13.3)
 
