@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.14.1](https://github.com/auth0/auth0-java/tree/1.14.1) (2019-07-03)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.14.0...1.14.1)
+
+**Security**
+- Update jackson-databind dependency to fix security vulnerability [\#217](https://github.com/auth0/auth0-java/pull/217) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.14.0](https://github.com/auth0/auth0-java/tree/1.14.0) (2019-07-02)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.13.3...1.14.0)
 
