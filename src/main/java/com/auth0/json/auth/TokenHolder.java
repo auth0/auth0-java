@@ -64,9 +64,9 @@ public class TokenHolder {
     }
 
     /**
-     * Getter for the expiration time ('exp' claim) of the recently issued token.
+     * Getter for the duration of this token in seconds since it was issued.
      *
-     * @return the expiration time or null if missing.
+     * @returns the number of seconds in which this token will expire, since the time it was issued.
      */
     @JsonProperty("expires_in")
     public long getExpiresIn() {
