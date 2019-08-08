@@ -12,6 +12,7 @@ import java.util.Map;
 public class Telemetry {
     static final String HEADER_NAME = "Auth0-Client";
 
+    private static final String JAVA_SPECIFICATION_VERSION = "java.specification.version";
     private static final String NAME_KEY = "name";
     private static final String VERSION_KEY = "version";
     private static final String LIBRARY_VERSION_KEY = "auth0-java";
@@ -46,7 +47,7 @@ public class Telemetry {
         }
 
         HashMap<String, String> tmpEnv = new HashMap<>();
-        tmpEnv.put(JAVA_KEY, Runtime.class.getPackage().getSpecificationVersion());
+        tmpEnv.put(JAVA_KEY, getJDKVersion());
         if (libraryVersion != null) {
             tmpEnv.put(LIBRARY_VERSION_KEY, libraryVersion);
         }
@@ -85,4 +86,15 @@ public class Telemetry {
     public String getValue() {
         return value;
     }
+
+    private String getJDKVersion() {
+        String version;
+        try {
+            version = System.getProperty(JAVA_SPECIFICATION_VERSION);
+        } catch (Exception ignored) {
+            version = Runtime.class.getPackage().getSpecificationVersion();
+        }
+        return version;
+    }
+
 }
