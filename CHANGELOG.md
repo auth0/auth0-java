@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.14.2](https://github.com/auth0/auth0-java/tree/1.14.2) (2019-08-15)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.14.1...1.14.2)
+
+**Fixed**
+- Find the right JDK version for Telemetry [\#220](https://github.com/auth0/auth0-java/pull/220) ([lbalmaceda](https://github.com/lbalmaceda))
+
+**Security**
+- Update dependencies [\#222](https://github.com/auth0/auth0-java/pull/222) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.14.1](https://github.com/auth0/auth0-java/tree/1.14.1) (2019-07-03)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.14.0...1.14.1)
 
