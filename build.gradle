@@ -62,7 +62,7 @@ test {
 dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.9.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.9.3'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.0.pr3'
     implementation 'commons-codec:commons-codec:1.13'
 
 
