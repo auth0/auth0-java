@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.14.3](https://github.com/auth0/auth0-java/tree/1.14.3) (2019-09-25)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.14.2...1.14.3)
+
+**Security**
+- Update jackson-databind to address CVE [\#225](https://github.com/auth0/auth0-java/pull/225) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.14.2](https://github.com/auth0/auth0-java/tree/1.14.2) (2019-08-15)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.14.1...1.14.2)
 
