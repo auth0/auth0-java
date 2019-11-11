@@ -206,6 +206,14 @@ public class Client {
     }
 
     /**
+     * Setter for whether this application is a first party client or not.
+     */
+    @JsonProperty("is_first_party")
+    public void setFirstParty(Boolean isFirstParty) {
+        this.isFirstParty = isFirstParty;
+    }
+
+    /**
      * Whether this application will conform to strict Open ID Connect specifications or not.
      *
      * @return true if the application will conform to strict OIDC specifications, false otherwise.
