@@ -27,7 +27,7 @@ public class ClientTest extends JsonTest<Client> {
         client.setAppType("type");
         client.setLogoUri("uri");
         client.setOIDCConformant(true);
-        client.setFirstParty(true);
+        client.setIsFirstParty(true);
         List<String> stringList = Collections.singletonList("value");
         client.setCallbacks(stringList);
         client.setAllowedOrigins(stringList);
