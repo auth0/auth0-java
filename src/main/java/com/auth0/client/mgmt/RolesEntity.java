@@ -40,7 +40,7 @@ public class RolesEntity extends BaseManagementEntity {
         .addEncodedPathSegments("api/v2/roles");
     if (filter != null) {
       for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-        builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+        builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
       }
     }
     String url = builder.build().toString();
@@ -160,7 +160,7 @@ public class RolesEntity extends BaseManagementEntity {
         .addEncodedPathSegments("users");
     if (filter != null) {
       for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-        builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+        builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
       }
     }
     String url = builder.build().toString();
@@ -217,7 +217,7 @@ public class RolesEntity extends BaseManagementEntity {
         .addEncodedPathSegments("permissions");
     if (filter != null) {
       for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-        builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+        builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
       }
     }
     String url = builder.build().toString();

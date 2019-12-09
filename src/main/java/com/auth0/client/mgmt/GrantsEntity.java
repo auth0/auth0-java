@@ -38,10 +38,10 @@ public class GrantsEntity extends BaseManagementEntity {
         HttpUrl.Builder builder = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/grants")
-                .addQueryParameter("user_id", userId);
+                .addEncodedQueryParameter("user_id", userId);
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
             }
         }
 
@@ -68,7 +68,7 @@ public class GrantsEntity extends BaseManagementEntity {
         String url = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/grants")
-                .addQueryParameter("user_id", userId)
+                .addEncodedQueryParameter("user_id", userId)
                 .build()
                 .toString();
         CustomRequest<List<Grant>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Grant>>() {
@@ -111,7 +111,7 @@ public class GrantsEntity extends BaseManagementEntity {
         final String url = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/grants")
-                .addQueryParameter("user_id", userId)
+                .addEncodedQueryParameter("user_id", userId)
                 .build()
                 .toString();
         VoidRequest request = new VoidRequest(client, url, "DELETE");

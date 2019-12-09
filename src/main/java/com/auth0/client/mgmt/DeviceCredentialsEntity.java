@@ -36,7 +36,7 @@ public class DeviceCredentialsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/device-credentials");
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
             }
         }
         String url = builder.build().toString();

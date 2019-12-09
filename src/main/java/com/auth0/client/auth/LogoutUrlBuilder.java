@@ -40,7 +40,7 @@ public class LogoutUrlBuilder {
                 .addPathSegment("logout")
                 .addEncodedQueryParameter("returnTo", returnToUrl);
         if (clientId != null) {
-            builder.addQueryParameter("client_id", clientId);
+            builder.addEncodedQueryParameter("client_id", clientId);
         }
     }
 
@@ -66,7 +66,7 @@ public class LogoutUrlBuilder {
      */
     public String build() {
         for (Map.Entry<String, String> p : parameters.entrySet()) {
-            builder.addQueryParameter(p.getKey(), p.getValue());
+            builder.addEncodedQueryParameter(p.getKey(), p.getValue());
         }
         return builder.build().toString();
     }

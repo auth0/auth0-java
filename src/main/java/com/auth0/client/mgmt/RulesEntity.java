@@ -37,7 +37,7 @@ public class RulesEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/rules");
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
             }
         }
         String url = builder.build().toString();
@@ -65,7 +65,7 @@ public class RulesEntity extends BaseManagementEntity {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
                 //This check below is to prevent JSON parsing errors
                 if (!e.getKey().equalsIgnoreCase("include_totals")) {
-                    builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                    builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
                 }
             }
         }
@@ -93,7 +93,7 @@ public class RulesEntity extends BaseManagementEntity {
                 .addPathSegment(ruleId);
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
             }
         }
         String url = builder.build().toString();

@@ -34,7 +34,7 @@ public class EmailProviderEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/emails/provider");
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
             }
         }
         String url = builder.build().toString();

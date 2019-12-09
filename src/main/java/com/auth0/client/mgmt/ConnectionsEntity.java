@@ -38,7 +38,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/connections");
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
             }
         }
         String url = builder.build().toString();
@@ -67,7 +67,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
                 //This check below is to prevent JSON parsing errors
                 if (!e.getKey().equalsIgnoreCase("include_totals")) {
-                    builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                    builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
                 }
             }
         }
@@ -95,7 +95,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addPathSegment(connectionId);
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
             }
         }
         String url = builder.build().toString();
@@ -190,7 +190,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/connections")
                 .addPathSegment(connectionId)
                 .addPathSegment("users")
-                .addQueryParameter("email", email)
+                .addEncodedQueryParameter("email", email)
                 .build()
                 .toString();
         VoidRequest request = new VoidRequest(this.client, url, "DELETE");

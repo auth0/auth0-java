@@ -58,8 +58,8 @@ public class StatsEntity extends BaseManagementEntity {
         String url = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/stats/daily")
-                .addQueryParameter("from", dateFrom)
-                .addQueryParameter("to", dateTo)
+                .addEncodedQueryParameter("from", dateFrom)
+                .addEncodedQueryParameter("to", dateTo)
                 .build()
                 .toString();
 

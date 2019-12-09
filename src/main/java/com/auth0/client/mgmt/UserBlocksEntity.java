@@ -32,7 +32,7 @@ public class UserBlocksEntity extends BaseManagementEntity {
         String url = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/user-blocks")
-                .addQueryParameter("identifier", identifier)
+                .addEncodedQueryParameter("identifier", identifier)
                 .build()
                 .toString();
         CustomRequest<UserBlocks> request = new CustomRequest<>(client, url, "GET", new TypeReference<UserBlocks>() {
@@ -54,7 +54,7 @@ public class UserBlocksEntity extends BaseManagementEntity {
         String url = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/user-blocks")
-                .addQueryParameter("identifier", identifier)
+                .addEncodedQueryParameter("identifier", identifier)
                 .build()
                 .toString();
         VoidRequest request = new VoidRequest(client, url, "DELETE");

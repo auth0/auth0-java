@@ -84,12 +84,8 @@ public class RecordedRequestMatcher extends TypeSafeDiagnosingMatcher<RecordedRe
         String query = path.substring(path.indexOf("?") + 1, path.length());
         String[] parameters = query.split("&");
         for (String p : parameters) {
-            try {
-                if (p.equals(String.format("%s=%s", first, URLEncoder.encode(second, "UTF-8")))) {
+            if (p.equals(String.format("%s=%s", first, second))) {
                     return true;
-                }
-            } catch (UnsupportedEncodingException ignored) {
-
             }
         }
         mismatchDescription.appendValueList("Query parameters were {", ", ", "}.", parameters);

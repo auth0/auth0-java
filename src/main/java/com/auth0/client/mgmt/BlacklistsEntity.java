@@ -34,7 +34,7 @@ public class BlacklistsEntity extends BaseManagementEntity {
         String url = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/blacklists/tokens")
-                .addQueryParameter("aud", audience)
+                .addEncodedQueryParameter("aud", audience)
                 .build()
                 .toString();
         CustomRequest<List<Token>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Token>>() {

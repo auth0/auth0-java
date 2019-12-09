@@ -40,7 +40,7 @@ public class LogEventsEntity extends BaseManagementEntity {
                 if (KEY_QUERY.equals(e.getKey())) {
                     builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
                 } else {
-                    builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                    builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
                 }
             }
         }

@@ -37,7 +37,7 @@ public class AuthorizeUrlBuilder {
         builder = url.newBuilder()
                 .addPathSegment("authorize")
                 .addEncodedQueryParameter("redirect_uri", redirectUri)
-                .addQueryParameter("client_id", clientId);
+                .addEncodedQueryParameter("client_id", clientId);
         withParameter("response_type", "code");
     }
 
@@ -122,7 +122,7 @@ public class AuthorizeUrlBuilder {
      */
     public String build() {
         for (Map.Entry<String, String> p : parameters.entrySet()) {
-            builder.addQueryParameter(p.getKey(), p.getValue());
+            builder.addEncodedQueryParameter(p.getKey(), p.getValue());
         }
         return builder.build().toString();
     }

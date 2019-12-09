@@ -54,10 +54,10 @@ public class UsersEntity extends BaseManagementEntity {
         HttpUrl.Builder builder = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/users-by-email");
-        builder.addQueryParameter("email", email);
+        builder.addEncodedQueryParameter("email", email);
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
             }
         }
 
@@ -86,7 +86,7 @@ public class UsersEntity extends BaseManagementEntity {
                 if (KEY_QUERY.equals(e.getKey())) {
                     builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
                 } else {
-                    builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                    builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
                 }
             }
         }
@@ -116,7 +116,7 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegment(userId);
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
             }
         }
         String url = builder.build().toString();
@@ -242,7 +242,7 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegment("logs");
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
             }
         }
         String url = builder.build().toString();
@@ -387,7 +387,7 @@ public class UsersEntity extends BaseManagementEntity {
             .addPathSegments("permissions");
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
             }
         }
         String url = builder.build().toString();
@@ -474,7 +474,7 @@ public class UsersEntity extends BaseManagementEntity {
             .addPathSegments("roles");
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
             }
         }
         String url = builder.build().toString();
