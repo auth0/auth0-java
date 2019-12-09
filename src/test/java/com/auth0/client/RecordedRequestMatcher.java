@@ -4,9 +4,6 @@ import okhttp3.mockwebserver.RecordedRequest;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 public class RecordedRequestMatcher extends TypeSafeDiagnosingMatcher<RecordedRequest> {
 
     private static final int METHOD_PATH = 0;
@@ -85,7 +82,7 @@ public class RecordedRequestMatcher extends TypeSafeDiagnosingMatcher<RecordedRe
         String[] parameters = query.split("&");
         for (String p : parameters) {
             if (p.equals(String.format("%s=%s", first, second))) {
-                    return true;
+                return true;
             }
         }
         mismatchDescription.appendValueList("Query parameters were {", ", ", "}.", parameters);
