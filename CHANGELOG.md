@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.15.0](https://github.com/auth0/auth0-java/tree/1.15.0) (2019-11-12)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.14.3...1.15.0)
+
+**Changed**
+- Allow to set the client is_first_party property [\#230](https://github.com/auth0/auth0-java/pull/230) ([lbalmaceda](https://github.com/lbalmaceda))
+
 ## [1.14.3](https://github.com/auth0/auth0-java/tree/1.14.3) (2019-09-25)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.14.2...1.14.3)
 
