@@ -25,10 +25,22 @@ public class ManagementAPI {
      * Create an instance with the given tenant's domain and API token.
      * See the Management API section in the readme or visit https://auth0.com/docs/api/management/v2/tokens to learn how to obtain a token.
      *
-     * @param domain   the tenant's domain.
-     * @param apiToken the token to authenticate the calls with.
+     * @param domain        the tenant's domain.
+     * @param apiToken      the token to authenticate the calls with.
      */
     public ManagementAPI(String domain, String apiToken) {
+        this(domain, apiToken, new OkHttpClient.Builder());
+    }
+
+    /**
+     * Create an instance with the given tenant's domain and API token.
+     * See the Management API section in the readme or visit https://auth0.com/docs/api/management/v2/tokens to learn how to obtain a token.
+     *
+     * @param domain        the tenant's domain.
+     * @param apiToken      the token to authenticate the calls with.
+     * @param clientBuilder http client builder the internal client will be build with.
+     */
+    public ManagementAPI(String domain, String apiToken, OkHttpClient.Builder clientBuilder) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(apiToken, "api token");
 
@@ -41,7 +53,7 @@ public class ManagementAPI {
         telemetry = new TelemetryInterceptor();
         logging = new HttpLoggingInterceptor();
         logging.setLevel(Level.NONE);
-        client = new OkHttpClient.Builder()
+        client = clientBuilder
                 .addInterceptor(logging)
                 .addInterceptor(telemetry)
                 .build();
