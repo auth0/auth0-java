@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.notNullValue;
 public class RulesConfigTest extends JsonTest<RulesConfig> {
 
     private static final String json = "{\"key\":\"my-key\",\"value\":\"SECRET\"}";
-    private static final String readOnlyJson = "{\"id\":\"ruleId\",\"stage\":\"login_success\"}";
+    private static final String readOnlyJson = "{\"key\":\"my-key\"}";
 
     @Test
     public void shouldSerialize() throws Exception {
@@ -36,6 +36,5 @@ public class RulesConfigTest extends JsonTest<RulesConfig> {
         assertThat(rule, is(notNullValue()));
 
         assertThat(rule.getKey(), is("my-key"));
-        assertThat(rule.getValue(), is("SECRET"));
     }
 }
