@@ -21,6 +21,14 @@ public class Job {
     private Date createdAt;
     @JsonProperty("id")
     private String id;
+    @JsonProperty("connection_id")
+    private String connectionId;
+    @JsonProperty("location")
+    private String location;
+    @JsonProperty("percentage_done")
+    private Integer percentageDone;
+    @JsonProperty("time_left_seconds")
+    private Integer timeLeftSeconds;
 
     @JsonCreator
     private Job(@JsonProperty("status") String status, @JsonProperty("type") String type, @JsonProperty("id") String id) {
@@ -48,5 +56,41 @@ public class Job {
     @JsonProperty("id")
     public String getId() {
         return id;
+    }
+
+    /**
+     * Getter for the connection id this job uses.
+     *
+     * @return the connection id
+     */
+    public String getConnectionId() {
+        return connectionId;
+    }
+
+    /**
+     * Getter for the URL to download the result of the job.
+     *
+     * @return the location
+     */
+    public String getLocation() {
+        return location;
+    }
+
+    /**
+     * Getter for the completion percentage of this job.
+     *
+     * @return the percentage done
+     */
+    public Integer getPercentageDone() {
+        return percentageDone;
+    }
+
+    /**
+     * Getter for the estimated time remaining before job completes.
+     *
+     * @return the time left in seconds
+     */
+    public Integer getTimeLeftSeconds() {
+        return timeLeftSeconds;
     }
 }
