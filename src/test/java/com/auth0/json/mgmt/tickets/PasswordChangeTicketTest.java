@@ -61,4 +61,19 @@ public class PasswordChangeTicketTest extends JsonTest<PasswordChangeTicket> {
         assertThat(ticket.getTicket(), is("https://page.auth0.com/tickets/123"));
     }
 
+    @Test
+    public void shouldHandleNullPasswordString() throws Exception {
+        PasswordChangeTicket ticket = new PasswordChangeTicket("userId");
+        ticket.setNewPassword((String) null);
+
+        assertThat(ticket, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldHandleNullPasswordCharArray() throws Exception {
+        PasswordChangeTicket ticket = new PasswordChangeTicket("userId");
+        ticket.setNewPassword((char[]) null);
+
+        assertThat(ticket, is(notNullValue()));
+    }
 }

@@ -9,6 +9,7 @@ import java.util.Collections;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.collection.IsMapContaining.hasEntry;
 
 public class UserTest extends JsonTest<User> {
@@ -81,7 +82,7 @@ public class UserTest extends JsonTest<User> {
         assertThat(user, is(notNullValue()));
         assertThat(user.getId(), is("user|123"));
         assertThat(user.getConnection(), is("auth0"));
-        assertThat(user.getPassword(), is("pwd"));
+        assertThat(user.getPassword(), is(new char[]{'p','w','d'}));
         assertThat(user.willVerifyPassword(), is(true));
         assertThat(user.getUsername(), is("usr"));
         assertThat(user.getEmail(), is("me@auth0.com"));
@@ -115,5 +116,21 @@ public class UserTest extends JsonTest<User> {
         assertThat(user.getIdentities(), is(notNullValue()));
         assertThat(user.getLastIP(), is("10.0.0.1"));
         assertThat(user.getLoginsCount(), is(10));
+    }
+
+    @Test
+    public void shouldHandleNullPasswordString() throws Exception {
+        User user = new User();
+        user.setPassword((String) null);
+
+        assertThat(user.getPassword(), is(nullValue()));
+    }
+
+    @Test
+    public void shouldHandleNullPasswordCharArray() throws Exception {
+        User user = new User();
+        user.setPassword((char[]) null);
+
+        assertThat(user.getPassword(), is(nullValue()));
     }
 }

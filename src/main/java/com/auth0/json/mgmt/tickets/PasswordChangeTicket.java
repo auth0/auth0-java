@@ -21,7 +21,7 @@ public class PasswordChangeTicket {
     @JsonProperty("ttl_sec")
     private Integer ttlSec;
     @JsonProperty("new_password")
-    private String newPassword;
+    private char[] newPassword;
     @JsonProperty("connection_id")
     private String connectionId;
     @JsonProperty("email")
@@ -78,6 +78,11 @@ public class PasswordChangeTicket {
      */
     @JsonProperty("new_password")
     public void setNewPassword(String newPassword) {
+        setNewPassword(newPassword != null ? newPassword.toCharArray() : null);
+    }
+
+    @JsonProperty("new_password")
+    public void setNewPassword(char[] newPassword) {
         this.newPassword = newPassword;
     }
 
