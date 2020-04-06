@@ -119,7 +119,7 @@ public class UserTest extends JsonTest<User> {
     }
 
     @Test
-    public void shouldHandleNullPasswordString() throws Exception {
+    public void shouldHandleNullPasswordString() {
         User user = new User();
         user.setPassword((String) null);
 
@@ -127,10 +127,19 @@ public class UserTest extends JsonTest<User> {
     }
 
     @Test
-    public void shouldHandleNullPasswordCharArray() throws Exception {
+    public void shouldHandleNullPasswordCharArray() {
         User user = new User();
         user.setPassword((char[]) null);
 
         assertThat(user.getPassword(), is(nullValue()));
+    }
+
+    @Test
+    public void shouldGetPasswordAsCharArray() {
+        String password = "secret";
+        User user = new User();
+        user.setPassword(password);
+
+        assertThat(user.getPassword(), is(password.toCharArray()));
     }
 }
