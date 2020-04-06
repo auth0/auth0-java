@@ -53,6 +53,7 @@ public class MockServer {
     public static final String MGMT_ROLE_USERS_LIST = "src/test/resources/mgmt/role_users_list.json";
     public static final String MGMT_ROLE_USERS_PAGED_LIST = "src/test/resources/mgmt/role_users_paged_list.json";
     public static final String MGMT_RULES_LIST = "src/test/resources/mgmt/rules_list.json";
+    public static final String MGMT_RULES_CONFIGS_LIST = "src/test/resources/mgmt/rules_configs_list.json";
     public static final String MGMT_RULES_PAGED_LIST = "src/test/resources/mgmt/rules_paged_list.json";
     public static final String MGMT_RULE = "src/test/resources/mgmt/rule.json";
     public static final String MGMT_USER_BLOCKS = "src/test/resources/mgmt/user_blocks.json";
