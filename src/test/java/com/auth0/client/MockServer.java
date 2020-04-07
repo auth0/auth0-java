@@ -86,6 +86,7 @@ public class MockServer {
     public static final String MGMT_EMPTY_LIST = "src/test/resources/mgmt/empty_list.json";
     public static final String MGMT_JOB = "src/test/resources/mgmt/job.json";
     public static final String MGMT_JOB_POST_VERIFICATION_EMAIL = "src/test/resources/mgmt/job_post_verification_email.json";
+    public static final String MGMT_JOB_POST_USERS_EXPORTS = "src/test/resources/mgmt/job_post_users_exports.json";
 
     private final MockWebServer server;
 
@@ -118,7 +119,7 @@ public class MockServer {
         server.enqueue(response);
     }
 
-    public void rateLimitReachedResponse(long limit, long remaining, long reset) throws IOException {
+    public void rateLimitReachedResponse(long limit, long remaining, long reset) {
         MockResponse response = new MockResponse().setResponseCode(429);
         if (limit != -1) {
             response.addHeader("X-RateLimit-Limit", String.valueOf(limit));
@@ -140,7 +141,7 @@ public class MockServer {
         server.enqueue(response);
     }
 
-    public void emptyResponse(int statusCode) throws IOException {
+    public void emptyResponse(int statusCode) {
         MockResponse response = new MockResponse()
                 .setResponseCode(statusCode);
         server.enqueue(response);
@@ -149,13 +150,8 @@ public class MockServer {
     public static Map<String, Object> bodyFromRequest(RecordedRequest request) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
-        Buffer body = request.getBody();
-        try {
+        try (Buffer body = request.getBody()) {
             return mapper.readValue(body.inputStream(), mapType);
-        } catch (IOException e) {
-            throw e;
-        } finally {
-            body.close();
         }
     }
 }
