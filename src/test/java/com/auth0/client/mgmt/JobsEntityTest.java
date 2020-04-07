@@ -48,7 +48,14 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldRequestAUsersExport() throws Exception {
+    public void shouldThrowOnRequestUsersExportWithNullConnectionId() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'connection id' cannot be null!");
+        api.jobs().requestUsersExport(null, null);
+    }
+
+    @Test
+    public void shouldRequestUsersExport() throws Exception {
         Request<Job> request = api.jobs().requestUsersExport("con_123456789", null);
         assertThat(request, is(notNullValue()));
 
@@ -68,7 +75,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldRequestAUsersExportWithLimit() throws Exception {
+    public void shouldRequestUsersExportWithLimit() throws Exception {
         UsersExportFilter filter = new UsersExportFilter();
         filter.withLimit(82);
         Request<Job> request = api.jobs().requestUsersExport("con_123456789", filter);
@@ -91,7 +98,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldRequestAUsersExportWithFormat() throws Exception {
+    public void shouldRequestUsersExportWithFormat() throws Exception {
         UsersExportFilter filter = new UsersExportFilter();
         filter.withFormat("csv");
         Request<Job> request = api.jobs().requestUsersExport("con_123456789", filter);
@@ -114,7 +121,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldRequestAUsersExportWithFields() throws Exception {
+    public void shouldRequestUsersExportWithFields() throws Exception {
         UsersExportFilter filter = new UsersExportFilter();
         ArrayList<UsersExportField> fields = new ArrayList<>();
         fields.add(new UsersExportField("full_name"));
@@ -146,7 +153,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldSendAUserAVerificationEmail() throws Exception {
+    public void shouldSendUserAVerificationEmail() throws Exception {
         Request<Job> request = api.jobs().sendVerificationEmail("google-oauth2|1234", null);
         assertThat(request, is(notNullValue()));
 
@@ -166,7 +173,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldSendUserAVerificationEmailWithClientId() throws Exception {
+    public void shouldSendUserVerificationEmailWithClientId() throws Exception {
         Request<Job> request = api.jobs().sendVerificationEmail("google-oauth2|1234", "AaiyAPdpYdesoKnqjj8HJqRn4T5titww");
         assertThat(request, is(notNullValue()));
 
@@ -187,7 +194,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnNullUserId() {
+    public void shouldThrowOnSendUserVerificationEmailWithNullUserId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'user id' cannot be null!");
         api.jobs().sendVerificationEmail(null, null);
