@@ -249,7 +249,10 @@ public class AuthAPI {
      * @param password   the desired user's password.
      * @param connection the database connection where the user is going to be created.
      * @return a Request to configure and execute.
+     *
+     * @deprecated Use {@linkplain #signUp(String, String, char[], String)} instead.
      */
+    @Deprecated
     public SignUpRequest signUp(String email, String username, String password, String connection) {
         return this.signUp(email, username, password != null ? password.toCharArray() : null, connection);
     }
@@ -311,7 +314,10 @@ public class AuthAPI {
      * @param password   the desired user's password.
      * @param connection the database connection where the user is going to be created.
      * @return a Request to configure and execute.
+     *
+     * @deprecated Use {@linkplain #signUp(String, char[], String)} instead.
      */
+    @Deprecated
     public SignUpRequest signUp(String email, String password, String connection) {
         return this.signUp(email, password != null ? password.toCharArray() : null, connection);
     }
@@ -378,7 +384,10 @@ public class AuthAPI {
      * @param emailOrUsername the identity of the user.
      * @param password        the password of the user.
      * @return a Request to configure and execute.
+     *
+     * @deprecated Use {@linkplain #login(String, char[])} instead.
      */
+    @Deprecated
     public AuthRequest login(String emailOrUsername, String password) {
         return this.login(emailOrUsername, password != null ? password.toCharArray() : null);
     }
@@ -442,7 +451,10 @@ public class AuthAPI {
      * @param password        the password of the user.
      * @param realm           the realm to use.
      * @return a Request to configure and execute.
+     *
+     * @deprecated Use {@linkplain #login(String, char[], String)} instead.
      */
+    @Deprecated
     public AuthRequest login(String emailOrUsername, String password, String realm) {
         return this.login(emailOrUsername, password != null ? password.toCharArray() : null, realm);
     }
