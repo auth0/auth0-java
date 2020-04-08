@@ -207,6 +207,8 @@ public class Client {
 
     /**
      * Setter for whether this application is a first party client or not.
+     *
+     * @param isFirstParty whether the application is a first party client or not.
      */
     @JsonProperty("is_first_party")
     public void setIsFirstParty(Boolean isFirstParty) {

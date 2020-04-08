@@ -99,8 +99,11 @@ public class User implements Serializable {
      * Setter for the password this user will have once created.
      *
      * @param password the password to set.
+     *
+     * @deprecated Use {@linkplain #setPassword(char[])} instead.
      */
     @JsonProperty("password")
+    @Deprecated
     public void setPassword(String password) {
         setPassword(password != null ? password.toCharArray() : null);
     }
