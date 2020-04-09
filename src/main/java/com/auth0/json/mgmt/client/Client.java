@@ -178,9 +178,9 @@ public class Client {
     }
 
     /**
-     * Getter for the Uri of the application logo.
+     * Getter for the URI of the application logo.
      *
-     * @return the application's logo Uri.
+     * @return the application's logo URI.
      */
     @JsonProperty("logo_uri")
     public String getLogoUri() {
@@ -188,9 +188,9 @@ public class Client {
     }
 
     /**
-     * Setter for the application logo Uri. An image with size 150x150 is recommended.
+     * Setter for the application logo URI. An image with size 150x150 is recommended.
      *
-     * @param logoUri the logo Uri to set.
+     * @param logoUri the logo URI to set.
      */
     @JsonProperty("logo_uri")
     public void setLogoUri(String logoUri) {
@@ -489,9 +489,9 @@ public class Client {
     }
 
     /**
-     * Getter for the initiate login Uri
+     * Getter for the initiate login URI.
      *
-     * @return the initiate login Uri
+     * @return the initiate login URI.
      */
     @JsonProperty("initiate_login_uri")
     public String getInitiateLoginUri() {
@@ -499,9 +499,9 @@ public class Client {
     }
 
     /**
-     * Setter for the initiate login Uri
+     * Setter for the initiate login URI.
      *
-     * @param initiateLoginUri the initiate login Uri to set
+     * @param initiateLoginUri the initiate login URI to set.
      */
     @JsonProperty("initiate_login_uri")
     public void setInitiateLoginUri(String initiateLoginUri) {
