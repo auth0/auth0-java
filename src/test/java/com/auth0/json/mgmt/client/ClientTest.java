@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.*;
 public class ClientTest extends JsonTest<Client> {
 
     private static final String readOnlyJson = "{\"client_id\":\"clientId\",\"is_heroku_app\":true,\"signing_keys\":[{\"cert\":\"ce\",\"pkcs7\":\"pk\",\"subject\":\"su\"}]}";
-    private static final String json = "{\"name\":\"name\",\"description\":\"description\",\"client_secret\":\"secret\",\"app_type\":\"type\",\"logo_uri\":\"uri\",\"oidc_conformant\":true,\"is_first_party\":true,\"callbacks\":[\"value\"],\"allowed_origins\":[\"value\"],\"web_origins\":[\"value\"],\"grant_types\":[\"value\"],\"client_aliases\":[\"value\"],\"allowed_clients\":[\"value\"],\"allowed_logout_urls\":[\"value\"],\"jwt_configuration\":{\"lifetime_in_seconds\":100,\"scopes\":\"openid\",\"alg\":\"alg\"},\"encryption_key\":{\"pub\":\"pub\",\"cert\":\"cert\"},\"sso\":true,\"sso_disabled\":true,\"custom_login_page_on\":true,\"custom_login_page\":\"custom\",\"custom_login_page_preview\":\"preview\",\"form_template\":\"template\",\"addons\":{\"rms\":{},\"mscrm\":{},\"slack\":{},\"layer\":{}},\"token_endpoint_auth_method\":\"method\",\"client_metadata\":{\"key\":\"value\"},\"mobile\":{\"android\":{\"app_package_name\":\"pkg\",\"sha256_cert_fingerprints\":[\"256\"]},\"ios\":{\"team_id\":\"team\",\"app_bundle_identifier\":\"id\"}}}";
+    private static final String json = "{\"name\":\"name\",\"description\":\"description\",\"client_secret\":\"secret\",\"app_type\":\"type\",\"logo_uri\":\"uri\",\"oidc_conformant\":true,\"is_first_party\":true,\"initiate_login_uri\":\"https://myhome.com/login\",\"callbacks\":[\"value\"],\"allowed_origins\":[\"value\"],\"web_origins\":[\"value\"],\"grant_types\":[\"value\"],\"client_aliases\":[\"value\"],\"allowed_clients\":[\"value\"],\"allowed_logout_urls\":[\"value\"],\"jwt_configuration\":{\"lifetime_in_seconds\":100,\"scopes\":\"openid\",\"alg\":\"alg\"},\"encryption_key\":{\"pub\":\"pub\",\"cert\":\"cert\"},\"sso\":true,\"sso_disabled\":true,\"custom_login_page_on\":true,\"custom_login_page\":\"custom\",\"custom_login_page_preview\":\"preview\",\"form_template\":\"template\",\"addons\":{\"rms\":{},\"mscrm\":{},\"slack\":{},\"layer\":{}},\"token_endpoint_auth_method\":\"method\",\"client_metadata\":{\"key\":\"value\"},\"mobile\":{\"android\":{\"app_package_name\":\"pkg\",\"sha256_cert_fingerprints\":[\"256\"]},\"ios\":{\"team_id\":\"team\",\"app_bundle_identifier\":\"id\"}}}";
 
     @Test
     public void shouldSerialize() throws Exception {
@@ -44,6 +44,7 @@ public class ClientTest extends JsonTest<Client> {
         client.setSSODisabled(true);
         client.setUseCustomLoginPage(true);
         client.setCustomLoginPage("custom");
+        client.setInitiateLoginUri("https://appzero.com/login");
         client.setCustomLoginPagePreview("preview");
         client.setFormTemplate("template");
         Addons addons = new Addons(new Addon(), new Addon(), new Addon(), new Addon());
@@ -63,6 +64,7 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(serialized, JsonMatcher.hasEntry("app_type", "type"));
         assertThat(serialized, JsonMatcher.hasEntry("logo_uri", "uri"));
         assertThat(serialized, JsonMatcher.hasEntry("oidc_conformant", true));
+        assertThat(serialized, JsonMatcher.hasEntry("initiate_login_uri", "https://appzero.com/login"));
         assertThat(serialized, JsonMatcher.hasEntry("is_first_party", true));
         assertThat(serialized, JsonMatcher.hasEntry("callbacks", Collections.singletonList("value")));
         assertThat(serialized, JsonMatcher.hasEntry("grant_types", Collections.singletonList("value")));
@@ -115,6 +117,7 @@ public class ClientTest extends JsonTest<Client> {
 
         assertThat(client.getCustomLoginPage(), is("custom"));
         assertThat(client.getCustomLoginPagePreview(), is("preview"));
+        assertThat(client.getInitiateLoginUri(), is("https://myhome.com/login"));
         assertThat(client.getFormTemplate(), is("template"));
 
         assertThat(client.getAddons(), is(notNullValue()));

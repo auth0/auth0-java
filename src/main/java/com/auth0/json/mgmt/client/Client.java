@@ -60,6 +60,8 @@ public class Client {
     private Boolean customLoginPageOn;
     @JsonProperty("is_heroku_app")
     private Boolean isHerokuApp;
+    @JsonProperty("initiate_login_uri")
+    private String initiateLoginUri;
     @JsonProperty("custom_login_page")
     private String customLoginPage;
     @JsonProperty("custom_login_page_preview")
@@ -176,9 +178,9 @@ public class Client {
     }
 
     /**
-     * Getter for the url of the application logo.
+     * Getter for the Uri of the application logo.
      *
-     * @return the application's logo url.
+     * @return the application's logo Uri.
      */
     @JsonProperty("logo_uri")
     public String getLogoUri() {
@@ -186,9 +188,9 @@ public class Client {
     }
 
     /**
-     * Setter for the application logo url. An image with size 150x150 is recommended.
+     * Setter for the application logo Uri. An image with size 150x150 is recommended.
      *
-     * @param logoUri the logo url to set.
+     * @param logoUri the logo Uri to set.
      */
     @JsonProperty("logo_uri")
     public void setLogoUri(String logoUri) {
@@ -484,6 +486,26 @@ public class Client {
     @JsonProperty("custom_login_page_on")
     public void setUseCustomLoginPage(Boolean useCustomLoginPage) {
         this.customLoginPageOn = useCustomLoginPage;
+    }
+
+    /**
+     * Getter for the initiate login Uri
+     *
+     * @return the initiate login Uri
+     */
+    @JsonProperty("initiate_login_uri")
+    public String getInitiateLoginUri() {
+        return initiateLoginUri;
+    }
+
+    /**
+     * Setter for the initiate login Uri
+     *
+     * @param initiateLoginUri the initiate login Uri to set
+     */
+    @JsonProperty("initiate_login_uri")
+    public void setInitiateLoginUri(String initiateLoginUri) {
+        this.initiateLoginUri = initiateLoginUri;
     }
 
     /**
