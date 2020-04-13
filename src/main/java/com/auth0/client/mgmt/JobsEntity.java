@@ -31,11 +31,13 @@ public class JobsEntity extends BaseManagementEntity {
     public Request<Job> get(String jobId) {
         Asserts.assertNotNull(jobId, "job id");
 
-        HttpUrl.Builder builder = baseUrl
+        String url = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/jobs")
-                .addPathSegment(jobId);
-        String url = builder.build().toString();
+                .addPathSegment(jobId)
+                .build()
+                .toString();
+        
         CustomRequest<Job> request = new CustomRequest<>(client, url, "GET", new TypeReference<Job>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
