@@ -30,19 +30,22 @@ public class MultipartRequest<T> extends BaseRequest<T> implements FormDataReque
 
     private static final int STATUS_CODE_TOO_MANY_REQUEST = 429;
 
-    MultipartRequest(OkHttpClient client, String url, String method, ObjectMapper mapper, TypeReference<T> tType) {
+    MultipartRequest(OkHttpClient client, String url, String method, ObjectMapper mapper, TypeReference<T> tType, MultipartBody.Builder multipartBuilder) {
         super(client);
+        if ("GET".equalsIgnoreCase(method)) {
+            throw new IllegalArgumentException("The HTTP method GET is not supported");
+        }
         this.url = url;
         this.method = method;
         this.mapper = mapper;
         this.tType = tType;
         this.headers = new HashMap<>();
-        this.bodyBuilder = new MultipartBody.Builder()
+        this.bodyBuilder = multipartBuilder
                 .setType(MultipartBody.FORM);
     }
 
     public MultipartRequest(OkHttpClient client, String url, String method, TypeReference<T> tType) {
-        this(client, url, method, new ObjectMapper(), tType);
+        this(client, url, method, new ObjectMapper(), tType, new MultipartBody.Builder());
     }
 
     @Override
@@ -70,11 +73,17 @@ public class MultipartRequest<T> extends BaseRequest<T> implements FormDataReque
     }
 
     @Override
-    protected Request createRequest() {
+    protected Request createRequest() throws Auth0Exception {
         //FIXME: Copies from #com.auth0.net.CustomRequest
+        MultipartBody body;
+        try {
+            body = bodyBuilder.build();
+        } catch (IllegalStateException e) {
+            throw new Auth0Exception("Couldn't create the request body.", e);
+        }
         Request.Builder builder = new Request.Builder()
                 .url(url)
-                .method(method, bodyBuilder.build());
+                .method(method, body);
         //TODO: Move to "getBody" abstract method. Handle parts size.
         for (Map.Entry<String, String> e : headers.entrySet()) {
             builder.addHeader(e.getKey(), e.getValue());

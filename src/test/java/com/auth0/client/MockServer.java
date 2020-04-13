@@ -154,4 +154,10 @@ public class MockServer {
             return mapper.readValue(body.inputStream(), mapType);
         }
     }
+
+    public static String readFromRequest(RecordedRequest request) {
+        try (Buffer body = request.getBody()) {
+            return body.readUtf8();
+        }
+    }
 }
