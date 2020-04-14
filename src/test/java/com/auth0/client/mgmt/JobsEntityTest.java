@@ -3,6 +3,7 @@ package com.auth0.client.mgmt;
 import com.auth0.json.mgmt.jobs.Job;
 import com.auth0.net.Request;
 import okhttp3.mockwebserver.RecordedRequest;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.util.Map;
@@ -16,6 +17,29 @@ import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
 
 public class JobsEntityTest extends BaseMgmtEntityTest {
+
+    @Test
+    public void shouldThrowOnGetJobWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'job id' cannot be null!");
+        api.jobs().get(null);
+    }
+
+    @Test
+    public void shouldGetJob() throws Exception {
+        Request<Job> request = api.jobs().get("1");
+        assertThat(request, Matchers.is(Matchers.notNullValue()));
+
+        server.jsonResponse(MGMT_JOB, 200);
+        Job response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/jobs/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, Matchers.is(Matchers.notNullValue()));
+    }
 
     @Test
     public void shouldSendAUserAVerificationEmail() throws Exception {

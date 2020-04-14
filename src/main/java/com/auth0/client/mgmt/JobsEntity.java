@@ -22,10 +22,33 @@ public class JobsEntity extends BaseManagementEntity {
     }
 
     /**
+     * Request a Job. A token with scope create:users is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Jobs/get_jobs_by_id
+     *
+     * @param jobId the id of the job to retrieve.
+     * @return a Request to execute.
+     */
+    public Request<Job> get(String jobId) {
+        Asserts.assertNotNull(jobId, "job id");
+
+        String url = baseUrl
+                .newBuilder()
+                .addPathSegments("api/v2/jobs")
+                .addPathSegment(jobId)
+                .build()
+                .toString();
+        
+        CustomRequest<Job> request = new CustomRequest<>(client, url, "GET", new TypeReference<Job>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
      * Sends an Email Verification. A token with scope update:users is needed.
      * See https://auth0.com/docs/api/management/v2#!/Jobs/post_verification_email
      *
-     * @param userId The user_id of the user to whom the email will be sent.
+     * @param userId   The user_id of the user to whom the email will be sent.
      * @param clientId The id of the client, if not provided the global one will be used.
      * @return a Request to execute.
      */
