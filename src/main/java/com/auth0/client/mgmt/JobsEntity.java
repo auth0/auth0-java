@@ -38,7 +38,7 @@ public class JobsEntity extends BaseManagementEntity {
                 .addPathSegment(jobId)
                 .build()
                 .toString();
-        
+
         CustomRequest<Job> request = new CustomRequest<>(client, url, "GET", new TypeReference<Job>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
@@ -84,7 +84,7 @@ public class JobsEntity extends BaseManagementEntity {
      * @param filter       the filter to use. Can be null.
      * @return a Request to execute.
      */
-    public Request<Job> requestUsersExport(String connectionId, UsersExportFilter filter) {
+    public Request<Job> exportUsers(String connectionId, UsersExportFilter filter) {
         Asserts.assertNotNull(connectionId, "connection id");
 
         String url = baseUrl

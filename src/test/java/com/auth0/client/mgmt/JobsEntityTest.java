@@ -51,12 +51,12 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnRequestUsersExportWithNullConnectionId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection id' cannot be null!");
-        api.jobs().requestUsersExport(null, null);
+        api.jobs().exportUsers(null, null);
     }
 
     @Test
     public void shouldRequestUsersExport() throws Exception {
-        Request<Job> request = api.jobs().requestUsersExport("con_123456789", null);
+        Request<Job> request = api.jobs().exportUsers("con_123456789", null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_JOB_POST_USERS_EXPORTS, 200);
@@ -78,7 +78,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
     public void shouldRequestUsersExportWithLimit() throws Exception {
         UsersExportFilter filter = new UsersExportFilter();
         filter.withLimit(82);
-        Request<Job> request = api.jobs().requestUsersExport("con_123456789", filter);
+        Request<Job> request = api.jobs().exportUsers("con_123456789", filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_JOB_POST_USERS_EXPORTS, 200);
@@ -101,7 +101,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
     public void shouldRequestUsersExportWithFormat() throws Exception {
         UsersExportFilter filter = new UsersExportFilter();
         filter.withFormat("csv");
-        Request<Job> request = api.jobs().requestUsersExport("con_123456789", filter);
+        Request<Job> request = api.jobs().exportUsers("con_123456789", filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_JOB_POST_USERS_EXPORTS, 200);
@@ -127,7 +127,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
         fields.add(new UsersExportField("full_name"));
         fields.add(new UsersExportField("user_metadata.company_name", "company"));
         filter.withFields(fields);
-        Request<Job> request = api.jobs().requestUsersExport("con_123456789", filter);
+        Request<Job> request = api.jobs().exportUsers("con_123456789", filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_JOB_POST_USERS_EXPORTS, 200);
