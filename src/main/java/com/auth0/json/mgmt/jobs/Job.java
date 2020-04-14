@@ -23,12 +23,16 @@ public class Job {
     private String id;
     @JsonProperty("connection_id")
     private String connectionId;
+    @JsonProperty("connection")
+    private String connection;
     @JsonProperty("location")
     private String location;
     @JsonProperty("percentage_done")
     private Integer percentageDone;
     @JsonProperty("time_left_seconds")
     private Integer timeLeftSeconds;
+    @JsonProperty("format")
+    private String format;
 
     @JsonCreator
     private Job(@JsonProperty("status") String status, @JsonProperty("type") String type, @JsonProperty("id") String id) {
@@ -65,6 +69,24 @@ public class Job {
      */
     public String getConnectionId() {
         return connectionId;
+    }
+
+    /**
+     * Getter for the name of the connection this job uses.
+     *
+     * @return the connection name
+     */
+    public String getConnection() {
+        return connection;
+    }
+
+    /**
+     * Getter for the format this job will output.
+     *
+     * @return the format
+     */
+    public String getFormat() {
+        return format;
     }
 
     /**
