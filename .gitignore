@@ -94,13 +94,7 @@ gradle-app.setting
 .idea/tasks.xml
 
 # Sensitive or high-churn files:
-.idea/dataSources/
-.idea/dataSources.ids
-.idea/dataSources.xml
-.idea/dataSources.local.xml
-.idea/sqlDataSources.xml
-.idea/dynamic.xml
-.idea/uiDesigner.xml
+.idea/
 
 # Gradle:
 .idea/gradle.xml
