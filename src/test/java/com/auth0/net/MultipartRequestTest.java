@@ -5,6 +5,9 @@ import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.RateLimitException;
 import com.auth0.json.auth.TokenHolder;
+import com.auth0.net.multipart.FilePart;
+import com.auth0.net.multipart.KeyValuePart;
+import com.auth0.net.multipart.RecordedMultipartRequest;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -19,7 +22,9 @@ import org.junit.rules.ExpectedException;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
+import java.util.UUID;
 
 import static com.auth0.client.MockServer.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -37,6 +42,8 @@ public class MultipartRequestTest {
     private TypeReference<TokenHolder> tokenHolderType;
     private TypeReference<List> listType;
     private TypeReference<Void> voidType;
+
+    public static final String MULTIPART_FILE = "src/test/resources/mgmt/multipart-sample.json";
 
     @Before
     public void setUp() throws Exception {
@@ -75,36 +82,33 @@ public class MultipartRequestTest {
         Assert.assertThat(execute, is(notNullValue()));
     }
 
-    //FIXME: Move
-    public static final String MULTIPART_FILE = "src/test/resources/mgmt/multipart-sample.json";
-
     @Test
-    public void shouldAddParts() throws Exception {
-        String expectedContents = "" +
-                "--5bb93131\r\n" +
-                "Content-Disposition: form-data; name=\"keyName\"\r\n" +
-                "Content-Length: 8\r\n" +
-                "\r\n" +
-                "keyValue\r\n" +
-                "--5bb93131\r\n" +
-                "Content-Disposition: form-data; name=\"file\"; filename=\"multipart-sample.json\"\r\n" +
-                "Content-Type: text/json\r\n" +
-                "Content-Length: 37\r\n" +
-                "\r\n" +
-                "{\n  \"name\": \"John Doe\",\n  \"age\": 99\n}\r\n" +
-                "--5bb93131--\r\n";
-        MultipartBody.Builder bodyBuilder = new MultipartBody.Builder("5bb93131");
+    public void shouldAddMultipleParts() throws Exception {
+        String boundary = UUID.randomUUID().toString();
+        MultipartBody.Builder bodyBuilder = new MultipartBody.Builder(boundary);
         MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", new ObjectMapper(), tokenHolderType, bodyBuilder);
 
         File fileValue = new File(MULTIPART_FILE);
         request.addPart("keyName", "keyValue");
-        request.addPart("file", fileValue, "text/json");
+        request.addPart("jsonFile", fileValue, "text/json");
 
         server.jsonResponse(AUTH_TOKENS, 200);
         request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
-        String values = readFromRequest(recordedRequest);
-        assertThat(values, is(expectedContents));
+        RecordedMultipartRequest recordedMultipartRequest = new RecordedMultipartRequest(recordedRequest);
+        assertThat(recordedMultipartRequest.getPartsCount(), is(2));
+        assertThat(recordedMultipartRequest.getBoundary(), is(boundary));
+
+        KeyValuePart formParam = recordedMultipartRequest.getKeyValuePart("keyName");
+        assertThat(formParam, is(notNullValue()));
+        assertThat(formParam.getValue(), is("keyValue"));
+
+        FilePart jsonFile = recordedMultipartRequest.getFilePart("jsonFile");
+        assertThat(jsonFile, is(notNullValue()));
+        String utf8Contents = new String(Files.readAllBytes(fileValue.toPath()));
+        assertThat(jsonFile.getContentType(), is("text/json"));
+        assertThat(jsonFile.getFilename(), is("multipart-sample.json"));
+        assertThat(jsonFile.getValue(), is(utf8Contents));
     }
 
     @Test
