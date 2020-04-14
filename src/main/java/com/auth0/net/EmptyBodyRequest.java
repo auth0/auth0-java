@@ -1,9 +1,10 @@
 package com.auth0.net;
 
-import com.auth0.exception.Auth0Exception;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
+
+import java.io.IOException;
 
 public class EmptyBodyRequest<T> extends CustomRequest<T> {
 
@@ -12,7 +13,7 @@ public class EmptyBodyRequest<T> extends CustomRequest<T> {
     }
 
     @Override
-    protected RequestBody createBody() throws Auth0Exception {
+    protected RequestBody createRequestBody() throws IOException {
         return RequestBody.create(null, new byte[0]);
     }
 
