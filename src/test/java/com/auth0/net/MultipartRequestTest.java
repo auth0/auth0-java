@@ -65,7 +65,7 @@ public class MultipartRequestTest {
     @Test
     public void shouldNotSupportGETMethod() throws Exception {
         exception.expect(instanceOf(IllegalArgumentException.class));
-        exception.expectMessage("The HTTP method GET is not supported");
+        exception.expectMessage("Multipart/form-data requests do not support the GET method.");
         MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, server.getBaseUrl(), "GET", tokenHolderType);
     }
 
@@ -157,11 +157,18 @@ public class MultipartRequestTest {
 
     @Test
     public void shouldThrowOnBodyCreationFailure() throws Exception {
-        MultipartRequest<Void> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", voidType);
-        exception.expect(Auth0Exception.class);
-        exception.expectCause(Matchers.instanceOf(IllegalStateException.class));
-        exception.expectMessage("Couldn't create the request body.");
-        request.execute();
+        Exception exception = null;
+        try {
+            MultipartRequest<Void> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", voidType);
+            request.execute();
+        } catch (Exception e) {
+            exception = e;
+        }
+        assertThat(exception, is(notNullValue()));
+        assertThat(exception, is(instanceOf(Auth0Exception.class)));
+        assertThat(exception.getMessage(), is("Couldn't create the request body."));
+        assertThat(exception.getCause(), is(instanceOf(IOException.class)));
+        assertThat(exception.getCause().getMessage(), is("Cannot create multipart/form-data request body with zero parts."));
     }
 
     @Test
@@ -195,9 +202,9 @@ public class MultipartRequestTest {
         assertThat(exception, is(notNullValue()));
         assertThat(exception, is(instanceOf(APIException.class)));
         assertThat(exception.getCause(), is(instanceOf(JsonMappingException.class)));
-        assertThat(exception.getMessage(), is("Request failed with status code 200: Failed to parse json body"));
+        assertThat(exception.getMessage(), is("Request failed with status code 200: Failed to parse the response body."));
         APIException authException = (APIException) exception;
-        assertThat(authException.getDescription(), is("Failed to parse json body"));
+        assertThat(authException.getDescription(), is("Failed to parse the response body."));
         assertThat(authException.getError(), is(nullValue()));
         assertThat(authException.getStatusCode(), is(200));
     }

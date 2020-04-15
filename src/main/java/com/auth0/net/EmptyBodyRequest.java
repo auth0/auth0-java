@@ -4,8 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 
-import java.io.IOException;
-
 public class EmptyBodyRequest<T> extends CustomRequest<T> {
 
     public EmptyBodyRequest(OkHttpClient client, String url, String method, TypeReference<T> tType) {
@@ -13,7 +11,7 @@ public class EmptyBodyRequest<T> extends CustomRequest<T> {
     }
 
     @Override
-    protected RequestBody createRequestBody() throws IOException {
+    protected RequestBody createRequestBody() {
         return RequestBody.create(null, new byte[0]);
     }
 

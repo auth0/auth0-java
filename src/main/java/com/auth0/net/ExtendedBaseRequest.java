@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 //Package-Private on purpose
+//TODO: Merge with #BaseRequest on next major
 abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
 
     private static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
@@ -37,7 +38,7 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
         RequestBody body;
         try {
             body = this.createRequestBody();
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new Auth0Exception("Couldn't create the request body.", e);
         }
         Request.Builder builder = new Request.Builder()
@@ -58,8 +59,8 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
 
         try (ResponseBody body = response.body()) {
             return readResponseBody(body);
-        } catch (Exception e) {
-            throw new APIException("Failed to parse json body", response.code(), e);
+        } catch (IOException e) {
+            throw new APIException("Failed to parse the response body.", response.code(), e);
         }
     }
 

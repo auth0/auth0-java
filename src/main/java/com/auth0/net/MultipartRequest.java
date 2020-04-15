@@ -17,11 +17,12 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
     private final MultipartBody.Builder bodyBuilder;
     private final TypeReference<T> tType;
     private final ObjectMapper mapper;
+    private int partsCount;
 
     MultipartRequest(OkHttpClient client, String url, String method, ObjectMapper mapper, TypeReference<T> tType, MultipartBody.Builder multipartBuilder) {
         super(client, url, method, mapper);
         if ("GET".equalsIgnoreCase(method)) {
-            throw new IllegalArgumentException("The HTTP method GET is not supported");
+            throw new IllegalArgumentException("Multipart/form-data requests do not support the GET method.");
         }
         this.mapper = mapper;
         this.tType = tType;
@@ -40,6 +41,9 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
 
     @Override
     protected RequestBody createRequestBody() throws IOException {
+        if (partsCount == 0) {
+            throw new IOException("Cannot create multipart/form-data request body with zero parts.");
+        }
         return bodyBuilder.build();
     }
 
@@ -60,10 +64,11 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
         assertNotNull(name, "name");
         assertNotNull(name, "file");
         if (!file.exists()) {
-            throw new IllegalArgumentException("The file does not exist");
+            throw new IllegalArgumentException("Failed to add part because the file specified cannot be found.");
         }
         bodyBuilder.addFormDataPart(name, file.getName(),
                 RequestBody.create(MediaType.parse(mediaType), file));
+        partsCount++;
         return this;
     }
 
@@ -71,6 +76,7 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
         assertNotNull(name, "name");
         assertNotNull(value, "value");
         bodyBuilder.addFormDataPart(name, value);
+        partsCount++;
         return this;
     }
 }

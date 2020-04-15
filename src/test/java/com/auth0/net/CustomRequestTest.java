@@ -179,9 +179,9 @@ public class CustomRequestTest {
         assertThat(exception, is(notNullValue()));
         assertThat(exception, is(instanceOf(APIException.class)));
         assertThat(exception.getCause(), is(instanceOf(JsonMappingException.class)));
-        assertThat(exception.getMessage(), is("Request failed with status code 200: Failed to parse json body"));
+        assertThat(exception.getMessage(), is("Request failed with status code 200: Failed to parse the response body."));
         APIException authException = (APIException) exception;
-        assertThat(authException.getDescription(), is("Failed to parse json body"));
+        assertThat(authException.getDescription(), is("Failed to parse the response body."));
         assertThat(authException.getError(), is(nullValue()));
         assertThat(authException.getStatusCode(), is(200));
     }
