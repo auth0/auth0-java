@@ -5,8 +5,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 
 /**
- * Request class that accepts parameters to be sent as part of its body
- * but ignores the response's body.
+ * Request class that does not accept parameters to be sent as part of its body.
  * The content type of this request is "application/json".
  *
  * @param <T> The type expected to be received as part of the response.
