@@ -12,8 +12,14 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-//Package-Private on purpose
-//TODO: Merge with #BaseRequest on next major
+/**
+ * A request class that is able to interact fluently with the Auth0 server.
+ * The default content type of this request is "application/json".
+ * <p>
+ * //TODO: Merge with #BaseRequest on next major
+ *
+ * @param <T> The type expected to be received as part of the response.
+ */
 abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
 
     private static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
@@ -64,19 +70,51 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
         }
     }
 
+    /**
+     * Getter for the content-type header value to use on this request
+     *
+     * @return the content-type
+     */
     protected String getContentType() {
         return CONTENT_TYPE_APPLICATION_JSON;
     }
 
+    /**
+     * Responsible for creating the payload that will be set as body on this request.
+     *
+     * @return the body to send as part of the request.
+     * @throws IOException if an error is raised during the creation of the body.
+     */
     protected abstract RequestBody createRequestBody() throws IOException;
 
+    /**
+     * Responsible for parsing the payload that is received as part of the response.
+     *
+     * @param body the received body payload. The body buffer will automatically closed.
+     * @return the instance of type T, result of interpreting the payload.
+     * @throws IOException if an error is raised during the parsing of the body.
+     */
     protected abstract T readResponseBody(ResponseBody body) throws IOException;
 
+    /**
+     * Adds an HTTP header to the request
+     *
+     * @param name  the name of the header
+     * @param value the value of the header
+     * @return this same request instance
+     */
     public ExtendedBaseRequest<T> addHeader(String name, String value) {
         headers.put(name, value);
         return this;
     }
 
+    /**
+     * Responsible for parsing an unsuccessful request (status code other than 200)
+     * and generating a developer-friendly exception with the error details.
+     *
+     * @param response the unsuccessful response, as received. If its body is accessed, the buffer must be closed.
+     * @return the exception with the error details.
+     */
     protected Auth0Exception createResponseException(Response response) {
         if (response.code() == STATUS_CODE_TOO_MANY_REQUEST) {
             return createRateLimitException(response);

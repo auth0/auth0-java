@@ -11,6 +11,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Request class that accepts parameters to be sent as part of its body.
+ * The content type of this request is "application/json".
+ *
+ * @param <T> The type expected to be received as part of the response.
+ */
 public class CustomRequest<T> extends ExtendedBaseRequest<T> implements CustomizableRequest<T> {
 
     private static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";

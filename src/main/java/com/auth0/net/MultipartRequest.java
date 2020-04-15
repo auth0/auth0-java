@@ -9,7 +9,12 @@ import java.io.IOException;
 
 import static com.auth0.utils.Asserts.assertNotNull;
 
-@SuppressWarnings("WeakerAccess")
+/**
+ * Request class that accepts parts to be sent encoded in a form.
+ * The content type of this request is "multipart/form-data".
+ *
+ * @param <T> The type expected to be received as part of the response.
+ */
 public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormDataRequest<T> {
 
     private static final String CONTENT_TYPE_FORM_DATA = "multipart/form-data";
@@ -60,6 +65,7 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
         return this;
     }
 
+    @Override
     public MultipartRequest<T> addPart(String name, File file, String mediaType) {
         assertNotNull(name, "name");
         assertNotNull(name, "file");
@@ -72,6 +78,7 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
         return this;
     }
 
+    @Override
     public MultipartRequest<T> addPart(String name, String value) {
         assertNotNull(name, "name");
         assertNotNull(value, "value");

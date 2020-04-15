@@ -4,6 +4,14 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 
+/**
+ * Request class that accepts parameters to be sent as part of its body
+ * but ignores the response's body.
+ * The content type of this request is "application/json".
+ *
+ * @param <T> The type expected to be received as part of the response.
+ * @see CustomRequest
+ */
 public class EmptyBodyRequest<T> extends CustomRequest<T> {
 
     public EmptyBodyRequest(OkHttpClient client, String url, String method, TypeReference<T> tType) {
