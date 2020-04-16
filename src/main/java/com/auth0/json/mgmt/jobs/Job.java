@@ -33,6 +33,8 @@ public class Job {
     private Integer timeLeftSeconds;
     @JsonProperty("format")
     private String format;
+    @JsonProperty("summary")
+    private JobSummary summary;
 
     @JsonCreator
     private Job(@JsonProperty("status") String status, @JsonProperty("type") String type, @JsonProperty("id") String id) {
@@ -67,6 +69,7 @@ public class Job {
      *
      * @return the connection id
      */
+    @JsonProperty("connection_id")
     public String getConnectionId() {
         return connectionId;
     }
@@ -76,6 +79,7 @@ public class Job {
      *
      * @return the connection name
      */
+    @JsonProperty("connection")
     public String getConnection() {
         return connection;
     }
@@ -85,6 +89,7 @@ public class Job {
      *
      * @return the format
      */
+    @JsonProperty("format")
     public String getFormat() {
         return format;
     }
@@ -94,6 +99,7 @@ public class Job {
      *
      * @return the location
      */
+    @JsonProperty("location")
     public String getLocation() {
         return location;
     }
@@ -103,6 +109,7 @@ public class Job {
      *
      * @return the percentage done
      */
+    @JsonProperty("percentage_done")
     public Integer getPercentageDone() {
         return percentageDone;
     }
@@ -112,7 +119,18 @@ public class Job {
      *
      * @return the time left in seconds
      */
+    @JsonProperty("time_left_seconds")
     public Integer getTimeLeftSeconds() {
         return timeLeftSeconds;
+    }
+
+    /**
+     * Getter for the summary of a completed Auth0 Job.
+     *
+     * @return the summary of the Job
+     */
+    @JsonProperty("summary")
+    public JobSummary getSummary() {
+        return summary;
     }
 }
