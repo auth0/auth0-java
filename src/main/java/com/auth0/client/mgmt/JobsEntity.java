@@ -123,7 +123,7 @@ public class JobsEntity extends BaseManagementEntity {
 
         String url = baseUrl
                 .newBuilder()
-                .addPathSegments("api/v2/jobs/users-exports")
+                .addPathSegments("api/v2/jobs/users-imports")
                 .build()
                 .toString();
         MultipartRequest<Job> request = new MultipartRequest<>(client, url, "POST", new TypeReference<Job>() {

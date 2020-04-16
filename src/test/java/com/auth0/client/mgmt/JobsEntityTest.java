@@ -4,10 +4,16 @@ import com.auth0.client.mgmt.filter.UsersExportFilter;
 import com.auth0.json.mgmt.jobs.Job;
 import com.auth0.json.mgmt.jobs.UsersExportField;
 import com.auth0.net.Request;
+import com.auth0.net.multipart.FilePart;
+import com.auth0.net.multipart.KeyValuePart;
+import com.auth0.net.multipart.RecordedMultipartRequest;
 import okhttp3.mockwebserver.RecordedRequest;
+import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,12 +21,12 @@ import java.util.Map;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.hasHeader;
 import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
-import static org.hamcrest.Matchers.hasEntry;
-import static org.hamcrest.Matchers.hasKey;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
 
 public class JobsEntityTest extends BaseMgmtEntityTest {
 
@@ -199,4 +205,57 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
         exception.expectMessage("'user id' cannot be null!");
         api.jobs().sendVerificationEmail(null, null);
     }
+
+    @Test
+    public void shouldThrowOnRequestUsersImportWithNullConnectionId() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'connection id' cannot be null!");
+        File usersFile = mock(File.class);
+        api.jobs().importUsers(null, usersFile);
+    }
+
+    @Test
+    public void shouldThrowOnRequestUsersImportWithNullUsersFile() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'users file' cannot be null!");
+        api.jobs().importUsers("con_123456789", null);
+    }
+
+    @Test
+    public void shouldRequestUsersImport() throws Exception {
+        File usersFile = new File(MGMT_JOB_POST_USERS_IMPORTS_INPUT);
+        Request<Job> request = api.jobs().importUsers("con_123456789", usersFile);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_JOB_POST_USERS_IMPORTS, 200);
+        Job response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/jobs/users-imports"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        String ctHeader = recordedRequest.getHeader("Content-Type");
+        assertThat(ctHeader, startsWith("multipart/form-data"));
+        String[] ctParts = ctHeader.split("multipart/form-data; boundary=");
+
+        RecordedMultipartRequest recordedMultipartRequest = new RecordedMultipartRequest(recordedRequest);
+        assertThat(recordedMultipartRequest.getPartsCount(), is(2));
+        assertThat(recordedMultipartRequest.getBoundary(), is(notNullValue()));
+        assertThat(recordedMultipartRequest.getBoundary(), is(ctParts[1]));
+
+        //Connection ID
+        KeyValuePart formParam = recordedMultipartRequest.getKeyValuePart("connection_id");
+        MatcherAssert.assertThat(formParam, Matchers.is(Matchers.notNullValue()));
+        MatcherAssert.assertThat(formParam.getValue(), Matchers.is("con_123456789"));
+
+        //Users JSON
+        FilePart jsonFile = recordedMultipartRequest.getFilePart("users");
+        MatcherAssert.assertThat(jsonFile, Matchers.is(Matchers.notNullValue()));
+        String utf8Contents = new String(Files.readAllBytes(usersFile.toPath()));
+        MatcherAssert.assertThat(jsonFile.getContentType(), Matchers.is("text/json"));
+        MatcherAssert.assertThat(jsonFile.getFilename(), Matchers.is("job_post_users_imports_input.json"));
+        MatcherAssert.assertThat(jsonFile.getValue(), Matchers.is(utf8Contents));
+
+        assertThat(response, is(notNullValue()));
+    }
+
 }
