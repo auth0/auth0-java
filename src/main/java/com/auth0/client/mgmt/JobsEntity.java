@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.UsersExportFilter;
+import com.auth0.client.mgmt.filter.UsersImportOptions;
 import com.auth0.json.mgmt.jobs.Job;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.MultipartRequest;
@@ -115,9 +116,10 @@ public class JobsEntity extends BaseManagementEntity {
      *
      * @param connectionId The id of the connection to import the users to.
      * @param users        The users file. Must have an array with the users' information in JSON format.
+     * @param options      Optional parameters to set. Can be null.
      * @return a Request to execute.
      */
-    public Request<Job> importUsers(String connectionId, File users) {
+    public Request<Job> importUsers(String connectionId, File users, UsersImportOptions options) {
         Asserts.assertNotNull(connectionId, "connection id");
         Asserts.assertNotNull(users, "users file");
 
@@ -128,6 +130,11 @@ public class JobsEntity extends BaseManagementEntity {
                 .toString();
         MultipartRequest<Job> request = new MultipartRequest<>(client, url, "POST", new TypeReference<Job>() {
         });
+        if (options != null) {
+            for (Map.Entry<String, Object> e : options.getAsMap().entrySet()) {
+                request.addPart(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
         request.addPart("connection_id", connectionId);
         request.addPart("users", users, "text/json");
         request.addHeader("Authorization", "Bearer " + apiToken);
