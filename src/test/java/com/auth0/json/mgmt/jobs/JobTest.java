@@ -12,7 +12,7 @@ import static org.junit.Assert.assertThat;
 public class JobTest extends JsonTest<Job> {
 
     private static final String json = "{\"status\": \"completed\",\"type\": \"verification_email\",\"created_at\": \"2016-02-23T19:57:29.532Z\",\"id\": \"job_0000000000000001\"}";
-    private static final String readOnlyJson = "{\"status\": \"completed\",\"type\": \"verification_email\",\"created_at\": \"2016-02-23T19:57:29.532Z\",\"id\": \"job_0000000000000001\", \"connection_id\": \"conn_1\", \"connection\": \"Custom-DB-Connection\", \"format\": \"csv\", \"location\": \"https://auth0.com/jobs/\", \"percentage_done\": 89, \"time_left_seconds\": 9814, \"summary\":{\"failed\":2,\"updated\":1,\"inserted\":3,\"total\":6}}";
+    private static final String readOnlyJson = "{\"status\": \"completed\",\"type\": \"verification_email\",\"created_at\": \"2016-02-23T19:57:29.532Z\",\"id\": \"job_0000000000000001\", \"connection_id\": \"conn_1\", \"connection\": \"Custom-DB-Connection\", \"format\": \"csv\", \"location\": \"https://auth0.com/jobs/\", \"percentage_done\": 89, \"time_left_seconds\": 9814, \"summary\":{\"failed\":2,\"updated\":1,\"inserted\":3,\"total\":6}, \"external_id\": \"ext_id123\"}";
 
     @Test
     public void shouldDeserialize() throws Exception {
@@ -41,6 +41,7 @@ public class JobTest extends JsonTest<Job> {
         assertThat(job.getLocation(), is("https://auth0.com/jobs/"));
         assertThat(job.getPercentageDone(), is(89));
         assertThat(job.getTimeLeftSeconds(), is(9814));
+        assertThat(job.getExternalId(), is("ext_id123"));
         assertThat(job.getSummary().getFailed(), is(2));
         assertThat(job.getSummary().getUpdated(), is(1));
         assertThat(job.getSummary().getInserted(), is(3));
