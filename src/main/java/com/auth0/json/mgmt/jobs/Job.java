@@ -29,10 +29,14 @@ public class Job {
     private String location;
     @JsonProperty("percentage_done")
     private Integer percentageDone;
+    @JsonProperty("external_id")
+    private String externalId;
     @JsonProperty("time_left_seconds")
     private Integer timeLeftSeconds;
     @JsonProperty("format")
     private String format;
+    @JsonProperty("summary")
+    private JobSummary summary;
 
     @JsonCreator
     private Job(@JsonProperty("status") String status, @JsonProperty("type") String type, @JsonProperty("id") String id) {
@@ -65,8 +69,9 @@ public class Job {
     /**
      * Getter for the connection id this job uses.
      *
-     * @return the connection id
+     * @return the connection id.
      */
+    @JsonProperty("connection_id")
     public String getConnectionId() {
         return connectionId;
     }
@@ -74,8 +79,9 @@ public class Job {
     /**
      * Getter for the name of the connection this job uses.
      *
-     * @return the connection name
+     * @return the connection name.
      */
+    @JsonProperty("connection")
     public String getConnection() {
         return connection;
     }
@@ -83,8 +89,9 @@ public class Job {
     /**
      * Getter for the format this job will output.
      *
-     * @return the format
+     * @return the format.
      */
+    @JsonProperty("format")
     public String getFormat() {
         return format;
     }
@@ -92,8 +99,9 @@ public class Job {
     /**
      * Getter for the URL to download the result of the job.
      *
-     * @return the location
+     * @return the location.
      */
+    @JsonProperty("location")
     public String getLocation() {
         return location;
     }
@@ -101,18 +109,40 @@ public class Job {
     /**
      * Getter for the completion percentage of this job.
      *
-     * @return the percentage done
+     * @return the percentage done.
      */
+    @JsonProperty("percentage_done")
     public Integer getPercentageDone() {
         return percentageDone;
     }
 
     /**
+     * Getter for the external ID used to correlate multiple jobs.
+     *
+     * @return the external id.
+     */
+    @JsonProperty("external_id")
+    public String getExternalId() {
+        return externalId;
+    }
+
+    /**
      * Getter for the estimated time remaining before job completes.
      *
-     * @return the time left in seconds
+     * @return the time left in seconds.
      */
+    @JsonProperty("time_left_seconds")
     public Integer getTimeLeftSeconds() {
         return timeLeftSeconds;
+    }
+
+    /**
+     * Getter for the summary of a completed Auth0 Job.
+     *
+     * @return the summary of the Job.
+     */
+    @JsonProperty("summary")
+    public JobSummary getSummary() {
+        return summary;
     }
 }

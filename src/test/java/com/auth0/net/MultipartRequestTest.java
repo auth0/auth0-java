@@ -43,8 +43,6 @@ public class MultipartRequestTest {
     private TypeReference<List> listType;
     private TypeReference<Void> voidType;
 
-    public static final String MULTIPART_FILE = "src/test/resources/mgmt/multipart-sample.json";
-
     @Before
     public void setUp() throws Exception {
         server = new MockServer();
@@ -88,7 +86,7 @@ public class MultipartRequestTest {
         MultipartBody.Builder bodyBuilder = new MultipartBody.Builder(boundary);
         MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", new ObjectMapper(), tokenHolderType, bodyBuilder);
 
-        File fileValue = new File(MULTIPART_FILE);
+        File fileValue = new File(MULTIPART_SAMPLE);
         request.addPart("keyName", "keyValue");
         request.addPart("jsonFile", fileValue, "text/json");
 
@@ -107,7 +105,7 @@ public class MultipartRequestTest {
         assertThat(jsonFile, is(notNullValue()));
         String utf8Contents = new String(Files.readAllBytes(fileValue.toPath()));
         assertThat(jsonFile.getContentType(), is("text/json"));
-        assertThat(jsonFile.getFilename(), is("multipart-sample.json"));
+        assertThat(jsonFile.getFilename(), is("multipart_sample.json"));
         assertThat(jsonFile.getValue(), is(utf8Contents));
     }
 

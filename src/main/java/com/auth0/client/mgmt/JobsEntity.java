@@ -1,14 +1,17 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.UsersExportFilter;
+import com.auth0.client.mgmt.filter.UsersImportOptions;
 import com.auth0.json.mgmt.jobs.Job;
 import com.auth0.net.CustomRequest;
+import com.auth0.net.MultipartRequest;
 import com.auth0.net.Request;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +27,7 @@ public class JobsEntity extends BaseManagementEntity {
 
     /**
      * Request a Job. A token with scope create:users is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Jobs/get_jobs_by_id
+     * See https://auth0.com/docs/api/management/v2#!/Jobs/get_jobs_by_id.
      *
      * @param jobId the id of the job to retrieve.
      * @return a Request to execute.
@@ -47,7 +50,7 @@ public class JobsEntity extends BaseManagementEntity {
 
     /**
      * Sends an Email Verification. A token with scope update:users is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Jobs/post_verification_email
+     * See https://auth0.com/docs/api/management/v2#!/Jobs/post_verification_email.
      *
      * @param userId   The user_id of the user to whom the email will be sent.
      * @param clientId The id of the client, if not provided the global one will be used.
@@ -77,10 +80,10 @@ public class JobsEntity extends BaseManagementEntity {
 
     /**
      * Requests a Users Exports job. A token with scope read:users is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports
-     * See https://auth0.com/docs/users/guides/bulk-user-exports
+     * See https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports.
+     * See https://auth0.com/docs/users/guides/bulk-user-exports.
      *
-     * @param connectionId The id of the connection to export the users from
+     * @param connectionId The id of the connection to export the users from.
      * @param filter       the filter to use. Can be null.
      * @return a Request to execute.
      */
@@ -103,6 +106,38 @@ public class JobsEntity extends BaseManagementEntity {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(requestBody);
+        return request;
+    }
+
+    /**
+     * Requests a Users Imports job. A token with scope write:users is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Jobs/post_users_imports.
+     * See https://auth0.com/docs/users/guides/bulk-user-imports.
+     *
+     * @param connectionId The id of the connection to import the users to.
+     * @param users        The users file. Must have an array with the users' information in JSON format.
+     * @param options      Optional parameters to set. Can be null.
+     * @return a Request to execute.
+     */
+    public Request<Job> importUsers(String connectionId, File users, UsersImportOptions options) {
+        Asserts.assertNotNull(connectionId, "connection id");
+        Asserts.assertNotNull(users, "users file");
+
+        String url = baseUrl
+                .newBuilder()
+                .addPathSegments("api/v2/jobs/users-imports")
+                .build()
+                .toString();
+        MultipartRequest<Job> request = new MultipartRequest<>(client, url, "POST", new TypeReference<Job>() {
+        });
+        if (options != null) {
+            for (Map.Entry<String, Object> e : options.getAsMap().entrySet()) {
+                request.addPart(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+        request.addPart("connection_id", connectionId);
+        request.addPart("users", users, "text/json");
+        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 }

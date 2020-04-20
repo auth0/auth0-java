@@ -4,12 +4,11 @@ import com.auth0.json.mgmt.jobs.UsersExportField;
 
 import java.util.List;
 
+/**
+ * Class used to filter the results received when a Users Exports Job is completed. Related to the {@link com.auth0.client.mgmt.JobsEntity} entity.
+ */
 @SuppressWarnings("UnusedReturnValue")
 public class UsersExportFilter extends BaseFilter {
-
-    public static final String KEY_FIELDS = "fields";
-    public static final String KEY_FORMAT = "format";
-    public static final String KEY_LIMIT = "limit";
 
     /**
      * Changes the output format of the exports file
@@ -18,7 +17,7 @@ public class UsersExportFilter extends BaseFilter {
      * @return this filter instance
      */
     public UsersExportFilter withFormat(String format) {
-        parameters.put(KEY_FORMAT, format);
+        parameters.put("format", format);
         return this;
     }
 
@@ -29,7 +28,7 @@ public class UsersExportFilter extends BaseFilter {
      * @return this filter instance
      */
     public UsersExportFilter withLimit(int limit) {
-        parameters.put(KEY_LIMIT, limit);
+        parameters.put("limit", limit);
         return this;
     }
 
@@ -40,7 +39,7 @@ public class UsersExportFilter extends BaseFilter {
      * @return this filter instance
      */
     public UsersExportFilter withFields(List<UsersExportField> fields) {
-        parameters.put(KEY_FIELDS, fields);
+        parameters.put("fields", fields);
         return this;
     }
 
