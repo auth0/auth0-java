@@ -1,5 +1,26 @@
 # Change Log
 
+## [1.16.0](https://github.com/auth0/auth0-java/tree/1.16.0) (2020-04-24)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.15.0...1.16.0)
+
+**Added**
+- Add Job "POST User Imports" endpoint [\#249](https://github.com/auth0/auth0-java/pull/249) ([lbalmaceda](https://github.com/lbalmaceda))
+- Add a new class to handle Multipart requests [\#248](https://github.com/auth0/auth0-java/pull/248) ([lbalmaceda](https://github.com/lbalmaceda))
+- Add Job "GET Status" endpoint [\#247](https://github.com/auth0/auth0-java/pull/247) ([lbalmaceda](https://github.com/lbalmaceda))
+- Add missing "initiate_login_uri" property to Client [\#244](https://github.com/auth0/auth0-java/pull/244) ([lbalmaceda](https://github.com/lbalmaceda))
+- Use char array for passwords [\#242](https://github.com/auth0/auth0-java/pull/242) ([jimmyjames](https://github.com/jimmyjames))
+- Add Job "POST User Exports" endpoint [\#241](https://github.com/auth0/auth0-java/pull/241) ([lbalmaceda](https://github.com/lbalmaceda))
+- Add Rules Configs entity [\#240](https://github.com/auth0/auth0-java/pull/240) ([lbalmaceda](https://github.com/lbalmaceda))
+
+**Deprecated**
+- deprecated string password APIs [\#243](https://github.com/auth0/auth0-java/pull/243) ([jimmyjames](https://github.com/jimmyjames))
+
+**Fixed**
+- Make CreatedUser take the id from different properties [\#245](https://github.com/auth0/auth0-java/pull/245) ([lbalmaceda](https://github.com/lbalmaceda))
+
+**Security**
+- Use char array for passwords [\#242](https://github.com/auth0/auth0-java/pull/242) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.15.0](https://github.com/auth0/auth0-java/tree/1.15.0) (2019-11-12)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.14.3...1.15.0)
 
