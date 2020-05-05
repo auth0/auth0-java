@@ -249,8 +249,41 @@ public class AuthAPI {
      * @param password   the desired user's password.
      * @param connection the database connection where the user is going to be created.
      * @return a Request to configure and execute.
+     *
+     * @deprecated Use {@linkplain #signUp(String, String, char[], String)} instead.
      */
+    @Deprecated
     public SignUpRequest signUp(String email, String username, String password, String connection) {
+        return this.signUp(email, username, password != null ? password.toCharArray() : null, connection);
+    }
+
+    /**
+     * Creates a sign up request with the given credentials and database connection.
+     * "Requires Username" option must be turned on in the Connection's configuration first.
+     * i.e.:
+     * <pre>
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * try {
+     *      Map<String, String> fields = new HashMap<String, String>();
+     *      fields.put("age", "25);
+     *      fields.put("city", "Buenos Aires");
+     *      auth.signUp("me@auth0.com", "myself", new char[]{'s','e','c','r','e','t'}, "db-connection")
+     *          .setCustomFields(fields)
+     *          .execute();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param email      the desired user's email.
+     * @param username   the desired user's username.
+     * @param password   the desired user's password.
+     * @param connection the database connection where the user is going to be created.
+     * @return a Request to configure and execute.
+     */
+    public SignUpRequest signUp(String email, String username, char[] password, String connection) {
         Asserts.assertNotNull(username, "username");
 
         CreateUserRequest request = (CreateUserRequest) this.signUp(email, password, connection);
@@ -281,8 +314,39 @@ public class AuthAPI {
      * @param password   the desired user's password.
      * @param connection the database connection where the user is going to be created.
      * @return a Request to configure and execute.
+     *
+     * @deprecated Use {@linkplain #signUp(String, char[], String)} instead.
      */
+    @Deprecated
     public SignUpRequest signUp(String email, String password, String connection) {
+        return this.signUp(email, password != null ? password.toCharArray() : null, connection);
+    }
+
+    /**
+     * Creates a sign up request with the given credentials and database connection.
+     * i.e.:
+     * <pre>
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * try {
+     *      Map<String, String> fields = new HashMap<String, String>();
+     *      fields.put("age", "25);
+     *      fields.put("city", "Buenos Aires");
+     *      auth.signUp("me@auth0.com", new char[]{'s','e','c','r','e','t'}, "db-connection")
+     *          .setCustomFields(fields)
+     *          .execute();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param email      the desired user's email.
+     * @param password   the desired user's password.
+     * @param connection the database connection where the user is going to be created.
+     * @return a Request to configure and execute.
+     */
+    public SignUpRequest signUp(String email, char[] password, String connection) {
         Asserts.assertNotNull(email, "email");
         Asserts.assertNotNull(password, "password");
         Asserts.assertNotNull(connection, "connection");
@@ -320,8 +384,35 @@ public class AuthAPI {
      * @param emailOrUsername the identity of the user.
      * @param password        the password of the user.
      * @return a Request to configure and execute.
+     *
+     * @deprecated Use {@linkplain #login(String, char[])} instead.
      */
+    @Deprecated
     public AuthRequest login(String emailOrUsername, String password) {
+        return this.login(emailOrUsername, password != null ? password.toCharArray() : null);
+    }
+
+    /**
+     * Creates a log in request using the 'Password' grant and the given credentials.
+     * i.e.:
+     * <pre>
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * try {
+     *      TokenHolder result = auth.login("me@auth0.com", new char[]{'s','e','c','r','e','t})
+     *          .setScope("openid email nickname")
+     *          .execute();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param emailOrUsername the identity of the user.
+     * @param password        the password of the user.
+     * @return a Request to configure and execute.
+     */
+    public AuthRequest login(String emailOrUsername, char[] password) {
         Asserts.assertNotNull(emailOrUsername, "email or username");
         Asserts.assertNotNull(password, "password");
 
@@ -360,8 +451,36 @@ public class AuthAPI {
      * @param password        the password of the user.
      * @param realm           the realm to use.
      * @return a Request to configure and execute.
+     *
+     * @deprecated Use {@linkplain #login(String, char[], String)} instead.
      */
+    @Deprecated
     public AuthRequest login(String emailOrUsername, String password, String realm) {
+        return this.login(emailOrUsername, password != null ? password.toCharArray() : null, realm);
+    }
+
+    /**
+     * Creates a log in request using the 'Password Realm' grant and the given credentials.
+     * Default used realm and audience are defined in the "API Authorization Settings" in the account's advanced settings in the Auth0 Dashboard.
+     * <pre>
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * try {
+     *      TokenHolder result = auth.login("me@auth0.com", new char[]{'s','e','c','r','e','t'}, "my-realm")
+     *          .setAudience("https://myapi.me.auth0.com/users")
+     *          .execute();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param emailOrUsername the identity of the user.
+     * @param password        the password of the user.
+     * @param realm           the realm to use.
+     * @return a Request to configure and execute.
+     */
+    public AuthRequest login(String emailOrUsername, char[] password, String realm) {
         Asserts.assertNotNull(emailOrUsername, "email or username");
         Asserts.assertNotNull(password, "password");
         Asserts.assertNotNull(realm, "realm");

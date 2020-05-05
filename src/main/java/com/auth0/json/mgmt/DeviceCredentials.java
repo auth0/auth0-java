@@ -68,7 +68,7 @@ public class DeviceCredentials {
     }
 
     /**
-     * Getter for the type of credential.
+     * Getter for the type of credential. Either 'public_key', 'refresh_token' or 'rotating_refresh_token'.
      *
      * @return the type of credential.
      */
@@ -78,7 +78,7 @@ public class DeviceCredentials {
     }
 
     /**
-     * Setter for the type of credential. Either 'public_key' or 'refresh_token'.
+     * Setter for the type of credential. Either 'public_key', 'refresh_token' or 'rotating_refresh_token'.
      *
      * @param type the type of credential to set.
      */

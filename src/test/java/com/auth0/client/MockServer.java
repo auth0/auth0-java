@@ -53,6 +53,7 @@ public class MockServer {
     public static final String MGMT_ROLE_USERS_LIST = "src/test/resources/mgmt/role_users_list.json";
     public static final String MGMT_ROLE_USERS_PAGED_LIST = "src/test/resources/mgmt/role_users_paged_list.json";
     public static final String MGMT_RULES_LIST = "src/test/resources/mgmt/rules_list.json";
+    public static final String MGMT_RULES_CONFIGS_LIST = "src/test/resources/mgmt/rules_configs_list.json";
     public static final String MGMT_RULES_PAGED_LIST = "src/test/resources/mgmt/rules_paged_list.json";
     public static final String MGMT_RULE = "src/test/resources/mgmt/rule.json";
     public static final String MGMT_USER_BLOCKS = "src/test/resources/mgmt/user_blocks.json";
@@ -83,7 +84,12 @@ public class MockServer {
     public static final String MGMT_PASSWORD_CHANGE_TICKET = "src/test/resources/mgmt/password_change_ticket.json";
     public static final String MGMT_EMAIL_VERIFICATION_TICKET = "src/test/resources/mgmt/email_verification_ticket.json";
     public static final String MGMT_EMPTY_LIST = "src/test/resources/mgmt/empty_list.json";
-    public static final String MGMT_JOB_POST_VERIFICATION_EMAIL = "src/test/resources/mgmt/post_verification_email.json";
+    public static final String MGMT_JOB = "src/test/resources/mgmt/job.json";
+    public static final String MGMT_JOB_POST_VERIFICATION_EMAIL = "src/test/resources/mgmt/job_post_verification_email.json";
+    public static final String MGMT_JOB_POST_USERS_EXPORTS = "src/test/resources/mgmt/job_post_users_exports.json";
+    public static final String MGMT_JOB_POST_USERS_IMPORTS = "src/test/resources/mgmt/job_post_users_imports.json";
+    public static final String MGMT_JOB_POST_USERS_IMPORTS_INPUT = "src/test/resources/mgmt/job_post_users_imports_input.json";
+    public static final String MULTIPART_SAMPLE = "src/test/resources/mgmt/multipart_sample.json";
 
     private final MockWebServer server;
 
@@ -116,7 +122,7 @@ public class MockServer {
         server.enqueue(response);
     }
 
-    public void rateLimitReachedResponse(long limit, long remaining, long reset) throws IOException {
+    public void rateLimitReachedResponse(long limit, long remaining, long reset) {
         MockResponse response = new MockResponse().setResponseCode(429);
         if (limit != -1) {
             response.addHeader("X-RateLimit-Limit", String.valueOf(limit));
@@ -138,7 +144,7 @@ public class MockServer {
         server.enqueue(response);
     }
 
-    public void emptyResponse(int statusCode) throws IOException {
+    public void emptyResponse(int statusCode) {
         MockResponse response = new MockResponse()
                 .setResponseCode(statusCode);
         server.enqueue(response);
@@ -147,13 +153,14 @@ public class MockServer {
     public static Map<String, Object> bodyFromRequest(RecordedRequest request) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
-        Buffer body = request.getBody();
-        try {
+        try (Buffer body = request.getBody()) {
             return mapper.readValue(body.inputStream(), mapType);
-        } catch (IOException e) {
-            throw e;
-        } finally {
-            body.close();
+        }
+    }
+
+    public static String readFromRequest(RecordedRequest request) {
+        try (Buffer body = request.getBody()) {
+            return body.readUtf8();
         }
     }
 }

@@ -178,6 +178,15 @@ public class ManagementAPI {
     }
 
     /**
+     * Getter for the Rules Configs entity.
+     *
+     * @return the Rules Configs entity.
+     */
+    public RulesConfigsEntity rulesConfigs() {
+        return new RulesConfigsEntity(client, baseUrl, apiToken);
+    }
+
+    /**
      * Getter for the User Blocks entity.
      *
      * @return the User Blocks entity.

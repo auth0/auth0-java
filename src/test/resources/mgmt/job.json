@@ -1,0 +1,10 @@
+{
+  "status": "completed",
+  "type": "verification_email",
+  "created_at": "",
+  "id": "job_0000000000000001",
+  "connection_id": "conn_1",
+  "location": "https://auth0.com/jobs",
+  "percentage_done": 100,
+  "time_left_seconds": 0
+}

@@ -21,7 +21,7 @@ public class User implements Serializable {
     @JsonProperty("connection")
     private String connection;
     @JsonProperty("password")
-    private String password;
+    private char[] password;
     @JsonProperty("verify_password")
     private Boolean verifyPassword;
     @JsonProperty("username")
@@ -99,9 +99,22 @@ public class User implements Serializable {
      * Setter for the password this user will have once created.
      *
      * @param password the password to set.
+     *
+     * @deprecated Use {@linkplain #setPassword(char[])} instead.
      */
     @JsonProperty("password")
+    @Deprecated
     public void setPassword(String password) {
+        setPassword(password != null ? password.toCharArray() : null);
+    }
+
+    /**
+     * Setter for the password this user will have once created.
+     *
+     * @param password the password to set.
+     */
+    @JsonProperty("password")
+    public void setPassword(char[] password) {
         this.password = password;
     }
 
@@ -501,7 +514,7 @@ public class User implements Serializable {
     }
 
     @JsonProperty("password")
-    String getPassword() {
+    char[] getPassword() {
         return password;
     }
 

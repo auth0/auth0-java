@@ -1,10 +1,16 @@
 package com.auth0.net;
 
-import com.auth0.exception.Auth0Exception;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 
+/**
+ * Request class that does not accept parameters to be sent as part of its body.
+ * The content type of this request is "application/json".
+ *
+ * @param <T> The type expected to be received as part of the response.
+ * @see CustomRequest
+ */
 public class EmptyBodyRequest<T> extends CustomRequest<T> {
 
     public EmptyBodyRequest(OkHttpClient client, String url, String method, TypeReference<T> tType) {
@@ -12,7 +18,7 @@ public class EmptyBodyRequest<T> extends CustomRequest<T> {
     }
 
     @Override
-    protected RequestBody createBody() throws Auth0Exception {
+    protected RequestBody createRequestBody() {
         return RequestBody.create(null, new byte[0]);
     }
 
