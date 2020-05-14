@@ -1,19 +1,14 @@
 package com.auth0.client.mgmt;
 
-import static com.auth0.client.MockServer.MGMT_EMPTY_LIST;
 import static com.auth0.client.MockServer.MGMT_ROLE;
 import static com.auth0.client.MockServer.MGMT_ROLES_LIST;
 import static com.auth0.client.MockServer.MGMT_ROLES_PAGED_LIST;
-import static com.auth0.client.MockServer.MGMT_ROLE_PERMISSIONS_LIST;
 import static com.auth0.client.MockServer.MGMT_ROLE_PERMISSIONS_PAGED_LIST;
-import static com.auth0.client.MockServer.MGMT_ROLE_USERS_LIST;
 import static com.auth0.client.MockServer.MGMT_ROLE_USERS_PAGED_LIST;
 import static com.auth0.client.MockServer.bodyFromRequest;
 import static com.auth0.client.RecordedRequestMatcher.hasHeader;
 import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
 import static com.auth0.client.RecordedRequestMatcher.hasQueryParameter;
-import static org.hamcrest.Matchers.emptyCollectionOf;
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasEntry;
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.hasSize;
@@ -28,7 +23,6 @@ import com.auth0.json.mgmt.Permission;
 import com.auth0.json.mgmt.PermissionsPage;
 import com.auth0.json.mgmt.Role;
 import com.auth0.json.mgmt.RolesPage;
-import com.auth0.json.mgmt.users.User;
 import com.auth0.json.mgmt.users.UsersPage;
 import com.auth0.net.Request;
 import java.util.ArrayList;
