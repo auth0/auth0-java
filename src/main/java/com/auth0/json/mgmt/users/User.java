@@ -447,7 +447,7 @@ public class User implements Serializable {
     }
 
     /**
-     * Getter for the last password reset date.
+     * Getter for the last password reset date. Only available for Database Connection users.
      *
      * @return the last password reset.
      */
