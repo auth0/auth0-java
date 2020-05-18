@@ -69,6 +69,9 @@ public class User implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @JsonProperty("last_login")
     private Date lastLogin;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonProperty("last_password_reset")
+    private Date lastPasswordReset;
     @JsonProperty("logins_count")
     private Integer loginsCount;
     @JsonProperty("blocked")
@@ -441,6 +444,17 @@ public class User implements Serializable {
     @JsonProperty("last_login")
     public Date getLastLogin() {
         return lastLogin;
+    }
+
+    /**
+     * Getter for the last password reset date. Only available for Database Connection users.
+     *
+     * @return the last password reset.
+     */
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonProperty("last_password_reset")
+    public Date getLastPasswordReset() {
+        return lastPasswordReset;
     }
 
     /**
