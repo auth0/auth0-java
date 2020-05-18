@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Class that represents an Auth0 Permission's Soruce object. Related to the {@link com.auth0.client.mgmt.UsersEntity} entity.
+ * Class that represents an Auth0 Permission's Source object. Related to the {@link com.auth0.client.mgmt.UsersEntity} entity.
  */
 @SuppressWarnings("unused")
 @JsonIgnoreProperties(ignoreUnknown = true)
