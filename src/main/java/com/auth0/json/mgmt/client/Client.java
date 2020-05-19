@@ -244,7 +244,7 @@ public class Client {
     /**
      * Getter for the list of the owner of this client.
      *
-     * @return the lisf of the owners.
+     * @return the list of the owners.
      */
     @JsonProperty("owners")
     public List<String> getOwners() { return owners; }
