@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Class that holds the data of a newly created User. Obtained after a call to {@link com.auth0.client.auth.AuthAPI#signUp(String, String, String)}
- * or {@link com.auth0.client.auth.AuthAPI#signUp(String, String, String, String)}.
+ * Class that holds the data of a newly created User. Obtained after a call to {@link com.auth0.client.auth.AuthAPI#signUp(String, char[], String)}
+ * or {@link com.auth0.client.auth.AuthAPI#signUp(String, String, char[], String)}.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)

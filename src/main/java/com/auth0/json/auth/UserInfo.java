@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  * Class that holds the Information related to a User's Access Token. Obtained after a call to {@link com.auth0.client.auth.AuthAPI#userInfo(String)},
- * {@link com.auth0.client.auth.AuthAPI#signUp(String, String, String)} or {@link com.auth0.client.auth.AuthAPI#signUp(String, String, String, String)}.
+ * {@link com.auth0.client.auth.AuthAPI#signUp(String, char[], String)} or {@link com.auth0.client.auth.AuthAPI#signUp(String, String, char[], String)}.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
