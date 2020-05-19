@@ -32,6 +32,8 @@ public class Client {
     private Boolean isFirstParty;
     @JsonProperty("oidc_conformant")
     private Boolean oidcConformant;
+    @JsonProperty("owners")
+    private List<String> owners;
     @JsonProperty("callbacks")
     private List<String> callbacks;
     @JsonProperty("allowed_origins")
@@ -236,6 +238,14 @@ public class Client {
     public void setOIDCConformant(Boolean oidcConformant) {
         this.oidcConformant = oidcConformant;
     }
+
+    /**
+     * Getter for the list of the owner of this client.
+     *
+     * @return the lisf of the owners.
+     */
+    @JsonProperty("owners")
+    public List<String> getOwners() { return owners; }
 
     /**
      * Getter for the list of allowed callback urls for the application.
