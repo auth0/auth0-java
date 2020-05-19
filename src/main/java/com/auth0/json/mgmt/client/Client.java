@@ -36,6 +36,8 @@ public class Client {
     private List<String> owners;
     @JsonProperty("callbacks")
     private List<String> callbacks;
+    @JsonProperty("global")
+    private Boolean global;
     @JsonProperty("allowed_origins")
     private List<String> allowedOrigins;
     @JsonProperty("web_origins")
@@ -266,6 +268,13 @@ public class Client {
     public void setCallbacks(List<String> callbacks) {
         this.callbacks = callbacks;
     }
+
+    /**
+     * Whether this is your global 'All Applications' client representing legacy tenant settings (true) or a regular client (false).
+     *
+     * @return true if global client, false otherwise.
+     */
+    public Boolean isGlobal() { return global; }
 
     /**
      * Getter for the list of allowed origins for the application.
