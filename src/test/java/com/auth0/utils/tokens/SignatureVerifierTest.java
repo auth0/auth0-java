@@ -1,7 +1,8 @@
 package com.auth0.utils.tokens;
 
 import com.auth0.exception.IdTokenValidationException;
-import com.auth0.exception.PublicKeyException;
+import com.auth0.exception.PublicKeyProviderException;
+import com.auth0.jwt.exceptions.AlgorithmMismatchException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.bouncycastle.util.io.pem.PemReader;
 import org.junit.Rule;
@@ -21,6 +22,7 @@ import java.security.spec.EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Scanner;
 
+import static org.hamcrest.CoreMatchers.isA;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
@@ -39,7 +41,8 @@ public class SignatureVerifierTest {
     @Test
     public void failsWhenAlgorithmIsNotExpected() {
         exception.expect(IdTokenValidationException.class);
-        exception.expectMessage("Signature algorithm of \"none\" is not supported. Expected the ID token to be signed with \"[HS256]\".");
+        exception.expectMessage("Token signed with an unexpected algorithm");
+        exception.expectCause(isA(AlgorithmMismatchException.class));
 
         SignatureVerifier verifier = SignatureVerifier.forHS256("secret");
         verifier.verifySignature(NONE_JWT);
@@ -57,7 +60,8 @@ public class SignatureVerifierTest {
     @Test
     public void failsWhenAlgorithmRS256IsNotExpected() {
         exception.expect(IdTokenValidationException.class);
-        exception.expectMessage("Signature algorithm of \"RS256\" is not supported. Expected the ID token to be signed with \"[HS256]\".");
+        exception.expectMessage("Token signed with an unexpected algorithm");
+        exception.expectCause(isA(AlgorithmMismatchException.class));
 
         SignatureVerifier verifier = SignatureVerifier.forHS256("secret");
         verifier.verifySignature(RS_JWT);
@@ -66,9 +70,11 @@ public class SignatureVerifierTest {
     @Test
     public void failsWhenAlgorithmHS256IsNotExpected() throws Exception {
         exception.expect(IdTokenValidationException.class);
-        exception.expectMessage("Signature algorithm of \"HS256\" is not supported. Expected the ID token to be signed with \"[RS256]\".");
+        exception.expectMessage("Token signed with an unexpected algorithm");
+        exception.expectCause(isA(AlgorithmMismatchException.class));
 
         SignatureVerifier verifier = SignatureVerifier.forRS256(getRSProvider(RS_PUBLIC_KEY));
+
         verifier.verifySignature(HS_JWT);
     }
 
@@ -118,34 +124,26 @@ public class SignatureVerifierTest {
     @Test
     public void failsWhenErrorGettingPublicKey() throws Exception {
         exception.expect(IdTokenValidationException.class);
+        exception.expectCause(isA(PublicKeyProviderException.class));
         exception.expectMessage("Error retrieving public key");
+
         SignatureVerifier verifier = SignatureVerifier.forRS256(new PublicKeyProvider() {
             @Override
-            public RSAPublicKey getPublicKeyById(String keyId) throws PublicKeyException {
-                throw new PublicKeyException("error");
+            public RSAPublicKey getPublicKeyById(String keyId) throws PublicKeyProviderException {
+                throw new PublicKeyProviderException("error");
             }
         });
         verifier.verifySignature(RS_JWT);
     }
 
-    @Test
-    public void skipsVerificationWhenVerifierIsNull() {
-        SignatureVerifier signatureVerifier = new NullVerifier();
-        DecodedJWT decoded1 = signatureVerifier.verifySignature(HS_JWT);
-        DecodedJWT decoded2 = signatureVerifier.verifySignature(RS_JWT);
-
-        assertThat(decoded1, notNullValue());
-        assertThat(decoded2, notNullValue());
-    }
-
     private PublicKeyProvider getRSProvider(String rsaPath) throws Exception {
         return new PublicKeyProvider() {
             @Override
-            public RSAPublicKey getPublicKeyById(String keyId) throws PublicKeyException {
+            public RSAPublicKey getPublicKeyById(String keyId) throws PublicKeyProviderException {
                 try {
                     return readPublicKeyFromFile(rsaPath);
                 } catch (IOException ioe) {
-                    throw new PublicKeyException(ioe);
+                    throw new PublicKeyProviderException("Error reading public key", ioe);
                 }
             };
         };
@@ -181,11 +179,4 @@ public class SignatureVerifierTest {
             }
         }
     }
-
-    private static class NullVerifier extends SignatureVerifier {
-        NullVerifier() {
-            super(null, "HS256", "RS256");
-        }
-    }
-
 }

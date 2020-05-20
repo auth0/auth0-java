@@ -10,7 +10,7 @@ import com.auth0.jwt.interfaces.JWTVerifier;
 class HS256SignatureVerifier extends SignatureVerifier {
 
     HS256SignatureVerifier(String secret) {
-        super(createJWTVerifier(secret), "HS256");
+        super(createJWTVerifier(secret));
     }
 
     private static JWTVerifier createJWTVerifier(String secret) {

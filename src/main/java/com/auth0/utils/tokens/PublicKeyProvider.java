@@ -1,6 +1,6 @@
 package com.auth0.utils.tokens;
 
-import com.auth0.exception.PublicKeyException;
+import com.auth0.exception.PublicKeyProviderException;
 
 import java.security.interfaces.RSAPublicKey;
 
@@ -16,11 +16,11 @@ import java.security.interfaces.RSAPublicKey;
  * JwkProvider provider = new JwkProviderBuilder("https://your-domain.auth0.com").build();
  * SignatureVerifier sigVerifier = SignatureVerifier.forRS256(new PublicKeyProvider() {
  *     &#064;Override
- *     public RSAPublicKey getPublicKeyById(String keyId) throws PublicKeyException {
+ *     public RSAPublicKey getPublicKeyById(String keyId) throws PublicKeyProviderException {
  *         try {
  *             return (RSAPublicKey) provider.get(keyId).getPublicKey();
  *         } catch (JwkException jwke) {
- *             throw new PublicKeyException("Error obtaining public key", jwke);
+ *             throw new PublicKeyProviderException("Error obtaining public key", jwke);
  *         }
  *     }
  * }
@@ -33,7 +33,7 @@ public interface PublicKeyProvider {
      *
      * @param keyId the key ID for which to retrieve the key.
      * @return the {@code RSAPublicKey} for the given key ID.
-     * @throws PublicKeyException if the public key cannot be retrieved.
+     * @throws PublicKeyProviderException if the public key cannot be retrieved.
      */
-    RSAPublicKey getPublicKeyById(String keyId) throws PublicKeyException;
+    RSAPublicKey getPublicKeyById(String keyId) throws PublicKeyProviderException;
 }

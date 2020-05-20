@@ -1,7 +1,7 @@
 package com.auth0.utils.tokens;
 
 import com.auth0.exception.IdTokenValidationException;
-import com.auth0.exception.PublicKeyException;
+import com.auth0.exception.PublicKeyProviderException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.JWTVerifier;
@@ -16,7 +16,7 @@ import java.security.interfaces.RSAPublicKey;
 class RS256SignatureVerifier extends SignatureVerifier {
 
     RS256SignatureVerifier(PublicKeyProvider publicKeyProvider) {
-        super(createJWTVerifier(publicKeyProvider), "RS256");
+        super(createJWTVerifier(publicKeyProvider));
     }
 
     private static JWTVerifier createJWTVerifier(final PublicKeyProvider publicKeyProvider) {
@@ -25,7 +25,7 @@ class RS256SignatureVerifier extends SignatureVerifier {
             public RSAPublicKey getPublicKeyById(String keyId) {
                 try {
                     return publicKeyProvider.getPublicKeyById(keyId);
-                } catch (PublicKeyException pke) {
+                } catch (PublicKeyProviderException pke) {
                     throw new IdTokenValidationException("Error retrieving public key", pke);
                 }
             }
