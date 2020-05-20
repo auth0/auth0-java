@@ -13,12 +13,12 @@ import java.security.interfaces.RSAPublicKey;
  * <a href="https://github.com/auth0/jwks-rsa-java">jwks-rsa-java library</a> to fetch the public key.</p>
  *
  * <pre>
+ * JwkProvider provider = new JwkProviderBuilder("https://your-domain.auth0.com").build();
  * SignatureVerifier sigVerifier = SignatureVerifier.forRS256(new PublicKeyProvider() {
  *     &#064;Override
  *     public RSAPublicKey getPublicKeyById(String keyId) throws PublicKeyException {
  *         try {
- *             Jwk jwk = new JwkProviderBuilder("https://your-domain.auth0.com/").build().get(keyId);
- *             return (RSAPublicKey) jwk.getPublicKey();
+ *             return (RSAPublicKey) provider.get(keyId).getPublicKey();
  *         } catch (JwkException jwke) {
  *             throw new PublicKeyException("Error obtaining public key", jwke);
  *         }
