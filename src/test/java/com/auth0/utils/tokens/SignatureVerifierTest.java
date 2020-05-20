@@ -2,9 +2,6 @@ package com.auth0.utils.tokens;
 
 import com.auth0.exception.IdTokenValidationException;
 import com.auth0.exception.PublicKeyException;
-import com.auth0.jwk.Jwk;
-import com.auth0.jwk.JwkException;
-import com.auth0.jwk.JwkProvider;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.bouncycastle.util.io.pem.PemReader;
 import org.junit.Rule;
@@ -26,8 +23,6 @@ import java.util.Scanner;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class SignatureVerifierTest {
 
@@ -35,8 +30,8 @@ public class SignatureVerifierTest {
     private static final String NONE_JWT = "eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJub25jZSI6IjEyMzQiLCJpc3MiOiJodHRwczovL21lLmF1dGgwLmNvbS8iLCJhdWQiOiJkYU9nbkdzUlloa3d1NjIxdmYiLCJzdWIiOiJhdXRoMHx1c2VyMTIzIn0.";
     private static final String HS_JWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6IjEyMzQiLCJpc3MiOiJodHRwczovL21lLmF1dGgwLmNvbS8iLCJhdWQiOiJkYU9nbkdzUlloa3d1NjIxdmYiLCJzdWIiOiJhdXRoMHx1c2VyMTIzIn0.a7ayNmFTxS2D-EIoUikoJ6dck7I8veWyxnje_mYD3qY";
     private static final String RS_JWT = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImFiYzEyMyJ9.eyJub25jZSI6IjEyMzQiLCJpc3MiOiJodHRwczovL21lLmF1dGgwLmNvbS8iLCJhdWQiOiJkYU9nbkdzUlloa3d1NjIxdmYiLCJzdWIiOiJhdXRoMHx1c2VyMTIzIn0.PkPWdoZNfXz8EB0SBPH83lNSOhyhdhdqYIgIwgY2nHozUnFOaUjVewlAXxP_3LBGibQ_ng4s5fEEOCJjaKBy04McryvOuL6nqb1dPQseeyxuv2zQitfrs-7kEtfeS3umywM-tV6guw9_W3nmIgaXOiYiF4WJM23ItbdCmvwdXLaf9-xHkQbRY_zEwEFbprFttKUXFbkPt6XjZ3zZwZbNZn64bx2PBiSJ2KMZAE3Lghmci-RXdhi7hXpmN30Tzze1ZsjvVeRRKNzShByKK9ZGZPmQ5yggJOXFy32ehjGkYwFMCqgMQomcGbcYhsd97huKHMHl3HOE5GDYjIq9o9oKRA";
-    private static final String RS_PUBLIC_KEY = "src/test/resources/keys/public.pem";
-    private static final String RS_PUBLIC_KEY_BAD = "src/test/resources/keys/bad-public.pem";
+    private static final String RS_PUBLIC_KEY = "src/test/resources/keys/public-rsa.pem";
+    private static final String RS_PUBLIC_KEY_BAD = "src/test/resources/keys/bad-public-rsa.pem";
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
@@ -122,19 +117,12 @@ public class SignatureVerifierTest {
 
     @Test
     public void failsWhenErrorGettingPublicKey() throws Exception {
-        JwkProvider  jwkProvider = mock(JwkProvider.class);
-        when(jwkProvider.get("abc123")).thenThrow(JwkException.class);
-
         exception.expect(IdTokenValidationException.class);
         exception.expectMessage("Error retrieving public key");
         SignatureVerifier verifier = SignatureVerifier.forRS256(new PublicKeyProvider() {
             @Override
             public RSAPublicKey getPublicKeyById(String keyId) throws PublicKeyException {
-                try {
-                    return (RSAPublicKey) jwkProvider.get(keyId);
-                } catch (JwkException jwke) {
-                    throw new PublicKeyException(jwke);
-                }
+                throw new PublicKeyException("error");
             }
         });
         verifier.verifySignature(RS_JWT);
@@ -151,18 +139,13 @@ public class SignatureVerifierTest {
     }
 
     private PublicKeyProvider getRSProvider(String rsaPath) throws Exception {
-        JwkProvider jwkProvider = mock(JwkProvider.class);
-        Jwk jwk = mock(Jwk.class);
-        when(jwkProvider.get("abc123")).thenReturn(jwk);
-        RSAPublicKey key = readPublicKeyFromFile(rsaPath);
-        when(jwk.getPublicKey()).thenReturn(key);
         return new PublicKeyProvider() {
             @Override
             public RSAPublicKey getPublicKeyById(String keyId) throws PublicKeyException {
                 try {
-                    return (RSAPublicKey) jwk.getPublicKey();
-                } catch (JwkException jwke) {
-                    throw new PublicKeyException(jwke);
+                    return readPublicKeyFromFile(rsaPath);
+                } catch (IOException ioe) {
+                    throw new PublicKeyException(ioe);
                 }
             };
         };

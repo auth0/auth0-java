@@ -49,6 +49,8 @@ public abstract class Asserts {
 
     /**
      * Asserts that an array is not null and has at least one item.
+     *
+     * @param <T> the object type.
      * @param value the value to check.
      * @param name the name of the parameter, used when creating the exception message.
      * @throws IllegalArgumentException if the value is null or has length of zero.
