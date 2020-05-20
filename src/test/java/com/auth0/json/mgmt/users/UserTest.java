@@ -9,12 +9,13 @@ import java.util.Collections;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.collection.IsMapContaining.hasEntry;
 
 public class UserTest extends JsonTest<User> {
 
     private static final String json = "{\"user_id\":\"user|123\",\"connection\":\"auth0\",\"client_id\":\"client123\",\"password\":\"pwd\",\"verify_password\":true,\"username\":\"usr\",\"email\":\"me@auth0.com\",\"email_verified\":true,\"verify_email\":true,\"phone_number\":\"1234567890\",\"phone_verified\":true,\"verify_phone_number\":true,\"picture\":\"https://pic.ture/12\",\"name\":\"John\",\"nickname\":\"Johny\",\"given_name\":\"John\",\"family_name\":\"Walker\",\"app_metadata\":{},\"user_metadata\":{},\"blocked\":true,\"context\":\"extra information\"}";
-    private static final String readOnlyJson = "{\"user_id\":\"user|123\",\"last_ip\":\"10.0.0.1\",\"last_login\":\"2016-02-23T19:57:29.532Z\",\"logins_count\":10,\"created_at\":\"2016-02-23T19:57:29.532Z\",\"updated_at\":\"2016-02-23T19:57:29.532Z\",\"identities\":[]}";
+    private static final String readOnlyJson = "{\"user_id\":\"user|123\",\"last_ip\":\"10.0.0.1\",\"last_login\":\"2016-02-23T19:57:29.532Z\",\"last_password_reset\":\"2016-02-23T19:57:29.532Z\",\"logins_count\":10,\"created_at\":\"2016-02-23T19:57:29.532Z\",\"updated_at\":\"2016-02-23T19:57:29.532Z\",\"identities\":[]}";
 
     @Test
     public void shouldHaveEmptyValuesByDefault() throws Exception{
@@ -81,7 +82,7 @@ public class UserTest extends JsonTest<User> {
         assertThat(user, is(notNullValue()));
         assertThat(user.getId(), is("user|123"));
         assertThat(user.getConnection(), is("auth0"));
-        assertThat(user.getPassword(), is("pwd"));
+        assertThat(user.getPassword(), is(new char[]{'p','w','d'}));
         assertThat(user.willVerifyPassword(), is(true));
         assertThat(user.getUsername(), is("usr"));
         assertThat(user.getEmail(), is("me@auth0.com"));
@@ -112,8 +113,34 @@ public class UserTest extends JsonTest<User> {
         assertThat(user.getCreatedAt(), is(parseJSONDate("2016-02-23T19:57:29.532Z")));
         assertThat(user.getUpdatedAt(), is(parseJSONDate("2016-02-23T19:57:29.532Z")));
         assertThat(user.getLastLogin(), is(parseJSONDate("2016-02-23T19:57:29.532Z")));
+        assertThat(user.getLastPasswordReset(), is(parseJSONDate("2016-02-23T19:57:29.532Z")));
         assertThat(user.getIdentities(), is(notNullValue()));
         assertThat(user.getLastIP(), is("10.0.0.1"));
         assertThat(user.getLoginsCount(), is(10));
+    }
+
+    @Test
+    public void shouldHandleNullPasswordString() {
+        User user = new User();
+        user.setPassword((String) null);
+
+        assertThat(user.getPassword(), is(nullValue()));
+    }
+
+    @Test
+    public void shouldHandleNullPasswordCharArray() {
+        User user = new User();
+        user.setPassword((char[]) null);
+
+        assertThat(user.getPassword(), is(nullValue()));
+    }
+
+    @Test
+    public void shouldGetPasswordAsCharArray() {
+        String password = "secret";
+        User user = new User();
+        user.setPassword(password);
+
+        assertThat(user.getPassword(), is(password.toCharArray()));
     }
 }

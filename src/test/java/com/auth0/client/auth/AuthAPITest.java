@@ -369,10 +369,17 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldThrowOnSignUpWithNullPassword() throws Exception {
+    public void shouldThrowOnSignUpWithNullPasswordString() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'password' cannot be null!");
-        api.signUp("me@auth0.com", null, "my-connection");
+        api.signUp("me@auth0.com", (String) null, "my-connection");
+    }
+
+    @Test
+    public void shouldThrowOnSignUpWithNullPasswordCharArray() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'password' cannot be null!");
+        api.signUp("me@auth0.com", (char[]) null, "my-connection");
     }
 
     @Test
@@ -397,10 +404,17 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldThrowOnUsernameSignUpWithNullPassword() throws Exception {
+    public void shouldThrowOnUsernameSignUpWithNullPasswordString() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'password' cannot be null!");
-        api.signUp("me@auth0.com", "me", null, "my-connection");
+        api.signUp("me@auth0.com", "me", (String) null, "my-connection");
+    }
+
+    @Test
+    public void shouldThrowOnUsernameSignUpWithNullPasswordCharArray() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'password' cannot be null!");
+        api.signUp("me@auth0.com", "me", (char[]) null, "my-connection");
     }
 
     @Test
@@ -611,7 +625,14 @@ public class AuthAPITest {
     public void shouldThrowOnLogInWithPasswordWithNullPassword() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'password' cannot be null!");
-        api.login("me", null);
+        api.login("me", (String) null);
+    }
+
+    @Test
+    public void shouldThrowOnLogInWithCharPasswordWithNullPassword() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'password' cannot be null!");
+        api.login("me", (char[]) null);
     }
 
     @Test
@@ -685,10 +706,17 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldThrowOnLogInWithPasswordRealmWithNullPassword() throws Exception {
+    public void shouldThrowOnLogInWithPasswordRealmWithNullPasswordString() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'password' cannot be null!");
-        api.login("me", null, "realm");
+        api.login("me", (String) null, "realm");
+    }
+
+    @Test
+    public void shouldThrowOnLogInWithPasswordRealmWithNullPasswordCharArray() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'password' cannot be null!");
+        api.login("me", (char[]) null, "realm");
     }
 
     @Test

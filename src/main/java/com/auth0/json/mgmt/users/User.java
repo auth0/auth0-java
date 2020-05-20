@@ -21,7 +21,7 @@ public class User implements Serializable {
     @JsonProperty("connection")
     private String connection;
     @JsonProperty("password")
-    private String password;
+    private char[] password;
     @JsonProperty("verify_password")
     private Boolean verifyPassword;
     @JsonProperty("username")
@@ -69,6 +69,9 @@ public class User implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @JsonProperty("last_login")
     private Date lastLogin;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonProperty("last_password_reset")
+    private Date lastPasswordReset;
     @JsonProperty("logins_count")
     private Integer loginsCount;
     @JsonProperty("blocked")
@@ -99,9 +102,22 @@ public class User implements Serializable {
      * Setter for the password this user will have once created.
      *
      * @param password the password to set.
+     *
+     * @deprecated Use {@linkplain #setPassword(char[])} instead.
      */
     @JsonProperty("password")
+    @Deprecated
     public void setPassword(String password) {
+        setPassword(password != null ? password.toCharArray() : null);
+    }
+
+    /**
+     * Setter for the password this user will have once created.
+     *
+     * @param password the password to set.
+     */
+    @JsonProperty("password")
+    public void setPassword(char[] password) {
         this.password = password;
     }
 
@@ -431,6 +447,17 @@ public class User implements Serializable {
     }
 
     /**
+     * Getter for the last password reset date. Only available for Database Connection users.
+     *
+     * @return the last password reset.
+     */
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonProperty("last_password_reset")
+    public Date getLastPasswordReset() {
+        return lastPasswordReset;
+    }
+
+    /**
      * Getter for the number of logins for this user.
      *
      * @return the logins count.
@@ -501,7 +528,7 @@ public class User implements Serializable {
     }
 
     @JsonProperty("password")
-    String getPassword() {
+    char[] getPassword() {
         return password;
     }
 

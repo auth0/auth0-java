@@ -1,5 +1,6 @@
 package com.auth0.json.auth;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class CreatedUser {
 
     @JsonProperty("_id")
+    @JsonAlias({"_id", "id", "user_id"})
     private String userId;
     @JsonProperty("email")
     private String email;
@@ -22,6 +24,7 @@ public class CreatedUser {
     private Boolean emailVerified;
 
     @JsonProperty("_id")
+    @JsonAlias({"_id", "id", "user_id"})
     public String getUserId() {
         return userId;
     }
