@@ -10,7 +10,7 @@ public abstract class Asserts {
      *
      * @param value the value to check.
      * @param name the name of the parameter, used when creating the exception message.
-     * @throws IllegalArgumentException if the value is null or has length of zero.
+     * @throws IllegalArgumentException if the value is null
      */
     public static void assertNotNull(Object value, String name) {
         if (value == null) {

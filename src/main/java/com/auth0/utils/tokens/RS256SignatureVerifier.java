@@ -26,7 +26,7 @@ class RS256SignatureVerifier extends SignatureVerifier {
                 try {
                     return publicKeyProvider.getPublicKeyById(keyId);
                 } catch (PublicKeyProviderException pke) {
-                    throw new IdTokenValidationException("Error retrieving public key", pke);
+                    throw new IdTokenValidationException(String.format("Could not find a public key for Key ID (kid) \"%s\"", keyId), pke);
                 }
             }
 

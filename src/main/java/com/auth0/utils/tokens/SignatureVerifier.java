@@ -65,7 +65,7 @@ public abstract class SignatureVerifier {
         } catch (AlgorithmMismatchException algorithmMismatchException) {
             throw new IdTokenValidationException("Token signed with an unexpected algorithm", algorithmMismatchException);
         } catch (SignatureVerificationException signatureVerificationException) {
-            throw new IdTokenValidationException("Invalid token signature", signatureVerificationException);
+            throw new IdTokenValidationException("Invalid ID token signature", signatureVerificationException);
         } catch (JWTVerificationException ignored) {
             // no-op. Would only occur for expired tokens, which will be handle during claims validation
         }
