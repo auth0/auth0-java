@@ -122,7 +122,7 @@ public class SignatureVerifierTest {
     }
 
     @Test
-    public void failsWhenErrorGettingPublicKey() throws Exception {
+    public void failsWhenErrorGettingPublicKey() {
         exception.expect(IdTokenValidationException.class);
         exception.expectCause(isA(PublicKeyProviderException.class));
         exception.expectMessage("Error retrieving public key");
@@ -134,6 +134,13 @@ public class SignatureVerifierTest {
             }
         });
         verifier.verifySignature(RS_JWT);
+    }
+
+    @Test
+    public void failsWithNullVerifier() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'verifier' cannot be null");
+        new NullVerifier();
     }
 
     private PublicKeyProvider getRSProvider(String rsaPath) throws Exception {
@@ -177,6 +184,12 @@ public class SignatureVerifierTest {
             if (pemReader != null) {
                 pemReader.close();
             }
+        }
+    }
+
+    private static class NullVerifier extends SignatureVerifier {
+        NullVerifier() {
+            super(null);
         }
     }
 }
