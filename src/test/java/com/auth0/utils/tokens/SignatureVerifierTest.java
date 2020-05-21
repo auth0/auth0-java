@@ -22,8 +22,8 @@ import java.security.spec.EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Scanner;
 
-import static org.hamcrest.CoreMatchers.isA;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.Matchers.hasProperty;
 import static org.junit.Assert.assertThat;
 
 public class SignatureVerifierTest {
@@ -131,6 +131,24 @@ public class SignatureVerifierTest {
             @Override
             public RSAPublicKey getPublicKeyById(String keyId) throws PublicKeyProviderException {
                 throw new PublicKeyProviderException("error");
+            }
+        });
+        verifier.verifySignature(RS_JWT);
+    }
+
+    @Test
+    public void failsWhenErrorGettingPublicKeyAndHasNestedExceptionCause() {
+        exception.expect(IdTokenValidationException.class);
+        exception.expectMessage("Error retrieving public key");
+        exception.expectCause(allOf(
+                instanceOf(PublicKeyProviderException.class),
+                hasProperty("cause", instanceOf(IOException.class))
+        ));
+
+        SignatureVerifier verifier = SignatureVerifier.forRS256(new PublicKeyProvider() {
+            @Override
+            public RSAPublicKey getPublicKeyById(String keyId) throws PublicKeyProviderException {
+                throw new PublicKeyProviderException("error", new IOException("error reading file"));
             }
         });
         verifier.verifySignature(RS_JWT);
