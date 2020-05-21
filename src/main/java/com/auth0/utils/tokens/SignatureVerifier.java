@@ -16,6 +16,7 @@ import com.auth0.utils.Asserts;
  */
 public abstract class SignatureVerifier {
 
+    private final JWTVerifier verifier;
     private final Algorithm algorithm;
 
     /**
@@ -49,6 +50,9 @@ public abstract class SignatureVerifier {
     SignatureVerifier(Algorithm algorithm) {
         Asserts.assertNotNull(algorithm, "algorithm");
         this.algorithm = algorithm;
+        this.verifier = JWT.require(algorithm)
+                .ignoreIssuedAt()
+                .build();
     }
 
     /**
@@ -61,12 +65,8 @@ public abstract class SignatureVerifier {
     DecodedJWT verifySignature(String token) throws IdTokenValidationException {
         DecodedJWT decoded = decodeToken(token);
 
-        JWTVerifier verifier = JWT.require(algorithm)
-                .ignoreIssuedAt()
-                .build();
-
         try {
-            verifier.verify(decoded);
+            this.verifier.verify(decoded);
         } catch (AlgorithmMismatchException algorithmMismatchException) {
             String message = String.format("Signature algorithm of \"%s\" is not supported. Expected the ID token to be signed with \"%s\"",
                     decoded.getAlgorithm(), this.algorithm.getName());
