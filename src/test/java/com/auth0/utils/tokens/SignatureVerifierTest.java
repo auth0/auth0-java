@@ -97,7 +97,7 @@ public class SignatureVerifierTest {
     @Test
     public void failsWithInvalidSignatureHS256Token() {
         exception.expect(IdTokenValidationException.class);
-        exception.expectMessage("Invalid token signature");
+        exception.expectMessage("Invalid ID token signature");
 
         SignatureVerifier verifier = SignatureVerifier.forHS256("badsecret");
         verifier.verifySignature(HS_JWT);
@@ -114,7 +114,7 @@ public class SignatureVerifierTest {
     @Test
     public void failsWithInvalidSignatureRS256Token() throws Exception {
         exception.expect(IdTokenValidationException.class);
-        exception.expectMessage("Invalid token signature");
+        exception.expectMessage("Invalid ID token signature");
         SignatureVerifier verifier = SignatureVerifier.forRS256(getRSProvider(RS_PUBLIC_KEY_BAD));
         DecodedJWT decodedJWT = verifier.verifySignature(RS_JWT);
 
@@ -125,30 +125,12 @@ public class SignatureVerifierTest {
     public void failsWhenErrorGettingPublicKey() {
         exception.expect(IdTokenValidationException.class);
         exception.expectCause(isA(PublicKeyProviderException.class));
-        exception.expectMessage("Error retrieving public key");
+        exception.expectMessage("Could not find a public key for Key ID (kid) \"abc123\"");
 
         SignatureVerifier verifier = SignatureVerifier.forRS256(new PublicKeyProvider() {
             @Override
             public RSAPublicKey getPublicKeyById(String keyId) throws PublicKeyProviderException {
                 throw new PublicKeyProviderException("error");
-            }
-        });
-        verifier.verifySignature(RS_JWT);
-    }
-
-    @Test
-    public void failsWhenErrorGettingPublicKeyAndHasNestedExceptionCause() {
-        exception.expect(IdTokenValidationException.class);
-        exception.expectMessage("Error retrieving public key");
-        exception.expectCause(allOf(
-                instanceOf(PublicKeyProviderException.class),
-                hasProperty("cause", instanceOf(IOException.class))
-        ));
-
-        SignatureVerifier verifier = SignatureVerifier.forRS256(new PublicKeyProvider() {
-            @Override
-            public RSAPublicKey getPublicKeyById(String keyId) throws PublicKeyProviderException {
-                throw new PublicKeyProviderException("error", new IOException("error reading file"));
             }
         });
         verifier.verifySignature(RS_JWT);
