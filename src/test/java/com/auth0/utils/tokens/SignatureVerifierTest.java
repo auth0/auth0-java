@@ -23,7 +23,6 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Scanner;
 
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.Matchers.hasProperty;
 import static org.junit.Assert.assertThat;
 
 public class SignatureVerifierTest {
@@ -41,7 +40,7 @@ public class SignatureVerifierTest {
     @Test
     public void failsWhenAlgorithmIsNotExpected() {
         exception.expect(IdTokenValidationException.class);
-        exception.expectMessage("Token signed with an unexpected algorithm");
+        exception.expectMessage("Signature algorithm of \"none\" is not supported. Expected the ID token to be signed with \"HS256\"");
         exception.expectCause(isA(AlgorithmMismatchException.class));
 
         SignatureVerifier verifier = SignatureVerifier.forHS256("secret");
@@ -60,7 +59,7 @@ public class SignatureVerifierTest {
     @Test
     public void failsWhenAlgorithmRS256IsNotExpected() {
         exception.expect(IdTokenValidationException.class);
-        exception.expectMessage("Token signed with an unexpected algorithm");
+        exception.expectMessage("Signature algorithm of \"RS256\" is not supported. Expected the ID token to be signed with \"HS256\"");
         exception.expectCause(isA(AlgorithmMismatchException.class));
 
         SignatureVerifier verifier = SignatureVerifier.forHS256("secret");
@@ -70,7 +69,7 @@ public class SignatureVerifierTest {
     @Test
     public void failsWhenAlgorithmHS256IsNotExpected() throws Exception {
         exception.expect(IdTokenValidationException.class);
-        exception.expectMessage("Token signed with an unexpected algorithm");
+        exception.expectMessage("Signature algorithm of \"HS256\" is not supported. Expected the ID token to be signed with \"RS256\"");
         exception.expectCause(isA(AlgorithmMismatchException.class));
 
         SignatureVerifier verifier = SignatureVerifier.forRS256(getRSProvider(RS_PUBLIC_KEY));
@@ -190,6 +189,11 @@ public class SignatureVerifierTest {
     private static class NullVerifier extends SignatureVerifier {
         NullVerifier() {
             super(null);
+        }
+
+        @Override
+        String getAlgorithm() {
+            return "null";
         }
     }
 }

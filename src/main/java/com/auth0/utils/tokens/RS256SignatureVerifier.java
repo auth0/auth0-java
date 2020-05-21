@@ -19,6 +19,11 @@ class RS256SignatureVerifier extends SignatureVerifier {
         super(createJWTVerifier(publicKeyProvider));
     }
 
+    @Override
+    String getAlgorithm() {
+        return "RS256";
+    }
+
     private static JWTVerifier createJWTVerifier(final PublicKeyProvider publicKeyProvider) {
         Algorithm alg = Algorithm.RSA256(new RSAKeyProvider() {
             @Override

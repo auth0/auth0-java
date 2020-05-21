@@ -13,6 +13,11 @@ class HS256SignatureVerifier extends SignatureVerifier {
         super(createJWTVerifier(secret));
     }
 
+    @Override
+    String getAlgorithm() {
+        return "HS256";
+    }
+
     private static JWTVerifier createJWTVerifier(String secret) {
         Algorithm alg = Algorithm.HMAC256(secret);
         return JWT.require(alg)

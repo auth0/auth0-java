@@ -41,6 +41,13 @@ public abstract class SignatureVerifier {
     }
 
     /**
+     * Gets the signing algorithm for this verifier to be used when verifying the ID token's signature.
+     *
+     * @return the signing algorithm for this verifier.
+     */
+    abstract String getAlgorithm();
+
+    /**
      * Creates a new JWT Signature Verifier. Used by internal implementations to create concrete verifiers.
      *
      * @param verifier the instance that knows how to verify the signature. Must not be {@code null}.
@@ -63,7 +70,9 @@ public abstract class SignatureVerifier {
         try {
             verifier.verify(decoded);
         } catch (AlgorithmMismatchException algorithmMismatchException) {
-            throw new IdTokenValidationException("Token signed with an unexpected algorithm", algorithmMismatchException);
+            String message = String.format("Signature algorithm of \"%s\" is not supported. Expected the ID token to be signed with \"%s\"",
+                    decoded.getAlgorithm(), this.getAlgorithm());
+            throw new IdTokenValidationException(message, algorithmMismatchException);
         } catch (SignatureVerificationException signatureVerificationException) {
             throw new IdTokenValidationException("Invalid ID token signature", signatureVerificationException);
         } catch (JWTVerificationException ignored) {
