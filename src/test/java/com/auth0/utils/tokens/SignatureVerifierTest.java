@@ -138,7 +138,7 @@ public class SignatureVerifierTest {
     @Test
     public void failsWithNullVerifier() {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'verifier' cannot be null");
+        exception.expectMessage("'algorithm' cannot be null");
         new NullVerifier();
     }
 
@@ -189,11 +189,6 @@ public class SignatureVerifierTest {
     private static class NullVerifier extends SignatureVerifier {
         NullVerifier() {
             super(null);
-        }
-
-        @Override
-        String getAlgorithm() {
-            return "null";
         }
     }
 }

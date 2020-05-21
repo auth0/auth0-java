@@ -2,6 +2,7 @@ package com.auth0.utils.tokens;
 
 import com.auth0.exception.IdTokenValidationException;
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.AlgorithmMismatchException;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
@@ -15,7 +16,7 @@ import com.auth0.utils.Asserts;
  */
 public abstract class SignatureVerifier {
 
-    private final JWTVerifier verifier;
+    private final Algorithm algorithm;
 
     /**
      * Get a {@code SignatureVerifier} for use when validating an ID token signed using the HS256 signing algorithm.
@@ -41,20 +42,13 @@ public abstract class SignatureVerifier {
     }
 
     /**
-     * Gets the signing algorithm for this verifier to be used when verifying the ID token's signature.
-     *
-     * @return the signing algorithm for this verifier.
-     */
-    abstract String getAlgorithm();
-
-    /**
      * Creates a new JWT Signature Verifier. Used by internal implementations to create concrete verifiers.
      *
-     * @param verifier the instance that knows how to verify the signature. Must not be {@code null}.
+     * @param algorithm the algorithm used to verify the signature. Must not be {@code null}.
      */
-    SignatureVerifier(JWTVerifier verifier) {
-        Asserts.assertNotNull(verifier, "verifier");
-        this.verifier = verifier;
+    SignatureVerifier(Algorithm algorithm) {
+        Asserts.assertNotNull(algorithm, "algorithm");
+        this.algorithm = algorithm;
     }
 
     /**
@@ -67,11 +61,15 @@ public abstract class SignatureVerifier {
     DecodedJWT verifySignature(String token) throws IdTokenValidationException {
         DecodedJWT decoded = decodeToken(token);
 
+        JWTVerifier verifier = JWT.require(algorithm)
+                .ignoreIssuedAt()
+                .build();
+
         try {
             verifier.verify(decoded);
         } catch (AlgorithmMismatchException algorithmMismatchException) {
             String message = String.format("Signature algorithm of \"%s\" is not supported. Expected the ID token to be signed with \"%s\"",
-                    decoded.getAlgorithm(), this.getAlgorithm());
+                    decoded.getAlgorithm(), this.algorithm.getName());
             throw new IdTokenValidationException(message, algorithmMismatchException);
         } catch (SignatureVerificationException signatureVerificationException) {
             throw new IdTokenValidationException("Invalid ID token signature", signatureVerificationException);

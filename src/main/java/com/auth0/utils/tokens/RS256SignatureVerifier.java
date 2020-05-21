@@ -2,9 +2,7 @@ package com.auth0.utils.tokens;
 
 import com.auth0.exception.IdTokenValidationException;
 import com.auth0.exception.PublicKeyProviderException;
-import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.interfaces.JWTVerifier;
 import com.auth0.jwt.interfaces.RSAKeyProvider;
 
 import java.security.interfaces.RSAPrivateKey;
@@ -16,16 +14,11 @@ import java.security.interfaces.RSAPublicKey;
 class RS256SignatureVerifier extends SignatureVerifier {
 
     RS256SignatureVerifier(PublicKeyProvider publicKeyProvider) {
-        super(createJWTVerifier(publicKeyProvider));
+        super(getAlgorithm(publicKeyProvider));
     }
 
-    @Override
-    String getAlgorithm() {
-        return "RS256";
-    }
-
-    private static JWTVerifier createJWTVerifier(final PublicKeyProvider publicKeyProvider) {
-        Algorithm alg = Algorithm.RSA256(new RSAKeyProvider() {
+    private static Algorithm getAlgorithm(final PublicKeyProvider publicKeyProvider) {
+        return Algorithm.RSA256(new RSAKeyProvider() {
             @Override
             public RSAPublicKey getPublicKeyById(String keyId) {
                 try {
@@ -47,8 +40,5 @@ class RS256SignatureVerifier extends SignatureVerifier {
                 return null;
             }
         });
-        return JWT.require(alg)
-                .ignoreIssuedAt()
-                .build();
     }
 }
