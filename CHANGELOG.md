@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.17.0](https://github.com/auth0/auth0-java/tree/1.17.0) (2020-05-22)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.16.0...1.17.0)
+
+**Added**
+- Add missing property last_password_reset [\#256](https://github.com/auth0/auth0-java/pull/256) ([mario-moura-silva](https://github.com/mario-moura-silva))
+- Add missing "sources" property to the Permission [\#254](https://github.com/auth0/auth0-java/pull/254) ([lbalmaceda](https://github.com/lbalmaceda))
+
 ## [1.16.0](https://github.com/auth0/auth0-java/tree/1.16.0) (2020-04-24)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.15.0...1.16.0)
 
