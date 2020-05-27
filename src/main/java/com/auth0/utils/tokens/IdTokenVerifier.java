@@ -50,7 +50,7 @@ public final class IdTokenVerifier {
     /**
      * Verifies a provided ID Token follows the <a href="https://openid.net/specs/openid-connect-core-1_0-final.html#IDTokenValidation">OIDC specification.</a>
      *
-     * @param token the ID Token to verify.
+     * @param token the ID Token to verify. Must not be null or empty.
      * @throws IdTokenValidationException if:
      * <ul>
      *     <li>The ID token is null</li>
@@ -70,7 +70,8 @@ public final class IdTokenVerifier {
      * Verifies a provided ID Token follows the <a href="https://openid.net/specs/openid-connect-core-1_0-final.html#IDTokenValidation">OIDC specification.</a>
      *
      * @param token the ID Token to verify.
-     * @param nonce the nonce expected on the ID token.
+     * @param nonce the nonce expected on the ID token, which must match the nonce specified on the authorization request.
+     *              If null, no validation of the nonce will occur.
      *
      * @throws IdTokenValidationException if:
      * <ul>
@@ -90,9 +91,13 @@ public final class IdTokenVerifier {
     /**
      * Verifies a provided ID Token follows the <a href="https://openid.net/specs/openid-connect-core-1_0-final.html#IDTokenValidation">OIDC specification.</a>
      *
-     * @param token the ID Token to verify.
-     * @param nonce the nonce expected on the ID token.
-     * @param maxAuthenticationAge TODO
+     * @param token the ID Token to verify. Must not be null or empty.
+     * @param nonce the nonce expected on the ID token, which must match the nonce specified on the authorization request.
+     *              If null, no validation of the nonce will occur.
+     * @param maxAuthenticationAge The maximum authentication age allowed, which specifies the allowable elapsed time in seconds
+     *                             since the last time the end-user was actively authenticated. This must match the specified
+     *                             {@code max_age} parameter specified on the authorization request. If null, no validation
+     *                             of the {@code auth_time} claim will occur.
      *                             
      * @throws IdTokenValidationException if:
      * <ul>
