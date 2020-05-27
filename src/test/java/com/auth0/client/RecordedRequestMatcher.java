@@ -1,5 +1,6 @@
 package com.auth0.client;
 
+import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
@@ -71,21 +72,19 @@ public class RecordedRequestMatcher extends TypeSafeDiagnosingMatcher<RecordedRe
     }
 
     private boolean matchesQueryParameter(RecordedRequest item, Description mismatchDescription) {
-        String path = item.getPath();
-        boolean hasQuery = path.indexOf("?") > 0;
-        if (!hasQuery) {
+        HttpUrl requestUrl = item.getRequestUrl();
+        if (requestUrl.querySize() == 0) {
             mismatchDescription.appendText(" query was empty");
             return false;
         }
 
-        String query = path.substring(path.indexOf("?") + 1, path.length());
-        String[] parameters = query.split("&");
-        for (String p : parameters) {
-            if (p.equals(String.format("%s=%s", first, second))) {
-                return true;
-            }
+        String queryParamValue = requestUrl.queryParameter(first);
+        if (second.equals(queryParamValue)) {
+            return true;
         }
-        mismatchDescription.appendValueList("Query parameters were {", ", ", "}.", parameters);
+
+        mismatchDescription.appendValueList("Query parameters were {", ", ", "}.",
+                requestUrl.query().split("&"));
         return false;
     }
 
