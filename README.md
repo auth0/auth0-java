@@ -533,8 +533,6 @@ try {
 }
 ```
 
-
-
 ## Error Handling
 
 The API Clients throw `Auth0Exception` when an unexpected error happens on a request execution, i.e. Connectivity or Timeout error.
@@ -553,6 +551,80 @@ Example exception data
   description: "Query validation error: 'String 'users' does not match pattern. Must be a comma separated list of the following values: name,strategy,options,enabled_clients,id,provisioning_ticket_url' on property fields (A comma separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields).",
   error: "invalid_query_string"
 }
+```
+
+## ID Token Validation
+
+This library also provides the ability to validate an OIDC-compliant ID Token, according to the [OIDC Specification](https://openid.net/specs/openid-connect-core-1_0-final.html#IDTokenValidation).
+
+### Verifying an ID Token signed with the RS256 signing algorithm
+
+To verify an ID Token that is signed using the RS256 signing algorithm, you will need to provide an implementation of 
+`PublicKeyProvider` that will return the public key used to verify the token's signature. The example below demonstrates
+how to use the `JwkProvider` from the [jwks-rsa-java](https://github.com/auth0/jwks-rsa-java) library:
+
+```java
+JwkProvider provider = new JwkProviderBuilder("https://your-domain.auth0.com").build();
+SignatureVerifier sigVerifier = SignatureVerifier.forRS256(new PublicKeyProvider() {
+    @Override
+    public RSAPublicKey getPublicKeyById(String keyId) throws PublicKeyProviderException {
+       try {
+            return (RSAPublicKey) provider.get(keyId).getPublicKey();
+        } catch (JwkException jwke) {
+            throw new PublicKeyProviderException("Error obtaining public key", jwke);
+        }
+    }
+}
+
+IdTokenVerifier idTokenVerifier = IdTokenVerifier.init("https://your-domain.auth0.com/","your-client-id", signatureVerifier).build();
+
+try {
+    idTokenVerifier.verify("token", "expected-nonce");
+} catch(IdTokenValidationException idtve) {
+    // Handle invalid token exception
+}
+```
+
+### Verifying an ID Token signed with the HS256 signing algorithm
+
+To verify an ID Token that is signed using the HS256 signing algorithm:
+
+```java
+SignatureVerifier signatureVerifier = SignatureVerifier.forHS256("your-client-secret");
+IdTokenVerifier idTokenVerifier = IdTokenVerifier.init("https://your-domain.auth0.com/","your-client-id", signatureVerifier).build();
+
+try {
+    idTokenVerifier.verify("token", "expected-nonce");
+} catch(IdTokenValidationException idtve) {
+    // Handle invalid token exception
+}
+```
+
+### Additional configuration options
+
+By default, time-based claims such as the token expiration (`exp` claim) will allow for a leeway of **60 seconds**.
+You can customize the leeway by using the `withLeeway` when building the `IdTokenVerifier`:
+
+```java
+IdTokenVerifier idTokenVerifier = IdTokenVerifier.init("https://your-domain.auth0.com/","your-client-id", signatureVerifier)
+        .withLeeway(120) // two minutes
+        .build();
+``` 
+
+When verifying the token, the following methods are available to support different scenarios:
+
+```java
+// Verify the token's signature and claims, excluding the nonce and auth_time claims
+idTokenVerifier.verify("token");
+
+// Verify the token's signature and claims, including the nonce.
+// The expected nonce should be the nonce sent on the authorization request.
+idTokenVerifier.verify("token", "expected-nonce");
+
+// Verify the token's signature and claims, including the nonce and the auth_time claim.
+// The maxAuthenticationAge parameter specifies the maximum amount of time since the end-user last actively authenticated,
+// and it should match the max_age parameter sent on the authorization request.
+idTokenVerifier.verify("token", "expected-nonce", 24 * 60 * 60); // maximum authentication age of 24 hours
 ```
 
 ## Documentation
