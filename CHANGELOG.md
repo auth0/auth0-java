@@ -1,5 +1,15 @@
 # Change Log
 
+## [1.18.0](https://github.com/auth0/auth0-java/tree/1.18.0) (2020-05-29)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.17.0...1.18.0)
+
+**Added**
+- Add ID Token verifier API [\#260](https://github.com/auth0/auth0-java/pull/260) ([jimmyjames](https://github.com/jimmyjames))
+- Add signature verification classes [\#258](https://github.com/auth0/auth0-java/pull/258) ([jimmyjames](https://github.com/jimmyjames))
+
+**Changed**
+- Update to OkHttp 3.14.9 [\#262](https://github.com/auth0/auth0-java/pull/262) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.17.0](https://github.com/auth0/auth0-java/tree/1.17.0) (2020-05-22)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.16.0...1.17.0)
 
