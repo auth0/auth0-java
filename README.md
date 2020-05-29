@@ -560,8 +560,7 @@ This library also provides the ability to validate an OIDC-compliant ID Token, a
 ### Verifying an ID Token signed with the RS256 signing algorithm
 
 To verify an ID Token that is signed using the RS256 signing algorithm, you will need to provide an implementation of 
-`PublicKeyProvider` that will return the public key used to verify the token's signature. The example below demonstrates
-how to use the `JwkProvider` from the [jwks-rsa-java](https://github.com/auth0/jwks-rsa-java) library:
+`PublicKeyProvider` that will return the public key used to verify the token's signature. The example below demonstrates how to use the `JwkProvider` from the [jwks-rsa-java](https://github.com/auth0/jwks-rsa-java) library:
 
 ```java
 JwkProvider provider = new JwkProviderBuilder("https://your-domain.auth0.com").build();
