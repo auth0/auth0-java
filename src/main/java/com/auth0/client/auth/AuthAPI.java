@@ -1,13 +1,17 @@
 package com.auth0.client.auth;
 
+import com.auth0.client.ClientOptions;
+import com.auth0.client.ProxyOptions;
 import com.auth0.json.auth.UserInfo;
+import com.auth0.net.Request;
 import com.auth0.net.*;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
+import okhttp3.*;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
+
+import java.io.IOException;
 
 /**
  * Class that provides an implementation of some of the Authentication and Authorization API methods defined in https://auth0.com/docs/api/authentication.
@@ -45,11 +49,13 @@ public class AuthAPI {
      * @param domain       tenant's domain.
      * @param clientId     the application's client id.
      * @param clientSecret the application's client secret.
+     * @param options      configuration options for this client instance.
      */
-    public AuthAPI(String domain, String clientId, String clientSecret) {
+    public AuthAPI(String domain, String clientId, String clientSecret, ClientOptions options) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(clientId, "client id");
         Asserts.assertNotNull(clientSecret, "client secret");
+        Asserts.assertNotNull(options, "client options");
 
         this.baseUrl = createBaseUrl(domain);
         if (baseUrl == null) {
@@ -61,7 +67,53 @@ public class AuthAPI {
         telemetry = new TelemetryInterceptor();
         logging = new HttpLoggingInterceptor();
         logging.setLevel(Level.NONE);
-        client = new OkHttpClient.Builder()
+        client = buildNetworkingClient(options);
+    }
+
+    /**
+     * Create a new instance with the given tenant's domain, application's client id and client secret. These values can be obtained at https://manage.auth0.com/#/applications/{YOUR_CLIENT_ID}/settings.
+     *
+     * @param domain       tenant's domain.
+     * @param clientId     the application's client id.
+     * @param clientSecret the application's client secret.
+     */
+    public AuthAPI(String domain, String clientId, String clientSecret) {
+        this(domain, clientId, clientSecret, new ClientOptions());
+    }
+
+    /**
+     * Given a set of options, it creates a new instance of the {@link OkHttpClient}
+     * configuring them according to their availability.
+     *
+     * @param options the options to set to the client.
+     * @return a new networking client instance configured as requested.
+     */
+    private OkHttpClient buildNetworkingClient(ClientOptions options) {
+        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
+        final ProxyOptions proxyOptions = options.getProxyOptions();
+        if (proxyOptions != null) {
+            //Set proxy
+            clientBuilder.proxy(proxyOptions.getProxy());
+            //Set authentication, if present
+            final String proxyAuth = proxyOptions.getBasicAuthentication();
+            if (proxyAuth != null) {
+                clientBuilder.proxyAuthenticator(new Authenticator() {
+
+                    private static final String PROXY_AUTHORIZATION_HEADER = "Proxy-Authorization";
+
+                    @Override
+                    public okhttp3.Request authenticate(Route route, Response response) throws IOException {
+                        if (response.request().header(PROXY_AUTHORIZATION_HEADER) != null) {
+                            return null;
+                        }
+                        return response.request().newBuilder()
+                                .header(PROXY_AUTHORIZATION_HEADER, proxyAuth)
+                                .build();
+                    }
+                });
+            }
+        }
+        return clientBuilder
                 .addInterceptor(logging)
                 .addInterceptor(telemetry)
                 .build();
@@ -249,7 +301,6 @@ public class AuthAPI {
      * @param password   the desired user's password.
      * @param connection the database connection where the user is going to be created.
      * @return a Request to configure and execute.
-     *
      * @deprecated Use {@linkplain #signUp(String, String, char[], String)} instead.
      */
     @Deprecated
@@ -314,7 +365,6 @@ public class AuthAPI {
      * @param password   the desired user's password.
      * @param connection the database connection where the user is going to be created.
      * @return a Request to configure and execute.
-     *
      * @deprecated Use {@linkplain #signUp(String, char[], String)} instead.
      */
     @Deprecated
@@ -384,7 +434,6 @@ public class AuthAPI {
      * @param emailOrUsername the identity of the user.
      * @param password        the password of the user.
      * @return a Request to configure and execute.
-     *
      * @deprecated Use {@linkplain #login(String, char[])} instead.
      */
     @Deprecated
@@ -451,7 +500,6 @@ public class AuthAPI {
      * @param password        the password of the user.
      * @param realm           the realm to use.
      * @return a Request to configure and execute.
-     *
      * @deprecated Use {@linkplain #login(String, char[], String)} instead.
      */
     @Deprecated
