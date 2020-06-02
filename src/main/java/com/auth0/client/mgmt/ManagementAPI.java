@@ -1,12 +1,15 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.client.ClientOptions;
+import com.auth0.client.ProxyOptions;
 import com.auth0.net.Telemetry;
 import com.auth0.net.TelemetryInterceptor;
 import com.auth0.utils.Asserts;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
+import okhttp3.*;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
+
+import java.io.IOException;
 
 /**
  * Class that provides an implementation of the Management API methods defined in https://auth0.com/docs/api/management/v2.
@@ -27,8 +30,9 @@ public class ManagementAPI {
      *
      * @param domain   the tenant's domain.
      * @param apiToken the token to authenticate the calls with.
+     * @param options  configuration options for this client instance.
      */
-    public ManagementAPI(String domain, String apiToken) {
+    public ManagementAPI(String domain, String apiToken, ClientOptions options) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(apiToken, "api token");
 
@@ -41,7 +45,53 @@ public class ManagementAPI {
         telemetry = new TelemetryInterceptor();
         logging = new HttpLoggingInterceptor();
         logging.setLevel(Level.NONE);
-        client = new OkHttpClient.Builder()
+        client = buildNetworkingClient(options);
+    }
+
+    /**
+     * Create an instance with the given tenant's domain and API token.
+     * See the Management API section in the readme or visit https://auth0.com/docs/api/management/v2/tokens to learn how to obtain a token.
+     *
+     * @param domain   the tenant's domain.
+     * @param apiToken the token to authenticate the calls with.
+     */
+    public ManagementAPI(String domain, String apiToken) {
+        this(domain, apiToken, new ClientOptions());
+    }
+
+    /**
+     * Given a set of options, it creates a new instance of the {@link OkHttpClient}
+     * configuring them according to their availability.
+     *
+     * @param options the options to set to the client.
+     * @return a new networking client instance configured as requested.
+     */
+    private OkHttpClient buildNetworkingClient(ClientOptions options) {
+        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
+        final ProxyOptions proxyOptions = options.getProxyOptions();
+        if (proxyOptions != null) {
+            //Set proxy
+            clientBuilder.proxy(proxyOptions.getProxy());
+            //Set authentication, if present
+            final String proxyAuth = proxyOptions.getBasicAuthentication();
+            if (proxyAuth != null) {
+                clientBuilder.proxyAuthenticator(new Authenticator() {
+
+                    private static final String PROXY_AUTHORIZATION_HEADER = "Proxy-Authorization";
+
+                    @Override
+                    public okhttp3.Request authenticate(Route route, Response response) throws IOException {
+                        if (response.request().header(PROXY_AUTHORIZATION_HEADER) != null) {
+                            return null;
+                        }
+                        return response.request().newBuilder()
+                                .header(PROXY_AUTHORIZATION_HEADER, proxyAuth)
+                                .build();
+                    }
+                });
+            }
+        }
+        return clientBuilder
                 .addInterceptor(logging)
                 .addInterceptor(telemetry)
                 .build();
