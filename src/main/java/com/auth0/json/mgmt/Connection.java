@@ -83,7 +83,7 @@ public class Connection {
     }
 
     /**
-     * Getter for the connection name, used in the new universal login experience.
+     * Getter for the connection display name, used in the new universal login experience.
      *
      * @return the connection display name.
      */
@@ -93,7 +93,7 @@ public class Connection {
     }
 
     /**
-     * Setter for the connection name, used in the new universal login experience.
+     * Setter for the connection display name, used in the new universal login experience.
      *
      * @param displayName the connection display name to set.
      */
