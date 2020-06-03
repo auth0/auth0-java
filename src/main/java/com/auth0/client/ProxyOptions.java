@@ -6,7 +6,7 @@ import okhttp3.Credentials;
 import java.net.Proxy;
 
 /**
- * Holder class for Java Proxy related settings.
+ * Used to configure Java Proxy-related configurations.
  */
 public class ProxyOptions {
 

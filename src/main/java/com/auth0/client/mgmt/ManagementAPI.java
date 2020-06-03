@@ -26,11 +26,14 @@ public class ManagementAPI {
 
     /**
      * Create an instance with the given tenant's domain and API token.
-     * See the Management API section in the readme or visit https://auth0.com/docs/api/management/v2/tokens to learn how to obtain a token.
+     * In addition, accepts an {@link HttpOptions} that will be used to configure the networking client.
+     * See the Management API section in the readme or visit https://auth0.com/docs/api/management/v2/tokens
+     * to learn how to obtain a token.
      *
      * @param domain   the tenant's domain.
      * @param apiToken the token to authenticate the calls with.
      * @param options  configuration options for this client instance.
+     * @see #ManagementAPI(String, String)
      */
     public ManagementAPI(String domain, String apiToken, HttpOptions options) {
         Asserts.assertNotNull(domain, "domain");
@@ -50,7 +53,8 @@ public class ManagementAPI {
 
     /**
      * Create an instance with the given tenant's domain and API token.
-     * See the Management API section in the readme or visit https://auth0.com/docs/api/management/v2/tokens to learn how to obtain a token.
+     * See the Management API section in the readme or visit https://auth0.com/docs/api/management/v2/tokens
+     * to learn how to obtain a token.
      *
      * @param domain   the tenant's domain.
      * @param apiToken the token to authenticate the calls with.

@@ -44,12 +44,15 @@ public class AuthAPI {
     private final HttpLoggingInterceptor logging;
 
     /**
-     * Create a new instance with the given tenant's domain, application's client id and client secret. These values can be obtained at https://manage.auth0.com/#/applications/{YOUR_CLIENT_ID}/settings.
+     * Create a new instance with the given tenant's domain, application's client id and client secret.
+     * These values can be obtained at https://manage.auth0.com/#/applications/{YOUR_CLIENT_ID}/settings.
+     * In addition, accepts an {@link HttpOptions} that will be used to configure the networking client.
      *
      * @param domain       tenant's domain.
      * @param clientId     the application's client id.
      * @param clientSecret the application's client secret.
      * @param options      configuration options for this client instance.
+     * @see #AuthAPI(String, String, String)
      */
     public AuthAPI(String domain, String clientId, String clientSecret, HttpOptions options) {
         Asserts.assertNotNull(domain, "domain");
@@ -71,7 +74,8 @@ public class AuthAPI {
     }
 
     /**
-     * Create a new instance with the given tenant's domain, application's client id and client secret. These values can be obtained at https://manage.auth0.com/#/applications/{YOUR_CLIENT_ID}/settings.
+     * Create a new instance with the given tenant's domain, application's client id and client secret.
+     * These values can be obtained at https://manage.auth0.com/#/applications/{YOUR_CLIENT_ID}/settings.
      *
      * @param domain       tenant's domain.
      * @param clientId     the application's client id.

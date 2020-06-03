@@ -1,7 +1,7 @@
 package com.auth0.client;
 
 /**
- * Class holder of additional options to set to the API client instance.
+ * Used to configure additional configuration options when customizing the API client instance.
  */
 public class HttpOptions {
 
