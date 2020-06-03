@@ -1,6 +1,6 @@
 package com.auth0.client.auth;
 
-import com.auth0.client.ClientOptions;
+import com.auth0.client.HttpOptions;
 import com.auth0.client.ProxyOptions;
 import com.auth0.json.auth.UserInfo;
 import com.auth0.net.Request;
@@ -51,7 +51,7 @@ public class AuthAPI {
      * @param clientSecret the application's client secret.
      * @param options      configuration options for this client instance.
      */
-    public AuthAPI(String domain, String clientId, String clientSecret, ClientOptions options) {
+    public AuthAPI(String domain, String clientId, String clientSecret, HttpOptions options) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(clientId, "client id");
         Asserts.assertNotNull(clientSecret, "client secret");
@@ -78,7 +78,7 @@ public class AuthAPI {
      * @param clientSecret the application's client secret.
      */
     public AuthAPI(String domain, String clientId, String clientSecret) {
-        this(domain, clientId, clientSecret, new ClientOptions());
+        this(domain, clientId, clientSecret, new HttpOptions());
     }
 
     /**
@@ -88,7 +88,7 @@ public class AuthAPI {
      * @param options the options to set to the client.
      * @return a new networking client instance configured as requested.
      */
-    private OkHttpClient buildNetworkingClient(ClientOptions options) {
+    private OkHttpClient buildNetworkingClient(HttpOptions options) {
         OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
         final ProxyOptions proxyOptions = options.getProxyOptions();
         if (proxyOptions != null) {

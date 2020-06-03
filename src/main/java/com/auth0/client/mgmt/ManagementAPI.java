@@ -1,6 +1,6 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.client.ClientOptions;
+import com.auth0.client.HttpOptions;
 import com.auth0.client.ProxyOptions;
 import com.auth0.net.Telemetry;
 import com.auth0.net.TelemetryInterceptor;
@@ -32,7 +32,7 @@ public class ManagementAPI {
      * @param apiToken the token to authenticate the calls with.
      * @param options  configuration options for this client instance.
      */
-    public ManagementAPI(String domain, String apiToken, ClientOptions options) {
+    public ManagementAPI(String domain, String apiToken, HttpOptions options) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(apiToken, "api token");
 
@@ -56,7 +56,7 @@ public class ManagementAPI {
      * @param apiToken the token to authenticate the calls with.
      */
     public ManagementAPI(String domain, String apiToken) {
-        this(domain, apiToken, new ClientOptions());
+        this(domain, apiToken, new HttpOptions());
     }
 
     /**
@@ -66,7 +66,7 @@ public class ManagementAPI {
      * @param options the options to set to the client.
      * @return a new networking client instance configured as requested.
      */
-    private OkHttpClient buildNetworkingClient(ClientOptions options) {
+    private OkHttpClient buildNetworkingClient(HttpOptions options) {
         OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
         final ProxyOptions proxyOptions = options.getProxyOptions();
         if (proxyOptions != null) {

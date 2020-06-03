@@ -1,9 +1,8 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.client.ClientOptions;
+import com.auth0.client.HttpOptions;
 import com.auth0.client.MockServer;
 import com.auth0.client.ProxyOptions;
-import com.auth0.client.auth.AuthAPI;
 import com.auth0.net.Telemetry;
 import com.auth0.net.TelemetryInterceptor;
 import okhttp3.*;
@@ -165,10 +164,10 @@ public class ManagementAPITest {
     public void shouldUseProxy() throws Exception {
         Proxy proxy = Mockito.mock(Proxy.class);
         ProxyOptions proxyOptions = new ProxyOptions(proxy);
-        ClientOptions clientOptions = new ClientOptions();
-        clientOptions.setProxyOptions(proxyOptions);
+        HttpOptions httpOptions = new HttpOptions();
+        httpOptions.setProxyOptions(proxyOptions);
 
-        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN, clientOptions);
+        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN, httpOptions);
         assertThat(api.getClient().proxy(), is(proxy));
         Authenticator authenticator = api.getClient().proxyAuthenticator();
         assertThat(authenticator, is(notNullValue()));
@@ -196,10 +195,10 @@ public class ManagementAPITest {
         ProxyOptions proxyOptions = new ProxyOptions(proxy);
         proxyOptions.setBasicAuthentication("johndoe", "psswd".toCharArray());
         assertThat(proxyOptions.getBasicAuthentication(), is("Basic am9obmRvZTpwc3N3ZA=="));
-        ClientOptions clientOptions = new ClientOptions();
-        clientOptions.setProxyOptions(proxyOptions);
+        HttpOptions httpOptions = new HttpOptions();
+        httpOptions.setProxyOptions(proxyOptions);
 
-        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN, clientOptions);
+        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN, httpOptions);
         assertThat(api.getClient().proxy(), is(proxy));
         Authenticator authenticator = api.getClient().proxyAuthenticator();
         assertThat(authenticator, is(notNullValue()));
@@ -230,10 +229,10 @@ public class ManagementAPITest {
         ProxyOptions proxyOptions = new ProxyOptions(proxy);
         proxyOptions.setBasicAuthentication("johndoe", "psswd".toCharArray());
         assertThat(proxyOptions.getBasicAuthentication(), is("Basic am9obmRvZTpwc3N3ZA=="));
-        ClientOptions clientOptions = new ClientOptions();
-        clientOptions.setProxyOptions(proxyOptions);
+        HttpOptions httpOptions = new HttpOptions();
+        httpOptions.setProxyOptions(proxyOptions);
 
-        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN, clientOptions);
+        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN, httpOptions);
         assertThat(api.getClient().proxy(), is(proxy));
         Authenticator authenticator = api.getClient().proxyAuthenticator();
         assertThat(authenticator, is(notNullValue()));
