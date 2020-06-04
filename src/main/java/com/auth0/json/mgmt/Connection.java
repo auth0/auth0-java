@@ -18,6 +18,8 @@ public class Connection {
 
     @JsonProperty("name")
     private String name;
+    @JsonProperty("display_name")
+    private String displayName;
     @JsonProperty("options")
     private Map<String, Object> options;
     @JsonProperty("id")
@@ -61,7 +63,7 @@ public class Connection {
     }
 
     /**
-     * Getter for the connection options.
+     * Setter for the connection options.
      *
      * @param options the connection options.
      */
@@ -78,6 +80,26 @@ public class Connection {
     @JsonProperty("id")
     public String getId() {
         return id;
+    }
+
+    /**
+     * Getter for the connection display name, used in the new universal login experience.
+     *
+     * @return the connection display name.
+     */
+    @JsonProperty("display_name")
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    /**
+     * Setter for the connection display name, used in the new universal login experience.
+     *
+     * @param displayName the connection display name to set.
+     */
+    @JsonProperty("display_name")
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     /**
@@ -109,7 +131,7 @@ public class Connection {
     public void setEnabledClients(List<String> enabledClients) {
         this.enabledClients = enabledClients;
     }
-    
+
     /**
      * Getter for the ad/ldap connection's ticket url.
      *
@@ -122,21 +144,21 @@ public class Connection {
 
     /**
      * Getter for the metadata of this connection.
-     * 
+     *
      * @return the map of metadata key-values.
      */
     @JsonProperty("metadata")
     public Map<String, String> getMetadata() {
-    	return metadata;
+        return metadata;
     }
-    
+
     /**
      * Setter for the metadata of this connection.
-     * 
+     *
      * @param metadata the map of metadata key-values.
      */
     @JsonProperty("metadata")
     public void setMetadata(Map<String, String> metadata) {
-    	this.metadata = metadata;
+        this.metadata = metadata;
     }
 }

@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.*;
 
 public class ConnectionTest extends JsonTest<Connection> {
 
-    private static final String json = "{\"name\": \"my-connection\",\"strategy\": \"auth0\",\"options\": {},\"enabled_clients\": [\"client1\",\"client2\"],\"metadata\": {\"key\": \"value\"}}";
+    private static final String json = "{\"name\": \"my-connection\",\"display_name\": \"My cool connection!\",\"strategy\": \"auth0\",\"options\": {},\"enabled_clients\": [\"client1\",\"client2\"],\"metadata\": {\"key\": \"value\"}}";
     private static final String readOnlyJson = "{\"id\":\"connectionId\"}";
 
     private static final String jsonAd = "{\"name\":\"my-ad-connection\",\"strategy\":\"ad\",\"provisioning_ticket_url\":\"https://demo.auth0.com/p/ad/ddQTRlVt\",\"options\":{},\"enabled_clients\":[\"client1\",\"client2\"]}";
@@ -20,6 +20,7 @@ public class ConnectionTest extends JsonTest<Connection> {
     @Test
     public void shouldSerialize() throws Exception {
         Connection connection = new Connection("my-connection", "auth0");
+        connection.setDisplayName("COOL!");
         connection.setOptions(new HashMap<String, Object>());
         connection.setEnabledClients(Arrays.asList("client1", "client2"));
         connection.setMetadata(new HashMap<String, String>());
@@ -27,6 +28,7 @@ public class ConnectionTest extends JsonTest<Connection> {
         String serialized = toJSON(connection);
         assertThat(serialized, is(notNullValue()));
         assertThat(serialized, JsonMatcher.hasEntry("name", "my-connection"));
+        assertThat(serialized, JsonMatcher.hasEntry("display_name", "COOL!"));
         assertThat(serialized, JsonMatcher.hasEntry("strategy", "auth0"));
         assertThat(serialized, JsonMatcher.hasEntry("options", notNullValue()));
         assertThat(serialized, JsonMatcher.hasEntry("enabled_clients", Arrays.asList("client1", "client2")));
@@ -40,6 +42,7 @@ public class ConnectionTest extends JsonTest<Connection> {
 
         assertThat(connection, is(notNullValue()));
         assertThat(connection.getName(), is("my-connection"));
+        assertThat(connection.getDisplayName(), is("My cool connection!"));
         assertThat(connection.getOptions(), is(notNullValue()));
         assertThat(connection.getStrategy(), is("auth0"));
         assertThat(connection.getEnabledClients(), contains("client1", "client2"));
