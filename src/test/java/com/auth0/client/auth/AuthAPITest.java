@@ -1,14 +1,17 @@
 package com.auth0.client.auth;
 
+import com.auth0.client.HttpOptions;
 import com.auth0.client.MockServer;
+import com.auth0.client.ProxyOptions;
 import com.auth0.exception.APIException;
 import com.auth0.json.auth.CreatedUser;
 import com.auth0.json.auth.TokenHolder;
 import com.auth0.json.auth.UserInfo;
+import com.auth0.net.Request;
 import com.auth0.net.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import okhttp3.Interceptor;
+import okhttp3.*;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -20,6 +23,7 @@ import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 
 import java.io.FileReader;
+import java.net.Proxy;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,6 +106,123 @@ public class AuthAPITest {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client secret' cannot be null!");
         new AuthAPI(DOMAIN, CLIENT_ID, null);
+    }
+
+    @Test
+    public void shouldNotUseProxyByDefault() throws Exception {
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
+        assertThat(api.getClient().proxy(), is(nullValue()));
+        Authenticator authenticator = api.getClient().proxyAuthenticator();
+        assertThat(authenticator, is(notNullValue()));
+
+        Route route = Mockito.mock(Route.class);
+        okhttp3.Request nonAuthenticatedRequest = new okhttp3.Request.Builder()
+                .url("https://test.com/app")
+                .addHeader("some-header", "some-value")
+                .build();
+        okhttp3.Response nonAuthenticatedResponse = new okhttp3.Response.Builder()
+                .protocol(Protocol.HTTP_2)
+                .code(200)
+                .message("OK")
+                .request(nonAuthenticatedRequest)
+                .build();
+
+        okhttp3.Request processedRequest = authenticator.authenticate(route, nonAuthenticatedResponse);
+        assertThat(processedRequest, is(nullValue()));
+    }
+
+    @Test
+    public void shouldUseProxy() throws Exception {
+        Proxy proxy = Mockito.mock(Proxy.class);
+        ProxyOptions proxyOptions = new ProxyOptions(proxy);
+        HttpOptions httpOptions = new HttpOptions();
+        httpOptions.setProxyOptions(proxyOptions);
+
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, httpOptions);
+        assertThat(api.getClient().proxy(), is(proxy));
+        Authenticator authenticator = api.getClient().proxyAuthenticator();
+        assertThat(authenticator, is(notNullValue()));
+
+        Route route = Mockito.mock(Route.class);
+        okhttp3.Request nonAuthenticatedRequest = new okhttp3.Request.Builder()
+                .url("https://test.com/app")
+                .addHeader("some-header", "some-value")
+                .build();
+        okhttp3.Response nonAuthenticatedResponse = new okhttp3.Response.Builder()
+                .protocol(Protocol.HTTP_2)
+                .code(200)
+                .message("OK")
+                .request(nonAuthenticatedRequest)
+                .build();
+
+        okhttp3.Request processedRequest = authenticator.authenticate(route, nonAuthenticatedResponse);
+
+        assertThat(processedRequest, is(nullValue()));
+    }
+
+    @Test
+    public void shouldUseProxyWithAuthentication() throws Exception {
+        Proxy proxy = Mockito.mock(Proxy.class);
+        ProxyOptions proxyOptions = new ProxyOptions(proxy);
+        proxyOptions.setBasicAuthentication("johndoe", "psswd".toCharArray());
+        assertThat(proxyOptions.getBasicAuthentication(), is("Basic am9obmRvZTpwc3N3ZA=="));
+        HttpOptions httpOptions = new HttpOptions();
+        httpOptions.setProxyOptions(proxyOptions);
+
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, httpOptions);
+        assertThat(api.getClient().proxy(), is(proxy));
+        Authenticator authenticator = api.getClient().proxyAuthenticator();
+        assertThat(authenticator, is(notNullValue()));
+
+        Route route = Mockito.mock(Route.class);
+        okhttp3.Request nonAuthenticatedRequest = new okhttp3.Request.Builder()
+                .url("https://test.com/app")
+                .addHeader("some-header", "some-value")
+                .build();
+        okhttp3.Response nonAuthenticatedResponse = new okhttp3.Response.Builder()
+                .protocol(Protocol.HTTP_2)
+                .code(200)
+                .message("OK")
+                .request(nonAuthenticatedRequest)
+                .build();
+
+        okhttp3.Request processedRequest = authenticator.authenticate(route, nonAuthenticatedResponse);
+
+        assertThat(processedRequest, is(notNullValue()));
+        assertThat(processedRequest.url(), is(HttpUrl.parse("https://test.com/app")));
+        assertThat(processedRequest.header("Proxy-Authorization"), is(proxyOptions.getBasicAuthentication()));
+        assertThat(processedRequest.header("some-header"), is("some-value"));
+    }
+
+    @Test
+    public void proxyShouldNotProcessAlreadyAuthenticatedRequest() throws Exception {
+        Proxy proxy = Mockito.mock(Proxy.class);
+        ProxyOptions proxyOptions = new ProxyOptions(proxy);
+        proxyOptions.setBasicAuthentication("johndoe", "psswd".toCharArray());
+        assertThat(proxyOptions.getBasicAuthentication(), is("Basic am9obmRvZTpwc3N3ZA=="));
+        HttpOptions httpOptions = new HttpOptions();
+        httpOptions.setProxyOptions(proxyOptions);
+
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, httpOptions);
+        assertThat(api.getClient().proxy(), is(proxy));
+        Authenticator authenticator = api.getClient().proxyAuthenticator();
+        assertThat(authenticator, is(notNullValue()));
+
+        Route route = Mockito.mock(Route.class);
+        okhttp3.Request alreadyAuthenticatedRequest = new okhttp3.Request.Builder()
+                .url("https://test.com/app")
+                .addHeader("some-header", "some-value")
+                .header("Proxy-Authorization", "pre-existing-value")
+                .build();
+        okhttp3.Response alreadyAuthenticatedResponse = new okhttp3.Response.Builder()
+                .protocol(Protocol.HTTP_2)
+                .code(200)
+                .message("OK")
+                .request(alreadyAuthenticatedRequest)
+                .build();
+
+        okhttp3.Request processedRequest = authenticator.authenticate(route, alreadyAuthenticatedResponse);
+        assertThat(processedRequest, is(nullValue()));
     }
 
     @Test
