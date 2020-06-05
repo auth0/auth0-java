@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.19.0](https://github.com/auth0/auth0-java/tree/1.19.0) (2020-06-05)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.18.0...1.19.0)
+
+**Added**
+- Add display_name property to Connection [\#267](https://github.com/auth0/auth0-java/pull/267) ([lbalmaceda](https://github.com/lbalmaceda))
+- Add support for java Proxy with basic auth [\#266](https://github.com/auth0/auth0-java/pull/266) ([lbalmaceda](https://github.com/lbalmaceda))
+
 ## [1.18.0](https://github.com/auth0/auth0-java/tree/1.18.0) (2020-05-29)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.17.0...1.18.0)
 
