@@ -575,6 +575,13 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
+    public void shouldThrowOnLinkUserIdentityWithNullSecondaryToken() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'secondary id token' cannot be null!");
+        api.users().linkIdentity("1", null);
+    }
+
+    @Test
     public void shouldThrowOnLinkUserIdentityWithNullProvider() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'provider' cannot be null!");
@@ -598,6 +605,26 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(body.size(), is(2));
         assertThat(body, hasEntry("provider", (Object) "auth0"));
         assertThat(body, hasEntry("user_id", (Object) "2"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldLinkUserIdentityBySecondaryIdToken() throws Exception {
+        Request<List<Identity>> request = api.users().linkIdentity("1", "2");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_IDENTITIES_LIST, 200);
+        List<Identity> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/users/1/identities"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(1));
+        assertThat(body, hasEntry("link_with", (Object) "2"));
 
         assertThat(response, is(notNullValue()));
     }

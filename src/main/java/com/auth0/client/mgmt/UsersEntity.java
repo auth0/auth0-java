@@ -338,6 +338,35 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
+     * Links two User's Identities via token using the link_with parameter.
+     * A token with scope update:users is needed or update:current_user_identities if access token is for same user.
+     * See https://auth0.com/docs/api/management/v2#!/Users/post_identities
+     *
+     * @param primaryUserId   the primary identity's user id
+     * @param secondaryIdToken the user identity token (JWT)
+     * @return a Request to execute.
+     */
+    public Request<List<Identity>> linkIdentity(String primaryUserId, String secondaryIdToken) {
+        Asserts.assertNotNull(primaryUserId, "primary user id");
+        Asserts.assertNotNull(secondaryIdToken, "secondary id token");
+
+        String url = baseUrl
+                .newBuilder()
+                .addPathSegments("api/v2/users")
+                .addPathSegment(primaryUserId)
+                .addPathSegment("identities")
+                .build()
+                .toString();
+
+        CustomRequest<List<Identity>> request = new CustomRequest<>(client, url, "POST", new TypeReference<List<Identity>>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addParameter("link_with", secondaryIdToken);
+
+        return request;
+    }
+
+    /**
      * Un-links two User's Identities.
      * A token with scope update:users is needed.
      * See https://auth0.com/docs/api/management/v2#!/Users/delete_provider_by_user_id
