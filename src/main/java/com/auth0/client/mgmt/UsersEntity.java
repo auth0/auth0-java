@@ -338,12 +338,12 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
-     * Links two User's Identities via token using the link_with parameter.
-     * A token with scope update:users is needed or update:current_user_identities if access token is for same user.
+     * A token with scope update:current_user_identities is needed.
+     * It only works for the user the access token represents.
      * See https://auth0.com/docs/api/management/v2#!/Users/post_identities
      *
-     * @param primaryUserId   the primary identity's user id
-     * @param secondaryIdToken the user identity token (JWT)
+     * @param primaryUserId the primary identity's user id associated with the access token this client was configured with.
+     * @param secondaryIdToken the user ID token representing the identity to link with the current user
      * @return a Request to execute.
      */
     public Request<List<Identity>> linkIdentity(String primaryUserId, String secondaryIdToken) {
