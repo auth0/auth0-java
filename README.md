@@ -36,7 +36,7 @@ The Auth0 Authentication API and User's Management API are available for Android
 
 The implementation is based on the [Authentication API Docs](https://auth0.com/docs/api/authentication).
 
-Create an `AuthAPI` instance by providing the Application details from the [dashboard](https://manage.auth0.com/#/applications).
+Create an `AuthAPI` instance by providing the Application details from the [dashboard](https://manage.auth0.com/#/applications). Read the [recommendations]() for keeping the resources usage low. 
 
 ```java
 AuthAPI auth = new AuthAPI("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}");
@@ -532,6 +532,13 @@ try {
     // request error
 }
 ```
+
+## API Clients Recommendations
+The SDK implements a custom networking stack on top of the **OkHttp** library. The [official recommendation](https://square.github.io/okhttp/4.x/okhttp/okhttp3/-ok-http-client/#okhttpclients-should-be-shared) from Square is to re-use as much as possible these clients. However, it's not possible to pass an existing `OkHttpClient` instance to our `AuthAPI` and `ManagementAPI` clients. 
+
+Whenever you instantiate one of them, a new `OkHttpClient` instance is being created internally to handle the network requests. This instance is not directly exposed for customization. In order to reduce the resources consumption, make use a _singleton pattern_ to keep a single instance of this SDK's API clients during the lifecycle of your application.
+
+For the particular case of the `ManagementAPI` client, if the token you've originally set has expired or you require to change its scopes, you can update the client's token with the `setApiToken(String)` method.    
 
 ## Error Handling
 
