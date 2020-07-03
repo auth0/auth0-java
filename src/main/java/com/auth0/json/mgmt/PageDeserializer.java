@@ -13,8 +13,9 @@ import java.util.List;
 
 public abstract class PageDeserializer<T, U> extends StdDeserializer<T> {
 
-    private String itemsPropertyName;
-    private Class<U> uClazz;
+    private final String itemsPropertyName;
+    private final Class<U> uClazz;
+    private static final ObjectMapper mapper = new ObjectMapper();
 
     protected PageDeserializer(Class<U> clazz, String arrayName) {
         super(Object.class);
@@ -25,9 +26,8 @@ public abstract class PageDeserializer<T, U> extends StdDeserializer<T> {
     @Override
     public T deserialize(JsonParser p, DeserializationContext ctx) throws IOException {
         JsonNode node = p.getCodec().readTree(p);
-        ObjectMapper mapper = new ObjectMapper();
         if (node.isArray()) {
-            return createPage(getArrayElements((ArrayNode) node, mapper));
+            return createPage(getArrayElements((ArrayNode) node));
         }
 
         Integer start = getIntegerValue(node.get("start"));
@@ -36,7 +36,7 @@ public abstract class PageDeserializer<T, U> extends StdDeserializer<T> {
         Integer limit = getIntegerValue(node.get("limit"));
         ArrayNode array = (ArrayNode) node.get(itemsPropertyName);
 
-        return createPage(start, length, total, limit, getArrayElements(array, mapper));
+        return createPage(start, length, total, limit, getArrayElements(array));
     }
 
     protected abstract T createPage(List<U> items);
@@ -51,7 +51,7 @@ public abstract class PageDeserializer<T, U> extends StdDeserializer<T> {
         }
     }
 
-    private List<U> getArrayElements(ArrayNode array, ObjectMapper mapper) throws IOException {
+    private List<U> getArrayElements(ArrayNode array) throws IOException {
         CollectionType type = mapper.getTypeFactory().constructCollectionType(List.class, uClazz);
         return mapper.readerFor(type).readValue(array);
     }
