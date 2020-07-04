@@ -36,7 +36,7 @@ The Auth0 Authentication API and User's Management API are available for Android
 
 The implementation is based on the [Authentication API Docs](https://auth0.com/docs/api/authentication).
 
-Create an `AuthAPI` instance by providing the Application details from the [dashboard](https://manage.auth0.com/#/applications). Read the [recommendations]() for keeping the resources usage low. 
+Create an `AuthAPI` instance by providing the Application details from the [dashboard](https://manage.auth0.com/#/applications). Read the [recommendations](#api-clients-recommendations) for keeping the resources usage low. 
 
 ```java
 AuthAPI auth = new AuthAPI("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}");
@@ -249,7 +249,7 @@ try {
 
 The implementation is based on the [Management API Docs](https://auth0.com/docs/api/management/v2). 
 
-Create a `ManagementAPI` instance by providing the domain from the [Application dashboard](https://manage.auth0.com/#/applications) and a valid API Token.
+Create a `ManagementAPI` instance by providing the domain from the [Application dashboard](https://manage.auth0.com/#/applications) and a valid API Token. Read the [recommendations](#api-clients-recommendations) for keeping the resources usage low.
 
 ```java
 ManagementAPI mgmt = new ManagementAPI("{YOUR_DOMAIN}", "{YOUR_API_TOKEN}");
