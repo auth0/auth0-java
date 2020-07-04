@@ -11,6 +11,10 @@ import okhttp3.OkHttpClient;
 
 /**
  * Class that provides an implementation of the Tickets methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Tickets
+ * <p>
+ * This class is not thread-safe.
+ *
+ * @see ManagementAPI
  */
 @SuppressWarnings("WeakerAccess")
 public class TicketsEntity extends BaseManagementEntity {

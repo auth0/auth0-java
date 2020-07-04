@@ -11,6 +11,14 @@ import com.fasterxml.jackson.databind.type.CollectionType;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Parses a given paged response into their page pojo representation.
+ * <p>
+ * This class is thread-safe.
+ *
+ * @param <T> the class that represents a page of U.
+ * @param <U> the class that represents the items in the page.
+ */
 public abstract class PageDeserializer<T, U> extends StdDeserializer<T> {
 
     private final String itemsPropertyName;

@@ -16,6 +16,10 @@ import java.util.Map;
 
 /**
  * Class that provides an implementation of the Rules methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Rules
+ * <p>
+ * This class is not thread-safe.
+ *
+ * @see ManagementAPI
  */
 @SuppressWarnings("WeakerAccess")
 public class RulesEntity extends BaseManagementEntity {

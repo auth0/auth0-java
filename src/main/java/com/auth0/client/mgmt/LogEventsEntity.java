@@ -16,6 +16,10 @@ import static com.auth0.client.mgmt.filter.QueryFilter.KEY_QUERY;
 
 /**
  * Class that provides an implementation of the Events methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Logs
+ * <p>
+ * This class is not thread-safe.
+ *
+ * @see ManagementAPI
  */
 @SuppressWarnings("WeakerAccess")
 public class LogEventsEntity extends BaseManagementEntity {

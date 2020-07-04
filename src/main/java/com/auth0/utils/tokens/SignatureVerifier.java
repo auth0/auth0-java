@@ -13,6 +13,10 @@ import com.auth0.utils.Asserts;
 
 /**
  * Represents the verification for an ID Token's signature used when validating an ID token.
+ * <p>
+ * This class is thread-safe.
+ *
+ * @see JWTVerifier
  */
 public abstract class SignatureVerifier {
 
@@ -34,9 +38,9 @@ public abstract class SignatureVerifier {
      * Callers should provide an implementation of the {@linkplain PublicKeyProvider} to provide the public key used
      * to verify the ID token's signature.
      *
-     * @see PublicKeyProvider
      * @param publicKeyProvider an implementation of {@linkplain PublicKeyProvider} to get the public key.
      * @return a {@code SignatureVerifier} for use with tokens signed using the RS256 signing algorithm.
+     * @see PublicKeyProvider
      */
     public static SignatureVerifier forRS256(PublicKeyProvider publicKeyProvider) {
         return new RS256SignatureVerifier(publicKeyProvider);

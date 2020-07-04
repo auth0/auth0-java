@@ -4,6 +4,14 @@ import com.auth0.json.mgmt.PageDeserializer;
 
 import java.util.List;
 
+/**
+ * Parses a given paged response into their {@link ClientsPage} representation.
+ * <p>
+ * This class is thread-safe.
+ *
+ * @see PageDeserializer
+ * @see com.auth0.client.mgmt.ClientsEntity
+ */
 @SuppressWarnings({"unused", "WeakerAccess"})
 class ClientsPageDeserializer extends PageDeserializer<ClientsPage, Client> {
 

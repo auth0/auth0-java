@@ -2,6 +2,10 @@ package com.auth0.client.mgmt.filter;
 
 /**
  * Class used to change the behavior of a Users Imports Job. Related to the {@link com.auth0.client.mgmt.JobsEntity} entity.
+ * <p>
+ * This class is not thread-safe.
+ *
+ * @see BaseFilter
  */
 @SuppressWarnings("UnusedReturnValue")
 public class UsersImportOptions extends BaseFilter {
