@@ -13,6 +13,10 @@ import java.util.List;
 
 /**
  * Class that provides an implementation of the Blacklists methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Blacklists
+ * <p>
+ * This class is not thread-safe.
+ *
+ * @see ManagementAPI
  */
 @SuppressWarnings("WeakerAccess")
 public class BlacklistsEntity extends BaseManagementEntity {

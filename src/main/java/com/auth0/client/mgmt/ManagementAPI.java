@@ -14,6 +14,10 @@ import java.io.IOException;
 /**
  * Class that provides an implementation of the Management API methods defined in https://auth0.com/docs/api/management/v2.
  * To begin create an instance of {@link #ManagementAPI(String, String)} using the tenant domain and API token.
+ * <p>
+ * This class is not entirely thread-safe:
+ * A new immutable {@link OkHttpClient} instance is being created with each instantiation, not sharing the thread pool
+ * with any prior existing client instance.
  */
 @SuppressWarnings("WeakerAccess")
 public class ManagementAPI {

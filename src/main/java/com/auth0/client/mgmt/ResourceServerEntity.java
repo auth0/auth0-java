@@ -16,6 +16,10 @@ import java.util.Map;
 
 /**
  * Class that provides an implementation of the Resource Server methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Resource_Servers
+ * <p>
+ * This class is not thread-safe.
+ *
+ * @see ManagementAPI
  */
 public class ResourceServerEntity extends BaseManagementEntity {
 

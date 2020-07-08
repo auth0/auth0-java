@@ -2,6 +2,14 @@ package com.auth0.json.mgmt;
 
 import java.util.List;
 
+/**
+ * Parses a given paged response into their {@link PermissionsPage} representation.
+ * <p>
+ * This class is thread-safe.
+ *
+ * @see PageDeserializer
+ * @see com.auth0.client.mgmt.RolesEntity
+ */
 @SuppressWarnings({"unused", "WeakerAccess"})
 class PermissionsPageDeserializer extends PageDeserializer<PermissionsPage, Permission> {
 

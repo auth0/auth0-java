@@ -10,6 +10,10 @@ import okhttp3.OkHttpClient;
 
 /**
  * Class that provides an implementation of the Email Templates methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Email_Templates
+ * <p>
+ * This class is not thread-safe.
+ *
+ * @see ManagementAPI
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class EmailTemplatesEntity extends BaseManagementEntity {

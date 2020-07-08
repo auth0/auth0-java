@@ -17,6 +17,10 @@ import java.util.Map;
 
 /**
  * Class that provides an implementation of the Jobs methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Jobs
+ * <p>
+ * This class is not thread-safe.
+ *
+ * @see ManagementAPI
  */
 @SuppressWarnings("WeakerAccess")
 public class JobsEntity extends BaseManagementEntity {

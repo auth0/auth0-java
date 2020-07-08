@@ -2,6 +2,10 @@ package com.auth0.client.mgmt.filter;
 
 /**
  * Class used to filter the results received when calling the Resource Servers endpoint. Related to the {@link com.auth0.client.mgmt.ResourceServerEntity} entity.
+ * <p>
+ * This class is not thread-safe.
+ *
+ * @see BaseFilter
  */
 public class ResourceServersFilter extends BaseFilter {
 

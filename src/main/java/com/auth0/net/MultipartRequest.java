@@ -6,14 +6,20 @@ import okhttp3.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 import static com.auth0.utils.Asserts.assertNotNull;
 
 /**
  * Request class that accepts parts to be sent encoded in a form.
  * The content type of this request is "multipart/form-data".
+ * <p>
+ * This class is not thread-safe:
+ * It makes use of {@link HashMap} for storing the parameters. Make sure to not modify headers or the parameters
+ * from a different or un-synchronized thread.
  *
  * @param <T> The type expected to be received as part of the response.
+ * @see ExtendedBaseRequest
  */
 public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormDataRequest<T> {
 

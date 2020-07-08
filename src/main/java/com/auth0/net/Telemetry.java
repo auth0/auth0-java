@@ -8,6 +8,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Representation of the client information sent by this SDK on every request.
+ * <p>
+ * This class is thread-safe.
+ *
+ * @see TelemetryInterceptor
+ */
 @SuppressWarnings("WeakerAccess")
 public class Telemetry {
     static final String HEADER_NAME = "Auth0-Client";

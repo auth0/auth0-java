@@ -1,7 +1,5 @@
 package com.auth0.client.mgmt;
 
-import static com.auth0.client.mgmt.filter.QueryFilter.KEY_QUERY;
-
 import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.client.mgmt.filter.LogEventFilter;
 import com.auth0.client.mgmt.filter.PageFilter;
@@ -21,14 +19,21 @@ import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static com.auth0.client.mgmt.filter.QueryFilter.KEY_QUERY;
+
 /**
  * Class that provides an implementation of the Users methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Users and https://auth0.com/docs/api/management/v2#!/Users_By_Email
+ * <p>
+ * This class is not thread-safe.
+ *
+ * @see ManagementAPI
  */
 @SuppressWarnings("WeakerAccess")
 public class UsersEntity extends BaseManagementEntity {
@@ -380,10 +385,10 @@ public class UsersEntity extends BaseManagementEntity {
     public Request<PermissionsPage> listPermissions(String userId, PageFilter filter) {
         Asserts.assertNotNull(userId, "user id");
         HttpUrl.Builder builder = baseUrl
-            .newBuilder()
-            .addPathSegments("api/v2/users")
-            .addPathSegments(userId)
-            .addPathSegments("permissions");
+                .newBuilder()
+                .addPathSegments("api/v2/users")
+                .addPathSegments(userId)
+                .addPathSegments("permissions");
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
                 builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
@@ -402,7 +407,7 @@ public class UsersEntity extends BaseManagementEntity {
      * A token with update:users is needed.
      * See https://auth0.com/docs/api/management/v2#!/Users/delete_permissions
      *
-     * @param userId the user id
+     * @param userId      the user id
      * @param permissions a list of permission objects to remove from the user
      * @return a Request to execute
      */
@@ -414,12 +419,12 @@ public class UsersEntity extends BaseManagementEntity {
         body.put("permissions", permissions);
 
         final String url = baseUrl
-            .newBuilder()
-            .addPathSegments("api/v2/users")
-            .addPathSegments(userId)
-            .addPathSegments("permissions")
-            .build()
-            .toString();
+                .newBuilder()
+                .addPathSegments("api/v2/users")
+                .addPathSegments(userId)
+                .addPathSegments("permissions")
+                .build()
+                .toString();
         VoidRequest request = new VoidRequest(this.client, url, "DELETE");
         request.setBody(body);
         request.addHeader("Authorization", "Bearer " + apiToken);
@@ -431,7 +436,7 @@ public class UsersEntity extends BaseManagementEntity {
      * A token with update:users is needed.
      * See https://auth0.com/docs/api/management/v2#!/Users/post_permissions
      *
-     * @param userId the user id
+     * @param userId      the user id
      * @param permissions a list of permission objects to assign to the user
      * @return a Request to execute
      */
@@ -443,12 +448,12 @@ public class UsersEntity extends BaseManagementEntity {
         body.put("permissions", permissions);
 
         final String url = baseUrl
-            .newBuilder()
-            .addPathSegments("api/v2/users")
-            .addPathSegments(userId)
-            .addPathSegments("permissions")
-            .build()
-            .toString();
+                .newBuilder()
+                .addPathSegments("api/v2/users")
+                .addPathSegments(userId)
+                .addPathSegments("permissions")
+                .build()
+                .toString();
         VoidRequest request = new VoidRequest(this.client, url, "POST");
         request.setBody(body);
         request.addHeader("Authorization", "Bearer " + apiToken);
@@ -467,10 +472,10 @@ public class UsersEntity extends BaseManagementEntity {
     public Request<RolesPage> listRoles(String userId, PageFilter filter) {
         Asserts.assertNotNull(userId, "user id");
         HttpUrl.Builder builder = baseUrl
-            .newBuilder()
-            .addPathSegments("api/v2/users")
-            .addPathSegments(userId)
-            .addPathSegments("roles");
+                .newBuilder()
+                .addPathSegments("api/v2/users")
+                .addPathSegments(userId)
+                .addPathSegments("roles");
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
                 builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
@@ -489,7 +494,7 @@ public class UsersEntity extends BaseManagementEntity {
      * A token with update:users is needed.
      * See https://auth0.com/docs/api/management/v2#!/Users/delete_user_roles
      *
-     * @param userId the user id
+     * @param userId  the user id
      * @param roleIds a list of role ids to remove from the user
      * @return a Request to execute
      */
@@ -501,12 +506,12 @@ public class UsersEntity extends BaseManagementEntity {
         body.put("roles", roleIds);
 
         final String url = baseUrl
-            .newBuilder()
-            .addPathSegments("api/v2/users")
-            .addPathSegments(userId)
-            .addPathSegments("roles")
-            .build()
-            .toString();
+                .newBuilder()
+                .addPathSegments("api/v2/users")
+                .addPathSegments(userId)
+                .addPathSegments("roles")
+                .build()
+                .toString();
         VoidRequest request = new VoidRequest(this.client, url, "DELETE");
         request.setBody(body);
         request.addHeader("Authorization", "Bearer " + apiToken);
@@ -518,7 +523,7 @@ public class UsersEntity extends BaseManagementEntity {
      * A token with update:users is needed.
      * See https://auth0.com/docs/api/management/v2#!/Users/post_user_roles
      *
-     * @param userId the user id
+     * @param userId  the user id
      * @param roleIds a list of role ids to assign to the user
      * @return a Request to execute
      */
@@ -530,12 +535,12 @@ public class UsersEntity extends BaseManagementEntity {
         body.put("roles", roleIds);
 
         final String url = baseUrl
-            .newBuilder()
-            .addPathSegments("api/v2/users")
-            .addPathSegments(userId)
-            .addPathSegments("roles")
-            .build()
-            .toString();
+                .newBuilder()
+                .addPathSegments("api/v2/users")
+                .addPathSegments(userId)
+                .addPathSegments("roles")
+                .build()
+                .toString();
         VoidRequest request = new VoidRequest(this.client, url, "POST");
         request.setBody(body);
         request.addHeader("Authorization", "Bearer " + apiToken);

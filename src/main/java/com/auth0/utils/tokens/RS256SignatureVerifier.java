@@ -10,6 +10,8 @@ import java.security.interfaces.RSAPublicKey;
 
 /**
  * An implementation of {@code SignatureVerifier} for tokens signed with the RS256 asymmetric signing algorithm.
+ * <p>
+ * This class is thread-safe.
  */
 class RS256SignatureVerifier extends SignatureVerifier {
 

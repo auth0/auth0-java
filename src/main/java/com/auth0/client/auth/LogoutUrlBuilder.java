@@ -9,12 +9,16 @@ import static com.auth0.utils.Asserts.assertNotNull;
 
 /**
  * Class that provides the methods to generate a valid Auth0 Logout Url. It's based on the https://auth0.com/docs/api/authentication#logout docs.
+ * <p>
+ * This class is not thread-safe:
+ * It makes use of {@link HashMap} for storing the parameters. Make sure to not call the builder methods
+ * from a different or un-synchronized thread.
  */
 @SuppressWarnings("WeakerAccess")
 public class LogoutUrlBuilder {
 
     private final HttpUrl.Builder builder;
-    private final HashMap<String, String> parameters;
+    private final Map<String, String> parameters;
 
     /**
      * Creates a instance of the {@link LogoutUrlBuilder} using the given domain and base parameters.

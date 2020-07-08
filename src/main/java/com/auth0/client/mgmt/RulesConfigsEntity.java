@@ -13,6 +13,10 @@ import java.util.List;
 
 /**
  * Class that provides an implementation of the Rules Configs methods of the Management API as defined in See https://auth0.com/docs/api/management/v2#!/Rules_Configs/
+ * <p>
+ * This class is not thread-safe.
+ *
+ * @see ManagementAPI
  */
 @SuppressWarnings("WeakerAccess")
 public class RulesConfigsEntity extends BaseManagementEntity {

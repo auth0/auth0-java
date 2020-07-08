@@ -4,6 +4,14 @@ import com.auth0.json.mgmt.PageDeserializer;
 
 import java.util.List;
 
+/**
+ * Parses a given paged response into their {@link LogEventsPage} representation.
+ * <p>
+ * This class is thread-safe.
+ *
+ * @see PageDeserializer
+ * @see com.auth0.client.mgmt.LogEventsEntity
+ */
 @SuppressWarnings({"unused", "WeakerAccess"})
 class LogEventsPageDeserializer extends PageDeserializer<LogEventsPage, LogEvent> {
 

@@ -3,6 +3,13 @@ package com.auth0.client.mgmt.filter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+/**
+ * Class used to filter the results received when calling endpoints that accept a Query.
+ * <p>
+ * This class is not thread-safe.
+ *
+ * @see BaseFilter
+ */
 public class QueryFilter extends FieldsFilter {
 
     public static final String KEY_QUERY = "q";
