@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.20.0](https://github.com/auth0/auth0-java/tree/1.20.0) (2020-07-27)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.19.0...1.20.0)
+
+**Added**
+- Add missing Linking User Accounts endpoint [\#270](https://github.com/auth0/auth0-java/pull/270) ([cschwalm](https://github.com/cschwalm))
+
+**Fixed**
+- Fix and document thread-safety [\#272](https://github.com/auth0/auth0-java/pull/272) ([lbalmaceda](https://github.com/lbalmaceda))
+
 ## [1.19.0](https://github.com/auth0/auth0-java/tree/1.19.0) (2020-06-05)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.18.0...1.19.0)
 
