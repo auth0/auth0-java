@@ -585,7 +585,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     public void shouldThrowOnLinkUserIdentityWithNullUserId() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'primary user id' cannot be null!");
-        api.users().linkIdentity("1", null);
+        api.users().linkIdentity(null, "2");
     }
 
     @Test
