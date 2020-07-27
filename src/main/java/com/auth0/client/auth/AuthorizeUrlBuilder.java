@@ -9,17 +9,21 @@ import static com.auth0.utils.Asserts.assertNotNull;
 
 /**
  * Class that provides the methods to generate a valid Auth0 Authorize Url. It's based on the https://auth0.com/docs/api/authentication#social docs.
+ * <p>
+ * This class is not thread-safe:
+ * It makes use of {@link HashMap} for storing the parameters. Make sure to not call the builder methods
+ * from a different or un-synchronized thread.
  */
 @SuppressWarnings("WeakerAccess")
 public class AuthorizeUrlBuilder {
 
     private final HttpUrl.Builder builder;
-    private final HashMap<String, String> parameters;
+    private final Map<String, String> parameters;
 
     /**
      * Creates an instance of the {@link AuthorizeUrlBuilder} using the given domain and base parameters.
      *
-     * @param baseUrl         the base url constructed from a valid domain.
+     * @param baseUrl     the base url constructed from a valid domain.
      * @param clientId    the application's client_id value to set
      * @param redirectUri the redirect_uri value to set. Must be already URL Encoded and must be white-listed in your Auth0's dashboard.
      * @return a new instance of the {@link AuthorizeUrlBuilder} to configure.

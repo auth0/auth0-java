@@ -6,6 +6,10 @@ import java.util.List;
 
 /**
  * Class used to filter the results received when a Users Exports Job is completed. Related to the {@link com.auth0.client.mgmt.JobsEntity} entity.
+ * <p>
+ * This class is not thread-safe.
+ *
+ * @see BaseFilter
  */
 @SuppressWarnings("UnusedReturnValue")
 public class UsersExportFilter extends BaseFilter {

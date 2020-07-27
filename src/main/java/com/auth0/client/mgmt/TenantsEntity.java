@@ -13,6 +13,10 @@ import java.util.Map;
 
 /**
  * Class that provides an implementation of the Tenant Settings methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Tenants
+ * <p>
+ * This class is not thread-safe.
+ *
+ * @see ManagementAPI
  */
 @SuppressWarnings("WeakerAccess")
 public class TenantsEntity extends BaseManagementEntity {

@@ -14,6 +14,10 @@ import java.util.Map;
 
 /**
  * Class that provides an implementation of the Emails methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Emails
+ * <p>
+ * This class is not thread-safe.
+ *
+ * @see ManagementAPI
  */
 @SuppressWarnings("WeakerAccess")
 public class EmailProviderEntity extends BaseManagementEntity {

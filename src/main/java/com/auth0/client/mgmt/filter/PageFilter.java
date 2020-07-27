@@ -2,6 +2,10 @@ package com.auth0.client.mgmt.filter;
 
 /**
  * Class used to filter the results received when calling an endpoint that supports Pagination.
+ * <p>
+ * This class is not thread-safe.
+ *
+ * @see BaseFilter
  */
 public class PageFilter extends BaseFilter {
     /**

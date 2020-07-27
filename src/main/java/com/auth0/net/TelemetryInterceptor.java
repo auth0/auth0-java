@@ -5,6 +5,12 @@ import okhttp3.Response;
 
 import java.io.IOException;
 
+/**
+ * OkHttp Interceptor implementation that adds the auth0-client header
+ * to every request made by this SDK.
+ *
+ * @see Interceptor
+ */
 public class TelemetryInterceptor implements Interceptor {
 
     private Telemetry telemetry;

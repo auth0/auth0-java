@@ -2,6 +2,10 @@ package com.auth0.client.mgmt.filter;
 
 /**
  * Class used to filter the results received when calling an Auth0 endpoint.
+ * <p>
+ * This class is not thread-safe.
+ *
+ * @see BaseFilter
  */
 public class FieldsFilter extends BaseFilter {
 

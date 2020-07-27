@@ -16,6 +16,9 @@ import java.util.Map;
  * A request class that is able to interact fluently with the Auth0 server.
  * The default content type of this request is "application/json".
  * <p>
+ * This class is not thread-safe:
+ * It makes use of {@link HashMap} for storing the parameters. Make sure to not modify headers or the parameters
+ * from a different or un-synchronized thread.
  * //TODO: Merge with #BaseRequest on next major
  *
  * @param <T> The type expected to be received as part of the response.

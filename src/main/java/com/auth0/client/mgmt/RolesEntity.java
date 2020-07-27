@@ -19,6 +19,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class that provides an implementation of the Roles methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Roles/
+ * <p>
+ * This class is not thread-safe.
+ *
+ * @see ManagementAPI
+ */
 public class RolesEntity extends BaseManagementEntity {
 
   RolesEntity(OkHttpClient client, HttpUrl baseUrl,
