@@ -34,6 +34,8 @@ public class AuthAPI {
     private static final String KEY_CONNECTION = "connection";
     private static final String KEY_TOKEN = "token";
     private static final String KEY_REFRESH_TOKEN = "refresh_token";
+    private static final String KEY_MFA_TOKEN = "mfa_token";
+    private static final String KEY_OTP = "otp";
 
     private static final String PATH_OAUTH = "oauth";
     private static final String PATH_TOKEN = "token";
@@ -554,6 +556,22 @@ public class AuthAPI {
         request.addParameter(KEY_USERNAME, emailOrUsername);
         request.addParameter(KEY_PASSWORD, password);
         request.addParameter("realm", realm);
+        return request;
+    }
+
+    public AuthRequest mfaLogin(String mfaToken, String otp) {
+        String url = baseUrl
+                .newBuilder()
+                .addPathSegment(PATH_OAUTH)
+                .addPathSegment(PATH_TOKEN)
+                .build()
+                .toString();
+        TokenRequest request = new TokenRequest(client, url);
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
+        request.addParameter(KEY_GRANT_TYPE, "http://auth0.com/oauth/grant-type/mfa-otp");
+        request.addHeader(KEY_MFA_TOKEN, mfaToken);
+        request.addHeader(KEY_OTP, otp);
         return request;
     }
 
