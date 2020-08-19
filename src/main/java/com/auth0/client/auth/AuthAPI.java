@@ -570,8 +570,8 @@ public class AuthAPI {
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         request.addParameter(KEY_GRANT_TYPE, "http://auth0.com/oauth/grant-type/mfa-otp");
-        request.addHeader(KEY_MFA_TOKEN, mfaToken);
-        request.addHeader(KEY_OTP, otp);
+        request.addParameter(KEY_MFA_TOKEN, mfaToken);
+        request.addParameter(KEY_OTP, otp);
         return request;
     }
 
