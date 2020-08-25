@@ -32,7 +32,12 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.size(), is(2));
+        assertThat(response, hasSize(2));
+        assertThat(response, everyItem(hasProperty("id", is(notNullValue()))));
+        assertThat(response, everyItem(hasProperty("name", is(notNullValue()))));
+        assertThat(response, everyItem(hasProperty("type", is(notNullValue()))));
+        assertThat(response, everyItem(hasProperty("status", is(notNullValue()))));
+        assertThat(response, everyItem(hasProperty("sink", is(notNullValue()))));
     }
 
     @Test
@@ -61,21 +66,21 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         assertThat(response, is(notNullValue()));
+        assertThat(response, hasProperty("id", is(notNullValue())));
+        assertThat(response, hasProperty("name", is(notNullValue())));
+        assertThat(response, hasProperty("type", is(notNullValue())));
+        assertThat(response, hasProperty("status", is(notNullValue())));
+        assertThat(response, hasProperty("sink", is(notNullValue())));
     }
 
     @Test
     public void shouldCreateLogStream() throws Exception {
-        Map<String, Object> sink = new HashMap<>();
-        sink.put("httpEndpoint", "https://me.org");
-        sink.put("httpAuthorization", "abc123");
-        sink.put("httpContentFormat", "JSONLINES");
-        sink.put("httpContentType", "application/json");
-        LogStream logStream = getLogStream("log stream", "http", sink);
+        LogStream logStream = getLogStream("log stream", "http");
 
         Request<LogStream> request = api.logStreams().create(logStream);
         assertThat(request, is(notNullValue()));
 
-        server.jsonResponse(MGMT_CLIENT, 200);
+        server.jsonResponse(MGMT_LOG_STREAM, 200);
         LogStream response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -87,25 +92,26 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(body.size(), is(3));
         assertThat(body, hasEntry("name", "log stream"));
         assertThat(body, hasEntry("type", "http"));
-        assertThat(body, hasEntry("sink", sink));
+        assertThat(body, hasEntry("sink", logStream.getSink()));
 
         assertThat(response, is(notNullValue()));
+        assertThat(response, hasProperty("id", is(notNullValue())));
+        assertThat(response, hasProperty("name", is(notNullValue())));
+        assertThat(response, hasProperty("type", is(notNullValue())));
+        assertThat(response, hasProperty("status", is(notNullValue())));
+        assertThat(response, hasProperty("sink", is(notNullValue())));
+
     }
 
     @Test
     public void shouldUpdateLogStream() throws Exception {
-        Map<String, Object> sink = new HashMap<>();
-        sink.put("httpEndpoint", "https://me.org");
-        sink.put("httpAuthorization", "abc123");
-        sink.put("httpContentFormat", "JSONLINES");
-        sink.put("httpContentType", "application/json");
-        LogStream logStream = getLogStream("log stream", "http", sink);
+        LogStream logStream = getLogStream("log stream", "http");
         logStream.setStatus("paused");
 
         Request<LogStream> request = api.logStreams().update("123", logStream);
         assertThat(request, is(notNullValue()));
 
-        server.jsonResponse(MGMT_CLIENT, 200);
+        server.jsonResponse(MGMT_LOG_STREAM, 200);
         LogStream response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -118,9 +124,14 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(body, hasEntry("name", "log stream"));
         assertThat(body, hasEntry("type", "http"));
         assertThat(body, hasEntry("status", "paused"));
-        assertThat(body, hasEntry("sink", sink));
+        assertThat(body, hasEntry("sink", logStream.getSink()));
 
         assertThat(response, is(notNullValue()));
+        assertThat(response, hasProperty("id", is(notNullValue())));
+        assertThat(response, hasProperty("name", is(notNullValue())));
+        assertThat(response, hasProperty("type", is(notNullValue())));
+        assertThat(response, hasProperty("status", is(notNullValue())));
+        assertThat(response, hasProperty("sink", is(notNullValue())));
     }
 
     @Test
@@ -128,7 +139,7 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         Request request = api.logStreams().delete("1");
         assertThat(request, is(notNullValue()));
 
-        server.jsonResponse(MGMT_CONNECTION, 200);
+        server.emptyResponse(204);
         request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -140,43 +151,50 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldThrowOnGetLogStreamWithNullId() {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'logStreamId' cannot be null!");
+        exception.expectMessage("'log stream id' cannot be null!");
         api.logStreams().get(null);
     }
 
     @Test
     public void shouldThrowOnDeleteLogStreamWithNullId() {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'logStreamId' cannot be null!");
+        exception.expectMessage("'log stream id' cannot be null!");
         api.logStreams().delete(null);
     }
 
     @Test
     public void shouldThrowOnUpdateLogStreamWithNullId() {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'logStreamId' cannot be null!");
+        exception.expectMessage("'log stream id' cannot be null!");
         api.logStreams().update(null, new LogStream());
     }
 
     @Test
     public void shouldThrowOnUpdateLogStreamWithNullLogStream() {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'logStream' cannot be null!");
+        exception.expectMessage("'log stream' cannot be null!");
         api.logStreams().update("123", null);
     }
 
     @Test
     public void shouldThrowOnCreateLogStreamWithNullLogStream() {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'logStream' cannot be null!");
+        exception.expectMessage("'log stream' cannot be null!");
         api.logStreams().create(null);
     }
 
-    private LogStream getLogStream(String name, String type, Map<String, Object> sink) {
+    private LogStream getLogStream(String name, String type) {
         LogStream logStream = new LogStream();
         logStream.setName(name);
         logStream.setType(type);
+
+        Map<String, Object> sink = new HashMap<>();
+        sink.put("httpEndpoint", "https://me.org");
+        sink.put("httpAuthorization", "abc123");
+        sink.put("httpContentFormat", "JSONLINES");
+        sink.put("httpContentType", "application/json");
         logStream.setSink(sink);
+
         return logStream;
     }
 }

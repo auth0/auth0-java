@@ -23,6 +23,23 @@ public class LogStream {
     private Map<String, Object> sink;
 
     /**
+     * Creates a new LogStream instance and sets the type.
+     *
+     * @param type The type of the Log Stream.
+     */
+    @JsonCreator
+    public LogStream(@JsonProperty("type") String type) {
+        this.type = type;
+    }
+
+    /**
+     * Creates a new LogStream instance.
+     */
+    public LogStream() {
+        this(null);
+    }
+
+    /**
      * Get the ID of this Log Stream.
      *
      * @return The ID of this Log Stream.

@@ -77,7 +77,7 @@ public class LogStreamsEntity extends BaseManagementEntity {
      * @return the request to execute.
      */
     public Request<LogStream> create(LogStream logStream) {
-        Asserts.assertNotNull(logStream, "logStream");
+        Asserts.assertNotNull(logStream, "log stream");
 
         String url = baseUrl
                 .newBuilder()
@@ -100,8 +100,8 @@ public class LogStreamsEntity extends BaseManagementEntity {
      * @return the request to execute.
      */
     public Request<LogStream> update(String logStreamId, LogStream logStream) {
-        Asserts.assertNotNull(logStreamId, "logStreamId");
-        Asserts.assertNotNull(logStream, "logStream");
+        Asserts.assertNotNull(logStreamId, "log stream id");
+        Asserts.assertNotNull(logStream, "log stream");
 
         String url = baseUrl
                 .newBuilder()
@@ -125,7 +125,7 @@ public class LogStreamsEntity extends BaseManagementEntity {
      * @return the request to execute.
      */
     public Request delete(String logStreamId) {
-        Asserts.assertNotNull(logStreamId, "logStreamId");
+        Asserts.assertNotNull(logStreamId, "log stream id");
 
         String url = baseUrl
                 .newBuilder()
