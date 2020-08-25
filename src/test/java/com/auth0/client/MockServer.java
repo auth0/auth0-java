@@ -42,6 +42,8 @@ public class MockServer {
     public static final String MGMT_LOG_EVENTS_LIST = "src/test/resources/mgmt/event_logs_list.json";
     public static final String MGMT_LOG_EVENTS_PAGED_LIST = "src/test/resources/mgmt/event_logs_paged_list.json";
     public static final String MGMT_LOG_EVENT = "src/test/resources/mgmt/event_log.json";
+    public static final String MGMT_LOG_STREAM = "src/test/resources/mgmt/log_stream.json";
+    public static final String MGMT_LOG_STREAMS_LIST = "src/test/resources/mgmt/log_streams_list.json";
     public static final String MGMT_RESOURCE_SERVERS_LIST = "src/test/resources/mgmt/resource_servers_list.json";
     public static final String MGMT_RESOURCE_SERVERS_PAGED_LIST = "src/test/resources/mgmt/resource_servers_paged_list.json";
     public static final String MGMT_RESOURCE_SERVER = "src/test/resources/mgmt/resource_server.json";
