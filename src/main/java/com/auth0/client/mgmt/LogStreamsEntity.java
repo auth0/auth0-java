@@ -54,7 +54,7 @@ public class LogStreamsEntity extends BaseManagementEntity {
      * @return the request to execute.
      */
     public Request<LogStream> get(String logStreamId) {
-        Asserts.assertNotNull(logStreamId, "logStreamId");
+        Asserts.assertNotNull(logStreamId, "log stream id");
 
         String url = baseUrl
                 .newBuilder()
