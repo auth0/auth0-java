@@ -23,7 +23,7 @@ public class LogStream {
     private Map<String, Object> sink;
 
     /**
-     * Creates a new LogStream instance and sets the type.
+     * Creates a new LogStream instance and sets the type, which cannot be changed once set.
      *
      * @param type The type of the Log Stream.
      */
@@ -33,7 +33,8 @@ public class LogStream {
     }
 
     /**
-     * Creates a new LogStream instance.
+     * Creates a new empty LogStream. Use this when you need to create an instance for use with an update request, as
+     * you cannot send the {@code type} field to the update API.
      */
     public LogStream() {
         this(null);
@@ -77,16 +78,6 @@ public class LogStream {
     @JsonProperty("type")
     public String getType() {
         return type;
-    }
-
-    /**
-     * Sets the type of this Log Stream.
-     *
-     * @param type The type to set.
-     */
-    @JsonProperty("type")
-    public void setType(String type) {
-        this.type = type;
     }
 
     /**

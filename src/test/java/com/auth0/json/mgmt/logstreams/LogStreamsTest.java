@@ -51,8 +51,7 @@ public class LogStreamsTest extends JsonTest<LogStream> {
 
     @Test
     public void shouldSerialize() throws Exception {
-        LogStream logStream = new LogStream();
-        logStream.setType("http");
+        LogStream logStream = new LogStream("http");
         logStream.setName("My Http Log Stream");
 
         Map<String, Object> sink = new HashMap<>();
@@ -71,8 +70,7 @@ public class LogStreamsTest extends JsonTest<LogStream> {
 
     @Test
     public void shouldSerializeWithDifferentObjectTypes() throws Exception {
-        LogStream logStream = new LogStream();
-        logStream.setType("http");
+        LogStream logStream = new LogStream("http");
         logStream.setName("My Log Stream");
 
         Map<String, Object> sink = new HashMap<>();
@@ -86,5 +84,15 @@ public class LogStreamsTest extends JsonTest<LogStream> {
         assertThat(serialized, JsonMatcher.hasEntry("name", "My Log Stream"));
         assertThat(serialized, JsonMatcher.hasEntry("type", "http"));
         assertThat(serialized, JsonMatcher.hasEntry("sink", sink));
+    }
+
+    @Test
+    public void shouldDeserializeReadOnlyData() throws Exception {
+        String readOnlyJson = "{\"id\":\"logStreamId\",\"type\":\"http\"}";
+
+        LogStream logStream = fromJSON(readOnlyJson, LogStream.class);
+        assertThat(logStream, is(notNullValue()));
+        assertThat(logStream.getId(), is("logStreamId"));
+        assertThat(logStream.getType(), is("http"));
     }
 }

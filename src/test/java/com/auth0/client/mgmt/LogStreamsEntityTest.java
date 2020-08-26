@@ -105,7 +105,7 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldUpdateLogStream() throws Exception {
-        LogStream logStream = getLogStream("log stream", "http");
+        LogStream logStream = getLogStream("log stream", null);
         logStream.setStatus("paused");
 
         Request<LogStream> request = api.logStreams().update("123", logStream);
@@ -120,9 +120,8 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body.size(), is(4));
+        assertThat(body.size(), is(3));
         assertThat(body, hasEntry("name", "log stream"));
-        assertThat(body, hasEntry("type", "http"));
         assertThat(body, hasEntry("status", "paused"));
         assertThat(body, hasEntry("sink", logStream.getSink()));
 
@@ -184,9 +183,8 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
     }
 
     private LogStream getLogStream(String name, String type) {
-        LogStream logStream = new LogStream();
+        LogStream logStream = new LogStream(type);
         logStream.setName(name);
-        logStream.setType(type);
 
         Map<String, Object> sink = new HashMap<>();
         sink.put("httpEndpoint", "https://me.org");
