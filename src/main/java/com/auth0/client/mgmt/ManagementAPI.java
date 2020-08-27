@@ -215,6 +215,15 @@ public class ManagementAPI {
     }
 
     /**
+     * Getter for the Log Streams entity.
+     *
+     * @return the Log Streams entity.
+     */
+    public LogStreamsEntity logStreams() {
+        return new LogStreamsEntity(client, baseUrl, apiToken);
+    }
+
+    /**
      * Getter for the Rules entity.
      *
      * @return the Rules entity.
