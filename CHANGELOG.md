@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.21.0](https://github.com/auth0/auth0-java/tree/1.21.0) (2020-08-27)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.20.0...1.21.0)
+
+**Added**
+- Add support for Log Streams [\#284](https://github.com/auth0/auth0-java/pull/284) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.20.0](https://github.com/auth0/auth0-java/tree/1.20.0) (2020-07-27)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.19.0...1.20.0)
 
