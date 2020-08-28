@@ -284,6 +284,7 @@ The Management API is divided into different entities. Each of them have the lis
 * **Guardian:** See [Docs](https://auth0.com/docs/api/management/v2#!/Guardian/get_factors). Access the methods by calling `mgmt.guardian()`.
 * **Jobs:** See [Docs](https://auth0.com/docs/api/management/v2#!/Jobs/get_jobs_by_id). Access the methods by calling `mgmt.jobs()`.
 * **Logs:** See [Docs](https://auth0.com/docs/api/management/v2#!/Logs/get_logs). Access the methods by calling `mgmt.logEvents()`. This endpoint supports pagination.
+* **Log Streams:** See [Docs](https://auth0.com/docs/api/management/v2#!/Log_Streams/get_log_streams). Access the methods by calling `mgmt.logStreams()`.
 * **Resource Servers:** See [Docs](https://auth0.com/docs/api/management/v2#!/Resource_Servers/get_resource_servers). Access the methods by calling `mgmt.resourceServers()`. This endpoint supports pagination.
 * **Roles:** See [Docs](https://auth0.com/docs/api/management/v2#!/Roles/get_roles). Access the methods by calling `mgmt.roles()`. This endpoint supports pagination.
 * **Rules:** See [Docs](https://auth0.com/docs/api/management/v2#!/Rules/get_rules). Access the methods by calling `mgmt.rules()`. This endpoint supports pagination.
@@ -559,6 +560,29 @@ Example exception data
   error: "invalid_query_string"
 }
 ```
+
+### Bot Protection 
+If you are using the [Bot Protection](https://auth0.com/docs/anomaly-detection/bot-protection) feature and performing database login/signup via the Authentication API on a public client (non-confidential), you need to handle the `verification_required` error. It indicates that the request was flagged as suspicious and an additional verification step is necessary to log the user in. That verification step is web-based, so you need to use Universal Login to complete it.
+
+```java
+AuthAPI api = new AuthAPI("me.something.com", "my_client", "my_secret");
+try {
+    CreatedUser createdUser = api.signUp("me@app.com", "secret", "database-1").execute();
+    //handle success
+} catch (APIException err) {
+    if ("requires_verification".equals(err.getError())) {
+        String url = api.authorizeUrl("myapp.com/callback")
+                .withParameter("login_hint", "me@app.com") //So the user doesn't have to type it again
+                .withParameter("screen_hint", "signup") //So it lands on the signup page.
+                .build();
+        //TODO: redirect the request to the authorize URL you just built
+        return;
+    }
+    //handle other errors
+}
+```
+
+Check out how to set up Universal Login in the [Authorize URL](#authorize---authorize) section.
 
 ## ID Token Validation
 
