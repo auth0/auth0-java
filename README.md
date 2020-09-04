@@ -561,29 +561,6 @@ Example exception data
 }
 ```
 
-### Bot Protection 
-If you are using the [Bot Protection](https://auth0.com/docs/anomaly-detection/bot-protection) feature and performing database login/signup via the Authentication API on a public client (non-confidential), you need to handle the `verification_required` error. It indicates that the request was flagged as suspicious and an additional verification step is necessary to log the user in. That verification step is web-based, so you need to use Universal Login to complete it.
-
-```java
-AuthAPI api = new AuthAPI("me.something.com", "my_client", "my_secret");
-try {
-    CreatedUser createdUser = api.signUp("me@app.com", "secret", "database-1").execute();
-    //handle success
-} catch (APIException err) {
-    if ("requires_verification".equals(err.getError())) {
-        String url = api.authorizeUrl("myapp.com/callback")
-                .withParameter("login_hint", "me@app.com") //So the user doesn't have to type it again
-                .withParameter("screen_hint", "signup") //So it lands on the signup page.
-                .build();
-        //TODO: redirect the request to the authorize URL you just built
-        return;
-    }
-    //handle other errors
-}
-```
-
-Check out how to set up Universal Login in the [Authorize URL](#authorize---authorize) section.
-
 ## ID Token Validation
 
 This library also provides the ability to validate an OIDC-compliant ID Token, according to the [OIDC Specification](https://openid.net/specs/openid-connect-core-1_0-final.html#IDTokenValidation).
