@@ -5,6 +5,7 @@
 [![Maven][maven-badge]][maven-url]
 [![JCenter][jcenter-badge]][jcenter-url]
 [![codecov][codecov-badge]][codecov-url]
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fauth0%2Fauth0-java.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fauth0%2Fauth0-java?ref=badge_shield)
 
 Java client library for the [Auth0](https://auth0.com) platform.
 
@@ -679,3 +680,6 @@ This project is licensed under the MIT license. See the [LICENSE](LICENSE) file 
 [jcenter-url]: https://bintray.com/auth0/java/auth0/_latestVersion
 [codecov-badge]: https://codecov.io/gh/auth0/auth0-java/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/auth0/auth0-java
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fauth0%2Fauth0-java.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fauth0%2Fauth0-java?ref=badge_large)
