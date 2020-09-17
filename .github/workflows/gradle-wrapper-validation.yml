@@ -3,7 +3,7 @@ on: [push, pull_request]
 
 jobs:
   validation:
-    name: "Validation"
+    name: "validation/gradlew"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
