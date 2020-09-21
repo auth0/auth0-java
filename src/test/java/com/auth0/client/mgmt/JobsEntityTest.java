@@ -2,6 +2,7 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.UsersExportFilter;
 import com.auth0.client.mgmt.filter.UsersImportOptions;
+import com.auth0.json.mgmt.EmailVerificationIdentity;
 import com.auth0.json.mgmt.jobs.Job;
 import com.auth0.json.mgmt.jobs.UsersExportField;
 import com.auth0.net.Request;
@@ -14,6 +15,7 @@ import org.junit.Test;
 import java.io.File;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -209,6 +211,55 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'user id' cannot be null!");
         api.jobs().sendVerificationEmail(null, null);
+    }
+
+    @Test
+    public void shouldSendUserVerificationEmailWithIdentity() throws Exception {
+        EmailVerificationIdentity identity = new EmailVerificationIdentity("google-oauth2", "1234");
+        Request<Job> request = api.jobs().sendVerificationEmail("google-oauth2|1234", "AaiyAPdpYdesoKnqjj8HJqRn4T5titww", identity);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_JOB_POST_VERIFICATION_EMAIL, 200);
+        Job response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/jobs/verification-email"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(3));
+        assertThat(body, hasEntry("user_id", "google-oauth2|1234"));
+        assertThat(body, hasEntry("client_id", "AaiyAPdpYdesoKnqjj8HJqRn4T5titww"));
+
+        Map<String, String> identityMap = new HashMap<>();
+        identityMap.put("provider", "google-oauth2");
+        identityMap.put("user_id", "1234");
+        assertThat(body, hasEntry("identity", identityMap));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnSendUserVerificationEmailWithNullIdentityProvider() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'identity provider' cannot be null!");
+        api.jobs().sendVerificationEmail("google-oauth2|1234", null, new EmailVerificationIdentity(null, "user-id"));
+    }
+
+    @Test
+    public void shouldThrowOnSendUserVerificationEmailWithNullIdentityUserId() {
+        exception.expect(IllegalArgumentException.class);
+        // don't be too specific in testing the order we null-check provider and user-id
+        exception.expectMessage("'identity ");
+        api.jobs().sendVerificationEmail("google-oauth2|1234", null, new EmailVerificationIdentity("google-oauth2", null));
+    }
+
+    @Test
+    public void shouldThrowOnSendUserVerificationEmailWithNullIdentityProviderAndUserId() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'identity provider' cannot be null!");
+        api.jobs().sendVerificationEmail("google-oauth2|1234", null, new EmailVerificationIdentity(null, null));
     }
 
     @Test

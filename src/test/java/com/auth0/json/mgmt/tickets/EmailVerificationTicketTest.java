@@ -2,7 +2,11 @@ package com.auth0.json.mgmt.tickets;
 
 import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
+import com.auth0.json.mgmt.EmailVerificationIdentity;
 import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -23,6 +27,26 @@ public class EmailVerificationTicketTest extends JsonTest<EmailVerificationTicke
         assertThat(serialized, JsonMatcher.hasEntry("user_id", "usr123"));
         assertThat(serialized, JsonMatcher.hasEntry("result_url", "https://page.auth0.com/result"));
         assertThat(serialized, JsonMatcher.hasEntry("ttl_sec", 36000));
+    }
+
+    @Test
+    public void shouldSerializeWithIdentity() throws Exception {
+        EmailVerificationTicket ticket = new EmailVerificationTicket("usr123");
+        ticket.setResultUrl("https://page.auth0.com/result");
+        ticket.setTTLSeconds(36000);
+        EmailVerificationIdentity identity = new EmailVerificationIdentity("some-provider", "some-user-id");
+        ticket.setIdentity(identity);
+
+        String serialized = toJSON(ticket);
+        assertThat(serialized, is(notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("user_id", "usr123"));
+        assertThat(serialized, JsonMatcher.hasEntry("result_url", "https://page.auth0.com/result"));
+        assertThat(serialized, JsonMatcher.hasEntry("ttl_sec", 36000));
+
+        Map<String, String> identityMap = new HashMap<>();
+        identityMap.put("provider", "some-provider");
+        identityMap.put("user_id", "some-user-id");
+        assertThat(serialized, JsonMatcher.hasEntry("identity", identityMap));
     }
 
     @Test
