@@ -19,16 +19,32 @@ public class EmailVerificationIdentity implements Serializable {
     @JsonProperty("user_id")
     private String userId;
 
+    /**
+     * Create a new instance.
+     *
+     * @param provider The identity provider name (e.g. {@code "google-oauth2"}).
+     * @param userId The user ID of the identity to be verified.
+     */
     public EmailVerificationIdentity(String provider, String userId) {
         this.provider = provider;
         this.userId = userId;
     }
 
+    /**
+     * Get the identity provider name.
+     *
+     * @return The identity provider name.
+     */
     @JsonProperty("provider")
     public String getProvider() {
         return this.provider;
     }
 
+    /**
+     * Get the user ID.
+     *
+     * @return the User ID.
+     */
     @JsonProperty("user_id")
     public String getUserId() {
         return this.userId;
