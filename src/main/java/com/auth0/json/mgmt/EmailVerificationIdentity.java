@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class EmailVerificationIdentity implements Serializable {
+public class EmailVerificationIdentity {
 
     @JsonProperty("provider")
     private String provider;
