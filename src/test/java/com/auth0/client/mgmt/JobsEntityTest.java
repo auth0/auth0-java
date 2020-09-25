@@ -166,8 +166,8 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldSendUserAVerificationEmail() throws Exception {
-        Request<Job> request = api.jobs().sendVerificationEmail("google-oauth2|1234", null);
+    public void shouldSendUserAVerificationEmailWithNullClientIdAndEmailVerification() throws Exception {
+        Request<Job> request = api.jobs().sendVerificationEmail("google-oauth2|1234", null, null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_JOB_POST_VERIFICATION_EMAIL, 200);
@@ -204,13 +204,6 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
         assertThat(body, hasEntry("client_id", "AaiyAPdpYdesoKnqjj8HJqRn4T5titww"));
 
         assertThat(response, is(notNullValue()));
-    }
-
-    @Test
-    public void shouldThrowOnSendUserVerificationEmailWithNullUserId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'user id' cannot be null!");
-        api.jobs().sendVerificationEmail(null, null);
     }
 
     @Test
