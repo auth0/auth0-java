@@ -250,8 +250,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldThrowOnSendUserVerificationEmailWithNullIdentityUserId() {
         exception.expect(IllegalArgumentException.class);
-        // don't be too specific in testing the order we null-check provider and user-id
-        exception.expectMessage("'identity ");
+        exception.expectMessage("'identity user id' cannot be null!");
         api.jobs().sendVerificationEmail("google-oauth2|1234", null, new EmailVerificationIdentity("google-oauth2", null));
     }
 
