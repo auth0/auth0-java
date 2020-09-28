@@ -59,7 +59,10 @@ public class JobsEntity extends BaseManagementEntity {
      *
      * @param userId   The user_id of the user to whom the email will be sent.
      * @param clientId The id of the client, if not provided the global one will be used.
+     *
      * @return a Request to execute.
+     *
+     * @see JobsEntity#sendVerificationEmail(String, String, EmailVerificationIdentity)
      */
     public Request<Job> sendVerificationEmail(String userId, String clientId) {
         return sendVerificationEmail(userId, clientId, null);
@@ -74,6 +77,8 @@ public class JobsEntity extends BaseManagementEntity {
      * @param emailVerificationIdentity The identity of the user. Required to verify primary identities when using social, enterprise, or passwordless connections. It is also required to verify secondary identities.
      *
      * @return a Request to execute.
+     *
+     * @see JobsEntity#sendVerificationEmail(String, String)
      */
     public Request<Job> sendVerificationEmail(String userId, String clientId, EmailVerificationIdentity emailVerificationIdentity) {
         Asserts.assertNotNull(userId, "user id");
