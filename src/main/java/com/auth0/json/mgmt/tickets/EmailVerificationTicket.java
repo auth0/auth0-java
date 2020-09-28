@@ -1,6 +1,7 @@
 
 package com.auth0.json.mgmt.tickets;
 
+import com.auth0.json.mgmt.EmailVerificationIdentity;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,6 +23,8 @@ public class EmailVerificationTicket {
     private Integer ttlSec;
     @JsonProperty("ticket")
     private String ticket;
+    @JsonProperty("identity")
+    private EmailVerificationIdentity identity;
 
     @JsonCreator
     public EmailVerificationTicket(@JsonProperty("user_id") String userId) {
@@ -56,6 +59,17 @@ public class EmailVerificationTicket {
     @JsonProperty("ttl_sec")
     public void setTTLSeconds(Integer seconds) {
         this.ttlSec = seconds;
+    }
+
+    /**
+     * Sets the identity. Needed to verify primary identities when using social, enterprise, or passwordless connections.
+     * It is also required to verify secondary identities.
+     *
+     * @param identity the identity.
+     */
+    @JsonProperty("identity")
+    public void setIdentity(EmailVerificationIdentity identity) {
+        this.identity = identity;
     }
 
     /**
