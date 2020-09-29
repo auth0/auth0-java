@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.22.0](https://github.com/auth0/auth0-java/tree/1.22.0) (2020-09-28)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.21.0...1.22.0)
+
+**Added**
+- Add support for identity field for email verification jobs and tickets [\#293](https://github.com/auth0/auth0-java/pull/293) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.21.0](https://github.com/auth0/auth0-java/tree/1.21.0) (2020-08-27)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.20.0...1.21.0)
 
