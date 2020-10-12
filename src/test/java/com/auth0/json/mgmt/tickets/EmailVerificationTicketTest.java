@@ -21,12 +21,14 @@ public class EmailVerificationTicketTest extends JsonTest<EmailVerificationTicke
         EmailVerificationTicket ticket = new EmailVerificationTicket("usr123");
         ticket.setResultUrl("https://page.auth0.com/result");
         ticket.setTTLSeconds(36000);
+        ticket.setIncludeEmailInRedirect(true);
 
         String serialized = toJSON(ticket);
         assertThat(serialized, is(notNullValue()));
         assertThat(serialized, JsonMatcher.hasEntry("user_id", "usr123"));
         assertThat(serialized, JsonMatcher.hasEntry("result_url", "https://page.auth0.com/result"));
         assertThat(serialized, JsonMatcher.hasEntry("ttl_sec", 36000));
+        assertThat(serialized, JsonMatcher.hasEntry("includeEmailInRedirect", true));
     }
 
     @Test

@@ -23,6 +23,8 @@ public class EmailVerificationTicket {
     private Integer ttlSec;
     @JsonProperty("ticket")
     private String ticket;
+    @JsonProperty("includeEmailInRedirect")
+    private Boolean includeEmailInRedirect;
     @JsonProperty("identity")
     private EmailVerificationIdentity identity;
 
@@ -59,6 +61,15 @@ public class EmailVerificationTicket {
     @JsonProperty("ttl_sec")
     public void setTTLSeconds(Integer seconds) {
         this.ttlSec = seconds;
+    }
+
+    /**
+     * Whether to include the email address as part of the returnUrl in the reset_email (true), or not (false).
+     *
+     * @param includeEmailInRedirect whether to include the email address as part of the returnUrl in the reset email.
+     */
+    public void setIncludeEmailInRedirect(Boolean includeEmailInRedirect) {
+        this.includeEmailInRedirect = includeEmailInRedirect;
     }
 
     /**
