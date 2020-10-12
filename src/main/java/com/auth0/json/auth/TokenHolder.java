@@ -22,6 +22,8 @@ public class TokenHolder {
     private String tokenType;
     @JsonProperty("expires_in")
     private long expiresIn;
+    @JsonProperty("scope")
+    private String scope;
 
     /**
      * Getter for the Auth0's access token.
@@ -71,5 +73,15 @@ public class TokenHolder {
     @JsonProperty("expires_in")
     public long getExpiresIn() {
         return expiresIn;
+    }
+
+    /**
+     * Gets the granted scope value for this token.
+     *
+     * @return a space-delimited string of the granted scopes of this token.
+     */
+    @JsonProperty
+    public String getScope() {
+        return scope;
     }
 }

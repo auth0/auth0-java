@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.notNullValue;
 
 public class TokenHolderTest extends JsonTest<TokenHolder> {
 
-    private static final String json = "{\"id_token\":\"eyJ0eXAiOiJKV1Qi...\",\"access_token\":\"A9CvPwFojaBI...\",\"refresh_token\":\"GEbRxBN...edjnXbL\",\"token_type\": \"bearer\",\"expires_in\":86000}";
+    private static final String json = "{\"id_token\":\"eyJ0eXAiOiJKV1Qi...\",\"access_token\":\"A9CvPwFojaBI...\",\"refresh_token\":\"GEbRxBN...edjnXbL\",\"token_type\": \"bearer\",\"expires_in\":86000, \"scope\": \"openid profile email\"}";
 
     @Test
     public void shouldDeserialize() throws Exception {
@@ -22,5 +22,6 @@ public class TokenHolderTest extends JsonTest<TokenHolder> {
         assertThat(holder.getRefreshToken(), is(notNullValue()));
         assertThat(holder.getTokenType(), is(notNullValue()));
         assertThat(holder.getExpiresIn(), is(notNullValue()));
+        assertThat(holder.getScope(), is(notNullValue()));
     }
 }
