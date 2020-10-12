@@ -17,7 +17,7 @@ public class DailyStats {
 
     @JsonProperty("logins")
     private Integer logins;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonProperty("date")
     private Date date;
 
@@ -36,7 +36,7 @@ public class DailyStats {
      *
      * @return the date to which the stats belong
      */
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonProperty("date")
     public Date getDate() {
         return date;

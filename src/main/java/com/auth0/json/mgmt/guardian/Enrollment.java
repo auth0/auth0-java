@@ -29,10 +29,10 @@ public class Enrollment {
     private String phoneNumber;
     @JsonProperty("auth_method")
     private String authMethod;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonProperty("enrolled_at")
     private Date enrolledAt;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonProperty("last_auth")
     private Date lastAuth;
 
@@ -111,7 +111,7 @@ public class Enrollment {
      *
      * @return the enrolled at.
      */
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonProperty("enrolled_at")
     public Date getEnrolledAt() {
         return enrolledAt;
@@ -122,7 +122,7 @@ public class Enrollment {
      *
      * @return the last authentication.
      */
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonProperty("last_auth")
     public Date getLastAuth() {
         return lastAuth;
