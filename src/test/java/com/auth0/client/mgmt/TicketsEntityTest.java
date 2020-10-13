@@ -25,7 +25,11 @@ public class TicketsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldCreateEmailVerificationTicket() throws Exception {
-        Request<EmailVerificationTicket> request = api.tickets().requestEmailVerification(new EmailVerificationTicket("uid123"));
+        EmailVerificationTicket ticket = new EmailVerificationTicket("uid123");
+        ticket.setIncludeEmailInRedirect(true);
+        ticket.setTTLSeconds(42);
+
+        Request<EmailVerificationTicket> request = api.tickets().requestEmailVerification(ticket);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMAIL_VERIFICATION_TICKET, 200);
@@ -37,8 +41,10 @@ public class TicketsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body.size(), is(1));
+        assertThat(body.size(), is(3));
         assertThat(body, hasEntry("user_id", (Object) "uid123"));
+        assertThat(body, hasEntry("includeEmailInRedirect", true));
+        assertThat(body, hasEntry("ttl_sec", 42));
 
         assertThat(response, is(notNullValue()));
     }
