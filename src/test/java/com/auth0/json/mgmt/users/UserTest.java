@@ -15,7 +15,7 @@ import static org.hamcrest.collection.IsMapContaining.hasEntry;
 public class UserTest extends JsonTest<User> {
 
     private static final String json = "{\"user_id\":\"user|123\",\"connection\":\"auth0\",\"client_id\":\"client123\",\"password\":\"pwd\",\"verify_password\":true,\"username\":\"usr\",\"email\":\"me@auth0.com\",\"email_verified\":true,\"verify_email\":true,\"phone_number\":\"1234567890\",\"phone_verified\":true,\"verify_phone_number\":true,\"picture\":\"https://pic.ture/12\",\"name\":\"John\",\"nickname\":\"Johny\",\"given_name\":\"John\",\"family_name\":\"Walker\",\"app_metadata\":{},\"user_metadata\":{},\"blocked\":true,\"context\":\"extra information\"}";
-    private static final String readOnlyJson = "{\"user_id\":\"user|123\",\"last_ip\":\"10.0.0.1\",\"last_login\":\"2016-02-23T19:57:29.532Z\",\"last_password_reset\":\"2016-02-23T19:57:29.532Z\",\"logins_count\":10,\"created_at\":\"2016-02-23T19:57:29.532Z\",\"updated_at\":\"2016-02-23T19:57:29.532Z\",\"identities\":[]}";
+    private static final String readOnlyJson = "{\"user_id\":\"user|123\",\"last_ip\":\"10.0.0.1\",\"last_login\":\"2016-02-23T19:57:29.532Z\",\"last_password_reset\":\"2016-02-23T19:57:29Z\",\"logins_count\":10,\"created_at\":\"2016-02-23T19:57:29.532Z\",\"updated_at\":\"2016-02-23T19:57:29.532Z\",\"identities\":[]}";
 
     @Test
     public void shouldHaveEmptyValuesByDefault() throws Exception{
@@ -113,7 +113,7 @@ public class UserTest extends JsonTest<User> {
         assertThat(user.getCreatedAt(), is(parseJSONDate("2016-02-23T19:57:29.532Z")));
         assertThat(user.getUpdatedAt(), is(parseJSONDate("2016-02-23T19:57:29.532Z")));
         assertThat(user.getLastLogin(), is(parseJSONDate("2016-02-23T19:57:29.532Z")));
-        assertThat(user.getLastPasswordReset(), is(parseJSONDate("2016-02-23T19:57:29.532Z")));
+        assertThat(user.getLastPasswordReset(), is(parseJSONDate("2016-02-23T19:57:29.000Z")));
         assertThat(user.getIdentities(), is(notNullValue()));
         assertThat(user.getLastIP(), is("10.0.0.1"));
         assertThat(user.getLoginsCount(), is(10));
