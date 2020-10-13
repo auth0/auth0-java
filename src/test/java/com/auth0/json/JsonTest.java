@@ -11,10 +11,9 @@ import java.util.TimeZone;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.StdDateFormat;
 
 public class JsonTest<T> {
-
-    private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
     private ObjectMapper mapper;
 
@@ -38,9 +37,9 @@ public class JsonTest<T> {
         return new String(Files.readAllBytes(Paths.get(path)));
     }
 
-    protected Date parseJSONDate(String dateString) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-        return sdf.parse(dateString);
+    protected Date parseJSONDate(String dateString) throws ParseException, JsonProcessingException {
+        // StdDateFormat is the DateFormat Jackson uses by default for date fields (uses UTC timezone by default)
+        // https://fasterxml.github.io/jackson-databind/javadoc/2.9/com/fasterxml/jackson/databind/util/StdDateFormat.html
+        return new StdDateFormat().parse(dateString);
     }
 }
