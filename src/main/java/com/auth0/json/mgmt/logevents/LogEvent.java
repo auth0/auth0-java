@@ -18,7 +18,7 @@ public class LogEvent {
 
     @JsonProperty("_id")
     private String id;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonProperty("date")
     private Date date;
     @JsonProperty("type")
@@ -51,7 +51,7 @@ public class LogEvent {
      *
      * @return the date.
      */
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonProperty("date")
     public Date getDate() {
         return date;

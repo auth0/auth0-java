@@ -50,10 +50,10 @@ public class User implements Serializable {
     private String givenName;
     @JsonProperty("family_name")
     private String familyName;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonProperty("created_at")
     private Date createdAt;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonProperty("updated_at")
     private Date updatedAt;
     @JsonProperty("identities")
@@ -66,10 +66,10 @@ public class User implements Serializable {
     private List<String> multifactor;
     @JsonProperty("last_ip")
     private String lastIp;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonProperty("last_login")
     private Date lastLogin;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonProperty("last_password_reset")
     private Date lastPasswordReset;
     @JsonProperty("logins_count")
@@ -348,7 +348,7 @@ public class User implements Serializable {
      *
      * @return the created at.
      */
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonProperty("created_at")
     public Date getCreatedAt() {
         return createdAt;
@@ -359,7 +359,7 @@ public class User implements Serializable {
      *
      * @return the updated at.
      */
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonProperty("updated_at")
     public Date getUpdatedAt() {
         return updatedAt;
@@ -440,7 +440,7 @@ public class User implements Serializable {
      *
      * @return the last login.
      */
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonProperty("last_login")
     public Date getLastLogin() {
         return lastLogin;
@@ -451,7 +451,7 @@ public class User implements Serializable {
      *
      * @return the last password reset.
      */
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonProperty("last_password_reset")
     public Date getLastPasswordReset() {
         return lastPasswordReset;

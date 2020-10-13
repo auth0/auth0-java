@@ -7,6 +7,7 @@
   "user_id": "usr_5457edea1b8f33391a000004",
   "created_at": "",
   "updated_at": "",
+  "last_password_reset": "2019-08-14T19:35:00Z",
   "identities": [
     {
       "provider": "facebook",
