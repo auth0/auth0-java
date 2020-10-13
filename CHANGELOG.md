@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.22.1](https://github.com/auth0/auth0-java/tree/1.22.1) (2020-10-13)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.22.0...1.22.1)
+
+**Fixed**
+- Use Standard Jackson Date serialization [\#295](https://github.com/auth0/auth0-java/pull/295) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.22.0](https://github.com/auth0/auth0-java/tree/1.22.0) (2020-09-28)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.21.0...1.22.0)
 
