@@ -92,6 +92,8 @@ public class MockServer {
     public static final String MGMT_JOB_POST_USERS_IMPORTS = "src/test/resources/mgmt/job_post_users_imports.json";
     public static final String MGMT_JOB_POST_USERS_IMPORTS_INPUT = "src/test/resources/mgmt/job_post_users_imports_input.json";
     public static final String MULTIPART_SAMPLE = "src/test/resources/mgmt/multipart_sample.json";
+    public static final String PASSWORDLESS_EMAIL_RESPONSE = "src/test/resources/auth/passwordless_email.json";
+    public static final String PASSWORDLESS_SMS_RESPONSE = "src/test/resources/auth/passwordless_sms.json";
 
     private final MockWebServer server;
 

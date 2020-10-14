@@ -2,6 +2,8 @@ package com.auth0.client.auth;
 
 import com.auth0.client.HttpOptions;
 import com.auth0.client.ProxyOptions;
+import com.auth0.json.auth.PasswordlessEmailResponse;
+import com.auth0.json.auth.PasswordlessSmsResponse;
 import com.auth0.json.auth.UserInfo;
 import com.auth0.net.Request;
 import com.auth0.net.*;
@@ -34,11 +36,14 @@ public class AuthAPI {
     private static final String KEY_CONNECTION = "connection";
     private static final String KEY_TOKEN = "token";
     private static final String KEY_REFRESH_TOKEN = "refresh_token";
+    public static final String KEY_REALM = "realm";
 
     private static final String PATH_OAUTH = "oauth";
     private static final String PATH_TOKEN = "token";
     private static final String PATH_DBCONNECTIONS = "dbconnections";
     private static final String PATH_REVOKE = "revoke";
+    private static final String PATH_PASSWORDLESS = "passwordless";
+    private static final String PATH_START = "start";
 
     private final OkHttpClient client;
     private final String clientId;
@@ -553,7 +558,53 @@ public class AuthAPI {
         request.addParameter(KEY_GRANT_TYPE, "http://auth0.com/oauth/grant-type/password-realm");
         request.addParameter(KEY_USERNAME, emailOrUsername);
         request.addParameter(KEY_PASSWORD, password);
-        request.addParameter("realm", realm);
+        request.addParameter(KEY_REALM, realm);
+        return request;
+    }
+
+    /**
+     * Creates a login request using the Passwordless grant type.
+     *
+     * <pre>
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * try {
+     *      TokenHolder result = auth.login("user@domain.com", PasswordlessRealmType.EMAIL, new char[]{'c','o','d','e'})
+     *          .execute();
+     * } catch (Auth0Exception e) {
+     *      // Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param emailOrPhone The email or phone number of the user.
+     * @param realm The realm to use.
+     * @param otp The one-time password used to authenticate using Passwordless connections
+     *
+     * @return A request to configure and execute
+     *
+     * @see <a href="https://auth0.com/docs/connections/passwordless/reference/relevant-api-endpoints">Using Passwordless APIs</a>
+     * @see com.auth0.client.auth.AuthAPI#startPasswordlessEmailFlow(String, PasswordlessEmailType)
+     * @see com.auth0.client.auth.AuthAPI#startPasswordlessSmsFlow(String)
+     */
+    public AuthRequest login(String emailOrPhone, PasswordlessRealmType realm, char[] otp) {
+        Asserts.assertNotNull(emailOrPhone, "emailOrPhone");
+        Asserts.assertNotNull(realm, "realm");
+        Asserts.assertNotNull(otp, "otp");
+
+        String url = baseUrl
+                .newBuilder()
+                .addPathSegment(PATH_OAUTH)
+                .addPathSegment(PATH_TOKEN)
+                .build()
+                .toString();
+        TokenRequest request = new TokenRequest(client, url);
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
+        request.addParameter(KEY_GRANT_TYPE, "http://auth0.com/oauth/grant-type/passwordless/otp");
+        request.addParameter(KEY_USERNAME, emailOrPhone);
+        request.addParameter(KEY_REALM, realm.getRealm());
+        request.addParameter("otp", otp);
         return request;
     }
 
@@ -696,6 +747,89 @@ public class AuthAPI {
         request.addParameter(KEY_GRANT_TYPE, "authorization_code");
         request.addParameter("code", code);
         request.addParameter("redirect_uri", redirectUri);
+        return request;
+    }
+
+    /**
+     * Create a request to send an email containing a link or a code to begin authentication with Passwordless connections.
+     *
+     * <pre>
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * try {
+     *      PasswordlessEmailResponse result = auth.startPasswordlessEmailFlow("user@domain.com", PasswordlessEmailType.CODE)
+     *          .execute();
+     * } catch (Auth0Exception e) {
+     *      // Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param email The email address to send the code or link to. Must not be null.
+     * @param type the type of the passwordless email request. Must not be null.
+     *
+     * @return a Request to configure and execute.
+     *
+     * @see <a href="https://auth0.com/docs/connections/passwordless/guides/email-otp">Passwordless Authentication with Email documentation</a>
+     * @see <a href="https://auth0.com/docs/api/authentication#get-code-or-link">Get code or link API reference documentation</a>
+     */
+    public PasswordlessEmailRequest startPasswordlessEmailFlow(String email, PasswordlessEmailType type) {
+        Asserts.assertNotNull(email, "email");
+        Asserts.assertNotNull(type, "type");
+
+        String url = baseUrl
+                .newBuilder()
+                .addPathSegment(PATH_PASSWORDLESS)
+                .addPathSegment(PATH_START)
+                .build()
+                .toString();
+
+        PasswordlessEmailRequest request = new PasswordlessEmailRequest(client, url);
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
+        request.addParameter(KEY_CONNECTION, "email");
+        request.addParameter(KEY_EMAIL, email);
+        request.addParameter("send", type.getType());
+        return request;
+    }
+
+    /**
+     * Create a request to send a text message containing a code to begin authentication with Passwordless connections.
+     *
+     * <pre>
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * try {
+     *      PasswordlessSmsResponse result = auth.startPasswordlessSmsFlow("+16511234567")
+     *          .execute();
+     * } catch (Auth0Exception e) {
+     *      // Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param phoneNumber The phone number to send the code to. Must not be null.
+     *
+     * @return a Request to configure and execute.
+     *
+     * @see <a href="https://auth0.com/docs/connections/passwordless/guides/sms-otp">Passwordless Authentication with SMS documentation</a>
+     * @see <a href="https://auth0.com/docs/api/authentication#get-code-or-link">Get code or link API reference documentation</a>
+     */
+    public PasswordlessSmsRequest startPasswordlessSmsFlow(String phoneNumber) {
+        Asserts.assertNotNull(phoneNumber, "phoneNumber");
+
+        String url = baseUrl
+                .newBuilder()
+                .addPathSegment(PATH_PASSWORDLESS)
+                .addPathSegment(PATH_START)
+                .build()
+                .toString();
+
+        PasswordlessSmsRequest request = new PasswordlessSmsRequest(client, url);
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
+        request.addParameter(KEY_CONNECTION, "sms");
+        request.addParameter("phone_number", phoneNumber);
         return request;
     }
 }
