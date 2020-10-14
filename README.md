@@ -245,6 +245,42 @@ try {
 }
 ```
 
+### Passwordless Authentication
+
+This library supports [Passwordless Authentication](https://auth0.com/docs/connections/passwordless) to allow users to log in without the need to remember a password.
+
+The email flow supports sending both a code or link to initiate login:
+
+```java
+try {
+    PasswordlessEmailResponse = auth.startPasswordlessEmailFlow("user@domain.com", PasswordlessEmailType.CODE)
+        .execute();
+} catch (Auth0Exception e) {
+        // handle request error
+}
+```
+
+You can also initiate the passwordless flow by sending a code via SMS:
+
+```java
+try {
+    PasswordlessSmsResponse result = auth.startPasswordlessSmsFlow("+16511234567")
+        .execute();
+} catch (Auth0Exception e) {
+    // handle request error
+}
+```
+
+Using the verification code sent to the user, you can complete the passwordless authentication flow and obtain the tokens:
+
+```java
+AuthRequest request = auth.login("emailOrPhone", PasswordlessRealmType.EMAIL, new char[]{'c','o','d','e'});
+try {
+    TokenHolder tokens = request.execute();
+} catch (Auth0Exception e) {
+    // handle request error
+}
+```
 
 ## Management API
 
