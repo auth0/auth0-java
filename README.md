@@ -49,7 +49,7 @@ Creates an `AuthorizeUrlBuilder` to authenticate the user with an OAuth provider
 
 ```AuthorizeUrlBuilder authorizeUrl(String redirectUri)```
 
-Example:
+Example:-
 ```java
 String url = auth.authorizeUrl("https://me.auth0.com/callback")
     .withConnection("facebook")
