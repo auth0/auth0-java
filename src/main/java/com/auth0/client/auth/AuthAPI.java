@@ -36,6 +36,7 @@ public class AuthAPI {
     private static final String KEY_CONNECTION = "connection";
     private static final String KEY_TOKEN = "token";
     private static final String KEY_REFRESH_TOKEN = "refresh_token";
+    private static final String KEY_OTP = "otp";
     public static final String KEY_REALM = "realm";
 
     private static final String PATH_OAUTH = "oauth";
@@ -604,7 +605,7 @@ public class AuthAPI {
         request.addParameter(KEY_GRANT_TYPE, "http://auth0.com/oauth/grant-type/passwordless/otp");
         request.addParameter(KEY_USERNAME, emailOrPhone);
         request.addParameter(KEY_REALM, realm.getRealm());
-        request.addParameter("otp", otp);
+        request.addParameter(KEY_OTP, otp);
         return request;
     }
 
