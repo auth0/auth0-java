@@ -37,7 +37,7 @@ public class AuthAPI {
     private static final String KEY_TOKEN = "token";
     private static final String KEY_REFRESH_TOKEN = "refresh_token";
     private static final String KEY_OTP = "otp";
-    public static final String KEY_REALM = "realm";
+    private static final String KEY_REALM = "realm";
 
     private static final String PATH_OAUTH = "oauth";
     private static final String PATH_TOKEN = "token";
