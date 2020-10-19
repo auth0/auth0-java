@@ -508,8 +508,9 @@ public class AuthAPI {
      * <pre>
      * {@code
      * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * CustomHeaderOptions headers = new CustomHeaderOptions().withAuth0ForwardedForHeader("127.0.0.1");
      * try {
-     *      TokenHolder result = auth.login("me@auth0.com", new char[]{'s','e','c','r','e','t})
+     *      TokenHolder result = auth.login("me@auth0.com", new char[]{'s','e','c','r','e','t}, headers)
      *          .setScope("openid email nickname")
      *          .execute();
      * } catch (Auth0Exception e) {
@@ -622,8 +623,9 @@ public class AuthAPI {
      * <pre>
      * {@code
      * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * CustomHeaderOptions headers = new CustomHeaderOptions().withAuth0ForwardedForHeader("127.0.0.1");
      * try {
-     *      TokenHolder result = auth.login("me@auth0.com", new char[]{'s','e','c','r','e','t'}, "my-realm")
+     *      TokenHolder result = auth.login("me@auth0.com", new char[]{'s','e','c','r','e','t'}, "my-realm", headers)
      *          .setAudience("https://myapi.me.auth0.com/users")
      *          .execute();
      * } catch (Auth0Exception e) {
