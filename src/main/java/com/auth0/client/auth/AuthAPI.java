@@ -774,7 +774,7 @@ public class AuthAPI {
      * @see <a href="https://auth0.com/docs/connections/passwordless/guides/email-otp">Passwordless Authentication with Email documentation</a>
      * @see <a href="https://auth0.com/docs/api/authentication#get-code-or-link">Get code or link API reference documentation</a>
      */
-    public PasswordlessEmailRequest startPasswordlessEmailFlow(String email, PasswordlessEmailType type) {
+    public CustomRequest<PasswordlessEmailResponse> startPasswordlessEmailFlow(String email, PasswordlessEmailType type) {
         Asserts.assertNotNull(email, "email");
         Asserts.assertNotNull(type, "type");
 
@@ -785,7 +785,8 @@ public class AuthAPI {
                 .build()
                 .toString();
 
-        PasswordlessEmailRequest request = new PasswordlessEmailRequest(client, url);
+        CustomRequest<PasswordlessEmailResponse> request = new CustomRequest<>(client, url, "POST", new TypeReference<PasswordlessEmailResponse>() {
+        });
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         request.addParameter(KEY_CONNECTION, "email");
@@ -816,7 +817,7 @@ public class AuthAPI {
      * @see <a href="https://auth0.com/docs/connections/passwordless/guides/sms-otp">Passwordless Authentication with SMS documentation</a>
      * @see <a href="https://auth0.com/docs/api/authentication#get-code-or-link">Get code or link API reference documentation</a>
      */
-    public PasswordlessSmsRequest startPasswordlessSmsFlow(String phoneNumber) {
+    public CustomRequest<PasswordlessSmsResponse> startPasswordlessSmsFlow(String phoneNumber) {
         Asserts.assertNotNull(phoneNumber, "phoneNumber");
 
         String url = baseUrl
@@ -826,7 +827,8 @@ public class AuthAPI {
                 .build()
                 .toString();
 
-        PasswordlessSmsRequest request = new PasswordlessSmsRequest(client, url);
+        CustomRequest<PasswordlessSmsResponse> request = new CustomRequest<>(client, url, "POST", new TypeReference<PasswordlessSmsResponse>() {
+        });
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         request.addParameter(KEY_CONNECTION, "sms");

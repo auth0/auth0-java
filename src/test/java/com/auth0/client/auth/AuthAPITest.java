@@ -943,7 +943,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreaateStartEmailPasswordlessFlowRequest() throws Exception {
-        PasswordlessEmailRequest request = api.startPasswordlessEmailFlow("user@domain.com",
+        Request<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow("user@domain.com",
                 PasswordlessEmailType.CODE);
         assertThat(request, is(notNullValue()));
 
@@ -970,14 +970,14 @@ public class AuthAPITest {
     public void startPasswordEmailFlowShouldThrowWhenEmailIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email' cannot be null!");
-        PasswordlessEmailRequest request = api.startPasswordlessEmailFlow(null, PasswordlessEmailType.CODE);
+        Request<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow(null, PasswordlessEmailType.CODE);
     }
 
     @Test
     public void startPasswordEmailFlowShouldThrowWhenTypeIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'type' cannot be null!");
-        PasswordlessEmailRequest request = api.startPasswordlessEmailFlow("user@domain.com", null);
+        Request<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow("user@domain.com", null);
     }
 
     @Test
@@ -986,9 +986,8 @@ public class AuthAPITest {
         authParams.put("scope", "openid profile email");
         authParams.put("state", "abc123");
 
-        PasswordlessEmailRequest request = api.startPasswordlessEmailFlow("user@domain.com",
-                PasswordlessEmailType.CODE)
-                .setAuthParams(authParams);
+        CustomRequest<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow("user@domain.com", PasswordlessEmailType.CODE)
+                .addParameter("authParams", authParams);
 
         assertThat(request, is(notNullValue()));
 
@@ -1017,7 +1016,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateStartSmsPasswordlessFlowRequest() throws Exception {
-        PasswordlessSmsRequest request = api.startPasswordlessSmsFlow("+16511234567");
+        Request<PasswordlessSmsResponse> request = api.startPasswordlessSmsFlow("+16511234567");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(PASSWORDLESS_SMS_RESPONSE, 200);
