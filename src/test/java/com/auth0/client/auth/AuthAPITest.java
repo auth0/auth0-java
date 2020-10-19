@@ -1049,7 +1049,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateLoginWithPasswordlessCodeRequest() throws Exception {
-        AuthRequest request = api.login("+16511234567", PasswordlessRealmType.EMAIL, "otp".toCharArray());
+        AuthRequest request = api.exchangePasswordlessOtp("+16511234567", PasswordlessRealmType.EMAIL, "otp".toCharArray());
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);

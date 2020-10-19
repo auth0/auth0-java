@@ -274,7 +274,7 @@ try {
 Using the verification code sent to the user, you can complete the passwordless authentication flow and obtain the tokens:
 
 ```java
-AuthRequest request = auth.login("emailOrPhone", PasswordlessRealmType.EMAIL, new char[]{'c','o','d','e'});
+AuthRequest request = auth.exchangePasswordlessOtp("emailOrPhone", PasswordlessRealmType.EMAIL, new char[]{'c','o','d','e'});
 try {
     TokenHolder tokens = request.execute();
 } catch (Auth0Exception e) {

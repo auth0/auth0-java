@@ -570,7 +570,7 @@ public class AuthAPI {
      * {@code
      * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
-     *      TokenHolder result = auth.login("user@domain.com", PasswordlessRealmType.EMAIL, new char[]{'c','o','d','e'})
+     *      TokenHolder result = auth.exchangePasswordlessOtp("user@domain.com", PasswordlessRealmType.EMAIL, new char[]{'c','o','d','e'})
      *          .execute();
      * } catch (Auth0Exception e) {
      *      // Something happened
@@ -588,7 +588,7 @@ public class AuthAPI {
      * @see com.auth0.client.auth.AuthAPI#startPasswordlessEmailFlow(String, PasswordlessEmailType)
      * @see com.auth0.client.auth.AuthAPI#startPasswordlessSmsFlow(String)
      */
-    public AuthRequest login(String emailOrPhone, PasswordlessRealmType realm, char[] otp) {
+    public AuthRequest exchangePasswordlessOtp(String emailOrPhone, PasswordlessRealmType realm, char[] otp) {
         Asserts.assertNotNull(emailOrPhone, "emailOrPhone");
         Asserts.assertNotNull(realm, "realm");
         Asserts.assertNotNull(otp, "otp");
