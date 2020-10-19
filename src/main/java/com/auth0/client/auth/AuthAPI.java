@@ -1,17 +1,31 @@
 package com.auth0.client.auth;
 
-import com.auth0.client.HttpOptions;
-import com.auth0.client.ProxyOptions;
-import com.auth0.json.auth.UserInfo;
-import com.auth0.net.Request;
-import com.auth0.net.*;
-import com.auth0.utils.Asserts;
-import com.fasterxml.jackson.core.type.TypeReference;
-import okhttp3.*;
+import okhttp3.Authenticator;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Response;
+import okhttp3.Route;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 
 import java.io.IOException;
+import java.util.Map;
+
+import com.auth0.client.HttpOptions;
+import com.auth0.client.ProxyOptions;
+import com.auth0.client.auth.options.CustomHeaderOptions;
+import com.auth0.json.auth.UserInfo;
+import com.auth0.net.AuthRequest;
+import com.auth0.net.CreateUserRequest;
+import com.auth0.net.CustomRequest;
+import com.auth0.net.Request;
+import com.auth0.net.SignUpRequest;
+import com.auth0.net.Telemetry;
+import com.auth0.net.TelemetryInterceptor;
+import com.auth0.net.TokenRequest;
+import com.auth0.net.VoidRequest;
+import com.auth0.utils.Asserts;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 /**
  * Class that provides an implementation of some of the Authentication and Authorization API methods defined in https://auth0.com/docs/api/authentication.
@@ -489,6 +503,51 @@ public class AuthAPI {
     }
 
     /**
+     * Creates a log in request using the 'Password' grant and the given credentials.
+     * i.e.:
+     * <pre>
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * try {
+     *      TokenHolder result = auth.login("me@auth0.com", new char[]{'s','e','c','r','e','t})
+     *          .setScope("openid email nickname")
+     *          .execute();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param emailOrUsername the identity of the user.
+     * @param password        the password of the user.
+     * @param options         the custom headers to add to the request
+     * @return a Request to configure and execute.
+     */
+    public AuthRequest login(String emailOrUsername, char[] password, CustomHeaderOptions options) {
+        Asserts.assertNotNull(emailOrUsername, "email or username");
+        Asserts.assertNotNull(password, "password");
+
+        String url = baseUrl
+                .newBuilder()
+                .addPathSegment(PATH_OAUTH)
+                .addPathSegment(PATH_TOKEN)
+                .build()
+                .toString();
+        TokenRequest request = new TokenRequest(client, url);
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
+        request.addParameter(KEY_GRANT_TYPE, "password");
+        request.addParameter(KEY_USERNAME, emailOrUsername);
+        request.addParameter(KEY_PASSWORD, password);
+        if (options != null) {
+            for (Map.Entry<String, String> e : options.getAsMap().entrySet()) {
+                request.addHeader(e.getKey(), e.getValue());
+            }
+        }
+        return request;
+    }
+
+    /**
      * Creates a log in request using the 'Password Realm' grant and the given credentials.
      * Default used realm and audience are defined in the "API Authorization Settings" in the account's advanced settings in the Auth0 Dashboard.
      * <pre>
@@ -554,6 +613,54 @@ public class AuthAPI {
         request.addParameter(KEY_USERNAME, emailOrUsername);
         request.addParameter(KEY_PASSWORD, password);
         request.addParameter("realm", realm);
+        return request;
+    }
+
+    /**
+     * Creates a log in request using the 'Password Realm' grant and the given credentials.
+     * Default used realm and audience are defined in the "API Authorization Settings" in the account's advanced settings in the Auth0 Dashboard.
+     * <pre>
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * try {
+     *      TokenHolder result = auth.login("me@auth0.com", new char[]{'s','e','c','r','e','t'}, "my-realm")
+     *          .setAudience("https://myapi.me.auth0.com/users")
+     *          .execute();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param emailOrUsername the identity of the user.
+     * @param password        the password of the user.
+     * @param realm           the realm to use.
+     * @param options         the custom headers to add to the request
+     * @return a Request to configure and execute.
+     */
+    public AuthRequest login(String emailOrUsername, char[] password, String realm, CustomHeaderOptions options) {
+        Asserts.assertNotNull(emailOrUsername, "email or username");
+        Asserts.assertNotNull(password, "password");
+        Asserts.assertNotNull(realm, "realm");
+
+        String url = baseUrl
+                .newBuilder()
+                .addPathSegment(PATH_OAUTH)
+                .addPathSegment(PATH_TOKEN)
+                .build()
+                .toString();
+        TokenRequest request = new TokenRequest(client, url);
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
+        request.addParameter(KEY_GRANT_TYPE, "http://auth0.com/oauth/grant-type/password-realm");
+        request.addParameter(KEY_USERNAME, emailOrUsername);
+        request.addParameter(KEY_PASSWORD, password);
+        request.addParameter("realm", realm);
+        if (options != null) {
+            for (Map.Entry<String, String> e : options.getAsMap().entrySet()) {
+                request.addHeader(e.getKey(), e.getValue());
+            }
+        }
         return request;
     }
 

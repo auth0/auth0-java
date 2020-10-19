@@ -1,26 +1,13 @@
 package com.auth0.client.auth;
 
-import com.auth0.client.HttpOptions;
-import com.auth0.client.MockServer;
-import com.auth0.client.ProxyOptions;
-import com.auth0.exception.APIException;
-import com.auth0.json.auth.CreatedUser;
-import com.auth0.json.auth.TokenHolder;
-import com.auth0.json.auth.UserInfo;
-import com.auth0.net.Request;
-import com.auth0.net.*;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import okhttp3.*;
+import okhttp3.Authenticator;
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
+import okhttp3.Protocol;
+import okhttp3.Route;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.mockito.Mockito;
 
 import java.io.FileReader;
 import java.net.Proxy;
@@ -28,12 +15,45 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.auth0.client.MockServer.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.mockito.Mockito;
+import com.auth0.client.HttpOptions;
+import com.auth0.client.MockServer;
+import com.auth0.client.ProxyOptions;
+import com.auth0.client.auth.options.CustomHeaderOptions;
+import com.auth0.exception.APIException;
+import com.auth0.json.auth.CreatedUser;
+import com.auth0.json.auth.TokenHolder;
+import com.auth0.json.auth.UserInfo;
+import com.auth0.net.AuthRequest;
+import com.auth0.net.Request;
+import com.auth0.net.SignUpRequest;
+import com.auth0.net.Telemetry;
+import com.auth0.net.TelemetryInterceptor;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import static com.auth0.client.MockServer.AUTH_RESET_PASSWORD;
+import static com.auth0.client.MockServer.AUTH_SIGN_UP;
+import static com.auth0.client.MockServer.AUTH_SIGN_UP_USERNAME;
+import static com.auth0.client.MockServer.AUTH_TOKENS;
+import static com.auth0.client.MockServer.AUTH_USER_INFO;
+import static com.auth0.client.MockServer.bodyFromRequest;
 import static com.auth0.client.RecordedRequestMatcher.hasHeader;
 import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
 import static com.auth0.client.UrlMatcher.hasQueryParameter;
 import static com.auth0.client.UrlMatcher.isUrl;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isA;
+import static org.hamcrest.Matchers.isEmptyOrNullString;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.collection.IsMapContaining.hasEntry;
 import static org.hamcrest.collection.IsMapContaining.hasKey;
 import static org.junit.Assert.assertThat;
@@ -816,6 +836,37 @@ public class AuthAPITest {
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
+    @Test
+    public void shouldCreateLogInWithPasswordGrantRequestWithAuth0ForwardedForHeader() throws Exception {
+        String expectedPassword = "p455w0rd";
+        String expectedIpAddress = "127.0.0.1";
+        CustomHeaderOptions headers = new CustomHeaderOptions().withAuth0ForwardedForHeader(expectedIpAddress);
+        AuthRequest request = api.login("me", expectedPassword.toCharArray(), headers);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader(CustomHeaderOptions.AUTH0_FORWARDED_FOR_HEADER, expectedIpAddress));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("grant_type", (Object) "password"));
+        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
+        assertThat(body, hasEntry("username", (Object) "me"));
+        assertThat(body, hasEntry("password", (Object) expectedPassword));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
+        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
+        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
 
     //Log In with PasswordRealm grant
 
@@ -899,6 +950,38 @@ public class AuthAPITest {
         assertThat(body, hasEntry("audience", (Object) "https://myapi.auth0.com/users"));
         assertThat(body, hasEntry("realm", (Object) "dbconnection"));
         assertThat(body, hasEntry("scope", (Object) "profile photos contacts"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
+        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
+        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+    @Test
+    public void shouldCreateLogInWithPasswordRealmGrantRequestAndAuth0ForwardedForHeader() throws Exception {
+        String expectedPassword = "p455w0rd";
+        String expectedIpAddress = "127.0.0.1";
+        CustomHeaderOptions headers = new CustomHeaderOptions().withAuth0ForwardedForHeader(expectedIpAddress);
+        AuthRequest request = api.login("me", expectedPassword.toCharArray(), "realm", headers);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader(CustomHeaderOptions.AUTH0_FORWARDED_FOR_HEADER, expectedIpAddress));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("grant_type", (Object) "http://auth0.com/oauth/grant-type/password-realm"));
+        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
+        assertThat(body, hasEntry("username", (Object) "me"));
+        assertThat(body, hasEntry("password", (Object) expectedPassword));
+        assertThat(body, hasEntry("realm", (Object) "realm"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getAccessToken(), not(isEmptyOrNullString()));

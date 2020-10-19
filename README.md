@@ -189,6 +189,28 @@ try {
     // request error
 }
 ```
+**NOTE:** 
+
+In order to avoid issues with anomaly detection for both the `Log In with Password` and `Log In with Password Realm` calls, as described here [Docs](https://auth0.com/docs/authorization/avoid-common-issues-with-resource-owner-password-flow-and-anomaly-detection#send-the-user-s-ip-address-from-your-server), it is possible to supply the `auth0-forwarded-for` header and value.
+
+`AuthRequest login(String emailOrUsername, String password, CustomHeaderOptions options)`
+
+`AuthRequest login(String emailOrUsername, String password, String realm, CustomHeaderOptions options)`
+
+Example:
+```java
+CustomHeaderOptions headers = new CustomHeaderOptions().withAuth0ForwardedForHeader("127.0.0.1");
+AuthRequest request = auth.login("me@domain.com", "password123", headers)
+    .setAudience("https://api.me.auth0.com/users")
+    .setScope("openid contacts");
+try {
+    TokenHolder holder = request.execute();
+} catch (APIException exception) {
+    // api error
+} catch (Auth0Exception exception) {
+    // request error
+}
+```
 
 ### Request Token for Audience - /oauth/token
 
