@@ -766,17 +766,17 @@ public class AuthAPI {
      * }
      * </pre>
      *
-     * @param email The email address to send the code or link to. Must not be null.
-     * @param type the type of the passwordless email request. Must not be null.
+     * @param email the email address to send the code or link to. Must not be null.
+     * @param connection the type of the passwordless email request. Must not be null.
      *
      * @return a Request to configure and execute.
      *
      * @see <a href="https://auth0.com/docs/connections/passwordless/guides/email-otp">Passwordless Authentication with Email documentation</a>
      * @see <a href="https://auth0.com/docs/api/authentication#get-code-or-link">Get code or link API reference documentation</a>
      */
-    public CustomRequest<PasswordlessEmailResponse> startPasswordlessEmailFlow(String email, PasswordlessEmailConnection type) {
+    public CustomRequest<PasswordlessEmailResponse> startPasswordlessEmailFlow(String email, PasswordlessEmailConnection connection) {
         Asserts.assertNotNull(email, "email");
-        Asserts.assertNotNull(type, "type");
+        Asserts.assertNotNull(connection, "connection");
 
         String url = baseUrl
                 .newBuilder()
@@ -791,7 +791,7 @@ public class AuthAPI {
         request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         request.addParameter(KEY_CONNECTION, "email");
         request.addParameter(KEY_EMAIL, email);
-        request.addParameter("send", type.getType());
+        request.addParameter("send", connection.getType());
         return request;
     }
 

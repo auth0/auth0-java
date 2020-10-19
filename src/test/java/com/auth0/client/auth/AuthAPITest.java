@@ -976,7 +976,7 @@ public class AuthAPITest {
     @Test
     public void startPasswordEmailFlowShouldThrowWhenTypeIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'type' cannot be null!");
+        exception.expectMessage("'connection' cannot be null!");
         Request<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow("user@domain.com", null);
     }
 
