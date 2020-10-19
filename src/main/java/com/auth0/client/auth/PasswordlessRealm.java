@@ -3,7 +3,7 @@ package com.auth0.client.auth;
 /**
  * Represents the type of realm used for Passwordless authentication.
  */
-public enum PasswordlessRealmType {
+public enum PasswordlessRealm {
 
     /**
      * The email realm.
@@ -17,7 +17,7 @@ public enum PasswordlessRealmType {
 
     private final String realm;
 
-    PasswordlessRealmType(String realm) {
+    PasswordlessRealm(String realm) {
         this.realm = realm;
     }
 

@@ -570,7 +570,7 @@ public class AuthAPI {
      * {@code
      * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
-     *      TokenHolder result = auth.exchangePasswordlessOtp("user@domain.com", PasswordlessRealmType.EMAIL, new char[]{'c','o','d','e'})
+     *      TokenHolder result = auth.exchangePasswordlessOtp("user@domain.com", PasswordlessRealm.EMAIL, new char[]{'c','o','d','e'})
      *          .execute();
      * } catch (Auth0Exception e) {
      *      // Something happened
@@ -585,10 +585,10 @@ public class AuthAPI {
      * @return A request to configure and execute
      *
      * @see <a href="https://auth0.com/docs/connections/passwordless/reference/relevant-api-endpoints">Using Passwordless APIs</a>
-     * @see com.auth0.client.auth.AuthAPI#startPasswordlessEmailFlow(String, PasswordlessEmailType)
+     * @see com.auth0.client.auth.AuthAPI#startPasswordlessEmailFlow(String, PasswordlessEmailConnection)
      * @see com.auth0.client.auth.AuthAPI#startPasswordlessSmsFlow(String)
      */
-    public AuthRequest exchangePasswordlessOtp(String emailOrPhone, PasswordlessRealmType realm, char[] otp) {
+    public AuthRequest exchangePasswordlessOtp(String emailOrPhone, PasswordlessRealm realm, char[] otp) {
         Asserts.assertNotNull(emailOrPhone, "emailOrPhone");
         Asserts.assertNotNull(realm, "realm");
         Asserts.assertNotNull(otp, "otp");
@@ -758,7 +758,7 @@ public class AuthAPI {
      * {@code
      * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
-     *      PasswordlessEmailResponse result = auth.startPasswordlessEmailFlow("user@domain.com", PasswordlessEmailType.CODE)
+     *      PasswordlessEmailResponse result = auth.startPasswordlessEmailFlow("user@domain.com", PasswordlessEmailConnection.CODE)
      *          .execute();
      * } catch (Auth0Exception e) {
      *      // Something happened
@@ -774,7 +774,7 @@ public class AuthAPI {
      * @see <a href="https://auth0.com/docs/connections/passwordless/guides/email-otp">Passwordless Authentication with Email documentation</a>
      * @see <a href="https://auth0.com/docs/api/authentication#get-code-or-link">Get code or link API reference documentation</a>
      */
-    public CustomRequest<PasswordlessEmailResponse> startPasswordlessEmailFlow(String email, PasswordlessEmailType type) {
+    public CustomRequest<PasswordlessEmailResponse> startPasswordlessEmailFlow(String email, PasswordlessEmailConnection type) {
         Asserts.assertNotNull(email, "email");
         Asserts.assertNotNull(type, "type");
 

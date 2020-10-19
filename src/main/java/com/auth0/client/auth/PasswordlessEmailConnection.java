@@ -3,7 +3,7 @@ package com.auth0.client.auth;
 /**
  * Represents the type of the Passwordless email request.
  */
-public enum PasswordlessEmailType {
+public enum PasswordlessEmailConnection {
 
     /**
      * Send a link.
@@ -17,7 +17,7 @@ public enum PasswordlessEmailType {
 
     private final String type;
 
-    PasswordlessEmailType(String type) {
+    PasswordlessEmailConnection(String type) {
         this.type = type;
     }
 

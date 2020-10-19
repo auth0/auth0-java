@@ -944,7 +944,7 @@ public class AuthAPITest {
     @Test
     public void shouldCreaateStartEmailPasswordlessFlowRequest() throws Exception {
         Request<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow("user@domain.com",
-                PasswordlessEmailType.CODE);
+                PasswordlessEmailConnection.CODE);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(PASSWORDLESS_EMAIL_RESPONSE, 200);
@@ -970,7 +970,7 @@ public class AuthAPITest {
     public void startPasswordEmailFlowShouldThrowWhenEmailIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email' cannot be null!");
-        Request<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow(null, PasswordlessEmailType.CODE);
+        Request<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow(null, PasswordlessEmailConnection.CODE);
     }
 
     @Test
@@ -986,7 +986,7 @@ public class AuthAPITest {
         authParams.put("scope", "openid profile email");
         authParams.put("state", "abc123");
 
-        CustomRequest<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow("user@domain.com", PasswordlessEmailType.CODE)
+        CustomRequest<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow("user@domain.com", PasswordlessEmailConnection.CODE)
                 .addParameter("authParams", authParams);
 
         assertThat(request, is(notNullValue()));
@@ -1048,7 +1048,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateLoginWithPasswordlessCodeRequest() throws Exception {
-        AuthRequest request = api.exchangePasswordlessOtp("+16511234567", PasswordlessRealmType.EMAIL, "otp".toCharArray());
+        AuthRequest request = api.exchangePasswordlessOtp("+16511234567", PasswordlessRealm.EMAIL, "otp".toCharArray());
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
@@ -1061,7 +1061,7 @@ public class AuthAPITest {
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
         assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
-        assertThat(body, hasEntry("realm", PasswordlessRealmType.EMAIL.getRealm()));
+        assertThat(body, hasEntry("realm", PasswordlessRealm.EMAIL.getRealm()));
         assertThat(body, hasEntry("grant_type", (Object) "http://auth0.com/oauth/grant-type/passwordless/otp"));
         assertThat(body, hasEntry("otp", (Object) "otp"));
 
