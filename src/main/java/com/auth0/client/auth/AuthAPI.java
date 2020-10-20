@@ -585,7 +585,7 @@ public class AuthAPI {
      * @return A request to configure and execute
      *
      * @see <a href="https://auth0.com/docs/connections/passwordless/reference/relevant-api-endpoints">Using Passwordless APIs</a>
-     * @see com.auth0.client.auth.AuthAPI#startPasswordlessEmailFlow(String, PasswordlessEmailConnection)
+     * @see com.auth0.client.auth.AuthAPI#startPasswordlessEmailFlow(String, PasswordlessEmailType)
      * @see com.auth0.client.auth.AuthAPI#startPasswordlessSmsFlow(String)
      */
     public AuthRequest exchangePasswordlessOtp(String emailOrPhone, String realm, char[] otp) {
@@ -758,7 +758,7 @@ public class AuthAPI {
      * {@code
      * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
-     *      PasswordlessEmailResponse result = auth.startPasswordlessEmailFlow("user@domain.com", PasswordlessEmailConnection.CODE)
+     *      PasswordlessEmailResponse result = auth.startPasswordlessEmailFlow("user@domain.com", PasswordlessEmailType.CODE)
      *          .execute();
      * } catch (Auth0Exception e) {
      *      // Something happened
@@ -767,16 +767,16 @@ public class AuthAPI {
      * </pre>
      *
      * @param email the email address to send the code or link to. Must not be null.
-     * @param connection the type of the passwordless email request. Must not be null.
+     * @param type the type of the passwordless email request. Must not be null.
      *
      * @return a Request to configure and execute.
      *
      * @see <a href="https://auth0.com/docs/connections/passwordless/guides/email-otp">Passwordless Authentication with Email documentation</a>
      * @see <a href="https://auth0.com/docs/api/authentication#get-code-or-link">Get code or link API reference documentation</a>
      */
-    public CustomRequest<PasswordlessEmailResponse> startPasswordlessEmailFlow(String email, PasswordlessEmailConnection connection) {
+    public CustomRequest<PasswordlessEmailResponse> startPasswordlessEmailFlow(String email, PasswordlessEmailType type) {
         Asserts.assertNotNull(email, "email");
-        Asserts.assertNotNull(connection, "connection");
+        Asserts.assertNotNull(type, "type");
 
         String url = baseUrl
                 .newBuilder()
@@ -791,7 +791,7 @@ public class AuthAPI {
         request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         request.addParameter(KEY_CONNECTION, "email");
         request.addParameter(KEY_EMAIL, email);
-        request.addParameter("send", connection.getType());
+        request.addParameter("send", type.getType());
         return request;
     }
 

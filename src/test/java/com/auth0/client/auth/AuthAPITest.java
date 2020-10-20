@@ -944,7 +944,7 @@ public class AuthAPITest {
     @Test
     public void shouldCreaateStartEmailPasswordlessFlowRequest() throws Exception {
         Request<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow("user@domain.com",
-                PasswordlessEmailConnection.CODE);
+                PasswordlessEmailType.CODE);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(PASSWORDLESS_EMAIL_RESPONSE, 200);
@@ -970,13 +970,13 @@ public class AuthAPITest {
     public void startPasswordEmailFlowShouldThrowWhenEmailIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email' cannot be null!");
-        Request<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow(null, PasswordlessEmailConnection.CODE);
+        Request<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow(null, PasswordlessEmailType.CODE);
     }
 
     @Test
     public void startPasswordEmailFlowShouldThrowWhenTypeIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'connection' cannot be null!");
+        exception.expectMessage("'type' cannot be null!");
         Request<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow("user@domain.com", null);
     }
 
@@ -986,7 +986,7 @@ public class AuthAPITest {
         authParams.put("scope", "openid profile email");
         authParams.put("state", "abc123");
 
-        CustomRequest<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow("user@domain.com", PasswordlessEmailConnection.CODE)
+        CustomRequest<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow("user@domain.com", PasswordlessEmailType.CODE)
                 .addParameter("authParams", authParams);
 
         // verify that connection parameter can be overridden for custom connection types
