@@ -6,6 +6,8 @@ import java.util.Map;
 /**
  * Class used to supply custom headers to those request which require them.
  * <p>
+ * Currently supports the following headers: auth0-forwarded-for
+ * <p>
  * This class is not thread-safe.
  *
  * @see <a href="https://auth0.com/docs/authorization/avoid-common-issues-with-resource-owner-password-flow-and-anomaly-detection#send-the-user-s-ip-address-from-your-server"> Auth0 Anomaly Detection Common Issues</a>
