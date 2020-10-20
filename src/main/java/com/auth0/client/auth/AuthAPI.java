@@ -570,7 +570,7 @@ public class AuthAPI {
      * {@code
      * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
-     *      TokenHolder result = auth.exchangePasswordlessOtp("user@domain.com", PasswordlessRealm.EMAIL, new char[]{'c','o','d','e'})
+     *      TokenHolder result = auth.exchangePasswordlessOtp("user@domain.com", "email", new char[]{'c','o','d','e'})
      *          .execute();
      * } catch (Auth0Exception e) {
      *      // Something happened
@@ -578,9 +578,9 @@ public class AuthAPI {
      * }
      * </pre>
      *
-     * @param emailOrPhone The email or phone number of the user.
-     * @param realm The realm to use.
-     * @param otp The one-time password used to authenticate using Passwordless connections
+     * @param emailOrPhone The email or phone number of the user. Must not be null.
+     * @param realm The realm to use. Typically "email" or "sms", unless using a custom Passwordless connection. Must not be null.
+     * @param otp The one-time password used to authenticate using Passwordless connections. Must not be null.
      *
      * @return A request to configure and execute
      *
@@ -588,7 +588,7 @@ public class AuthAPI {
      * @see com.auth0.client.auth.AuthAPI#startPasswordlessEmailFlow(String, PasswordlessEmailConnection)
      * @see com.auth0.client.auth.AuthAPI#startPasswordlessSmsFlow(String)
      */
-    public AuthRequest exchangePasswordlessOtp(String emailOrPhone, PasswordlessRealm realm, char[] otp) {
+    public AuthRequest exchangePasswordlessOtp(String emailOrPhone, String realm, char[] otp) {
         Asserts.assertNotNull(emailOrPhone, "emailOrPhone");
         Asserts.assertNotNull(realm, "realm");
         Asserts.assertNotNull(otp, "otp");
@@ -604,7 +604,7 @@ public class AuthAPI {
         request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         request.addParameter(KEY_GRANT_TYPE, "http://auth0.com/oauth/grant-type/passwordless/otp");
         request.addParameter(KEY_USERNAME, emailOrPhone);
-        request.addParameter(KEY_REALM, realm.getRealm());
+        request.addParameter(KEY_REALM, realm);
         request.addParameter(KEY_OTP, otp);
         return request;
     }

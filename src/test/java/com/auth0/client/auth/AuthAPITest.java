@@ -981,13 +981,16 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldCreaateStartEmailPasswordlessFlowRequestWithAuthParams() throws Exception {
+    public void shouldCreaateStartEmailPasswordlessFlowRequestWithCustomParams() throws Exception {
         Map<String, String> authParams = new HashMap<>();
         authParams.put("scope", "openid profile email");
         authParams.put("state", "abc123");
 
         CustomRequest<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow("user@domain.com", PasswordlessEmailConnection.CODE)
                 .addParameter("authParams", authParams);
+
+        // verify that connection parameter can be overridden for custom connection types
+        request.addParameter("connection", "custom-email");
 
         assertThat(request, is(notNullValue()));
 
@@ -999,7 +1002,7 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("connection", (Object) "email"));
+        assertThat(body, hasEntry("connection", (Object) "custom-email"));
         assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
         assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
         assertThat(body, hasEntry("email", (Object) "user@domain.com"));
@@ -1040,6 +1043,35 @@ public class AuthAPITest {
     }
 
     @Test
+    public void shouldCreateStartSmsPasswordlessFlowRequestWithCustomConnection() throws Exception {
+        CustomRequest<PasswordlessSmsResponse> request = api.startPasswordlessSmsFlow("+16511234567");
+
+        // verify that connection parameter can be overridden for custom connection types
+        request.addParameter("connection", "custom-sms");
+
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(PASSWORDLESS_SMS_RESPONSE, 200);
+        PasswordlessSmsResponse response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/passwordless/start"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("connection", (Object) "custom-sms"));
+        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
+        assertThat(body, hasEntry("phone_number", (Object) "+16511234567"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getPhoneNumber(), not(isEmptyOrNullString()));
+        assertThat(response.getId(), not(isEmptyOrNullString()));
+        assertThat(response.isPhoneVerified(), is(notNullValue()));
+        assertThat(response.getRequestLanguage(), is(nullValue()));
+    }
+
+    @Test
     public void startPasswordlessSmsFlowShouldThrowWhenPhoneIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'phoneNumber' cannot be null!");
@@ -1048,7 +1080,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateLoginWithPasswordlessCodeRequest() throws Exception {
-        AuthRequest request = api.exchangePasswordlessOtp("+16511234567", PasswordlessRealm.EMAIL, "otp".toCharArray());
+        AuthRequest request = api.exchangePasswordlessOtp("+16511234567", "email", "otp".toCharArray());
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
@@ -1061,7 +1093,7 @@ public class AuthAPITest {
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
         assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
-        assertThat(body, hasEntry("realm", PasswordlessRealm.EMAIL.getRealm()));
+        assertThat(body, hasEntry("realm", "email"));
         assertThat(body, hasEntry("grant_type", (Object) "http://auth0.com/oauth/grant-type/passwordless/otp"));
         assertThat(body, hasEntry("otp", (Object) "otp"));
 
