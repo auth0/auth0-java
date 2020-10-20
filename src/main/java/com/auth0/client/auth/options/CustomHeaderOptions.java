@@ -19,7 +19,7 @@ public class CustomHeaderOptions
     public static final String AUTH0_FORWARDED_FOR_HEADER = "auth0-forwarded-for";
 
     /**
-     * Include the `auth-forwarded-for` header
+     * Include the `auth0-forwarded-for` header
      *
      * @param forwardedForValue the ip address to pass through in the header value.
      * @return this customHeaderOptions instance
