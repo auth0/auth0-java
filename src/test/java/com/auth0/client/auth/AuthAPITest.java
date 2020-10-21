@@ -942,7 +942,7 @@ public class AuthAPITest {
     // Login with Passwordless
 
     @Test
-    public void shouldCreaateStartEmailPasswordlessFlowRequest() throws Exception {
+    public void shouldCreateStartEmailPasswordlessFlowRequest() throws Exception {
         Request<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow("user@domain.com",
                 PasswordlessEmailType.CODE);
         assertThat(request, is(notNullValue()));
@@ -967,21 +967,21 @@ public class AuthAPITest {
     }
 
     @Test
-    public void startPasswordEmailFlowShouldThrowWhenEmailIsNull() throws Exception {
+    public void startPasswordlessEmailFlowShouldThrowWhenEmailIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email' cannot be null!");
         Request<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow(null, PasswordlessEmailType.CODE);
     }
 
     @Test
-    public void startPasswordEmailFlowShouldThrowWhenTypeIsNull() throws Exception {
+    public void startPasswordlessEmailFlowShouldThrowWhenTypeIsNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'type' cannot be null!");
         Request<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow("user@domain.com", null);
     }
 
     @Test
-    public void shouldCreaateStartEmailPasswordlessFlowRequestWithCustomParams() throws Exception {
+    public void shouldCreateStartEmailPasswordlessFlowRequestWithCustomParams() throws Exception {
         Map<String, String> authParams = new HashMap<>();
         authParams.put("scope", "openid profile email");
         authParams.put("state", "abc123");
