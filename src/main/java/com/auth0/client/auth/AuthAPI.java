@@ -38,6 +38,7 @@ public class AuthAPI {
     private static final String KEY_REFRESH_TOKEN = "refresh_token";
     private static final String KEY_OTP = "otp";
     private static final String KEY_REALM = "realm";
+    private static final String KEY_MFA_TOKEN = "mfa_token";
 
     private static final String PATH_OAUTH = "oauth";
     private static final String PATH_TOKEN = "token";
@@ -833,6 +834,47 @@ public class AuthAPI {
         request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         request.addParameter(KEY_CONNECTION, "sms");
         request.addParameter("phone_number", phoneNumber);
+        return request;
+    }
+
+    /**
+     * Creates a request to exchange the mfa token and one-time password (OTP) to authenticate a user with an MFA OTP Authenticator.
+     *
+     * <pre>
+     * {@code
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
+     * try {
+     *      TokenHolder result = auth.exchangeMfaOtp("the-mfa-token”, new char[]{‘a','n','o','t',’p’})
+     *          .execute();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param mfaToken the mfa_token received from the mfa_required error that occurred during login. Must not be null.
+     * @param otp      the OTP Code provided by the user. Must not be null.
+     *
+     * @return a Request to configure and execute.
+     *
+     * @see <a href="https://auth0.com/docs/api/authentication#verify-with-one-time-password-otp-">Verify with one-time password (OTP) API documentation</a>
+     */
+    public AuthRequest exchangeMfaOtp(String mfaToken, char[] otp) {
+        Asserts.assertNotNull(mfaToken, "mfa token");
+        Asserts.assertNotNull(otp, "otp");
+
+        String url = baseUrl
+                .newBuilder()
+                .addPathSegment(PATH_OAUTH)
+                .addPathSegment(PATH_TOKEN)
+                .build()
+                .toString();
+        TokenRequest request = new TokenRequest(client, url);
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
+        request.addParameter(KEY_GRANT_TYPE, "http://auth0.com/oauth/grant-type/mfa-otp");
+        request.addParameter(KEY_MFA_TOKEN, mfaToken);
+        request.addParameter(KEY_OTP, otp);
         return request;
     }
 }
