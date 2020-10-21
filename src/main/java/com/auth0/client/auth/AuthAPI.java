@@ -860,7 +860,7 @@ public class AuthAPI {
      * @see <a href="https://auth0.com/docs/api/authentication#verify-with-one-time-password-otp-">Verify with one-time password (OTP) API documentation</a>
      */
     public AuthRequest exchangeMfaOtp(String mfaToken, char[] otp) {
-        Asserts.assertNotNull(mfaToken, "mfaToken");
+        Asserts.assertNotNull(mfaToken, "mfa token");
         Asserts.assertNotNull(otp, "otp");
 
         String url = baseUrl
