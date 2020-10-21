@@ -1169,4 +1169,47 @@ public class AuthAPITest {
         assertThat(response.getTokenType(), not(isEmptyOrNullString()));
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
+
+    // MFA grant
+
+    @Test
+    public void shouldThrowWhenExchangeMfaOtpCalledWithNullMfaToken() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'mfaToken' cannot be null!");
+        api.exchangeMfaOtp(null, new char[]{'o','t','p'});
+    }
+
+    @Test
+    public void shouldThrowWhenExchangeMfaOtpCalledWithNullOtp() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'otp' cannot be null!");
+        api.exchangeMfaOtp("mfaToken", null);
+    }
+
+    @Test
+    public void shouldCreateExchangeMfaOtpRequest() throws Exception {
+        AuthRequest request = api.exchangeMfaOtp("mfaToken", new char[]{'o','t','p'});
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("grant_type", (Object) "http://auth0.com/oauth/grant-type/mfa-otp"));
+        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
+        assertThat(body, hasEntry("mfa_token", (Object) "mfaToken"));
+        assertThat(body, hasEntry("otp", (Object) "otp"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
+        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
+        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
 }
