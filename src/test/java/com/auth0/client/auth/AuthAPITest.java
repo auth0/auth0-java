@@ -1202,7 +1202,7 @@ public class AuthAPITest {
         assertThat(body, hasEntry("grant_type", (Object) "http://auth0.com/oauth/grant-type/mfa-otp"));
         assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
         assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
-        assertThat(body, hasEntry("mfa_token", (Object) "mfaToken"));
+        assertThat(body, hasEntry("mfa_token", (Object) "mfa token"));
         assertThat(body, hasEntry("otp", (Object) "otp"));
 
         assertThat(response, is(notNullValue()));
