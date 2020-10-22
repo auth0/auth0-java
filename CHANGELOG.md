@@ -1,5 +1,17 @@
 # Change Log
 
+## [1.23.0](https://github.com/auth0/auth0-java/tree/1.23.0) (2020-10-22)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.22.1...1.23.0)
+
+**Added**
+- Add support for MFA OTP exchange [\#303](https://github.com/auth0/auth0-java/pull/303) ([jimmyjames](https://github.com/jimmyjames))
+- Passwordless support [\#300](https://github.com/auth0/auth0-java/pull/300) ([jimmyjames](https://github.com/jimmyjames))
+- Add scope to TokenHolder [\#297](https://github.com/auth0/auth0-java/pull/297) ([jimmyjames](https://github.com/jimmyjames))
+- Add inicludeEmailInRedirect field for create email verification ticket endpoint [\#296](https://github.com/auth0/auth0-java/pull/296) ([jimmyjames](https://github.com/jimmyjames))
+
+**Changed**
+- Update dependencies [\#299](https://github.com/auth0/auth0-java/pull/299) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.22.1](https://github.com/auth0/auth0-java/tree/1.22.1) (2020-10-13)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.22.0...1.22.1)
 
