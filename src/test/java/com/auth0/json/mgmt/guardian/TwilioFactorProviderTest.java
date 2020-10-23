@@ -11,6 +11,7 @@ import static org.hamcrest.Matchers.*;
 
 public class TwilioFactorProviderTest extends JsonTest<TwilioFactorProvider> {
 
+    @SuppressWarnings("deprecation")
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
@@ -25,6 +26,7 @@ public class TwilioFactorProviderTest extends JsonTest<TwilioFactorProvider> {
         new TwilioFactorProvider("+12356789", "messaging_service_sid", "atokEn", "id123");
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldFailWhenSettingFromAndMessagingServiceSIDWasAlreadySet() throws Exception {
         exception.expect(IllegalArgumentException.class);
@@ -35,6 +37,7 @@ public class TwilioFactorProviderTest extends JsonTest<TwilioFactorProvider> {
         provider.setMessagingServiceSID("id321");
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldFailWhenSettingMessagingServiceSIDAndFromWasAlreadySet() throws Exception {
         exception.expect(IllegalArgumentException.class);
@@ -45,6 +48,7 @@ public class TwilioFactorProviderTest extends JsonTest<TwilioFactorProvider> {
         provider.setFrom("+12356789");
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldSerializeWithDeprecatedSettersWithFrom() throws Exception {
         TwilioFactorProvider provider = new TwilioFactorProvider();
@@ -60,6 +64,7 @@ public class TwilioFactorProviderTest extends JsonTest<TwilioFactorProvider> {
         assertThat(serialized, not(containsString("\"messaging_service_sid\"")));
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldSerializeWithDeprecatedSettersWithMessagingServiceSID() throws Exception {
         TwilioFactorProvider provider = new TwilioFactorProvider();

@@ -23,6 +23,7 @@ public class IdTokenVerifierTest {
     private final static Date DEFAULT_CLOCK = new Date(1567400400000L);
     private final static Integer DEFAULT_CLOCK_SKEW = 60;
 
+    @SuppressWarnings("deprecation")
     @Rule
     public ExpectedException exception = ExpectedException.none();
 

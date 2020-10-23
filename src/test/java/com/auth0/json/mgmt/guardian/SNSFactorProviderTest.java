@@ -12,6 +12,7 @@ public class SNSFactorProviderTest extends JsonTest<SNSFactorProvider> {
 
     private static final String json = "{\"aws_access_key_id\":\"akey\",\"aws_secret_access_key\":\"secretakey\",\"aws_region\":\"ar\",\"sns_apns_platform_application_arn\":\"arn1\",\"sns_gcm_platform_application_arn\":\"arn2\"}";
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldSerializeWithDeprecatedSetters() throws Exception {
         SNSFactorProvider provider = new SNSFactorProvider();

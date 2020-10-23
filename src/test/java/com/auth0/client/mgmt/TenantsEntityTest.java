@@ -10,7 +10,7 @@ import static com.auth0.client.MockServer.MGMT_TENANT;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TenantsEntityTest extends BaseMgmtEntityTest {
 

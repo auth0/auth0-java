@@ -13,12 +13,13 @@ import java.util.Map;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class RulesEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldListRules() throws Exception {
+        @SuppressWarnings("deprecation")
         Request<List<Rule>> request = api.rules().list(null);
         assertThat(request, is(notNullValue()));
 
@@ -54,6 +55,8 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListRulesWithEnabled() throws Exception {
         RulesFilter filter = new RulesFilter().withEnabled(true);
+
+        @SuppressWarnings("deprecation")
         Request<List<Rule>> request = api.rules().list(filter);
         assertThat(request, is(notNullValue()));
 
@@ -73,6 +76,8 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListRulesWithFields() throws Exception {
         RulesFilter filter = new RulesFilter().withFields("some,random,fields", true);
+
+        @SuppressWarnings("deprecation")
         Request<List<Rule>> request = api.rules().list(filter);
         assertThat(request, is(notNullValue()));
 
@@ -93,6 +98,8 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldNotListRulesWithTotals() throws Exception {
         RulesFilter filter = new RulesFilter().withTotals(true);
+
+        @SuppressWarnings("deprecation")
         Request<List<Rule>> request = api.rules().list(filter);
         assertThat(request, is(notNullValue()));
 
@@ -154,6 +161,7 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldReturnEmptyRules() throws Exception {
+        @SuppressWarnings("deprecation")
         Request<List<Rule>> request = api.rules().list(null);
         assertThat(request, is(notNullValue()));
 

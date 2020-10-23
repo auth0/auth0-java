@@ -45,6 +45,11 @@ buildscript {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
         classpath 'gradle.plugin.com.auth0.gradle:oss-library:0.9.0'
     }
+
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:deprecation"
+        options.compilerArgs << "-Werror"
+    }
 }
 
 repositories {

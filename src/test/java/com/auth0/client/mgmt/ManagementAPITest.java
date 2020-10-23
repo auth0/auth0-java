@@ -19,7 +19,7 @@ import java.net.Proxy;
 import static com.auth0.client.UrlMatcher.isUrl;
 import static okhttp3.logging.HttpLoggingInterceptor.Level;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ManagementAPITest {
 
@@ -28,6 +28,8 @@ public class ManagementAPITest {
 
     private MockServer server;
     private ManagementAPI api;
+
+    @SuppressWarnings("deprecation")
     @Rule
     public ExpectedException exception = ExpectedException.none();
 

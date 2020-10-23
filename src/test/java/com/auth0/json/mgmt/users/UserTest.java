@@ -27,6 +27,7 @@ public class UserTest extends JsonTest<User> {
         assertThat(user2.getValues(), is(notNullValue()));
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldSerialize() throws Exception {
         User user = new User("auth0");
@@ -119,6 +120,7 @@ public class UserTest extends JsonTest<User> {
         assertThat(user.getLoginsCount(), is(10));
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldHandleNullPasswordString() {
         User user = new User();
@@ -135,6 +137,7 @@ public class UserTest extends JsonTest<User> {
         assertThat(user.getPassword(), is(nullValue()));
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldGetPasswordAsCharArray() {
         String password = "secret";

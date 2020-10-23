@@ -31,7 +31,7 @@ import static com.auth0.client.UrlMatcher.isUrl;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.collection.IsMapContaining.hasEntry;
 import static org.hamcrest.collection.IsMapContaining.hasKey;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class AuthAPITest {
 
@@ -43,6 +43,8 @@ public class AuthAPITest {
 
     private MockServer server;
     private AuthAPI api;
+
+    @SuppressWarnings("deprecation")
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
@@ -477,6 +479,7 @@ public class AuthAPITest {
 
     //Sign Up
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnSignUpWithNullEmail() throws Exception {
         exception.expect(IllegalArgumentException.class);
@@ -484,6 +487,7 @@ public class AuthAPITest {
         api.signUp(null, "p455w0rd", "my-connection");
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnSignUpWithNullPasswordString() throws Exception {
         exception.expect(IllegalArgumentException.class);
@@ -498,6 +502,7 @@ public class AuthAPITest {
         api.signUp("me@auth0.com", (char[]) null, "my-connection");
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnSignUpWithNullConnection() throws Exception {
         exception.expect(IllegalArgumentException.class);
@@ -505,6 +510,7 @@ public class AuthAPITest {
         api.signUp("me@auth0.com", "p455w0rd", null);
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnUsernameSignUpWithNullEmail() throws Exception {
         exception.expect(IllegalArgumentException.class);
@@ -512,6 +518,7 @@ public class AuthAPITest {
         api.signUp(null, "me", "p455w0rd", "my-connection");
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnUsernameSignUpWithNullUsername() throws Exception {
         exception.expect(IllegalArgumentException.class);
@@ -519,6 +526,7 @@ public class AuthAPITest {
         api.signUp("me@auth0.com", null, "p455w0rd", "my-connection");
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnUsernameSignUpWithNullPasswordString() throws Exception {
         exception.expect(IllegalArgumentException.class);
@@ -533,6 +541,7 @@ public class AuthAPITest {
         api.signUp("me@auth0.com", "me", (char[]) null, "my-connection");
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnUsernameSignUpWithNullConnection() throws Exception {
         exception.expect(IllegalArgumentException.class);
@@ -566,6 +575,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateSignUpRequestWithUsername() throws Exception {
+        @SuppressWarnings("deprecation")
         SignUpRequest request = api.signUp("me@auth0.com", "me", "p455w0rd", "db-connection");
         assertThat(request, is(notNullValue()));
 
@@ -592,7 +602,9 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateSignUpRequest() throws Exception {
+        @SuppressWarnings("deprecation")
         SignUpRequest request = api.signUp("me@auth0.com", "p455w0rd", "db-connection");
+
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_SIGN_UP, 200);
@@ -618,6 +630,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateSignUpRequestWithCustomParameters() throws Exception {
+        @SuppressWarnings("deprecation")
         SignUpRequest request = api.signUp("me@auth0.com", "p455w0rd", "db-connection");
         assertThat(request, is(notNullValue()));
         Map<String, String> customFields = new HashMap<>();
@@ -730,6 +743,7 @@ public class AuthAPITest {
 
     //Log In with Password grant
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnLogInWithPasswordWithNullUsername() throws Exception {
         exception.expect(IllegalArgumentException.class);
@@ -737,6 +751,7 @@ public class AuthAPITest {
         api.login(null, "p455w0rd");
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnLogInWithPasswordWithNullPassword() throws Exception {
         exception.expect(IllegalArgumentException.class);
@@ -753,6 +768,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateLogInWithPasswordGrantRequest() throws Exception {
+        @SuppressWarnings("deprecation")
         AuthRequest request = api.login("me", "p455w0rd");
         assertThat(request, is(notNullValue()));
 
@@ -780,6 +796,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateLogInWithPasswordGrantRequestWithCustomParameters() throws Exception {
+        @SuppressWarnings("deprecation")
         AuthRequest request = api.login("me", "p455w0rd");
         assertThat(request, is(notNullValue()));
         request.setRealm("dbconnection");
@@ -814,6 +831,7 @@ public class AuthAPITest {
 
     //Log In with PasswordRealm grant
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnLogInWithPasswordRealmWithNullUsername() throws Exception {
         exception.expect(IllegalArgumentException.class);
@@ -821,6 +839,7 @@ public class AuthAPITest {
         api.login(null, "p455w0rd", "realm");
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnLogInWithPasswordRealmWithNullPasswordString() throws Exception {
         exception.expect(IllegalArgumentException.class);
@@ -835,6 +854,7 @@ public class AuthAPITest {
         api.login("me", (char[]) null, "realm");
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnLogInWithPasswordRealmWithNullRealm() throws Exception {
         exception.expect(IllegalArgumentException.class);
@@ -844,6 +864,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateLogInWithPasswordRealmGrantRequest() throws Exception {
+        @SuppressWarnings("deprecation")
         AuthRequest request = api.login("me", "p455w0rd", "realm");
         assertThat(request, is(notNullValue()));
 
@@ -872,6 +893,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateLogInWithPasswordRealmGrantRequestWithCustomParameters() throws Exception {
+        @SuppressWarnings("deprecation")
         AuthRequest request = api.login("me", "p455w0rd", "realm");
         assertThat(request, is(notNullValue()));
         request.setAudience("https://myapi.auth0.com/users");

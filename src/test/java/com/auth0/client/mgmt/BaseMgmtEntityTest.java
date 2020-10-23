@@ -12,6 +12,8 @@ public class BaseMgmtEntityTest {
 
     protected MockServer server;
     protected ManagementAPI api;
+
+    @SuppressWarnings("deprecation")
     @Rule
     public ExpectedException exception = ExpectedException.none();
 

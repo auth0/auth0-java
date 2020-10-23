@@ -12,7 +12,7 @@ import java.util.List;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GrantsEntityTest extends BaseMgmtEntityTest {
 
@@ -112,6 +112,7 @@ public class GrantsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldListGrants() throws Exception {
+        @SuppressWarnings("deprecation")
         Request<List<Grant>> request = api.grants().list("userId");
         assertThat(request, is(notNullValue()));
 
@@ -136,6 +137,7 @@ public class GrantsEntityTest extends BaseMgmtEntityTest {
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnListGrantsWithNullUserId() throws Exception {
         exception.expect(IllegalArgumentException.class);
@@ -145,6 +147,7 @@ public class GrantsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldReturnEmptyGrants() throws Exception {
+        @SuppressWarnings("deprecation")
         Request<List<Grant>> request = api.grants().list("userId");
         assertThat(request, is(notNullValue()));
 

@@ -15,7 +15,7 @@ import java.util.Map;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ResourceServerEntityTest extends BaseMgmtEntityTest {
 
@@ -82,6 +82,7 @@ public class ResourceServerEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldListResourceServers() throws Exception {
+        @SuppressWarnings("deprecation")
         Request<List<ResourceServer>> request = api.resourceServers().list();
 
         assertThat(request, is(notNullValue()));

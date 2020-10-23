@@ -12,6 +12,7 @@ public class PasswordChangeTicketTest extends JsonTest<PasswordChangeTicket> {
 
     private static final String readOnlyJson = "{\"ticket\":\"https://page.auth0.com/tickets/123\"}";
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldSerialize() throws Exception {
         PasswordChangeTicket ticket = new PasswordChangeTicket("usr123");
@@ -33,7 +34,7 @@ public class PasswordChangeTicketTest extends JsonTest<PasswordChangeTicket> {
         assertThat(serialized, JsonMatcher.hasEntry("mark_email_as_verified", true));
     }
 
-    
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldSerializeWithCustomizedConnection() throws Exception {
         PasswordChangeTicket ticket = new PasswordChangeTicket("user@emailprovider.com", "connid123");
@@ -61,6 +62,7 @@ public class PasswordChangeTicketTest extends JsonTest<PasswordChangeTicket> {
         assertThat(ticket.getTicket(), is("https://page.auth0.com/tickets/123"));
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void shouldHandleNullPasswordString() throws Exception {
         PasswordChangeTicket ticket = new PasswordChangeTicket("userId");

@@ -13,7 +13,7 @@ import java.util.Map;
 import static com.auth0.client.MockServer.AUTH_TOKENS;
 import static com.auth0.client.MockServer.bodyFromRequest;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TokenRequestTest {
 

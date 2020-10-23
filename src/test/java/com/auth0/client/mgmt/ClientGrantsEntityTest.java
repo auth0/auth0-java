@@ -14,7 +14,7 @@ import java.util.Map;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
 
@@ -103,6 +103,7 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldListClientGrants() throws Exception {
+        @SuppressWarnings("deprecation")
         Request<List<ClientGrant>> request = api.clientGrants().list();
         assertThat(request, is(notNullValue()));
 
@@ -120,6 +121,7 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldReturnEmptyClientGrants() throws Exception {
+        @SuppressWarnings("deprecation")
         Request<List<ClientGrant>> request = api.clientGrants().list();
         assertThat(request, is(notNullValue()));
 
