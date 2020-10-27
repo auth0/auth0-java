@@ -18,6 +18,7 @@ public class AuthorizeUrlBuilderTest {
     private static final String CLIENT_ID = "clientId";
     private static final String REDIRECT_URI = "https://domain.auth0.com/callback";
 
+    @SuppressWarnings("deprecation")
     @Rule
     public ExpectedException exception = ExpectedException.none();
 

@@ -37,6 +37,7 @@ public class MultipartRequestTest {
     private MockServer server;
     private OkHttpClient client;
 
+    @SuppressWarnings("deprecation")
     @Rule
     public ExpectedException exception = ExpectedException.none();
     private TypeReference<TokenHolder> tokenHolderType;
@@ -76,8 +77,8 @@ public class MultipartRequestTest {
         server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder execute = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
-        Assert.assertThat(recordedRequest.getMethod(), is("POST"));
-        Assert.assertThat(execute, is(notNullValue()));
+        assertThat(recordedRequest.getMethod(), is("POST"));
+        assertThat(execute, is(notNullValue()));
     }
 
     @Test

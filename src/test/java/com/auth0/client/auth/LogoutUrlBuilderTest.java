@@ -18,6 +18,7 @@ public class LogoutUrlBuilderTest {
     private static final String CLIENT_ID = "clientId";
     private static final String RETURN_TO_URL = "https://domain.auth0.com/callback";
 
+    @SuppressWarnings("deprecation")
     @Rule
     public ExpectedException exception = ExpectedException.none();
 

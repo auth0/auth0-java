@@ -23,7 +23,7 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Scanner;
 
 import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class SignatureVerifierTest {
 
@@ -34,6 +34,7 @@ public class SignatureVerifierTest {
     private static final String RS_PUBLIC_KEY = "src/test/resources/keys/public-rsa.pem";
     private static final String RS_PUBLIC_KEY_BAD = "src/test/resources/keys/bad-public-rsa.pem";
 
+    @SuppressWarnings("deprecation")
     @Rule
     public ExpectedException exception = ExpectedException.none();
 

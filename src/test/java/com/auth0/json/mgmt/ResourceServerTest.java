@@ -9,7 +9,7 @@ import org.junit.Test;
 import static com.auth0.json.JsonMatcher.hasEntry;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ResourceServerTest extends JsonTest<ResourceServer> {
     private final static String RESOURCE_SERVER_JSON = "src/test/resources/mgmt/resource_server.json";

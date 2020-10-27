@@ -13,12 +13,13 @@ import java.util.Map;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ConnectionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldListConnections() throws Exception {
+        @SuppressWarnings("deprecation")
         Request<List<Connection>> request = api.connections().list(null);
         assertThat(request, is(notNullValue()));
 
@@ -37,6 +38,8 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListConnectionsWithStrategy() throws Exception {
         ConnectionFilter filter = new ConnectionFilter().withStrategy("auth0");
+
+        @SuppressWarnings("deprecation")
         Request<List<Connection>> request = api.connections().list(filter);
         assertThat(request, is(notNullValue()));
 
@@ -56,6 +59,8 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListConnectionsWithName() throws Exception {
         ConnectionFilter filter = new ConnectionFilter().withName("my-connection");
+
+        @SuppressWarnings("deprecation")
         Request<List<Connection>> request = api.connections().list(filter);
         assertThat(request, is(notNullValue()));
 
@@ -75,6 +80,8 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldListConnectionsWithFields() throws Exception {
         ConnectionFilter filter = new ConnectionFilter().withFields("some,random,fields", true);
+
+        @SuppressWarnings("deprecation")
         Request<List<Connection>> request = api.connections().list(filter);
         assertThat(request, is(notNullValue()));
 
@@ -112,6 +119,8 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldNotListConnectionsWithTotals() throws Exception {
         ConnectionFilter filter = new ConnectionFilter().withTotals(true);
+
+        @SuppressWarnings("deprecation")
         Request<List<Connection>> request = api.connections().list(filter);
         assertThat(request, is(notNullValue()));
 
@@ -174,6 +183,7 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldReturnEmptyConnections() throws Exception {
+        @SuppressWarnings("deprecation")
         Request<List<Connection>> request = api.connections().list(null);
         assertThat(request, is(notNullValue()));
 

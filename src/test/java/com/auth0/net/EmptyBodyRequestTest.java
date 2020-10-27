@@ -46,8 +46,8 @@ public class EmptyBodyRequestTest {
         server.jsonResponse(AUTH_TOKENS, 200);
         request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
-        Assert.assertThat(recordedRequest.getMethod(), is("POST"));
-        Assert.assertThat(recordedRequest.getBodySize(), is(0L));
+        assertThat(recordedRequest.getMethod(), is("POST"));
+        assertThat(recordedRequest.getBodySize(), is(0L));
     }
 
     @Test
@@ -60,7 +60,7 @@ public class EmptyBodyRequestTest {
         server.jsonResponse(AUTH_TOKENS, 200);
         request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
-        Assert.assertThat(recordedRequest.getMethod(), is("POST"));
-        Assert.assertThat(recordedRequest.getBodySize(), is(0L));
+        assertThat(recordedRequest.getMethod(), is("POST"));
+        assertThat(recordedRequest.getBodySize(), is(0L));
     }
 }
