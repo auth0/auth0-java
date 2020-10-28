@@ -136,7 +136,8 @@ public class APIException extends Auth0Exception {
             Object description = values.get("description");
             if (description instanceof String) {
                 return (String) description;
-            } else {
+            } else if (description instanceof Map){
+                @SuppressWarnings("unchecked")
                 PasswordStrengthErrorParser policy = new PasswordStrengthErrorParser((Map<String, Object>) description);
                 return policy.getDescription();
             }

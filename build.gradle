@@ -33,6 +33,12 @@ jacocoTestReport {
 compileJava {
     sourceCompatibility '1.7'
     targetCompatibility '1.7'
+
+    options.compilerArgs << "-Xlint:deprecation" << "-Xlint:unchecked" << "-Werror"
+}
+
+compileTestJava {
+    options.compilerArgs << "-Xlint:deprecation" << "-Werror"
 }
 
 buildscript {
@@ -44,11 +50,6 @@ buildscript {
     dependencies {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
         classpath 'gradle.plugin.com.auth0.gradle:oss-library:0.9.0'
-    }
-
-    tasks.withType(JavaCompile) {
-        options.compilerArgs << "-Xlint:deprecation"
-        options.compilerArgs << "-Werror"
     }
 }
 
