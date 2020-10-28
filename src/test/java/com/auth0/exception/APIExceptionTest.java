@@ -22,30 +22,38 @@ public class APIExceptionTest {
     public void shouldBeMfaRequiredWithMfaTokenError() {
         values.put("error", "mfa_required");
         values.put("mfa_token", "some-mfa-token");
-        APIException apiException = new APIException(values, 403);
+        APIException apiException = new APIException(values, 42);
         assertThat(apiException.isMultifactorRequired(), is(true));
         assertThat(apiException.getValue("mfa_token"), is("some-mfa-token"));
     }
 
     @Test
-    public void shouldBeInvalidCredentialsError() {
+    public void shouldBeInvalidCredentialsErrorWhenInvalidGrant() {
         values.put("error", "invalid_grant");
         values.put("error_description", "Wrong email or password.");
-        APIException apiException = new APIException(values, 403);
+        APIException apiException = new APIException(values, 42);
+        assertThat(apiException.isInvalidCredentials(), is(true));
+    }
+
+    @Test
+    public void shouldBeInvalidCredentialsErrorWhenInvalidUserPassword() {
+        values.put("error", "invalid_user_password");
+        values.put("error_description", "Wrong email or password.");
+        APIException apiException = new APIException(values, 42);
         assertThat(apiException.isInvalidCredentials(), is(true));
     }
 
     @Test
     public void shouldBeAccessDeniedError() {
         values.put("error", "access_denied");
-        APIException apiException = new APIException(values, 401);
+        APIException apiException = new APIException(values, 42);
         assertThat(apiException.isAccessDenied(), is(true));
     }
 
     @Test
     public void shouldBeMfaEnrollementRequiredError() {
         values.put("error", "unsupported_challenge_type");
-        APIException apiException = new APIException(values, 403);
+        APIException apiException = new APIException(values, 42);
         assertThat(apiException.isMultifactorEnrollRequired(), is(true));
     }
 
@@ -53,7 +61,7 @@ public class APIExceptionTest {
     public void shouldBeMfaTokenInvalidErrorForMalformedToken() {
         values.put("error", "invalid_grant");
         values.put("error_description", "Malformed mfa_token");
-        APIException apiException = new APIException(values, 1);
+        APIException apiException = new APIException(values, 42);
         assertThat(apiException.isMultifactorTokenInvalid(), is(true));
     }
 
@@ -74,7 +82,7 @@ public class APIExceptionTest {
 
     @Test
     public void checkErrorTypesShouldHandleNullError() {
-        APIException apiException = new APIException(values, 403);
+        APIException apiException = new APIException(values, 42);
         assertThat(apiException.isAccessDenied(), is(false));
         assertThat(apiException.isInvalidCredentials(), is(false));
         assertThat(apiException.isMultifactorRequired(), is(false));
