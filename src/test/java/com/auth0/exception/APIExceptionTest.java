@@ -44,6 +44,14 @@ public class APIExceptionTest {
     }
 
     @Test
+    public void shouldNotBeInvalidCredentialsErrorWhenWrongDescription() {
+        values.put("error", "invalid_grant");
+        values.put("error_description", "some message");
+        APIException apiException = new APIException(values, 42);
+        assertThat(apiException.isInvalidCredentials(), is(false));
+    }
+
+    @Test
     public void shouldBeAccessDeniedError() {
         values.put("error", "access_denied");
         APIException apiException = new APIException(values, 42);
@@ -71,6 +79,22 @@ public class APIExceptionTest {
         values.put("error_description", "mfa_token is expired");
         APIException apiException = new APIException(values, 1);
         assertThat(apiException.isMultifactorTokenInvalid(), is(true));
+    }
+
+    @Test
+    public void shouldNotBeMfaTokenInvalidErrorForExpiredTokenWhenWrongDescription() {
+        values.put("error", "expired_token");
+        values.put("error_description", "some message");
+        APIException apiException = new APIException(values, 1);
+        assertThat(apiException.isMultifactorTokenInvalid(), is(false));
+    }
+
+    @Test
+    public void shouldNotBeMfaTokenInvalidErrorForMalformedTokenWhenWrongDescription() {
+        values.put("error", "invalid_grant");
+        values.put("error_description", "some message");
+        APIException apiException = new APIException(values, 1);
+        assertThat(apiException.isMultifactorTokenInvalid(), is(false));
     }
 
     @Test
