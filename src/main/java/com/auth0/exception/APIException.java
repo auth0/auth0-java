@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.Map;
 
 /**
- * Class that represents an Auth0 Server error captured from a http response. Provides different methods to get a clue of why the request failed.
+ * Represents an Auth0 Server error captured from an HTTP response. Provides different methods to determine why the request failed.
  * i.e.:
  * <pre>
  * {@code
@@ -79,6 +79,49 @@ public class APIException extends Auth0Exception {
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * @return {@code true} when an MFA code is required to authenticate, {@code false} otherwise.
+     */
+    public boolean isMultifactorRequired() {
+        return "mfa_required".equals(error);
+    }
+
+    /**
+     * @return {@code true} when the username and/or password used for authentication are invalid, {@code false} otherwise.
+     */
+    public boolean isInvalidCredentials() {
+        return "invalid_user_password".equals(error) || "invalid_grant".equals(error) && "Wrong email or password.".equals(description);
+    }
+
+    /**
+     * @return {@code true} when MFA is required and the user is not enrolled, {@code false} otherwise.
+     */
+    public boolean isMultifactorEnrollRequired() {
+        return "unsupported_challenge_type".equals(error);
+    }
+
+    /**
+     * @return {@code true} when Bot Protection flags the request as suspicious, {@code false} otherwise.
+     */
+    public boolean isVerificationRequired() {
+        return "requires_verification".equals(error);
+    }
+
+    /**
+     * @return {@code true} when the MFA Token used on the login request is malformed or has expired, {@code false} otherwise.
+     */
+    public boolean isMultifactorTokenInvalid() {
+        return "expired_token".equals(error) && "mfa_token is expired".equals(description) ||
+                "invalid_grant".equals(error) && "Malformed mfa_token".equals(description);
+    }
+
+    /**
+     * @return {@code true} when authenticating with web-based authentiction and the resource server denied access per the OAuth 2 spec, {@code false} otherwise.
+     */
+    public boolean isAccessDenied() {
+        return "access_denied".equals(error);
     }
 
     private static String createMessage(String description, int statusCode) {
