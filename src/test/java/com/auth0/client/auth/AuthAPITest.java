@@ -828,6 +828,33 @@ public class AuthAPITest {
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
+    @Test
+    public void shouldSetCustomHeaderWithPasswordlessRealmRequest() throws Exception {
+        TokenRequest request = api.login("me", new char[]{'p','a','s','s','w','o','r','d'});
+        request.addHeader("some-header", "some-value");
+
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("some-header", "some-value"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("grant_type", (Object) "password"));
+        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
+        assertThat(body, hasEntry("username", (Object) "me"));
+        assertThat(body, hasEntry("password", (Object) "password"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
+        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
+        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
 
     //Log In with PasswordRealm grant
 
