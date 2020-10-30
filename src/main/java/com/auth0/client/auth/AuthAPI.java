@@ -452,7 +452,7 @@ public class AuthAPI {
      * @deprecated Use {@linkplain #login(String, char[])} instead.
      */
     @Deprecated
-    public AuthRequest login(String emailOrUsername, String password) {
+    public TokenRequest login(String emailOrUsername, String password) {
         return this.login(emailOrUsername, password != null ? password.toCharArray() : null);
     }
 
@@ -476,7 +476,7 @@ public class AuthAPI {
      * @param password        the password of the user.
      * @return a Request to configure and execute.
      */
-    public AuthRequest login(String emailOrUsername, char[] password) {
+    public TokenRequest login(String emailOrUsername, char[] password) {
         Asserts.assertNotNull(emailOrUsername, "email or username");
         Asserts.assertNotNull(password, "password");
 
@@ -518,7 +518,7 @@ public class AuthAPI {
      * @deprecated Use {@linkplain #login(String, char[], String)} instead.
      */
     @Deprecated
-    public AuthRequest login(String emailOrUsername, String password, String realm) {
+    public TokenRequest login(String emailOrUsername, String password, String realm) {
         return this.login(emailOrUsername, password != null ? password.toCharArray() : null, realm);
     }
 
@@ -543,7 +543,7 @@ public class AuthAPI {
      * @param realm           the realm to use.
      * @return a Request to configure and execute.
      */
-    public AuthRequest login(String emailOrUsername, char[] password, String realm) {
+    public TokenRequest login(String emailOrUsername, char[] password, String realm) {
         Asserts.assertNotNull(emailOrUsername, "email or username");
         Asserts.assertNotNull(password, "password");
         Asserts.assertNotNull(realm, "realm");
@@ -589,7 +589,7 @@ public class AuthAPI {
      * @see com.auth0.client.auth.AuthAPI#startPasswordlessEmailFlow(String, PasswordlessEmailType)
      * @see com.auth0.client.auth.AuthAPI#startPasswordlessSmsFlow(String)
      */
-    public AuthRequest exchangePasswordlessOtp(String emailOrPhone, String realm, char[] otp) {
+    public TokenRequest exchangePasswordlessOtp(String emailOrPhone, String realm, char[] otp) {
         Asserts.assertNotNull(emailOrPhone, "emailOrPhone");
         Asserts.assertNotNull(realm, "realm");
         Asserts.assertNotNull(otp, "otp");
@@ -629,7 +629,7 @@ public class AuthAPI {
      * @param audience the audience of the API to request access to.
      * @return a Request to configure and execute.
      */
-    public AuthRequest requestToken(String audience) {
+    public TokenRequest requestToken(String audience) {
         Asserts.assertNotNull(audience, "audience");
 
         String url = baseUrl
@@ -697,7 +697,7 @@ public class AuthAPI {
      * @param refreshToken the refresh token to use to get fresh new credentials.
      * @return a Request to configure and execute.
      */
-    public AuthRequest renewAuth(String refreshToken) {
+    public TokenRequest renewAuth(String refreshToken) {
         Asserts.assertNotNull(refreshToken, "refresh token");
 
         String url = baseUrl
@@ -733,7 +733,7 @@ public class AuthAPI {
      * @param redirectUri the redirect uri sent on the /authorize call.
      * @return a Request to configure and execute.
      */
-    public AuthRequest exchangeCode(String code, String redirectUri) {
+    public TokenRequest exchangeCode(String code, String redirectUri) {
         Asserts.assertNotNull(code, "code");
         Asserts.assertNotNull(redirectUri, "redirect uri");
 
@@ -859,7 +859,7 @@ public class AuthAPI {
      *
      * @see <a href="https://auth0.com/docs/api/authentication#verify-with-one-time-password-otp-">Verify with one-time password (OTP) API documentation</a>
      */
-    public AuthRequest exchangeMfaOtp(String mfaToken, char[] otp) {
+    public TokenRequest exchangeMfaOtp(String mfaToken, char[] otp) {
         Asserts.assertNotNull(mfaToken, "mfa token");
         Asserts.assertNotNull(otp, "otp");
 
