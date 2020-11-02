@@ -1,5 +1,17 @@
 # Change Log
 
+## [1.24.0](https://github.com/auth0/auth0-java/tree/1.24.0) (2020-11-02)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.23.0...1.24.0)
+
+**Added**
+- Add methods to determine cause of APIException [\#310](https://github.com/auth0/auth0-java/pull/310) ([jimmyjames](https://github.com/jimmyjames))
+
+**Changed**
+- Return TokenRequest instead of AuthRequest [\#309](https://github.com/auth0/auth0-java/pull/309) ([jimmyjames](https://github.com/jimmyjames))
+
+**Fixed**
+- Add unchecked warnings failures for src [\#311](https://github.com/auth0/auth0-java/pull/311) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.23.0](https://github.com/auth0/auth0-java/tree/1.23.0) (2020-10-22)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.22.1...1.23.0)
 
