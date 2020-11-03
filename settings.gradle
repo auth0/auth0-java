@@ -1,1 +1,15 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        jcenter()
+        maven {
+            name "JCenter Gradle Plugins"
+            url "https://dl.bintray.com/gradle/gradle-plugins"
+        }
+    }
+    plugins {
+        id 'com.auth0.gradle.oss-library.java' version '0.9.0'
+    }
+}
+
 rootProject.name = 'auth0'
