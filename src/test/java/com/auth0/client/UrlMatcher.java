@@ -84,7 +84,7 @@ public class UrlMatcher extends TypeSafeDiagnosingMatcher<String> {
             return true;
         }
         if (path.startsWith("/")) {
-            path = path.substring(1, path.length());
+            path = path.substring(1);
         }
         if (path.endsWith("/")) {
             path = path.substring(0, path.length() - 1);

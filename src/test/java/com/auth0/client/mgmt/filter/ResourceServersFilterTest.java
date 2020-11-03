@@ -23,8 +23,8 @@ public class ResourceServersFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("per_page", (Object) 10));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("page", (Object) 5));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("per_page", 10));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("page", 5));
     }
 
     @Test
@@ -33,6 +33,6 @@ public class ResourceServersFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("include_totals", (Object) true));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("include_totals", true));
     }
 }

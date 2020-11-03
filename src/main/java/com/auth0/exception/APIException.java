@@ -20,8 +20,8 @@ import java.util.Map;
 public class APIException extends Auth0Exception {
 
     private String error;
-    private String description;
-    private int statusCode;
+    private final String description;
+    private final int statusCode;
     private Map<String, Object> values;
 
     public APIException(String payload, int statusCode, Throwable cause) {

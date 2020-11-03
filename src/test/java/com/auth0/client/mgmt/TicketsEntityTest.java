@@ -42,7 +42,7 @@ public class TicketsEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(3));
-        assertThat(body, hasEntry("user_id", (Object) "uid123"));
+        assertThat(body, hasEntry("user_id", "uid123"));
         assertThat(body, hasEntry("includeEmailInRedirect", true));
         assertThat(body, hasEntry("ttl_sec", 42));
 
@@ -71,7 +71,7 @@ public class TicketsEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(1));
-        assertThat(body, hasEntry("user_id", (Object) "uid123"));
+        assertThat(body, hasEntry("user_id", "uid123"));
 
         assertThat(response, is(notNullValue()));
     }

@@ -16,7 +16,7 @@ public class LogStream {
     @JsonProperty("name")
     private String name;
     @JsonProperty("type")
-    private String type;
+    private final String type;
     @JsonProperty("status")
     private String status;
     @JsonProperty("sink")

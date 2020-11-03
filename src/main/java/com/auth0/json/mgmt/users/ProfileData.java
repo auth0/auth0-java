@@ -27,7 +27,7 @@ public class ProfileData implements Serializable {
     private Boolean phoneVerified;
     @JsonProperty("family_name")
     private String familyName;
-    private Map<String, Object> values;
+    private final Map<String, Object> values;
 
     public ProfileData() {
         values = new HashMap<>();

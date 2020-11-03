@@ -145,11 +145,11 @@ public class DeviceCredentialsEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(5));
-        assertThat(body, hasEntry("device_name", (Object) "device"));
-        assertThat(body, hasEntry("type", (Object) "public_key"));
-        assertThat(body, hasEntry("value", (Object) "val123"));
-        assertThat(body, hasEntry("device_id", (Object) "id123"));
-        assertThat(body, hasEntry("client_id", (Object) "clientId"));
+        assertThat(body, hasEntry("device_name", "device"));
+        assertThat(body, hasEntry("type", "public_key"));
+        assertThat(body, hasEntry("value", "val123"));
+        assertThat(body, hasEntry("device_id", "id123"));
+        assertThat(body, hasEntry("client_id", "clientId"));
 
         assertThat(response, is(notNullValue()));
     }

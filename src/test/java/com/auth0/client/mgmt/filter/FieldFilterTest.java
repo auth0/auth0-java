@@ -23,8 +23,8 @@ public class FieldFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("fields", (Object) "a,b,c"));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("include_fields", (Object) true));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("fields", "a,b,c"));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("include_fields", true));
     }
 
     @Test
@@ -33,7 +33,7 @@ public class FieldFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("fields", (Object) "a,b,c"));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("include_fields", (Object) false));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("fields", "a,b,c"));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("include_fields", false));
     }
 }

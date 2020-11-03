@@ -13,14 +13,14 @@ import java.util.Date;
 public class Job {
 
     @JsonProperty("status")
-    private String status;
+    private final String status;
     @JsonProperty("type")
-    private String type;
+    private final String type;
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonProperty("created_at")
     private Date createdAt;
     @JsonProperty("id")
-    private String id;
+    private final String id;
     @JsonProperty("connection_id")
     private String connectionId;
     @JsonProperty("connection")

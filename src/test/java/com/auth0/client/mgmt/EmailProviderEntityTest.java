@@ -72,7 +72,7 @@ public class EmailProviderEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(1));
-        assertThat(body, hasEntry("name", (Object) "provider"));
+        assertThat(body, hasEntry("name", "provider"));
 
         assertThat(response, is(notNullValue()));
     }
@@ -113,7 +113,7 @@ public class EmailProviderEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(1));
-        assertThat(body, hasEntry("name", (Object) "name"));
+        assertThat(body, hasEntry("name", "name"));
 
         assertThat(response, is(notNullValue()));
     }

@@ -17,7 +17,7 @@ import java.util.Map;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserInfo implements Serializable {
 
-    private Map<String, Object> values;
+    private final Map<String, Object> values;
 
     UserInfo() {
         values = new HashMap<>();

@@ -61,12 +61,12 @@ public class EmailTemplatesEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(6));
-        assertThat(body, hasEntry("template", (Object) "welcome_email"));
-        assertThat(body, hasEntry("body", (Object) "Welcome!!"));
-        assertThat(body, hasEntry("from", (Object) "auth0.com"));
-        assertThat(body, hasEntry("syntax", (Object) "liquid"));
-        assertThat(body, hasEntry("subject", (Object) "Welcome"));
-        assertThat(body, hasEntry("enabled", (Object) true));
+        assertThat(body, hasEntry("template", "welcome_email"));
+        assertThat(body, hasEntry("body", "Welcome!!"));
+        assertThat(body, hasEntry("from", "auth0.com"));
+        assertThat(body, hasEntry("syntax", "liquid"));
+        assertThat(body, hasEntry("subject", "Welcome"));
+        assertThat(body, hasEntry("enabled", true));
         assertThat(body, not(hasKey("resultUrl")));
         assertThat(body, not(hasKey("urlLifetimeInSeconds")));
 
@@ -100,10 +100,10 @@ public class EmailTemplatesEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(4));
-        assertThat(body, hasEntry("resultUrl", (Object) "https://somewhere.com"));
-        assertThat(body, hasEntry("body", (Object) "<html>New</html>"));
-        assertThat(body, hasEntry("syntax", (Object) "liquid"));
-        assertThat(body, hasEntry("urlLifetimeInSeconds", (Object) 123));
+        assertThat(body, hasEntry("resultUrl", "https://somewhere.com"));
+        assertThat(body, hasEntry("body", "<html>New</html>"));
+        assertThat(body, hasEntry("syntax", "liquid"));
+        assertThat(body, hasEntry("urlLifetimeInSeconds", 123));
         assertThat(body, not(hasKey("template")));
         assertThat(body, not(hasKey("from")));
         assertThat(body, not(hasKey("enabled")));

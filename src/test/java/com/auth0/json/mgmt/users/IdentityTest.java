@@ -22,6 +22,6 @@ public class IdentityTest extends JsonTest<Identity> {
         assertThat(identity.getAccessToken(), is("aTokEn"));
         assertThat(identity.getProfileData(), is(notNullValue()));
         assertThat(identity.getValues(), is(notNullValue()));
-        assertThat(identity.getValues(), hasEntry("access_token_secret", (Object) "s3cr3t"));
+        assertThat(identity.getValues(), hasEntry("access_token_secret", "s3cr3t"));
     }
 }

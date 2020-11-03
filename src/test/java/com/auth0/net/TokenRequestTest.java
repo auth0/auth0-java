@@ -54,7 +54,7 @@ public class TokenRequestTest {
         request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
         Map<String, Object> values = bodyFromRequest(recordedRequest);
-        assertThat(values, hasEntry("audience", (Object) "https://myapi.auth0.com/users"));
+        assertThat(values, hasEntry("audience", "https://myapi.auth0.com/users"));
     }
 
     @Test
@@ -67,7 +67,7 @@ public class TokenRequestTest {
         request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
         Map<String, Object> values = bodyFromRequest(recordedRequest);
-        assertThat(values, hasEntry("scope", (Object) "email profile photos"));
+        assertThat(values, hasEntry("scope", "email profile photos"));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class TokenRequestTest {
         request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
         Map<String, Object> values = bodyFromRequest(recordedRequest);
-        assertThat(values, hasEntry("realm", (Object) "dbconnection"));
+        assertThat(values, hasEntry("realm", "dbconnection"));
     }
 
 }

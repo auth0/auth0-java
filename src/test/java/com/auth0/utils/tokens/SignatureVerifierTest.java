@@ -152,7 +152,7 @@ public class SignatureVerifierTest {
                 } catch (IOException ioe) {
                     throw new PublicKeyProviderException("Error reading public key", ioe);
                 }
-            };
+            }
         };
     }
 

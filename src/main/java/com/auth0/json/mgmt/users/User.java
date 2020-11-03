@@ -76,7 +76,7 @@ public class User implements Serializable {
     private Integer loginsCount;
     @JsonProperty("blocked")
     private Boolean blocked;
-    private Map<String, Object> values;
+    private final Map<String, Object> values;
 
     public User() {
         this(null);
