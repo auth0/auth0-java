@@ -19,7 +19,7 @@ public class EmptyBodyRequest<T> extends CustomRequest<T> {
 
     @Override
     protected RequestBody createRequestBody() {
-        return RequestBody.create(null, new byte[0]);
+        return RequestBody.create(new byte[0], null);
     }
 
     @Override
