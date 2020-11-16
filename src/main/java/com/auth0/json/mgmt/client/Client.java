@@ -76,6 +76,8 @@ public class Client {
     private Map<String, Object> clientMetadata;
     @JsonProperty("mobile")
     private Mobile mobile;
+    @JsonProperty("refresh_token")
+    private RefreshToken refreshToken;
 
     /**
      * Creates a new Application instance setting the name property.
@@ -656,6 +658,24 @@ public class Client {
     @JsonProperty("mobile")
     public void setMobile(Mobile mobile) {
         this.mobile = mobile;
+    }
+
+    /**
+     * Getter for the configuration related to refresh tokens.
+     *
+     * @return the refresh token configuration.
+     */
+    public RefreshToken getRefreshToken() {
+        return refreshToken;
+    }
+
+    /**
+     * Setter for the configuration related to refresh tokens.
+     *
+     * @param refreshToken the refresh token configuration to set.
+     */
+    public void setRefreshToken(RefreshToken refreshToken) {
+        this.refreshToken = refreshToken;
     }
 }
 
