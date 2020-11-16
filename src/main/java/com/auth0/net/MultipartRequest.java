@@ -79,7 +79,7 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
             throw new IllegalArgumentException("Failed to add part because the file specified cannot be found.");
         }
         bodyBuilder.addFormDataPart(name, file.getName(),
-                RequestBody.create(MediaType.parse(mediaType), file));
+                RequestBody.create(file, MediaType.parse(mediaType)));
         partsCount++;
         return this;
     }

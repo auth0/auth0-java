@@ -47,7 +47,7 @@ public class CustomRequest<T> extends ExtendedBaseRequest<T> implements Customiz
             return null;
         }
         byte[] jsonBody = mapper.writeValueAsBytes(body != null ? body : parameters);
-        return RequestBody.create(MediaType.parse(CONTENT_TYPE_APPLICATION_JSON), jsonBody);
+        return RequestBody.create(jsonBody, MediaType.parse(CONTENT_TYPE_APPLICATION_JSON));
     }
 
     @Override
