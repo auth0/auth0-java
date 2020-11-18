@@ -74,6 +74,6 @@ public class BlacklistsEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(1));
-        assertThat(body, hasEntry("jti", (Object) "id"));
+        assertThat(body, hasEntry("jti", "id"));
     }
 }

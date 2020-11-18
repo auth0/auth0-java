@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class RecordedMultipartRequest {
 
-    private Map<String, KeyValuePart> parts = new HashMap<>();
+    private final Map<String, KeyValuePart> parts = new HashMap<>();
     private String boundary;
 
     public RecordedMultipartRequest(RecordedRequest request) throws IOException {

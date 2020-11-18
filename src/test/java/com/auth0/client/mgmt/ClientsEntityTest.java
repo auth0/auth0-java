@@ -197,7 +197,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(1));
-        assertThat(body, hasEntry("name", (Object) "My Application"));
+        assertThat(body, hasEntry("name", "My Application"));
 
         assertThat(response, is(notNullValue()));
     }
@@ -252,7 +252,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(1));
-        assertThat(body, hasEntry("name", (Object) "My Application"));
+        assertThat(body, hasEntry("name", "My Application"));
 
         assertThat(response, is(notNullValue()));
     }

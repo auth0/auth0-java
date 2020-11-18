@@ -47,8 +47,8 @@ public class UserTest extends JsonTest<User> {
         user.setNickname("Johny");
         user.setGivenName("John");
         user.setFamilyName("Walker");
-        user.setUserMetadata(Collections.<String, Object>emptyMap());
-        user.setAppMetadata(Collections.<String, Object>emptyMap());
+        user.setUserMetadata(Collections.emptyMap());
+        user.setAppMetadata(Collections.emptyMap());
         user.setBlocked(true);
 
         String serialized = toJSON(user);
@@ -102,7 +102,7 @@ public class UserTest extends JsonTest<User> {
         assertThat(user.getAppMetadata(), is(notNullValue()));
         assertThat(user.isBlocked(), is(true));
         assertThat(user.getValues(), is(notNullValue()));
-        assertThat(user.getValues(), hasEntry("context", (Object) "extra information"));
+        assertThat(user.getValues(), hasEntry("context", "extra information"));
     }
 
     @Test

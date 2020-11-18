@@ -141,7 +141,7 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
 
     Map<String, Object> body = bodyFromRequest(recordedRequest);
     assertThat(body.size(), is(1));
-    assertThat(body, hasEntry("name", (Object) "roleId"));
+    assertThat(body, hasEntry("name", "roleId"));
 
     assertThat(response, is(notNullValue()));
   }
@@ -177,7 +177,7 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
 
     Map<String, Object> body = bodyFromRequest(recordedRequest);
     assertThat(body.size(), is(1));
-    assertThat(body, hasEntry("name", (Object) "roleId"));
+    assertThat(body, hasEntry("name", "roleId"));
 
     assertThat(response, is(notNullValue()));
   }

@@ -59,7 +59,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(1));
-        assertThat(body, hasEntry("user_id", (Object) "1"));
+        assertThat(body, hasEntry("user_id", "1"));
 
         assertThat(response, is(notNullValue()));
     }
@@ -161,7 +161,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(1));
-        assertThat(body, hasEntry("enabled", (Object) true));
+        assertThat(body, hasEntry("enabled", true));
 
         assertThat(response, is(notNullValue()));
     }
@@ -221,9 +221,9 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(3));
-        assertThat(body, hasEntry("from", (Object) "+156789"));
-        assertThat(body, hasEntry("auth_token", (Object) "aToKen"));
-        assertThat(body, hasEntry("sid", (Object) "3123"));
+        assertThat(body, hasEntry("from", "+156789"));
+        assertThat(body, hasEntry("auth_token", "aToKen"));
+        assertThat(body, hasEntry("sid", "3123"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getFrom(), is(equalTo("+156789")));
@@ -248,9 +248,9 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(3));
-        assertThat(body, hasEntry("messaging_service_sid", (Object) "aac"));
-        assertThat(body, hasEntry("auth_token", (Object) "aToKen"));
-        assertThat(body, hasEntry("sid", (Object) "3123"));
+        assertThat(body, hasEntry("messaging_service_sid", "aac"));
+        assertThat(body, hasEntry("auth_token", "aToKen"));
+        assertThat(body, hasEntry("sid", "3123"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getFrom(), is(nullValue()));
@@ -321,11 +321,11 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(5));
-        assertThat(body, hasEntry("aws_access_key_id", (Object) "awsAccessKeyId"));
-        assertThat(body, hasEntry("aws_secret_access_key", (Object) "awsSecretAccessKey"));
-        assertThat(body, hasEntry("aws_region", (Object) "us-west-2"));
-        assertThat(body, hasEntry("sns_apns_platform_application_arn", (Object) "APNS:platform:arn"));
-        assertThat(body, hasEntry("sns_gcm_platform_application_arn", (Object) "GCM:platform:arn"));
+        assertThat(body, hasEntry("aws_access_key_id", "awsAccessKeyId"));
+        assertThat(body, hasEntry("aws_secret_access_key", "awsSecretAccessKey"));
+        assertThat(body, hasEntry("aws_region", "us-west-2"));
+        assertThat(body, hasEntry("sns_apns_platform_application_arn", "APNS:platform:arn"));
+        assertThat(body, hasEntry("sns_gcm_platform_application_arn", "GCM:platform:arn"));
 
         assertThat(response, is(notNullValue()));
     }

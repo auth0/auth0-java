@@ -92,8 +92,8 @@ public class CustomRequestTest {
         request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
         Map<String, Object> values = bodyFromRequest(recordedRequest);
-        assertThat(values, hasEntry("key", (Object) "value"));
-        assertThat(values, hasEntry("map", (Object) mapValue));
+        assertThat(values, hasEntry("key", "value"));
+        assertThat(values, hasEntry("map", mapValue));
     }
 
     @Test

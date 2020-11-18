@@ -12,7 +12,7 @@ public class Addon {
 
     @JsonUnwrapped
     @JsonIgnore
-    private Map<String, Object> properties;
+    private final Map<String, Object> properties;
 
     public Addon() {
         this.properties = new HashMap<>();

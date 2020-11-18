@@ -95,7 +95,7 @@ public class RulesConfigsEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(1));
-        assertThat(body, hasEntry("value", (Object) "my-value"));
+        assertThat(body, hasEntry("value", "my-value"));
 
         assertThat(response, is(notNullValue()));
     }

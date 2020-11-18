@@ -96,7 +96,7 @@ public class RecordedRequestMatcher extends TypeSafeDiagnosingMatcher<RecordedRe
             return false;
         }
 
-        String query = path.substring(path.indexOf("?") + 1, path.length());
+        String query = path.substring(path.indexOf("?") + 1);
         String[] parameters = query.split("&");
         for (String p : parameters) {
             if (p.startsWith(String.format("%s=", first))) {

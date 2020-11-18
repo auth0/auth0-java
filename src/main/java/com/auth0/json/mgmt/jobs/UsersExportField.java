@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class UsersExportField {
 
     @JsonProperty("name")
-    private String name;
+    private final String name;
     @JsonProperty("export_as")
     private String exportAs;
 

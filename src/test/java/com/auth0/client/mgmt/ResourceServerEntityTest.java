@@ -127,7 +127,7 @@ public class ResourceServerEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(12));
-        assertThat(body, hasEntry("identifier", (Object) "https://api.my-company.com/api/v2/"));
+        assertThat(body, hasEntry("identifier", "https://api.my-company.com/api/v2/"));
 
         assertThat(response.getIdentifier(), is("https://api.my-company.com/api/v2/"));
     }
@@ -165,7 +165,7 @@ public class ResourceServerEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(1));
-        assertThat(body, hasEntry("identifier", (Object) "https://api.my-company.com/api/v2/"));
+        assertThat(body, hasEntry("identifier", "https://api.my-company.com/api/v2/"));
 
         assertThat(response.getIdentifier(), is("https://api.my-company.com/api/v2/"));
     }

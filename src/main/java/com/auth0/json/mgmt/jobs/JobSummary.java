@@ -14,13 +14,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class JobSummary {
 
     @JsonProperty("failed")
-    private Integer failed;
+    private final Integer failed;
     @JsonProperty("updated")
-    private Integer updated;
+    private final Integer updated;
     @JsonProperty("inserted")
-    private Integer inserted;
+    private final Integer inserted;
     @JsonProperty("total")
-    private Integer total;
+    private final Integer total;
 
     @JsonCreator
     private JobSummary(@JsonProperty("failed") Integer failed, @JsonProperty("updated") Integer updated, @JsonProperty("inserted") Integer inserted, @JsonProperty("total") Integer total) {

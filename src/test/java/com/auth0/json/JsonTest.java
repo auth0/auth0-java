@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.util.StdDateFormat;
 
 public class JsonTest<T> {
 
-    private ObjectMapper mapper;
+    private final ObjectMapper mapper;
 
     public JsonTest() {
         this.mapper = new ObjectMapper();

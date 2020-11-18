@@ -23,7 +23,7 @@ public class GrantsFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("audience", (Object) "https://myapi.auth0.com"));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("audience", "https://myapi.auth0.com"));
     }
 
     @Test
@@ -32,7 +32,7 @@ public class GrantsFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("client_id", (Object) "n3roinr32i23iron23nr"));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("client_id", "n3roinr32i23iron23nr"));
     }
 
     @Test
@@ -41,8 +41,8 @@ public class GrantsFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("per_page", (Object) 10));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("page", (Object) 5));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("per_page", 10));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("page", 5));
     }
 
     @Test
@@ -51,7 +51,7 @@ public class GrantsFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("include_totals", (Object) true));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("include_totals", true));
     }
 
 }

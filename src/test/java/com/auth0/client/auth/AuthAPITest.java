@@ -419,23 +419,23 @@ public class AuthAPITest {
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getValues(), is(notNullValue()));
-        assertThat(response.getValues(), hasEntry("email_verified", (Object) false));
-        assertThat(response.getValues(), hasEntry("email", (Object) "test.account@userinfo.com"));
-        assertThat(response.getValues(), hasEntry("clientID", (Object) "q2hnj2iu..."));
-        assertThat(response.getValues(), hasEntry("updated_at", (Object) "2016-12-05T15:15:40.545Z"));
-        assertThat(response.getValues(), hasEntry("name", (Object) "test.account@userinfo.com"));
-        assertThat(response.getValues(), hasEntry("picture", (Object) "https://s.gravatar.com/avatar/dummy.png"));
-        assertThat(response.getValues(), hasEntry("user_id", (Object) "auth0|58454..."));
-        assertThat(response.getValues(), hasEntry("nickname", (Object) "test.account"));
-        assertThat(response.getValues(), hasEntry("created_at", (Object) "2016-12-05T11:16:59.640Z"));
-        assertThat(response.getValues(), hasEntry("sub", (Object) "auth0|58454..."));
+        assertThat(response.getValues(), hasEntry("email_verified", false));
+        assertThat(response.getValues(), hasEntry("email", "test.account@userinfo.com"));
+        assertThat(response.getValues(), hasEntry("clientID", "q2hnj2iu..."));
+        assertThat(response.getValues(), hasEntry("updated_at", "2016-12-05T15:15:40.545Z"));
+        assertThat(response.getValues(), hasEntry("name", "test.account@userinfo.com"));
+        assertThat(response.getValues(), hasEntry("picture", "https://s.gravatar.com/avatar/dummy.png"));
+        assertThat(response.getValues(), hasEntry("user_id", "auth0|58454..."));
+        assertThat(response.getValues(), hasEntry("nickname", "test.account"));
+        assertThat(response.getValues(), hasEntry("created_at", "2016-12-05T11:16:59.640Z"));
+        assertThat(response.getValues(), hasEntry("sub", "auth0|58454..."));
         assertThat(response.getValues(), hasKey("identities"));
         List<Map<String, Object>> identities = (List<Map<String, Object>>) response.getValues().get("identities");
         assertThat(identities, hasSize(1));
-        assertThat(identities.get(0), hasEntry("user_id", (Object) "58454..."));
-        assertThat(identities.get(0), hasEntry("provider", (Object) "auth0"));
-        assertThat(identities.get(0), hasEntry("connection", (Object) "Username-Password-Authentication"));
-        assertThat(identities.get(0), hasEntry("isSocial", (Object) false));
+        assertThat(identities.get(0), hasEntry("user_id", "58454..."));
+        assertThat(identities.get(0), hasEntry("provider", "auth0"));
+        assertThat(identities.get(0), hasEntry("connection", "Username-Password-Authentication"));
+        assertThat(identities.get(0), hasEntry("isSocial", false));
     }
 
 
@@ -468,9 +468,9 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("email", (Object) "me@auth0.com"));
-        assertThat(body, hasEntry("connection", (Object) "db-connection"));
-        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
+        assertThat(body, hasEntry("email", "me@auth0.com"));
+        assertThat(body, hasEntry("connection", "db-connection"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
         assertThat(body, not(hasKey("password")));
 
         assertThat(response, is(nullValue()));
@@ -587,11 +587,11 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("email", (Object) "me@auth0.com"));
-        assertThat(body, hasEntry("username", (Object) "me"));
-        assertThat(body, hasEntry("password", (Object) "p455w0rd"));
-        assertThat(body, hasEntry("connection", (Object) "db-connection"));
-        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
+        assertThat(body, hasEntry("email", "me@auth0.com"));
+        assertThat(body, hasEntry("username", "me"));
+        assertThat(body, hasEntry("password", "p455w0rd"));
+        assertThat(body, hasEntry("connection", "db-connection"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getUserId(), is("58457fe6b27"));
@@ -615,10 +615,10 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("email", (Object) "me@auth0.com"));
-        assertThat(body, hasEntry("password", (Object) "p455w0rd"));
-        assertThat(body, hasEntry("connection", (Object) "db-connection"));
-        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
+        assertThat(body, hasEntry("email", "me@auth0.com"));
+        assertThat(body, hasEntry("password", "p455w0rd"));
+        assertThat(body, hasEntry("connection", "db-connection"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
         assertThat(body, not(hasKey("username")));
 
         assertThat(response, is(notNullValue()));
@@ -646,10 +646,10 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("email", (Object) "me@auth0.com"));
-        assertThat(body, hasEntry("password", (Object) "p455w0rd"));
-        assertThat(body, hasEntry("connection", (Object) "db-connection"));
-        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
+        assertThat(body, hasEntry("email", "me@auth0.com"));
+        assertThat(body, hasEntry("password", "p455w0rd"));
+        assertThat(body, hasEntry("connection", "db-connection"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
         assertThat(body, hasKey("user_metadata"));
         Map<String, String> metadata = (Map<String, String>) body.get("user_metadata");
         assertThat(metadata, hasEntry("age", "25"));
@@ -693,11 +693,11 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("code", (Object) "code123"));
-        assertThat(body, hasEntry("redirect_uri", (Object) "https://domain.auth0.com/callback"));
-        assertThat(body, hasEntry("grant_type", (Object) "authorization_code"));
-        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
+        assertThat(body, hasEntry("code", "code123"));
+        assertThat(body, hasEntry("redirect_uri", "https://domain.auth0.com/callback"));
+        assertThat(body, hasEntry("grant_type", "authorization_code"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
@@ -723,14 +723,14 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("code", (Object) "code123"));
-        assertThat(body, hasEntry("redirect_uri", (Object) "https://domain.auth0.com/callback"));
-        assertThat(body, hasEntry("grant_type", (Object) "authorization_code"));
-        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
-        assertThat(body, hasEntry("audience", (Object) "https://myapi.auth0.com/users"));
-        assertThat(body, hasEntry("realm", (Object) "dbconnection"));
-        assertThat(body, hasEntry("scope", (Object) "profile photos contacts"));
+        assertThat(body, hasEntry("code", "code123"));
+        assertThat(body, hasEntry("redirect_uri", "https://domain.auth0.com/callback"));
+        assertThat(body, hasEntry("grant_type", "authorization_code"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        assertThat(body, hasEntry("audience", "https://myapi.auth0.com/users"));
+        assertThat(body, hasEntry("realm", "dbconnection"));
+        assertThat(body, hasEntry("scope", "profile photos contacts"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
@@ -780,11 +780,11 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("grant_type", (Object) "password"));
-        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
-        assertThat(body, hasEntry("username", (Object) "me"));
-        assertThat(body, hasEntry("password", (Object) "p455w0rd"));
+        assertThat(body, hasEntry("grant_type", "password"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        assertThat(body, hasEntry("username", "me"));
+        assertThat(body, hasEntry("password", "p455w0rd"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
@@ -811,14 +811,14 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("grant_type", (Object) "password"));
-        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
-        assertThat(body, hasEntry("username", (Object) "me"));
-        assertThat(body, hasEntry("password", (Object) "p455w0rd"));
-        assertThat(body, hasEntry("realm", (Object) "dbconnection"));
-        assertThat(body, hasEntry("scope", (Object) "profile photos contacts"));
-        assertThat(body, hasEntry("audience", (Object) "https://myapi.auth0.com/users"));
+        assertThat(body, hasEntry("grant_type", "password"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        assertThat(body, hasEntry("username", "me"));
+        assertThat(body, hasEntry("password", "p455w0rd"));
+        assertThat(body, hasEntry("realm", "dbconnection"));
+        assertThat(body, hasEntry("scope", "profile photos contacts"));
+        assertThat(body, hasEntry("audience", "https://myapi.auth0.com/users"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
@@ -842,11 +842,11 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("some-header", "some-value"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("grant_type", (Object) "password"));
-        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
-        assertThat(body, hasEntry("username", (Object) "me"));
-        assertThat(body, hasEntry("password", (Object) "password"));
+        assertThat(body, hasEntry("grant_type", "password"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        assertThat(body, hasEntry("username", "me"));
+        assertThat(body, hasEntry("password", "password"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
@@ -903,12 +903,12 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("grant_type", (Object) "http://auth0.com/oauth/grant-type/password-realm"));
-        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
-        assertThat(body, hasEntry("username", (Object) "me"));
-        assertThat(body, hasEntry("password", (Object) "p455w0rd"));
-        assertThat(body, hasEntry("realm", (Object) "realm"));
+        assertThat(body, hasEntry("grant_type", "http://auth0.com/oauth/grant-type/password-realm"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        assertThat(body, hasEntry("username", "me"));
+        assertThat(body, hasEntry("password", "p455w0rd"));
+        assertThat(body, hasEntry("realm", "realm"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
@@ -935,14 +935,14 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("grant_type", (Object) "http://auth0.com/oauth/grant-type/password-realm"));
-        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
-        assertThat(body, hasEntry("username", (Object) "me"));
-        assertThat(body, hasEntry("password", (Object) "p455w0rd"));
-        assertThat(body, hasEntry("audience", (Object) "https://myapi.auth0.com/users"));
-        assertThat(body, hasEntry("realm", (Object) "dbconnection"));
-        assertThat(body, hasEntry("scope", (Object) "profile photos contacts"));
+        assertThat(body, hasEntry("grant_type", "http://auth0.com/oauth/grant-type/password-realm"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        assertThat(body, hasEntry("username", "me"));
+        assertThat(body, hasEntry("password", "p455w0rd"));
+        assertThat(body, hasEntry("audience", "https://myapi.auth0.com/users"));
+        assertThat(body, hasEntry("realm", "dbconnection"));
+        assertThat(body, hasEntry("scope", "profile photos contacts"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
@@ -975,10 +975,10 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("grant_type", (Object) "client_credentials"));
-        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
-        assertThat(body, hasEntry("audience", (Object) "https://myapi.auth0.com/users"));
+        assertThat(body, hasEntry("grant_type", "client_credentials"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        assertThat(body, hasEntry("audience", "https://myapi.auth0.com/users"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
@@ -1004,10 +1004,10 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("connection", (Object) "email"));
-        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
-        assertThat(body, hasEntry("email", (Object) "user@domain.com"));
+        assertThat(body, hasEntry("connection", "email"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        assertThat(body, hasEntry("email", "user@domain.com"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getEmail(), not(isEmptyOrNullString()));
@@ -1051,10 +1051,10 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("connection", (Object) "custom-email"));
-        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
-        assertThat(body, hasEntry("email", (Object) "user@domain.com"));
+        assertThat(body, hasEntry("connection", "custom-email"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        assertThat(body, hasEntry("email", "user@domain.com"));
         assertThat(body, hasKey("authParams"));
         Map<String, String> authParamsSent = (Map<String, String>) body.get("authParams");
         assertThat(authParamsSent, hasEntry("scope", authParams.get("scope")));
@@ -1079,10 +1079,10 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("connection", (Object) "sms"));
-        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
-        assertThat(body, hasEntry("phone_number", (Object) "+16511234567"));
+        assertThat(body, hasEntry("connection", "sms"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        assertThat(body, hasEntry("phone_number", "+16511234567"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getPhoneNumber(), not(isEmptyOrNullString()));
@@ -1108,10 +1108,10 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("connection", (Object) "custom-sms"));
-        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
-        assertThat(body, hasEntry("phone_number", (Object) "+16511234567"));
+        assertThat(body, hasEntry("connection", "custom-sms"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        assertThat(body, hasEntry("phone_number", "+16511234567"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getPhoneNumber(), not(isEmptyOrNullString()));
@@ -1140,11 +1140,11 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
         assertThat(body, hasEntry("realm", "email"));
-        assertThat(body, hasEntry("grant_type", (Object) "http://auth0.com/oauth/grant-type/passwordless/otp"));
-        assertThat(body, hasEntry("otp", (Object) "otp"));
+        assertThat(body, hasEntry("grant_type", "http://auth0.com/oauth/grant-type/passwordless/otp"));
+        assertThat(body, hasEntry("otp", "otp"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getScope(), is(nullValue()));
@@ -1176,9 +1176,9 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
-        assertThat(body, hasEntry("token", (Object) "2679NfkaBn62e6w5E8zNEzjr"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        assertThat(body, hasEntry("token", "2679NfkaBn62e6w5E8zNEzjr"));
 
         assertThat(response, is(nullValue()));
     }
@@ -1206,10 +1206,10 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("grant_type", (Object) "refresh_token"));
-        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
-        assertThat(body, hasEntry("refresh_token", (Object) "ej2E8zNEzjrcSD2edjaE"));
+        assertThat(body, hasEntry("grant_type", "refresh_token"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        assertThat(body, hasEntry("refresh_token", "ej2E8zNEzjrcSD2edjaE"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
@@ -1248,11 +1248,11 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("grant_type", (Object) "http://auth0.com/oauth/grant-type/mfa-otp"));
-        assertThat(body, hasEntry("client_id", (Object) CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", (Object) CLIENT_SECRET));
-        assertThat(body, hasEntry("mfa_token", (Object) "mfaToken"));
-        assertThat(body, hasEntry("otp", (Object) "otp"));
+        assertThat(body, hasEntry("grant_type", "http://auth0.com/oauth/grant-type/mfa-otp"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        assertThat(body, hasEntry("mfa_token", "mfaToken"));
+        assertThat(body, hasEntry("otp", "otp"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
