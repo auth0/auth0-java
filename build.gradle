@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'com.auth0.gradle.oss-library.java'
-    id "com.jfrog.bintray" version "1.8.4"
+    id "com.jfrog.bintray" version "1.8.5"
 }
 
 repositories {
@@ -10,7 +10,7 @@ repositories {
 }
 
 group = 'com.auth0'
-logger.lifecycle("Using version ${version} for ${name}")
+logger.lifecycle("Using version ${version} for ${name} group $group")
 
 oss {
     name 'auth0'
@@ -52,7 +52,7 @@ compileJava {
 
 compileTestJava {
     options.compilerArgs << "-Xlint:deprecation" << "-Werror"
-    }
+}
 
 test {
     testLogging {
