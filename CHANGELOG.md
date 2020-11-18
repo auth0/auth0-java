@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.25.0](https://github.com/auth0/auth0-java/tree/1.25.0) (2020-11-16)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.24.0...1.25.0)
+
+**Changed**
+- Update to OkHttp 4 [\#319](https://github.com/auth0/auth0-java/pull/319) ([jimmyjames](https://github.com/jimmyjames))
+- Use java8 [\#316](https://github.com/auth0/auth0-java/pull/316) ([jsalinaspolo](https://github.com/jsalinaspolo))
+
 ## [1.24.0](https://github.com/auth0/auth0-java/tree/1.24.0) (2020-11-02)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.23.0...1.24.0)
 
