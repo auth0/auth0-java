@@ -26,6 +26,6 @@ public class ProfileDataTest extends JsonTest<ProfileData> {
         assertThat(data.getPhoneNumber(), is("1234567890"));
         assertThat(data.isPhoneVerified(), is(true));
         assertThat(data.getValues(), is(notNullValue()));
-        assertThat(data.getValues(), hasEntry("description", (Object) "My description"));
+        assertThat(data.getValues(), hasEntry("description", "My description"));
     }
 }

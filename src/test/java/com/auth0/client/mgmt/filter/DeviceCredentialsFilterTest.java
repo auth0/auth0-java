@@ -23,7 +23,7 @@ public class DeviceCredentialsFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("client_id", (Object) "1234567890"));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("client_id", "1234567890"));
     }
 
     @Test
@@ -32,7 +32,7 @@ public class DeviceCredentialsFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("type", (Object) "public_key"));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("type", "public_key"));
     }
 
     @Test
@@ -41,7 +41,7 @@ public class DeviceCredentialsFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("user_id", (Object) "1234567890"));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("user_id", "1234567890"));
     }
 
     @Test
@@ -50,8 +50,8 @@ public class DeviceCredentialsFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("fields", (Object) "a,b,c"));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("include_fields", (Object) true));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("fields", "a,b,c"));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("include_fields", true));
     }
 
     @Test
@@ -60,7 +60,7 @@ public class DeviceCredentialsFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("fields", (Object) "a,b,c"));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("include_fields", (Object) false));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("fields", "a,b,c"));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("include_fields", false));
     }
 }

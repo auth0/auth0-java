@@ -37,10 +37,10 @@ public class UserInfoTest extends JsonTest<UserInfo> {
 
         assertThat(info, is(notNullValue()));
 
-        assertThat(info.getValues(), IsMapContaining.hasEntry("email_verified", (Object) false));
-        assertThat(info.getValues(), IsMapContaining.hasEntry("email", (Object) "test.account@userinfo.com"));
-        assertThat(info.getValues(), IsMapContaining.hasEntry("client_id", (Object) "q2hnj2iu..."));
-        assertThat(info.getValues(), IsMapContaining.hasEntry("updated_at", (Object) "2016-12-05T15:15:40.545Z"));
-        assertThat(info.getValues(), IsMapContaining.hasEntry("name", (Object) "test.account@userinfo.com"));
+        assertThat(info.getValues(), IsMapContaining.hasEntry("email_verified", false));
+        assertThat(info.getValues(), IsMapContaining.hasEntry("email", "test.account@userinfo.com"));
+        assertThat(info.getValues(), IsMapContaining.hasEntry("client_id", "q2hnj2iu..."));
+        assertThat(info.getValues(), IsMapContaining.hasEntry("updated_at", "2016-12-05T15:15:40.545Z"));
+        assertThat(info.getValues(), IsMapContaining.hasEntry("name", "test.account@userinfo.com"));
     }
 }

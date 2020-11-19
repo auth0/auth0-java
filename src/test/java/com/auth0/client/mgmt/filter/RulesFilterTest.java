@@ -23,7 +23,7 @@ public class RulesFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("enabled", (Object) true));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("enabled", true));
     }
 
     @Test
@@ -32,8 +32,8 @@ public class RulesFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("fields", (Object) "a,b,c"));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("include_fields", (Object) true));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("fields", "a,b,c"));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("include_fields", true));
     }
 
     @Test
@@ -42,8 +42,8 @@ public class RulesFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("fields", (Object) "a,b,c"));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("include_fields", (Object) false));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("fields", "a,b,c"));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("include_fields", false));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class RulesFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("include_totals", (Object) true));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("include_totals", true));
     }
 
     @Test
@@ -61,7 +61,7 @@ public class RulesFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("page", (Object) 15));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("per_page", (Object) 50));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("page", 15));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("per_page", 50));
     }
 }

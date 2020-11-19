@@ -23,7 +23,7 @@ public class Identity implements Serializable {
     private String accessToken;
     @JsonProperty("profileData")
     private ProfileData profileData;
-    private Map<String, Object> values;
+    private final Map<String, Object> values;
 
     public Identity() {
         values = new HashMap<>();

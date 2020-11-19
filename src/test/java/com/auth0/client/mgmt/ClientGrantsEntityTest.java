@@ -168,8 +168,8 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(3));
-        assertThat(body, hasEntry("client_id", (Object) "clientId"));
-        assertThat(body, hasEntry("audience", (Object) "audience"));
+        assertThat(body, hasEntry("client_id", "clientId"));
+        assertThat(body, hasEntry("audience", "audience"));
         assertThat(body, hasKey("scope"));
         assertThat((Iterable<String>) body.get("scope"), contains("openid"));
 

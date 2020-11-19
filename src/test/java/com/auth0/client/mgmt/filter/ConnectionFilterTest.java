@@ -23,7 +23,7 @@ public class ConnectionFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("strategy", (Object) "auth0"));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("strategy", "auth0"));
     }
 
     @Test
@@ -32,7 +32,7 @@ public class ConnectionFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("name", (Object) "my-connection"));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("name", "my-connection"));
     }
 
     @Test
@@ -41,8 +41,8 @@ public class ConnectionFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("per_page", (Object) 10));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("page", (Object) 5));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("per_page", 10));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("page", 5));
     }
 
     @Test
@@ -51,8 +51,8 @@ public class ConnectionFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("fields", (Object) "a,b,c"));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("include_fields", (Object) true));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("fields", "a,b,c"));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("include_fields", true));
     }
 
     @Test
@@ -61,7 +61,7 @@ public class ConnectionFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("include_totals", (Object) true));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("include_totals", true));
     }
 
     @Test
@@ -70,7 +70,7 @@ public class ConnectionFilterTest {
 
         assertThat(filter, is(instance));
         assertThat(filter.getAsMap(), is(notNullValue()));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("fields", (Object) "a,b,c"));
-        assertThat(filter.getAsMap(), Matchers.hasEntry("include_fields", (Object) false));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("fields", "a,b,c"));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("include_fields", false));
     }
 }

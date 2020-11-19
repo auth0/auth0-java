@@ -24,7 +24,7 @@ public abstract class Page<T> {
     private Integer total;
     @JsonProperty("limit")
     private Integer limit;
-    private List<T> items;
+    private final List<T> items;
 
     public Page(List<T> items) {
         this.items = items;

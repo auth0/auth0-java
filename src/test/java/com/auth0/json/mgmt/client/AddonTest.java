@@ -31,9 +31,9 @@ public class AddonTest extends JsonTest<Addon> {
 
         assertThat(addon, is(notNullValue()));
 
-        assertThat(addon.getProperties(), IsMapContaining.hasEntry("a-boolean", (Object) true));
-        assertThat(addon.getProperties(), IsMapContaining.hasEntry("a-string", (Object) "string"));
-        assertThat(addon.getProperty("a-boolean"), is((Object) true));
-        assertThat(addon.getProperty("a-string"), is((Object) "string"));
+        assertThat(addon.getProperties(), IsMapContaining.hasEntry("a-boolean", true));
+        assertThat(addon.getProperties(), IsMapContaining.hasEntry("a-string", "string"));
+        assertThat(addon.getProperty("a-boolean"), is(true));
+        assertThat(addon.getProperty("a-string"), is("string"));
     }
 }

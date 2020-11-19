@@ -15,9 +15,9 @@ import java.io.Serializable;
 public class EmailVerificationIdentity {
 
     @JsonProperty("provider")
-    private String provider;
+    private final String provider;
     @JsonProperty("user_id")
-    private String userId;
+    private final String userId;
 
     /**
      * Create a new instance.

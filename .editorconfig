@@ -1,0 +1,22 @@
+# EditorConfig is awesome: http://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+charset = utf-8
+insert_final_newline = true
+indent_style = space
+
+[*.{java,groovy,kt}]
+indent_size = 4
+continuation_indent_size = 4
+wildcard_import_limit = 9999
+
+[*.gradle]
+indent_size = 2
+
+[Makefile]
+indent_style = tab

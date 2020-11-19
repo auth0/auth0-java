@@ -296,7 +296,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(1));
-        assertThat(body, hasEntry("connection", (Object) "auth0"));
+        assertThat(body, hasEntry("connection", "auth0"));
 
         assertThat(response, is(notNullValue()));
     }
@@ -351,7 +351,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(1));
-        assertThat(body, hasEntry("connection", (Object) "auth0"));
+        assertThat(body, hasEntry("connection", "auth0"));
 
         assertThat(response, is(notNullValue()));
     }
@@ -610,8 +610,8 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(2));
-        assertThat(body, hasEntry("provider", (Object) "auth0"));
-        assertThat(body, hasEntry("user_id", (Object) "2"));
+        assertThat(body, hasEntry("provider", "auth0"));
+        assertThat(body, hasEntry("user_id", "2"));
 
         assertThat(response, is(notNullValue()));
     }
@@ -631,7 +631,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(1));
-        assertThat(body, hasEntry("link_with", (Object) "2"));
+        assertThat(body, hasEntry("link_with", "2"));
 
         assertThat(response, is(notNullValue()));
     }
@@ -651,9 +651,9 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(3));
-        assertThat(body, hasEntry("provider", (Object) "auth0"));
-        assertThat(body, hasEntry("user_id", (Object) "2"));
-        assertThat(body, hasEntry("connection_id", (Object) "123456790"));
+        assertThat(body, hasEntry("provider", "auth0"));
+        assertThat(body, hasEntry("user_id", "2"));
+        assertThat(body, hasEntry("connection_id", "123456790"));
 
         assertThat(response, is(notNullValue()));
     }

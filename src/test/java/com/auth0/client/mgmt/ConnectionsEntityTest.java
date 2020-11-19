@@ -258,8 +258,8 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(2));
-        assertThat(body, hasEntry("name", (Object) "my-connection"));
-        assertThat(body, hasEntry("strategy", (Object) "auth0"));
+        assertThat(body, hasEntry("name", "my-connection"));
+        assertThat(body, hasEntry("strategy", "auth0"));
 
         assertThat(response, is(notNullValue()));
     }
@@ -314,8 +314,8 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(2));
-        assertThat(body, hasEntry("name", (Object) "my-connection"));
-        assertThat(body, hasEntry("strategy", (Object) "auth0"));
+        assertThat(body, hasEntry("name", "my-connection"));
+        assertThat(body, hasEntry("strategy", "auth0"));
 
         assertThat(response, is(notNullValue()));
     }

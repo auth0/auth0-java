@@ -19,7 +19,7 @@ public class EmailProviderTest extends JsonTest<EmailProvider> {
         EmailProvider provider = new EmailProvider("provider");
         provider.setEnabled(true);
         provider.setDefaultFromAddress("https://google.com");
-        provider.setSettings(Collections.<String, Object>emptyMap());
+        provider.setSettings(Collections.emptyMap());
         provider.setCredentials(new EmailProviderCredentials("key123"));
 
         String serialized = toJSON(provider);

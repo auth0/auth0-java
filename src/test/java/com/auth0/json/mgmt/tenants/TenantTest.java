@@ -22,7 +22,7 @@ public class TenantTest extends JsonTest<Tenant> {
         tenant.setDefaultAudience("https://domain.auth0.com/myapi");
         tenant.setDefaultDirectory("Username-Password-Authentication");
         tenant.setErrorPage(new ErrorPageCustomization());
-        tenant.setFlags(Collections.<String, Boolean>emptyMap());
+        tenant.setFlags(Collections.emptyMap());
         tenant.setFriendlyName("My-Tenant");
         tenant.setPictureUrl("https://pic.to/123");
         tenant.setSupportEmail("support@auth0.com");

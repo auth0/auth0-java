@@ -236,8 +236,8 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(2));
-        assertThat(body, hasEntry("name", (Object) "my-rule"));
-        assertThat(body, hasEntry("script", (Object) "function(){}"));
+        assertThat(body, hasEntry("name", "my-rule"));
+        assertThat(body, hasEntry("script", "function(){}"));
 
         assertThat(response, is(notNullValue()));
     }
@@ -292,8 +292,8 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(2));
-        assertThat(body, hasEntry("name", (Object) "my-rule"));
-        assertThat(body, hasEntry("script", (Object) "function(){}"));
+        assertThat(body, hasEntry("name", "my-rule"));
+        assertThat(body, hasEntry("script", "function(){}"));
 
         assertThat(response, is(notNullValue()));
     }

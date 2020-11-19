@@ -21,7 +21,7 @@ public class Addons {
 
     @JsonUnwrapped
     @JsonIgnore
-    private Map<String, Addon> additionalAddons;
+    private final Map<String, Addon> additionalAddons;
 
     @JsonCreator
     public Addons(@JsonProperty("rms") Addon rms, @JsonProperty("mscrm") Addon mscrm, @JsonProperty("slack") Addon slack, @JsonProperty("layer") Addon layer) {
