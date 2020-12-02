@@ -1,5 +1,15 @@
 # Change Log
 
+## [1.26.0](https://github.com/auth0/auth0-java/tree/1.26.0) (2020-12-02)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.25.0...1.26.0)
+
+**Added**
+- Add refresh token configuration object to client [\#321](https://github.com/auth0/auth0-java/pull/321) ([JakeUskoski](https://github.com/JakeUskoski))
+
+**Fixed**
+- Fix OkHttp dependency version [\#325](https://github.com/auth0/auth0-java/pull/325) ([jimmyjames](https://github.com/jimmyjames))
+- Tidy up code [\#317](https://github.com/auth0/auth0-java/pull/317) ([jsalinaspolo](https://github.com/jsalinaspolo))
+
 ## [1.25.0](https://github.com/auth0/auth0-java/tree/1.25.0) (2020-11-16)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.24.0...1.25.0)
 
