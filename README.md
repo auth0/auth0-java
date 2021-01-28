@@ -31,7 +31,6 @@ implementation 'com.auth0:auth0:1.26.0'
 
 The Auth0 Authentication API and User's Management API are available for Android in the `auth0.android` library. Check https://github.com/auth0/auth0.android for more information.
 
-
 ## Auth API
 
 The implementation is based on the [Authentication API Docs](https://auth0.com/docs/api/authentication).
@@ -569,6 +568,10 @@ try {
     // request error
 }
 ```
+
+## Asynchronous requests
+
+Requests can be executed asynchronously, using the `executeAsync()` method, which returns a `CompletableFuture<T>`. 
 
 ## API Clients Recommendations
 The SDK implements a custom networking stack on top of the **OkHttp** library. The [official recommendation](https://square.github.io/okhttp/4.x/okhttp/okhttp3/-ok-http-client/#okhttpclients-should-be-shared) from Square is to re-use as much as possible these clients. However, it's not possible to pass an existing `OkHttpClient` instance to our `AuthAPI` and `ManagementAPI` clients. 

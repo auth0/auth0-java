@@ -3,25 +3,24 @@ package com.auth0.net;
 import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.RateLimitException;
-import okhttp3.Call;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.*;
 
 // FIXME: These test require mocking of the final class okhttp3.Response. To do so
 //  an opt-in incubating Mockito feature is used, for more information see:
 //  https://github.com/mockito/mockito/wiki/What%27s-new-in-Mockito-2#mock-the-unmockable-opt-in-mocking-of-final-classesmethods
+//  This issue can be tracked to see if/when this feature will become standard for Mockito (perhaps Mockito 4):
+//  https://github.com/mockito/mockito/issues/1728
 public class BaseRequestTest {
 
     private Response response;
@@ -117,13 +116,135 @@ public class BaseRequestTest {
         verify(response, times(1)).close();
     }
 
-    private abstract class MockBaseRequest<String> extends BaseRequest {
+    @Test
+    public void asyncCompletesWithExceptionWhenRequestCreationFails() throws Exception {
+        CompletableFuture<?> request = new MockBaseRequest<String>(client) {
+            @Override
+            protected Request parseResponse(Response response) throws Auth0Exception {
+                throw new Auth0Exception("Response Parsing Error");
+            }
+            @Override
+            protected Request createRequest() throws Auth0Exception {
+                throw new Auth0Exception("Create Request Error");
+            }
+        }.executeAsync();
+
+        Exception exception = null;
+        Object result = null;
+
+        try {
+            result = request.get();
+        } catch (Exception e) {
+            exception = e;
+        }
+
+        assertThat(result, is(nullValue()));
+        assertThat(exception, is(notNullValue()));
+        assertThat(exception.getCause(), is(instanceOf(Auth0Exception.class)));
+        assertThat(exception.getCause().getMessage(), is("Create Request Error"));
+    }
+
+    @Test
+    public void asyncCompletesWithExceptionWhenRequestFails() throws Exception {
+        doReturn(call).when(client).newCall(any());
+
+        doAnswer(invocation -> {
+            ((Callback) invocation.getArgument(0)).onFailure(call, new IOException("Error!"));
+            return null;
+        }).when(call).enqueue(any());
+
+        CompletableFuture<?> request = new MockBaseRequest<String>(client) {
+            @Override
+            protected String parseResponse(Response response) throws Auth0Exception {
+                throw new Auth0Exception("Response Parsing Error");
+            }
+        }.executeAsync();
+
+        Exception exception = null;
+        Object result = null;
+
+        try {
+            result = request.get();
+        } catch (Exception e) {
+            exception = e;
+        }
+
+        assertThat(exception, is(notNullValue()));
+        assertThat(result, is(nullValue()));
+        assertThat(exception.getCause(), is(instanceOf(Auth0Exception.class)));
+        assertThat(exception.getCause().getMessage(), is("Failed to execute request"));
+        assertThat(exception.getCause().getCause(), is(instanceOf(IOException.class)));
+        assertThat(exception.getCause().getCause().getMessage(), is("Error!"));
+    }
+
+    @Test
+    public void asyncCompletesWithExceptionWhenResponseParsingFails() throws Exception {
+        doReturn(call).when(client).newCall(any());
+
+        doAnswer(invocation -> {
+            ((Callback) invocation.getArgument(0)).onResponse(call, response);
+            return null;
+        }).when(call).enqueue(any());
+
+        CompletableFuture<?> request = new MockBaseRequest<String>(client) {
+            @Override
+            protected String parseResponse(Response response) throws Auth0Exception {
+                throw new Auth0Exception("Response Parsing Error");
+            }
+        }.executeAsync();
+
+        Exception exception = null;
+        Object result = null;
+
+        try {
+            result = request.get();
+        } catch (Exception e) {
+            exception = e;
+        }
+
+        assertThat(result, is(nullValue()));
+        assertThat(exception, is(notNullValue()));
+        assertThat(exception.getCause(), is(instanceOf(Auth0Exception.class)));
+        assertThat(exception.getCause().getMessage(), is("Response Parsing Error"));
+    }
+
+    @Test
+    public void asyncCompletesSuccessfully() {
+        doReturn(call).when(client).newCall(any());
+
+        doAnswer(invocation -> {
+            ((Callback) invocation.getArgument(0)).onResponse(call, response);
+            return null;
+        }).when(call).enqueue(any());
+
+        CompletableFuture<?> request = new MockBaseRequest<String>(client) {
+            @Override
+            protected String parseResponse(Response response) throws Auth0Exception {
+                return "Success";
+            }
+        }.executeAsync();
+
+        Exception exception = null;
+        Object result = null;
+
+        try {
+            result = request.get();
+        } catch (Exception e) {
+            exception = e;
+        }
+
+        assertThat(exception, is(nullValue()));
+        assertThat(result, is(instanceOf(String.class)));
+        assertThat(result, is("Success"));
+    }
+
+    private abstract static class MockBaseRequest<String> extends BaseRequest {
         MockBaseRequest(OkHttpClient client) {
             super(client);
         }
 
         @Override
-        protected Request createRequest() {
+        protected Request createRequest() throws Auth0Exception {
             return null;
         }
     }
