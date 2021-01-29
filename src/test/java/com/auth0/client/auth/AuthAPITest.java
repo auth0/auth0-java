@@ -700,10 +700,10 @@ public class AuthAPITest {
         assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
-        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
-        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
-        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
@@ -733,10 +733,10 @@ public class AuthAPITest {
         assertThat(body, hasEntry("scope", "profile photos contacts"));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
-        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
-        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
-        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
@@ -787,10 +787,10 @@ public class AuthAPITest {
         assertThat(body, hasEntry("password", "p455w0rd"));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
-        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
-        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
-        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
@@ -821,10 +821,10 @@ public class AuthAPITest {
         assertThat(body, hasEntry("audience", "https://myapi.auth0.com/users"));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
-        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
-        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
-        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
@@ -849,10 +849,10 @@ public class AuthAPITest {
         assertThat(body, hasEntry("password", "password"));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
-        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
-        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
-        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
@@ -911,10 +911,10 @@ public class AuthAPITest {
         assertThat(body, hasEntry("realm", "realm"));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
-        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
-        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
-        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
@@ -945,10 +945,10 @@ public class AuthAPITest {
         assertThat(body, hasEntry("scope", "profile photos contacts"));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
-        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
-        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
-        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
@@ -981,10 +981,10 @@ public class AuthAPITest {
         assertThat(body, hasEntry("audience", "https://myapi.auth0.com/users"));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
-        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
-        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
-        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
@@ -1010,8 +1010,8 @@ public class AuthAPITest {
         assertThat(body, hasEntry("email", "user@domain.com"));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getEmail(), not(isEmptyOrNullString()));
-        assertThat(response.getId(), not(isEmptyOrNullString()));
+        assertThat(response.getEmail(), not(emptyOrNullString()));
+        assertThat(response.getId(), not(emptyOrNullString()));
         assertThat(response.isEmailVerified(), is(notNullValue()));
     }
 
@@ -1061,8 +1061,8 @@ public class AuthAPITest {
         assertThat(authParamsSent, hasEntry("state", authParams.get("state")));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getEmail(), not(isEmptyOrNullString()));
-        assertThat(response.getId(), not(isEmptyOrNullString()));
+        assertThat(response.getEmail(), not(emptyOrNullString()));
+        assertThat(response.getId(), not(emptyOrNullString()));
         assertThat(response.isEmailVerified(), is(notNullValue()));
     }
 
@@ -1085,8 +1085,8 @@ public class AuthAPITest {
         assertThat(body, hasEntry("phone_number", "+16511234567"));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getPhoneNumber(), not(isEmptyOrNullString()));
-        assertThat(response.getId(), not(isEmptyOrNullString()));
+        assertThat(response.getPhoneNumber(), not(emptyOrNullString()));
+        assertThat(response.getId(), not(emptyOrNullString()));
         assertThat(response.isPhoneVerified(), is(notNullValue()));
         assertThat(response.getRequestLanguage(), is(nullValue()));
     }
@@ -1114,8 +1114,8 @@ public class AuthAPITest {
         assertThat(body, hasEntry("phone_number", "+16511234567"));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getPhoneNumber(), not(isEmptyOrNullString()));
-        assertThat(response.getId(), not(isEmptyOrNullString()));
+        assertThat(response.getPhoneNumber(), not(emptyOrNullString()));
+        assertThat(response.getId(), not(emptyOrNullString()));
         assertThat(response.isPhoneVerified(), is(notNullValue()));
         assertThat(response.getRequestLanguage(), is(nullValue()));
     }
@@ -1212,10 +1212,10 @@ public class AuthAPITest {
         assertThat(body, hasEntry("refresh_token", "ej2E8zNEzjrcSD2edjaE"));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
-        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
-        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
-        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
@@ -1255,10 +1255,10 @@ public class AuthAPITest {
         assertThat(body, hasEntry("otp", "otp"));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
-        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
-        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
-        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 }
