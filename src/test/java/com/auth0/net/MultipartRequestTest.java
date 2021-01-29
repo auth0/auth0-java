@@ -179,10 +179,10 @@ public class MultipartRequestTest {
         server.takeRequest();
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getAccessToken(), not(isEmptyOrNullString()));
-        assertThat(response.getIdToken(), not(isEmptyOrNullString()));
-        assertThat(response.getRefreshToken(), not(isEmptyOrNullString()));
-        assertThat(response.getTokenType(), not(isEmptyOrNullString()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
