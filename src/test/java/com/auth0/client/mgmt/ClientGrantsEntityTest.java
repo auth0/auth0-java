@@ -133,21 +133,21 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnCreateClientGrantWithNullClientId() throws Exception {
+    public void shouldThrowOnCreateClientGrantWithNullClientId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client id' cannot be null!");
         api.clientGrants().create(null, "audience", new String[]{"openid"});
     }
 
     @Test
-    public void shouldThrowOnCreateClientGrantWithNullAudience() throws Exception {
+    public void shouldThrowOnCreateClientGrantWithNullAudience() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'audience' cannot be null!");
         api.clientGrants().create("clientId", null, new String[]{"openid"});
     }
 
     @Test
-    public void shouldThrowOnCreateClientGrantWithNullScope() throws Exception {
+    public void shouldThrowOnCreateClientGrantWithNullScope() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'scope' cannot be null!");
         api.clientGrants().create("clientId", "audience", null);
@@ -177,7 +177,7 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnDeleteClientGrantWithNullId() throws Exception {
+    public void shouldThrowOnDeleteClientGrantWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client grant id' cannot be null!");
         api.clientGrants().delete(null);
@@ -198,14 +198,14 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnUpdateClientGrantWithNullId() throws Exception {
+    public void shouldThrowOnUpdateClientGrantWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client grant id' cannot be null!");
         api.clientGrants().update(null, new String[]{});
     }
 
     @Test
-    public void shouldThrowOnUpdateClientGrantWithNullScope() throws Exception {
+    public void shouldThrowOnUpdateClientGrantWithNullScope() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'scope' cannot be null!");
         api.clientGrants().update("clientGrantId", null);

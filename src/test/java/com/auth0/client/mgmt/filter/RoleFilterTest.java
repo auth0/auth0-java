@@ -13,12 +13,12 @@ public class RoleFilterTest {
     private RolesFilter filter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         filter = new RolesFilter();
     }
 
     @Test
-    public void shouldFilterByName() throws Exception {
+    public void shouldFilterByName() {
         RolesFilter instance = filter.withName("roleName");
 
         assertThat(filter, is(instance));
@@ -27,7 +27,7 @@ public class RoleFilterTest {
     }
 
     @Test
-    public void shouldFilterByPage() throws Exception {
+    public void shouldFilterByPage() {
         RolesFilter instance = filter.withPage(5, 10);
 
         assertThat(filter, is(instance));
@@ -37,7 +37,7 @@ public class RoleFilterTest {
     }
 
     @Test
-    public void shouldIncludeTotals() throws Exception {
+    public void shouldIncludeTotals() {
         RolesFilter instance = filter.withTotals(true);
 
         assertThat(filter, is(instance));

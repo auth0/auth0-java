@@ -13,12 +13,12 @@ public class LogEventFilterTest {
     private LogEventFilter filter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         filter = new LogEventFilter();
     }
 
     @Test
-    public void shouldFilterByCheckpoint() throws Exception {
+    public void shouldFilterByCheckpoint() {
         LogEventFilter instance = filter.withCheckpoint("log123", 10);
 
         assertThat(filter, is(instance));
@@ -28,7 +28,7 @@ public class LogEventFilterTest {
     }
 
     @Test
-    public void shouldIncludeTotals() throws Exception {
+    public void shouldIncludeTotals() {
         LogEventFilter instance = filter.withTotals(true);
 
         assertThat(filter, is(instance));
@@ -37,7 +37,7 @@ public class LogEventFilterTest {
     }
 
     @Test
-    public void shouldFilterByQuery() throws Exception {
+    public void shouldFilterByQuery() {
         LogEventFilter instance = filter.withQuery("id=log123");
 
         assertThat(filter, is(instance));
@@ -46,7 +46,7 @@ public class LogEventFilterTest {
     }
 
     @Test
-    public void shouldSort() throws Exception {
+    public void shouldSort() {
         LogEventFilter instance = filter.withSort("date:-1");
 
         assertThat(filter, is(instance));
@@ -55,7 +55,7 @@ public class LogEventFilterTest {
     }
 
     @Test
-    public void shouldFilterByPage() throws Exception {
+    public void shouldFilterByPage() {
         LogEventFilter instance = filter.withPage(15, 50);
 
         assertThat(filter, is(instance));
@@ -65,7 +65,7 @@ public class LogEventFilterTest {
     }
 
     @Test
-    public void shouldFilterByWithFields() throws Exception {
+    public void shouldFilterByWithFields() {
         LogEventFilter instance = filter.withFields("a,b,c", true);
 
         assertThat(filter, is(instance));
@@ -75,7 +75,7 @@ public class LogEventFilterTest {
     }
 
     @Test
-    public void shouldFilterWithoutFields() throws Exception {
+    public void shouldFilterWithoutFields() {
         LogEventFilter instance = filter.withFields("a,b,c", false);
 
         assertThat(filter, is(instance));

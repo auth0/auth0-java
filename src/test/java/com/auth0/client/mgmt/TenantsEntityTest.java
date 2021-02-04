@@ -50,7 +50,7 @@ public class TenantsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnUpdateTenantSettingsWithNullData() throws Exception {
+    public void shouldThrowOnUpdateTenantSettingsWithNullData() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'tenant' cannot be null!");
         api.tenants().update(null);

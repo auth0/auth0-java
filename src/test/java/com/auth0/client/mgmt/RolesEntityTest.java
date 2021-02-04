@@ -111,14 +111,14 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
   }
 
   @Test
-  public void shouldThrowOnGetRoleWithNullRoleId() throws Exception {
+  public void shouldThrowOnGetRoleWithNullRoleId() {
     exception.expect(IllegalArgumentException.class);
     exception.expectMessage("'role id' cannot be null!");
     api.roles().get(null);
   }
 
   @Test
-  public void shouldThrowOnCreateRoleWithNullData() throws Exception {
+  public void shouldThrowOnCreateRoleWithNullData() {
     exception.expect(IllegalArgumentException.class);
     exception.expectMessage("'user' cannot be null!");
     api.users().create(null);
@@ -147,14 +147,14 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
   }
 
   @Test
-  public void shouldThrowOnUpdateRoleWithNullId() throws Exception {
+  public void shouldThrowOnUpdateRoleWithNullId() {
     exception.expect(IllegalArgumentException.class);
     exception.expectMessage("'role id' cannot be null!");
     api.roles().update(null, new Role());
   }
 
   @Test
-  public void shouldThrowOnUpdateRoleWithNullData() throws Exception {
+  public void shouldThrowOnUpdateRoleWithNullData() {
     exception.expect(IllegalArgumentException.class);
     exception.expectMessage("'role' cannot be null!");
     api.roles().update("1", null);
@@ -183,7 +183,7 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
   }
 
   @Test
-  public void shouldThrowOnDeleteRoleWithNullId() throws Exception {
+  public void shouldThrowOnDeleteRoleWithNullId() {
     exception.expect(IllegalArgumentException.class);
     exception.expectMessage("'role id' cannot be null!");
     api.roles().delete(null);
@@ -204,7 +204,7 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
   }
 
   @Test
-  public void shouldThrowOnListUsersWithNullId() throws Exception {
+  public void shouldThrowOnListUsersWithNullId() {
     exception.expect(IllegalArgumentException.class);
     exception.expectMessage("'role id' cannot be null!");
     api.roles().listUsers(null, null);
@@ -271,21 +271,21 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
   }
 
   @Test
-  public void shouldThrowOnAssignUsersWithNullId() throws Exception {
+  public void shouldThrowOnAssignUsersWithNullId() {
     exception.expect(IllegalArgumentException.class);
     exception.expectMessage("'role id' cannot be null!");
     api.roles().assignUsers(null, Collections.emptyList());
   }
 
   @Test
-  public void shouldThrowOnAssignUsersWithNullList() throws Exception {
+  public void shouldThrowOnAssignUsersWithNullList() {
     exception.expect(IllegalArgumentException.class);
     exception.expectMessage("'user ids' cannot be null!");
     api.roles().assignUsers("1", null);
   }
 
   @Test
-  public void shouldThrowOnAssignUsersWithEmptyList() throws Exception {
+  public void shouldThrowOnAssignUsersWithEmptyList() {
     exception.expect(IllegalArgumentException.class);
     exception.expectMessage("'user ids' cannot be empty!");
     api.roles().assignUsers("1", Collections.emptyList());
@@ -374,21 +374,21 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
   }
 
   @Test
-  public void shouldThrowOnAddPermissionsWithNullId() throws Exception {
+  public void shouldThrowOnAddPermissionsWithNullId() {
     exception.expect(IllegalArgumentException.class);
     exception.expectMessage("'role id' cannot be null!");
     api.roles().addPermissions(null, Collections.emptyList());
   }
 
   @Test
-  public void shouldThrowOnAddPermissionsWithNullList() throws Exception {
+  public void shouldThrowOnAddPermissionsWithNullList() {
     exception.expect(IllegalArgumentException.class);
     exception.expectMessage("'permissions' cannot be null!");
     api.roles().addPermissions("1", null);
   }
 
   @Test
-  public void shouldThrowOnAddPermissionsWithEmptyList() throws Exception {
+  public void shouldThrowOnAddPermissionsWithEmptyList() {
     exception.expect(IllegalArgumentException.class);
     exception.expectMessage("'permissions' cannot be empty!");
     api.roles().addPermissions("1", Collections.emptyList());
@@ -419,21 +419,21 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
   }
 
   @Test
-  public void shouldThrowOnRemovePermissionsWithNullId() throws Exception {
+  public void shouldThrowOnRemovePermissionsWithNullId() {
     exception.expect(IllegalArgumentException.class);
     exception.expectMessage("'role id' cannot be null!");
     api.roles().removePermissions(null, Collections.emptyList());
   }
 
   @Test
-  public void shouldThrowOnRemovePermissionsWithNullList() throws Exception {
+  public void shouldThrowOnRemovePermissionsWithNullList() {
     exception.expect(IllegalArgumentException.class);
     exception.expectMessage("'permissions' cannot be null!");
     api.roles().removePermissions("1", null);
   }
 
   @Test
-  public void shouldThrowOnRemovePermissionsWithEmptyList() throws Exception {
+  public void shouldThrowOnRemovePermissionsWithEmptyList() {
     exception.expect(IllegalArgumentException.class);
     exception.expectMessage("'permissions' cannot be empty!");
     api.roles().removePermissions("1", Collections.emptyList());

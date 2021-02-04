@@ -17,7 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class TicketsEntityTest extends BaseMgmtEntityTest {
 
     @Test
-    public void shouldThrowOnCreateEmailVerificationTicketWithNullData() throws Exception {
+    public void shouldThrowOnCreateEmailVerificationTicketWithNullData() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email verification ticket' cannot be null!");
         api.tickets().requestEmailVerification(null);
@@ -50,7 +50,7 @@ public class TicketsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnCreatePasswordChangeTicketWithNullData() throws Exception {
+    public void shouldThrowOnCreatePasswordChangeTicketWithNullData() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'password change ticket' cannot be null!");
         api.tickets().requestPasswordChange(null);

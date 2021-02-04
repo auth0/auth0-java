@@ -195,7 +195,7 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnGetConnectionWithNullId() throws Exception {
+    public void shouldThrowOnGetConnectionWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection id' cannot be null!");
         api.connections().get(null, null);
@@ -237,7 +237,7 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnCreateConnectionWithNullData() throws Exception {
+    public void shouldThrowOnCreateConnectionWithNullData() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection' cannot be null!");
         api.connections().create(null);
@@ -265,7 +265,7 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnDeleteConnectionWithNullId() throws Exception {
+    public void shouldThrowOnDeleteConnectionWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection id' cannot be null!");
         api.connections().delete(null);
@@ -286,14 +286,14 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnUpdateConnectionWithNullId() throws Exception {
+    public void shouldThrowOnUpdateConnectionWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection id' cannot be null!");
         api.connections().update(null, new Connection("my-connection", "auth0"));
     }
 
     @Test
-    public void shouldThrowOnUpdateConnectionWithNullData() throws Exception {
+    public void shouldThrowOnUpdateConnectionWithNullData() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection' cannot be null!");
         api.connections().update("1", null);
@@ -321,14 +321,14 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnDeleteConnectionUserWithNullId() throws Exception {
+    public void shouldThrowOnDeleteConnectionUserWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection id' cannot be null!");
         api.connections().deleteUser(null, "user@domain.com");
     }
 
     @Test
-    public void shouldThrowOnDeleteConnectionUserWithNullEmail() throws Exception {
+    public void shouldThrowOnDeleteConnectionUserWithNullEmail() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email' cannot be null!");
         api.connections().deleteUser("1", null);

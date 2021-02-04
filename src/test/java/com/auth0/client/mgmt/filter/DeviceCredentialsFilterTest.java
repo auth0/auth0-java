@@ -13,12 +13,12 @@ public class DeviceCredentialsFilterTest {
     private DeviceCredentialsFilter filter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         filter = new DeviceCredentialsFilter();
     }
 
     @Test
-    public void shouldFilterByClientId() throws Exception {
+    public void shouldFilterByClientId() {
         DeviceCredentialsFilter instance = filter.withClientId("1234567890");
 
         assertThat(filter, is(instance));
@@ -27,7 +27,7 @@ public class DeviceCredentialsFilterTest {
     }
 
     @Test
-    public void shouldFilterByType() throws Exception {
+    public void shouldFilterByType() {
         DeviceCredentialsFilter instance = filter.withType("public_key");
 
         assertThat(filter, is(instance));
@@ -36,7 +36,7 @@ public class DeviceCredentialsFilterTest {
     }
 
     @Test
-    public void shouldFilterByUserId() throws Exception {
+    public void shouldFilterByUserId() {
         DeviceCredentialsFilter instance = filter.withUserId("1234567890");
 
         assertThat(filter, is(instance));
@@ -45,7 +45,7 @@ public class DeviceCredentialsFilterTest {
     }
 
     @Test
-    public void shouldFilterWithFields() throws Exception {
+    public void shouldFilterWithFields() {
         DeviceCredentialsFilter instance = filter.withFields("a,b,c", true);
 
         assertThat(filter, is(instance));
@@ -55,7 +55,7 @@ public class DeviceCredentialsFilterTest {
     }
 
     @Test
-    public void shouldFilterWithoutFields() throws Exception {
+    public void shouldFilterWithoutFields() {
         DeviceCredentialsFilter instance = filter.withFields("a,b,c", false);
 
         assertThat(filter, is(instance));

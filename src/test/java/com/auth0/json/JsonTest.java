@@ -37,7 +37,7 @@ public class JsonTest<T> {
         return new String(Files.readAllBytes(Paths.get(path)));
     }
 
-    protected Date parseJSONDate(String dateString) throws ParseException, JsonProcessingException {
+    protected Date parseJSONDate(String dateString) throws ParseException {
         // StdDateFormat is the DateFormat Jackson uses by default for date fields (uses UTC timezone by default)
         // https://fasterxml.github.io/jackson-databind/javadoc/2.9/com/fasterxml/jackson/databind/util/StdDateFormat.html
         return new StdDateFormat().parse(dateString);

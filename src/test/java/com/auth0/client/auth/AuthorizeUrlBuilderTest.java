@@ -23,61 +23,61 @@ public class AuthorizeUrlBuilderTest {
     public ExpectedException exception = ExpectedException.none();
 
     @Test
-    public void shouldThrowWhenBaseUrlIsNull() throws Exception {
+    public void shouldThrowWhenBaseUrlIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'base url' cannot be null!");
         AuthorizeUrlBuilder.newInstance(null, CLIENT_ID, REDIRECT_URI);
     }
 
     @Test
-    public void shouldThrowWhenRedirectUriIsNull() throws Exception {
+    public void shouldThrowWhenRedirectUriIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'redirect uri' cannot be null!");
         AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, null);
     }
 
     @Test
-    public void shouldThrowWhenClientIdIsNull() throws Exception {
+    public void shouldThrowWhenClientIdIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client id' cannot be null!");
         AuthorizeUrlBuilder.newInstance(DOMAIN, null, REDIRECT_URI);
     }
 
     @Test
-    public void shouldGetNewInstance() throws Exception {
+    public void shouldGetNewInstance() {
         AuthorizeUrlBuilder instance = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI);
         assertThat(instance, is(notNullValue()));
     }
 
     @Test
-    public void shouldBuildValidAuthorizeUrlWithHttp() throws Exception {
+    public void shouldBuildValidAuthorizeUrlWithHttp() {
         HttpUrl httpBaseUrl = HttpUrl.parse("http://domain.auth0.com");
         String url = AuthorizeUrlBuilder.newInstance(httpBaseUrl, CLIENT_ID, REDIRECT_URI).build();
         assertThat(url, isUrl("http", "domain.auth0.com", "/authorize"));
     }
 
     @Test
-    public void shouldBuildValidAuthorizeUrlWithHttps() throws Exception {
+    public void shouldBuildValidAuthorizeUrlWithHttps() {
         HttpUrl httpsBaseUrl = HttpUrl.parse("https://domain.auth0.com");
         String url = AuthorizeUrlBuilder.newInstance(httpsBaseUrl, CLIENT_ID, REDIRECT_URI).build();
         assertThat(url, isUrl("https", "domain.auth0.com", "/authorize"));
     }
 
     @Test
-    public void shouldAddResponseTypeCode() throws Exception {
+    public void shouldAddResponseTypeCode() {
         String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI).build();
         assertThat(url, hasQueryParameter("response_type", "code"));
     }
 
     @Test
-    public void shouldAddClientId() throws Exception {
+    public void shouldAddClientId() {
         String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI).build();
         assertThat(url, hasQueryParameter("client_id", CLIENT_ID));
 
     }
 
     @Test
-    public void shouldAddRedirectUri() throws Exception {
+    public void shouldAddRedirectUri() {
         String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI).build();
         assertThat(url, hasQueryParameter("redirect_uri", REDIRECT_URI));
     }
@@ -90,7 +90,7 @@ public class AuthorizeUrlBuilderTest {
     }
 
     @Test
-    public void shouldSetConnection() throws Exception {
+    public void shouldSetConnection() {
         String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
                 .withConnection("my-connection")
                 .build();
@@ -98,7 +98,7 @@ public class AuthorizeUrlBuilderTest {
     }
 
     @Test
-    public void shouldThrowWhenConnectionIsNull() throws Exception {
+    public void shouldThrowWhenConnectionIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection' cannot be null!");
         AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
@@ -106,7 +106,7 @@ public class AuthorizeUrlBuilderTest {
     }
 
     @Test
-    public void shouldSetAudience() throws Exception {
+    public void shouldSetAudience() {
         String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
                 .withAudience("https://myapi.domain.com/users")
                 .build();
@@ -114,7 +114,7 @@ public class AuthorizeUrlBuilderTest {
     }
 
     @Test
-    public void shouldThrowWhenAudienceIsNull() throws Exception {
+    public void shouldThrowWhenAudienceIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'audience' cannot be null!");
         AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
@@ -122,7 +122,7 @@ public class AuthorizeUrlBuilderTest {
     }
 
     @Test
-    public void shouldSetState() throws Exception {
+    public void shouldSetState() {
         String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
                 .withState("1234567890")
                 .build();
@@ -130,7 +130,7 @@ public class AuthorizeUrlBuilderTest {
     }
 
     @Test
-    public void shouldThrowWhenStateIsNull() throws Exception {
+    public void shouldThrowWhenStateIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'state' cannot be null!");
         AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
@@ -138,7 +138,7 @@ public class AuthorizeUrlBuilderTest {
     }
 
     @Test
-    public void shouldSetScope() throws Exception {
+    public void shouldSetScope() {
         String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
                 .withScope("profile email contacts")
                 .build();
@@ -146,7 +146,7 @@ public class AuthorizeUrlBuilderTest {
     }
 
     @Test
-    public void shouldThrowWhenScopeIsNull() throws Exception {
+    public void shouldThrowWhenScopeIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'scope' cannot be null!");
         AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
@@ -154,7 +154,7 @@ public class AuthorizeUrlBuilderTest {
     }
 
     @Test
-    public void shouldSetResponseType() throws Exception {
+    public void shouldSetResponseType() {
         String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
                 .withResponseType("token id_token")
                 .build();
@@ -162,7 +162,7 @@ public class AuthorizeUrlBuilderTest {
     }
 
     @Test
-    public void shouldThrowWhenResponseTypeIsNull() throws Exception {
+    public void shouldThrowWhenResponseTypeIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'response type' cannot be null!");
         AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
@@ -170,7 +170,7 @@ public class AuthorizeUrlBuilderTest {
     }
 
     @Test
-    public void shouldSetCustomParameter() throws Exception {
+    public void shouldSetCustomParameter() {
         String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
                 .withParameter("name", "value")
                 .build();
@@ -178,7 +178,7 @@ public class AuthorizeUrlBuilderTest {
     }
 
     @Test
-    public void shouldThrowWhenCustomParameterNameIsNull() throws Exception {
+    public void shouldThrowWhenCustomParameterNameIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'name' cannot be null!");
         AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
@@ -186,7 +186,7 @@ public class AuthorizeUrlBuilderTest {
     }
 
     @Test
-    public void shouldThrowWhenCustomParameterValueIsNull() throws Exception {
+    public void shouldThrowWhenCustomParameterValueIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'value' cannot be null!");
         AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)

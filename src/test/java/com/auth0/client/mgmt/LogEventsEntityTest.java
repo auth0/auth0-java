@@ -165,7 +165,7 @@ public class LogEventsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnGetLogEventWithNullId() throws Exception {
+    public void shouldThrowOnGetLogEventWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'log event id' cannot be null!");
         api.logEvents().get(null);

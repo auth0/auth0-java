@@ -35,7 +35,7 @@ public class GrantsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnListGrantsWithoutFilterWithNullUserId() throws Exception {
+    public void shouldThrowOnListGrantsWithoutFilterWithNullUserId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'user id' cannot be null!");
         api.grants().list(null, null);
@@ -139,7 +139,7 @@ public class GrantsEntityTest extends BaseMgmtEntityTest {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void shouldThrowOnListGrantsWithNullUserId() throws Exception {
+    public void shouldThrowOnListGrantsWithNullUserId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'user id' cannot be null!");
         api.grants().list(null);
@@ -159,7 +159,7 @@ public class GrantsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnDeleteGrantWithNullId() throws Exception {
+    public void shouldThrowOnDeleteGrantWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'grant id' cannot be null!");
         api.grants().delete(null);
@@ -180,7 +180,7 @@ public class GrantsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnDeleteAllGrantsWithNullUserId() throws Exception {
+    public void shouldThrowOnDeleteAllGrantsWithNullUserId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'user id' cannot be null!");
         api.grants().deleteAll(null);

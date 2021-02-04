@@ -13,12 +13,12 @@ public class ConnectionFilterTest {
     private ConnectionFilter filter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         filter = new ConnectionFilter();
     }
 
     @Test
-    public void shouldFilterByStrategy() throws Exception {
+    public void shouldFilterByStrategy() {
         ConnectionFilter instance = filter.withStrategy("auth0");
 
         assertThat(filter, is(instance));
@@ -27,7 +27,7 @@ public class ConnectionFilterTest {
     }
 
     @Test
-    public void shouldFilterByName() throws Exception {
+    public void shouldFilterByName() {
         ConnectionFilter instance = filter.withName("my-connection");
 
         assertThat(filter, is(instance));
@@ -36,7 +36,7 @@ public class ConnectionFilterTest {
     }
 
     @Test
-    public void shouldFilterByPage() throws Exception {
+    public void shouldFilterByPage() {
         ConnectionFilter instance = filter.withPage(5, 10);
 
         assertThat(filter, is(instance));
@@ -46,7 +46,7 @@ public class ConnectionFilterTest {
     }
 
     @Test
-    public void shouldFilterWithFields() throws Exception {
+    public void shouldFilterWithFields() {
         ConnectionFilter instance = filter.withFields("a,b,c", true);
 
         assertThat(filter, is(instance));
@@ -56,7 +56,7 @@ public class ConnectionFilterTest {
     }
 
     @Test
-    public void shouldIncludeTotals() throws Exception {
+    public void shouldIncludeTotals() {
         ConnectionFilter instance = filter.withTotals(true);
 
         assertThat(filter, is(instance));
@@ -65,7 +65,7 @@ public class ConnectionFilterTest {
     }
 
     @Test
-    public void shouldFilterWithoutFields() throws Exception {
+    public void shouldFilterWithoutFields() {
         ConnectionFilter instance = filter.withFields("a,b,c", false);
 
         assertThat(filter, is(instance));

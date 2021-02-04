@@ -47,7 +47,7 @@ public class ManagementAPITest {
     // Configuration
 
     @Test
-    public void shouldAcceptDomainWithNoScheme() throws Exception {
+    public void shouldAcceptDomainWithNoScheme() {
         ManagementAPI api = new ManagementAPI("me.something.com", API_TOKEN);
 
         assertThat(api.getBaseUrl(), is(notNullValue()));
@@ -55,7 +55,7 @@ public class ManagementAPITest {
     }
 
     @Test
-    public void shouldAcceptDomainWithHttpScheme() throws Exception {
+    public void shouldAcceptDomainWithHttpScheme() {
         ManagementAPI api = new ManagementAPI("http://me.something.com", API_TOKEN);
 
         assertThat(api.getBaseUrl(), is(notNullValue()));
@@ -63,28 +63,28 @@ public class ManagementAPITest {
     }
 
     @Test
-    public void shouldThrowWhenDomainIsInvalid() throws Exception {
+    public void shouldThrowWhenDomainIsInvalid() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("The domain had an invalid format and couldn't be parsed as an URL.");
         new ManagementAPI("", API_TOKEN);
     }
 
     @Test
-    public void shouldThrowWhenDomainIsNull() throws Exception {
+    public void shouldThrowWhenDomainIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'domain' cannot be null!");
         new ManagementAPI(null, API_TOKEN);
     }
 
     @Test
-    public void shouldThrowWhenApiTokenIsNull() throws Exception {
+    public void shouldThrowWhenApiTokenIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'api token' cannot be null!");
         new ManagementAPI(DOMAIN, null);
     }
 
     @Test
-    public void shouldThrowOnUpdateWhenApiTokenIsNull() throws Exception {
+    public void shouldThrowOnUpdateWhenApiTokenIsNull() {
         ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN);
 
         exception.expect(IllegalArgumentException.class);
@@ -93,7 +93,7 @@ public class ManagementAPITest {
     }
 
     @Test
-    public void shouldUpdateApiToken() throws Exception {
+    public void shouldUpdateApiToken() {
         //Initialize with a token
         ManagementAPI api = new ManagementAPI(DOMAIN, "first token");
 
@@ -257,7 +257,7 @@ public class ManagementAPITest {
     }
 
     @Test
-    public void shouldAddAndEnableTelemetryInterceptor() throws Exception {
+    public void shouldAddAndEnableTelemetryInterceptor() {
         ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN);
         assertThat(api.getClient().interceptors(), hasItem(isA(TelemetryInterceptor.class)));
 
@@ -270,7 +270,7 @@ public class ManagementAPITest {
     }
 
     @Test
-    public void shouldUseCustomTelemetry() throws Exception {
+    public void shouldUseCustomTelemetry() {
         ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN);
         assertThat(api.getClient().interceptors(), hasItem(isA(TelemetryInterceptor.class)));
 
@@ -297,7 +297,7 @@ public class ManagementAPITest {
     }
 
     @Test
-    public void shouldDisableTelemetryInterceptor() throws Exception {
+    public void shouldDisableTelemetryInterceptor() {
         ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN);
         assertThat(api.getClient().interceptors(), hasItem(isA(TelemetryInterceptor.class)));
         api.doNotSendTelemetry();
@@ -311,7 +311,7 @@ public class ManagementAPITest {
     }
 
     @Test
-    public void shouldAddAndDisableLoggingInterceptor() throws Exception {
+    public void shouldAddAndDisableLoggingInterceptor() {
         ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN);
         assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
 
@@ -324,7 +324,7 @@ public class ManagementAPITest {
     }
 
     @Test
-    public void shouldEnableLoggingInterceptor() throws Exception {
+    public void shouldEnableLoggingInterceptor() {
         ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN);
         assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
         api.setLoggingEnabled(true);
@@ -338,7 +338,7 @@ public class ManagementAPITest {
     }
 
     @Test
-    public void shouldDisableLoggingInterceptor() throws Exception {
+    public void shouldDisableLoggingInterceptor() {
         ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN);
         assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
         api.setLoggingEnabled(false);
@@ -354,92 +354,92 @@ public class ManagementAPITest {
     //Entities
 
     @Test
-    public void shouldGetBlacklists() throws Exception {
+    public void shouldGetBlacklists() {
         assertThat(api.blacklists(), notNullValue());
     }
 
     @Test
-    public void shouldGetClientGrants() throws Exception {
+    public void shouldGetClientGrants() {
         assertThat(api.clientGrants(), notNullValue());
     }
 
     @Test
-    public void shouldGetClients() throws Exception {
+    public void shouldGetClients() {
         assertThat(api.clients(), notNullValue());
     }
 
     @Test
-    public void shouldGetConnections() throws Exception {
+    public void shouldGetConnections() {
         assertThat(api.connections(), notNullValue());
     }
 
     @Test
-    public void shouldGetDeviceCredentials() throws Exception {
+    public void shouldGetDeviceCredentials() {
         assertThat(api.deviceCredentials(), notNullValue());
     }
 
     @Test
-    public void shouldGetEmailProvider() throws Exception {
+    public void shouldGetEmailProvider() {
         assertThat(api.emailProvider(), notNullValue());
     }
 
     @Test
-    public void shouldGetEmailTemplates() throws Exception {
+    public void shouldGetEmailTemplates() {
         assertThat(api.emailTemplates(), notNullValue());
     }
 
     @Test
-    public void shouldGetGrants() throws Exception {
+    public void shouldGetGrants() {
         assertThat(api.grants(), notNullValue());
     }
 
     @Test
-    public void shouldGetGuardian() throws Exception {
+    public void shouldGetGuardian() {
         assertThat(api.guardian(), notNullValue());
     }
 
     @Test
-    public void shouldGetJobs() throws Exception {
+    public void shouldGetJobs() {
         assertThat(api.jobs(), notNullValue());
     }
 
     @Test
-    public void shouldGetLogEvents() throws Exception {
+    public void shouldGetLogEvents() {
         assertThat(api.logEvents(), notNullValue());
     }
 
     @Test
-    public void shouldGetResourceServers() throws Exception {
+    public void shouldGetResourceServers() {
         assertThat(api.resourceServers(), notNullValue());
     }
 
     @Test
-    public void shouldGetRules() throws Exception {
+    public void shouldGetRules() {
         assertThat(api.rules(), notNullValue());
     }
 
     @Test
-    public void shouldGetStats() throws Exception {
+    public void shouldGetStats() {
         assertThat(api.stats(), notNullValue());
     }
 
     @Test
-    public void shouldGetTenants() throws Exception {
+    public void shouldGetTenants() {
         assertThat(api.tenants(), notNullValue());
     }
 
     @Test
-    public void shouldGetTickets() throws Exception {
+    public void shouldGetTickets() {
         assertThat(api.tickets(), notNullValue());
     }
 
     @Test
-    public void shouldGetUserBlocks() throws Exception {
+    public void shouldGetUserBlocks() {
         assertThat(api.userBlocks(), notNullValue());
     }
 
     @Test
-    public void shouldGetUsers() throws Exception {
+    public void shouldGetUsers() {
         assertThat(api.users(), notNullValue());
     }
 
