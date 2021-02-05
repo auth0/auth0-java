@@ -51,7 +51,7 @@ public class EmailProviderEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnSetupEmailProviderWithNullData() throws Exception {
+    public void shouldThrowOnSetupEmailProviderWithNullData() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email provider' cannot be null!");
         api.emailProvider().setup(null);
@@ -92,7 +92,7 @@ public class EmailProviderEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnUpdateEmailProviderWithNullData() throws Exception {
+    public void shouldThrowOnUpdateEmailProviderWithNullData() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email provider' cannot be null!");
         api.emailProvider().update(null);

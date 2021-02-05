@@ -12,18 +12,18 @@ public class UserFilterTest {
     private UserFilter filter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         filter = new UserFilter();
     }
 
     @Test
-    public void shouldNotSetADefaultSearchEngineValue() throws Exception {
+    public void shouldNotSetADefaultSearchEngineValue() {
         assertThat(filter.getAsMap(), is(notNullValue()));
         assertThat(filter.getAsMap(), not(Matchers.hasKey("search_engine")));
     }
 
     @Test
-    public void shouldSetSearchEngine() throws Exception {
+    public void shouldSetSearchEngine() {
         UserFilter instance = filter.withSearchEngine("v3");
 
         assertThat(filter, is(instance));
@@ -32,7 +32,7 @@ public class UserFilterTest {
     }
 
     @Test
-    public void shouldIncludeTotals() throws Exception {
+    public void shouldIncludeTotals() {
         UserFilter instance = filter.withTotals(true);
 
         assertThat(filter, is(instance));
@@ -41,7 +41,7 @@ public class UserFilterTest {
     }
 
     @Test
-    public void shouldFilterByQuery() throws Exception {
+    public void shouldFilterByQuery() {
         UserFilter instance = filter.withQuery("id=log123");
 
         assertThat(filter, is(instance));
@@ -50,7 +50,7 @@ public class UserFilterTest {
     }
 
     @Test
-    public void shouldSort() throws Exception {
+    public void shouldSort() {
         UserFilter instance = filter.withSort("date:-1");
 
         assertThat(filter, is(instance));
@@ -59,7 +59,7 @@ public class UserFilterTest {
     }
 
     @Test
-    public void shouldFilterByPage() throws Exception {
+    public void shouldFilterByPage() {
         UserFilter instance = filter.withPage(15, 50);
 
         assertThat(filter, is(instance));
@@ -69,7 +69,7 @@ public class UserFilterTest {
     }
 
     @Test
-    public void shouldFilterByWithFields() throws Exception {
+    public void shouldFilterByWithFields() {
         UserFilter instance = filter.withFields("a,b,c", true);
 
         assertThat(filter, is(instance));
@@ -79,7 +79,7 @@ public class UserFilterTest {
     }
 
     @Test
-    public void shouldFilterWithoutFields() throws Exception {
+    public void shouldFilterWithoutFields() {
         UserFilter instance = filter.withFields("a,b,c", false);
 
         assertThat(filter, is(instance));

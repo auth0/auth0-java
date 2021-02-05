@@ -39,12 +39,12 @@ public class BaseRequestTest {
     }
 
     @Test
-    public void alwaysCloseResponseOnSuccessfulRequest() throws Exception {
+    public void alwaysCloseResponseOnSuccessfulRequest() {
         Exception exception = null;
         try {
             new MockBaseRequest<String>(client) {
                 @Override
-                protected String parseResponse(Response response) throws Auth0Exception {
+                protected String parseResponse(Response response) {
                     return "";
                 }
             }.execute();
@@ -57,7 +57,7 @@ public class BaseRequestTest {
     }
 
     @Test
-    public void alwaysCloseResponseOnRateLimitException() throws Exception {
+    public void alwaysCloseResponseOnRateLimitException() {
         Exception exception = null;
         try {
             new MockBaseRequest<String>(client) {
@@ -77,7 +77,7 @@ public class BaseRequestTest {
     }
 
     @Test
-    public void alwaysCloseResponseOnAPIException() throws Exception {
+    public void alwaysCloseResponseOnAPIException() {
         Exception exception = null;
         try {
             new MockBaseRequest<String>(client) {
@@ -97,7 +97,7 @@ public class BaseRequestTest {
     }
 
     @Test
-    public void alwaysCloseResponseOnAuth0Exception() throws Exception {
+    public void alwaysCloseResponseOnAuth0Exception() {
         Exception exception = null;
         try {
             new MockBaseRequest<String>(client) {

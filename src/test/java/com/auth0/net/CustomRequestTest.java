@@ -318,7 +318,7 @@ public class CustomRequestTest {
     }
 
     @Test
-    public void shouldParseRateLimitsHeaders() throws Exception {
+    public void shouldParseRateLimitsHeaders() {
         CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
         server.rateLimitReachedResponse(100, 10, 5);
         Exception exception = null;
@@ -343,7 +343,7 @@ public class CustomRequestTest {
     }
 
     @Test
-    public void shouldDefaultRateLimitsHeadersWhenMissing() throws Exception {
+    public void shouldDefaultRateLimitsHeadersWhenMissing() {
         CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
         server.rateLimitReachedResponse(-1, -1, -1);
         Exception exception = null;

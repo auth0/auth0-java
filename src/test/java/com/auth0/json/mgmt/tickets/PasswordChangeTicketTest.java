@@ -64,7 +64,7 @@ public class PasswordChangeTicketTest extends JsonTest<PasswordChangeTicket> {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void shouldHandleNullPasswordString() throws Exception {
+    public void shouldHandleNullPasswordString() {
         PasswordChangeTicket ticket = new PasswordChangeTicket("userId");
         ticket.setNewPassword((String) null);
 
@@ -72,7 +72,7 @@ public class PasswordChangeTicketTest extends JsonTest<PasswordChangeTicket> {
     }
 
     @Test
-    public void shouldHandleNullPasswordCharArray() throws Exception {
+    public void shouldHandleNullPasswordCharArray() {
         PasswordChangeTicket ticket = new PasswordChangeTicket("userId");
         ticket.setNewPassword((char[]) null);
 

@@ -23,46 +23,46 @@ public class LogoutUrlBuilderTest {
     public ExpectedException exception = ExpectedException.none();
 
     @Test
-    public void shouldThrowWhenBaseUrlIsNull() throws Exception {
+    public void shouldThrowWhenBaseUrlIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'base url' cannot be null!");
         LogoutUrlBuilder.newInstance(null, CLIENT_ID, RETURN_TO_URL, true);
     }
 
     @Test
-    public void shouldThrowWhenReturnToURLIsNull() throws Exception {
+    public void shouldThrowWhenReturnToURLIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'return to url' cannot be null!");
         LogoutUrlBuilder.newInstance(DOMAIN, CLIENT_ID, null, true);
     }
 
     @Test
-    public void shouldNotThrowWhenClientIdIsNull() throws Exception {
+    public void shouldNotThrowWhenClientIdIsNull() {
         LogoutUrlBuilder.newInstance(DOMAIN, null, RETURN_TO_URL, true);
     }
 
     @Test
-    public void shouldGetNewInstance() throws Exception {
+    public void shouldGetNewInstance() {
         LogoutUrlBuilder instance = LogoutUrlBuilder.newInstance(DOMAIN, CLIENT_ID, RETURN_TO_URL, true);
         assertThat(instance, is(notNullValue()));
     }
 
     @Test
-    public void shouldBuildValidLogoutUrlWithHttp() throws Exception {
+    public void shouldBuildValidLogoutUrlWithHttp() {
         HttpUrl httpBaseUrl = HttpUrl.parse("http://domain.auth0.com");
         String url = LogoutUrlBuilder.newInstance(httpBaseUrl, CLIENT_ID, RETURN_TO_URL, true).build();
         assertThat(url, isUrl("http", "domain.auth0.com", "/v2/logout"));
     }
 
     @Test
-    public void shouldBuildValidLogoutUrlWithHttps() throws Exception {
+    public void shouldBuildValidLogoutUrlWithHttps() {
         HttpUrl httpsBaseUrl = HttpUrl.parse("https://domain.auth0.com");
         String url = LogoutUrlBuilder.newInstance(httpsBaseUrl, CLIENT_ID, RETURN_TO_URL, true).build();
         assertThat(url, isUrl("https", "domain.auth0.com", "/v2/logout"));
     }
 
     @Test
-    public void shouldAddReturnToURL() throws Exception {
+    public void shouldAddReturnToURL() {
         String url = LogoutUrlBuilder.newInstance(DOMAIN, CLIENT_ID, RETURN_TO_URL, true).build();
         assertThat(url, hasQueryParameter("returnTo", RETURN_TO_URL));
     }
@@ -75,19 +75,19 @@ public class LogoutUrlBuilderTest {
     }
 
     @Test
-    public void shouldNotAddClientId() throws Exception {
+    public void shouldNotAddClientId() {
         String url = LogoutUrlBuilder.newInstance(DOMAIN, CLIENT_ID, RETURN_TO_URL, false).build();
         assertThat(url, hasQueryParameter("client_id", null));
     }
 
     @Test
-    public void shouldAddClientId() throws Exception {
+    public void shouldAddClientId() {
         String url = LogoutUrlBuilder.newInstance(DOMAIN, CLIENT_ID, RETURN_TO_URL, true).build();
         assertThat(url, hasQueryParameter("client_id", CLIENT_ID));
     }
 
     @Test
-    public void shouldUseFederated() throws Exception {
+    public void shouldUseFederated() {
         String url = LogoutUrlBuilder.newInstance(DOMAIN, CLIENT_ID, RETURN_TO_URL, true)
                 .useFederated(true)
                 .build();
@@ -95,7 +95,7 @@ public class LogoutUrlBuilderTest {
     }
 
     @Test
-    public void shouldNotUseFederated() throws Exception {
+    public void shouldNotUseFederated() {
         String url = LogoutUrlBuilder.newInstance(DOMAIN, CLIENT_ID, RETURN_TO_URL, true)
                 .useFederated(false)
                 .build();

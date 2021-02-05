@@ -13,12 +13,12 @@ public class RulesFilterTest {
     private RulesFilter filter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         filter = new RulesFilter();
     }
 
     @Test
-    public void shouldFilterWithEnabled() throws Exception {
+    public void shouldFilterWithEnabled() {
         RulesFilter instance = filter.withEnabled(true);
 
         assertThat(filter, is(instance));
@@ -27,7 +27,7 @@ public class RulesFilterTest {
     }
 
     @Test
-    public void shouldFilterWithFields() throws Exception {
+    public void shouldFilterWithFields() {
         RulesFilter instance = filter.withFields("a,b,c", true);
 
         assertThat(filter, is(instance));
@@ -37,7 +37,7 @@ public class RulesFilterTest {
     }
 
     @Test
-    public void shouldFilterWithoutFields() throws Exception {
+    public void shouldFilterWithoutFields() {
         RulesFilter instance = filter.withFields("a,b,c", false);
 
         assertThat(filter, is(instance));
@@ -47,7 +47,7 @@ public class RulesFilterTest {
     }
 
     @Test
-    public void shouldIncludeTotals() throws Exception {
+    public void shouldIncludeTotals() {
         RulesFilter instance = filter.withTotals(true);
 
         assertThat(filter, is(instance));
@@ -56,7 +56,7 @@ public class RulesFilterTest {
     }
 
     @Test
-    public void shouldFilterByPage() throws Exception {
+    public void shouldFilterByPage() {
         RulesFilter instance = filter.withPage(15, 50);
 
         assertThat(filter, is(instance));

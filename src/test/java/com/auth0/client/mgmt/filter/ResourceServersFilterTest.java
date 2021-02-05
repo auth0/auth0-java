@@ -13,12 +13,12 @@ public class ResourceServersFilterTest {
     private ResourceServersFilter filter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         filter = new ResourceServersFilter();
     }
 
     @Test
-    public void shouldFilterByPage() throws Exception {
+    public void shouldFilterByPage() {
         ResourceServersFilter instance = filter.withPage(5, 10);
 
         assertThat(filter, is(instance));
@@ -28,7 +28,7 @@ public class ResourceServersFilterTest {
     }
 
     @Test
-    public void shouldIncludeTotals() throws Exception {
+    public void shouldIncludeTotals() {
         ResourceServersFilter instance = filter.withTotals(true);
 
         assertThat(filter, is(instance));

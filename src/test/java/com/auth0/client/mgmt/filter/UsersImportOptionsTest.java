@@ -12,7 +12,7 @@ public class UsersImportOptionsTest {
     private UsersImportOptions options;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         options = new UsersImportOptions();
     }
 

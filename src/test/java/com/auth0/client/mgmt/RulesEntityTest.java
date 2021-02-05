@@ -173,7 +173,7 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnGetRuleWithNullId() throws Exception {
+    public void shouldThrowOnGetRuleWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'rule id' cannot be null!");
         api.rules().get(null, null);
@@ -215,7 +215,7 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnCreateRuleWithNullData() throws Exception {
+    public void shouldThrowOnCreateRuleWithNullData() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'rule' cannot be null!");
         api.rules().create(null);
@@ -243,7 +243,7 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnDeleteRuleWithNullId() throws Exception {
+    public void shouldThrowOnDeleteRuleWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'rule id' cannot be null!");
         api.rules().delete(null);
@@ -264,14 +264,14 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnUpdateRuleWithNullId() throws Exception {
+    public void shouldThrowOnUpdateRuleWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'rule id' cannot be null!");
         api.rules().update(null, new Rule("my-rule", "function(){}"));
     }
 
     @Test
-    public void shouldThrowOnUpdateRuleWithNullData() throws Exception {
+    public void shouldThrowOnUpdateRuleWithNullData() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'rule' cannot be null!");
         api.rules().update("1", null);

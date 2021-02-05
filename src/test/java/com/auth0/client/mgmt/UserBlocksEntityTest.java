@@ -14,7 +14,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class UserBlocksEntityTest extends BaseMgmtEntityTest {
 
     @Test
-    public void shouldThrowOnGetUserBlocksByIdentifierWithNullId() throws Exception {
+    public void shouldThrowOnGetUserBlocksByIdentifierWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'identifier' cannot be null!");
         api.userBlocks().getByIdentifier(null);
@@ -38,7 +38,7 @@ public class UserBlocksEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnGetUserBlocksWithNullId() throws Exception {
+    public void shouldThrowOnGetUserBlocksWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'user id' cannot be null!");
         api.userBlocks().get(null);
@@ -61,7 +61,7 @@ public class UserBlocksEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnDeleteUserBlocksByIdentifierWithNullId() throws Exception {
+    public void shouldThrowOnDeleteUserBlocksByIdentifierWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'identifier' cannot be null!");
         api.userBlocks().deleteByIdentifier(null);
@@ -83,7 +83,7 @@ public class UserBlocksEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnDeleteUserBlocksWithNullId() throws Exception {
+    public void shouldThrowOnDeleteUserBlocksWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'user id' cannot be null!");
         api.userBlocks().delete(null);

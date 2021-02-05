@@ -13,12 +13,12 @@ public class FieldFilterTest {
     private FieldsFilter filter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         filter = new FieldsFilter();
     }
 
     @Test
-    public void shouldFilterWithFields() throws Exception {
+    public void shouldFilterWithFields() {
         FieldsFilter instance = filter.withFields("a,b,c", true);
 
         assertThat(filter, is(instance));
@@ -28,7 +28,7 @@ public class FieldFilterTest {
     }
 
     @Test
-    public void shouldFilterWithoutFields() throws Exception {
+    public void shouldFilterWithoutFields() {
         FieldsFilter instance = filter.withFields("a,b,c", false);
 
         assertThat(filter, is(instance));
