@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.27.0](https://github.com/auth0/auth0-java/tree/1.27.0) (2021-02-05)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.26.0...1.27.0)
+
+**Added**
+- Add support for async requests [\#328](https://github.com/auth0/auth0-java/pull/328) ([jimmyjames](https://github.com/jimmyjames))
+
+**Changed**
+- Update dependency versions [\#329](https://github.com/auth0/auth0-java/pull/329) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.26.0](https://github.com/auth0/auth0-java/tree/1.26.0) (2020-12-02)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.25.0...1.26.0)
 
