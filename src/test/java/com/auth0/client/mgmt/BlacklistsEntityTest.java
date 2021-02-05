@@ -16,7 +16,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class BlacklistsEntityTest extends BaseMgmtEntityTest {
 
     @Test
-    public void shouldThrowOnGetBlacklistedTokensWithNullAudience() throws Exception {
+    public void shouldThrowOnGetBlacklistedTokensWithNullAudience() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'audience' cannot be null!");
         api.blacklists().getBlacklist(null);
@@ -53,7 +53,7 @@ public class BlacklistsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnBlacklistTokensWithNullToken() throws Exception {
+    public void shouldThrowOnBlacklistTokensWithNullToken() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'token' cannot be null!");
         api.blacklists().blacklistToken(null);

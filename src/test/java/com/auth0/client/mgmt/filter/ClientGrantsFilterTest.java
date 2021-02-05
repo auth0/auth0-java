@@ -13,12 +13,12 @@ public class ClientGrantsFilterTest {
     private ClientGrantsFilter filter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         filter = new ClientGrantsFilter();
     }
 
     @Test
-    public void shouldFilterByAudience() throws Exception {
+    public void shouldFilterByAudience() {
         ClientGrantsFilter instance = filter.withAudience("https://myapi.auth0.com");
 
         assertThat(filter, is(instance));
@@ -27,7 +27,7 @@ public class ClientGrantsFilterTest {
     }
 
     @Test
-    public void shouldFilterByClientId() throws Exception {
+    public void shouldFilterByClientId() {
         ClientGrantsFilter instance = filter.withClientId("n3roinr32i23iron23nr");
 
         assertThat(filter, is(instance));
@@ -36,7 +36,7 @@ public class ClientGrantsFilterTest {
     }
 
     @Test
-    public void shouldFilterByPage() throws Exception {
+    public void shouldFilterByPage() {
         ClientGrantsFilter instance = filter.withPage(5, 10);
 
         assertThat(filter, is(instance));
@@ -46,7 +46,7 @@ public class ClientGrantsFilterTest {
     }
 
     @Test
-    public void shouldIncludeTotals() throws Exception {
+    public void shouldIncludeTotals() {
         ClientGrantsFilter instance = filter.withTotals(true);
 
         assertThat(filter, is(instance));

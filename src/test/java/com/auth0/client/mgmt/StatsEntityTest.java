@@ -33,14 +33,14 @@ public class StatsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnGetDailyStatsWithNullDateFrom() throws Exception {
+    public void shouldThrowOnGetDailyStatsWithNullDateFrom() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'date from' cannot be null!");
         api.stats().getDailyStats(null, new Date());
     }
 
     @Test
-    public void shouldThrowOnGetDailyStatsWithNullDateTo() throws Exception {
+    public void shouldThrowOnGetDailyStatsWithNullDateTo() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'date to' cannot be null!");
         api.stats().getDailyStats(new Date(), null);
@@ -85,7 +85,7 @@ public class StatsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldFormatDateToYYYYMMDD() throws Exception {
+    public void shouldFormatDateToYYYYMMDD() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, 2010);
         //Calendar.MONTH starts at 0 being January

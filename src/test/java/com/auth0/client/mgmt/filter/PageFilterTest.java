@@ -13,12 +13,12 @@ public class PageFilterTest {
     private PageFilter filter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         filter = new PageFilter();
     }
 
     @Test
-    public void shouldFilterByPage() throws Exception {
+    public void shouldFilterByPage() {
         PageFilter instance = filter.withPage(5, 10);
 
         assertThat(filter, is(instance));
@@ -28,7 +28,7 @@ public class PageFilterTest {
     }
 
     @Test
-    public void shouldIncludeTotals() throws Exception {
+    public void shouldIncludeTotals() {
         PageFilter instance = filter.withTotals(true);
 
         assertThat(filter, is(instance));

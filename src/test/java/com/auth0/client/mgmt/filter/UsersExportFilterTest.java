@@ -18,7 +18,7 @@ public class UsersExportFilterTest {
     private UsersExportFilter filter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         filter = new UsersExportFilter();
     }
 

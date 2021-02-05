@@ -19,7 +19,7 @@ public class TwilioFactorProviderTest extends JsonTest<TwilioFactorProvider> {
     private static final String JSON_WITH_MESSAGING_SERVICE_SID = "{\"messaging_service_sid\":\"id321\",\"auth_token\":\"atokEn\",\"sid\":\"id123\"}";
 
     @Test
-    public void shouldFailConstructionWithBothFromAndMessagingServiceSID() throws Exception {
+    public void shouldFailConstructionWithBothFromAndMessagingServiceSID() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("You must specify either `from` or `messagingServiceSID`, but not both");
 
@@ -28,7 +28,7 @@ public class TwilioFactorProviderTest extends JsonTest<TwilioFactorProvider> {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void shouldFailWhenSettingFromAndMessagingServiceSIDWasAlreadySet() throws Exception {
+    public void shouldFailWhenSettingFromAndMessagingServiceSIDWasAlreadySet() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("You must specify either `from` or `messagingServiceSID`, but not both");
 
@@ -39,7 +39,7 @@ public class TwilioFactorProviderTest extends JsonTest<TwilioFactorProvider> {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void shouldFailWhenSettingMessagingServiceSIDAndFromWasAlreadySet() throws Exception {
+    public void shouldFailWhenSettingMessagingServiceSIDAndFromWasAlreadySet() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("You must specify either `from` or `messagingServiceSID`, but not both");
 

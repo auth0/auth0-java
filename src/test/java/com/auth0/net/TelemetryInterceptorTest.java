@@ -18,26 +18,26 @@ public class TelemetryInterceptorTest {
     private Telemetry telemetry;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         telemetry = mock(Telemetry.class);
         when(telemetry.getValue()).thenReturn("ClientInfo");
     }
 
     @Test
-    public void shouldBeEnabledByDefault() throws Exception {
+    public void shouldBeEnabledByDefault() {
         TelemetryInterceptor interceptor = new TelemetryInterceptor(telemetry);
         assertThat(interceptor.isEnabled(), is(true));
     }
 
     @Test
-    public void shouldDisable() throws Exception {
+    public void shouldDisable() {
         TelemetryInterceptor interceptor = new TelemetryInterceptor(telemetry);
         interceptor.setEnabled(false);
         assertThat(interceptor.isEnabled(), is(false));
     }
 
     @Test
-    public void shouldEnable() throws Exception {
+    public void shouldEnable() {
         TelemetryInterceptor interceptor = new TelemetryInterceptor(telemetry);
         interceptor.setEnabled(true);
         assertThat(interceptor.isEnabled(), is(true));

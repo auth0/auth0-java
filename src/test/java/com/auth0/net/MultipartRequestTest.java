@@ -62,7 +62,7 @@ public class MultipartRequestTest {
     }
 
     @Test
-    public void shouldNotSupportGETMethod() throws Exception {
+    public void shouldNotSupportGETMethod() {
         exception.expect(instanceOf(IllegalArgumentException.class));
         exception.expectMessage("Multipart/form-data requests do not support the GET method.");
         MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, server.getBaseUrl(), "GET", tokenHolderType);
@@ -155,7 +155,7 @@ public class MultipartRequestTest {
     }
 
     @Test
-    public void shouldThrowOnBodyCreationFailure() throws Exception {
+    public void shouldThrowOnBodyCreationFailure() {
         Exception exception = null;
         try {
             MultipartRequest<Void> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", voidType);
@@ -344,7 +344,7 @@ public class MultipartRequestTest {
     }
 
     @Test
-    public void shouldParseRateLimitsHeaders() throws Exception {
+    public void shouldParseRateLimitsHeaders() {
         MultipartRequest<List> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", listType);
         request.addPart("non_empty", "body");
         server.rateLimitReachedResponse(100, 10, 5);
@@ -370,7 +370,7 @@ public class MultipartRequestTest {
     }
 
     @Test
-    public void shouldDefaultRateLimitsHeadersWhenMissing() throws Exception {
+    public void shouldDefaultRateLimitsHeadersWhenMissing() {
         MultipartRequest<List> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", listType);
         request.addPart("non_empty", "body");
         server.rateLimitReachedResponse(-1, -1, -1);

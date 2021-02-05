@@ -153,7 +153,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnGetClientWithNullId() throws Exception {
+    public void shouldThrowOnGetClientWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client id' cannot be null!");
         api.clients().get(null);
@@ -176,7 +176,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnCreateClientWithNullData() throws Exception {
+    public void shouldThrowOnCreateClientWithNullData() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client' cannot be null!");
         api.clients().create(null);
@@ -203,7 +203,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnDeleteClientWithNullId() throws Exception {
+    public void shouldThrowOnDeleteClientWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client id' cannot be null!");
         api.clients().delete(null);
@@ -224,14 +224,14 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnUpdateClientWithNullId() throws Exception {
+    public void shouldThrowOnUpdateClientWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client id' cannot be null!");
         api.clients().update(null, new Client("name"));
     }
 
     @Test
-    public void shouldThrowOnUpdateClientWithNullData() throws Exception {
+    public void shouldThrowOnUpdateClientWithNullData() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client' cannot be null!");
         api.clients().update("clientId", null);
@@ -258,7 +258,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnRotateClientSecretWithNullId() throws Exception {
+    public void shouldThrowOnRotateClientSecretWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client id' cannot be null!");
         api.clients().rotateSecret(null);

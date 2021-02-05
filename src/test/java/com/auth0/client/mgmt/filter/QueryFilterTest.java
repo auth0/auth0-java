@@ -25,12 +25,12 @@ public class QueryFilterTest {
     private QueryFilter filter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         filter = new QueryFilter();
     }
 
     @Test
-    public void shouldIncludeTotals() throws Exception {
+    public void shouldIncludeTotals() {
         QueryFilter instance = filter.withTotals(true);
 
         assertThat(filter, is(instance));
@@ -39,7 +39,7 @@ public class QueryFilterTest {
     }
 
     @Test
-    public void shouldFilterByQuery() throws Exception {
+    public void shouldFilterByQuery() {
         QueryFilter instance = filter.withQuery("id=log123");
 
         assertThat(filter, is(instance));
@@ -48,7 +48,7 @@ public class QueryFilterTest {
     }
 
     @Test
-    public void shouldSort() throws Exception {
+    public void shouldSort() {
         QueryFilter instance = filter.withSort("date:-1");
 
         assertThat(filter, is(instance));
@@ -57,7 +57,7 @@ public class QueryFilterTest {
     }
 
     @Test
-    public void shouldFilterByPage() throws Exception {
+    public void shouldFilterByPage() {
         QueryFilter instance = filter.withPage(15, 50);
 
         assertThat(filter, is(instance));
@@ -67,7 +67,7 @@ public class QueryFilterTest {
     }
 
     @Test
-    public void shouldFilterByWithFields() throws Exception {
+    public void shouldFilterByWithFields() {
         QueryFilter instance = filter.withFields("a,b,c", true);
 
         assertThat(filter, is(instance));
@@ -77,7 +77,7 @@ public class QueryFilterTest {
     }
 
     @Test
-    public void shouldFilterWithoutFields() throws Exception {
+    public void shouldFilterWithoutFields() {
         QueryFilter instance = filter.withFields("a,b,c", false);
 
         assertThat(filter, is(instance));

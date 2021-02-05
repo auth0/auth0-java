@@ -18,7 +18,7 @@ public class UserTest extends JsonTest<User> {
     private static final String readOnlyJson = "{\"user_id\":\"user|123\",\"last_ip\":\"10.0.0.1\",\"last_login\":\"2016-02-23T19:57:29.532Z\",\"last_password_reset\":\"2016-02-23T19:57:29Z\",\"logins_count\":10,\"created_at\":\"2016-02-23T19:57:29.532Z\",\"updated_at\":\"2016-02-23T19:57:29.532Z\",\"identities\":[]}";
 
     @Test
-    public void shouldHaveEmptyValuesByDefault() throws Exception{
+    public void shouldHaveEmptyValuesByDefault() {
         User user = new User();
         assertThat(user.getValues(), is(notNullValue()));
 

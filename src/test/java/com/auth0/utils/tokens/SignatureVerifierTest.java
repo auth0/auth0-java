@@ -143,7 +143,7 @@ public class SignatureVerifierTest {
         new NullVerifier();
     }
 
-    private PublicKeyProvider getRSProvider(String rsaPath) throws Exception {
+    private PublicKeyProvider getRSProvider(String rsaPath) {
         return new PublicKeyProvider() {
             @Override
             public RSAPublicKey getPublicKeyById(String keyId) throws PublicKeyProviderException {

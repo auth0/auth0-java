@@ -50,40 +50,40 @@ public class TelemetryTest {
     }
 
     @Test
-    public void shouldAcceptNullVersionAlwaysIncludeJavaVersion() throws Exception {
+    public void shouldAcceptNullVersionAlwaysIncludeJavaVersion() {
         Telemetry telemetry = new Telemetry("auth0-java", null);
         assertThat(telemetry.getValue(), is(notNullValue()));
         assertThat(telemetry.getEnvironment(), is(notNullValue()));
     }
 
     @Test
-    public void shouldNotAcceptNullName() throws Exception {
+    public void shouldNotAcceptNullName() {
         Telemetry telemetry = new Telemetry(null, null);
         assertThat(telemetry.getValue(), is(nullValue()));
         assertThat(telemetry.getEnvironment(), is(notNullValue()));
     }
 
     @Test
-    public void shouldGetName() throws Exception {
+    public void shouldGetName() {
         Telemetry telemetry = new Telemetry("auth0-java", "1.0.0");
         assertThat(telemetry.getName(), is("auth0-java"));
     }
 
     @Test
-    public void shouldGetVersion() throws Exception {
+    public void shouldGetVersion() {
         Telemetry telemetry = new Telemetry("auth0-java", "1.0.0");
         assertThat(telemetry.getVersion(), is("1.0.0"));
     }
 
     @Test
-    public void shouldNotIncludeLibraryVersionIfNotProvided() throws Exception {
+    public void shouldNotIncludeLibraryVersionIfNotProvided() {
         Telemetry telemetry = new Telemetry("auth0-java", "1.0.0");
         assertThat(telemetry.getLibraryVersion(), is(nullValue()));
         assertThat(telemetry.getEnvironment().containsKey("auth0-java"), is(false));
     }
 
     @Test
-    public void shouldGetLibraryVersion() throws Exception {
+    public void shouldGetLibraryVersion() {
         Telemetry telemetry = new Telemetry("auth0-java", "1.0.0", "2.1.3");
         assertThat(telemetry.getLibraryVersion(), is("2.1.3"));
         assertThat(telemetry.getEnvironment().get("auth0-java"), is("2.1.3"));

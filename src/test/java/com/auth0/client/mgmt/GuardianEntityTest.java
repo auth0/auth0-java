@@ -17,7 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class GuardianEntityTest extends BaseMgmtEntityTest {
 
     @Test
-    public void shouldThrowOnDeleteGuardianEnrollmentWithNullId() throws Exception {
+    public void shouldThrowOnDeleteGuardianEnrollmentWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'enrollment id' cannot be null!");
         api.guardian().deleteEnrollment(null);
@@ -38,7 +38,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnCreateGuardianEnrollmentTicketWithNullData() throws Exception {
+    public void shouldThrowOnCreateGuardianEnrollmentTicketWithNullData() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'enrollment ticket' cannot be null!");
         api.guardian().createEnrollmentTicket(null);
@@ -81,7 +81,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnUpdateGuardianTemplatesWithNullData() throws Exception {
+    public void shouldThrowOnUpdateGuardianTemplatesWithNullData() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'guardian templates' cannot be null!");
         api.guardian().updateTemplates(null);
@@ -133,14 +133,14 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnUpdateGuardianFactorWithNullName() throws Exception {
+    public void shouldThrowOnUpdateGuardianFactorWithNullName() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'name' cannot be null!");
         api.guardian().updateFactor(null, true);
     }
 
     @Test
-    public void shouldThrowOnUpdateGuardianFactorWithNullEnabled() throws Exception {
+    public void shouldThrowOnUpdateGuardianFactorWithNullEnabled() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'enabled' cannot be null!");
         api.guardian().updateFactor("my-factor", null);
@@ -199,7 +199,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnUpdateGuardianTwilioFactorProviderWithNullData() throws Exception {
+    public void shouldThrowOnUpdateGuardianTwilioFactorProviderWithNullData() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'provider' cannot be null!");
         api.guardian().updateTwilioFactorProvider(null);
@@ -299,7 +299,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnUpdateGuardianSnsFactorProviderWithNullData() throws Exception {
+    public void shouldThrowOnUpdateGuardianSnsFactorProviderWithNullData() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'provider' cannot be null!");
         api.guardian().updateSNSFactorProvider(null);

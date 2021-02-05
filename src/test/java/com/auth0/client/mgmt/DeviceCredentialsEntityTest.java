@@ -124,7 +124,7 @@ public class DeviceCredentialsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnCreateDeviceCredentialsWithNullData() throws Exception {
+    public void shouldThrowOnCreateDeviceCredentialsWithNullData() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'device credentials' cannot be null!");
         api.deviceCredentials().create(null);
@@ -155,7 +155,7 @@ public class DeviceCredentialsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnDeleteDeviceCredentialsWithNullId() throws Exception {
+    public void shouldThrowOnDeleteDeviceCredentialsWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'device credentials id' cannot be null!");
         api.deviceCredentials().delete(null);

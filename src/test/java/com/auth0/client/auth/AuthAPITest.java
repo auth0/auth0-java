@@ -62,7 +62,7 @@ public class AuthAPITest {
     // Configuration
 
     @Test
-    public void shouldAcceptDomainWithNoScheme() throws Exception {
+    public void shouldAcceptDomainWithNoScheme() {
         AuthAPI api = new AuthAPI("me.something.com", CLIENT_ID, CLIENT_SECRET);
 
         assertThat(api.getBaseUrl(), is(notNullValue()));
@@ -70,7 +70,7 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldAcceptDomainWithHttpScheme() throws Exception {
+    public void shouldAcceptDomainWithHttpScheme() {
         AuthAPI api = new AuthAPI("http://me.something.com", CLIENT_ID, CLIENT_SECRET);
 
         assertThat(api.getBaseUrl(), is(notNullValue()));
@@ -78,28 +78,28 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldThrowWhenDomainIsInvalid() throws Exception {
+    public void shouldThrowWhenDomainIsInvalid() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("The domain had an invalid format and couldn't be parsed as an URL.");
         new AuthAPI("", CLIENT_ID, CLIENT_SECRET);
     }
 
     @Test
-    public void shouldThrowWhenDomainIsNull() throws Exception {
+    public void shouldThrowWhenDomainIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'domain' cannot be null!");
         new AuthAPI(null, CLIENT_ID, CLIENT_SECRET);
     }
 
     @Test
-    public void shouldThrowWhenClientIdIsNull() throws Exception {
+    public void shouldThrowWhenClientIdIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client id' cannot be null!");
         new AuthAPI(DOMAIN, null, CLIENT_SECRET);
     }
 
     @Test
-    public void shouldThrowWhenClientSecretIsNull() throws Exception {
+    public void shouldThrowWhenClientSecretIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client secret' cannot be null!");
         new AuthAPI(DOMAIN, CLIENT_ID, null);
@@ -223,7 +223,7 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldUseCustomTelemetry() throws Exception {
+    public void shouldUseCustomTelemetry() {
         AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
         assertThat(api.getClient().interceptors(), hasItem(isA(TelemetryInterceptor.class)));
 
@@ -250,7 +250,7 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldAddAndEnableTelemetryInterceptor() throws Exception {
+    public void shouldAddAndEnableTelemetryInterceptor() {
         AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
         assertThat(api.getClient().interceptors(), hasItem(isA(TelemetryInterceptor.class)));
 
@@ -263,7 +263,7 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldDisableTelemetryInterceptor() throws Exception {
+    public void shouldDisableTelemetryInterceptor() {
         AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
         assertThat(api.getClient().interceptors(), hasItem(isA(TelemetryInterceptor.class)));
         api.doNotSendTelemetry();
@@ -277,7 +277,7 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldAddAndDisableLoggingInterceptor() throws Exception {
+    public void shouldAddAndDisableLoggingInterceptor() {
         AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
         assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
 
@@ -290,7 +290,7 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldEnableLoggingInterceptor() throws Exception {
+    public void shouldEnableLoggingInterceptor() {
         AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
         assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
         api.setLoggingEnabled(true);
@@ -304,7 +304,7 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldDisableLoggingInterceptor() throws Exception {
+    public void shouldDisableLoggingInterceptor() {
         AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
         assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
         api.setLoggingEnabled(false);
@@ -320,27 +320,27 @@ public class AuthAPITest {
     //Authorize
 
     @Test
-    public void shouldThrowWhenAuthorizeUrlBuilderRedirectUriIsNull() throws Exception {
+    public void shouldThrowWhenAuthorizeUrlBuilderRedirectUriIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'redirect uri' must be a valid URL!");
         api.authorizeUrl(null);
     }
 
     @Test
-    public void shouldThrowWhenAuthorizeUrlBuilderRedirectUriIsNotValidURL() throws Exception {
+    public void shouldThrowWhenAuthorizeUrlBuilderRedirectUriIsNotValidURL() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'redirect uri' must be a valid URL!");
         api.authorizeUrl("notvalid.url");
     }
 
     @Test
-    public void shouldGetAuthorizeUrlBuilder() throws Exception {
+    public void shouldGetAuthorizeUrlBuilder() {
         AuthorizeUrlBuilder builder = api.authorizeUrl("https://domain.auth0.com/callback");
         assertThat(builder, is(notNullValue()));
     }
 
     @Test
-    public void shouldSetAuthorizeUrlBuilderDefaultValues() throws Exception {
+    public void shouldSetAuthorizeUrlBuilderDefaultValues() {
         AuthAPI api = new AuthAPI("domain.auth0.com", CLIENT_ID, CLIENT_SECRET);
         String url = api.authorizeUrl("https://domain.auth0.com/callback").build();
 
@@ -355,27 +355,27 @@ public class AuthAPITest {
     //Logout
 
     @Test
-    public void shouldThrowWhenLogoutUrlBuilderReturnToUrlIsNull() throws Exception {
+    public void shouldThrowWhenLogoutUrlBuilderReturnToUrlIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'return to url' must be a valid URL!");
         api.logoutUrl(null, true);
     }
 
     @Test
-    public void shouldThrowWhenLogoutUrlBuilderRedirectUriIsNotValidURL() throws Exception {
+    public void shouldThrowWhenLogoutUrlBuilderRedirectUriIsNotValidURL() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'return to url' must be a valid URL!");
         api.logoutUrl("notvalid.url", true);
     }
 
     @Test
-    public void shouldGetLogoutUrlBuilder() throws Exception {
+    public void shouldGetLogoutUrlBuilder() {
         LogoutUrlBuilder builder = api.logoutUrl("https://domain.auth0.com/callback", true);
         assertThat(builder, is(notNullValue()));
     }
 
     @Test
-    public void shouldSetLogoutUrlBuilderDefaultValues() throws Exception {
+    public void shouldSetLogoutUrlBuilderDefaultValues() {
         AuthAPI api = new AuthAPI("domain.auth0.com", CLIENT_ID, CLIENT_SECRET);
         String url = api.logoutUrl("https://my.domain.com/welcome", false).build();
 
@@ -385,7 +385,7 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldSetLogoutUrlBuilderDefaultValuesAndClientId() throws Exception {
+    public void shouldSetLogoutUrlBuilderDefaultValuesAndClientId() {
         AuthAPI api = new AuthAPI("domain.auth0.com", CLIENT_ID, CLIENT_SECRET);
         String url = api.logoutUrl("https://my.domain.com/welcome", true).build();
 
@@ -398,7 +398,7 @@ public class AuthAPITest {
     //UserInfo
 
     @Test
-    public void shouldThrowOnUserInfoWithNullAccessToken() throws Exception {
+    public void shouldThrowOnUserInfoWithNullAccessToken() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'access token' cannot be null!");
         api.userInfo(null);
@@ -442,14 +442,14 @@ public class AuthAPITest {
     //Reset Password
 
     @Test
-    public void shouldThrowOnResetPasswordWithNullEmail() throws Exception {
+    public void shouldThrowOnResetPasswordWithNullEmail() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email' cannot be null!");
         api.resetPassword(null, "my-connection");
     }
 
     @Test
-    public void shouldThrowOnResetPasswordWithNullConnection() throws Exception {
+    public void shouldThrowOnResetPasswordWithNullConnection() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection' cannot be null!");
         api.resetPassword("me@auth0.com", null);
@@ -481,7 +481,7 @@ public class AuthAPITest {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void shouldThrowOnSignUpWithNullEmail() throws Exception {
+    public void shouldThrowOnSignUpWithNullEmail() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email' cannot be null!");
         api.signUp(null, "p455w0rd", "my-connection");
@@ -489,14 +489,14 @@ public class AuthAPITest {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void shouldThrowOnSignUpWithNullPasswordString() throws Exception {
+    public void shouldThrowOnSignUpWithNullPasswordString() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'password' cannot be null!");
         api.signUp("me@auth0.com", (String) null, "my-connection");
     }
 
     @Test
-    public void shouldThrowOnSignUpWithNullPasswordCharArray() throws Exception {
+    public void shouldThrowOnSignUpWithNullPasswordCharArray() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'password' cannot be null!");
         api.signUp("me@auth0.com", (char[]) null, "my-connection");
@@ -504,7 +504,7 @@ public class AuthAPITest {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void shouldThrowOnSignUpWithNullConnection() throws Exception {
+    public void shouldThrowOnSignUpWithNullConnection() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection' cannot be null!");
         api.signUp("me@auth0.com", "p455w0rd", null);
@@ -512,7 +512,7 @@ public class AuthAPITest {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void shouldThrowOnUsernameSignUpWithNullEmail() throws Exception {
+    public void shouldThrowOnUsernameSignUpWithNullEmail() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email' cannot be null!");
         api.signUp(null, "me", "p455w0rd", "my-connection");
@@ -520,7 +520,7 @@ public class AuthAPITest {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void shouldThrowOnUsernameSignUpWithNullUsername() throws Exception {
+    public void shouldThrowOnUsernameSignUpWithNullUsername() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'username' cannot be null!");
         api.signUp("me@auth0.com", null, "p455w0rd", "my-connection");
@@ -528,14 +528,14 @@ public class AuthAPITest {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void shouldThrowOnUsernameSignUpWithNullPasswordString() throws Exception {
+    public void shouldThrowOnUsernameSignUpWithNullPasswordString() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'password' cannot be null!");
         api.signUp("me@auth0.com", "me", (String) null, "my-connection");
     }
 
     @Test
-    public void shouldThrowOnUsernameSignUpWithNullPasswordCharArray() throws Exception {
+    public void shouldThrowOnUsernameSignUpWithNullPasswordCharArray() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'password' cannot be null!");
         api.signUp("me@auth0.com", "me", (char[]) null, "my-connection");
@@ -543,7 +543,7 @@ public class AuthAPITest {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void shouldThrowOnUsernameSignUpWithNullConnection() throws Exception {
+    public void shouldThrowOnUsernameSignUpWithNullConnection() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection' cannot be null!");
         api.signUp("me@auth0.com", "me", "p455w0rd", null);
@@ -667,14 +667,14 @@ public class AuthAPITest {
     //Log In with AuthorizationCode Grant
 
     @Test
-    public void shouldThrowOnLogInWithAuthorizationCodeGrantAndRedirectUriWithNullCode() throws Exception {
+    public void shouldThrowOnLogInWithAuthorizationCodeGrantAndRedirectUriWithNullCode() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'code' cannot be null!");
         api.exchangeCode(null, "https://domain.auth0.com/callback");
     }
 
     @Test
-    public void shouldThrowOnLogInWithAuthorizationCodeGrantAndRedirectUriWithNullRedirectUri() throws Exception {
+    public void shouldThrowOnLogInWithAuthorizationCodeGrantAndRedirectUriWithNullRedirectUri() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'redirect uri' cannot be null!");
         api.exchangeCode("code", null);
@@ -745,7 +745,7 @@ public class AuthAPITest {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void shouldThrowOnLogInWithPasswordWithNullUsername() throws Exception {
+    public void shouldThrowOnLogInWithPasswordWithNullUsername() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email or username' cannot be null!");
         api.login(null, "p455w0rd");
@@ -753,14 +753,14 @@ public class AuthAPITest {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void shouldThrowOnLogInWithPasswordWithNullPassword() throws Exception {
+    public void shouldThrowOnLogInWithPasswordWithNullPassword() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'password' cannot be null!");
         api.login("me", (String) null);
     }
 
     @Test
-    public void shouldThrowOnLogInWithCharPasswordWithNullPassword() throws Exception {
+    public void shouldThrowOnLogInWithCharPasswordWithNullPassword() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'password' cannot be null!");
         api.login("me", (char[]) null);
@@ -860,7 +860,7 @@ public class AuthAPITest {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void shouldThrowOnLogInWithPasswordRealmWithNullUsername() throws Exception {
+    public void shouldThrowOnLogInWithPasswordRealmWithNullUsername() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email or username' cannot be null!");
         api.login(null, "p455w0rd", "realm");
@@ -868,14 +868,14 @@ public class AuthAPITest {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void shouldThrowOnLogInWithPasswordRealmWithNullPasswordString() throws Exception {
+    public void shouldThrowOnLogInWithPasswordRealmWithNullPasswordString() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'password' cannot be null!");
         api.login("me", (String) null, "realm");
     }
 
     @Test
-    public void shouldThrowOnLogInWithPasswordRealmWithNullPasswordCharArray() throws Exception {
+    public void shouldThrowOnLogInWithPasswordRealmWithNullPasswordCharArray() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'password' cannot be null!");
         api.login("me", (char[]) null, "realm");
@@ -883,7 +883,7 @@ public class AuthAPITest {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void shouldThrowOnLogInWithPasswordRealmWithNullRealm() throws Exception {
+    public void shouldThrowOnLogInWithPasswordRealmWithNullRealm() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'realm' cannot be null!");
         api.login("me", "p455w0rd", null);
@@ -956,7 +956,7 @@ public class AuthAPITest {
     //Log In with ClientCredentials grant
 
     @Test
-    public void shouldThrowOnLogInWithClientCredentialsWithNullAudience() throws Exception {
+    public void shouldThrowOnLogInWithClientCredentialsWithNullAudience() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'audience' cannot be null!");
         api.requestToken(null);
@@ -1016,14 +1016,14 @@ public class AuthAPITest {
     }
 
     @Test
-    public void startPasswordlessEmailFlowShouldThrowWhenEmailIsNull() throws Exception {
+    public void startPasswordlessEmailFlowShouldThrowWhenEmailIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'email' cannot be null!");
         Request<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow(null, PasswordlessEmailType.CODE);
     }
 
     @Test
-    public void startPasswordlessEmailFlowShouldThrowWhenTypeIsNull() throws Exception {
+    public void startPasswordlessEmailFlowShouldThrowWhenTypeIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'type' cannot be null!");
         Request<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow("user@domain.com", null);
@@ -1121,7 +1121,7 @@ public class AuthAPITest {
     }
 
     @Test
-    public void startPasswordlessSmsFlowShouldThrowWhenPhoneIsNull() throws Exception {
+    public void startPasswordlessSmsFlowShouldThrowWhenPhoneIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'phoneNumber' cannot be null!");
         api.startPasswordlessSmsFlow(null);
@@ -1157,7 +1157,7 @@ public class AuthAPITest {
     //Revoke a Token
 
     @Test
-    public void shouldThrowOnRevokeTokenWithNullToken() throws Exception {
+    public void shouldThrowOnRevokeTokenWithNullToken() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'refresh token' cannot be null!");
         api.revokeToken(null);
@@ -1187,7 +1187,7 @@ public class AuthAPITest {
     //Renew Authentication using Refresh Token
 
     @Test
-    public void shouldThrowOnRenewAuthWithNullRefreshToken() throws Exception {
+    public void shouldThrowOnRenewAuthWithNullRefreshToken() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'refresh token' cannot be null!");
         api.renewAuth(null);

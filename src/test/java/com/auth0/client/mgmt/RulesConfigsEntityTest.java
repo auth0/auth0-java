@@ -46,7 +46,7 @@ public class RulesConfigsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnDeleteRulesConfigWithNullKey() throws Exception {
+    public void shouldThrowOnDeleteRulesConfigWithNullKey() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'rules config key' cannot be null!");
         api.rulesConfigs().delete(null);
@@ -67,14 +67,14 @@ public class RulesConfigsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldThrowOnUpdateRulesConfigWithNullKey() throws Exception {
+    public void shouldThrowOnUpdateRulesConfigWithNullKey() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'rules config key' cannot be null!");
         api.rulesConfigs().update(null, new RulesConfig("my-value"));
     }
 
     @Test
-    public void shouldThrowOnUpdateRulesConfigWithNullData() throws Exception {
+    public void shouldThrowOnUpdateRulesConfigWithNullData() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'rules config' cannot be null!");
         api.rulesConfigs().update("1", null);
