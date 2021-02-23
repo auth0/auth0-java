@@ -32,8 +32,10 @@
 **Added**
 - Add methods to determine cause of APIException [\#310](https://github.com/auth0/auth0-java/pull/310) ([jimmyjames](https://github.com/jimmyjames))
 
-**Changed**
+**Breaking Changes**
 - Return TokenRequest instead of AuthRequest [\#309](https://github.com/auth0/auth0-java/pull/309) ([jimmyjames](https://github.com/jimmyjames))
+
+> Note: We aim to not introduce breaking changes within a release stream. We have taken steps, including running API compatibility checks, to prevent introducing breaking changes in the future.
 
 **Fixed**
 - Add unchecked warnings failures for src [\#311](https://github.com/auth0/auth0-java/pull/311) ([jimmyjames](https://github.com/jimmyjames))
