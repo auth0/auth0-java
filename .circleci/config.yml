@@ -23,6 +23,7 @@ commands:
           key: v1-dependencies-{{ checksum "build.gradle" }}
   run-api-diff:
     steps:
+      - checkout
       - run: chmod +x gradlew
       # Download and cache dependencies
       - restore_cache:
