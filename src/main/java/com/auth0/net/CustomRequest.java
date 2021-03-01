@@ -42,12 +42,13 @@ public class CustomRequest<T> extends ExtendedBaseRequest<T> implements Customiz
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     protected RequestBody createRequestBody() throws IOException {
         if (body == null && parameters.isEmpty()) {
             return null;
         }
         byte[] jsonBody = mapper.writeValueAsBytes(body != null ? body : parameters);
-        return RequestBody.create(jsonBody, MediaType.parse(CONTENT_TYPE_APPLICATION_JSON));
+        return RequestBody.create(MediaType.parse(CONTENT_TYPE_APPLICATION_JSON), jsonBody);
     }
 
     @Override

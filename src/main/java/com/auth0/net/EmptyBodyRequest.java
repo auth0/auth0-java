@@ -18,8 +18,9 @@ public class EmptyBodyRequest<T> extends CustomRequest<T> {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     protected RequestBody createRequestBody() {
-        return RequestBody.create(new byte[0], null);
+        return RequestBody.create(null, new byte[0]);
     }
 
     @Override
