@@ -31,6 +31,41 @@ implementation 'com.auth0:auth0:1.27.0'
 
 The Auth0 Authentication API and User's Management API are available for Android in the `auth0.android` library. Check https://github.com/auth0/auth0.android for more information.
 
+### Using with Spring Dependency Management
+
+This library use OkHttp version 4 as the networking client used to make requests to the Auth0 Authentication and Management APIs. If you are using Spring's depdendency management, you may encounter `java.lang.NoSuchMethodError` errors when making requests, related to Spring's dependency management using OkHttp 3. To resolve this issue, you can override Spring's dependency on OkHttp:
+
+Maven ([more information](https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/htmlsingle/)):
+```xml
+<dependencyManagement>
+		<dependencies>
+			<!--  Needed to avoid conflict with OkHttp being used in auth0-java and okhttp3 being used by spring -->
+			<dependency>
+				<groupId>com.squareup.okhttp3</groupId>
+				<artifactId>okhttp</artifactId>
+				<version>4.9.0</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+```
+
+Gradle ([more information](https://docs.spring.io/dependency-management-plugin/docs/current/reference/html/)):
+```java
+plugins {
+  ...
+  // spring dependency plugin will define okhttp3, which will have issues with okhttp4 in auth0-java
+  id "io.spring.dependency-management" version "1.0.10.RELEASE"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "com.squareup.okhttp3:okhttp-bom:4.9.0"
+    }
+}
+```
+
+More information can be found in this [Github issue](https://github.com/auth0/auth0-java/issues/324).
+
 ## Auth API
 
 The implementation is based on the [Authentication API Docs](https://auth0.com/docs/api/authentication).
