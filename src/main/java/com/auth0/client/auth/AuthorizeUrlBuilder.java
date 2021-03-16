@@ -106,6 +106,30 @@ public class AuthorizeUrlBuilder {
     }
 
     /**
+     * Sets the organization query string parameter value used to login to an organization.
+     *
+     * @param organization The ID of the organization to log the user into.
+     * @return the builder instance.
+     */
+    public AuthorizeUrlBuilder withOrganization(String organization) {
+        assertNotNull(organization, "organization");
+        parameters.put("organization", organization);
+        return this;
+    }
+
+    /**
+     * Sets the invitation query string parameter to join an organization.
+     *
+     * @param invitation The ID of the invitation to accept. This is available on the URL that is provided when accepting an invitation.
+     * @return the builder instance.
+     */
+    public AuthorizeUrlBuilder withInvitation(String invitation) {
+        assertNotNull(invitation, "invitation");
+        parameters.put("invitation", invitation);
+        return this;
+    }
+
+    /**
      * Sets an additional parameter.
      *
      * @param name  name of the parameter
