@@ -488,6 +488,67 @@ public class IdTokenVerifierTest {
             .verify(jwt);
     }
 
+    @Test
+    public void failsWhenOrganizationExpectedButNotPresent() {
+        exception.expect(IdTokenValidationException.class);
+        exception.expectMessage("Organization Id (org_id) claim must be a string present in the ID token");
+
+        String token = JWT.create()
+            .withSubject("auth0|sdk458fks")
+            .withAudience(AUDIENCE)
+            .withIssuedAt(getYesterday())
+            .withExpiresAt(getTomorrow())
+            .withIssuer("https://" + DOMAIN + "/")
+            .sign(Algorithm.HMAC256("secret"));
+
+        String jwt = JWT.decode(token).getToken();
+
+        configureVerifier(jwt)
+            .withOrganization("org_123")
+            .build()
+            .verify(jwt);
+    }
+
+    @Test
+    public void failsWhenOrganizationExpectedButClaimIsNotString() {
+        exception.expect(IdTokenValidationException.class);
+        exception.expectMessage("Organization Id (org_id) claim must be a string present in the ID token");
+
+        String token = JWT.create()
+            .withSubject("auth0|sdk458fks")
+            .withAudience(AUDIENCE)
+            .withIssuedAt(getYesterday())
+            .withExpiresAt(getTomorrow())
+            .withIssuer("https://" + DOMAIN + "/")
+            .withClaim("org_id", 42)
+            .sign(Algorithm.HMAC256("secret"));
+
+        String jwt = JWT.decode(token).getToken();
+
+        configureVerifier(jwt)
+            .withOrganization("org_123")
+            .build()
+            .verify(jwt);
+    }
+
+    @Test
+    public void succeedsWhenOrganizationNotSpecifiedButIsPresent() {
+        String token = JWT.create()
+            .withSubject("auth0|sdk458fks")
+            .withAudience(AUDIENCE)
+            .withIssuedAt(getYesterday())
+            .withExpiresAt(getTomorrow())
+            .withIssuer("https://" + DOMAIN + "/")
+            .withClaim("org_id", "org_123")
+            .sign(Algorithm.HMAC256("secret"));
+
+        String jwt = JWT.decode(token).getToken();
+
+        configureVerifier(jwt)
+            .build()
+            .verify(jwt);
+    }
+
     private IdTokenVerifier.Builder configureVerifier(String token) {
         DecodedJWT decodedJWT = JWT.decode(token);
         SignatureVerifier verifier = mock(SignatureVerifier.class);

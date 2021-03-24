@@ -331,7 +331,7 @@ Note that Organizations is currently only available to customers on our Enterpri
 
 #### Log in to an organization
 
-Log in to an organization by using `withOrgganization()` when building the Authorization URL:
+Log in to an organization by using `withOrganization()` when building the Authorization URL:
 
 ```java
 AuthAPI auth = new AuthAPI("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}");
@@ -340,7 +340,14 @@ String url = auth.authorizeUrl("https://me.auth0.com/callback")
     .build();
 ```
 
-> When logging into an organization, it is important to ensure the `org_id` claim of the ID Token matches the expected organization value. The `IdTokenVerifier` can be configured to validate the `org_id` claim with the `withOrganization()` method on the `IdTokenVerifier.Builder`.
+> When logging into an organization, it is important to ensure the `org_id` claim of the ID Token matches the expected organization value. The `IdTokenVerifier` can be configured with an expected `org_id` claim value:
+>```java
+>IdTokenVerifier.init("{ISSUER}", "{AUDIENCE}", signatureVerifier)
+>    .withOrganization("{ORG_ID}")
+>    .build()
+>    .verify(jwt);
+>```
+
 ### Accept user invitations
 
 Accept a user invitation by using `withInvitation()` when building the Authorization URL:

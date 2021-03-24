@@ -139,6 +139,9 @@ public final class IdTokenVerifier {
         // Org verification
         if (this.organization != null) {
             String orgClaim = decoded.getClaim("org_id").asString();
+            if (isEmpty(orgClaim)) {
+                throw new IdTokenValidationException("Organization Id (org_id) claim must be a string present in the ID token");
+            }
             if (!this.organization.equals(orgClaim)) {
                 throw new IdTokenValidationException(String.format("Organization (org_id) claim mismatch in the ID token; expected \"%s\" but found \"%s\"", this.organization, orgClaim));
             }
