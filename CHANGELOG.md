@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.28.0](https://github.com/auth0/auth0-java/tree/1.28.0) (2021-03-25)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.27.0...1.28.0)
+
+**Added**
+- Add support for organizations feature [\#338](https://github.com/auth0/auth0-java/pull/338) ([jimmyjames](https://github.com/jimmyjames))
+
+**Changed**
+- Update Gradle OSS Plugin [\#339](https://github.com/auth0/auth0-java/pull/339) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.27.0](https://github.com/auth0/auth0-java/tree/1.27.0) (2021-02-05)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.26.0...1.27.0)
 
