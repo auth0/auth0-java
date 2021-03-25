@@ -315,6 +315,51 @@ try {
 }
 ```
 
+### Organizations (Closed Beta)
+
+Organizations is a set of features that provide better support for developers who build and maintain SaaS and Business-to-Business (B2B) applications.
+
+Using Organizations, you can:
+
+- Represent teams, business customers, partner companies, or any logical grouping of users that should have different ways of accessing your applications, as organizations.
+- Manage their membership in a variety of ways, including user invitation.
+- Configure branded, federated login flows for each organization.
+- Implement role-based access control, such that users can have different roles when authenticating in the context of different organizations.
+- Build administration capabilities into your products, using Organizations APIs, so that those businesses can manage their own organizations.
+
+Note that Organizations is currently only available to customers on our Enterprise and Startup subscription plans.
+
+#### Log in to an organization
+
+Log in to an organization by using `withOrganization()` when building the Authorization URL:
+
+```java
+AuthAPI auth = new AuthAPI("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}");
+String url = auth.authorizeUrl("https://me.auth0.com/callback")
+    .withOrganization("{YOUR_ORGANIZATION_ID")
+    .build();
+```
+
+> When logging into an organization, it is important to ensure the `org_id` claim of the ID Token matches the expected organization value. The `IdTokenVerifier` can be configured with an expected `org_id` claim value:
+>```java
+>IdTokenVerifier.init("{ISSUER}", "{AUDIENCE}", signatureVerifier)
+>    .withOrganization("{ORG_ID}")
+>    .build()
+>    .verify(jwt);
+>```
+
+### Accept user invitations
+
+Accept a user invitation by using `withInvitation()` when building the Authorization URL:
+
+```
+AuthAPI auth = new AuthAPI("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}");
+String url = auth.authorizeUrl("https://me.auth0.com/callback")
+    .withOrganization("{YOUR_ORGANIZATION_ID")
+    .withInvitation("{YOUR_INVITATION_ID}")
+    .build();
+```
+
 ## Management API
 
 The implementation is based on the [Management API Docs](https://auth0.com/docs/api/management/v2). 

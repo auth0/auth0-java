@@ -28,6 +28,7 @@ public final class IdTokenVerifier {
     private final Integer leeway;
     private final Date clock;
     private final SignatureVerifier signatureVerifier;
+    private final String organization;
 
     private IdTokenVerifier(Builder builder) {
         this.issuer = builder.issuer;
@@ -35,6 +36,7 @@ public final class IdTokenVerifier {
         this.leeway = builder.leeway;
         this.signatureVerifier = builder.signatureVerifier;
         this.clock = builder.clock;
+        this.organization = builder.organization;
     }
 
     /**
@@ -134,6 +136,18 @@ public final class IdTokenVerifier {
             throw new IdTokenValidationException(String.format("Audience (aud) claim mismatch in the ID token; expected \"%s\" but found \"%s\"", this.audience, decoded.getAudience()));
         }
 
+        // Org verification
+        if (this.organization != null) {
+            String orgClaim = decoded.getClaim("org_id").asString();
+            if (isEmpty(orgClaim)) {
+                throw new IdTokenValidationException("Organization Id (org_id) claim must be a string present in the ID token");
+            }
+            if (!this.organization.equals(orgClaim)) {
+                throw new IdTokenValidationException(String.format("Organization (org_id) claim mismatch in the ID token; expected \"%s\" but found \"%s\"", this.organization, orgClaim));
+            }
+
+        }
+
         final Calendar cal = Calendar.getInstance();
         final Date now = this.clock != null ? this.clock : cal.getTime();
         final int clockSkew = this.leeway != null ? this.leeway : DEFAULT_LEEWAY;
@@ -209,6 +223,7 @@ public final class IdTokenVerifier {
 
         private Integer leeway;
         private Date clock;
+        private String organization;
 
         /**
          * Create a new Builder instance.
@@ -248,6 +263,18 @@ public final class IdTokenVerifier {
          */
         Builder withClock(Date clock) {
             this.clock = clock;
+            return this;
+        }
+
+        /**
+         * Specify the expected organization (org_id) the token must be issued for. This should be used if using the
+         * Organizations feature.
+
+         * @param organization the ID of the organization.
+         * @return this Builder instance.
+         */
+        Builder withOrganization(String organization) {
+            this.organization = organization;
             return this;
         }
 
