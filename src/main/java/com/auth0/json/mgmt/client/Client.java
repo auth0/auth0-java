@@ -78,6 +78,10 @@ public class Client {
     private Mobile mobile;
     @JsonProperty("refresh_token")
     private RefreshToken refreshToken;
+    @JsonProperty("organization_usage")
+    private String organizationUsage;
+    @JsonProperty("organization_require_behavior")
+    private String organizationRequireBehavior;
 
     /**
      * Creates a new Application instance setting the name property.
@@ -676,6 +680,37 @@ public class Client {
      */
     public void setRefreshToken(RefreshToken refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    /**
+     * @return the organization usage value
+     */
+    public String getOrganizationUsage() {
+        return organizationUsage;
+    }
+
+    /**
+     * Sets the value of the organization_usage field
+     *
+     * @param organizationUsage the organization_usage value
+     */
+    public void setOrganizationUsage(String organizationUsage) {
+        this.organizationUsage = organizationUsage;
+    }
+
+    /**
+     * @return the organization require behavior value
+     */
+    public String getOrganizationRequireBehavior() {
+        return organizationRequireBehavior;
+    }
+
+    /**
+     * Sets the value of the organization_require_behavior field
+     * @param organizationRequireBehavior the organization_require_behavior value
+     */
+    public void setOrganizationRequireBehavior(String organizationRequireBehavior) {
+        this.organizationRequireBehavior = organizationRequireBehavior;
     }
 }
 

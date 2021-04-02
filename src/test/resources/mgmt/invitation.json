@@ -1,0 +1,15 @@
+{
+  "id": "uinv_Q3lgZXkis997Rqs3",
+  "client_id": "klCnbSD1U1YAIeLRdvEAFMwDoOX5bfsb",
+  "inviter": {
+    "name": "timmy"
+  },
+  "invitee": {
+    "email": "timmy@domain.com"
+  },
+  "invitation_url": "https://some-domain.auth0.com/login?invitation=U0o1uoXAl1VPkKbZlaRWEWJadkeed1E&organization=org_W3OHp07dfbjhHuWK&organization_name=timmy-org",
+  "ticket_id": "U0o1uoXAl1VPkKbZla0a833soMUMOo1E",
+  "created_at": "2021-03-31T19:08:40.295Z",
+  "expires_at": "2021-04-07T19:08:40.295Z",
+  "organization_id": "org_W30s833MRbjhHuWK"
+}
