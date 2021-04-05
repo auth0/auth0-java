@@ -72,14 +72,17 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public MultipartRequest<T> addPart(String name, File file, String mediaType) {
         assertNotNull(name, "name");
         assertNotNull(name, "file");
         if (!file.exists()) {
             throw new IllegalArgumentException("Failed to add part because the file specified cannot be found.");
         }
+        // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
+        // https://github.com/auth0/auth0-java/issues/324
         bodyBuilder.addFormDataPart(name, file.getName(),
-                RequestBody.create(file, MediaType.parse(mediaType)));
+            RequestBody.create(MediaType.parse(mediaType), file));
         partsCount++;
         return this;
     }
