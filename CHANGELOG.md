@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.28.1](https://github.com/auth0/auth0-java/tree/1.28.1) (2021-04-05)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.28.0...1.28.1)
+
+**Fixed**
+- Fix `NoSuchMethodError` when projects have OkHttp 3 dependency [\#342](https://github.com/auth0/auth0-java/pull/342) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.28.0](https://github.com/auth0/auth0-java/tree/1.28.0) (2021-03-25)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.27.0...1.28.0)
 
