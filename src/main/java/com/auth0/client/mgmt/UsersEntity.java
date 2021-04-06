@@ -9,6 +9,7 @@ import com.auth0.json.mgmt.PermissionsPage;
 import com.auth0.json.mgmt.RolesPage;
 import com.auth0.json.mgmt.guardian.Enrollment;
 import com.auth0.json.mgmt.logevents.LogEventsPage;
+import com.auth0.json.mgmt.organizations.OrganizationsPage;
 import com.auth0.json.mgmt.users.Identity;
 import com.auth0.json.mgmt.users.RecoveryCode;
 import com.auth0.json.mgmt.users.User;
@@ -572,6 +573,35 @@ public class UsersEntity extends BaseManagementEntity {
                 .toString();
         VoidRequest request = new VoidRequest(this.client, url, "POST");
         request.setBody(body);
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Get the organizations a user belongs to.
+     * A token with read:users and read:organizations is required.
+     *
+     * @param userId the user ID
+     * @param filter an optional pagination filter
+     * @return a Request to execute
+     */
+    public Request<OrganizationsPage> getOrganizations(String userId, PageFilter filter) {
+        Asserts.assertNotNull(userId, "user ID");
+
+        HttpUrl.Builder builder = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegment(userId)
+            .addPathSegment("organizations");
+
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+        String url = builder.build().toString();
+        CustomRequest<OrganizationsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<OrganizationsPage>() {
+        });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }

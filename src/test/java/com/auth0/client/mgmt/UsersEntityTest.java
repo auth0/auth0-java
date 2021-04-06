@@ -1,18 +1,6 @@
 package com.auth0.client.mgmt;
 
-import static com.auth0.client.MockServer.MGMT_EMAIL_PROVIDER;
-import static com.auth0.client.MockServer.MGMT_EMPTY_LIST;
-import static com.auth0.client.MockServer.MGMT_GUARDIAN_ENROLLMENTS_LIST;
-import static com.auth0.client.MockServer.MGMT_IDENTITIES_LIST;
-import static com.auth0.client.MockServer.MGMT_LOG_EVENTS_LIST;
-import static com.auth0.client.MockServer.MGMT_LOG_EVENTS_PAGED_LIST;
-import static com.auth0.client.MockServer.MGMT_RECOVERY_CODE;
-import static com.auth0.client.MockServer.MGMT_USER;
-import static com.auth0.client.MockServer.MGMT_USERS_LIST;
-import static com.auth0.client.MockServer.MGMT_USERS_PAGED_LIST;
-import static com.auth0.client.MockServer.MGMT_USER_PERMISSIONS_PAGED_LIST;
-import static com.auth0.client.MockServer.MGMT_USER_ROLES_PAGED_LIST;
-import static com.auth0.client.MockServer.bodyFromRequest;
+import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.hasHeader;
 import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
 import static com.auth0.client.RecordedRequestMatcher.hasQueryParameter;
@@ -36,6 +24,7 @@ import com.auth0.json.mgmt.RolesPage;
 import com.auth0.json.mgmt.guardian.Enrollment;
 import com.auth0.json.mgmt.logevents.LogEvent;
 import com.auth0.json.mgmt.logevents.LogEventsPage;
+import com.auth0.json.mgmt.organizations.OrganizationsPage;
 import com.auth0.json.mgmt.users.Identity;
 import com.auth0.json.mgmt.users.RecoveryCode;
 import com.auth0.json.mgmt.users.User;
@@ -992,5 +981,69 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(body, hasKey("permissions"));
 
         assertThat(response, is(nullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnGetOrganizationsWithNullUserId() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("user ID");
+        api.users().getOrganizations(null, null);
+    }
+
+    @Test
+    public void shouldGetUserOrganizationsWithoutFilter() throws Exception {
+        Request<OrganizationsPage> request = api.users().getOrganizations("1", null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(ORGANIZATIONS_LIST, 200);
+        OrganizationsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/organizations"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldGetUserOrganizationsWithPaging() throws Exception {
+        Request<OrganizationsPage> request = api.users().getOrganizations("1",
+            new PageFilter().withPage(0, 20));
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(ORGANIZATIONS_LIST, 200);
+        OrganizationsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/organizations"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("page", "0"));
+        assertThat(recordedRequest, hasQueryParameter("per_page", "20"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldGetUserOrganizationsWithTotals() throws Exception {
+        Request<OrganizationsPage> request = api.users().getOrganizations("1",
+            new PageFilter().withTotals(true));
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(ORGANIZATIONS_PAGED_LIST, 200);
+        OrganizationsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/organizations"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+        assertThat(response.getStart(), is(0));
+        assertThat(response.getTotal(), is(2));
+        assertThat(response.getLimit(), is(20));
     }
 }

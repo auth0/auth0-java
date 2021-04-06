@@ -234,6 +234,28 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
+    public void shouldSendUserVerificationEmailWithOrgId() throws Exception {
+        Request<Job> request = api.jobs().sendVerificationEmail("google-oauth2|1234", "client_abc", null, "org_abc");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_JOB_POST_VERIFICATION_EMAIL, 200);
+        Job response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/jobs/verification-email"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(3));
+        assertThat(body, hasEntry("user_id", "google-oauth2|1234"));
+        assertThat(body, hasEntry("client_id", "client_abc"));
+        assertThat(body, hasEntry("organization_id", "org_abc"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
     public void shouldThrowOnSendUserVerificationEmailWithNullIdentityProvider() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'identity provider' cannot be null!");

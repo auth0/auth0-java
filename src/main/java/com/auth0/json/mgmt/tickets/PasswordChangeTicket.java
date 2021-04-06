@@ -30,6 +30,8 @@ public class PasswordChangeTicket {
     private String ticket;
     @JsonProperty("mark_email_as_verified")
     private Boolean markEmailAsVerified;
+    @JsonProperty("organization_id")
+    private String orgId;
 
     @JsonCreator
     public PasswordChangeTicket(@JsonProperty("user_id") String userId) {
@@ -117,6 +119,26 @@ public class PasswordChangeTicket {
     @JsonProperty("mark_email_as_verified")
     public void setMarkEmailAsVerified(Boolean markEmailAsVerified){
         this.markEmailAsVerified = markEmailAsVerified;
+    }
+
+    /**
+     * Sets the organization ID. This allows the organization_id and organization_name to be included in the redirect URL query.
+     *
+     * @param orgId the ID of the organization
+     */
+    @JsonProperty("organization_id")
+    public void setOrganizationId(String orgId) {
+        this.orgId = orgId;
+    }
+
+    /**
+     * Gets the organization ID
+     *
+     * @return the organization ID
+     */
+    @JsonProperty("organization_id")
+    public String getOrganizationId() {
+        return orgId;
     }
 
     /**

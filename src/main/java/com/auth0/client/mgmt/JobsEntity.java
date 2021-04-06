@@ -81,18 +81,38 @@ public class JobsEntity extends BaseManagementEntity {
      * @see JobsEntity#sendVerificationEmail(String, String)
      */
     public Request<Job> sendVerificationEmail(String userId, String clientId, EmailVerificationIdentity emailVerificationIdentity) {
+        return sendVerificationEmail(userId, clientId, emailVerificationIdentity, null);
+    }
+
+    /**
+     * Sends an Email Verification. A token with scope update:users is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Jobs/post_verification_email.
+     *
+     * @param userId   The user_id of the user to whom the email will be sent.
+     * @param clientId The id of the client, if not provided the global one will be used.
+     * @param emailVerificationIdentity The identity of the user. Required to verify primary identities when using social, enterprise, or passwordless connections. It is also required to verify secondary identities.
+     * @param orgId The organization ID. If provided, the organization_id and organization_name will be included as query arguments in the link back to the application.
+     *
+     * @return a Request to execute.
+     *
+     * @see JobsEntity#sendVerificationEmail(String, String)
+     */
+    public Request<Job> sendVerificationEmail(String userId, String clientId, EmailVerificationIdentity emailVerificationIdentity, String orgId) {
         Asserts.assertNotNull(userId, "user id");
 
         String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/jobs/verification-email")
-                .build()
-                .toString();
+            .newBuilder()
+            .addPathSegments("api/v2/jobs/verification-email")
+            .build()
+            .toString();
 
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("user_id", userId);
         if (clientId != null && !clientId.isEmpty()) {
             requestBody.put("client_id", clientId);
+        }
+        if (orgId != null && !orgId.isEmpty()) {
+            requestBody.put("organization_id", orgId);
         }
         if (emailVerificationIdentity != null) {
             Asserts.assertNotNull(emailVerificationIdentity.getProvider(), "identity provider");
