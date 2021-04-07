@@ -440,6 +440,36 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
+    public void shouldThrowOnGetConnectionWhenOrgIdNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("organization ID");
+        api.organizations().getConnection(null, "con_id");
+    }
+
+    @Test
+    public void shouldThrowOnGetConnectionWhenConnectionIdNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("connection ID");
+        api.organizations().getConnection("org_abc", null);
+    }
+
+    @Test
+    public void shouldGetConnection() throws Exception {
+        Request<EnabledConnection> request = api.organizations().getConnection("org_123", "con_abc");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(ORGANIZATION_CONNECTION, 200);
+        EnabledConnection response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations/org_123/enabled_connections/con_abc"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
     public void shouldThrowOnAddConnectionWhenOrgIdNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("organization ID");

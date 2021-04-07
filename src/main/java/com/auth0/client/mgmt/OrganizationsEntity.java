@@ -297,6 +297,34 @@ public class OrganizationsEntity extends BaseManagementEntity {
     }
 
     /**
+     * Get an organization's connection.
+     *
+     * @param orgId the ID of the organization
+     * @param connectionId the ID of the connection
+     * @return a Request to execute
+     *
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Organizations/get_enabled_connections_by_connectionId">https://auth0.com/docs/api/management/v2#!/Organizations/get_enabled_connections_by_connectionId</a>
+     */
+    public Request<EnabledConnection> getConnection(String orgId, String connectionId) {
+        Asserts.assertNotNull(orgId, "organization ID");
+        Asserts.assertNotNull(connectionId, "connection ID");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments(ORGS_PATH)
+            .addPathSegment(orgId)
+            .addPathSegment("enabled_connections")
+            .addPathSegment(connectionId)
+            .build()
+            .toString();
+
+        CustomRequest<EnabledConnection> request = new CustomRequest<>(client, url, "GET", new TypeReference<EnabledConnection>() {
+        });
+        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
      * Add a connection to an organization. A token with {@code create:organization_connections} scope is required.
      *
      * @param orgId the ID of the organization
