@@ -305,7 +305,8 @@ String url = auth.authorizeUrl("https://me.auth0.com/callback")
     .build();
 ```
 
-**Important!** When logging into an organization, it is important to ensure the `org_id` claim of the ID Token matches the expected organization value. The `IdTokenVerifier` can be configured with an expected `org_id` claim value:
+**Important!** When logging into an organization, it is important to ensure the `org_id` claim of the ID Token matches the expected organization value. The `IdTokenVerifier` can be configured with an expected `org_id` claim value, as the example below demonstrates.
+For more information, please read [Work with Tokens and Organizations](https://auth0.com/docs/organizations/using-tokens) on Auth0 Docs.
 ```java
 IdTokenVerifier.init("{ISSUER}", "{AUDIENCE}", signatureVerifier)
     .withOrganization("{ORG_ID}")
