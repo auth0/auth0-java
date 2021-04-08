@@ -305,13 +305,13 @@ String url = auth.authorizeUrl("https://me.auth0.com/callback")
     .build();
 ```
 
-> When logging into an organization, it is important to ensure the `org_id` claim of the ID Token matches the expected organization value. The `IdTokenVerifier` can be configured with an expected `org_id` claim value:
->```java
->IdTokenVerifier.init("{ISSUER}", "{AUDIENCE}", signatureVerifier)
->    .withOrganization("{ORG_ID}")
->    .build()
->    .verify(jwt);
->```
+**Important!** When logging into an organization, it is important to ensure the `org_id` claim of the ID Token matches the expected organization value. The `IdTokenVerifier` can be configured with an expected `org_id` claim value:
+```java
+IdTokenVerifier.init("{ISSUER}", "{AUDIENCE}", signatureVerifier)
+    .withOrganization("{ORG_ID}")
+    .build()
+    .verify(jwt);
+```
 
 ### Accept user invitations
 
