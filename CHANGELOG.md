@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.29.0](https://github.com/auth0/auth0-java/tree/1.29.0) (2021-04-09)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.28.1...1.29.0)
+
+**Added**
+- Adds method to get an organization's enabled connection and update JavaDocs [\#344](https://github.com/auth0/auth0-java/pull/344) ([jimmyjames](https://github.com/jimmyjames))
+- Add Organizations Management API Support [SDK-2437] [\#341](https://github.com/auth0/auth0-java/pull/341) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.28.1](https://github.com/auth0/auth0-java/tree/1.28.1) (2021-04-05)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.28.0...1.28.1)
 
