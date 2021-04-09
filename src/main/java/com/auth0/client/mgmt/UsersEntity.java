@@ -579,11 +579,13 @@ public class UsersEntity extends BaseManagementEntity {
 
     /**
      * Get the organizations a user belongs to.
-     * A token with read:users and read:organizations is required.
+     * A token with {@code read:users} and {@code read:organizations} is required.
      *
      * @param userId the user ID
      * @param filter an optional pagination filter
      * @return a Request to execute
+     *
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Users/get_organizations">https://auth0.com/docs/api/management/v2#!/Users/get_organizations</a>
      */
     public Request<OrganizationsPage> getOrganizations(String userId, PageFilter filter) {
         Asserts.assertNotNull(userId, "user ID");
