@@ -2,10 +2,10 @@ package com.auth0.net;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.codec.binary.Base64;
 import org.junit.Test;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.*;
@@ -20,7 +20,7 @@ public class TelemetryTest {
         assertThat(value, is(notNullValue()));
         assertThat(value, is("eyJuYW1lIjoiYXV0aDAtamF2YSIsImVudiI6eyJqYXZhIjoiMS44In0sInZlcnNpb24iOiIxLjAuMCJ9"));
 
-        String completeString = new String(Base64.decodeBase64(value), StandardCharsets.UTF_8);
+        String completeString = new String(Base64.getUrlDecoder().decode(value), StandardCharsets.UTF_8);
         TypeReference<Map<String, Object>> mapType = new TypeReference<Map<String, Object>>() {
         };
         Map<String, Object> complete = new ObjectMapper().readValue(completeString, mapType);
@@ -38,7 +38,7 @@ public class TelemetryTest {
         assertThat(value, is(notNullValue()));
         assertThat(value, is("eyJuYW1lIjoibG9jayIsImVudiI6eyJqYXZhIjoiMS44IiwiYXV0aDAtamF2YSI6IjIuMS4zIn0sInZlcnNpb24iOiIxLjAuMCJ9"));
 
-        String completeString = new String(Base64.decodeBase64(value), StandardCharsets.UTF_8);
+        String completeString = new String(Base64.getUrlDecoder().decode(value), StandardCharsets.UTF_8);
         TypeReference<Map<String, Object>> mapType = new TypeReference<Map<String, Object>>() {
         };
         Map<String, Object> complete = new ObjectMapper().readValue(completeString, mapType);
