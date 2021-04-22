@@ -25,6 +25,10 @@ public class EmailVerificationTicket {
     private String ticket;
     @JsonProperty("includeEmailInRedirect")
     private Boolean includeEmailInRedirect;
+    @JsonProperty("client_id")
+    private String clientId;
+    @JsonProperty("organization_id")
+    private String organizationId;
     @JsonProperty("identity")
     private EmailVerificationIdentity identity;
 
@@ -70,6 +74,31 @@ public class EmailVerificationTicket {
      */
     public void setIncludeEmailInRedirect(Boolean includeEmailInRedirect) {
         this.includeEmailInRedirect = includeEmailInRedirect;
+    }
+
+    /**
+     * Sets the ID of the client. If provided for tenants using New Universal Login experience, the user will be prompted
+     * to redirect to the default login route of the corresponding application once the ticket is used.
+     *
+     * @param clientId the ID of the client
+     *
+     * @see <a href="https://auth0.com/docs/universal-login/configure-default-login-routes#completing-the-password-reset-flow">Configuring Default Login Routes</a>  for more details.
+     */
+    @JsonProperty("client_id")
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
+    /**
+     * Sets the ID of the Organization. If provided, organization parameters will be made available to the email template
+     * and organization branding will be applied to the prompt. In addition, the redirect link in the prompt will include
+     * {@code organization_id} and {@code organization_name} query string parameters.
+     *
+     * @param organizationId the ID of the organization
+     */
+    @JsonProperty("organization_id")
+    public void setOrganizationId(String organizationId) {
+        this.organizationId = organizationId;
     }
 
     /**
