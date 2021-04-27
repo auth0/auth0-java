@@ -59,7 +59,7 @@ public class PasswordChangeTicket {
 
     /**
      * Setter for the client_id
-     * @param clientId
+     * @param clientId the ID of the client to set
      */
     public void setClientId(String clientId) {
         this.clientId = clientId;
