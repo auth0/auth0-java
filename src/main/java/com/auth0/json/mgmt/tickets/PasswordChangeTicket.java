@@ -32,6 +32,10 @@ public class PasswordChangeTicket {
     private Boolean markEmailAsVerified;
     @JsonProperty("organization_id")
     private String orgId;
+    @JsonProperty("client_id")
+    private String clientId;
+    @JsonProperty("includeEmailInRedirect")
+    private Boolean includeEmailInRedirect;
 
     @JsonCreator
     public PasswordChangeTicket(@JsonProperty("user_id") String userId) {
@@ -44,13 +48,25 @@ public class PasswordChangeTicket {
     }
 
     /**
-     * Setter for the id of the user this ticket is meant to.
+     * Setter for the id of the user for whom the ticket should be created.
      *
      * @param userId the user id to set.
      */
     @JsonProperty("user_id")
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    /**
+     * Setter for the client_id
+     * @param clientId the ID of the client to set
+     */
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
+    public void setIncludeEmailInRedirect(Boolean includeEmailInRedirect) {
+        this.includeEmailInRedirect = includeEmailInRedirect;
     }
 
     /**

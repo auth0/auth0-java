@@ -22,6 +22,8 @@ public class EmailVerificationTicketTest extends JsonTest<EmailVerificationTicke
         ticket.setResultUrl("https://page.auth0.com/result");
         ticket.setTTLSeconds(36000);
         ticket.setIncludeEmailInRedirect(true);
+        ticket.setClientId("client_abc");
+        ticket.setOrganizationId("org_abc");
 
         String serialized = toJSON(ticket);
         assertThat(serialized, is(notNullValue()));
@@ -29,6 +31,8 @@ public class EmailVerificationTicketTest extends JsonTest<EmailVerificationTicke
         assertThat(serialized, JsonMatcher.hasEntry("result_url", "https://page.auth0.com/result"));
         assertThat(serialized, JsonMatcher.hasEntry("ttl_sec", 36000));
         assertThat(serialized, JsonMatcher.hasEntry("includeEmailInRedirect", true));
+        assertThat(serialized, JsonMatcher.hasEntry("client_id", "client_abc"));
+        assertThat(serialized, JsonMatcher.hasEntry("organization_id", "org_abc"));
     }
 
     @Test
