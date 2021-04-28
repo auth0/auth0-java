@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.30.0](https://github.com/auth0/auth0-java/tree/1.30.0) (2021-04-28)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.29.0...1.30.0)
+
+**Added**
+- [SDK-2537] Add missing parameters to Ticket entities [\#352](https://github.com/auth0/auth0-java/pull/352) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.29.0](https://github.com/auth0/auth0-java/tree/1.29.0) (2021-04-09)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.28.1...1.29.0)
 
