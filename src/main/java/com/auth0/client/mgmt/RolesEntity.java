@@ -28,7 +28,7 @@ import java.util.Map;
  */
 public class RolesEntity extends BaseManagementEntity {
 
-  RolesEntity(OkHttpClient client, HttpUrl baseUrl,
+    public RolesEntity(OkHttpClient client, HttpUrl baseUrl,
       String apiToken) {
     super(client, baseUrl, apiToken);
   }

@@ -23,7 +23,7 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class DeviceCredentialsEntity extends BaseManagementEntity {
 
-    DeviceCredentialsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    public DeviceCredentialsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

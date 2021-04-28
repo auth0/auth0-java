@@ -24,7 +24,7 @@ import static com.auth0.client.mgmt.filter.QueryFilter.KEY_QUERY;
 @SuppressWarnings("WeakerAccess")
 public class LogEventsEntity extends BaseManagementEntity {
 
-    LogEventsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    public LogEventsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

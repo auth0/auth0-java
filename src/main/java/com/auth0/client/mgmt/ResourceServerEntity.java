@@ -23,7 +23,7 @@ import java.util.Map;
  */
 public class ResourceServerEntity extends BaseManagementEntity {
 
-    ResourceServerEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    public ResourceServerEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

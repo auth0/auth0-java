@@ -22,7 +22,7 @@ import java.io.IOException;
 @SuppressWarnings("WeakerAccess")
 public class ManagementAPI {
 
-    private final HttpUrl baseUrl;
+    public final HttpUrl baseUrl;
     private String apiToken;
     private final OkHttpClient client;
     private final TelemetryInterceptor telemetry;

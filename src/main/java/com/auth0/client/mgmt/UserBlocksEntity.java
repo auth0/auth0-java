@@ -19,7 +19,7 @@ import okhttp3.OkHttpClient;
 @SuppressWarnings("WeakerAccess")
 public class UserBlocksEntity extends BaseManagementEntity {
 
-    UserBlocksEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    public UserBlocksEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

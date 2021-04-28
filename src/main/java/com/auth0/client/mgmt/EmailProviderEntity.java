@@ -21,7 +21,7 @@ import java.util.Map;
  */
 @SuppressWarnings("WeakerAccess")
 public class EmailProviderEntity extends BaseManagementEntity {
-    EmailProviderEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    public EmailProviderEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

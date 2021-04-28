@@ -26,7 +26,7 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class JobsEntity extends BaseManagementEntity {
 
-    JobsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    public JobsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

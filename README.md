@@ -24,3 +24,5 @@ Similar to the above, in our wrapped management API we added an interceptor to t
 # What's in this fork
 
 This fork only exposes the underlying `OkHttpClient` - the interceptors described above are defined in our application code.
+
+We also expose the constructors to the `Entity` classes, and the management API's `baseUrl`, to allow us to inject the dummy access token and modified http client into the `Entity` classes in our wrapped-up management API. 

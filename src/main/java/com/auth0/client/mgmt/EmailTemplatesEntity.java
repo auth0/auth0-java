@@ -28,7 +28,7 @@ public class EmailTemplatesEntity extends BaseManagementEntity {
     public static final String TEMPLATE_PASSWORD_RESET = "password_reset";
     public static final String TEMPLATE_MFA_OOB_CODE = "mfa_oob_code";
 
-    EmailTemplatesEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    public EmailTemplatesEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

@@ -21,7 +21,7 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class BlacklistsEntity extends BaseManagementEntity {
 
-    BlacklistsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    public BlacklistsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

@@ -19,7 +19,7 @@ import okhttp3.OkHttpClient;
 @SuppressWarnings("WeakerAccess")
 public class TicketsEntity extends BaseManagementEntity {
 
-    TicketsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    public TicketsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

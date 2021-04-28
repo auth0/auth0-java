@@ -39,7 +39,7 @@ import static com.auth0.client.mgmt.filter.QueryFilter.KEY_QUERY;
 @SuppressWarnings("WeakerAccess")
 public class UsersEntity extends BaseManagementEntity {
 
-    UsersEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    public UsersEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
