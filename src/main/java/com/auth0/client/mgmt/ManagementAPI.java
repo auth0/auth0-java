@@ -142,8 +142,8 @@ public class ManagementAPI {
         logging.setLevel(enabled ? Level.BODY : Level.NONE);
     }
 
-    //Visible for testing
-    OkHttpClient getClient() {
+    // Medmain: Expose to allow interceptors to be defined to handle token refresh and rate limiting behaviour.
+    public OkHttpClient getClient() {
         return client;
     }
 
