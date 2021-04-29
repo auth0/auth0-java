@@ -11,7 +11,7 @@ repositories {
 }
 
 group = 'com.auth0'
-version = '1.29.0-medmain'
+version = '1.30.0-medmain'
 logger.lifecycle("Using version ${version} for ${name} group $group")
 
 // seems to be an auth0 internal plugin
@@ -74,8 +74,7 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:${okhttpVersion}"
     implementation "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
     implementation "com.fasterxml.jackson.core:jackson-databind:2.12.1"
-    implementation "commons-codec:commons-codec:1.15"
-    implementation "com.auth0:java-jwt:3.12.1"
+    implementation "com.auth0:java-jwt:3.14.0"
 
     testImplementation "org.bouncycastle:bcprov-jdk15on:1.68"
     testImplementation "org.mockito:mockito-core:3.7.7"

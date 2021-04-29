@@ -23,6 +23,8 @@ public class PasswordChangeTicketTest extends JsonTest<PasswordChangeTicket> {
         ticket.setNewPassword("pass123");
         ticket.setMarkEmailAsVerified(true);
         ticket.setOrganizationId("org_abc");
+        ticket.setClientId("client_abc");
+        ticket.setIncludeEmailInRedirect(false);
 
         String serialized = toJSON(ticket);
         assertThat(serialized, is(notNullValue()));
@@ -34,6 +36,8 @@ public class PasswordChangeTicketTest extends JsonTest<PasswordChangeTicket> {
         assertThat(serialized, JsonMatcher.hasEntry("email", "me@auth0.com"));
         assertThat(serialized, JsonMatcher.hasEntry("mark_email_as_verified", true));
         assertThat(serialized, JsonMatcher.hasEntry("organization_id", "org_abc"));
+        assertThat(serialized, JsonMatcher.hasEntry("client_id", "client_abc"));
+        assertThat(serialized, JsonMatcher.hasEntry("includeEmailInRedirect", false));
     }
 
     @SuppressWarnings("deprecation")
