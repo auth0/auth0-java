@@ -140,6 +140,34 @@ public class ManagementAPITest {
     }
 
     @Test
+    public void shouldUseDefaultTimeoutIfNotSpecified() {
+        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN);
+        assertThat(api.getClient().connectTimeoutMillis(), is(10 * 1000));
+        assertThat(api.getClient().readTimeoutMillis(), is(10 * 1000));
+    }
+
+    @Test
+    public void shouldUseZeroIfNegativeTimeoutConfigured() {
+        HttpOptions options = new HttpOptions();
+        options.setConnectTimeout(-1);
+        options.setReadTimeout(-1);
+        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN, options);
+        assertThat(api.getClient().connectTimeoutMillis(), is(0));
+        assertThat(api.getClient().readTimeoutMillis(), is(0));
+
+    }
+
+    @Test
+    public void shouldSetTimeoutsIfConfigured() {
+        HttpOptions options = new HttpOptions();
+        options.setConnectTimeout(20);
+        options.setReadTimeout(30);
+        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN, options);
+        assertThat(api.getClient().connectTimeoutMillis(), is(20 * 1000));
+        assertThat(api.getClient().readTimeoutMillis(), is(30 * 1000));
+    }
+
+    @Test
     public void shouldNotUseProxyByDefault() throws Exception {
         ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN);
         assertThat(api.getClient().proxy(), is(nullValue()));

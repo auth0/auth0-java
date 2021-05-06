@@ -106,6 +106,35 @@ public class AuthAPITest {
     }
 
     @Test
+    public void shouldUseDefaultTimeValues() {
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
+        assertThat(api.getClient().connectTimeoutMillis(), is(10 * 1000));
+        assertThat(api.getClient().readTimeoutMillis(), is(10 * 1000));
+    }
+
+    @Test
+    public void shouldUseConfiguredTimeoutValues() {
+        HttpOptions options = new HttpOptions();
+        options.setConnectTimeout(20);
+        options.setReadTimeout(30);
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, options);
+
+        assertThat(api.getClient().connectTimeoutMillis(), is(20 * 1000));
+        assertThat(api.getClient().readTimeoutMillis(), is(30 * 1000));
+    }
+
+    @Test
+    public void shouldUseZeroIfNegativeTimoutConfigured() {
+        HttpOptions options = new HttpOptions();
+        options.setConnectTimeout(-1);
+        options.setReadTimeout(-10);
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, options);
+
+        assertThat(api.getClient().connectTimeoutMillis(), is(0));
+        assertThat(api.getClient().readTimeoutMillis(), is(0));
+    }
+
+    @Test
     public void shouldNotUseProxyByDefault() throws Exception {
         AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
         assertThat(api.getClient().proxy(), is(nullValue()));
