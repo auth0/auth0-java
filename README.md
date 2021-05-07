@@ -614,6 +614,24 @@ Requests can be executed asynchronously, using the `executeAsync()` method, whic
 ## API Clients Recommendations
 The SDK implements a custom networking stack on top of the **OkHttp** library. The [official recommendation](https://square.github.io/okhttp/4.x/okhttp/okhttp3/-ok-http-client/#okhttpclients-should-be-shared) from Square is to re-use as much as possible these clients. However, it's not possible to pass an existing `OkHttpClient` instance to our `AuthAPI` and `ManagementAPI` clients. 
 
+The networking client used by both the `AuthAPI` and `ManagementAPI` clients can be configured through the `HttpOptions`, which enables custom timeout configuration and proxy support:
+
+```java
+HttpOptions options = new HttpOptions();
+
+// configure timeouts; default is ten seconds for both connect and read timeouts:
+options.setConnectTimeout(5);
+options.setReadTimeout(15);
+
+// configure proxy:
+Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("{IP-ADDRESS}", {PORT}));
+ProxyOptions proxyOptions = new ProxyOptions(proxy);
+options.setProxyOptions(proxyOptions);
+
+// create client
+AuthAPI authAPI = new AuthAPI("{CLIENT_ID}", "{CLIENT_SECRET}", options);
+```
+
 Whenever you instantiate a client, a new `OkHttpClient` instance is created internally to handle the network requests. This instance is not directly exposed for customization. In order to reduce resource consumption, make use of the _singleton pattern_ to keep a single instance of this SDK's API client during the lifecycle of your application.
 
 For the particular case of the `ManagementAPI` client, if the token you've originally set has expired or you require to change its scopes, you can update the client's token with the `setApiToken(String)` method.    
