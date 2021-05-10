@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.31.0](https://github.com/auth0/auth0-java/tree/1.31.0) (2021-05-10)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.30.0...1.31.0)
+
+**Added**
+- [SDK-2550] Add networking client timeout configuration [\#354](https://github.com/auth0/auth0-java/pull/354) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.30.0](https://github.com/auth0/auth0-java/tree/1.30.0) (2021-04-28)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.29.0...1.30.0)
 
