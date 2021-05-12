@@ -10,6 +10,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Class that provides an implementation of the Management API methods defined in https://auth0.com/docs/api/management/v2.
@@ -102,6 +103,8 @@ public class ManagementAPI {
         return clientBuilder
                 .addInterceptor(logging)
                 .addInterceptor(telemetry)
+                .connectTimeout(options.getConnectTimeout(), TimeUnit.SECONDS)
+                .readTimeout(options.getReadTimeout(), TimeUnit.SECONDS)
                 .build();
     }
 
