@@ -1,5 +1,6 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.client.mgmt.tokens.TokenProvider;
 import com.auth0.json.mgmt.DailyStats;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
@@ -22,8 +23,8 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class StatsEntity extends BaseManagementEntity {
 
-    StatsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    StatsEntity(OkHttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -41,7 +42,7 @@ public class StatsEntity extends BaseManagementEntity {
 
         CustomRequest<Integer> request = new CustomRequest<>(client, url, "GET", new TypeReference<Integer>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -69,7 +70,7 @@ public class StatsEntity extends BaseManagementEntity {
 
         CustomRequest<List<DailyStats>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<DailyStats>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 

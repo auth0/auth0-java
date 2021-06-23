@@ -1,5 +1,6 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.client.mgmt.tokens.TokenProvider;
 import com.auth0.json.mgmt.RulesConfig;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
@@ -21,8 +22,8 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class RulesConfigsEntity extends BaseManagementEntity {
 
-    RulesConfigsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    RulesConfigsEntity(OkHttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -40,7 +41,7 @@ public class RulesConfigsEntity extends BaseManagementEntity {
         String url = builder.build().toString();
         CustomRequest<List<RulesConfig>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<RulesConfig>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -61,7 +62,7 @@ public class RulesConfigsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
         VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -85,7 +86,7 @@ public class RulesConfigsEntity extends BaseManagementEntity {
                 .toString();
         CustomRequest<RulesConfig> request = new CustomRequest<>(this.client, url, "PUT", new TypeReference<RulesConfig>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         request.setBody(rulesConfig);
         return request;
     }

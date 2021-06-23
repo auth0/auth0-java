@@ -1,5 +1,6 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.client.mgmt.tokens.TokenProvider;
 import com.auth0.json.mgmt.guardian.*;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
@@ -21,8 +22,8 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class GuardianEntity extends BaseManagementEntity {
 
-    GuardianEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    GuardianEntity(OkHttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -43,7 +44,7 @@ public class GuardianEntity extends BaseManagementEntity {
 
         CustomRequest<EnrollmentTicket> request = new CustomRequest<>(client, url, "POST", new TypeReference<EnrollmentTicket>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         request.setBody(enrollmentTicket);
         return request;
     }
@@ -65,7 +66,7 @@ public class GuardianEntity extends BaseManagementEntity {
                 .build()
                 .toString();
         VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -84,7 +85,7 @@ public class GuardianEntity extends BaseManagementEntity {
                 .toString();
         CustomRequest<GuardianTemplates> request = new CustomRequest<>(client, url, "GET", new TypeReference<GuardianTemplates>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -106,7 +107,7 @@ public class GuardianEntity extends BaseManagementEntity {
                 .toString();
         CustomRequest<GuardianTemplates> request = new CustomRequest<>(client, url, "PUT", new TypeReference<GuardianTemplates>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         request.setBody(guardianTemplates);
         return request;
     }
@@ -125,7 +126,7 @@ public class GuardianEntity extends BaseManagementEntity {
                 .toString();
         CustomRequest<List<Factor>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Factor>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -149,7 +150,7 @@ public class GuardianEntity extends BaseManagementEntity {
                 .toString();
         CustomRequest<Factor> request = new CustomRequest<>(client, url, "PUT", new TypeReference<Factor>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         request.addParameter("enabled", enabled);
         return request;
     }
@@ -169,7 +170,7 @@ public class GuardianEntity extends BaseManagementEntity {
                 .toString();
         CustomRequest<TwilioFactorProvider> request = new CustomRequest<>(client, url, "GET", new TypeReference<TwilioFactorProvider>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -190,7 +191,7 @@ public class GuardianEntity extends BaseManagementEntity {
                 .toString();
         CustomRequest<TwilioFactorProvider> request = new CustomRequest<>(client, url, "PUT", new TypeReference<TwilioFactorProvider>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         request.setBody(provider);
         return request;
     }
@@ -221,7 +222,7 @@ public class GuardianEntity extends BaseManagementEntity {
                 .toString();
         CustomRequest<SNSFactorProvider> request = new CustomRequest<>(client, url, "GET", new TypeReference<SNSFactorProvider>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -242,7 +243,7 @@ public class GuardianEntity extends BaseManagementEntity {
                 .toString();
         CustomRequest<SNSFactorProvider> request = new CustomRequest<>(client, url, "PUT", new TypeReference<SNSFactorProvider>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         request.setBody(provider);
         return request;
     }

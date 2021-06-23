@@ -79,4 +79,8 @@ dependencies {
     testImplementation "org.hamcrest:hamcrest-core:${hamcrestVersion}"
     testImplementation "org.hamcrest:hamcrest-library:${hamcrestVersion}"
     testImplementation "junit:junit:4.13.1"
+    testImplementation 'redis.clients:jedis:2.8.1'
+    testImplementation "com.fasterxml.jackson.core:jackson-databind:2.12.1"
+    testImplementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.12.1'
+
 }

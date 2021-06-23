@@ -1,5 +1,6 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.client.mgmt.tokens.TokenProvider;
 import com.auth0.json.mgmt.userblocks.UserBlocks;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
@@ -19,8 +20,8 @@ import okhttp3.OkHttpClient;
 @SuppressWarnings("WeakerAccess")
 public class UserBlocksEntity extends BaseManagementEntity {
 
-    UserBlocksEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    UserBlocksEntity(OkHttpClient client, HttpUrl baseUrl, TokenProvider provider) {
+        super(client, baseUrl, provider);
     }
 
     /**
@@ -41,7 +42,7 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .toString();
         CustomRequest<UserBlocks> request = new CustomRequest<>(client, url, "GET", new TypeReference<UserBlocks>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -62,7 +63,7 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .build()
                 .toString();
         VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -84,7 +85,7 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .toString();
         CustomRequest<UserBlocks> request = new CustomRequest<>(client, url, "GET", new TypeReference<UserBlocks>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -105,7 +106,7 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .build()
                 .toString();
         VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 }

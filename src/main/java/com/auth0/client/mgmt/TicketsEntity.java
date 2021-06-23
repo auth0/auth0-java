@@ -1,5 +1,6 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.client.mgmt.tokens.TokenProvider;
 import com.auth0.json.mgmt.tickets.EmailVerificationTicket;
 import com.auth0.json.mgmt.tickets.PasswordChangeTicket;
 import com.auth0.net.CustomRequest;
@@ -19,8 +20,8 @@ import okhttp3.OkHttpClient;
 @SuppressWarnings("WeakerAccess")
 public class TicketsEntity extends BaseManagementEntity {
 
-    TicketsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    TicketsEntity(OkHttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -41,7 +42,7 @@ public class TicketsEntity extends BaseManagementEntity {
 
         CustomRequest<EmailVerificationTicket> request = new CustomRequest<>(client, url, "POST", new TypeReference<EmailVerificationTicket>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         request.setBody(emailVerificationTicket);
         return request;
     }
@@ -64,7 +65,7 @@ public class TicketsEntity extends BaseManagementEntity {
 
         CustomRequest<PasswordChangeTicket> request = new CustomRequest<>(client, url, "POST", new TypeReference<PasswordChangeTicket>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         request.setBody(passwordChangeTicket);
         return request;
     }

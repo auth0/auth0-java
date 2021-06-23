@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.GrantsFilter;
+import com.auth0.client.mgmt.tokens.TokenProvider;
 import com.auth0.json.mgmt.Grant;
 import com.auth0.json.mgmt.GrantsPage;
 import com.auth0.net.CustomRequest;
@@ -24,8 +25,8 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class GrantsEntity extends BaseManagementEntity {
 
-    GrantsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    GrantsEntity(OkHttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -52,7 +53,7 @@ public class GrantsEntity extends BaseManagementEntity {
         String url = builder.build().toString();
         CustomRequest<GrantsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<GrantsPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -77,7 +78,7 @@ public class GrantsEntity extends BaseManagementEntity {
                 .toString();
         CustomRequest<List<Grant>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Grant>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -98,7 +99,7 @@ public class GrantsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
         VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -119,7 +120,7 @@ public class GrantsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
         VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 

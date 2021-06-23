@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.ClientGrantsFilter;
+import com.auth0.client.mgmt.tokens.TokenProvider;
 import com.auth0.json.mgmt.ClientGrant;
 import com.auth0.json.mgmt.ClientGrantsPage;
 import com.auth0.net.CustomRequest;
@@ -24,8 +25,8 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class ClientGrantsEntity extends BaseManagementEntity {
 
-    ClientGrantsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    ClientGrantsEntity(OkHttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -48,7 +49,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
         String url = builder.build().toString();
         CustomRequest<ClientGrantsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<ClientGrantsPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -69,7 +70,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
                 .toString();
         CustomRequest<List<ClientGrant>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<ClientGrant>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -94,7 +95,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
                 .toString();
         CustomRequest<ClientGrant> request = new CustomRequest<>(client, url, "POST", new TypeReference<ClientGrant>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         request.addParameter("client_id", clientId);
         request.addParameter("audience", audience);
         request.addParameter("scope", scope);
@@ -119,7 +120,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
         VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -143,7 +144,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
                 .toString();
         CustomRequest<ClientGrant> request = new CustomRequest<>(client, url, "PATCH", new TypeReference<ClientGrant>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         request.addParameter("scope", scope);
         return request;
     }

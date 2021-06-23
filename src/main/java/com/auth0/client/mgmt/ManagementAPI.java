@@ -2,6 +2,7 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.HttpOptions;
 import com.auth0.client.ProxyOptions;
+import com.auth0.client.mgmt.tokens.*;
 import com.auth0.net.Telemetry;
 import com.auth0.net.TelemetryInterceptor;
 import com.auth0.utils.Asserts;
@@ -24,11 +25,49 @@ import java.util.concurrent.TimeUnit;
 public class ManagementAPI {
 
     private final HttpUrl baseUrl;
-    private String apiToken;
     private final OkHttpClient client;
     private final TelemetryInterceptor telemetry;
     private final HttpLoggingInterceptor logging;
 
+    private final TokenProvider tokenProvider;
+
+    // Proto of managing tne token
+    public ManagementAPI(String domain, String clientId, String clientSecret) {
+        this(domain, clientId, clientSecret, new HttpOptions(), new InMemoryTokenCache());
+    }
+
+    public ManagementAPI(String domain, String clientId, String clientSecret, HttpOptions options) {
+        this(domain, clientId, clientSecret, options, new InMemoryTokenCache());
+    }
+
+    public ManagementAPI(String domain, String clientId, String clientSecret, TokenCache tokenCache) {
+        this(domain, clientId, clientSecret, new HttpOptions(), tokenCache);
+//        this(domain, "");
+//        this.tokenProvider = new CachedTokenProvider(domain, clientId, clientSecret, tokenCache);
+    }
+
+
+    public ManagementAPI(String domain, String clientId, String clientSecret, HttpOptions options, TokenCache tokenCache) {
+        this(domain, options, new CachedTokenProvider(domain, clientId, clientSecret, tokenCache));
+//        this(domain, "");
+//        this.tokenProvider = new CachedTokenProvider(domain, clientId, clientSecret, tokenCache);
+    }
+
+    private ManagementAPI(String domain, HttpOptions options, TokenProvider provider) {
+        Asserts.assertNotNull(domain, "domain");
+
+        this.baseUrl = createBaseUrl(domain);
+        if (baseUrl == null) {
+            throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
+        }
+        this.tokenProvider = provider;
+
+        telemetry = new TelemetryInterceptor();
+        logging = new HttpLoggingInterceptor();
+        logging.setLevel(Level.NONE);
+        client = buildNetworkingClient(options);
+
+    }
     /**
      * Create an instance with the given tenant's domain and API token.
      * In addition, accepts an {@link HttpOptions} that will be used to configure the networking client.
@@ -41,19 +80,20 @@ public class ManagementAPI {
      * @see #ManagementAPI(String, String)
      */
     public ManagementAPI(String domain, String apiToken, HttpOptions options) {
-        Asserts.assertNotNull(domain, "domain");
-        Asserts.assertNotNull(apiToken, "api token");
-
-        this.baseUrl = createBaseUrl(domain);
-        if (baseUrl == null) {
-            throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
-        }
-        this.apiToken = apiToken;
-
-        telemetry = new TelemetryInterceptor();
-        logging = new HttpLoggingInterceptor();
-        logging.setLevel(Level.NONE);
-        client = buildNetworkingClient(options);
+        this(domain, options, new SimpleTokenProvider(apiToken));
+//        Asserts.assertNotNull(domain, "domain");
+//        Asserts.assertNotNull(apiToken, "api token");
+//
+//        this.baseUrl = createBaseUrl(domain);
+//        if (baseUrl == null) {
+//            throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
+//        }
+//        this.apiToken = apiToken;
+//
+//        telemetry = new TelemetryInterceptor();
+//        logging = new HttpLoggingInterceptor();
+//        logging.setLevel(Level.NONE);
+//        client = buildNetworkingClient(options);
     }
 
     /**
@@ -117,7 +157,11 @@ public class ManagementAPI {
      */
     public void setApiToken(String apiToken) {
         Asserts.assertNotNull(apiToken, "api token");
-        this.apiToken = apiToken;
+        if (!(this.tokenProvider instanceof SimpleTokenProvider)) {
+            throw new IllegalStateException("API tokens cannot be manually set unless the client was constructed with an access token");
+        }
+        ((SimpleTokenProvider) tokenProvider).setToken(apiToken);
+//        this.apiToken = apiToken;
     }
 
     /**
@@ -169,7 +213,7 @@ public class ManagementAPI {
      * @return the Client Grants entity.
      */
     public ClientGrantsEntity clientGrants() {
-        return new ClientGrantsEntity(client, baseUrl, apiToken);
+        return new ClientGrantsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -178,7 +222,7 @@ public class ManagementAPI {
      * @return the Applications entity.
      */
     public ClientsEntity clients() {
-        return new ClientsEntity(client, baseUrl, apiToken);
+        return new ClientsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -187,7 +231,7 @@ public class ManagementAPI {
      * @return the Connections entity.
      */
     public ConnectionsEntity connections() {
-        return new ConnectionsEntity(client, baseUrl, apiToken);
+        return new ConnectionsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -196,7 +240,7 @@ public class ManagementAPI {
      * @return the Device Credentials entity.
      */
     public DeviceCredentialsEntity deviceCredentials() {
-        return new DeviceCredentialsEntity(client, baseUrl, apiToken);
+        return new DeviceCredentialsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -205,7 +249,7 @@ public class ManagementAPI {
      * @return the Grants entity.
      */
     public GrantsEntity grants() {
-        return new GrantsEntity(client, baseUrl, apiToken);
+        return new GrantsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -214,7 +258,7 @@ public class ManagementAPI {
      * @return the Log Events entity.
      */
     public LogEventsEntity logEvents() {
-        return new LogEventsEntity(client, baseUrl, apiToken);
+        return new LogEventsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -223,7 +267,7 @@ public class ManagementAPI {
      * @return the Log Streams entity.
      */
     public LogStreamsEntity logStreams() {
-        return new LogStreamsEntity(client, baseUrl, apiToken);
+        return new LogStreamsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -232,7 +276,7 @@ public class ManagementAPI {
      * @return the Rules entity.
      */
     public RulesEntity rules() {
-        return new RulesEntity(client, baseUrl, apiToken);
+        return new RulesEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -241,7 +285,7 @@ public class ManagementAPI {
      * @return the Rules Configs entity.
      */
     public RulesConfigsEntity rulesConfigs() {
-        return new RulesConfigsEntity(client, baseUrl, apiToken);
+        return new RulesConfigsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -250,7 +294,7 @@ public class ManagementAPI {
      * @return the User Blocks entity.
      */
     public UserBlocksEntity userBlocks() {
-        return new UserBlocksEntity(client, baseUrl, apiToken);
+        return new UserBlocksEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -259,7 +303,7 @@ public class ManagementAPI {
      * @return the Users entity.
      */
     public UsersEntity users() {
-        return new UsersEntity(client, baseUrl, apiToken);
+        return new UsersEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -268,7 +312,7 @@ public class ManagementAPI {
      * @return the Blacklists entity.
      */
     public BlacklistsEntity blacklists() {
-        return new BlacklistsEntity(client, baseUrl, apiToken);
+        return new BlacklistsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -277,7 +321,7 @@ public class ManagementAPI {
      * @return the Email Templates entity.
      */
     public EmailTemplatesEntity emailTemplates() {
-        return new EmailTemplatesEntity(client, baseUrl, apiToken);
+        return new EmailTemplatesEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -286,7 +330,7 @@ public class ManagementAPI {
      * @return the Email Provider entity.
      */
     public EmailProviderEntity emailProvider() {
-        return new EmailProviderEntity(client, baseUrl, apiToken);
+        return new EmailProviderEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -295,7 +339,7 @@ public class ManagementAPI {
      * @return the Guardian entity.
      */
     public GuardianEntity guardian() {
-        return new GuardianEntity(client, baseUrl, apiToken);
+        return new GuardianEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -304,7 +348,7 @@ public class ManagementAPI {
      * @return the Stats entity.
      */
     public StatsEntity stats() {
-        return new StatsEntity(client, baseUrl, apiToken);
+        return new StatsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -313,7 +357,7 @@ public class ManagementAPI {
      * @return the Tenants entity.
      */
     public TenantsEntity tenants() {
-        return new TenantsEntity(client, baseUrl, apiToken);
+        return new TenantsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -322,7 +366,7 @@ public class ManagementAPI {
      * @return the Tickets entity.
      */
     public TicketsEntity tickets() {
-        return new TicketsEntity(client, baseUrl, apiToken);
+        return new TicketsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -331,7 +375,7 @@ public class ManagementAPI {
      * @return the Resource Servers entity.
      */
     public ResourceServerEntity resourceServers() {
-        return new ResourceServerEntity(client, baseUrl, apiToken);
+        return new ResourceServerEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -340,7 +384,7 @@ public class ManagementAPI {
      * @return the Jobs entity.
      */
     public JobsEntity jobs() {
-        return new JobsEntity(client, baseUrl, apiToken);
+        return new JobsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -349,7 +393,7 @@ public class ManagementAPI {
      * @return the Roles entity.
      */
     public RolesEntity roles() {
-        return new RolesEntity(client, baseUrl, apiToken);
+        return new RolesEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -358,6 +402,6 @@ public class ManagementAPI {
      * @return the Organizations entity.
      */
     public OrganizationsEntity organizations() {
-        return new OrganizationsEntity(client, baseUrl, apiToken);
+        return new OrganizationsEntity(client, baseUrl, tokenProvider);
     }
 }

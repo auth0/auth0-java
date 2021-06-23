@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.ConnectionFilter;
+import com.auth0.client.mgmt.tokens.TokenProvider;
 import com.auth0.json.mgmt.Connection;
 import com.auth0.json.mgmt.ConnectionsPage;
 import com.auth0.net.CustomRequest;
@@ -24,8 +25,8 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class ConnectionsEntity extends BaseManagementEntity {
 
-    ConnectionsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    ConnectionsEntity(OkHttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
 
@@ -48,7 +49,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
         String url = builder.build().toString();
         CustomRequest<ConnectionsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<ConnectionsPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -78,7 +79,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
         String url = builder.build().toString();
         CustomRequest<List<Connection>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Connection>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -105,7 +106,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
         String url = builder.build().toString();
         CustomRequest<Connection> request = new CustomRequest<>(client, url, "GET", new TypeReference<Connection>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -126,7 +127,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .toString();
         CustomRequest<Connection> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<Connection>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         request.setBody(connection);
         return request;
     }
@@ -148,7 +149,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
         VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -172,7 +173,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .toString();
         CustomRequest<Connection> request = new CustomRequest<>(this.client, url, "PATCH", new TypeReference<Connection>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         request.setBody(connection);
         return request;
     }
@@ -198,7 +199,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
         VoidRequest request = new VoidRequest(this.client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 }

@@ -1,5 +1,6 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.client.mgmt.tokens.TokenProvider;
 import com.auth0.json.mgmt.Token;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
@@ -21,8 +22,8 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class BlacklistsEntity extends BaseManagementEntity {
 
-    BlacklistsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    BlacklistsEntity(OkHttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -43,7 +44,7 @@ public class BlacklistsEntity extends BaseManagementEntity {
                 .toString();
         CustomRequest<List<Token>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Token>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -63,7 +64,7 @@ public class BlacklistsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
         VoidRequest request = new VoidRequest(client, url, "POST");
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         request.setBody(token);
         return request;
     }

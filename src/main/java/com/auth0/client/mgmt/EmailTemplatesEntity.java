@@ -1,5 +1,6 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.client.mgmt.tokens.TokenProvider;
 import com.auth0.json.mgmt.EmailTemplate;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
@@ -28,8 +29,8 @@ public class EmailTemplatesEntity extends BaseManagementEntity {
     public static final String TEMPLATE_PASSWORD_RESET = "password_reset";
     public static final String TEMPLATE_MFA_OOB_CODE = "mfa_oob_code";
 
-    EmailTemplatesEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    EmailTemplatesEntity(OkHttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -48,7 +49,7 @@ public class EmailTemplatesEntity extends BaseManagementEntity {
         String url = builder.build().toString();
         CustomRequest<EmailTemplate> request = new CustomRequest<>(client, url, "GET", new TypeReference<EmailTemplate>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -69,7 +70,7 @@ public class EmailTemplatesEntity extends BaseManagementEntity {
                 .toString();
         CustomRequest<EmailTemplate> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<EmailTemplate>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         request.setBody(template);
         return request;
     }
@@ -94,7 +95,7 @@ public class EmailTemplatesEntity extends BaseManagementEntity {
                 .toString();
         CustomRequest<EmailTemplate> request = new CustomRequest<>(this.client, url, "PATCH", new TypeReference<EmailTemplate>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         request.setBody(template);
         return request;
     }

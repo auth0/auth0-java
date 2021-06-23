@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.FieldsFilter;
+import com.auth0.client.mgmt.tokens.TokenProvider;
 import com.auth0.json.mgmt.tenants.Tenant;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
@@ -21,8 +22,8 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class TenantsEntity extends BaseManagementEntity {
 
-    TenantsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    TenantsEntity(OkHttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -44,7 +45,7 @@ public class TenantsEntity extends BaseManagementEntity {
         String url = builder.build().toString();
         CustomRequest<Tenant> request = new CustomRequest<>(client, url, "GET", new TypeReference<Tenant>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -66,7 +67,7 @@ public class TenantsEntity extends BaseManagementEntity {
 
         CustomRequest<Tenant> request = new CustomRequest<>(client, url, "PATCH", new TypeReference<Tenant>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         request.setBody(tenant);
         return request;
     }

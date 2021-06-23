@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.ResourceServersFilter;
+import com.auth0.client.mgmt.tokens.TokenProvider;
 import com.auth0.json.mgmt.ResourceServer;
 import com.auth0.json.mgmt.ResourceServersPage;
 import com.auth0.net.CustomRequest;
@@ -23,8 +24,8 @@ import java.util.Map;
  */
 public class ResourceServerEntity extends BaseManagementEntity {
 
-    ResourceServerEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    ResourceServerEntity(OkHttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -48,7 +49,7 @@ public class ResourceServerEntity extends BaseManagementEntity {
         CustomRequest<ResourceServersPage> request = new CustomRequest<>(client, url, "GET",
                 new TypeReference<ResourceServersPage>() {
                 });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -70,7 +71,7 @@ public class ResourceServerEntity extends BaseManagementEntity {
         CustomRequest<List<ResourceServer>> request = new CustomRequest<>(client, url, "GET",
                 new TypeReference<List<ResourceServer>>() {
                 });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -93,7 +94,7 @@ public class ResourceServerEntity extends BaseManagementEntity {
         CustomRequest<ResourceServer> request = new CustomRequest<>(client, url, "GET",
                 new TypeReference<ResourceServer>() {
                 });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -115,7 +116,7 @@ public class ResourceServerEntity extends BaseManagementEntity {
         CustomRequest<ResourceServer> request = new CustomRequest<>(client, url, "POST",
                 new TypeReference<ResourceServer>() {
                 });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         request.setBody(resourceServer);
         return request;
     }
@@ -137,7 +138,7 @@ public class ResourceServerEntity extends BaseManagementEntity {
 
         String url = builder.build().toString();
         VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         return request;
     }
 
@@ -162,7 +163,7 @@ public class ResourceServerEntity extends BaseManagementEntity {
         CustomRequest<ResourceServer> request = new CustomRequest<ResourceServer>(client, url, "PATCH",
                 new TypeReference<ResourceServer>() {
                 });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
         request.setBody(resourceServer);
         return request;
     }

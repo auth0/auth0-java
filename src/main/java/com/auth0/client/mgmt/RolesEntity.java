@@ -2,6 +2,7 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.PageFilter;
 import com.auth0.client.mgmt.filter.RolesFilter;
+import com.auth0.client.mgmt.tokens.TokenProvider;
 import com.auth0.json.mgmt.Permission;
 import com.auth0.json.mgmt.PermissionsPage;
 import com.auth0.json.mgmt.Role;
@@ -29,8 +30,8 @@ import java.util.Map;
 public class RolesEntity extends BaseManagementEntity {
 
   RolesEntity(OkHttpClient client, HttpUrl baseUrl,
-      String apiToken) {
-    super(client, baseUrl, apiToken);
+              TokenProvider tokenProvider) {
+    super(client, baseUrl, tokenProvider);
   }
 
   /**
@@ -52,7 +53,7 @@ public class RolesEntity extends BaseManagementEntity {
     }
     String url = builder.build().toString();
     CustomRequest<RolesPage> request = new CustomRequest<>(this.client, url, "GET", new TypeReference<RolesPage>() {});
-    request.addHeader("Authorization", "Bearer " + apiToken);
+    request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
     return request;
   }
 
@@ -74,7 +75,7 @@ public class RolesEntity extends BaseManagementEntity {
 
     String url = builder.build().toString();
     CustomRequest<Role> request = new CustomRequest<>(this.client, url, "GET", new TypeReference<Role>() {});
-    request.addHeader("Authorization", "Bearer " + apiToken);
+    request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
     return request;
   }
 
@@ -96,7 +97,7 @@ public class RolesEntity extends BaseManagementEntity {
         .build()
         .toString();
     CustomRequest<Role> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<Role>() {});
-    request.addHeader("Authorization", "Bearer " + apiToken);
+    request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
     request.setBody(role);
     return request;
   }
@@ -119,7 +120,7 @@ public class RolesEntity extends BaseManagementEntity {
         .build()
         .toString();
     VoidRequest request = new VoidRequest(this.client, url, "DELETE");
-    request.addHeader("Authorization", "Bearer " + apiToken);
+    request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
     return request;
   }
 
@@ -143,7 +144,7 @@ public class RolesEntity extends BaseManagementEntity {
         .build()
         .toString();
     CustomRequest<Role> request = new CustomRequest<>(this.client, url, "PATCH", new TypeReference<Role>() {});
-    request.addHeader("Authorization", "Bearer " + apiToken);
+    request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
     request.setBody(role);
     return request;
   }
@@ -172,7 +173,7 @@ public class RolesEntity extends BaseManagementEntity {
     }
     String url = builder.build().toString();
     CustomRequest<UsersPage> request = new CustomRequest<>(this.client, url, "GET", new TypeReference<UsersPage>() {});
-    request.addHeader("Authorization", "Bearer " + apiToken);
+    request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
     return request;
   }
 
@@ -200,7 +201,7 @@ public class RolesEntity extends BaseManagementEntity {
         .build()
         .toString();
     VoidRequest request = new VoidRequest(this.client, url, "POST");
-    request.addHeader("Authorization", "Bearer " + apiToken);
+    request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
     request.setBody(body);
     return request;
   }
@@ -229,7 +230,7 @@ public class RolesEntity extends BaseManagementEntity {
     }
     String url = builder.build().toString();
     CustomRequest<PermissionsPage> request = new CustomRequest<>(this.client, url, "GET", new TypeReference<PermissionsPage>() {});
-    request.addHeader("Authorization", "Bearer " + apiToken);
+    request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
     return request;
   }
 
@@ -258,7 +259,7 @@ public class RolesEntity extends BaseManagementEntity {
         .toString();
     VoidRequest request = new VoidRequest(this.client, url, "DELETE");
     request.setBody(body);
-    request.addHeader("Authorization", "Bearer " + apiToken);
+    request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
     return request;
   }
 
@@ -288,7 +289,7 @@ public class RolesEntity extends BaseManagementEntity {
         .toString();
     VoidRequest request = new VoidRequest(this.client, url, "POST");
     request.setBody(body);
-    request.addHeader("Authorization", "Bearer " + apiToken);
+    request.addHeader("Authorization", "Bearer " + tokenProvider.getToken());
     return request;
   }
 }
