@@ -2,6 +2,8 @@ package com.auth0.json.auth;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import java.util.Date;
+
 /**
  * Class that contains the Tokens obtained after a call to the {@link com.auth0.client.auth.AuthAPI} methods.
  */
@@ -15,16 +17,18 @@ public class TokenHolder {
     private String tokenType;
     private long expiresIn;
     private String scope;
+    private Date expiresAt;
 
     public TokenHolder() {}
 
-    public TokenHolder(String accessToken, String idToken, String refreshToken, String tokenType, long expiresIn, String scope) {
+    public TokenHolder(String accessToken, String idToken, String refreshToken, String tokenType, long expiresIn, String scope, Date expiresAt) {
         this.accessToken = accessToken;
         this.idToken = idToken;
         this.refreshToken = refreshToken;
         this.tokenType = tokenType;
         this.expiresIn = expiresIn;
         this.scope = scope;
+        this.expiresAt = expiresAt;
     }
 
     /**
@@ -73,6 +77,16 @@ public class TokenHolder {
     }
 
     /**
+     * Get the expiration date of this token. This value is <strong>not</strong> part of the actual token response from the
+     * API, but rather is calculated and provided for convenience.
+     *
+     * @return the the date of this token's expiration.
+     */
+    public Date getExpiresAt() {
+        return expiresAt;
+    }
+
+    /**
      * Gets the granted scope value for this token.
      *
      * @return a space-delimited string of the granted scopes of this token.
@@ -80,4 +94,5 @@ public class TokenHolder {
     public String getScope() {
         return scope;
     }
+
 }

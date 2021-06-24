@@ -3,6 +3,9 @@ package com.auth0.json.auth;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
+import java.time.Instant;
+import java.util.Date;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -15,12 +18,16 @@ public class TokenHolderTest extends JsonTest<TokenHolder> {
         TokenHolder holder = fromJSON(json, TokenHolder.class);
 
         assertThat(holder, is(notNullValue()));
-        assertThat(holder.getAccessToken(), is(notNullValue()));
-        assertThat(holder.getIdToken(), is(notNullValue()));
-        assertThat(holder.getRefreshToken(), is(notNullValue()));
-        assertThat(holder.getTokenType(), is(notNullValue()));
-        assertThat(holder.getExpiresIn(), is(notNullValue()));
-        assertThat(holder.getScope(), is(notNullValue()));
+        assertThat(holder.getAccessToken(), is("A9CvPwFojaBI..."));
+        assertThat(holder.getIdToken(), is("eyJ0eXAiOiJKV1Qi..."));
+        assertThat(holder.getRefreshToken(), is("GEbRxBN...edjnXbL"));
+        assertThat(holder.getTokenType(), is("bearer"));
+        assertThat(holder.getExpiresIn(), is(86000L));
+        assertThat(holder.getScope(), is("openid profile email"));
+
+        // allow for a small tolerance since now may be calculated at slightly different times in the test
+        assertThat(getExpectedExpiredAtDiff(86000, holder.getExpiresAt()), is(lessThanOrEqualTo(2L)));
+
     }
 
     @Test
@@ -30,12 +37,15 @@ public class TokenHolderTest extends JsonTest<TokenHolder> {
         TokenHolder holder = fromJSON(json, TokenHolder.class);
 
         assertThat(holder, is(notNullValue()));
-        assertThat(holder.getAccessToken(), is(notNullValue()));
-        assertThat(holder.getIdToken(), is(notNullValue()));
-        assertThat(holder.getRefreshToken(), is(notNullValue()));
-        assertThat(holder.getTokenType(), is(notNullValue()));
-        assertThat(holder.getExpiresIn(), is(notNullValue()));
-        assertThat(holder.getScope(), is(notNullValue()));
+        assertThat(holder.getAccessToken(), is("A9CvPwFojaBI..."));
+        assertThat(holder.getIdToken(), is("eyJ0eXAiOiJKV1Qi..."));
+        assertThat(holder.getRefreshToken(), is("GEbRxBN...edjnXbL"));
+        assertThat(holder.getTokenType(), is("bearer"));
+        assertThat(holder.getExpiresIn(), is(86000L));
+        assertThat(holder.getScope(), is("openid profile email"));
+
+        // allow for a small tolerance since now may be calculated at slightly different times in the test
+        assertThat(getExpectedExpiredAtDiff(86000, holder.getExpiresAt()), is(lessThanOrEqualTo(2L)));
     }
 
     @Test
@@ -45,13 +55,23 @@ public class TokenHolderTest extends JsonTest<TokenHolder> {
         TokenHolder holder = fromJSON(json, TokenHolder.class);
 
         assertThat(holder, is(notNullValue()));
-        assertThat(holder.getAccessToken(), is(notNullValue()));
+        assertThat(holder.getAccessToken(), is("A9CvPwFojaBI..."));
         assertThat(holder.getIdToken(), is(nullValue()));
         assertThat(holder.getRefreshToken(), is(nullValue()));
-        assertThat(holder.getTokenType(), is(notNullValue()));
+        assertThat(holder.getTokenType(), is("bearer"));
+        assertThat(holder.getScope(), is("openid profile email"));
 
         // as a primitive, a missing value in the JSON will result in a value of zero on the value object.
         assertThat(holder.getExpiresIn(), is(0L));
-        assertThat(holder.getScope(), is(notNullValue()));
+        // allow for a small tolerance since now may be calculated at slightly different times in the test
+        assertThat(getExpectedExpiredAtDiff(0, holder.getExpiresAt()), is(lessThanOrEqualTo(2L)));
+
+    }
+
+    private long getExpectedExpiredAtDiff(long expiresIn, Date expiresAt) {
+        Instant expectedExpiresAt  = Instant.now().plusSeconds(expiresIn);
+        long expectedEpochSeconds = expectedExpiresAt.getEpochSecond();
+        long actualEpochSeconds = expiresAt.toInstant().getEpochSecond();
+        return Math.abs(expectedEpochSeconds - actualEpochSeconds);
     }
 }

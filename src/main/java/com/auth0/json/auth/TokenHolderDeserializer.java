@@ -7,9 +7,16 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
 import java.io.IOException;
+import java.time.Instant;
+import java.util.Date;
 
+/**
+ * A custom Jackson Deserializer for the {@linkplain TokenHolder} object. It deserializes the JSON response and calculates
+ * an {@code expiresAt} date derived from the current time and the {@code expires_at} returned on the response.
+ */
 public class TokenHolderDeserializer extends StdDeserializer<TokenHolder> {
 
+    @SuppressWarnings("unused")
     public TokenHolderDeserializer() {
         this(null);
     }
@@ -29,14 +36,17 @@ public class TokenHolderDeserializer extends StdDeserializer<TokenHolder> {
         JsonNode scopeNode = node.get("scope");
         JsonNode expiresInNode = node.get("expires_in");
 
-
         String accessToken = accessTokenNode != null ? accessTokenNode.asText() : null;
         String idToken = idTokenNode !=  null ? idTokenNode.asText() : null;
         String refreshToken = refreshTokenNode != null ? refreshTokenNode.asText() : null;
         String tokenType = tokenTypeNode != null  ? tokenTypeNode.asText() : null;
         String scope = scopeNode != null ?  scopeNode.asText() : null;
+
+        // As a primitive, if expires_in is not sent on the response, value will be 0 instead of null
         long expiresIn = expiresInNode !=  null ? expiresInNode.asLong() : 0L;
 
-        return new TokenHolder(accessToken, idToken, refreshToken, tokenType, expiresIn, scope);
+        Date expiresAt = Date.from(Instant.now().plusSeconds(expiresIn));
+
+        return new TokenHolder(accessToken, idToken, refreshToken, tokenType, expiresIn, scope, expiresAt);
     }
 }
