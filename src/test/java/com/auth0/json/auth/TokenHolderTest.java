@@ -50,16 +50,16 @@ public class TokenHolderTest extends JsonTest<TokenHolder> {
 
     @Test
     public void shouldDeserializeWithMissingFields() throws Exception {
-        String json = "{\"access_token\":\"A9CvPwFojaBI...\",\"token_type\": \"bearer\", \"scope\": \"openid profile email\"}";
+        String json = "{}";
 
         TokenHolder holder = fromJSON(json, TokenHolder.class);
 
         assertThat(holder, is(notNullValue()));
-        assertThat(holder.getAccessToken(), is("A9CvPwFojaBI..."));
+        assertThat(holder.getAccessToken(), is(nullValue()));
         assertThat(holder.getIdToken(), is(nullValue()));
         assertThat(holder.getRefreshToken(), is(nullValue()));
-        assertThat(holder.getTokenType(), is("bearer"));
-        assertThat(holder.getScope(), is("openid profile email"));
+        assertThat(holder.getTokenType(), is(nullValue()));
+        assertThat(holder.getScope(), is(nullValue()));
 
         // as a primitive, a missing value in the JSON will result in a value of zero on the value object.
         assertThat(holder.getExpiresIn(), is(0L));
