@@ -68,6 +68,13 @@ public class TokenHolderTest extends JsonTest<TokenHolder> {
 
     }
 
+    @Test
+    public void shouldHaveDefaultConstructor() {
+        // To ensure default constructor exists for backwards-compatibility
+        TokenHolder tokenHolder = new TokenHolder();
+        assertThat(tokenHolder, is(notNullValue()));
+    }
+
     private long getExpectedExpiredAtDiff(long expiresIn, Date expiresAt) {
         Instant expectedExpiresAt  = Instant.now().plusSeconds(expiresIn);
         long expectedEpochSeconds = expectedExpiresAt.getEpochSecond();
