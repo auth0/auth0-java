@@ -63,8 +63,7 @@ public class TokenHolderTest extends JsonTest<TokenHolder> {
 
         // as a primitive, a missing value in the JSON will result in a value of zero on the value object.
         assertThat(holder.getExpiresIn(), is(0L));
-        // allow for a small tolerance since now may be calculated at slightly different times in the test
-        assertThat(getExpectedExpiredAtDiff(0, holder.getExpiresAt()), is(lessThanOrEqualTo(2L)));
+        assertThat(holder.getExpiresAt(), is(nullValue()));
 
     }
 

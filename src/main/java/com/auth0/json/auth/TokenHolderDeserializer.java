@@ -44,8 +44,7 @@ public class TokenHolderDeserializer extends StdDeserializer<TokenHolder> {
 
         // As a primitive, if expires_in is not sent on the response, value will be 0 instead of null
         long expiresIn = expiresInNode !=  null ? expiresInNode.asLong() : 0L;
-
-        Date expiresAt = Date.from(Instant.now().plusSeconds(expiresIn));
+        Date expiresAt = expiresInNode != null ? Date.from(Instant.now().plusSeconds(expiresIn)) : null;
 
         return new TokenHolder(accessToken, idToken, refreshToken, tokenType, expiresIn, scope, expiresAt);
     }

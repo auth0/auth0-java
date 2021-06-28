@@ -19,6 +19,8 @@ public class TokenHolder {
     private String scope;
     private Date expiresAt;
 
+    // We need to maintain a default constructor for backwards-compatibility
+    @SuppressWarnings("unused")
     public TokenHolder() {}
 
     public TokenHolder(String accessToken, String idToken, String refreshToken, String tokenType, long expiresIn, String scope, Date expiresAt) {
@@ -68,19 +70,20 @@ public class TokenHolder {
     }
 
     /**
-     * Getter for the duration of this token in seconds since it was issued.
+     * Getter for the duration of the Access Token token in seconds from the time it was issued. If no Access Token was
+     * present the value will be zero.
      *
-     * @return the number of seconds in which this token will expire, since the time it was issued.
+     * @return the number of seconds in which the Access Token token will expire, from the time it was issued.
      */
     public long getExpiresIn() {
         return expiresIn;
     }
 
     /**
-     * Get the expiration date of this token. This value is <strong>not</strong> part of the actual token response from the
+     * Get the expiration date of the Access Token. This value is <strong>not</strong> part of the actual token response from the
      * API, but rather is calculated and provided for convenience.
      *
-     * @return the the date of this token's expiration.
+     * @return the date of the Access Token's expiration. If no Access Token was present on the response, returns {@code null}
      */
     public Date getExpiresAt() {
         return expiresAt;
