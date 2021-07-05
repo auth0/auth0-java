@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.32.0](https://github.com/auth0/auth0-java/tree/1.32.0) (2021-07-05)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.31.0...1.32.0)
+
+**Added**
+- [SDK-2622] Add expiresAt to token response [\#357](https://github.com/auth0/auth0-java/pull/357) ([jimmyjames](https://github.com/jimmyjames))
+
+**Changed**
+- Update OSS release plugin version [\#358](https://github.com/auth0/auth0-java/pull/358) ([lbalmaceda](https://github.com/lbalmaceda))
+
 ## [1.31.0](https://github.com/auth0/auth0-java/tree/1.31.0) (2021-05-10)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.30.0...1.31.0)
 
