@@ -3,6 +3,7 @@ package com.auth0.json.mgmt.organizations;
 import com.fasterxml.jackson.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,7 +45,7 @@ public class Invitation {
     @JsonProperty("organization_id")
     private String organizationId;
     @JsonProperty("roles")
-    private Roles roles;
+    private List<String> roles;
 
     /**
      * Create a new instance.
@@ -193,7 +194,7 @@ public class Invitation {
     /**
      * @return the roles associated with the user invited.
      */
-    public Roles getRoles() {
+    public List<String> getRoles() {
         return roles;
     }
 
@@ -202,7 +203,7 @@ public class Invitation {
      *
      * @param roles the {@linkplain Roles} to associated with the user invited.
      */
-    public void setRoles(Roles roles) {
+    public void setRoles(List<String> roles) {
         this.roles = roles;
     }
 

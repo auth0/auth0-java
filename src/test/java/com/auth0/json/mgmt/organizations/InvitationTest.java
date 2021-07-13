@@ -59,7 +59,7 @@ public class InvitationTest extends JsonTest<Invitation> {
         invitation.setAppMetadata(appMetadata);
         invitation.setUserMetadata(userMetadata);
         invitation.setConnectionId("connId");
-        invitation.setRoles(new Roles(rolesList));
+        invitation.setRoles(rolesList);
         invitation.setTtlInSeconds(41);
 
         String serialized = toJSON(invitation);
