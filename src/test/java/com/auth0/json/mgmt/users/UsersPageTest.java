@@ -3,6 +3,8 @@ package com.auth0.json.mgmt.users;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -50,5 +52,16 @@ public class UsersPageTest extends JsonTest<UsersPage> {
         assertThat(page.getItems(), is(notNullValue()));
         assertThat(page.getNext(), is("MjAyMS0wMy0yOSAxNjo1MDo09s44NDYxODcrMDAsb3JnX2Y0VXZUbG1iSWd2005zTGw"));
         assertThat(page.getItems().size(), is(1));
+    }
+
+    @Test
+    public void shouldBeCreatedWithoutNextField() {
+        UsersPage page = new UsersPageDeserializer().createPage(0, 5, 20, 50, new ArrayList<>());
+
+        assertThat(page.getStart(), is(0));
+        assertThat(page.getLength(), is(5));
+        assertThat(page.getTotal(), is(20));
+        assertThat(page.getLimit(), is(50));
+        assertThat(page.getItems(), is(notNullValue()));
     }
 }
