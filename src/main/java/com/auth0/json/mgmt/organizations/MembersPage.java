@@ -20,6 +20,10 @@ public class MembersPage extends Page<Member> {
         super(items);
     }
 
+    /**
+     * @deprecated Use {@linkplain MembersPage#MembersPage(Integer, Integer, Integer, Integer, String, List)} instead.
+     */
+    @Deprecated
     public MembersPage(Integer start, Integer length, Integer total, Integer limit, List<Member> items) {
         super(start, length, total, limit, items);
     }

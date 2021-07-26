@@ -20,6 +20,10 @@ public class OrganizationsPage extends Page<Organization> {
         super(items);
     }
 
+    /**
+     * @deprecated use {@linkplain OrganizationsPage#OrganizationsPage(Integer, Integer, Integer, Integer, String, List)} instead.
+     */
+    @Deprecated
     public OrganizationsPage(Integer start, Integer length, Integer total, Integer limit, List<Organization> items) {
         super(start, length, total, limit, items);
     }

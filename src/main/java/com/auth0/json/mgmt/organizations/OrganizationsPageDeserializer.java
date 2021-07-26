@@ -19,6 +19,7 @@ public class OrganizationsPageDeserializer extends PageDeserializer<Organization
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     protected OrganizationsPage createPage(Integer start, Integer length, Integer total, Integer limit, List<Organization> items) {
         return new OrganizationsPage(start, length, total, limit, items);
     }

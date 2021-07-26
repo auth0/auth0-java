@@ -25,6 +25,7 @@ class UsersPageDeserializer extends PageDeserializer<UsersPage, User> {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     protected UsersPage createPage(Integer start, Integer length, Integer total, Integer limit, List<User> items) {
         return new UsersPage(start, length, total, limit, items);
     }
