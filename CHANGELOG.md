@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.33.0](https://github.com/auth0/auth0-java/tree/1.33.0) (2021-07-26)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.32.0...1.33.0)
+
+**Added**
+- [SDK-2664] Add support for checkpoint pagination [\#362](https://github.com/auth0/auth0-java/pull/362) ([jimmyjames](https://github.com/jimmyjames))
+
+**Deprecated**
+- Deprecate unused constructors in Page implementations [\#363](https://github.com/auth0/auth0-java/pull/363) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.32.0](https://github.com/auth0/auth0-java/tree/1.32.0) (2021-07-05)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.31.0...1.32.0)
 
