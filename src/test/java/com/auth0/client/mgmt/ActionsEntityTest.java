@@ -15,8 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.auth0.client.MockServer.bodyFromRequest;
-import static com.auth0.client.RecordedRequestMatcher.hasHeader;
-import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
+import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -111,5 +110,42 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(secretsOnRequest.get(0), hasEntry("value", secret.getValue()));
 
         assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void deleteActionShouldThrowWhenActionIdIsNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("action ID");
+        api.actions().delete(null);
+    }
+
+    @Test
+    public void shouldDeleteAction() throws Exception {
+        Request request = api.actions().delete("action-id");
+        assertThat(request, is(notNullValue()));
+
+        server.emptyResponse(204);
+        request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/actions/actions/action-id"));
+        assertThat(recordedRequest, hasQueryParameter("force", "false"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
+
+    @Test
+    public void shouldForceDeleteAction() throws Exception {
+        Request request = api.actions().delete("action-id", true);
+        assertThat(request, is(notNullValue()));
+
+        server.emptyResponse(204);
+        request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/actions/actions/action-id"));
+        assertThat(recordedRequest, hasQueryParameter("force", "true"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     }
 }
