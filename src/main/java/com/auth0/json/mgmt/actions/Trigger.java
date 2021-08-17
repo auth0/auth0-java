@@ -26,8 +26,6 @@ public class Trigger {
     @JsonProperty("default_runtime")
     private String defaultRuntime;
 
-    // TODO verify which fields are read-only
-
     /**
      * @return the ID of this trigger, which represents the type of this trigger.
      */

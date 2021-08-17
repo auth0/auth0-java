@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.actions.Action;
+import com.auth0.json.mgmt.actions.Triggers;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
@@ -13,6 +14,7 @@ public class ActionsEntity extends BaseManagementEntity {
 
     private final static String ACTIONS_BASE_PATH = "api/v2/actions";
     private final static String ACTIONS_PATH = "actions";
+    private final static String TRIGGERS_PATH = "triggers";
     private final static String AUTHORIZATION_HEADER = "Authorization";
 
     ActionsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
@@ -73,7 +75,7 @@ public class ActionsEntity extends BaseManagementEntity {
 
     /**
      * Delete an action and all of its associated versions. An action must be unbound from all triggers before it can
-     * be deleted. A token with {@delete:action} scope is required.
+     * be deleted. A token with {@code delete:action} scope is required.
      *
      * @param actionId the ID of the action to delete.
      * @return a request to execute.
@@ -83,7 +85,7 @@ public class ActionsEntity extends BaseManagementEntity {
     }
 
     /**
-     * Delete an action and all of its associated versions. A token with {@delete:action} scope is required.
+     * Delete an action and all of its associated versions. A token with {@code delete:action} scope is required.
      *
      * @param actionId the ID of the action to delete.
      * @param force whether to force the action deletion even if it is bound to triggers.
@@ -104,5 +106,26 @@ public class ActionsEntity extends BaseManagementEntity {
         VoidRequest voidRequest = new VoidRequest(client, url, "DELETE");
         voidRequest.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return voidRequest;
+    }
+
+    /**
+     * Get the set of triggers currently available. A trigger is an extensibility point to which actions can be bound.
+     * A token with {@code read:actions} scope is required.
+     *
+     * @return a request to execute.
+     */
+    public Request<Triggers> getTriggers() {
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments(ACTIONS_BASE_PATH)
+            .addPathSegment(TRIGGERS_PATH)
+            .build()
+            .toString();
+
+        CustomRequest<Triggers> request = new CustomRequest<>(client, url, "GET", new TypeReference<Triggers>() {
+        });
+
+        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        return request;
     }
 }

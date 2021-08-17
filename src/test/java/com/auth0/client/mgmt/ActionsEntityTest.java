@@ -1,10 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.MockServer;
-import com.auth0.json.mgmt.actions.Action;
-import com.auth0.json.mgmt.actions.Dependency;
-import com.auth0.json.mgmt.actions.Secret;
-import com.auth0.json.mgmt.actions.Trigger;
+import com.auth0.json.mgmt.actions.*;
 import com.auth0.net.Request;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
@@ -147,5 +144,22 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasQueryParameter("force", "true"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
+
+    @Test
+    public void shouldGetActionTriggers() throws Exception {
+        Request<Triggers> request = api.actions().getTriggers();
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MockServer.ACTION_TRIGGERS, 200);
+        Triggers triggers = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/triggers"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(triggers, is(notNullValue()));
+        assertThat(triggers.getTriggers(), hasSize(12));
     }
 }
