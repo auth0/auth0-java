@@ -362,4 +362,13 @@ public class ManagementAPI {
     public OrganizationsEntity organizations() {
         return new OrganizationsEntity(client, baseUrl, apiToken);
     }
+
+    /**
+     * Getter for the Actions entity.
+     *
+     * @return the Actions entity.
+     */
+    public ActionsEntity actions() {
+        return new ActionsEntity(client, baseUrl, apiToken);
+    }
 }

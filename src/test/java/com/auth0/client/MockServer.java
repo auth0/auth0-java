@@ -110,6 +110,7 @@ public class MockServer {
     public static final String INVITATION = "src/test/resources/mgmt/invitation.json";
     public static final String INVITATIONS_LIST = "src/test/resources/mgmt/invitations_list.json";
     public static final String INVITATIONS_PAGED_LIST = "src/test/resources/mgmt/invitations_paged_list.json";
+    public static final String ACTION = "src/test/resources/mgmt/action.json";
 
     private final MockWebServer server;
 

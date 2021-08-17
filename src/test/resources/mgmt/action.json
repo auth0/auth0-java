@@ -1,0 +1,61 @@
+{
+  "id": "b430c838-7530-483b-9906-09aea2f8973a",
+  "name": "my action",
+  "supported_triggers": [
+    {
+      "id": "post-login",
+      "version": "v2"
+    }
+  ],
+  "created_at": "2021-08-11T15:44:05.330221459Z",
+  "updated_at": "2021-08-16T20:24:57.108759345Z",
+  "code": "/**\n* Handler that will be called during the execution of a PostLogin flow.\n*\n* @param {Event} event - Details about the user and the context in which they are logging in.\n* @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.\n*/\nexports.onExecutePostLogin = async (event, api) => {\n  // var a = null;\n  // a.boom(;)\n  // throw new Error(\"oops\");\n  console.log(\"testing updated!\");\n};\n\n\n/**\n* Handler that will be invoked when this action is resuming after an external redirect. If your\n* onExecutePostLogin function does not perform a redirect, this function can be safely ignored.\n*\n* @param {Event} event - Details about the user and the context in which they are logging in.\n* @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.\n*/\n// exports.onContinuePostLogin = async (event, api) => {\n// };\n",
+  "dependencies": [
+    {
+      "name": "slack-notify",
+      "version": "0.1.7"
+    }
+  ],
+  "runtime": "node16",
+  "status": "built",
+  "secrets": [
+    {
+      "name": "secret-key-1",
+      "updated_at": "2021-08-12T17:09:42.071504554Z"
+    }
+  ],
+  "current_version": {
+    "id": "c4d1c41e-a14d-441a-bbbe-da50871f0ce90",
+    "code": "/**\n* Handler that will be called during the execution of a PostLogin flow.\n*\n* @param {Event} event - Details about the user and the context in which they are logging in.\n* @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.\n*/\nexports.onExecutePostLogin = async (event, api) => {\n  // var a = null;\n  // a.boom(;)\n  // throw new Error(\"oops\");\n  console.log(\"testing updated!\");\n};\n\n\n/**\n* Handler that will be invoked when this action is resuming after an external redirect. If your\n* onExecutePostLogin function does not perform a redirect, this function can be safely ignored.\n*\n* @param {Event} event - Details about the user and the context in which they are logging in.\n* @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.\n*/\n// exports.onContinuePostLogin = async (event, api) => {\n// };\n",
+    "runtime": "node16",
+    "status": "BUILT",
+    "number": 18,
+    "build_time": "2021-08-16T20:26:42.425146135Z",
+    "created_at": "2021-08-16T20:26:42.253086110Z",
+    "updated_at": "2021-08-16T20:26:42.427338891Z"
+  },
+  "deployed_version": {
+    "code": "/**\n* Handler that will be called during the execution of a PostLogin flow.\n*\n* @param {Event} event - Details about the user and the context in which they are logging in.\n* @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.\n*/\nexports.onExecutePostLogin = async (event, api) => {\n  // var a = null;\n  // a.boom(;)\n  // throw new Error(\"oops\");\n  console.log(\"testing updated!\");\n};\n\n\n/**\n* Handler that will be invoked when this action is resuming after an external redirect. If your\n* onExecutePostLogin function does not perform a redirect, this function can be safely ignored.\n*\n* @param {Event} event - Details about the user and the context in which they are logging in.\n* @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.\n*/\n// exports.onContinuePostLogin = async (event, api) => {\n// };\n",
+    "dependencies": [
+      {
+        "name": "slack-notify",
+        "version": "0.1.7"
+      }
+    ],
+    "id": "c4d1c41e-a14d-441a-77be-da51dbf0ce90",
+    "deployed": true,
+    "number": 18,
+    "built_at": "2021-08-16T20:26:42.425146135Z",
+    "secrets": [
+      {
+        "name": "secret-key-1",
+        "updated_at": "2021-08-12T17:09:42.071504554Z"
+      }
+    ],
+    "status": "built",
+    "created_at": "2021-08-16T20:26:42.253086110Z",
+    "updated_at": "2021-08-16T20:26:42.427338891Z",
+    "runtime": "node16"
+  },
+  "all_changes_deployed": true
+}
