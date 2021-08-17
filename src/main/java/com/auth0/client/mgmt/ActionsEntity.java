@@ -128,4 +128,32 @@ public class ActionsEntity extends BaseManagementEntity {
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
     }
+
+    /**
+     * Update an existing action. If this action is currently bound to a trigger, updating it will not affect any user
+     * flows until the action is deployed. Requires a token with {@code update:actions} scope.
+     *
+     * @param actionId the ID of the action to update.
+     * @param action the updated action.
+     * @return a request to execute.
+     */
+    public Request<Action> update(String actionId, Action action) {
+        Asserts.assertNotNull(actionId, "action ID");
+        Asserts.assertNotNull(action, "action");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments(ACTIONS_BASE_PATH)
+            .addPathSegment(ACTIONS_PATH)
+            .addPathSegment(actionId)
+            .build()
+            .toString();
+
+        CustomRequest<Action> request = new CustomRequest<>(client, url, "PATCH", new TypeReference<Action>() {
+        });
+
+        request.setBody(action);
+        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        return request;
+    }
 }

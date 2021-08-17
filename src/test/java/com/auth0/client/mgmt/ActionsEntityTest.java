@@ -6,10 +6,7 @@ import com.auth0.net.Request;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.auth0.client.MockServer.bodyFromRequest;
 import static com.auth0.client.RecordedRequestMatcher.*;
@@ -161,5 +158,65 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
 
         assertThat(triggers, is(notNullValue()));
         assertThat(triggers.getTriggers(), hasSize(12));
+    }
+
+    @Test
+    public void updateActionShouldThrowWhenActionIdIsNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("action ID");
+        api.actions().update(null, new Action());
+    }
+
+    @Test
+    public void updateActionShouldThrowWhenActionIsNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("action");
+        api.actions().update("action-id", null);
+    }
+
+    @Test
+    public void shouldUpdateAction() throws Exception {
+        Dependency dependency = new Dependency("lodash", "1.5.5");
+        Secret secret = new Secret("secret-key", "secret-val");
+
+        Action action = new Action();
+        action.setName("action name");
+        action.setCode("some code");
+        action.setRuntime("node16");
+        action.setDependencies(Collections.singletonList(dependency));
+        action.setSecrets(Collections.singletonList(secret));
+
+        Request<Action> request = api.actions().update("action-id", action);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MockServer.ACTION, 200);
+        Action response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/actions/actions/action-id"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, aMapWithSize(5));
+        assertThat(body, hasEntry("name", "action name"));
+        assertThat(body, hasEntry("code", "some code"));
+        assertThat(body, hasEntry("runtime", "node16"));
+
+        assertThat(body, hasEntry(is("dependencies"), is(notNullValue())));
+        List<Map<String, Object>> dependenciesOnRequest = (ArrayList<Map<String, Object>>) body.get("dependencies");
+        assertThat(dependenciesOnRequest, hasSize(1));
+        assertThat(dependenciesOnRequest.get(0), is(aMapWithSize(2)));
+        assertThat(dependenciesOnRequest.get(0), hasEntry("version", dependency.getVersion()));
+        assertThat(dependenciesOnRequest.get(0), hasEntry("name", dependency.getName()));
+
+        assertThat(body, hasEntry(is("secrets"), is(notNullValue())));
+        List<Map<String, Object>> secretsOnRequest = (ArrayList<Map<String, Object>>) body.get("secrets");
+        assertThat(secretsOnRequest, hasSize(1));
+        assertThat(secretsOnRequest.get(0), is(aMapWithSize(2)));
+        assertThat(secretsOnRequest.get(0), hasEntry("name", secret.getName()));
+        assertThat(secretsOnRequest.get(0), hasEntry("value", secret.getValue()));
+
+        assertThat(response, is(notNullValue()));
     }
 }
