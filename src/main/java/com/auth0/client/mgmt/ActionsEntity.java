@@ -2,7 +2,9 @@ package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.actions.Action;
 import com.auth0.json.mgmt.actions.Triggers;
+import com.auth0.json.mgmt.actions.Version;
 import com.auth0.net.CustomRequest;
+import com.auth0.net.EmptyBodyRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.utils.Asserts;
@@ -15,6 +17,7 @@ public class ActionsEntity extends BaseManagementEntity {
     private final static String ACTIONS_BASE_PATH = "api/v2/actions";
     private final static String ACTIONS_PATH = "actions";
     private final static String TRIGGERS_PATH = "triggers";
+    private final static String DEPLOY_PATH = "deploy";
     private final static String AUTHORIZATION_HEADER = "Authorization";
 
     ActionsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
@@ -79,6 +82,8 @@ public class ActionsEntity extends BaseManagementEntity {
      *
      * @param actionId the ID of the action to delete.
      * @return a request to execute.
+     *
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Actions/delete_action">https://auth0.com/docs/api/management/v2#!/Actions/delete_action</a>
      */
     public Request delete(String actionId) {
         return delete(actionId, false);
@@ -90,6 +95,8 @@ public class ActionsEntity extends BaseManagementEntity {
      * @param actionId the ID of the action to delete.
      * @param force whether to force the action deletion even if it is bound to triggers.
      * @return a request to execute.
+     *
+     * <a href="https://auth0.com/docs/api/management/v2#!/Actions/get_triggers">https://auth0.com/docs/api/management/v2#!/Actions/get_triggers</a>
      */
     public Request delete(String actionId, boolean force) {
         Asserts.assertNotNull(actionId, "action ID");
@@ -136,6 +143,8 @@ public class ActionsEntity extends BaseManagementEntity {
      * @param actionId the ID of the action to update.
      * @param action the updated action.
      * @return a request to execute.
+     *
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Actions/patch_action">https://auth0.com/docs/api/management/v2#!/Actions/patch_action</a>
      */
     public Request<Action> update(String actionId, Action action) {
         Asserts.assertNotNull(actionId, "action ID");
@@ -153,6 +162,35 @@ public class ActionsEntity extends BaseManagementEntity {
         });
 
         request.setBody(action);
+        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Deploy an action. Deploying an action will create a new immutable version of the action. If the action is
+     * currently bound to a trigger, then the system will begin executing the newly deployed version of the action
+     * immediately. Otherwise, the action will only be executed as a part of a flow once it is bound to that flow.
+     *
+     * @param actionId the ID of the action to deploy.
+     * @return a request to execute.
+     *
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Actions/post_deploy_action">https://auth0.com/docs/api/management/v2#!/Actions/post_deploy_action</a>
+     */
+    public Request<Version> deploy(String actionId) {
+        Asserts.assertNotNull(actionId, "action ID");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments(ACTIONS_BASE_PATH)
+            .addPathSegment(ACTIONS_PATH)
+            .addPathSegment(actionId)
+            .addPathSegment(DEPLOY_PATH)
+            .build()
+            .toString();
+
+        EmptyBodyRequest<Version> request = new EmptyBodyRequest<>(client, url, "POST", new TypeReference<Version>() {
+        });
+
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
     }

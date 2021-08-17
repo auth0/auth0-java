@@ -109,7 +109,7 @@ public class ActionTest extends JsonTest<Action> {
         assertThat(action.getDeployedVersion().getDependencies().get(0).getName(), is("slack-notify"));
         assertThat(action.getDeployedVersion().getDependencies().get(0).getVersion(), is("0.1.7"));
         assertThat(action.getDeployedVersion().getId(), is("some-id"));
-        assertThat(action.getDeployedVersion().getDeployed(), is(true));
+        assertThat(action.getDeployedVersion().isDeployed(), is(true));
         assertThat(action.getDeployedVersion().getNumber(), is(18));
         assertThat(action.getDeployedVersion().getBuiltAt(), is(parseJSONDate("2021-08-16T20:26:42.425146135Z")));
         assertThat(action.getDeployedVersion().getSecrets(), is(notNullValue()));

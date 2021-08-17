@@ -111,6 +111,8 @@ public class MockServer {
     public static final String INVITATIONS_LIST = "src/test/resources/mgmt/invitations_list.json";
     public static final String INVITATIONS_PAGED_LIST = "src/test/resources/mgmt/invitations_paged_list.json";
     public static final String ACTION = "src/test/resources/mgmt/action.json";
+    public static final String ACTION_TRIGGERS = "src/test/resources/mgmt/action_triggers.json";
+    public static final String ACTION_VERSION = "src/test/resources/mgmt/action_version.json";
 
     private final MockWebServer server;
 

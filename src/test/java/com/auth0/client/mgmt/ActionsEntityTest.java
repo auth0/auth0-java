@@ -219,4 +219,27 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
 
         assertThat(response, is(notNullValue()));
     }
+
+    @Test
+    public void deploysActionShouldThrowWhenActionIdIsNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("action ID");
+        api.actions().deploy(null);
+    }
+
+    @Test
+    public void shouldDeployAction() throws Exception {
+        Request<Version> request = api.actions().deploy("action-id");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MockServer.ACTION_VERSION, 200);
+        Version response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/actions/actions/action-id/deploy"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
 }

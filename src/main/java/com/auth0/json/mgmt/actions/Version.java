@@ -87,7 +87,7 @@ public class Version {
     /**
      * @return whether this action version is deployed or not.
      */
-    public Boolean getDeployed() {
+    public Boolean isDeployed() {
         return deployed;
     }
 
