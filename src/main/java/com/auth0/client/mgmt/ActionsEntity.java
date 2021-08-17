@@ -194,4 +194,22 @@ public class ActionsEntity extends BaseManagementEntity {
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
     }
+
+    // TODO GET actions
+
+    // TODO GET action service status
+
+    // TODO GET an execution
+
+    // TODO GET an action's versions
+
+    // TODO GET trigger bindings
+
+    // TODO PATCH trigger bindings
+
+    // TODO GET an action version
+
+    // TODO POST test an action
+
+    // TODO POST roll back to previous action version
 }
