@@ -18,6 +18,7 @@ public class ActionsEntity extends BaseManagementEntity {
     private final static String ACTIONS_PATH = "actions";
     private final static String TRIGGERS_PATH = "triggers";
     private final static String DEPLOY_PATH = "deploy";
+    private final static String VERSIONS_PATH = "versions";
     private final static String AUTHORIZATION_HEADER = "Authorization";
 
     ActionsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
@@ -170,6 +171,7 @@ public class ActionsEntity extends BaseManagementEntity {
      * Deploy an action. Deploying an action will create a new immutable version of the action. If the action is
      * currently bound to a trigger, then the system will begin executing the newly deployed version of the action
      * immediately. Otherwise, the action will only be executed as a part of a flow once it is bound to that flow.
+     * Requires a token with {@code create:actions}.
      *
      * @param actionId the ID of the action to deploy.
      * @return a request to execute.
@@ -195,6 +197,37 @@ public class ActionsEntity extends BaseManagementEntity {
         return request;
     }
 
+    /**
+     * Retrieve a specific version of an action. An action version is created whenever
+     * an action is deployed. An action version is immutable, once created. Requires a token with {@code read:actions} scope.
+     *
+     * @param actionId the ID of the action for which to retrieve the version.
+     * @param actionVersionId the ID of the specific version to retrieve.
+     * @return a request to execute.
+     *
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Actions/get_action_version">https://auth0.com/docs/api/management/v2#!/Actions/get_action_version</a>
+     */
+    public Request<Version> getVersion(String actionId, String actionVersionId) {
+        Asserts.assertNotNull(actionId, "action ID");
+        Asserts.assertNotNull(actionVersionId, "action version ID");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments(ACTIONS_BASE_PATH)
+            .addPathSegment(ACTIONS_PATH)
+            .addPathSegment(actionId)
+            .addPathSegment(VERSIONS_PATH)
+            .addPathSegment(actionVersionId)
+            .build()
+            .toString();
+
+        CustomRequest<Version> request = new CustomRequest<>(client, url, "GET", new TypeReference<Version>() {
+        });
+
+        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        return request;
+    }
+
     // TODO GET actions
 
     // TODO GET action service status
@@ -206,8 +239,6 @@ public class ActionsEntity extends BaseManagementEntity {
     // TODO GET trigger bindings
 
     // TODO PATCH trigger bindings
-
-    // TODO GET an action version
 
     // TODO POST test an action
 
