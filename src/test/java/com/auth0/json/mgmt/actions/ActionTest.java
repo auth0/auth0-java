@@ -1,7 +1,11 @@
 package com.auth0.json.mgmt.actions;
 
+import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -88,16 +92,6 @@ public class ActionTest extends JsonTest<Action> {
         assertThat(action.getDependencies().size(), is(1));
         assertThat(action.getDependencies().get(0).getName(), is("slack-notify"));
         assertThat(action.getDependencies().get(0).getVersion(), is("0.1.7"));
-        /*
-        \"runtime\": \"node16\",\n" +
-            "  \"status\": \"built\",\n" +
-            "  \"secrets\": [\n" +
-            "    {\n" +
-            "      \"name\": \"secret-key-1\",\n" +
-            "      \"updated_at\": \"2021-08-12T17:09:42.071504554Z\"\n" +
-            "    }\n" +
-            "  ],\n" +
-         */
         assertThat(action.getRuntime(), is("node16"));
         assertThat(action.getStatus(), is("built"));
         assertThat(action.getSecrets(), is(notNullValue()));
@@ -125,5 +119,39 @@ public class ActionTest extends JsonTest<Action> {
         assertThat(action.getDeployedVersion().getStatus(), is("built"));
         assertThat(action.getDeployedVersion().getCreatedAt(), is(parseJSONDate("2021-08-16T20:26:42.253086110Z")));
         assertThat(action.getDeployedVersion().getUpdatedAt(), is(parseJSONDate("2021-08-16T20:26:42.427338891Z")));
+    }
+
+    @Test
+    public void shouldSerialize() throws Exception {
+        Action action = new Action();
+
+        Trigger trigger = new Trigger();
+        trigger.setId("post-login");
+        trigger.setVersion("v1");
+        trigger.setDefaultRuntime("node12");
+        trigger.setStatus("CURRENT");
+        trigger.setRuntimes(Arrays.asList("node12", "node16"));
+
+        Secret secret1 = new Secret("secret-1", "hidden-1");
+        Secret secret2 = new Secret("secret-2", "hidden-2");
+
+        Dependency dependency = new Dependency("lowdash", "1.5.8");
+
+        action.setName("action-name");
+        action.setRuntime("node16");
+        action.setCode("some code");
+        action.setSupportedTriggers(Collections.singletonList(trigger));
+        action.setSecrets(Arrays.asList(secret1, secret2));
+        action.setDependencies(Collections.singletonList(dependency));
+
+        String serialized = toJSON(action);
+        assertThat(serialized, is(notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("name", "action-name"));
+        assertThat(serialized, JsonMatcher.hasEntry("runtime", "node16"));
+        assertThat(serialized, JsonMatcher.hasEntry("code", "some code"));
+        assertThat(serialized, JsonMatcher.hasEntry("supported_triggers", is(notNullValue())));
+        assertThat(serialized, JsonMatcher.hasEntry("dependencies", is(notNullValue())));
+        assertThat(serialized, JsonMatcher.hasEntry("secrets", is(notNullValue())));
+
     }
 }
