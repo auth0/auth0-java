@@ -229,6 +229,17 @@ public class ActionsEntity extends BaseManagementEntity {
         return request;
     }
 
+    /**
+     * Performs the equivalent of a roll-back of an action to an earlier, specified version. Creates a new, deployed
+     * action version that is identical to the specified version. If this action is currently bound to a trigger, the
+     * system will begin executing the newly-created version immediately.
+     *
+     * @param actionId the ID of the action
+     * @param actionVersionId the ID of the action version to roll-back to
+     * @return a request to be executed
+     *
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Actions/post_deploy_draft_version">https://auth0.com/docs/api/management/v2#!/Actions/post_deploy_draft_version</a>
+     */
     public Request<Version> rollBackToVersion(String actionId, String actionVersionId) {
         Asserts.assertNotNull(actionId, "action ID");
         Asserts.assertNotNull(actionVersionId, "action version ID");
@@ -251,6 +262,13 @@ public class ActionsEntity extends BaseManagementEntity {
         return request;
     }
 
+    /**
+     * Get the current status of the actions service. Requires a token with {@code read:actions} scope.
+     *
+     * @return a request to be executed.
+     *
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Actions/get_service_status">https://auth0.com/docs/api/management/v2#!/Actions/get_service_status</a>
+     */
     public Request<ServiceStatus> getServiceStatus() {
         String url = baseUrl
             .newBuilder()
@@ -267,8 +285,6 @@ public class ActionsEntity extends BaseManagementEntity {
     }
 
     // TODO GET actions
-
-    // TODO GET action service status
 
     // TODO GET an execution
 
