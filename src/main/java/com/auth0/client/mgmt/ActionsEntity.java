@@ -1,5 +1,7 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.client.mgmt.filter.ActionsFilter;
+import com.auth0.client.mgmt.filter.BaseFilter;
 import com.auth0.json.mgmt.actions.*;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.EmptyBodyRequest;
@@ -9,6 +11,8 @@ import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
+
+import java.util.Map;
 
 public class ActionsEntity extends BaseManagementEntity {
 
@@ -310,7 +314,29 @@ public class ActionsEntity extends BaseManagementEntity {
         return request;
     }
 
-    // TODO GET actions
+    /**
+     * Get all actions. Requires a token with {@code read:actions} scope.
+     *
+     * @param filter an optional filter to apply to the request.
+     * @return a request to execute.
+     *
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Actions/get_actions">https://auth0.com/docs/api/management/v2#!/Actions/get_actions</a>
+     */
+    public Request<ActionsPage> list(ActionsFilter filter) {
+        HttpUrl.Builder builder = baseUrl
+            .newBuilder()
+            .addPathSegments(ACTIONS_BASE_PATH)
+            .addPathSegment(ACTIONS_PATH);
+
+        applyFilter(filter, builder);
+
+        String url = builder.build().toString();
+        CustomRequest<ActionsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<ActionsPage>() {
+        });
+
+        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        return request;
+    }
 
     // TODO GET an action's versions
 
@@ -320,4 +346,11 @@ public class ActionsEntity extends BaseManagementEntity {
 
     // TODO POST test an action
 
+    private void applyFilter(BaseFilter filter, HttpUrl.Builder builder) {
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+    }
 }

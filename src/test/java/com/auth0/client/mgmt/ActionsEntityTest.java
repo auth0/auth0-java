@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.MockServer;
+import com.auth0.client.mgmt.filter.ActionsFilter;
 import com.auth0.json.mgmt.actions.*;
 import com.auth0.net.Request;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -341,6 +342,51 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/executions/execution-id"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldListActionsWithNoFilter() throws Exception {
+        Request<ActionsPage> request = api.actions().list(null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MockServer.ACTIONS_LIST, 200);
+        ActionsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/actions"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldListActionsWithFilter() throws Exception {
+        ActionsFilter filter = new ActionsFilter()
+            .withActionName("action-name")
+            .withDeployed(true)
+            .withInstalled(false)
+            .withTriggerId("post-login")
+            .withPage(1, 10);
+
+        Request<ActionsPage> request = api.actions().list(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MockServer.ACTIONS_LIST, 200);
+        ActionsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/actions"));
+        assertThat(recordedRequest, hasQueryParameter("actionName", "action-name"));
+        assertThat(recordedRequest, hasQueryParameter("deployed", "true"));
+        assertThat(recordedRequest, hasQueryParameter("installed", "false"));
+        assertThat(recordedRequest, hasQueryParameter("triggerId", "post-login"));
+        assertThat(recordedRequest, hasQueryParameter("page", "1"));
+        assertThat(recordedRequest, hasQueryParameter("per_page", "10"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 

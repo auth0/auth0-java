@@ -115,6 +115,7 @@ public class MockServer {
     public static final String ACTION_VERSION = "src/test/resources/mgmt/action_version.json";
     public static final String ACTION_SERVICE_STATUS = "src/test/resources/mgmt/action_service_status.json";
     public static final String ACTION_EXECUTION = "src/test/resources/mgmt/action_execution.json";
+    public static final String ACTIONS_LIST = "src/test/resources/mgmt/actions_list.json";
 
     private final MockWebServer server;
 
