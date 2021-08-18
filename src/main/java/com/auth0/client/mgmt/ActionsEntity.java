@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.actions.Action;
+import com.auth0.json.mgmt.actions.ServiceStatus;
 import com.auth0.json.mgmt.actions.Triggers;
 import com.auth0.json.mgmt.actions.Version;
 import com.auth0.net.CustomRequest;
@@ -228,6 +229,43 @@ public class ActionsEntity extends BaseManagementEntity {
         return request;
     }
 
+    public Request<Version> rollBackToVersion(String actionId, String actionVersionId) {
+        Asserts.assertNotNull(actionId, "action ID");
+        Asserts.assertNotNull(actionVersionId, "action version ID");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments(ACTIONS_BASE_PATH)
+            .addPathSegment(ACTIONS_PATH)
+            .addPathSegment(actionId)
+            .addPathSegment(VERSIONS_PATH)
+            .addPathSegment(actionVersionId)
+            .addPathSegment(DEPLOY_PATH)
+            .build()
+            .toString();
+
+        EmptyBodyRequest<Version> request = new EmptyBodyRequest<>(client, url, "POST", new TypeReference<Version>() {
+        });
+
+        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        return request;
+    }
+
+    public Request<ServiceStatus> getServiceStatus() {
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments(ACTIONS_BASE_PATH)
+            .addPathSegment("status")
+            .build()
+            .toString();
+
+        CustomRequest<ServiceStatus> request = new CustomRequest<>(client, url, "GET", new TypeReference<ServiceStatus>() {
+        });
+
+        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        return request;
+    }
+
     // TODO GET actions
 
     // TODO GET action service status
@@ -242,5 +280,4 @@ public class ActionsEntity extends BaseManagementEntity {
 
     // TODO POST test an action
 
-    // TODO POST roll back to previous action version
 }

@@ -239,6 +239,8 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/actions/actions/action-id/deploy"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest.getBody(), is(notNullValue()));
+        assertThat(recordedRequest.getBody().size(), is(0L));
 
         assertThat(response, is(notNullValue()));
     }
@@ -271,5 +273,54 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void rollBackToVersionShouldThrowWhenActionIdIsNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("action ID");
+        api.actions().rollBackToVersion(null, "version-id");
+    }
+
+    @Test
+    public void rollbackToVersionShouldThrowWhenVersionIdIsNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("action version ID");
+        api.actions().rollBackToVersion("action-id", null);
+    }
+
+    @Test
+    public void shouldRollBackActionVersion() throws Exception {
+        Request<Version> request = api.actions().rollBackToVersion("action-id", "version-id");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MockServer.ACTION_VERSION, 200);
+        Version response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/actions/actions/action-id/versions/version-id/deploy"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest.getBody(), is(notNullValue()));
+        assertThat(recordedRequest.getBody().size(), is(0L));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldGetServiceStatus() throws Exception {
+        Request<ServiceStatus> request = api.actions().getServiceStatus();
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MockServer.ACTION_SERVICE_STATUS, 200);
+        ServiceStatus response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/status"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getStatus(), is("OK"));
     }
 }
