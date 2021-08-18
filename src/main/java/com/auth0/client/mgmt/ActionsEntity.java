@@ -2,6 +2,7 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.ActionsFilter;
 import com.auth0.client.mgmt.filter.BaseFilter;
+import com.auth0.client.mgmt.filter.PageFilter;
 import com.auth0.json.mgmt.actions.*;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.EmptyBodyRequest;
@@ -338,7 +339,36 @@ public class ActionsEntity extends BaseManagementEntity {
         return request;
     }
 
-    // TODO GET an action's versions
+    /**
+     * Retrieve all of an action's versions. An action version is created whenever
+     * an action is deployed. An action version is immutable, once created.
+     * Requires a token with {@code read:actions} scope.
+     *
+     * @param actionId the ID of the action to retrieve versions for.
+     * @param filter an optional pagination filter.
+     * @return a request to execute.
+     *
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Actions/get_action_versions">https://auth0.com/docs/api/management/v2#!/Actions/get_action_versions</a>
+     */
+    public Request<VersionsPage> getVersions(String actionId, PageFilter filter) {
+        Asserts.assertNotNull(actionId, "action ID");
+
+        HttpUrl.Builder builder = baseUrl
+            .newBuilder()
+            .addPathSegments(ACTIONS_BASE_PATH)
+            .addPathSegment(ACTIONS_PATH)
+            .addPathSegment(actionId)
+            .addPathSegment(VERSIONS_PATH);
+
+        applyFilter(filter, builder);
+
+        String url = builder.build().toString();
+        CustomRequest<VersionsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<VersionsPage>() {
+        });
+
+        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        return request;
+    }
 
     // TODO GET trigger bindings
 

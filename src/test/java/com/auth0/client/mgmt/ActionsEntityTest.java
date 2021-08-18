@@ -2,6 +2,7 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.MockServer;
 import com.auth0.client.mgmt.filter.ActionsFilter;
+import com.auth0.client.mgmt.filter.PageFilter;
 import com.auth0.json.mgmt.actions.*;
 import com.auth0.net.Request;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -385,6 +386,50 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasQueryParameter("deployed", "true"));
         assertThat(recordedRequest, hasQueryParameter("installed", "false"));
         assertThat(recordedRequest, hasQueryParameter("triggerId", "post-login"));
+        assertThat(recordedRequest, hasQueryParameter("page", "1"));
+        assertThat(recordedRequest, hasQueryParameter("per_page", "10"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void getActionVetsionsShouldThrowWhenActionIdIsNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("action ID");
+        api.actions().getVersions(null, null);
+    }
+
+    @Test
+    public void shouldGetActionVersionsWithNoFilter() throws Exception {
+        Request<VersionsPage> request = api.actions().getVersions("action-id",null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MockServer.ACTION_VERSIONS_LIST, 200);
+        VersionsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/actions/action-id/versions"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldGetActionVersionsWithFilter() throws Exception {
+        PageFilter filter = new PageFilter()
+            .withPage(1, 10);
+
+        Request<VersionsPage> request = api.actions().getVersions("action-id", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MockServer.ACTION_VERSIONS_LIST, 200);
+        VersionsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/actions/action-id/versions"));
         assertThat(recordedRequest, hasQueryParameter("page", "1"));
         assertThat(recordedRequest, hasQueryParameter("per_page", "10"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
