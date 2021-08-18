@@ -323,4 +323,27 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(response, is(notNullValue()));
         assertThat(response.getStatus(), is("OK"));
     }
+
+    @Test
+    public void getExecutionShouldThrowWhenExecutionIdIsNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("execution ID");
+        api.actions().getExecution( null);
+    }
+
+    @Test
+    public void shouldGetExecution() throws Exception {
+        Request<Execution> request = api.actions().getExecution("execution-id");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MockServer.ACTION_EXECUTION, 200);
+        Execution response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/executions/execution-id"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
 }

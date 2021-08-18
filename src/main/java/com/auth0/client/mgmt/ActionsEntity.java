@@ -1,9 +1,6 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.json.mgmt.actions.Action;
-import com.auth0.json.mgmt.actions.ServiceStatus;
-import com.auth0.json.mgmt.actions.Triggers;
-import com.auth0.json.mgmt.actions.Version;
+import com.auth0.json.mgmt.actions.*;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.EmptyBodyRequest;
 import com.auth0.net.Request;
@@ -20,6 +17,7 @@ public class ActionsEntity extends BaseManagementEntity {
     private final static String TRIGGERS_PATH = "triggers";
     private final static String DEPLOY_PATH = "deploy";
     private final static String VERSIONS_PATH = "versions";
+    private final static String EXECUTIONS_PATH = "executions";
     private final static String AUTHORIZATION_HEADER = "Authorization";
 
     ActionsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
@@ -284,9 +282,35 @@ public class ActionsEntity extends BaseManagementEntity {
         return request;
     }
 
-    // TODO GET actions
+    /**
+     * Retrieve information about a specific execution of an action. Relevant execution IDs will be included in tenant logs
+     * generated as part of that authentication flow. Executions will only be stored for 10 days after their creation.
+     * Requires a token with {@code read:actions} scope.
+     *
+     * @param executionId The ID of the execution to retrieve.
+     * @return a request to be executed.
+     *
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Actions/get_execution">https://auth0.com/docs/api/management/v2#!/Actions/get_execution</a>
+     */
+    public Request<Execution> getExecution(String executionId) {
+        Asserts.assertNotNull(executionId, "execution ID");
 
-    // TODO GET an execution
+        String url =  baseUrl
+            .newBuilder()
+            .addPathSegments(ACTIONS_BASE_PATH)
+            .addPathSegment(EXECUTIONS_PATH)
+            .addPathSegment(executionId)
+            .build()
+            .toString();
+
+        CustomRequest<Execution> request = new CustomRequest<>(client, url, "GET", new TypeReference<Execution>() {
+        });
+
+        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        return request;
+    }
+
+    // TODO GET actions
 
     // TODO GET an action's versions
 

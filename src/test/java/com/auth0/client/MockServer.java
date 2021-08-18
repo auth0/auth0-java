@@ -113,6 +113,8 @@ public class MockServer {
     public static final String ACTION = "src/test/resources/mgmt/action.json";
     public static final String ACTION_TRIGGERS = "src/test/resources/mgmt/action_triggers.json";
     public static final String ACTION_VERSION = "src/test/resources/mgmt/action_version.json";
+    public static final String ACTION_SERVICE_STATUS = "src/test/resources/mgmt/action_service_status.json";
+    public static final String ACTION_EXECUTION = "src/test/resources/mgmt/action_execution.json";
 
     private final MockWebServer server;
 
