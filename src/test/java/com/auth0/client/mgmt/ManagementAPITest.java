@@ -3,6 +3,7 @@ package com.auth0.client.mgmt;
 import com.auth0.client.HttpOptions;
 import com.auth0.client.MockServer;
 import com.auth0.client.ProxyOptions;
+import com.auth0.net.RateLimitInterceptor;
 import com.auth0.net.Telemetry;
 import com.auth0.net.TelemetryInterceptor;
 import okhttp3.*;
@@ -379,6 +380,52 @@ public class ManagementAPITest {
         }
     }
 
+    @Test
+    public void shouldUseDefaultMaxRetriesIfNotConfigured() {
+        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN);
+        assertThat(api.getClient().interceptors(), hasItem(isA(RateLimitInterceptor.class)));
+
+        for (Interceptor i : api.getClient().interceptors()) {
+            if (i instanceof RateLimitInterceptor) {
+                RateLimitInterceptor rateLimitInterceptor = (RateLimitInterceptor) i;
+                assertThat(rateLimitInterceptor.getMaxRetries(), is(3));
+            }
+        }
+    }
+
+    @Test
+    public void shouldUseCustomMaxRetriesIfConfigured() {
+        HttpOptions options = new HttpOptions();
+        options.setManagementAPIMaxRetries(5);
+        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN, options);
+        assertThat(api.getClient().interceptors(), hasItem(isA(RateLimitInterceptor.class)));
+
+        for (Interceptor i : api.getClient().interceptors()) {
+            if (i instanceof RateLimitInterceptor) {
+                RateLimitInterceptor rateLimitInterceptor = (RateLimitInterceptor) i;
+                assertThat(rateLimitInterceptor.getMaxRetries(), is(5));
+            }
+        }
+    }
+
+    @Test
+    public void shouldThrowOnNegativeMaxRetriesConfiguration() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("Retries must be between zero and ten.");
+
+        HttpOptions options = new HttpOptions();
+        options.setManagementAPIMaxRetries(-1);
+    }
+
+    @Test
+    public void shouldThrowOnTooManyMaxRetriesConfiguration() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("Retries must be between zero and ten.");
+
+        HttpOptions options = new HttpOptions();
+        options.setManagementAPIMaxRetries(11);
+    }
+    
     //Entities
 
     @Test
