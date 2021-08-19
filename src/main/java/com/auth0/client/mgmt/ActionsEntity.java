@@ -404,7 +404,39 @@ public class ActionsEntity extends BaseManagementEntity {
         return request;
     }
 
-    // TODO PATCH trigger bindings
+    /**
+     * Update the actions that are bound (i.e. attached) to a trigger. Once an action is created and deployed, it must be
+     * attached (i.e. bound) to a trigger so that it will be executed as part of a flow. The order in which the actions are
+     * provided will determine the order in which they are executed.
+     * Requires a token with {@code update:actions} scope.
+     *
+     * @param triggerId the ID of the trigger for which to update its bindings.
+     * @param requestBody the bindings update request body.
+     * @return a request to execute.
+     *
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Actions/patch_bindings">https://auth0.com/docs/api/management/v2#!/Actions/patch_bindings</a>
+     */
+    // TODO consider better name for request body
+    public Request<BindingsPage> updateTriggerBindings(String triggerId, BindingsUpdateRequest requestBody) {
+        Asserts.assertNotNull(triggerId, "trigger ID");
+        Asserts.assertNotNull(requestBody, "request body");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments(ACTIONS_BASE_PATH)
+            .addPathSegment(TRIGGERS_PATH)
+            .addPathSegment(triggerId)
+            .addPathSegment(BINDINGS_PATH)
+            .build()
+            .toString();
+
+        CustomRequest<BindingsPage> request = new CustomRequest<>(client, url, "PATCH", new TypeReference<BindingsPage>() {
+        });
+
+        request.setBody(requestBody);
+        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        return request;
+    }
 
     // TODO POST test an action
 

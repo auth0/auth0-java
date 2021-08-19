@@ -481,4 +481,66 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
 
         assertThat(response, is(notNullValue()));
     }
+
+    @Test
+    public void updateTriggerBindingsShouldThrowWhenTriggerIdIsNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("trigger ID");
+        api.actions().updateTriggerBindings(null, null);
+    }
+
+    @Test
+    public void updateTriggerBindingsShouldThrowWhenRequestBodyIsNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("request body");
+        api.actions().updateTriggerBindings("triggeId", null);
+    }
+
+    @Test
+    public void shouldUpdateTriggerBinding() throws Exception {
+        BindingReference bindingReference1 = new BindingReference("action_name", "action name");
+        BindingReference bindingReference2 = new BindingReference("action_id", "action-id");
+        BindingUpdate update1 = new BindingUpdate(bindingReference1);
+        update1.setDisplayName("display name");
+        BindingUpdate update2 = new BindingUpdate(bindingReference2);
+        update2.setDisplayName("another display name");
+
+        BindingsUpdateRequest requestBody = new BindingsUpdateRequest(Arrays.asList(update1, update2));
+
+        Request<BindingsPage> request = api.actions().updateTriggerBindings("trigger-id", requestBody);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MockServer.ACTION_TRIGGER_BINDINGS, 200);
+        BindingsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/actions/triggers/trigger-id/bindings"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, aMapWithSize(1));
+
+        assertThat(body, hasEntry(is("bindings"), is(notNullValue())));
+        List<Map<String, Object>> bindingsOnRequest = (ArrayList<Map<String, Object>>) body.get("bindings");
+        assertThat(bindingsOnRequest, hasSize(2));
+
+        Map<String, Object> binding1 = bindingsOnRequest.get(0);
+        assertThat(binding1, is(notNullValue()));
+        assertThat(binding1.get("display_name"), is("display name"));
+        Map<String, Object> binding1Ref = (Map<String, Object>) binding1.get("ref");
+        assertThat(binding1Ref, is(aMapWithSize(2)));
+        assertThat(binding1Ref, hasEntry("type", "action_name"));
+        assertThat(binding1Ref, hasEntry("value",  "action name"));
+
+        Map<String, Object> binding2 = bindingsOnRequest.get(1);
+        assertThat(binding2, is(notNullValue()));
+        assertThat(binding2.get("display_name"), is("another display name"));
+        Map<String, Object> binding2Ref = (Map<String, Object>) binding2.get("ref");
+        assertThat(binding2Ref, is(aMapWithSize(2)));
+        assertThat(binding2Ref, hasEntry("type", "action_id"));
+        assertThat(binding2Ref, hasEntry("value",  "action-id"));
+
+        assertThat(response, is(notNullValue()));
+    }
 }
