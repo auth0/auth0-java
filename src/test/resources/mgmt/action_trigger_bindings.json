@@ -1,0 +1,59 @@
+{
+  "bindings": [
+    {
+      "id": "f6a992d9-d5f4-4e99-a869-6f1b43ed1955",
+      "trigger_id": "post-login",
+      "action": {
+        "id": "b430c838-7530-483b-b806-09aea2f8973a",
+        "name": "first action - Updated - Updated",
+        "supported_triggers": [
+          {
+            "id": "post-login",
+            "version": "v2"
+          }
+        ],
+        "created_at": "2021-08-11T15:44:05.330221459Z",
+        "updated_at": "2021-08-16T20:24:57.101751726Z",
+        "current_version": {
+          "id": "1bfc9d7e-49db-4e3f-b026-3c1a77dc9a99",
+          "code": "/**\n* Handler that will be called during the execution of a PostLogin flow.\n*\n* @param {Event} event - Details about the user and the context in which they are logging in.\n* @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.\n*/\nexports.onExecutePostLogin = async (event, api) => {\n  // var a = null;\n  // a.boom(;)\n  // throw new Error(\"oops\");\n  console.log(\"testing updated!\");\n};\n\n\n/**\n* Handler that will be invoked when this action is resuming after an external redirect. If your\n* onExecutePostLogin function does not perform a redirect, this function can be safely ignored.\n*\n* @param {Event} event - Details about the user and the context in which they are logging in.\n* @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.\n*/\n// exports.onContinuePostLogin = async (event, api) => {\n// };\n",
+          "runtime": "node16",
+          "status": "BUILT",
+          "number": 19,
+          "build_time": "2021-08-17T20:34:25.421459622Z",
+          "created_at": "2021-08-17T20:34:25.304585709Z",
+          "updated_at": "2021-08-17T20:34:25.422251817Z"
+        },
+        "deployed_version": {
+          "code": "/**\n* Handler that will be called during the execution of a PostLogin flow.\n*\n* @param {Event} event - Details about the user and the context in which they are logging in.\n* @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.\n*/\nexports.onExecutePostLogin = async (event, api) => {\n  // var a = null;\n  // a.boom(;)\n  // throw new Error(\"oops\");\n  console.log(\"testing updated!\");\n};\n\n\n/**\n* Handler that will be invoked when this action is resuming after an external redirect. If your\n* onExecutePostLogin function does not perform a redirect, this function can be safely ignored.\n*\n* @param {Event} event - Details about the user and the context in which they are logging in.\n* @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.\n*/\n// exports.onContinuePostLogin = async (event, api) => {\n// };\n",
+          "dependencies": [
+            {
+              "name": "slack-notify",
+              "version": "0.1.7"
+            }
+          ],
+          "id": "1bfc9d7e-49db-4e3f-b026-3c1a77dc9a99",
+          "deployed": true,
+          "number": 19,
+          "built_at": "2021-08-17T20:34:25.421459622Z",
+          "secrets": [
+            {
+              "name": "secret-key-1",
+              "updated_at": "2021-08-12T17:09:42.071504554Z"
+            }
+          ],
+          "status": "built",
+          "created_at": "2021-08-17T20:34:25.304585709Z",
+          "updated_at": "2021-08-17T20:34:25.422251817Z",
+          "runtime": "node16"
+        },
+        "all_changes_deployed": false
+      },
+      "created_at": "2021-08-16T20:21:06.548275270Z",
+      "updated_at": "2021-08-16T20:21:06.548275270Z",
+      "display_name": "first action - Updated - Updated"
+    }
+  ],
+  "total": 1,
+  "per_page": 20
+}

@@ -437,4 +437,48 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
 
         assertThat(response, is(notNullValue()));
     }
+
+    @Test
+    public void getTriggerBindingsShouldThrowWhenTriggerIdIsNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("trigger ID");
+        api.actions().getTriggerBindings(null, null);
+    }
+
+    @Test
+    public void shouldGetTriggerBindingsWithNoFilter() throws Exception {
+        Request<BindingsPage> request = api.actions().getTriggerBindings("trigger-id",null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MockServer.ACTION_TRIGGER_BINDINGS, 200);
+        BindingsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/triggers/trigger-id/bindings"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldGetTriggerBindingsWithFilter() throws Exception {
+        PageFilter filter = new PageFilter()
+            .withPage(1, 10);
+
+        Request<BindingsPage> request = api.actions().getTriggerBindings("trigger-id",filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MockServer.ACTION_TRIGGER_BINDINGS, 200);
+        BindingsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/triggers/trigger-id/bindings"));
+        assertThat(recordedRequest, hasQueryParameter("page", "1"));
+        assertThat(recordedRequest, hasQueryParameter("per_page", "10"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
 }

@@ -23,6 +23,8 @@ public class ActionsEntity extends BaseManagementEntity {
     private final static String DEPLOY_PATH = "deploy";
     private final static String VERSIONS_PATH = "versions";
     private final static String EXECUTIONS_PATH = "executions";
+    private final static String BINDINGS_PATH = "bindings";
+
     private final static String AUTHORIZATION_HEADER = "Authorization";
 
     ActionsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
@@ -370,7 +372,37 @@ public class ActionsEntity extends BaseManagementEntity {
         return request;
     }
 
-    // TODO GET trigger bindings
+    /**
+     * Retrieve the actions that are bound to a trigger. Once an action is created and deployed, it must be
+     * attached (i.e. bound) to a trigger so that it will be executed as part of a flow. The list of actions returned
+     * reflects the order in which they will be executed during the appropriate flow.
+     * Requires a token with {@code read:actions}.
+     *
+     * @param triggerId The trigger ID for which to get its action bindings.
+     * @param filter an optional pagination filter.
+     * @return a request to execute.
+     *
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Actions/get_bindings">https://auth0.com/docs/api/management/v2#!/Actions/get_bindings</a>
+     */
+    public Request<BindingsPage> getTriggerBindings(String triggerId, PageFilter filter) {
+        Asserts.assertNotNull(triggerId, "trigger ID");
+
+        HttpUrl.Builder builder = baseUrl
+            .newBuilder()
+            .addPathSegments(ACTIONS_BASE_PATH)
+            .addPathSegment(TRIGGERS_PATH)
+            .addPathSegment(triggerId)
+            .addPathSegment(BINDINGS_PATH);
+
+        applyFilter(filter, builder);
+
+        String url = builder.build().toString();
+        CustomRequest<BindingsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<BindingsPage>() {
+        });
+
+        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        return request;
+    }
 
     // TODO PATCH trigger bindings
 
