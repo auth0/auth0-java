@@ -3,6 +3,8 @@ package com.auth0.json.mgmt.actions;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
+import java.util.Collections;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -84,5 +86,26 @@ public class BindingsPageTest extends JsonTest<BindingsPage> {
         assertThat(binding.getCreatedAt(), is(parseJSONDate("2021-08-16T20:21:06.548275270Z")));
         assertThat(binding.getUpdatedAt(), is(parseJSONDate("2021-08-16T20:21:06.548275270Z")));
         assertThat(binding.getAction(), is(notNullValue()));
+    }
+
+    @Test
+    public void shouldCreatePageFromList() {
+        BindingsPage page = new BindingsPageDeserializer().createPage(Collections.singletonList(new Binding()));
+
+        assertThat(page, is(notNullValue()));
+        assertThat(page.getItems(), hasSize(1));
+    }
+
+    @Test
+    public void shouldCreatePageWithAllParams() {
+        BindingsPage page = new BindingsPage(0, 1, 2, 3, "next", Collections.singletonList(new Binding()));
+
+        assertThat(page, is(notNullValue()));
+        assertThat(page.getItems(), hasSize(1));
+        assertThat(page.getStart(), is(0));
+        assertThat(page.getLength(), is(1));
+        assertThat(page.getTotal(), is(2));
+        assertThat(page.getLimit(), is(3));
+        assertThat(page.getNext(), is("next"));
     }
 }

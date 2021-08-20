@@ -7,8 +7,8 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.Collections;
 
-    import static org.hamcrest.MatcherAssert.assertThat;
-    import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class ActionTest extends JsonTest<Action> {
 
