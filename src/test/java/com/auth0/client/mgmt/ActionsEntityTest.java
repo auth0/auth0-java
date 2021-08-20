@@ -498,8 +498,8 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldUpdateTriggerBinding() throws Exception {
-        BindingReference bindingReference1 = new BindingReference("action_name", "action name");
-        BindingReference bindingReference2 = new BindingReference("action_id", "action-id");
+        BindingActionReference bindingReference1 = new BindingActionReference("action_name", "action name");
+        BindingActionReference bindingReference2 = new BindingActionReference("action_id", "action-id");
         BindingUpdate update1 = new BindingUpdate(bindingReference1);
         update1.setDisplayName("display name");
         BindingUpdate update2 = new BindingUpdate(bindingReference2);

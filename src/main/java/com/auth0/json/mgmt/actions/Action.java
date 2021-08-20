@@ -22,15 +22,10 @@ public class Action {
     private List<Trigger> supportedTriggers;
     @JsonProperty("code")
     private String code;
-
-    // TODO verify works for real when creating an action
     @JsonProperty("dependencies")
     private List<Dependency> dependencies;
-
     @JsonProperty("runtime")
     private String runtime;
-
-    // TODO get working for real when creating an action
     @JsonProperty("secrets")
     private List<Secret> secrets;
     @JsonProperty("deployed_version")

@@ -15,6 +15,13 @@ import okhttp3.OkHttpClient;
 
 import java.util.Map;
 
+/**
+ * Class that provides an implementation of the Actions methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Actions
+ * <p>
+ * This class is not thread-safe.
+ *
+ * @see ManagementAPI
+ */
 public class ActionsEntity extends BaseManagementEntity {
 
     private final static String ACTIONS_BASE_PATH = "api/v2/actions";

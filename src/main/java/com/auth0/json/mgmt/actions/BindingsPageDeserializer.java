@@ -4,6 +4,9 @@ import com.auth0.json.mgmt.PageDeserializer;
 
 import java.util.List;
 
+/**
+ * Parses a paged response into its {@linkplain ActionsPage} representation.
+ */
 public class BindingsPageDeserializer extends PageDeserializer<BindingsPage, Binding> {
 
     protected BindingsPageDeserializer() {

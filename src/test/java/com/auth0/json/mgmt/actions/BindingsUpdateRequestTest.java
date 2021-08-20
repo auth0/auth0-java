@@ -36,7 +36,7 @@ public class BindingsUpdateRequestTest extends JsonTest<BindingsUpdateRequest> {
         BindingUpdate binding1 = body.getBindingUpdates().get(0);
         assertThat(binding1, is(notNullValue()));
         assertThat(binding1.getDisplayName(),  is("First Action"));
-        BindingReference bindingReference1 = binding1.getBindingReference();
+        BindingActionReference bindingReference1 = binding1.getBindingActionReference();
         assertThat(bindingReference1, is(notNullValue()));
         assertThat(bindingReference1.getType(), is("action_name"));
         assertThat(bindingReference1.getValue(), is("my-action"));
@@ -44,7 +44,7 @@ public class BindingsUpdateRequestTest extends JsonTest<BindingsUpdateRequest> {
         BindingUpdate binding2 = body.getBindingUpdates().get(1);
         assertThat(binding2, is(notNullValue()));
         assertThat(binding2.getDisplayName(),  is("Second Action"));
-        BindingReference bindingReference2 = binding2.getBindingReference();
+        BindingActionReference bindingReference2 = binding2.getBindingActionReference();
         assertThat(bindingReference2, is(notNullValue()));
         assertThat(bindingReference2.getType(), is("action_id"));
         assertThat(bindingReference2.getValue(), is("action-id"));

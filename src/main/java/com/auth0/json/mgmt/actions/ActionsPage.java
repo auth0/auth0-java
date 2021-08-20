@@ -7,6 +7,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.List;
 
+/**
+ * Represents a page of an Action.
+ * @see Action
+ * @see com.auth0.client.mgmt.ActionsEntity
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonDeserialize(using = ActionsPageDeserializer.class)
