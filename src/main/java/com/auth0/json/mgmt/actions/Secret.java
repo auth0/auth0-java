@@ -33,11 +33,6 @@ public class Secret {
     }
 
     /**
-     * Creates a new instance.
-     */
-    public Secret() {}
-
-    /**
      * @return the name of this secret.
      */
     public String getName() {

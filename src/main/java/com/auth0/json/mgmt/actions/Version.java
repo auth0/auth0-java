@@ -50,10 +50,10 @@ public class Version {
     // TODO layer_id? (hidden from API explorer)
 
     // TODO is this only applicable for the hidden POST version endpoint supported by node?
-    public Version(@JsonProperty("code") String code, @JsonProperty("dependencies") List<Dependency> dependencies) {
-        this.code = code;
-        this.dependencies = dependencies;
-    }
+//    public Version(@JsonProperty("code") String code, @JsonProperty("dependencies") List<Dependency> dependencies) {
+//        this.code = code;
+//        this.dependencies = dependencies;
+//    }
 
     /**
      * Create a new instance.
