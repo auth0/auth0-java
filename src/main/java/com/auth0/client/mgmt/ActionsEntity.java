@@ -17,6 +17,7 @@ import java.util.Map;
 
 /**
  * Class that provides an implementation of the Actions methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Actions
+ *
  * <p>
  * This class is not thread-safe.
  *
@@ -268,28 +269,6 @@ public class ActionsEntity extends BaseManagementEntity {
             .toString();
 
         EmptyBodyRequest<Version> request = new EmptyBodyRequest<>(client, url, "POST", new TypeReference<Version>() {
-        });
-
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
-        return request;
-    }
-
-    /**
-     * Get the current status of the actions service. Requires a token with {@code read:actions} scope.
-     *
-     * @return a request to be executed.
-     *
-     * @see <a href="https://auth0.com/docs/api/management/v2#!/Actions/get_service_status">https://auth0.com/docs/api/management/v2#!/Actions/get_service_status</a>
-     */
-    public Request<ServiceStatus> getServiceStatus() {
-        String url = baseUrl
-            .newBuilder()
-            .addPathSegments(ACTIONS_BASE_PATH)
-            .addPathSegment("status")
-            .build()
-            .toString();
-
-        CustomRequest<ServiceStatus> request = new CustomRequest<>(client, url, "GET", new TypeReference<ServiceStatus>() {
         });
 
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);

@@ -310,23 +310,6 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldGetServiceStatus() throws Exception {
-        Request<ServiceStatus> request = api.actions().getServiceStatus();
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MockServer.ACTION_SERVICE_STATUS, 200);
-        ServiceStatus response = request.execute();
-        RecordedRequest recordedRequest = server.takeRequest();
-
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/status"));
-        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
-        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response.getStatus(), is("OK"));
-    }
-
-    @Test
     public void getExecutionShouldThrowWhenExecutionIdIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("execution ID");

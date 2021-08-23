@@ -41,23 +41,6 @@ public class Action {
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Date updatedAt;
 
-    // TODO current_version is hidden from API explorer. Does that mean it shouldn't be in the SDK? It *is* in the returned response.
-    // @JsonProperty("current_version")
-    // private Version currentVersion;
-
-    // TODO integrations not available yet?
-    // @JsonProperty("installed_integration_id")
-    // private String installedIntegrationId;
-
-    // TODO integrations not available yet?
-    // @JsonProperty("integration")
-    // private Integration integration;
-
-    // TODO doesn't seem to be actually on an Action
-    // @JsonProperty("built_at")
-    // @JsonFormat(shape = JsonFormat.Shape.STRING)
-    // private Date builtAt;
-
     /**
      * Create a new instance.
      * @param name the name of the action
