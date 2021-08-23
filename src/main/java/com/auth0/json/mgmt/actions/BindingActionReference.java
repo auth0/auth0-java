@@ -24,7 +24,7 @@ public class BindingActionReference {
      * Create a new instance.
      *
      * @param type the type of action reference that will be used for the value, e.g., "action_name" or "action_id".
-     * @param value the value of the action reference. This is used along with the {@type} parameter to associate an action.
+     * @param value the value of the action reference. This is used along with the {@code type} parameter to associate an action.
      *              For example, {@code new BindingActionReference("action_id", "abc")} would create a binding reference
      *              to the action with ID "abc".
      */
