@@ -46,7 +46,6 @@ public class Action {
      * @param name the name of the action
      * @param supportedTriggers the action's supported triggers
      */
-    // TODO should we require code, dependencies, and runtime as the TODO in schema suggests?
     @JsonCreator
     public Action(@JsonProperty("name") String name, @JsonProperty("supported_triggers") List<Trigger> supportedTriggers) {
         this.name = name;

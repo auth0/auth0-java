@@ -16,18 +16,13 @@ import java.util.Date;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ExecutionResult {
 
-    // TODO verify if binding_id, version_id, response, and stats should be included on the execution response
-
     @JsonProperty("error")
     private Error error;
-
     @JsonProperty("action_name")
     private String actionName;
-
     @JsonProperty("started_at")
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     Date startedAt;
-
     @JsonProperty("ended_at")
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Date endedAt;

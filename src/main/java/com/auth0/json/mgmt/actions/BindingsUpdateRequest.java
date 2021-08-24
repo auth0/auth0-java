@@ -11,7 +11,6 @@ import java.util.List;
  * Represents the request body when updating a trigger's action bindings.
  * @see com.auth0.client.mgmt.ActionsEntity
  */
-// TODO consider a better name?
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BindingsUpdateRequest {

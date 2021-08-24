@@ -13,8 +13,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
-import java.util.Map;
-
 /**
  * Class that provides an implementation of the Actions methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Actions
  *
@@ -333,7 +331,8 @@ public class ActionsEntity extends BaseManagementEntity {
      * Requires a token with {@code read:actions} scope.
      *
      * @param actionId the ID of the action to retrieve versions for.
-     * @param filter an optional pagination filter.
+     * @param filter an optional pagination filter. Note that all available pagination parameters may be available for
+     *               this endpoint. See the referenced API documentation for supported parameters.
      * @return a request to execute.
      *
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Actions/get_action_versions">https://auth0.com/docs/api/management/v2#!/Actions/get_action_versions</a>
@@ -365,7 +364,8 @@ public class ActionsEntity extends BaseManagementEntity {
      * Requires a token with {@code read:actions}.
      *
      * @param triggerId The trigger ID for which to get its action bindings.
-     * @param filter an optional pagination filter.
+     * @param filter an optional pagination filter.  Note that all available pagination parameters may be available for
+     *               this endpoint. See the referenced API documentation for supported parameters.
      * @return a request to execute.
      *
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Actions/get_bindings">https://auth0.com/docs/api/management/v2#!/Actions/get_bindings</a>
@@ -397,15 +397,14 @@ public class ActionsEntity extends BaseManagementEntity {
      * Requires a token with {@code update:actions} scope.
      *
      * @param triggerId the ID of the trigger for which to update its bindings.
-     * @param requestBody the bindings update request body.
+     * @param bindingsUpdateRequest the bindings update request body.
      * @return a request to execute.
      *
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Actions/patch_bindings">https://auth0.com/docs/api/management/v2#!/Actions/patch_bindings</a>
      */
-    // TODO consider better name for request body
-    public Request<BindingsPage> updateTriggerBindings(String triggerId, BindingsUpdateRequest requestBody) {
+    public Request<BindingsPage> updateTriggerBindings(String triggerId, BindingsUpdateRequest bindingsUpdateRequest) {
         Asserts.assertNotNull(triggerId, "trigger ID");
-        Asserts.assertNotNull(requestBody, "request body");
+        Asserts.assertNotNull(bindingsUpdateRequest, "request body");
 
         String url = baseUrl
             .newBuilder()
@@ -419,18 +418,14 @@ public class ActionsEntity extends BaseManagementEntity {
         CustomRequest<BindingsPage> request = new CustomRequest<>(client, url, "PATCH", new TypeReference<BindingsPage>() {
         });
 
-        request.setBody(requestBody);
+        request.setBody(bindingsUpdateRequest);
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
     }
 
-    // TODO POST test an action
-
     private void applyFilter(BaseFilter filter, HttpUrl.Builder builder) {
         if (filter != null) {
-            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
-            }
+            filter.getAsMap().forEach((k, v) -> builder.addQueryParameter(k, String.valueOf(v)));
         }
     }
 }

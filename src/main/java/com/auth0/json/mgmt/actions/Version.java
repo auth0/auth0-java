@@ -47,19 +47,6 @@ public class Version {
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Date updatedAt;
 
-    // TODO layer_id? (hidden from API explorer)
-
-    // TODO is this only applicable for the hidden POST version endpoint supported by node?
-//    public Version(@JsonProperty("code") String code, @JsonProperty("dependencies") List<Dependency> dependencies) {
-//        this.code = code;
-//        this.dependencies = dependencies;
-//    }
-
-    /**
-     * Create a new instance.
-     */
-    public Version() {}
-
     /**
      * @return the code for this action version.
      */
@@ -67,21 +54,11 @@ public class Version {
         return code;
     }
 
-    // TODO is this only applicable for the hidden POST version endpoint supported by node?
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     /**
      * @return the dependencies for this action version
      */
     public List<Dependency> getDependencies() {
         return dependencies;
-    }
-
-    // TODO is this only applicable for the hidden POST version endpoint supported by node?
-    public void setDependencies(List<Dependency> dependencies) {
-        this.dependencies = dependencies;
     }
 
     /**
@@ -98,20 +75,11 @@ public class Version {
         return runtime;
     }
 
-    // TODO is this only applicable for the hidden POST version endpoint supported by node?
-    public void setRuntime(String runtime) {
-        this.runtime = runtime;
-    }
-
     /**
      * @return the secrets for this action version.
      */
     public List<Secret> getSecrets() {
         return secrets;
-    }
-
-    public void setSecrets(List<Secret> secrets) {
-        this.secrets = secrets;
     }
 
     /**

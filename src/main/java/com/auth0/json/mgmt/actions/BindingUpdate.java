@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @see BindingsUpdateRequest
  * @see com.auth0.client.mgmt.ActionsEntity
  */
-// TODO consider better name?
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BindingUpdate {
