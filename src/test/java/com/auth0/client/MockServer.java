@@ -110,6 +110,13 @@ public class MockServer {
     public static final String INVITATION = "src/test/resources/mgmt/invitation.json";
     public static final String INVITATIONS_LIST = "src/test/resources/mgmt/invitations_list.json";
     public static final String INVITATIONS_PAGED_LIST = "src/test/resources/mgmt/invitations_paged_list.json";
+    public static final String ACTION = "src/test/resources/mgmt/action.json";
+    public static final String ACTION_TRIGGERS = "src/test/resources/mgmt/action_triggers.json";
+    public static final String ACTION_VERSION = "src/test/resources/mgmt/action_version.json";
+    public static final String ACTION_EXECUTION = "src/test/resources/mgmt/action_execution.json";
+    public static final String ACTIONS_LIST = "src/test/resources/mgmt/actions_list.json";
+    public static final String ACTION_VERSIONS_LIST = "src/test/resources/mgmt/action_versions_list.json";
+    public static final String ACTION_TRIGGER_BINDINGS = "src/test/resources/mgmt/action_trigger_bindings.json";
 
     private final MockWebServer server;
 
