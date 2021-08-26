@@ -11,7 +11,9 @@ import com.auth0.net.VoidRequest;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 
 /**
  * Class that provides an implementation of the Actions methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Actions
@@ -266,7 +268,8 @@ public class ActionsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        EmptyBodyRequest<Version> request = new EmptyBodyRequest<>(client, url, "POST", new TypeReference<Version>() {
+        // Needed to successfully call the roll-back endpoint until DXEX-1738 is resolved.
+        EmptyObjectRequest<Version> request = new EmptyObjectRequest<>(client, url, "POST", new TypeReference<Version>() {
         });
 
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
@@ -427,5 +430,21 @@ public class ActionsEntity extends BaseManagementEntity {
         if (filter != null) {
             filter.getAsMap().forEach((k, v) -> builder.addQueryParameter(k, String.valueOf(v)));
         }
+    }
+
+    // Temporary request implementation to send an empty json object on the request body.
+    private static class EmptyObjectRequest<T> extends EmptyBodyRequest<T> {
+        EmptyObjectRequest(OkHttpClient client, String url, String method, TypeReference<T> tType) {
+            super(client, url, method, tType);
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        protected RequestBody createRequestBody() {
+            // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
+            // https://github.com/auth0/auth0-java/issues/324
+            return RequestBody.create(MediaType.parse("application/json"), "{}".getBytes());
+        }
+
     }
 }
