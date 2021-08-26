@@ -11,6 +11,7 @@ import org.junit.Test;
 import java.util.*;
 
 import static com.auth0.client.MockServer.bodyFromRequest;
+import static com.auth0.client.MockServer.readFromRequest;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -304,7 +305,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest.getBody(), is(notNullValue()));
-        assertThat(recordedRequest.getBody().size(), is(0L));
+        assertThat(readFromRequest(recordedRequest), is("{}"));
 
         assertThat(response, is(notNullValue()));
     }
