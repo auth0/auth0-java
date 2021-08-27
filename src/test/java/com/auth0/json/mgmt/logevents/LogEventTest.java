@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.notNullValue;
 
 public class LogEventTest extends JsonTest<LogEvent> {
 
-    private static final String json = "{\"_id\":\"123\", \"date\":\"2016-02-23T19:57:29.532Z\",\"type\":\"thetype\",\"location_info\":{},\"details\":{},\"client_id\":\"clientId\",\"client_name\":\"clientName\",\"ip\":\"233.233.233.11\",\"user_id\":\"userId\"}";
+    private static final String json = "{\"_id\":\"123\", \"log_id\":\"123\", \"date\":\"2016-02-23T19:57:29.532Z\",\"type\":\"thetype\",\"location_info\":{},\"details\":{},\"client_id\":\"clientId\",\"client_name\":\"clientName\",\"ip\":\"233.233.233.11\",\"user_id\":\"userId\"}";
 
     @Test
     public void shouldDeserialize() throws Exception {
@@ -17,6 +17,7 @@ public class LogEventTest extends JsonTest<LogEvent> {
 
         assertThat(logEvent, is(notNullValue()));
         assertThat(logEvent.getId(), is("123"));
+        assertThat(logEvent.getLogId(), is("123"));
         assertThat(logEvent.getDate(), is(parseJSONDate("2016-02-23T19:57:29.532Z")));
         assertThat(logEvent.getType(), is("thetype"));
         assertThat(logEvent.getClientId(), is("clientId"));
