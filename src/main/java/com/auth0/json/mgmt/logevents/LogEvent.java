@@ -18,6 +18,8 @@ public class LogEvent {
 
     @JsonProperty("_id")
     private String id;
+    @JsonProperty("log_id")
+    private String logId;
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonProperty("date")
     private Date date;
@@ -44,6 +46,16 @@ public class LogEvent {
     @JsonProperty("_id")
     public String getId() {
         return id;
+    }
+
+    /**
+     * Getter for the log_id of this event.
+     *
+     * @return the log_id of this event.
+     */
+    @JsonProperty("log_id")
+    public String getLogId() {
+        return logId;
     }
 
     /**
