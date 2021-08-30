@@ -1,5 +1,16 @@
 # Change Log
 
+## [1.34.0](https://github.com/auth0/auth0-java/tree/1.34.0) (2021-08-27)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.33.0...1.34.0)
+
+**Added**
+- Include log_id in the LogEvent entity [\#372](https://github.com/auth0/auth0-java/pull/372) ([jimmyjames](https://github.com/jimmyjames))
+- [SDK-2716] Add support for Actions Management APIs [\#369](https://github.com/auth0/auth0-java/pull/369) ([jimmyjames](https://github.com/jimmyjames))
+- [SDK-2686] Add retry on rate limit errors for management API [\#368](https://github.com/auth0/auth0-java/pull/368) ([jimmyjames](https://github.com/jimmyjames))
+
+**Fixed**
+- Fix to rollback action version endpoint [\#370](https://github.com/auth0/auth0-java/pull/370) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.33.0](https://github.com/auth0/auth0-java/tree/1.33.0) (2021-07-26)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.32.0...1.33.0)
 
