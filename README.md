@@ -404,7 +404,7 @@ You can pass an optional Filter to narrow the results in the response.
 Example:
 ```java
 UserFilter filter = new UserFilter()
-    .withPage(1, 20);
+    .withPage(0, 20);
 //...
 Request<UsersPage> request = mgmt.users().list(filter);
 try {
