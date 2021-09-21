@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.34.1](https://github.com/auth0/auth0-java/tree/1.34.1) (2021-09-21)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.34.0...1.34.1)
+
+**Fixed**
+- Add user_name field to LogEvent [\#375](https://github.com/auth0/auth0-java/pull/375) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.34.0](https://github.com/auth0/auth0-java/tree/1.34.0) (2021-08-27)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.33.0...1.34.0)
 
