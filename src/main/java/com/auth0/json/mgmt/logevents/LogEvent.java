@@ -33,6 +33,8 @@ public class LogEvent {
     private String ip;
     @JsonProperty("user_id")
     private String userId;
+    @JsonProperty("user_name")
+    private String userName;
     @JsonProperty("location_info")
     private Map<String, Object> locationInfo;
     @JsonProperty("details")
@@ -117,6 +119,16 @@ public class LogEvent {
     @JsonProperty("user_id")
     public String getUserId() {
         return userId;
+    }
+
+    /**
+     * Getter for the user name related to this event.
+     *
+     * @return the user id.
+     */
+    @JsonProperty("user_name")
+    public String getUserName() {
+        return userName;
     }
 
     /**
