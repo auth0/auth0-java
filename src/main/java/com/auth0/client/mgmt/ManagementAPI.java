@@ -2,6 +2,7 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.HttpOptions;
 import com.auth0.client.ProxyOptions;
+import com.auth0.net.RateLimitInterceptor;
 import com.auth0.net.Telemetry;
 import com.auth0.net.TelemetryInterceptor;
 import com.auth0.utils.Asserts;
@@ -103,6 +104,7 @@ public class ManagementAPI {
         return clientBuilder
                 .addInterceptor(logging)
                 .addInterceptor(telemetry)
+                .addInterceptor(new RateLimitInterceptor(options.getManagementAPIMaxRetries()))
                 .connectTimeout(options.getConnectTimeout(), TimeUnit.SECONDS)
                 .readTimeout(options.getReadTimeout(), TimeUnit.SECONDS)
                 .build();
@@ -359,5 +361,14 @@ public class ManagementAPI {
      */
     public OrganizationsEntity organizations() {
         return new OrganizationsEntity(client, baseUrl, apiToken);
+    }
+
+    /**
+     * Getter for the Actions entity.
+     *
+     * @return the Actions entity.
+     */
+    public ActionsEntity actions() {
+        return new ActionsEntity(client, baseUrl, apiToken);
     }
 }

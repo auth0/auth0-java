@@ -19,7 +19,13 @@ public class MembersPageDeserializer extends PageDeserializer<MembersPage, Membe
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     protected MembersPage createPage(Integer start, Integer length, Integer total, Integer limit, List<Member> items) {
         return new MembersPage(start, length, total, limit, items);
+    }
+
+    @Override
+    protected MembersPage createPage(Integer start, Integer length, Integer total, Integer limit, String next, List<Member> items) {
+        return new MembersPage(start, length, total, limit, next, items);
     }
 }

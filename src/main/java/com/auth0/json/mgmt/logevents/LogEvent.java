@@ -18,6 +18,8 @@ public class LogEvent {
 
     @JsonProperty("_id")
     private String id;
+    @JsonProperty("log_id")
+    private String logId;
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonProperty("date")
     private Date date;
@@ -31,6 +33,8 @@ public class LogEvent {
     private String ip;
     @JsonProperty("user_id")
     private String userId;
+    @JsonProperty("user_name")
+    private String userName;
     @JsonProperty("location_info")
     private Map<String, Object> locationInfo;
     @JsonProperty("details")
@@ -44,6 +48,16 @@ public class LogEvent {
     @JsonProperty("_id")
     public String getId() {
         return id;
+    }
+
+    /**
+     * Getter for the log_id of this event.
+     *
+     * @return the log_id of this event.
+     */
+    @JsonProperty("log_id")
+    public String getLogId() {
+        return logId;
     }
 
     /**
@@ -105,6 +119,16 @@ public class LogEvent {
     @JsonProperty("user_id")
     public String getUserId() {
         return userId;
+    }
+
+    /**
+     * Getter for the user name related to this event.
+     *
+     * @return the user id.
+     */
+    @JsonProperty("user_name")
+    public String getUserName() {
+        return userName;
     }
 
     /**
