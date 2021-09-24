@@ -147,7 +147,7 @@ public class ManagementAPI {
         logging.setLevel(enabled ? Level.BODY : Level.NONE);
     }
 
-    // Medmain: Expose to allow interceptors to be defined to handle token refresh and rate limiting behaviour.
+    // Medmain: Expose to allow an interceptor to be defined to handle token refresh.
     public OkHttpClient getClient() {
         return client;
     }

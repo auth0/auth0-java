@@ -1,6 +1,6 @@
 # Medmain's Auth0 Java SDK Fork
 
-There are some of limitations with the Auth0 SDK as it currently exists that were causing us problems with our usage of the `ManagementAPI`:
+There are some limitations with the Auth0 SDK as it currently exists that were causing us problems with our usage of the `ManagementAPI`:
 
 ## Lack of ability to handle token refreshes, and [no intention to add it](https://github.com/auth0/auth0-java/issues/212).
 
@@ -17,9 +17,7 @@ Using the above strategy, all the entities share the same access token, which is
 
 ## No support for rate limiting
 
-The Auth0 API is rate-limited, but the SDK does not provide a mechanism to do that.
-
-Similar to the above, in our wrapped management API we added an interceptor to the exposed `OkHttpClient` to handle respecting the rate limiting headers.
+This was previously unavailable so we were adding our own interceptor, but support for this was added in [1.34.0](https://github.com/auth0/auth0-java/releases/tag/1.34.0).
 
 # What's in this fork
 
