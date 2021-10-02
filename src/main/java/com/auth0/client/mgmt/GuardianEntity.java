@@ -117,27 +117,7 @@ public class GuardianEntity extends BaseManagementEntity {
      * Update an existing Guardian Factor. A token with scope update:guardian_factors is needed.
      *
      * @param name    the name of the Factor to update.
-     * @param enabled <T> CustomRequest<T> createRequest(
-     *                Function<HttpUrl.Builder, HttpUrl.Builder> urlBuilder,
-     *                String method,
-     *                TypeReference<T> responseType,
-     * @return a Request to execute.
-     * @Nullable Object body
-     * ) {
-     * String url = urlBuilder
-     * .apply(baseUrl.newBuilder())
-     * .build()
-     * .toString();
-     * <p>
-     * CustomRequest<T> request = new CustomRequest<>(client, url, method, responseType);
-     * request.addHeader("Authorization", "Bearer " + apiToken);
-     * <p>
-     * if (body != null) {
-     * request.setBody(body);
-     * }
-     * <p>
-     * return request;
-     * } whether to enable or disable the Factor.
+     * @param enabled  whether to enable or disable the Factor.
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Guardian/put_factors_by_name">Management API2 docs</a>
      */
     public Request<Factor> updateFactor(String name, Boolean enabled) {
