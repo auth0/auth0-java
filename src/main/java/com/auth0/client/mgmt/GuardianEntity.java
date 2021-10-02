@@ -1,10 +1,6 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.json.mgmt.guardian.EnrollmentTicket;
-import com.auth0.json.mgmt.guardian.Factor;
-import com.auth0.json.mgmt.guardian.GuardianTemplates;
-import com.auth0.json.mgmt.guardian.SNSFactorProvider;
-import com.auth0.json.mgmt.guardian.TwilioFactorProvider;
+import com.auth0.json.mgmt.guardian.*;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
