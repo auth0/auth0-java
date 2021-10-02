@@ -118,6 +118,7 @@ public class GuardianEntity extends BaseManagementEntity {
      *
      * @param name    the name of the Factor to update.
      * @param enabled  whether to enable or disable the Factor.
+     * @return a Request to execute.
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Guardian/put_factors_by_name">Management API2 docs</a>
      */
     public Request<Factor> updateFactor(String name, Boolean enabled) {
