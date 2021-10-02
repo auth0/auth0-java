@@ -54,6 +54,8 @@ public class GuardianEntity extends BaseManagementEntity {
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Guardian/delete_enrollments_by_id">Management API2 docs</a>
      */
     public Request<Void> deleteEnrollment(String enrollmentId) {
+        Asserts.assertNotNull(enrollmentId, "enrollment id");
+
         return createVoidRequest(
             (builder) -> builder.addPathSegments("api/v2/guardian/enrollments").addPathSegment(enrollmentId),
             "DELETE"
@@ -143,7 +145,7 @@ public class GuardianEntity extends BaseManagementEntity {
         Asserts.assertNotNull(enabled, "enabled");
 
         CustomRequest<Factor> request = createRequest(
-            (builder) -> builder.addPathSegments("api/v2/guardian/factors"),
+            (builder) -> builder.addPathSegments("api/v2/guardian/factors").addPathSegments(name),
             "PUT",
             new TypeReference<Factor>() {
             }
@@ -241,5 +243,38 @@ public class GuardianEntity extends BaseManagementEntity {
      */
     public Request<SNSFactorProvider> resetSNSFactorProvider() {
         return updateSNSFactorProvider(new SNSFactorProvider(null, null, null, null, null));
+    }
+
+    /**
+     * Get Guardian's MFA authentication policies. A token with scope read:mfa_policies is needed.
+     *
+     * @return a Request to execute
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Guardian/get_policies">Management API2 docs</a>
+     */
+    public Request<List<String>> getAuthenticationPolicies() {
+        return createRequest(
+            (builder) -> builder.addPathSegments("api/v2/guardian/policies"),
+            "GET",
+            new TypeReference<List<String>>() {
+            }
+        );
+    }
+
+    /**
+     * Updates Guardian's MFA authentication policies. A token with scope update:mfa_policies is needed.
+     *
+     * @return a Request to execute
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Guardian/put_policies">Management API2 docs</a>
+     */
+    public Request<List<String>> updateAuthenticationPolicies(List<String> policies) {
+        Asserts.assertNotNull(policies, "policies");
+
+        return createRequest(
+            (builder) -> builder.addPathSegments("api/v2/guardian/policies"),
+            "PUT",
+            new TypeReference<List<String>>() {
+            },
+            policies
+        );
     }
 }
