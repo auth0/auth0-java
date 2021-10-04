@@ -29,12 +29,16 @@ public class InvitationTest extends JsonTest<Invitation> {
             "  \"ticket_id\": \"ticket-id\",\n" +
             "  \"created_at\": \"2021-03-31T19:08:40.295Z\",\n" +
             "  \"expires_at\": \"2021-04-07T19:08:40.295Z\",\n" +
-            "  \"organization_id\": \"org_abc\"\n" +
+            "  \"organization_id\": \"org_abc\",\n" +
+            "  \"roles\": [\n" +
+            "    \"rol_0987\"\n" +
+            "  ]\n" +
             "}\n";
 
         Invitation invitation = fromJSON(json, Invitation.class);
 
         assertThat(invitation, is(notNullValue()));
+        assertThat(invitation.getRoles().getRoles(), is(contains("rol_0987")));
         assertThat(invitation.getId(), is("inv_1"));
         assertThat(invitation.getClientId(), is("client-id"));
         assertThat(invitation.getInviter(), is(notNullValue()));
