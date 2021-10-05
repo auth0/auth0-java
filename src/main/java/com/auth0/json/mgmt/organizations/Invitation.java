@@ -3,10 +3,12 @@ package com.auth0.json.mgmt.organizations;
 import com.fasterxml.jackson.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Represents the Invitation object for an organization.
+ *
  * @see com.auth0.client.mgmt.OrganizationsEntity
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -44,14 +46,14 @@ public class Invitation {
     @JsonProperty("organization_id")
     private String organizationId;
     @JsonProperty("roles")
-    private Roles roles;
+    private List<String> roles;
 
     /**
      * Create a new instance.
      *
-     * @param inviter the {@linkplain Inviter} of this invitation.
-     * @param invitee the {@linkplain Invitee} of this invitation.
-     * @param clientId The id of the connection the invitee will authenticate with.\
+     * @param inviter  the {@linkplain Inviter} of this invitation.
+     * @param invitee  the {@linkplain Invitee} of this invitation.
+     * @param clientId Auth0 client ID. Used to resolve the application's login initiation endpoint.
      */
     @JsonCreator
     public Invitation(@JsonProperty("inviter") Inviter inviter, @JsonProperty("invitee") Invitee invitee, @JsonProperty("client_id") String clientId) {
@@ -193,8 +195,9 @@ public class Invitation {
     /**
      * @return the roles associated with the user invited.
      */
+    @JsonIgnore
     public Roles getRoles() {
-        return roles;
+        return new Roles(roles);
     }
 
     /**
@@ -202,8 +205,9 @@ public class Invitation {
      *
      * @param roles the {@linkplain Roles} to associated with the user invited.
      */
+    @JsonIgnore
     public void setRoles(Roles roles) {
-        this.roles = roles;
+        this.roles = roles.getRoles();
     }
 
     /**
