@@ -1,12 +1,7 @@
 package com.auth0.json.mgmt.organizations;
 
 import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.deser.std.StringArrayDeserializer;
-import com.fasterxml.jackson.databind.ser.impl.StringArraySerializer;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -51,9 +46,7 @@ public class Invitation {
     @JsonProperty("organization_id")
     private String organizationId;
     @JsonProperty("roles")
-    @JsonDeserialize(using = StringArrayDeserializer.class)
-    @JsonSerialize(using = StringArraySerializer.class)
-    private String[] roles;
+    private List<String> roles;
 
     /**
      * Create a new instance.
@@ -204,7 +197,7 @@ public class Invitation {
      */
     @JsonIgnore
     public Roles getRoles() {
-        return new Roles(Arrays.asList(roles));
+        return new Roles(roles);
     }
 
     /**
@@ -214,8 +207,7 @@ public class Invitation {
      */
     @JsonIgnore
     public void setRoles(Roles roles) {
-        List<String> listOfRoles = roles.getRoles();
-        this.roles = listOfRoles.toArray(new String[0]);
+        this.roles = roles.getRoles();
     }
 
     /**
