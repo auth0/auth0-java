@@ -2,6 +2,8 @@ package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.guardian.*;
 import com.auth0.net.Request;
+import java.util.Arrays;
+import java.util.Collections;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
 
@@ -25,7 +27,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldDeleteGuardianEnrollment() throws Exception {
-        Request request = api.guardian().deleteEnrollment("1");
+        Request<Void> request = api.guardian().deleteEnrollment("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_ENROLLMENT, 200);
@@ -352,5 +354,48 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(response.getAWSSecretAccessKey(), is(nullValue()));
         assertThat(response.getSNSAPNSPlatformApplicationARN(), is(nullValue()));
         assertThat(response.getSNSGCMPlatformApplicationARN(), is(nullValue()));
+    }
+
+    @Test
+    public void shouldGetAuthenticationPolicies() throws Exception {
+        Request<List<String>> request = api.guardian().getAuthenticationPolicies();
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_GUARDIAN_AUTHENTICATION_POLICIES_LIST, 200);
+        List<String> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/guardian/policies"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, hasSize(1));
+    }
+
+    @Test
+    public void shouldThrowOnUpdateAuthenticationPoliciesWithNullData() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'policies' cannot be null!");
+        api.guardian().updateAuthenticationPolicies(null);
+    }
+
+    @Test
+    public void shouldUpdateAuthenticationPolicies() throws Exception {
+        List<String> policies = Collections.singletonList("all-applications");
+        Request<List<String>> request = api.guardian().updateAuthenticationPolicies(policies);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_GUARDIAN_AUTHENTICATION_POLICIES_LIST, 200);
+        List<String> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/guardian/policies"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        List<Object> body = bodyListFromRequest(recordedRequest);
+        assertThat(body, is(policies));
+
+        assertThat(response, hasSize(1));
     }
 }

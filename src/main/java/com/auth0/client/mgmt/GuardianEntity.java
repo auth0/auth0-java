@@ -6,10 +6,9 @@ import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
+import java.util.List;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
-
-import java.util.List;
 
 /**
  * Class that provides an implementation of the Guardian methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Guardian
@@ -256,5 +255,44 @@ public class GuardianEntity extends BaseManagementEntity {
      */
     public Request<SNSFactorProvider> resetSNSFactorProvider() {
         return updateSNSFactorProvider(new SNSFactorProvider(null, null, null, null, null));
+    }
+
+    /**
+     * Get Guardian's MFA authentication policies. A token with scope read:mfa_policies is needed.
+     *
+     * @return a Request to execute
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Guardian/get_policies">Management API2 docs</a>
+     */
+    public Request<List<String>> getAuthenticationPolicies() {
+        String url = baseUrl
+                .newBuilder()
+                .addPathSegments("api/v2/guardian/policies")
+                .build()
+                .toString();
+        CustomRequest<List<String>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<String>>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Updates Guardian's MFA authentication policies. A token with scope update:mfa_policies is needed.
+     *
+     * @return a Request to execute
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Guardian/put_policies">Management API2 docs</a>
+     */
+    public Request<List<String>> updateAuthenticationPolicies(List<String> policies) {
+        Asserts.assertNotNull(policies, "policies");
+
+        String url = baseUrl
+                .newBuilder()
+                .addPathSegments("api/v2/guardian/policies")
+                .build()
+                .toString();
+        CustomRequest<List<String>> request = new CustomRequest<>(client, url, "PUT", new TypeReference<List<String>>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        request.setBody(policies);
+        return request;
     }
 }

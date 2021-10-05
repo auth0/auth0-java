@@ -1,7 +1,10 @@
 package com.auth0.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapType;
+import java.util.ArrayList;
+import java.util.List;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -70,6 +73,7 @@ public class MockServer {
     public static final String MGMT_USER = "src/test/resources/mgmt/user.json";
     public static final String MGMT_RECOVERY_CODE = "src/test/resources/mgmt/recovery_code.json";
     public static final String MGMT_IDENTITIES_LIST = "src/test/resources/mgmt/identities_list.json";
+    public static final String MGMT_GUARDIAN_AUTHENTICATION_POLICIES_LIST = "src/test/resources/mgmt/guardian_authentication_policies_list.json";
     public static final String MGMT_GUARDIAN_ENROLLMENT = "src/test/resources/mgmt/guardian_enrollment.json";
     public static final String MGMT_GUARDIAN_ENROLLMENTS_LIST = "src/test/resources/mgmt/guardian_enrollments_list.json";
     public static final String MGMT_GUARDIAN_ENROLLMENT_TICKET = "src/test/resources/mgmt/guardian_enrollment_ticket.json";
@@ -182,6 +186,14 @@ public class MockServer {
         MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
         try (Buffer body = request.getBody()) {
             return mapper.readValue(body.inputStream(), mapType);
+        }
+    }
+
+    public static List<Object> bodyListFromRequest(RecordedRequest request) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        CollectionType listType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Object.class);
+        try (Buffer body = request.getBody()) {
+            return mapper.readValue(body.inputStream(), listType);
         }
     }
 
