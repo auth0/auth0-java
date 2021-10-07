@@ -3,15 +3,12 @@ package com.auth0.client.mgmt;
 import com.auth0.json.mgmt.guardian.*;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
-import com.auth0.net.VoidRequest;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.util.function.Function;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
 import java.util.List;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Class that provides an implementation of the Guardian methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Guardian
@@ -37,12 +34,13 @@ public class GuardianEntity extends BaseManagementEntity {
     public Request<EnrollmentTicket> createEnrollmentTicket(EnrollmentTicket enrollmentTicket) {
         Asserts.assertNotNull(enrollmentTicket, "enrollment ticket");
 
-        return createRequest(
-            (builder) -> builder.addPathSegments("api/v2/guardian/enrollments/ticket"),
+        return request(
             "POST",
             new TypeReference<EnrollmentTicket>() {
             },
-            enrollmentTicket
+            (builder) -> builder
+                .withPathSegments("api/v2/guardian/enrollments/ticket")
+                .withBody(enrollmentTicket)
         );
     }
 
@@ -56,9 +54,9 @@ public class GuardianEntity extends BaseManagementEntity {
     public Request<Void> deleteEnrollment(String enrollmentId) {
         Asserts.assertNotNull(enrollmentId, "enrollment id");
 
-        return createVoidRequest(
-            (builder) -> builder.addPathSegments("api/v2/guardian/enrollments").addPathSegment(enrollmentId),
-            "DELETE"
+        return voidRequest(
+            "DELETE",
+            (builder) -> builder.withPathSegments("api/v2/guardian/enrollments").withPathSegments(enrollmentId)
         );
     }
 
@@ -70,11 +68,11 @@ public class GuardianEntity extends BaseManagementEntity {
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Guardian/get_templates">Management API2 docs</a>
      */
     public Request<GuardianTemplates> getTemplates() {
-        return createRequest(
-            (builder) -> builder.addPathSegments("api/v2/guardian/factors/sms/templates"),
+        return request(
             "GET",
             new TypeReference<GuardianTemplates>() {
-            }
+            },
+            (builder) -> builder.withPathSegments("api/v2/guardian/factors/sms/templates")
         );
     }
 
@@ -89,12 +87,13 @@ public class GuardianEntity extends BaseManagementEntity {
     public Request<GuardianTemplates> updateTemplates(GuardianTemplates guardianTemplates) {
         Asserts.assertNotNull(guardianTemplates, "guardian templates");
 
-        return createRequest(
-            (builder) -> builder.addPathSegments("api/v2/guardian/factors/sms/templates"),
+        return request(
             "PUT",
             new TypeReference<GuardianTemplates>() {
             },
-            guardianTemplates
+            (builder) -> builder
+                .withPathSegments("api/v2/guardian/factors/sms/templates")
+                .withBody(guardianTemplates)
         );
     }
 
@@ -105,11 +104,11 @@ public class GuardianEntity extends BaseManagementEntity {
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Guardian/get_factors">Management API2 docs</a>
      */
     public Request<List<Factor>> listFactors() {
-        return createRequest(
-            (builder) -> builder.addPathSegments("api/v2/guardian/factors"),
+        return request(
             "GET",
             new TypeReference<List<Factor>>() {
-            }
+            },
+            (builder) -> builder.withPathSegments("api/v2/guardian/factors")
         );
     }
 
@@ -117,7 +116,7 @@ public class GuardianEntity extends BaseManagementEntity {
      * Update an existing Guardian Factor. A token with scope update:guardian_factors is needed.
      *
      * @param name    the name of the Factor to update.
-     * @param enabled  whether to enable or disable the Factor.
+     * @param enabled whether to enable or disable the Factor.
      * @return a Request to execute.
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Guardian/put_factors_by_name">Management API2 docs</a>
      */
@@ -125,15 +124,14 @@ public class GuardianEntity extends BaseManagementEntity {
         Asserts.assertNotNull(name, "name");
         Asserts.assertNotNull(enabled, "enabled");
 
-        CustomRequest<Factor> request = createRequest(
-            (builder) -> builder.addPathSegments("api/v2/guardian/factors").addPathSegments(name),
+        return request(
             "PUT",
             new TypeReference<Factor>() {
-            }
+            },
+            (builder) -> builder
+                .withPathSegments("api/v2/guardian/factors").withPathSegments(name)
+                .withParameter("enabled", enabled)
         );
-
-        request.addParameter("enabled", enabled);
-        return request;
     }
 
     /**
@@ -143,11 +141,11 @@ public class GuardianEntity extends BaseManagementEntity {
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Guardian/get_twilio">Management API2 docs</a>
      */
     public Request<TwilioFactorProvider> getTwilioFactorProvider() {
-        return createRequest(
-            (builder) -> builder.addPathSegments("api/v2/guardian/factors/sms/providers/twilio"),
+        return request(
             "GET",
             new TypeReference<TwilioFactorProvider>() {
-            }
+            },
+            (builder) -> builder.withPathSegments("api/v2/guardian/factors/sms/providers/twilio")
         );
     }
 
@@ -161,12 +159,13 @@ public class GuardianEntity extends BaseManagementEntity {
     public Request<TwilioFactorProvider> updateTwilioFactorProvider(TwilioFactorProvider provider) {
         Asserts.assertNotNull(provider, "provider");
 
-        return createRequest(
-            (builder) -> builder.addPathSegments("api/v2/guardian/factors/sms/providers/twilio"),
+        return request(
             "PUT",
             new TypeReference<TwilioFactorProvider>() {
             },
-            provider
+            (builder) -> builder
+                .withPathSegments("api/v2/guardian/factors/sms/providers/twilio")
+                .withBody(provider)
         );
     }
 
@@ -188,11 +187,11 @@ public class GuardianEntity extends BaseManagementEntity {
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Guardian/get_sns">Management API2 docs</a>
      */
     public Request<SNSFactorProvider> getSNSFactorProvider() {
-        return createRequest(
-            (builder) -> builder.addPathSegments("api/v2/guardian/factors/push-notification/providers/sns"),
+        return request(
             "GET",
             new TypeReference<SNSFactorProvider>() {
-            }
+            },
+            (builder) -> builder.withPathSegments("api/v2/guardian/factors/push-notification/providers/sns")
         );
     }
 
@@ -206,12 +205,13 @@ public class GuardianEntity extends BaseManagementEntity {
     public Request<SNSFactorProvider> updateSNSFactorProvider(SNSFactorProvider provider) {
         Asserts.assertNotNull(provider, "provider");
 
-        return createRequest(
-            (builder) -> builder.addPathSegments("api/v2/guardian/factors/push-notification/providers/sns"),
+        return request(
             "PUT",
             new TypeReference<SNSFactorProvider>() {
             },
-            provider
+            (builder) -> builder
+                .withPathSegments("api/v2/guardian/factors/push-notification/providers/sns")
+                .withBody(provider)
         );
     }
 
@@ -233,29 +233,29 @@ public class GuardianEntity extends BaseManagementEntity {
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Guardian/get_policies">Management API2 docs</a>
      */
     public Request<List<String>> getAuthenticationPolicies() {
-        return createRequest(
-            (builder) -> builder.addPathSegments("api/v2/guardian/policies"),
+        return request(
             "GET",
             new TypeReference<List<String>>() {
-            }
+            },
+            (builder) -> builder.withPathSegments("api/v2/guardian/policies")
         );
     }
 
     /**
      * Updates Guardian's MFA authentication policies. A token with scope update:mfa_policies is needed.
      *
+     * @param policies the list of MFA policies to enable
      * @return a Request to execute
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Guardian/put_policies">Management API2 docs</a>
      */
     public Request<List<String>> updateAuthenticationPolicies(List<String> policies) {
         Asserts.assertNotNull(policies, "policies");
 
-        return createRequest(
-            (builder) -> builder.addPathSegments("api/v2/guardian/policies"),
+        return request(
             "PUT",
             new TypeReference<List<String>>() {
             },
-            policies
+            (builder) -> builder.withPathSegments("api/v2/guardian/policies")
         );
     }
 }

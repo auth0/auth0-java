@@ -1,12 +1,11 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.net.CustomRequest;
-import com.auth0.net.VoidRequest;
+import com.auth0.net.Request;
+import com.auth0.net.RequestBuilder;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.util.function.Function;
+import java.util.function.Consumer;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
-import org.jetbrains.annotations.Nullable;
 
 abstract class BaseManagementEntity {
     protected final OkHttpClient client;
@@ -19,54 +18,24 @@ abstract class BaseManagementEntity {
         this.apiToken = apiToken;
     }
 
-    protected VoidRequest createVoidRequest(
-        Function<HttpUrl.Builder, HttpUrl.Builder> urlBuilder,
-        String method
-    ) {
-        return createVoidRequest(urlBuilder, method, null);
+    protected Request<Void> voidRequest(String method, Consumer<RequestBuilder<Void>> customizer) {
+        return customizeRequest(
+            new RequestBuilder<>(client, method, baseUrl, new TypeReference<Void>() {
+            }),
+            customizer
+        );
     }
 
-    protected VoidRequest createVoidRequest(
-        Function<HttpUrl.Builder, HttpUrl.Builder> urlBuilder,
-        String method,
-        @Nullable Object body
-    ) {
-        VoidRequest request = new VoidRequest(client, buildUrl(urlBuilder), method);
-        addAuthorizationAndBody(request, body);
-        return request;
+    protected <T> Request<T> request(String method, TypeReference<T> target, Consumer<RequestBuilder<T>> customizer) {
+        return customizeRequest(
+            new RequestBuilder<>(client, method, baseUrl, target),
+            customizer
+        );
     }
 
-    protected <T> CustomRequest<T> createRequest(
-        Function<HttpUrl.Builder, HttpUrl.Builder> urlBuilder,
-        String method,
-        TypeReference<T> responseType
-    ) {
-        return createRequest(urlBuilder, method, responseType, null);
-    }
-
-    protected <T> CustomRequest<T> createRequest(
-        Function<HttpUrl.Builder, HttpUrl.Builder> urlBuilder,
-        String method,
-        TypeReference<T> responseType,
-        @Nullable Object body
-    ) {
-        CustomRequest<T> request = new CustomRequest<>(client, buildUrl(urlBuilder), method, responseType);
-        addAuthorizationAndBody(request, body);
-        return request;
-    }
-
-    private String buildUrl(Function<HttpUrl.Builder, HttpUrl.Builder> urlBuilder) {
-        return urlBuilder
-            .apply(baseUrl.newBuilder())
-            .build()
-            .toString();
-    }
-
-    private <T> void addAuthorizationAndBody(CustomRequest<T> request, @Nullable Object body) {
-        request.addHeader("Authorization", "Bearer " + apiToken);
-
-        if (body != null) {
-            request.setBody(body);
-        }
+    private <T> Request<T> customizeRequest(RequestBuilder<T> builder, Consumer<RequestBuilder<T>> customizer) {
+        builder.withHeader("Authorization", "Bearer " + apiToken);
+        customizer.accept(builder);
+        return builder.build();
     }
 }
