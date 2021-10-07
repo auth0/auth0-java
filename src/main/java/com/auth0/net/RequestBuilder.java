@@ -50,7 +50,7 @@ public class RequestBuilder<T> {
         CustomRequest<T> request;
 
         final String url = this.url.build().toString();
-        if (target.getType() == Void.TYPE) {
+        if ("java.lang.Void".equals(target.getType().getTypeName())) {
             request = (CustomRequest<T>) new VoidRequest(client, url, method);
         } else {
             request = new CustomRequest<>(client, url, method, target);
