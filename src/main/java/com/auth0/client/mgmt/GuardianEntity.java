@@ -255,7 +255,9 @@ public class GuardianEntity extends BaseManagementEntity {
             "PUT",
             new TypeReference<List<String>>() {
             },
-            (builder) -> builder.withPathSegments("api/v2/guardian/policies")
+            (builder) -> builder
+                .withPathSegments("api/v2/guardian/policies")
+                .withBody(policies)
         );
     }
 }
