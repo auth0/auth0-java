@@ -1,0 +1,59 @@
+[
+  {
+    "user": {
+      "email": "john.doe@gmail.com",
+      "email_verified": false,
+      "username": "johndoe",
+      "phone_number": "+199999999999999",
+      "phone_verified": false,
+      "user_id": "usr_5457edea1b8f33391a000004",
+      "created_at": "",
+      "updated_at": "",
+      "last_password_reset": "2019-08-14T19:35:00Z",
+      "identities": [
+        {
+          "provider": "facebook",
+          "user_id": "5457edea1b8f2289",
+          "connection": "facebook",
+          "isSocial": true
+        },
+        {
+          "profileData": {
+            "name": "Auth0️",
+            "picture": "https://pbs.twimg.com/profile_images/auth0/5457ed_normal.jpg",
+            "created_at": "Fri May 20 17:13:23 +0000 2011",
+            "description": "My twitter bio",
+            "lang": "es",
+            "location": "Palermo, Buenos Aires.",
+            "screen_name": "auth0",
+            "time_zone": "Buenos Aires",
+            "utc_offset": -10800
+          },
+          "provider": "twitter",
+          "user_id": "5457ed",
+          "connection": "twitter",
+          "isSocial": true
+        }
+      ],
+      "app_metadata": {},
+      "user_metadata": {},
+      "picture": "",
+      "name": "",
+      "nickname": "",
+      "multifactor": [],
+      "last_ip": "",
+      "last_login": "",
+      "logins_count": 0,
+      "blocked": false,
+      "given_name": "",
+      "family_name": ""
+    },
+    "errors": [
+      {
+        "code": "code",
+        "message": "message",
+        "path": "path"
+      }
+    ]
+  }
+]

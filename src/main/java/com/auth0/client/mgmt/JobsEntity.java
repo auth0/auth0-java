@@ -4,11 +4,13 @@ import com.auth0.client.mgmt.filter.UsersExportFilter;
 import com.auth0.client.mgmt.filter.UsersImportOptions;
 import com.auth0.json.mgmt.EmailVerificationIdentity;
 import com.auth0.json.mgmt.jobs.Job;
+import com.auth0.json.mgmt.jobs.JobErrorDetails;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.MultipartRequest;
 import com.auth0.net.Request;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
+import java.util.List;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
@@ -48,6 +50,30 @@ public class JobsEntity extends BaseManagementEntity {
                 .toString();
 
         CustomRequest<Job> request = new CustomRequest<>(client, url, "GET", new TypeReference<Job>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Get error details of a failed job. A token with scope create:users is needed.
+     * See https://auth0.com/docs/api/management/v2#!/Jobs/get_errors.
+     *
+     * @param jobId the id of the job to retrieve.
+     * @return a Request to execute.
+     */
+    public Request<List<JobErrorDetails>> getErrorDetails(String jobId) {
+        Asserts.assertNotNull(jobId, "job id");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/jobs")
+            .addPathSegment(jobId)
+            .addPathSegment("errors")
+            .build()
+            .toString();
+
+        CustomRequest<List<JobErrorDetails>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<JobErrorDetails>>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;

@@ -4,6 +4,7 @@ import com.auth0.client.mgmt.filter.UsersExportFilter;
 import com.auth0.client.mgmt.filter.UsersImportOptions;
 import com.auth0.json.mgmt.EmailVerificationIdentity;
 import com.auth0.json.mgmt.jobs.Job;
+import com.auth0.json.mgmt.jobs.JobErrorDetails;
 import com.auth0.json.mgmt.jobs.UsersExportField;
 import com.auth0.net.Request;
 import com.auth0.net.multipart.FilePart;
@@ -53,6 +54,31 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnGetJobErrorDetailsWithNullId() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'job id' cannot be null!");
+        api.jobs().getErrorDetails(null);
+    }
+
+    @Test
+    public void shouldGetJobErrorDetails() throws Exception {
+        Request<List<JobErrorDetails>> request = api.jobs().getErrorDetails("1");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_JOB_ERROR_DETAILS, 200);
+        List<JobErrorDetails> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/jobs/1/errors"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, hasSize(1));
+        assertThat(response.get(0).getErrors(), hasSize(1));
     }
 
     @Test
