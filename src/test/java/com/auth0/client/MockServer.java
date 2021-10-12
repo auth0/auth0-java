@@ -154,6 +154,14 @@ public class MockServer {
         server.enqueue(response);
     }
 
+    public void noContentResponse() {
+        MockResponse response = new MockResponse()
+            .setResponseCode(204)
+            .addHeader("Content-Type", "application/json")
+            .setBody("");
+        server.enqueue(response);
+    }
+
     public void rateLimitReachedResponse(long limit, long remaining, long reset) {
         MockResponse response = new MockResponse().setResponseCode(429);
         if (limit != -1) {

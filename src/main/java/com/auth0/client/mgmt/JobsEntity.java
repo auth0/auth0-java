@@ -10,6 +10,8 @@ import com.auth0.net.MultipartRequest;
 import com.auth0.net.Request;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
+import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -17,6 +19,7 @@ import okhttp3.OkHttpClient;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import okhttp3.ResponseBody;
 
 /**
  * Class that provides an implementation of the Jobs methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Jobs
@@ -73,8 +76,17 @@ public class JobsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<List<JobErrorDetails>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<JobErrorDetails>>() {
-        });
+        TypeReference<List<JobErrorDetails>> jobErrorDetailsListType = new TypeReference<List<JobErrorDetails>>() {
+        };
+        CustomRequest<List<JobErrorDetails>> request = new CustomRequest<List<JobErrorDetails>>(client, url, "GET", jobErrorDetailsListType) {
+            @Override
+            protected List<JobErrorDetails> readResponseBody(ResponseBody body) throws IOException {
+                if (body.contentLength() == 0) {
+                    return Collections.emptyList();
+                }
+                return super.readResponseBody(body);
+            }
+        };
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }

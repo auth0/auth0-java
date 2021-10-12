@@ -82,6 +82,23 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
+    public void shouldGetJobErrorDetails_noErrors() throws Exception {
+        Request<List<JobErrorDetails>> request = api.jobs().getErrorDetails("1");
+        assertThat(request, is(notNullValue()));
+
+        server.noContentResponse();
+        List<JobErrorDetails> response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/jobs/1/errors"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response, is(empty()));
+    }
+
+    @Test
     public void shouldThrowOnRequestUsersExportWithNullConnectionId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection id' cannot be null!");
