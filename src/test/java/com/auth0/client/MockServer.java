@@ -96,6 +96,7 @@ public class MockServer {
     public static final String MGMT_JOB_POST_USERS_EXPORTS = "src/test/resources/mgmt/job_post_users_exports.json";
     public static final String MGMT_JOB_POST_USERS_IMPORTS = "src/test/resources/mgmt/job_post_users_imports.json";
     public static final String MGMT_JOB_POST_USERS_IMPORTS_INPUT = "src/test/resources/mgmt/job_post_users_imports_input.json";
+    public static final String MGMT_JOB_ERROR_DETAILS = "src/test/resources/mgmt/job_error_details.json";
     public static final String MULTIPART_SAMPLE = "src/test/resources/mgmt/multipart_sample.json";
     public static final String PASSWORDLESS_EMAIL_RESPONSE = "src/test/resources/auth/passwordless_email.json";
     public static final String PASSWORDLESS_SMS_RESPONSE = "src/test/resources/auth/passwordless_sms.json";
@@ -150,6 +151,14 @@ public class MockServer {
                 .setResponseCode(statusCode)
                 .addHeader("Content-Type", "application/json")
                 .setBody(readTextFile(path));
+        server.enqueue(response);
+    }
+
+    public void noContentResponse() {
+        MockResponse response = new MockResponse()
+            .setResponseCode(204)
+            .addHeader("Content-Type", "application/json")
+            .setBody("");
         server.enqueue(response);
     }
 
