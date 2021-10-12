@@ -55,9 +55,6 @@ public class CustomRequest<T> extends ExtendedBaseRequest<T> implements Customiz
 
     @Override
     protected T readResponseBody(ResponseBody body) throws IOException {
-        if (body.contentLength() == 0) {
-            return null;
-        }
         String payload = body.string();
         return mapper.readValue(payload, tType);
     }
