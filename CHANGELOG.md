@@ -1,5 +1,15 @@
 # Change Log
 
+## [1.35.0](https://github.com/auth0/auth0-java/tree/1.35.0) (2021-10-20)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.34.1...1.35.0)
+
+**Added**
+- Added get job error details method to JobEntity [\#383](https://github.com/auth0/auth0-java/pull/383) ([jasonfagerberg-toast](https://github.com/jasonfagerberg-toast))
+- Add MFA Authentication policies to GuardianEntity [\#379](https://github.com/auth0/auth0-java/pull/379) ([pelletier197](https://github.com/pelletier197))
+
+**Fixed**
+- Fix de/serialization of Invitation roles [\#380](https://github.com/auth0/auth0-java/pull/380) ([lbalmaceda](https://github.com/lbalmaceda))
+
 ## [1.34.1](https://github.com/auth0/auth0-java/tree/1.34.1) (2021-09-21)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.34.0...1.34.1)
 
