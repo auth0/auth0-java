@@ -1,13 +1,18 @@
-package com.auth0.net;
+package com.auth0.client.mgmt;
 
+import com.auth0.net.CustomRequest;
+import com.auth0.net.Request;
+import com.auth0.net.VoidRequest;
 import com.fasterxml.jackson.core.type.TypeReference;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.Nullable;
 
-public class RequestBuilder<T> {
+class RequestBuilder<T> {
     private final OkHttpClient client;
     private final String method;
     private final HttpUrl.Builder url;
@@ -65,5 +70,4 @@ public class RequestBuilder<T> {
 
         return request;
     }
-
 }

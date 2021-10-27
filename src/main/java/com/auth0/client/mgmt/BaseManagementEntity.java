@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.net.Request;
-import com.auth0.net.RequestBuilder;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.util.function.Consumer;
 import okhttp3.HttpUrl;

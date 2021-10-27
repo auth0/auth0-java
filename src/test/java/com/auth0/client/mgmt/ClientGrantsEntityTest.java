@@ -171,7 +171,7 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
         assertThat(body, hasEntry("client_id", "clientId"));
         assertThat(body, hasEntry("audience", "audience"));
         assertThat(body, hasKey("scope"));
-        assertThat((Iterable<String>) body.get("scope"), contains("openid"));
+        assertThat((Iterable<?>) body.get("scope"), contains("openid"));
 
         assertThat(response, is(notNullValue()));
     }
@@ -185,7 +185,7 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldDeleteClientGrant() throws Exception {
-        Request request = api.clientGrants().delete("1");
+        Request<Void> request = api.clientGrants().delete("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT_GRANT, 200);
@@ -226,7 +226,7 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(1));
-        assertThat((ArrayList<String>) body.get("scope"), contains("openid", "profile"));
+        assertThat((ArrayList<?>) body.get("scope"), contains("openid", "profile"));
 
         assertThat(response, is(notNullValue()));
     }
