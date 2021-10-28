@@ -109,7 +109,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
      * @param clientGrantId the client grant id.
      * @return a Request to execute.
      */
-    public Request delete(String clientGrantId) {
+    public Request<Void> delete(String clientGrantId) {
         Asserts.assertNotNull(clientGrantId, "client grant id");
 
         String url = baseUrl

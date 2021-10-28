@@ -169,7 +169,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
      *
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Organizations/delete_organizations_by_id">https://auth0.com/docs/api/management/v2#!/Organizations/delete_organizations_by_id</a>
      */
-    public Request delete(String orgId) {
+    public Request<Void> delete(String orgId) {
         Asserts.assertNotNull(orgId, "organization ID");
 
         String url = baseUrl
@@ -222,7 +222,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
      *
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Organizations/post_members">https://auth0.com/docs/api/management/v2#!/Organizations/post_members</a>
      */
-    public Request addMembers(String orgId, Members members) {
+    public Request<Void> addMembers(String orgId, Members members) {
         Asserts.assertNotNull(orgId, "organization ID");
         Asserts.assertNotNull(members, "members");
 
@@ -249,7 +249,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
      *
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Organizations/delete_members">https://auth0.com/docs/api/management/v2#!/Organizations/delete_members</a>
      */
-    public Request deleteMembers(String orgId, Members members) {
+    public Request<Void> deleteMembers(String orgId, Members members) {
         Asserts.assertNotNull(orgId, "organization ID");
         Asserts.assertNotNull(members, "members");
 
@@ -361,7 +361,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
      *
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Organizations/delete_enabled_connections_by_connectionId">https://auth0.com/docs/api/management/v2#!/Organizations/delete_enabled_connections_by_connectionId</a>
      */
-    public Request deleteConnection(String  orgId, String connectionId) {
+    public Request<Void> deleteConnection(String  orgId, String connectionId) {
         Asserts.assertNotNull(orgId, "organization ID");
         Asserts.assertNotNull(connectionId, "connection ID");
 
@@ -453,7 +453,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
      *
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Organizations/post_organization_member_roles">https://auth0.com/docs/api/management/v2#!/Organizations/post_organization_member_roles</a>
      */
-    public Request addRoles(String orgId, String userId, Roles roles) {
+    public Request<Void> addRoles(String orgId, String userId, Roles roles) {
         Asserts.assertNotNull(orgId, "organization ID");
         Asserts.assertNotNull(userId, "user ID");
         Asserts.assertNotNull(roles, "roles");
@@ -484,7 +484,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
      *
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Organizations/delete_organization_member_roles">https://auth0.com/docs/api/management/v2#!/Organizations/delete_organization_member_roles</a>
      */
-    public Request deleteRoles(String orgId, String userId, Roles roles) {
+    public Request<Void> deleteRoles(String orgId, String userId, Roles roles) {
         Asserts.assertNotNull(orgId, "organization ID");
         Asserts.assertNotNull(userId, "user ID");
         Asserts.assertNotNull(roles, "roles");
@@ -602,7 +602,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
      *
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Organizations/delete_invitations_by_invitation_id">https://auth0.com/docs/api/management/v2#!/Organizations/delete_invitations_by_invitation_id</a>
      */
-    public Request deleteInvitation(String orgId, String invitationId) {
+    public Request<Void> deleteInvitation(String orgId, String invitationId) {
         Asserts.assertNotNull(orgId, "organization ID");
         Asserts.assertNotNull(invitationId, "invitation ID");
 

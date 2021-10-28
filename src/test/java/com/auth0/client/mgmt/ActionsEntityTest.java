@@ -118,7 +118,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldDeleteAction() throws Exception {
-        Request request = api.actions().delete("action-id");
+        Request<Void> request = api.actions().delete("action-id");
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);
@@ -133,7 +133,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldForceDeleteAction() throws Exception {
-        Request request = api.actions().delete("action-id", true);
+        Request<Void> request = api.actions().delete("action-id", true);
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);

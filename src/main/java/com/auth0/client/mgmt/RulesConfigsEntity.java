@@ -51,7 +51,7 @@ public class RulesConfigsEntity extends BaseManagementEntity {
      * @param rulesConfigKey the rules config key
      * @return a Request to execute.
      */
-    public Request delete(String rulesConfigKey) {
+    public Request<Void> delete(String rulesConfigKey) {
         Asserts.assertNotNull(rulesConfigKey, "rules config key");
 
         String url = baseUrl

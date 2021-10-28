@@ -163,7 +163,7 @@ public class DeviceCredentialsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldDeleteDeviceCredentials() throws Exception {
-        Request request = api.deviceCredentials().delete("1");
+        Request<Void> request = api.deviceCredentials().delete("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_DEVICE_CREDENTIALS, 200);

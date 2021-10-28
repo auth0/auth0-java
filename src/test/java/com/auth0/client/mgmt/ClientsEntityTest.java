@@ -211,7 +211,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldDeleteClient() throws Exception {
-        Request request = api.clients().delete("1");
+        Request<Void> request = api.clients().delete("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT, 200);

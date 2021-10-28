@@ -79,7 +79,7 @@ public class DeviceCredentialsEntity extends BaseManagementEntity {
      * @param deviceCredentialsId the device credentials id
      * @return a Request to execute.
      */
-    public Request delete(String deviceCredentialsId) {
+    public Request<Void> delete(String deviceCredentialsId) {
         Asserts.assertNotNull(deviceCredentialsId, "device credentials id");
 
         String url = baseUrl

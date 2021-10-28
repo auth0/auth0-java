@@ -69,7 +69,7 @@ public class UserBlocksEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldDeleteUserBlocksByIdentifier() throws Exception {
-        Request request = api.userBlocks().deleteByIdentifier("username");
+        Request<Void> request = api.userBlocks().deleteByIdentifier("username");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER_BLOCKS, 200);
@@ -91,7 +91,7 @@ public class UserBlocksEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldDeleteUserBlocks() throws Exception {
-        Request request = api.userBlocks().delete("1");
+        Request<Void> request = api.userBlocks().delete("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER_BLOCKS, 200);

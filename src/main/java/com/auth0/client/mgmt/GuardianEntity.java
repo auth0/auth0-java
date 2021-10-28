@@ -54,7 +54,7 @@ public class GuardianEntity extends BaseManagementEntity {
      * @return a Request to execute.
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Guardian/delete_enrollments_by_id">Management API2 docs</a>
      */
-    public Request deleteEnrollment(String enrollmentId) {
+    public Request<Void> deleteEnrollment(String enrollmentId) {
         Asserts.assertNotNull(enrollmentId, "enrollment id");
 
         String url = baseUrl
