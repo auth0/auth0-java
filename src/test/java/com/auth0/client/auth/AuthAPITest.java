@@ -769,6 +769,88 @@ public class AuthAPITest {
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
+    //Log In with PCKE AuthorizationCode Grant
+
+    @Test
+    public void shouldThrowOnLogInWithPckeAuthorizationCodeGrantAndRedirectUriWithNullCode() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'code' cannot be null!");
+        api.exchangeCode(null, "https://domain.auth0.com/callback", "code_verifier");
+    }
+
+    @Test
+    public void shouldThrowOnLogInWithPckeAuthorizationCodeGrantAndRedirectUriWithNullRedirectUri() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'redirect uri' cannot be null!");
+        api.exchangeCode("code", null, "code_verifier");
+    }
+
+    @Test
+    public void shouldThrowOnLogInWithPckeAuthorizationCodeGrantAndRedirectUriWithNullCodeVerifier() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'code verifier' cannot be null!");
+        api.exchangeCode("code", "https://domain.auth0.com/callback", null);
+    }
+
+    @Test
+    public void shouldCreateLogInWithPckeAuthorizationCodeGrantRequest() throws Exception {
+        AuthRequest request = api.exchangeCode("code123", "https://domain.auth0.com/callback", "code_verifier");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("code", "code123"));
+        assertThat(body, hasEntry("redirect_uri", "https://domain.auth0.com/callback"));
+        assertThat(body, hasEntry("grant_type", "authorization_code"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("code_verifier", "code_verifier"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+    @Test
+    public void shouldCreateLogInWithPckeAuthorizationCodeGrantRequestWithCustomParameters() throws Exception {
+        AuthRequest request = api.exchangeCode("code123", "https://domain.auth0.com/callback", "code_verifier");
+        assertThat(request, is(notNullValue()));
+        request.setAudience("https://myapi.auth0.com/users");
+        request.setRealm("dbconnection");
+        request.setScope("profile photos contacts");
+
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("code", "code123"));
+        assertThat(body, hasEntry("redirect_uri", "https://domain.auth0.com/callback"));
+        assertThat(body, hasEntry("grant_type", "authorization_code"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("code_verifier", "code_verifier"));
+        assertThat(body, hasEntry("audience", "https://myapi.auth0.com/users"));
+        assertThat(body, hasEntry("realm", "dbconnection"));
+        assertThat(body, hasEntry("scope", "profile photos contacts"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
 
     //Log In with Password grant
 

@@ -756,6 +756,48 @@ public class AuthAPI {
     }
 
     /**
+     * Creates a request to exchange the code obtained in the /authorize call using the 'Authorization Code Flow with PKCE'.
+     * <pre>
+     * {@code
+     * // client secret not used in this call
+     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "");
+     * try {
+     *      TokenHolder result = auth.exchangeCode("SnWoFLMzApDskr", "https://me.auth0.com/callback", "YOUR_GENERATED_CODE_VERIFIER")
+     *          .setScope("openid name nickname")
+     *          .execute();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param code          the authorization code received from the redirect after successful user Authorization via PKCE {@see https://auth0.com/docs/authorization/flows/call-your-api-using-the-authorization-code-flow-with-pkce#authorize-user}
+     * @param redirectUri   the redirect uri used to generate the authorization url {@see https://auth0.com/docs/authorization/flows/call-your-api-using-the-authorization-code-flow-with-pkce#example-authorization-url}
+     * @param codeVerifier  The cryptographically-random key that you generated and used in the authorization url {@see https://auth0.com/docs/authorization/flows/call-your-api-using-the-authorization-code-flow-with-pkce#create-code-verifier}
+     * @return a Request to configure and execute.
+     */
+    public TokenRequest exchangeCode(String code, String redirectUri, String codeVerifier) {
+        Asserts.assertNotNull(code, "code");
+        Asserts.assertNotNull(codeVerifier, "code verifier");
+        Asserts.assertNotNull(redirectUri, "redirect uri");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegment(PATH_OAUTH)
+            .addPathSegment(PATH_TOKEN)
+            .build()
+            .toString();
+        TokenRequest request = new TokenRequest(client, url);
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_GRANT_TYPE, "authorization_code");
+        request.addParameter("code", code);
+        request.addParameter("code_verifier", codeVerifier);
+        request.addParameter("redirect_uri", redirectUri);
+
+        return request;
+    }
+
+    /**
      * Create a request to send an email containing a link or a code to begin authentication with Passwordless connections.
      *
      * <pre>
