@@ -255,6 +255,18 @@ public final class IdTokenVerifier {
         }
 
         /**
+         * Specify the expected organization (org_id) the token must be issued for. This should be used if using the
+         * Organizations feature.
+
+         * @param organization the ID of the organization.
+         * @return this Builder instance.
+         */
+        public Builder withOrganization(String organization) {
+            this.organization = organization;
+            return this;
+        }
+
+        /**
          * Specify a custom clock to use as the current time when validating time-based claims. Exposed for testing
          * purposes only.
          *
@@ -263,18 +275,6 @@ public final class IdTokenVerifier {
          */
         Builder withClock(Date clock) {
             this.clock = clock;
-            return this;
-        }
-
-        /**
-         * Specify the expected organization (org_id) the token must be issued for. This should be used if using the
-         * Organizations feature.
-
-         * @param organization the ID of the organization.
-         * @return this Builder instance.
-         */
-        Builder withOrganization(String organization) {
-            this.organization = organization;
             return this;
         }
 
