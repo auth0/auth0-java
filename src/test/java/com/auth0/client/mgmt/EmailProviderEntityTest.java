@@ -79,7 +79,7 @@ public class EmailProviderEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldDeleteEmailProvider() throws Exception {
-        Request request = api.emailProvider().delete();
+        Request<Void> request = api.emailProvider().delete();
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMAIL_PROVIDER, 200);

@@ -61,7 +61,7 @@ public class BlacklistsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldBlacklistToken() throws Exception {
-        Request request = api.blacklists().blacklistToken(new Token("id"));
+        Request<Void> request = api.blacklists().blacklistToken(new Token("id"));
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_BLACKLISTED_TOKENS_LIST, 200);

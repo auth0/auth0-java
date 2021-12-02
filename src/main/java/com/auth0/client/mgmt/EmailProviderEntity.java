@@ -76,7 +76,7 @@ public class EmailProviderEntity extends BaseManagementEntity {
      *
      * @return a Request to execute.
      */
-    public Request delete() {
+    public Request<Void> delete() {
         String url = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/emails/provider")

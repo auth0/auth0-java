@@ -273,7 +273,7 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldDeleteConnection() throws Exception {
-        Request request = api.connections().delete("1");
+        Request<Void> request = api.connections().delete("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTION, 200);
@@ -336,7 +336,7 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldDeleteConnectionUser() throws Exception {
-        Request request = api.connections().deleteUser("1", "user@domain.com");
+        Request<Void> request = api.connections().deleteUser("1", "user@domain.com");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTION, 200);

@@ -249,7 +249,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldDeleteOrganization() throws Exception {
-        Request request = api.organizations().delete("org_abc");
+        Request<Void> request = api.organizations().delete("org_abc");
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);
@@ -364,7 +364,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
     public void shouldAddMembersToOrganization() throws Exception {
         List<String> membersList = Arrays.asList("user1", "user2");
         Members members = new Members(membersList);
-        Request request = api.organizations().addMembers("org_abc", members);
+        Request<Void> request = api.organizations().addMembers("org_abc", members);
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);
@@ -398,7 +398,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
     public void shouldDeleteMembersFromOrganization() throws Exception {
         List<String> membersList = Collections.singletonList("user1");
         Members members = new Members(membersList);
-        Request request = api.organizations().deleteMembers("org_abc", members);
+        Request<Void> request = api.organizations().deleteMembers("org_abc", members);
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);
@@ -562,7 +562,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldDeleteConnection() throws Exception {
-        Request request = api.organizations().deleteConnection("org_abc", "con_123");
+        Request<Void> request = api.organizations().deleteConnection("org_abc", "con_123");
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);
@@ -710,7 +710,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldAddOrgRoles() throws Exception {
         List<String> rolesList = Arrays.asList("role_1", "role_2");
-        Request request = api.organizations().addRoles("org_abc", "user_123", new Roles(rolesList));
+        Request<Void> request = api.organizations().addRoles("org_abc", "user_123", new Roles(rolesList));
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);
@@ -750,7 +750,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldDeleteOrgRoles() throws Exception {
         List<String> rolesList = Arrays.asList("role_1", "role_2");
-        Request request = api.organizations().deleteRoles("org_abc", "user_123", new Roles(rolesList));
+        Request<Void> request = api.organizations().deleteRoles("org_abc", "user_123", new Roles(rolesList));
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);
@@ -962,7 +962,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldDeleteInvitation() throws Exception {
-        Request request = api.organizations().deleteInvitation("org_abc", "inv_123");
+        Request<Void> request = api.organizations().deleteInvitation("org_abc", "inv_123");
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);

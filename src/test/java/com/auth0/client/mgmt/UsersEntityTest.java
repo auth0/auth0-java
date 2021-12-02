@@ -299,7 +299,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldDeleteUser() throws Exception {
-        Request request = api.users().delete("1");
+        Request<Void> request = api.users().delete("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER, 200);
@@ -514,7 +514,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldDeleteUserMultifactorProvider() throws Exception {
-        Request request = api.users().deleteMultifactorProvider("1", "duo");
+        Request<Void> request = api.users().deleteMultifactorProvider("1", "duo");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMAIL_PROVIDER, 200);
@@ -774,7 +774,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldAddRoles() throws Exception {
-        Request request = api.users().addRoles("1",  Collections.singletonList("roleId"));
+        Request<Void> request = api.users().addRoles("1",  Collections.singletonList("roleId"));
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(200);
@@ -815,7 +815,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldRemoveRoles() throws Exception {
-        Request request = api.users().removeRoles("1", Collections.singletonList("roleId"));
+        Request<Void> request = api.users().removeRoles("1", Collections.singletonList("roleId"));
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse( 200);
@@ -920,7 +920,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         Permission permission = new Permission();
         permission.setName("permissionName");
         permissions.add(permission);
-        Request request = api.users().addPermissions("1", permissions);
+        Request<Void> request = api.users().addPermissions("1", permissions);
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(200);
@@ -965,7 +965,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         Permission permission = new Permission();
         permission.setName("permissionName");
         permissions.add(permission);
-        Request request = api.users().removePermissions("1", permissions);
+        Request<Void> request = api.users().removePermissions("1", permissions);
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(200);
