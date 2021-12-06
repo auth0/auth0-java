@@ -124,7 +124,7 @@ public class LogStreamsEntity extends BaseManagementEntity {
      * @param logStreamId The ID of the Log Stream to delete.
      * @return the request to execute.
      */
-    public Request delete(String logStreamId) {
+    public Request<Void> delete(String logStreamId) {
         Asserts.assertNotNull(logStreamId, "log stream id");
 
         String url = baseUrl

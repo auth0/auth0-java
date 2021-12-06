@@ -52,7 +52,7 @@ public class UserBlocksEntity extends BaseManagementEntity {
      * @param identifier the identifier. Either a username, phone_number, or email.
      * @return a Request to execute.
      */
-    public Request deleteByIdentifier(String identifier) {
+    public Request<Void> deleteByIdentifier(String identifier) {
         Asserts.assertNotNull(identifier, "identifier");
 
         String url = baseUrl
@@ -95,7 +95,7 @@ public class UserBlocksEntity extends BaseManagementEntity {
      * @param userId the user id.
      * @return a Request to execute.
      */
-    public Request delete(String userId) {
+    public Request<Void> delete(String userId) {
         Asserts.assertNotNull(userId, "user id");
 
         String url = baseUrl

@@ -109,7 +109,7 @@ public class RolesEntity extends BaseManagementEntity {
    * @param roleId The id of the role to delete.
    * @return a Request to execute.
    */
-  public Request delete(String roleId) {
+  public Request<Void> delete(String roleId) {
     Asserts.assertNotNull(roleId, "role id");
 
     final String url = baseUrl
@@ -185,7 +185,7 @@ public class RolesEntity extends BaseManagementEntity {
    * @param userIds a list of user ids to assign to the role
    * @return a Request to execute.
    */
-  public Request assignUsers(String roleId, List<String> userIds) {
+  public Request<Void> assignUsers(String roleId, List<String> userIds) {
     Asserts.assertNotNull(roleId, "role id");
     Asserts.assertNotEmpty(userIds, "user ids");
 
@@ -242,7 +242,7 @@ public class RolesEntity extends BaseManagementEntity {
    * @param permissions a list of permission objects to un-associate from the role
    * @return a Request to execute
    */
-  public Request removePermissions(String roleId, List<Permission> permissions) {
+  public Request<Void> removePermissions(String roleId, List<Permission> permissions) {
     Asserts.assertNotNull(roleId, "role id");
     Asserts.assertNotEmpty(permissions, "permissions");
 
@@ -272,7 +272,7 @@ public class RolesEntity extends BaseManagementEntity {
    * @param permissions a list of permission objects to associate to the role
    * @return a Request to execute
    */
-  public Request addPermissions(String roleId, List<Permission> permissions) {
+  public Request<Void> addPermissions(String roleId, List<Permission> permissions) {
     Asserts.assertNotNull(roleId, "role id");
     Asserts.assertNotEmpty(permissions, "permissions");
 

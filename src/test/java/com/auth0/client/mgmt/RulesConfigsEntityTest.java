@@ -54,7 +54,7 @@ public class RulesConfigsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldDeleteRulesConfig() throws Exception {
-        Request request = api.rulesConfigs().delete("1");
+        Request<Void> request = api.rulesConfigs().delete("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RULE, 200);

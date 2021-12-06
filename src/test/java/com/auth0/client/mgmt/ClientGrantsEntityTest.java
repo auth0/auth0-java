@@ -185,7 +185,7 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldDeleteClientGrant() throws Exception {
-        Request request = api.clientGrants().delete("1");
+        Request<Void> request = api.clientGrants().delete("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT_GRANT, 200);

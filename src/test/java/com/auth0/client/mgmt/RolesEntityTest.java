@@ -180,7 +180,7 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
 
   @Test
   public void shouldDeleteRole() throws Exception {
-    Request request = api.roles().delete("1");
+    Request<Void> request = api.roles().delete("1");
     assertThat(request, is(notNullValue()));
 
     server.emptyResponse(200);
@@ -309,7 +309,7 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
   public void shouldAssignUsers() throws Exception {
     List<String> userIds = new ArrayList<>();
     userIds.add("userId");
-    Request request = api.roles().assignUsers("1", userIds);
+    Request<Void> request = api.roles().assignUsers("1", userIds);
     assertThat(request, is(notNullValue()));
 
     server.emptyResponse(200);
@@ -414,7 +414,7 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
     Permission permission = new Permission();
     permission.setName("permissionName");
     permissions.add(permission);
-    Request request = api.roles().addPermissions("1", permissions);
+    Request<Void> request = api.roles().addPermissions("1", permissions);
     assertThat(request, is(notNullValue()));
 
     server.emptyResponse(200);
@@ -459,7 +459,7 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
     Permission permission = new Permission();
     permission.setName("permissionName");
     permissions.add(permission);
-    Request request = api.roles().removePermissions("1", permissions);
+    Request<Void> request = api.roles().removePermissions("1", permissions);
     assertThat(request, is(notNullValue()));
 
     server.emptyResponse(200);
