@@ -9,6 +9,7 @@ public class HttpOptions {
     private int connectTimeout = 10;
     private int readTimeout = 10;
     private int mgmtApiMaxRetries = 3;
+    private LoggingOptions loggingOptions;
 
     /**
      * Getter for the Proxy configuration options
@@ -66,6 +67,21 @@ public class HttpOptions {
             readTimeout = 0;
         }
         this.readTimeout = readTimeout;
+    }
+
+    /**
+     * Set the HTTP logging configuration options. If not set, no logs will be captured.
+     * @param loggingOptions the Logging configuration options
+     */
+    public void setLoggingOptions(LoggingOptions loggingOptions) {
+        this.loggingOptions = loggingOptions;
+    }
+
+    /**
+     * @return the Logging configurration options if set, null otherwise.
+     */
+    public LoggingOptions getLoggingOptions() {
+        return this.loggingOptions;
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.HttpOptions;
+import com.auth0.client.LoggingOptions;
 import com.auth0.client.ProxyOptions;
 import com.auth0.net.RateLimitInterceptor;
 import com.auth0.net.Telemetry;
@@ -53,7 +54,6 @@ public class ManagementAPI {
 
         telemetry = new TelemetryInterceptor();
         logging = new HttpLoggingInterceptor();
-        logging.setLevel(Level.NONE);
         client = buildNetworkingClient(options);
     }
 
@@ -101,6 +101,7 @@ public class ManagementAPI {
                 });
             }
         }
+        configureLogging(options.getLoggingOptions());
         return clientBuilder
                 .addInterceptor(logging)
                 .addInterceptor(telemetry)
@@ -139,12 +140,41 @@ public class ManagementAPI {
     }
 
     /**
+     * @deprecated use the logging configuration available in {@link HttpOptions#setLoggingOptions(LoggingOptions)}
+     *
      * Whether to enable or not the current HTTP Logger for every Request, Response and other sensitive information.
      *
      * @param enabled whether to enable the HTTP logger or not.
+     *
+     * @see HttpOptions#setLoggingOptions(LoggingOptions)
      */
+    @Deprecated
     public void setLoggingEnabled(boolean enabled) {
         logging.setLevel(enabled ? Level.BODY : Level.NONE);
+    }
+
+    private void configureLogging(LoggingOptions loggingOptions) {
+        if (loggingOptions == null) {
+            logging.setLevel(Level.NONE);
+            return;
+        }
+        switch (loggingOptions.getLogLevel()) {
+            case NONE:
+                logging.setLevel(Level.NONE);
+                break;
+            case BASIC:
+                logging.setLevel(Level.BASIC);
+                break;
+            case HEADERS:
+                logging.setLevel(Level.HEADERS);
+                break;
+            case BODY:
+                logging.setLevel(Level.BODY);
+                break;
+        }
+        for (String header : loggingOptions.getHeadersToRedact()) {
+            logging.redactHeader(header);
+        }
     }
 
     //Visible for testing
