@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.36.0](https://github.com/auth0/auth0-java/tree/1.36.0) (2022-01-10)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.35.0...1.36.0)
+
+**Fixed**
+- [SDK-2975] Fix withOrganization method visibility on token verifier [\#388](https://github.com/auth0/auth0-java/pull/388) ([jimmyjames](https://github.com/jimmyjames))
+- remove warning for untyped requests [\#385](https://github.com/auth0/auth0-java/pull/385) ([pelletier197](https://github.com/pelletier197))
+
 ## [1.35.0](https://github.com/auth0/auth0-java/tree/1.35.0) (2021-10-20)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.34.1...1.35.0)
 
