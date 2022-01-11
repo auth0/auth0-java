@@ -1,6 +1,7 @@
 package com.auth0.client.auth;
 
 import com.auth0.client.HttpOptions;
+import com.auth0.client.LoggingOptions;
 import com.auth0.client.ProxyOptions;
 import com.auth0.json.auth.PasswordlessEmailResponse;
 import com.auth0.json.auth.PasswordlessSmsResponse;
@@ -81,7 +82,6 @@ public class AuthAPI {
 
         telemetry = new TelemetryInterceptor();
         logging = new HttpLoggingInterceptor();
-        logging.setLevel(Level.NONE);
         client = buildNetworkingClient(options);
     }
 
@@ -129,6 +129,7 @@ public class AuthAPI {
                 });
             }
         }
+        configureLogging(options.getLoggingOptions());
         return clientBuilder
                 .addInterceptor(logging)
                 .addInterceptor(telemetry)
@@ -154,12 +155,41 @@ public class AuthAPI {
     }
 
     /**
+     * @deprecated use the logging configuration available in {@link HttpOptions#setLoggingOptions(LoggingOptions)}
+     *
      * Whether to enable or not the current HTTP Logger for every Request, Response and other sensitive information.
      *
      * @param enabled whether to enable the HTTP logger or not.
+     *
+     * @see HttpOptions#setLoggingOptions(LoggingOptions)
      */
+    @Deprecated
     public void setLoggingEnabled(boolean enabled) {
         logging.setLevel(enabled ? Level.BODY : Level.NONE);
+    }
+
+    private void configureLogging(LoggingOptions loggingOptions) {
+        if (loggingOptions == null) {
+            logging.setLevel(Level.NONE);
+            return;
+        }
+        switch (loggingOptions.getLogLevel()) {
+            case BASIC:
+                logging.setLevel(Level.BASIC);
+                break;
+            case HEADERS:
+                logging.setLevel(Level.HEADERS);
+                break;
+            case BODY:
+                logging.setLevel(Level.BODY);
+                break;
+            case NONE:
+            default:
+                logging.setLevel(Level.NONE);
+        }
+        for (String header : loggingOptions.getHeadersToRedact()) {
+            logging.redactHeader(header);
+        }
     }
 
     //Visible for Testing

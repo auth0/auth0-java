@@ -159,9 +159,6 @@ public class ManagementAPI {
             return;
         }
         switch (loggingOptions.getLogLevel()) {
-            case NONE:
-                logging.setLevel(Level.NONE);
-                break;
             case BASIC:
                 logging.setLevel(Level.BASIC);
                 break;
@@ -171,6 +168,9 @@ public class ManagementAPI {
             case BODY:
                 logging.setLevel(Level.BODY);
                 break;
+            case NONE:
+            default:
+                logging.setLevel(Level.NONE);
         }
         for (String header : loggingOptions.getHeadersToRedact()) {
             logging.redactHeader(header);
