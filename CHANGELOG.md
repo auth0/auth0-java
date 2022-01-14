@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.36.1](https://github.com/auth0/auth0-java/tree/1.36.1) (2022-01-14)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.36.0...1.36.1)
+
+**Security**
+- Update jackson dependency [\#394](https://github.com/auth0/auth0-java/pull/394) ([poovamraj](https://github.com/poovamraj))
+
 ## [1.36.0](https://github.com/auth0/auth0-java/tree/1.36.0) (2022-01-10)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.35.0...1.36.0)
 
