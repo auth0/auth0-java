@@ -32,6 +32,8 @@ public class Connection {
     private String provisioningTicketUrl;
     @JsonProperty("metadata")
     private Map<String, String> metadata;
+    @JsonProperty("realms")
+    private List<String> realms;
 
     public Connection() {
     }
@@ -160,5 +162,25 @@ public class Connection {
     @JsonProperty("metadata")
     public void setMetadata(Map<String, String> metadata) {
         this.metadata = metadata;
+    }
+
+    /**
+     * Getter for the realms of this connection.
+     *
+     * @return the list of realms.
+     */
+    @JsonProperty("realms")
+    public List<String> getRealms() {
+        return realms;
+    }
+
+    /**
+     * Setter for the realms of this connection.
+     *
+     * @param realms the list of realms.
+     */
+    @JsonProperty("realms")
+    public void setRealms(List<String> realms) {
+        this.realms = realms;
     }
 }
