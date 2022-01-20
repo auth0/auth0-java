@@ -1,6 +1,7 @@
 package com.auth0.client.auth;
 
 import com.auth0.client.HttpOptions;
+import com.auth0.client.LoggingOptions;
 import com.auth0.client.MockServer;
 import com.auth0.client.ProxyOptions;
 import com.auth0.exception.APIException;
@@ -13,25 +14,26 @@ import okhttp3.*;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 
 import java.io.FileReader;
 import java.net.Proxy;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.hasHeader;
 import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
 import static com.auth0.client.UrlMatcher.hasQueryParameter;
 import static com.auth0.client.UrlMatcher.isUrl;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.collection.IsMapContaining.hasEntry;
 import static org.hamcrest.collection.IsMapContaining.hasKey;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class AuthAPITest {
 
@@ -319,6 +321,7 @@ public class AuthAPITest {
     }
 
     @Test
+    @SuppressWarnings("deprecation")
     public void shouldEnableLoggingInterceptor() {
         AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
         assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
@@ -333,6 +336,7 @@ public class AuthAPITest {
     }
 
     @Test
+    @SuppressWarnings("deprecation")
     public void shouldDisableLoggingInterceptor() {
         AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
         assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
@@ -342,6 +346,82 @@ public class AuthAPITest {
             if (i instanceof HttpLoggingInterceptor) {
                 HttpLoggingInterceptor logging = (HttpLoggingInterceptor) i;
                 assertThat(logging.getLevel(), is(Level.NONE));
+            }
+        }
+    }
+
+    @Test
+    public void shouldConfigureNoneLoggingFromOptions() {
+        LoggingOptions loggingOptions = new LoggingOptions(LoggingOptions.LogLevel.NONE);
+        HttpOptions options = new HttpOptions();
+        options.setLoggingOptions(loggingOptions);
+
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, options);
+        assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
+
+        for (Interceptor i : api.getClient().interceptors()) {
+            if (i instanceof HttpLoggingInterceptor) {
+                HttpLoggingInterceptor logging = (HttpLoggingInterceptor) i;
+                assertThat(logging.getLevel(), is(Level.NONE));
+            }
+        }
+    }
+
+    @Test
+    public void shouldConfigureBasicLoggingFromOptions() {
+        LoggingOptions loggingOptions = new LoggingOptions(LoggingOptions.LogLevel.BASIC);
+        HttpOptions options = new HttpOptions();
+        options.setLoggingOptions(loggingOptions);
+
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, options);
+        assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
+
+        for (Interceptor i : api.getClient().interceptors()) {
+            if (i instanceof HttpLoggingInterceptor) {
+                HttpLoggingInterceptor logging = (HttpLoggingInterceptor) i;
+                assertThat(logging.getLevel(), is(Level.BASIC));
+            }
+        }
+    }
+
+    @Test
+    public void shouldConfigureHeaderLoggingFromOptions() {
+        LoggingOptions loggingOptions = new LoggingOptions(LoggingOptions.LogLevel.HEADERS);
+        Set<String> headersToRedact = new HashSet<>();
+        headersToRedact.add("Authorization");
+        headersToRedact.add("Cookie");
+        loggingOptions.setHeadersToRedact(headersToRedact);
+        HttpOptions options = new HttpOptions();
+        options.setLoggingOptions(loggingOptions);
+
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, options);
+        assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
+
+        for (Interceptor i : api.getClient().interceptors()) {
+            if (i instanceof HttpLoggingInterceptor) {
+                HttpLoggingInterceptor logging = (HttpLoggingInterceptor) i;
+                assertThat(logging.getLevel(), is(Level.HEADERS));
+            }
+        }
+    }
+
+    @Test
+    public void shouldConfigureBodyLoggingFromOptions() {
+        LoggingOptions loggingOptions = new LoggingOptions(LoggingOptions.LogLevel.BODY);
+        Set<String> headersToRedact = new HashSet<>();
+        headersToRedact.add("Authorization");
+        headersToRedact.add("Cookie");
+        loggingOptions.setHeadersToRedact(headersToRedact);
+        HttpOptions options = new HttpOptions();
+        options.setLoggingOptions(loggingOptions);
+
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, options);
+        assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
+
+        for (Interceptor i : api.getClient().interceptors()) {
+            if (i instanceof HttpLoggingInterceptor) {
+                HttpLoggingInterceptor logging = (HttpLoggingInterceptor) i;
+                assertThat(logging.getLevel(), is(Level.BODY));
             }
         }
     }
