@@ -1,5 +1,15 @@
 # Change Log
 
+## [1.37.0](https://github.com/auth0/auth0-java/tree/1.37.0) (2022-01-20)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.36.1...1.37.0)
+
+**Added**
+- Add support for Connection realms [\#397](https://github.com/auth0/auth0-java/pull/397) ([jimmyjames](https://github.com/jimmyjames))
+- Improve logging [\#392](https://github.com/auth0/auth0-java/pull/392) ([jimmyjames](https://github.com/jimmyjames))
+
+**Deprecated**
+- Deprecate setLoggingEnabled on API clients [\#396](https://github.com/auth0/auth0-java/pull/396) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.36.1](https://github.com/auth0/auth0-java/tree/1.36.1) (2022-01-14)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.36.0...1.36.1)
 
