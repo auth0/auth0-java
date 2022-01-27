@@ -31,10 +31,10 @@ public class BrandingEntity extends BaseManagementEntity {
      */
     public Request<BrandingSettings> getBrandingSettings() {
         return request(
-            "DELETE",
+            "GET",
             new TypeReference<BrandingSettings>() {
             },
-            (builder) -> builder.withPathSegments("/api/v2/branding")
+            (builder) -> builder.withPathSegments("api/v2/branding")
         );
     }
 
@@ -53,7 +53,7 @@ public class BrandingEntity extends BaseManagementEntity {
             new TypeReference<BrandingSettings>() {
             },
             (builder) -> builder
-                .withPathSegments("/api/v2/branding")
+                .withPathSegments("api/v2/branding")
                 .withBody(settings)
         );
     }
@@ -70,7 +70,7 @@ public class BrandingEntity extends BaseManagementEntity {
             "GET",
             new TypeReference<UniversalLoginTemplate>() {
             },
-            (builder) -> builder.withPathSegments("/api/v2/branding/templates/universal-login")
+            (builder) -> builder.withPathSegments("api/v2/branding/templates/universal-login")
         );
     }
 
@@ -83,7 +83,7 @@ public class BrandingEntity extends BaseManagementEntity {
     public Request<Void> deleteUniversalLoginTemplate() {
         return voidRequest(
             "DELETE",
-            (builder) -> builder.withPathSegments("/api/v2/branding/templates/universal-login")
+            (builder) -> builder.withPathSegments("api/v2/branding/templates/universal-login")
         );
     }
 
@@ -94,10 +94,12 @@ public class BrandingEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request<Void> setUniversalLoginTemplate(UniversalLoginTemplateUpdate template) {
+        Asserts.assertNotNull(template, "template");
+
         return voidRequest(
             "PUT",
             (builder) -> builder
-                .withPathSegments("/api/v2/branding/templates/universal-login")
+                .withPathSegments("api/v2/branding/templates/universal-login")
                 .withBody(template)
         );
     }

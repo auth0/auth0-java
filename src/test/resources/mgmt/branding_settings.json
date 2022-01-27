@@ -1,0 +1,11 @@
+{
+  "colors": {
+    "page_background": "#000000",
+    "primary": "#0E84F2"
+  },
+  "logo_url": "https://test/logo.svg",
+  "favicon_url": "https://test/favicon.svg",
+  "font": {
+    "url": "https://test/font.ttf"
+  }
+}
