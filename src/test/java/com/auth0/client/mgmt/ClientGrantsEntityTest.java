@@ -171,7 +171,7 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
         assertThat(body, hasEntry("client_id", "clientId"));
         assertThat(body, hasEntry("audience", "audience"));
         assertThat(body, hasKey("scope"));
-        assertThat((Iterable<String>) body.get("scope"), contains("openid"));
+        assertThat((Iterable<?>) body.get("scope"), contains("openid"));
 
         assertThat(response, is(notNullValue()));
     }
@@ -226,7 +226,7 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(1));
-        assertThat((ArrayList<String>) body.get("scope"), contains("openid", "profile"));
+        assertThat((ArrayList<?>) body.get("scope"), contains("openid", "profile"));
 
         assertThat(response, is(notNullValue()));
     }
