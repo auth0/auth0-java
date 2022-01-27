@@ -1,15 +1,13 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.json.mgmt.Token;
-import com.auth0.net.CustomRequest;
+import com.auth0.json.mgmt.branding.BrandingSettings;
+import com.auth0.json.mgmt.branding.UniversalLoginTemplate;
+import com.auth0.json.mgmt.branding.UniversalLoginTemplateUpdate;
 import com.auth0.net.Request;
-import com.auth0.net.VoidRequest;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
-
-import java.util.List;
 
 /**
  * Class that provides an implementation of the Branding methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Branding
@@ -26,45 +24,81 @@ public class BrandingEntity extends BaseManagementEntity {
     }
 
     /**
-     * Request all the Blacklisted Tokens with a given audience. A token with scope blacklist:tokens is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Blacklists/get_tokens.
+     * Requests the branding settings for this tenant.
+     * See https://auth0.com/docs/api/management/v2#!/Branding/get_branding
      *
-     * @param audience the token audience (aud).
      * @return a Request to execute.
      */
-    public Request<List<Token>> getBlacklist(String audience) {
-        Asserts.assertNotNull(audience, "audience");
-
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/blacklists/tokens")
-                .addQueryParameter("aud", audience)
-                .build()
-                .toString();
-        CustomRequest<List<Token>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Token>>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+    public Request<BrandingSettings> getBrandingSettings() {
+        return request(
+            "DELETE",
+            new TypeReference<BrandingSettings>() {
+            },
+            (builder) -> builder.withPathSegments("/api/v2/branding")
+        );
     }
 
     /**
-     * Add a Token to the Blacklist. A token with scope blacklist:tokens is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Blacklists/post_tokens.
+     * Update the branding settings for this tenant.
+     * See https://auth0.com/docs/api/management/v2#!/Branding/patch_branding
      *
-     * @param token the token to blacklist.
+     * @param settings the new branding settings.
      * @return a Request to execute.
      */
-    public Request blacklistToken(Token token) {
-        Asserts.assertNotNull(token, "token");
+    public Request<BrandingSettings> updateBrandingSettings(BrandingSettings settings) {
+        Asserts.assertNotNull(settings, "settings");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/blacklists/tokens")
-                .build()
-                .toString();
-        VoidRequest request = new VoidRequest(client, url, "POST");
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        request.setBody(token);
-        return request;
+        return request(
+            "PATCH",
+            new TypeReference<BrandingSettings>() {
+            },
+            (builder) -> builder
+                .withPathSegments("/api/v2/branding")
+                .withBody(settings)
+        );
+    }
+
+
+    /**
+     * Gets the template for the universal login page.
+     * See https://auth0.com/docs/api/management/v2#!/Branding/get_universal_login
+     *
+     * @return a Request to execute.
+     */
+    public Request<UniversalLoginTemplate> getUniversalLoginTemplate() {
+        return request(
+            "GET",
+            new TypeReference<UniversalLoginTemplate>() {
+            },
+            (builder) -> builder.withPathSegments("/api/v2/branding/templates/universal-login")
+        );
+    }
+
+    /**
+     * Delete the template for the universal login page.
+     * See https://auth0.com/docs/api/management/v2#!/Branding/delete_universal_login
+     *
+     * @return a Request to execute.
+     */
+    public Request<Void> deleteUniversalLoginTemplate() {
+        return voidRequest(
+            "DELETE",
+            (builder) -> builder.withPathSegments("/api/v2/branding/templates/universal-login")
+        );
+    }
+
+    /**
+     * Sets the template for the universal login page.
+     * See https://auth0.com/docs/api/management/v2#!/Branding/put_universal_login
+     *
+     * @return a Request to execute.
+     */
+    public Request<Void> setUniversalLoginTemplate(UniversalLoginTemplateUpdate template) {
+        return voidRequest(
+            "PUT",
+            (builder) -> builder
+                .withPathSegments("/api/v2/branding/templates/universal-login")
+                .withBody(template)
+        );
     }
 }

@@ -136,7 +136,7 @@ public class RulesEntity extends BaseManagementEntity {
      * @param ruleId the rule id
      * @return a Request to execute.
      */
-    public Request delete(String ruleId) {
+    public Request<Void> delete(String ruleId) {
         Asserts.assertNotNull(ruleId, "rule id");
 
         String url = baseUrl

@@ -124,7 +124,7 @@ public class ClientsEntity extends BaseManagementEntity {
      * @param clientId the application's client id.
      * @return a Request to execute.
      */
-    public Request delete(String clientId) {
+    public Request<Void> delete(String clientId) {
         Asserts.assertNotNull(clientId, "client id");
 
         String url = baseUrl
