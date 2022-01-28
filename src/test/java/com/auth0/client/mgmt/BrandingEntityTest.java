@@ -1,8 +1,6 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.json.mgmt.branding.BrandingSettings;
-import com.auth0.json.mgmt.branding.UniversalLoginTemplate;
-import com.auth0.json.mgmt.branding.UniversalLoginTemplateUpdate;
+import com.auth0.json.mgmt.branding.*;
 import com.auth0.net.Request;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
@@ -41,7 +39,7 @@ public class BrandingEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldUpdateBrandingSettings() throws Exception {
-        Request<BrandingSettings> request = api.branding().updateBrandingSettings(new BrandingSettings());
+        Request<BrandingSettings> request = api.branding().updateBrandingSettings(getBrandingSettings());
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_BRANDING_SETTINGS, 200);
@@ -94,7 +92,7 @@ public class BrandingEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldSetTheUniversalLoginTemplate() throws Exception {
-        Request<Void> request = api.branding().setUniversalLoginTemplate(new UniversalLoginTemplateUpdate());
+        Request<Void> request = api.branding().setUniversalLoginTemplate(getUniversalLoginTemplateUpdate());
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);
@@ -104,5 +102,30 @@ public class BrandingEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/branding/templates/universal-login"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
+
+    private BrandingSettings getBrandingSettings() {
+        BrandingSettings settings = new BrandingSettings();
+
+        BrandingColors colors = new BrandingColors();
+        colors.setPrimary("#00000");
+        colors.setPageBackground("#ffffff");
+        settings.setColors(colors);
+
+        settings.setFaviconUrl("https://test-url.com/favicon.svg");
+        settings.setLogoUrl("https://test-url.com/logo.svg");
+
+        BrandingFont font = new BrandingFont();
+        font.setUrl("https://test.com/font.ttf");
+        settings.setFont(font);
+
+        return settings;
+
+    }
+
+    private UniversalLoginTemplateUpdate getUniversalLoginTemplateUpdate(){
+        UniversalLoginTemplateUpdate template = new UniversalLoginTemplateUpdate();
+        template.setTemplate("<!DOCTYPE html><html><head>{%- auth0:head -%}</head><body>{%- auth0:widget -%}</body></html>");
+        return template;
     }
 }
