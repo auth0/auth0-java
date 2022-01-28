@@ -506,7 +506,53 @@ public class ManagementAPITest {
         HttpOptions options = new HttpOptions();
         options.setManagementAPIMaxRetries(11);
     }
-    
+
+    @Test
+    public void shouldUseDefaultMaxRequests() {
+        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN);
+        assertThat(api.getClient().dispatcher().getMaxRequests(), is(64));
+    }
+
+    @Test
+    public void shouldUseConfiguredMaxRequests() {
+        HttpOptions options = new HttpOptions();
+        options.setMaxRequests(10);
+        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN, options);
+        assertThat(api.getClient().dispatcher().getMaxRequests(), is(10));
+    }
+
+    @Test
+    public void shouldThrowOnInValidMaxRequestsConfiguration() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("maxRequests must be one or greater.");
+
+        HttpOptions options = new HttpOptions();
+        options.setMaxRequests(0);
+    }
+
+    @Test
+    public void shouldUseDefaultMaxRequestsPerHost() {
+        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN);
+        assertThat(api.getClient().dispatcher().getMaxRequestsPerHost(), is(5));
+    }
+
+    @Test
+    public void shouldUseConfiguredMaxRequestsPerHost() {
+        HttpOptions options = new HttpOptions();
+        options.setMaxRequestsPerHost(10);
+        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN, options);
+        assertThat(api.getClient().dispatcher().getMaxRequestsPerHost(), is(10));
+    }
+
+    @Test
+    public void shouldThrowOnInValidMaxRequestsPerHostConfiguration() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("maxRequestsPerHost must be one or greater.");
+
+        HttpOptions options = new HttpOptions();
+        options.setMaxRequestsPerHost(0);
+    }
+
     //Entities
 
     @Test

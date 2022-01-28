@@ -426,6 +426,52 @@ public class AuthAPITest {
         }
     }
 
+    @Test
+    public void shouldUseDefaultMaxRequests() {
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
+        assertThat(api.getClient().dispatcher().getMaxRequests(), is(64));
+    }
+
+    @Test
+    public void shouldUseConfiguredMaxRequests() {
+        HttpOptions options = new HttpOptions();
+        options.setMaxRequests(10);
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, options);
+        assertThat(api.getClient().dispatcher().getMaxRequests(), is(10));
+    }
+
+    @Test
+    public void shouldThrowOnInValidMaxRequestsConfiguration() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("maxRequests must be one or greater.");
+
+        HttpOptions options = new HttpOptions();
+        options.setMaxRequests(0);
+    }
+
+    @Test
+    public void shouldUseDefaultMaxRequestsPerHost() {
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
+        assertThat(api.getClient().dispatcher().getMaxRequestsPerHost(), is(5));
+    }
+
+    @Test
+    public void shouldUseConfiguredMaxRequestsPerHost() {
+        HttpOptions options = new HttpOptions();
+        options.setMaxRequestsPerHost(10);
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, options);
+        assertThat(api.getClient().dispatcher().getMaxRequestsPerHost(), is(10));
+    }
+
+    @Test
+    public void shouldThrowOnInValidMaxRequestsPerHostConfiguration() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("maxRequestsPerHost must be one or greater.");
+
+        HttpOptions options = new HttpOptions();
+        options.setMaxRequestsPerHost(0);
+    }
+
     //Authorize
 
     @Test
