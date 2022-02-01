@@ -130,11 +130,15 @@ public class AuthAPI {
             }
         }
         configureLogging(options.getLoggingOptions());
+        Dispatcher dispatcher = new Dispatcher();
+        dispatcher.setMaxRequests(options.getMaxRequests());
+        dispatcher.setMaxRequestsPerHost(options.getMaxRequestsPerHost());
         return clientBuilder
                 .addInterceptor(logging)
                 .addInterceptor(telemetry)
                 .connectTimeout(options.getConnectTimeout(), TimeUnit.SECONDS)
                 .readTimeout(options.getReadTimeout(), TimeUnit.SECONDS)
+                .dispatcher(dispatcher)
                 .build();
     }
 
