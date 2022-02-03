@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.38.0](https://github.com/auth0/auth0-java/tree/1.38.0) (2022-02-01)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.37.0...1.38.0)
+
+**Added**
+- Support maxRequests and maxRequestsPerHost client confiugrations [\#402](https://github.com/auth0/auth0-java/pull/402) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.37.0](https://github.com/auth0/auth0-java/tree/1.37.0) (2022-01-20)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.36.1...1.37.0)
 

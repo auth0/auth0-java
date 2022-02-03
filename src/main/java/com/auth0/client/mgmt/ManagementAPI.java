@@ -102,12 +102,16 @@ public class ManagementAPI {
             }
         }
         configureLogging(options.getLoggingOptions());
+        Dispatcher dispatcher = new Dispatcher();
+        dispatcher.setMaxRequestsPerHost(options.getMaxRequestsPerHost());
+        dispatcher.setMaxRequests(options.getMaxRequests());
         return clientBuilder
                 .addInterceptor(logging)
                 .addInterceptor(telemetry)
                 .addInterceptor(new RateLimitInterceptor(options.getManagementAPIMaxRetries()))
                 .connectTimeout(options.getConnectTimeout(), TimeUnit.SECONDS)
                 .readTimeout(options.getReadTimeout(), TimeUnit.SECONDS)
+                .dispatcher(dispatcher)
                 .build();
     }
 
