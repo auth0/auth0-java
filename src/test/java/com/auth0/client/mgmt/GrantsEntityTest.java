@@ -167,7 +167,7 @@ public class GrantsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldDeleteGrantById() throws Exception {
-        Request request = api.grants().delete("1");
+        Request<Void> request = api.grants().delete("1");
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(200);
@@ -188,7 +188,7 @@ public class GrantsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldDeleteAllGrantsByUserId() throws Exception {
-        Request request = api.grants().deleteAll("userId");
+        Request<Void> request = api.grants().deleteAll("userId");
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(200);

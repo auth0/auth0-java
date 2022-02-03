@@ -162,7 +162,7 @@ public class UsersEntity extends BaseManagementEntity {
      * @param userId the user id
      * @return a Request to execute.
      */
-    public Request delete(String userId) {
+    public Request<Void> delete(String userId) {
         Asserts.assertNotNull(userId, "user id");
 
         String url = baseUrl
@@ -266,7 +266,7 @@ public class UsersEntity extends BaseManagementEntity {
      * @param provider the multifactor provider
      * @return a Request to execute.
      */
-    public Request deleteMultifactorProvider(String userId, String provider) {
+    public Request<Void> deleteMultifactorProvider(String userId, String provider) {
         Asserts.assertNotNull(userId, "user id");
         Asserts.assertNotNull(provider, "provider");
 
@@ -441,7 +441,7 @@ public class UsersEntity extends BaseManagementEntity {
      * @param permissions a list of permission objects to remove from the user
      * @return a Request to execute
      */
-    public Request removePermissions(String userId, List<Permission> permissions) {
+    public Request<Void> removePermissions(String userId, List<Permission> permissions) {
         Asserts.assertNotNull(userId, "user id");
         Asserts.assertNotEmpty(permissions, "permissions");
 
@@ -470,7 +470,7 @@ public class UsersEntity extends BaseManagementEntity {
      * @param permissions a list of permission objects to assign to the user
      * @return a Request to execute
      */
-    public Request addPermissions(String userId, List<Permission> permissions) {
+    public Request<Void> addPermissions(String userId, List<Permission> permissions) {
         Asserts.assertNotNull(userId, "user id");
         Asserts.assertNotEmpty(permissions, "permissions");
 
@@ -528,7 +528,7 @@ public class UsersEntity extends BaseManagementEntity {
      * @param roleIds a list of role ids to remove from the user
      * @return a Request to execute
      */
-    public Request removeRoles(String userId, List<String> roleIds) {
+    public Request<Void> removeRoles(String userId, List<String> roleIds) {
         Asserts.assertNotNull(userId, "user id");
         Asserts.assertNotEmpty(roleIds, "role ids");
 
@@ -557,7 +557,7 @@ public class UsersEntity extends BaseManagementEntity {
      * @param roleIds a list of role ids to assign to the user
      * @return a Request to execute
      */
-    public Request addRoles(String userId, List<String> roleIds) {
+    public Request<Void> addRoles(String userId, List<String> roleIds) {
         Asserts.assertNotNull(userId, "user id");
         Asserts.assertNotEmpty(roleIds, "role ids");
 

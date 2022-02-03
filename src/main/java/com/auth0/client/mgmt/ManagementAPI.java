@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.HttpOptions;
+import com.auth0.client.LoggingOptions;
 import com.auth0.client.ProxyOptions;
 import com.auth0.net.RateLimitInterceptor;
 import com.auth0.net.Telemetry;
@@ -53,7 +54,6 @@ public class ManagementAPI {
 
         telemetry = new TelemetryInterceptor();
         logging = new HttpLoggingInterceptor();
-        logging.setLevel(Level.NONE);
         client = buildNetworkingClient(options);
     }
 
@@ -101,12 +101,17 @@ public class ManagementAPI {
                 });
             }
         }
+        configureLogging(options.getLoggingOptions());
+        Dispatcher dispatcher = new Dispatcher();
+        dispatcher.setMaxRequestsPerHost(options.getMaxRequestsPerHost());
+        dispatcher.setMaxRequests(options.getMaxRequests());
         return clientBuilder
                 .addInterceptor(logging)
                 .addInterceptor(telemetry)
                 .addInterceptor(new RateLimitInterceptor(options.getManagementAPIMaxRetries()))
                 .connectTimeout(options.getConnectTimeout(), TimeUnit.SECONDS)
                 .readTimeout(options.getReadTimeout(), TimeUnit.SECONDS)
+                .dispatcher(dispatcher)
                 .build();
     }
 
@@ -139,12 +144,40 @@ public class ManagementAPI {
     }
 
     /**
-     * Whether to enable or not the current HTTP Logger for every Request, Response and other sensitive information.
+     * @deprecated use the logging configuration available in {@link HttpOptions#setLoggingOptions(LoggingOptions)}
+     *
+     * Whether to enable or not the current HTTP Logger for every request and response line, body, and headers.
+     * <strong>Warning: Enabling logging can leek sensitive information, and should only be done in a controlled, non-production environment.</strong>
      *
      * @param enabled whether to enable the HTTP logger or not.
      */
+    @Deprecated
     public void setLoggingEnabled(boolean enabled) {
         logging.setLevel(enabled ? Level.BODY : Level.NONE);
+    }
+
+    private void configureLogging(LoggingOptions loggingOptions) {
+        if (loggingOptions == null) {
+            logging.setLevel(Level.NONE);
+            return;
+        }
+        switch (loggingOptions.getLogLevel()) {
+            case BASIC:
+                logging.setLevel(Level.BASIC);
+                break;
+            case HEADERS:
+                logging.setLevel(Level.HEADERS);
+                break;
+            case BODY:
+                logging.setLevel(Level.BODY);
+                break;
+            case NONE:
+            default:
+                logging.setLevel(Level.NONE);
+        }
+        for (String header : loggingOptions.getHeadersToRedact()) {
+            logging.redactHeader(header);
+        }
     }
 
     //Visible for testing

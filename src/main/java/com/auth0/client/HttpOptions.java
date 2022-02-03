@@ -9,6 +9,9 @@ public class HttpOptions {
     private int connectTimeout = 10;
     private int readTimeout = 10;
     private int mgmtApiMaxRetries = 3;
+    private int maxRequests = 64;
+    private int maxRequestsPerHost = 5;
+    private LoggingOptions loggingOptions;
 
     /**
      * Getter for the Proxy configuration options
@@ -69,6 +72,21 @@ public class HttpOptions {
     }
 
     /**
+     * Set the HTTP logging configuration options. If not set, no logs will be captured.
+     * @param loggingOptions the Logging configuration options
+     */
+    public void setLoggingOptions(LoggingOptions loggingOptions) {
+        this.loggingOptions = loggingOptions;
+    }
+
+    /**
+     * @return the Logging configurration options if set, null otherwise.
+     */
+    public LoggingOptions getLoggingOptions() {
+        return this.loggingOptions;
+    }
+
+    /**
      * @return the configured number of maximum retries to attempt when a rate-limit error is encountered by the Management API client.
      */
     public int getManagementAPIMaxRetries() {
@@ -92,5 +110,43 @@ public class HttpOptions {
             throw new IllegalArgumentException("Retries must be between zero and ten.");
         }
         this.mgmtApiMaxRetries = maxRetries;
+    }
+
+    /**
+     * Sets the maximum number of requests for each host to execute concurrently.
+     *
+     * @param maxRequestsPerHost the maximum number of requests for each host to execute concurrently. Must be equal to or greater than one.
+     */
+    public void setMaxRequestsPerHost(int maxRequestsPerHost) {
+        if (maxRequestsPerHost < 1) {
+            throw new IllegalArgumentException("maxRequestsPerHost must be one or greater.");
+        }
+        this.maxRequestsPerHost = maxRequestsPerHost;
+    }
+
+    /**
+     * @return the maximum number of requests for each host to execute concurrently.
+     */
+    public int getMaxRequestsPerHost() {
+        return this.maxRequestsPerHost;
+    }
+
+    /**
+     * Sets the maximum number of requests to execute concurrently.
+     *
+     * @param maxRequests the number of requests to execute concurrently. Must be equal to or greater than one.
+     */
+    public void setMaxRequests(int maxRequests) {
+        if (maxRequests < 1) {
+            throw new IllegalArgumentException("maxRequests must be one or greater.");
+        }
+        this.maxRequests = maxRequests;
+    }
+
+    /**
+     * @return the number of requests to execute concurrently
+     */
+    public int getMaxRequests() {
+        return this.maxRequests;
     }
 }

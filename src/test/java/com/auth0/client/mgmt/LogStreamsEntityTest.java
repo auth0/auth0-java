@@ -135,7 +135,7 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldDeleteLogStream() throws Exception {
-        Request request = api.logStreams().delete("1");
+        Request<Void> request = api.logStreams().delete("1");
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);

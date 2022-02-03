@@ -1,5 +1,44 @@
 # Change Log
 
+## [1.38.0](https://github.com/auth0/auth0-java/tree/1.38.0) (2022-02-01)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.37.0...1.38.0)
+
+**Added**
+- Support maxRequests and maxRequestsPerHost client confiugrations [\#402](https://github.com/auth0/auth0-java/pull/402) ([jimmyjames](https://github.com/jimmyjames))
+
+## [1.37.0](https://github.com/auth0/auth0-java/tree/1.37.0) (2022-01-20)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.36.1...1.37.0)
+
+**Added**
+- Add support for Connection realms [\#397](https://github.com/auth0/auth0-java/pull/397) ([jimmyjames](https://github.com/jimmyjames))
+- Improve logging [\#392](https://github.com/auth0/auth0-java/pull/392) ([jimmyjames](https://github.com/jimmyjames))
+
+**Deprecated**
+- Deprecate setLoggingEnabled on API clients [\#396](https://github.com/auth0/auth0-java/pull/396) ([jimmyjames](https://github.com/jimmyjames))
+
+## [1.36.1](https://github.com/auth0/auth0-java/tree/1.36.1) (2022-01-14)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.36.0...1.36.1)
+
+**Security**
+- Update jackson dependency [\#394](https://github.com/auth0/auth0-java/pull/394) ([poovamraj](https://github.com/poovamraj))
+
+## [1.36.0](https://github.com/auth0/auth0-java/tree/1.36.0) (2022-01-10)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.35.0...1.36.0)
+
+**Fixed**
+- [SDK-2975] Fix withOrganization method visibility on token verifier [\#388](https://github.com/auth0/auth0-java/pull/388) ([jimmyjames](https://github.com/jimmyjames))
+- remove warning for untyped requests [\#385](https://github.com/auth0/auth0-java/pull/385) ([pelletier197](https://github.com/pelletier197))
+
+## [1.35.0](https://github.com/auth0/auth0-java/tree/1.35.0) (2021-10-20)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.34.1...1.35.0)
+
+**Added**
+- Added get job error details method to JobEntity [\#383](https://github.com/auth0/auth0-java/pull/383) ([jasonfagerberg-toast](https://github.com/jasonfagerberg-toast))
+- Add MFA Authentication policies to GuardianEntity [\#379](https://github.com/auth0/auth0-java/pull/379) ([pelletier197](https://github.com/pelletier197))
+
+**Fixed**
+- Fix de/serialization of Invitation roles [\#380](https://github.com/auth0/auth0-java/pull/380) ([lbalmaceda](https://github.com/lbalmaceda))
+
 ## [1.34.1](https://github.com/auth0/auth0-java/tree/1.34.1) (2021-09-21)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.34.0...1.34.1)
 
