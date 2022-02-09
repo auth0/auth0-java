@@ -5,9 +5,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import java.net.URLEncoder;
-
-import static com.auth0.client.UrlMatcher.*;
+import static com.auth0.client.UrlMatcher.hasQueryParameter;
+import static com.auth0.client.UrlMatcher.isUrl;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
@@ -80,13 +79,6 @@ public class AuthorizeUrlBuilderTest {
     public void shouldAddRedirectUri() {
         String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI).build();
         assertThat(url, hasQueryParameter("redirect_uri", REDIRECT_URI));
-    }
-
-    @Test
-    public void shouldNotEncodeTwiceTheRedirectUri() throws Exception {
-        String encodedUrl = URLEncoder.encode("https://www.google.com/?src=her&q=ans", "UTF-8");
-        String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, encodedUrl).build();
-        assertThat(url, encodedQueryContains("redirect_uri=" + encodedUrl));
     }
 
     @Test

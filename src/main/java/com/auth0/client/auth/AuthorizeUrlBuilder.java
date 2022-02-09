@@ -25,7 +25,7 @@ public class AuthorizeUrlBuilder {
      *
      * @param baseUrl     the base url constructed from a valid domain.
      * @param clientId    the application's client_id value to set
-     * @param redirectUri the redirect_uri value to set. Must be already URL Encoded and must be white-listed in your Auth0's dashboard.
+     * @param redirectUri the redirect_uri value to set. Your Auth0 application must have this URL as one of its Allowed Callback URLs.
      * @return a new instance of the {@link AuthorizeUrlBuilder} to configure.
      */
     static AuthorizeUrlBuilder newInstance(HttpUrl baseUrl, String clientId, String redirectUri) {
@@ -40,7 +40,7 @@ public class AuthorizeUrlBuilder {
         parameters = new HashMap<>();
         builder = url.newBuilder()
                 .addPathSegment("authorize")
-                .addEncodedQueryParameter("redirect_uri", redirectUri)
+                .addQueryParameter("redirect_uri", redirectUri)
                 .addQueryParameter("client_id", clientId);
         withParameter("response_type", "code");
     }
