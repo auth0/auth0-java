@@ -5,8 +5,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static com.auth0.client.UrlMatcher.hasQueryParameter;
-import static com.auth0.client.UrlMatcher.isUrl;
+import java.net.URLEncoder;
+
+import static com.auth0.client.UrlMatcher.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
@@ -61,9 +62,10 @@ public class LogoutUrlBuilderTest {
     }
 
     @Test
-    public void shouldAddReturnToURL() {
+    public void shouldAddReturnToURL() throws Exception {
+        String encodedUrl = URLEncoder.encode(RETURN_TO_URL, "UTF-8");
         String url = LogoutUrlBuilder.newInstance(DOMAIN, CLIENT_ID, RETURN_TO_URL, true).build();
-        assertThat(url, hasQueryParameter("returnTo", RETURN_TO_URL));
+        assertThat(url, encodedQueryContains("returnTo=" + encodedUrl));
     }
 
     @Test

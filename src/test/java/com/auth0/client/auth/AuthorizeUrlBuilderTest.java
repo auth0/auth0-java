@@ -5,7 +5,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.net.URLEncoder;
+
 import static com.auth0.client.UrlMatcher.hasQueryParameter;
+import static com.auth0.client.UrlMatcher.encodedQueryContains;
 import static com.auth0.client.UrlMatcher.isUrl;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -76,9 +79,10 @@ public class AuthorizeUrlBuilderTest {
     }
 
     @Test
-    public void shouldAddRedirectUri() {
+    public void shouldAddRedirectUri() throws Exception {
+        String encodedUrl = URLEncoder.encode(REDIRECT_URI, "UTF-8");
         String url = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI).build();
-        assertThat(url, hasQueryParameter("redirect_uri", REDIRECT_URI));
+        assertThat(url, encodedQueryContains("redirect_uri=" + encodedUrl));
     }
 
     @Test
