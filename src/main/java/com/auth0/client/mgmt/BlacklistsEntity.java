@@ -54,7 +54,7 @@ public class BlacklistsEntity extends BaseManagementEntity {
      * @param token the token to blacklist.
      * @return a Request to execute.
      */
-    public Request blacklistToken(Token token) {
+    public Request<Void> blacklistToken(Token token) {
         Asserts.assertNotNull(token, "token");
 
         String url = baseUrl

@@ -88,7 +88,7 @@ public class GrantsEntity extends BaseManagementEntity {
      * @param grantId The id of the grant to delete.
      * @return a Request to execute.
      */
-    public Request delete(String grantId) {
+    public Request<Void> delete(String grantId) {
         Asserts.assertNotNull(grantId, "grant id");
 
         final String url = baseUrl
@@ -109,7 +109,7 @@ public class GrantsEntity extends BaseManagementEntity {
      * @param userId The id of the user whose grants are deleted.
      * @return a Request to execute.
      */
-    public Request deleteAll(String userId) {
+    public Request<Void> deleteAll(String userId) {
         Asserts.assertNotNull(userId, "user id");
 
         final String url = baseUrl

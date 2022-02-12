@@ -310,7 +310,7 @@ public class AuthAPI {
      * @param connection the database connection where the user was created.
      * @return a Request to execute.
      */
-    public Request resetPassword(String email, String connection) {
+    public Request<Void> resetPassword(String email, String connection) {
         Asserts.assertNotNull(email, "email");
         Asserts.assertNotNull(connection, "connection");
 

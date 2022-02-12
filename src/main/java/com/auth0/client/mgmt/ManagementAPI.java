@@ -199,6 +199,15 @@ public class ManagementAPI {
     }
 
     /**
+     * Getter for the Branding entity.
+     *
+     * @return the Branding entity.
+     */
+    public BrandingEntity branding() {
+        return new BrandingEntity(client, baseUrl, apiToken);
+    }
+
+    /**
      * Getter for the Client Grants entity.
      *
      * @return the Client Grants entity.

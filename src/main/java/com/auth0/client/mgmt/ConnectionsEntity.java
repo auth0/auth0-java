@@ -138,7 +138,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
      * @param connectionId the connection id.
      * @return a Request to execute.
      */
-    public Request delete(String connectionId) {
+    public Request<Void> delete(String connectionId) {
         Asserts.assertNotNull(connectionId, "connection id");
 
         String url = baseUrl
@@ -185,7 +185,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
      * @param email        the email of the user to delete.
      * @return a Request to execute.
      */
-    public Request deleteUser(String connectionId, String email) {
+    public Request<Void> deleteUser(String connectionId, String email) {
         Asserts.assertNotNull(connectionId, "connection id");
         Asserts.assertNotNull(email, "email");
 

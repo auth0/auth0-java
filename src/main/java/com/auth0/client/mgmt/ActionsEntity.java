@@ -100,7 +100,7 @@ public class ActionsEntity extends BaseManagementEntity {
      *
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Actions/delete_action">https://auth0.com/docs/api/management/v2#!/Actions/delete_action</a>
      */
-    public Request delete(String actionId) {
+    public Request<Void> delete(String actionId) {
         return delete(actionId, false);
     }
 
@@ -113,7 +113,7 @@ public class ActionsEntity extends BaseManagementEntity {
      *
      * <a href="https://auth0.com/docs/api/management/v2#!/Actions/get_triggers">https://auth0.com/docs/api/management/v2#!/Actions/get_triggers</a>
      */
-    public Request delete(String actionId, boolean force) {
+    public Request<Void> delete(String actionId, boolean force) {
         Asserts.assertNotNull(actionId, "action ID");
 
         String url = baseUrl
