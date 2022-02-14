@@ -3,8 +3,6 @@ package com.auth0.client;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapType;
-import java.util.ArrayList;
-import java.util.List;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -13,7 +11,9 @@ import okio.Buffer;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MockServer {
@@ -124,6 +124,9 @@ public class MockServer {
     public static final String ACTIONS_LIST = "src/test/resources/mgmt/actions_list.json";
     public static final String ACTION_VERSIONS_LIST = "src/test/resources/mgmt/action_versions_list.json";
     public static final String ACTION_TRIGGER_BINDINGS = "src/test/resources/mgmt/action_trigger_bindings.json";
+    public static final String BREACHED_PASSWORD_SETTINGS = "src/test/resources/mgmt/breached_password_settings.json";
+    public static final String BRUTE_FORCE_CONFIGURATION = "src/test/resources/mgmt/brute_force_configuration.json";
+    public static final String SUSPICIOUS_IP_THROTTLING_CONFIGURATION = "src/test/resources/mgmt/suspicious_ip_throttling_configuration.json";
 
     private final MockWebServer server;
 

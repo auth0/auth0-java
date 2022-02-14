@@ -413,4 +413,13 @@ public class ManagementAPI {
     public ActionsEntity actions() {
         return new ActionsEntity(client, baseUrl, apiToken);
     }
+
+    /**
+     * Getter for the Attack Protection Entity
+     *
+     * @return the Attack Protection Entity
+     */
+    public AttackProtectionEntity attackProtection() {
+        return new AttackProtectionEntity(client, baseUrl, apiToken);
+    }
 }
