@@ -1,0 +1,13 @@
+{
+  "enabled": false,
+  "shields": [
+    "block",
+    "user_notification"
+  ],
+  "allowlist": [
+    "143.204.0.105",
+    "2600:9000:208f:ca00:d:f5f5:b40:93a1"
+  ],
+  "mode": "count_per_identifier_and_ip",
+  "max_attempts": 10
+}
