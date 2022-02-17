@@ -228,7 +228,8 @@ public class AuthAPI {
      * }
      * </pre>
      *
-     * @param redirectUri the redirect_uri value to set, white-listed in the Application settings. Must be already URL Encoded.
+     * @param redirectUri the URL to redirect to after authorization has been granted by the user. Your Auth0 application
+     *                    must have this URL as one of its Allowed Callback URLs. Must be a valid non-encoded HTTP or HTTPS URL.
      * @return a new instance of the {@link AuthorizeUrlBuilder} to configure.
      */
     public AuthorizeUrlBuilder authorizeUrl(String redirectUri) {
@@ -249,8 +250,10 @@ public class AuthAPI {
      * }
      * </pre>
      *
-     * @param returnToUrl the redirect_uri value to set, white-listed in the Application settings. Must be already URL Encoded.
-     * @param setClientId whether the client_id value must be set or not. This affects the white-list that the Auth0's Dashboard uses to validate the returnTo url.
+     * @param returnToUrl the URL the user should be navigated to upon logout. Must be a valid non-encoded HTTP or HTTPS URL.
+     * @param setClientId whether the client_id value must be set or not. If {@code true}, the {@code returnToUrl} must
+     *                    be included in your Auth0 Application's Allowed Logout URLs list. If {@code false}, the
+     *                    {@code returnToUrl} must be included in your Auth0's Allowed Logout URLs at the Tenant level.
      * @return a new instance of the {@link LogoutUrlBuilder} to configure.
      */
     public LogoutUrlBuilder logoutUrl(String returnToUrl, boolean setClientId) {
