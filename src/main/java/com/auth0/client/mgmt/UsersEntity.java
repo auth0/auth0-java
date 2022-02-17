@@ -204,7 +204,7 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
-     * Request all the Guardian Enrollments for a given User.
+     * Retreive the first confirmed enrollment, or a pending enrollment if none are confirmed.
      * A token with scope read:users is needed.
      * See https://auth0.com/docs/api/management/v2#!/Users/get_enrollments
      *
