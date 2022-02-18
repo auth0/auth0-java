@@ -1,5 +1,15 @@
 # Change Log
 
+## [1.39.0](https://github.com/auth0/auth0-java/tree/1.39.0) (2022-02-18)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.38.0...1.39.0)
+
+**Added**
+- [SDK-3116] Add support for Attack Protection APIs [\#405](https://github.com/auth0/auth0-java/pull/405) ([jimmyjames](https://github.com/jimmyjames))
+- Feature/add branding [\#399](https://github.com/auth0/auth0-java/pull/399) ([pelletier197](https://github.com/pelletier197))
+
+**Changed**
+- Feature/reduce duplication [\#381](https://github.com/auth0/auth0-java/pull/381) ([pelletier197](https://github.com/pelletier197))
+
 ## [1.38.0](https://github.com/auth0/auth0-java/tree/1.38.0) (2022-02-01)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.37.0...1.38.0)
 
