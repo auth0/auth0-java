@@ -69,7 +69,7 @@ ext {
 dependencies {
     implementation "com.squareup.okhttp3:okhttp:${okhttpVersion}"
     implementation "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
-    implementation "com.fasterxml.jackson.core:jackson-databind:2.12.6"
+    implementation "com.fasterxml.jackson.core:jackson-databind:2.13.2"
     implementation "com.auth0:java-jwt:3.18.3"
     implementation "net.jodah:failsafe:2.4.1"
 
