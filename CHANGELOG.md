@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.40.0](https://github.com/auth0/auth0-java/tree/1.40.0) (2022-03-14)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.39.0...1.40.0)
+
+**Changed**
+- Update java-jwt dependency [\#413](https://github.com/auth0/auth0-java/pull/413) ([jimmyjames](https://github.com/jimmyjames))
+
+**Security**
+- Bump `jackson-databind` dependency to 2.13.2 [\#411](https://github.com/auth0/auth0-java/pull/411) ([evansims](https://github.com/evansims))
+
 ## [1.39.0](https://github.com/auth0/auth0-java/tree/1.39.0) (2022-02-18)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.38.0...1.39.0)
 
