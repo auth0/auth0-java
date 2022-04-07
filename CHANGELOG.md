@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.40.2](https://github.com/auth0/auth0-java/tree/1.40.2) (2022-04-07)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.40.1...1.40.2)
+
+**Security**
+- Update OkHttp to address CVE-2021-0341 [\#417](https://github.com/auth0/auth0-java/pull/417) ([lbalmaceda](https://github.com/lbalmaceda))
+
 ## [1.40.1](https://github.com/auth0/auth0-java/tree/1.40.1) (2022-03-30)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.40.0...1.40.1)
 
