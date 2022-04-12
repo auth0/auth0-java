@@ -1,9 +1,6 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.client.mgmt.filter.FieldsFilter;
-import com.auth0.client.mgmt.filter.LogEventFilter;
-import com.auth0.client.mgmt.filter.PageFilter;
-import com.auth0.client.mgmt.filter.UserFilter;
+import com.auth0.client.mgmt.filter.*;
 import com.auth0.json.mgmt.Permission;
 import com.auth0.json.mgmt.PermissionsPage;
 import com.auth0.json.mgmt.RolesPage;
@@ -86,6 +83,15 @@ public class UsersEntity extends BaseManagementEntity {
         HttpUrl.Builder builder = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/users");
+        encodeAndAddQueryParam(builder, filter);
+        String url = builder.build().toString();
+        CustomRequest<UsersPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<UsersPage>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    private static void encodeAndAddQueryParam(HttpUrl.Builder builder, BaseFilter filter) {
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
                 if (KEY_QUERY.equals(e.getKey())) {
@@ -95,11 +101,6 @@ public class UsersEntity extends BaseManagementEntity {
                 }
             }
         }
-        String url = builder.build().toString();
-        CustomRequest<UsersPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<UsersPage>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -245,11 +246,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/users")
                 .addPathSegment(userId)
                 .addPathSegment("logs");
-        if (filter != null) {
-            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
-            }
-        }
+
+        encodeAndAddQueryParam(builder, filter);
         String url = builder.build().toString();
         CustomRequest<LogEventsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<LogEventsPage>() {
         });
