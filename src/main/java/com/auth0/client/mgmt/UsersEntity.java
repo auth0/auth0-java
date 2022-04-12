@@ -91,18 +91,6 @@ public class UsersEntity extends BaseManagementEntity {
         return request;
     }
 
-    private static void encodeAndAddQueryParam(HttpUrl.Builder builder, BaseFilter filter) {
-        if (filter != null) {
-            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                if (KEY_QUERY.equals(e.getKey())) {
-                    builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
-                } else {
-                    builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
-                }
-            }
-        }
-    }
-
     /**
      * Request a User.
      * A token with scope read:users is needed.
@@ -604,5 +592,17 @@ public class UsersEntity extends BaseManagementEntity {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
+    }
+
+    private static void encodeAndAddQueryParam(HttpUrl.Builder builder, BaseFilter filter) {
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                if (KEY_QUERY.equals(e.getKey())) {
+                    builder.addEncodedQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                } else {
+                    builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+                }
+            }
+        }
     }
 }
