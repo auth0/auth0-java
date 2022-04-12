@@ -1,19 +1,5 @@
 package com.auth0.client.mgmt;
 
-import static com.auth0.client.MockServer.*;
-import static com.auth0.client.RecordedRequestMatcher.hasHeader;
-import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
-import static com.auth0.client.RecordedRequestMatcher.hasQueryParameter;
-import static org.hamcrest.Matchers.emptyCollectionOf;
-import static org.hamcrest.Matchers.hasEntry;
-import static org.hamcrest.Matchers.hasKey;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.client.mgmt.filter.LogEventFilter;
 import com.auth0.client.mgmt.filter.PageFilter;
@@ -30,12 +16,18 @@ import com.auth0.json.mgmt.users.RecoveryCode;
 import com.auth0.json.mgmt.users.User;
 import com.auth0.json.mgmt.users.UsersPage;
 import com.auth0.net.Request;
+import okhttp3.mockwebserver.RecordedRequest;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Test;
+
+import static com.auth0.client.MockServer.*;
+import static com.auth0.client.RecordedRequestMatcher.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class UsersEntityTest extends BaseMgmtEntityTest {
 
@@ -402,6 +394,25 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldGetUserLogEventsWithQuery() throws Exception {
+        LogEventFilter filter = new LogEventFilter().withQuery("date:[2022-03-13 TO *]");
+        Request<LogEventsPage> request = api.users().getLogEvents("1", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
+        LogEventsPage response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/logs"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("q", "date:[2022-03-13 TO *]"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
     }
 
     @Test
