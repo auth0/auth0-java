@@ -19,6 +19,13 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class APIException extends Auth0Exception {
 
+    private static final String ERROR_DESCRIPTION = "error_description";
+    private static final String DESCRIPTION = "description";
+    private static final String MESSAGE = "message";
+    private static final String ERROR = "error";
+    private static final String ERROR_CODE = "errorCode";
+    private static final String CODE = "code";
+
     private String error;
     private final String description;
     private final int statusCode;
@@ -129,11 +136,11 @@ public class APIException extends Auth0Exception {
     }
 
     private static String obtainExceptionMessage(Map<String, Object> values) {
-        if (values.containsKey("error_description")) {
-            return (String) values.get("error_description");
+        if (values.containsKey(ERROR_DESCRIPTION)) {
+            return toStringOrNull(values.get(ERROR_DESCRIPTION));
         }
-        if (values.containsKey("description")) {
-            Object description = values.get("description");
+        if (values.containsKey(DESCRIPTION)) {
+            Object description = values.get(DESCRIPTION);
             if (description instanceof String) {
                 return (String) description;
             } else if (description instanceof Map){
@@ -142,25 +149,29 @@ public class APIException extends Auth0Exception {
                 return policy.getDescription();
             }
         }
-        if (values.containsKey("message")) {
-            return (String) values.get("message");
+        if (values.containsKey(MESSAGE)) {
+            return toStringOrNull(values.get(MESSAGE));
         }
-        if (values.containsKey("error")) {
-            return (String) values.get("error");
+        if (values.containsKey(ERROR)) {
+            return toStringOrNull(values.get(ERROR));
         }
         return "Unknown exception";
     }
 
     private static String obtainExceptionError(Map<String, Object> values) {
-        if (values.containsKey("errorCode")) {
-            return (String) values.get("errorCode");
+        if (values.containsKey(ERROR_CODE)) {
+            return toStringOrNull(values.get(ERROR_CODE));
         }
-        if (values.containsKey("error")) {
-            return (String) values.get("error");
+        if (values.containsKey(ERROR)) {
+            return toStringOrNull(values.get(ERROR));
         }
-        if (values.containsKey("code")) {
-            return (String) values.get("code");
+        if (values.containsKey(CODE)) {
+            return toStringOrNull(values.get(CODE));
         }
         return "Unknown error";
+    }
+
+    private static String toStringOrNull(Object obj) {
+        return obj != null ? obj.toString() : null;
     }
 }
