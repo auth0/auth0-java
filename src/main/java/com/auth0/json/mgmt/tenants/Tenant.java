@@ -38,7 +38,10 @@ public class Tenant {
     @JsonProperty("allowed_logout_urls")
     private List<String> allowedLogoutUrls;
     @JsonProperty("session_lifetime")
-    private Integer sessionLifetime;
+    private Double sessionLifetime;
+
+    @JsonProperty("idle_session_lifetime")
+    private Double idleSessionLifetime;
 
     /**
      * Getter for the change password page customization.
@@ -263,20 +266,40 @@ public class Tenant {
     /**
      * Getter for the login session lifetime. This is how long the session will stay valid. Value is in hours.
      *
-     * @return the session life time in hours.
+     * @return the session lifetime in hours.
      */
     @JsonProperty("session_lifetime")
-    public Integer getSessionLifetime() {
+    public Double getSessionLifetime() {
         return sessionLifetime;
     }
 
     /**
      * Setter for the login session lifetime. This is how long the session will stay valid. Value is in hours.
      *
-     * @param sessionLifetime the session life time in hours to set.
+     * @param sessionLifetime the session lifetime in hours to set.
      */
     @JsonProperty("session_lifetime")
-    public void setSessionLifetime(Integer sessionLifetime) {
+    public void setSessionLifetime(Double sessionLifetime) {
         this.sessionLifetime = sessionLifetime;
+    }
+
+    /**
+     * Getter for the login session idle lifetime. This is how long the session will stay valid without user activity. Value is in hours.
+     *
+     * @return the session idle lifetime in hours.
+     */
+    @JsonProperty("idle_session_lifetime")
+    public Double getIdleSessionLifetime() {
+        return idleSessionLifetime;
+    }
+
+    /**
+     * Setter for the login session idle lifetime. This is how long the session will stay valid without user activity. Value is in hours, and decimals are allowed (for 30 minutes, use 0.5).
+     *
+     * @param idleSessionLifetime the session lifetime in hours to set.
+     */
+    @JsonProperty("idle_session_lifetime")
+    public void setIdleSessionLifetime(Double idleSessionLifetime) {
+        this.idleSessionLifetime = idleSessionLifetime;
     }
 }

@@ -28,7 +28,8 @@ public class TenantTest extends JsonTest<Tenant> {
         tenant.setSupportEmail("support@auth0.com");
         tenant.setSupportUrl("https://support.auth0.com");
         tenant.setAllowedLogoutUrls(Collections.singletonList("https://domain.auth0.com/logout"));
-        tenant.setSessionLifetime(48);
+        tenant.setSessionLifetime(48.0);
+        tenant.setIdleSessionLifetime(0.5);
 
         String serialized = toJSON(tenant);
         assertThat(serialized, is(notNullValue()));
