@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.41.0](https://github.com/auth0/auth0-java/tree/1.41.0) (2022-04-19)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.40.2...1.41.0)
+
+**Fixed**
+- Do not cast error values to String [\#421](https://github.com/auth0/auth0-java/pull/421) ([jimmyjames](https://github.com/jimmyjames))
+- Fix double-encoding of log event filter query param [\#420](https://github.com/auth0/auth0-java/pull/420) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.40.2](https://github.com/auth0/auth0-java/tree/1.40.2) (2022-04-07)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.40.1...1.40.2)
 
