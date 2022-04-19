@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class APIExceptionTest {
@@ -183,6 +184,86 @@ public class APIExceptionTest {
         assertThat(apiException.isMultifactorEnrollRequired(), is(false));
         assertThat(apiException.isMultifactorTokenInvalid(), is(false));
         assertThat(apiException.isVerificationRequired(), is(false));
+    }
 
+    // error description non-string and null
+
+    @Test
+    public void shouldHandleNonStringMessageForMessageError() {
+        Map<String, Object> vals = Collections.singletonMap("error", 42);
+        APIException apiException = new APIException(vals, ERROR_CODE);
+        assertThat(apiException.getDescription(), is("42"));
+    }
+
+    @Test
+    public void shouldHandleNonStringMessageForMessageErrorDescription() {
+        Map<String, Object> vals = Collections.singletonMap("error_description", 42);
+        APIException apiException = new APIException(vals, ERROR_CODE);
+        assertThat(apiException.getDescription(), is("42"));
+    }
+
+    @Test
+    public void shouldHandleNonStringMessageForErrorMessageMessage() {
+        Map<String, Object> vals = Collections.singletonMap("message", 42);
+        APIException apiException = new APIException(vals, ERROR_CODE);
+        assertThat(apiException.getDescription(), is("42"));
+    }
+
+    @Test
+    public void shouldHandleNullMessageForMessageErrorDescription() {
+        Map<String, Object> vals = Collections.singletonMap("error_description", null);
+        APIException apiException = new APIException(vals, ERROR_CODE);
+        assertThat(apiException.getDescription(), is(nullValue()));
+    }
+
+    @Test
+    public void shouldHandleNullMessageForMessageVal() {
+        Map<String, Object> vals = Collections.singletonMap("message", null);
+        APIException apiException = new APIException(vals, ERROR_CODE);
+        assertThat(apiException.getDescription(), is(nullValue()));
+    }
+
+    @Test
+    public void shouldHandleNullMessageForErrorVal() {
+        Map<String, Object> vals = Collections.singletonMap("error", null);
+        APIException apiException = new APIException(vals, ERROR_CODE);
+        assertThat(apiException.getDescription(), is(nullValue()));
+    }
+
+    // error code non-string and null
+
+    @Test
+    public void shouldHandleNonStringMessageForError() {
+        Map<String, Object> vals = Collections.singletonMap("errorCode", 42);
+        APIException apiException = new APIException(vals, ERROR_CODE);
+        assertThat(apiException.getError(), is("42"));
+    }
+
+    @Test
+    public void shouldHandleNonStringMessageForErrorDescription() {
+        Map<String, Object> vals = Collections.singletonMap("error", 42);
+        APIException apiException = new APIException(vals, ERROR_CODE);
+        assertThat(apiException.getError(), is("42"));
+    }
+
+    @Test
+    public void shouldHandleNonStringMessageForMessage() {
+        Map<String, Object> vals = Collections.singletonMap("code", 42);
+        APIException apiException = new APIException(vals, ERROR_CODE);
+        assertThat(apiException.getError(), is("42"));
+    }
+
+    @Test
+    public void shouldHandleNullMessageForMessage() {
+        Map<String, Object> vals = Collections.singletonMap("error", null);
+        APIException apiException = new APIException(vals, ERROR_CODE);
+        assertThat(apiException.getError(), is(nullValue()));
+    }
+
+    @Test
+    public void shouldHandleNullMessageForError() {
+        Map<String, Object> vals = Collections.singletonMap("code", null);
+        APIException apiException = new APIException(vals, ERROR_CODE);
+        assertThat(apiException.getError(), is(nullValue()));
     }
 }
