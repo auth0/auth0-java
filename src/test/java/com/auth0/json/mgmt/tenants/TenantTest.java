@@ -28,8 +28,8 @@ public class TenantTest extends JsonTest<Tenant> {
         tenant.setSupportEmail("support@auth0.com");
         tenant.setSupportUrl("https://support.auth0.com");
         tenant.setAllowedLogoutUrls(Collections.singletonList("https://domain.auth0.com/logout"));
-        tenant.setSessionLifetime(48.0);
-        tenant.setIdleSessionLifetime(0.5);
+        tenant.setSessionLifetime(48);
+        tenant.setIdleSessionLifetime(0);
 
         String serialized = toJSON(tenant);
         assertThat(serialized, is(notNullValue()));
@@ -45,8 +45,8 @@ public class TenantTest extends JsonTest<Tenant> {
         assertThat(serialized, JsonMatcher.hasEntry("support_email", "support@auth0.com"));
         assertThat(serialized, JsonMatcher.hasEntry("support_url", "https://support.auth0.com"));
         assertThat(serialized, JsonMatcher.hasEntry("allowed_logout_urls", Arrays.asList("https://domain.auth0.com/logout")));
-        assertThat(serialized, JsonMatcher.hasEntry("session_lifetime", 48.0));
-        assertThat(serialized, JsonMatcher.hasEntry("idle_session_lifetime", 0.5));
+        assertThat(serialized, JsonMatcher.hasEntry("session_lifetime", 48));
+        assertThat(serialized, JsonMatcher.hasEntry("idle_session_lifetime", 0));
     }
 
     @Test
@@ -65,8 +65,8 @@ public class TenantTest extends JsonTest<Tenant> {
         assertThat(tenant.getSupportEmail(), is("support@auth0.com"));
         assertThat(tenant.getSupportUrl(), is("https://support.auth0.com"));
         assertThat(tenant.getAllowedLogoutUrls(), contains("https://domain.auth0.com/logout"));
-        assertThat(tenant.getSessionLifetime(), is(24.0));
-        assertThat(tenant.getIdleSessionLifetime(), is(0.5));
+        assertThat(tenant.getSessionLifetime(), is(24));
+        assertThat(tenant.getIdleSessionLifetime(), is(0));
     }
 
 }

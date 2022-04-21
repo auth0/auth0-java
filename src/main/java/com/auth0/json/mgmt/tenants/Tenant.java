@@ -38,10 +38,10 @@ public class Tenant {
     @JsonProperty("allowed_logout_urls")
     private List<String> allowedLogoutUrls;
     @JsonProperty("session_lifetime")
-    private Double sessionLifetime;
+    private Integer sessionLifetime;
 
     @JsonProperty("idle_session_lifetime")
-    private Double idleSessionLifetime;
+    private Integer idleSessionLifetime;
 
     /**
      * Getter for the change password page customization.
@@ -269,7 +269,7 @@ public class Tenant {
      * @return the session lifetime in hours.
      */
     @JsonProperty("session_lifetime")
-    public Double getSessionLifetime() {
+    public Integer getSessionLifetime() {
         return sessionLifetime;
     }
 
@@ -279,7 +279,7 @@ public class Tenant {
      * @param sessionLifetime the session lifetime in hours to set.
      */
     @JsonProperty("session_lifetime")
-    public void setSessionLifetime(Double sessionLifetime) {
+    public void setSessionLifetime(Integer sessionLifetime) {
         this.sessionLifetime = sessionLifetime;
     }
 
@@ -289,7 +289,7 @@ public class Tenant {
      * @return the session idle lifetime in hours.
      */
     @JsonProperty("idle_session_lifetime")
-    public Double getIdleSessionLifetime() {
+    public Integer getIdleSessionLifetime() {
         return idleSessionLifetime;
     }
 
@@ -299,7 +299,7 @@ public class Tenant {
      * @param idleSessionLifetime the session lifetime in hours to set.
      */
     @JsonProperty("idle_session_lifetime")
-    public void setIdleSessionLifetime(Double idleSessionLifetime) {
+    public void setIdleSessionLifetime(Integer idleSessionLifetime) {
         this.idleSessionLifetime = idleSessionLifetime;
     }
 }
