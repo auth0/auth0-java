@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,6 +26,8 @@ public class Organization {
     private Map<String, Object> metadata;
     @JsonProperty("branding")
     private Branding branding;
+    @JsonProperty("enabled_connections")
+    private List<EnabledConnection> enabledConnections;
 
     public Organization() {}
 
@@ -107,5 +110,21 @@ public class Organization {
      */
     public void setMetadata(Map<String, Object> metadata) {
         this.metadata = metadata;
+    }
+
+    /**
+     * @return the enabled connections of this Organization.
+     */
+    public List<EnabledConnection> getEnabledConnections() {
+        return enabledConnections;
+    }
+
+    /**
+     * Sets the enabled connections of this Organization.
+     *
+     * @param enabledConnections the metadata of this Organization.
+     */
+    public void setEnabledConnections(List<EnabledConnection> enabledConnections) {
+        this.enabledConnections = enabledConnections;
     }
 }
