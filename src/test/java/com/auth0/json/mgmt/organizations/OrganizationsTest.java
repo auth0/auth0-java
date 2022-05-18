@@ -4,7 +4,9 @@ import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -27,7 +29,13 @@ public class OrganizationsTest extends JsonTest<Organization> {
             "        },\n" +
             "        \"metadata\": {\n" +
             "            \"key1\": \"val1\"\n" +
-            "        }\n" +
+            "        },\n" +
+            "        \"enabled_connections\": [\n" +
+            "            {\n" +
+            "               \"connection_id\": \"con-1\",\n" +
+            "               \"assign_membership_on_login\": \"false\"\n" +
+            "            }\n" +
+            "        ]\n" +
             "    }";
 
         Organization org = fromJSON(orgJson, Organization.class);
@@ -42,6 +50,8 @@ public class OrganizationsTest extends JsonTest<Organization> {
         assertThat(org.getBranding().getColors().getPageBackground(), is("#FF0000"));
         assertThat(org.getMetadata(), is(notNullValue()));
         assertThat(org.getMetadata().get("key1"), is("val1"));
+        assertThat(org.getEnabledConnections().get(0).getConnectionId(), is("con-1"));
+        assertThat(org.getEnabledConnections().get(0).isAssignMembershipOnLogin(), is(false));
     }
 
     @Test
@@ -60,11 +70,19 @@ public class OrganizationsTest extends JsonTest<Organization> {
         organization.setBranding(branding);
         organization.setMetadata(metadata);
 
+        EnabledConnection enabledConnection = new EnabledConnection();
+        enabledConnection.setConnectionId("con-1");
+        enabledConnection.setAssignMembershipOnLogin(false);
+        List<EnabledConnection> enabledConnections = new ArrayList<>();
+        enabledConnections.add(enabledConnection);
+        organization.setEnabledConnections(enabledConnections);
+
         String serialized = toJSON(organization);
         assertThat(serialized, is(notNullValue()));
         assertThat(serialized, JsonMatcher.hasEntry("name", "org-name"));
         assertThat(serialized, JsonMatcher.hasEntry("display_name", "display name"));
         assertThat(serialized, JsonMatcher.hasEntry("metadata", metadata));
+        assertThat(serialized, JsonMatcher.hasEntry("enabled_connections", is(notNullValue())));
         assertThat(serialized, JsonMatcher.hasEntry("branding", is(notNullValue())));
     }
 }
