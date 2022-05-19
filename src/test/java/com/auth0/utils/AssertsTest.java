@@ -72,4 +72,11 @@ public class AssertsTest {
         exception.expectMessage(String.format("'%s' must be a valid URL!", URI_NAME));
         Asserts.assertValidUrl("not.a.domain", URI_NAME);
     }
+
+    @Test
+    public void throwsIllegalArgumentExceptionWhenValueIsCustomSchemeAndInvalid() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage(String.format("'%s' must be a valid URL!", URI_NAME));
+        Asserts.assertValidUrl("demo://host:%39%39/", URI_NAME);
+    }
 }
