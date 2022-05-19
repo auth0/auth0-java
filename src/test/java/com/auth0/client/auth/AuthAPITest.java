@@ -477,14 +477,14 @@ public class AuthAPITest {
     @Test
     public void shouldThrowWhenAuthorizeUrlBuilderRedirectUriIsNull() {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'redirect uri' cannot be null!");
+        exception.expectMessage("'redirect uri' must be a valid URL!");
         api.authorizeUrl(null);
     }
 
     @Test
-    public void shouldThrowWhenAuthorizeUrlBuilderRedirectUriIsNotValidURI() {
+    public void shouldThrowWhenAuthorizeUrlBuilderRedirectUriIsNotValidURL() {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'redirect uri' must be a valid URI!");
+        exception.expectMessage("'redirect uri' must be a valid URL!");
         api.authorizeUrl("http://test/this is invalid");
     }
 
@@ -512,14 +512,14 @@ public class AuthAPITest {
     @Test
     public void shouldThrowWhenLogoutUrlBuilderReturnToUrlIsNull() {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'return to url' cannot be null!");
+        exception.expectMessage("'return to url' must be a valid URL!");
         api.logoutUrl(null, true);
     }
 
     @Test
-    public void shouldThrowWhenLogoutUrlBuilderRedirectUriIsNotValidURI() {
+    public void shouldThrowWhenLogoutUrlBuilderRedirectUriIsNotValidURL() {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'return to url' must be a valid URI!");
+        exception.expectMessage("'return to url' must be a valid URL!");
         api.logoutUrl("http://test/this is invalid", true);
     }
 
