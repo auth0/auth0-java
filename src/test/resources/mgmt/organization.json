@@ -11,5 +11,11 @@
   },
   "metadata": {
     "key1": "val1"
-  }
+  },
+  "enabled_connections": [
+    {
+      "connection_id": "con-1",
+      "assign_membership_on_login": false
+    }
+  ]
 }
