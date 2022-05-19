@@ -1,8 +1,7 @@
 package com.auth0.utils;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Collection;
+import okhttp3.HttpUrl;
 
 public abstract class Asserts {
 
@@ -23,14 +22,17 @@ public abstract class Asserts {
      * Asserts that a value is a valid URL.
      *
      * @param value the value to check.
-     * @param name the name of the parameter, used when creating the exception message.
+     * @param name  the name of the parameter, used when creating the exception message.
      * @throws IllegalArgumentException if the value is null or is not a valid URL.
      */
     public static void assertValidUrl(String value, String name) {
-        try {
-            new URI(value);
-        } catch (URISyntaxException | NullPointerException e) {
-            throw new IllegalArgumentException(String.format("'%s' must be a valid URL!", name), e);
+        if (value == null) {
+            throw new IllegalArgumentException(String.format("'%s' must be a valid URL!", name));
+        }
+        boolean isValidCustomSchemeUrl = value.contains(":") &&
+            HttpUrl.parse(value.replaceFirst(value.substring(0, value.indexOf(":")), "https")) != null;
+        if (HttpUrl.parse(value) == null && !isValidCustomSchemeUrl) {
+            throw new IllegalArgumentException(String.format("'%s' must be a valid URL!", name));
         }
     }
 

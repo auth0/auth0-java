@@ -485,7 +485,7 @@ public class AuthAPITest {
     public void shouldThrowWhenAuthorizeUrlBuilderRedirectUriIsNotValidURL() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'redirect uri' must be a valid URL!");
-        api.authorizeUrl("http://test/this is invalid");
+        api.authorizeUrl("notvalid.url");
     }
 
     @Test
@@ -520,7 +520,7 @@ public class AuthAPITest {
     public void shouldThrowWhenLogoutUrlBuilderRedirectUriIsNotValidURL() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'return to url' must be a valid URL!");
-        api.logoutUrl("http://test/this is invalid", true);
+        api.logoutUrl("notvalid.url", true);
     }
 
     @Test

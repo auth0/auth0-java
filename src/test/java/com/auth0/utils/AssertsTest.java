@@ -1,9 +1,13 @@
 package com.auth0.utils;
 
 import okhttp3.HttpUrl;
+import org.hamcrest.core.Is;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class AssertsTest {
 
@@ -29,6 +33,11 @@ public class AssertsTest {
     }
 
     @Test
+    public void succeedWithUnEncodedUrl(){
+        Asserts.assertValidUrl("https://me.auth0.com/path should fail", URI_NAME);
+    }
+
+    @Test
     public void succeedsWithQueryParams() {
         Asserts.assertValidUrl("https://me.auth0.com?query=params&moreQuery=params", URI_NAME);
     }
@@ -41,6 +50,8 @@ public class AssertsTest {
     @Test
     public void succeedsWithCustomAppScheme() {
         Asserts.assertValidUrl("custom.app.scheme://custom.domain.com/path/callback", URI_NAME);
+        Asserts.assertValidUrl("demo://custom.domain.com/path/callback", URI_NAME);
+        Asserts.assertValidUrl("com.custom_app.scheme://custom.domain.com/path/callback", URI_NAME);
     }
 
     @Test
@@ -59,6 +70,6 @@ public class AssertsTest {
     public void throwsIllegalArgumentExceptionWhenValueIsInvalid() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage(String.format("'%s' must be a valid URL!", URI_NAME));
-        Asserts.assertValidUrl("http://test/this is invalid", URI_NAME);
+        Asserts.assertValidUrl("not.a.domain", URI_NAME);
     }
 }
