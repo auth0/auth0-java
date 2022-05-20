@@ -883,7 +883,7 @@ public class AuthAPI {
      * {@code
      * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
-     *      TokenHolder result = auth.exchangeMfaOtp("the-mfa-token”, new char[]{‘a','n','o','t',’p’})
+     *      TokenHolder result = auth.exchangeMfaOtp("the-mfa-token", new char[]{'a','n','o','t','p'})
      *          .execute();
      * } catch (Auth0Exception e) {
      *      //Something happened
