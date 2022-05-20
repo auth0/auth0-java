@@ -5,10 +5,10 @@
   "current": true,
   "next": false,
   "previous": false,
-  "current_since": "",
-  "current_until": "",
+  "current_since": "2021-08-16T20:26:42.253086110Z",
+  "current_until": "2021-08-16T20:26:42.253086110Z",
   "fingerprint": "CC:FB:DD:D8:9A:B5:DE:1B:F0:CC:36:D2:99:59:21:12:03:DD:A8:25",
   "thumbprint": "CCFBDDD89AB5DE1BF0CC36D29959211203DDA825",
   "revoked": false,
-  "revoked_at": ""
+  "revoked_at": "2021-08-16T20:26:42.253086110Z"
 }
