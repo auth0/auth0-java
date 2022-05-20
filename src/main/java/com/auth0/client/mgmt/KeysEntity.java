@@ -85,7 +85,7 @@ public class KeysEntity extends BaseManagementEntity {
     }
 
     /**
-     * Request an Application Signing Key.
+     * Revoke an Application Signing Key.
      * A token with scope update:signing_keys is needed.
      * See https://auth0.com/docs/api/management/v2#!/Keys/put_signing_keys
      *
