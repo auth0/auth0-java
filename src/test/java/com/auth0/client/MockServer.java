@@ -127,6 +127,10 @@ public class MockServer {
     public static final String BREACHED_PASSWORD_SETTINGS = "src/test/resources/mgmt/breached_password_settings.json";
     public static final String BRUTE_FORCE_CONFIGURATION = "src/test/resources/mgmt/brute_force_configuration.json";
     public static final String SUSPICIOUS_IP_THROTTLING_CONFIGURATION = "src/test/resources/mgmt/suspicious_ip_throttling_configuration.json";
+    public static final String KEY = "src/test/resources/mgmt/key.json";
+    public static final String KEY_LIST = "src/test/resources/mgmt/key_list.json";
+    public static final String KEY_REVOKE = "src/test/resources/mgmt/key_revoke.json";
+    public static final String KEY_ROTATE = "src/test/resources/mgmt/key_rotate.json";
 
     private final MockWebServer server;
 
