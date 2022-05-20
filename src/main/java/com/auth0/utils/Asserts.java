@@ -26,7 +26,13 @@ public abstract class Asserts {
      * @throws IllegalArgumentException if the value is null or is not a valid URL.
      */
     public static void assertValidUrl(String value, String name) {
-        if (value == null || HttpUrl.parse(value) == null) {
+        if (value == null) {
+            throw new IllegalArgumentException(String.format("'%s' must be a valid URL!", name));
+        }
+        boolean isValidUrl = HttpUrl.parse(value) != null;
+        boolean isValidCustomSchemeUrl = value.contains(":") &&
+            HttpUrl.parse(value.replaceFirst(value.substring(0, value.indexOf(":")), "https")) != null;
+        if (!isValidUrl && !isValidCustomSchemeUrl) {
             throw new IllegalArgumentException(String.format("'%s' must be a valid URL!", name));
         }
     }
