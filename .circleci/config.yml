@@ -1,5 +1,6 @@
 version: 2.1
-
+orbs:
+  ship: auth0/ship@dev:b224b98
 commands:
   checkout-and-build:
     steps:
@@ -58,6 +59,15 @@ workflows:
   build-and-test:
     jobs:
       - build
+      - ship/java-publish:
+          context:
+            - publish-gh
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - build
   api-diff:
     jobs:
       - api-diff
