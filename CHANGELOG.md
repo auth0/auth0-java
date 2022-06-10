@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.42.1](https://github.com/auth0/auth0-java/tree/1.42.1) (2022-06-10)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.42.0...1.42.1)
+
+**Added**
+- Add Ship CLI configuration [\#433](https://github.com/auth0/auth0-java/pull/433) ([frederikprijck](https://github.com/frederikprijck))
+- [SDK-3424] Add ship/orb configuration to CI [\#434](https://github.com/auth0/auth0-java/pull/434) ([frederikprijck](https://github.com/frederikprijck))
+
 ## [1.42.0](https://github.com/auth0/auth0-java/tree/1.42.0) (2022-05-20)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.41.0...1.42.0)
 

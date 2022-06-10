@@ -8,7 +8,7 @@ repositories {
     mavenCentral()
 }
 
-version = '1.42.0'
+version = '1.42.1'
 group = 'com.auth0'
 logger.lifecycle("Using version ${version} for ${name} group $group")
 
