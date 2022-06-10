@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  ship: auth0/ship@dev:a8a89be
+  ship: auth0/ship@dev:c90b57e
 commands:
   checkout-and-build:
     steps:
@@ -63,6 +63,7 @@ workflows:
           prefix-tag: false
           context:
             - publish-gh
+            - publish-java
           filters:
             branches:
               only:
