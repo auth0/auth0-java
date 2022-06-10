@@ -59,7 +59,7 @@ workflows:
   build-and-test:
     jobs:
       - build
-      - ship/ruby-publish:
+      - ship/java-publish:
           context:
             - publish-gh
           filters:
