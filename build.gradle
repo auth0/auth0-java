@@ -63,7 +63,7 @@ test {
 }
 
 ext {
-    okhttpVersion = '4.9.3'
+    okhttpVersion = '4.10.0'
     hamcrestVersion = '2.2'
 }
 
