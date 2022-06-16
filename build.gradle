@@ -8,6 +8,13 @@ repositories {
     mavenCentral()
 }
 
+def signingKey = findProperty('SIGNING_KEY')
+def signingKeyPwd = findProperty('SIGNING_PASSWORD')
+
+signing {
+    useInMemoryPgpKeys(signingKey, signingKeyPwd)
+}
+
 version = '1.42.0'
 group = 'com.auth0'
 logger.lifecycle("Using version ${version} for ${name} group $group")
