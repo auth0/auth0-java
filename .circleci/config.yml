@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  ship: auth0/ship@dev:759c801
+  ship: auth0/ship@0.6.0
 commands:
   checkout-and-build:
     steps:
