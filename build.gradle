@@ -1,3 +1,7 @@
+buildscript {
+    version = "1.42.0"
+}
+
 plugins {
     id 'java'
     id 'jacoco'
@@ -15,7 +19,6 @@ signing {
     useInMemoryPgpKeys(signingKey, signingKeyPwd)
 }
 
-version = '1.42.0'
 group = 'com.auth0'
 logger.lifecycle("Using version ${version} for ${name} group $group")
 
