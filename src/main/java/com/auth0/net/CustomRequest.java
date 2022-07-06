@@ -33,7 +33,6 @@ public class CustomRequest<T> extends ExtendedBaseRequest<T> implements Customiz
     CustomRequest(OkHttpClient client, String url, String method, ObjectMapper mapper, TypeReference<T> tType) {
         super(client, url, method, mapper);
         this.mapper = mapper;
-        this.mapper.findAndRegisterModules();
         this.tType = tType;
         this.parameters = new HashMap<>();
     }
@@ -77,5 +76,10 @@ public class CustomRequest<T> extends ExtendedBaseRequest<T> implements Customiz
     public CustomRequest<T> setBody(Object value) {
         body = value;
         return this;
+    }
+
+    @Override
+    public void registerModules() {
+        this.mapper.findAndRegisterModules();
     }
 }

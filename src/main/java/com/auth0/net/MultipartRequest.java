@@ -95,4 +95,9 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
         partsCount++;
         return this;
     }
+
+    @Override
+    public void registerModules() {
+        this.mapper.findAndRegisterModules();
+    }
 }

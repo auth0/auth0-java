@@ -15,6 +15,9 @@ public class RequestTest {
                 public String execute() throws Auth0Exception {
                     return null;
                 }
+
+                @Override
+                public void registerModules() {}
             }::executeAsync);
     }
 }

@@ -18,6 +18,7 @@ import org.junit.*;
 import org.junit.rules.ExpectedException;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 
@@ -365,6 +366,21 @@ public class CustomRequestTest {
         assertThat(rateLimitException.getLimit(), is(-1L));
         assertThat(rateLimitException.getRemaining(), is(-1L));
         assertThat(rateLimitException.getReset(), is(-1L));
+    }
+
+    @Test
+    public void shouldRegisterModulesAndConvert() throws Exception {
+        CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), "POST", tokenHolderType);
+        assertThat(request, is(notNullValue()));
+        request.registerModules();
+
+        Instant body = Instant.now();
+        request.setBody(body);
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder execute = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+        assertThat(recordedRequest.getMethod(), is("POST"));
+        assertThat(execute, is(notNullValue()));
     }
 
 }

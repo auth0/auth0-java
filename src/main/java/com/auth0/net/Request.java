@@ -36,4 +36,11 @@ public interface Request<T> {
     default CompletableFuture<T> executeAsync() {
         throw new UnsupportedOperationException("executeAsync");
     }
+
+    /**
+     * Calls the findAndRegisterModules() method of the internal ObjectMapper
+     * 
+     * This is for example needed, if Java 8 date types are sent within a request body. 
+     */
+    void registerModules();
 }

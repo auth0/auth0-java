@@ -247,6 +247,11 @@ public class BaseRequestTest {
         protected Request createRequest() throws Auth0Exception {
             return null;
         }
+
+        @Override
+        public void registerModules() {
+            
+        }
     }
 
 }
