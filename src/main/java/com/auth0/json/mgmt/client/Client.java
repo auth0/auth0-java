@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.List;
 import java.util.Map;
@@ -82,6 +83,50 @@ public class Client {
     private String organizationUsage;
     @JsonProperty("organization_require_behavior")
     private String organizationRequireBehavior;
+    @JsonProperty("tenant")
+    private String tenant;
+    @JsonProperty("global")
+    private Boolean global;
+    @JsonProperty("cross_origin_auth")
+    private Boolean crossOriginAuth;
+    @JsonProperty("cross_origin_loc")
+    private String crossOriginLoc;
+
+    /**
+     * Getter for the name of the tenant this client belongs to.
+     * @return the tenant name
+     */
+    @JsonProperty("tenant")
+    public String getTenant() {
+        return tenant;
+    }
+
+    /**
+     * Setter for the name of the tenant this client belongs to.
+     * @param tenant the name of the tenant
+     */
+    @JsonProperty("tenant")
+    public void setTenant(String tenant) {
+        this.tenant = tenant;
+    }
+
+    /**
+     * Setter whether this is a global 'All Applications' client representing legacy tenant settings (true) or a regular client (false).
+     * @param global whether legacy tenant or regular client
+     */
+    @JsonProperty("global")
+    public void setGlobal(Boolean global) {
+        this.global = global;
+    }
+
+    /**
+     * Whether this is a global 'All Applications' client representing legacy tenant settings (true) or a regular client (false).
+     * @return client representing legacy tenant settings (true) or a regular client (false).
+     */
+    @JsonProperty("global")
+    public Boolean getGlobal() {
+        return global;
+    }
 
     /**
      * Creates a new Application instance setting the name property.
@@ -711,6 +756,43 @@ public class Client {
      */
     public void setOrganizationRequireBehavior(String organizationRequireBehavior) {
         this.organizationRequireBehavior = organizationRequireBehavior;
+    }
+
+
+    /**
+     * Setter whether this client can be used to make cross-origin authentication requests (true) or it is not allowed to make such requests (false).
+     * @param crossOriginAuth whether an application can make cross-origin authentication requests or not
+     */
+    @JsonProperty("cross_origin_auth")
+    public void setCrossOriginAuth(Boolean crossOriginAuth) {
+        this.crossOriginAuth = crossOriginAuth;
+    }
+
+    /**
+     * Whether this client can be used to make cross-origin authentication requests (true) or it is not allowed to make such requests (false).
+     * @return true if application can make cross-origin authentication requests, false otherwise
+     */
+    @JsonProperty("cross_origin_auth")
+    public Boolean getCrossOriginAuth() {
+        return crossOriginAuth;
+    }
+
+    /**
+     * URL of the location in your site where the cross-origin verification takes place for the cross-origin auth flow when performing Auth in your own domain instead of Auth0 hosted login page.
+     * @param crossOriginLoc url location for cross-origin verification
+     */
+    @JsonProperty("cross_origin_loc")
+    public void setCrossOriginLoc(String crossOriginLoc) {
+        this.crossOriginLoc = crossOriginLoc;
+    }
+
+    /**
+     * Getter for the URL of the location in your site where the cross-origin verification takes place for the cross-origin auth flow when performing Auth in your own domain instead of Auth0 hosted login page.
+     * @return URL of the location in your site where the cross-origin verification takes place
+     */
+    @JsonProperty("cross_origin_loc")
+    public String getCrossOriginLoc() {
+        return crossOriginLoc;
     }
 }
 
