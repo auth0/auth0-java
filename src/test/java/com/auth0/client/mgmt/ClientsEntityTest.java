@@ -198,6 +198,22 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
+    public void shouldGetClientWithNullFilter() throws Exception {
+        Request<Client> request = api.clients().get("1", null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CLIENT, 200);
+        Client response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/clients/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
     public void shouldThrowOnCreateClientWithNullData() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client' cannot be null!");
