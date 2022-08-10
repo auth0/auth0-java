@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.ClientFilter;
+import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.json.mgmt.client.Client;
 import com.auth0.json.mgmt.client.ClientsPage;
 import com.auth0.net.Request;
@@ -171,6 +172,27 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/clients/1"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldGetClientWithFilter() throws Exception {
+        FieldsFilter fieldsFilter = new FieldsFilter()
+            .withFields("name,client_id,app_type,tenant", true);
+
+        Request<Client> request = api.clients().get("1", fieldsFilter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CLIENT, 200);
+        Client response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/clients/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("fields", "name,client_id,app_type,tenant"));
+        assertThat(recordedRequest, hasQueryParameter("include_fields", "true"));
 
         assertThat(response, is(notNullValue()));
     }
