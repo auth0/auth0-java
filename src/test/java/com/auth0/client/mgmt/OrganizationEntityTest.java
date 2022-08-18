@@ -167,6 +167,13 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         metadata.put("key1", "val1");
         orgToCreate.setMetadata(metadata);
 
+        EnabledConnection enabledConnection = new EnabledConnection();
+        enabledConnection.setConnectionId("con-1");
+        enabledConnection.setAssignMembershipOnLogin(false);
+        List<EnabledConnection> enabledConnections = new ArrayList<>();
+        enabledConnections.add(enabledConnection);
+        orgToCreate.setEnabledConnections(enabledConnections);
+
         Request<Organization> request = api.organizations().create(orgToCreate);
         assertThat(request, is(notNullValue()));
 
@@ -179,10 +186,11 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, aMapWithSize(4));
+        assertThat(body, aMapWithSize(5));
         assertThat(body, hasEntry("name", "test-org"));
         assertThat(body, hasEntry("display_name", "display name"));
         assertThat(body, hasEntry("metadata", metadata));
+        assertThat(body, hasEntry(is("enabled_connections"), is(notNullValue())));
         assertThat(body, hasEntry(is("branding"), is(notNullValue())));
 
         assertThat(response, is(notNullValue()));

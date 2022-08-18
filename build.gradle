@@ -1,3 +1,7 @@
+buildscript {
+    version = "1.42.0"
+}
+
 plugins {
     id 'java'
     id 'jacoco'
@@ -6,6 +10,13 @@ plugins {
 
 repositories {
     mavenCentral()
+}
+
+def signingKey = findProperty('SIGNING_KEY')
+def signingKeyPwd = findProperty('SIGNING_PASSWORD')
+
+signing {
+    useInMemoryPgpKeys(signingKey, signingKeyPwd)
 }
 
 group = 'com.auth0'
@@ -62,7 +73,7 @@ test {
 }
 
 ext {
-    okhttpVersion = '4.9.3'
+    okhttpVersion = '4.10.0'
     hamcrestVersion = '2.2'
 }
 

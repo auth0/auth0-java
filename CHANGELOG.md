@@ -1,5 +1,13 @@
 # Change Log
 
+## [1.42.0](https://github.com/auth0/auth0-java/tree/1.42.0) (2022-05-20)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.41.0...1.42.0)
+
+**Added**
+- Added support for Key management API [\#431](https://github.com/auth0/auth0-java/pull/431) ([poovamraj](https://github.com/poovamraj))
+- Support for custom scheme URL [\#429](https://github.com/auth0/auth0-java/pull/429) ([poovamraj](https://github.com/poovamraj))
+- Add enabled connections on organization [\#426](https://github.com/auth0/auth0-java/pull/426) ([charliearaya](https://github.com/charliearaya))
+
 ## [1.41.0](https://github.com/auth0/auth0-java/tree/1.41.0) (2022-04-19)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.40.2...1.41.0)
 

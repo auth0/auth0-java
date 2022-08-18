@@ -422,4 +422,13 @@ public class ManagementAPI {
     public AttackProtectionEntity attackProtection() {
         return new AttackProtectionEntity(client, baseUrl, apiToken);
     }
+
+    /**
+     * Getter for the Keys Entity
+     *
+     * @return the Keys Entity
+     */
+    public KeysEntity keys() {
+        return new KeysEntity(client, baseUrl, apiToken);
+    }
 }
