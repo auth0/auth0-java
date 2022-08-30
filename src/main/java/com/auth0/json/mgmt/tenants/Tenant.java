@@ -294,7 +294,7 @@ public class Tenant {
     }
 
     /**
-     * Setter for the login session idle lifetime. This is how long the session will stay valid without user activity. Value is in hours, and decimals are allowed (for 30 minutes, use 0.5).
+     * Setter for the login session idle lifetime. This is how long the session will stay valid without user activity. Value is in hours.
      *
      * @param idleSessionLifetime the session lifetime in hours to set.
      */
