@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.ClientFilter;
+import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.json.mgmt.client.Client;
 import com.auth0.json.mgmt.client.ClientsPage;
 import com.auth0.net.CustomRequest;
@@ -89,6 +90,33 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegment(clientId)
                 .build()
                 .toString();
+        CustomRequest<Client> request = new CustomRequest<>(client, url, "GET", new TypeReference<Client>() {
+        });
+        request.addHeader("Authorization", "Bearer " + apiToken);
+        return request;
+    }
+
+    /**
+     * Request an Application. A token with scope read:clients is needed. If you also need the client_secret and encryption_key attributes the token must have read:client_keys scope.
+     * See https://auth0.com/docs/api/management/v2#!/Clients/get_clients_by_id
+     *
+     * @param clientId the application's client id.
+     * @param filter optional filter to restrict fields (to be included/excluded in response)
+     * @return a Request to execute.
+     */
+    public Request<Client> get(String clientId, FieldsFilter filter) {
+        Asserts.assertNotNull(clientId, "client id");
+
+        HttpUrl.Builder builder = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/clients")
+            .addPathSegment(clientId);
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+        String url = builder.build().toString();
         CustomRequest<Client> request = new CustomRequest<>(client, url, "GET", new TypeReference<Client>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
