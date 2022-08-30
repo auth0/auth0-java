@@ -40,6 +40,9 @@ public class Tenant {
     @JsonProperty("session_lifetime")
     private Integer sessionLifetime;
 
+    @JsonProperty("idle_session_lifetime")
+    private Integer idleSessionLifetime;
+
     /**
      * Getter for the change password page customization.
      *
@@ -263,7 +266,7 @@ public class Tenant {
     /**
      * Getter for the login session lifetime. This is how long the session will stay valid. Value is in hours.
      *
-     * @return the session life time in hours.
+     * @return the session lifetime in hours.
      */
     @JsonProperty("session_lifetime")
     public Integer getSessionLifetime() {
@@ -273,10 +276,30 @@ public class Tenant {
     /**
      * Setter for the login session lifetime. This is how long the session will stay valid. Value is in hours.
      *
-     * @param sessionLifetime the session life time in hours to set.
+     * @param sessionLifetime the session lifetime in hours to set.
      */
     @JsonProperty("session_lifetime")
     public void setSessionLifetime(Integer sessionLifetime) {
         this.sessionLifetime = sessionLifetime;
+    }
+
+    /**
+     * Getter for the login session idle lifetime. This is how long the session will stay valid without user activity. Value is in hours.
+     *
+     * @return the session idle lifetime in hours.
+     */
+    @JsonProperty("idle_session_lifetime")
+    public Integer getIdleSessionLifetime() {
+        return idleSessionLifetime;
+    }
+
+    /**
+     * Setter for the login session idle lifetime. This is how long the session will stay valid without user activity. Value is in hours.
+     *
+     * @param idleSessionLifetime the session lifetime in hours to set.
+     */
+    @JsonProperty("idle_session_lifetime")
+    public void setIdleSessionLifetime(Integer idleSessionLifetime) {
+        this.idleSessionLifetime = idleSessionLifetime;
     }
 }
