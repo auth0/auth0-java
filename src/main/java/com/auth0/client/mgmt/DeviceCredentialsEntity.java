@@ -2,6 +2,7 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.DeviceCredentialsFilter;
 import com.auth0.json.mgmt.DeviceCredentials;
+import com.auth0.net.Auth0HttpClient;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
@@ -23,7 +24,7 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class DeviceCredentialsEntity extends BaseManagementEntity {
 
-    DeviceCredentialsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    DeviceCredentialsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

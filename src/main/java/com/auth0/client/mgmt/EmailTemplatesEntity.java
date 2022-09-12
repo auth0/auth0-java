@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.EmailTemplate;
+import com.auth0.net.Auth0HttpClient;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.utils.Asserts;
@@ -28,7 +29,7 @@ public class EmailTemplatesEntity extends BaseManagementEntity {
     public static final String TEMPLATE_PASSWORD_RESET = "password_reset";
     public static final String TEMPLATE_MFA_OOB_CODE = "mfa_oob_code";
 
-    EmailTemplatesEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    EmailTemplatesEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

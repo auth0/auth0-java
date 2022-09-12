@@ -30,7 +30,7 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
     private final ObjectMapper mapper;
     private int partsCount;
 
-    MultipartRequest(OkHttpClient client, String url, String method, ObjectMapper mapper, TypeReference<T> tType, MultipartBody.Builder multipartBuilder) {
+    MultipartRequest(Auth0HttpClient client, String url, String method, ObjectMapper mapper, TypeReference<T> tType, MultipartBody.Builder multipartBuilder) {
         super(client, url, method, mapper);
         if ("GET".equalsIgnoreCase(method)) {
             throw new IllegalArgumentException("Multipart/form-data requests do not support the GET method.");
@@ -41,7 +41,7 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
                 .setType(MultipartBody.FORM);
     }
 
-    public MultipartRequest(OkHttpClient client, String url, String method, TypeReference<T> tType) {
+    public MultipartRequest(Auth0HttpClient client, String url, String method, TypeReference<T> tType) {
         this(client, url, method, new ObjectMapper(), tType, new MultipartBody.Builder());
     }
 
@@ -50,17 +50,34 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
         return CONTENT_TYPE_FORM_DATA;
     }
 
+//    @Override
+//    protected RequestBody createRequestBody() throws IOException {
+//        if (partsCount == 0) {
+//            throw new IOException("Cannot create multipart/form-data request body with zero parts.");
+//        }
+//        return bodyBuilder.build();
+//    }
+
     @Override
-    protected RequestBody createRequestBody() throws IOException {
+    protected byte[] createRequestBody() throws IOException {
         if (partsCount == 0) {
             throw new IOException("Cannot create multipart/form-data request body with zero parts.");
         }
-        return bodyBuilder.build();
+
+        // TODO how do we handle multi-part requests????
+        return null;
+//        return bodyBuilder.build();
     }
 
+//    @Override
+//    protected T readResponseBody(ResponseBody body) throws IOException {
+//        String payload = body.string();
+//        return mapper.readValue(payload, tType);
+//    }
+
     @Override
-    protected T readResponseBody(ResponseBody body) throws IOException {
-        String payload = body.string();
+    protected T readResponseBody(Auth0HttpResponse response) throws IOException {
+        String payload = response.getBody();
         return mapper.readValue(payload, tType);
     }
 

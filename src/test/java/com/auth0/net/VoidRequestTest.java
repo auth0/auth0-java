@@ -11,12 +11,12 @@ import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class VoidRequestTest {
-    private OkHttpClient client;
+    private Auth0HttpClient client;
     private MockServer server;
 
     @Before
     public void setUp() throws Exception {
-        client = new OkHttpClient();
+        client = new Auth0OkHttpClient.Builder().build();
         server = new MockServer();
     }
 

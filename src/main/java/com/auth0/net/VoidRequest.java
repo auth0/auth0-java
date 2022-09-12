@@ -18,17 +18,18 @@ import java.util.HashMap;
  */
 public class VoidRequest extends CustomRequest<Void> {
 
-    public VoidRequest(OkHttpClient client, String url, String method) {
+    public VoidRequest(Auth0HttpClient client, String url, String method) {
         super(client, url, method, new TypeReference<Void>() {
         });
     }
 
     @Override
-    protected Void parseResponse(Response response) throws Auth0Exception {
+    protected Void parseResponse(Auth0HttpResponse response) throws Auth0Exception {
         if (!response.isSuccessful()) {
             throw super.createResponseException(response);
         }
-        response.close();
+        // TODO who is responsible to close request?????
+//        response.close();
         return null;
     }
 }

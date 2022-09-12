@@ -3,6 +3,7 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.filter.LogEventFilter;
 import com.auth0.json.mgmt.logevents.LogEvent;
 import com.auth0.json.mgmt.logevents.LogEventsPage;
+import com.auth0.net.Auth0HttpClient;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.utils.Asserts;
@@ -24,7 +25,7 @@ import static com.auth0.client.mgmt.filter.QueryFilter.KEY_QUERY;
 @SuppressWarnings("WeakerAccess")
 public class LogEventsEntity extends BaseManagementEntity {
 
-    LogEventsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    LogEventsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

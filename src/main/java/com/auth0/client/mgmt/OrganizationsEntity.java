@@ -6,6 +6,7 @@ import com.auth0.client.mgmt.filter.InvitationsFilter;
 import com.auth0.client.mgmt.filter.PageFilter;
 import com.auth0.json.mgmt.RolesPage;
 import com.auth0.json.mgmt.organizations.*;
+import com.auth0.net.Auth0HttpClient;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
@@ -28,7 +29,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
     private final static String ORGS_PATH = "api/v2/organizations";
     private final static String AUTHORIZATION_HEADER = "Authorization";
 
-    OrganizationsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    OrganizationsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

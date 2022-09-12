@@ -6,7 +6,7 @@ import okhttp3.OkHttpClient;
 
 public class TokenRequest extends CustomRequest<TokenHolder> implements AuthRequest {
 
-    public TokenRequest(OkHttpClient client, String url) {
+    public TokenRequest(Auth0HttpClient client, String url) {
         super(client, url, "POST", new TypeReference<TokenHolder>() {
         });
     }

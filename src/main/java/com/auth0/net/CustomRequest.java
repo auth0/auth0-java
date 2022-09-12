@@ -30,32 +30,40 @@ public class CustomRequest<T> extends ExtendedBaseRequest<T> implements Customiz
     private final Map<String, Object> parameters;
     private Object body;
 
-    CustomRequest(OkHttpClient client, String url, String method, ObjectMapper mapper, TypeReference<T> tType) {
+    CustomRequest(Auth0HttpClient client, String url, String method, ObjectMapper mapper, TypeReference<T> tType) {
         super(client, url, method, mapper);
         this.mapper = mapper;
         this.tType = tType;
         this.parameters = new HashMap<>();
     }
 
-    public CustomRequest(OkHttpClient client, String url, String method, TypeReference<T> tType) {
+    public CustomRequest(Auth0HttpClient client, String url, String method, TypeReference<T> tType) {
         this(client, url, method, new ObjectMapper(), tType);
     }
 
     @Override
     @SuppressWarnings("deprecation")
-    protected RequestBody createRequestBody() throws IOException {
+//    protected RequestBody createRequestBody() throws IOException {
+    protected byte[] createRequestBody() throws IOException {
         if (body == null && parameters.isEmpty()) {
             return null;
         }
         byte[] jsonBody = mapper.writeValueAsBytes(body != null ? body : parameters);
         // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
         // https://github.com/auth0/auth0-java/issues/324
-        return RequestBody.create(MediaType.parse(CONTENT_TYPE_APPLICATION_JSON), jsonBody);
+        return jsonBody;
+//        return RequestBody.create(MediaType.parse(CONTENT_TYPE_APPLICATION_JSON), jsonBody);
     }
 
+//    @Override
+//    protected T readResponseBody(ResponseBody body) throws IOException {
+//        String payload = body.string();
+//        return mapper.readValue(payload, tType);
+//    }
+
     @Override
-    protected T readResponseBody(ResponseBody body) throws IOException {
-        String payload = body.string();
+    protected T readResponseBody(Auth0HttpResponse response) throws IOException {
+        String payload = response.getBody();
         return mapper.readValue(payload, tType);
     }
 

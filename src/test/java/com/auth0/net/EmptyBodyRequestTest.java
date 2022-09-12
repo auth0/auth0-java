@@ -21,14 +21,14 @@ import static org.mockito.Mockito.mock;
 public class EmptyBodyRequestTest {
 
     private MockServer server;
-    private OkHttpClient client;
+    private Auth0HttpClient client;
 
     private TypeReference<TokenHolder> tokenHolderType;
 
     @Before
     public void setUp() throws Exception {
         server = new MockServer();
-        client = new OkHttpClient();
+        client = new Auth0OkHttpClient.Builder().build();
         tokenHolderType = new TypeReference<TokenHolder>() {
         };
     }

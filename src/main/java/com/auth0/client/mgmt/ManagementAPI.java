@@ -3,11 +3,10 @@ package com.auth0.client.mgmt;
 import com.auth0.client.HttpOptions;
 import com.auth0.client.LoggingOptions;
 import com.auth0.client.ProxyOptions;
-import com.auth0.net.RateLimitInterceptor;
-import com.auth0.net.Telemetry;
-import com.auth0.net.TelemetryInterceptor;
+import com.auth0.net.*;
 import com.auth0.utils.Asserts;
 import okhttp3.*;
+import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 
@@ -27,7 +26,7 @@ public class ManagementAPI {
 
     private final HttpUrl baseUrl;
     private String apiToken;
-    private final OkHttpClient client;
+    private final Auth0HttpClient client;
     private final TelemetryInterceptor telemetry;
     private final HttpLoggingInterceptor logging;
 
@@ -76,43 +75,80 @@ public class ManagementAPI {
      * @param options the options to set to the client.
      * @return a new networking client instance configured as requested.
      */
-    private OkHttpClient buildNetworkingClient(HttpOptions options) {
-        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
+    private Auth0OkHttpClient buildNetworkingClient(HttpOptions options) {
+//        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
+//        final ProxyOptions proxyOptions = options.getProxyOptions();
+//        if (proxyOptions != null) {
+//            //Set proxy
+//            clientBuilder.proxy(proxyOptions.getProxy());
+//            //Set authentication, if present
+//            final String proxyAuth = proxyOptions.getBasicAuthentication();
+//            if (proxyAuth != null) {
+//                clientBuilder.proxyAuthenticator(new Authenticator() {
+//
+//                    private static final String PROXY_AUTHORIZATION_HEADER = "Proxy-Authorization";
+//
+//                    @Override
+//                    public okhttp3.Request authenticate(Route route, Response response) throws IOException {
+//                        if (response.request().header(PROXY_AUTHORIZATION_HEADER) != null) {
+//                            return null;
+//                        }
+//                        return response.request().newBuilder()
+//                                .header(PROXY_AUTHORIZATION_HEADER, proxyAuth)
+//                                .build();
+//                    }
+//                });
+//            }
+//        }
+//        configureLogging(options.getLoggingOptions());
+//        Dispatcher dispatcher = new Dispatcher();
+//        dispatcher.setMaxRequestsPerHost(options.getMaxRequestsPerHost());
+//        dispatcher.setMaxRequests(options.getMaxRequests());
+//        return clientBuilder
+//                .addInterceptor(logging)
+//                .addInterceptor(telemetry)
+//                .addInterceptor(new RateLimitInterceptor(options.getManagementAPIMaxRetries()))
+//                .connectTimeout(options.getConnectTimeout(), TimeUnit.SECONDS)
+//                .readTimeout(options.getReadTimeout(), TimeUnit.SECONDS)
+//                .dispatcher(dispatcher)
+//                .build();
+
+        Auth0OkHttpClient.Builder clientBuilder = Auth0OkHttpClient.newBuilder();
+
+        // TODO proxy!
         final ProxyOptions proxyOptions = options.getProxyOptions();
-        if (proxyOptions != null) {
-            //Set proxy
-            clientBuilder.proxy(proxyOptions.getProxy());
-            //Set authentication, if present
-            final String proxyAuth = proxyOptions.getBasicAuthentication();
-            if (proxyAuth != null) {
-                clientBuilder.proxyAuthenticator(new Authenticator() {
-
-                    private static final String PROXY_AUTHORIZATION_HEADER = "Proxy-Authorization";
-
-                    @Override
-                    public okhttp3.Request authenticate(Route route, Response response) throws IOException {
-                        if (response.request().header(PROXY_AUTHORIZATION_HEADER) != null) {
-                            return null;
-                        }
-                        return response.request().newBuilder()
-                                .header(PROXY_AUTHORIZATION_HEADER, proxyAuth)
-                                .build();
-                    }
-                });
-            }
-        }
-        configureLogging(options.getLoggingOptions());
-        Dispatcher dispatcher = new Dispatcher();
-        dispatcher.setMaxRequestsPerHost(options.getMaxRequestsPerHost());
-        dispatcher.setMaxRequests(options.getMaxRequests());
+//        if (proxyOptions != null) {
+//            //Set proxy
+//            clientBuilder.proxy(proxyOptions.getProxy());
+//            //Set authentication, if present
+//            final String proxyAuth = proxyOptions.getBasicAuthentication();
+//            if (proxyAuth != null) {
+//                clientBuilder.proxyAuthenticator(new Authenticator() {
+//
+//                    private static final String PROXY_AUTHORIZATION_HEADER = "Proxy-Authorization";
+//
+//                    @Override
+//                    public okhttp3.Request authenticate(Route route, Response response) throws IOException {
+//                        if (response.request().header(PROXY_AUTHORIZATION_HEADER) != null) {
+//                            return null;
+//                        }
+//                        return response.request().newBuilder()
+//                            .header(PROXY_AUTHORIZATION_HEADER, proxyAuth)
+//                            .build();
+//                    }
+//                });
+//            }
+//        }
+        // TODO dispatchers, other config opttions we now support
         return clientBuilder
-                .addInterceptor(logging)
-                .addInterceptor(telemetry)
-                .addInterceptor(new RateLimitInterceptor(options.getManagementAPIMaxRetries()))
-                .connectTimeout(options.getConnectTimeout(), TimeUnit.SECONDS)
-                .readTimeout(options.getReadTimeout(), TimeUnit.SECONDS)
-                .dispatcher(dispatcher)
-                .build();
+            .interceptor(logging)
+            .interceptor(telemetry)
+            // TODO use TimeUnit or Duration for timeout config??
+            .connectTimeout(options.getConnectTimeout())
+            .readTimeout(options.getReadTimeout())
+//            .connectTimeout(options.getConnectTimeout(), TimeUnit.SECONDS)
+//            .readTimeout(options.getReadTimeout(), TimeUnit.SECONDS)
+            .build();
     }
 
     /**
@@ -181,7 +217,7 @@ public class ManagementAPI {
     }
 
     //Visible for testing
-    OkHttpClient getClient() {
+    Auth0HttpClient getClient() {
         return client;
     }
 

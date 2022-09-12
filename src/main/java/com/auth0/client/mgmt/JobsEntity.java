@@ -5,9 +5,7 @@ import com.auth0.client.mgmt.filter.UsersImportOptions;
 import com.auth0.json.mgmt.EmailVerificationIdentity;
 import com.auth0.json.mgmt.jobs.Job;
 import com.auth0.json.mgmt.jobs.JobErrorDetails;
-import com.auth0.net.CustomRequest;
-import com.auth0.net.MultipartRequest;
-import com.auth0.net.Request;
+import com.auth0.net.*;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.IOException;
@@ -31,7 +29,7 @@ import okhttp3.ResponseBody;
 @SuppressWarnings("WeakerAccess")
 public class JobsEntity extends BaseManagementEntity {
 
-    JobsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    JobsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
@@ -79,13 +77,21 @@ public class JobsEntity extends BaseManagementEntity {
         TypeReference<List<JobErrorDetails>> jobErrorDetailsListType = new TypeReference<List<JobErrorDetails>>() {
         };
         CustomRequest<List<JobErrorDetails>> request = new CustomRequest<List<JobErrorDetails>>(client, url, "GET", jobErrorDetailsListType) {
-            @Override
-            protected List<JobErrorDetails> readResponseBody(ResponseBody body) throws IOException {
-                if (body.contentLength() == 0) {
-                    return Collections.emptyList();
+//            @Override
+//            protected List<JobErrorDetails> readResponseBody(ResponseBody body) throws IOException {
+//                if (body.contentLength() == 0) {
+//                    return Collections.emptyList();
+//                }
+//                return super.readResponseBody(body);
+//            }
+                @Override
+                protected List<JobErrorDetails> readResponseBody(Auth0HttpResponse response) throws IOException {
+//                    if (body.contentLength() == 0) {
+                    if (response.getBody() == null || response.getBody().length() == 0) {// TODO this right?
+                        return Collections.emptyList();
+                    }
+                    return super.readResponseBody(response);
                 }
-                return super.readResponseBody(body);
-            }
         };
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;

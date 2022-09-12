@@ -3,6 +3,7 @@ package com.auth0.client.mgmt;
 import com.auth0.json.mgmt.branding.BrandingSettings;
 import com.auth0.json.mgmt.branding.UniversalLoginTemplate;
 import com.auth0.json.mgmt.branding.UniversalLoginTemplateUpdate;
+import com.auth0.net.Auth0HttpClient;
 import com.auth0.net.Request;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -19,7 +20,7 @@ import okhttp3.OkHttpClient;
 @SuppressWarnings("WeakerAccess")
 public class BrandingEntity extends BaseManagementEntity {
 
-    BrandingEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    BrandingEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

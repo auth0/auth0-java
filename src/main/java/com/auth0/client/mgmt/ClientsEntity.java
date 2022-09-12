@@ -4,10 +4,7 @@ import com.auth0.client.mgmt.filter.ClientFilter;
 import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.json.mgmt.client.Client;
 import com.auth0.json.mgmt.client.ClientsPage;
-import com.auth0.net.CustomRequest;
-import com.auth0.net.EmptyBodyRequest;
-import com.auth0.net.Request;
-import com.auth0.net.VoidRequest;
+import com.auth0.net.*;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
@@ -26,7 +23,7 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class ClientsEntity extends BaseManagementEntity {
 
-    ClientsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    ClientsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

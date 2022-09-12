@@ -11,10 +11,7 @@ import com.auth0.json.mgmt.users.Identity;
 import com.auth0.json.mgmt.users.RecoveryCode;
 import com.auth0.json.mgmt.users.User;
 import com.auth0.json.mgmt.users.UsersPage;
-import com.auth0.net.CustomRequest;
-import com.auth0.net.EmptyBodyRequest;
-import com.auth0.net.Request;
-import com.auth0.net.VoidRequest;
+import com.auth0.net.*;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
@@ -36,7 +33,7 @@ import static com.auth0.client.mgmt.filter.QueryFilter.KEY_QUERY;
 @SuppressWarnings("WeakerAccess")
 public class UsersEntity extends BaseManagementEntity {
 
-    UsersEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    UsersEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

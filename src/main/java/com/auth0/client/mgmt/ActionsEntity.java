@@ -4,10 +4,7 @@ import com.auth0.client.mgmt.filter.ActionsFilter;
 import com.auth0.client.mgmt.filter.BaseFilter;
 import com.auth0.client.mgmt.filter.PageFilter;
 import com.auth0.json.mgmt.actions.*;
-import com.auth0.net.CustomRequest;
-import com.auth0.net.EmptyBodyRequest;
-import com.auth0.net.Request;
-import com.auth0.net.VoidRequest;
+import com.auth0.net.*;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
@@ -35,7 +32,7 @@ public class ActionsEntity extends BaseManagementEntity {
 
     private final static String AUTHORIZATION_HEADER = "Authorization";
 
-    ActionsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    ActionsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
@@ -434,16 +431,18 @@ public class ActionsEntity extends BaseManagementEntity {
 
     // Temporary request implementation to send an empty json object on the request body.
     private static class EmptyObjectRequest<T> extends EmptyBodyRequest<T> {
-        EmptyObjectRequest(OkHttpClient client, String url, String method, TypeReference<T> tType) {
+        EmptyObjectRequest(Auth0HttpClient client, String url, String method, TypeReference<T> tType) {
             super(client, url, method, tType);
         }
 
         @Override
         @SuppressWarnings("deprecation")
-        protected RequestBody createRequestBody() {
+        protected byte[] createRequestBody() {
             // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
             // https://github.com/auth0/auth0-java/issues/324
-            return RequestBody.create(MediaType.parse("application/json"), "{}".getBytes());
+            // TODO this right?
+            return new byte[0];
+//            return RequestBody.create(MediaType.parse("application/json"), "{}".getBytes());
         }
 
     }

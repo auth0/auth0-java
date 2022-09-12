@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.userblocks.UserBlocks;
+import com.auth0.net.Auth0HttpClient;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
@@ -19,7 +20,7 @@ import okhttp3.OkHttpClient;
 @SuppressWarnings("WeakerAccess")
 public class UserBlocksEntity extends BaseManagementEntity {
 
-    UserBlocksEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    UserBlocksEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

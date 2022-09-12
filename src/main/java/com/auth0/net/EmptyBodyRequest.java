@@ -12,17 +12,17 @@ import okhttp3.RequestBody;
  * @see CustomRequest
  */
 public class EmptyBodyRequest<T> extends CustomRequest<T> {
-
-    public EmptyBodyRequest(OkHttpClient client, String url, String method, TypeReference<T> tType) {
+    public EmptyBodyRequest(Auth0HttpClient client, String url, String method, TypeReference<T> tType) {
         super(client, url, method, tType);
     }
 
     @Override
     @SuppressWarnings("deprecation")
-    protected RequestBody createRequestBody() {
+    protected byte[] createRequestBody() {
+        return new byte[0];
         // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
         // https://github.com/auth0/auth0-java/issues/324
-        return RequestBody.create(null, new byte[0]);
+//        return RequestBody.create(null, new byte[0]);
     }
 
     @Override

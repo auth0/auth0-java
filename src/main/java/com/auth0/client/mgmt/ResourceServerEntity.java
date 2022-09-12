@@ -3,6 +3,7 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.filter.ResourceServersFilter;
 import com.auth0.json.mgmt.ResourceServer;
 import com.auth0.json.mgmt.ResourceServersPage;
+import com.auth0.net.Auth0HttpClient;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
@@ -23,7 +24,7 @@ import java.util.Map;
  */
 public class ResourceServerEntity extends BaseManagementEntity {
 
-    ResourceServerEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    ResourceServerEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

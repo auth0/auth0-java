@@ -7,6 +7,7 @@ import com.auth0.json.mgmt.PermissionsPage;
 import com.auth0.json.mgmt.Role;
 import com.auth0.json.mgmt.RolesPage;
 import com.auth0.json.mgmt.users.UsersPage;
+import com.auth0.net.Auth0HttpClient;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
@@ -28,8 +29,8 @@ import java.util.Map;
  */
 public class RolesEntity extends BaseManagementEntity {
 
-  RolesEntity(OkHttpClient client, HttpUrl baseUrl,
-      String apiToken) {
+  RolesEntity(Auth0HttpClient client, HttpUrl baseUrl,
+              String apiToken) {
     super(client, baseUrl, apiToken);
   }
 

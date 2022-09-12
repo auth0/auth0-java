@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.Key;
+import com.auth0.net.Auth0HttpClient;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.EmptyBodyRequest;
 import com.auth0.net.Request;
@@ -20,7 +21,7 @@ import java.util.List;
  */
 public class KeysEntity extends BaseManagementEntity {
 
-    KeysEntity(OkHttpClient client, HttpUrl baseUrl,
+    KeysEntity(Auth0HttpClient client, HttpUrl baseUrl,
                String apiToken) {
         super(client, baseUrl, apiToken);
     }
