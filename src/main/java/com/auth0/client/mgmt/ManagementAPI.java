@@ -151,6 +151,23 @@ public class ManagementAPI {
             .build();
     }
 
+    public ManagementAPI(String domain, String apiToken, Auth0HttpClient client) {
+        // TODO cleanup/reuse. Also move to a builder
+        Asserts.assertNotNull(domain, "domain");
+        Asserts.assertNotNull(apiToken, "api token");
+
+        this.baseUrl = createBaseUrl(domain);
+        if (baseUrl == null) {
+            throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
+        }
+        this.apiToken = apiToken;
+        this.client = client;
+
+        // TODO what to do with logging/telemetry with custom NET client?
+        this.logging = null;
+        this.telemetry = null;
+    }
+
     /**
      * Update the API token to use on new calls. This is useful when the token is about to expire or already has.
      * Please note you'll need to obtain the corresponding entity again for this to apply. e.g. call {@link #clients()} again.
