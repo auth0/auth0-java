@@ -244,6 +244,23 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
+     * Delete all an user's authenticators.
+     * A token with scope delete:guardian_enrollments is needed.
+     *
+     * See <a href="https://auth0.com/docs/api/management/v2#!/Users/delete_authenticators">API docs</a>
+     *
+     * @param userId   the user id
+     * @return a Request to execute.
+     */
+    public Request<Void> deleteAllAuthenticators(String userId) {
+        Asserts.assertNotNull(userId, "user id");
+
+        return voidRequest("DELETE", builder -> {
+            builder.withPathSegments(String.format("api/v2/users/%s/authenticators", userId));
+        });
+    }
+    
+    /**
      * Delete an existing User's Multifactor Provider.
      * A token with scope update:users is needed.
      * See https://auth0.com/docs/api/management/v2#!/Users/delete_multifactor_by_provider
