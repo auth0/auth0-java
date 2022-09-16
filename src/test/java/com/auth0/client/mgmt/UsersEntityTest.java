@@ -510,6 +510,27 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
+    public void shouldThrowOnDeleteUserAuthenticatorsWithNullId() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'user id' cannot be null!");
+        api.users().deleteAllAuthenticators(null);
+    }
+
+    @Test
+    public void shouldDeleteUserAuthenticators() throws Exception {
+        Request<Void> request = api.users().deleteAllAuthenticators("auth0|23");
+        assertThat(request, is(notNullValue()));
+
+        server.emptyResponse(204);
+        request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/users/auth0%7C23/authenticators"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
+
+    @Test
     public void shouldThrowOnDeleteUserMultifactorProviderWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'user id' cannot be null!");
