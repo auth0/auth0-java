@@ -1,5 +1,24 @@
 # Change Log
 
+## [1.43.0](https://github.com/auth0/auth0-java/tree/1.43.0) (2022-09-19)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.42.0...1.43.0)
+
+**Added**
+- Add support for deleting all user's authenticators [\#451](https://github.com/auth0/auth0-java/pull/451) ([jimmyjames](https://github.com/jimmyjames))
+- Add session idle lifetime and make session lifetime doubles [\#423](https://github.com/auth0/auth0-java/pull/423) ([pelletier197](https://github.com/pelletier197))
+- #448 Adding field filter option to get client by ID API [\#449](https://github.com/auth0/auth0-java/pull/449) ([bhatmadhavi](https://github.com/bhatmadhavi))
+- Add missing fields in Client model [\#444](https://github.com/auth0/auth0-java/pull/444) ([poovamraj](https://github.com/poovamraj))
+- Add Ship CLI configuration [\#433](https://github.com/auth0/auth0-java/pull/433) ([frederikprijck](https://github.com/frederikprijck))
+
+**Changed**
+- Update to OSS plugin version 0.17.2 [\#450](https://github.com/auth0/auth0-java/pull/450) ([jimmyjames](https://github.com/jimmyjames))
+- Bump oss-library and auth0/ship [\#441](https://github.com/auth0/auth0-java/pull/441) ([frederikprijck](https://github.com/frederikprijck))
+- Ensure version is defined before plugins are applied [\#439](https://github.com/auth0/auth0-java/pull/439) ([frederikprijck](https://github.com/frederikprijck))
+
+**Security**
+- Replace Codecov uploader w/ CircleCI Orb [\#446](https://github.com/auth0/auth0-java/pull/446) ([evansims](https://github.com/evansims))
+- Security: Update OkHttp to 4.10.0 [\#438](https://github.com/auth0/auth0-java/pull/438) ([evansims](https://github.com/evansims))
+
 ## [1.42.0](https://github.com/auth0/auth0-java/tree/1.42.0) (2022-05-20)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.41.0...1.42.0)
 
