@@ -1,7 +1,3 @@
-buildscript {
-    version = "1.42.0"
-}
-
 plugins {
     id 'java'
     id 'jacoco'
@@ -10,13 +6,6 @@ plugins {
 
 repositories {
     mavenCentral()
-}
-
-def signingKey = findProperty('SIGNING_KEY')
-def signingKeyPwd = findProperty('SIGNING_PASSWORD')
-
-signing {
-    useInMemoryPgpKeys(signingKey, signingKeyPwd)
 }
 
 group = 'com.auth0'
