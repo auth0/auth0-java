@@ -23,6 +23,8 @@ public class BreachedPassword {
     private List<String> shields;
     @JsonProperty("admin_notification_frequency")
     private List<String> adminNotificationFrequency;
+    @JsonProperty("stage")
+    private BreachedPasswordStage stage;
 
     /**
      * @return whether or not breached password detection is active.
@@ -84,5 +86,19 @@ public class BreachedPassword {
         this.adminNotificationFrequency = adminNotificationFrequency;
     }
 
+    /**
+     * @return the per-stage configuration options
+     */
+    public BreachedPasswordStage getStage() {
+        return stage;
+    }
+
+   /**
+     * Sets the per-stage configuration options.
+     * @param stage the per-stage configuration options.
+     */
+    public void setStage(BreachedPasswordStage stage) {
+        this.stage = stage;
+    }
 
 }
