@@ -39,15 +39,22 @@ public class AttackProtectionEntityTest extends BaseMgmtEntityTest {
         assertThat(response.getAdminNotificationFrequency(), is(notNullValue()));
         assertThat(response.getAdminNotificationFrequency().size(), is(2));
         assertThat(response.getAdminNotificationFrequency(), contains("immediately", "weekly"));
+        assertThat(response.getStage().getPreUserRegistrationStage().getShields(), contains("admin_notification"));
     }
 
     @Test
     public void shouldUpdateBreachedPasswordSettings() throws Exception {
+        BreachedPasswordStage stage = new BreachedPasswordStage();
+        BreachedPasswordStageEntry preReg = new BreachedPasswordStageEntry();
+        preReg.setShields(Arrays.asList("admin_notification"));
+        stage.setPreUserRegistrationStage(preReg);
+
         BreachedPassword breachedPassword = new BreachedPassword();
         breachedPassword.setEnabled(true);
         breachedPassword.setMethod("standard");
         breachedPassword.setAdminNotificationFrequency(Arrays.asList("immediately", "daily"));
         breachedPassword.setShields(Arrays.asList("admin_notification", "block"));
+        breachedPassword.setStage(stage);
 
         Request<BreachedPassword> request = api.attackProtection().updateBreachedPasswordSettings(breachedPassword);
         assertThat(request, is(notNullValue()));
@@ -63,11 +70,12 @@ public class AttackProtectionEntityTest extends BaseMgmtEntityTest {
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         System.out.println(body);
 
-        assertThat(body.size(), is(4));
+        assertThat(body.size(), is(5));
         assertThat(body.get("method"), is("standard"));
         assertThat(body.get("enabled"), is(true));
         assertThat(((List<?>)body.get("shields")).size(), is(2));
         assertThat((List<?>) body.get("shields"), contains("admin_notification", "block"));
+        assertThat(body.get("stage"), is(notNullValue()));
 
         assertThat(response, is(notNullValue()));
     }
