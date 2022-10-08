@@ -23,8 +23,4 @@ public class SessionCookie {
     public String getMode() {
         return mode;
     }
-
-    public void setMode(String mode) {
-        this.mode = mode;
-    }
 }
