@@ -29,5 +29,8 @@
   "support_url": "https://mycompany.org/support",
   "allowed_logout_urls": [
     "https://mycompany.org/logoutCallback"
-  ]
+  ],
+  "session_cookie": {
+    "mode": "persistent"
+  }
 }
