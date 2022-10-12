@@ -1,14 +1,15 @@
 package com.auth0.net;
 
 import com.auth0.exception.Auth0Exception;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
+import okhttp3.*;
 import okhttp3.Response;
+import okhttp3.internal.http.HttpHeaders;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public abstract class BaseRequest<T> implements Request<T> {
@@ -34,7 +35,7 @@ public abstract class BaseRequest<T> implements Request<T> {
         okhttp3.Request request = createRequest();
         try (Response response = client.newCall(request).execute()) {
             T parsed = parseResponse(response);
-            return new ResponseImpl<T>(Collections.emptyMap(), parsed, response.code());
+            return new ResponseImpl<T>(fromOkHttpHeaders(response.headers()), parsed, response.code());
 //            return parseResponse(response);
         } catch (Auth0Exception e) {
             throw e;
@@ -65,7 +66,7 @@ public abstract class BaseRequest<T> implements Request<T> {
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try {
                     T parsedResponse = parseResponse(response);
-                    future.complete(new ResponseImpl<>(Collections.emptyMap(), parsedResponse, response.code()));
+                    future.complete(new ResponseImpl<>(fromOkHttpHeaders(response.headers()), parsedResponse, response.code()));
                 } catch (Auth0Exception e) {
                     future.completeExceptionally(e);
                 }
@@ -73,5 +74,15 @@ public abstract class BaseRequest<T> implements Request<T> {
         });
 
         return future;
+    }
+
+    private static Map<String, String> fromOkHttpHeaders(Headers okHttpHeaders) {
+        if (okHttpHeaders == null) {
+            return Collections.emptyMap();
+        }
+
+        Map<String, String> headers = new HashMap<>();
+        okHttpHeaders.forEach(nameValuePair -> headers.put(nameValuePair.getFirst(), nameValuePair.getSecond()));
+        return headers;
     }
 }
