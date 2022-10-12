@@ -5,6 +5,7 @@ import com.auth0.client.mgmt.filter.ActionsFilter;
 import com.auth0.client.mgmt.filter.PageFilter;
 import com.auth0.json.mgmt.actions.*;
 import com.auth0.net.Request;
+import com.auth0.net.Response;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
 
@@ -71,7 +72,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ACTION, 200);
-        Action response = request.execute().getBody();
+        Response<Action> response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/actions/actions"));
@@ -107,6 +108,8 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(secretsOnRequest.get(0), hasEntry("value", secret.getValue()));
 
         assertThat(response, is(notNullValue()));
+        assertThat(response.getBody(), is(instanceOf(Action.class)));
+        assertThat(response.getStatusCode(), is(200));
     }
 
     @Test

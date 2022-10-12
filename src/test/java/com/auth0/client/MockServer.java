@@ -163,6 +163,15 @@ public class MockServer {
         server.enqueue(response);
     }
 
+    public void jsonResponse(String path, int statusCode, Map<String, Object> headers) throws IOException {
+        MockResponse response = new MockResponse()
+            .setResponseCode(statusCode)
+            .setBody(readTextFile(path));
+
+        headers.forEach(response::addHeader);
+        server.enqueue(response);
+    }
+
     public void noContentResponse() {
         MockResponse response = new MockResponse()
             .setResponseCode(204)
@@ -190,6 +199,16 @@ public class MockServer {
                 .setResponseCode(statusCode)
                 .addHeader("Content-Type", "text/plain")
                 .setBody(readTextFile(path));
+        server.enqueue(response);
+    }
+
+    public void textResponse(String responseText, int statusCode, Map<String, Object> headers) throws IOException {
+        MockResponse response = new MockResponse()
+            .setResponseCode(statusCode)
+            .addHeader("Content-Type", "text/plain")
+            .setBody(responseText);
+
+        headers.forEach(response::addHeader);
         server.enqueue(response);
     }
 

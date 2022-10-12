@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 public abstract class BaseRequest<T> implements Request<T> {
@@ -77,7 +78,7 @@ public abstract class BaseRequest<T> implements Request<T> {
     }
 
     private static Map<String, String> fromOkHttpHeaders(Headers okHttpHeaders) {
-        if (okHttpHeaders == null) {
+        if (Objects.isNull(okHttpHeaders)) {
             return Collections.emptyMap();
         }
 
