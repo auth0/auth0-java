@@ -23,13 +23,13 @@ import static org.mockito.Mockito.*;
 //  https://github.com/mockito/mockito/issues/1728
 public class BaseRequestTest {
 
-    private Response response;
+    private okhttp3.Response response;
     private Call call;
     private OkHttpClient client;
 
     @Before
     public void setUp() throws Exception {
-        response = mock(Response.class);
+        response = mock(okhttp3.Response.class);
 
         call = mock(Call.class);
         when(call.execute()).thenReturn(response);
@@ -44,10 +44,10 @@ public class BaseRequestTest {
         try {
             new MockBaseRequest<String>(client) {
                 @Override
-                protected String parseResponse(Response response) {
+                protected String parseResponse(okhttp3.Response response) {
                     return "";
                 }
-            }.execute();
+            }.execute().getBody();
         } catch (Exception e) {
             exception = e;
         }
@@ -62,10 +62,10 @@ public class BaseRequestTest {
         try {
             new MockBaseRequest<String>(client) {
                 @Override
-                protected String parseResponse(Response response) throws Auth0Exception {
+                protected String parseResponse(okhttp3.Response response) throws Auth0Exception {
                     throw new RateLimitException(-1, -1, -1);
                 }
-            }.execute();
+            }.execute().getBody();
         } catch (Exception e) {
             exception = e;
         }
@@ -82,10 +82,10 @@ public class BaseRequestTest {
         try {
             new MockBaseRequest<String>(client) {
                 @Override
-                protected String parseResponse(Response response) throws Auth0Exception {
+                protected String parseResponse(okhttp3.Response response) throws Auth0Exception {
                     throw new APIException("APIException", 500, null);
                 }
-            }.execute();
+            }.execute().getBody();
         } catch (Exception e) {
             exception = e;
         }
@@ -102,10 +102,10 @@ public class BaseRequestTest {
         try {
             new MockBaseRequest<String>(client) {
                 @Override
-                protected String parseResponse(Response response) throws Auth0Exception {
+                protected String parseResponse(okhttp3.Response response) throws Auth0Exception {
                     throw new Auth0Exception("Auth0Exception");
                 }
-            }.execute();
+            }.execute().getBody();
         } catch (Exception e) {
             exception = e;
         }
@@ -118,13 +118,13 @@ public class BaseRequestTest {
 
     @Test
     public void asyncCompletesWithExceptionWhenRequestCreationFails() throws Exception {
-        CompletableFuture<?> request = new MockBaseRequest<String>(client) {
+        CompletableFuture<com.auth0.net.Response<String>> request = new MockBaseRequest<String>(client) {
             @Override
-            protected Request parseResponse(Response response) throws Auth0Exception {
+            protected String parseResponse(okhttp3.Response response) throws Auth0Exception {
                 throw new Auth0Exception("Response Parsing Error");
             }
             @Override
-            protected Request createRequest() throws Auth0Exception {
+            protected okhttp3.Request createRequest() throws Auth0Exception {
                 throw new Auth0Exception("Create Request Error");
             }
         }.executeAsync();
@@ -155,7 +155,7 @@ public class BaseRequestTest {
 
         CompletableFuture<?> request = new MockBaseRequest<String>(client) {
             @Override
-            protected String parseResponse(Response response) throws Auth0Exception {
+            protected String parseResponse(okhttp3.Response response) throws Auth0Exception {
                 throw new Auth0Exception("Response Parsing Error");
             }
         }.executeAsync();
@@ -188,7 +188,7 @@ public class BaseRequestTest {
 
         CompletableFuture<?> request = new MockBaseRequest<String>(client) {
             @Override
-            protected String parseResponse(Response response) throws Auth0Exception {
+            protected String parseResponse(okhttp3.Response response) throws Auth0Exception {
                 throw new Auth0Exception("Response Parsing Error");
             }
         }.executeAsync();
@@ -217,15 +217,15 @@ public class BaseRequestTest {
             return null;
         }).when(call).enqueue(any());
 
-        CompletableFuture<?> request = new MockBaseRequest<String>(client) {
+        CompletableFuture<com.auth0.net.Response<String>> request = new MockBaseRequest<String>(client) {
             @Override
-            protected String parseResponse(Response response) throws Auth0Exception {
+            protected String parseResponse(okhttp3.Response response) throws Auth0Exception {
                 return "Success";
             }
         }.executeAsync();
 
         Exception exception = null;
-        Object result = null;
+        Response<String> result = null;
 
         try {
             result = request.get();
@@ -234,11 +234,11 @@ public class BaseRequestTest {
         }
 
         assertThat(exception, is(nullValue()));
-        assertThat(result, is(instanceOf(String.class)));
-        assertThat(result, is("Success"));
+        assertThat(result, is(instanceOf(Response.class)));
+        assertThat(result.getBody(), is("Success"));
     }
 
-    private abstract static class MockBaseRequest<String> extends BaseRequest {
+    private abstract static class MockBaseRequest<String> extends BaseRequest<String> {
         MockBaseRequest(OkHttpClient client) {
             super(client);
         }

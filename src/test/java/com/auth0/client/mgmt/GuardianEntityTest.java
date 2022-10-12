@@ -31,7 +31,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_ENROLLMENT, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/guardian/enrollments/1"));
@@ -52,7 +52,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_ENROLLMENT_TICKET, 200);
-        EnrollmentTicket response = request.execute();
+        EnrollmentTicket response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/guardian/enrollments/ticket"));
@@ -72,7 +72,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_TEMPLATES, 200);
-        GuardianTemplates response = request.execute();
+        GuardianTemplates response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/guardian/factors/sms/templates"));
@@ -95,7 +95,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_TEMPLATES, 200);
-        GuardianTemplates response = request.execute();
+        GuardianTemplates response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/guardian/factors/sms/templates"));
@@ -111,7 +111,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_FACTORS_LIST, 200);
-        List<Factor> response = request.execute();
+        List<Factor> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/guardian/factors"));
@@ -128,7 +128,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
-        List<Factor> response = request.execute();
+        List<Factor> response = request.execute().getBody();
 
         assertThat(response, is(notNullValue()));
         assertThat(response, is(emptyCollectionOf(Factor.class)));
@@ -154,7 +154,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_FACTOR, 200);
-        Factor response = request.execute();
+        Factor response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/guardian/factors/my-factor"));
@@ -174,7 +174,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER_WITH_MSSID, 200);
-        TwilioFactorProvider response = request.execute();
+        TwilioFactorProvider response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/guardian/factors/sms/providers/twilio"));
@@ -190,7 +190,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER_WITH_FROM, 200);
-        TwilioFactorProvider response = request.execute();
+        TwilioFactorProvider response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/guardian/factors/sms/providers/twilio"));
@@ -214,7 +214,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER_WITH_FROM, 200);
-        TwilioFactorProvider response = request.execute();
+        TwilioFactorProvider response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/guardian/factors/sms/providers/twilio"));
@@ -241,7 +241,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER_WITH_MSSID, 200);
-        TwilioFactorProvider response = request.execute();
+        TwilioFactorProvider response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/guardian/factors/sms/providers/twilio"));
@@ -267,7 +267,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER_EMPTY, 200);
-        TwilioFactorProvider response = request.execute();
+        TwilioFactorProvider response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/guardian/factors/sms/providers/twilio"));
@@ -290,7 +290,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_SNS_FACTOR_PROVIDER, 200);
-        SNSFactorProvider response = request.execute();
+        SNSFactorProvider response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/guardian/factors/push-notification/providers/sns"));
@@ -314,7 +314,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_SNS_FACTOR_PROVIDER, 200);
-        SNSFactorProvider response = request.execute();
+        SNSFactorProvider response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/guardian/factors/push-notification/providers/sns"));
@@ -338,7 +338,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_SNS_FACTOR_PROVIDER_EMPTY, 200);
-        SNSFactorProvider response = request.execute();
+        SNSFactorProvider response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/guardian/factors/push-notification/providers/sns"));
@@ -362,7 +362,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_AUTHENTICATION_POLICIES_LIST, 200);
-        List<String> response = request.execute();
+        List<String> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/guardian/policies"));
@@ -386,7 +386,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_AUTHENTICATION_POLICIES_LIST, 200);
-        List<String> response = request.execute();
+        List<String> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/guardian/policies"));

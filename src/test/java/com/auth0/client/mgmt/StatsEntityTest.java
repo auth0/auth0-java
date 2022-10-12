@@ -22,7 +22,7 @@ public class StatsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_ACTIVE_USERS_COUNT, 200);
-        Integer response = request.execute();
+        Integer response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/stats/active-users"));
@@ -60,7 +60,7 @@ public class StatsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_DAILY_STATS_LIST, 200);
-        List<DailyStats> response = request.execute();
+        List<DailyStats> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/stats/daily"));
@@ -78,7 +78,7 @@ public class StatsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
-        List<DailyStats> response = request.execute();
+        List<DailyStats> response = request.execute().getBody();
 
         assertThat(response, is(notNullValue()));
         assertThat(response, is(emptyCollectionOf(DailyStats.class)));

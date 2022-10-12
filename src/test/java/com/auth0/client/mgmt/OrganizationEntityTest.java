@@ -27,7 +27,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ORGANIZATIONS_LIST, 200);
-        OrganizationsPage response = request.execute();
+        OrganizationsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations"));
@@ -45,7 +45,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ORGANIZATIONS_PAGED_LIST, 200);
-        OrganizationsPage response = request.execute();
+        OrganizationsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations"));
@@ -65,7 +65,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(ORGANIZATIONS_CHECKPOINT_PAGED_LIST, 200);
-        OrganizationsPage response = request.execute();
+        OrganizationsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations"));
@@ -85,7 +85,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ORGANIZATIONS_PAGED_LIST, 200);
-        OrganizationsPage response = request.execute();
+        OrganizationsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations"));
@@ -110,7 +110,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ORGANIZATION, 200);
-        Organization response = request.execute();
+        Organization response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations/org_123"));
@@ -133,7 +133,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ORGANIZATION, 200);
-        Organization response = request.execute();
+        Organization response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations/name/org-1"));
@@ -178,7 +178,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ORGANIZATION, 200);
-        Organization response = request.execute();
+        Organization response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/organizations"));
@@ -231,7 +231,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ORGANIZATION, 200);
-        Organization response = request.execute();
+        Organization response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/organizations/org_abc"));
@@ -261,7 +261,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/organizations/org_abc"));
@@ -284,7 +284,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ORGANIZATION_MEMBERS_LIST, 200);
-        MembersPage response = request.execute();
+        MembersPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations/org_abc/members"));
@@ -302,7 +302,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ORGANIZATION_MEMBERS_LIST, 200);
-        MembersPage response = request.execute();
+        MembersPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations/org_abc/members"));
@@ -322,7 +322,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ORGANIZATION_MEMBERS_PAGED_LIST, 200);
-        MembersPage response = request.execute();
+        MembersPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations/org_abc/members"));
@@ -341,7 +341,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(ORGANIZATION_MEMBERS_CHECKPOINT_PAGED_LIST, 200);
-        MembersPage response = request.execute();
+        MembersPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations/org_abc/members"));
@@ -376,7 +376,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/organizations/org_abc/members"));
@@ -410,7 +410,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/organizations/org_abc/members"));
@@ -437,7 +437,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ORGANIZATION_CONNECTIONS_LIST, 200);
-        EnabledConnectionsPage response = request.execute();
+        EnabledConnectionsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations/org_abc/enabled_connections"));
@@ -455,7 +455,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ORGANIZATION_CONNECTIONS_LIST, 200);
-        EnabledConnectionsPage response = request.execute();
+        EnabledConnectionsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations/org_abc/enabled_connections"));
@@ -475,7 +475,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ORGANIZATION_CONNECTIONS_PAGED_LIST, 200);
-        EnabledConnectionsPage response = request.execute();
+        EnabledConnectionsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations/org_abc/enabled_connections"));
@@ -507,7 +507,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(ORGANIZATION_CONNECTION, 200);
-        EnabledConnection response = request.execute();
+        EnabledConnection response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations/org_123/enabled_connections/con_abc"));
@@ -541,7 +541,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(ORGANIZATION_CONNECTION, 201);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/organizations/org_abc/enabled_connections"));
@@ -574,7 +574,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/organizations/org_abc/enabled_connections/con_123"));
@@ -612,7 +612,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(ORGANIZATION_CONNECTION, 201);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/organizations/org_abc/enabled_connections/con_123"));
@@ -646,7 +646,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(ORGANIZATION_MEMBER_ROLES_LIST, 200);
-        RolesPage response = request.execute();
+        RolesPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations/org_abc/members/user_123/roles"));
@@ -663,7 +663,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(ORGANIZATION_MEMBER_ROLES_LIST, 200);
-        RolesPage response = request.execute();
+        RolesPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations/org_abc/members/user_123/roles"));
@@ -682,7 +682,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(ORGANIZATION_MEMBER_ROLES_PAGED_LIST, 200);
-        RolesPage response = request.execute();
+        RolesPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations/org_abc/members/user_123/roles"));
@@ -722,7 +722,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/organizations/org_abc/members/user_123/roles"));
@@ -762,7 +762,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/organizations/org_abc/members/user_123/roles"));
@@ -796,7 +796,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(INVITATION, 200);
-        Invitation response = request.execute();
+        Invitation response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations/org_123/invitations/invitation_id"));
@@ -813,7 +813,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(INVITATION, 200);
-        Invitation response = request.execute();
+        Invitation response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations/org_123/invitations/invitation_id"));
@@ -838,7 +838,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(INVITATIONS_LIST, 200);
-        InvitationsPage response = request.execute();
+        InvitationsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations/org_123/invitations"));
@@ -858,7 +858,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(INVITATIONS_LIST, 200);
-        InvitationsPage response = request.execute();
+        InvitationsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations/org_123/invitations"));
@@ -879,7 +879,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(INVITATIONS_LIST, 200);
-        InvitationsPage response = request.execute();
+        InvitationsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations/org_123/invitations"));
@@ -899,7 +899,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(INVITATIONS_PAGED_LIST, 200);
-        InvitationsPage response = request.execute();
+        InvitationsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/organizations/org_123/invitations"));
@@ -936,7 +936,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(INVITATION, 201);
-        Invitation response = request.execute();
+        Invitation response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/organizations/org_123/invitations"));
@@ -974,7 +974,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/organizations/org_abc/invitations/inv_123"));

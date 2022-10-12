@@ -565,7 +565,7 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_USER_INFO, 200);
-        UserInfo response = request.execute();
+        UserInfo response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/userinfo"));
@@ -616,7 +616,7 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_RESET_PASSWORD, 200);
-        Void response = request.execute();
+        Void response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/dbconnections/change_password"));
@@ -735,7 +735,7 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_SIGN_UP_USERNAME, 200);
-        CreatedUser response = request.execute();
+        CreatedUser response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/dbconnections/signup"));
@@ -763,7 +763,7 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_SIGN_UP, 200);
-        CreatedUser response = request.execute();
+        CreatedUser response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/dbconnections/signup"));
@@ -794,7 +794,7 @@ public class AuthAPITest {
         request.setCustomFields(customFields);
 
         server.jsonResponse(AUTH_SIGN_UP, 200);
-        CreatedUser response = request.execute();
+        CreatedUser response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/dbconnections/signup"));
@@ -841,7 +841,7 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
@@ -871,7 +871,7 @@ public class AuthAPITest {
         request.setScope("profile photos contacts");
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
@@ -928,7 +928,7 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
@@ -959,7 +959,7 @@ public class AuthAPITest {
         request.setAudience("https://myapi.auth0.com/users");
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
@@ -989,7 +989,7 @@ public class AuthAPITest {
         request.addHeader("some-header", "some-value");
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
@@ -1051,7 +1051,7 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
@@ -1083,7 +1083,7 @@ public class AuthAPITest {
         request.setScope("profile photos contacts");
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
@@ -1123,7 +1123,7 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
@@ -1152,7 +1152,7 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(PASSWORDLESS_EMAIL_RESPONSE, 200);
-        PasswordlessEmailResponse response = request.execute();
+        PasswordlessEmailResponse response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/passwordless/start"));
@@ -1199,7 +1199,7 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(PASSWORDLESS_EMAIL_RESPONSE, 200);
-        PasswordlessEmailResponse response = request.execute();
+        PasswordlessEmailResponse response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/passwordless/start"));
@@ -1227,7 +1227,7 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(PASSWORDLESS_SMS_RESPONSE, 200);
-        PasswordlessSmsResponse response = request.execute();
+        PasswordlessSmsResponse response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/passwordless/start"));
@@ -1256,7 +1256,7 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(PASSWORDLESS_SMS_RESPONSE, 200);
-        PasswordlessSmsResponse response = request.execute();
+        PasswordlessSmsResponse response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/passwordless/start"));
@@ -1288,7 +1288,7 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
@@ -1324,7 +1324,7 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(200);
-        Void response = request.execute();
+        Void response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/revoke"));
@@ -1354,7 +1354,7 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
@@ -1396,7 +1396,7 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));

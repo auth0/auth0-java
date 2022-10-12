@@ -32,7 +32,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ACTION, 200);
-        Action response = request.execute();
+        Action response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/actions/action-id"));
@@ -71,7 +71,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ACTION, 200);
-        Action response = request.execute();
+        Action response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/actions/actions"));
@@ -122,7 +122,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/actions/actions/action-id"));
@@ -137,7 +137,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/actions/actions/action-id"));
@@ -152,7 +152,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ACTION_TRIGGERS, 200);
-        Triggers triggers = request.execute();
+        Triggers triggers = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/triggers"));
@@ -193,7 +193,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ACTION, 200);
-        Action response = request.execute();
+        Action response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/actions/actions/action-id"));
@@ -236,7 +236,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ACTION_VERSION, 200);
-        Version response = request.execute();
+        Version response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/actions/actions/action-id/deploy"));
@@ -268,7 +268,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ACTION_VERSION, 200);
-        Version response = request.execute();
+        Version response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/actions/action-id/versions/version-id"));
@@ -298,7 +298,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ACTION_VERSION, 200);
-        Version response = request.execute();
+        Version response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/actions/actions/action-id/versions/version-id/deploy"));
@@ -323,7 +323,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ACTION_EXECUTION, 200);
-        Execution response = request.execute();
+        Execution response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/executions/execution-id"));
@@ -339,7 +339,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ACTIONS_LIST, 200);
-        ActionsPage response = request.execute();
+        ActionsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/actions"));
@@ -362,7 +362,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ACTIONS_LIST, 200);
-        ActionsPage response = request.execute();
+        ActionsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/actions"));
@@ -391,7 +391,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ACTION_VERSIONS_LIST, 200);
-        VersionsPage response = request.execute();
+        VersionsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/actions/action-id/versions"));
@@ -410,7 +410,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ACTION_VERSIONS_LIST, 200);
-        VersionsPage response = request.execute();
+        VersionsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/actions/action-id/versions"));
@@ -435,7 +435,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ACTION_TRIGGER_BINDINGS, 200);
-        BindingsPage response = request.execute();
+        BindingsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/triggers/trigger-id/bindings"));
@@ -454,7 +454,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ACTION_TRIGGER_BINDINGS, 200);
-        BindingsPage response = request.execute();
+        BindingsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/triggers/trigger-id/bindings"));
@@ -495,7 +495,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.ACTION_TRIGGER_BINDINGS, 200);
-        BindingsPage response = request.execute();
+        BindingsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/actions/triggers/trigger-id/bindings"));

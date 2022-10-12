@@ -8,6 +8,7 @@ import okhttp3.Response;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
 public abstract class BaseRequest<T> implements Request<T> {
@@ -20,7 +21,7 @@ public abstract class BaseRequest<T> implements Request<T> {
 
     protected abstract okhttp3.Request createRequest() throws Auth0Exception;
 
-    protected abstract T parseResponse(Response response) throws Auth0Exception;
+    protected abstract T parseResponse(okhttp3.Response response) throws Auth0Exception;
 
     /**
      * Executes this request.
@@ -29,10 +30,12 @@ public abstract class BaseRequest<T> implements Request<T> {
      * @throws Auth0Exception if the request execution fails.
      */
     @Override
-    public T execute() throws Auth0Exception {
+    public com.auth0.net.Response<T> execute() throws Auth0Exception {
         okhttp3.Request request = createRequest();
         try (Response response = client.newCall(request).execute()) {
-            return parseResponse(response);
+            T parsed = parseResponse(response);
+            return new ResponseImpl<T>(Collections.emptyMap(), parsed, response.code());
+//            return parseResponse(response);
         } catch (Auth0Exception e) {
             throw e;
         } catch (IOException e) {
@@ -41,8 +44,8 @@ public abstract class BaseRequest<T> implements Request<T> {
     }
 
     @Override
-    public CompletableFuture<T> executeAsync() {
-        final CompletableFuture<T> future = new CompletableFuture<T>();
+    public CompletableFuture<com.auth0.net.Response<T>> executeAsync() {
+        final CompletableFuture<com.auth0.net.Response<T>> future = new CompletableFuture<>();
 
         okhttp3.Request request;
         try {
@@ -62,7 +65,7 @@ public abstract class BaseRequest<T> implements Request<T> {
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try {
                     T parsedResponse = parseResponse(response);
-                    future.complete(parsedResponse);
+                    future.complete(new ResponseImpl<>(Collections.emptyMap(), parsedResponse, response.code()));
                 } catch (Auth0Exception e) {
                     future.completeExceptionally(e);
                 }

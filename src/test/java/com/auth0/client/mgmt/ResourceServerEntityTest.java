@@ -26,7 +26,7 @@ public class ResourceServerEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RESOURCE_SERVERS_LIST, 200);
-        ResourceServersPage response = request.execute();
+        ResourceServersPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/resource-servers"));
@@ -44,7 +44,7 @@ public class ResourceServerEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RESOURCE_SERVERS_LIST, 200);
-        ResourceServersPage response = request.execute();
+        ResourceServersPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/resource-servers"));
@@ -64,7 +64,7 @@ public class ResourceServerEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RESOURCE_SERVERS_PAGED_LIST, 200);
-        ResourceServersPage response = request.execute();
+        ResourceServersPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/resource-servers"));
@@ -88,7 +88,7 @@ public class ResourceServerEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
         server.jsonResponse(MGMT_RESOURCE_SERVERS_LIST, 200);
 
-        List<ResourceServer> response = request.execute();
+        List<ResourceServer> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/resource-servers"));
@@ -118,7 +118,7 @@ public class ResourceServerEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RESOURCE_SERVER, 200);
-        ResourceServer response = request.execute();
+        ResourceServer response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/resource-servers/23445566abab"));
@@ -139,7 +139,7 @@ public class ResourceServerEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RESOURCE_SERVER, 200);
-        ResourceServer response = request.execute();
+        ResourceServer response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/resource-servers/23445566abab"));
@@ -156,7 +156,7 @@ public class ResourceServerEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RESOURCE_SERVER, 200);
-        ResourceServer response = request.execute();
+        ResourceServer response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/resource-servers"));
@@ -177,7 +177,7 @@ public class ResourceServerEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/resource-servers/23445566abab"));

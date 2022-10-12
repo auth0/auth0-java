@@ -12,7 +12,7 @@ public class RequestTest {
             UnsupportedOperationException.class,
             new Request<String>() {
                 @Override
-                public String execute() throws Auth0Exception {
+                public Response<String> execute() throws Auth0Exception {
                     return null;
                 }
             }::executeAsync);
