@@ -1,7 +1,18 @@
+buildscript {
+  version = "1.43.0"
+}
+
 plugins {
     id 'java'
     id 'jacoco'
     id 'com.auth0.gradle.oss-library.java'
+}
+
+def signingKey = findProperty('signingKey')
+def signingKeyPwd = findProperty('signingPassword')
+
+signing {
+  useInMemoryPgpKeys(signingKey, signingKeyPwd)
 }
 
 repositories {
@@ -17,6 +28,7 @@ oss {
     organization 'auth0'
     description 'Java client library for the Auth0 platform.'
     baselineCompareVersion '1.27.0'
+    skipAssertSigningConfiguration true
 
     developers {
         auth0 {
@@ -79,4 +91,12 @@ dependencies {
     testImplementation "org.hamcrest:hamcrest-core:${hamcrestVersion}"
     testImplementation "org.hamcrest:hamcrest-library:${hamcrestVersion}"
     testImplementation "junit:junit:4.13.1"
+}
+
+// Creates a version.txt file containing the current version of the SDK.
+// This file is picked up and parsed by our Ship Orb to determine the version.
+task exportVersion()  {
+  doLast {
+    new File(rootDir, "version.txt").text = "$version"
+  }
 }
