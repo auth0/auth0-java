@@ -40,6 +40,9 @@ public class Tenant {
     @JsonProperty("session_lifetime")
     private Integer sessionLifetime;
 
+    @JsonProperty("session_cookie")
+    private SessionCookie sessionCookie;
+
     @JsonProperty("idle_session_lifetime")
     private Integer idleSessionLifetime;
 
@@ -271,6 +274,21 @@ public class Tenant {
     @JsonProperty("session_lifetime")
     public Integer getSessionLifetime() {
         return sessionLifetime;
+    }
+
+    /**
+     * @return the value of the session cookie.
+     */
+    public SessionCookie getSessionCookie() {
+        return sessionCookie;
+    }
+
+    /**
+     * Sets the value of the session cookie.
+     * @param sessionCookie the value of the session cookie to set.
+     */
+    public void setSessionCookie(SessionCookie sessionCookie) {
+        this.sessionCookie = sessionCookie;
     }
 
     /**

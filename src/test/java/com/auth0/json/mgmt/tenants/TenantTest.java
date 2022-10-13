@@ -12,7 +12,8 @@ import static org.hamcrest.Matchers.*;
 
 public class TenantTest extends JsonTest<Tenant> {
 
-    private static final String json = "{\"change_password\":{},\"guardian_mfa_page\":{},\"default_audience\":\"https://domain.auth0.com/myapi\",\"default_directory\":\"Username-Password-Authentication\",\"error_page\":{},\"flags\":{},\"friendly_name\":\"My-Tenant\",\"picture_url\":\"https://pic.to/123\",\"support_email\":\"support@auth0.com\",\"support_url\":\"https://support.auth0.com\",\"allowed_logout_urls\":[\"https://domain.auth0.com/logout\"], \"session_lifetime\":24, \"idle_session_lifetime\":0.5}";
+    private static final String json = "{\"change_password\":{},\"guardian_mfa_page\":{},\"default_audience\":\"https://domain.auth0.com/myapi\",\"default_directory\":\"Username-Password-Authentication\",\"error_page\":{},\"flags\":{},\"friendly_name\":\"My-Tenant\",\"picture_url\":\"https://pic.to/123\",\"support_email\":\"support@auth0.com\",\"support_url\":\"https://support.auth0.com\",\"allowed_logout_urls\":[\"https://domain.auth0.com/logout\"], \"session_lifetime\":24, \"idle_session_lifetime\":0.5, \"session_cookie\":{\"mode\": \"persistent\"}}";
+
 
     @Test
     public void shouldSerialize() throws Exception {
@@ -30,6 +31,7 @@ public class TenantTest extends JsonTest<Tenant> {
         tenant.setAllowedLogoutUrls(Collections.singletonList("https://domain.auth0.com/logout"));
         tenant.setSessionLifetime(48);
         tenant.setIdleSessionLifetime(0);
+        tenant.setSessionCookie(new SessionCookie("persistent"));
 
         String serialized = toJSON(tenant);
         assertThat(serialized, is(notNullValue()));
@@ -47,6 +49,7 @@ public class TenantTest extends JsonTest<Tenant> {
         assertThat(serialized, JsonMatcher.hasEntry("allowed_logout_urls", Arrays.asList("https://domain.auth0.com/logout")));
         assertThat(serialized, JsonMatcher.hasEntry("session_lifetime", 48));
         assertThat(serialized, JsonMatcher.hasEntry("idle_session_lifetime", 0));
+        assertThat(serialized, JsonMatcher.hasEntry("session_cookie", notNullValue()));
     }
 
     @Test
@@ -67,6 +70,8 @@ public class TenantTest extends JsonTest<Tenant> {
         assertThat(tenant.getAllowedLogoutUrls(), contains("https://domain.auth0.com/logout"));
         assertThat(tenant.getSessionLifetime(), is(24));
         assertThat(tenant.getIdleSessionLifetime(), is(0));
+        assertThat(tenant.getSessionCookie(), is(notNullValue()));
+        assertThat(tenant.getSessionCookie().getMode(), is("persistent"));
     }
 
 }
