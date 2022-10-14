@@ -1,15 +1,10 @@
 # Examples using auth0-java
 
-- [Examples using auth0-java](#examples-using-auth0-java)
-  - [Error handling](#error-handling)
-  - [HTTP Client configuration](#http-client-configuration)
-  - [Verifying an ID token](#verifying-an-id-token)
-    - [Verifying an ID Token signed with the RS256 signing algorithm](#verifying-an-id-token-signed-with-the-rs256-signing-algorithm)
-    - [Verifying an ID Token signed with the HS256 signing algorithm](#verifying-an-id-token-signed-with-the-hs256-signing-algorithm)
-  - [Organizations](#organizations)
-    - [Log in to an organization](#log-in-to-an-organization)
-    - [Accept user invitations](#accept-user-invitations)
-  - [Asynchronous operations](#asynchronous-operations)
+- [Error handling](#error-handling)
+- [HTTP Client configuration](#http-client-configuration)
+- [Verifying an ID token](#verifying-an-id-token)
+- [Organizations](#organizations)
+- [Asynchronous operations](#asynchronous-operations)
 
 ## Error handling
 
