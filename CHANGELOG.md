@@ -1,5 +1,16 @@
 # Change Log
 
+## [1.44.0](https://github.com/auth0/auth0-java/tree/1.44.0) (2022-10-20)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.43.0...1.44.0)
+
+**Added**
+- Integrate ship orb [\#458](https://github.com/auth0/auth0-java/pull/458) ([jimmyjames](https://github.com/jimmyjames))
+- [SDK-2558] Add support for tenant session cookie [\#457](https://github.com/auth0/auth0-java/pull/457) ([jimmyjames](https://github.com/jimmyjames))
+- Support stage property on Breached Password Detection [\#456](https://github.com/auth0/auth0-java/pull/456) ([ewanharris](https://github.com/ewanharris))
+
+**Changed**
+- Update to Gradle 6.9.2 [\#455](https://github.com/auth0/auth0-java/pull/455) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.43.0](https://github.com/auth0/auth0-java/tree/1.43.0) (2022-09-19)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.42.0...1.43.0)
 
