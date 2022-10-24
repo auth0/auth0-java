@@ -1,6 +1,6 @@
 # Auth0 Java client library
 
-A Java client library for the Auth0 Authentication and Management APIs.
+![A Java client library for the Auth0 Authentication and Management APIs.](https://cdn.auth0.com/website/sdks/banners/auth0-java-banner.png)
 
 [![CircleCI](https://img.shields.io/circleci/project/github/auth0/auth0-java.svg?style=flat-square)](https://circleci.com/gh/auth0/auth0-java/tree/master)
 [![Coverage Status](https://codecov.io/gh/auth0/auth0-java/branch/master/graph/badge.svg?style=flat-square)](https://codecov.io/github/auth0/auth0-java)
