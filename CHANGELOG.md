@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.44.1](https://github.com/auth0/auth0-java/tree/1.44.1) (2022-10-25)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.44.0...1.44.1)
+
+**Security**
+- Bump `java-jwt` to 3.19.3 [\#465](https://github.com/auth0/auth0-java/pull/465) ([jimmyjames](https://github.com/jimmyjames))
+- Bump `com.fasterxml.jackson.core:jackson-databind` to 2.13.4.2 [\#464](https://github.com/auth0/auth0-java/pull/464) ([evansims](https://github.com/evansims))
+
 ## [1.44.0](https://github.com/auth0/auth0-java/tree/1.44.0) (2022-10-20)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.43.0...1.44.0)
 
