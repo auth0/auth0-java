@@ -1,24 +1,16 @@
 package com.auth0.net;
 
-import com.auth0.client.MockServer;
-import com.auth0.client.mgmt.ManagementAPI;
 import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.RateLimitException;
-import com.auth0.json.mgmt.users.User;
-import com.auth0.json.mgmt.users.UsersPage;
 import okhttp3.Request;
 import okhttp3.*;
-import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -257,6 +249,50 @@ public class BaseRequestTest {
         assertThat(result, is(instanceOf(Response.class)));
         assertThat(result.getBody(), is("Success"));
     }
+
+    @Test
+    public void returnsResponseInfo() throws Exception {
+        Headers headers = new Headers.Builder().add("Content-Type", "text/plain").build();
+        when(response.code()).thenReturn(200);
+        when(response.headers()).thenReturn(headers);
+
+        Response<String> a0response = new MockBaseRequest<String>(client) {
+            @Override
+            protected String parseResponseBody(okhttp3.Response response) {
+                return "success";
+            }
+        }.execute();
+
+        assertThat(a0response.getStatusCode(), is(200));
+        assertThat(a0response.getHeaders().size(), is(1));
+        assertThat(a0response.getHeaders().get("Content-Type"), is("text/plain"));
+        assertThat(a0response.getBody(), is("success"));
+    }
+
+    @Test
+    public void returnsResponseInfoWhenAsync() throws Exception {
+        doAnswer(invocation -> {
+            ((Callback) invocation.getArgument(0)).onResponse(call, response);
+            return null;
+        }).when(call).enqueue(any());
+
+        Headers headers = new Headers.Builder().add("Content-Type", "text/plain").build();
+        when(response.code()).thenReturn(200);
+        when(response.headers()).thenReturn(headers);
+
+        Response<String> a0response = new MockBaseRequest<String>(client) {
+            @Override
+            protected String parseResponseBody(okhttp3.Response response) {
+                return "success";
+            }
+        }.executeAsync().get();
+
+        assertThat(a0response.getStatusCode(), is(200));
+        assertThat(a0response.getHeaders().size(), is(1));
+        assertThat(a0response.getHeaders().get("Content-Type"), is("text/plain"));
+        assertThat(a0response.getBody(), is("success"));
+    }
+
 
     private abstract static class MockBaseRequest<String> extends BaseRequest<String> {
         MockBaseRequest(OkHttpClient client) {
