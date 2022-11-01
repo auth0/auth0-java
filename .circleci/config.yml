@@ -75,6 +75,6 @@ workflows:
           requires:
             - build
             
-  api-diff:
-    jobs:
-      - api-diff
+#  api-diff:
+#    jobs:
+#      - api-diff
