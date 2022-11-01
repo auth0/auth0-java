@@ -21,7 +21,7 @@ public class DeviceCredentialsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_DEVICE_CREDENTIALS_LIST, 200);
-        List<DeviceCredentials> response = request.execute();
+        List<DeviceCredentials> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/device-credentials"));
@@ -39,7 +39,7 @@ public class DeviceCredentialsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_DEVICE_CREDENTIALS_LIST, 200);
-        List<DeviceCredentials> response = request.execute();
+        List<DeviceCredentials> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/device-credentials"));
@@ -58,7 +58,7 @@ public class DeviceCredentialsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_DEVICE_CREDENTIALS_LIST, 200);
-        List<DeviceCredentials> response = request.execute();
+        List<DeviceCredentials> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/device-credentials"));
@@ -78,7 +78,7 @@ public class DeviceCredentialsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_DEVICE_CREDENTIALS_LIST, 200);
-        List<DeviceCredentials> response = request.execute();
+        List<DeviceCredentials> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/device-credentials"));
@@ -98,7 +98,7 @@ public class DeviceCredentialsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_DEVICE_CREDENTIALS_LIST, 200);
-        List<DeviceCredentials> response = request.execute();
+        List<DeviceCredentials> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/device-credentials"));
@@ -117,7 +117,7 @@ public class DeviceCredentialsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
-        List<DeviceCredentials> response = request.execute();
+        List<DeviceCredentials> response = request.execute().getBody();
 
         assertThat(response, is(notNullValue()));
         assertThat(response, is(emptyCollectionOf(DeviceCredentials.class)));
@@ -136,7 +136,7 @@ public class DeviceCredentialsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_DEVICE_CREDENTIALS, 200);
-        DeviceCredentials response = request.execute();
+        DeviceCredentials response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/device-credentials"));
@@ -167,7 +167,7 @@ public class DeviceCredentialsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_DEVICE_CREDENTIALS, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/device-credentials/1"));

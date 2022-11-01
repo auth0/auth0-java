@@ -23,7 +23,7 @@ public class AttackProtectionEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(BREACHED_PASSWORD_SETTINGS, 200);
-        BreachedPassword response = request.execute();
+        BreachedPassword response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/attack-protection/breached-password-detection"));
@@ -60,7 +60,7 @@ public class AttackProtectionEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(BREACHED_PASSWORD_SETTINGS, 200);
-        BreachedPassword response = request.execute();
+        BreachedPassword response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/attack-protection/breached-password-detection"));
@@ -86,7 +86,7 @@ public class AttackProtectionEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(BRUTE_FORCE_CONFIGURATION, 200);
-        BruteForceConfiguration response = request.execute();
+        BruteForceConfiguration response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/attack-protection/brute-force-protection"));
@@ -123,7 +123,7 @@ public class AttackProtectionEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(BRUTE_FORCE_CONFIGURATION, 200);
-        BruteForceConfiguration response = request.execute();
+        BruteForceConfiguration response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/attack-protection/brute-force-protection"));
@@ -148,7 +148,7 @@ public class AttackProtectionEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(SUSPICIOUS_IP_THROTTLING_CONFIGURATION, 200);
-        SuspiciousIPThrottlingConfiguration response = request.execute();
+        SuspiciousIPThrottlingConfiguration response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/attack-protection/suspicious-ip-throttling"));
@@ -198,7 +198,7 @@ public class AttackProtectionEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(BRUTE_FORCE_CONFIGURATION, 200);
-        SuspiciousIPThrottlingConfiguration response = request.execute();
+        SuspiciousIPThrottlingConfiguration response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/attack-protection/suspicious-ip-throttling"));

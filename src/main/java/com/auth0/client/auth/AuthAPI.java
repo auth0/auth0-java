@@ -118,7 +118,7 @@ public class AuthAPI {
                     private static final String PROXY_AUTHORIZATION_HEADER = "Proxy-Authorization";
 
                     @Override
-                    public okhttp3.Request authenticate(Route route, Response response) throws IOException {
+                    public okhttp3.Request authenticate(Route route, okhttp3.Response response) throws IOException {
                         if (response.request().header(PROXY_AUTHORIZATION_HEADER) != null) {
                             return null;
                         }

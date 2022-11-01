@@ -28,7 +28,7 @@ public class BlacklistsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_BLACKLISTED_TOKENS_LIST, 200);
-        List<Token> response = request.execute();
+        List<Token> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/blacklists/tokens"));
@@ -46,7 +46,7 @@ public class BlacklistsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
-        List<Token> response = request.execute();
+        List<Token> response = request.execute().getBody();
 
         assertThat(response, is(notNullValue()));
         assertThat(response, is(emptyCollectionOf(Token.class)));
@@ -65,7 +65,7 @@ public class BlacklistsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_BLACKLISTED_TOKENS_LIST, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/blacklists/tokens"));

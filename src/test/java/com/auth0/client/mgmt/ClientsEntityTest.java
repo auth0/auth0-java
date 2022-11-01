@@ -24,7 +24,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENTS_LIST, 200);
-        ClientsPage response = request.execute();
+        ClientsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/clients"));
@@ -42,7 +42,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENTS_LIST, 200);
-        ClientsPage response = request.execute();
+        ClientsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/clients"));
@@ -62,7 +62,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENTS_PAGED_LIST, 200);
-        ClientsPage response = request.execute();
+        ClientsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/clients"));
@@ -85,7 +85,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENTS_PAGED_LIST, 200);
-        ClientsPage response = request.execute();
+        ClientsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/clients"));
@@ -108,7 +108,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENTS_LIST, 200);
-        ClientsPage response = request.execute();
+        ClientsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/clients"));
@@ -129,7 +129,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENTS_LIST, 200);
-        List<Client> response = request.execute();
+        List<Client> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/clients"));
@@ -147,7 +147,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
-        List<Client> response = request.execute();
+        List<Client> response = request.execute().getBody();
 
         assertThat(response, is(notNullValue()));
         assertThat(response, is(emptyCollectionOf(Client.class)));
@@ -166,7 +166,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT, 200);
-        Client response = request.execute();
+        Client response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/clients/1"));
@@ -185,7 +185,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT, 200);
-        Client response = request.execute();
+        Client response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/clients/1"));
@@ -203,7 +203,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT, 200);
-        Client response = request.execute();
+        Client response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/clients/1"));
@@ -226,7 +226,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT, 200);
-        Client response = request.execute();
+        Client response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/clients"));
@@ -253,7 +253,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/clients/1"));
@@ -281,7 +281,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT, 200);
-        Client response = request.execute();
+        Client response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/clients/1"));
@@ -308,7 +308,7 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT, 200);
-        Client response = request.execute();
+        Client response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/clients/1/rotate-secret"));

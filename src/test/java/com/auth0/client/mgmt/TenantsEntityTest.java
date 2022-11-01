@@ -20,7 +20,7 @@ public class TenantsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_TENANT, 200);
-        Tenant response = request.execute();
+        Tenant response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/tenants/settings"));
@@ -37,7 +37,7 @@ public class TenantsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_TENANT, 200);
-        Tenant response = request.execute();
+        Tenant response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/tenants/settings"));
@@ -62,7 +62,7 @@ public class TenantsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_TENANT, 200);
-        Tenant response = request.execute();
+        Tenant response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/tenants/settings"));
