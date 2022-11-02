@@ -146,6 +146,22 @@ public class AuthorizeUrlBuilder {
     }
 
     /**
+     * Sets the {@code code_challenge} parameter used when using the Authorization Code Flow with Proof of Code Exchange (PKCE).
+     *
+     * @param challenge the generated challenge from a {@code code_verifier}
+     * @return the builder instance.
+     *
+     * @see <a href="https://auth0.com/docs/api/authentication#authorization-code-flow-with-pkce">Authentication API docuementation</a>
+     * @see <a href="https://auth0.com/docs/get-started/authentication-and-authorization-flow/add-login-using-the-authorization-code-flow-with-pkce">Authorization Code Flow with Proof of Code Exchange (PKCE)</a>
+     */
+    public AuthorizeUrlBuilder withCodeChallenge(String challenge) {
+        assertNotNull(challenge, "challenge");
+        parameters.put("code_challenge", challenge);
+        parameters.put("code_challenge_method", "S256");
+        return this;
+    }
+
+    /**
      * Creates a string representation of the URL with the configured parameters.
      *
      * @return the string URL
