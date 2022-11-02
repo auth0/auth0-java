@@ -2,10 +2,6 @@ package com.auth0.net;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -30,14 +26,14 @@ public class CustomRequest<T> extends ExtendedBaseRequest<T> implements Customiz
     private final Map<String, Object> parameters;
     private Object body;
 
-    CustomRequest(Auth0HttpClient client, String url, String method, ObjectMapper mapper, TypeReference<T> tType) {
+    CustomRequest(HttpClient client, String url, String method, ObjectMapper mapper, TypeReference<T> tType) {
         super(client, url, method, mapper);
         this.mapper = mapper;
         this.tType = tType;
         this.parameters = new HashMap<>();
     }
 
-    public CustomRequest(Auth0HttpClient client, String url, String method, TypeReference<T> tType) {
+    public CustomRequest(HttpClient client, String url, String method, TypeReference<T> tType) {
         this(client, url, method, new ObjectMapper(), tType);
     }
 
@@ -62,7 +58,7 @@ public class CustomRequest<T> extends ExtendedBaseRequest<T> implements Customiz
 //    }
 
     @Override
-    protected T readResponseBody(Auth0HttpResponse response) throws IOException {
+    protected T readResponseBody(HttpResponse response) throws IOException {
         String payload = response.getBody();
         return mapper.readValue(payload, tType);
     }

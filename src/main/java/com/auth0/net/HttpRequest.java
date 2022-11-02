@@ -2,14 +2,14 @@ package com.auth0.net;
 
 import java.util.Map;
 
-public class Auth0HttpRequest {
+public class HttpRequest {
 
     private final String url;
     private final Map<String, String> headers;
     private final byte[] body;
     private final String method;
 
-    private Auth0HttpRequest(Builder builder) {
+    private HttpRequest(Builder builder) {
         this.url = builder.url;
         this.method = builder.method;
         this.body = builder.body;
@@ -53,8 +53,8 @@ public class Auth0HttpRequest {
             return this;
         }
 
-        public Auth0HttpRequest build() {
-            return new Auth0HttpRequest(this);
+        public HttpRequest build() {
+            return new HttpRequest(this);
         }
     }
 }

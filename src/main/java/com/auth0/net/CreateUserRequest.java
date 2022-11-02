@@ -2,13 +2,12 @@ package com.auth0.net;
 
 import com.auth0.json.auth.CreatedUser;
 import com.fasterxml.jackson.core.type.TypeReference;
-import okhttp3.OkHttpClient;
 
 import java.util.Map;
 
 public class CreateUserRequest extends CustomRequest<CreatedUser> implements SignUpRequest {
 
-    public CreateUserRequest(Auth0HttpClient client, String url) {
+    public CreateUserRequest(HttpClient client, String url) {
         super(client, url, "POST", new TypeReference<CreatedUser>() {
         });
     }

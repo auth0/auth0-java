@@ -3,14 +3,13 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.filter.ResourceServersFilter;
 import com.auth0.json.mgmt.ResourceServer;
 import com.auth0.json.mgmt.ResourceServersPage;
-import com.auth0.net.Auth0HttpClient;
+import com.auth0.net.HttpClient;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 import java.util.List;
 import java.util.Map;
@@ -24,7 +23,7 @@ import java.util.Map;
  */
 public class ResourceServerEntity extends BaseManagementEntity {
 
-    ResourceServerEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
+    ResourceServerEntity(HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

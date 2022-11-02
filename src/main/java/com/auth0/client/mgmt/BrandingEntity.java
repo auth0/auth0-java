@@ -3,12 +3,11 @@ package com.auth0.client.mgmt;
 import com.auth0.json.mgmt.branding.BrandingSettings;
 import com.auth0.json.mgmt.branding.UniversalLoginTemplate;
 import com.auth0.json.mgmt.branding.UniversalLoginTemplateUpdate;
-import com.auth0.net.Auth0HttpClient;
+import com.auth0.net.HttpClient;
 import com.auth0.net.Request;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 /**
  * Class that provides an implementation of the Branding methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Branding
@@ -20,7 +19,7 @@ import okhttp3.OkHttpClient;
 @SuppressWarnings("WeakerAccess")
 public class BrandingEntity extends BaseManagementEntity {
 
-    BrandingEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
+    BrandingEntity(HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

@@ -6,12 +6,8 @@ import com.auth0.client.ProxyOptions;
 import com.auth0.net.*;
 import com.auth0.utils.Asserts;
 import okhttp3.*;
-import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
-
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Class that provides an implementation of the Management API methods defined in https://auth0.com/docs/api/management/v2.
@@ -26,7 +22,7 @@ public class ManagementAPI {
 
     private final HttpUrl baseUrl;
     private String apiToken;
-    private final Auth0HttpClient client;
+    private final HttpClient client;
     private final TelemetryInterceptor telemetry;
     private final HttpLoggingInterceptor logging;
 
@@ -75,7 +71,7 @@ public class ManagementAPI {
      * @param options the options to set to the client.
      * @return a new networking client instance configured as requested.
      */
-    private Auth0OkHttpClient buildNetworkingClient(HttpOptions options) {
+    private DefaultHttpClient buildNetworkingClient(HttpOptions options) {
 //        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
 //        final ProxyOptions proxyOptions = options.getProxyOptions();
 //        if (proxyOptions != null) {
@@ -113,7 +109,7 @@ public class ManagementAPI {
 //                .dispatcher(dispatcher)
 //                .build();
 
-        Auth0OkHttpClient.Builder clientBuilder = Auth0OkHttpClient.newBuilder();
+        DefaultHttpClient.Builder clientBuilder = DefaultHttpClient.newBuilder();
 
         // TODO proxy!
         final ProxyOptions proxyOptions = options.getProxyOptions();
@@ -151,7 +147,7 @@ public class ManagementAPI {
             .build();
     }
 
-    public ManagementAPI(String domain, String apiToken, Auth0HttpClient client) {
+    public ManagementAPI(String domain, String apiToken, HttpClient client) {
         // TODO cleanup/reuse. Also move to a builder
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(apiToken, "api token");
@@ -234,7 +230,7 @@ public class ManagementAPI {
     }
 
     //Visible for testing
-    Auth0HttpClient getClient() {
+    HttpClient getClient() {
         return client;
     }
 

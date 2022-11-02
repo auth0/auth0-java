@@ -5,7 +5,6 @@ import com.auth0.net.*;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class LogStreamsEntity extends BaseManagementEntity {
     private final static String LOG_STREAMS_PATH = "api/v2/log-streams";
     private final static String AUTHORIZATION_HEADER = "Authorization";
 
-    LogStreamsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
+    LogStreamsEntity(HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

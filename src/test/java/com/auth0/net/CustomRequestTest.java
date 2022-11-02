@@ -10,14 +10,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import okhttp3.Call;
-import okhttp3.OkHttpClient;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.hamcrest.Matchers;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +27,7 @@ import static org.mockito.Mockito.when;
 
 public class CustomRequestTest {
     private MockServer server;
-    private Auth0HttpClient client;
+    private HttpClient client;
 
     @SuppressWarnings("deprecation")
     @Rule
@@ -43,7 +40,7 @@ public class CustomRequestTest {
     public void setUp() throws Exception {
         server = new MockServer();
 //        client = new OkHttpClient();
-        client = Auth0OkHttpClient.newBuilder().build();
+        client = DefaultHttpClient.newBuilder().build();
         tokenHolderType = new TypeReference<TokenHolder>() {
         };
         listType = new TypeReference<List>() {

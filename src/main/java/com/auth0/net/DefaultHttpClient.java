@@ -13,15 +13,15 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 // TODO allow creation using existing OkHttp client (use client's builder!)!
-public class Auth0OkHttpClient implements Auth0HttpClient {
+public class DefaultHttpClient implements HttpClient {
 
     private final okhttp3.OkHttpClient client;
 
-    public static Auth0OkHttpClient.Builder newBuilder() {
-        return new Auth0OkHttpClient.Builder();
+    public static DefaultHttpClient.Builder newBuilder() {
+        return new DefaultHttpClient.Builder();
     }
 
-    private Auth0OkHttpClient(Builder builder) {
+    private DefaultHttpClient(Builder builder) {
         okhttp3.OkHttpClient.Builder clientBuilder = new okhttp3.OkHttpClient.Builder();
         clientBuilder.readTimeout(builder.readTimeout, TimeUnit.SECONDS);
         clientBuilder.connectTimeout(builder.connectTimeout, TimeUnit.SECONDS);
@@ -34,7 +34,7 @@ public class Auth0OkHttpClient implements Auth0HttpClient {
 
     @Override
     @SuppressWarnings("deprecation")
-    public Auth0HttpResponse makeRequest(Auth0HttpRequest request) throws IOException {
+    public HttpResponse makeRequest(HttpRequest request) throws IOException {
         // Build okHtp3 request
 
         // Need to create with or without body
@@ -56,13 +56,13 @@ public class Auth0OkHttpClient implements Auth0HttpClient {
 
         // TODO add response headers
 
-        // return an Auth0 Auth0HttpResponse
+        // return an Auth0 HttpResponse
         Headers okHeaders = okResponse.headers();
         Map<String, String> headers = new HashMap<>();
         for (int i = 0; i < okHeaders.size(); i++) {
             headers.put(okHeaders.name(i), okHeaders.value(i));
         }
-        Auth0HttpResponse response = new Auth0HttpResponse.Builder()
+        HttpResponse response = new HttpResponse.Builder()
             .code(okResponse.code())
             .body(okResponse.body().string())
             .headers(headers)
@@ -73,8 +73,8 @@ public class Auth0OkHttpClient implements Auth0HttpClient {
 
     @Override
     @SuppressWarnings("deprecation")
-    public CompletableFuture<Auth0HttpResponse> makeRequestAsync(Auth0HttpRequest request) {
-        final CompletableFuture<Auth0HttpResponse> future = new CompletableFuture<>();
+    public CompletableFuture<HttpResponse> makeRequestAsync(HttpRequest request) {
+        final CompletableFuture<HttpResponse> future = new CompletableFuture<>();
 
         // Need to create with or without body
 
@@ -101,7 +101,7 @@ public class Auth0OkHttpClient implements Auth0HttpClient {
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try {
                     // build Auth0 response
-                    Auth0HttpResponse aResponse = new Auth0HttpResponse.Builder()
+                    HttpResponse aResponse = new HttpResponse.Builder()
                         .code(response.code())
                         .body(response.body().string())
                         .build();
@@ -136,13 +136,15 @@ public class Auth0OkHttpClient implements Auth0HttpClient {
         }
 
         // TODO just take a list? Order important??
+        // TODO expose interceptors or OkHttp impl details?
+        // TODO maybe just add the logging/telemetry interceptors as part of build(), if not exposing OkHttp
         public Builder interceptor(Interceptor interceptor) {
             interceptors.add(interceptor);
             return this;
         }
 
-        public Auth0OkHttpClient build() {
-            return new Auth0OkHttpClient(this);
+        public DefaultHttpClient build() {
+            return new DefaultHttpClient(this);
         }
     }
 

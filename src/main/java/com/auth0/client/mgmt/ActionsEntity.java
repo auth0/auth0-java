@@ -8,9 +8,6 @@ import com.auth0.net.*;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
 
 /**
  * Class that provides an implementation of the Actions methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Actions
@@ -32,7 +29,7 @@ public class ActionsEntity extends BaseManagementEntity {
 
     private final static String AUTHORIZATION_HEADER = "Authorization";
 
-    ActionsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
+    ActionsEntity(HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
@@ -431,7 +428,7 @@ public class ActionsEntity extends BaseManagementEntity {
 
     // Temporary request implementation to send an empty json object on the request body.
     private static class EmptyObjectRequest<T> extends EmptyBodyRequest<T> {
-        EmptyObjectRequest(Auth0HttpClient client, String url, String method, TypeReference<T> tType) {
+        EmptyObjectRequest(HttpClient client, String url, String method, TypeReference<T> tType) {
             super(client, url, method, tType);
         }
 

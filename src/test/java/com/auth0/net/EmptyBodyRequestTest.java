@@ -3,10 +3,8 @@ package com.auth0.net;
 import com.auth0.client.MockServer;
 import com.auth0.json.auth.TokenHolder;
 import com.fasterxml.jackson.core.type.TypeReference;
-import okhttp3.OkHttpClient;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,14 +19,14 @@ import static org.mockito.Mockito.mock;
 public class EmptyBodyRequestTest {
 
     private MockServer server;
-    private Auth0HttpClient client;
+    private HttpClient client;
 
     private TypeReference<TokenHolder> tokenHolderType;
 
     @Before
     public void setUp() throws Exception {
         server = new MockServer();
-        client = new Auth0OkHttpClient.Builder().build();
+        client = new DefaultHttpClient.Builder().build();
         tokenHolderType = new TypeReference<TokenHolder>() {
         };
     }

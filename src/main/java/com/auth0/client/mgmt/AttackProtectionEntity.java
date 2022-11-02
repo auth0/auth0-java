@@ -3,19 +3,18 @@ package com.auth0.client.mgmt;
 import com.auth0.json.mgmt.attackprotection.BreachedPassword;
 import com.auth0.json.mgmt.attackprotection.BruteForceConfiguration;
 import com.auth0.json.mgmt.attackprotection.SuspiciousIPThrottlingConfiguration;
-import com.auth0.net.Auth0HttpClient;
+import com.auth0.net.HttpClient;
 import com.auth0.net.Request;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 /**
  * Class that provides an implementation of the Attack Protection methods of the Management API as defined in <a href="https://auth0.com/docs/api/management/v2#!/Attack_Protection/"></a>
  * @see ManagementAPI
  */
 public class AttackProtectionEntity extends BaseManagementEntity {
-    AttackProtectionEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
+    AttackProtectionEntity(HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

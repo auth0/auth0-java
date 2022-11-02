@@ -12,12 +12,10 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import okhttp3.ResponseBody;
 
 /**
  * Class that provides an implementation of the Jobs methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Jobs
@@ -29,7 +27,7 @@ import okhttp3.ResponseBody;
 @SuppressWarnings("WeakerAccess")
 public class JobsEntity extends BaseManagementEntity {
 
-    JobsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
+    JobsEntity(HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
@@ -85,7 +83,7 @@ public class JobsEntity extends BaseManagementEntity {
 //                return super.readResponseBody(body);
 //            }
                 @Override
-                protected List<JobErrorDetails> readResponseBody(Auth0HttpResponse response) throws IOException {
+                protected List<JobErrorDetails> readResponseBody(HttpResponse response) throws IOException {
 //                    if (body.contentLength() == 0) {
                     if (response.getBody() == null || response.getBody().length() == 0) {// TODO this right?
                         return Collections.emptyList();

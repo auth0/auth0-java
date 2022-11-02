@@ -1,8 +1,6 @@
 package com.auth0.net;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
 
 /**
  * Request class that does not accept parameters to be sent as part of its body.
@@ -12,7 +10,7 @@ import okhttp3.RequestBody;
  * @see CustomRequest
  */
 public class EmptyBodyRequest<T> extends CustomRequest<T> {
-    public EmptyBodyRequest(Auth0HttpClient client, String url, String method, TypeReference<T> tType) {
+    public EmptyBodyRequest(HttpClient client, String url, String method, TypeReference<T> tType) {
         super(client, url, method, tType);
     }
 

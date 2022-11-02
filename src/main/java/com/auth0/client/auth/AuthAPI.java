@@ -14,9 +14,6 @@ import okhttp3.*;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-
 /**
  * Class that provides an implementation of some of the Authentication and Authorization API methods defined in https://auth0.com/docs/api/authentication.
  * To begin create a new instance of {@link #AuthAPI(String, String, String)} using the tenant domain, and the Application's client id and client secret.
@@ -49,7 +46,7 @@ public class AuthAPI {
     private static final String PATH_PASSWORDLESS = "passwordless";
     private static final String PATH_START = "start";
 
-    private final Auth0HttpClient client;
+    private final HttpClient client;
     private final String clientId;
     private final String clientSecret;
     private final HttpUrl baseUrl;
@@ -104,7 +101,7 @@ public class AuthAPI {
      * @param options the options to set to the client.
      * @return a new networking client instance configured as requested.
      */
-    private Auth0HttpClient buildNetworkingClient(HttpOptions options) {
+    private HttpClient buildNetworkingClient(HttpOptions options) {
 //        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
 //        final ProxyOptions proxyOptions = options.getProxyOptions();
 //        if (proxyOptions != null) {
@@ -141,7 +138,7 @@ public class AuthAPI {
 //                .dispatcher(dispatcher)
 //                .build();
 
-        Auth0OkHttpClient.Builder clientBuilder = Auth0OkHttpClient.newBuilder();
+        DefaultHttpClient.Builder clientBuilder = DefaultHttpClient.newBuilder();
 
         // TODO proxy!
         final ProxyOptions proxyOptions = options.getProxyOptions();
@@ -233,7 +230,7 @@ public class AuthAPI {
     }
 
     //Visible for Testing
-    Auth0HttpClient getClient() {
+    HttpClient getClient() {
         return client;
     }
 

@@ -5,8 +5,6 @@ import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.RateLimitException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.MapType;
-import okhttp3.Request;
-import okhttp3.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -34,7 +32,7 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
 
     private static final int STATUS_CODE_TOO_MANY_REQUEST = 429;
 
-    ExtendedBaseRequest(Auth0HttpClient client, String url, String method, ObjectMapper mapper) {
+    ExtendedBaseRequest(HttpClient client, String url, String method, ObjectMapper mapper) {
         super(client);
         this.url = url;
         this.method = method;
@@ -43,7 +41,7 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
     }
 
     @Override
-    protected Auth0HttpRequest createRequest() throws Auth0Exception {
+    protected HttpRequest createRequest() throws Auth0Exception {
         byte[] body;
         try {
             body = this.createRequestBody();
@@ -52,7 +50,7 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
         }
         // TODO don't mutate here?
         headers.put("Content-Type", getContentType());
-        Auth0HttpRequest request = new Auth0HttpRequest.Builder(url, method)
+        HttpRequest request = new HttpRequest.Builder(url, method)
             .body(body)
             .headers(headers)
             .build();
@@ -70,7 +68,7 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
     }
 
     @Override
-    protected T parseResponse(Auth0HttpResponse response) throws Auth0Exception {
+    protected T parseResponse(HttpResponse response) throws Auth0Exception {
         if (!response.isSuccessful()) {
             throw createResponseException(response);
         }
@@ -117,7 +115,7 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
      */
 //    protected abstract T readResponseBody(ResponseBody body) throws IOException;
 //    protected abstract T readResponseBody(ResponseBody body) throws IOException;
-    protected abstract T readResponseBody(Auth0HttpResponse response) throws IOException;
+    protected abstract T readResponseBody(HttpResponse response) throws IOException;
 
     /**
      * Adds an HTTP header to the request
@@ -138,7 +136,7 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
      * @param response the unsuccessful response, as received. If its body is accessed, the buffer must be closed.
      * @return the exception with the error details.
      */
-    protected Auth0Exception createResponseException(Auth0HttpResponse response) {
+    protected Auth0Exception createResponseException(HttpResponse response) {
         if (response.getCode() == STATUS_CODE_TOO_MANY_REQUEST) {
             return createRateLimitException(response);
         }
@@ -167,7 +165,7 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
 //        }
     }
 
-    private RateLimitException createRateLimitException(Auth0HttpResponse response) {
+    private RateLimitException createRateLimitException(HttpResponse response) {
         // TODO need headers on response to get them
 //        return new RateLimitException(1L, 1L, 1L);
 

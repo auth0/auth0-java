@@ -30,7 +30,7 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
     private final ObjectMapper mapper;
     private int partsCount;
 
-    MultipartRequest(Auth0HttpClient client, String url, String method, ObjectMapper mapper, TypeReference<T> tType, MultipartBody.Builder multipartBuilder) {
+    MultipartRequest(HttpClient client, String url, String method, ObjectMapper mapper, TypeReference<T> tType, MultipartBody.Builder multipartBuilder) {
         super(client, url, method, mapper);
         if ("GET".equalsIgnoreCase(method)) {
             throw new IllegalArgumentException("Multipart/form-data requests do not support the GET method.");
@@ -41,7 +41,7 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
                 .setType(MultipartBody.FORM);
     }
 
-    public MultipartRequest(Auth0HttpClient client, String url, String method, TypeReference<T> tType) {
+    public MultipartRequest(HttpClient client, String url, String method, TypeReference<T> tType) {
         this(client, url, method, new ObjectMapper(), tType, new MultipartBody.Builder());
     }
 
@@ -76,7 +76,7 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
 //    }
 
     @Override
-    protected T readResponseBody(Auth0HttpResponse response) throws IOException {
+    protected T readResponseBody(HttpResponse response) throws IOException {
         String payload = response.getBody();
         return mapper.readValue(payload, tType);
     }

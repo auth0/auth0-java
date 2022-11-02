@@ -1,6 +1,6 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.net.Auth0HttpClient;
+import com.auth0.net.HttpClient;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
@@ -10,11 +10,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.Nullable;
 
 class RequestBuilder<T> {
-    private final Auth0HttpClient client;
+    private final HttpClient client;
     private final String method;
 
     // TODO decouple from OkHttp
@@ -26,7 +25,7 @@ class RequestBuilder<T> {
     private final Map<String, String> headers = new HashMap<>();
     private final Map<String, Object> parameters = new HashMap<>();
 
-    public RequestBuilder(Auth0HttpClient client, String method, HttpUrl baseUrl, TypeReference<T> target) {
+    public RequestBuilder(HttpClient client, String method, HttpUrl baseUrl, TypeReference<T> target) {
         this.client = client;
         this.method = method;
         this.url = baseUrl.newBuilder();

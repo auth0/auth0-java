@@ -8,7 +8,6 @@ import com.auth0.net.*;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,7 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class ClientsEntity extends BaseManagementEntity {
 
-    ClientsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
+    ClientsEntity(HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

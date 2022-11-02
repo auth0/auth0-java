@@ -2,13 +2,12 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.json.mgmt.tenants.Tenant;
-import com.auth0.net.Auth0HttpClient;
+import com.auth0.net.HttpClient;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 import java.util.Map;
 
@@ -22,7 +21,7 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class TenantsEntity extends BaseManagementEntity {
 
-    TenantsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
+    TenantsEntity(HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

@@ -1,14 +1,13 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.userblocks.UserBlocks;
-import com.auth0.net.Auth0HttpClient;
+import com.auth0.net.HttpClient;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 /**
  * Class that provides an implementation of the User Blocks methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/User_Blocks
@@ -20,7 +19,7 @@ import okhttp3.OkHttpClient;
 @SuppressWarnings("WeakerAccess")
 public class UserBlocksEntity extends BaseManagementEntity {
 
-    UserBlocksEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
+    UserBlocksEntity(HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

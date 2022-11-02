@@ -1,20 +1,9 @@
 package com.auth0.net;
 
-import com.auth0.exception.APIException;
-import com.auth0.exception.Auth0Exception;
-import com.auth0.exception.RateLimitException;
-import okhttp3.Request;
 import okhttp3.*;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.*;
 
 // FIXME: These test require mocking of the final class okhttp3.Response. To do so
 //  an opt-in incubating Mockito feature is used, for more information see:
@@ -25,7 +14,7 @@ public class BaseRequestTest {
 
     private Response response;
     private Call call;
-    private Auth0OkHttpClient client;
+    private DefaultHttpClient client;
 
     // TODO this is going to need a lot of work!!
 

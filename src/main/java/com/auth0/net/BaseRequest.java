@@ -1,11 +1,6 @@
 package com.auth0.net;
 
 import com.auth0.exception.Auth0Exception;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Response;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
@@ -22,15 +17,15 @@ public abstract class BaseRequest<T> implements Request<T> {
 //
 //    protected abstract T parseResponse(Response response) throws Auth0Exception;
 
-    private final Auth0HttpClient client;
+    private final HttpClient client;
 
-    BaseRequest(Auth0HttpClient client) {
+    BaseRequest(HttpClient client) {
         this.client = client;
     }
 
-    protected abstract Auth0HttpRequest createRequest() throws Auth0Exception;
+    protected abstract HttpRequest createRequest() throws Auth0Exception;
 
-    protected abstract T parseResponse(Auth0HttpResponse response) throws Auth0Exception;
+    protected abstract T parseResponse(HttpResponse response) throws Auth0Exception;
 
     /**
      * Executes this request.
@@ -41,9 +36,9 @@ public abstract class BaseRequest<T> implements Request<T> {
     @Override
     public T execute() throws Auth0Exception {
 //        okhttp3.Request request = createRequest();
-        Auth0HttpRequest request = createRequest();
+        HttpRequest request = createRequest();
         try {
-            Auth0HttpResponse response = client.makeRequest(request);
+            HttpResponse response = client.makeRequest(request);
             return parseResponse(response);
         } catch (Auth0Exception e) {
             throw e;
@@ -65,7 +60,7 @@ public abstract class BaseRequest<T> implements Request<T> {
 //        Auth0HttpRequest request;
 //        CompletableFuture<Auth0HttpResponse> httpResponseCompletableFuture
         final CompletableFuture<T> future = new CompletableFuture<T>();
-        Auth0HttpRequest request;
+        HttpRequest request;
 
         try {
             request = createRequest();

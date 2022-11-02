@@ -1,7 +1,6 @@
 package com.auth0.net;
 
 import com.auth0.client.MockServer;
-import okhttp3.OkHttpClient;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,12 +10,12 @@ import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class VoidRequestTest {
-    private Auth0HttpClient client;
+    private HttpClient client;
     private MockServer server;
 
     @Before
     public void setUp() throws Exception {
-        client = new Auth0OkHttpClient.Builder().build();
+        client = new DefaultHttpClient.Builder().build();
         server = new MockServer();
     }
 

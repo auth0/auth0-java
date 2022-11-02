@@ -3,14 +3,14 @@ package com.auth0.net;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Auth0HttpResponse {
+public class HttpResponse {
 
     private final int code;
     private final String body;
 
     private final Map<String, String> headers = new HashMap<>();
 
-    private Auth0HttpResponse(Builder  builder) {
+    private HttpResponse(Builder  builder) {
         this.code = builder.code;
         this.body = builder.body;
         this.headers.putAll(builder.headers); // TODO safe?
@@ -60,8 +60,8 @@ public class Auth0HttpResponse {
 
         // TODO headers
 
-        public Auth0HttpResponse build() {
-            return new Auth0HttpResponse(this);
+        public HttpResponse build() {
+            return new HttpResponse(this);
         }
     }
 }

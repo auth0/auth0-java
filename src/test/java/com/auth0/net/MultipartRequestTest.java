@@ -12,11 +12,8 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import okhttp3.Call;
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.hamcrest.Matchers;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
@@ -31,11 +28,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class MultipartRequestTest {
     private MockServer server;
-    private Auth0HttpClient client;
+    private HttpClient client;
 
     @SuppressWarnings("deprecation")
     @Rule
@@ -47,7 +43,7 @@ public class MultipartRequestTest {
     @Before
     public void setUp() throws Exception {
         server = new MockServer();
-        client = new Auth0OkHttpClient.Builder().build();
+        client = new DefaultHttpClient.Builder().build();
         tokenHolderType = new TypeReference<TokenHolder>() {
         };
         listType = new TypeReference<List>() {
