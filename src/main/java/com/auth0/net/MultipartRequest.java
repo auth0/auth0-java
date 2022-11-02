@@ -1,5 +1,6 @@
 package com.auth0.net;
 
+import com.auth0.json.ObjectMapperProvider;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
@@ -42,7 +43,7 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
     }
 
     public MultipartRequest(OkHttpClient client, String url, String method, TypeReference<T> tType) {
-        this(client, url, method, new ObjectMapper(), tType, new MultipartBody.Builder());
+        this(client, url, method, ObjectMapperProvider.getMapper(), tType, new MultipartBody.Builder());
     }
 
     @Override
