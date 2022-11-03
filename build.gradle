@@ -29,8 +29,7 @@ oss {
     description 'Java client library for the Auth0 platform.'
     baselineCompareVersion '1.27.0'
     skipAssertSigningConfiguration true
-    enableJava8Testing true
-    enableJava17Testing true
+    testInJavaVersions = [8, 11, 17]
 
     developers {
         auth0 {
