@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Provides access to a single {@link ObjectMapper} instance for the serialization and deserialization of JSON data.
+ * This class is for internal use only and is subject to change without notice.
  */
 public class ObjectMapperProvider {
 
