@@ -2,6 +2,9 @@ package com.auth0.net;
 
 import com.auth0.client.MockServer;
 import com.auth0.json.auth.TokenHolder;
+import com.auth0.net.client.DefaultHttpClient;
+import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.After;
 import org.junit.Before;
@@ -11,8 +14,8 @@ import java.util.Map;
 
 import static com.auth0.client.MockServer.AUTH_TOKENS;
 import static com.auth0.client.MockServer.bodyFromRequest;
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class TokenRequestTest {
 
@@ -39,7 +42,7 @@ public class TokenRequestTest {
         server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
-        assertThat(recordedRequest.getMethod(), is("POST"));
+        assertThat(recordedRequest.getMethod(), is(HttpMethod.POST.toString()));
         assertThat(response, is(notNullValue()));
     }
 

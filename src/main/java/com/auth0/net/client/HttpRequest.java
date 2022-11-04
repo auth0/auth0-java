@@ -1,4 +1,4 @@
-package com.auth0.net;
+package com.auth0.net.client;
 
 import java.util.Map;
 
@@ -7,7 +7,7 @@ public class HttpRequest {
     private final String url;
     private final Map<String, String> headers;
     private final byte[] body;
-    private final String method;
+    private final HttpMethod method;
 
     private HttpRequest(Builder builder) {
         this.url = builder.url;
@@ -28,17 +28,17 @@ public class HttpRequest {
         return body;
     }
 
-    public String getMethod() {
+    public HttpMethod getMethod() {
         return method;
     }
 
     public static class Builder {
-        private String url;
+        private final String url;
         private Map<String, String> headers;
         private byte[] body;
-        private String method;
+        private final HttpMethod method;
 
-        public Builder(String url, String method) {
+        public Builder(String url, HttpMethod method) {
             this.url = url;
             this.method = method;
         }

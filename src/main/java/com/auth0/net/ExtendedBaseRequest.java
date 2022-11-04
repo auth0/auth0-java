@@ -3,6 +3,10 @@ package com.auth0.net;
 import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.RateLimitException;
+import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.HttpMethod;
+import com.auth0.net.client.HttpRequest;
+import com.auth0.net.client.HttpResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.MapType;
 
@@ -26,13 +30,13 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
     private static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
 
     private final String url;
-    private final String method;
+    private final HttpMethod method;
     private final ObjectMapper mapper;
     private final Map<String, String> headers;
 
     private static final int STATUS_CODE_TOO_MANY_REQUEST = 429;
 
-    ExtendedBaseRequest(HttpClient client, String url, String method, ObjectMapper mapper) {
+    ExtendedBaseRequest(HttpClient client, String url, HttpMethod method, ObjectMapper mapper) {
         super(client);
         this.url = url;
         this.method = method;

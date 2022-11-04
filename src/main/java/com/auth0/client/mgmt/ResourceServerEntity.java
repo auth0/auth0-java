@@ -3,10 +3,11 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.filter.ResourceServersFilter;
 import com.auth0.json.mgmt.ResourceServer;
 import com.auth0.json.mgmt.ResourceServersPage;
-import com.auth0.net.HttpClient;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
@@ -45,7 +46,7 @@ public class ResourceServerEntity extends BaseManagementEntity {
         }
 
         String url = builder.build().toString();
-        CustomRequest<ResourceServersPage> request = new CustomRequest<>(client, url, "GET",
+        CustomRequest<ResourceServersPage> request = new CustomRequest<>(client, url, HttpMethod.GET,
                 new TypeReference<ResourceServersPage>() {
                 });
         request.addHeader("Authorization", "Bearer " + apiToken);
@@ -67,7 +68,7 @@ public class ResourceServerEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/resource-servers");
 
         String url = builder.build().toString();
-        CustomRequest<List<ResourceServer>> request = new CustomRequest<>(client, url, "GET",
+        CustomRequest<List<ResourceServer>> request = new CustomRequest<>(client, url, HttpMethod.GET,
                 new TypeReference<List<ResourceServer>>() {
                 });
         request.addHeader("Authorization", "Bearer " + apiToken);
@@ -90,7 +91,7 @@ public class ResourceServerEntity extends BaseManagementEntity {
                 .addPathSegment(resourceServerIdOrIdentifier);
 
         String url = builder.build().toString();
-        CustomRequest<ResourceServer> request = new CustomRequest<>(client, url, "GET",
+        CustomRequest<ResourceServer> request = new CustomRequest<>(client, url, HttpMethod.GET,
                 new TypeReference<ResourceServer>() {
                 });
         request.addHeader("Authorization", "Bearer " + apiToken);
@@ -112,7 +113,7 @@ public class ResourceServerEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/resource-servers");
 
         String url = builder.build().toString();
-        CustomRequest<ResourceServer> request = new CustomRequest<>(client, url, "POST",
+        CustomRequest<ResourceServer> request = new CustomRequest<>(client, url, HttpMethod.POST,
                 new TypeReference<ResourceServer>() {
                 });
         request.addHeader("Authorization", "Bearer " + apiToken);
@@ -136,7 +137,7 @@ public class ResourceServerEntity extends BaseManagementEntity {
                 .addPathSegment(resourceServerId);
 
         String url = builder.build().toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
+        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
@@ -159,7 +160,7 @@ public class ResourceServerEntity extends BaseManagementEntity {
                 .addPathSegment(resourceServerId);
 
         String url = builder.build().toString();
-        CustomRequest<ResourceServer> request = new CustomRequest<ResourceServer>(client, url, "PATCH",
+        CustomRequest<ResourceServer> request = new CustomRequest<ResourceServer>(client, url, HttpMethod.PATCH,
                 new TypeReference<ResourceServer>() {
                 });
         request.addHeader("Authorization", "Bearer " + apiToken);

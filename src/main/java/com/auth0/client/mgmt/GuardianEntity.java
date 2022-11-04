@@ -1,8 +1,9 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.guardian.*;
-import com.auth0.net.HttpClient;
 import com.auth0.net.Request;
+import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
@@ -34,7 +35,7 @@ public class GuardianEntity extends BaseManagementEntity {
         Asserts.assertNotNull(enrollmentTicket, "enrollment ticket");
 
         return request(
-            "POST",
+            HttpMethod.POST,
             new TypeReference<EnrollmentTicket>() {
             },
             (builder) -> builder
@@ -54,7 +55,7 @@ public class GuardianEntity extends BaseManagementEntity {
         Asserts.assertNotNull(enrollmentId, "enrollment id");
 
         return voidRequest(
-            "DELETE",
+            HttpMethod.DELETE,
             (builder) -> builder.withPathSegments("api/v2/guardian/enrollments").withPathSegments(enrollmentId)
         );
     }
@@ -68,7 +69,7 @@ public class GuardianEntity extends BaseManagementEntity {
      */
     public Request<GuardianTemplates> getTemplates() {
         return request(
-            "GET",
+            HttpMethod.GET,
             new TypeReference<GuardianTemplates>() {
             },
             (builder) -> builder.withPathSegments("api/v2/guardian/factors/sms/templates")
@@ -87,7 +88,7 @@ public class GuardianEntity extends BaseManagementEntity {
         Asserts.assertNotNull(guardianTemplates, "guardian templates");
 
         return request(
-            "PUT",
+            HttpMethod.PUT,
             new TypeReference<GuardianTemplates>() {
             },
             (builder) -> builder
@@ -104,7 +105,7 @@ public class GuardianEntity extends BaseManagementEntity {
      */
     public Request<List<Factor>> listFactors() {
         return request(
-            "GET",
+            HttpMethod.GET,
             new TypeReference<List<Factor>>() {
             },
             (builder) -> builder.withPathSegments("api/v2/guardian/factors")
@@ -124,7 +125,7 @@ public class GuardianEntity extends BaseManagementEntity {
         Asserts.assertNotNull(enabled, "enabled");
 
         return request(
-            "PUT",
+            HttpMethod.PUT,
             new TypeReference<Factor>() {
             },
             (builder) -> builder
@@ -141,7 +142,7 @@ public class GuardianEntity extends BaseManagementEntity {
      */
     public Request<TwilioFactorProvider> getTwilioFactorProvider() {
         return request(
-            "GET",
+            HttpMethod.GET,
             new TypeReference<TwilioFactorProvider>() {
             },
             (builder) -> builder.withPathSegments("api/v2/guardian/factors/sms/providers/twilio")
@@ -159,7 +160,7 @@ public class GuardianEntity extends BaseManagementEntity {
         Asserts.assertNotNull(provider, "provider");
 
         return request(
-            "PUT",
+            HttpMethod.PUT,
             new TypeReference<TwilioFactorProvider>() {
             },
             (builder) -> builder
@@ -187,7 +188,7 @@ public class GuardianEntity extends BaseManagementEntity {
      */
     public Request<SNSFactorProvider> getSNSFactorProvider() {
         return request(
-            "GET",
+            HttpMethod.GET,
             new TypeReference<SNSFactorProvider>() {
             },
             (builder) -> builder.withPathSegments("api/v2/guardian/factors/push-notification/providers/sns")
@@ -205,7 +206,7 @@ public class GuardianEntity extends BaseManagementEntity {
         Asserts.assertNotNull(provider, "provider");
 
         return request(
-            "PUT",
+            HttpMethod.PUT,
             new TypeReference<SNSFactorProvider>() {
             },
             (builder) -> builder
@@ -233,7 +234,7 @@ public class GuardianEntity extends BaseManagementEntity {
      */
     public Request<List<String>> getAuthenticationPolicies() {
         return request(
-            "GET",
+            HttpMethod.GET,
             new TypeReference<List<String>>() {
             },
             (builder) -> builder.withPathSegments("api/v2/guardian/policies")
@@ -251,7 +252,7 @@ public class GuardianEntity extends BaseManagementEntity {
         Asserts.assertNotNull(policies, "policies");
 
         return request(
-            "PUT",
+            HttpMethod.PUT,
             new TypeReference<List<String>>() {
             },
             (builder) -> builder

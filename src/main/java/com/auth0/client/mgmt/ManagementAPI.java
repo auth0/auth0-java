@@ -4,6 +4,8 @@ import com.auth0.client.HttpOptions;
 import com.auth0.client.LoggingOptions;
 import com.auth0.client.ProxyOptions;
 import com.auth0.net.*;
+import com.auth0.net.client.DefaultHttpClient;
+import com.auth0.net.client.HttpClient;
 import com.auth0.utils.Asserts;
 import okhttp3.*;
 import okhttp3.logging.HttpLoggingInterceptor;

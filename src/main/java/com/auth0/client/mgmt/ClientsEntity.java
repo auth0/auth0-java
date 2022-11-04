@@ -4,7 +4,12 @@ import com.auth0.client.mgmt.filter.ClientFilter;
 import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.json.mgmt.client.Client;
 import com.auth0.json.mgmt.client.ClientsPage;
-import com.auth0.net.*;
+import com.auth0.net.CustomRequest;
+import com.auth0.net.EmptyBodyRequest;
+import com.auth0.net.Request;
+import com.auth0.net.VoidRequest;
+import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
@@ -41,7 +46,7 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/clients")
                 .build()
                 .toString();
-        CustomRequest<List<Client>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Client>>() {
+        CustomRequest<List<Client>> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<List<Client>>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -64,7 +69,7 @@ public class ClientsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<ClientsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<ClientsPage>() {
+        CustomRequest<ClientsPage> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<ClientsPage>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -86,7 +91,7 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegment(clientId)
                 .build()
                 .toString();
-        CustomRequest<Client> request = new CustomRequest<>(client, url, "GET", new TypeReference<Client>() {
+        CustomRequest<Client> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Client>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -113,7 +118,7 @@ public class ClientsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<Client> request = new CustomRequest<>(client, url, "GET", new TypeReference<Client>() {
+        CustomRequest<Client> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Client>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -134,7 +139,7 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/clients")
                 .build()
                 .toString();
-        CustomRequest<Client> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<Client>() {
+        CustomRequest<Client> request = new CustomRequest<>(this.client, url, HttpMethod.POST, new TypeReference<Client>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(client);
@@ -157,7 +162,7 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegment(clientId)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
+        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
@@ -180,7 +185,7 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegment(clientId)
                 .build()
                 .toString();
-        CustomRequest<Client> request = new CustomRequest<>(this.client, url, "PATCH", new TypeReference<Client>() {
+        CustomRequest<Client> request = new CustomRequest<>(this.client, url, HttpMethod.PATCH, new TypeReference<Client>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(client);
@@ -205,7 +210,7 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegment("rotate-secret")
                 .build()
                 .toString();
-        CustomRequest<Client> request = new EmptyBodyRequest<>(this.client, url, "POST", new TypeReference<Client>() {
+        CustomRequest<Client> request = new EmptyBodyRequest<>(this.client, url, HttpMethod.POST, new TypeReference<Client>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;

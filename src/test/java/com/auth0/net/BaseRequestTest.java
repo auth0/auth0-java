@@ -1,5 +1,6 @@
 package com.auth0.net;
 
+import com.auth0.net.client.DefaultHttpClient;
 import okhttp3.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;

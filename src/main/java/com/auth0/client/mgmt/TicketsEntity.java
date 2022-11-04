@@ -2,9 +2,10 @@ package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.tickets.EmailVerificationTicket;
 import com.auth0.json.mgmt.tickets.PasswordChangeTicket;
-import com.auth0.net.HttpClient;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
+import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
@@ -39,7 +40,7 @@ public class TicketsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<EmailVerificationTicket> request = new CustomRequest<>(client, url, "POST", new TypeReference<EmailVerificationTicket>() {
+        CustomRequest<EmailVerificationTicket> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<EmailVerificationTicket>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(emailVerificationTicket);
@@ -62,7 +63,7 @@ public class TicketsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<PasswordChangeTicket> request = new CustomRequest<>(client, url, "POST", new TypeReference<PasswordChangeTicket>() {
+        CustomRequest<PasswordChangeTicket> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordChangeTicket>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(passwordChangeTicket);

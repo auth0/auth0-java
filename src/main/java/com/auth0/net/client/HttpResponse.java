@@ -1,4 +1,4 @@
-package com.auth0.net;
+package com.auth0.net.client;
 
 import java.util.HashMap;
 import java.util.Map;

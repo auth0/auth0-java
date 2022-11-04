@@ -5,6 +5,9 @@ import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.RateLimitException;
 import com.auth0.json.auth.TokenHolder;
+import com.auth0.net.client.DefaultHttpClient;
+import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.net.multipart.FilePart;
 import com.auth0.net.multipart.KeyValuePart;
 import com.auth0.net.multipart.RecordedMultipartRequest;
@@ -14,7 +17,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.MultipartBody;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.io.File;
@@ -26,8 +32,6 @@ import java.util.UUID;
 import static com.auth0.client.MockServer.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 
 public class MultipartRequestTest {
     private MockServer server;
@@ -61,19 +65,19 @@ public class MultipartRequestTest {
     public void shouldNotSupportGETMethod() {
         exception.expect(instanceOf(IllegalArgumentException.class));
         exception.expectMessage("Multipart/form-data requests do not support the GET method.");
-        MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, server.getBaseUrl(), "GET", tokenHolderType);
+        MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, server.getBaseUrl(), HttpMethod.GET, tokenHolderType);
     }
 
     @Test
     public void shouldCreatePOSTRequest() throws Exception {
-        MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", tokenHolderType);
+        MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
         assertThat(request, is(notNullValue()));
         request.addPart("non_empty", "body");
 
         server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder execute = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
-        assertThat(recordedRequest.getMethod(), is("POST"));
+        assertThat(recordedRequest.getMethod(), is(HttpMethod.POST));
         assertThat(execute, is(notNullValue()));
     }
 
@@ -81,7 +85,7 @@ public class MultipartRequestTest {
     public void shouldAddMultipleParts() throws Exception {
         String boundary = UUID.randomUUID().toString();
         MultipartBody.Builder bodyBuilder = new MultipartBody.Builder(boundary);
-        MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", new ObjectMapper(), tokenHolderType, bodyBuilder);
+        MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, server.getBaseUrl(), HttpMethod.POST, new ObjectMapper(), tokenHolderType, bodyBuilder);
 
         File fileValue = new File(MULTIPART_SAMPLE);
         request.addPart("keyName", "keyValue");
@@ -109,7 +113,7 @@ public class MultipartRequestTest {
     @Test
     public void shouldNotOverrideContentTypeHeader() throws Exception {
         MultipartBody.Builder bodyBuilder = new MultipartBody.Builder("5c49fdf2");
-        MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", new ObjectMapper(), tokenHolderType, bodyBuilder);
+        MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, server.getBaseUrl(), HttpMethod.POST, new ObjectMapper(), tokenHolderType, bodyBuilder);
         request.addPart("non_empty", "body");
         request.addHeader("Content-Type", "plaintext");
 
@@ -122,7 +126,7 @@ public class MultipartRequestTest {
 
     @Test
     public void shouldAddHeaders() throws Exception {
-        MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", tokenHolderType);
+        MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
         request.addPart("non_empty", "body");
         request.addHeader("Extra-Info", "this is a test");
         request.addHeader("Authorization", "Bearer my_access_token");
@@ -146,7 +150,7 @@ public class MultipartRequestTest {
 //        Call call = mock(Call.class);
 //        when(client.newCall(any(okhttp3.Request.class))).thenReturn(call);
 //        when(call.execute()).thenThrow(IOException.class);
-//        MultipartRequest<Void> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", voidType);
+//        MultipartRequest<Void> request = new MultipartRequest<>(client, server.getBaseUrl(), HttpMethod.POST, voidType);
 //        request.addPart("non_empty", "body");
 //        request.execute();
 //    }
@@ -155,7 +159,7 @@ public class MultipartRequestTest {
     public void shouldThrowOnBodyCreationFailure() {
         Exception exception = null;
         try {
-            MultipartRequest<Void> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", voidType);
+            MultipartRequest<Void> request = new MultipartRequest<>(client, server.getBaseUrl(), HttpMethod.POST, voidType);
             request.execute();
         } catch (Exception e) {
             exception = e;
@@ -169,7 +173,7 @@ public class MultipartRequestTest {
 
     @Test
     public void shouldParseSuccessfulResponse() throws Exception {
-        MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", tokenHolderType);
+        MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
         request.addPart("non_empty", "body");
         server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder response = request.execute();
@@ -185,7 +189,7 @@ public class MultipartRequestTest {
 
     @Test
     public void shouldThrowOnParseInvalidSuccessfulResponse() throws Exception {
-        MultipartRequest<List> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", listType);
+        MultipartRequest<List> request = new MultipartRequest<>(client, server.getBaseUrl(), HttpMethod.POST, listType);
         request.addPart("non_empty", "body");
         server.jsonResponse(AUTH_TOKENS, 200);
         Exception exception = null;
@@ -207,7 +211,7 @@ public class MultipartRequestTest {
 
     @Test
     public void shouldParseJSONErrorResponseWithErrorDescription() throws Exception {
-        MultipartRequest<List> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", listType);
+        MultipartRequest<List> request = new MultipartRequest<>(client, server.getBaseUrl(), HttpMethod.POST, listType);
         request.addPart("non_empty", "body");
         server.jsonResponse(AUTH_ERROR_WITH_ERROR_DESCRIPTION, 400);
         Exception exception = null;
@@ -229,7 +233,7 @@ public class MultipartRequestTest {
 
     @Test
     public void shouldParseJSONErrorResponseWithError() throws Exception {
-        MultipartRequest<List> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", listType);
+        MultipartRequest<List> request = new MultipartRequest<>(client, server.getBaseUrl(), HttpMethod.POST, listType);
         request.addPart("non_empty", "body");
         server.jsonResponse(AUTH_ERROR_WITH_ERROR, 400);
         Exception exception = null;
@@ -251,7 +255,7 @@ public class MultipartRequestTest {
 
     @Test
     public void shouldParseJSONErrorResponseWithDescriptionAndExtraProperties() throws Exception {
-        MultipartRequest<List> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", listType);
+        MultipartRequest<List> request = new MultipartRequest<>(client, server.getBaseUrl(), HttpMethod.POST, listType);
         request.addPart("non_empty", "body");
         server.jsonResponse(AUTH_ERROR_WITH_DESCRIPTION_AND_EXTRA_PROPERTIES, 400);
         Exception exception = null;
@@ -275,7 +279,7 @@ public class MultipartRequestTest {
 
     @Test
     public void shouldParseJSONErrorResponseWithDescription() throws Exception {
-        MultipartRequest<List> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", listType);
+        MultipartRequest<List> request = new MultipartRequest<>(client, server.getBaseUrl(), HttpMethod.POST, listType);
         request.addPart("non_empty", "body");
         server.jsonResponse(AUTH_ERROR_WITH_DESCRIPTION, 400);
         Exception exception = null;
@@ -297,7 +301,7 @@ public class MultipartRequestTest {
 
     @Test
     public void shouldParseJSONErrorResponseWithMessage() throws Exception {
-        MultipartRequest<List> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", listType);
+        MultipartRequest<List> request = new MultipartRequest<>(client, server.getBaseUrl(), HttpMethod.POST, listType);
         request.addPart("non_empty", "body");
         server.jsonResponse(MGMT_ERROR_WITH_MESSAGE, 400);
         Exception exception = null;
@@ -319,7 +323,7 @@ public class MultipartRequestTest {
 
     @Test
     public void shouldParsePlainTextErrorResponse() throws Exception {
-        MultipartRequest<List> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", listType);
+        MultipartRequest<List> request = new MultipartRequest<>(client, server.getBaseUrl(), HttpMethod.POST, listType);
         request.addPart("non_empty", "body");
         server.textResponse(AUTH_ERROR_PLAINTEXT, 400);
         Exception exception = null;
@@ -342,7 +346,7 @@ public class MultipartRequestTest {
 
     @Test
     public void shouldParseRateLimitsHeaders() {
-        MultipartRequest<List> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", listType);
+        MultipartRequest<List> request = new MultipartRequest<>(client, server.getBaseUrl(), HttpMethod.POST, listType);
         request.addPart("non_empty", "body");
         server.rateLimitReachedResponse(100, 10, 5);
         Exception exception = null;
@@ -368,7 +372,7 @@ public class MultipartRequestTest {
 
     @Test
     public void shouldDefaultRateLimitsHeadersWhenMissing() {
-        MultipartRequest<List> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", listType);
+        MultipartRequest<List> request = new MultipartRequest<>(client, server.getBaseUrl(), HttpMethod.POST, listType);
         request.addPart("non_empty", "body");
         server.rateLimitReachedResponse(-1, -1, -1);
         Exception exception = null;

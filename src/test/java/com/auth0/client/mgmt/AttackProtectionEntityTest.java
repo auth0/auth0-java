@@ -2,6 +2,7 @@ package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.attackprotection.*;
 import com.auth0.net.Request;
+import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
 
@@ -26,7 +27,7 @@ public class AttackProtectionEntityTest extends BaseMgmtEntityTest {
         BreachedPassword response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/attack-protection/breached-password-detection"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/attack-protection/breached-password-detection"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -63,7 +64,7 @@ public class AttackProtectionEntityTest extends BaseMgmtEntityTest {
         BreachedPassword response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/attack-protection/breached-password-detection"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PATCH, "/api/v2/attack-protection/breached-password-detection"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -89,7 +90,7 @@ public class AttackProtectionEntityTest extends BaseMgmtEntityTest {
         BruteForceConfiguration response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/attack-protection/brute-force-protection"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/attack-protection/brute-force-protection"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -126,7 +127,7 @@ public class AttackProtectionEntityTest extends BaseMgmtEntityTest {
         BruteForceConfiguration response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/attack-protection/brute-force-protection"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PATCH, "/api/v2/attack-protection/brute-force-protection"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -151,7 +152,7 @@ public class AttackProtectionEntityTest extends BaseMgmtEntityTest {
         SuspiciousIPThrottlingConfiguration response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/attack-protection/suspicious-ip-throttling"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/attack-protection/suspicious-ip-throttling"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -201,7 +202,7 @@ public class AttackProtectionEntityTest extends BaseMgmtEntityTest {
         SuspiciousIPThrottlingConfiguration response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/attack-protection/suspicious-ip-throttling"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PATCH, "/api/v2/attack-protection/suspicious-ip-throttling"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 

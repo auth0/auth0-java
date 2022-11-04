@@ -5,6 +5,9 @@ import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.RateLimitException;
 import com.auth0.json.auth.TokenHolder;
+import com.auth0.net.client.DefaultHttpClient;
+import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -12,7 +15,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.hamcrest.Matchers;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.util.List;
@@ -56,32 +62,32 @@ public class CustomRequestTest {
 
     @Test
     public void shouldCreateGETRequest() throws Exception {
-        CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", tokenHolderType);
+        CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, tokenHolderType);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder execute = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
-        assertThat(recordedRequest.getMethod(), is("GET"));
+        assertThat(recordedRequest.getMethod(), is(HttpMethod.GET.toString()));
         assertThat(execute, is(notNullValue()));
     }
 
     @Test
     public void shouldCreatePOSTRequest() throws Exception {
-        CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), "POST", tokenHolderType);
+        CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
         assertThat(request, is(notNullValue()));
         request.addParameter("non_empty", "body");
 
         server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder execute = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
-        assertThat(recordedRequest.getMethod(), is("POST"));
+        assertThat(recordedRequest.getMethod(), is(HttpMethod.POST.toString()));
         assertThat(execute, is(notNullValue()));
     }
 
     @Test
     public void shouldAddParameters() throws Exception {
-        CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), "POST", tokenHolderType);
+        CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
         Map mapValue = mock(Map.class);
         request.addParameter("key", "value");
         request.addParameter("map", mapValue);
@@ -96,7 +102,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldAddHeaders() throws Exception {
-        CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), "POST", tokenHolderType);
+        CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
         request.addParameter("non_empty", "body");
         request.addHeader("Extra-Info", "this is a test");
         request.addHeader("Authorization", "Bearer my_access_token");
@@ -111,7 +117,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldNotOverrideContentTypeHeader() throws Exception {
-        CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), "POST", tokenHolderType);
+        CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
         request.addParameter("non_empty", "body");
         request.addHeader("Content-Type", "plaintext");
 
@@ -133,7 +139,7 @@ public class CustomRequestTest {
 //        Call call = mock(Call.class);
 //        when(client.newCall(any(okhttp3.Request.class))).thenReturn(call);
 //        when(call.execute()).thenThrow(IOException.class);
-//        CustomRequest<Void> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", voidType);
+//        CustomRequest<Void> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, voidType);
 //        request.execute();
 //    }
 
@@ -142,7 +148,7 @@ public class CustomRequestTest {
         ObjectMapper mapper = mock(ObjectMapper.class);
         when(mapper.writeValueAsBytes(any(Object.class))).thenThrow(JsonProcessingException.class);
 
-        CustomRequest request = new CustomRequest<>(client, server.getBaseUrl(), "POST", mapper, voidType);
+        CustomRequest request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.POST, mapper, voidType);
         request.addParameter("name", "value");
         exception.expect(Auth0Exception.class);
         exception.expectCause(Matchers.<Throwable>instanceOf(JsonProcessingException.class));
@@ -152,7 +158,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldParseSuccessfulResponse() throws Exception {
-        CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", tokenHolderType);
+        CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, tokenHolderType);
         server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder response = request.execute();
         server.takeRequest();
@@ -167,7 +173,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldThrowOnParseInvalidSuccessfulResponse() throws Exception {
-        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
+        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
         server.jsonResponse(AUTH_TOKENS, 200);
         Exception exception = null;
         try {
@@ -188,7 +194,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldParseJSONErrorResponseWithErrorDescription() throws Exception {
-        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
+        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
         server.jsonResponse(AUTH_ERROR_WITH_ERROR_DESCRIPTION, 400);
         Exception exception = null;
         try {
@@ -209,7 +215,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldParseJSONErrorResponseWithError() throws Exception {
-        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
+        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
         server.jsonResponse(AUTH_ERROR_WITH_ERROR, 400);
         Exception exception = null;
         try {
@@ -231,7 +237,7 @@ public class CustomRequestTest {
     @SuppressWarnings("RedundantCast")
     @Test
     public void shouldParseJSONErrorResponseWithDescriptionAndExtraProperties() throws Exception {
-        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
+        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
         server.jsonResponse(AUTH_ERROR_WITH_DESCRIPTION_AND_EXTRA_PROPERTIES, 400);
         Exception exception = null;
         try {
@@ -254,7 +260,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldParseJSONErrorResponseWithDescription() throws Exception {
-        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
+        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
         server.jsonResponse(AUTH_ERROR_WITH_DESCRIPTION, 400);
         Exception exception = null;
         try {
@@ -275,7 +281,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldParseJSONErrorResponseWithMessage() throws Exception {
-        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
+        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
         server.jsonResponse(MGMT_ERROR_WITH_MESSAGE, 400);
         Exception exception = null;
         try {
@@ -296,7 +302,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldParsePlainTextErrorResponse() throws Exception {
-        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
+        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
         server.textResponse(AUTH_ERROR_PLAINTEXT, 400);
         Exception exception = null;
         try {
@@ -318,7 +324,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldParseRateLimitsHeaders() {
-        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
+        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
         server.rateLimitReachedResponse(100, 10, 5);
         Exception exception = null;
         try {
@@ -343,7 +349,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldDefaultRateLimitsHeadersWhenMissing() {
-        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", listType);
+        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
         server.rateLimitReachedResponse(-1, -1, -1);
         Exception exception = null;
         try {

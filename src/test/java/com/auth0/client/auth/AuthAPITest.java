@@ -1,29 +1,24 @@
 package com.auth0.client.auth;
 
 import com.auth0.client.HttpOptions;
-import com.auth0.client.LoggingOptions;
 import com.auth0.client.MockServer;
-import com.auth0.client.ProxyOptions;
 import com.auth0.exception.APIException;
 import com.auth0.json.auth.*;
-import com.auth0.net.Request;
 import com.auth0.net.*;
+import com.auth0.net.client.HttpMethod;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import okhttp3.*;
-import okhttp3.logging.HttpLoggingInterceptor;
-import okhttp3.logging.HttpLoggingInterceptor.Level;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mockito.Mockito;
 
 import java.io.FileReader;
-import java.net.Proxy;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.hasHeader;
@@ -568,7 +563,7 @@ public class AuthAPITest {
         UserInfo response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/userinfo"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/userinfo"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer accessToken"));
 
@@ -619,7 +614,7 @@ public class AuthAPITest {
         Void response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/dbconnections/change_password"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/dbconnections/change_password"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -738,7 +733,7 @@ public class AuthAPITest {
         CreatedUser response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/dbconnections/signup"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/dbconnections/signup"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -766,7 +761,7 @@ public class AuthAPITest {
         CreatedUser response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/dbconnections/signup"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/dbconnections/signup"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -797,7 +792,7 @@ public class AuthAPITest {
         CreatedUser response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/dbconnections/signup"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/dbconnections/signup"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -844,7 +839,7 @@ public class AuthAPITest {
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -874,7 +869,7 @@ public class AuthAPITest {
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -931,7 +926,7 @@ public class AuthAPITest {
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -962,7 +957,7 @@ public class AuthAPITest {
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -992,7 +987,7 @@ public class AuthAPITest {
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("some-header", "some-value"));
 
@@ -1054,7 +1049,7 @@ public class AuthAPITest {
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -1086,7 +1081,7 @@ public class AuthAPITest {
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -1126,7 +1121,7 @@ public class AuthAPITest {
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -1155,7 +1150,7 @@ public class AuthAPITest {
         PasswordlessEmailResponse response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/passwordless/start"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/passwordless/start"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -1202,7 +1197,7 @@ public class AuthAPITest {
         PasswordlessEmailResponse response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/passwordless/start"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/passwordless/start"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -1230,7 +1225,7 @@ public class AuthAPITest {
         PasswordlessSmsResponse response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/passwordless/start"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/passwordless/start"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -1259,7 +1254,7 @@ public class AuthAPITest {
         PasswordlessSmsResponse response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/passwordless/start"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/passwordless/start"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -1291,7 +1286,7 @@ public class AuthAPITest {
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -1327,7 +1322,7 @@ public class AuthAPITest {
         Void response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/revoke"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/revoke"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -1357,7 +1352,7 @@ public class AuthAPITest {
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -1399,7 +1394,7 @@ public class AuthAPITest {
         TokenHolder response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);

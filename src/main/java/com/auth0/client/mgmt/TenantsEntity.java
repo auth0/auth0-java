@@ -2,9 +2,10 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.json.mgmt.tenants.Tenant;
-import com.auth0.net.HttpClient;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
+import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
@@ -42,7 +43,7 @@ public class TenantsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<Tenant> request = new CustomRequest<>(client, url, "GET", new TypeReference<Tenant>() {
+        CustomRequest<Tenant> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Tenant>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -64,7 +65,7 @@ public class TenantsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<Tenant> request = new CustomRequest<>(client, url, "PATCH", new TypeReference<Tenant>() {
+        CustomRequest<Tenant> request = new CustomRequest<>(client, url, HttpMethod.PATCH, new TypeReference<Tenant>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(tenant);

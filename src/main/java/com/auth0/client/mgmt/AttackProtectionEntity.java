@@ -3,8 +3,9 @@ package com.auth0.client.mgmt;
 import com.auth0.json.mgmt.attackprotection.BreachedPassword;
 import com.auth0.json.mgmt.attackprotection.BruteForceConfiguration;
 import com.auth0.json.mgmt.attackprotection.SuspiciousIPThrottlingConfiguration;
-import com.auth0.net.HttpClient;
 import com.auth0.net.Request;
+import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
@@ -25,7 +26,7 @@ public class AttackProtectionEntity extends BaseManagementEntity {
      */
     public Request<BreachedPassword> getBreachedPasswordSettings() {
         return request(
-            "GET",
+            HttpMethod.GET,
             new TypeReference<BreachedPassword>() {},
             (builder) -> builder
                 .withPathSegments("api/v2/attack-protection/breached-password-detection")
@@ -43,7 +44,7 @@ public class AttackProtectionEntity extends BaseManagementEntity {
         Asserts.assertNotNull(breachedPassword, "breached password");
 
         return request(
-            "PATCH",
+            HttpMethod.PATCH,
             new TypeReference<BreachedPassword>() {},
             (builder) -> builder
                 .withPathSegments("api/v2/attack-protection/breached-password-detection")
@@ -58,7 +59,7 @@ public class AttackProtectionEntity extends BaseManagementEntity {
      */
     public Request<BruteForceConfiguration> getBruteForceConfiguration() {
         return request(
-            "GET",
+            HttpMethod.GET,
             new TypeReference<BruteForceConfiguration>() {},
             (builder) -> builder
                 .withPathSegments("api/v2/attack-protection/brute-force-protection")
@@ -75,7 +76,7 @@ public class AttackProtectionEntity extends BaseManagementEntity {
         Asserts.assertNotNull(configuration, "configuration");
 
         return request(
-            "PATCH",
+            HttpMethod.PATCH,
             new TypeReference<BruteForceConfiguration>() {},
             (builder) -> builder
                 .withPathSegments("api/v2/attack-protection/brute-force-protection")
@@ -90,7 +91,7 @@ public class AttackProtectionEntity extends BaseManagementEntity {
      */
     public Request<SuspiciousIPThrottlingConfiguration> getSuspiciousIPThrottlingConfiguration() {
         return request(
-            "GET",
+            HttpMethod.GET,
             new TypeReference<SuspiciousIPThrottlingConfiguration>() {},
             (builder) -> builder
                 .withPathSegments("api/v2/attack-protection/suspicious-ip-throttling")
@@ -107,7 +108,7 @@ public class AttackProtectionEntity extends BaseManagementEntity {
         Asserts.assertNotNull(configuration, "configuration");
 
         return request(
-            "PATCH",
+            HttpMethod.PATCH,
             new TypeReference<SuspiciousIPThrottlingConfiguration>() {},
             (builder) -> builder
                 .withPathSegments("api/v2/attack-protection/suspicious-ip-throttling")

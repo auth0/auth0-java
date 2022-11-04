@@ -1,10 +1,11 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.userblocks.UserBlocks;
-import com.auth0.net.HttpClient;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
@@ -39,7 +40,7 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .addQueryParameter("identifier", identifier)
                 .build()
                 .toString();
-        CustomRequest<UserBlocks> request = new CustomRequest<>(client, url, "GET", new TypeReference<UserBlocks>() {
+        CustomRequest<UserBlocks> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<UserBlocks>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -61,7 +62,7 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .addQueryParameter("identifier", identifier)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
+        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
@@ -82,7 +83,7 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .addPathSegment(userId)
                 .build()
                 .toString();
-        CustomRequest<UserBlocks> request = new CustomRequest<>(client, url, "GET", new TypeReference<UserBlocks>() {
+        CustomRequest<UserBlocks> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<UserBlocks>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -104,7 +105,7 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .addPathSegment(userId)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
+        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }

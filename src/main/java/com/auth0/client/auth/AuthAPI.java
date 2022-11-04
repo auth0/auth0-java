@@ -6,11 +6,14 @@ import com.auth0.client.ProxyOptions;
 import com.auth0.json.auth.PasswordlessEmailResponse;
 import com.auth0.json.auth.PasswordlessSmsResponse;
 import com.auth0.json.auth.UserInfo;
-import com.auth0.net.Request;
 import com.auth0.net.*;
+import com.auth0.net.client.DefaultHttpClient;
+import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
-import okhttp3.*;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 
@@ -322,7 +325,7 @@ public class AuthAPI {
                 .addPathSegment("userinfo")
                 .build()
                 .toString();
-        CustomRequest<UserInfo> request = new CustomRequest<>(client, url, "GET", new TypeReference<UserInfo>() {
+        CustomRequest<UserInfo> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<UserInfo>() {
         });
         request.addHeader("Authorization", "Bearer " + accessToken);
         return request;
@@ -357,7 +360,7 @@ public class AuthAPI {
                 .addPathSegment("change_password")
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "POST");
+        VoidRequest request = new VoidRequest(client, url, HttpMethod.POST);
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_EMAIL, email);
         request.addParameter(KEY_CONNECTION, connection);
@@ -745,7 +748,7 @@ public class AuthAPI {
                 .addPathSegment(PATH_REVOKE)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "POST");
+        VoidRequest request = new VoidRequest(client, url, HttpMethod.POST);
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         request.addParameter(KEY_TOKEN, refreshToken);
@@ -909,7 +912,7 @@ public class AuthAPI {
                 .build()
                 .toString();
 
-        CustomRequest<PasswordlessEmailResponse> request = new CustomRequest<>(client, url, "POST", new TypeReference<PasswordlessEmailResponse>() {
+        CustomRequest<PasswordlessEmailResponse> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordlessEmailResponse>() {
         });
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_CLIENT_SECRET, clientSecret);
@@ -951,7 +954,7 @@ public class AuthAPI {
                 .build()
                 .toString();
 
-        CustomRequest<PasswordlessSmsResponse> request = new CustomRequest<>(client, url, "POST", new TypeReference<PasswordlessSmsResponse>() {
+        CustomRequest<PasswordlessSmsResponse> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordlessSmsResponse>() {
         });
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_CLIENT_SECRET, clientSecret);

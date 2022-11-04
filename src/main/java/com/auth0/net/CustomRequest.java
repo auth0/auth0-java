@@ -1,5 +1,8 @@
 package com.auth0.net;
 
+import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.HttpMethod;
+import com.auth0.net.client.HttpResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -26,14 +29,14 @@ public class CustomRequest<T> extends ExtendedBaseRequest<T> implements Customiz
     private final Map<String, Object> parameters;
     private Object body;
 
-    CustomRequest(HttpClient client, String url, String method, ObjectMapper mapper, TypeReference<T> tType) {
+    CustomRequest(HttpClient client, String url, HttpMethod method, ObjectMapper mapper, TypeReference<T> tType) {
         super(client, url, method, mapper);
         this.mapper = mapper;
         this.tType = tType;
         this.parameters = new HashMap<>();
     }
 
-    public CustomRequest(HttpClient client, String url, String method, TypeReference<T> tType) {
+    public CustomRequest(HttpClient client, String url, HttpMethod method, TypeReference<T> tType) {
         this(client, url, method, new ObjectMapper(), tType);
     }
 

@@ -3,8 +3,9 @@ package com.auth0.client.mgmt;
 import com.auth0.json.mgmt.branding.BrandingSettings;
 import com.auth0.json.mgmt.branding.UniversalLoginTemplate;
 import com.auth0.json.mgmt.branding.UniversalLoginTemplateUpdate;
-import com.auth0.net.HttpClient;
 import com.auth0.net.Request;
+import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
@@ -31,7 +32,7 @@ public class BrandingEntity extends BaseManagementEntity {
      */
     public Request<BrandingSettings> getBrandingSettings() {
         return request(
-            "GET",
+            HttpMethod.GET,
             new TypeReference<BrandingSettings>() {
             },
             (builder) -> builder.withPathSegments("api/v2/branding")
@@ -49,7 +50,7 @@ public class BrandingEntity extends BaseManagementEntity {
         Asserts.assertNotNull(settings, "settings");
 
         return request(
-            "PATCH",
+            HttpMethod.PATCH,
             new TypeReference<BrandingSettings>() {
             },
             (builder) -> builder
@@ -67,7 +68,7 @@ public class BrandingEntity extends BaseManagementEntity {
      */
     public Request<UniversalLoginTemplate> getUniversalLoginTemplate() {
         return request(
-            "GET",
+            HttpMethod.GET,
             new TypeReference<UniversalLoginTemplate>() {
             },
             (builder) -> builder.withPathSegments("api/v2/branding/templates/universal-login")
@@ -82,7 +83,7 @@ public class BrandingEntity extends BaseManagementEntity {
      */
     public Request<Void> deleteUniversalLoginTemplate() {
         return voidRequest(
-            "DELETE",
+            HttpMethod.DELETE,
             (builder) -> builder.withPathSegments("api/v2/branding/templates/universal-login")
         );
     }
@@ -97,7 +98,7 @@ public class BrandingEntity extends BaseManagementEntity {
         Asserts.assertNotNull(template, "template");
 
         return voidRequest(
-            "PUT",
+            HttpMethod.PUT,
             (builder) -> builder
                 .withPathSegments("api/v2/branding/templates/universal-login")
                 .withBody(template)

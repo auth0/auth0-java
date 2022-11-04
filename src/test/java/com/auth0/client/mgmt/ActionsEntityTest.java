@@ -5,6 +5,7 @@ import com.auth0.client.mgmt.filter.ActionsFilter;
 import com.auth0.client.mgmt.filter.PageFilter;
 import com.auth0.json.mgmt.actions.*;
 import com.auth0.net.Request;
+import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
 
@@ -35,7 +36,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         Action response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/actions/action-id"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/actions/actions/action-id"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -74,7 +75,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         Action response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/actions/actions"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/actions/actions"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -125,7 +126,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/actions/actions/action-id"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/actions/actions/action-id"));
         assertThat(recordedRequest, hasQueryParameter("force", "false"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
@@ -140,7 +141,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/actions/actions/action-id"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/actions/actions/action-id"));
         assertThat(recordedRequest, hasQueryParameter("force", "true"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
@@ -155,7 +156,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         Triggers triggers = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/triggers"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/actions/triggers"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -196,7 +197,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         Action response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/actions/actions/action-id"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PATCH, "/api/v2/actions/actions/action-id"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -239,7 +240,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         Version response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/actions/actions/action-id/deploy"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/actions/actions/action-id/deploy"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest.getBody(), is(notNullValue()));
@@ -271,7 +272,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         Version response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/actions/action-id/versions/version-id"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/actions/actions/action-id/versions/version-id"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -301,7 +302,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         Version response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/actions/actions/action-id/versions/version-id/deploy"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/actions/actions/action-id/versions/version-id/deploy"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest.getBody(), is(notNullValue()));
@@ -326,7 +327,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         Execution response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/executions/execution-id"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/actions/executions/execution-id"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -342,7 +343,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         ActionsPage response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/actions"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/actions/actions"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -365,7 +366,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         ActionsPage response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/actions"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/actions/actions"));
         assertThat(recordedRequest, hasQueryParameter("actionName", "action-name"));
         assertThat(recordedRequest, hasQueryParameter("deployed", "true"));
         assertThat(recordedRequest, hasQueryParameter("installed", "false"));
@@ -394,7 +395,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         VersionsPage response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/actions/action-id/versions"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/actions/actions/action-id/versions"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -413,7 +414,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         VersionsPage response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/actions/action-id/versions"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/actions/actions/action-id/versions"));
         assertThat(recordedRequest, hasQueryParameter("page", "1"));
         assertThat(recordedRequest, hasQueryParameter("per_page", "10"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
@@ -438,7 +439,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         BindingsPage response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/triggers/trigger-id/bindings"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/actions/triggers/trigger-id/bindings"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -457,7 +458,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         BindingsPage response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/actions/triggers/trigger-id/bindings"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/actions/triggers/trigger-id/bindings"));
         assertThat(recordedRequest, hasQueryParameter("page", "1"));
         assertThat(recordedRequest, hasQueryParameter("per_page", "10"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
@@ -498,7 +499,7 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
         BindingsPage response = request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/actions/triggers/trigger-id/bindings"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PATCH, "/api/v2/actions/triggers/trigger-id/bindings"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 

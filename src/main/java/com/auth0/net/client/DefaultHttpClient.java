@@ -1,4 +1,4 @@
-package com.auth0.net;
+package com.auth0.net.client;
 
 import com.auth0.exception.Auth0Exception;
 import okhttp3.*;
@@ -40,13 +40,15 @@ public class DefaultHttpClient implements HttpClient {
         // Need to create with or without body
 
 
+        // TODO only use body on request methods that support it
         RequestBody okBody = request.getBody() != null ?
+            // TODO don't set content-type here? Should be on request?
             RequestBody.create(MediaType.parse("application/json"), request.getBody())
             : null;
 
         okhttp3.Request.Builder builder = new okhttp3.Request.Builder()
             .url(request.getUrl())
-            .method(request.getMethod(), okBody);
+            .method(request.getMethod().toString(), okBody);
         for (Map.Entry<String, String> e : request.getHeaders().entrySet()) {
             builder.addHeader(e.getKey(), e.getValue());
         }
@@ -85,7 +87,7 @@ public class DefaultHttpClient implements HttpClient {
 
         okhttp3.Request.Builder builder = new okhttp3.Request.Builder()
             .url(request.getUrl())
-            .method(request.getMethod(), okBody);
+            .method(request.getMethod().toString(), okBody);
         for (Map.Entry<String, String> e : request.getHeaders().entrySet()) {
             builder.addHeader(e.getKey(), e.getValue());
         }

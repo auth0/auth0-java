@@ -1,6 +1,9 @@
 package com.auth0.net;
 
 import com.auth0.exception.Auth0Exception;
+import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.HttpRequest;
+import com.auth0.net.client.HttpResponse;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
