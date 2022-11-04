@@ -18,6 +18,7 @@ oss {
     organization 'auth0'
     description 'Java client library for the Auth0 platform.'
     baselineCompareVersion '1.27.0'
+    testInJavaVersions = [8, 11, 17]
 
     developers {
         auth0 {
@@ -75,7 +76,7 @@ dependencies {
     implementation "net.jodah:failsafe:2.4.1"
 
     testImplementation "org.bouncycastle:bcprov-jdk15on:1.68"
-    testImplementation "org.mockito:mockito-core:3.7.7"
+    testImplementation "org.mockito:mockito-core:4.8.1"
     testImplementation "com.squareup.okhttp3:mockwebserver:${okhttpVersion}"
     testImplementation "org.hamcrest:hamcrest-core:${hamcrestVersion}"
     testImplementation "org.hamcrest:hamcrest-library:${hamcrestVersion}"
