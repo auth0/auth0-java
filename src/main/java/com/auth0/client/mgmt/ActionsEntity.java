@@ -10,6 +10,7 @@ import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.net.client.HttpClient;
 import com.auth0.net.client.HttpMethod;
+import com.auth0.net.client.HttpRequestBody;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
@@ -437,15 +438,24 @@ public class ActionsEntity extends BaseManagementEntity {
             super(client, url, method, tType);
         }
 
-        @Override
+//        @Override
         @SuppressWarnings("deprecation")
-        protected byte[] createRequestBody() {
+//        protected byte[] createRequestBody() {
+//            // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
+//            // https://github.com/auth0/auth0-java/issues/324
+//            // TODO this right?
+//            return "{}".getBytes();
+////            return RequestBody.create(MediaType.parse("application/json"), "{}".getBytes());
+//        }
+
+        @Override
+        protected HttpRequestBody createRequestBody() {
             // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
             // https://github.com/auth0/auth0-java/issues/324
             // TODO this right?
-            return "{}".getBytes();
+            return new HttpRequestBody.Builder().withContent("{}".getBytes()).build();
+//            return "{}".getBytes();
 //            return RequestBody.create(MediaType.parse("application/json"), "{}".getBytes());
         }
-
     }
 }

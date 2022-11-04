@@ -6,7 +6,7 @@ import com.auth0.json.mgmt.EmailVerificationIdentity;
 import com.auth0.json.mgmt.jobs.Job;
 import com.auth0.json.mgmt.jobs.JobErrorDetails;
 import com.auth0.net.CustomRequest;
-import com.auth0.net.MultipartRequest;
+import com.auth0.net.FileUploadRequest;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpClient;
 import com.auth0.net.client.HttpMethod;
@@ -214,25 +214,68 @@ public class JobsEntity extends BaseManagementEntity {
      * @param options      Optional parameters to set. Can be null.
      * @return a Request to execute.
      */
+//    public Request<Job> importUsers(String connectionId, File users, UsersImportOptions options) {
+//        Asserts.assertNotNull(connectionId, "connection id");
+//        Asserts.assertNotNull(users, "users file");
+//
+//        String url = baseUrl
+//                .newBuilder()
+//                .addPathSegments("api/v2/jobs/users-imports")
+//                .build()
+//                .toString();
+//
+//        // Ideal
+//        // buildRequest(client, url, HttpMethod.POST, new TypeReference<Job>(), file, params);
+//        // FileUploadRequest<Job> request = new FileUploadRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>(){},
+//        //      file, params
+//        MultipartRequest<Job> request = new MultipartRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>() {
+//        });
+//        if (options != null) {
+//            for (Map.Entry<String, Object> e : options.getAsMap().entrySet()) {
+//                request.addPart(e.getKey(), String.valueOf(e.getValue()));
+//            }
+//        }
+//        request.addPart("connection_id", connectionId);
+//        request.addPart("users", users, "text/json");
+//        request.addHeader("Authorization", "Bearer " + apiToken);
+//        return request;
+//    }
+
     public Request<Job> importUsers(String connectionId, File users, UsersImportOptions options) {
         Asserts.assertNotNull(connectionId, "connection id");
         Asserts.assertNotNull(users, "users file");
 
         String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/jobs/users-imports")
-                .build()
-                .toString();
-        MultipartRequest<Job> request = new MultipartRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>() {
-        });
-        if (options != null) {
-            for (Map.Entry<String, Object> e : options.getAsMap().entrySet()) {
-                request.addPart(e.getKey(), String.valueOf(e.getValue()));
-            }
+            .newBuilder()
+            .addPathSegments("api/v2/jobs/users-imports")
+            .build()
+            .toString();
+
+        // TODO better way
+        Map<String, String> params = new HashMap<>();
+        for (Map.Entry<String, Object> e : options.getAsMap().entrySet()) {
+            params.put(e.getKey(), String.valueOf(e.getValue()));
         }
-        request.addPart("connection_id", connectionId);
-        request.addPart("users", users, "text/json");
+        params.put("connection_id", connectionId);
+
+        FileUploadRequest<Job> request = new FileUploadRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>() {},
+            users, params);
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
+        // Ideal
+        // buildRequest(client, url, HttpMethod.POST, new TypeReference<Job>(), file, params);
+        // FileUploadRequest<Job> request = new FileUploadRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>(){},
+        //      file, params
+//        MultipartRequest<Job> request = new MultipartRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>() {
+//        });
+//        if (options != null) {
+//            for (Map.Entry<String, Object> e : options.getAsMap().entrySet()) {
+//                request.addPart(e.getKey(), String.valueOf(e.getValue()));
+//            }
+//        }
+//        request.addPart("connection_id", connectionId);
+//        request.addPart("users", users, "text/json");
+//        request.addHeader("Authorization", "Bearer " + apiToken);
+//        return request;
     }
 }

@@ -2,6 +2,7 @@ package com.auth0.net;
 
 import com.auth0.net.client.HttpClient;
 import com.auth0.net.client.HttpMethod;
+import com.auth0.net.client.HttpRequestBody;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 /**
@@ -16,10 +17,20 @@ public class EmptyBodyRequest<T> extends CustomRequest<T> {
         super(client, url, method, tType);
     }
 
+//    @Override
+//    @SuppressWarnings("deprecation")
+//    protected byte[] createRequestBody() {
+//        return new byte[0];
+//        // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
+//        // https://github.com/auth0/auth0-java/issues/324
+////        return RequestBody.create(null, new byte[0]);
+//    }
+
     @Override
     @SuppressWarnings("deprecation")
-    protected byte[] createRequestBody() {
-        return new byte[0];
+    protected HttpRequestBody createRequestBody() {
+        return new HttpRequestBody.Builder().withContent(new byte[0]).build();
+//        return new byte[0];
         // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
         // https://github.com/auth0/auth0-java/issues/324
 //        return RequestBody.create(null, new byte[0]);

@@ -32,6 +32,7 @@ public class DefaultHttpClient implements HttpClient {
     }
 
 
+    // TODO accept params?
     @Override
     @SuppressWarnings("deprecation")
     public HttpResponse makeRequest(HttpRequest request) throws IOException {
@@ -41,10 +42,8 @@ public class DefaultHttpClient implements HttpClient {
 
 
         // TODO only use body on request methods that support it
-        RequestBody okBody = request.getBody() != null ?
-            // TODO don't set content-type here? Should be on request?
-            RequestBody.create(MediaType.parse("application/json"), request.getBody())
-            : null;
+        // TODO not use null?
+        RequestBody okBody = addBody(request);
 
         okhttp3.Request.Builder builder = new okhttp3.Request.Builder()
             .url(request.getUrl())
@@ -81,8 +80,13 @@ public class DefaultHttpClient implements HttpClient {
         // Need to create with or without body
 
         RequestBody okBody = request.getBody() != null ?
-            RequestBody.create(MediaType.parse("application/json"), request.getBody())
+            // TODO put media type on HttpRequestBody
+            RequestBody.create(MediaType.parse("application/json"), request.getBody().getContent())
             : null;
+
+//        RequestBody okBody = request.getBody() != null ?
+//            RequestBody.create(MediaType.parse("application/json"), request.getBody())
+//            : null;
 
 
         okhttp3.Request.Builder builder = new okhttp3.Request.Builder()
@@ -105,6 +109,7 @@ public class DefaultHttpClient implements HttpClient {
                     // build Auth0 response
                     HttpResponse aResponse = new HttpResponse.Builder()
                         .code(response.code())
+                        // TODO handle null string()
                         .body(response.body().string())
                         .build();
                     future.complete(aResponse);
@@ -117,6 +122,37 @@ public class DefaultHttpClient implements HttpClient {
         return future;
     }
 
+    @SuppressWarnings("deprecation")
+    private RequestBody addBody(HttpRequest request) {
+        // TODO not use null?
+        RequestBody okBody = null;
+        if (request.getBody() != null) {
+            // TODO put media type on requestbody!
+            if (request.getBody().getFile() != null) {
+                // multipart request
+                MultipartBody.Builder bodyBuilder = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM);
+                // TODO need to pass name
+                bodyBuilder.addFormDataPart("users", request.getBody().getFile().getName(),
+                    // TODO need to pass media type
+                    // Use deprecated method to ensure interop with okhttp 3
+                    RequestBody.create(MediaType.parse( "text/json"), request.getBody().getFile()));
+                request.getBody().getParams().forEach(bodyBuilder::addFormDataPart);
+                okBody = bodyBuilder.build();
+            } else {
+                okBody = RequestBody.create(MediaType.parse("application/json"), request.getBody().getContent());
+            }
+
+        }
+//        RequestBody okBody = request.getBody() != null ?
+//            // TODO don't set content-type here? Should be on request?
+//            RequestBody.create(MediaType.parse("application/json"), request.getBody())
+//            : null;
+        return okBody;
+    }
+
+    // TODO default headers?
+    // TODO accept OkHttp client?
     public static class Builder {
         private int readTimeout;
         private int connectTimeout;

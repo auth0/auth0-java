@@ -2,6 +2,7 @@ package com.auth0.net;
 
 import com.auth0.net.client.HttpClient;
 import com.auth0.net.client.HttpMethod;
+import com.auth0.net.client.HttpRequestBody;
 import com.auth0.net.client.HttpResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -63,8 +64,19 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
 //        return bodyBuilder.build();
 //    }
 
+//    @Override
+//    protected byte[] createRequestBody() throws IOException {
+//        if (partsCount == 0) {
+//            throw new IOException("Cannot create multipart/form-data request body with zero parts.");
+//        }
+//
+//        // TODO how do we handle multi-part requests????
+//        return null;
+////        return bodyBuilder.build();
+//    }
+
     @Override
-    protected byte[] createRequestBody() throws IOException {
+    protected HttpRequestBody createRequestBody() throws IOException {
         if (partsCount == 0) {
             throw new IOException("Cannot create multipart/form-data request body with zero parts.");
         }
@@ -103,7 +115,7 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
         }
         // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
         // https://github.com/auth0/auth0-java/issues/324
-        bodyBuilder.addFormDataPart(name, file.getName(),
+            bodyBuilder.addFormDataPart(name, file.getName(),
             RequestBody.create(MediaType.parse(mediaType), file));
         partsCount++;
         return this;

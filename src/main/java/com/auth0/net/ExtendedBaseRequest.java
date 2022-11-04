@@ -3,10 +3,7 @@ package com.auth0.net;
 import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.RateLimitException;
-import com.auth0.net.client.HttpClient;
-import com.auth0.net.client.HttpMethod;
-import com.auth0.net.client.HttpRequest;
-import com.auth0.net.client.HttpResponse;
+import com.auth0.net.client.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.MapType;
 
@@ -46,8 +43,10 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
 
     @Override
     protected HttpRequest createRequest() throws Auth0Exception {
-        byte[] body;
+//        byte[] body;
+        HttpRequestBody body;
         try {
+//            body = this.createRequestBody();
             body = this.createRequestBody();
         } catch (IOException e) {
             throw new Auth0Exception("Couldn't create the request body.", e);
@@ -108,7 +107,8 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
      * @return the body to send as part of the request.
      * @throws IOException if an error is raised during the creation of the body.
      */
-    protected abstract byte[] createRequestBody() throws IOException;
+//    protected abstract byte[] createRequestBody() throws IOException;
+    protected abstract HttpRequestBody createRequestBody() throws IOException;
 
     /**
      * Responsible for parsing the payload that is received as part of the response.

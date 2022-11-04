@@ -2,6 +2,7 @@ package com.auth0.net;
 
 import com.auth0.net.client.HttpClient;
 import com.auth0.net.client.HttpMethod;
+import com.auth0.net.client.HttpRequestBody;
 import com.auth0.net.client.HttpResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,14 +44,16 @@ public class CustomRequest<T> extends ExtendedBaseRequest<T> implements Customiz
     @Override
     @SuppressWarnings("deprecation")
 //    protected RequestBody createRequestBody() throws IOException {
-    protected byte[] createRequestBody() throws IOException {
+    protected HttpRequestBody createRequestBody() throws IOException {
+//    protected byte[] createRequestBody() throws IOException {
         if (body == null && parameters.isEmpty()) {
             return null;
         }
         byte[] jsonBody = mapper.writeValueAsBytes(body != null ? body : parameters);
         // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
         // https://github.com/auth0/auth0-java/issues/324
-        return jsonBody;
+        return new HttpRequestBody.Builder().withContent(jsonBody).build();
+//        return jsonBody;
 //        return RequestBody.create(MediaType.parse(CONTENT_TYPE_APPLICATION_JSON), jsonBody);
     }
 
