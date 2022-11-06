@@ -792,6 +792,56 @@ public class AuthAPI {
     }
 
     /**
+     * Creates a request to exchange the code obtained from the {@code /authorize} call using the Authorization Code
+     * with PKCE grant.
+     * <pre>
+     * {@code
+     * AuthAPI auth = new AuthAPI("DOMAIN", "CLIENT-ID", "CLIENT-SECRET");
+     *
+     * SecureRandom sr = new SecureRandom();
+     * byte[] code = new byte[32];
+     * sr.nextBytes(code);
+     * String verifier = Base64.getUrlEncoder().withoutPadding().encodeToString(code);
+     *
+     * byte[] bytes = verifier.getBytes("US-ASCII");
+     * MessageDigest md = MessageDigest.getInstance("SHA-256");
+     * md.update(bytes, 0, bytes.length);
+     * byte[] digest = md.digest();
+     * String challenge = Base64.getUrlEncoder().withoutPadding().encodeToString(digest);
+     *
+     * // generate authorize URL with code challenge derived from verifier
+     * String url = auth.authorizeUrl("https://me.auth0.com/callback")
+     *      .withCodeChallenge(challenge)
+     *      .build();
+     *
+     * // on redirect, exchange code and verify challenge
+     * try {
+     *      TokenHolder result = auth.exchangeCodeWithVerifier("CODE", verifier, "https://me.auth0.com/callback")
+     *          .setScope("openid name nickname")
+     *          .execute();
+     * } catch (Auth0Exception e) {
+     *      // Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param code the authorization code received from the {@code /authorize} call.
+     * @param verifier the cryptographically random key that was used to generate the {@code code_challenge} passed to
+     *                 {@code /authorize}
+     * @param redirectUri the redirect uri sent on the /authorize call.
+     * @return a Request to configure and execute.
+     */
+    public TokenRequest exchangeCodeWithVerifier(String code, String verifier, String redirectUri) {
+        Asserts.assertNotNull(code, "code");
+        Asserts.assertNotNull(redirectUri, "redirect uri");
+        Asserts.assertNotNull(verifier, "verifier");
+
+        TokenRequest request = exchangeCode(code, redirectUri);
+        request.addParameter("code_verifier", verifier);
+        return request;
+    }
+
+    /**
      * Create a request to send an email containing a link or a code to begin authentication with Passwordless connections.
      *
      * <pre>

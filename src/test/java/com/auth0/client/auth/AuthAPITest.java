@@ -1416,4 +1416,39 @@ public class AuthAPITest {
         assertThat(response.getTokenType(), not(emptyOrNullString()));
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
+
+    @Test
+    public void shouldCreateLogInWithAuthorizationCodeGrantWithPKCERequest() throws Exception {
+        AuthRequest request = api.exchangeCodeWithVerifier("code123", "verifier", "https://domain.auth0.com/callback");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("code", "code123"));
+        assertThat(body, hasEntry("code_verifier", "verifier"));
+        assertThat(body, hasEntry("redirect_uri", "https://domain.auth0.com/callback"));
+        assertThat(body, hasEntry("grant_type", "authorization_code"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowWhenVerifierNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'verifier' cannot be null!");
+        api.exchangeCodeWithVerifier("code", null,"https://domain.auth0.com/callback");
+    }
 }
