@@ -226,4 +226,22 @@ public class AuthorizeUrlBuilderTest {
             .withInvitation(null)
             .build();
     }
+
+    @Test
+    public void shouldAddCodeChallengeParameter() {
+        String authUrl = AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
+            .withCodeChallenge("insecure_challenge")
+            .build();
+        assertThat(authUrl, hasQueryParameter("code_challenge", "insecure_challenge"));
+        assertThat(authUrl, hasQueryParameter("code_challenge_method", "S256"));
+    }
+
+    @Test
+    public void shouldThrowWhenChallengeIsNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'challenge' cannot be null!");
+        AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
+            .withCodeChallenge(null)
+            .build();
+    }
 }
