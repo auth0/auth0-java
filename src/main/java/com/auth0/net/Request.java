@@ -15,7 +15,7 @@ public interface Request<T> {
     /**
      * Executes this request synchronously.
      *
-     * @return the response body JSON decoded as T
+     * @return a {@link Response} containing information about the response.
      * @throws APIException   if the request was executed but the response wasn't successful.
      * @throws Auth0Exception if the request couldn't be created or executed successfully.
      */
