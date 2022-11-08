@@ -6,20 +6,21 @@ import com.auth0.json.mgmt.EmailVerificationIdentity;
 import com.auth0.json.mgmt.jobs.Job;
 import com.auth0.json.mgmt.jobs.JobErrorDetails;
 import com.auth0.net.CustomRequest;
-import com.auth0.net.MultipartRequest;
+import com.auth0.net.FileUploadRequest;
 import com.auth0.net.Request;
+import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.HttpMethod;
+import com.auth0.net.client.HttpResponse;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import okhttp3.ResponseBody;
 
 /**
  * Class that provides an implementation of the Jobs methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Jobs
@@ -31,7 +32,7 @@ import okhttp3.ResponseBody;
 @SuppressWarnings("WeakerAccess")
 public class JobsEntity extends BaseManagementEntity {
 
-    JobsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    JobsEntity(HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
@@ -52,7 +53,7 @@ public class JobsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<Job> request = new CustomRequest<>(client, url, "GET", new TypeReference<Job>() {
+        CustomRequest<Job> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Job>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -78,14 +79,22 @@ public class JobsEntity extends BaseManagementEntity {
 
         TypeReference<List<JobErrorDetails>> jobErrorDetailsListType = new TypeReference<List<JobErrorDetails>>() {
         };
-        CustomRequest<List<JobErrorDetails>> request = new CustomRequest<List<JobErrorDetails>>(client, url, "GET", jobErrorDetailsListType) {
-            @Override
-            protected List<JobErrorDetails> readResponseBody(ResponseBody body) throws IOException {
-                if (body.contentLength() == 0) {
-                    return Collections.emptyList();
+        CustomRequest<List<JobErrorDetails>> request = new CustomRequest<List<JobErrorDetails>>(client, url, HttpMethod.GET, jobErrorDetailsListType) {
+//            @Override
+//            protected List<JobErrorDetails> readResponseBody(ResponseBody body) throws IOException {
+//                if (body.contentLength() == 0) {
+//                    return Collections.emptyList();
+//                }
+//                return super.readResponseBody(body);
+//            }
+                @Override
+                protected List<JobErrorDetails> readResponseBody(HttpResponse response) throws IOException {
+//                    if (body.contentLength() == 0) {
+                    if (response.getBody() == null || response.getBody().length() == 0) {// TODO this right?
+                        return Collections.emptyList();
+                    }
+                    return super.readResponseBody(response);
                 }
-                return super.readResponseBody(body);
-            }
         };
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -157,7 +166,7 @@ public class JobsEntity extends BaseManagementEntity {
             Asserts.assertNotNull(emailVerificationIdentity.getUserId(), "identity user id");
             requestBody.put("identity", emailVerificationIdentity);
         }
-        CustomRequest<Job> request = new CustomRequest<>(client, url, "POST", new TypeReference<Job>() {
+        CustomRequest<Job> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(requestBody);
@@ -188,7 +197,7 @@ public class JobsEntity extends BaseManagementEntity {
             requestBody.putAll(filter.getAsMap());
         }
 
-        CustomRequest<Job> request = new CustomRequest<>(client, url, "POST", new TypeReference<Job>() {
+        CustomRequest<Job> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(requestBody);
@@ -205,25 +214,68 @@ public class JobsEntity extends BaseManagementEntity {
      * @param options      Optional parameters to set. Can be null.
      * @return a Request to execute.
      */
+//    public Request<Job> importUsers(String connectionId, File users, UsersImportOptions options) {
+//        Asserts.assertNotNull(connectionId, "connection id");
+//        Asserts.assertNotNull(users, "users file");
+//
+//        String url = baseUrl
+//                .newBuilder()
+//                .addPathSegments("api/v2/jobs/users-imports")
+//                .build()
+//                .toString();
+//
+//        // Ideal
+//        // buildRequest(client, url, HttpMethod.POST, new TypeReference<Job>(), file, params);
+//        // FileUploadRequest<Job> request = new FileUploadRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>(){},
+//        //      file, params
+//        MultipartRequest<Job> request = new MultipartRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>() {
+//        });
+//        if (options != null) {
+//            for (Map.Entry<String, Object> e : options.getAsMap().entrySet()) {
+//                request.addPart(e.getKey(), String.valueOf(e.getValue()));
+//            }
+//        }
+//        request.addPart("connection_id", connectionId);
+//        request.addPart("users", users, "text/json");
+//        request.addHeader("Authorization", "Bearer " + apiToken);
+//        return request;
+//    }
+
     public Request<Job> importUsers(String connectionId, File users, UsersImportOptions options) {
         Asserts.assertNotNull(connectionId, "connection id");
         Asserts.assertNotNull(users, "users file");
 
         String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/jobs/users-imports")
-                .build()
-                .toString();
-        MultipartRequest<Job> request = new MultipartRequest<>(client, url, "POST", new TypeReference<Job>() {
-        });
-        if (options != null) {
-            for (Map.Entry<String, Object> e : options.getAsMap().entrySet()) {
-                request.addPart(e.getKey(), String.valueOf(e.getValue()));
-            }
+            .newBuilder()
+            .addPathSegments("api/v2/jobs/users-imports")
+            .build()
+            .toString();
+
+        // TODO better way
+        Map<String, String> params = new HashMap<>();
+        for (Map.Entry<String, Object> e : options.getAsMap().entrySet()) {
+            params.put(e.getKey(), String.valueOf(e.getValue()));
         }
-        request.addPart("connection_id", connectionId);
-        request.addPart("users", users, "text/json");
+        params.put("connection_id", connectionId);
+
+        FileUploadRequest<Job> request = new FileUploadRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>() {},
+            users, params);
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
+        // Ideal
+        // buildRequest(client, url, HttpMethod.POST, new TypeReference<Job>(), file, params);
+        // FileUploadRequest<Job> request = new FileUploadRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>(){},
+        //      file, params
+//        MultipartRequest<Job> request = new MultipartRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>() {
+//        });
+//        if (options != null) {
+//            for (Map.Entry<String, Object> e : options.getAsMap().entrySet()) {
+//                request.addPart(e.getKey(), String.valueOf(e.getValue()));
+//            }
+//        }
+//        request.addPart("connection_id", connectionId);
+//        request.addPart("users", users, "text/json");
+//        request.addHeader("Authorization", "Bearer " + apiToken);
+//        return request;
     }
 }

@@ -6,10 +6,11 @@ import com.auth0.json.mgmt.ConnectionsPage;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class ConnectionsEntity extends BaseManagementEntity {
 
-    ConnectionsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    ConnectionsEntity(HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
@@ -46,7 +47,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<ConnectionsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<ConnectionsPage>() {
+        CustomRequest<ConnectionsPage> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<ConnectionsPage>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -76,7 +77,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<List<Connection>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Connection>>() {
+        CustomRequest<List<Connection>> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<List<Connection>>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -103,7 +104,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<Connection> request = new CustomRequest<>(client, url, "GET", new TypeReference<Connection>() {
+        CustomRequest<Connection> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Connection>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -124,7 +125,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/connections")
                 .build()
                 .toString();
-        CustomRequest<Connection> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<Connection>() {
+        CustomRequest<Connection> request = new CustomRequest<>(this.client, url, HttpMethod.POST, new TypeReference<Connection>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(connection);
@@ -147,7 +148,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addPathSegment(connectionId)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
+        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
@@ -170,7 +171,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addPathSegment(connectionId)
                 .build()
                 .toString();
-        CustomRequest<Connection> request = new CustomRequest<>(this.client, url, "PATCH", new TypeReference<Connection>() {
+        CustomRequest<Connection> request = new CustomRequest<>(this.client, url, HttpMethod.PATCH, new TypeReference<Connection>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(connection);
@@ -197,7 +198,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addQueryParameter("email", email)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(this.client, url, "DELETE");
+        VoidRequest request = new VoidRequest(this.client, url, HttpMethod.DELETE);
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }

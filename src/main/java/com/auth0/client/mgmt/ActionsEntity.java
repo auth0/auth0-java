@@ -8,12 +8,12 @@ import com.auth0.net.CustomRequest;
 import com.auth0.net.EmptyBodyRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.HttpMethod;
+import com.auth0.net.client.HttpRequestBody;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
 
 /**
  * Class that provides an implementation of the Actions methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Actions
@@ -35,7 +35,7 @@ public class ActionsEntity extends BaseManagementEntity {
 
     private final static String AUTHORIZATION_HEADER = "Authorization";
 
-    ActionsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    ActionsEntity(HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
@@ -57,7 +57,7 @@ public class ActionsEntity extends BaseManagementEntity {
 
         String url = builder.build().toString();
 
-        CustomRequest<Action> request = new CustomRequest<>(client, url, "POST", new TypeReference<Action>() {
+        CustomRequest<Action> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<Action>() {
         });
 
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
@@ -84,7 +84,7 @@ public class ActionsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<Action> request = new CustomRequest<>(client, url, "GET", new TypeReference<Action>() {
+        CustomRequest<Action> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Action>() {
         });
 
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
@@ -125,7 +125,7 @@ public class ActionsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        VoidRequest voidRequest = new VoidRequest(client, url, "DELETE");
+        VoidRequest voidRequest = new VoidRequest(client, url, HttpMethod.DELETE);
         voidRequest.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return voidRequest;
     }
@@ -144,7 +144,7 @@ public class ActionsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<Triggers> request = new CustomRequest<>(client, url, "GET", new TypeReference<Triggers>() {
+        CustomRequest<Triggers> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Triggers>() {
         });
 
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
@@ -173,7 +173,7 @@ public class ActionsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<Action> request = new CustomRequest<>(client, url, "PATCH", new TypeReference<Action>() {
+        CustomRequest<Action> request = new CustomRequest<>(client, url, HttpMethod.PATCH, new TypeReference<Action>() {
         });
 
         request.setBody(action);
@@ -204,7 +204,7 @@ public class ActionsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        EmptyBodyRequest<Version> request = new EmptyBodyRequest<>(client, url, "POST", new TypeReference<Version>() {
+        EmptyBodyRequest<Version> request = new EmptyBodyRequest<>(client, url, HttpMethod.POST, new TypeReference<Version>() {
         });
 
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
@@ -235,7 +235,7 @@ public class ActionsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<Version> request = new CustomRequest<>(client, url, "GET", new TypeReference<Version>() {
+        CustomRequest<Version> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Version>() {
         });
 
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
@@ -269,7 +269,7 @@ public class ActionsEntity extends BaseManagementEntity {
             .toString();
 
         // Needed to successfully call the roll-back endpoint until DXEX-1738 is resolved.
-        EmptyObjectRequest<Version> request = new EmptyObjectRequest<>(client, url, "POST", new TypeReference<Version>() {
+        EmptyObjectRequest<Version> request = new EmptyObjectRequest<>(client, url, HttpMethod.POST, new TypeReference<Version>() {
         });
 
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
@@ -297,7 +297,7 @@ public class ActionsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<Execution> request = new CustomRequest<>(client, url, "GET", new TypeReference<Execution>() {
+        CustomRequest<Execution> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Execution>() {
         });
 
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
@@ -321,7 +321,7 @@ public class ActionsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        CustomRequest<ActionsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<ActionsPage>() {
+        CustomRequest<ActionsPage> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<ActionsPage>() {
         });
 
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
@@ -353,7 +353,7 @@ public class ActionsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        CustomRequest<VersionsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<VersionsPage>() {
+        CustomRequest<VersionsPage> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<VersionsPage>() {
         });
 
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
@@ -386,7 +386,7 @@ public class ActionsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        CustomRequest<BindingsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<BindingsPage>() {
+        CustomRequest<BindingsPage> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<BindingsPage>() {
         });
 
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
@@ -418,7 +418,7 @@ public class ActionsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<BindingsPage> request = new CustomRequest<>(client, url, "PATCH", new TypeReference<BindingsPage>() {
+        CustomRequest<BindingsPage> request = new CustomRequest<>(client, url, HttpMethod.PATCH, new TypeReference<BindingsPage>() {
         });
 
         request.setBody(bindingsUpdateRequest);
@@ -434,17 +434,28 @@ public class ActionsEntity extends BaseManagementEntity {
 
     // Temporary request implementation to send an empty json object on the request body.
     private static class EmptyObjectRequest<T> extends EmptyBodyRequest<T> {
-        EmptyObjectRequest(OkHttpClient client, String url, String method, TypeReference<T> tType) {
+        EmptyObjectRequest(HttpClient client, String url, HttpMethod method, TypeReference<T> tType) {
             super(client, url, method, tType);
         }
 
-        @Override
+//        @Override
         @SuppressWarnings("deprecation")
-        protected RequestBody createRequestBody() {
+//        protected byte[] createRequestBody() {
+//            // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
+//            // https://github.com/auth0/auth0-java/issues/324
+//            // TODO this right?
+//            return "{}".getBytes();
+////            return RequestBody.create(MediaType.parse("application/json"), "{}".getBytes());
+//        }
+
+        @Override
+        protected HttpRequestBody createRequestBody() {
             // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
             // https://github.com/auth0/auth0-java/issues/324
-            return RequestBody.create(MediaType.parse("application/json"), "{}".getBytes());
+            // TODO this right?
+            return new HttpRequestBody.Builder().withContent("{}".getBytes()).build();
+//            return "{}".getBytes();
+//            return RequestBody.create(MediaType.parse("application/json"), "{}".getBytes());
         }
-
     }
 }
