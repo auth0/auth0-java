@@ -24,7 +24,7 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT_GRANTS_LIST, 200);
-        ClientGrantsPage response = request.execute();
+        ClientGrantsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/client-grants"));
@@ -42,7 +42,7 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT_GRANTS_LIST, 200);
-        ClientGrantsPage response = request.execute();
+        ClientGrantsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/client-grants"));
@@ -62,7 +62,7 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT_GRANTS_PAGED_LIST, 200);
-        ClientGrantsPage response = request.execute();
+        ClientGrantsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/client-grants"));
@@ -87,7 +87,7 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT_GRANTS_LIST, 200);
-        ClientGrantsPage response = request.execute();
+        ClientGrantsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/client-grants"));
@@ -108,7 +108,7 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT_GRANTS_LIST, 200);
-        List<ClientGrant> response = request.execute();
+        List<ClientGrant> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/client-grants"));
@@ -126,7 +126,7 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
-        List<ClientGrant> response = request.execute();
+        List<ClientGrant> response = request.execute().getBody();
 
         assertThat(response, is(notNullValue()));
         assertThat(response, is(emptyCollectionOf(ClientGrant.class)));
@@ -159,7 +159,7 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT_GRANT, 200);
-        ClientGrant response = request.execute();
+        ClientGrant response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/client-grants"));
@@ -189,7 +189,7 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT_GRANT, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/client-grants/1"));
@@ -217,7 +217,7 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT_GRANT, 200);
-        ClientGrant response = request.execute();
+        ClientGrant response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/client-grants/1"));

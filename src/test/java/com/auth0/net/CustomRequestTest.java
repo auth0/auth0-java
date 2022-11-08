@@ -62,7 +62,7 @@ public class CustomRequestTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder execute = request.execute();
+        TokenHolder execute = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
         assertThat(recordedRequest.getMethod(), is("GET"));
         assertThat(execute, is(notNullValue()));
@@ -75,7 +75,7 @@ public class CustomRequestTest {
         request.addParameter("non_empty", "body");
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder execute = request.execute();
+        TokenHolder execute = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
         assertThat(recordedRequest.getMethod(), is("POST"));
         assertThat(execute, is(notNullValue()));
@@ -89,7 +89,7 @@ public class CustomRequestTest {
         request.addParameter("map", mapValue);
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
         Map<String, Object> values = bodyFromRequest(recordedRequest);
         assertThat(values, hasEntry("key", "value"));
@@ -104,7 +104,7 @@ public class CustomRequestTest {
         request.addHeader("Authorization", "Bearer my_access_token");
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest.getHeader("Extra-Info"), is("this is a test"));
@@ -118,7 +118,7 @@ public class CustomRequestTest {
         request.addHeader("Content-Type", "plaintext");
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest.getHeader("Content-Type"), is("application/json"));
@@ -135,7 +135,7 @@ public class CustomRequestTest {
         when(client.newCall(any(okhttp3.Request.class))).thenReturn(call);
         when(call.execute()).thenThrow(IOException.class);
         CustomRequest<Void> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", voidType);
-        request.execute();
+        request.execute().getBody();
     }
 
     @Test
@@ -148,14 +148,14 @@ public class CustomRequestTest {
         exception.expect(Auth0Exception.class);
         exception.expectCause(Matchers.<Throwable>instanceOf(JsonProcessingException.class));
         exception.expectMessage("Couldn't create the request body.");
-        request.execute();
+        request.execute().getBody();
     }
 
     @Test
     public void shouldParseSuccessfulResponse() throws Exception {
         CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), "GET", tokenHolderType);
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         server.takeRequest();
 
         assertThat(response, is(notNullValue()));
@@ -172,7 +172,7 @@ public class CustomRequestTest {
         server.jsonResponse(AUTH_TOKENS, 200);
         Exception exception = null;
         try {
-            request.execute();
+            request.execute().getBody();
             server.takeRequest();
         } catch (Exception e) {
             exception = e;
@@ -193,7 +193,7 @@ public class CustomRequestTest {
         server.jsonResponse(AUTH_ERROR_WITH_ERROR_DESCRIPTION, 400);
         Exception exception = null;
         try {
-            request.execute();
+            request.execute().getBody();
             server.takeRequest();
         } catch (Exception e) {
             exception = e;
@@ -214,7 +214,7 @@ public class CustomRequestTest {
         server.jsonResponse(AUTH_ERROR_WITH_ERROR, 400);
         Exception exception = null;
         try {
-            request.execute();
+            request.execute().getBody();
             server.takeRequest();
         } catch (Exception e) {
             exception = e;
@@ -236,7 +236,7 @@ public class CustomRequestTest {
         server.jsonResponse(AUTH_ERROR_WITH_DESCRIPTION_AND_EXTRA_PROPERTIES, 400);
         Exception exception = null;
         try {
-            request.execute();
+            request.execute().getBody();
             server.takeRequest();
         } catch (Exception e) {
             exception = e;
@@ -259,7 +259,7 @@ public class CustomRequestTest {
         server.jsonResponse(AUTH_ERROR_WITH_DESCRIPTION, 400);
         Exception exception = null;
         try {
-            request.execute();
+            request.execute().getBody();
             server.takeRequest();
         } catch (Exception e) {
             exception = e;
@@ -280,7 +280,7 @@ public class CustomRequestTest {
         server.jsonResponse(MGMT_ERROR_WITH_MESSAGE, 400);
         Exception exception = null;
         try {
-            request.execute();
+            request.execute().getBody();
             server.takeRequest();
         } catch (Exception e) {
             exception = e;
@@ -301,7 +301,7 @@ public class CustomRequestTest {
         server.textResponse(AUTH_ERROR_PLAINTEXT, 400);
         Exception exception = null;
         try {
-            request.execute();
+            request.execute().getBody();
             server.takeRequest();
         } catch (Exception e) {
             exception = e;
@@ -323,7 +323,7 @@ public class CustomRequestTest {
         server.rateLimitReachedResponse(100, 10, 5);
         Exception exception = null;
         try {
-            request.execute();
+            request.execute().getBody();
             server.takeRequest();
         } catch (Exception e) {
             exception = e;
@@ -348,7 +348,7 @@ public class CustomRequestTest {
         server.rateLimitReachedResponse(-1, -1, -1);
         Exception exception = null;
         try {
-            request.execute();
+            request.execute().getBody();
             server.takeRequest();
         } catch (Exception e) {
             exception = e;

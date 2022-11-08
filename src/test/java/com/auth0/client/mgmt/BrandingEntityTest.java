@@ -20,7 +20,7 @@ public class BrandingEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_BRANDING_SETTINGS, 200);
-        BrandingSettings response = request.execute();
+        BrandingSettings response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/branding"));
@@ -43,7 +43,7 @@ public class BrandingEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_BRANDING_SETTINGS, 200);
-        BrandingSettings response = request.execute();
+        BrandingSettings response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/branding"));
@@ -59,7 +59,7 @@ public class BrandingEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_BRANDING_LOGIN_TEMPLATE, 200);
-        UniversalLoginTemplate response = request.execute();
+        UniversalLoginTemplate response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/branding/templates/universal-login"));
@@ -75,7 +75,7 @@ public class BrandingEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/branding/templates/universal-login"));
@@ -96,7 +96,7 @@ public class BrandingEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/branding/templates/universal-login"));

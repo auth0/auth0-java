@@ -33,7 +33,7 @@ public class TicketsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMAIL_VERIFICATION_TICKET, 200);
-        EmailVerificationTicket response = request.execute();
+        EmailVerificationTicket response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/tickets/email-verification"));
@@ -62,7 +62,7 @@ public class TicketsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_PASSWORD_CHANGE_TICKET, 200);
-        PasswordChangeTicket response = request.execute();
+        PasswordChangeTicket response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/tickets/password-change"));

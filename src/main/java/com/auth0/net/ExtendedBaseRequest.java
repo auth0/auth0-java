@@ -61,7 +61,7 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
     }
 
     @Override
-    protected T parseResponse(Response response) throws Auth0Exception {
+    protected T parseResponseBody(okhttp3.Response response) throws Auth0Exception {
         if (!response.isSuccessful()) {
             throw createResponseException(response);
         }
@@ -118,7 +118,7 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
      * @param response the unsuccessful response, as received. If its body is accessed, the buffer must be closed.
      * @return the exception with the error details.
      */
-    protected Auth0Exception createResponseException(Response response) {
+    protected Auth0Exception createResponseException(okhttp3.Response response) {
         if (response.code() == STATUS_CODE_TOO_MANY_REQUEST) {
             return createRateLimitException(response);
         }
@@ -134,7 +134,7 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
         }
     }
 
-    private RateLimitException createRateLimitException(Response response) {
+    private RateLimitException createRateLimitException(okhttp3.Response response) {
         // -1 as default value if the header could not be found.
         long limit = Long.parseLong(response.header("X-RateLimit-Limit", "-1"));
         long remaining = Long.parseLong(response.header("X-RateLimit-Remaining", "-1"));

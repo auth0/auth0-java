@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
+import java.util.Collections;
 import java.util.HashMap;
 
 /**
@@ -24,7 +25,7 @@ public class VoidRequest extends CustomRequest<Void> {
     }
 
     @Override
-    protected Void parseResponse(Response response) throws Auth0Exception {
+    protected Void parseResponseBody(Response response) throws Auth0Exception {
         if (!response.isSuccessful()) {
             throw super.createResponseException(response);
         }

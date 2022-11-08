@@ -5,6 +5,8 @@ import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.RateLimitException;
 import okhttp3.Request;
 import okhttp3.*;
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,19 +25,29 @@ import static org.mockito.Mockito.*;
 //  https://github.com/mockito/mockito/issues/1728
 public class BaseRequestTest {
 
-    private Response response;
+    private okhttp3.Response response;
     private Call call;
     private OkHttpClient client;
 
+    private MockWebServer server;
+
     @Before
     public void setUp() throws Exception {
-        response = mock(Response.class);
+        response = mock(okhttp3.Response.class);
 
         call = mock(Call.class);
         when(call.execute()).thenReturn(response);
 
         client = mock(OkHttpClient.class);
         when(client.newCall(any())).thenReturn(call);
+
+        server = new MockWebServer();
+        server.start();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        server.shutdown();
     }
 
     @Test
@@ -44,10 +56,10 @@ public class BaseRequestTest {
         try {
             new MockBaseRequest<String>(client) {
                 @Override
-                protected String parseResponse(Response response) {
+                protected String parseResponseBody(okhttp3.Response response) {
                     return "";
                 }
-            }.execute();
+            }.execute().getBody();
         } catch (Exception e) {
             exception = e;
         }
@@ -62,10 +74,10 @@ public class BaseRequestTest {
         try {
             new MockBaseRequest<String>(client) {
                 @Override
-                protected String parseResponse(Response response) throws Auth0Exception {
+                protected String parseResponseBody(okhttp3.Response response) throws Auth0Exception {
                     throw new RateLimitException(-1, -1, -1);
                 }
-            }.execute();
+            }.execute().getBody();
         } catch (Exception e) {
             exception = e;
         }
@@ -82,10 +94,10 @@ public class BaseRequestTest {
         try {
             new MockBaseRequest<String>(client) {
                 @Override
-                protected String parseResponse(Response response) throws Auth0Exception {
+                protected String parseResponseBody(okhttp3.Response response) throws Auth0Exception {
                     throw new APIException("APIException", 500, null);
                 }
-            }.execute();
+            }.execute().getBody();
         } catch (Exception e) {
             exception = e;
         }
@@ -102,10 +114,10 @@ public class BaseRequestTest {
         try {
             new MockBaseRequest<String>(client) {
                 @Override
-                protected String parseResponse(Response response) throws Auth0Exception {
+                protected String parseResponseBody(okhttp3.Response response) throws Auth0Exception {
                     throw new Auth0Exception("Auth0Exception");
                 }
-            }.execute();
+            }.execute().getBody();
         } catch (Exception e) {
             exception = e;
         }
@@ -118,13 +130,13 @@ public class BaseRequestTest {
 
     @Test
     public void asyncCompletesWithExceptionWhenRequestCreationFails() throws Exception {
-        CompletableFuture<?> request = new MockBaseRequest<String>(client) {
+        CompletableFuture<com.auth0.net.Response<String>> request = new MockBaseRequest<String>(client) {
             @Override
-            protected Request parseResponse(Response response) throws Auth0Exception {
+            protected String parseResponseBody(okhttp3.Response response) throws Auth0Exception {
                 throw new Auth0Exception("Response Parsing Error");
             }
             @Override
-            protected Request createRequest() throws Auth0Exception {
+            protected okhttp3.Request createRequest() throws Auth0Exception {
                 throw new Auth0Exception("Create Request Error");
             }
         }.executeAsync();
@@ -155,7 +167,7 @@ public class BaseRequestTest {
 
         CompletableFuture<?> request = new MockBaseRequest<String>(client) {
             @Override
-            protected String parseResponse(Response response) throws Auth0Exception {
+            protected String parseResponseBody(okhttp3.Response response) throws Auth0Exception {
                 throw new Auth0Exception("Response Parsing Error");
             }
         }.executeAsync();
@@ -188,7 +200,7 @@ public class BaseRequestTest {
 
         CompletableFuture<?> request = new MockBaseRequest<String>(client) {
             @Override
-            protected String parseResponse(Response response) throws Auth0Exception {
+            protected String parseResponseBody(okhttp3.Response response) throws Auth0Exception {
                 throw new Auth0Exception("Response Parsing Error");
             }
         }.executeAsync();
@@ -217,15 +229,15 @@ public class BaseRequestTest {
             return null;
         }).when(call).enqueue(any());
 
-        CompletableFuture<?> request = new MockBaseRequest<String>(client) {
+        CompletableFuture<com.auth0.net.Response<String>> request = new MockBaseRequest<String>(client) {
             @Override
-            protected String parseResponse(Response response) throws Auth0Exception {
+            protected String parseResponseBody(okhttp3.Response response) throws Auth0Exception {
                 return "Success";
             }
         }.executeAsync();
 
         Exception exception = null;
-        Object result = null;
+        Response<String> result = null;
 
         try {
             result = request.get();
@@ -234,11 +246,55 @@ public class BaseRequestTest {
         }
 
         assertThat(exception, is(nullValue()));
-        assertThat(result, is(instanceOf(String.class)));
-        assertThat(result, is("Success"));
+        assertThat(result, is(instanceOf(Response.class)));
+        assertThat(result.getBody(), is("Success"));
     }
 
-    private abstract static class MockBaseRequest<String> extends BaseRequest {
+    @Test
+    public void returnsResponseInfo() throws Exception {
+        Headers headers = new Headers.Builder().add("Content-Type", "text/plain").build();
+        when(response.code()).thenReturn(200);
+        when(response.headers()).thenReturn(headers);
+
+        Response<String> a0response = new MockBaseRequest<String>(client) {
+            @Override
+            protected String parseResponseBody(okhttp3.Response response) {
+                return "success";
+            }
+        }.execute();
+
+        assertThat(a0response.getStatusCode(), is(200));
+        assertThat(a0response.getHeaders().size(), is(1));
+        assertThat(a0response.getHeaders().get("Content-Type"), is("text/plain"));
+        assertThat(a0response.getBody(), is("success"));
+    }
+
+    @Test
+    public void returnsResponseInfoWhenAsync() throws Exception {
+        doAnswer(invocation -> {
+            ((Callback) invocation.getArgument(0)).onResponse(call, response);
+            return null;
+        }).when(call).enqueue(any());
+
+        Headers headers = new Headers.Builder().add("Content-Type", "text/plain").build();
+        when(response.code()).thenReturn(200);
+        when(response.headers()).thenReturn(headers);
+
+        Response<String> a0response = new MockBaseRequest<String>(client) {
+            @Override
+            protected String parseResponseBody(okhttp3.Response response) {
+                return "success";
+            }
+        }.executeAsync().get();
+
+        assertThat(a0response.getStatusCode(), is(200));
+        assertThat(a0response.getHeaders().size(), is(1));
+        assertThat(a0response.getHeaders().get("Content-Type"), is("text/plain"));
+        assertThat(a0response.getBody(), is("success"));
+    }
+
+
+    private abstract static class MockBaseRequest<String> extends BaseRequest<String> {
         MockBaseRequest(OkHttpClient client) {
             super(client);
         }
