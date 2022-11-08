@@ -34,7 +34,7 @@ public class KeysEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(KEY_LIST, 200);
-        List<Key> response = request.execute();
+        List<Key> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/keys/signing"));
@@ -51,7 +51,7 @@ public class KeysEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(KEY, 200);
-        Key response = request.execute();
+        Key response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/keys/signing/123"));
@@ -67,7 +67,7 @@ public class KeysEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(KEY_ROTATE, 200);
-        Key response = request.execute();
+        Key response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/keys/signing/rotate"));
@@ -83,7 +83,7 @@ public class KeysEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(KEY_REVOKE, 200);
-        Key response = request.execute();
+        Key response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/keys/signing/123/revoke"));

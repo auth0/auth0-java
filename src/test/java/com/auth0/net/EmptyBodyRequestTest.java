@@ -44,7 +44,7 @@ public class EmptyBodyRequestTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
         assertThat(recordedRequest.getMethod(), is("POST"));
         assertThat(recordedRequest.getBodySize(), is(0L));
@@ -58,7 +58,7 @@ public class EmptyBodyRequestTest {
         request.addParameter("map", mapValue);
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
         assertThat(recordedRequest.getMethod(), is("POST"));
         assertThat(recordedRequest.getBodySize(), is(0L));

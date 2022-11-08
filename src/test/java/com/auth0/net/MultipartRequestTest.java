@@ -75,7 +75,7 @@ public class MultipartRequestTest {
         request.addPart("non_empty", "body");
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder execute = request.execute();
+        TokenHolder execute = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
         assertThat(recordedRequest.getMethod(), is("POST"));
         assertThat(execute, is(notNullValue()));
@@ -92,7 +92,7 @@ public class MultipartRequestTest {
         request.addPart("jsonFile", fileValue, "text/json");
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
         RecordedMultipartRequest recordedMultipartRequest = new RecordedMultipartRequest(recordedRequest);
         assertThat(recordedMultipartRequest.getPartsCount(), is(2));
@@ -118,7 +118,7 @@ public class MultipartRequestTest {
         request.addHeader("Content-Type", "plaintext");
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest.getHeader("Content-Type"), is("multipart/form-data; boundary=5c49fdf2"));
@@ -132,7 +132,7 @@ public class MultipartRequestTest {
         request.addHeader("Authorization", "Bearer my_access_token");
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest.getHeader("Extra-Info"), is("this is a test"));
@@ -151,7 +151,7 @@ public class MultipartRequestTest {
         when(call.execute()).thenThrow(IOException.class);
         MultipartRequest<Void> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", voidType);
         request.addPart("non_empty", "body");
-        request.execute();
+        request.execute().getBody();
     }
 
     @Test
@@ -159,7 +159,7 @@ public class MultipartRequestTest {
         Exception exception = null;
         try {
             MultipartRequest<Void> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", voidType);
-            request.execute();
+            request.execute().getBody();
         } catch (Exception e) {
             exception = e;
         }
@@ -175,7 +175,7 @@ public class MultipartRequestTest {
         MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, server.getBaseUrl(), "POST", tokenHolderType);
         request.addPart("non_empty", "body");
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         server.takeRequest();
 
         assertThat(response, is(notNullValue()));
@@ -193,7 +193,7 @@ public class MultipartRequestTest {
         server.jsonResponse(AUTH_TOKENS, 200);
         Exception exception = null;
         try {
-            request.execute();
+            request.execute().getBody();
             server.takeRequest();
         } catch (Exception e) {
             exception = e;
@@ -215,7 +215,7 @@ public class MultipartRequestTest {
         server.jsonResponse(AUTH_ERROR_WITH_ERROR_DESCRIPTION, 400);
         Exception exception = null;
         try {
-            request.execute();
+            request.execute().getBody();
             server.takeRequest();
         } catch (Exception e) {
             exception = e;
@@ -237,7 +237,7 @@ public class MultipartRequestTest {
         server.jsonResponse(AUTH_ERROR_WITH_ERROR, 400);
         Exception exception = null;
         try {
-            request.execute();
+            request.execute().getBody();
             server.takeRequest();
         } catch (Exception e) {
             exception = e;
@@ -259,7 +259,7 @@ public class MultipartRequestTest {
         server.jsonResponse(AUTH_ERROR_WITH_DESCRIPTION_AND_EXTRA_PROPERTIES, 400);
         Exception exception = null;
         try {
-            request.execute();
+            request.execute().getBody();
             server.takeRequest();
         } catch (Exception e) {
             exception = e;
@@ -283,7 +283,7 @@ public class MultipartRequestTest {
         server.jsonResponse(AUTH_ERROR_WITH_DESCRIPTION, 400);
         Exception exception = null;
         try {
-            request.execute();
+            request.execute().getBody();
             server.takeRequest();
         } catch (Exception e) {
             exception = e;
@@ -305,7 +305,7 @@ public class MultipartRequestTest {
         server.jsonResponse(MGMT_ERROR_WITH_MESSAGE, 400);
         Exception exception = null;
         try {
-            request.execute();
+            request.execute().getBody();
             server.takeRequest();
         } catch (Exception e) {
             exception = e;
@@ -327,7 +327,7 @@ public class MultipartRequestTest {
         server.textResponse(AUTH_ERROR_PLAINTEXT, 400);
         Exception exception = null;
         try {
-            request.execute();
+            request.execute().getBody();
             server.takeRequest();
         } catch (Exception e) {
             exception = e;
@@ -350,7 +350,7 @@ public class MultipartRequestTest {
         server.rateLimitReachedResponse(100, 10, 5);
         Exception exception = null;
         try {
-            request.execute();
+            request.execute().getBody();
             server.takeRequest();
         } catch (Exception e) {
             exception = e;
@@ -376,7 +376,7 @@ public class MultipartRequestTest {
         server.rateLimitReachedResponse(-1, -1, -1);
         Exception exception = null;
         try {
-            request.execute();
+            request.execute().getBody();
             server.takeRequest();
         } catch (Exception e) {
             exception = e;

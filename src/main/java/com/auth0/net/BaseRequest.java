@@ -1,13 +1,15 @@
 package com.auth0.net;
 
 import com.auth0.exception.Auth0Exception;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
+import okhttp3.*;
 import okhttp3.Response;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 public abstract class BaseRequest<T> implements Request<T> {
@@ -20,7 +22,7 @@ public abstract class BaseRequest<T> implements Request<T> {
 
     protected abstract okhttp3.Request createRequest() throws Auth0Exception;
 
-    protected abstract T parseResponse(Response response) throws Auth0Exception;
+    protected abstract T parseResponseBody(okhttp3.Response response) throws Auth0Exception;
 
     /**
      * Executes this request.
@@ -29,10 +31,11 @@ public abstract class BaseRequest<T> implements Request<T> {
      * @throws Auth0Exception if the request execution fails.
      */
     @Override
-    public T execute() throws Auth0Exception {
+    public com.auth0.net.Response<T> execute() throws Auth0Exception {
         okhttp3.Request request = createRequest();
         try (Response response = client.newCall(request).execute()) {
-            return parseResponse(response);
+            T body = parseResponseBody(response);
+            return new ResponseImpl<T>(fromOkHttpHeaders(response.headers()), body, response.code());
         } catch (Auth0Exception e) {
             throw e;
         } catch (IOException e) {
@@ -41,8 +44,8 @@ public abstract class BaseRequest<T> implements Request<T> {
     }
 
     @Override
-    public CompletableFuture<T> executeAsync() {
-        final CompletableFuture<T> future = new CompletableFuture<T>();
+    public CompletableFuture<com.auth0.net.Response<T>> executeAsync() {
+        final CompletableFuture<com.auth0.net.Response<T>> future = new CompletableFuture<>();
 
         okhttp3.Request request;
         try {
@@ -61,8 +64,8 @@ public abstract class BaseRequest<T> implements Request<T> {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try {
-                    T parsedResponse = parseResponse(response);
-                    future.complete(parsedResponse);
+                    T parsedResponse = parseResponseBody(response);
+                    future.complete(new ResponseImpl<>(fromOkHttpHeaders(response.headers()), parsedResponse, response.code()));
                 } catch (Auth0Exception e) {
                     future.completeExceptionally(e);
                 }
@@ -70,5 +73,15 @@ public abstract class BaseRequest<T> implements Request<T> {
         });
 
         return future;
+    }
+
+    private static Map<String, String> fromOkHttpHeaders(Headers okHttpHeaders) {
+        if (Objects.isNull(okHttpHeaders)) {
+            return Collections.emptyMap();
+        }
+
+        Map<String, String> headers = new HashMap<>();
+        okHttpHeaders.forEach(nameValuePair -> headers.put(nameValuePair.getFirst(), nameValuePair.getSecond()));
+        return headers;
     }
 }

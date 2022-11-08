@@ -15,11 +15,11 @@ public interface Request<T> {
     /**
      * Executes this request synchronously.
      *
-     * @return the response body JSON decoded as T
+     * @return a {@link Response} containing information about the response.
      * @throws APIException   if the request was executed but the response wasn't successful.
      * @throws Auth0Exception if the request couldn't be created or executed successfully.
      */
-    T execute() throws Auth0Exception;
+    Response<T> execute() throws Auth0Exception;
 
     /**
      * Executes this request asynchronously.
@@ -33,7 +33,7 @@ public interface Request<T> {
      *
      * @return a {@linkplain CompletableFuture} representing the specified request.
      */
-    default CompletableFuture<T> executeAsync() {
+    default CompletableFuture<Response<T>> executeAsync() {
         throw new UnsupportedOperationException("executeAsync");
     }
 }

@@ -26,7 +26,7 @@ public class VoidRequestTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        Void execute = request.execute();
+        Void execute = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
         assertThat(recordedRequest.getMethod(), is("GET"));
         assertThat(execute, is(nullValue()));
@@ -39,7 +39,7 @@ public class VoidRequestTest {
         request.addParameter("non_empty", "body");
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        Void execute = request.execute();
+        Void execute = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
         assertThat(recordedRequest.getMethod(), is("POST"));
         assertThat(execute, is(nullValue()));

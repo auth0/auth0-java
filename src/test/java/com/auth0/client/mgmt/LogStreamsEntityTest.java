@@ -24,7 +24,7 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.MGMT_LOG_STREAMS_LIST, 200);
-        List<LogStream> response = request.execute();
+        List<LogStream> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/log-streams"));
@@ -46,7 +46,7 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
-        List<LogStream> response = request.execute();
+        List<LogStream> response = request.execute().getBody();
 
         assertThat(response, is(notNullValue()));
         assertThat(response, empty());
@@ -58,7 +58,7 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.MGMT_LOG_STREAM, 200);
-        LogStream response = request.execute();
+        LogStream response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/log-streams/123"));
@@ -81,7 +81,7 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_STREAM, 200);
-        LogStream response = request.execute();
+        LogStream response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/log-streams"));
@@ -112,7 +112,7 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_STREAM, 200);
-        LogStream response = request.execute();
+        LogStream response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/log-streams/123"));
@@ -139,7 +139,7 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/log-streams/1"));

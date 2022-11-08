@@ -38,7 +38,7 @@ public class TokenRequestTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
         assertThat(recordedRequest.getMethod(), is("POST"));
         assertThat(response, is(notNullValue()));
@@ -51,7 +51,7 @@ public class TokenRequestTest {
         request.setAudience("https://myapi.auth0.com/users");
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
         Map<String, Object> values = bodyFromRequest(recordedRequest);
         assertThat(values, hasEntry("audience", "https://myapi.auth0.com/users"));
@@ -64,7 +64,7 @@ public class TokenRequestTest {
         request.setScope("email profile photos");
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
         Map<String, Object> values = bodyFromRequest(recordedRequest);
         assertThat(values, hasEntry("scope", "email profile photos"));
@@ -77,7 +77,7 @@ public class TokenRequestTest {
         request.setRealm("dbconnection");
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
         Map<String, Object> values = bodyFromRequest(recordedRequest);
         assertThat(values, hasEntry("realm", "dbconnection"));

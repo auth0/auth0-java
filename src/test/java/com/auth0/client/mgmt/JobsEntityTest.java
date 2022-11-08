@@ -46,7 +46,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_JOB, 200);
-        Job response = request.execute();
+        Job response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/jobs/1"));
@@ -69,7 +69,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_JOB_ERROR_DETAILS, 200);
-        List<JobErrorDetails> response = request.execute();
+        List<JobErrorDetails> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/jobs/1/errors"));
@@ -87,7 +87,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.noContentResponse();
-        List<JobErrorDetails> response = request.execute();
+        List<JobErrorDetails> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/jobs/1/errors"));
@@ -116,7 +116,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_JOB_POST_USERS_EXPORTS, 200);
-        Job response = request.execute();
+        Job response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/jobs/users-exports"));
@@ -138,7 +138,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_JOB_POST_USERS_EXPORTS, 200);
-        Job response = request.execute();
+        Job response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/jobs/users-exports"));
@@ -161,7 +161,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_JOB_POST_USERS_EXPORTS, 200);
-        Job response = request.execute();
+        Job response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/jobs/users-exports"));
@@ -187,7 +187,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_JOB_POST_USERS_EXPORTS, 200);
-        Job response = request.execute();
+        Job response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/jobs/users-exports"));
@@ -214,7 +214,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_JOB_POST_VERIFICATION_EMAIL, 200);
-        Job response = request.execute();
+        Job response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/jobs/verification-email"));
@@ -234,7 +234,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_JOB_POST_VERIFICATION_EMAIL, 200);
-        Job response = request.execute();
+        Job response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/jobs/verification-email"));
@@ -256,7 +256,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_JOB_POST_VERIFICATION_EMAIL, 200);
-        Job response = request.execute();
+        Job response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/jobs/verification-email"));
@@ -282,7 +282,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_JOB_POST_VERIFICATION_EMAIL, 200);
-        Job response = request.execute();
+        Job response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/jobs/verification-email"));
@@ -351,7 +351,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_JOB_POST_USERS_IMPORTS, 200);
-        Job response = request.execute();
+        Job response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/jobs/users-imports"));
@@ -392,7 +392,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_JOB_POST_USERS_IMPORTS, 200);
-        Job response = request.execute();
+        Job response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/jobs/users-imports"));

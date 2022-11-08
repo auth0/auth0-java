@@ -118,7 +118,7 @@ public class AuthAPI {
                     private static final String PROXY_AUTHORIZATION_HEADER = "Proxy-Authorization";
 
                     @Override
-                    public okhttp3.Request authenticate(Route route, Response response) throws IOException {
+                    public okhttp3.Request authenticate(Route route, okhttp3.Response response) throws IOException {
                         if (response.request().header(PROXY_AUTHORIZATION_HEADER) != null) {
                             return null;
                         }
@@ -270,7 +270,7 @@ public class AuthAPI {
      * {@code
      * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
-     *      UserInfo result = auth.userInfo("A9CvPwFojaBIA9CvI").execute();
+     *      UserInfo result = auth.userInfo("A9CvPwFojaBIA9CvI").execute().getBody();
      * } catch (Auth0Exception e) {
      *      //Something happened
      * }
@@ -302,7 +302,7 @@ public class AuthAPI {
      * {@code
      * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
-     *      auth.resetPassword("me@auth0.com", "db-connection").execute();
+     *      auth.resetPassword("me@auth0.com", "db-connection").execute().getBody();
      * } catch (Auth0Exception e) {
      *      //Something happened
      * }
@@ -504,7 +504,8 @@ public class AuthAPI {
      * try {
      *      TokenHolder result = auth.login("me@auth0.com", new char[]{'s','e','c','r','e','t})
      *          .setScope("openid email nickname")
-     *          .execute();
+     *          .execute()
+     *          .getBody();
      * } catch (Auth0Exception e) {
      *      //Something happened
      * }
@@ -543,7 +544,8 @@ public class AuthAPI {
      * try {
      *      TokenHolder result = auth.login("me@auth0.com", "topsecret", "my-realm")
      *          .setAudience("https://myapi.me.auth0.com/users")
-     *          .execute();
+     *          .execute()
+     *          .getBody();
      * } catch (Auth0Exception e) {
      *      //Something happened
      * }
@@ -570,7 +572,8 @@ public class AuthAPI {
      * try {
      *      TokenHolder result = auth.login("me@auth0.com", new char[]{'s','e','c','r','e','t'}, "my-realm")
      *          .setAudience("https://myapi.me.auth0.com/users")
-     *          .execute();
+     *          .execute()
+     *          .getBody();
      * } catch (Auth0Exception e) {
      *      //Something happened
      * }
@@ -611,7 +614,8 @@ public class AuthAPI {
      * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
      *      TokenHolder result = auth.exchangePasswordlessOtp("user@domain.com", "email", new char[]{'c','o','d','e'})
-     *          .execute();
+     *          .execute()
+     *          .getBody();
      * } catch (Auth0Exception e) {
      *      // Something happened
      * }
@@ -658,7 +662,8 @@ public class AuthAPI {
      * try {
      *      TokenHolder result = auth.requestToken("https://myapi.me.auth0.com/users")
      *          .setRealm("my-realm")
-     *          .execute();
+     *          .execute()
+     *          .getBody();
      * } catch (Auth0Exception e) {
      *      //Something happened
      * }
@@ -726,7 +731,8 @@ public class AuthAPI {
      * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
      *      TokenHolder result = auth.renewAuth("ej2E8zNEzjrcSD2edjaE")
-     *          .execute();
+     *          .execute()
+     *          .getBody();
      * } catch (Auth0Exception e) {
      *      //Something happened
      * }
@@ -761,7 +767,8 @@ public class AuthAPI {
      * try {
      *      TokenHolder result = auth.exchangeCode("SnWoFLMzApDskr", "https://me.auth0.com/callback")
      *          .setScope("openid name nickname")
-     *          .execute();
+     *          .execute()
+     *          .getBody();
      * } catch (Auth0Exception e) {
      *      //Something happened
      * }
@@ -849,7 +856,8 @@ public class AuthAPI {
      * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
      *      PasswordlessEmailResponse result = auth.startPasswordlessEmailFlow("user@domain.com", PasswordlessEmailType.CODE)
-     *          .execute();
+     *          .execute()
+     *          .getBody();
      * } catch (Auth0Exception e) {
      *      // Something happened
      * }
@@ -893,7 +901,8 @@ public class AuthAPI {
      * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
      *      PasswordlessSmsResponse result = auth.startPasswordlessSmsFlow("+16511234567")
-     *          .execute();
+     *          .execute()
+     *          .getBody();
      * } catch (Auth0Exception e) {
      *      // Something happened
      * }
@@ -934,7 +943,8 @@ public class AuthAPI {
      * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
      *      TokenHolder result = auth.exchangeMfaOtp("the-mfa-token", new char[]{'a','n','o','t','p'})
-     *          .execute();
+     *          .execute()
+     *          .getBody();
      * } catch (Auth0Exception e) {
      *      //Something happened
      * }
