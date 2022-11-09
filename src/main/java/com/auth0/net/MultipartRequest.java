@@ -1,14 +1,8 @@
 package com.auth0.net;
 
-import com.auth0.net.client.HttpClient;
-import com.auth0.net.client.HttpMethod;
-import com.auth0.net.client.HttpRequestBody;
-import com.auth0.net.client.HttpResponse;
+import com.auth0.net.client.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,24 +25,27 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
 
     private static final String CONTENT_TYPE_FORM_DATA = "multipart/form-data";
 
-    private final MultipartBody.Builder bodyBuilder;
+//    private final MultipartBody.Builder bodyBuilder;
+    private final HttpMultipartRequestBody.Builder bodyBuilder;
+
     private final TypeReference<T> tType;
     private final ObjectMapper mapper;
     private int partsCount;
 
-    MultipartRequest(HttpClient client, String url, HttpMethod method, ObjectMapper mapper, TypeReference<T> tType, MultipartBody.Builder multipartBuilder) {
+    MultipartRequest(HttpClient client, String url, HttpMethod method, ObjectMapper mapper, TypeReference<T> tType, HttpMultipartRequestBody.Builder multipartBuilder) {
         super(client, url, method, mapper);
         if (HttpMethod.GET.equals(method)) {
             throw new IllegalArgumentException("Multipart/form-data requests do not support the GET method.");
         }
         this.mapper = mapper;
         this.tType = tType;
-        this.bodyBuilder = multipartBuilder
-                .setType(MultipartBody.FORM);
+        this.bodyBuilder = new HttpMultipartRequestBody.Builder();
+//        this.bodyBuilder = multipartBuilder
+//                .setType(MultipartBody.FORM);
     }
 
     public MultipartRequest(HttpClient client, String url, HttpMethod method, TypeReference<T> tType) {
-        this(client, url, method, new ObjectMapper(), tType, new MultipartBody.Builder());
+        this(client, url, method, new ObjectMapper(), tType, new HttpMultipartRequestBody.Builder());
     }
 
     @Override
@@ -82,7 +79,7 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
         }
 
         // TODO how do we handle multi-part requests????
-        return null;
+        return new HttpRequestBody.Builder().withMultipart(bodyBuilder.build()).build();
 //        return bodyBuilder.build();
     }
 
@@ -113,10 +110,11 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
         if (!file.exists()) {
             throw new IllegalArgumentException("Failed to add part because the file specified cannot be found.");
         }
+        bodyBuilder.withFilePart(new HttpMultipartRequestBody.FilePart(name, file, mediaType));
         // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
         // https://github.com/auth0/auth0-java/issues/324
-            bodyBuilder.addFormDataPart(name, file.getName(),
-            RequestBody.create(MediaType.parse(mediaType), file));
+//            bodyBuilder.addFormDataPart(name, file.getName(),
+//            RequestBody.create(MediaType.parse(mediaType), file));
         partsCount++;
         return this;
     }
@@ -125,8 +123,16 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
     public MultipartRequest<T> addPart(String name, String value) {
         assertNotNull(name, "name");
         assertNotNull(value, "value");
-        bodyBuilder.addFormDataPart(name, value);
+        bodyBuilder.withPart(name, value);
+//        bodyBuilder.addFormDataPart(name, value);
         partsCount++;
         return this;
     }
+
+//    public MultipartRequest<T> addParts(Map<String, String> parts) {
+//        assertNotNull(parts, "parts");
+//        bodyBuilder.withParts(parts);
+//        partsCount += parts.size();
+//        return this;
+//    }
 }

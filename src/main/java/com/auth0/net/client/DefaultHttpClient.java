@@ -126,24 +126,57 @@ public class DefaultHttpClient implements HttpClient {
     private RequestBody addBody(HttpRequest request) {
         // TODO not use null?
         RequestBody okBody = null;
-        if (request.getBody() != null) {
-            // TODO put media type on requestbody!
-            if (request.getBody().getFile() != null) {
-                // multipart request
+
+        /*
+           if (request.getBody() instance of HttpMultipartRequest) {
                 MultipartBody.Builder bodyBuilder = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM);
-                // TODO need to pass name
-                bodyBuilder.addFormDataPart("users", request.getBody().getFile().getName(),
-                    // TODO need to pass media type
-                    // Use deprecated method to ensure interop with okhttp 3
-                    RequestBody.create(MediaType.parse( "text/json"), request.getBody().getFile()));
-                request.getBody().getParams().forEach(bodyBuilder::addFormDataPart);
+
+                // need FilePart type
+                bodyBuilder.addFormDataPart(request.getBody().getPartName(), request.getBody().getFile().getName(),
+                    RequestBody.create(MediaType.parse("text/json"), request.getBody().getFile());
+
+                // need Part type
+                request.getBody().get
+           }
+         */
+
+        HttpRequestBody body = request.getBody();
+        if (body != null) {
+            if (body.getMultipartRequestBody() != null) {
+                HttpMultipartRequestBody multipartRequestBody = body.getMultipartRequestBody();
+                MultipartBody.Builder bodyBuilder = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM);
+                if (multipartRequestBody.getFilePart() != null) {
+                    bodyBuilder.addFormDataPart(multipartRequestBody.getFilePart().getPartName(),
+                        multipartRequestBody.getFilePart().getFile().getName(),
+                        RequestBody.create(MediaType.parse(multipartRequestBody.getFilePart().getMediaType()), multipartRequestBody.getFilePart().getFile()));
+                }
+                multipartRequestBody.getParts().forEach(bodyBuilder::addFormDataPart);
                 okBody = bodyBuilder.build();
             } else {
                 okBody = RequestBody.create(MediaType.parse("application/json"), request.getBody().getContent());
             }
-
         }
+
+//        if (request.getBody() != null) {
+//            // TODO put media type on requestbody!
+//            if (request.getBody().getFile() != null) {
+//                // multipart request
+//                MultipartBody.Builder bodyBuilder = new MultipartBody.Builder()
+//                    .setType(MultipartBody.FORM);
+//                // TODO need to pass name
+//                bodyBuilder.addFormDataPart("users", request.getBody().getFile().getName(),
+//                    // TODO need to pass media type
+//                    // Use deprecated method to ensure interop with okhttp 3
+//                    RequestBody.create(MediaType.parse( "text/json"), request.getBody().getFile()));
+//                request.getBody().getParams().forEach(bodyBuilder::addFormDataPart);
+//                okBody = bodyBuilder.build();
+//            } else {
+//                okBody = RequestBody.create(MediaType.parse("application/json"), request.getBody().getContent());
+//            }
+//        }
+
 //        RequestBody okBody = request.getBody() != null ?
 //            // TODO don't set content-type here? Should be on request?
 //            RequestBody.create(MediaType.parse("application/json"), request.getBody())
