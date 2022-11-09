@@ -1,7 +1,7 @@
 package com.auth0.net;
 
+import com.auth0.json.ObjectMapperProvider;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Base64;
 import java.util.Collections;
@@ -63,7 +63,7 @@ public class Telemetry {
 
         String tmpValue;
         try {
-            String json = new ObjectMapper().writeValueAsString(values);
+            String json = ObjectMapperProvider.getMapper().writeValueAsString(values);
             tmpValue = Base64.getUrlEncoder().encodeToString(json.getBytes());
         } catch (JsonProcessingException e) {
             tmpValue = null;

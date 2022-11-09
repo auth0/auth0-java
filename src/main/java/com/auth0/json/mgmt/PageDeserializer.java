@@ -1,9 +1,9 @@
 package com.auth0.json.mgmt;
 
+import com.auth0.json.ObjectMapperProvider;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.type.CollectionType;
@@ -23,7 +23,6 @@ public abstract class PageDeserializer<T, U> extends StdDeserializer<T> {
 
     private final String itemsPropertyName;
     private final Class<U> uClazz;
-    private static final ObjectMapper mapper = new ObjectMapper();
 
     protected PageDeserializer(Class<U> clazz, String arrayName) {
         super(Object.class);
@@ -82,7 +81,7 @@ public abstract class PageDeserializer<T, U> extends StdDeserializer<T> {
     }
 
     private List<U> getArrayElements(ArrayNode array) throws IOException {
-        CollectionType type = mapper.getTypeFactory().constructCollectionType(List.class, uClazz);
-        return mapper.readerFor(type).readValue(array);
+        CollectionType type = ObjectMapperProvider.getMapper().getTypeFactory().constructCollectionType(List.class, uClazz);
+        return ObjectMapperProvider.getMapper().readerFor(type).readValue(array);
     }
 }
