@@ -1,13 +1,15 @@
 package com.auth0.net.client;
 
+import com.auth0.client.LoggingOptions;
+import com.auth0.client.ProxyOptions;
 import com.auth0.exception.Auth0Exception;
+import com.auth0.net.TelemetryInterceptor;
 import okhttp3.*;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
@@ -16,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class DefaultHttpClient implements HttpClient {
 
     private final okhttp3.OkHttpClient client;
+//    private final HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
 
     public static DefaultHttpClient.Builder newBuilder() {
         return new DefaultHttpClient.Builder();
@@ -25,12 +28,67 @@ public class DefaultHttpClient implements HttpClient {
         okhttp3.OkHttpClient.Builder clientBuilder = new okhttp3.OkHttpClient.Builder();
         clientBuilder.readTimeout(builder.readTimeout, TimeUnit.SECONDS);
         clientBuilder.connectTimeout(builder.connectTimeout, TimeUnit.SECONDS);
-        for (Interceptor i : builder.interceptors) {
-            clientBuilder.addInterceptor(i);
+        configureLogging(clientBuilder, builder.loggingOptions);
+        configureProxy(clientBuilder, builder.proxyOptions);
+        if (builder.telemetryEnabled) {
+            clientBuilder.addInterceptor(new TelemetryInterceptor());
         }
+//        for (Interceptor i : builder.interceptors) {
+//            clientBuilder.addInterceptor(i);
+//        }
         client = clientBuilder.build();
     }
 
+    private void configureLogging(okhttp3.OkHttpClient.Builder clientBuilder, LoggingOptions loggingOptions) {
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        if (loggingOptions == null) {
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
+            return;
+        }
+        switch (loggingOptions.getLogLevel()) {
+            case BASIC:
+                loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+                break;
+            case HEADERS:
+                loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+                break;
+            case BODY:
+                loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+                break;
+            case NONE:
+            default:
+                loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
+        }
+        for (String header : loggingOptions.getHeadersToRedact()) {
+            loggingInterceptor.redactHeader(header);
+        }
+        clientBuilder.addInterceptor(loggingInterceptor);
+    }
+
+    private void configureProxy(okhttp3.OkHttpClient.Builder clientBuilder, ProxyOptions proxyOptions) {
+        if (proxyOptions != null) {
+            //Set proxy
+            clientBuilder.proxy(proxyOptions.getProxy());
+            //Set authentication, if present
+            final String proxyAuth = proxyOptions.getBasicAuthentication();
+            if (proxyAuth != null) {
+                clientBuilder.proxyAuthenticator(new Authenticator() {
+
+                    private static final String PROXY_AUTHORIZATION_HEADER = "Proxy-Authorization";
+
+                    @Override
+                    public okhttp3.Request authenticate(Route route, Response response) throws IOException {
+                        if (response.request().header(PROXY_AUTHORIZATION_HEADER) != null) {
+                            return null;
+                        }
+                        return response.request().newBuilder()
+                            .header(PROXY_AUTHORIZATION_HEADER, proxyAuth)
+                            .build();
+                    }
+                });
+            }
+        }
+    }
 
     // TODO accept params?
     @Override
@@ -189,9 +247,16 @@ public class DefaultHttpClient implements HttpClient {
     public static class Builder {
         private int readTimeout;
         private int connectTimeout;
+
+        private ProxyOptions proxyOptions;
+
+        private LoggingOptions loggingOptions;
+
+        private boolean telemetryEnabled = true;
+
         // TODO proxy
 
-        private final List<Interceptor> interceptors = new ArrayList<>();
+//        private final List<Interceptor> interceptors = new ArrayList<>();
 
         public Builder() {
         }
@@ -206,13 +271,28 @@ public class DefaultHttpClient implements HttpClient {
             return this;
         }
 
+        public Builder withLogging(LoggingOptions loggingOptions) {
+            this.loggingOptions = loggingOptions;
+            return this;
+        }
+
+        public Builder withProxy(ProxyOptions proxyOptions) {
+            this.proxyOptions = proxyOptions;
+            return this;
+        }
+
+        public Builder withTelemetry(boolean telemetryEnabled) {
+            this.telemetryEnabled = telemetryEnabled;
+            return this;
+        }
+
         // TODO just take a list? Order important??
         // TODO expose interceptors or OkHttp impl details?
         // TODO maybe just add the logging/telemetry interceptors as part of build(), if not exposing OkHttp
-        public Builder interceptor(Interceptor interceptor) {
-            interceptors.add(interceptor);
-            return this;
-        }
+//        public Builder interceptor(Interceptor interceptor) {
+//            interceptors.add(interceptor);
+//            return this;
+//        }
 
         public DefaultHttpClient build() {
             return new DefaultHttpClient(this);

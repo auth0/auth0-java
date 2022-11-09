@@ -3,11 +3,13 @@ package com.auth0.client.mgmt;
 import com.auth0.client.HttpOptions;
 import com.auth0.client.LoggingOptions;
 import com.auth0.client.ProxyOptions;
-import com.auth0.net.*;
+import com.auth0.net.Telemetry;
+import com.auth0.net.TelemetryInterceptor;
 import com.auth0.net.client.DefaultHttpClient;
 import com.auth0.net.client.HttpClient;
 import com.auth0.utils.Asserts;
-import okhttp3.*;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 
@@ -139,13 +141,10 @@ public class ManagementAPI {
 //        }
         // TODO dispatchers, other config opttions we now support
         return clientBuilder
-            .interceptor(logging)
-            .interceptor(telemetry)
-            // TODO use TimeUnit or Duration for timeout config??
+            .withLogging(options.getLoggingOptions())
+            .withProxy(proxyOptions)
             .connectTimeout(options.getConnectTimeout())
             .readTimeout(options.getReadTimeout())
-//            .connectTimeout(options.getConnectTimeout(), TimeUnit.SECONDS)
-//            .readTimeout(options.getReadTimeout(), TimeUnit.SECONDS)
             .build();
     }
 
