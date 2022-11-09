@@ -8,12 +8,12 @@ public class HttpResponse {
     private final int code;
     private final String body;
 
-    private final Map<String, String> headers = new HashMap<>();
+    private final Map<String, String> headers;
 
     private HttpResponse(Builder  builder) {
         this.code = builder.code;
         this.body = builder.body;
-        this.headers.putAll(builder.headers); // TODO safe?
+        this.headers = new HashMap<>(builder.headers);
     }
 
     public static Builder newBuilder() {
@@ -33,7 +33,7 @@ public class HttpResponse {
     }
 
     public Map<String, String> getHeaders() {
-        return new HashMap<>(headers);
+        return this.headers;
     }
 
     public String getHeader(String header) {
@@ -49,7 +49,7 @@ public class HttpResponse {
         private int code;
         private String body;
 
-        private final Map<String, String> headers = new HashMap<>();
+        private Map<String, String> headers = new HashMap<>();
 
         private Builder() {}
 
@@ -65,7 +65,7 @@ public class HttpResponse {
 
         public Builder headers(Map<String, String> headers) {
             // TODO this safe?
-            this.headers.putAll(headers);
+            this.headers = headers;
             return this;
         }
 

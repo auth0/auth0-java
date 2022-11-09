@@ -1,6 +1,7 @@
 package com.auth0.net.client;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 public class HttpRequest {
@@ -23,7 +24,7 @@ public class HttpRequest {
         this.method = builder.method;
         this.body = builder.body;
         this.file = builder.file;
-        this.headers = builder.headers;
+        this.headers = new HashMap<>(builder.headers);
     }
 
     public String getUrl() {
