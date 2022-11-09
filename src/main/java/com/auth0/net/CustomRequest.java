@@ -1,5 +1,6 @@
 package com.auth0.net;
 
+import com.auth0.json.ObjectMapperProvider;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.MediaType;
@@ -38,7 +39,7 @@ public class CustomRequest<T> extends ExtendedBaseRequest<T> implements Customiz
     }
 
     public CustomRequest(OkHttpClient client, String url, String method, TypeReference<T> tType) {
-        this(client, url, method, new ObjectMapper(), tType);
+        this(client, url, method, ObjectMapperProvider.getMapper(), tType);
     }
 
     @Override
