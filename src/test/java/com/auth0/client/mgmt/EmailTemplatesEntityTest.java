@@ -21,7 +21,7 @@ public class EmailTemplatesEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMAIL_TEMPLATE, 200);
-        EmailTemplate response = request.execute();
+        EmailTemplate response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/email-templates/welcome_email"));
@@ -52,7 +52,7 @@ public class EmailTemplatesEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMAIL_PROVIDER, 200);
-        EmailTemplate response = request.execute();
+        EmailTemplate response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/email-templates"));
@@ -91,7 +91,7 @@ public class EmailTemplatesEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMAIL_PROVIDER, 200);
-        EmailTemplate response = request.execute();
+        EmailTemplate response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/email-templates/welcome_email"));

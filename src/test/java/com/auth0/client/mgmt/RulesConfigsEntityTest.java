@@ -22,7 +22,7 @@ public class RulesConfigsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RULES_CONFIGS_LIST, 200);
-        List<RulesConfig> response = request.execute();
+        List<RulesConfig> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/rules-configs"));
@@ -39,7 +39,7 @@ public class RulesConfigsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
-        List<RulesConfig> response = request.execute();
+        List<RulesConfig> response = request.execute().getBody();
 
         assertThat(response, is(notNullValue()));
         assertThat(response, is(emptyCollectionOf(RulesConfig.class)));
@@ -58,7 +58,7 @@ public class RulesConfigsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RULE, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/rules-configs/1"));
@@ -86,7 +86,7 @@ public class RulesConfigsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTION, 200);
-        RulesConfig response = request.execute();
+        RulesConfig response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/rules-configs/1"));
