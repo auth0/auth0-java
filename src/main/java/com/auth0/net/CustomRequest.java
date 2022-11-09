@@ -1,12 +1,12 @@
 package com.auth0.net;
 
+import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.HttpMethod;
+import com.auth0.net.client.HttpRequestBody;
+import com.auth0.net.client.HttpResponse;
 import com.auth0.json.ObjectMapperProvider;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -31,32 +31,42 @@ public class CustomRequest<T> extends ExtendedBaseRequest<T> implements Customiz
     private final Map<String, Object> parameters;
     private Object body;
 
-    CustomRequest(OkHttpClient client, String url, String method, ObjectMapper mapper, TypeReference<T> tType) {
+    CustomRequest(HttpClient client, String url, HttpMethod method, ObjectMapper mapper, TypeReference<T> tType) {
         super(client, url, method, mapper);
         this.mapper = mapper;
         this.tType = tType;
         this.parameters = new HashMap<>();
     }
 
-    public CustomRequest(OkHttpClient client, String url, String method, TypeReference<T> tType) {
+    public CustomRequest(HttpClient client, String url, HttpMethod method, TypeReference<T> tType) {
         this(client, url, method, ObjectMapperProvider.getMapper(), tType);
     }
 
     @Override
     @SuppressWarnings("deprecation")
-    protected RequestBody createRequestBody() throws IOException {
+//    protected RequestBody createRequestBody() throws IOException {
+    protected HttpRequestBody createRequestBody() throws IOException {
+//    protected byte[] createRequestBody() throws IOException {
         if (body == null && parameters.isEmpty()) {
             return null;
         }
         byte[] jsonBody = mapper.writeValueAsBytes(body != null ? body : parameters);
         // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
         // https://github.com/auth0/auth0-java/issues/324
-        return RequestBody.create(MediaType.parse(CONTENT_TYPE_APPLICATION_JSON), jsonBody);
+        return HttpRequestBody.newBuilder().withContent(jsonBody).build();
+//        return jsonBody;
+//        return RequestBody.create(MediaType.parse(CONTENT_TYPE_APPLICATION_JSON), jsonBody);
     }
 
+//    @Override
+//    protected T readResponseBody(ResponseBody body) throws IOException {
+//        String payload = body.string();
+//        return mapper.readValue(payload, tType);
+//    }
+
     @Override
-    protected T readResponseBody(ResponseBody body) throws IOException {
-        String payload = body.string();
+    protected T readResponseBody(HttpResponse response) throws IOException {
+        String payload = response.getBody();
         return mapper.readValue(payload, tType);
     }
 

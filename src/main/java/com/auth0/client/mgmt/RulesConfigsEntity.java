@@ -4,10 +4,11 @@ import com.auth0.json.mgmt.RulesConfig;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class RulesConfigsEntity extends BaseManagementEntity {
 
-    RulesConfigsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    RulesConfigsEntity(HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
@@ -38,7 +39,7 @@ public class RulesConfigsEntity extends BaseManagementEntity {
                 .newBuilder()
                 .addPathSegments("api/v2/rules-configs");
         String url = builder.build().toString();
-        CustomRequest<List<RulesConfig>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<RulesConfig>>() {
+        CustomRequest<List<RulesConfig>> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<List<RulesConfig>>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -60,7 +61,7 @@ public class RulesConfigsEntity extends BaseManagementEntity {
                 .addPathSegment(rulesConfigKey)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
+        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
@@ -83,7 +84,7 @@ public class RulesConfigsEntity extends BaseManagementEntity {
                 .addPathSegment(rulesConfigKey)
                 .build()
                 .toString();
-        CustomRequest<RulesConfig> request = new CustomRequest<>(this.client, url, "PUT", new TypeReference<RulesConfig>() {
+        CustomRequest<RulesConfig> request = new CustomRequest<>(this.client, url, HttpMethod.PUT, new TypeReference<RulesConfig>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(rulesConfig);
