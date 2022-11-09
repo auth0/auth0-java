@@ -453,7 +453,7 @@ public class ActionsEntity extends BaseManagementEntity {
             // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
             // https://github.com/auth0/auth0-java/issues/324
             // TODO this right?
-            return new HttpRequestBody.Builder().withContent("{}".getBytes()).build();
+            return HttpRequestBody.newBuilder().withContent("{}".getBytes()).build();
 //            return "{}".getBytes();
 //            return RequestBody.create(MediaType.parse("application/json"), "{}".getBytes());
         }

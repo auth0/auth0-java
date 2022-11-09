@@ -39,13 +39,13 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
         }
         this.mapper = mapper;
         this.tType = tType;
-        this.bodyBuilder = new HttpMultipartRequestBody.Builder();
+        this.bodyBuilder = HttpMultipartRequestBody.newBuilder();
 //        this.bodyBuilder = multipartBuilder
 //                .setType(MultipartBody.FORM);
     }
 
     public MultipartRequest(HttpClient client, String url, HttpMethod method, TypeReference<T> tType) {
-        this(client, url, method, new ObjectMapper(), tType, new HttpMultipartRequestBody.Builder());
+        this(client, url, method, new ObjectMapper(), tType, HttpMultipartRequestBody.newBuilder());
     }
 
     @Override
@@ -79,7 +79,7 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
         }
 
         // TODO how do we handle multi-part requests????
-        return new HttpRequestBody.Builder().withMultipart(bodyBuilder.build()).build();
+        return HttpRequestBody.newBuilder().withMultipart(bodyBuilder.build()).build();
 //        return bodyBuilder.build();
     }
 

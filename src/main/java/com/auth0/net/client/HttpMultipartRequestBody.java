@@ -9,6 +9,10 @@ public class HttpMultipartRequestBody {
     private final FilePart filePart;
     private final Map<String, String> parts;
 
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
     private HttpMultipartRequestBody(Builder builder) {
         this.filePart = builder.filePart;
         this.parts = new HashMap<>(builder.parts);
@@ -57,9 +61,12 @@ public class HttpMultipartRequestBody {
         }
 
     }
+
     public static class Builder {
         FilePart filePart;
         Map<String, String> parts = new HashMap<>();
+
+        private Builder() {}
 
         public Builder withFilePart(FilePart filePart) {
             this.filePart = filePart;

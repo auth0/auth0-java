@@ -15,6 +15,10 @@ public class HttpRequestBody {
 //        this.params = builder.params; // TODO defensive copy here or in FileUploadRequest?
     }
 
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
     public byte[] getContent() {
         return this.content;
     }
@@ -57,6 +61,8 @@ public class HttpRequestBody {
         private HttpMultipartRequestBody multipartRequestBody;
 //        private File file;
 //        private Map<String, String> params;
+
+        private Builder() {}
 
         public Builder withContent(byte[] content) {
             this.content = content;

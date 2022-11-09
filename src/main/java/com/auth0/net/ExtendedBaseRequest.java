@@ -53,7 +53,7 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
         }
         // TODO don't mutate here?
         headers.put("Content-Type", getContentType());
-        HttpRequest request = new HttpRequest.Builder(url, method)
+        HttpRequest request = HttpRequest.newBuilder(url, method)
             .body(body)
             .headers(headers)
             .build();

@@ -29,7 +29,7 @@ public class EmptyBodyRequest<T> extends CustomRequest<T> {
     @Override
     @SuppressWarnings("deprecation")
     protected HttpRequestBody createRequestBody() {
-        return new HttpRequestBody.Builder().withContent(new byte[0]).build();
+        return HttpRequestBody.newBuilder().withContent(new byte[0]).build();
 //        return new byte[0];
         // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
         // https://github.com/auth0/auth0-java/issues/324

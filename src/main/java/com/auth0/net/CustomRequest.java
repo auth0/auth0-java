@@ -52,7 +52,7 @@ public class CustomRequest<T> extends ExtendedBaseRequest<T> implements Customiz
         byte[] jsonBody = mapper.writeValueAsBytes(body != null ? body : parameters);
         // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
         // https://github.com/auth0/auth0-java/issues/324
-        return new HttpRequestBody.Builder().withContent(jsonBody).build();
+        return HttpRequestBody.newBuilder().withContent(jsonBody).build();
 //        return jsonBody;
 //        return RequestBody.create(MediaType.parse(CONTENT_TYPE_APPLICATION_JSON), jsonBody);
     }

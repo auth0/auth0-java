@@ -15,6 +15,11 @@ public class HttpResponse {
         this.body = builder.body;
         this.headers.putAll(builder.headers); // TODO safe?
     }
+
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
     public boolean isSuccessful() {
         return  code >= 200 && code <= 299;
     }
@@ -44,7 +49,9 @@ public class HttpResponse {
         private int code;
         private String body;
 
-        private Map<String, String> headers = new HashMap<>();
+        private final Map<String, String> headers = new HashMap<>();
+
+        private Builder() {}
 
         public Builder code(int code) {
             this.code = code;

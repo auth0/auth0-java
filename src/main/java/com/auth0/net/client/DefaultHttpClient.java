@@ -121,7 +121,7 @@ public class DefaultHttpClient implements HttpClient {
         for (int i = 0; i < okHeaders.size(); i++) {
             headers.put(okHeaders.name(i), okHeaders.value(i));
         }
-        HttpResponse response = new HttpResponse.Builder()
+        HttpResponse response = HttpResponse.newBuilder()
             .code(okResponse.code())
             .body(okResponse.body().string())
             .headers(headers)
@@ -165,7 +165,7 @@ public class DefaultHttpClient implements HttpClient {
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try {
                     // build Auth0 response
-                    HttpResponse aResponse = new HttpResponse.Builder()
+                    HttpResponse aResponse = HttpResponse.newBuilder()
                         .code(response.code())
                         // TODO handle null string()
                         .body(response.body().string())

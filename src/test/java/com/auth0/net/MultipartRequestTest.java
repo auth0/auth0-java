@@ -81,7 +81,7 @@ public class MultipartRequestTest {
     public void shouldAddMultipleParts() throws Exception {
 //        String boundary = UUID.randomUUID().toString();
 //        MultipartBody.Builder bodyBuilder = new MultipartBody.Builder(boundary);
-        HttpMultipartRequestBody.Builder bodyBuilder = new HttpMultipartRequestBody.Builder();
+        HttpMultipartRequestBody.Builder bodyBuilder = HttpMultipartRequestBody.newBuilder();
 //        MultipartBody.Builder bodyBuilder = new MultipartBody.Builder(boundary);
         MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, server.getBaseUrl(), HttpMethod.POST, new ObjectMapper(), tokenHolderType, bodyBuilder);
 
@@ -113,7 +113,7 @@ public class MultipartRequestTest {
     @Ignore
     public void shouldNotOverrideContentTypeHeader() throws Exception {
 //        MultipartBody.Builder bodyBuilder = new MultipartBody.Builder("5c49fdf2");
-        HttpMultipartRequestBody.Builder bodyBuilder = new HttpMultipartRequestBody.Builder();
+        HttpMultipartRequestBody.Builder bodyBuilder = HttpMultipartRequestBody.newBuilder();
         MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, server.getBaseUrl(), HttpMethod.POST, new ObjectMapper(), tokenHolderType, bodyBuilder);
         request.addPart("non_empty", "body");
         request.addHeader("Content-Type", "plaintext");

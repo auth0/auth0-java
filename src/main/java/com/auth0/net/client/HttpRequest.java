@@ -14,6 +14,10 @@ public class HttpRequest {
 
     private final HttpMethod method;
 
+    public static Builder newBuilder(String url, HttpMethod method) {
+        return new Builder(url, method);
+    }
+
     private HttpRequest(Builder builder) {
         this.url = builder.url;
         this.method = builder.method;
@@ -51,7 +55,7 @@ public class HttpRequest {
 
         private final HttpMethod method;
 
-        public Builder(String url, HttpMethod method) {
+        private Builder(String url, HttpMethod method) {
             this.url = url;
             this.method = method;
         }
