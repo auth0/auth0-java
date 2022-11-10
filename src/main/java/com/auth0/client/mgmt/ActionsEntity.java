@@ -8,7 +8,7 @@ import com.auth0.net.CustomRequest;
 import com.auth0.net.EmptyBodyRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
-import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.HttpMethod;
 import com.auth0.net.client.HttpRequestBody;
 import com.auth0.utils.Asserts;
@@ -35,7 +35,7 @@ public class ActionsEntity extends BaseManagementEntity {
 
     private final static String AUTHORIZATION_HEADER = "Authorization";
 
-    ActionsEntity(HttpClient client, HttpUrl baseUrl, String apiToken) {
+    ActionsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
@@ -434,7 +434,7 @@ public class ActionsEntity extends BaseManagementEntity {
 
     // Temporary request implementation to send an empty json object on the request body.
     private static class EmptyObjectRequest<T> extends EmptyBodyRequest<T> {
-        EmptyObjectRequest(HttpClient client, String url, HttpMethod method, TypeReference<T> tType) {
+        EmptyObjectRequest(Auth0HttpClient client, String url, HttpMethod method, TypeReference<T> tType) {
             super(client, url, method, tType);
         }
 

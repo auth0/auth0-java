@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HttpRequest {
+public class Auth0HttpRequest {
 
     private final String url;
     private final Map<String, String> headers;
@@ -18,7 +18,7 @@ public class HttpRequest {
         return new Builder(url, method);
     }
 
-    private HttpRequest(Builder builder) {
+    private Auth0HttpRequest(Builder builder) {
         this.url = builder.url;
         this.method = builder.method;
         this.body = builder.body;
@@ -71,8 +71,8 @@ public class HttpRequest {
             return this;
         }
 
-        public HttpRequest build() {
-            return new HttpRequest(this);
+        public Auth0HttpRequest build() {
+            return new Auth0HttpRequest(this);
         }
     }
 }

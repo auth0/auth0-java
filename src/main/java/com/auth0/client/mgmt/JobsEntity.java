@@ -8,9 +8,9 @@ import com.auth0.json.mgmt.jobs.JobErrorDetails;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.MultipartRequest;
 import com.auth0.net.Request;
-import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.Auth0HttpResponse;
 import com.auth0.net.client.HttpMethod;
-import com.auth0.net.client.HttpResponse;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
@@ -32,7 +32,7 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class JobsEntity extends BaseManagementEntity {
 
-    JobsEntity(HttpClient client, HttpUrl baseUrl, String apiToken) {
+    JobsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
@@ -88,7 +88,7 @@ public class JobsEntity extends BaseManagementEntity {
 //                return super.readResponseBody(body);
 //            }
                 @Override
-                protected List<JobErrorDetails> readResponseBody(HttpResponse response) throws IOException {
+                protected List<JobErrorDetails> readResponseBody(Auth0HttpResponse response) throws IOException {
 //                    if (body.contentLength() == 0) {
                     if (response.getBody() == null || response.getBody().length() == 0) {// TODO this right?
                         return Collections.emptyList();

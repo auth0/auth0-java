@@ -7,8 +7,8 @@ import com.auth0.json.auth.PasswordlessEmailResponse;
 import com.auth0.json.auth.PasswordlessSmsResponse;
 import com.auth0.json.auth.UserInfo;
 import com.auth0.net.*;
+import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.DefaultHttpClient;
-import com.auth0.net.client.HttpClient;
 import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -49,7 +49,7 @@ public class AuthAPI {
     private static final String PATH_PASSWORDLESS = "passwordless";
     private static final String PATH_START = "start";
 
-    private final HttpClient client;
+    private final Auth0HttpClient client;
     private final String clientId;
     private final String clientSecret;
     private final HttpUrl baseUrl;
@@ -104,7 +104,7 @@ public class AuthAPI {
      * @param options the options to set to the client.
      * @return a new networking client instance configured as requested.
      */
-    private HttpClient buildNetworkingClient(HttpOptions options) {
+    private Auth0HttpClient buildNetworkingClient(HttpOptions options) {
 //        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
 //        final ProxyOptions proxyOptions = options.getProxyOptions();
 //        if (proxyOptions != null) {
@@ -236,7 +236,7 @@ public class AuthAPI {
     }
 
     //Visible for Testing
-    HttpClient getClient() {
+    Auth0HttpClient getClient() {
         return client;
     }
 

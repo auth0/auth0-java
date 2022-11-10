@@ -4,7 +4,7 @@ import com.auth0.json.mgmt.tickets.EmailVerificationTicket;
 import com.auth0.json.mgmt.tickets.PasswordChangeTicket;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
-import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -20,7 +20,7 @@ import okhttp3.HttpUrl;
 @SuppressWarnings("WeakerAccess")
 public class TicketsEntity extends BaseManagementEntity {
 
-    TicketsEntity(HttpClient client, HttpUrl baseUrl, String apiToken) {
+    TicketsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

@@ -1,9 +1,9 @@
 package com.auth0.net;
 
-import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.HttpMethod;
 import com.auth0.net.client.HttpRequestBody;
-import com.auth0.net.client.HttpResponse;
+import com.auth0.net.client.Auth0HttpResponse;
 import com.auth0.json.ObjectMapperProvider;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,14 +31,14 @@ public class CustomRequest<T> extends ExtendedBaseRequest<T> implements Customiz
     private final Map<String, Object> parameters;
     private Object body;
 
-    CustomRequest(HttpClient client, String url, HttpMethod method, ObjectMapper mapper, TypeReference<T> tType) {
+    CustomRequest(Auth0HttpClient client, String url, HttpMethod method, ObjectMapper mapper, TypeReference<T> tType) {
         super(client, url, method, mapper);
         this.mapper = mapper;
         this.tType = tType;
         this.parameters = new HashMap<>();
     }
 
-    public CustomRequest(HttpClient client, String url, HttpMethod method, TypeReference<T> tType) {
+    public CustomRequest(Auth0HttpClient client, String url, HttpMethod method, TypeReference<T> tType) {
         this(client, url, method, ObjectMapperProvider.getMapper(), tType);
     }
 
@@ -65,7 +65,7 @@ public class CustomRequest<T> extends ExtendedBaseRequest<T> implements Customiz
 //    }
 
     @Override
-    protected T readResponseBody(HttpResponse response) throws IOException {
+    protected T readResponseBody(Auth0HttpResponse response) throws IOException {
         String payload = response.getBody();
         return mapper.readValue(payload, tType);
     }

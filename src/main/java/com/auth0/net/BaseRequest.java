@@ -1,34 +1,24 @@
 package com.auth0.net;
 
 import com.auth0.exception.Auth0Exception;
-import com.auth0.net.client.HttpClient;
-import com.auth0.net.client.HttpRequest;
-import com.auth0.net.client.HttpResponse;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.Auth0HttpRequest;
+import com.auth0.net.client.Auth0HttpResponse;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
 public abstract class BaseRequest<T> implements Request<T> {
 
-//    private final OkHttpClient client;
-//
-//    BaseRequest(OkHttpClient client) {
-//        this.client = client;
-//    }
-//
-//    protected abstract okhttp3.Request createRequest() throws Auth0Exception;
-//
-//    protected abstract T parseResponse(Response response) throws Auth0Exception;
+    private final Auth0HttpClient client;
 
-    private final HttpClient client;
-
-    BaseRequest(HttpClient client) {
+    BaseRequest(Auth0HttpClient client) {
         this.client = client;
     }
 
-    protected abstract HttpRequest createRequest() throws Auth0Exception;
+    protected abstract Auth0HttpRequest createRequest() throws Auth0Exception;
 
-    protected abstract T parseResponseBody(HttpResponse response) throws Auth0Exception;
+    protected abstract T parseResponseBody(Auth0HttpResponse response) throws Auth0Exception;
 
     /**
      * Executes this request.
@@ -38,10 +28,9 @@ public abstract class BaseRequest<T> implements Request<T> {
      */
     @Override
     public com.auth0.net.Response<T> execute() throws Auth0Exception {
-//        okhttp3.Request request = createRequest();
-        HttpRequest request = createRequest();
+        Auth0HttpRequest request = createRequest();
         try {
-            HttpResponse response = client.makeRequest(request);
+            Auth0HttpResponse response = client.makeRequest(request);
             T body = parseResponseBody(response);
             return new ResponseImpl<T>(response.getHeaders(), body, response.getCode());
         } catch (Auth0Exception e) {
@@ -49,20 +38,12 @@ public abstract class BaseRequest<T> implements Request<T> {
         } catch (IOException ioe) {
             throw new Auth0Exception("Failed to execute the request", ioe);
         }
-
-//        try (Response response = client.newCall(request).execute()) {
-//            return parseResponse(response);
-//        } catch (Auth0Exception e) {
-//            throw e;
-//        } catch (IOException e) {
-//            throw new Auth0Exception("Failed to execute request", e);
-//        }
     }
 
     @Override
     public CompletableFuture<com.auth0.net.Response<T>> executeAsync() {
         final CompletableFuture<com.auth0.net.Response<T>> future = new CompletableFuture<>();
-        HttpRequest request;
+        Auth0HttpRequest request;
 
         try {
             request = createRequest();
@@ -71,97 +52,19 @@ public abstract class BaseRequest<T> implements Request<T> {
             return future;
         }
 
-        // TODO error handling, verify this is good async practice
-        // Can we be sure that the parseResponse will always be executed prior to customer-added "thenApply" / consumers?
-        // Appears so? https://bugs.openjdk.java.net/browse/JDK-8144577
-        // TODO need to perform
-
-        return client.makeRequestAsync(request).thenCompose(this::getResponseFuture);
-//        CompletableFuture<HttpResponse> future2 = client.makeRequestAsync(request);
-//        return future2.thenCompose(this::getResponseFuture);
-
-//        future2.thenCompose(httpResponse -> {
-//            try {
-//               T body = parseResponseBody(httpResponse);
-//                return new CompletableFuture<>(new ResponseImpl<>(httpResponse.getHeaders(), body, httpResponse.getCode()));
-//            } catch (Auth0Exception e) {
-//                e.printStackTrace(); // TODO
-//            }
-//        })
-//        future2.thenApply(response -> {
-//            try {
-//                T body = parseResponseBody(response);
-//
-//            } catch (Auth0Exception e) {
-//                e.printStackTrace(); // TODO
-//            }
-//
-//
-//        })
-
-//        return client.makeRequestAsync(request).thenApply(response -> {
-//            try {
-//                T body = parseResponseBody(response);
-//                future.complete(new ResponseImpl<>(response.getHeaders(), body, response.getCode()));
-//            } catch (Auth0Exception e) {
-//                e.printStackTrace(); // TODO
-//            }
-//            // even the below says type incompatible...
-////            return new CompletableFuture<com.auth0.net.Response<T>>();
-////            return future;
-////            return null; // TODO
-//        });
-        // TODO error handling, verify this is good async practice
-        // Can we be sure that the parseResponse will always be executed prior to customer-added "thenApply" / consumers?
-        // Appears so? https://bugs.openjdk.java.net/browse/JDK-8144577
-//        CompletableFuture<Auth0HttpResponse> httpResponseCompletableFuture = httpClient.makeRequestAsync(request);
-//        return httpResponseCompletableFuture.thenApply(r -> {
-//            try {
-//                return parseResponse(r);
-//            } catch (Auth0Exception e) {
-//                e.printStackTrace();
-//            }
-//            return null;
-//        });
-
-//        final CompletableFuture<T> future = new CompletableFuture<T>();
-//
-//        okhttp3.Request request;
-//        try {
-//            request = createRequest();
-//        } catch (Auth0Exception e) {
-//            future.completeExceptionally(e);
-//            return future;
-//        }
-//
-//        client.newCall(request).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-//                future.completeExceptionally(new Auth0Exception("Failed to execute request", e));
-//            }
-//
-//            @Override
-//            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-//                try {
-//                    T parsedResponse = parseResponse(response);
-//                    future.complete(parsedResponse);
-//                } catch (Auth0Exception e) {
-//                    future.completeExceptionally(e);
-//                }
-//            }
-//        });
-//
-//        return future;
+        return client.makeRequestAsync(request)
+            .thenCompose(this::getResponseFuture);
     }
 
-    private CompletableFuture<Response<T>> getResponseFuture(HttpResponse httpResponse) {
+    private CompletableFuture<Response<T>> getResponseFuture(Auth0HttpResponse httpResponse) {
         CompletableFuture<Response<T>> future = new CompletableFuture<>();
         try {
             T body = parseResponseBody(httpResponse);
             future = CompletableFuture.completedFuture(new ResponseImpl<>(httpResponse.getHeaders(), body, httpResponse.getCode()));
-//            return new CompletableFuture<>(new ResponseImpl<>(httpResponse.getHeaders(), body, httpResponse.getCode()));
         } catch (Auth0Exception e) {
-            e.printStackTrace(); // TODO
+            // TODO best way to handle exception?
+            future.completeExceptionally(e);
+            return future;
         }
         return future;
     }

@@ -4,7 +4,7 @@ import com.auth0.json.mgmt.attackprotection.BreachedPassword;
 import com.auth0.json.mgmt.attackprotection.BruteForceConfiguration;
 import com.auth0.json.mgmt.attackprotection.SuspiciousIPThrottlingConfiguration;
 import com.auth0.net.Request;
-import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -15,7 +15,7 @@ import okhttp3.HttpUrl;
  * @see ManagementAPI
  */
 public class AttackProtectionEntity extends BaseManagementEntity {
-    AttackProtectionEntity(HttpClient client, HttpUrl baseUrl, String apiToken) {
+    AttackProtectionEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 

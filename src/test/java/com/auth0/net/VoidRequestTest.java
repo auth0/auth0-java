@@ -2,7 +2,7 @@ package com.auth0.net;
 
 import com.auth0.client.MockServer;
 import com.auth0.net.client.DefaultHttpClient;
-import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Before;
@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 public class VoidRequestTest {
-    private HttpClient client;
+    private Auth0HttpClient client;
     private MockServer server;
 
     @Before

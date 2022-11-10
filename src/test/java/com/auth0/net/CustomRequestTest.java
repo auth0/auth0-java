@@ -6,7 +6,7 @@ import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.RateLimitException;
 import com.auth0.json.auth.TokenHolder;
 import com.auth0.net.client.DefaultHttpClient;
-import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.HttpMethod;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -33,7 +33,7 @@ import static org.mockito.Mockito.when;
 
 public class CustomRequestTest {
     private MockServer server;
-    private HttpClient client;
+    private Auth0HttpClient client;
 
     @SuppressWarnings("deprecation")
     @Rule

@@ -1,13 +1,13 @@
 package com.auth0.net;
 
 import com.auth0.json.auth.TokenHolder;
-import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.HttpMethod;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 public class TokenRequest extends CustomRequest<TokenHolder> implements AuthRequest {
 
-    public TokenRequest(HttpClient client, String url) {
+    public TokenRequest(Auth0HttpClient client, String url) {
         super(client, url, HttpMethod.POST, new TypeReference<TokenHolder>() {
         });
     }

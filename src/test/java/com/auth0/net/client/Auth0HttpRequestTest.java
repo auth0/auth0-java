@@ -8,19 +8,19 @@ import java.util.Map;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-public class HttpResponseTest {
+public class Auth0HttpRequestTest {
 
     @Test
     public void headersAreDefensive() {
         Map<String, String> headers = new HashMap<>();
         headers.put("name", "value");
 
-        HttpResponse response = HttpResponse.newBuilder()
+        Auth0HttpRequest request = Auth0HttpRequest.newBuilder("url", HttpMethod.POST)
             .headers(headers)
             .build();
 
         headers.put("name", "UPDATED");
 
-        assertThat(response.getHeaders().get("name"), is("value"));
+        assertThat(request.getHeaders().get("name"), is("value"));
     }
 }

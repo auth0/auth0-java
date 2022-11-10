@@ -5,8 +5,8 @@ import com.auth0.client.LoggingOptions;
 import com.auth0.client.ProxyOptions;
 import com.auth0.net.Telemetry;
 import com.auth0.net.TelemetryInterceptor;
+import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.DefaultHttpClient;
-import com.auth0.net.client.HttpClient;
 import com.auth0.utils.Asserts;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -26,7 +26,7 @@ public class ManagementAPI {
 
     private final HttpUrl baseUrl;
     private String apiToken;
-    private final HttpClient client;
+    private final Auth0HttpClient client;
     private final TelemetryInterceptor telemetry;
     private final HttpLoggingInterceptor logging;
 
@@ -148,7 +148,7 @@ public class ManagementAPI {
             .build();
     }
 
-    public ManagementAPI(String domain, String apiToken, HttpClient client) {
+    public ManagementAPI(String domain, String apiToken, Auth0HttpClient client) {
         // TODO cleanup/reuse. Also move to a builder
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(apiToken, "api token");
@@ -231,7 +231,7 @@ public class ManagementAPI {
     }
 
     //Visible for testing
-    HttpClient getClient() {
+    Auth0HttpClient getClient() {
         return client;
     }
 

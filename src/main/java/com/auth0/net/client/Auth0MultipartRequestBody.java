@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HttpMultipartRequestBody {
+public class Auth0MultipartRequestBody {
 
     private final FilePart filePart;
     private final Map<String, String> parts;
@@ -13,7 +13,7 @@ public class HttpMultipartRequestBody {
         return new Builder();
     }
 
-    private HttpMultipartRequestBody(Builder builder) {
+    private Auth0MultipartRequestBody(Builder builder) {
         this.filePart = builder.filePart;
         this.parts = new HashMap<>(builder.parts);
     }
@@ -83,8 +83,8 @@ public class HttpMultipartRequestBody {
             return this;
         }
 
-        public HttpMultipartRequestBody build() {
-            return new HttpMultipartRequestBody(this);
+        public Auth0MultipartRequestBody build() {
+            return new Auth0MultipartRequestBody(this);
         }
     }
 }

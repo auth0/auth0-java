@@ -3,7 +3,7 @@ package com.auth0.net;
 import com.auth0.client.MockServer;
 import com.auth0.json.auth.TokenHolder;
 import com.auth0.net.client.DefaultHttpClient;
-import com.auth0.net.client.HttpClient;
+import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.HttpMethod;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -22,7 +22,7 @@ import static org.mockito.Mockito.mock;
 public class EmptyBodyRequestTest {
 
     private MockServer server;
-    private HttpClient client;
+    private Auth0HttpClient client;
 
     private TypeReference<TokenHolder> tokenHolderType;
 

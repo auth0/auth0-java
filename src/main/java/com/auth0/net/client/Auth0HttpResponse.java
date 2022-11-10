@@ -5,14 +5,14 @@ import com.auth0.utils.Asserts;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HttpResponse {
+public class Auth0HttpResponse {
 
     private final int code;
     private final String body;
 
     private final Map<String, String> headers;
 
-    private HttpResponse(Builder  builder) {
+    private Auth0HttpResponse(Builder  builder) {
         Asserts.assertNotNull(builder.code, "response code");
         Asserts.assertNotNull(builder.headers, "response headers");
         this.code = builder.code;
@@ -75,8 +75,8 @@ public class HttpResponse {
 
         // TODO headers
 
-        public HttpResponse build() {
-            return new HttpResponse(this);
+        public Auth0HttpResponse build() {
+            return new Auth0HttpResponse(this);
         }
     }
 }

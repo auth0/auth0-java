@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Default implementation of {@link HttpClient} responsible for performing HTTP requests
+ * Default implementation of {@link Auth0HttpClient} responsible for performing HTTP requests
  * to the Auth0 APIs. Instances can be configured and created using the {@link Builder}.
  * <p>
  * To minimize resource usage, instances should be created once and used in both the
@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  * API clients.
  * </p>
  */
-public class DefaultHttpClient implements HttpClient {
+public class DefaultHttpClient implements Auth0HttpClient {
 
     private final okhttp3.OkHttpClient client;
 
@@ -47,7 +47,7 @@ public class DefaultHttpClient implements HttpClient {
     // TODO accept params?
     @Override
     @SuppressWarnings("deprecation")
-    public HttpResponse makeRequest(HttpRequest request) throws IOException {
+    public Auth0HttpResponse makeRequest(Auth0HttpRequest request) throws IOException {
         Request okRequest = buildRequest(request);
 
         // execute
@@ -58,7 +58,7 @@ public class DefaultHttpClient implements HttpClient {
         return buildResponse(okResponse);
     }
 
-    private Request buildRequest(HttpRequest a0Request) {
+    private Request buildRequest(Auth0HttpRequest a0Request) {
         // TODO only use body on request methods that support it
         // TODO not use null?
         RequestBody okBody = addBody(a0Request);
@@ -73,14 +73,14 @@ public class DefaultHttpClient implements HttpClient {
         return builder.build();
     }
 
-    private HttpResponse buildResponse(Response okResponse) throws IOException {
+    private Auth0HttpResponse buildResponse(Response okResponse) throws IOException {
         Headers okHeaders = okResponse.headers();
         Map<String, String> headers = new HashMap<>();
         for (int i = 0; i < okHeaders.size(); i++) {
             headers.put(okHeaders.name(i), okHeaders.value(i));
         }
 
-        return HttpResponse.newBuilder()
+        return Auth0HttpResponse.newBuilder()
             .code(okResponse.code())
             .body(Objects.nonNull(okResponse.body()) ? okResponse.body().string() : null)
             .headers(headers)
@@ -89,8 +89,8 @@ public class DefaultHttpClient implements HttpClient {
 
     @Override
     @SuppressWarnings("deprecation")
-    public CompletableFuture<HttpResponse> makeRequestAsync(HttpRequest request) {
-        final CompletableFuture<HttpResponse> future = new CompletableFuture<>();
+    public CompletableFuture<Auth0HttpResponse> makeRequestAsync(Auth0HttpRequest request) {
+        final CompletableFuture<Auth0HttpResponse> future = new CompletableFuture<>();
 
         Request okRequest = buildRequest(request);
 
@@ -137,7 +137,7 @@ public class DefaultHttpClient implements HttpClient {
     }
 
     @SuppressWarnings("deprecation")
-    private RequestBody addBody(HttpRequest request) {
+    private RequestBody addBody(Auth0HttpRequest request) {
         // null body added to request results in request without body
         if (Objects.isNull(request.getBody())) {
             return null;
@@ -147,7 +147,7 @@ public class DefaultHttpClient implements HttpClient {
         RequestBody okBody;
 
         if (Objects.nonNull(body.getMultipartRequestBody())) {
-            HttpMultipartRequestBody multipartRequestBody = body.getMultipartRequestBody();
+            Auth0MultipartRequestBody multipartRequestBody = body.getMultipartRequestBody();
             MultipartBody.Builder bodyBuilder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM);
             if (Objects.nonNull(multipartRequestBody.getFilePart())) {

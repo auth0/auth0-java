@@ -23,7 +23,7 @@ public class HttpRequestBody {
         return this.content;
     }
 
-    public HttpMultipartRequestBody getMultipartRequestBody() {
+    public Auth0MultipartRequestBody getMultipartRequestBody() {
         return this.multipartRequestBody;
     }
 
@@ -36,14 +36,14 @@ public class HttpRequestBody {
 //    }
 
     private String contentType;
-    private HttpMultipartRequestBody multipartRequestBody;
+    private Auth0MultipartRequestBody multipartRequestBody;
 
     private HttpRequestBody(String contentType, byte[] content) {
         this.contentType = contentType;
         this.content = content;
     }
 
-    private HttpRequestBody(String contentType, HttpMultipartRequestBody multipartRequestBody) {
+    private HttpRequestBody(String contentType, Auth0MultipartRequestBody multipartRequestBody) {
         this.contentType = contentType;
         this.multipartRequestBody = multipartRequestBody;
     }
@@ -51,14 +51,14 @@ public class HttpRequestBody {
         return new HttpRequestBody(contentType, content);
     }
 
-    static HttpRequestBody create(String contentType, HttpMultipartRequestBody multipartRequestBody) {
+    static HttpRequestBody create(String contentType, Auth0MultipartRequestBody multipartRequestBody) {
         return new HttpRequestBody(contentType, multipartRequestBody);
 
     }
 
     public static class Builder {
         private byte[] content;
-        private HttpMultipartRequestBody multipartRequestBody;
+        private Auth0MultipartRequestBody multipartRequestBody;
 //        private File file;
 //        private Map<String, String> params;
 
@@ -69,7 +69,7 @@ public class HttpRequestBody {
             return this;
         }
 
-        public Builder withMultipart(HttpMultipartRequestBody multipartRequestBody) {
+        public Builder withMultipart(Auth0MultipartRequestBody multipartRequestBody) {
             this.multipartRequestBody = multipartRequestBody;
             return this;
         }
