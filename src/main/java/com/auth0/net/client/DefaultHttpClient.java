@@ -46,7 +46,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
 
     // TODO accept params?
     @Override
-    @SuppressWarnings("deprecation")
+//    @SuppressWarnings("deprecation")
     public Auth0HttpResponse makeRequest(Auth0HttpRequest request) throws IOException {
         Request okRequest = buildRequest(request);
 
@@ -91,30 +91,8 @@ public class DefaultHttpClient implements Auth0HttpClient {
     @SuppressWarnings("deprecation")
     public CompletableFuture<Auth0HttpResponse> makeRequestAsync(Auth0HttpRequest request) {
         final CompletableFuture<Auth0HttpResponse> future = new CompletableFuture<>();
-
         Request okRequest = buildRequest(request);
 
-
-        // Need to create with or without body
-
-//        RequestBody okBody = request.getBody() != null ?
-//            // TODO put media type on HttpRequestBody
-//            RequestBody.create(MediaType.parse("application/json"), request.getBody().getContent())
-//            : null;
-
-//        RequestBody okBody = request.getBody() != null ?
-//            RequestBody.create(MediaType.parse("application/json"), request.getBody())
-//            : null;
-
-
-//        okhttp3.Request.Builder builder = new okhttp3.Request.Builder()
-//            .url(request.getUrl())
-//            .method(request.getMethod().toString(), okBody);
-//        for (Map.Entry<String, String> e : request.getHeaders().entrySet()) {
-//            builder.addHeader(e.getKey(), e.getValue());
-//        }
-
-        // execute
         client.newCall(okRequest).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
