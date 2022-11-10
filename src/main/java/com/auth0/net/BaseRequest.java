@@ -74,15 +74,43 @@ public abstract class BaseRequest<T> implements Request<T> {
         // TODO error handling, verify this is good async practice
         // Can we be sure that the parseResponse will always be executed prior to customer-added "thenApply" / consumers?
         // Appears so? https://bugs.openjdk.java.net/browse/JDK-8144577
-        return client.makeRequestAsync(request).thenApply(response -> {
-            try {
-                T body = parseResponseBody(response);
-                future.complete(new ResponseImpl<>(response.getHeaders(), body, response.getCode()));
-            } catch (Auth0Exception e) {
-                e.printStackTrace(); // TODO
-            }
-            return null; // TODO
-        });
+        // TODO need to perform
+
+        return client.makeRequestAsync(request).thenCompose(this::getResponseFuture);
+//        CompletableFuture<HttpResponse> future2 = client.makeRequestAsync(request);
+//        return future2.thenCompose(this::getResponseFuture);
+
+//        future2.thenCompose(httpResponse -> {
+//            try {
+//               T body = parseResponseBody(httpResponse);
+//                return new CompletableFuture<>(new ResponseImpl<>(httpResponse.getHeaders(), body, httpResponse.getCode()));
+//            } catch (Auth0Exception e) {
+//                e.printStackTrace(); // TODO
+//            }
+//        })
+//        future2.thenApply(response -> {
+//            try {
+//                T body = parseResponseBody(response);
+//
+//            } catch (Auth0Exception e) {
+//                e.printStackTrace(); // TODO
+//            }
+//
+//
+//        })
+
+//        return client.makeRequestAsync(request).thenApply(response -> {
+//            try {
+//                T body = parseResponseBody(response);
+//                future.complete(new ResponseImpl<>(response.getHeaders(), body, response.getCode()));
+//            } catch (Auth0Exception e) {
+//                e.printStackTrace(); // TODO
+//            }
+//            // even the below says type incompatible...
+////            return new CompletableFuture<com.auth0.net.Response<T>>();
+////            return future;
+////            return null; // TODO
+//        });
         // TODO error handling, verify this is good async practice
         // Can we be sure that the parseResponse will always be executed prior to customer-added "thenApply" / consumers?
         // Appears so? https://bugs.openjdk.java.net/browse/JDK-8144577
@@ -125,4 +153,17 @@ public abstract class BaseRequest<T> implements Request<T> {
 //
 //        return future;
     }
+
+    private CompletableFuture<Response<T>> getResponseFuture(HttpResponse httpResponse) {
+        CompletableFuture<Response<T>> future = new CompletableFuture<>();
+        try {
+            T body = parseResponseBody(httpResponse);
+            future = CompletableFuture.completedFuture(new ResponseImpl<>(httpResponse.getHeaders(), body, httpResponse.getCode()));
+//            return new CompletableFuture<>(new ResponseImpl<>(httpResponse.getHeaders(), body, httpResponse.getCode()));
+        } catch (Auth0Exception e) {
+            e.printStackTrace(); // TODO
+        }
+        return future;
+    }
 }
+

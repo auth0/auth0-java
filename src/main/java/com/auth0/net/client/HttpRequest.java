@@ -8,7 +8,6 @@ public class HttpRequest {
 
     private final String url;
     private final Map<String, String> headers;
-//    private final byte[] body;
     private final HttpRequestBody body;
 
     private final File file;
@@ -35,9 +34,6 @@ public class HttpRequest {
         return headers;
     }
 
-//    public byte[] getBody() {
-//        return body;
-//    }
     public HttpRequestBody getBody() {
     return body;
 }
@@ -49,7 +45,6 @@ public class HttpRequest {
     public static class Builder {
         private final String url;
         private Map<String, String> headers;
-//        private byte[] body;
         private HttpRequestBody body;
 
         private File file;
@@ -65,11 +60,6 @@ public class HttpRequest {
             this.headers =  headers;
             return this;
         }
-
-//        public Builder body(byte[] body) {
-//            this.body = body;
-//            return this;
-//        }
 
         public Builder body(HttpRequestBody body) {
             this.body = body;

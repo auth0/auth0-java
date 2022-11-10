@@ -1,5 +1,7 @@
 package com.auth0.net.client;
 
+import com.auth0.utils.Asserts;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +13,8 @@ public class HttpResponse {
     private final Map<String, String> headers;
 
     private HttpResponse(Builder  builder) {
+        Asserts.assertNotNull(builder.code, "response code");
+        Asserts.assertNotNull(builder.headers, "response headers");
         this.code = builder.code;
         this.body = builder.body;
         this.headers = new HashMap<>(builder.headers);

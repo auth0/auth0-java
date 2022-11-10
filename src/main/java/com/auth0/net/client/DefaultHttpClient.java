@@ -15,6 +15,15 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Default implementation of {@link HttpClient} responsible for performing HTTP requests
+ * to the Auth0 APIs. Instances can be configured and created using the {@link Builder}.
+ * <p>
+ * To minimize resource usage, instances should be created once and used in both the
+ * {@link com.auth0.client.mgmt.ManagementAPI} and {@link com.auth0.client.auth.AuthAPI}
+ * API clients.
+ * </p>
+ */
 public class DefaultHttpClient implements HttpClient {
 
     private final okhttp3.OkHttpClient client;
