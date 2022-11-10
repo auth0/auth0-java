@@ -3,16 +3,10 @@ package com.auth0.net.client;
 public class HttpRequestBody {
 
     private byte[] content;
-//    private final File file;
-
-//    private final Map<String, String> params;
 
     HttpRequestBody(Builder builder) {
         this.content = builder.content;
         this.multipartRequestBody = builder.multipartRequestBody;
-//        this.content = content;
-//        this.file = builder.file;
-//        this.params = builder.params; // TODO defensive copy here or in FileUploadRequest?
     }
 
     public static Builder newBuilder() {
@@ -27,14 +21,6 @@ public class HttpRequestBody {
         return this.multipartRequestBody;
     }
 
-//    public File getFile() {
-//        return this.file;
-//    }
-
-//    public Map<String, String> getParams() {
-//        return this.params;
-//    }
-
     private String contentType;
     private Auth0MultipartRequestBody multipartRequestBody;
 
@@ -47,6 +33,7 @@ public class HttpRequestBody {
         this.contentType = contentType;
         this.multipartRequestBody = multipartRequestBody;
     }
+
     static HttpRequestBody create(String contentType, byte[] content) {
         return new HttpRequestBody(contentType, content);
     }
@@ -59,8 +46,6 @@ public class HttpRequestBody {
     public static class Builder {
         private byte[] content;
         private Auth0MultipartRequestBody multipartRequestBody;
-//        private File file;
-//        private Map<String, String> params;
 
         private Builder() {}
 
@@ -73,15 +58,6 @@ public class HttpRequestBody {
             this.multipartRequestBody = multipartRequestBody;
             return this;
         }
-//        public Builder withFile(File file) {
-//            this.file = file;
-//            return this;
-//        }
-//
-//        public Builder withParams(Map<String, String> params) {
-//            this.params = params;
-//            return this;
-//        }
 
         public HttpRequestBody build() {
             return new HttpRequestBody(this);

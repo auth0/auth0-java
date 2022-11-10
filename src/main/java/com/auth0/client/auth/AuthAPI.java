@@ -170,8 +170,8 @@ public class AuthAPI {
         // TODO dispatchers, other config opttions we now support
         return clientBuilder
             // TODO use TimeUnit or Duration for timeout config??
-            .connectTimeout(options.getConnectTimeout())
-            .readTimeout(options.getReadTimeout())
+            .withConnectTimeout(options.getConnectTimeout())
+            .withReadTimeout(options.getReadTimeout())
             .withLogging(options.getLoggingOptions())
             .withProxy(options.getProxyOptions())
 //            .interceptor(logging)

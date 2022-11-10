@@ -5,10 +5,10 @@ import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.RateLimitException;
 import com.auth0.json.auth.TokenHolder;
-import com.auth0.net.client.DefaultHttpClient;
 import com.auth0.net.client.Auth0HttpClient;
-import com.auth0.net.client.HttpMethod;
 import com.auth0.net.client.Auth0MultipartRequestBody;
+import com.auth0.net.client.DefaultHttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.net.multipart.FilePart;
 import com.auth0.net.multipart.KeyValuePart;
 import com.auth0.net.multipart.RecordedMultipartRequest;
@@ -43,7 +43,7 @@ public class MultipartRequestTest {
     @Before
     public void setUp() throws Exception {
         server = new MockServer();
-        client = new DefaultHttpClient.Builder().build();
+        client = new DefaultHttpClient.Builder().withMaxRetries(0).build();
         tokenHolderType = new TypeReference<TokenHolder>() {
         };
         listType = new TypeReference<List>() {

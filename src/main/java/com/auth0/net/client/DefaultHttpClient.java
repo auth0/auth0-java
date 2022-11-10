@@ -2,7 +2,7 @@ package com.auth0.net.client;
 
 import com.auth0.client.LoggingOptions;
 import com.auth0.client.ProxyOptions;
-import com.auth0.exception.Auth0Exception;
+import com.auth0.net.RateLimitInterceptor;
 import com.auth0.net.TelemetryInterceptor;
 import okhttp3.*;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -23,6 +23,11 @@ import java.util.concurrent.TimeUnit;
  * {@link com.auth0.client.mgmt.ManagementAPI} and {@link com.auth0.client.auth.AuthAPI}
  * API clients.
  * </p>
+ * <p>
+ * For most use cases, usage of this client is recommended. If you have more advanced use cases,
+ * such as the need to re-use an existing HTTP client, you may consider providing a custom
+ * implementation of {@link Auth0HttpClient}.
+ * </p>
  */
 public class DefaultHttpClient implements Auth0HttpClient {
 
@@ -32,16 +37,42 @@ public class DefaultHttpClient implements Auth0HttpClient {
         return new DefaultHttpClient.Builder();
     }
 
+    /**
+     * For testing purposes only.
+     * @param client The client to inject for testing purposes.
+     */
+    DefaultHttpClient(OkHttpClient client) {
+        this.client = client;
+    }
+
+    /**
+     * For testing purposes only.
+     * @return the OkHttpClient
+     */
+    OkHttpClient getOkClient() {
+        return this.client;
+    }
+
     private DefaultHttpClient(Builder builder) {
         okhttp3.OkHttpClient.Builder clientBuilder = new okhttp3.OkHttpClient.Builder();
-        clientBuilder.readTimeout(builder.readTimeout, TimeUnit.SECONDS);
-        clientBuilder.connectTimeout(builder.connectTimeout, TimeUnit.SECONDS);
-        configureLogging(clientBuilder, builder.loggingOptions);
+        clientBuilder.readTimeout(sanitizeTimeout(builder.readTimeout), TimeUnit.SECONDS);
+        clientBuilder.connectTimeout(sanitizeTimeout(builder.connectTimeout), TimeUnit.SECONDS);
+        clientBuilder.addInterceptor(getLoggingInterceptor(builder.loggingOptions));
+        clientBuilder.addInterceptor(getTelemetryInterceptor(builder.telemetryEnabled));
+        clientBuilder.addInterceptor(getRateLimitInterceptor(builder.maxRetries));
+        clientBuilder.dispatcher(getDispatcher(builder.maxRequests, builder.maxRequestsPerHost));
+
         configureProxy(clientBuilder, builder.proxyOptions);
-        if (builder.telemetryEnabled) {
-            clientBuilder.addInterceptor(new TelemetryInterceptor());
-        }
-        client = clientBuilder.build();
+        this.client = clientBuilder.build();
+    }
+
+    /**
+     * Ensures that a timeout value is a number greater than zero. If not, zero will be returned.
+     * @param val the timeout value
+     * @return the timeout value if it is greater than zero; else zero is returned.
+     */
+    private int sanitizeTimeout(int val) {
+        return Math.max(val, 0);
     }
 
     // TODO accept params?
@@ -56,6 +87,31 @@ public class DefaultHttpClient implements Auth0HttpClient {
 
         // return an Auth0 HttpResponse
         return buildResponse(okResponse);
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public CompletableFuture<Auth0HttpResponse> makeRequestAsync(Auth0HttpRequest request) {
+        final CompletableFuture<Auth0HttpResponse> future = new CompletableFuture<>();
+        Request okRequest = buildRequest(request);
+
+        client.newCall(okRequest).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) {
+                try {
+                    future.complete(buildResponse(response));
+                } catch (IOException e) {
+                    future.completeExceptionally(e);
+                }
+            }
+        });
+
+        return future;
     }
 
     private Request buildRequest(Auth0HttpRequest a0Request) {
@@ -73,6 +129,13 @@ public class DefaultHttpClient implements Auth0HttpClient {
         return builder.build();
     }
 
+    /**
+     * Creates an {@link Auth0HttpResponse} from an OkHttp {@link Response}.
+     *
+     * @param okResponse the OkHttp response.
+     * @return the created Auth0HttpResponse
+     * @throws IOException if there is an issue reading the OkHttp response body.
+     */
     private Auth0HttpResponse buildResponse(Response okResponse) throws IOException {
         Headers okHeaders = okResponse.headers();
         Map<String, String> headers = new HashMap<>();
@@ -81,37 +144,10 @@ public class DefaultHttpClient implements Auth0HttpClient {
         }
 
         return Auth0HttpResponse.newBuilder()
-            .code(okResponse.code())
-            .body(Objects.nonNull(okResponse.body()) ? okResponse.body().string() : null)
-            .headers(headers)
+            .withStatusCode(okResponse.code())
+            .withBody(Objects.nonNull(okResponse.body()) ? okResponse.body().string() : null)
+            .withHeaders(headers)
             .build();
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
-    public CompletableFuture<Auth0HttpResponse> makeRequestAsync(Auth0HttpRequest request) {
-        final CompletableFuture<Auth0HttpResponse> future = new CompletableFuture<>();
-        Request okRequest = buildRequest(request);
-
-        client.newCall(okRequest).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new Auth0Exception("Failed to execute request", e));
-            }
-
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try {
-                    // TODO consider what to do on IOException (or other errors)
-                    //  when building the response
-                    future.complete(buildResponse(response));
-                } catch (Auth0Exception e) {
-                    future.completeExceptionally(e);
-                }
-            }
-        });
-
-        return future;
     }
 
     @SuppressWarnings("deprecation")
@@ -142,12 +178,13 @@ public class DefaultHttpClient implements Auth0HttpClient {
         return okBody;
     }
 
-    private void configureLogging(okhttp3.OkHttpClient.Builder clientBuilder, LoggingOptions loggingOptions) {
+    private HttpLoggingInterceptor getLoggingInterceptor(LoggingOptions loggingOptions) {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         if (loggingOptions == null) {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
-            return;
+            return loggingInterceptor;
         }
+
         switch (loggingOptions.getLogLevel()) {
             case BASIC:
                 loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
@@ -165,7 +202,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
         for (String header : loggingOptions.getHeadersToRedact()) {
             loggingInterceptor.redactHeader(header);
         }
-        clientBuilder.addInterceptor(loggingInterceptor);
+        return loggingInterceptor;
     }
 
     private void configureProxy(okhttp3.OkHttpClient.Builder clientBuilder, ProxyOptions proxyOptions) {
@@ -193,11 +230,38 @@ public class DefaultHttpClient implements Auth0HttpClient {
         }
     }
 
+    private TelemetryInterceptor getTelemetryInterceptor(boolean telemetryEnabled) {
+        TelemetryInterceptor interceptor = new TelemetryInterceptor();
+        interceptor.setEnabled(telemetryEnabled);
+        return interceptor;
+    }
+
+    private RateLimitInterceptor getRateLimitInterceptor(int maxRetries) {
+        if (maxRetries < 0 || maxRetries > 10) {
+            throw new IllegalArgumentException("Retries must be between zero and ten.");
+        }
+        return new RateLimitInterceptor(maxRetries);
+    }
+
+    private Dispatcher getDispatcher(int maxRequests, int maxRequestsPerHost) {
+        if (maxRequests < 1) {
+            throw new IllegalArgumentException("maxRequests must be one or greater.");
+        }
+        if (maxRequestsPerHost < 1) {
+            throw new IllegalArgumentException("maxRequestsPerHost must be one or greater.");
+        }
+
+        Dispatcher dispatcher = new Dispatcher();
+        dispatcher.setMaxRequests(maxRequests);
+        dispatcher.setMaxRequestsPerHost(maxRequestsPerHost);
+        return dispatcher;
+    }
+
     // TODO default headers?
     // TODO accept OkHttp client?
     public static class Builder {
-        private int readTimeout;
-        private int connectTimeout;
+        private int readTimeout = 10;
+        private int connectTimeout = 10;
 
         private ProxyOptions proxyOptions;
 
@@ -205,15 +269,16 @@ public class DefaultHttpClient implements Auth0HttpClient {
 
         private boolean telemetryEnabled = true;
 
-        public Builder() {
-        }
+        private int maxRetries = 3;
+        private int maxRequests = 64;
+        private int maxRequestsPerHost = 5;
 
-        public Builder readTimeout(int readTimeout) {
+        public Builder withReadTimeout(int readTimeout) {
             this.readTimeout = readTimeout;
             return this;
         }
 
-        public Builder connectTimeout(int connectTimeout) {
+        public Builder withConnectTimeout(int connectTimeout) {
             this.connectTimeout = connectTimeout;
             return this;
         }
@@ -228,8 +293,23 @@ public class DefaultHttpClient implements Auth0HttpClient {
             return this;
         }
 
-        public Builder withTelemetry(boolean telemetryEnabled) {
+        public Builder telemetryEnabled(boolean telemetryEnabled) {
             this.telemetryEnabled = telemetryEnabled;
+            return this;
+        }
+
+        public Builder withMaxRetries(int maxRetries) {
+            this.maxRetries = maxRetries;
+            return this;
+        }
+
+        public Builder withMaxRequests(int maxRequests) {
+            this.maxRequests = maxRequests;
+            return this;
+        }
+
+        public Builder withMaxRequestsPerHost(int maxRequestsPerHost) {
+            this.maxRequestsPerHost = maxRequestsPerHost;
             return this;
         }
 

@@ -1,16 +1,14 @@
 package com.auth0.net.client;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Auth0HttpRequest {
 
     private final String url;
     private final Map<String, String> headers;
     private final HttpRequestBody body;
-
-    private final File file;
 
     private final HttpMethod method;
 
@@ -22,8 +20,7 @@ public class Auth0HttpRequest {
         this.url = builder.url;
         this.method = builder.method;
         this.body = builder.body;
-        this.file = builder.file;
-        this.headers = new HashMap<>(builder.headers);
+        this.headers = Objects.nonNull(builder.headers) ? new HashMap<>(builder.headers) : new HashMap<>();
     }
 
     public String getUrl() {
@@ -47,8 +44,6 @@ public class Auth0HttpRequest {
         private Map<String, String> headers;
         private HttpRequestBody body;
 
-        private File file;
-
         private final HttpMethod method;
 
         private Builder(String url, HttpMethod method) {
@@ -56,18 +51,13 @@ public class Auth0HttpRequest {
             this.method = method;
         }
 
-        public Builder headers(Map<String, String> headers) {
+        public Builder withHeaders(Map<String, String> headers) {
             this.headers =  headers;
             return this;
         }
 
-        public Builder body(HttpRequestBody body) {
+        public Builder withBody(HttpRequestBody body) {
             this.body = body;
-            return this;
-        }
-
-        public Builder file(File file) {
-            this.file = file;
             return this;
         }
 

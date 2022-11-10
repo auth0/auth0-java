@@ -16,7 +16,7 @@ public class Auth0HttpResponseTest {
         headers.put("name", "value");
 
         Auth0HttpResponse response = Auth0HttpResponse.newBuilder()
-            .headers(headers)
+            .withHeaders(headers)
             .build();
 
         headers.put("name", "UPDATED");

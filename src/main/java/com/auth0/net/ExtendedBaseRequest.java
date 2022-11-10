@@ -54,8 +54,8 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
         // TODO don't mutate here?
         headers.put("Content-Type", getContentType());
         Auth0HttpRequest request = Auth0HttpRequest.newBuilder(url, method)
-            .body(body)
-            .headers(headers)
+            .withBody(body)
+            .withHeaders(headers)
             .build();
 
         return request;

@@ -143,8 +143,8 @@ public class ManagementAPI {
         return clientBuilder
             .withLogging(options.getLoggingOptions())
             .withProxy(proxyOptions)
-            .connectTimeout(options.getConnectTimeout())
-            .readTimeout(options.getReadTimeout())
+            .withConnectTimeout(options.getConnectTimeout())
+            .withReadTimeout(options.getReadTimeout())
             .build();
     }
 
@@ -180,6 +180,7 @@ public class ManagementAPI {
     /**
      * Avoid sending Telemetry data in every request to the Auth0 servers.
      */
+    // TODO remove this method as it is on the DefaultHttpClient
     public void doNotSendTelemetry() {
         telemetry.setEnabled(false);
     }
@@ -189,6 +190,7 @@ public class ManagementAPI {
      *
      * @param telemetry to send in every request to Auth0
      */
+    // TODO we would need to move this to the http client if we keep, but why should we keep it?
     public void setTelemetry(Telemetry telemetry) {
         this.telemetry.setTelemetry(telemetry);
     }
@@ -202,6 +204,7 @@ public class ManagementAPI {
      * @param enabled whether to enable the HTTP logger or not.
      */
     @Deprecated
+    // TODO remove this method
     public void setLoggingEnabled(boolean enabled) {
         logging.setLevel(enabled ? Level.BODY : Level.NONE);
     }

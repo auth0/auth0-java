@@ -59,6 +59,9 @@ public class RateLimitInterceptor implements Interceptor {
     @NotNull
     @Override
     public Response intercept(@NotNull Chain chain) throws IOException {
+        if (maxRetries == 0) {
+            return chain.proceed(chain.request());
+        }
 
         RetryPolicy<Response> retryPolicy = new RetryPolicy<Response>()
             .withMaxRetries(maxRetries)

@@ -5,8 +5,8 @@ import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.RateLimitException;
 import com.auth0.json.auth.TokenHolder;
-import com.auth0.net.client.DefaultHttpClient;
 import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.DefaultHttpClient;
 import com.auth0.net.client.HttpMethod;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -45,8 +45,7 @@ public class CustomRequestTest {
     @Before
     public void setUp() throws Exception {
         server = new MockServer();
-//        client = new OkHttpClient();
-        client = DefaultHttpClient.newBuilder().build();
+        client = DefaultHttpClient.newBuilder().withMaxRetries(0).build();
         tokenHolderType = new TypeReference<TokenHolder>() {
         };
         listType = new TypeReference<List>() {

@@ -57,23 +57,20 @@ public class Auth0HttpResponse {
 
         private Builder() {}
 
-        public Builder code(int code) {
+        public Builder withStatusCode(int code) {
             this.code = code;
             return this;
         }
 
-        public Builder body(String body) {
+        public Builder withBody(String body) {
             this.body = body;
             return this;
         }
 
-        public Builder headers(Map<String, String> headers) {
-            // TODO this safe?
+        public Builder withHeaders(Map<String, String> headers) {
             this.headers = headers;
             return this;
         }
-
-        // TODO headers
 
         public Auth0HttpResponse build() {
             return new Auth0HttpResponse(this);
