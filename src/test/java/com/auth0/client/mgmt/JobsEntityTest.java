@@ -8,9 +8,9 @@ import com.auth0.json.mgmt.jobs.JobErrorDetails;
 import com.auth0.json.mgmt.jobs.UsersExportField;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
-import com.auth0.net.multipart.FilePart;
-import com.auth0.net.multipart.KeyValuePart;
-import com.auth0.net.multipart.RecordedMultipartRequest;
+import com.auth0.net.client.multipart.FilePart;
+import com.auth0.net.client.multipart.KeyValuePart;
+import com.auth0.net.client.multipart.RecordedMultipartRequest;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
 
