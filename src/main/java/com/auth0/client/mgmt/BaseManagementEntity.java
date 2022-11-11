@@ -9,7 +9,6 @@ import okhttp3.HttpUrl;
 import java.util.function.Consumer;
 
 abstract class BaseManagementEntity {
-//    protected final OkHttpClient client;
     protected final Auth0HttpClient client;
     // TODO decouple from OkHttp!!
     protected final HttpUrl baseUrl;

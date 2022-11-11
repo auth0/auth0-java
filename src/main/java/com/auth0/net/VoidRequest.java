@@ -2,8 +2,8 @@ package com.auth0.net;
 
 import com.auth0.exception.Auth0Exception;
 import com.auth0.net.client.Auth0HttpClient;
-import com.auth0.net.client.HttpMethod;
 import com.auth0.net.client.Auth0HttpResponse;
+import com.auth0.net.client.HttpMethod;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.HashMap;
@@ -29,7 +29,8 @@ public class VoidRequest extends CustomRequest<Void> {
         if (!response.isSuccessful()) {
             throw super.createResponseException(response);
         }
-        // TODO who is responsible to close request?????
+        // TODO because a VoidRequest doesn't have a body, it won't be read and the response not automatically closed
+        //  need to ensure that resposnes are *always* closed.
 //        response.close();
         return null;
     }

@@ -170,9 +170,6 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
     }
 
     private RateLimitException createRateLimitException(Auth0HttpResponse response) {
-        // TODO need headers on response to get them
-//        return new RateLimitException(1L, 1L, 1L);
-
         // -1 as default value if the header could not be found.
         long limit = Long.parseLong(response.getHeader("X-RateLimit-Limit", "-1"));
         long remaining = Long.parseLong(response.getHeader("X-RateLimit-Remaining", "-1"));
