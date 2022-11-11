@@ -438,24 +438,12 @@ public class ActionsEntity extends BaseManagementEntity {
             super(client, url, method, tType);
         }
 
-//        @Override
-        @SuppressWarnings("deprecation")
-//        protected byte[] createRequestBody() {
-//            // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
-//            // https://github.com/auth0/auth0-java/issues/324
-//            // TODO this right?
-//            return "{}".getBytes();
-////            return RequestBody.create(MediaType.parse("application/json"), "{}".getBytes());
-//        }
-
         @Override
         protected HttpRequestBody createRequestBody() {
             // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
             // https://github.com/auth0/auth0-java/issues/324
             // TODO this right?
             return HttpRequestBody.newBuilder().withContent("{}".getBytes()).build();
-//            return "{}".getBytes();
-//            return RequestBody.create(MediaType.parse("application/json"), "{}".getBytes());
         }
     }
 }

@@ -80,21 +80,13 @@ public class JobsEntity extends BaseManagementEntity {
         TypeReference<List<JobErrorDetails>> jobErrorDetailsListType = new TypeReference<List<JobErrorDetails>>() {
         };
         CustomRequest<List<JobErrorDetails>> request = new CustomRequest<List<JobErrorDetails>>(client, url, HttpMethod.GET, jobErrorDetailsListType) {
-//            @Override
-//            protected List<JobErrorDetails> readResponseBody(ResponseBody body) throws IOException {
-//                if (body.contentLength() == 0) {
-//                    return Collections.emptyList();
-//                }
-//                return super.readResponseBody(body);
-//            }
-                @Override
-                protected List<JobErrorDetails> readResponseBody(Auth0HttpResponse response) throws IOException {
-//                    if (body.contentLength() == 0) {
-                    if (response.getBody() == null || response.getBody().length() == 0) {// TODO this right?
-                        return Collections.emptyList();
-                    }
-                    return super.readResponseBody(response);
+            @Override
+            protected List<JobErrorDetails> readResponseBody(Auth0HttpResponse response) throws IOException {
+                if (response.getBody() == null || response.getBody().length() == 0) {// TODO this right?
+                    return Collections.emptyList();
                 }
+                return super.readResponseBody(response);
+            }
         };
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;

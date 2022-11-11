@@ -43,10 +43,8 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
 
     @Override
     protected Auth0HttpRequest createRequest() throws Auth0Exception {
-//        byte[] body;
         HttpRequestBody body;
         try {
-//            body = this.createRequestBody();
             body = this.createRequestBody();
         } catch (IOException e) {
             throw new Auth0Exception("Couldn't create the request body.", e);
@@ -59,15 +57,6 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
             .build();
 
         return request;
-
-//        Request.Builder builder = new Request.Builder()
-//                .url(url)
-//                .method(method, body);
-//        for (Map.Entry<String, String> e : headers.entrySet()) {
-//            builder.addHeader(e.getKey(), e.getValue());
-//        }
-//        builder.addHeader("Content-Type", getContentType());
-//        return builder.build();
     }
 
     @Override
@@ -81,15 +70,6 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
         } catch (IOException e) {
             throw new APIException("Failed to parse the response body.", response.getCode(), e);
         }
-//        if (!response.isSuccessful()) {
-//            throw createResponseException(response);
-//        }
-//
-//        try (ResponseBody body = response.body()) {
-//            return readResponseBody(body);
-//        } catch (IOException e) {
-//            throw new APIException("Failed to parse the response body.", response.code(), e);
-//        }
     }
 
     /**
@@ -107,7 +87,6 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
      * @return the body to send as part of the request.
      * @throws IOException if an error is raised during the creation of the body.
      */
-//    protected abstract byte[] createRequestBody() throws IOException;
     protected abstract HttpRequestBody createRequestBody() throws IOException;
 
     /**
@@ -153,20 +132,6 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
         } catch (IOException e) {
             return new APIException(payload, response.getCode(), e);
         }
-
-//        if (response.getCode() == STATUS_CODE_TOO_MANY_REQUEST) {
-//            return createRateLimitException(response);
-//        }
-//
-//        String payload = null;
-//        try (ResponseBody body = response.getBody()) {
-//            payload = body.string();
-//            MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
-//            Map<String, Object> values = mapper.readValue(payload, mapType);
-//            return new APIException(values, response.code());
-//        } catch (IOException e) {
-//            return new APIException(payload, response.code(), e);
-//        }
     }
 
     private RateLimitException createRateLimitException(Auth0HttpResponse response) {

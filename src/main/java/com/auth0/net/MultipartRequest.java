@@ -1,7 +1,7 @@
 package com.auth0.net;
 
-import com.auth0.net.client.*;
 import com.auth0.json.ObjectMapperProvider;
+import com.auth0.net.client.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -25,8 +25,6 @@ import static com.auth0.utils.Asserts.assertNotNull;
 public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormDataRequest<T> {
 
     private static final String CONTENT_TYPE_FORM_DATA = "multipart/form-data";
-
-//    private final MultipartBody.Builder bodyBuilder;
     private final Auth0MultipartRequestBody.Builder bodyBuilder;
 
     private final TypeReference<T> tType;
@@ -41,8 +39,6 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
         this.mapper = mapper;
         this.tType = tType;
         this.bodyBuilder = Auth0MultipartRequestBody.newBuilder();
-//        this.bodyBuilder = multipartBuilder
-//                .setType(MultipartBody.FORM);
     }
 
     public MultipartRequest(Auth0HttpClient client, String url, HttpMethod method, TypeReference<T> tType) {
@@ -54,41 +50,13 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
         return CONTENT_TYPE_FORM_DATA;
     }
 
-//    @Override
-//    protected RequestBody createRequestBody() throws IOException {
-//        if (partsCount == 0) {
-//            throw new IOException("Cannot create multipart/form-data request body with zero parts.");
-//        }
-//        return bodyBuilder.build();
-//    }
-
-//    @Override
-//    protected byte[] createRequestBody() throws IOException {
-//        if (partsCount == 0) {
-//            throw new IOException("Cannot create multipart/form-data request body with zero parts.");
-//        }
-//
-//        // TODO how do we handle multi-part requests????
-//        return null;
-////        return bodyBuilder.build();
-//    }
-
     @Override
     protected HttpRequestBody createRequestBody() throws IOException {
         if (partsCount == 0) {
             throw new IOException("Cannot create multipart/form-data request body with zero parts.");
         }
-
-        // TODO how do we handle multi-part requests????
         return HttpRequestBody.newBuilder().withMultipart(bodyBuilder.build()).build();
-//        return bodyBuilder.build();
     }
-
-//    @Override
-//    protected T readResponseBody(ResponseBody body) throws IOException {
-//        String payload = body.string();
-//        return mapper.readValue(payload, tType);
-//    }
 
     @Override
     protected T readResponseBody(Auth0HttpResponse response) throws IOException {
@@ -112,10 +80,6 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
             throw new IllegalArgumentException("Failed to add part because the file specified cannot be found.");
         }
         bodyBuilder.withFilePart(new Auth0MultipartRequestBody.FilePart(name, file, mediaType));
-        // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
-        // https://github.com/auth0/auth0-java/issues/324
-//            bodyBuilder.addFormDataPart(name, file.getName(),
-//            RequestBody.create(MediaType.parse(mediaType), file));
         partsCount++;
         return this;
     }
@@ -125,15 +89,7 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
         assertNotNull(name, "name");
         assertNotNull(value, "value");
         bodyBuilder.withPart(name, value);
-//        bodyBuilder.addFormDataPart(name, value);
         partsCount++;
         return this;
     }
-
-//    public MultipartRequest<T> addParts(Map<String, String> parts) {
-//        assertNotNull(parts, "parts");
-//        bodyBuilder.withParts(parts);
-//        partsCount += parts.size();
-//        return this;
-//    }
 }
