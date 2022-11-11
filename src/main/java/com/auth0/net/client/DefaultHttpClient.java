@@ -206,7 +206,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
     }
 
     private void configureProxy(okhttp3.OkHttpClient.Builder clientBuilder, ProxyOptions proxyOptions) {
-        if (proxyOptions != null) {
+        if (Objects.nonNull(proxyOptions)) {
             //Set proxy
             clientBuilder.proxy(proxyOptions.getProxy());
             //Set authentication, if present

@@ -2,7 +2,6 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.HttpOptions;
 import com.auth0.client.LoggingOptions;
-import com.auth0.client.ProxyOptions;
 import com.auth0.net.Telemetry;
 import com.auth0.net.TelemetryInterceptor;
 import com.auth0.net.client.Auth0HttpClient;
@@ -76,80 +75,19 @@ public class ManagementAPI {
      * @return a new networking client instance configured as requested.
      */
     private DefaultHttpClient buildNetworkingClient(HttpOptions options) {
-//        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
-//        final ProxyOptions proxyOptions = options.getProxyOptions();
-//        if (proxyOptions != null) {
-//            //Set proxy
-//            clientBuilder.proxy(proxyOptions.getProxy());
-//            //Set authentication, if present
-//            final String proxyAuth = proxyOptions.getBasicAuthentication();
-//            if (proxyAuth != null) {
-//                clientBuilder.proxyAuthenticator(new Authenticator() {
-//
-//                    private static final String PROXY_AUTHORIZATION_HEADER = "Proxy-Authorization";
-//
-//                    @Override
-//                    public okhttp3.Request authenticate(Route route, Response response) throws IOException {
-//                        if (response.request().header(PROXY_AUTHORIZATION_HEADER) != null) {
-//                            return null;
-//                        }
-//                        return response.request().newBuilder()
-//                                .header(PROXY_AUTHORIZATION_HEADER, proxyAuth)
-//                                .build();
-//                    }
-//                });
-//            }
-//        }
-//        configureLogging(options.getLoggingOptions());
-//        Dispatcher dispatcher = new Dispatcher();
-//        dispatcher.setMaxRequestsPerHost(options.getMaxRequestsPerHost());
-//        dispatcher.setMaxRequests(options.getMaxRequests());
-//        return clientBuilder
-//                .addInterceptor(logging)
-//                .addInterceptor(telemetry)
-//                .addInterceptor(new RateLimitInterceptor(options.getManagementAPIMaxRetries()))
-//                .connectTimeout(options.getConnectTimeout(), TimeUnit.SECONDS)
-//                .readTimeout(options.getReadTimeout(), TimeUnit.SECONDS)
-//                .dispatcher(dispatcher)
-//                .build();
-
-        DefaultHttpClient.Builder clientBuilder = DefaultHttpClient.newBuilder();
-
-        // TODO proxy!
-        final ProxyOptions proxyOptions = options.getProxyOptions();
-//        if (proxyOptions != null) {
-//            //Set proxy
-//            clientBuilder.proxy(proxyOptions.getProxy());
-//            //Set authentication, if present
-//            final String proxyAuth = proxyOptions.getBasicAuthentication();
-//            if (proxyAuth != null) {
-//                clientBuilder.proxyAuthenticator(new Authenticator() {
-//
-//                    private static final String PROXY_AUTHORIZATION_HEADER = "Proxy-Authorization";
-//
-//                    @Override
-//                    public okhttp3.Request authenticate(Route route, Response response) throws IOException {
-//                        if (response.request().header(PROXY_AUTHORIZATION_HEADER) != null) {
-//                            return null;
-//                        }
-//                        return response.request().newBuilder()
-//                            .header(PROXY_AUTHORIZATION_HEADER, proxyAuth)
-//                            .build();
-//                    }
-//                });
-//            }
-//        }
-        // TODO dispatchers, other config opttions we now support
-        return clientBuilder
+        return DefaultHttpClient.newBuilder()
             .withLogging(options.getLoggingOptions())
-            .withProxy(proxyOptions)
+            .withMaxRetries(options.getManagementAPIMaxRetries())
+            .withMaxRequests(options.getMaxRequests())
+            .withMaxRequestsPerHost(options.getMaxRequestsPerHost())
+            .withProxy(options.getProxyOptions())
             .withConnectTimeout(options.getConnectTimeout())
             .withReadTimeout(options.getReadTimeout())
             .build();
     }
 
+    // TODO - make this constructor private (and deprecate other constructors), and add a Builder
     public ManagementAPI(String domain, String apiToken, Auth0HttpClient client) {
-        // TODO cleanup/reuse. Also move to a builder
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(apiToken, "api token");
 
@@ -159,8 +97,6 @@ public class ManagementAPI {
         }
         this.apiToken = apiToken;
         this.client = client;
-
-        // TODO what to do with logging/telemetry with custom NET client?
         this.logging = null;
         this.telemetry = null;
     }
