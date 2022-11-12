@@ -180,7 +180,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
 
     private HttpLoggingInterceptor getLoggingInterceptor(LoggingOptions loggingOptions) {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        if (loggingOptions == null) {
+        if (Objects.isNull(loggingOptions)) {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
             return loggingInterceptor;
         }
@@ -211,14 +211,14 @@ public class DefaultHttpClient implements Auth0HttpClient {
             clientBuilder.proxy(proxyOptions.getProxy());
             //Set authentication, if present
             final String proxyAuth = proxyOptions.getBasicAuthentication();
-            if (proxyAuth != null) {
+            if (Objects.nonNull(proxyAuth)) {
                 clientBuilder.proxyAuthenticator(new Authenticator() {
 
                     private static final String PROXY_AUTHORIZATION_HEADER = "Proxy-Authorization";
 
                     @Override
-                    public okhttp3.Request authenticate(Route route, Response response) throws IOException {
-                        if (response.request().header(PROXY_AUTHORIZATION_HEADER) != null) {
+                    public okhttp3.Request authenticate(Route route, @NotNull Response response) {
+                        if (Objects.nonNull(response.request().header(PROXY_AUTHORIZATION_HEADER))) {
                             return null;
                         }
                         return response.request().newBuilder()
