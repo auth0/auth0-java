@@ -262,57 +262,108 @@ public class DefaultHttpClient implements Auth0HttpClient {
     public static class Builder {
         private int readTimeout = 10;
         private int connectTimeout = 10;
-
         private ProxyOptions proxyOptions;
-
         private LoggingOptions loggingOptions;
-
         private boolean telemetryEnabled = true;
-
         private int maxRetries = 3;
         private int maxRequests = 64;
         private int maxRequestsPerHost = 5;
 
+        /**
+         * Sets the value of the read timeout, in seconds. Defaults to ten seconds. A value of zero results in no read timeout.
+         * Negative numbers will be treated as zero.
+         *
+         * @param readTimeout the value of the read timeout to use.
+         * @return this builder instance.
+         */
         public Builder withReadTimeout(int readTimeout) {
             this.readTimeout = readTimeout;
             return this;
         }
 
+        /**
+         * Sets the value of the connect timeout, in seconds. Defaults to ten seconds. A value of zero results in no connect timeout.
+         * Negative numbers will be treated as zero.
+         * @param connectTimeout the value of the connect timeout to use.
+         * @return this builder instance.
+         */
         public Builder withConnectTimeout(int connectTimeout) {
             this.connectTimeout = connectTimeout;
             return this;
         }
 
+        /**
+         * Set the HTTP logging configuration options. If not set, no logs will be captured.
+         * @param loggingOptions the Logging configuration options.
+         * @return this builder instance.
+         */
         public Builder withLogging(LoggingOptions loggingOptions) {
             this.loggingOptions = loggingOptions;
             return this;
         }
 
+        /**
+         * Configure this client for use with a proxy.
+         *
+         * @param proxyOptions the Proxy configuration options
+         * @return this builder instance.
+         */
         public Builder withProxy(ProxyOptions proxyOptions) {
             this.proxyOptions = proxyOptions;
             return this;
         }
 
+        /**
+         * Configure this client to enable or disable sending telemetry data to Auth0 servers (on by default).
+         * @param telemetryEnabled true send telemetry data, false to not send.
+         * @return this builder instance.
+         */
         public Builder telemetryEnabled(boolean telemetryEnabled) {
             this.telemetryEnabled = telemetryEnabled;
             return this;
         }
 
+        /**
+         * Sets the maximum number of consecutive retries for API requests that fail due to rate-limits being reached.
+         * By default, rate-limited requests will be retried a maximum of three times. To disable retries on rate-limit
+         * errors, set this value to zero.
+         *
+         * @param maxRetries the maximum number of consecutive retries to attempt upon a rate-limit error. Defaults to three.
+         *                   Must be a number between zero (do not retry) and ten.
+         *
+         * @return this builder instance.
+         */
         public Builder withMaxRetries(int maxRetries) {
             this.maxRetries = maxRetries;
             return this;
         }
 
+        /**
+         * Sets the maximum number of requests to execute concurrently.
+         *
+         * @param maxRequests the number of requests to execute concurrently. Must be equal to or greater than one.
+         * @return this builder instance.
+         */
         public Builder withMaxRequests(int maxRequests) {
             this.maxRequests = maxRequests;
             return this;
         }
 
+        /**
+         * Sets the maximum number of requests for each host to execute concurrently.
+         *
+         * @param maxRequestsPerHost the maximum number of requests for each host to execute concurrently. Must be equal to or greater than one.
+         * @return this builder instance.
+         */
         public Builder withMaxRequestsPerHost(int maxRequestsPerHost) {
             this.maxRequestsPerHost = maxRequestsPerHost;
             return this;
         }
 
+        /**
+         * Create a {@code DefaultHttpClient} from this configured builder.
+         * @return the created {@code DefaultHttpClient}.
+         */
         public DefaultHttpClient build() {
             return new DefaultHttpClient(this);
         }
