@@ -138,32 +138,12 @@ public class AuthAPI {
     }
 
     /**
-     * Avoid sending Telemetry data in every request to the Auth0 servers.
-     */
-    public void doNotSendTelemetry() {
-        telemetry.setEnabled(false);
-    }
-
-    /**
      * Setter for the Telemetry to send in every request to Auth0.
      *
      * @param telemetry to send in every request to Auth0
      */
     public void setTelemetry(Telemetry telemetry) {
         this.telemetry.setTelemetry(telemetry);
-    }
-
-    /**
-     * @deprecated use the logging configuration available in {@link HttpOptions#setLoggingOptions(LoggingOptions)}
-     *
-     * Whether to enable or not the current HTTP Logger for every request and response line, body, and headers.
-     * <strong>Warning: Enabling logging can leek sensitive information, and should only be done in a controlled, non-production environment.</strong>
-     *
-     * @param enabled whether to enable the HTTP logger or not.
-     */
-    @Deprecated
-    public void setLoggingEnabled(boolean enabled) {
-        logging.setLevel(enabled ? Level.BODY : Level.NONE);
     }
 
     private void configureLogging(LoggingOptions loggingOptions) {
