@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 
 abstract class BaseManagementEntity {
     protected final Auth0HttpClient client;
-    // TODO decouple from OkHttp!!
+    // TODO decouple from OkHttp!! Poovam: Do we need to do it? It seems to be abstracted and doesn't cause any harm to the API
     protected final HttpUrl baseUrl;
     protected final String apiToken;
 

@@ -76,6 +76,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
     }
 
     // TODO accept params?
+    //Poovam: Params being part of Request object would be better right?
     @Override
 //    @SuppressWarnings("deprecation")
     public Auth0HttpResponse makeRequest(Auth0HttpRequest request) throws IOException {
@@ -145,7 +146,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
 
         return Auth0HttpResponse.newBuilder()
             .withStatusCode(okResponse.code())
-            .withBody(Objects.nonNull(okResponse.body()) ? okResponse.body().string() : null)
+            .withBody(Objects.nonNull(okResponse.body()) ? okResponse.body().string() : null)//Poovam: todo .string() seems to have warning for null pointer exception. Are we sure this works, Documentation says .body() can be called only once
             .withHeaders(headers)
             .build();
     }

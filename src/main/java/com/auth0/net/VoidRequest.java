@@ -31,6 +31,7 @@ public class VoidRequest extends CustomRequest<Void> {
         }
         // TODO because a VoidRequest doesn't have a body, it won't be read and the response not automatically closed
         //  need to ensure that resposnes are *always* closed.
+        //Poovam: Should we do this? We should just give a shoutout in the documentation. This feature will make it look like we are a full on Http library. We also have to properly close OkHttpReponse in DefaultHttpClient#buildResponse
 //        response.close();
         return null;
     }
