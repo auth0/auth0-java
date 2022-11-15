@@ -18,6 +18,7 @@ import org.mockito.Mockito;
 
 import java.io.IOException;
 import java.net.Proxy;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -97,6 +98,237 @@ public class DefaultHttpClientTest {
         assertThat(madeRequest.getMethod(), is("GET"));
 
         assertThat(response.get().getCode(), is(200));
+        assertThat(response.get().isSuccessful(), is(true));
+        assertThat(response.get().getBody(), is(responseBody));
+        assertThat(response.get().getHeader("fiz"), is("bang"));
+    }
+
+
+    @Test
+    public void makesPostRequest() throws Exception {
+        Auth0HttpRequest request = Auth0HttpRequest.newBuilder(server.url("/users/2").toString(), HttpMethod.POST)
+            .withHeaders(Collections.singletonMap("foo", "bar"))
+            .withBody(HttpRequestBody.create(
+                "application/json",
+                "{\"id\":\"123\", \"name\":\"timmy\"}".getBytes(StandardCharsets.UTF_8)))
+            .build();
+
+        DefaultHttpClient client = new DefaultHttpClient(new OkHttpClient());
+        String responseBody = "{\"id\":\"123\", \"name\":\"timmy\"}";
+        MockResponse mockResponse = new MockResponse()
+            .setResponseCode(201)
+            .setHeader("fiz", "bang")
+            .setBody(responseBody);
+
+        server.enqueue(mockResponse);
+
+        Auth0HttpResponse response = client.makeRequest(request);
+        RecordedRequest madeRequest = server.takeRequest();
+
+        assertThat(madeRequest.getPath(), is("/users/2"));
+        assertThat(madeRequest.getHeader("foo"), is("bar"));
+        assertThat(madeRequest.getMethod(), is("POST"));
+
+        assertThat(response.getCode(), is(201));
+        assertThat(response.isSuccessful(), is(true));
+        assertThat(response.getBody(), is(responseBody));
+        assertThat(response.getHeader("fiz"), is("bang"));
+    }
+
+    @Test
+    public void makesAsyncPostRequest() throws Exception {
+        Auth0HttpRequest request = Auth0HttpRequest.newBuilder(server.url("/users/2").toString(), HttpMethod.POST)
+            .withHeaders(Collections.singletonMap("foo", "bar"))
+            .withBody(HttpRequestBody.create(
+                "application/json",
+                "{\"id\":\"123\", \"name\":\"timmy\"}".getBytes(StandardCharsets.UTF_8)))
+            .build();
+
+        DefaultHttpClient client = new DefaultHttpClient(new OkHttpClient());
+        String responseBody = "{\"id\":\"123\", \"name\":\"timmy\"}";
+        MockResponse mockResponse = new MockResponse()
+            .setResponseCode(201)
+            .setHeader("fiz", "bang")
+            .setBody(responseBody);
+
+        server.enqueue(mockResponse);
+
+        CompletableFuture<Auth0HttpResponse> response = client.makeRequestAsync(request);
+        RecordedRequest madeRequest = server.takeRequest();
+
+        assertThat(madeRequest.getPath(), is("/users/2"));
+        assertThat(madeRequest.getHeader("foo"), is("bar"));
+        assertThat(madeRequest.getMethod(), is("POST"));
+
+        assertThat(response.get().getCode(), is(201));
+        assertThat(response.get().isSuccessful(), is(true));
+        assertThat(response.get().getBody(), is(responseBody));
+        assertThat(response.get().getHeader("fiz"), is("bang"));
+    }
+
+    @Test
+    public void makesPatchRequest() throws Exception {
+        Auth0HttpRequest request = Auth0HttpRequest.newBuilder(server.url("/users/2").toString(), HttpMethod.PATCH)
+            .withHeaders(Collections.singletonMap("foo", "bar"))
+            .withBody(HttpRequestBody.create(
+                "application/json",
+                "{\"id\":\"123\", \"name\":\"timmy\"}".getBytes(StandardCharsets.UTF_8)))
+            .build();
+
+        DefaultHttpClient client = new DefaultHttpClient(new OkHttpClient());
+        MockResponse mockResponse = new MockResponse()
+            .setResponseCode(204)
+            .setHeader("fiz", "bang");
+
+        server.enqueue(mockResponse);
+
+        Auth0HttpResponse response = client.makeRequest(request);
+        RecordedRequest madeRequest = server.takeRequest();
+
+        assertThat(madeRequest.getPath(), is("/users/2"));
+        assertThat(madeRequest.getHeader("foo"), is("bar"));
+        assertThat(madeRequest.getMethod(), is("PATCH"));
+
+        assertThat(response.getCode(), is(204));
+        assertThat(response.isSuccessful(), is(true));
+        assertThat(response.getHeader("fiz"), is("bang"));
+    }
+
+    @Test
+    public void makesAsyncPatchRequest() throws Exception {
+        Auth0HttpRequest request = Auth0HttpRequest.newBuilder(server.url("/users/2").toString(), HttpMethod.PATCH)
+            .withHeaders(Collections.singletonMap("foo", "bar"))
+            .withBody(HttpRequestBody.create(
+                "application/json",
+                "{\"id\":\"123\", \"name\":\"timmy\"}".getBytes(StandardCharsets.UTF_8)))
+            .build();
+
+        DefaultHttpClient client = new DefaultHttpClient(new OkHttpClient());
+        MockResponse mockResponse = new MockResponse()
+            .setResponseCode(204)
+            .setHeader("fiz", "bang");
+
+        server.enqueue(mockResponse);
+
+        CompletableFuture<Auth0HttpResponse> response = client.makeRequestAsync(request);
+        RecordedRequest madeRequest = server.takeRequest();
+
+        assertThat(madeRequest.getPath(), is("/users/2"));
+        assertThat(madeRequest.getHeader("foo"), is("bar"));
+        assertThat(madeRequest.getMethod(), is("PATCH"));
+
+        assertThat(response.get().getCode(), is(204));
+        assertThat(response.get().isSuccessful(), is(true));
+        assertThat(response.get().getHeader("fiz"), is("bang"));
+    }
+
+    @Test
+    public void makesPutRequest() throws Exception {
+        Auth0HttpRequest request = Auth0HttpRequest.newBuilder(server.url("/users/2").toString(), HttpMethod.PUT)
+            .withHeaders(Collections.singletonMap("foo", "bar"))
+            .withBody(HttpRequestBody.create(
+                "application/json",
+                "{\"id\":\"123\", \"name\":\"timmy\"}".getBytes(StandardCharsets.UTF_8)))
+            .build();
+
+        DefaultHttpClient client = new DefaultHttpClient(new OkHttpClient());
+        MockResponse mockResponse = new MockResponse()
+            .setResponseCode(204)
+            .setHeader("fiz", "bang");
+
+        server.enqueue(mockResponse);
+
+        Auth0HttpResponse response = client.makeRequest(request);
+        RecordedRequest madeRequest = server.takeRequest();
+
+        assertThat(madeRequest.getPath(), is("/users/2"));
+        assertThat(madeRequest.getHeader("foo"), is("bar"));
+        assertThat(madeRequest.getMethod(), is("PUT"));
+
+        assertThat(response.getCode(), is(204));
+        assertThat(response.isSuccessful(), is(true));
+        assertThat(response.getHeader("fiz"), is("bang"));
+    }
+
+    @Test
+    public void makesAsyncPutRequest() throws Exception {
+        Auth0HttpRequest request = Auth0HttpRequest.newBuilder(server.url("/users/2").toString(), HttpMethod.PUT)
+            .withHeaders(Collections.singletonMap("foo", "bar"))
+            .withBody(HttpRequestBody.create(
+                "application/json",
+                "{\"id\":\"123\", \"name\":\"timmy\"}".getBytes(StandardCharsets.UTF_8)))
+            .build();
+
+        DefaultHttpClient client = new DefaultHttpClient(new OkHttpClient());
+        MockResponse mockResponse = new MockResponse()
+            .setResponseCode(204)
+            .setHeader("fiz", "bang");
+
+        server.enqueue(mockResponse);
+
+        CompletableFuture<Auth0HttpResponse> response = client.makeRequestAsync(request);
+        RecordedRequest madeRequest = server.takeRequest();
+
+        assertThat(madeRequest.getPath(), is("/users/2"));
+        assertThat(madeRequest.getHeader("foo"), is("bar"));
+        assertThat(madeRequest.getMethod(), is("PUT"));
+
+        assertThat(response.get().getCode(), is(204));
+        assertThat(response.get().isSuccessful(), is(true));
+        assertThat(response.get().getHeader("fiz"), is("bang"));
+    }
+
+    @Test
+    public void makesDeleteRequest() throws Exception {
+        Auth0HttpRequest request = Auth0HttpRequest.newBuilder(server.url("/users/2").toString(), HttpMethod.DELETE)
+            .withHeaders(Collections.singletonMap("foo", "bar"))
+            .build();
+
+        DefaultHttpClient client = new DefaultHttpClient(new OkHttpClient());
+        String responseBody = "{\"id\":\"123\", \"name\":\"timmy\"}";
+        MockResponse mockResponse = new MockResponse()
+            .setResponseCode(202)
+            .setHeader("fiz", "bang")
+            .setBody(responseBody);
+
+        server.enqueue(mockResponse);
+
+        Auth0HttpResponse response = client.makeRequest(request);
+        RecordedRequest madeRequest = server.takeRequest();
+
+        assertThat(madeRequest.getPath(), is("/users/2"));
+        assertThat(madeRequest.getHeader("foo"), is("bar"));
+        assertThat(madeRequest.getMethod(), is("DELETE"));
+
+        assertThat(response.getCode(), is(202));
+        assertThat(response.isSuccessful(), is(true));
+        assertThat(response.getBody(), is(responseBody));
+        assertThat(response.getHeader("fiz"), is("bang"));
+    }
+
+    @Test
+    public void makesAsyncDeleteRequest() throws Exception {
+        Auth0HttpRequest request = Auth0HttpRequest.newBuilder(server.url("/users/2").toString(), HttpMethod.DELETE)
+            .withHeaders(Collections.singletonMap("foo", "bar"))
+            .build();
+
+        DefaultHttpClient client = new DefaultHttpClient(new OkHttpClient());
+        String responseBody = "{\"id\":\"123\", \"name\":\"timmy\"}";
+        MockResponse mockResponse = new MockResponse()
+            .setResponseCode(202)
+            .setHeader("fiz", "bang")
+            .setBody(responseBody);
+
+        server.enqueue(mockResponse);
+
+        CompletableFuture<Auth0HttpResponse> response = client.makeRequestAsync(request);
+        RecordedRequest madeRequest = server.takeRequest();
+
+        assertThat(madeRequest.getPath(), is("/users/2"));
+        assertThat(madeRequest.getHeader("foo"), is("bar"));
+        assertThat(madeRequest.getMethod(), is("DELETE"));
+
+        assertThat(response.get().getCode(), is(202));
         assertThat(response.get().isSuccessful(), is(true));
         assertThat(response.get().getBody(), is(responseBody));
         assertThat(response.get().getHeader("fiz"), is("bang"));
@@ -354,6 +586,7 @@ public class DefaultHttpClientTest {
 
     // TODO - API clients currently have setTelemetry method. Not sure we should move that to the http client,
     //  it will be a breaking change no matter what, and not sure if it's a valid public use case.
+    //Poovam: Telemetry should be responsibility of Http Client and having that in API class could be confusing
 //    @Test
 //    public void shouldUseCustomTelemetry() {
 //        DefaultHttpClient client = DefaultHttpClient.newBuilder().build();
@@ -578,7 +811,6 @@ public class DefaultHttpClientTest {
     }
 
     // TODO
-    //  tests for PUT, POST, PATCH, DELETE
     //  tests for boundary and null/different inputs
     //  tests for API errors
     //  tests for network error issues (can't connect, timeouts, etc)
