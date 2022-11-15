@@ -2,6 +2,7 @@ package com.auth0.client.auth;
 
 import com.auth0.client.HttpOptions;
 import com.auth0.client.LoggingOptions;
+import com.auth0.client.mgmt.ManagementAPI;
 import com.auth0.json.auth.PasswordlessEmailResponse;
 import com.auth0.json.auth.PasswordlessSmsResponse;
 import com.auth0.json.auth.UserInfo;
@@ -18,7 +19,7 @@ import okhttp3.logging.HttpLoggingInterceptor.Level;
 
 /**
  * Class that provides an implementation of some of the Authentication and Authorization API methods defined in https://auth0.com/docs/api/authentication.
- * To begin create a new instance of {@link #AuthAPI(String, String, String)} using the tenant domain, and the Application's client id and client secret.
+ * To begin create a new instance of {@link AuthAPI.Builder(String, String, String)} using the tenant domain, and the Application's client id and client secret.
  * <p>
  * This class is not entirely thread-safe:
  * A new immutable {@link OkHttpClient} instance is being created with each instantiation, not sharing the thread pool
@@ -60,12 +61,14 @@ public class AuthAPI {
      * These values can be obtained at https://manage.auth0.com/#/applications/{YOUR_CLIENT_ID}/settings.
      * In addition, accepts an {@link HttpOptions} that will be used to configure the networking client.
      *
+     * @deprecated Use {@link AuthAPI.Builder} instead
+     *
      * @param domain       tenant's domain.
      * @param clientId     the application's client id.
      * @param clientSecret the application's client secret.
      * @param options      configuration options for this client instance.
-     * @see #AuthAPI(String, String, String)
      */
+    @Deprecated
     public AuthAPI(String domain, String clientId, String clientSecret, HttpOptions options) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(clientId, "client id");
@@ -88,10 +91,13 @@ public class AuthAPI {
      * Create a new instance with the given tenant's domain, application's client id and client secret.
      * These values can be obtained at https://manage.auth0.com/#/applications/{YOUR_CLIENT_ID}/settings.
      *
+     * @deprecated Use {@link AuthAPI.Builder} instead
+     *
      * @param domain       tenant's domain.
      * @param clientId     the application's client id.
      * @param clientSecret the application's client secret.
      */
+    @Deprecated
     public AuthAPI(String domain, String clientId, String clientSecret) {
         this(domain, clientId, clientSecret, new HttpOptions());
     }
@@ -113,6 +119,22 @@ public class AuthAPI {
             .withConnectTimeout(options.getConnectTimeout())
             .withReadTimeout(options.getReadTimeout())
             .build();
+    }
+
+    private AuthAPI(String domain, String clientId, String clientSecret, Auth0HttpClient client) {
+        Asserts.assertNotNull(domain, "domain");
+        Asserts.assertNotNull(clientId, "client id");
+        Asserts.assertNotNull(clientSecret, "client secret");
+
+        this.baseUrl = createBaseUrl(domain);
+        if (baseUrl == null) {
+            throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
+        }
+        this.client = client;
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+        this.logging = null;
+        this.telemetry = null;
     }
 
     /**
@@ -948,5 +970,31 @@ public class AuthAPI {
         request.addParameter(KEY_MFA_TOKEN, mfaToken);
         request.addParameter(KEY_OTP, otp);
         return request;
+    }
+
+    public static class Builder {
+
+        private final String domain;
+
+        private final String clientId;
+
+        private final String clientSecret;
+
+        private Auth0HttpClient client = DefaultHttpClient.newBuilder().build();
+
+        public Builder(String domain, String clientId, String clientSecret) {
+            this.domain = domain;
+            this.clientId = clientId;
+            this.clientSecret = clientSecret;
+        }
+
+        public Builder withHttpClient(Auth0HttpClient auth0HttpClient) {
+            this.client = auth0HttpClient;
+            return this;
+        }
+
+        public AuthAPI build() {
+            return new AuthAPI(domain, clientId, clientSecret, client);
+        }
     }
 }
