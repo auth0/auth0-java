@@ -40,9 +40,9 @@ public class HttpRequestBody {
 
     static HttpRequestBody create(String contentType, Auth0MultipartRequestBody multipartRequestBody) {
         return new HttpRequestBody(contentType, multipartRequestBody);
-
     }
 
+    //Poovam: Should we just use the static create methods and avoid the builder? Use builder if we have lot more parameters in future?
     public static class Builder {
         private byte[] content;
         private Auth0MultipartRequestBody multipartRequestBody;
