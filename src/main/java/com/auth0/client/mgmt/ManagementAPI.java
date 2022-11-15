@@ -26,8 +26,6 @@ public class ManagementAPI {
     private final HttpUrl baseUrl;
     private String apiToken;
     private final Auth0HttpClient client;
-    private final TelemetryInterceptor telemetry;
-    private final HttpLoggingInterceptor logging;
 
     public static ManagementAPI.Builder newBuilder(String domain, String apiToken) {
         return new ManagementAPI.Builder(domain, apiToken);
@@ -57,8 +55,6 @@ public class ManagementAPI {
         }
         this.apiToken = apiToken;
 
-        telemetry = new TelemetryInterceptor();
-        logging = new HttpLoggingInterceptor();
         client = buildNetworkingClient(options);
     }
 
@@ -106,8 +102,6 @@ public class ManagementAPI {
         }
         this.apiToken = apiToken;
         this.client = client;
-        this.logging = null;
-        this.telemetry = null;
     }
 
     /**
@@ -120,40 +114,6 @@ public class ManagementAPI {
     public void setApiToken(String apiToken) {
         Asserts.assertNotNull(apiToken, "api token");
         this.apiToken = apiToken;
-    }
-
-    /**
-     * Setter for the Telemetry to send in every request to Auth0.
-     *
-     * @param telemetry to send in every request to Auth0
-     */
-    // TODO we would need to move this to the http client if we keep, but why should we keep it?
-    public void setTelemetry(Telemetry telemetry) {
-        this.telemetry.setTelemetry(telemetry);
-    }
-
-    private void configureLogging(LoggingOptions loggingOptions) {
-        if (loggingOptions == null) {
-            logging.setLevel(Level.NONE);
-            return;
-        }
-        switch (loggingOptions.getLogLevel()) {
-            case BASIC:
-                logging.setLevel(Level.BASIC);
-                break;
-            case HEADERS:
-                logging.setLevel(Level.HEADERS);
-                break;
-            case BODY:
-                logging.setLevel(Level.BODY);
-                break;
-            case NONE:
-            default:
-                logging.setLevel(Level.NONE);
-        }
-        for (String header : loggingOptions.getHeadersToRedact()) {
-            logging.redactHeader(header);
-        }
     }
 
     //Visible for testing

@@ -53,8 +53,6 @@ public class AuthAPI {
     private final String clientId;
     private final String clientSecret;
     private final HttpUrl baseUrl;
-    private final TelemetryInterceptor telemetry;
-    private final HttpLoggingInterceptor logging;
 
     /**
      * Create a new instance with the given tenant's domain, application's client id and client secret.
@@ -81,9 +79,6 @@ public class AuthAPI {
         }
         this.clientId = clientId;
         this.clientSecret = clientSecret;
-
-        telemetry = new TelemetryInterceptor();
-        logging = new HttpLoggingInterceptor();
         client = buildNetworkingClient(options);
     }
 
@@ -133,41 +128,6 @@ public class AuthAPI {
         this.client = client;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
-        this.logging = null;
-        this.telemetry = null;
-    }
-
-    /**
-     * Setter for the Telemetry to send in every request to Auth0.
-     *
-     * @param telemetry to send in every request to Auth0
-     */
-    public void setTelemetry(Telemetry telemetry) {
-        this.telemetry.setTelemetry(telemetry);
-    }
-
-    private void configureLogging(LoggingOptions loggingOptions) {
-        if (loggingOptions == null) {
-            logging.setLevel(Level.NONE);
-            return;
-        }
-        switch (loggingOptions.getLogLevel()) {
-            case BASIC:
-                logging.setLevel(Level.BASIC);
-                break;
-            case HEADERS:
-                logging.setLevel(Level.HEADERS);
-                break;
-            case BODY:
-                logging.setLevel(Level.BODY);
-                break;
-            case NONE:
-            default:
-                logging.setLevel(Level.NONE);
-        }
-        for (String header : loggingOptions.getHeadersToRedact()) {
-            logging.redactHeader(header);
-        }
     }
 
     //Visible for Testing
