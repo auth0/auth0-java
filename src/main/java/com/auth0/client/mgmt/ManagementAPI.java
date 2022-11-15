@@ -29,17 +29,24 @@ public class ManagementAPI {
     private final TelemetryInterceptor telemetry;
     private final HttpLoggingInterceptor logging;
 
+    public static ManagementAPI.Builder newBuilder(String domain, String apiToken) {
+        return new ManagementAPI.Builder(domain, apiToken);
+    }
+
     /**
      * Create an instance with the given tenant's domain and API token.
      * In addition, accepts an {@link HttpOptions} that will be used to configure the networking client.
      * See the Management API section in the readme or visit https://auth0.com/docs/api/management/v2/tokens
      * to learn how to obtain a token.
      *
+     * @deprecated Use {@link ManagementAPI.Builder} to construct instead
+     *
      * @param domain   the tenant's domain.
      * @param apiToken the token to authenticate the calls with.
      * @param options  configuration options for this client instance.
      * @see #ManagementAPI(String, String)
      */
+    @Deprecated
     public ManagementAPI(String domain, String apiToken, HttpOptions options) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(apiToken, "api token");
@@ -60,9 +67,12 @@ public class ManagementAPI {
      * See the Management API section in the readme or visit https://auth0.com/docs/api/management/v2/tokens
      * to learn how to obtain a token.
      *
+     * @deprecated Use {@link ManagementAPI.Builder} to construct instead
+     *
      * @param domain   the tenant's domain.
      * @param apiToken the token to authenticate the calls with.
      */
+    @Deprecated
     public ManagementAPI(String domain, String apiToken) {
         this(domain, apiToken, new HttpOptions());
     }
@@ -86,8 +96,7 @@ public class ManagementAPI {
             .build();
     }
 
-    // TODO - make this constructor private (and deprecate other constructors), and add a Builder
-    public ManagementAPI(String domain, String apiToken, Auth0HttpClient client) {
+     private ManagementAPI(String domain, String apiToken, Auth0HttpClient client) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(apiToken, "api token");
 
@@ -419,5 +428,28 @@ public class ManagementAPI {
      */
     public KeysEntity keys() {
         return new KeysEntity(client, baseUrl, apiToken);
+    }
+
+    public static class Builder {
+
+        private final String domain;
+
+        private final String apiToken;
+
+        private Auth0HttpClient client = DefaultHttpClient.newBuilder().build();
+
+        public Builder(String domain, String apiToken) {
+            this.domain = domain;
+            this.apiToken = apiToken;
+        }
+
+        public Builder withHttpClient(Auth0HttpClient auth0HttpClient) {
+            this.client = auth0HttpClient;
+            return this;
+        }
+
+        public ManagementAPI build() {
+            return new ManagementAPI(domain, apiToken, client);
+        }
     }
 }
