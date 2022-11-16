@@ -55,7 +55,7 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
         if (partsCount == 0) {
             throw new IOException("Cannot create multipart/form-data request body with zero parts.");
         }
-        return HttpRequestBody.newBuilder().withMultipart(bodyBuilder.build()).build();
+        return HttpRequestBody.create("application/json", bodyBuilder.build());
     }
 
     @Override

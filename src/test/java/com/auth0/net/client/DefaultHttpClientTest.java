@@ -437,7 +437,7 @@ public class DefaultHttpClientTest {
 
         DefaultHttpClient client = new DefaultHttpClient(okClient);
         Auth0HttpRequest request = Auth0HttpRequest.newBuilder(server.url("/users/").toString(), HttpMethod.POST)
-            .withBody(HttpRequestBody.newBuilder().withContent("{}".getBytes()).build())
+            .withBody(HttpRequestBody.create("application/json", "{}".getBytes()))
             .build();
 
         CompletableFuture<Auth0HttpResponse> future = client.makeRequestAsync(request);
@@ -459,7 +459,7 @@ public class DefaultHttpClientTest {
         when(client.newCall(any())).thenReturn(call);
 
         Auth0HttpRequest request = Auth0HttpRequest.newBuilder(server.url("/users/").toString(), HttpMethod.POST)
-            .withBody(HttpRequestBody.newBuilder().withContent("{}".getBytes()).build())
+            .withBody(HttpRequestBody.create("application/json", "{}".getBytes()))
             .build();
 
         DefaultHttpClient auth0Client = new DefaultHttpClient(client);
@@ -482,7 +482,7 @@ public class DefaultHttpClientTest {
         when(okClient.newCall(any())).thenReturn(call);
 
         Auth0HttpRequest request = Auth0HttpRequest.newBuilder(server.url("/users/").toString(), HttpMethod.POST)
-            .withBody(HttpRequestBody.newBuilder().withContent("{}".getBytes()).build())
+            .withBody(HttpRequestBody.create("application/json", "{}".getBytes()))
             .build();
 
         DefaultHttpClient client = new DefaultHttpClient(okClient);

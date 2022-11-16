@@ -20,7 +20,7 @@ public class EmptyBodyRequest<T> extends CustomRequest<T> {
     @Override
     @SuppressWarnings("deprecation")
     protected HttpRequestBody createRequestBody() {
-        return HttpRequestBody.newBuilder().withContent(new byte[0]).build();
+        return HttpRequestBody.create("application/json", new byte[0]);
     }
 
     @Override

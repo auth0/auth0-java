@@ -3,14 +3,15 @@ package com.auth0.net.client;
 public class HttpRequestBody {
 
     private byte[] content;
+    private String contentType;
+    private Auth0MultipartRequestBody multipartRequestBody;
 
-    HttpRequestBody(Builder builder) {
-        this.content = builder.content;
-        this.multipartRequestBody = builder.multipartRequestBody;
+    public static HttpRequestBody create(String contentType, byte[] content) {
+        return new HttpRequestBody(contentType, content);
     }
 
-    public static Builder newBuilder() {
-        return new Builder();
+    public static HttpRequestBody create(String contentType, Auth0MultipartRequestBody multipartRequestBody) {
+        return new HttpRequestBody(contentType, multipartRequestBody);
     }
 
     public byte[] getContent() {
@@ -21,8 +22,9 @@ public class HttpRequestBody {
         return this.multipartRequestBody;
     }
 
-    private String contentType;
-    private Auth0MultipartRequestBody multipartRequestBody;
+    public String getContentType() {
+        return this.contentType;
+    }
 
     private HttpRequestBody(String contentType, byte[] content) {
         this.contentType = contentType;
@@ -32,35 +34,5 @@ public class HttpRequestBody {
     private HttpRequestBody(String contentType, Auth0MultipartRequestBody multipartRequestBody) {
         this.contentType = contentType;
         this.multipartRequestBody = multipartRequestBody;
-    }
-
-    static HttpRequestBody create(String contentType, byte[] content) {
-        return new HttpRequestBody(contentType, content);
-    }
-
-    static HttpRequestBody create(String contentType, Auth0MultipartRequestBody multipartRequestBody) {
-        return new HttpRequestBody(contentType, multipartRequestBody);
-    }
-
-    //Poovam: Should we just use the static create methods and avoid the builder? Use builder if we have lot more parameters in future?
-    public static class Builder {
-        private byte[] content;
-        private Auth0MultipartRequestBody multipartRequestBody;
-
-        private Builder() {}
-
-        public Builder withContent(byte[] content) {
-            this.content = content;
-            return this;
-        }
-
-        public Builder withMultipart(Auth0MultipartRequestBody multipartRequestBody) {
-            this.multipartRequestBody = multipartRequestBody;
-            return this;
-        }
-
-        public HttpRequestBody build() {
-            return new HttpRequestBody(this);
-        }
     }
 }

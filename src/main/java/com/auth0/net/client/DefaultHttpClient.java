@@ -173,7 +173,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
             multipartRequestBody.getParts().forEach(bodyBuilder::addFormDataPart);
             okBody = bodyBuilder.build();
         } else {
-            okBody = RequestBody.create(MediaType.parse("application/json"), request.getBody().getContent());
+            okBody = RequestBody.create(MediaType.parse(request.getBody().getContentType()), request.getBody().getContent());
         }
 
         return okBody;
