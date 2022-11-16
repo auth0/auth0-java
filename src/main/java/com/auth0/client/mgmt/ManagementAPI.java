@@ -40,6 +40,7 @@ public class ManagementAPI {
      * @param options  configuration options for this client instance.
      * @see #ManagementAPI(String, String)
      */
+    // TODO deprecate and provide Builder
     public ManagementAPI(String domain, String apiToken, HttpOptions options) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(apiToken, "api token");
@@ -63,6 +64,7 @@ public class ManagementAPI {
      * @param domain   the tenant's domain.
      * @param apiToken the token to authenticate the calls with.
      */
+    // TODO deprecate and provide Builder
     public ManagementAPI(String domain, String apiToken) {
         this(domain, apiToken, new HttpOptions());
     }
@@ -84,21 +86,6 @@ public class ManagementAPI {
             .withConnectTimeout(options.getConnectTimeout())
             .withReadTimeout(options.getReadTimeout())
             .build();
-    }
-
-    // TODO - make this constructor private (and deprecate other constructors), and add a Builder
-    public ManagementAPI(String domain, String apiToken, Auth0HttpClient client) {
-        Asserts.assertNotNull(domain, "domain");
-        Asserts.assertNotNull(apiToken, "api token");
-
-        this.baseUrl = createBaseUrl(domain);
-        if (baseUrl == null) {
-            throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
-        }
-        this.apiToken = apiToken;
-        this.client = client;
-        this.logging = null;
-        this.telemetry = null;
     }
 
     /**
@@ -126,7 +113,7 @@ public class ManagementAPI {
      *
      * @param telemetry to send in every request to Auth0
      */
-    // TODO we would need to move this to the http client if we keep, but why should we keep it?
+    // TODO remove this method as it is on the DefaultHttpClient
     public void setTelemetry(Telemetry telemetry) {
         this.telemetry.setTelemetry(telemetry);
     }
@@ -143,30 +130,6 @@ public class ManagementAPI {
     // TODO remove this method
     public void setLoggingEnabled(boolean enabled) {
         logging.setLevel(enabled ? Level.BODY : Level.NONE);
-    }
-
-    private void configureLogging(LoggingOptions loggingOptions) {
-        if (loggingOptions == null) {
-            logging.setLevel(Level.NONE);
-            return;
-        }
-        switch (loggingOptions.getLogLevel()) {
-            case BASIC:
-                logging.setLevel(Level.BASIC);
-                break;
-            case HEADERS:
-                logging.setLevel(Level.HEADERS);
-                break;
-            case BODY:
-                logging.setLevel(Level.BODY);
-                break;
-            case NONE:
-            default:
-                logging.setLevel(Level.NONE);
-        }
-        for (String header : loggingOptions.getHeadersToRedact()) {
-            logging.redactHeader(header);
-        }
     }
 
     //Visible for testing

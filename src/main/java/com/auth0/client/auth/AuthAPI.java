@@ -66,6 +66,7 @@ public class AuthAPI {
      * @param options      configuration options for this client instance.
      * @see #AuthAPI(String, String, String)
      */
+    // TODO deprecate and provide Builder
     public AuthAPI(String domain, String clientId, String clientSecret, HttpOptions options) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(clientId, "client id");
@@ -92,6 +93,7 @@ public class AuthAPI {
      * @param clientId     the application's client id.
      * @param clientSecret the application's client secret.
      */
+    // TODO deprecate and provide Builder
     public AuthAPI(String domain, String clientId, String clientSecret) {
         this(domain, clientId, clientSecret, new HttpOptions());
     }
@@ -118,6 +120,7 @@ public class AuthAPI {
     /**
      * Avoid sending Telemetry data in every request to the Auth0 servers.
      */
+    // TODO remove this method as it is on the DefaultHttpClient
     public void doNotSendTelemetry() {
         telemetry.setEnabled(false);
     }
@@ -127,6 +130,7 @@ public class AuthAPI {
      *
      * @param telemetry to send in every request to Auth0
      */
+    // TODO remove this method as it is on the DefaultHttpClient
     public void setTelemetry(Telemetry telemetry) {
         this.telemetry.setTelemetry(telemetry);
     }
@@ -140,32 +144,9 @@ public class AuthAPI {
      * @param enabled whether to enable the HTTP logger or not.
      */
     @Deprecated
+    // TODO remove this method
     public void setLoggingEnabled(boolean enabled) {
         logging.setLevel(enabled ? Level.BODY : Level.NONE);
-    }
-
-    private void configureLogging(LoggingOptions loggingOptions) {
-        if (loggingOptions == null) {
-            logging.setLevel(Level.NONE);
-            return;
-        }
-        switch (loggingOptions.getLogLevel()) {
-            case BASIC:
-                logging.setLevel(Level.BASIC);
-                break;
-            case HEADERS:
-                logging.setLevel(Level.HEADERS);
-                break;
-            case BODY:
-                logging.setLevel(Level.BODY);
-                break;
-            case NONE:
-            default:
-                logging.setLevel(Level.NONE);
-        }
-        for (String header : loggingOptions.getHeadersToRedact()) {
-            logging.redactHeader(header);
-        }
     }
 
     //Visible for Testing
