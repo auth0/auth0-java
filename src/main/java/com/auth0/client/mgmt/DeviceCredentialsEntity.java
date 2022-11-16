@@ -5,10 +5,11 @@ import com.auth0.json.mgmt.DeviceCredentials;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,7 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class DeviceCredentialsEntity extends BaseManagementEntity {
 
-    DeviceCredentialsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    DeviceCredentialsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
@@ -44,7 +45,7 @@ public class DeviceCredentialsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<List<DeviceCredentials>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<DeviceCredentials>>() {
+        CustomRequest<List<DeviceCredentials>> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<List<DeviceCredentials>>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -65,7 +66,7 @@ public class DeviceCredentialsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/device-credentials")
                 .build()
                 .toString();
-        CustomRequest<DeviceCredentials> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<DeviceCredentials>() {
+        CustomRequest<DeviceCredentials> request = new CustomRequest<>(this.client, url, HttpMethod.POST, new TypeReference<DeviceCredentials>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(deviceCredentials);
@@ -88,7 +89,7 @@ public class DeviceCredentialsEntity extends BaseManagementEntity {
                 .addPathSegment(deviceCredentialsId)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
+        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }

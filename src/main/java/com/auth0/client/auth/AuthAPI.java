@@ -2,20 +2,19 @@ package com.auth0.client.auth;
 
 import com.auth0.client.HttpOptions;
 import com.auth0.client.LoggingOptions;
-import com.auth0.client.ProxyOptions;
 import com.auth0.json.auth.PasswordlessEmailResponse;
 import com.auth0.json.auth.PasswordlessSmsResponse;
 import com.auth0.json.auth.UserInfo;
-import com.auth0.net.Request;
 import com.auth0.net.*;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.DefaultHttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
-import okhttp3.*;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
-
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Class that provides an implementation of some of the Authentication and Authorization API methods defined in https://auth0.com/docs/api/authentication.
@@ -49,7 +48,7 @@ public class AuthAPI {
     private static final String PATH_PASSWORDLESS = "passwordless";
     private static final String PATH_START = "start";
 
-    private final OkHttpClient client;
+    private final Auth0HttpClient client;
     private final String clientId;
     private final String clientSecret;
     private final HttpUrl baseUrl;
@@ -104,42 +103,16 @@ public class AuthAPI {
      * @param options the options to set to the client.
      * @return a new networking client instance configured as requested.
      */
-    private OkHttpClient buildNetworkingClient(HttpOptions options) {
-        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
-        final ProxyOptions proxyOptions = options.getProxyOptions();
-        if (proxyOptions != null) {
-            //Set proxy
-            clientBuilder.proxy(proxyOptions.getProxy());
-            //Set authentication, if present
-            final String proxyAuth = proxyOptions.getBasicAuthentication();
-            if (proxyAuth != null) {
-                clientBuilder.proxyAuthenticator(new Authenticator() {
-
-                    private static final String PROXY_AUTHORIZATION_HEADER = "Proxy-Authorization";
-
-                    @Override
-                    public okhttp3.Request authenticate(Route route, okhttp3.Response response) throws IOException {
-                        if (response.request().header(PROXY_AUTHORIZATION_HEADER) != null) {
-                            return null;
-                        }
-                        return response.request().newBuilder()
-                                .header(PROXY_AUTHORIZATION_HEADER, proxyAuth)
-                                .build();
-                    }
-                });
-            }
-        }
-        configureLogging(options.getLoggingOptions());
-        Dispatcher dispatcher = new Dispatcher();
-        dispatcher.setMaxRequests(options.getMaxRequests());
-        dispatcher.setMaxRequestsPerHost(options.getMaxRequestsPerHost());
-        return clientBuilder
-                .addInterceptor(logging)
-                .addInterceptor(telemetry)
-                .connectTimeout(options.getConnectTimeout(), TimeUnit.SECONDS)
-                .readTimeout(options.getReadTimeout(), TimeUnit.SECONDS)
-                .dispatcher(dispatcher)
-                .build();
+    private Auth0HttpClient buildNetworkingClient(HttpOptions options) {
+        return DefaultHttpClient.newBuilder()
+            .withLogging(options.getLoggingOptions())
+            .withMaxRetries(options.getManagementAPIMaxRetries())
+            .withMaxRequests(options.getMaxRequests())
+            .withMaxRequestsPerHost(options.getMaxRequestsPerHost())
+            .withProxy(options.getProxyOptions())
+            .withConnectTimeout(options.getConnectTimeout())
+            .withReadTimeout(options.getReadTimeout())
+            .build();
     }
 
     /**
@@ -196,7 +169,7 @@ public class AuthAPI {
     }
 
     //Visible for Testing
-    OkHttpClient getClient() {
+    Auth0HttpClient getClient() {
         return client;
     }
 
@@ -288,7 +261,7 @@ public class AuthAPI {
                 .addPathSegment("userinfo")
                 .build()
                 .toString();
-        CustomRequest<UserInfo> request = new CustomRequest<>(client, url, "GET", new TypeReference<UserInfo>() {
+        CustomRequest<UserInfo> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<UserInfo>() {
         });
         request.addHeader("Authorization", "Bearer " + accessToken);
         return request;
@@ -323,7 +296,7 @@ public class AuthAPI {
                 .addPathSegment("change_password")
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "POST");
+        VoidRequest request = new VoidRequest(client, url, HttpMethod.POST);
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_EMAIL, email);
         request.addParameter(KEY_CONNECTION, connection);
@@ -716,7 +689,7 @@ public class AuthAPI {
                 .addPathSegment(PATH_REVOKE)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "POST");
+        VoidRequest request = new VoidRequest(client, url, HttpMethod.POST);
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         request.addParameter(KEY_TOKEN, refreshToken);
@@ -883,7 +856,7 @@ public class AuthAPI {
                 .build()
                 .toString();
 
-        CustomRequest<PasswordlessEmailResponse> request = new CustomRequest<>(client, url, "POST", new TypeReference<PasswordlessEmailResponse>() {
+        CustomRequest<PasswordlessEmailResponse> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordlessEmailResponse>() {
         });
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_CLIENT_SECRET, clientSecret);
@@ -926,7 +899,7 @@ public class AuthAPI {
                 .build()
                 .toString();
 
-        CustomRequest<PasswordlessSmsResponse> request = new CustomRequest<>(client, url, "POST", new TypeReference<PasswordlessSmsResponse>() {
+        CustomRequest<PasswordlessSmsResponse> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordlessSmsResponse>() {
         });
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_CLIENT_SECRET, clientSecret);

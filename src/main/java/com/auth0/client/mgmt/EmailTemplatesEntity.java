@@ -3,10 +3,11 @@ package com.auth0.client.mgmt;
 import com.auth0.json.mgmt.EmailTemplate;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 /**
  * Class that provides an implementation of the Email Templates methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Email_Templates
@@ -28,7 +29,7 @@ public class EmailTemplatesEntity extends BaseManagementEntity {
     public static final String TEMPLATE_PASSWORD_RESET = "password_reset";
     public static final String TEMPLATE_MFA_OOB_CODE = "mfa_oob_code";
 
-    EmailTemplatesEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    EmailTemplatesEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
@@ -46,7 +47,7 @@ public class EmailTemplatesEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/email-templates")
                 .addPathSegment(templateName);
         String url = builder.build().toString();
-        CustomRequest<EmailTemplate> request = new CustomRequest<>(client, url, "GET", new TypeReference<EmailTemplate>() {
+        CustomRequest<EmailTemplate> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<EmailTemplate>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -67,7 +68,7 @@ public class EmailTemplatesEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/email-templates")
                 .build()
                 .toString();
-        CustomRequest<EmailTemplate> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<EmailTemplate>() {
+        CustomRequest<EmailTemplate> request = new CustomRequest<>(this.client, url, HttpMethod.POST, new TypeReference<EmailTemplate>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(template);
@@ -92,7 +93,7 @@ public class EmailTemplatesEntity extends BaseManagementEntity {
                 .addPathSegment(templateName)
                 .build()
                 .toString();
-        CustomRequest<EmailTemplate> request = new CustomRequest<>(this.client, url, "PATCH", new TypeReference<EmailTemplate>() {
+        CustomRequest<EmailTemplate> request = new CustomRequest<>(this.client, url, HttpMethod.PATCH, new TypeReference<EmailTemplate>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(template);

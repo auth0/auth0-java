@@ -4,10 +4,11 @@ import com.auth0.json.mgmt.userblocks.UserBlocks;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 /**
  * Class that provides an implementation of the User Blocks methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/User_Blocks
@@ -19,7 +20,7 @@ import okhttp3.OkHttpClient;
 @SuppressWarnings("WeakerAccess")
 public class UserBlocksEntity extends BaseManagementEntity {
 
-    UserBlocksEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    UserBlocksEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
@@ -39,7 +40,7 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .addQueryParameter("identifier", identifier)
                 .build()
                 .toString();
-        CustomRequest<UserBlocks> request = new CustomRequest<>(client, url, "GET", new TypeReference<UserBlocks>() {
+        CustomRequest<UserBlocks> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<UserBlocks>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -61,7 +62,7 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .addQueryParameter("identifier", identifier)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
+        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
@@ -82,7 +83,7 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .addPathSegment(userId)
                 .build()
                 .toString();
-        CustomRequest<UserBlocks> request = new CustomRequest<>(client, url, "GET", new TypeReference<UserBlocks>() {
+        CustomRequest<UserBlocks> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<UserBlocks>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -104,7 +105,7 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .addPathSegment(userId)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
+        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }

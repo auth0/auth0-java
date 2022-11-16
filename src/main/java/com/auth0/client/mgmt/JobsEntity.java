@@ -8,18 +8,19 @@ import com.auth0.json.mgmt.jobs.JobErrorDetails;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.MultipartRequest;
 import com.auth0.net.Request;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.Auth0HttpResponse;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import okhttp3.ResponseBody;
 
 /**
  * Class that provides an implementation of the Jobs methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Jobs
@@ -31,7 +32,7 @@ import okhttp3.ResponseBody;
 @SuppressWarnings("WeakerAccess")
 public class JobsEntity extends BaseManagementEntity {
 
-    JobsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    JobsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
@@ -52,7 +53,7 @@ public class JobsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<Job> request = new CustomRequest<>(client, url, "GET", new TypeReference<Job>() {
+        CustomRequest<Job> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Job>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -78,13 +79,13 @@ public class JobsEntity extends BaseManagementEntity {
 
         TypeReference<List<JobErrorDetails>> jobErrorDetailsListType = new TypeReference<List<JobErrorDetails>>() {
         };
-        CustomRequest<List<JobErrorDetails>> request = new CustomRequest<List<JobErrorDetails>>(client, url, "GET", jobErrorDetailsListType) {
+        CustomRequest<List<JobErrorDetails>> request = new CustomRequest<List<JobErrorDetails>>(client, url, HttpMethod.GET, jobErrorDetailsListType) {
             @Override
-            protected List<JobErrorDetails> readResponseBody(ResponseBody body) throws IOException {
-                if (body.contentLength() == 0) {
+            protected List<JobErrorDetails> readResponseBody(Auth0HttpResponse response) throws IOException {
+                if (response.getBody() == null || response.getBody().length() == 0) {// TODO this right?
                     return Collections.emptyList();
                 }
-                return super.readResponseBody(body);
+                return super.readResponseBody(response);
             }
         };
         request.addHeader("Authorization", "Bearer " + apiToken);
@@ -157,7 +158,7 @@ public class JobsEntity extends BaseManagementEntity {
             Asserts.assertNotNull(emailVerificationIdentity.getUserId(), "identity user id");
             requestBody.put("identity", emailVerificationIdentity);
         }
-        CustomRequest<Job> request = new CustomRequest<>(client, url, "POST", new TypeReference<Job>() {
+        CustomRequest<Job> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(requestBody);
@@ -188,12 +189,13 @@ public class JobsEntity extends BaseManagementEntity {
             requestBody.putAll(filter.getAsMap());
         }
 
-        CustomRequest<Job> request = new CustomRequest<>(client, url, "POST", new TypeReference<Job>() {
+        CustomRequest<Job> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(requestBody);
         return request;
     }
+
 
     /**
      * Requests a Users Imports job. A token with scope write:users is needed.
@@ -214,7 +216,8 @@ public class JobsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/jobs/users-imports")
                 .build()
                 .toString();
-        MultipartRequest<Job> request = new MultipartRequest<>(client, url, "POST", new TypeReference<Job>() {
+
+        MultipartRequest<Job> request = new MultipartRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>() {
         });
         if (options != null) {
             for (Map.Entry<String, Object> e : options.getAsMap().entrySet()) {
