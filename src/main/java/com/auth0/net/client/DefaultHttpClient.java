@@ -75,22 +75,15 @@ public class DefaultHttpClient implements Auth0HttpClient {
         return Math.max(val, 0);
     }
 
-    // TODO accept params?
     @Override
-//    @SuppressWarnings("deprecation")
     public Auth0HttpResponse makeRequest(Auth0HttpRequest request) throws IOException {
         Request okRequest = buildRequest(request);
-
-        // execute
-        // TODO ensure response is closed
-        Response okResponse = client.newCall(okRequest).execute();
-
-        // return an Auth0 HttpResponse
-        return buildResponse(okResponse);
+        try (Response response = client.newCall(okRequest).execute()) {
+            return buildResponse(response);
+        }
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public CompletableFuture<Auth0HttpResponse> makeRequestAsync(Auth0HttpRequest request) {
         final CompletableFuture<Auth0HttpResponse> future = new CompletableFuture<>();
         Request okRequest = buildRequest(request);
@@ -139,13 +132,21 @@ public class DefaultHttpClient implements Auth0HttpClient {
     private Auth0HttpResponse buildResponse(Response okResponse) throws IOException {
         Headers okHeaders = okResponse.headers();
         Map<String, String> headers = new HashMap<>();
+
         for (int i = 0; i < okHeaders.size(); i++) {
             headers.put(okHeaders.name(i), okHeaders.value(i));
         }
 
+        ResponseBody responseBody = okResponse.body();
+        String content = null;
+        // The RateLimitInterceptor needs to close the responseå; we don't need the body in that case and trying to
+        // get the body will result in an exception because the responsebody has been closed
+        if (Objects.nonNull(responseBody) && okResponse.code() != 429) {
+            content = responseBody.string();
+        }
         return Auth0HttpResponse.newBuilder()
             .withStatusCode(okResponse.code())
-            .withBody(Objects.nonNull(okResponse.body()) ? okResponse.body().string() : null)
+            .withBody(content)
             .withHeaders(headers)
             .build();
     }
@@ -257,8 +258,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
         return dispatcher;
     }
 
-    // TODO default headers?
-    // TODO accept OkHttp client?
+    // TODO accept default headers
     public static class Builder {
         private int readTimeout = 10;
         private int connectTimeout = 10;

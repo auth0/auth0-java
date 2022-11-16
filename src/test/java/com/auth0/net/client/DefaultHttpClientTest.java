@@ -2,6 +2,7 @@ package com.auth0.net.client;
 
 import com.auth0.client.LoggingOptions;
 import com.auth0.client.ProxyOptions;
+import com.auth0.exception.Auth0Exception;
 import com.auth0.net.RateLimitInterceptor;
 import com.auth0.net.TelemetryInterceptor;
 import okhttp3.*;
@@ -30,7 +31,12 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThrows;
-
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doAnswer;
 
 public class DefaultHttpClientTest {
 
@@ -416,6 +422,80 @@ public class DefaultHttpClientTest {
         assertThat(e.getCause(), is(instanceOf(IOException.class)));
     }
 
+    @Test
+    public void asyncHandlesNetworkError() {
+        OkHttpClient okClient = Mockito.mock(OkHttpClient.class);
+        okhttp3.Response response = Mockito.mock(okhttp3.Response.class);
+        Call call = Mockito.mock(Call.class);
+
+        doReturn(call).when(okClient).newCall(any());
+
+        doAnswer(invocation -> {
+            ((Callback) invocation.getArgument(0)).onFailure(call, new IOException("Error!"));
+            return null;
+        }).when(call).enqueue(any());
+
+        DefaultHttpClient client = new DefaultHttpClient(okClient);
+        Auth0HttpRequest request = Auth0HttpRequest.newBuilder(server.url("/users/").toString(), HttpMethod.POST)
+            .withBody(HttpRequestBody.newBuilder().withContent("{}".getBytes()).build())
+            .build();
+
+        CompletableFuture<Auth0HttpResponse> future = client.makeRequestAsync(request);
+        ExecutionException e = assertThrows(ExecutionException.class, future::get);
+        assertThat(e.getCause(), is(instanceOf(IOException.class)));
+    }
+
+    @Test
+    public void alwaysCloseResponseOnSuccessfulRequest() throws IOException {
+        okhttp3.Response response = Mockito.mock(okhttp3.Response.class);
+
+        Call call = Mockito.mock(Call.class);
+        when(call.execute()).thenReturn(response);
+
+        Headers headers = Mockito.mock(Headers.class);
+        when(response.headers()).thenReturn(headers);
+
+        OkHttpClient client = Mockito.mock(OkHttpClient.class);
+        when(client.newCall(any())).thenReturn(call);
+
+        Auth0HttpRequest request = Auth0HttpRequest.newBuilder(server.url("/users/").toString(), HttpMethod.POST)
+            .withBody(HttpRequestBody.newBuilder().withContent("{}".getBytes()).build())
+            .build();
+
+        DefaultHttpClient auth0Client = new DefaultHttpClient(client);
+        auth0Client.makeRequest(request);
+
+        verify(response, times(1)).close();
+    }
+
+    @Test
+    public void closesResponseOnAPIError() throws Exception {
+        okhttp3.Response response = Mockito.mock(okhttp3.Response.class);
+
+        Call call = Mockito.mock(Call.class);
+        when(call.execute()).thenReturn(response);
+
+        Headers headers = Mockito.mock(Headers.class);
+        when(response.headers()).thenReturn(headers);
+
+        OkHttpClient okClient = Mockito.mock(OkHttpClient.class);
+        when(okClient.newCall(any())).thenReturn(call);
+
+        Auth0HttpRequest request = Auth0HttpRequest.newBuilder(server.url("/users/").toString(), HttpMethod.POST)
+            .withBody(HttpRequestBody.newBuilder().withContent("{}".getBytes()).build())
+            .build();
+
+        DefaultHttpClient client = new DefaultHttpClient(okClient);
+        MockResponse mockResponse = new MockResponse()
+            .setResponseCode(500)
+            .setBody("server error");
+
+        server.enqueue(mockResponse);
+
+        Auth0HttpResponse aoResponse = client.makeRequest(request);
+        verify(response, times(1)).close();
+    }
+
     //////////////////////////////////////////////////////////
     //          HTTP CLIENT CONFIGURATION TESTS
     //////////////////////////////////////////////////////////
@@ -583,36 +663,6 @@ public class DefaultHttpClientTest {
             }
         }
     }
-
-    // TODO - API clients currently have setTelemetry method. Not sure we should move that to the http client,
-    //  it will be a breaking change no matter what, and not sure if it's a valid public use case.
-    //Poovam: Telemetry should be responsibility of Http Client and having that in API class could be confusing
-//    @Test
-//    public void shouldUseCustomTelemetry() {
-//        DefaultHttpClient client = DefaultHttpClient.newBuilder().build();
-//        assertThat(client.getOkClient().interceptors(), hasItem(isA(TelemetryInterceptor.class)));
-//
-//        Telemetry currentTelemetry = null;
-//        for (Interceptor i : client.getOkClient().interceptors()) {
-//            if (i instanceof TelemetryInterceptor) {
-//                TelemetryInterceptor interceptor = (TelemetryInterceptor) i;
-//                currentTelemetry = interceptor.getTelemetry();
-//            }
-//        }
-//        assertThat(currentTelemetry, is(notNullValue()));
-//
-//        Telemetry newTelemetry = Mockito.mock(Telemetry.class);
-//        client.setTelemetry(newTelemetry);
-//
-//        Telemetry updatedTelemetry = null;
-//        for (Interceptor i : api.getClient().interceptors()) {
-//            if (i instanceof TelemetryInterceptor) {
-//                TelemetryInterceptor interceptor = (TelemetryInterceptor) i;
-//                updatedTelemetry = interceptor.getTelemetry();
-//            }
-//        }
-//        assertThat(updatedTelemetry, is(newTelemetry));
-//    }
 
     @Test
     public void shouldDisableTelemetryInterceptor() {
@@ -810,9 +860,4 @@ public class DefaultHttpClientTest {
         assertThat(iae.getMessage(), is("maxRequestsPerHost must be one or greater."));
     }
 
-    // TODO
-    //  tests for boundary and null/different inputs
-    //  tests for API errors
-    //  tests for network error issues (can't connect, timeouts, etc)
-    //  tests for async
 }
