@@ -1,9 +1,7 @@
 package com.auth0.net;
 
 import com.auth0.client.MockServer;
-import com.auth0.net.client.DefaultHttpClient;
-import com.auth0.net.client.Auth0HttpClient;
-import com.auth0.net.client.HttpMethod;
+import com.auth0.net.client.*;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,5 +44,4 @@ public class VoidRequestTest {
         assertThat(recordedRequest.getMethod(), is(HttpMethod.POST.toString()));
         assertThat(execute, is(nullValue()));
     }
-
 }

@@ -108,11 +108,8 @@ public class MultipartRequestTest {
         assertThat(jsonFile.getValue(), is(utf8Contents));
     }
 
-    // TODO do we need to be able to specify the boundary?
     @Test
-    @Ignore
     public void shouldNotOverrideContentTypeHeader() throws Exception {
-//        MultipartBody.Builder bodyBuilder = new MultipartBody.Builder("5c49fdf2");
         Auth0MultipartRequestBody.Builder bodyBuilder = Auth0MultipartRequestBody.newBuilder();
         MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, server.getBaseUrl(), HttpMethod.POST, new ObjectMapper(), tokenHolderType, bodyBuilder);
         request.addPart("non_empty", "body");
@@ -122,7 +119,7 @@ public class MultipartRequestTest {
         request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest.getHeader("Content-Type"), is("multipart/form-data; boundary=5c49fdf2"));
+        assertThat(recordedRequest.getHeader("Content-Type"), containsString("multipart/form-data;"));
     }
 
     @Test
@@ -139,22 +136,6 @@ public class MultipartRequestTest {
         assertThat(recordedRequest.getHeader("Extra-Info"), is("this is a test"));
         assertThat(recordedRequest.getHeader("Authorization"), is("Bearer my_access_token"));
     }
-
-    // TODO fix!
-//    @Test
-//    public void shouldThrowOnExecuteFailure() throws Exception {
-//        exception.expect(Auth0Exception.class);
-//        exception.expectCause(Matchers.<Throwable>instanceOf(IOException.class));
-//        exception.expectMessage("Failed to execute request");
-//
-//        OkHttpClient client = mock(OkHttpClient.class);
-//        Call call = mock(Call.class);
-//        when(client.newCall(any(okhttp3.Request.class))).thenReturn(call);
-//        when(call.execute()).thenThrow(IOException.class);
-//        MultipartRequest<Void> request = new MultipartRequest<>(client, server.getBaseUrl(), HttpMethod.POST, voidType);
-//        request.addPart("non_empty", "body");
-//        request.execute();
-//    }
 
     @Test
     public void shouldThrowOnBodyCreationFailure() {

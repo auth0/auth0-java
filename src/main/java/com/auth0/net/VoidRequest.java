@@ -29,9 +29,6 @@ public class VoidRequest extends CustomRequest<Void> {
         if (!response.isSuccessful()) {
             throw super.createResponseException(response);
         }
-        // TODO because a VoidRequest doesn't have a body, it won't be read and the response not automatically closed
-        //  need to ensure that resposnes are *always* closed.
-//        response.close();
         return null;
     }
 }

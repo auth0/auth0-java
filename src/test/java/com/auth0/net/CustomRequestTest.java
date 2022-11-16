@@ -127,21 +127,6 @@ public class CustomRequestTest {
         assertThat(recordedRequest.getHeader("Content-Type"), is("application/json"));
     }
 
-//    @Test
-    // TODO fix
-//    public void shouldThrowOnExecuteFailure() throws Exception {
-//        exception.expect(Auth0Exception.class);
-//        exception.expectCause(Matchers.<Throwable>instanceOf(IOException.class));
-//        exception.expectMessage("Failed to execute request");
-//
-//        OkHttpClient client = mock(OkHttpClient.class);
-//        Call call = mock(Call.class);
-//        when(client.newCall(any(okhttp3.Request.class))).thenReturn(call);
-//        when(call.execute()).thenThrow(IOException.class);
-//        CustomRequest<Void> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, voidType);
-//        request.execute();
-//    }
-
     @Test
     public void shouldThrowOnBodyCreationFailure() throws Exception {
         ObjectMapper mapper = mock(ObjectMapper.class);

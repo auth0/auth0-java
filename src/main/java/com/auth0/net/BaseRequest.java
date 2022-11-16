@@ -62,7 +62,6 @@ public abstract class BaseRequest<T> implements Request<T> {
             T body = parseResponseBody(httpResponse);
             future = CompletableFuture.completedFuture(new ResponseImpl<>(httpResponse.getHeaders(), body, httpResponse.getCode()));
         } catch (Auth0Exception e) {
-            // TODO best way to handle exception?
             future.completeExceptionally(e);
             return future;
         }

@@ -49,7 +49,6 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
         } catch (IOException e) {
             throw new Auth0Exception("Couldn't create the request body.", e);
         }
-        // TODO don't mutate here?
         headers.put("Content-Type", getContentType());
         Auth0HttpRequest request = Auth0HttpRequest.newBuilder(url, method)
             .withBody(body)
