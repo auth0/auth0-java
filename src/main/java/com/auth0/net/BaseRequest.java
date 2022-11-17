@@ -30,7 +30,7 @@ public abstract class BaseRequest<T> implements Request<T> {
     public com.auth0.net.Response<T> execute() throws Auth0Exception {
         Auth0HttpRequest request = createRequest();
         try {
-            Auth0HttpResponse response = client.makeRequest(request);
+            Auth0HttpResponse response = client.sendRequest(request);
             T body = parseResponseBody(response);
             return new ResponseImpl<T>(response.getHeaders(), body, response.getCode());
         } catch (Auth0Exception e) {
@@ -52,7 +52,7 @@ public abstract class BaseRequest<T> implements Request<T> {
             return future;
         }
 
-        return client.makeRequestAsync(request)
+        return client.sendRequestAsync(request)
             .thenCompose(this::getResponseFuture);
     }
 

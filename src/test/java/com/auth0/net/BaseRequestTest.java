@@ -5,9 +5,6 @@ import com.auth0.net.client.Auth0HttpRequest;
 import com.auth0.net.client.Auth0HttpResponse;
 import com.auth0.net.client.DefaultHttpClient;
 import com.auth0.net.client.HttpMethod;
-import okhttp3.Call;
-import okhttp3.OkHttpClient;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -30,7 +27,7 @@ public class BaseRequestTest {
     @Test
     public void handlesIOException() throws Exception {
         DefaultHttpClient client = mock(DefaultHttpClient.class);
-        when(client.makeRequest(any())).thenThrow(IOException.class);
+        when(client.sendRequest(any())).thenThrow(IOException.class);
 
         BaseRequest<String> req = new BaseRequest<String>(client) {
             @Override

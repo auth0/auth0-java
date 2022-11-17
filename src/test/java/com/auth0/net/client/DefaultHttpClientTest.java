@@ -2,7 +2,6 @@ package com.auth0.net.client;
 
 import com.auth0.client.LoggingOptions;
 import com.auth0.client.ProxyOptions;
-import com.auth0.exception.Auth0Exception;
 import com.auth0.net.RateLimitInterceptor;
 import com.auth0.net.TelemetryInterceptor;
 import okhttp3.*;
@@ -68,7 +67,7 @@ public class DefaultHttpClientTest {
 
         server.enqueue(mockResponse);
 
-        Auth0HttpResponse response = client.makeRequest(request);
+        Auth0HttpResponse response = client.sendRequest(request);
         RecordedRequest madeRequest = server.takeRequest();
 
         assertThat(madeRequest.getPath(), is("/users/2"));
@@ -96,7 +95,7 @@ public class DefaultHttpClientTest {
 
         server.enqueue(mockResponse);
 
-        CompletableFuture<Auth0HttpResponse> response = client.makeRequestAsync(request);
+        CompletableFuture<Auth0HttpResponse> response = client.sendRequestAsync(request);
         RecordedRequest madeRequest = server.takeRequest();
 
         assertThat(madeRequest.getPath(), is("/users/2"));
@@ -128,7 +127,7 @@ public class DefaultHttpClientTest {
 
         server.enqueue(mockResponse);
 
-        Auth0HttpResponse response = client.makeRequest(request);
+        Auth0HttpResponse response = client.sendRequest(request);
         RecordedRequest madeRequest = server.takeRequest();
 
         assertThat(madeRequest.getPath(), is("/users/2"));
@@ -159,7 +158,7 @@ public class DefaultHttpClientTest {
 
         server.enqueue(mockResponse);
 
-        CompletableFuture<Auth0HttpResponse> response = client.makeRequestAsync(request);
+        CompletableFuture<Auth0HttpResponse> response = client.sendRequestAsync(request);
         RecordedRequest madeRequest = server.takeRequest();
 
         assertThat(madeRequest.getPath(), is("/users/2"));
@@ -188,7 +187,7 @@ public class DefaultHttpClientTest {
 
         server.enqueue(mockResponse);
 
-        Auth0HttpResponse response = client.makeRequest(request);
+        Auth0HttpResponse response = client.sendRequest(request);
         RecordedRequest madeRequest = server.takeRequest();
 
         assertThat(madeRequest.getPath(), is("/users/2"));
@@ -216,7 +215,7 @@ public class DefaultHttpClientTest {
 
         server.enqueue(mockResponse);
 
-        CompletableFuture<Auth0HttpResponse> response = client.makeRequestAsync(request);
+        CompletableFuture<Auth0HttpResponse> response = client.sendRequestAsync(request);
         RecordedRequest madeRequest = server.takeRequest();
 
         assertThat(madeRequest.getPath(), is("/users/2"));
@@ -244,7 +243,7 @@ public class DefaultHttpClientTest {
 
         server.enqueue(mockResponse);
 
-        Auth0HttpResponse response = client.makeRequest(request);
+        Auth0HttpResponse response = client.sendRequest(request);
         RecordedRequest madeRequest = server.takeRequest();
 
         assertThat(madeRequest.getPath(), is("/users/2"));
@@ -272,7 +271,7 @@ public class DefaultHttpClientTest {
 
         server.enqueue(mockResponse);
 
-        CompletableFuture<Auth0HttpResponse> response = client.makeRequestAsync(request);
+        CompletableFuture<Auth0HttpResponse> response = client.sendRequestAsync(request);
         RecordedRequest madeRequest = server.takeRequest();
 
         assertThat(madeRequest.getPath(), is("/users/2"));
@@ -299,7 +298,7 @@ public class DefaultHttpClientTest {
 
         server.enqueue(mockResponse);
 
-        Auth0HttpResponse response = client.makeRequest(request);
+        Auth0HttpResponse response = client.sendRequest(request);
         RecordedRequest madeRequest = server.takeRequest();
 
         assertThat(madeRequest.getPath(), is("/users/2"));
@@ -327,7 +326,7 @@ public class DefaultHttpClientTest {
 
         server.enqueue(mockResponse);
 
-        CompletableFuture<Auth0HttpResponse> response = client.makeRequestAsync(request);
+        CompletableFuture<Auth0HttpResponse> response = client.sendRequestAsync(request);
         RecordedRequest madeRequest = server.takeRequest();
 
         assertThat(madeRequest.getPath(), is("/users/2"));
@@ -352,7 +351,7 @@ public class DefaultHttpClientTest {
 
         server.enqueue(mockResponse);
 
-        Auth0HttpResponse response = client.makeRequest(request);
+        Auth0HttpResponse response = client.sendRequest(request);
         RecordedRequest madeRequest = server.takeRequest();
 
         assertThat(madeRequest.getPath(), is("/users/2"));
@@ -375,7 +374,7 @@ public class DefaultHttpClientTest {
 
         server.enqueue(mockResponse);
 
-        CompletableFuture<Auth0HttpResponse> response = client.makeRequestAsync(request);
+        CompletableFuture<Auth0HttpResponse> response = client.sendRequestAsync(request);
         RecordedRequest madeRequest = server.takeRequest();
 
         assertThat(madeRequest.getPath(), is("/users/2"));
@@ -400,7 +399,7 @@ public class DefaultHttpClientTest {
 
         server.enqueue(mockResponse);
 
-        assertThrows(IOException.class, () -> client.makeRequest(request));
+        assertThrows(IOException.class, () -> client.sendRequest(request));
     }
 
     @Test
@@ -417,7 +416,7 @@ public class DefaultHttpClientTest {
 
         server.enqueue(mockResponse);
 
-        CompletableFuture<Auth0HttpResponse> future = client.makeRequestAsync(request);
+        CompletableFuture<Auth0HttpResponse> future = client.sendRequestAsync(request);
         ExecutionException e = assertThrows(ExecutionException.class, future::get);
         assertThat(e.getCause(), is(instanceOf(IOException.class)));
     }
@@ -440,7 +439,7 @@ public class DefaultHttpClientTest {
             .withBody(HttpRequestBody.create("application/json", "{}".getBytes()))
             .build();
 
-        CompletableFuture<Auth0HttpResponse> future = client.makeRequestAsync(request);
+        CompletableFuture<Auth0HttpResponse> future = client.sendRequestAsync(request);
         ExecutionException e = assertThrows(ExecutionException.class, future::get);
         assertThat(e.getCause(), is(instanceOf(IOException.class)));
     }
@@ -463,7 +462,7 @@ public class DefaultHttpClientTest {
             .build();
 
         DefaultHttpClient auth0Client = new DefaultHttpClient(client);
-        auth0Client.makeRequest(request);
+        auth0Client.sendRequest(request);
 
         verify(response, times(1)).close();
     }
@@ -492,7 +491,7 @@ public class DefaultHttpClientTest {
 
         server.enqueue(mockResponse);
 
-        Auth0HttpResponse aoResponse = client.makeRequest(request);
+        Auth0HttpResponse aoResponse = client.sendRequest(request);
         verify(response, times(1)).close();
     }
 

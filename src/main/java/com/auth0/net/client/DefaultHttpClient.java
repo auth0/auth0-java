@@ -76,7 +76,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
     }
 
     @Override
-    public Auth0HttpResponse makeRequest(Auth0HttpRequest request) throws IOException {
+    public Auth0HttpResponse sendRequest(Auth0HttpRequest request) throws IOException {
         Request okRequest = buildRequest(request);
         try (Response response = client.newCall(okRequest).execute()) {
             return buildResponse(response);
@@ -84,7 +84,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
     }
 
     @Override
-    public CompletableFuture<Auth0HttpResponse> makeRequestAsync(Auth0HttpRequest request) {
+    public CompletableFuture<Auth0HttpResponse> sendRequestAsync(Auth0HttpRequest request) {
         final CompletableFuture<Auth0HttpResponse> future = new CompletableFuture<>();
         Request okRequest = buildRequest(request);
 
