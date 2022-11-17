@@ -150,11 +150,6 @@ public class AuthAPI {
     }
 
     //Visible for Testing
-    Auth0HttpClient getClient() {
-        return client;
-    }
-
-    //Visible for Testing
     HttpUrl getBaseUrl() {
         return baseUrl;
     }

@@ -133,11 +133,6 @@ public class ManagementAPI {
     }
 
     //Visible for testing
-    Auth0HttpClient getClient() {
-        return client;
-    }
-
-    //Visible for testing
     HttpUrl getBaseUrl() {
         return baseUrl;
     }
