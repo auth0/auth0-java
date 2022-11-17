@@ -95,8 +95,6 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
      * @return the instance of type T, result of interpreting the payload.
      * @throws IOException if an error is raised during the parsing of the body.
      */
-//    protected abstract T readResponseBody(ResponseBody body) throws IOException;
-//    protected abstract T readResponseBody(ResponseBody body) throws IOException;
     protected abstract T readResponseBody(Auth0HttpResponse response) throws IOException;
 
     /**
