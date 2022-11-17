@@ -29,6 +29,8 @@ public class ManagementAPI {
     private final TelemetryInterceptor telemetry;
     private final HttpLoggingInterceptor logging;
 
+    private TokenProvider tokenProvider;
+
     /**
      * Create an instance with the given tenant's domain and API token.
      * In addition, accepts an {@link HttpOptions} that will be used to configure the networking client.
@@ -54,6 +56,28 @@ public class ManagementAPI {
         telemetry = new TelemetryInterceptor();
         logging = new HttpLoggingInterceptor();
         client = buildNetworkingClient(options);
+
+        tokenProvider = SimpleTokenProvider.create(apiToken);
+    }
+
+    public ManagementAPI(String domain, String clientId, String clientSecret) {
+        Asserts.assertNotNull(domain, "domain");
+        Asserts.assertNotNull(clientId, "clientId");
+        Asserts.assertNotNull(clientSecret, "clientSecret");
+
+        this.baseUrl = createBaseUrl(domain);
+        if (baseUrl == null) {
+            throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
+        }
+
+        // todo remove
+        telemetry = new TelemetryInterceptor();
+        logging = new HttpLoggingInterceptor();
+
+        client = buildNetworkingClient(new HttpOptions());
+
+        // TODO create with configured HttpClient
+        tokenProvider = ManagedTokenProvider.create(baseUrl.toString(), clientId, clientSecret);
     }
 
     /**
@@ -152,6 +176,10 @@ public class ManagementAPI {
      */
     public BrandingEntity branding() {
         return new BrandingEntity(client, baseUrl, apiToken);
+    }
+
+    public BrandingEntity2 branding2() {
+        return new BrandingEntity2(client, baseUrl, tokenProvider);
     }
 
     /**
