@@ -82,7 +82,7 @@ public class JobsEntity extends BaseManagementEntity {
         CustomRequest<List<JobErrorDetails>> request = new CustomRequest<List<JobErrorDetails>>(client, url, HttpMethod.GET, jobErrorDetailsListType) {
             @Override
             protected List<JobErrorDetails> readResponseBody(Auth0HttpResponse response) throws IOException {
-                if (response.getBody() == null || response.getBody().length() == 0) {// TODO this right?
+                if (response.getBody() == null || response.getBody().length() == 0) {
                     return Collections.emptyList();
                 }
                 return super.readResponseBody(response);
