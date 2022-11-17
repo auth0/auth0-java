@@ -28,16 +28,6 @@ public class Auth0MultipartRequestBody {
         return this.parts;
     }
 
-//    static class Part {
-//        private final String name;
-//        private final String value;
-//
-//        Part(String name, String value) {
-//            this.name = name;
-//            this.value = value;
-//        }
-//    }
-
     static public class FilePart {
         private final String partName;
         private final File file;
