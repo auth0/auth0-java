@@ -1,11 +1,11 @@
 package com.auth0.net;
 
 import com.auth0.exception.Auth0Exception;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.Auth0HttpResponse;
+import com.auth0.net.client.HttpMethod;
 import com.fasterxml.jackson.core.type.TypeReference;
-import okhttp3.OkHttpClient;
-import okhttp3.Response;
 
-import java.util.Collections;
 import java.util.HashMap;
 
 /**
@@ -19,17 +19,16 @@ import java.util.HashMap;
  */
 public class VoidRequest extends CustomRequest<Void> {
 
-    public VoidRequest(OkHttpClient client, String url, String method) {
+    public VoidRequest(Auth0HttpClient client, String url, HttpMethod method) {
         super(client, url, method, new TypeReference<Void>() {
         });
     }
 
     @Override
-    protected Void parseResponseBody(Response response) throws Auth0Exception {
+    protected Void parseResponseBody(Auth0HttpResponse response) throws Auth0Exception {
         if (!response.isSuccessful()) {
             throw super.createResponseException(response);
         }
-        response.close();
         return null;
     }
 }

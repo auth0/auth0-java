@@ -4,10 +4,11 @@ import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.json.mgmt.tenants.Tenant;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 import java.util.Map;
 
@@ -21,7 +22,7 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class TenantsEntity extends BaseManagementEntity {
 
-    TenantsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    TenantsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
@@ -42,7 +43,7 @@ public class TenantsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<Tenant> request = new CustomRequest<>(client, url, "GET", new TypeReference<Tenant>() {
+        CustomRequest<Tenant> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Tenant>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -64,7 +65,7 @@ public class TenantsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<Tenant> request = new CustomRequest<>(client, url, "PATCH", new TypeReference<Tenant>() {
+        CustomRequest<Tenant> request = new CustomRequest<>(client, url, HttpMethod.PATCH, new TypeReference<Tenant>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(tenant);

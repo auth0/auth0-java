@@ -1,5 +1,6 @@
 package com.auth0.client;
 
+import com.auth0.net.client.HttpMethod;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.hamcrest.Description;
@@ -136,8 +137,8 @@ public class RecordedRequestMatcher extends TypeSafeDiagnosingMatcher<RecordedRe
         }
     }
 
-    public static RecordedRequestMatcher hasMethodAndPath(String method, String path) {
-        return new RecordedRequestMatcher(method, path, METHOD_PATH);
+    public static RecordedRequestMatcher hasMethodAndPath(HttpMethod method, String path) {
+        return new RecordedRequestMatcher(method.toString(), path, METHOD_PATH);
     }
 
     public static RecordedRequestMatcher hasHeader(String name, String value) {

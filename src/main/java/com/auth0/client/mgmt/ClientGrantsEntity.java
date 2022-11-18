@@ -6,10 +6,11 @@ import com.auth0.json.mgmt.ClientGrantsPage;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class ClientGrantsEntity extends BaseManagementEntity {
 
-    ClientGrantsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    ClientGrantsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
@@ -46,7 +47,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
         }
 
         String url = builder.build().toString();
-        CustomRequest<ClientGrantsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<ClientGrantsPage>() {
+        CustomRequest<ClientGrantsPage> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<ClientGrantsPage>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -67,7 +68,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/client-grants")
                 .build()
                 .toString();
-        CustomRequest<List<ClientGrant>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<ClientGrant>>() {
+        CustomRequest<List<ClientGrant>> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<List<ClientGrant>>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -92,7 +93,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/client-grants")
                 .build()
                 .toString();
-        CustomRequest<ClientGrant> request = new CustomRequest<>(client, url, "POST", new TypeReference<ClientGrant>() {
+        CustomRequest<ClientGrant> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<ClientGrant>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.addParameter("client_id", clientId);
@@ -118,7 +119,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
                 .addPathSegment(clientGrantId)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
+        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
@@ -141,7 +142,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
                 .addPathSegment(clientGrantId)
                 .build()
                 .toString();
-        CustomRequest<ClientGrant> request = new CustomRequest<>(client, url, "PATCH", new TypeReference<ClientGrant>() {
+        CustomRequest<ClientGrant> request = new CustomRequest<>(client, url, HttpMethod.PATCH, new TypeReference<ClientGrant>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.addParameter("scope", scope);
