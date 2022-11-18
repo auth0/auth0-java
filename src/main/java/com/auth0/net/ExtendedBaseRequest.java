@@ -42,7 +42,7 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
     }
 
     @Override
-    protected Auth0HttpRequest createRequest() throws Auth0Exception {
+    protected Request<T> createRequest() throws Auth0Exception {
         HttpRequestBody body;
         try {
             body = this.createRequestBody();
@@ -50,12 +50,12 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
             throw new Auth0Exception("Couldn't create the request body.", e);
         }
         headers.put("Content-Type", getContentType());
-        Auth0HttpRequest request = Auth0HttpRequest.newBuilder(url, method)
-            .withBody(body)
-            .withHeaders(headers)
-            .build();
+//        Request<T> request = Auth0HttpRequest.newBuilder(url, method)
+//            .withBody(body)
+//            .withHeaders(headers)
+//            .build();
 
-        return request;
+        return this;
     }
 
     @Override
@@ -137,5 +137,31 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
         long remaining = Long.parseLong(response.getHeader("X-RateLimit-Remaining", "-1"));
         long reset = Long.parseLong(response.getHeader("X-RateLimit-Reset", "-1"));
         return new RateLimitException(limit, remaining, reset);
+    }
+
+
+    @Override
+    public HttpRequestBody getBody() {
+        try {
+            return createRequestBody();
+        } catch (IOException e) {
+            //todo is this how you should handle it?
+            return null;
+        }
+    }
+
+    @Override
+    public String getUrl() {
+        return url;
+    }
+
+    @Override
+    public HttpMethod getMethod() {
+        return method;
+    }
+
+    @Override
+    public Map<String, String> getHeaders() {
+        return headers;
     }
 }

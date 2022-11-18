@@ -76,38 +76,38 @@ public class DefaultHttpClient implements Auth0HttpClient {
     }
 
     @Override
-    public Auth0HttpResponse sendRequest(Auth0HttpRequest request) throws IOException {
+    public <E> Auth0HttpResponse sendRequest(com.auth0.net.Request<E> request) throws IOException {
         Request okRequest = buildRequest(request);
         try (Response response = client.newCall(okRequest).execute()) {
             return buildResponse(response);
         }
     }
+//
+//    @Override
+//    public CompletableFuture<Auth0HttpResponse> sendRequestAsync(Auth0HttpRequest request) {
+//        final CompletableFuture<Auth0HttpResponse> future = new CompletableFuture<>();
+//        Request okRequest = buildRequest(request);
+//
+//        client.newCall(okRequest).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+//                future.completeExceptionally(e);
+//            }
+//
+//            @Override
+//            public void onResponse(@NotNull Call call, @NotNull Response response) {
+//                try {
+//                    future.complete(buildResponse(response));
+//                } catch (IOException e) {
+//                    future.completeExceptionally(e);
+//                }
+//            }
+//        });
+//
+//        return future;
+//    }
 
-    @Override
-    public CompletableFuture<Auth0HttpResponse> sendRequestAsync(Auth0HttpRequest request) {
-        final CompletableFuture<Auth0HttpResponse> future = new CompletableFuture<>();
-        Request okRequest = buildRequest(request);
-
-        client.newCall(okRequest).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(e);
-            }
-
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) {
-                try {
-                    future.complete(buildResponse(response));
-                } catch (IOException e) {
-                    future.completeExceptionally(e);
-                }
-            }
-        });
-
-        return future;
-    }
-
-    private Request buildRequest(Auth0HttpRequest a0Request) {
+    private <E> Request buildRequest(com.auth0.net.Request<E> a0Request) {
         // TODO only use body on request methods that support it
         // TODO not use null?
         RequestBody okBody = addBody(a0Request);
@@ -153,7 +153,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
     }
 
     @SuppressWarnings("deprecation")
-    private RequestBody addBody(Auth0HttpRequest request) {
+    private <E> RequestBody addBody(com.auth0.net.Request<E> request) {
         // null body added to request results in request without body
         if (Objects.isNull(request.getBody())) {
             return null;

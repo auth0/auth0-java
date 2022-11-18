@@ -25,7 +25,7 @@ public class ManagementAPI {
 
     private final HttpUrl baseUrl;
     private String apiToken;
-    private final Auth0HttpClient client;
+    private Auth0HttpClient client;
     private final TelemetryInterceptor telemetry;
     private final HttpLoggingInterceptor logging;
 
@@ -54,6 +54,21 @@ public class ManagementAPI {
         telemetry = new TelemetryInterceptor();
         logging = new HttpLoggingInterceptor();
         client = buildNetworkingClient(options);
+    }
+
+    public ManagementAPI(String domain, String apiToken, Auth0HttpClient auth0HttpClient) {
+        Asserts.assertNotNull(domain, "domain");
+        Asserts.assertNotNull(apiToken, "api token");
+
+        this.baseUrl = createBaseUrl(domain);
+        if (baseUrl == null) {
+            throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
+        }
+        this.apiToken = apiToken;
+
+        telemetry = new TelemetryInterceptor();
+        logging = new HttpLoggingInterceptor();
+        this.client = auth0HttpClient;
     }
 
     /**

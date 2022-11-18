@@ -2,7 +2,12 @@ package com.auth0.net;
 
 import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
+import com.auth0.net.client.HttpMethod;
+import com.auth0.net.client.HttpRequestBody;
+import okhttp3.RequestBody;
 
+import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -11,6 +16,14 @@ import java.util.concurrent.CompletableFuture;
  * @param <T> the type of payload expected in the response after the execution.
  */
 public interface Request<T> {
+
+    HttpRequestBody getBody();
+
+    String getUrl();
+
+    HttpMethod getMethod();
+
+    Map<String, String> getHeaders();
 
     /**
      * Executes this request synchronously.

@@ -2,7 +2,6 @@ package com.auth0.net;
 
 import com.auth0.exception.Auth0Exception;
 import com.auth0.net.client.Auth0HttpClient;
-import com.auth0.net.client.Auth0HttpRequest;
 import com.auth0.net.client.Auth0HttpResponse;
 
 import java.io.IOException;
@@ -16,7 +15,7 @@ public abstract class BaseRequest<T> implements Request<T> {
         this.client = client;
     }
 
-    protected abstract Auth0HttpRequest createRequest() throws Auth0Exception;
+    protected abstract Request<T> createRequest() throws Auth0Exception;
 
     protected abstract T parseResponseBody(Auth0HttpResponse response) throws Auth0Exception;
 
@@ -28,7 +27,7 @@ public abstract class BaseRequest<T> implements Request<T> {
      */
     @Override
     public com.auth0.net.Response<T> execute() throws Auth0Exception {
-        Auth0HttpRequest request = createRequest();
+        Request<T> request = createRequest();
         try {
             Auth0HttpResponse response = client.sendRequest(request);
             T body = parseResponseBody(response);
@@ -43,7 +42,7 @@ public abstract class BaseRequest<T> implements Request<T> {
     @Override
     public CompletableFuture<com.auth0.net.Response<T>> executeAsync() {
         final CompletableFuture<com.auth0.net.Response<T>> future = new CompletableFuture<>();
-        Auth0HttpRequest request;
+        Request<T> request;
 
         try {
             request = createRequest();
@@ -52,8 +51,8 @@ public abstract class BaseRequest<T> implements Request<T> {
             return future;
         }
 
-        return client.sendRequestAsync(request)
-            .thenCompose(this::getResponseFuture);
+        return null; //client.sendRequestAsync(request)
+            //.thenCompose(this::getResponseFuture);
     }
 
     private CompletableFuture<Response<T>> getResponseFuture(Auth0HttpResponse httpResponse) {
