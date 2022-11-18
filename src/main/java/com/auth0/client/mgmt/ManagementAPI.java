@@ -24,7 +24,7 @@ import okhttp3.logging.HttpLoggingInterceptor.Level;
 public class ManagementAPI {
 
     private final HttpUrl baseUrl;
-    private String apiToken;
+//    private String apiToken;
     private final Auth0HttpClient client;
     private final TelemetryInterceptor telemetry;
     private final HttpLoggingInterceptor logging;
@@ -51,7 +51,7 @@ public class ManagementAPI {
         if (baseUrl == null) {
             throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
         }
-        this.apiToken = apiToken;
+//        this.apiToken = apiToken;
 
         telemetry = new TelemetryInterceptor();
         logging = new HttpLoggingInterceptor();
@@ -121,7 +121,8 @@ public class ManagementAPI {
      */
     public void setApiToken(String apiToken) {
         Asserts.assertNotNull(apiToken, "api token");
-        this.apiToken = apiToken;
+        this.tokenProvider = SimpleTokenProvider.create(apiToken);
+//        this.apiToken = apiToken;
     }
 
     /**
@@ -175,11 +176,7 @@ public class ManagementAPI {
      * @return the Branding entity.
      */
     public BrandingEntity branding() {
-        return new BrandingEntity(client, baseUrl, apiToken);
-    }
-
-    public BrandingEntity2 branding2() {
-        return new BrandingEntity2(client, baseUrl, tokenProvider);
+        return new BrandingEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -188,7 +185,7 @@ public class ManagementAPI {
      * @return the Client Grants entity.
      */
     public ClientGrantsEntity clientGrants() {
-        return new ClientGrantsEntity(client, baseUrl, apiToken);
+        return new ClientGrantsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -197,7 +194,7 @@ public class ManagementAPI {
      * @return the Applications entity.
      */
     public ClientsEntity clients() {
-        return new ClientsEntity(client, baseUrl, apiToken);
+        return new ClientsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -206,7 +203,7 @@ public class ManagementAPI {
      * @return the Connections entity.
      */
     public ConnectionsEntity connections() {
-        return new ConnectionsEntity(client, baseUrl, apiToken);
+        return new ConnectionsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -215,7 +212,7 @@ public class ManagementAPI {
      * @return the Device Credentials entity.
      */
     public DeviceCredentialsEntity deviceCredentials() {
-        return new DeviceCredentialsEntity(client, baseUrl, apiToken);
+        return new DeviceCredentialsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -224,7 +221,7 @@ public class ManagementAPI {
      * @return the Grants entity.
      */
     public GrantsEntity grants() {
-        return new GrantsEntity(client, baseUrl, apiToken);
+        return new GrantsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -233,7 +230,7 @@ public class ManagementAPI {
      * @return the Log Events entity.
      */
     public LogEventsEntity logEvents() {
-        return new LogEventsEntity(client, baseUrl, apiToken);
+        return new LogEventsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -242,7 +239,7 @@ public class ManagementAPI {
      * @return the Log Streams entity.
      */
     public LogStreamsEntity logStreams() {
-        return new LogStreamsEntity(client, baseUrl, apiToken);
+        return new LogStreamsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -251,7 +248,7 @@ public class ManagementAPI {
      * @return the Rules entity.
      */
     public RulesEntity rules() {
-        return new RulesEntity(client, baseUrl, apiToken);
+        return new RulesEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -260,7 +257,7 @@ public class ManagementAPI {
      * @return the Rules Configs entity.
      */
     public RulesConfigsEntity rulesConfigs() {
-        return new RulesConfigsEntity(client, baseUrl, apiToken);
+        return new RulesConfigsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -269,7 +266,7 @@ public class ManagementAPI {
      * @return the User Blocks entity.
      */
     public UserBlocksEntity userBlocks() {
-        return new UserBlocksEntity(client, baseUrl, apiToken);
+        return new UserBlocksEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -278,7 +275,7 @@ public class ManagementAPI {
      * @return the Users entity.
      */
     public UsersEntity users() {
-        return new UsersEntity(client, baseUrl, apiToken);
+        return new UsersEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -287,7 +284,7 @@ public class ManagementAPI {
      * @return the Blacklists entity.
      */
     public BlacklistsEntity blacklists() {
-        return new BlacklistsEntity(client, baseUrl, apiToken);
+        return new BlacklistsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -296,7 +293,7 @@ public class ManagementAPI {
      * @return the Email Templates entity.
      */
     public EmailTemplatesEntity emailTemplates() {
-        return new EmailTemplatesEntity(client, baseUrl, apiToken);
+        return new EmailTemplatesEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -305,7 +302,7 @@ public class ManagementAPI {
      * @return the Email Provider entity.
      */
     public EmailProviderEntity emailProvider() {
-        return new EmailProviderEntity(client, baseUrl, apiToken);
+        return new EmailProviderEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -314,7 +311,7 @@ public class ManagementAPI {
      * @return the Guardian entity.
      */
     public GuardianEntity guardian() {
-        return new GuardianEntity(client, baseUrl, apiToken);
+        return new GuardianEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -323,7 +320,7 @@ public class ManagementAPI {
      * @return the Stats entity.
      */
     public StatsEntity stats() {
-        return new StatsEntity(client, baseUrl, apiToken);
+        return new StatsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -332,7 +329,7 @@ public class ManagementAPI {
      * @return the Tenants entity.
      */
     public TenantsEntity tenants() {
-        return new TenantsEntity(client, baseUrl, apiToken);
+        return new TenantsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -341,7 +338,7 @@ public class ManagementAPI {
      * @return the Tickets entity.
      */
     public TicketsEntity tickets() {
-        return new TicketsEntity(client, baseUrl, apiToken);
+        return new TicketsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -350,7 +347,7 @@ public class ManagementAPI {
      * @return the Resource Servers entity.
      */
     public ResourceServerEntity resourceServers() {
-        return new ResourceServerEntity(client, baseUrl, apiToken);
+        return new ResourceServerEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -359,7 +356,7 @@ public class ManagementAPI {
      * @return the Jobs entity.
      */
     public JobsEntity jobs() {
-        return new JobsEntity(client, baseUrl, apiToken);
+        return new JobsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -368,7 +365,7 @@ public class ManagementAPI {
      * @return the Roles entity.
      */
     public RolesEntity roles() {
-        return new RolesEntity(client, baseUrl, apiToken);
+        return new RolesEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -377,7 +374,7 @@ public class ManagementAPI {
      * @return the Organizations entity.
      */
     public OrganizationsEntity organizations() {
-        return new OrganizationsEntity(client, baseUrl, apiToken);
+        return new OrganizationsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -386,7 +383,7 @@ public class ManagementAPI {
      * @return the Actions entity.
      */
     public ActionsEntity actions() {
-        return new ActionsEntity(client, baseUrl, apiToken);
+        return new ActionsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -395,7 +392,7 @@ public class ManagementAPI {
      * @return the Attack Protection Entity
      */
     public AttackProtectionEntity attackProtection() {
-        return new AttackProtectionEntity(client, baseUrl, apiToken);
+        return new AttackProtectionEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -404,6 +401,6 @@ public class ManagementAPI {
      * @return the Keys Entity
      */
     public KeysEntity keys() {
-        return new KeysEntity(client, baseUrl, apiToken);
+        return new KeysEntity(client, baseUrl, tokenProvider);
     }
 }

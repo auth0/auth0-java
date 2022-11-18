@@ -10,7 +10,7 @@ import java.util.Map;
 public class CreateUserRequest extends CustomRequest<CreatedUser> implements SignUpRequest {
 
     public CreateUserRequest(Auth0HttpClient client, String url) {
-        super(client, url, HttpMethod.POST, new TypeReference<CreatedUser>() {
+        super(client, null, url, HttpMethod.POST, new TypeReference<CreatedUser>() {
         });
     }
 

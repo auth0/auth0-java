@@ -20,8 +20,8 @@ import okhttp3.HttpUrl;
 @SuppressWarnings("WeakerAccess")
 public class UserBlocksEntity extends BaseManagementEntity {
 
-    UserBlocksEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    UserBlocksEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -40,9 +40,9 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .addQueryParameter("identifier", identifier)
                 .build()
                 .toString();
-        CustomRequest<UserBlocks> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<UserBlocks>() {
+        CustomRequest<UserBlocks> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<UserBlocks>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        // request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -62,8 +62,8 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .addQueryParameter("identifier", identifier)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        VoidRequest request = new VoidRequest(client, tokenProvider, url, HttpMethod.DELETE);
+        // request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -83,9 +83,9 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .addPathSegment(userId)
                 .build()
                 .toString();
-        CustomRequest<UserBlocks> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<UserBlocks>() {
+        CustomRequest<UserBlocks> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<UserBlocks>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        // request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -105,8 +105,8 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .addPathSegment(userId)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        VoidRequest request = new VoidRequest(client, tokenProvider, url, HttpMethod.DELETE);
+        // request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 }

@@ -8,7 +8,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 public class TokenRequest extends CustomRequest<TokenHolder> implements AuthRequest {
 
     public TokenRequest(Auth0HttpClient client, String url) {
-        super(client, url, HttpMethod.POST, new TypeReference<TokenHolder>() {
+        super(client, null, url, HttpMethod.POST, new TypeReference<TokenHolder>() {
         });
     }
 

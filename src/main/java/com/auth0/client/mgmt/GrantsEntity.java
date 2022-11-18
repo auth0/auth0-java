@@ -25,8 +25,8 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class GrantsEntity extends BaseManagementEntity {
 
-    GrantsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    GrantsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -51,9 +51,9 @@ public class GrantsEntity extends BaseManagementEntity {
         }
 
         String url = builder.build().toString();
-        CustomRequest<GrantsPage> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<GrantsPage>() {
+        CustomRequest<GrantsPage> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<GrantsPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        // request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -76,9 +76,9 @@ public class GrantsEntity extends BaseManagementEntity {
                 .addQueryParameter("user_id", userId)
                 .build()
                 .toString();
-        CustomRequest<List<Grant>> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<List<Grant>>() {
+        CustomRequest<List<Grant>> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<Grant>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        // request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -98,8 +98,8 @@ public class GrantsEntity extends BaseManagementEntity {
                 .addPathSegment(grantId)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        VoidRequest request = new VoidRequest(client, tokenProvider, url, HttpMethod.DELETE);
+        // request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -119,8 +119,8 @@ public class GrantsEntity extends BaseManagementEntity {
                 .addQueryParameter("user_id", userId)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        VoidRequest request = new VoidRequest(client, tokenProvider, url, HttpMethod.DELETE);
+        // request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 

@@ -3,6 +3,7 @@ package com.auth0.client.mgmt;
 import com.auth0.client.auth.AuthAPI;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.json.auth.TokenHolder;
+import com.auth0.net.client.Auth0HttpClient;
 
 import java.time.Instant;
 import java.util.Objects;
@@ -21,7 +22,7 @@ public class ManagedTokenProvider implements TokenProvider {
     }
 
     // TODO proper level of synchronization to ensure thread-safety while also not being a deadlock
-    // need to synchronize to ensure multiple threads don't race and all fetch tokens when they don't need to
+    //  need to synchronize to ensure multiple threads don't race and all fetch tokens when they don't need to
     @Override
     public synchronized String getToken() throws Auth0Exception {
         // get tokens on first request if not set yet
@@ -32,23 +33,13 @@ public class ManagedTokenProvider implements TokenProvider {
             return tokenHolder.getAccessToken();
         }
 
-        // TODO check logic and think about buffer
-        // EXP: 100
-        // 99 + 30 = 129
-        // 100 < 129? YES, REFRESH
-        // EXP: 100
-        // 101 + 30 = 131
-        // 100 < 131? YES, REFRESH
-        // EXP 100
-        // 101 - 30 = 71
-        // 100 < 71? NO
         if (!tokenHolder.getExpiresAt().toInstant().isBefore(Instant.now().plusSeconds(30))) {
             System.out.println("*********** RETURNING VALID CACHED TOKEN ***************");
             return tokenHolder.getAccessToken();
         }
 
         System.out.println("*********** REFRESHING TOKEN AND RETURNING NEW API CLIENT ***************");
-        tokenHolder = getTokenHolder();
+        this.tokenHolder = getTokenHolder();
         System.out.println("*********** RETRIEVED NEW TOKEN ***************");
         return tokenHolder.getAccessToken();
     }
@@ -65,7 +56,7 @@ public class ManagedTokenProvider implements TokenProvider {
      * Usage:
      * // configured to fetch and manage token
      * ManagementAPI.newBuilder("domain")
-     *      .manageToken("clientId", "clientSecret")
+     *      .withManagedToken("clientId", "clientSecret")
      *      .build();
      *
      * // configured just with apiToken, as is today
@@ -80,5 +71,15 @@ public class ManagedTokenProvider implements TokenProvider {
      *      .connectTimeout(5)
      *      // ....
      *      .build();
+     *
+     * OR, could just accept a TokenProvider:
+     * - But this would not also support creation with just plain apiToken or updating the apiToken
+     * // simple token provider:
+     * TokenProvider simpleTokenProvider = SimpleTokenProvider.create("apiToken");
+     * ManagementAPI api = ManagementAPI.newBuilder("domain", simpleTokenProvider);
+     *
+     * // managed token provider
+     * TokenProvider managedTokenProvider = ManagedTokenProvider.create("domain", "clientId", "clientSecret");
+     * ManagementAPI api = ManagementAPI.newBuilder("domain", managedTokenProvider);
      */
 }

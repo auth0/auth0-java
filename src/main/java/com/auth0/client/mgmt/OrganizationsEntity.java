@@ -29,8 +29,8 @@ public class OrganizationsEntity extends BaseManagementEntity {
     private final static String ORGS_PATH = "api/v2/organizations";
     private final static String AUTHORIZATION_HEADER = "Authorization";
 
-    OrganizationsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    OrganizationsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     // Organizations Entity
@@ -51,10 +51,10 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        CustomRequest<OrganizationsPage> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<OrganizationsPage>() {
+        CustomRequest<OrganizationsPage> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<OrganizationsPage>() {
         });
 
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        // request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
     }
 
@@ -76,10 +76,10 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<Organization> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Organization>() {
+        CustomRequest<Organization> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Organization>() {
         });
 
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        // request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
     }
 
@@ -102,10 +102,10 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<Organization> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Organization>() {
+        CustomRequest<Organization> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Organization>() {
         });
 
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        // request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
     }
 
@@ -126,10 +126,10 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<Organization> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<Organization>() {
+        CustomRequest<Organization> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<Organization>() {
         });
 
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        // request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         request.setBody(organization);
         return request;
     }
@@ -154,10 +154,10 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<Organization> request = new CustomRequest<>(client, url, HttpMethod.PATCH, new TypeReference<Organization>() {
+        CustomRequest<Organization> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<Organization>() {
         });
 
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        // request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         request.setBody(organization);
         return request;
     }
@@ -180,8 +180,8 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        VoidRequest voidRequest = new VoidRequest(client, url, HttpMethod.DELETE);
-        voidRequest.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        VoidRequest voidRequest = new VoidRequest(client, tokenProvider, url, HttpMethod.DELETE);
+//        voidRequest.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return voidRequest;
     }
 
@@ -208,9 +208,9 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        CustomRequest<MembersPage> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<MembersPage>() {
+        CustomRequest<MembersPage> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<MembersPage>() {
         });
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        // request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
     }
 
@@ -235,8 +235,8 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.POST);
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        VoidRequest request = new VoidRequest(client, tokenProvider, url, HttpMethod.POST);
+        // request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         request.setBody(members);
         return request;
     }
@@ -262,8 +262,8 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        VoidRequest request = new VoidRequest(client, tokenProvider, url, HttpMethod.DELETE);
+        // request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         request.setBody(members);
         return request;
     }
@@ -291,9 +291,9 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        CustomRequest<EnabledConnectionsPage> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<EnabledConnectionsPage>() {
+        CustomRequest<EnabledConnectionsPage> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<EnabledConnectionsPage>() {
         });
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        // request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
     }
 
@@ -319,9 +319,9 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<EnabledConnection> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<EnabledConnection>() {
+        CustomRequest<EnabledConnection> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<EnabledConnection>() {
         });
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        // request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
     }
 
@@ -346,9 +346,9 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<EnabledConnection> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<EnabledConnection>() {
+        CustomRequest<EnabledConnection> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<EnabledConnection>() {
         });
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        // request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         request.setBody(connection);
         return request;
     }
@@ -375,8 +375,8 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        VoidRequest voidRequest = new VoidRequest(client, url, HttpMethod.DELETE);
-        voidRequest.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        VoidRequest voidRequest = new VoidRequest(client, tokenProvider, url, HttpMethod.DELETE);
+//        voidRequest.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return voidRequest;
     }
 
@@ -404,9 +404,9 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<EnabledConnection> request = new CustomRequest<>(client, url, HttpMethod.PATCH, new TypeReference<EnabledConnection>() {
+        CustomRequest<EnabledConnection> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<EnabledConnection>() {
         });
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        // request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         request.setBody(connection);
         return request;
     }
@@ -438,9 +438,9 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        CustomRequest<RolesPage> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<RolesPage>() {
+        CustomRequest<RolesPage> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<RolesPage>() {
         });
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        // request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
     }
 
@@ -469,8 +469,8 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.POST);
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        VoidRequest request = new VoidRequest(client, tokenProvider, url, HttpMethod.POST);
+        // request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         request.setBody(roles);
         return request;
     }
@@ -500,8 +500,8 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        VoidRequest request = new VoidRequest(client, tokenProvider, url, HttpMethod.DELETE);
+        // request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         request.setBody(roles);
         return request;
     }
@@ -529,9 +529,9 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<Invitation> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<Invitation>() {
+        CustomRequest<Invitation> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<Invitation>() {
         });
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        // request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         request.setBody(invitation);
         return request;
 
@@ -561,9 +561,9 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        CustomRequest<Invitation> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Invitation>() {
+        CustomRequest<Invitation> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Invitation>() {
         });
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        // request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
     }
 
@@ -588,9 +588,9 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        CustomRequest<InvitationsPage> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<InvitationsPage>() {
+        CustomRequest<InvitationsPage> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<InvitationsPage>() {
         });
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        // request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
     }
 
@@ -616,8 +616,8 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        VoidRequest request = new VoidRequest(client, tokenProvider, url, HttpMethod.DELETE);
+        // request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
     }
 

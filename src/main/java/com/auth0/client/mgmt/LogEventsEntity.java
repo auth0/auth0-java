@@ -25,8 +25,8 @@ import static com.auth0.client.mgmt.filter.QueryFilter.KEY_QUERY;
 @SuppressWarnings("WeakerAccess")
 public class LogEventsEntity extends BaseManagementEntity {
 
-    LogEventsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    LogEventsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -50,9 +50,9 @@ public class LogEventsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<LogEventsPage> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<LogEventsPage>() {
+        CustomRequest<LogEventsPage> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<LogEventsPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        // request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -72,9 +72,9 @@ public class LogEventsEntity extends BaseManagementEntity {
                 .addPathSegment(logEventId)
                 .build()
                 .toString();
-        CustomRequest<LogEvent> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<LogEvent>() {
+        CustomRequest<LogEvent> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<LogEvent>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        // request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 }

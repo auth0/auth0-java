@@ -32,8 +32,8 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class JobsEntity extends BaseManagementEntity {
 
-    JobsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    JobsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -53,9 +53,9 @@ public class JobsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<Job> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Job>() {
+        CustomRequest<Job> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Job>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        // request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -79,7 +79,7 @@ public class JobsEntity extends BaseManagementEntity {
 
         TypeReference<List<JobErrorDetails>> jobErrorDetailsListType = new TypeReference<List<JobErrorDetails>>() {
         };
-        CustomRequest<List<JobErrorDetails>> request = new CustomRequest<List<JobErrorDetails>>(client, url, HttpMethod.GET, jobErrorDetailsListType) {
+        CustomRequest<List<JobErrorDetails>> request = new CustomRequest<List<JobErrorDetails>>(client, tokenProvider, url, HttpMethod.GET, jobErrorDetailsListType) {
             @Override
             protected List<JobErrorDetails> readResponseBody(Auth0HttpResponse response) throws IOException {
                 if (response.getBody() == null || response.getBody().length() == 0) {
@@ -88,7 +88,7 @@ public class JobsEntity extends BaseManagementEntity {
                 return super.readResponseBody(response);
             }
         };
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        // request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -158,9 +158,9 @@ public class JobsEntity extends BaseManagementEntity {
             Asserts.assertNotNull(emailVerificationIdentity.getUserId(), "identity user id");
             requestBody.put("identity", emailVerificationIdentity);
         }
-        CustomRequest<Job> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>() {
+        CustomRequest<Job> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<Job>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        // request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(requestBody);
         return request;
     }
@@ -189,9 +189,9 @@ public class JobsEntity extends BaseManagementEntity {
             requestBody.putAll(filter.getAsMap());
         }
 
-        CustomRequest<Job> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>() {
+        CustomRequest<Job> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<Job>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        // request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(requestBody);
         return request;
     }
@@ -217,7 +217,7 @@ public class JobsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        MultipartRequest<Job> request = new MultipartRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>() {
+        MultipartRequest<Job> request = new MultipartRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<Job>() {
         });
         if (options != null) {
             for (Map.Entry<String, Object> e : options.getAsMap().entrySet()) {
@@ -226,7 +226,7 @@ public class JobsEntity extends BaseManagementEntity {
         }
         request.addPart("connection_id", connectionId);
         request.addPart("users", users, "text/json");
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        // request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 }
