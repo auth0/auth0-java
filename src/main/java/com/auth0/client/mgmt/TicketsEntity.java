@@ -4,10 +4,11 @@ import com.auth0.json.mgmt.tickets.EmailVerificationTicket;
 import com.auth0.json.mgmt.tickets.PasswordChangeTicket;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 /**
  * Class that provides an implementation of the Tickets methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Tickets
@@ -19,7 +20,7 @@ import okhttp3.OkHttpClient;
 @SuppressWarnings("WeakerAccess")
 public class TicketsEntity extends BaseManagementEntity {
 
-    TicketsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
+    TicketsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
         super(client, baseUrl, apiToken);
     }
 
@@ -39,7 +40,7 @@ public class TicketsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<EmailVerificationTicket> request = new CustomRequest<>(client, url, "POST", new TypeReference<EmailVerificationTicket>() {
+        CustomRequest<EmailVerificationTicket> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<EmailVerificationTicket>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(emailVerificationTicket);
@@ -62,7 +63,7 @@ public class TicketsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<PasswordChangeTicket> request = new CustomRequest<>(client, url, "POST", new TypeReference<PasswordChangeTicket>() {
+        CustomRequest<PasswordChangeTicket> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordChangeTicket>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(passwordChangeTicket);

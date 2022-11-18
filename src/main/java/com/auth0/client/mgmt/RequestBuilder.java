@@ -3,18 +3,20 @@ package com.auth0.client.mgmt;
 import com.auth0.net.CustomRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.fasterxml.jackson.core.type.TypeReference;
+import okhttp3.HttpUrl;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import org.jetbrains.annotations.Nullable;
-
 class RequestBuilder<T> {
-    private final OkHttpClient client;
-    private final String method;
+    private final Auth0HttpClient client;
+    private final HttpMethod method;
+
+    // TODO decouple from OkHttp
     private final HttpUrl.Builder url;
     private final TypeReference<T> target;
 
@@ -23,7 +25,7 @@ class RequestBuilder<T> {
     private final Map<String, String> headers = new HashMap<>();
     private final Map<String, Object> parameters = new HashMap<>();
 
-    public RequestBuilder(OkHttpClient client, String method, HttpUrl baseUrl, TypeReference<T> target) {
+    public RequestBuilder(Auth0HttpClient client, HttpMethod method, HttpUrl baseUrl, TypeReference<T> target) {
         this.client = client;
         this.method = method;
         this.url = baseUrl.newBuilder();

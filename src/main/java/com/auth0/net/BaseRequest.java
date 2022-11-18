@@ -1,28 +1,24 @@
 package com.auth0.net;
 
 import com.auth0.exception.Auth0Exception;
-import okhttp3.*;
-import okhttp3.Response;
-import org.jetbrains.annotations.NotNull;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.Auth0HttpRequest;
+import com.auth0.net.client.Auth0HttpResponse;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 public abstract class BaseRequest<T> implements Request<T> {
 
-    private final OkHttpClient client;
+    private final Auth0HttpClient client;
 
-    BaseRequest(OkHttpClient client) {
+    BaseRequest(Auth0HttpClient client) {
         this.client = client;
     }
 
-    protected abstract okhttp3.Request createRequest() throws Auth0Exception;
+    protected abstract Auth0HttpRequest createRequest() throws Auth0Exception;
 
-    protected abstract T parseResponseBody(okhttp3.Response response) throws Auth0Exception;
+    protected abstract T parseResponseBody(Auth0HttpResponse response) throws Auth0Exception;
 
     /**
      * Executes this request.
@@ -32,22 +28,23 @@ public abstract class BaseRequest<T> implements Request<T> {
      */
     @Override
     public com.auth0.net.Response<T> execute() throws Auth0Exception {
-        okhttp3.Request request = createRequest();
-        try (Response response = client.newCall(request).execute()) {
+        Auth0HttpRequest request = createRequest();
+        try {
+            Auth0HttpResponse response = client.sendRequest(request);
             T body = parseResponseBody(response);
-            return new ResponseImpl<T>(fromOkHttpHeaders(response.headers()), body, response.code());
+            return new ResponseImpl<T>(response.getHeaders(), body, response.getCode());
         } catch (Auth0Exception e) {
             throw e;
-        } catch (IOException e) {
-            throw new Auth0Exception("Failed to execute request", e);
+        } catch (IOException ioe) {
+            throw new Auth0Exception("Failed to execute the request", ioe);
         }
     }
 
     @Override
     public CompletableFuture<com.auth0.net.Response<T>> executeAsync() {
         final CompletableFuture<com.auth0.net.Response<T>> future = new CompletableFuture<>();
+        Auth0HttpRequest request;
 
-        okhttp3.Request request;
         try {
             request = createRequest();
         } catch (Auth0Exception e) {
@@ -55,33 +52,20 @@ public abstract class BaseRequest<T> implements Request<T> {
             return future;
         }
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new Auth0Exception("Failed to execute request", e));
-            }
+        return client.sendRequestAsync(request)
+            .thenCompose(this::getResponseFuture);
+    }
 
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try {
-                    T parsedResponse = parseResponseBody(response);
-                    future.complete(new ResponseImpl<>(fromOkHttpHeaders(response.headers()), parsedResponse, response.code()));
-                } catch (Auth0Exception e) {
-                    future.completeExceptionally(e);
-                }
-            }
-        });
-
+    private CompletableFuture<Response<T>> getResponseFuture(Auth0HttpResponse httpResponse) {
+        CompletableFuture<Response<T>> future = new CompletableFuture<>();
+        try {
+            T body = parseResponseBody(httpResponse);
+            future = CompletableFuture.completedFuture(new ResponseImpl<>(httpResponse.getHeaders(), body, httpResponse.getCode()));
+        } catch (Auth0Exception e) {
+            future.completeExceptionally(e);
+            return future;
+        }
         return future;
     }
-
-    private static Map<String, String> fromOkHttpHeaders(Headers okHttpHeaders) {
-        if (Objects.isNull(okHttpHeaders)) {
-            return Collections.emptyMap();
-        }
-
-        Map<String, String> headers = new HashMap<>();
-        okHttpHeaders.forEach(nameValuePair -> headers.put(nameValuePair.getFirst(), nameValuePair.getSecond()));
-        return headers;
-    }
 }
+

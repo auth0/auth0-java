@@ -2,17 +2,15 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.HttpOptions;
 import com.auth0.client.LoggingOptions;
-import com.auth0.client.ProxyOptions;
-import com.auth0.net.RateLimitInterceptor;
 import com.auth0.net.Telemetry;
 import com.auth0.net.TelemetryInterceptor;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.DefaultHttpClient;
 import com.auth0.utils.Asserts;
-import okhttp3.*;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
-
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Class that provides an implementation of the Management API methods defined in https://auth0.com/docs/api/management/v2.
@@ -27,7 +25,7 @@ public class ManagementAPI {
 
     private final HttpUrl baseUrl;
     private String apiToken;
-    private final OkHttpClient client;
+    private final Auth0HttpClient client;
     private final TelemetryInterceptor telemetry;
     private final HttpLoggingInterceptor logging;
 
@@ -42,6 +40,7 @@ public class ManagementAPI {
      * @param options  configuration options for this client instance.
      * @see #ManagementAPI(String, String)
      */
+    // TODO deprecate and provide Builder
     public ManagementAPI(String domain, String apiToken, HttpOptions options) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(apiToken, "api token");
@@ -65,6 +64,7 @@ public class ManagementAPI {
      * @param domain   the tenant's domain.
      * @param apiToken the token to authenticate the calls with.
      */
+    // TODO deprecate and provide Builder
     public ManagementAPI(String domain, String apiToken) {
         this(domain, apiToken, new HttpOptions());
     }
@@ -76,43 +76,16 @@ public class ManagementAPI {
      * @param options the options to set to the client.
      * @return a new networking client instance configured as requested.
      */
-    private OkHttpClient buildNetworkingClient(HttpOptions options) {
-        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
-        final ProxyOptions proxyOptions = options.getProxyOptions();
-        if (proxyOptions != null) {
-            //Set proxy
-            clientBuilder.proxy(proxyOptions.getProxy());
-            //Set authentication, if present
-            final String proxyAuth = proxyOptions.getBasicAuthentication();
-            if (proxyAuth != null) {
-                clientBuilder.proxyAuthenticator(new Authenticator() {
-
-                    private static final String PROXY_AUTHORIZATION_HEADER = "Proxy-Authorization";
-
-                    @Override
-                    public okhttp3.Request authenticate(Route route, Response response) throws IOException {
-                        if (response.request().header(PROXY_AUTHORIZATION_HEADER) != null) {
-                            return null;
-                        }
-                        return response.request().newBuilder()
-                                .header(PROXY_AUTHORIZATION_HEADER, proxyAuth)
-                                .build();
-                    }
-                });
-            }
-        }
-        configureLogging(options.getLoggingOptions());
-        Dispatcher dispatcher = new Dispatcher();
-        dispatcher.setMaxRequestsPerHost(options.getMaxRequestsPerHost());
-        dispatcher.setMaxRequests(options.getMaxRequests());
-        return clientBuilder
-                .addInterceptor(logging)
-                .addInterceptor(telemetry)
-                .addInterceptor(new RateLimitInterceptor(options.getManagementAPIMaxRetries()))
-                .connectTimeout(options.getConnectTimeout(), TimeUnit.SECONDS)
-                .readTimeout(options.getReadTimeout(), TimeUnit.SECONDS)
-                .dispatcher(dispatcher)
-                .build();
+    private DefaultHttpClient buildNetworkingClient(HttpOptions options) {
+        return DefaultHttpClient.newBuilder()
+            .withLogging(options.getLoggingOptions())
+            .withMaxRetries(options.getManagementAPIMaxRetries())
+            .withMaxRequests(options.getMaxRequests())
+            .withMaxRequestsPerHost(options.getMaxRequestsPerHost())
+            .withProxy(options.getProxyOptions())
+            .withConnectTimeout(options.getConnectTimeout())
+            .withReadTimeout(options.getReadTimeout())
+            .build();
     }
 
     /**
@@ -130,6 +103,7 @@ public class ManagementAPI {
     /**
      * Avoid sending Telemetry data in every request to the Auth0 servers.
      */
+    // TODO remove this method as it is on the DefaultHttpClient
     public void doNotSendTelemetry() {
         telemetry.setEnabled(false);
     }
@@ -139,6 +113,7 @@ public class ManagementAPI {
      *
      * @param telemetry to send in every request to Auth0
      */
+    // TODO remove this method as it is on the DefaultHttpClient
     public void setTelemetry(Telemetry telemetry) {
         this.telemetry.setTelemetry(telemetry);
     }
@@ -152,37 +127,9 @@ public class ManagementAPI {
      * @param enabled whether to enable the HTTP logger or not.
      */
     @Deprecated
+    // TODO remove this method
     public void setLoggingEnabled(boolean enabled) {
         logging.setLevel(enabled ? Level.BODY : Level.NONE);
-    }
-
-    private void configureLogging(LoggingOptions loggingOptions) {
-        if (loggingOptions == null) {
-            logging.setLevel(Level.NONE);
-            return;
-        }
-        switch (loggingOptions.getLogLevel()) {
-            case BASIC:
-                logging.setLevel(Level.BASIC);
-                break;
-            case HEADERS:
-                logging.setLevel(Level.HEADERS);
-                break;
-            case BODY:
-                logging.setLevel(Level.BODY);
-                break;
-            case NONE:
-            default:
-                logging.setLevel(Level.NONE);
-        }
-        for (String header : loggingOptions.getHeadersToRedact()) {
-            logging.redactHeader(header);
-        }
-    }
-
-    //Visible for testing
-    OkHttpClient getClient() {
-        return client;
     }
 
     //Visible for testing

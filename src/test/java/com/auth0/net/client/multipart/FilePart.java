@@ -1,4 +1,4 @@
-package com.auth0.net.multipart;
+package com.auth0.net.client.multipart;
 
 public class FilePart extends KeyValuePart {
 

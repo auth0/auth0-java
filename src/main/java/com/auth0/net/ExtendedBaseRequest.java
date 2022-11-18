@@ -3,10 +3,9 @@ package com.auth0.net;
 import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.RateLimitException;
+import com.auth0.net.client.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.MapType;
-import okhttp3.Request;
-import okhttp3.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -28,13 +27,13 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
     private static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
 
     private final String url;
-    private final String method;
+    private final HttpMethod method;
     private final ObjectMapper mapper;
     private final Map<String, String> headers;
 
     private static final int STATUS_CODE_TOO_MANY_REQUEST = 429;
 
-    ExtendedBaseRequest(OkHttpClient client, String url, String method, ObjectMapper mapper) {
+    ExtendedBaseRequest(Auth0HttpClient client, String url, HttpMethod method, ObjectMapper mapper) {
         super(client);
         this.url = url;
         this.method = method;
@@ -43,33 +42,32 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
     }
 
     @Override
-    protected Request createRequest() throws Auth0Exception {
-        RequestBody body;
+    protected Auth0HttpRequest createRequest() throws Auth0Exception {
+        HttpRequestBody body;
         try {
             body = this.createRequestBody();
         } catch (IOException e) {
             throw new Auth0Exception("Couldn't create the request body.", e);
         }
-        Request.Builder builder = new Request.Builder()
-                .url(url)
-                .method(method, body);
-        for (Map.Entry<String, String> e : headers.entrySet()) {
-            builder.addHeader(e.getKey(), e.getValue());
-        }
-        builder.addHeader("Content-Type", getContentType());
-        return builder.build();
+        headers.put("Content-Type", getContentType());
+        Auth0HttpRequest request = Auth0HttpRequest.newBuilder(url, method)
+            .withBody(body)
+            .withHeaders(headers)
+            .build();
+
+        return request;
     }
 
     @Override
-    protected T parseResponseBody(okhttp3.Response response) throws Auth0Exception {
+    protected T parseResponseBody(Auth0HttpResponse response) throws Auth0Exception {
         if (!response.isSuccessful()) {
             throw createResponseException(response);
         }
 
-        try (ResponseBody body = response.body()) {
-            return readResponseBody(body);
+        try {
+            return readResponseBody(response);
         } catch (IOException e) {
-            throw new APIException("Failed to parse the response body.", response.code(), e);
+            throw new APIException("Failed to parse the response body.", response.getCode(), e);
         }
     }
 
@@ -88,16 +86,16 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
      * @return the body to send as part of the request.
      * @throws IOException if an error is raised during the creation of the body.
      */
-    protected abstract RequestBody createRequestBody() throws IOException;
+    protected abstract HttpRequestBody createRequestBody() throws IOException;
 
     /**
      * Responsible for parsing the payload that is received as part of the response.
      *
-     * @param body the received body payload. The body buffer will automatically closed.
+     * @param response the received response. The body buffer will automatically closed.
      * @return the instance of type T, result of interpreting the payload.
      * @throws IOException if an error is raised during the parsing of the body.
      */
-    protected abstract T readResponseBody(ResponseBody body) throws IOException;
+    protected abstract T readResponseBody(Auth0HttpResponse response) throws IOException;
 
     /**
      * Adds an HTTP header to the request
@@ -118,27 +116,26 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
      * @param response the unsuccessful response, as received. If its body is accessed, the buffer must be closed.
      * @return the exception with the error details.
      */
-    protected Auth0Exception createResponseException(okhttp3.Response response) {
-        if (response.code() == STATUS_CODE_TOO_MANY_REQUEST) {
+    protected Auth0Exception createResponseException(Auth0HttpResponse response) {
+        if (response.getCode() == STATUS_CODE_TOO_MANY_REQUEST) {
             return createRateLimitException(response);
         }
 
-        String payload = null;
-        try (ResponseBody body = response.body()) {
-            payload = body.string();
-            MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
+        String payload = response.getBody();
+        MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
+        try {
             Map<String, Object> values = mapper.readValue(payload, mapType);
-            return new APIException(values, response.code());
+            return new APIException(values, response.getCode());
         } catch (IOException e) {
-            return new APIException(payload, response.code(), e);
+            return new APIException(payload, response.getCode(), e);
         }
     }
 
-    private RateLimitException createRateLimitException(okhttp3.Response response) {
+    private RateLimitException createRateLimitException(Auth0HttpResponse response) {
         // -1 as default value if the header could not be found.
-        long limit = Long.parseLong(response.header("X-RateLimit-Limit", "-1"));
-        long remaining = Long.parseLong(response.header("X-RateLimit-Remaining", "-1"));
-        long reset = Long.parseLong(response.header("X-RateLimit-Reset", "-1"));
+        long limit = Long.parseLong(response.getHeader("X-RateLimit-Limit", "-1"));
+        long remaining = Long.parseLong(response.getHeader("X-RateLimit-Remaining", "-1"));
+        long reset = Long.parseLong(response.getHeader("X-RateLimit-Reset", "-1"));
         return new RateLimitException(limit, remaining, reset);
     }
 }
