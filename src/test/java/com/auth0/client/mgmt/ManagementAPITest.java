@@ -1,29 +1,23 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.HttpOptions;
-import com.auth0.client.LoggingOptions;
 import com.auth0.client.MockServer;
-import com.auth0.client.ProxyOptions;
-import com.auth0.net.RateLimitInterceptor;
-import com.auth0.net.Telemetry;
-import com.auth0.net.TelemetryInterceptor;
-import okhttp3.*;
-import okhttp3.logging.HttpLoggingInterceptor;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.Auth0HttpRequest;
+import com.auth0.net.client.Auth0HttpResponse;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mockito.Mockito;
 
-import java.net.Proxy;
-import java.util.HashSet;
-import java.util.Set;
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 
 import static com.auth0.client.UrlMatcher.isUrl;
-import static okhttp3.logging.HttpLoggingInterceptor.Level;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThrows;
 
 public class ManagementAPITest {
 
@@ -40,7 +34,7 @@ public class ManagementAPITest {
     @Before
     public void setUp() throws Exception {
         server = new MockServer();
-        api = new ManagementAPI(server.getBaseUrl(), API_TOKEN);
+        api = ManagementAPI.newBuilder(server.getBaseUrl(), API_TOKEN).build();
     }
 
     @After
@@ -52,15 +46,41 @@ public class ManagementAPITest {
 
     @Test
     public void shouldAcceptDomainWithNoScheme() {
-        ManagementAPI api = new ManagementAPI("me.something.com", API_TOKEN);
+        ManagementAPI api = ManagementAPI.newBuilder("me.something.com", API_TOKEN).build();
 
         assertThat(api.getBaseUrl(), is(notNullValue()));
         assertThat(api.getBaseUrl().toString(), isUrl("https", "me.something.com"));
     }
 
     @Test
+    public void shouldCreateWithDomainAndToken() {
+        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN);
+        assertThat(api, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldCreateWithHttpClient() {
+        Auth0HttpClient httpClient = new Auth0HttpClient() {
+            @Override
+            public Auth0HttpResponse sendRequest(Auth0HttpRequest request) throws IOException {
+                return null;
+            }
+
+            @Override
+            public CompletableFuture<Auth0HttpResponse> sendRequestAsync(Auth0HttpRequest request) {
+                return null;
+            }
+        };
+
+        ManagementAPI api = ManagementAPI.newBuilder(DOMAIN, API_TOKEN)
+            .withHttpClient(httpClient).build();
+        assertThat(api, is(notNullValue()));
+        assertThat(api.getHttpClient(), is(httpClient));
+    }
+
+    @Test
     public void shouldAcceptDomainWithHttpScheme() {
-        ManagementAPI api = new ManagementAPI("http://me.something.com", API_TOKEN);
+        ManagementAPI api = ManagementAPI.newBuilder("http://me.something.com", API_TOKEN).build();
 
         assertThat(api.getBaseUrl(), is(notNullValue()));
         assertThat(api.getBaseUrl().toString(), isUrl("http", "me.something.com"));
@@ -70,26 +90,26 @@ public class ManagementAPITest {
     public void shouldThrowWhenDomainIsInvalid() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("The domain had an invalid format and couldn't be parsed as an URL.");
-        new ManagementAPI("", API_TOKEN);
+        ManagementAPI.newBuilder("", API_TOKEN).build();
     }
 
     @Test
     public void shouldThrowWhenDomainIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'domain' cannot be null!");
-        new ManagementAPI(null, API_TOKEN);
+        ManagementAPI.newBuilder(null, API_TOKEN).build();
     }
 
     @Test
     public void shouldThrowWhenApiTokenIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'api token' cannot be null!");
-        new ManagementAPI(DOMAIN, null);
+        ManagementAPI.newBuilder(DOMAIN, null).build();
     }
 
     @Test
     public void shouldThrowOnUpdateWhenApiTokenIsNull() {
-        ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN);
+        ManagementAPI api = ManagementAPI.newBuilder(DOMAIN, API_TOKEN).build();
 
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'api token' cannot be null!");
@@ -99,7 +119,7 @@ public class ManagementAPITest {
     @Test
     public void shouldUpdateApiToken() {
         //Initialize with a token
-        ManagementAPI api = new ManagementAPI(DOMAIN, "first token");
+        ManagementAPI api = ManagementAPI.newBuilder(DOMAIN, "first token").build();
 
         assertThat(api.blacklists().apiToken, is("first token"));
         assertThat(api.clientGrants().apiToken, is("first token"));
@@ -141,6 +161,19 @@ public class ManagementAPITest {
         assertThat(api.tickets().apiToken, is("new token"));
         assertThat(api.userBlocks().apiToken, is("new token"));
         assertThat(api.users().apiToken, is("new token"));
+    }
+
+    @Test
+    public void acceptsHttpOptions() {
+        HttpOptions httpOptions = new HttpOptions();
+        httpOptions.setConnectTimeout(15);
+        ManagementAPI api = new ManagementAPI(DOMAIN, "CLIENT_ID", httpOptions);
+        assertThat(api, is(notNullValue()));
+    }
+
+    @Test
+    public void httpOptionsShouldThrowWhenNull() {
+        assertThrows(IllegalArgumentException.class, () -> new ManagementAPI(DOMAIN, API_TOKEN, null));
     }
 
     @Test

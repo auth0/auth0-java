@@ -11,6 +11,7 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
+import org.jetbrains.annotations.TestOnly;
 
 /**
  * Class that provides an implementation of the Management API methods defined in https://auth0.com/docs/api/management/v2.
@@ -42,18 +43,7 @@ public class ManagementAPI {
      */
     // TODO deprecate and provide Builder
     public ManagementAPI(String domain, String apiToken, HttpOptions options) {
-        Asserts.assertNotNull(domain, "domain");
-        Asserts.assertNotNull(apiToken, "api token");
-
-        this.baseUrl = createBaseUrl(domain);
-        if (baseUrl == null) {
-            throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
-        }
-        this.apiToken = apiToken;
-
-        telemetry = new TelemetryInterceptor();
-        logging = new HttpLoggingInterceptor();
-        client = buildNetworkingClient(options);
+        this(domain, apiToken, buildNetworkingClient(options));
     }
 
     /**
@@ -66,7 +56,34 @@ public class ManagementAPI {
      */
     // TODO deprecate and provide Builder
     public ManagementAPI(String domain, String apiToken) {
-        this(domain, apiToken, new HttpOptions());
+        this(domain, apiToken, DefaultHttpClient.newBuilder().build());
+    }
+
+    /**
+     * Instantiate a new {@link Builder} to configure and build a new ManagementAPI client.
+     *
+     * @param domain the tenant's domain. Must be a non-null valid HTTPS domain.
+     * @param apiToken the token to use when making API requests to the Auth0 Management API.
+     * @return a Builder for further configuration.
+     */
+    public static ManagementAPI.Builder newBuilder(String domain, String apiToken) {
+        return new ManagementAPI.Builder(domain, apiToken);
+    }
+
+    private ManagementAPI(String domain, String apiToken, Auth0HttpClient httpClient) {
+        Asserts.assertNotNull(domain, "domain");
+        Asserts.assertNotNull(apiToken, "api token");
+
+        this.baseUrl = createBaseUrl(domain);
+        if (baseUrl == null) {
+            throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
+        }
+        this.apiToken = apiToken;
+
+        telemetry = new TelemetryInterceptor();
+        logging = new HttpLoggingInterceptor();
+
+        this.client = httpClient;
     }
 
     /**
@@ -76,7 +93,8 @@ public class ManagementAPI {
      * @param options the options to set to the client.
      * @return a new networking client instance configured as requested.
      */
-    private DefaultHttpClient buildNetworkingClient(HttpOptions options) {
+    private static DefaultHttpClient buildNetworkingClient(HttpOptions options) {
+        Asserts.assertNotNull(options, "Http options");
         return DefaultHttpClient.newBuilder()
             .withLogging(options.getLoggingOptions())
             .withMaxRetries(options.getManagementAPIMaxRetries())
@@ -100,6 +118,10 @@ public class ManagementAPI {
         this.apiToken = apiToken;
     }
 
+    @TestOnly
+    Auth0HttpClient getHttpClient() {
+        return this.client;
+    }
     /**
      * Avoid sending Telemetry data in every request to the Auth0 servers.
      */
@@ -377,5 +399,43 @@ public class ManagementAPI {
      */
     public KeysEntity keys() {
         return new KeysEntity(client, baseUrl, apiToken);
+    }
+
+    /**
+     * Builder for {@link ManagementAPI} API client instances.
+     */
+    public static class Builder {
+        private final String domain;
+        private final String apiToken;
+        private Auth0HttpClient httpClient = DefaultHttpClient.newBuilder().build();
+
+        /**
+         * Create a new Builder
+         * @param domain the domain of the tenant.
+         * @param apiToken the API token used to make requests to the Auth0 Management API.
+         */
+        public Builder(String domain, String apiToken) {
+            this.domain = domain;
+            this.apiToken = apiToken;
+        }
+
+        /**
+         * Configure the client with an {@link Auth0HttpClient}.
+         * @param httpClient the HTTP client to use when making requests.
+         * @return the builder instance.
+         * @see DefaultHttpClient
+         */
+        public Builder withHttpClient(Auth0HttpClient httpClient) {
+            this.httpClient = httpClient;
+            return this;
+        }
+
+        /**
+         * Build a {@link ManagementAPI} instance using this builder's configuration.
+         * @return the configured {@code ManagementAPI} instance.
+         */
+        public ManagementAPI build() {
+            return new ManagementAPI(domain, apiToken, httpClient);
+        }
     }
 }

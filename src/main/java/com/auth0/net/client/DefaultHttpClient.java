@@ -259,6 +259,9 @@ public class DefaultHttpClient implements Auth0HttpClient {
         return dispatcher;
     }
 
+    /**
+     * Builder for {@link DefaultHttpClient} instances.
+     */
     // TODO accept default headers
     public static class Builder {
         private int readTimeout = 10;

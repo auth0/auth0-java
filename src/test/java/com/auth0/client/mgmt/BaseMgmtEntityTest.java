@@ -20,7 +20,7 @@ public class BaseMgmtEntityTest {
     @Before
     public void setUp() throws Exception {
         server = new MockServer();
-        api = new ManagementAPI(server.getBaseUrl(), API_TOKEN);
+        api = ManagementAPI.newBuilder(server.getBaseUrl(), API_TOKEN).build();
     }
 
     @After
