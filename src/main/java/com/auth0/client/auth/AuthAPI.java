@@ -1,7 +1,6 @@
 package com.auth0.client.auth;
 
 import com.auth0.client.HttpOptions;
-import com.auth0.client.LoggingOptions;
 import com.auth0.client.mgmt.ManagementAPI;
 import com.auth0.json.auth.PasswordlessEmailResponse;
 import com.auth0.json.auth.PasswordlessSmsResponse;
@@ -14,8 +13,6 @@ import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import okhttp3.logging.HttpLoggingInterceptor.Level;
 import org.jetbrains.annotations.TestOnly;
 
 /**
@@ -55,8 +52,6 @@ public class AuthAPI {
     private final String clientId;
     private final String clientSecret;
     private final HttpUrl baseUrl;
-    private final TelemetryInterceptor telemetry;
-    private final HttpLoggingInterceptor logging;
 
     /**
      * Create a new instance with the given tenant's domain, application's client id and client secret.
@@ -110,9 +105,6 @@ public class AuthAPI {
         }
         this.clientId = clientId;
         this.clientSecret = clientSecret;
-
-        telemetry = new TelemetryInterceptor();
-        logging = new HttpLoggingInterceptor();
         this.client = httpClient;
 
     }
@@ -140,39 +132,7 @@ public class AuthAPI {
     Auth0HttpClient getHttpClient() {
         return this.client;
     }
-
-    /**
-     * Avoid sending Telemetry data in every request to the Auth0 servers.
-     */
-    // TODO remove this method as it is on the DefaultHttpClient
-    public void doNotSendTelemetry() {
-        telemetry.setEnabled(false);
-    }
-
-    /**
-     * Setter for the Telemetry to send in every request to Auth0.
-     *
-     * @param telemetry to send in every request to Auth0
-     */
-    // TODO remove this method as it is on the DefaultHttpClient
-    public void setTelemetry(Telemetry telemetry) {
-        this.telemetry.setTelemetry(telemetry);
-    }
-
-    /**
-     * @deprecated use the logging configuration available in {@link HttpOptions#setLoggingOptions(LoggingOptions)}
-     *
-     * Whether to enable or not the current HTTP Logger for every request and response line, body, and headers.
-     * <strong>Warning: Enabling logging can leek sensitive information, and should only be done in a controlled, non-production environment.</strong>
-     *
-     * @param enabled whether to enable the HTTP logger or not.
-     */
-    @Deprecated
-    // TODO remove this method
-    public void setLoggingEnabled(boolean enabled) {
-        logging.setLevel(enabled ? Level.BODY : Level.NONE);
-    }
-
+    
     //Visible for Testing
     HttpUrl getBaseUrl() {
         return baseUrl;
