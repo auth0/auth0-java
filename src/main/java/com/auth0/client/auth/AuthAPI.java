@@ -2,6 +2,7 @@ package com.auth0.client.auth;
 
 import com.auth0.client.HttpOptions;
 import com.auth0.client.LoggingOptions;
+import com.auth0.client.mgmt.ManagementAPI;
 import com.auth0.json.auth.PasswordlessEmailResponse;
 import com.auth0.json.auth.PasswordlessSmsResponse;
 import com.auth0.json.auth.UserInfo;
