@@ -2,6 +2,7 @@ package com.auth0.client.auth;
 
 import com.auth0.client.HttpOptions;
 import com.auth0.client.LoggingOptions;
+import com.auth0.client.mgmt.ManagementAPI;
 import com.auth0.json.auth.PasswordlessEmailResponse;
 import com.auth0.json.auth.PasswordlessSmsResponse;
 import com.auth0.json.auth.UserInfo;
@@ -15,10 +16,12 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
+import org.jetbrains.annotations.TestOnly;
 
 /**
- * Class that provides an implementation of some of the Authentication and Authorization API methods defined in https://auth0.com/docs/api/authentication.
- * To begin create a new instance of {@link #AuthAPI(String, String, String)} using the tenant domain, and the Application's client id and client secret.
+ * Class that provides an implementation of of the Authentication and Authorization API methods defined by the <a href="https://auth0.com/docs/api/authentication">Auth0 Authentication API</a>.
+ * Instances are created using the {@link Builder}. If you are also using the {@link ManagementAPI}, it is recommended
+ * to configure each with the same {@link DefaultHttpClient} to enable both API clients to share the same Http client.
  * <p>
  * This class is not entirely thread-safe:
  * A new immutable {@link OkHttpClient} instance is being created with each instantiation, not sharing the thread pool
@@ -68,21 +71,7 @@ public class AuthAPI {
      */
     // TODO deprecate and provide Builder
     public AuthAPI(String domain, String clientId, String clientSecret, HttpOptions options) {
-        Asserts.assertNotNull(domain, "domain");
-        Asserts.assertNotNull(clientId, "client id");
-        Asserts.assertNotNull(clientSecret, "client secret");
-        Asserts.assertNotNull(options, "client options");
-
-        this.baseUrl = createBaseUrl(domain);
-        if (baseUrl == null) {
-            throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
-        }
-        this.clientId = clientId;
-        this.clientSecret = clientSecret;
-
-        telemetry = new TelemetryInterceptor();
-        logging = new HttpLoggingInterceptor();
-        client = buildNetworkingClient(options);
+        this(domain, clientId, clientSecret, buildNetworkingClient(options));
     }
 
     /**
@@ -99,13 +88,43 @@ public class AuthAPI {
     }
 
     /**
+     * Initialize a new {@link Builder} to configure and create an instance.
+     * @param domain the tenant's domain. Must be a non-null valid HTTPS URL.
+     * @param clientId the application's client ID.
+     * @param clientSecret the applications client secret.
+     * @return a Builder for further configuration.
+     */
+    public static AuthAPI.Builder newBuilder(String domain, String clientId, String clientSecret) {
+        return new AuthAPI.Builder(domain, clientId, clientSecret);
+    }
+
+    private AuthAPI(String domain, String clientId, String clientSecret, Auth0HttpClient httpClient) {
+        Asserts.assertNotNull(domain, "domain");
+        Asserts.assertNotNull(clientId, "client id");
+        Asserts.assertNotNull(clientSecret, "client secret");
+        Asserts.assertNotNull(httpClient, "Http client");
+
+        this.baseUrl = createBaseUrl(domain);
+        if (baseUrl == null) {
+            throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
+        }
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+
+        telemetry = new TelemetryInterceptor();
+        logging = new HttpLoggingInterceptor();
+        this.client = httpClient;
+
+    }
+    /**
      * Given a set of options, it creates a new instance of the {@link OkHttpClient}
      * configuring them according to their availability.
      *
      * @param options the options to set to the client.
      * @return a new networking client instance configured as requested.
      */
-    private Auth0HttpClient buildNetworkingClient(HttpOptions options) {
+    private static Auth0HttpClient buildNetworkingClient(HttpOptions options) {
+        Asserts.assertNotNull(options, "Http options");
         return DefaultHttpClient.newBuilder()
             .withLogging(options.getLoggingOptions())
             .withMaxRetries(options.getManagementAPIMaxRetries())
@@ -115,6 +134,11 @@ public class AuthAPI {
             .withConnectTimeout(options.getConnectTimeout())
             .withReadTimeout(options.getReadTimeout())
             .build();
+    }
+
+    @TestOnly
+    Auth0HttpClient getHttpClient() {
+        return this.client;
     }
 
     /**
@@ -924,5 +948,46 @@ public class AuthAPI {
         request.addParameter(KEY_MFA_TOKEN, mfaToken);
         request.addParameter(KEY_OTP, otp);
         return request;
+    }
+
+    /**
+     * Builder for {@link AuthAPI} API client instances.
+     */
+    public static class Builder {
+        private final String domain;
+        private final String clientId;
+        private final String clientSecret;
+        private Auth0HttpClient httpClient = DefaultHttpClient.newBuilder().build();
+
+        /**
+         * Create a new Builder
+         * @param domain the domain of the tenant.
+         * @param clientId the client ID of the Auth0 application.
+         * @param clientSecret the client secret of the Auth0 application.
+         */
+        public Builder(String domain, String clientId, String clientSecret) {
+            this.domain = domain;
+            this.clientId = clientId;
+            this.clientSecret = clientSecret;
+        }
+
+        /**
+         * Configure the client with an {@link Auth0HttpClient}.
+         * @param httpClient the HTTP client to use when making requests.
+         * @return the builder instance.
+         * @see DefaultHttpClient
+         */
+        public Builder withHttpClient(Auth0HttpClient httpClient) {
+            this.httpClient = httpClient;
+            return this;
+        }
+
+        /**
+         * Builds an {@link AuthAPI} instance using this builder's configuration.
+         * @return the configured {@code AuthAPI} instance.
+         */
+        public AuthAPI build() {
+            return new AuthAPI(domain, clientId, clientSecret, httpClient);
+        }
     }
 }
