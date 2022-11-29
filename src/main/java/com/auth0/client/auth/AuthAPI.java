@@ -58,13 +58,15 @@ public class AuthAPI {
      * These values can be obtained at https://manage.auth0.com/#/applications/{YOUR_CLIENT_ID}/settings.
      * In addition, accepts an {@link HttpOptions} that will be used to configure the networking client.
      *
+     * @deprecated Use the {@link Builder} to configure and create instances.
+     *
      * @param domain       tenant's domain.
      * @param clientId     the application's client id.
      * @param clientSecret the application's client secret.
      * @param options      configuration options for this client instance.
      * @see #AuthAPI(String, String, String)
      */
-    // TODO deprecate and provide Builder
+    @Deprecated
     public AuthAPI(String domain, String clientId, String clientSecret, HttpOptions options) {
         this(domain, clientId, clientSecret, buildNetworkingClient(options));
     }
@@ -73,11 +75,13 @@ public class AuthAPI {
      * Create a new instance with the given tenant's domain, application's client id and client secret.
      * These values can be obtained at https://manage.auth0.com/#/applications/{YOUR_CLIENT_ID}/settings.
      *
+     * @deprecated Use the {@link Builder} to configure and create instances.
+     *
      * @param domain       tenant's domain.
      * @param clientId     the application's client id.
      * @param clientSecret the application's client secret.
      */
-    // TODO deprecate and provide Builder
+    @Deprecated
     public AuthAPI(String domain, String clientId, String clientSecret) {
         this(domain, clientId, clientSecret, new HttpOptions());
     }
