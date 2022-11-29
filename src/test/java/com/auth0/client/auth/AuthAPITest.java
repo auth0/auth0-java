@@ -5,6 +5,9 @@ import com.auth0.client.MockServer;
 import com.auth0.exception.APIException;
 import com.auth0.json.auth.*;
 import com.auth0.net.*;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.Auth0HttpRequest;
+import com.auth0.net.client.Auth0HttpResponse;
 import com.auth0.net.client.HttpMethod;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,9 +19,11 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.hasHeader;
@@ -48,7 +53,7 @@ public class AuthAPITest {
     @Before
     public void setUp() throws Exception {
         server = new MockServer();
-        api = new AuthAPI(server.getBaseUrl(), CLIENT_ID, CLIENT_SECRET);
+        api = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID, CLIENT_SECRET).build();
     }
 
     @After
@@ -59,8 +64,36 @@ public class AuthAPITest {
     // Configuration
 
     @Test
+    public void shouldAcceptHttpOptions() {
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, new HttpOptions());
+        assertThat(api, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldAcceptHttpClient() {
+        Auth0HttpClient httpClient = new Auth0HttpClient() {
+            @Override
+            public Auth0HttpResponse sendRequest(Auth0HttpRequest request) throws IOException {
+                return null;
+            }
+
+            @Override
+            public CompletableFuture<Auth0HttpResponse> sendRequestAsync(Auth0HttpRequest request) {
+                return null;
+            }
+        };
+
+        AuthAPI api = AuthAPI.newBuilder(DOMAIN, CLIENT_ID, CLIENT_SECRET)
+            .withHttpClient(httpClient)
+            .build();
+
+        assertThat(api, is(notNullValue()));
+        assertThat(api.getHttpClient(), is(notNullValue()));
+    }
+
+    @Test
     public void shouldAcceptDomainWithNoScheme() {
-        AuthAPI api = new AuthAPI("me.something.com", CLIENT_ID, CLIENT_SECRET);
+        AuthAPI api = AuthAPI.newBuilder("me.something.com", CLIENT_ID, CLIENT_SECRET).build();
 
         assertThat(api.getBaseUrl(), is(notNullValue()));
         assertThat(api.getBaseUrl().toString(), isUrl("https", "me.something.com"));
@@ -68,7 +101,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldAcceptDomainWithHttpScheme() {
-        AuthAPI api = new AuthAPI("http://me.something.com", CLIENT_ID, CLIENT_SECRET);
+        AuthAPI api = AuthAPI.newBuilder("http://me.something.com", CLIENT_ID, CLIENT_SECRET).build();
 
         assertThat(api.getBaseUrl(), is(notNullValue()));
         assertThat(api.getBaseUrl().toString(), isUrl("http", "me.something.com"));
@@ -78,28 +111,28 @@ public class AuthAPITest {
     public void shouldThrowWhenDomainIsInvalid() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("The domain had an invalid format and couldn't be parsed as an URL.");
-        new AuthAPI("", CLIENT_ID, CLIENT_SECRET);
+        AuthAPI.newBuilder("", CLIENT_ID, CLIENT_SECRET).build();
     }
 
     @Test
     public void shouldThrowWhenDomainIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'domain' cannot be null!");
-        new AuthAPI(null, CLIENT_ID, CLIENT_SECRET);
+        AuthAPI.newBuilder(null, CLIENT_ID, CLIENT_SECRET).build();
     }
 
     @Test
     public void shouldThrowWhenClientIdIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client id' cannot be null!");
-        new AuthAPI(DOMAIN, null, CLIENT_SECRET);
+        AuthAPI.newBuilder(DOMAIN, null, CLIENT_SECRET).build();
     }
 
     @Test
     public void shouldThrowWhenClientSecretIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client secret' cannot be null!");
-        new AuthAPI(DOMAIN, CLIENT_ID, null);
+        AuthAPI.newBuilder(DOMAIN, CLIENT_ID, null).build();
     }
 
     @Test
@@ -135,7 +168,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldSetAuthorizeUrlBuilderDefaultValues() {
-        AuthAPI api = new AuthAPI("domain.auth0.com", CLIENT_ID, CLIENT_SECRET);
+        AuthAPI api = AuthAPI.newBuilder("domain.auth0.com", CLIENT_ID, CLIENT_SECRET).build();
         String url = api.authorizeUrl("https://domain.auth0.com/callback").build();
 
         assertThat(url, isUrl("https", "domain.auth0.com", "/authorize"));
@@ -170,7 +203,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldSetLogoutUrlBuilderDefaultValues() {
-        AuthAPI api = new AuthAPI("domain.auth0.com", CLIENT_ID, CLIENT_SECRET);
+        AuthAPI api = AuthAPI.newBuilder("domain.auth0.com", CLIENT_ID, CLIENT_SECRET).build();
         String url = api.logoutUrl("https://my.domain.com/welcome", false).build();
 
         assertThat(url, isUrl("https", "domain.auth0.com", "/v2/logout"));
@@ -180,7 +213,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldSetLogoutUrlBuilderDefaultValuesAndClientId() {
-        AuthAPI api = new AuthAPI("domain.auth0.com", CLIENT_ID, CLIENT_SECRET);
+        AuthAPI api = AuthAPI.newBuilder("domain.auth0.com", CLIENT_ID, CLIENT_SECRET).build();
         String url = api.logoutUrl("https://my.domain.com/welcome", true).build();
 
         assertThat(url, isUrl("https", "domain.auth0.com", "/v2/logout"));
