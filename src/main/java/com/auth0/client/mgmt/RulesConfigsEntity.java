@@ -22,8 +22,8 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class RulesConfigsEntity extends BaseManagementEntity {
 
-    RulesConfigsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    RulesConfigsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -39,9 +39,9 @@ public class RulesConfigsEntity extends BaseManagementEntity {
                 .newBuilder()
                 .addPathSegments("api/v2/rules-configs");
         String url = builder.build().toString();
-        CustomRequest<List<RulesConfig>> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<List<RulesConfig>>() {
+        CustomRequest<List<RulesConfig>> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<RulesConfig>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        // request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -61,8 +61,8 @@ public class RulesConfigsEntity extends BaseManagementEntity {
                 .addPathSegment(rulesConfigKey)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        VoidRequest request = new VoidRequest(client, tokenProvider, url, HttpMethod.DELETE);
+        // request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -84,9 +84,9 @@ public class RulesConfigsEntity extends BaseManagementEntity {
                 .addPathSegment(rulesConfigKey)
                 .build()
                 .toString();
-        CustomRequest<RulesConfig> request = new CustomRequest<>(this.client, url, HttpMethod.PUT, new TypeReference<RulesConfig>() {
+        CustomRequest<RulesConfig> request = new CustomRequest<>(this.client, tokenProvider, url, HttpMethod.PUT, new TypeReference<RulesConfig>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        // request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(rulesConfig);
         return request;
     }

@@ -22,8 +22,8 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class TenantsEntity extends BaseManagementEntity {
 
-    TenantsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    TenantsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -43,9 +43,9 @@ public class TenantsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<Tenant> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Tenant>() {
+        CustomRequest<Tenant> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Tenant>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        // request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -65,9 +65,9 @@ public class TenantsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<Tenant> request = new CustomRequest<>(client, url, HttpMethod.PATCH, new TypeReference<Tenant>() {
+        CustomRequest<Tenant> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<Tenant>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        // request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(tenant);
         return request;
     }

@@ -25,8 +25,11 @@ class RequestBuilder<T> {
     private final Map<String, String> headers = new HashMap<>();
     private final Map<String, Object> parameters = new HashMap<>();
 
-    public RequestBuilder(Auth0HttpClient client, HttpMethod method, HttpUrl baseUrl, TypeReference<T> target) {
+    private final TokenProvider tokenProvider;
+
+    public RequestBuilder(Auth0HttpClient client, TokenProvider tokenProvider, HttpMethod method, HttpUrl baseUrl, TypeReference<T> target) {
         this.client = client;
+        this.tokenProvider = tokenProvider;
         this.method = method;
         this.url = baseUrl.newBuilder();
         this.target = target;
@@ -58,9 +61,9 @@ class RequestBuilder<T> {
 
         final String url = this.url.build().toString();
         if ("java.lang.Void".equals(target.getType().getTypeName())) {
-            request = (CustomRequest<T>) new VoidRequest(client, url, method);
+            request = (CustomRequest<T>) new VoidRequest(client, tokenProvider, url, method);
         } else {
-            request = new CustomRequest<>(client, url, method, target);
+            request = new CustomRequest<>(client, tokenProvider, url, method, target);
         }
 
         if (body != null) {

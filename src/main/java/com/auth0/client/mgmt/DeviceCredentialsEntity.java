@@ -24,8 +24,8 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class DeviceCredentialsEntity extends BaseManagementEntity {
 
-    DeviceCredentialsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    DeviceCredentialsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -45,9 +45,9 @@ public class DeviceCredentialsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<List<DeviceCredentials>> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<List<DeviceCredentials>>() {
+        CustomRequest<List<DeviceCredentials>> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<DeviceCredentials>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        // // request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -66,9 +66,9 @@ public class DeviceCredentialsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/device-credentials")
                 .build()
                 .toString();
-        CustomRequest<DeviceCredentials> request = new CustomRequest<>(this.client, url, HttpMethod.POST, new TypeReference<DeviceCredentials>() {
+        CustomRequest<DeviceCredentials> request = new CustomRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<DeviceCredentials>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        // // request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(deviceCredentials);
         return request;
     }
@@ -89,8 +89,8 @@ public class DeviceCredentialsEntity extends BaseManagementEntity {
                 .addPathSegment(deviceCredentialsId)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        VoidRequest request = new VoidRequest(client, tokenProvider, url, HttpMethod.DELETE);
+        // // request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 }

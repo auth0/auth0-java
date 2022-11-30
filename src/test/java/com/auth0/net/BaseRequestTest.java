@@ -29,7 +29,7 @@ public class BaseRequestTest {
         DefaultHttpClient client = mock(DefaultHttpClient.class);
         when(client.sendRequest(any())).thenThrow(IOException.class);
 
-        BaseRequest<String> req = new BaseRequest<String>(client) {
+        BaseRequest<String> req = new BaseRequest<String>(client, null) {
             @Override
             protected Auth0HttpRequest createRequest() throws Auth0Exception {
                 return null;
@@ -49,7 +49,7 @@ public class BaseRequestTest {
     public void asyncHandlesIOExceptionWhenCreatingRequest() throws Exception {
         DefaultHttpClient client = DefaultHttpClient.newBuilder().build();
 
-        BaseRequest<String> req = new BaseRequest<String>(client) {
+        BaseRequest<String> req = new BaseRequest<String>(client, null) {
             @Override
             protected Auth0HttpRequest createRequest() throws Auth0Exception {
                 throw new Auth0Exception("error", new IOException("boom"));

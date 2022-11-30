@@ -117,63 +117,50 @@ public class ManagementAPITest {
     }
 
     @Test
-    public void shouldUpdateApiToken() {
+    public void shouldUpdateApiToken() throws Auth0Exception {
         //Initialize with a token
         ManagementAPI api = ManagementAPI.newBuilder(DOMAIN, "first token").build();
 
-        assertThat(api.blacklists().apiToken, is("first token"));
-        assertThat(api.clientGrants().apiToken, is("first token"));
-        assertThat(api.clients().apiToken, is("first token"));
-        assertThat(api.connections().apiToken, is("first token"));
-        assertThat(api.deviceCredentials().apiToken, is("first token"));
-        assertThat(api.emailProvider().apiToken, is("first token"));
-        assertThat(api.emailTemplates().apiToken, is("first token"));
-        assertThat(api.grants().apiToken, is("first token"));
-        assertThat(api.guardian().apiToken, is("first token"));
-        assertThat(api.jobs().apiToken, is("first token"));
-        assertThat(api.logEvents().apiToken, is("first token"));
-        assertThat(api.resourceServers().apiToken, is("first token"));
-        assertThat(api.rules().apiToken, is("first token"));
-        assertThat(api.stats().apiToken, is("first token"));
-        assertThat(api.tenants().apiToken, is("first token"));
-        assertThat(api.tickets().apiToken, is("first token"));
-        assertThat(api.userBlocks().apiToken, is("first token"));
-        assertThat(api.users().apiToken, is("first token"));
+        assertThat(api.blacklists().tokenProvider.getToken(), is("first token"));
+        assertThat(api.clientGrants().tokenProvider.getToken(), is("first token"));
+        assertThat(api.clients().tokenProvider.getToken(), is("first token"));
+        assertThat(api.connections().tokenProvider.getToken(), is("first token"));
+        assertThat(api.deviceCredentials().tokenProvider.getToken(), is("first token"));
+        assertThat(api.emailProvider().tokenProvider.getToken(), is("first token"));
+        assertThat(api.emailTemplates().tokenProvider.getToken(), is("first token"));
+        assertThat(api.grants().tokenProvider.getToken(), is("first token"));
+        assertThat(api.guardian().tokenProvider.getToken(), is("first token"));
+        assertThat(api.jobs().tokenProvider.getToken(), is("first token"));
+        assertThat(api.logEvents().tokenProvider.getToken(), is("first token"));
+        assertThat(api.resourceServers().tokenProvider.getToken(), is("first token"));
+        assertThat(api.rules().tokenProvider.getToken(), is("first token"));
+        assertThat(api.stats().tokenProvider.getToken(), is("first token"));
+        assertThat(api.tenants().tokenProvider.getToken(), is("first token"));
+        assertThat(api.tickets().tokenProvider.getToken(), is("first token"));
+        assertThat(api.userBlocks().tokenProvider.getToken(), is("first token"));
+        assertThat(api.users().tokenProvider.getToken(), is("first token"));
 
         //Update the token
         api.setApiToken("new token");
 
-        assertThat(api.blacklists().apiToken, is("new token"));
-        assertThat(api.clientGrants().apiToken, is("new token"));
-        assertThat(api.clients().apiToken, is("new token"));
-        assertThat(api.connections().apiToken, is("new token"));
-        assertThat(api.deviceCredentials().apiToken, is("new token"));
-        assertThat(api.emailProvider().apiToken, is("new token"));
-        assertThat(api.emailTemplates().apiToken, is("new token"));
-        assertThat(api.grants().apiToken, is("new token"));
-        assertThat(api.guardian().apiToken, is("new token"));
-        assertThat(api.jobs().apiToken, is("new token"));
-        assertThat(api.logEvents().apiToken, is("new token"));
-        assertThat(api.resourceServers().apiToken, is("new token"));
-        assertThat(api.rules().apiToken, is("new token"));
-        assertThat(api.stats().apiToken, is("new token"));
-        assertThat(api.tenants().apiToken, is("new token"));
-        assertThat(api.tickets().apiToken, is("new token"));
-        assertThat(api.userBlocks().apiToken, is("new token"));
-        assertThat(api.users().apiToken, is("new token"));
-    }
-
-    @Test
-    public void acceptsHttpOptions() {
-        HttpOptions httpOptions = new HttpOptions();
-        httpOptions.setConnectTimeout(15);
-        ManagementAPI api = new ManagementAPI(DOMAIN, "CLIENT_ID", httpOptions);
-        assertThat(api, is(notNullValue()));
-    }
-
-    @Test
-    public void httpOptionsShouldThrowWhenNull() {
-        assertThrows(IllegalArgumentException.class, () -> new ManagementAPI(DOMAIN, API_TOKEN, null));
+        assertThat(api.blacklists().tokenProvider.getToken(), is("new token"));
+        assertThat(api.clientGrants().tokenProvider.getToken(), is("new token"));
+        assertThat(api.clients().tokenProvider.getToken(), is("new token"));
+        assertThat(api.connections().tokenProvider.getToken(), is("new token"));
+        assertThat(api.deviceCredentials().tokenProvider.getToken(), is("new token"));
+        assertThat(api.emailProvider().tokenProvider.getToken(), is("new token"));
+        assertThat(api.emailTemplates().tokenProvider.getToken(), is("new token"));
+        assertThat(api.grants().tokenProvider.getToken(), is("new token"));
+        assertThat(api.guardian().tokenProvider.getToken(), is("new token"));
+        assertThat(api.jobs().tokenProvider.getToken(), is("new token"));
+        assertThat(api.logEvents().tokenProvider.getToken(), is("new token"));
+        assertThat(api.resourceServers().tokenProvider.getToken(), is("new token"));
+        assertThat(api.rules().tokenProvider.getToken(), is("new token"));
+        assertThat(api.stats().tokenProvider.getToken(), is("new token"));
+        assertThat(api.tenants().tokenProvider.getToken(), is("new token"));
+        assertThat(api.tickets().tokenProvider.getToken(), is("new token"));
+        assertThat(api.userBlocks().tokenProvider.getToken(), is("new token"));
+        assertThat(api.users().tokenProvider.getToken(), is("new token"));
     }
 
     @Test

@@ -1,6 +1,8 @@
 package com.auth0.net;
 
 import com.auth0.client.MockServer;
+import com.auth0.client.mgmt.TokenProvider;
+import com.auth0.exception.Auth0Exception;
 import com.auth0.net.client.*;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Before;
@@ -13,16 +15,18 @@ import static org.hamcrest.Matchers.*;
 public class VoidRequestTest {
     private Auth0HttpClient client;
     private MockServer server;
+    private TokenProvider tokenProvider;
 
     @Before
     public void setUp() throws Exception {
         client = new DefaultHttpClient.Builder().build();
         server = new MockServer();
+        tokenProvider = () -> "Bearer xyz";
     }
 
     @Test
     public void shouldCreateGETRequest() throws Exception {
-        VoidRequest request = new VoidRequest(client, server.getBaseUrl(), HttpMethod.GET);
+        VoidRequest request = new VoidRequest(client, tokenProvider, server.getBaseUrl(), HttpMethod.GET);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
@@ -34,7 +38,7 @@ public class VoidRequestTest {
 
     @Test
     public void shouldCreatePOSTRequest() throws Exception {
-        VoidRequest request = new VoidRequest(client, server.getBaseUrl(), HttpMethod.POST);
+        VoidRequest request = new VoidRequest(client, tokenProvider, server.getBaseUrl(), HttpMethod.POST);
         assertThat(request, is(notNullValue()));
         request.addParameter("non_empty", "body");
 
