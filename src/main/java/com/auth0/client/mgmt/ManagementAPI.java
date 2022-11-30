@@ -80,7 +80,7 @@ public class ManagementAPI {
         if (baseUrl == null) {
             throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
         }
-        this.apiToken = apiToken;
+        
         this.client = httpClient;
         this.tokenProvider = ManagedTokenProvider.create(baseUrl.toString(), clientId, clientSecret);
     }
