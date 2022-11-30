@@ -16,7 +16,6 @@ public class ManagedTokenProvider implements TokenProvider {
 
 
     // TODO validate/form domain, accept http client (builder?)
-    //  maybe create with an AuthAPI client?? probably too coupled
     public static ManagedTokenProvider create(String domain, String clientId, String clientSecret) {
         return new ManagedTokenProvider(domain, clientId, clientSecret);
     }
@@ -33,11 +32,14 @@ public class ManagedTokenProvider implements TokenProvider {
             return tokenHolder.getAccessToken();
         }
 
+        // token still valid
+        // TODO check/test logic
         if (!tokenHolder.getExpiresAt().toInstant().isBefore(Instant.now().plusSeconds(30))) {
             System.out.println("*********** RETURNING VALID CACHED TOKEN ***************");
             return tokenHolder.getAccessToken();
         }
 
+        // new token required, fetch, store, and return
         System.out.println("*********** REFRESHING TOKEN AND RETURNING NEW API CLIENT ***************");
         this.tokenHolder = getTokenHolder();
         System.out.println("*********** RETRIEVED NEW TOKEN ***************");
@@ -49,11 +51,11 @@ public class ManagedTokenProvider implements TokenProvider {
     }
     private ManagedTokenProvider(String domain, String clientId, String clientSecret) {
         this.authAPI = new AuthAPI(domain, clientId, clientSecret);
-        this.audience = domain + "api/v2/";
+        this.audience = "https://" + domain + "/api/v2/";
     }
 
     /**
-     * Usage:
+     * Usage ideas/notes:
      * // configured to fetch and manage token
      * ManagementAPI.newBuilder("domain")
      *      .withManagedToken("clientId", "clientSecret")

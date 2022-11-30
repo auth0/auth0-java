@@ -71,6 +71,12 @@ public class ManagementAPI {
             .withApiToken(apiToken);
     }
 
+    // TODO is this the best way to surface?
+    public static ManagementAPI.Builder newBuilder(String domain, String clientId, String clientSecret) {
+        return new ManagementAPI.Builder(domain)
+            .withTokenProvider(clientId, clientSecret);
+    }
+
     private ManagementAPI(String domain, TokenProvider tokenProvider, Auth0HttpClient httpClient) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(tokenProvider, "tokenProvider");
