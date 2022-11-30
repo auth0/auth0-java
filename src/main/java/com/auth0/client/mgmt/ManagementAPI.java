@@ -34,12 +34,14 @@ public class ManagementAPI {
      * See the Management API section in the readme or visit https://auth0.com/docs/api/management/v2/tokens
      * to learn how to obtain a token.
      *
+     * @deprecated Use the {@link Builder} to configure and create instances.
+     *
      * @param domain   the tenant's domain.
      * @param apiToken the token to authenticate the calls with.
      * @param options  configuration options for this client instance.
      * @see #ManagementAPI(String, String)
      */
-    // TODO deprecate and provide Builder
+    @Deprecated
     public ManagementAPI(String domain, String apiToken, HttpOptions options) {
         this(domain, apiToken, buildNetworkingClient(options));
     }
@@ -49,10 +51,12 @@ public class ManagementAPI {
      * See the Management API section in the readme or visit https://auth0.com/docs/api/management/v2/tokens
      * to learn how to obtain a token.
      *
+     * @deprecated Use the {@link Builder} to configure and create instances.
+     *
      * @param domain   the tenant's domain.
      * @param apiToken the token to authenticate the calls with.
      */
-    // TODO deprecate and provide Builder
+    @Deprecated
     public ManagementAPI(String domain, String apiToken) {
         this(domain, apiToken, DefaultHttpClient.newBuilder().build());
     }

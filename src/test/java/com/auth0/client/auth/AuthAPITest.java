@@ -64,6 +64,7 @@ public class AuthAPITest {
     // Configuration
 
     @Test
+    @SuppressWarnings("deprecation")
     public void shouldAcceptHttpOptions() {
         AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, new HttpOptions());
         assertThat(api, is(notNullValue()));
