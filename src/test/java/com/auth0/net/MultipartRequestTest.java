@@ -56,7 +56,7 @@ public class MultipartRequestTest {
         tokenProvider = new TokenProvider() {
             @Override
             public String getToken() throws Auth0Exception {
-                return "Bearer xyz";
+                return "xyz";
             }
         };
     }
@@ -144,7 +144,7 @@ public class MultipartRequestTest {
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest.getHeader("Extra-Info"), is("this is a test"));
-        assertThat(recordedRequest.getHeader("Authorization"), is("Bearer my_access_token"));
+        assertThat(recordedRequest.getHeader("Authorization"), is("Bearer xyz"));
     }
 
     @Test

@@ -11,7 +11,7 @@ public class SimpleTokenProvider implements TokenProvider {
     }
 
     private SimpleTokenProvider(String apiToken) {
-        Asserts.assertNotNull(apiToken, "apiToken");
+        Asserts.assertNotNull(apiToken, "api token");
         this.apiToken = apiToken;
     }
 

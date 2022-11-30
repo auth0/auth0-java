@@ -27,8 +27,6 @@ public class ManagementAPI {
     private final HttpUrl baseUrl;
 //    private String apiToken;
     private final Auth0HttpClient client;
-    private final TelemetryInterceptor telemetry;
-    private final HttpLoggingInterceptor logging;
 
     private TokenProvider tokenProvider;
 
@@ -45,7 +43,7 @@ public class ManagementAPI {
      */
     // TODO deprecate and provide Builder
     public ManagementAPI(String domain, String apiToken, HttpOptions options) {
-        this(domain, apiToken, buildNetworkingClient(options));
+        this(domain, SimpleTokenProvider.create(apiToken), buildNetworkingClient(options));
     }
 
     /**
@@ -58,7 +56,7 @@ public class ManagementAPI {
      */
     // TODO deprecate and provide Builder
     public ManagementAPI(String domain, String apiToken) {
-        this(domain, apiToken, DefaultHttpClient.newBuilder().build());
+        this(domain, SimpleTokenProvider.create(apiToken), DefaultHttpClient.newBuilder().build());
     }
 
     /**
@@ -69,12 +67,13 @@ public class ManagementAPI {
      * @return a Builder for further configuration.
      */
     public static ManagementAPI.Builder newBuilder(String domain, String apiToken) {
-        return new ManagementAPI.Builder(domain, apiToken);
+        return new ManagementAPI.Builder(domain)
+            .withApiToken(apiToken);
     }
 
-    private ManagementAPI(String domain, String apiToken, Auth0HttpClient httpClient) {
+    private ManagementAPI(String domain, TokenProvider tokenProvider, Auth0HttpClient httpClient) {
         Asserts.assertNotNull(domain, "domain");
-        Asserts.assertNotNull(apiToken, "api token");
+        Asserts.assertNotNull(tokenProvider, "tokenProvider");
 
         this.baseUrl = createBaseUrl(domain);
         if (baseUrl == null) {
@@ -82,7 +81,7 @@ public class ManagementAPI {
         }
         
         this.client = httpClient;
-        this.tokenProvider = ManagedTokenProvider.create(baseUrl.toString(), clientId, clientSecret);
+        this.tokenProvider = tokenProvider;
     }
 
     /**
@@ -375,17 +374,26 @@ public class ManagementAPI {
      */
     public static class Builder {
         private final String domain;
-        private final String apiToken;
+
+        private TokenProvider tokenProvider;
         private Auth0HttpClient httpClient = DefaultHttpClient.newBuilder().build();
 
         /**
          * Create a new Builder
          * @param domain the domain of the tenant.
-         * @param apiToken the API token used to make requests to the Auth0 Management API.
          */
-        public Builder(String domain, String apiToken) {
+        public Builder(String domain) {
             this.domain = domain;
-            this.apiToken = apiToken;
+        }
+
+        public Builder withApiToken(String apiToken) {
+            this.tokenProvider = SimpleTokenProvider.create(apiToken);
+            return this;
+        }
+
+        public Builder withTokenProvider(String clientId, String clientSecret) {
+            this.tokenProvider = ManagedTokenProvider.create(this.domain, clientId, clientSecret);
+            return this;
         }
 
         /**
@@ -404,7 +412,7 @@ public class ManagementAPI {
          * @return the configured {@code ManagementAPI} instance.
          */
         public ManagementAPI build() {
-            return new ManagementAPI(domain, apiToken, httpClient);
+            return new ManagementAPI(domain, tokenProvider, httpClient);
         }
     }
 }
