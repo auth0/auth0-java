@@ -53,6 +53,7 @@ public class ManagementAPITest {
     }
 
     @Test
+    @SuppressWarnings("deprecation")
     public void shouldCreateWithDomainAndToken() {
         ManagementAPI api = new ManagementAPI(DOMAIN, API_TOKEN);
         assertThat(api, is(notNullValue()));
@@ -164,6 +165,7 @@ public class ManagementAPITest {
     }
 
     @Test
+    @SuppressWarnings("deprecation")
     public void acceptsHttpOptions() {
         HttpOptions httpOptions = new HttpOptions();
         httpOptions.setConnectTimeout(15);
@@ -172,6 +174,7 @@ public class ManagementAPITest {
     }
 
     @Test
+    @SuppressWarnings("deprecation")
     public void httpOptionsShouldThrowWhenNull() {
         assertThrows(IllegalArgumentException.class, () -> new ManagementAPI(DOMAIN, API_TOKEN, null));
     }
