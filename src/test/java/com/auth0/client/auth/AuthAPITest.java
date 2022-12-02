@@ -17,6 +17,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import static org.junit.Assert.assertThrows;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -130,10 +131,9 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldThrowWhenClientSecretIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'client secret' cannot be null!");
-        AuthAPI.newBuilder(DOMAIN, CLIENT_ID, null).build();
+    public void shouldAcceptNullClientSecret() {
+        assertThat(AuthAPI.newBuilder(DOMAIN, CLIENT_ID, null).build(),
+            is(notNullValue()));
     }
 
     @Test
@@ -536,6 +536,14 @@ public class AuthAPITest {
     }
 
     @Test
+    public void authorizationCodeGrantRequestRequiresSecret() throws Exception {
+        AuthAPI authAPI = AuthAPI.newBuilder("domain", "clientId").build();
+
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> authAPI.exchangeCode("code", "https://domain.auth0.com/callback"));
+        assertThat(e.getMessage(), is("A client secret is required for this operation"));
+    }
+
+    @Test
     public void shouldCreateLogInWithAuthorizationCodeGrantRequestWithCustomParameters() throws Exception {
         AuthRequest request = api.exchangeCode("code123", "https://domain.auth0.com/callback");
         assertThat(request, is(notNullValue()));
@@ -620,6 +628,15 @@ public class AuthAPITest {
         assertThat(response.getRefreshToken(), not(emptyOrNullString()));
         assertThat(response.getTokenType(), not(emptyOrNullString()));
         assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+    @Test
+    public void passwordGrantRequestRequiresSecret() throws Exception {
+        AuthAPI authAPI = AuthAPI.newBuilder("domain", "clientId").build();
+
+        @SuppressWarnings("deprecation")
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> authAPI.login("me", "p455w0rd"));
+        assertThat(e.getMessage(), is("A client secret is required for this operation"));
     }
 
     @Test
@@ -747,6 +764,15 @@ public class AuthAPITest {
     }
 
     @Test
+    public void passwordRealmGrantRequestRequiresSecret() throws Exception {
+        AuthAPI authAPI = AuthAPI.newBuilder("domain", "clientId").build();
+
+        @SuppressWarnings("deprecation")
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> authAPI.login("me", "p455w0rd", "realm"));
+        assertThat(e.getMessage(), is("A client secret is required for this operation"));
+    }
+
+    @Test
     public void shouldCreateLogInWithPasswordRealmGrantRequestWithCustomParameters() throws Exception {
         @SuppressWarnings("deprecation")
         AuthRequest request = api.login("me", "p455w0rd", "realm");
@@ -816,6 +842,14 @@ public class AuthAPITest {
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
+    @Test
+    public void clientCredentialsGrantRequestRequiresSecret() throws Exception {
+        AuthAPI authAPI = AuthAPI.newBuilder("domain", "clientId").build();
+
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> authAPI.requestToken("https://myapi.auth0.com/users"));
+        assertThat(e.getMessage(), is("A client secret is required for this operation"));
+    }
+
     // Login with Passwordless
 
     @Test
@@ -824,6 +858,20 @@ public class AuthAPITest {
                 PasswordlessEmailType.CODE);
         assertThat(request, is(notNullValue()));
 
+        emailPasswordlessRequest(request, true);
+    }
+
+    @Test
+    public void shouldCreateStartEmailPasswordlessFlowRequestWithoutSecret() throws Exception {
+        AuthAPI authAPI = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
+        Request<PasswordlessEmailResponse> request = authAPI.startPasswordlessEmailFlow("user@domain.com",
+            PasswordlessEmailType.CODE);
+        assertThat(request, is(notNullValue()));
+
+        emailPasswordlessRequest(request, false);
+    }
+
+    private void emailPasswordlessRequest(Request<PasswordlessEmailResponse> request, boolean secretSent) throws Exception{
         server.jsonResponse(PASSWORDLESS_EMAIL_RESPONSE, 200);
         PasswordlessEmailResponse response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
@@ -834,7 +882,11 @@ public class AuthAPITest {
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body, hasEntry("connection", "email"));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        if (secretSent) {
+            assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        } else {
+            assertThat(body, not(hasKey("client_secret")));
+        }
         assertThat(body, hasEntry("email", "user@domain.com"));
 
         assertThat(response, is(notNullValue()));
@@ -899,6 +951,19 @@ public class AuthAPITest {
         Request<PasswordlessSmsResponse> request = api.startPasswordlessSmsFlow("+16511234567");
         assertThat(request, is(notNullValue()));
 
+        smsPasswordlessFlow(request, true);
+    }
+
+    @Test
+    public void shouldCreateStartSmsPasswordlessFlowRequestWithoutSecret() throws Exception {
+        AuthAPI authAPI = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
+        Request<PasswordlessSmsResponse> request = authAPI.startPasswordlessSmsFlow("+16511234567");
+        assertThat(request, is(notNullValue()));
+
+        smsPasswordlessFlow(request, false);
+    }
+
+    private void smsPasswordlessFlow(Request<PasswordlessSmsResponse> request, boolean secretSent) throws Exception {
         server.jsonResponse(PASSWORDLESS_SMS_RESPONSE, 200);
         PasswordlessSmsResponse response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
@@ -909,7 +974,11 @@ public class AuthAPITest {
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body, hasEntry("connection", "sms"));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        if (secretSent) {
+            assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        } else {
+            assertThat(body, not(hasKey("client_secret")));
+        }
         assertThat(body, hasEntry("phone_number", "+16511234567"));
 
         assertThat(response, is(notNullValue()));
@@ -960,6 +1029,19 @@ public class AuthAPITest {
         AuthRequest request = api.exchangePasswordlessOtp("+16511234567", "email", "otp".toCharArray());
         assertThat(request, is(notNullValue()));
 
+        passwordlessCodeRequest(request, true);
+    }
+
+    @Test
+    public void shouldCreateLoginWithPasswordlessCodeRequestWithoutSecret() throws Exception {
+        AuthAPI authAPI = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
+        AuthRequest request = authAPI.exchangePasswordlessOtp("+16511234567", "email", "otp".toCharArray());
+        assertThat(request, is(notNullValue()));
+
+        passwordlessCodeRequest(request, false);
+    }
+
+    private void passwordlessCodeRequest(AuthRequest request, boolean secretSent) throws Exception {
         server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
@@ -969,7 +1051,11 @@ public class AuthAPITest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body, hasEntry("client_id", CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        if (secretSent) {
+            assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        } else {
+            assertThat(body, not(hasKey("client_secret")));
+        }
         assertThat(body, hasEntry("realm", "email"));
         assertThat(body, hasEntry("grant_type", "http://auth0.com/oauth/grant-type/passwordless/otp"));
         assertThat(body, hasEntry("otp", "otp"));
@@ -996,6 +1082,19 @@ public class AuthAPITest {
         Request<Void> request = api.revokeToken("2679NfkaBn62e6w5E8zNEzjr");
         assertThat(request, is(notNullValue()));
 
+        revokeTokenRequest(request, true);
+    }
+
+    @Test
+    public void shouldCreateRevokeTokenRequestWithoutSecret() throws Exception {
+        AuthAPI authAPI = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
+        Request<Void> request = authAPI.revokeToken("2679NfkaBn62e6w5E8zNEzjr");
+        assertThat(request, is(notNullValue()));
+
+        revokeTokenRequest(request, false);
+    }
+
+    private void revokeTokenRequest( Request<Void> request, boolean secretSent) throws Exception {
         server.emptyResponse(200);
         Void response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
@@ -1005,7 +1104,11 @@ public class AuthAPITest {
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body, hasEntry("client_id", CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        if (secretSent) {
+            assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        } else {
+            assertThat(body, not(hasKey("client_secret")));
+        }
         assertThat(body, hasEntry("token", "2679NfkaBn62e6w5E8zNEzjr"));
 
         assertThat(response, is(nullValue()));
@@ -1026,6 +1129,19 @@ public class AuthAPITest {
         AuthRequest request = api.renewAuth("ej2E8zNEzjrcSD2edjaE");
         assertThat(request, is(notNullValue()));
 
+        renewAuthRequest(request, true);
+    }
+
+    @Test
+    public void shouldCreateRenewAuthRequestWithoutSecret() throws Exception {
+        AuthAPI authAPI = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
+        AuthRequest request = authAPI.renewAuth("ej2E8zNEzjrcSD2edjaE");
+        assertThat(request, is(notNullValue()));
+
+        renewAuthRequest(request, false);
+    }
+
+    private void renewAuthRequest(AuthRequest request, boolean secretSent) throws Exception {
         server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
@@ -1036,7 +1152,11 @@ public class AuthAPITest {
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body, hasEntry("grant_type", "refresh_token"));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        if (secretSent) {
+            assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        } else {
+            assertThat(body, not(hasKey("clieht_secret")));
+        }
         assertThat(body, hasEntry("refresh_token", "ej2E8zNEzjrcSD2edjaE"));
 
         assertThat(response, is(notNullValue()));
@@ -1068,6 +1188,19 @@ public class AuthAPITest {
         AuthRequest request = api.exchangeMfaOtp("mfaToken", new char[]{'o','t','p'});
         assertThat(request, is(notNullValue()));
 
+        mfaOtpRequest(request, true);
+    }
+
+    @Test
+    public void shouldCreateExchangeMfaOtpRequestWithoutSecret() throws Exception {
+        AuthAPI authAPI = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
+        AuthRequest request = authAPI.exchangeMfaOtp("mfaToken", new char[]{'o','t','p'});
+        assertThat(request, is(notNullValue()));
+
+        mfaOtpRequest(request, false);
+    }
+
+    private void mfaOtpRequest(AuthRequest request, boolean secretSent) throws Exception {
         server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
@@ -1078,7 +1211,11 @@ public class AuthAPITest {
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body, hasEntry("grant_type", "http://auth0.com/oauth/grant-type/mfa-otp"));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        if (secretSent) {
+            assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        } else {
+            assertThat(body, not(hasKey("client_secret")));
+        }
         assertThat(body, hasEntry("mfa_token", "mfaToken"));
         assertThat(body, hasEntry("otp", "otp"));
 
