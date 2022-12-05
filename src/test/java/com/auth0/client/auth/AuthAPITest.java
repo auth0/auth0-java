@@ -46,6 +46,7 @@ public class AuthAPITest {
 
     private MockServer server;
     private AuthAPI api;
+    private AuthAPI apiNoSecret;
 
     @SuppressWarnings("deprecation")
     @Rule
@@ -55,6 +56,7 @@ public class AuthAPITest {
     public void setUp() throws Exception {
         server = new MockServer();
         api = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID, CLIENT_SECRET).build();
+        apiNoSecret = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
     }
 
     @After
@@ -537,9 +539,7 @@ public class AuthAPITest {
 
     @Test
     public void authorizationCodeGrantRequestRequiresSecret() throws Exception {
-        AuthAPI authAPI = AuthAPI.newBuilder("domain", "clientId").build();
-
-        IllegalStateException e = assertThrows(IllegalStateException.class, () -> authAPI.exchangeCode("code", "https://domain.auth0.com/callback"));
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> apiNoSecret.exchangeCode("code", "https://domain.auth0.com/callback"));
         assertThat(e.getMessage(), is("A client secret is required for this operation"));
     }
 
@@ -631,11 +631,9 @@ public class AuthAPITest {
     }
 
     @Test
-    public void passwordGrantRequestRequiresSecret() throws Exception {
-        AuthAPI authAPI = AuthAPI.newBuilder("domain", "clientId").build();
-
+    public void passwordGrantRequestRequiresSecret() {
         @SuppressWarnings("deprecation")
-        IllegalStateException e = assertThrows(IllegalStateException.class, () -> authAPI.login("me", "p455w0rd"));
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> apiNoSecret.login("me", "p455w0rd"));
         assertThat(e.getMessage(), is("A client secret is required for this operation"));
     }
 
@@ -764,11 +762,9 @@ public class AuthAPITest {
     }
 
     @Test
-    public void passwordRealmGrantRequestRequiresSecret() throws Exception {
-        AuthAPI authAPI = AuthAPI.newBuilder("domain", "clientId").build();
-
+    public void passwordRealmGrantRequestRequiresSecret()  {
         @SuppressWarnings("deprecation")
-        IllegalStateException e = assertThrows(IllegalStateException.class, () -> authAPI.login("me", "p455w0rd", "realm"));
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> apiNoSecret.login("me", "p455w0rd", "realm"));
         assertThat(e.getMessage(), is("A client secret is required for this operation"));
     }
 
@@ -843,10 +839,8 @@ public class AuthAPITest {
     }
 
     @Test
-    public void clientCredentialsGrantRequestRequiresSecret() throws Exception {
-        AuthAPI authAPI = AuthAPI.newBuilder("domain", "clientId").build();
-
-        IllegalStateException e = assertThrows(IllegalStateException.class, () -> authAPI.requestToken("https://myapi.auth0.com/users"));
+    public void clientCredentialsGrantRequestRequiresSecret() {
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> apiNoSecret.requestToken("https://myapi.auth0.com/users"));
         assertThat(e.getMessage(), is("A client secret is required for this operation"));
     }
 
@@ -863,8 +857,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateStartEmailPasswordlessFlowRequestWithoutSecret() throws Exception {
-        AuthAPI authAPI = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
-        Request<PasswordlessEmailResponse> request = authAPI.startPasswordlessEmailFlow("user@domain.com",
+        Request<PasswordlessEmailResponse> request = apiNoSecret.startPasswordlessEmailFlow("user@domain.com",
             PasswordlessEmailType.CODE);
         assertThat(request, is(notNullValue()));
 
@@ -956,8 +949,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateStartSmsPasswordlessFlowRequestWithoutSecret() throws Exception {
-        AuthAPI authAPI = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
-        Request<PasswordlessSmsResponse> request = authAPI.startPasswordlessSmsFlow("+16511234567");
+        Request<PasswordlessSmsResponse> request = apiNoSecret.startPasswordlessSmsFlow("+16511234567");
         assertThat(request, is(notNullValue()));
 
         smsPasswordlessFlow(request, false);
@@ -1034,8 +1026,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateLoginWithPasswordlessCodeRequestWithoutSecret() throws Exception {
-        AuthAPI authAPI = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
-        AuthRequest request = authAPI.exchangePasswordlessOtp("+16511234567", "email", "otp".toCharArray());
+        AuthRequest request = apiNoSecret.exchangePasswordlessOtp("+16511234567", "email", "otp".toCharArray());
         assertThat(request, is(notNullValue()));
 
         passwordlessCodeRequest(request, false);
@@ -1087,8 +1078,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateRevokeTokenRequestWithoutSecret() throws Exception {
-        AuthAPI authAPI = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
-        Request<Void> request = authAPI.revokeToken("2679NfkaBn62e6w5E8zNEzjr");
+        Request<Void> request = apiNoSecret.revokeToken("2679NfkaBn62e6w5E8zNEzjr");
         assertThat(request, is(notNullValue()));
 
         revokeTokenRequest(request, false);
@@ -1134,8 +1124,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateRenewAuthRequestWithoutSecret() throws Exception {
-        AuthAPI authAPI = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
-        AuthRequest request = authAPI.renewAuth("ej2E8zNEzjrcSD2edjaE");
+        AuthRequest request = apiNoSecret.renewAuth("ej2E8zNEzjrcSD2edjaE");
         assertThat(request, is(notNullValue()));
 
         renewAuthRequest(request, false);
@@ -1193,8 +1182,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateExchangeMfaOtpRequestWithoutSecret() throws Exception {
-        AuthAPI authAPI = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
-        AuthRequest request = authAPI.exchangeMfaOtp("mfaToken", new char[]{'o','t','p'});
+        AuthRequest request = apiNoSecret.exchangeMfaOtp("mfaToken", new char[]{'o','t','p'});
         assertThat(request, is(notNullValue()));
 
         mfaOtpRequest(request, false);
