@@ -30,7 +30,7 @@ import java.util.Objects;
  * }
  * </pre>
  * <p>
- * To use with a native client, or when only using APIs that do not require a client secret:
+ * To use with a public client, or when only using APIs that do not require a client secret:
  * <pre>
  * {@code
  * AuthAPI auth = AuthAPI.newBuilder("{DOMAIN}", "{CLIENT-ID}").build();
