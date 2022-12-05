@@ -15,14 +15,29 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.TestOnly;
 
+import java.util.Objects;
+
 /**
- * Class that provides an implementation of of the Authentication and Authorization API methods defined by the <a href="https://auth0.com/docs/api/authentication">Auth0 Authentication API</a>.
+ * Class that provides an implementation of of the Authentication and Authorization API methods defined by the
+ * <a href="https://auth0.com/docs/api/authentication">Auth0 Authentication API</a>.
  * Instances are created using the {@link Builder}. If you are also using the {@link ManagementAPI}, it is recommended
  * to configure each with the same {@link DefaultHttpClient} to enable both API clients to share the same Http client.
  * <p>
- * This class is not entirely thread-safe:
- * A new immutable {@link OkHttpClient} instance is being created with each instantiation, not sharing the thread pool
- * with any prior existing client instance.
+ * To use with a confidential client, instantiate an instance with a client secret:
+ * <pre>
+ * {@code
+ * AuthAPI auth = AuthAPI.newBuilder("{DOMAIN}", "{CLIENT-ID}", "{CLIENT-SECRET}").build();
+ * }
+ * </pre>
+ * <p>
+ * To use with a public client, or when only using APIs that do not require a client secret:
+ * <pre>
+ * {@code
+ * AuthAPI auth = AuthAPI.newBuilder("{DOMAIN}", "{CLIENT-ID}").build();
+ * }
+ * </pre>
+ * Operations that always require a client secret will throw a {@code InvalidStateException} if the client is not created
+ * with a secret.
  */
 @SuppressWarnings("WeakerAccess")
 public class AuthAPI {
@@ -55,7 +70,7 @@ public class AuthAPI {
 
     /**
      * Create a new instance with the given tenant's domain, application's client id and client secret.
-     * These values can be obtained at https://manage.auth0.com/#/applications/{YOUR_CLIENT_ID}/settings.
+     * These values can be obtained at {@code https://manage.auth0.com/#/applications/{YOUR_CLIENT_ID}/settings}.
      * In addition, accepts an {@link HttpOptions} that will be used to configure the networking client.
      *
      * @deprecated Use the {@link Builder} to configure and create instances.
@@ -73,7 +88,7 @@ public class AuthAPI {
 
     /**
      * Create a new instance with the given tenant's domain, application's client id and client secret.
-     * These values can be obtained at https://manage.auth0.com/#/applications/{YOUR_CLIENT_ID}/settings.
+     * These values can be obtained at {@code https://manage.auth0.com/#/applications/{YOUR_CLIENT_ID}/}settings.
      *
      * @deprecated Use the {@link Builder} to configure and create instances.
      *
@@ -87,7 +102,8 @@ public class AuthAPI {
     }
 
     /**
-     * Initialize a new {@link Builder} to configure and create an instance.
+     * Initialize a new {@link Builder} to configure and create an instance. Use this to construct an instance
+     * with a client secret when using a confidential client (Regular Web Application).
      * @param domain the tenant's domain. Must be a non-null valid HTTPS URL.
      * @param clientId the application's client ID.
      * @param clientSecret the applications client secret.
@@ -97,10 +113,20 @@ public class AuthAPI {
         return new AuthAPI.Builder(domain, clientId, clientSecret);
     }
 
+    /**
+     * Initialize a new {@link Builder} to configure and create an instance. Use this to construct an instance
+     * <strong>without</strong> a client secret (for example, when only using APIs that do not require a secret).
+     * @param domain the tenant's domain. Must be a non-null valid HTTPS URL.
+     * @param clientId the application's client ID.
+     * @return a Builder for further configuration.
+     */
+    public static AuthAPI.Builder newBuilder(String domain, String clientId) {
+        return new AuthAPI.Builder(domain, clientId);
+    }
+
     private AuthAPI(String domain, String clientId, String clientSecret, Auth0HttpClient httpClient) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(clientId, "client id");
-        Asserts.assertNotNull(clientSecret, "client secret");
         Asserts.assertNotNull(httpClient, "Http client");
 
         this.baseUrl = createBaseUrl(domain);
@@ -136,8 +162,8 @@ public class AuthAPI {
     Auth0HttpClient getHttpClient() {
         return this.client;
     }
-    
-    //Visible for Testing
+
+    @TestOnly
     HttpUrl getBaseUrl() {
         return baseUrl;
     }
@@ -155,8 +181,7 @@ public class AuthAPI {
      * i.e.:
      * <pre>
      * {@code
-     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
-     * String url = auth.authorizeUrl("https://me.auth0.com/callback")
+     * String url = authAPI.authorizeUrl("https://me.auth0.com/callback")
      *      .withConnection("facebook")
      *      .withAudience("https://api.me.auth0.com/users")
      *      .withScope("openid contacts")
@@ -180,8 +205,7 @@ public class AuthAPI {
      * i.e.:
      * <pre>
      * {@code
-     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
-     * String url = auth.logoutUrl("https://me.auth0.com/home", true)
+     * String url = authAPI.logoutUrl("https://me.auth0.com/home", true)
      *      .useFederated(true)
      *      .withAccessToken("A9CvPwFojaBIA9CvI");
      * }
@@ -205,15 +229,15 @@ public class AuthAPI {
      * i.e.:
      * <pre>
      * {@code
-     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
-     *      UserInfo result = auth.userInfo("A9CvPwFojaBIA9CvI").execute().getBody();
+     *      UserInfo result = authAPI.userInfo("A9CvPwFojaBIA9CvI").execute().getBody();
      * } catch (Auth0Exception e) {
      *      //Something happened
      * }
      * }
      * </pre>
      *
+     * @see <a href="https://auth0.com/docs/api/authentication#get-user-info">Get User Info API docs</a>
      * @param accessToken a valid access token belonging to an API signed with RS256 algorithm and containing the scope 'openid'.
      * @return a Request to execute.
      */
@@ -237,15 +261,15 @@ public class AuthAPI {
      * i.e.:
      * <pre>
      * {@code
-     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
-     *      auth.resetPassword("me@auth0.com", "db-connection").execute().getBody();
+     *      authAPI.resetPassword("me@auth0.com", "db-connection").execute().getBody();
      * } catch (Auth0Exception e) {
      *      //Something happened
      * }
      * }
      * </pre>
      *
+     * @see <a href="https://auth0.com/docs/api/authentication#change-password">Change Password API docs</a>
      * @param email      the email associated to the database user.
      * @param connection the database connection where the user was created.
      * @return a Request to execute.
@@ -273,12 +297,11 @@ public class AuthAPI {
      * i.e.:
      * <pre>
      * {@code
-     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
      *      Map<String, String> fields = new HashMap<String, String>();
      *      fields.put("age", "25);
      *      fields.put("city", "Buenos Aires");
-     *      auth.signUp("me@auth0.com", "myself", "topsecret", "db-connection")
+     *      authAPI.signUp("me@auth0.com", "myself", "topsecret", "db-connection")
      *          .setCustomFields(fields)
      *          .execute();
      * } catch (Auth0Exception e) {
@@ -305,12 +328,11 @@ public class AuthAPI {
      * i.e.:
      * <pre>
      * {@code
-     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
      *      Map<String, String> fields = new HashMap<String, String>();
      *      fields.put("age", "25);
      *      fields.put("city", "Buenos Aires");
-     *      auth.signUp("me@auth0.com", "myself", new char[]{'s','e','c','r','e','t'}, "db-connection")
+     *      authAPI.signUp("me@auth0.com", "myself", new char[]{'s','e','c','r','e','t'}, "db-connection")
      *          .setCustomFields(fields)
      *          .execute();
      * } catch (Auth0Exception e) {
@@ -319,6 +341,7 @@ public class AuthAPI {
      * }
      * </pre>
      *
+     * @see <a href="https://auth0.com/docs/api/authentication#signup">Signup API docs</a>
      * @param email      the desired user's email.
      * @param username   the desired user's username.
      * @param password   the desired user's password.
@@ -338,12 +361,11 @@ public class AuthAPI {
      * i.e.:
      * <pre>
      * {@code
-     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
      *      Map<String, String> fields = new HashMap<String, String>();
      *      fields.put("age", "25);
      *      fields.put("city", "Buenos Aires");
-     *      auth.signUp("me@auth0.com", "topsecret", "db-connection")
+     *      authAPI.signUp("me@auth0.com", "topsecret", "db-connection")
      *          .setCustomFields(fields)
      *          .execute();
      * } catch (Auth0Exception e) {
@@ -365,15 +387,13 @@ public class AuthAPI {
 
     /**
      * Creates a sign up request with the given credentials and database connection.
-     * i.e.:
      * <pre>
      * {@code
-     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
      *      Map<String, String> fields = new HashMap<String, String>();
      *      fields.put("age", "25);
      *      fields.put("city", "Buenos Aires");
-     *      auth.signUp("me@auth0.com", new char[]{'s','e','c','r','e','t'}, "db-connection")
+     *      authAPI.signUp("me@auth0.com", new char[]{'s','e','c','r','e','t'}, "db-connection")
      *          .setCustomFields(fields)
      *          .execute();
      * } catch (Auth0Exception e) {
@@ -382,6 +402,7 @@ public class AuthAPI {
      * }
      * </pre>
      *
+     * @see <a href="https://auth0.com/docs/api/authentication#signup">Signup API docs</a>
      * @param email      the desired user's email.
      * @param password   the desired user's password.
      * @param connection the database connection where the user is going to be created.
@@ -411,9 +432,8 @@ public class AuthAPI {
      * i.e.:
      * <pre>
      * {@code
-     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
-     *      TokenHolder result = auth.login("me@auth0.com", "topsecret")
+     *      TokenHolder result = authAPI.login("me@auth0.com", "topsecret")
      *          .setScope("openid email nickname")
      *          .execute();
      * } catch (Auth0Exception e) {
@@ -434,12 +454,15 @@ public class AuthAPI {
 
     /**
      * Creates a log in request using the 'Password' grant and the given credentials.
+     * <strong>
+     * This flow should only be used from highly-trusted applications that cannot do redirects.
+     * If you can use redirect-based flows from your app, we recommend using the Authorization Code Flow instead.
+     * </strong>
      * i.e.:
      * <pre>
      * {@code
-     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
-     *      TokenHolder result = auth.login("me@auth0.com", new char[]{'s','e','c','r','e','t})
+     *      TokenHolder result = authAPI.login("me@auth0.com", new char[]{'s','e','c','r','e','t})
      *          .setScope("openid email nickname")
      *          .execute()
      *          .getBody();
@@ -449,6 +472,7 @@ public class AuthAPI {
      * }
      * </pre>
      *
+     * @see <a href="https://auth0.com/docs/api/authentication#client-credentials-flow">Resource Owner Password API docs</a>.
      * @param emailOrUsername the identity of the user.
      * @param password        the password of the user.
      * @return a Request to configure and execute.
@@ -457,18 +481,12 @@ public class AuthAPI {
         Asserts.assertNotNull(emailOrUsername, "email or username");
         Asserts.assertNotNull(password, "password");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegment(PATH_OAUTH)
-                .addPathSegment(PATH_TOKEN)
-                .build()
-                .toString();
-        TokenRequest request = new TokenRequest(client, url);
+        TokenRequest request = new TokenRequest(client, getTokenUrl());
         request.addParameter(KEY_CLIENT_ID, clientId);
-        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         request.addParameter(KEY_GRANT_TYPE, "password");
         request.addParameter(KEY_USERNAME, emailOrUsername);
         request.addParameter(KEY_PASSWORD, password);
+        addSecret(request, true);
         return request;
     }
 
@@ -477,9 +495,8 @@ public class AuthAPI {
      * Default used realm and audience are defined in the "API Authorization Settings" in the account's advanced settings in the Auth0 Dashboard.
      * <pre>
      * {@code
-     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
-     *      TokenHolder result = auth.login("me@auth0.com", "topsecret", "my-realm")
+     *      TokenHolder result = authAPI.login("me@auth0.com", "topsecret", "my-realm")
      *          .setAudience("https://myapi.me.auth0.com/users")
      *          .execute()
      *          .getBody();
@@ -503,11 +520,14 @@ public class AuthAPI {
     /**
      * Creates a log in request using the 'Password Realm' grant and the given credentials.
      * Default used realm and audience are defined in the "API Authorization Settings" in the account's advanced settings in the Auth0 Dashboard.
+     * <strong>
+     * This flow should only be used from highly-trusted applications that cannot do redirects.
+     * If you can use redirect-based flows from your app, we recommend using the Authorization Code Flow instead.
+     * </strong>
      * <pre>
      * {@code
-     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
-     *      TokenHolder result = auth.login("me@auth0.com", new char[]{'s','e','c','r','e','t'}, "my-realm")
+     *      TokenHolder result = authAPI.login("me@auth0.com", new char[]{'s','e','c','r','e','t'}, "my-realm")
      *          .setAudience("https://myapi.me.auth0.com/users")
      *          .execute()
      *          .getBody();
@@ -521,36 +541,31 @@ public class AuthAPI {
      * @param password        the password of the user.
      * @param realm           the realm to use.
      * @return a Request to configure and execute.
+     * @see <a href="https://auth0.com/docs/api/authentication#client-credentials-flow">Resource Owner Password API docs</a>.
      */
     public TokenRequest login(String emailOrUsername, char[] password, String realm) {
         Asserts.assertNotNull(emailOrUsername, "email or username");
         Asserts.assertNotNull(password, "password");
         Asserts.assertNotNull(realm, "realm");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegment(PATH_OAUTH)
-                .addPathSegment(PATH_TOKEN)
-                .build()
-                .toString();
-        TokenRequest request = new TokenRequest(client, url);
+        TokenRequest request = new TokenRequest(client, getTokenUrl());
         request.addParameter(KEY_CLIENT_ID, clientId);
-        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         request.addParameter(KEY_GRANT_TYPE, "http://auth0.com/oauth/grant-type/password-realm");
         request.addParameter(KEY_USERNAME, emailOrUsername);
         request.addParameter(KEY_PASSWORD, password);
         request.addParameter(KEY_REALM, realm);
+        addSecret(request, true);
         return request;
     }
 
     /**
      * Creates a login request using the Passwordless grant type.
+     * Confidential clients (Regular Web Apps) <strong>must</strong> have a client secret configured on this {@code AuthAPI} instance.
      *
      * <pre>
      * {@code
-     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
-     *      TokenHolder result = auth.exchangePasswordlessOtp("user@domain.com", "email", new char[]{'c','o','d','e'})
+     *      TokenHolder result = authAPI.exchangePasswordlessOtp("user@domain.com", "email", new char[]{'c','o','d','e'})
      *          .execute()
      *          .getBody();
      * } catch (Auth0Exception e) {
@@ -566,6 +581,7 @@ public class AuthAPI {
      * @return A request to configure and execute
      *
      * @see <a href="https://auth0.com/docs/connections/passwordless/reference/relevant-api-endpoints">Using Passwordless APIs</a>
+     * @see <a href="https://auth0.com/docs/api/authentication#authenticate-user">Passwordless Authenticate User API docs</a>
      * @see com.auth0.client.auth.AuthAPI#startPasswordlessEmailFlow(String, PasswordlessEmailType)
      * @see com.auth0.client.auth.AuthAPI#startPasswordlessSmsFlow(String)
      */
@@ -574,30 +590,24 @@ public class AuthAPI {
         Asserts.assertNotNull(realm, "realm");
         Asserts.assertNotNull(otp, "otp");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegment(PATH_OAUTH)
-                .addPathSegment(PATH_TOKEN)
-                .build()
-                .toString();
-        TokenRequest request = new TokenRequest(client, url);
+        TokenRequest request = new TokenRequest(client, getTokenUrl());
         request.addParameter(KEY_CLIENT_ID, clientId);
-        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         request.addParameter(KEY_GRANT_TYPE, "http://auth0.com/oauth/grant-type/passwordless/otp");
         request.addParameter(KEY_USERNAME, emailOrPhone);
         request.addParameter(KEY_REALM, realm);
         request.addParameter(KEY_OTP, otp);
+        addSecret(request, false);
         return request;
     }
 
     /**
      * Creates a request to get a Token for the given audience using the 'Client Credentials' grant.
      * Default used realm is defined in the "API Authorization Settings" in the account's advanced settings in the Auth0 Dashboard.
+     * <strong>This operation requires that a client secret be configured for the {@code AuthAPI} client.</strong>
      * <pre>
      * {@code
-     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
-     *      TokenHolder result = auth.requestToken("https://myapi.me.auth0.com/users")
+     *      TokenHolder result = authAPI.requestToken("https://myapi.me.auth0.com/users")
      *          .setRealm("my-realm")
      *          .execute()
      *          .getBody();
@@ -607,33 +617,28 @@ public class AuthAPI {
      * }
      * </pre>
      *
+     * @see <a href="https://auth0.com/docs/api/authentication#client-credentials-flow">Client Credentials Flow API docs</a>
      * @param audience the audience of the API to request access to.
      * @return a Request to configure and execute.
      */
     public TokenRequest requestToken(String audience) {
         Asserts.assertNotNull(audience, "audience");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegment(PATH_OAUTH)
-                .addPathSegment(PATH_TOKEN)
-                .build()
-                .toString();
-        TokenRequest request = new TokenRequest(client, url);
+        TokenRequest request = new TokenRequest(client, getTokenUrl());
         request.addParameter(KEY_CLIENT_ID, clientId);
-        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         request.addParameter(KEY_GRANT_TYPE, "client_credentials");
         request.addParameter(KEY_AUDIENCE, audience);
+        addSecret(request, true);
         return request;
     }
 
     /**
      * Creates a request to revoke an existing Refresh Token.
+     * Confidential clients (Regular Web Apps) <strong>must</strong> have a client secret configured on this {@code AuthAPI} instance.
      * <pre>
      * {@code
-     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
-     *      auth.revokeToken("ej2E8zNEzjrcSD2edjaE")
+     *      authAPI.revokeToken("ej2E8zNEzjrcSD2edjaE")
      *          .execute();
      * } catch (Auth0Exception e) {
      *      //Something happened
@@ -641,6 +646,7 @@ public class AuthAPI {
      * }
      * </pre>
      *
+     * @see <a href="https://auth0.com/docs/api/authentication#revoke-refresh-token">Revoke refresh token API docs</a>
      * @param refreshToken the refresh token to revoke.
      * @return a Request to execute.
      */
@@ -655,19 +661,21 @@ public class AuthAPI {
                 .toString();
         VoidRequest request = new VoidRequest(client, url, HttpMethod.POST);
         request.addParameter(KEY_CLIENT_ID, clientId);
-        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         request.addParameter(KEY_TOKEN, refreshToken);
+        addSecret(request, false);
         return request;
     }
 
 
     /**
-     * Creates a request to renew the authentication and get fresh new credentials using a valid Refresh Token and the 'refresh_token' grant.
+     * Creates a request to renew the authentication and get fresh new credentials using a valid Refresh Token and the
+     * {@code refresh_token} grant.
+     * Confidential clients (Regular Web Apps) <strong>must</strong> have a client secret configured on this {@code AuthAPI} instance.
+     *
      * <pre>
      * {@code
-     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
-     *      TokenHolder result = auth.renewAuth("ej2E8zNEzjrcSD2edjaE")
+     *      TokenHolder result = authAPI.renewAuth("ej2E8zNEzjrcSD2edjaE")
      *          .execute()
      *          .getBody();
      * } catch (Auth0Exception e) {
@@ -676,33 +684,28 @@ public class AuthAPI {
      * }
      * </pre>
      *
+     * @see <a href="https://auth0.com/docs/api/authentication#refresh-token">Refresh Token API docs</a>
      * @param refreshToken the refresh token to use to get fresh new credentials.
      * @return a Request to configure and execute.
      */
     public TokenRequest renewAuth(String refreshToken) {
         Asserts.assertNotNull(refreshToken, "refresh token");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegment(PATH_OAUTH)
-                .addPathSegment(PATH_TOKEN)
-                .build()
-                .toString();
-        TokenRequest request = new TokenRequest(client, url);
+        TokenRequest request = new TokenRequest(client, getTokenUrl());
         request.addParameter(KEY_CLIENT_ID, clientId);
-        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         request.addParameter(KEY_GRANT_TYPE, "refresh_token");
         request.addParameter(KEY_REFRESH_TOKEN, refreshToken);
+        addSecret(request, false);
         return request;
     }
 
     /**
      * Creates a request to exchange the code obtained in the /authorize call using the 'Authorization Code' grant.
+     * This operation requires the {@code AuthAPI} instance to have a client secret configured.
      * <pre>
      * {@code
-     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
-     *      TokenHolder result = auth.exchangeCode("SnWoFLMzApDskr", "https://me.auth0.com/callback")
+     *      TokenHolder result = authAPI.exchangeCode("SnWoFLMzApDskr", "https://me.auth0.com/callback")
      *          .setScope("openid name nickname")
      *          .execute()
      *          .getBody();
@@ -712,35 +715,22 @@ public class AuthAPI {
      * }
      * </pre>
      *
+     * @see <a href="https://auth0.com/docs/api/authentication#authorization-code-flow">Authorization Code Flow API docs</a>
      * @param code        the authorization code received from the /authorize call.
      * @param redirectUri the redirect uri sent on the /authorize call.
      * @return a Request to configure and execute.
      */
     public TokenRequest exchangeCode(String code, String redirectUri) {
-        Asserts.assertNotNull(code, "code");
-        Asserts.assertNotNull(redirectUri, "redirect uri");
-
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegment(PATH_OAUTH)
-                .addPathSegment(PATH_TOKEN)
-                .build()
-                .toString();
-        TokenRequest request = new TokenRequest(client, url);
-        request.addParameter(KEY_CLIENT_ID, clientId);
-        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
-        request.addParameter(KEY_GRANT_TYPE, "authorization_code");
-        request.addParameter("code", code);
-        request.addParameter("redirect_uri", redirectUri);
-        return request;
+        return exchangeCode(code, redirectUri, true);
     }
 
     /**
      * Creates a request to exchange the code obtained from the {@code /authorize} call using the Authorization Code
      * with PKCE grant.
+     * Confidential clients (Regular Web Apps) <strong>must</strong> have a client secret configured on this {@code AuthAPI} instance.
      * <pre>
      * {@code
-     * AuthAPI auth = new AuthAPI("DOMAIN", "CLIENT-ID", "CLIENT-SECRET");
+     * AuthAPI auth = AuthAPI.newBuilder("DOMAIN", "CLIENT-ID", "CLIENT-SECRET").build();
      *
      * SecureRandom sr = new SecureRandom();
      * byte[] code = new byte[32];
@@ -780,19 +770,18 @@ public class AuthAPI {
         Asserts.assertNotNull(redirectUri, "redirect uri");
         Asserts.assertNotNull(verifier, "verifier");
 
-        TokenRequest request = exchangeCode(code, redirectUri);
+        TokenRequest request = exchangeCode(code, redirectUri, false);
         request.addParameter("code_verifier", verifier);
         return request;
     }
 
     /**
      * Create a request to send an email containing a link or a code to begin authentication with Passwordless connections.
-     *
+     * Confidential clients (Regular Web Apps) <strong>must</strong> have a client secret configured on this {@code AuthAPI} instance.
      * <pre>
      * {@code
-     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
-     *      PasswordlessEmailResponse result = auth.startPasswordlessEmailFlow("user@domain.com", PasswordlessEmailType.CODE)
+     *      PasswordlessEmailResponse result = authAPI.startPasswordlessEmailFlow("user@domain.com", PasswordlessEmailType.CODE)
      *          .execute()
      *          .getBody();
      * } catch (Auth0Exception e) {
@@ -823,21 +812,20 @@ public class AuthAPI {
         CustomRequest<PasswordlessEmailResponse> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordlessEmailResponse>() {
         });
         request.addParameter(KEY_CLIENT_ID, clientId);
-        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         request.addParameter(KEY_CONNECTION, "email");
         request.addParameter(KEY_EMAIL, email);
         request.addParameter("send", type.getType());
+        addSecret(request, false);
         return request;
     }
 
     /**
      * Create a request to send a text message containing a code to begin authentication with Passwordless connections.
-     *
+     * Confidential clients (Regular Web Apps) <strong>must</strong> have a client secret configured on this {@code AuthAPI} instance.
      * <pre>
      * {@code
-     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
-     *      PasswordlessSmsResponse result = auth.startPasswordlessSmsFlow("+16511234567")
+     *      PasswordlessSmsResponse result = authAPI.startPasswordlessSmsFlow("+16511234567")
      *          .execute()
      *          .getBody();
      * } catch (Auth0Exception e) {
@@ -866,20 +854,19 @@ public class AuthAPI {
         CustomRequest<PasswordlessSmsResponse> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordlessSmsResponse>() {
         });
         request.addParameter(KEY_CLIENT_ID, clientId);
-        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         request.addParameter(KEY_CONNECTION, "sms");
         request.addParameter("phone_number", phoneNumber);
+        addSecret(request, false);
         return request;
     }
 
     /**
      * Creates a request to exchange the mfa token and one-time password (OTP) to authenticate a user with an MFA OTP Authenticator.
-     *
+     * Confidential clients (Regular Web Apps) <strong>must</strong> have a client secret configured on this {@code AuthAPI} instance.
      * <pre>
      * {@code
-     * AuthAPI auth = new AuthAPI("me.auth0.com", "B3c6RYhk1v9SbIJcRIOwu62gIUGsnze", "2679NfkaBn62e6w5E8zNEzjr-yWfkaBne");
      * try {
-     *      TokenHolder result = auth.exchangeMfaOtp("the-mfa-token", new char[]{'a','n','o','t','p'})
+     *      TokenHolder result = authAPI.exchangeMfaOtp("the-mfa-token", new char[]{'a','n','o','t','p'})
      *          .execute()
      *          .getBody();
      * } catch (Auth0Exception e) {
@@ -899,19 +886,44 @@ public class AuthAPI {
         Asserts.assertNotNull(mfaToken, "mfa token");
         Asserts.assertNotNull(otp, "otp");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegment(PATH_OAUTH)
-                .addPathSegment(PATH_TOKEN)
-                .build()
-                .toString();
-        TokenRequest request = new TokenRequest(client, url);
+        TokenRequest request = new TokenRequest(client, getTokenUrl());
         request.addParameter(KEY_CLIENT_ID, clientId);
-        request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         request.addParameter(KEY_GRANT_TYPE, "http://auth0.com/oauth/grant-type/mfa-otp");
         request.addParameter(KEY_MFA_TOKEN, mfaToken);
         request.addParameter(KEY_OTP, otp);
+        addSecret(request, false);
         return request;
+    }
+
+    private TokenRequest exchangeCode(String code, String redirectUri, boolean secretRequired) {
+        Asserts.assertNotNull(code, "code");
+        Asserts.assertNotNull(redirectUri, "redirect uri");
+
+        TokenRequest request = new TokenRequest(client, getTokenUrl());
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_GRANT_TYPE, "authorization_code");
+        request.addParameter("code", code);
+        request.addParameter("redirect_uri", redirectUri);
+        addSecret(request, secretRequired);
+        return request;
+    }
+
+    private String getTokenUrl() {
+        return baseUrl
+            .newBuilder()
+            .addPathSegment(PATH_OAUTH)
+            .addPathSegment(PATH_TOKEN)
+            .build()
+            .toString();
+    }
+
+    private void addSecret(CustomRequest<?> request, boolean required) {
+        if (required && Objects.isNull(this.clientSecret)) {
+            throw new IllegalStateException("A client secret is required for this operation");
+        }
+        if (Objects.nonNull(this.clientSecret)) {
+            request.addParameter(KEY_CLIENT_SECRET, this.clientSecret);
+        }
     }
 
     /**
@@ -933,6 +945,12 @@ public class AuthAPI {
             this.domain = domain;
             this.clientId = clientId;
             this.clientSecret = clientSecret;
+        }
+
+        public Builder(String domain, String clientId) {
+            this.domain = domain;
+            this.clientId = clientId;
+            this.clientSecret = null;
         }
 
         /**
