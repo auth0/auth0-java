@@ -1,5 +1,6 @@
 package com.auth0.net;
 
+import com.auth0.client.mgmt.TokenProvider;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.Auth0HttpRequest;
@@ -11,9 +12,15 @@ import java.util.concurrent.CompletableFuture;
 public abstract class BaseRequest<T> implements Request<T> {
 
     private final Auth0HttpClient client;
+    private final TokenProvider tokenProvider;
 
-    BaseRequest(Auth0HttpClient client) {
+    BaseRequest(Auth0HttpClient client, TokenProvider tokenProvider) {
         this.client = client;
+        this.tokenProvider = tokenProvider;
+    }
+
+    TokenProvider getTokenProvider() {
+        return this.tokenProvider;
     }
 
     protected abstract Auth0HttpRequest createRequest() throws Auth0Exception;

@@ -176,6 +176,10 @@ public class AuthAPI {
         return HttpUrl.parse(url);
     }
 
+    public String getManagementAPIAudience() {
+        return baseUrl.newBuilder().addPathSegments("api/v2/").toString();
+    }
+
     /**
      * Creates an instance of the {@link AuthorizeUrlBuilder} with the given redirect url.
      * i.e.:
@@ -249,7 +253,7 @@ public class AuthAPI {
                 .addPathSegment("userinfo")
                 .build()
                 .toString();
-        CustomRequest<UserInfo> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<UserInfo>() {
+        CustomRequest<UserInfo> request = new CustomRequest<>(client, null, url, HttpMethod.GET, new TypeReference<UserInfo>() {
         });
         request.addHeader("Authorization", "Bearer " + accessToken);
         return request;
@@ -284,7 +288,7 @@ public class AuthAPI {
                 .addPathSegment("change_password")
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.POST);
+        VoidRequest request = new VoidRequest(client, null, url, HttpMethod.POST);
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_EMAIL, email);
         request.addParameter(KEY_CONNECTION, connection);
@@ -659,7 +663,7 @@ public class AuthAPI {
                 .addPathSegment(PATH_REVOKE)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.POST);
+        VoidRequest request = new VoidRequest(client, null, url, HttpMethod.POST);
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_TOKEN, refreshToken);
         addSecret(request, false);
@@ -809,7 +813,7 @@ public class AuthAPI {
                 .build()
                 .toString();
 
-        CustomRequest<PasswordlessEmailResponse> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordlessEmailResponse>() {
+        CustomRequest<PasswordlessEmailResponse> request = new CustomRequest<>(client, null, url, HttpMethod.POST, new TypeReference<PasswordlessEmailResponse>() {
         });
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_CONNECTION, "email");
@@ -851,7 +855,7 @@ public class AuthAPI {
                 .build()
                 .toString();
 
-        CustomRequest<PasswordlessSmsResponse> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordlessSmsResponse>() {
+        CustomRequest<PasswordlessSmsResponse> request = new CustomRequest<>(client, null, url, HttpMethod.POST, new TypeReference<PasswordlessSmsResponse>() {
         });
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_CONNECTION, "sms");
