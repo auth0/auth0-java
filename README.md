@@ -54,17 +54,10 @@ AuthAPI auth = AuthAPI.newBuilder("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CL
 
 The Management API client is based on the [Management API Docs](https://auth0.com/docs/api/management/v2).
 
-Create a `ManagementAPI` instance by providing the domain from the [Application dashboard](https://manage.auth0.com/#/applications) and a valid API Token.
+For simple, short-lived usages, the `ManagementAPI` client can be created with a domain and API token:
 
 ```java
 ManagementAPI mgmt = ManagementAPI.newBuilder("{YOUR_DOMAIN}", "{YOUR_API_TOKEN}").build();
-```
-
-The Management API is organized by entities represented by the Auth0 Management API objects.
-
-```java
-User user = mgmt.users().get("auth0|user-id", new UserFilter()).execute().getBody();
-Role role = mgmt.roles().get("role-id").execute().getBody();
 ```
 
 You can use the Authentication API to obtain a token for a previously authorized Application:
@@ -77,7 +70,22 @@ String accessToken = holder.getAccessToken();
 ManagementAPI mgmt = ManagementAPI.newBuilder("{YOUR_DOMAIN}", accessToken).build();
 ```
 
-An expired token for an existing `ManagementAPI` instance can be replaced by calling the `setApiToken` method with the new token.
+If your use-case requires the `ManagementAPI` client to be used beyond the length of the API token expiry, you can 
+create it with an `AuthAPI` client configured with a client ID and client secret for an [application authorized for
+the Management API audience](https://auth0.com/docs/secure/tokens/access-tokens/get-management-api-access-tokens-for-production). 
+In this case, the `ManagementAPI` client will fetch, store, and renew the API token:
+
+```java
+AuthAPI auth = AuthAPI.newBuilder("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}").build();
+ManagementAPI mgmt = ManagementAPI.newBuilder("{YOUR_DOMAIN"}, auth).build();
+```
+
+The Management API is organized by entities represented by the Auth0 Management API objects.
+
+```java
+User user = mgmt.users().get("auth0|user-id", new UserFilter()).execute().getBody();
+Role role = mgmt.roles().get("role-id").execute().getBody();
+```
 
 See the [Auth0 Management API documentation](https://auth0.com/docs/api/management/v2/tokens) for more information on how to obtain API Tokens.
 

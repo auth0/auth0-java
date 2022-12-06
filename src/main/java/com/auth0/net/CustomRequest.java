@@ -1,5 +1,6 @@
 package com.auth0.net;
 
+import com.auth0.client.mgmt.TokenProvider;
 import com.auth0.json.ObjectMapperProvider;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.Auth0HttpResponse;
@@ -31,15 +32,15 @@ public class CustomRequest<T> extends ExtendedBaseRequest<T> implements Customiz
     private final Map<String, Object> parameters;
     private Object body;
 
-    CustomRequest(Auth0HttpClient client, String url, HttpMethod method, ObjectMapper mapper, TypeReference<T> tType) {
-        super(client, url, method, mapper);
+    CustomRequest(Auth0HttpClient client, TokenProvider tokenProvider, String url, HttpMethod method, ObjectMapper mapper, TypeReference<T> tType) {
+        super(client, tokenProvider, url, method, mapper);
         this.mapper = mapper;
         this.tType = tType;
         this.parameters = new HashMap<>();
     }
 
-    public CustomRequest(Auth0HttpClient client, String url, HttpMethod method, TypeReference<T> tType) {
-        this(client, url, method, ObjectMapperProvider.getMapper(), tType);
+    public CustomRequest(Auth0HttpClient client, TokenProvider tokenProvider, String url, HttpMethod method, TypeReference<T> tType) {
+        this(client, tokenProvider, url, method, ObjectMapperProvider.getMapper(), tType);
     }
 
     @Override

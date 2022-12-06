@@ -41,7 +41,7 @@ public class EmptyBodyRequestTest {
 
     @Test
     public void shouldCreateEmptyRequestBody() throws Exception {
-        EmptyBodyRequest<TokenHolder> request = new EmptyBodyRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
+        EmptyBodyRequest<TokenHolder> request = new EmptyBodyRequest<>(client, null, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
@@ -53,7 +53,7 @@ public class EmptyBodyRequestTest {
 
     @Test
     public void shouldNotAddParameters() throws Exception {
-        EmptyBodyRequest<TokenHolder> request = new EmptyBodyRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
+        EmptyBodyRequest<TokenHolder> request = new EmptyBodyRequest<>(client, null, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
         Map mapValue = mock(Map.class);
         request.addParameter("key", "value");
         request.addParameter("map", mapValue);
