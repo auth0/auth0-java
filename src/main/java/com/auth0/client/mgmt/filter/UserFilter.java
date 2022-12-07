@@ -67,4 +67,16 @@ public class UserFilter extends QueryFilter {
         super.withFields(fields, includeFields);
         return this;
     }
+
+    /**
+     * Connection filter. Only applies when using search_engine=v1.
+     * To filter by connection with search_engine=v2|v3, use q=identities.connection:"connection_name"
+     *
+     * @param connection connection to be filtered with
+     * @return this filter instance
+     */
+    public UserFilter withConnection(String connection) {
+        parameters.put("connection", connection);
+        return this;
+    }
 }
