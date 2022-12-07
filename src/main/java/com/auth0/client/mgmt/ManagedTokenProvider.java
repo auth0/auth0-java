@@ -11,7 +11,7 @@ import java.time.Instant;
 import java.util.Objects;
 
 /**
- * An implementation of {@link TokenProvider} that fetches, stores (in-memory), and renews Auth0 Management API tokens.
+ * An implementation of {@link TokenProvider} that fetches, maintains, and renews Auth0 Management API tokens.
  */
 public class ManagedTokenProvider implements TokenProvider {
 
