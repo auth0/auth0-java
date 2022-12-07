@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.HttpOptions;
-import com.auth0.client.auth.AuthAPI;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.DefaultHttpClient;
 import com.auth0.utils.Asserts;
@@ -10,12 +9,8 @@ import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.TestOnly;
 
 /**
- * Class that provides an implementation of the Management API methods defined in https://auth0.com/docs/api/management/v2.
- * To begin create an instance of {@link #ManagementAPI(String, String)} using the tenant domain and API token.
- * <p>
- * This class is not entirely thread-safe:
- * A new immutable {@link OkHttpClient} instance is being created with each instantiation, not sharing the thread pool
- * with any prior existing client instance.
+ * Class that provides an implementation of the Management API methods defined at
+ * <a href="https://auth0.com/docs/api/management/v2.">https://auth0.com/docs/api/management/v2.</a>.
  */
 @SuppressWarnings("WeakerAccess")
 public class ManagementAPI {
@@ -36,6 +31,7 @@ public class ManagementAPI {
      * @param domain   the tenant's domain.
      * @param apiToken the token to authenticate the calls with.
      * @param options  configuration options for this client instance.
+     * @see #newBuilder(String, String)
      * @see #ManagementAPI(String, String)
      */
     @Deprecated
@@ -52,6 +48,7 @@ public class ManagementAPI {
      *
      * @param domain   the tenant's domain.
      * @param apiToken the token to authenticate the calls with.
+     * @see #newBuilder(String, String)
      */
     @Deprecated
     public ManagementAPI(String domain, String apiToken) {
@@ -65,8 +62,19 @@ public class ManagementAPI {
      * API calls. Once expired, you will need to either instantiate a new API client or
      * call {@link #setApiToken(String)} with a new token. If your usage requires an API
      * client instance that spans the lifetime of the token, consider configuring this client
-     * to fetch, manage, and renew the token automatically with {@link #newBuilder(String, AuthAPI)}.
+     * to fetch, manage, and renew the token automatically with {@link #newBuilder(String, TokenProvider)}.
      * </p>
+     *
+     * <pre>
+     * {@code
+     * // Obtain token for ManagementAPI
+     * AuthAPI auth = AuthAPI.newBuilder("DOMAIN", "CLIENT-ID", "CLIENT-SECRET").build();
+     * TokenHolder tokenHolder = auth.requestToken("https://{DOMAIN}/api/v2/").execute().getBody();
+     *
+     * // Use token to create ManagementAPI
+     * ManagementAPI mgmt = ManagementAPI.newBuilder("{DOMAIN}", tokenHolder.getAccessToken()).build();
+     * }
+     * </pre>
      *
      * @param domain the tenant's domain. Must be a non-null valid HTTPS domain.
      * @param apiToken the token to use when making API requests to the Auth0 Management API.
@@ -80,44 +88,37 @@ public class ManagementAPI {
 
     /**
      * Instantiate a new {@link Builder} to configure and build a new Management API client,
-     * using an {@link AuthAPI} client configured with a client ID and client secret
-     * for an
-     * <a href="https://auth0.com/docs/secure/tokens/access-tokens/get-management-api-access-tokens-for-production">
-     *     application to obtain a token for use with the Management API.
-     * </a>
-     * Using this will construct a client that will fetch a Management API token for you,
-     * and renew it as needed. Use this if your usage requires an API client instance to
-     * be long-lived, and prefer that this API client fetch, manage, and renew the API
-     * token for you.
+     * using a {@link TokenProvider} configured for an Auth0 application
+     * <a href="https://auth0.com/docs/secure/tokens/access-tokens/get-management-api-access-tokens-for-production">authorized for the Management API.</a>
+     * Using this will construct a client that will fetch a Management API token for you, and renew it as needed.
+     * Use this if your usage requires an API client instance to be long-lived, and prefer that this API client fetch,
+     * manage, and renew the API token for you.
+     * <pre>
+     * {@code
+     * TokenProvider provider = ManagedTokenProvider.newBuilder("{DOMAIN}", "{CLIENT-ID}", "{CLIENT-SECRET}").build();
+     * ManagementAPI mgmt = ManagementAPI.newBuilder("{DOMAIN}", provider).build();
+     * }
+     * </pre>
+     *
      * @param domain the tenant's domain. Must be a non-null valid HTTPS domain.
-     * @param authAPI an {@code AuthAPI} instance configured to obtain tokens for use with the
-     *                Auth0 Management API.
+     * @param tokenProvider a {@code TokenProvider} instance responsible for managing the token.
      * @return a Builder for further configuration.
      * @see #newBuilder(String, String)
      */
-    // TODO best way to expose?
-    public static ManagementAPI.Builder newBuilder(String domain, AuthAPI authAPI) {
+    public static ManagementAPI.Builder newBuilder(String domain, TokenProvider tokenProvider) {
         return new ManagementAPI.Builder(domain)
-            .withTokenProvider(authAPI);
+            .withTokenProvider(tokenProvider);
     }
-
-    // TODO is this the best way to surface?
-//    public static ManagementAPI.Builder newBuilder(String domain, String clientId, String clientSecret) {
-//        return new ManagementAPI.Builder(domain)
-//            .withTokenProvider(clientId, clientSecret);
-//    }
-
     private ManagementAPI(String domain, TokenProvider tokenProvider, Auth0HttpClient httpClient) {
         Asserts.assertNotNull(domain, "domain");
-        Asserts.assertNotNull(tokenProvider, "tokenProvider");
+        Asserts.assertNotNull(tokenProvider, "token provider");
 
         this.baseUrl = createBaseUrl(domain);
         if (baseUrl == null) {
             throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
         }
-        
-        this.client = httpClient;
         this.tokenProvider = tokenProvider;
+        this.client = httpClient;
     }
 
     /**
@@ -150,7 +151,6 @@ public class ManagementAPI {
     public synchronized void setApiToken(String apiToken) {
         Asserts.assertNotNull(apiToken, "api token");
         this.tokenProvider = SimpleTokenProvider.create(apiToken);
-//        this.apiToken = apiToken;
     }
 
     @TestOnly
@@ -158,7 +158,7 @@ public class ManagementAPI {
         return this.client;
     }
 
-    //Visible for testing
+    @TestOnly
     HttpUrl getBaseUrl() {
         return baseUrl;
     }
@@ -410,11 +410,9 @@ public class ManagementAPI {
      */
     public static class Builder {
         private final String domain;
-
         private TokenProvider tokenProvider;
-        private Auth0HttpClient httpClient = DefaultHttpClient.newBuilder().build();
+        private Auth0HttpClient httpClient;
 
-//        private boolean manageToken = false;
 
         /**
          * Create a new Builder
@@ -424,20 +422,27 @@ public class ManagementAPI {
             this.domain = domain;
         }
 
+        /**
+         * Specify the token to use when making requests. When expired, consumers will need to renew the token and then
+         * update the token on the API client instance with {@link ManagementAPI#setApiToken(String)}.
+         *
+         * @param apiToken the token for use with the Management API.
+         * @return this builder instance.
+         */
         public Builder withApiToken(String apiToken) {
             this.tokenProvider = SimpleTokenProvider.create(apiToken);
-//            this.manageToken = false;
             return this;
         }
 
-//        public Builder withTokenProvider(String clientId, String clientSecret) {
-////            this.tokenProvider = ManagedTokenProvider.create(this.domain, clientId, clientSecret);
-//            this.manageToken = true;
-//            return this;
-//        }
-
-        public Builder withTokenProvider(AuthAPI authAPI) {
-            this.tokenProvider = new ManagedTokenProvider(authAPI);
+        /**
+         * Specify a {@link TokenProvider} to use when making requests to the Auth0 Management APIs. This is useful
+         * for long-running applications that would prefer the library to manage the token, including renewing it when
+         * required.
+         * @param tokenProvider
+         * @return
+         */
+        public Builder withTokenProvider(TokenProvider tokenProvider) {
+            this.tokenProvider = tokenProvider;
             return this;
         }
 
@@ -457,7 +462,8 @@ public class ManagementAPI {
          * @return the configured {@code ManagementAPI} instance.
          */
         public ManagementAPI build() {
-            return new ManagementAPI(domain, tokenProvider, httpClient);
+            return new ManagementAPI(domain, tokenProvider, httpClient == null ?
+                DefaultHttpClient.newBuilder().build() : httpClient);
         }
     }
 }
