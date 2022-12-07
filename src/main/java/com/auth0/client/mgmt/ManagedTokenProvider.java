@@ -52,6 +52,10 @@ public class ManagedTokenProvider implements TokenProvider {
         return tokenHolder.getAccessToken();
     }
 
+    private boolean isExpired() {
+        return Instant.now().plusSeconds(this.leeway).isAfter(tokenHolder.getExpiresAt().toInstant());
+    }
+    
     private ManagedTokenProvider(Builder builder) {
         if (builder.leeway < 0) {
             throw new IllegalArgumentException("leeway must be a positive number of seconds");
@@ -73,11 +77,6 @@ public class ManagedTokenProvider implements TokenProvider {
     @TestOnly
     Auth0HttpClient getHttpClient() {
         return this.httpClient;
-    }
-
-    @TestOnly
-    boolean isExpired() {
-        return Instant.now().plusSeconds(this.leeway).isAfter(tokenHolder.getExpiresAt().toInstant());
     }
 
     private TokenHolder getTokenHolder() throws Auth0Exception {
