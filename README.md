@@ -71,13 +71,13 @@ ManagementAPI mgmt = ManagementAPI.newBuilder("{YOUR_DOMAIN}", accessToken).buil
 ```
 
 If your use-case requires the `ManagementAPI` client to be used beyond the length of the API token expiry, you can 
-create it with an `AuthAPI` client configured with a client ID and client secret for an [application authorized for
+create it with a `TokenProvider` configured with a client ID and client secret for an [application authorized for
 the Management API audience](https://auth0.com/docs/secure/tokens/access-tokens/get-management-api-access-tokens-for-production). 
 In this case, the `ManagementAPI` client will fetch, store, and renew the API token:
 
 ```java
-AuthAPI auth = AuthAPI.newBuilder("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}").build();
-ManagementAPI mgmt = ManagementAPI.newBuilder("{YOUR_DOMAIN"}, auth).build();
+TokenProvider provider = ManagedTokenProvider.newBuilder("{DOMAIN}", "{CLIENT-ID}", "{CLIENT-SECRET}")
+ManagementAPI mgmt = ManagementAPI.newBuilder("{DOMAIN"}, provider).build();
 ```
 
 The Management API is organized by entities represented by the Auth0 Management API objects.

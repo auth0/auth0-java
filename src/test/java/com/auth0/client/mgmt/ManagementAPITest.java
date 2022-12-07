@@ -18,7 +18,6 @@ import java.util.concurrent.CompletableFuture;
 import static com.auth0.client.UrlMatcher.isUrl;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThrows;
 
 public class ManagementAPITest {
 
