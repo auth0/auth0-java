@@ -435,9 +435,10 @@ public class ManagementAPI {
         }
 
         /**
-         * Specify a {@link TokenProvider} to use when making requests to the Auth0 Management APIs. This is useful
-         * for long-running applications that would prefer the library to manage the token, including renewing it when
-         * required.
+         * Specify a {@link TokenProvider} to use when making requests to the Auth0 Management APIs. Providing a
+         * {@link ManagedTokenProvider} may be useful for long-running applications that would prefer the library
+         * to manage the token, including renewing it when required.
+         * 
          * @param tokenProvider
          * @return
          */
