@@ -47,4 +47,15 @@ public class UsersExportFilter extends BaseFilter {
         return this;
     }
 
+    /**
+     * ID for the connection from which you want to export users
+     *
+     * @param connectionId ID for the connection
+     * @see <a href="https://auth0.com/docs/authenticate/identity-providers/locate-the-connection-id">Locate the Connection ID or Name</a>
+     * @return this filter instance
+     */
+    public UsersExportFilter withConnectionId(String connectionId) {
+        parameters.put("connection_id", connectionId);
+        return this;
+    }
 }

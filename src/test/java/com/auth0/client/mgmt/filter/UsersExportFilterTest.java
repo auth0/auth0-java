@@ -64,4 +64,12 @@ public class UsersExportFilterTest {
         assertThat(bodyFields.get(2).getExportAs(), is("custom"));
     }
 
+    @Test
+    public void shouldFilterByConnectionId() {
+        UsersExportFilter instance = filter.withConnectionId("123");
+
+        assertThat(filter, is(instance));
+        assertThat(filter.getAsMap(), is(notNullValue()));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("connection_id", "123"));
+    }
 }

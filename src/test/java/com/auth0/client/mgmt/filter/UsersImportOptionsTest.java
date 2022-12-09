@@ -42,4 +42,13 @@ public class UsersImportOptionsTest {
         assertThat(options.getAsMap(), is(notNullValue()));
         assertThat(options.getAsMap(), Matchers.hasEntry("upsert", true));
     }
+
+    @Test
+    public void shouldSetConnectionId() {
+        UsersImportOptions instance = options.withConnectionId("123");
+
+        assertThat(options, is(instance));
+        assertThat(options.getAsMap(), is(notNullValue()));
+        assertThat(options.getAsMap(), Matchers.hasEntry("connection_id", "123"));
+    }
 }
