@@ -933,7 +933,7 @@ public class AuthAPI {
         private final String domain;
         private final String clientId;
         private final String clientSecret;
-        private Auth0HttpClient httpClient = DefaultHttpClient.newBuilder().build();
+        private Auth0HttpClient httpClient;
 
         /**
          * Create a new Builder
@@ -969,7 +969,8 @@ public class AuthAPI {
          * @return the configured {@code AuthAPI} instance.
          */
         public AuthAPI build() {
-            return new AuthAPI(domain, clientId, clientSecret, httpClient);
+            return new AuthAPI(domain, clientId, clientSecret,
+                Objects.nonNull(httpClient) ? httpClient : DefaultHttpClient.newBuilder().build());
         }
     }
 }
