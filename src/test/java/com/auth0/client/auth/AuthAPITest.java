@@ -1215,6 +1215,9 @@ public class AuthAPITest {
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
+
+    // PKCE
+
     @Test
     public void shouldCreateLogInWithAuthorizationCodeGrantWithPKCERequest() throws Exception {
         TokenRequest request = api.exchangeCodeWithVerifier("code123", "verifier", "https://domain.auth0.com/callback");
