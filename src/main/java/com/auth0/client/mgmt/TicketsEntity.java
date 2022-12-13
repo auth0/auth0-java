@@ -20,8 +20,8 @@ import okhttp3.HttpUrl;
 @SuppressWarnings("WeakerAccess")
 public class TicketsEntity extends BaseManagementEntity {
 
-    TicketsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    TicketsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -40,9 +40,8 @@ public class TicketsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<EmailVerificationTicket> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<EmailVerificationTicket>() {
+        CustomRequest<EmailVerificationTicket> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<EmailVerificationTicket>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(emailVerificationTicket);
         return request;
     }
@@ -63,9 +62,8 @@ public class TicketsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<PasswordChangeTicket> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordChangeTicket>() {
+        CustomRequest<PasswordChangeTicket> request = new CustomRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<PasswordChangeTicket>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(passwordChangeTicket);
         return request;
     }

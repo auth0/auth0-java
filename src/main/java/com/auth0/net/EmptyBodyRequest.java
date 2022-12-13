@@ -1,5 +1,6 @@
 package com.auth0.net;
 
+import com.auth0.client.mgmt.TokenProvider;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.HttpMethod;
 import com.auth0.net.client.HttpRequestBody;
@@ -13,8 +14,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
  * @see CustomRequest
  */
 public class EmptyBodyRequest<T> extends CustomRequest<T> {
-    public EmptyBodyRequest(Auth0HttpClient client, String url, HttpMethod method, TypeReference<T> tType) {
-        super(client, url, method, tType);
+    public EmptyBodyRequest(Auth0HttpClient client, TokenProvider tokenProvider, String url, HttpMethod method, TypeReference<T> tType) {
+        super(client, tokenProvider, url, method, tType);
     }
 
     @Override

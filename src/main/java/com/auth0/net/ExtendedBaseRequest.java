@@ -1,5 +1,6 @@
 package com.auth0.net;
 
+import com.auth0.client.mgmt.TokenProvider;
 import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.RateLimitException;
@@ -10,6 +11,8 @@ import com.fasterxml.jackson.databind.type.MapType;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A request class that is able to interact fluently with the Auth0 server.
@@ -33,8 +36,8 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
 
     private static final int STATUS_CODE_TOO_MANY_REQUEST = 429;
 
-    ExtendedBaseRequest(Auth0HttpClient client, String url, HttpMethod method, ObjectMapper mapper) {
-        super(client);
+    ExtendedBaseRequest(Auth0HttpClient client, TokenProvider tokenProvider, String url, HttpMethod method, ObjectMapper mapper) {
+        super(client, tokenProvider);
         this.url = url;
         this.method = method;
         this.mapper = mapper;
@@ -43,6 +46,8 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
 
     @Override
     protected Auth0HttpRequest createRequest() throws Auth0Exception {
+        // createRequest() called by execute(), so fetch token now
+        String token = getToken();
         HttpRequestBody body;
         try {
             body = this.createRequestBody();
@@ -50,12 +55,26 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
             throw new Auth0Exception("Couldn't create the request body.", e);
         }
         headers.put("Content-Type", getContentType());
+
+        // Auth APIs don't take tokens, but are used...
+        if (Objects.nonNull(token)) {
+            headers.put("Authorization", "Bearer " + token);
+        }
         Auth0HttpRequest request = Auth0HttpRequest.newBuilder(url, method)
             .withBody(body)
             .withHeaders(headers)
             .build();
 
         return request;
+    }
+
+    private String getToken() throws Auth0Exception {
+        TokenProvider tokenProvider = this.getTokenProvider();
+        // may be null for Auth requests, e.g., TokenRequest
+        if (Objects.isNull(tokenProvider)) {
+            return null;
+        }
+        return tokenProvider.getToken();
     }
 
     @Override

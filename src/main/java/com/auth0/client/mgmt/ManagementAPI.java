@@ -1,32 +1,24 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.HttpOptions;
-import com.auth0.client.LoggingOptions;
-import com.auth0.net.Telemetry;
-import com.auth0.net.TelemetryInterceptor;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.DefaultHttpClient;
 import com.auth0.utils.Asserts;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import okhttp3.logging.HttpLoggingInterceptor.Level;
 import org.jetbrains.annotations.TestOnly;
 
 /**
- * Class that provides an implementation of the Management API methods defined in https://auth0.com/docs/api/management/v2.
- * To begin create an instance of {@link #ManagementAPI(String, String)} using the tenant domain and API token.
- * <p>
- * This class is not entirely thread-safe:
- * A new immutable {@link OkHttpClient} instance is being created with each instantiation, not sharing the thread pool
- * with any prior existing client instance.
+ * Class that provides an implementation of the Management API methods defined at
+ * <a href="https://auth0.com/docs/api/management/v2.">https://auth0.com/docs/api/management/v2.</a>.
  */
 @SuppressWarnings("WeakerAccess")
 public class ManagementAPI {
 
     private final HttpUrl baseUrl;
-    private String apiToken;
     private final Auth0HttpClient client;
+
+    private TokenProvider tokenProvider;
 
     /**
      * Create an instance with the given tenant's domain and API token.
@@ -39,11 +31,12 @@ public class ManagementAPI {
      * @param domain   the tenant's domain.
      * @param apiToken the token to authenticate the calls with.
      * @param options  configuration options for this client instance.
+     * @see #newBuilder(String, String)
      * @see #ManagementAPI(String, String)
      */
     @Deprecated
     public ManagementAPI(String domain, String apiToken, HttpOptions options) {
-        this(domain, apiToken, buildNetworkingClient(options));
+        this(domain, SimpleTokenProvider.create(apiToken), buildNetworkingClient(options));
     }
 
     /**
@@ -55,32 +48,76 @@ public class ManagementAPI {
      *
      * @param domain   the tenant's domain.
      * @param apiToken the token to authenticate the calls with.
+     * @see #newBuilder(String, String)
      */
     @Deprecated
     public ManagementAPI(String domain, String apiToken) {
-        this(domain, apiToken, DefaultHttpClient.newBuilder().build());
+        this(domain, SimpleTokenProvider.create(apiToken), DefaultHttpClient.newBuilder().build());
     }
 
     /**
      * Instantiate a new {@link Builder} to configure and build a new ManagementAPI client.
+     * <p>
+     * This will configure a {@code ManagementAPI} client with a token required to authorize
+     * API calls. Once expired, you will need to either instantiate a new API client or
+     * call {@link #setApiToken(String)} with a new token. If your usage requires an API
+     * client instance that spans the lifetime of the token, consider configuring this client
+     * to fetch, manage, and renew the token automatically with {@link #newBuilder(String, TokenProvider)}.
+     * </p>
+     *
+     * <pre>
+     * {@code
+     * // Obtain token for ManagementAPI
+     * AuthAPI auth = AuthAPI.newBuilder("DOMAIN", "CLIENT-ID", "CLIENT-SECRET").build();
+     * TokenHolder tokenHolder = auth.requestToken("https://{DOMAIN}/api/v2/").execute().getBody();
+     *
+     * // Use token to create ManagementAPI
+     * ManagementAPI mgmt = ManagementAPI.newBuilder("{DOMAIN}", tokenHolder.getAccessToken()).build();
+     * }
+     * </pre>
      *
      * @param domain the tenant's domain. Must be a non-null valid HTTPS domain.
      * @param apiToken the token to use when making API requests to the Auth0 Management API.
      * @return a Builder for further configuration.
+     * @see #newBuilder(String, String) 
      */
     public static ManagementAPI.Builder newBuilder(String domain, String apiToken) {
-        return new ManagementAPI.Builder(domain, apiToken);
+        return new ManagementAPI.Builder(domain)
+            .withApiToken(apiToken);
     }
 
-    private ManagementAPI(String domain, String apiToken, Auth0HttpClient httpClient) {
+    /**
+     * Instantiate a new {@link Builder} to configure and build a new Management API client,
+     * using a {@link TokenProvider} configured for an Auth0 application
+     * <a href="https://auth0.com/docs/secure/tokens/access-tokens/get-management-api-access-tokens-for-production">authorized for the Management API.</a>
+     * Using this will construct a client that will fetch a Management API token for you, and renew it as needed.
+     * Use this if your usage requires an API client instance to be long-lived, and prefer that this API client fetch,
+     * manage, and renew the API token for you.
+     * <pre>
+     * {@code
+     * TokenProvider provider = ManagedTokenProvider.newBuilder("{DOMAIN}", "{CLIENT-ID}", "{CLIENT-SECRET}").build();
+     * ManagementAPI mgmt = ManagementAPI.newBuilder("{DOMAIN}", provider).build();
+     * }
+     * </pre>
+     *
+     * @param domain the tenant's domain. Must be a non-null valid HTTPS domain.
+     * @param tokenProvider a {@code TokenProvider} instance responsible for managing the token.
+     * @return a Builder for further configuration.
+     * @see #newBuilder(String, String)
+     */
+    public static ManagementAPI.Builder newBuilder(String domain, TokenProvider tokenProvider) {
+        return new ManagementAPI.Builder(domain)
+            .withTokenProvider(tokenProvider);
+    }
+    private ManagementAPI(String domain, TokenProvider tokenProvider, Auth0HttpClient httpClient) {
         Asserts.assertNotNull(domain, "domain");
-        Asserts.assertNotNull(apiToken, "api token");
+        Asserts.assertNotNull(tokenProvider, "token provider");
 
         this.baseUrl = createBaseUrl(domain);
         if (baseUrl == null) {
             throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
         }
-        this.apiToken = apiToken;
+        this.tokenProvider = tokenProvider;
         this.client = httpClient;
     }
 
@@ -111,9 +148,9 @@ public class ManagementAPI {
      *
      * @param apiToken the token to authenticate the calls with.
      */
-    public void setApiToken(String apiToken) {
+    public synchronized void setApiToken(String apiToken) {
         Asserts.assertNotNull(apiToken, "api token");
-        this.apiToken = apiToken;
+        this.tokenProvider = SimpleTokenProvider.create(apiToken);
     }
 
     @TestOnly
@@ -121,7 +158,7 @@ public class ManagementAPI {
         return this.client;
     }
 
-    //Visible for testing
+    @TestOnly
     HttpUrl getBaseUrl() {
         return baseUrl;
     }
@@ -140,7 +177,7 @@ public class ManagementAPI {
      * @return the Branding entity.
      */
     public BrandingEntity branding() {
-        return new BrandingEntity(client, baseUrl, apiToken);
+        return new BrandingEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -149,7 +186,7 @@ public class ManagementAPI {
      * @return the Client Grants entity.
      */
     public ClientGrantsEntity clientGrants() {
-        return new ClientGrantsEntity(client, baseUrl, apiToken);
+        return new ClientGrantsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -158,7 +195,7 @@ public class ManagementAPI {
      * @return the Applications entity.
      */
     public ClientsEntity clients() {
-        return new ClientsEntity(client, baseUrl, apiToken);
+        return new ClientsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -167,7 +204,7 @@ public class ManagementAPI {
      * @return the Connections entity.
      */
     public ConnectionsEntity connections() {
-        return new ConnectionsEntity(client, baseUrl, apiToken);
+        return new ConnectionsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -176,7 +213,7 @@ public class ManagementAPI {
      * @return the Device Credentials entity.
      */
     public DeviceCredentialsEntity deviceCredentials() {
-        return new DeviceCredentialsEntity(client, baseUrl, apiToken);
+        return new DeviceCredentialsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -185,7 +222,7 @@ public class ManagementAPI {
      * @return the Grants entity.
      */
     public GrantsEntity grants() {
-        return new GrantsEntity(client, baseUrl, apiToken);
+        return new GrantsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -194,7 +231,7 @@ public class ManagementAPI {
      * @return the Log Events entity.
      */
     public LogEventsEntity logEvents() {
-        return new LogEventsEntity(client, baseUrl, apiToken);
+        return new LogEventsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -203,7 +240,7 @@ public class ManagementAPI {
      * @return the Log Streams entity.
      */
     public LogStreamsEntity logStreams() {
-        return new LogStreamsEntity(client, baseUrl, apiToken);
+        return new LogStreamsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -212,7 +249,7 @@ public class ManagementAPI {
      * @return the Rules entity.
      */
     public RulesEntity rules() {
-        return new RulesEntity(client, baseUrl, apiToken);
+        return new RulesEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -221,7 +258,7 @@ public class ManagementAPI {
      * @return the Rules Configs entity.
      */
     public RulesConfigsEntity rulesConfigs() {
-        return new RulesConfigsEntity(client, baseUrl, apiToken);
+        return new RulesConfigsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -230,7 +267,7 @@ public class ManagementAPI {
      * @return the User Blocks entity.
      */
     public UserBlocksEntity userBlocks() {
-        return new UserBlocksEntity(client, baseUrl, apiToken);
+        return new UserBlocksEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -239,7 +276,7 @@ public class ManagementAPI {
      * @return the Users entity.
      */
     public UsersEntity users() {
-        return new UsersEntity(client, baseUrl, apiToken);
+        return new UsersEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -248,7 +285,7 @@ public class ManagementAPI {
      * @return the Blacklists entity.
      */
     public BlacklistsEntity blacklists() {
-        return new BlacklistsEntity(client, baseUrl, apiToken);
+        return new BlacklistsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -257,7 +294,7 @@ public class ManagementAPI {
      * @return the Email Templates entity.
      */
     public EmailTemplatesEntity emailTemplates() {
-        return new EmailTemplatesEntity(client, baseUrl, apiToken);
+        return new EmailTemplatesEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -266,7 +303,7 @@ public class ManagementAPI {
      * @return the Email Provider entity.
      */
     public EmailProviderEntity emailProvider() {
-        return new EmailProviderEntity(client, baseUrl, apiToken);
+        return new EmailProviderEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -275,7 +312,7 @@ public class ManagementAPI {
      * @return the Guardian entity.
      */
     public GuardianEntity guardian() {
-        return new GuardianEntity(client, baseUrl, apiToken);
+        return new GuardianEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -284,7 +321,7 @@ public class ManagementAPI {
      * @return the Stats entity.
      */
     public StatsEntity stats() {
-        return new StatsEntity(client, baseUrl, apiToken);
+        return new StatsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -293,7 +330,7 @@ public class ManagementAPI {
      * @return the Tenants entity.
      */
     public TenantsEntity tenants() {
-        return new TenantsEntity(client, baseUrl, apiToken);
+        return new TenantsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -302,7 +339,7 @@ public class ManagementAPI {
      * @return the Tickets entity.
      */
     public TicketsEntity tickets() {
-        return new TicketsEntity(client, baseUrl, apiToken);
+        return new TicketsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -311,7 +348,7 @@ public class ManagementAPI {
      * @return the Resource Servers entity.
      */
     public ResourceServerEntity resourceServers() {
-        return new ResourceServerEntity(client, baseUrl, apiToken);
+        return new ResourceServerEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -320,7 +357,7 @@ public class ManagementAPI {
      * @return the Jobs entity.
      */
     public JobsEntity jobs() {
-        return new JobsEntity(client, baseUrl, apiToken);
+        return new JobsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -329,7 +366,7 @@ public class ManagementAPI {
      * @return the Roles entity.
      */
     public RolesEntity roles() {
-        return new RolesEntity(client, baseUrl, apiToken);
+        return new RolesEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -338,7 +375,7 @@ public class ManagementAPI {
      * @return the Organizations entity.
      */
     public OrganizationsEntity organizations() {
-        return new OrganizationsEntity(client, baseUrl, apiToken);
+        return new OrganizationsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -347,7 +384,7 @@ public class ManagementAPI {
      * @return the Actions entity.
      */
     public ActionsEntity actions() {
-        return new ActionsEntity(client, baseUrl, apiToken);
+        return new ActionsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -356,7 +393,7 @@ public class ManagementAPI {
      * @return the Attack Protection Entity
      */
     public AttackProtectionEntity attackProtection() {
-        return new AttackProtectionEntity(client, baseUrl, apiToken);
+        return new AttackProtectionEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -365,7 +402,7 @@ public class ManagementAPI {
      * @return the Keys Entity
      */
     public KeysEntity keys() {
-        return new KeysEntity(client, baseUrl, apiToken);
+        return new KeysEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -373,17 +410,41 @@ public class ManagementAPI {
      */
     public static class Builder {
         private final String domain;
-        private final String apiToken;
-        private Auth0HttpClient httpClient = DefaultHttpClient.newBuilder().build();
+        private TokenProvider tokenProvider;
+        private Auth0HttpClient httpClient;
+
 
         /**
          * Create a new Builder
          * @param domain the domain of the tenant.
-         * @param apiToken the API token used to make requests to the Auth0 Management API.
          */
-        public Builder(String domain, String apiToken) {
+        public Builder(String domain) {
             this.domain = domain;
-            this.apiToken = apiToken;
+        }
+
+        /**
+         * Specify the token to use when making requests. When expired, consumers will need to renew the token and then
+         * update the token on the API client instance with {@link ManagementAPI#setApiToken(String)}.
+         *
+         * @param apiToken the token for use with the Management API.
+         * @return this builder instance.
+         */
+        public Builder withApiToken(String apiToken) {
+            this.tokenProvider = SimpleTokenProvider.create(apiToken);
+            return this;
+        }
+
+        /**
+         * Specify a {@link TokenProvider} to use when making requests to the Auth0 Management APIs. Providing a
+         * {@link ManagedTokenProvider} may be useful for long-running applications that would prefer the library
+         * to manage the token, including renewing it when required.
+         * 
+         * @param tokenProvider
+         * @return
+         */
+        public Builder withTokenProvider(TokenProvider tokenProvider) {
+            this.tokenProvider = tokenProvider;
+            return this;
         }
 
         /**
@@ -402,7 +463,8 @@ public class ManagementAPI {
          * @return the configured {@code ManagementAPI} instance.
          */
         public ManagementAPI build() {
-            return new ManagementAPI(domain, apiToken, httpClient);
+            return new ManagementAPI(domain, tokenProvider, httpClient == null ?
+                DefaultHttpClient.newBuilder().build() : httpClient);
         }
     }
 }
