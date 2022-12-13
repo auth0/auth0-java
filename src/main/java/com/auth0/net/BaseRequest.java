@@ -7,6 +7,7 @@ import com.auth0.net.client.Auth0HttpRequest;
 import com.auth0.net.client.Auth0HttpResponse;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 public abstract class BaseRequest<T> implements Request<T> {
@@ -23,7 +24,7 @@ public abstract class BaseRequest<T> implements Request<T> {
         return this.tokenProvider;
     }
 
-    protected abstract Auth0HttpRequest createRequest() throws Auth0Exception;
+    protected abstract Auth0HttpRequest createRequest(String apiToken) throws Auth0Exception;
 
     protected abstract T parseResponseBody(Auth0HttpResponse response) throws Auth0Exception;
 
@@ -35,7 +36,11 @@ public abstract class BaseRequest<T> implements Request<T> {
      */
     @Override
     public com.auth0.net.Response<T> execute() throws Auth0Exception {
-        Auth0HttpRequest request = createRequest();
+        String apiToken = null;
+        if (Objects.nonNull(tokenProvider)) {
+            apiToken = tokenProvider.getToken();
+        }
+        Auth0HttpRequest request = createRequest(apiToken);
         try {
             Auth0HttpResponse response = client.sendRequest(request);
             T body = parseResponseBody(response);
@@ -50,17 +55,28 @@ public abstract class BaseRequest<T> implements Request<T> {
     @Override
     public CompletableFuture<com.auth0.net.Response<T>> executeAsync() {
         final CompletableFuture<com.auth0.net.Response<T>> future = new CompletableFuture<>();
-        Auth0HttpRequest request;
+
+        if (Objects.nonNull(tokenProvider)) {
+            return tokenProvider.getTokenAsync().thenCompose(token -> {
+                try {
+                    System.out.println(">>>>> Sending request with token: ");
+                    System.out.println(token);
+                    return client.sendRequestAsync(createRequest(token))
+                        .thenCompose(this::getResponseFuture);
+                } catch (Auth0Exception e) {
+                    future.completeExceptionally(e);
+                    return future;
+                }
+            });
+        }
 
         try {
-            request = createRequest();
+            return client.sendRequestAsync(createRequest(null))
+                .thenCompose(this::getResponseFuture);
         } catch (Auth0Exception e) {
             future.completeExceptionally(e);
             return future;
         }
-
-        return client.sendRequestAsync(request)
-            .thenCompose(this::getResponseFuture);
     }
 
     private CompletableFuture<Response<T>> getResponseFuture(Auth0HttpResponse httpResponse) {

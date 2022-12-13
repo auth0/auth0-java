@@ -24,6 +24,7 @@ import org.junit.rules.ExpectedException;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 import static com.auth0.client.MockServer.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -55,7 +56,18 @@ public class CustomRequestTest {
         };
         voidType = new TypeReference<Void>() {
         };
-        tokenProvider = () -> "Bearer xyz";
+        tokenProvider = new TokenProvider() {
+            @Override
+            public String getToken() throws Auth0Exception {
+                return "Bearer xyz";
+            }
+
+            @Override
+            public CompletableFuture<String> getTokenAsync() {
+                return CompletableFuture.completedFuture("Bearer xyz");
+            }
+        };
+//        tokenProvider = () -> "Bearer xyz";
     }
 
     @After

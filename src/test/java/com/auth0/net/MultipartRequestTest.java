@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import static com.auth0.client.MockServer.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -57,6 +58,10 @@ public class MultipartRequestTest {
             @Override
             public String getToken() throws Auth0Exception {
                 return "xyz";
+            }
+            @Override
+            public CompletableFuture<String> getTokenAsync() {
+                return CompletableFuture.completedFuture("xyz");
             }
         };
     }

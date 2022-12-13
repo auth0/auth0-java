@@ -8,6 +8,8 @@ import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.concurrent.CompletableFuture;
+
 import static com.auth0.client.MockServer.AUTH_TOKENS;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -21,7 +23,17 @@ public class VoidRequestTest {
     public void setUp() throws Exception {
         client = new DefaultHttpClient.Builder().build();
         server = new MockServer();
-        tokenProvider = () -> "Bearer xyz";
+        tokenProvider = new TokenProvider() {
+            @Override
+            public String getToken() throws Auth0Exception {
+                return "Bearer xyz";
+            }
+
+            @Override
+            public CompletableFuture<String> getTokenAsync() {
+                return CompletableFuture.completedFuture("Bearer xyz");
+            }
+        };
     }
 
     @Test

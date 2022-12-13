@@ -3,12 +3,14 @@ package com.auth0.client.mgmt;
 import com.auth0.client.auth.AuthAPI;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.json.auth.TokenHolder;
+import com.auth0.net.Response;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.DefaultHttpClient;
 import org.jetbrains.annotations.TestOnly;
 
 import java.time.Instant;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * An implementation of {@link TokenProvider} that fetches, maintains, and renews Auth0 Management API tokens.
@@ -17,6 +19,7 @@ public class ManagedTokenProvider implements TokenProvider {
 
     private final AuthAPI authAPI;
     private TokenHolder tokenHolder;
+    private CompletableFuture<Response<TokenHolder>> tokenHolderAsync;
     private final int leeway;
     private final Auth0HttpClient httpClient;
 
@@ -43,7 +46,7 @@ public class ManagedTokenProvider implements TokenProvider {
         }
 
         // if expired (or about to expire), renew the token, store it, and return it
-        if (isExpired()) {
+        if (isExpired(tokenHolder.getExpiresAt().toInstant())) {
             this.tokenHolder = getTokenHolder();
             return tokenHolder.getAccessToken();
         }
@@ -52,8 +55,40 @@ public class ManagedTokenProvider implements TokenProvider {
         return tokenHolder.getAccessToken();
     }
 
-    private boolean isExpired() {
-        return Instant.now().plusSeconds(this.leeway).isAfter(tokenHolder.getExpiresAt().toInstant());
+    @Override
+    public CompletableFuture<String> getTokenAsync() {
+        // get tokens on first request if not set yet
+        if (Objects.isNull(tokenHolderAsync)) {
+            System.out.println("**** getTokenAsync - will fetch token for first time *****");
+            this.tokenHolderAsync = getTokenHolderAsync();
+            return tokenHolderAsync.thenCompose(tokenHolderResponse -> CompletableFuture.supplyAsync(() -> tokenHolderResponse.getBody().getAccessToken()));
+        }
+
+        return tokenHolderAsync.thenCompose(tokenHolderResponse -> {
+            if (isExpired(tokenHolderResponse.getBody().getExpiresAt().toInstant())) {
+                System.out.println("***** TOKEN EXPIRED *****");
+                System.out.println("token expired at: " + tokenHolderResponse.getBody().getExpiresAt().toInstant());
+                System.out.println("time now is: " + Instant.now());
+                System.out.println(tokenHolderResponse.getBody().getAccessToken());
+                this.tokenHolderAsync = getTokenHolderAsync();
+                System.out.println("***** RENEWED TOKEN HOLDER *****");
+                return this.tokenHolderAsync.thenCompose(resp -> CompletableFuture.supplyAsync(() -> {
+                    System.out.println("******* RETURNING TOKEN:********");
+                    System.out.println(resp.getBody().getAccessToken() );
+                    return resp.getBody().getAccessToken();
+                }));
+            }
+            return CompletableFuture.supplyAsync(() -> {
+                // token still valid
+                System.out.println("******* Token still valid, returning:********");
+                System.out.println(tokenHolderResponse.getBody().getAccessToken());
+                return tokenHolderResponse.getBody().getAccessToken();
+            });
+        });
+    }
+
+    private boolean isExpired(Instant expiry) {
+        return Instant.now().plusSeconds(this.leeway).isAfter(expiry);
     }
     
     private ManagedTokenProvider(Builder builder) {
@@ -83,6 +118,11 @@ public class ManagedTokenProvider implements TokenProvider {
         return this.authAPI.requestToken(this.authAPI.getManagementAPIAudience())
             .execute()
             .getBody();
+    }
+
+    private CompletableFuture<Response<TokenHolder>> getTokenHolderAsync() {
+        return this.authAPI.requestToken(this.authAPI.getManagementAPIAudience())
+            .executeAsync();
     }
 
     /**
