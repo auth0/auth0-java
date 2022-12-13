@@ -59,8 +59,6 @@ public abstract class BaseRequest<T> implements Request<T> {
         if (Objects.nonNull(tokenProvider)) {
             return tokenProvider.getTokenAsync().thenCompose(token -> {
                 try {
-                    System.out.println(">>>>> Sending request with token: ");
-                    System.out.println(token);
                     return client.sendRequestAsync(createRequest(token))
                         .thenCompose(this::getResponseFuture);
                 } catch (Auth0Exception e) {

@@ -59,29 +59,19 @@ public class ManagedTokenProvider implements TokenProvider {
     public CompletableFuture<String> getTokenAsync() {
         // get tokens on first request if not set yet
         if (Objects.isNull(tokenHolderAsync)) {
-            System.out.println("**** getTokenAsync - will fetch token for first time *****");
             this.tokenHolderAsync = getTokenHolderAsync();
             return tokenHolderAsync.thenCompose(tokenHolderResponse -> CompletableFuture.supplyAsync(() -> tokenHolderResponse.getBody().getAccessToken()));
         }
 
         return tokenHolderAsync.thenCompose(tokenHolderResponse -> {
             if (isExpired(tokenHolderResponse.getBody().getExpiresAt().toInstant())) {
-                System.out.println("***** TOKEN EXPIRED *****");
-                System.out.println("token expired at: " + tokenHolderResponse.getBody().getExpiresAt().toInstant());
-                System.out.println("time now is: " + Instant.now());
-                System.out.println(tokenHolderResponse.getBody().getAccessToken());
                 this.tokenHolderAsync = getTokenHolderAsync();
-                System.out.println("***** RENEWED TOKEN HOLDER *****");
                 return this.tokenHolderAsync.thenCompose(resp -> CompletableFuture.supplyAsync(() -> {
-                    System.out.println("******* RETURNING TOKEN:********");
-                    System.out.println(resp.getBody().getAccessToken() );
                     return resp.getBody().getAccessToken();
                 }));
             }
             return CompletableFuture.supplyAsync(() -> {
                 // token still valid
-                System.out.println("******* Token still valid, returning:********");
-                System.out.println(tokenHolderResponse.getBody().getAccessToken());
                 return tokenHolderResponse.getBody().getAccessToken();
             });
         });
