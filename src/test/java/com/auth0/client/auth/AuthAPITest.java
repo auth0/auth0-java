@@ -512,7 +512,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateLogInWithAuthorizationCodeGrantRequest() throws Exception {
-        AuthRequest request = api.exchangeCode("code123", "https://domain.auth0.com/callback");
+        TokenRequest request = api.exchangeCode("code123", "https://domain.auth0.com/callback");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
@@ -545,7 +545,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateLogInWithAuthorizationCodeGrantRequestWithCustomParameters() throws Exception {
-        AuthRequest request = api.exchangeCode("code123", "https://domain.auth0.com/callback");
+        TokenRequest request = api.exchangeCode("code123", "https://domain.auth0.com/callback");
         assertThat(request, is(notNullValue()));
         request.setAudience("https://myapi.auth0.com/users");
         request.setRealm("dbconnection");
@@ -605,7 +605,7 @@ public class AuthAPITest {
     @Test
     public void shouldCreateLogInWithPasswordGrantRequest() throws Exception {
         @SuppressWarnings("deprecation")
-        AuthRequest request = api.login("me", "p455w0rd");
+        TokenRequest request = api.login("me", "p455w0rd");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
@@ -640,7 +640,7 @@ public class AuthAPITest {
     @Test
     public void shouldCreateLogInWithPasswordGrantRequestWithCustomParameters() throws Exception {
         @SuppressWarnings("deprecation")
-        AuthRequest request = api.login("me", "p455w0rd");
+        TokenRequest request = api.login("me", "p455w0rd");
         assertThat(request, is(notNullValue()));
         request.setRealm("dbconnection");
         request.setScope("profile photos contacts");
@@ -735,7 +735,7 @@ public class AuthAPITest {
     @Test
     public void shouldCreateLogInWithPasswordRealmGrantRequest() throws Exception {
         @SuppressWarnings("deprecation")
-        AuthRequest request = api.login("me", "p455w0rd", "realm");
+        TokenRequest request = api.login("me", "p455w0rd", "realm");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
@@ -771,7 +771,7 @@ public class AuthAPITest {
     @Test
     public void shouldCreateLogInWithPasswordRealmGrantRequestWithCustomParameters() throws Exception {
         @SuppressWarnings("deprecation")
-        AuthRequest request = api.login("me", "p455w0rd", "realm");
+        TokenRequest request = api.login("me", "p455w0rd", "realm");
         assertThat(request, is(notNullValue()));
         request.setAudience("https://myapi.auth0.com/users");
         request.setRealm("dbconnection");
@@ -814,7 +814,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateLogInWithClientCredentialsGrantRequest() throws Exception {
-        AuthRequest request = api.requestToken("https://myapi.auth0.com/users");
+        TokenRequest request = api.requestToken("https://myapi.auth0.com/users");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
@@ -1018,7 +1018,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateLoginWithPasswordlessCodeRequest() throws Exception {
-        AuthRequest request = api.exchangePasswordlessOtp("+16511234567", "email", "otp".toCharArray());
+        TokenRequest request = api.exchangePasswordlessOtp("+16511234567", "email", "otp".toCharArray());
         assertThat(request, is(notNullValue()));
 
         passwordlessCodeRequest(request, true);
@@ -1026,13 +1026,13 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateLoginWithPasswordlessCodeRequestWithoutSecret() throws Exception {
-        AuthRequest request = apiNoSecret.exchangePasswordlessOtp("+16511234567", "email", "otp".toCharArray());
+        TokenRequest request = apiNoSecret.exchangePasswordlessOtp("+16511234567", "email", "otp".toCharArray());
         assertThat(request, is(notNullValue()));
 
         passwordlessCodeRequest(request, false);
     }
 
-    private void passwordlessCodeRequest(AuthRequest request, boolean secretSent) throws Exception {
+    private void passwordlessCodeRequest(TokenRequest request, boolean secretSent) throws Exception {
         server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
@@ -1115,22 +1115,22 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldCreateRenewAuthRequest() throws Exception {
-        AuthRequest request = api.renewAuth("ej2E8zNEzjrcSD2edjaE");
+    public void shouldCreateRenewTokenRequest() throws Exception {
+        TokenRequest request = api.renewAuth("ej2E8zNEzjrcSD2edjaE");
         assertThat(request, is(notNullValue()));
 
-        renewAuthRequest(request, true);
+        renewTokenRequest(request, true);
     }
 
     @Test
-    public void shouldCreateRenewAuthRequestWithoutSecret() throws Exception {
-        AuthRequest request = apiNoSecret.renewAuth("ej2E8zNEzjrcSD2edjaE");
+    public void shouldCreateRenewTokenRequestWithoutSecret() throws Exception {
+        TokenRequest request = apiNoSecret.renewAuth("ej2E8zNEzjrcSD2edjaE");
         assertThat(request, is(notNullValue()));
 
-        renewAuthRequest(request, false);
+        renewTokenRequest(request, false);
     }
 
-    private void renewAuthRequest(AuthRequest request, boolean secretSent) throws Exception {
+    private void renewTokenRequest(TokenRequest request, boolean secretSent) throws Exception {
         server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
@@ -1174,7 +1174,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateExchangeMfaOtpRequest() throws Exception {
-        AuthRequest request = api.exchangeMfaOtp("mfaToken", new char[]{'o','t','p'});
+        TokenRequest request = api.exchangeMfaOtp("mfaToken", new char[]{'o','t','p'});
         assertThat(request, is(notNullValue()));
 
         mfaOtpRequest(request, true);
@@ -1182,13 +1182,13 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateExchangeMfaOtpRequestWithoutSecret() throws Exception {
-        AuthRequest request = apiNoSecret.exchangeMfaOtp("mfaToken", new char[]{'o','t','p'});
+        TokenRequest request = apiNoSecret.exchangeMfaOtp("mfaToken", new char[]{'o','t','p'});
         assertThat(request, is(notNullValue()));
 
         mfaOtpRequest(request, false);
     }
 
-    private void mfaOtpRequest(AuthRequest request, boolean secretSent) throws Exception {
+    private void mfaOtpRequest(TokenRequest request, boolean secretSent) throws Exception {
         server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
@@ -1217,7 +1217,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateLogInWithAuthorizationCodeGrantWithPKCERequest() throws Exception {
-        AuthRequest request = api.exchangeCodeWithVerifier("code123", "verifier", "https://domain.auth0.com/callback");
+        TokenRequest request = api.exchangeCodeWithVerifier("code123", "verifier", "https://domain.auth0.com/callback");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
