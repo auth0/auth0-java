@@ -22,7 +22,7 @@ import java.util.Map;
  *
  * @param <T> The type expected to be received as part of the response.
  */
-public class CustomRequest<T> extends ExtendedBaseRequest<T> implements CustomizableRequest<T> {
+public class CustomRequest<T> extends ExtendedBaseRequest<T> implements Request<T> {
 
     private static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
 

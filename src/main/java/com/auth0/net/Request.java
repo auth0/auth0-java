@@ -36,4 +36,30 @@ public interface Request<T> {
     default CompletableFuture<Response<T>> executeAsync() {
         throw new UnsupportedOperationException("executeAsync");
     }
+
+    /**
+     * Adds an HTTP header to the request
+     *
+     * @param name  the name of the header
+     * @param value the value of the header
+     * @return this same request instance
+     */
+    Request<T> addHeader(String name, String value);
+
+    /**
+     * Adds an body parameter to the request
+     *
+     * @param name  the name of the parameter
+     * @param value the value of the parameter
+     * @return this same request instance
+     */
+    Request<T> addParameter(String name, Object value);
+
+    /**
+     * Sets the response's body directly
+     *
+     * @param body the value to set as body
+     * @return this same request instance
+     */
+    Request<T> setBody(Object body);
 }
