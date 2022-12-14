@@ -22,7 +22,7 @@ import static com.auth0.utils.Asserts.assertNotNull;
  * @param <T> The type expected to be received as part of the response.
  * @see BaseRequest
  */
-public class MultipartRequest<T> extends BaseRequest<T> implements FormDataRequest<T> {
+public class MultipartRequest<T> extends BaseRequest<T> {
 
     private static final String CONTENT_TYPE_FORM_DATA = "multipart/form-data";
     private final Auth0MultipartRequestBody.Builder bodyBuilder;
@@ -72,7 +72,14 @@ public class MultipartRequest<T> extends BaseRequest<T> implements FormDataReque
         return this;
     }
 
-    @Override
+    /**
+     * Adds a file part to the form of this request
+     *
+     * @param name      the name of the part
+     * @param file      the file contents to send in this part
+     * @param mediaType the file contents media type
+     * @return this same request instance
+     */
     @SuppressWarnings("deprecation")
     public MultipartRequest<T> addPart(String name, File file, String mediaType) {
         assertNotNull(name, "name");
@@ -85,7 +92,13 @@ public class MultipartRequest<T> extends BaseRequest<T> implements FormDataReque
         return this;
     }
 
-    @Override
+    /**
+     * Adds a key-value part to the form of this request
+     *
+     * @param name  the name of the part
+     * @param value the value of the part
+     * @return this same request instance
+     */
     public MultipartRequest<T> addPart(String name, String value) {
         assertNotNull(name, "name");
         assertNotNull(value, "value");
