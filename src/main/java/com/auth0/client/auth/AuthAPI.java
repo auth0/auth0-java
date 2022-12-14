@@ -351,7 +351,7 @@ public class AuthAPI {
     public SignUpRequest signUp(String email, String username, char[] password, String connection) {
         Asserts.assertNotNull(username, "username");
 
-        CreateUserRequest request = (CreateUserRequest) this.signUp(email, password, connection);
+        SignUpRequest request = this.signUp(email, password, connection);
         request.addParameter(KEY_USERNAME, username);
         return request;
     }
@@ -419,7 +419,7 @@ public class AuthAPI {
                 .addPathSegment("signup")
                 .build()
                 .toString();
-        CreateUserRequest request = new CreateUserRequest(client, url);
+        SignUpRequest request = new SignUpRequest(client, url);
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_EMAIL, email);
         request.addParameter(KEY_PASSWORD, password);
