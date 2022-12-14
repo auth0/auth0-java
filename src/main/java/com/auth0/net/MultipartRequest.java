@@ -31,8 +31,9 @@ public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormD
     private final ObjectMapper mapper;
     private int partsCount;
 
+    //TODO multipartBuilder is not used? Refactor it?
     MultipartRequest(Auth0HttpClient client, String url, HttpMethod method, ObjectMapper mapper, TypeReference<T> tType, Auth0MultipartRequestBody.Builder multipartBuilder) {
-        super(client, url, method, mapper);
+        super(client, url, method, mapper, tType);
         if (HttpMethod.GET.equals(method)) {
             throw new IllegalArgumentException("Multipart/form-data requests do not support the GET method.");
         }

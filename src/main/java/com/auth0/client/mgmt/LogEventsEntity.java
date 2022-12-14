@@ -3,7 +3,7 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.filter.LogEventFilter;
 import com.auth0.json.mgmt.logevents.LogEvent;
 import com.auth0.json.mgmt.logevents.LogEventsPage;
-import com.auth0.net.CustomRequest;
+import com.auth0.net.ExtendedBaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.HttpMethod;
@@ -50,7 +50,7 @@ public class LogEventsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<LogEventsPage> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<LogEventsPage>() {
+        ExtendedBaseRequest<LogEventsPage> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<LogEventsPage>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -72,7 +72,7 @@ public class LogEventsEntity extends BaseManagementEntity {
                 .addPathSegment(logEventId)
                 .build()
                 .toString();
-        CustomRequest<LogEvent> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<LogEvent>() {
+        ExtendedBaseRequest<LogEvent> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<LogEvent>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;

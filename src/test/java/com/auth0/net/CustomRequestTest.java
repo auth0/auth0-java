@@ -61,7 +61,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldCreateGETRequest() throws Exception {
-        CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, tokenHolderType);
+        ExtendedBaseRequest<TokenHolder> request = new ExtendedBaseRequest<>(client, server.getBaseUrl(), HttpMethod.GET, tokenHolderType);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
@@ -73,7 +73,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldCreatePOSTRequest() throws Exception {
-        CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
+        ExtendedBaseRequest<TokenHolder> request = new ExtendedBaseRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
         assertThat(request, is(notNullValue()));
         request.addParameter("non_empty", "body");
 
@@ -86,7 +86,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldAddParameters() throws Exception {
-        CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
+        ExtendedBaseRequest<TokenHolder> request = new ExtendedBaseRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
         Map mapValue = mock(Map.class);
         request.addParameter("key", "value");
         request.addParameter("map", mapValue);
@@ -101,7 +101,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldAddHeaders() throws Exception {
-        CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
+        ExtendedBaseRequest<TokenHolder> request = new ExtendedBaseRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
         request.addParameter("non_empty", "body");
         request.addHeader("Extra-Info", "this is a test");
         request.addHeader("Authorization", "Bearer my_access_token");
@@ -116,7 +116,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldNotOverrideContentTypeHeader() throws Exception {
-        CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
+        ExtendedBaseRequest<TokenHolder> request = new ExtendedBaseRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
         request.addParameter("non_empty", "body");
         request.addHeader("Content-Type", "plaintext");
 
@@ -132,7 +132,7 @@ public class CustomRequestTest {
         ObjectMapper mapper = mock(ObjectMapper.class);
         when(mapper.writeValueAsBytes(any(Object.class))).thenThrow(JsonProcessingException.class);
 
-        CustomRequest request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.POST, mapper, voidType);
+        ExtendedBaseRequest request = new ExtendedBaseRequest<>(client, server.getBaseUrl(), HttpMethod.POST, mapper, voidType);
         request.addParameter("name", "value");
         exception.expect(Auth0Exception.class);
         exception.expectCause(Matchers.<Throwable>instanceOf(JsonProcessingException.class));
@@ -142,7 +142,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldParseSuccessfulResponse() throws Exception {
-        CustomRequest<TokenHolder> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, tokenHolderType);
+        ExtendedBaseRequest<TokenHolder> request = new ExtendedBaseRequest<>(client, server.getBaseUrl(), HttpMethod.GET, tokenHolderType);
         server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder response = request.execute().getBody();
         server.takeRequest();
@@ -157,7 +157,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldThrowOnParseInvalidSuccessfulResponse() throws Exception {
-        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
+        ExtendedBaseRequest<List> request = new ExtendedBaseRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
         server.jsonResponse(AUTH_TOKENS, 200);
         Exception exception = null;
         try {
@@ -178,7 +178,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldParseJSONErrorResponseWithErrorDescription() throws Exception {
-        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
+        ExtendedBaseRequest<List> request = new ExtendedBaseRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
         server.jsonResponse(AUTH_ERROR_WITH_ERROR_DESCRIPTION, 400);
         Exception exception = null;
         try {
@@ -199,7 +199,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldParseJSONErrorResponseWithError() throws Exception {
-        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
+        ExtendedBaseRequest<List> request = new ExtendedBaseRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
         server.jsonResponse(AUTH_ERROR_WITH_ERROR, 400);
         Exception exception = null;
         try {
@@ -221,7 +221,7 @@ public class CustomRequestTest {
     @SuppressWarnings("RedundantCast")
     @Test
     public void shouldParseJSONErrorResponseWithDescriptionAndExtraProperties() throws Exception {
-        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
+        ExtendedBaseRequest<List> request = new ExtendedBaseRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
         server.jsonResponse(AUTH_ERROR_WITH_DESCRIPTION_AND_EXTRA_PROPERTIES, 400);
         Exception exception = null;
         try {
@@ -244,7 +244,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldParseJSONErrorResponseWithDescription() throws Exception {
-        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
+        ExtendedBaseRequest<List> request = new ExtendedBaseRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
         server.jsonResponse(AUTH_ERROR_WITH_DESCRIPTION, 400);
         Exception exception = null;
         try {
@@ -265,7 +265,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldParseJSONErrorResponseWithMessage() throws Exception {
-        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
+        ExtendedBaseRequest<List> request = new ExtendedBaseRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
         server.jsonResponse(MGMT_ERROR_WITH_MESSAGE, 400);
         Exception exception = null;
         try {
@@ -286,7 +286,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldParsePlainTextErrorResponse() throws Exception {
-        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
+        ExtendedBaseRequest<List> request = new ExtendedBaseRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
         server.textResponse(AUTH_ERROR_PLAINTEXT, 400);
         Exception exception = null;
         try {
@@ -308,7 +308,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldParseRateLimitsHeaders() {
-        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
+        ExtendedBaseRequest<List> request = new ExtendedBaseRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
         server.rateLimitReachedResponse(100, 10, 5);
         Exception exception = null;
         try {
@@ -333,7 +333,7 @@ public class CustomRequestTest {
 
     @Test
     public void shouldDefaultRateLimitsHeadersWhenMissing() {
-        CustomRequest<List> request = new CustomRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
+        ExtendedBaseRequest<List> request = new ExtendedBaseRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
         server.rateLimitReachedResponse(-1, -1, -1);
         Exception exception = null;
         try {

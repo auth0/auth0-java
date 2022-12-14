@@ -3,7 +3,9 @@ package com.auth0.net;
 import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.RateLimitException;
+import com.auth0.json.ObjectMapperProvider;
 import com.auth0.net.client.*;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.MapType;
 
@@ -22,7 +24,7 @@ import java.util.Map;
  *
  * @param <T> The type expected to be received as part of the response.
  */
-abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
+public class ExtendedBaseRequest<T> extends BaseRequest<T> {
 
     private static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
 
@@ -30,15 +32,24 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
     private final HttpMethod method;
     private final ObjectMapper mapper;
     private final Map<String, String> headers;
+    private final TypeReference<T> tType;
+    private final Map<String, Object> parameters;
+    private Object body;
 
     private static final int STATUS_CODE_TOO_MANY_REQUEST = 429;
 
-    ExtendedBaseRequest(Auth0HttpClient client, String url, HttpMethod method, ObjectMapper mapper) {
+    ExtendedBaseRequest(Auth0HttpClient client, String url, HttpMethod method, ObjectMapper mapper, TypeReference<T> tType) {
         super(client);
         this.url = url;
         this.method = method;
         this.mapper = mapper;
         this.headers = new HashMap<>();
+        this.tType = tType;
+        this.parameters = new HashMap<>();
+    }
+
+    public ExtendedBaseRequest(Auth0HttpClient client, String url, HttpMethod method, TypeReference<T> tType) {
+        this(client, url, method, ObjectMapperProvider.getMapper(), tType);
     }
 
     @Override
@@ -80,22 +91,6 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
         return CONTENT_TYPE_APPLICATION_JSON;
     }
 
-    /**
-     * Responsible for creating the payload that will be set as body on this request.
-     *
-     * @return the body to send as part of the request.
-     * @throws IOException if an error is raised during the creation of the body.
-     */
-    protected abstract HttpRequestBody createRequestBody() throws IOException;
-
-    /**
-     * Responsible for parsing the payload that is received as part of the response.
-     *
-     * @param response the received response. The body buffer will automatically closed.
-     * @return the instance of type T, result of interpreting the payload.
-     * @throws IOException if an error is raised during the parsing of the body.
-     */
-    protected abstract T readResponseBody(Auth0HttpResponse response) throws IOException;
 
     /**
      * Adds an HTTP header to the request
@@ -137,5 +132,44 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
         long remaining = Long.parseLong(response.getHeader("X-RateLimit-Remaining", "-1"));
         long reset = Long.parseLong(response.getHeader("X-RateLimit-Reset", "-1"));
         return new RateLimitException(limit, remaining, reset);
+    }
+
+    /**
+     * Responsible for creating the payload that will be set as body on this request.
+     *
+     * @return the body to send as part of the request.
+     * @throws IOException if an error is raised during the creation of the body.
+     */
+    @SuppressWarnings("deprecation")
+    protected HttpRequestBody createRequestBody() throws IOException {
+        if (body == null && parameters.isEmpty()) {
+            return null;
+        }
+        byte[] jsonBody = mapper.writeValueAsBytes(body != null ? body : parameters);
+        return HttpRequestBody.create(CONTENT_TYPE_APPLICATION_JSON, jsonBody);
+    }
+
+    /**
+     * Responsible for parsing the payload that is received as part of the response.
+     *
+     * @param response the received response. The body buffer will automatically closed.
+     * @return the instance of type T, result of interpreting the payload.
+     * @throws IOException if an error is raised during the parsing of the body.
+     */
+    protected T readResponseBody(Auth0HttpResponse response) throws IOException {
+        String payload = response.getBody();
+        return mapper.readValue(payload, tType);
+    }
+
+    @Override
+    public ExtendedBaseRequest<T> addParameter(String name, Object value) {
+        parameters.put(name, value);
+        return this;
+    }
+
+    @Override
+    public ExtendedBaseRequest<T> setBody(Object value) {
+        body = value;
+        return this;
     }
 }

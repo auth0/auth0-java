@@ -7,7 +7,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.Map;
 
-public class CreateUserRequest extends CustomRequest<CreatedUser> implements SignUpRequest {
+public class CreateUserRequest extends ExtendedBaseRequest<CreatedUser> implements SignUpRequest, Request<CreatedUser> {
 
     public CreateUserRequest(Auth0HttpClient client, String url) {
         super(client, url, HttpMethod.POST, new TypeReference<CreatedUser>() {

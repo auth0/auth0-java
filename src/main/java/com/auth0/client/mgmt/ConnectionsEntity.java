@@ -3,7 +3,7 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.filter.ConnectionFilter;
 import com.auth0.json.mgmt.Connection;
 import com.auth0.json.mgmt.ConnectionsPage;
-import com.auth0.net.CustomRequest;
+import com.auth0.net.ExtendedBaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.net.client.Auth0HttpClient;
@@ -47,7 +47,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<ConnectionsPage> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<ConnectionsPage>() {
+        ExtendedBaseRequest<ConnectionsPage> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<ConnectionsPage>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -77,7 +77,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<List<Connection>> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<List<Connection>>() {
+        ExtendedBaseRequest<List<Connection>> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<Connection>>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -104,7 +104,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<Connection> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Connection>() {
+        ExtendedBaseRequest<Connection> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<Connection>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -125,7 +125,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/connections")
                 .build()
                 .toString();
-        CustomRequest<Connection> request = new CustomRequest<>(this.client, url, HttpMethod.POST, new TypeReference<Connection>() {
+        ExtendedBaseRequest<Connection> request = new ExtendedBaseRequest<>(this.client, url, HttpMethod.POST, new TypeReference<Connection>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(connection);
@@ -171,7 +171,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addPathSegment(connectionId)
                 .build()
                 .toString();
-        CustomRequest<Connection> request = new CustomRequest<>(this.client, url, HttpMethod.PATCH, new TypeReference<Connection>() {
+        ExtendedBaseRequest<Connection> request = new ExtendedBaseRequest<>(this.client, url, HttpMethod.PATCH, new TypeReference<Connection>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(connection);

@@ -1,7 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.Token;
-import com.auth0.net.CustomRequest;
+import com.auth0.net.ExtendedBaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.net.client.Auth0HttpClient;
@@ -42,7 +42,7 @@ public class BlacklistsEntity extends BaseManagementEntity {
                 .addQueryParameter("aud", audience)
                 .build()
                 .toString();
-        CustomRequest<List<Token>> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<List<Token>>() {
+        ExtendedBaseRequest<List<Token>> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<Token>>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;

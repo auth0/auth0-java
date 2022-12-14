@@ -1,7 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.RulesConfig;
-import com.auth0.net.CustomRequest;
+import com.auth0.net.ExtendedBaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.net.client.Auth0HttpClient;
@@ -39,7 +39,7 @@ public class RulesConfigsEntity extends BaseManagementEntity {
                 .newBuilder()
                 .addPathSegments("api/v2/rules-configs");
         String url = builder.build().toString();
-        CustomRequest<List<RulesConfig>> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<List<RulesConfig>>() {
+        ExtendedBaseRequest<List<RulesConfig>> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<RulesConfig>>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -84,7 +84,7 @@ public class RulesConfigsEntity extends BaseManagementEntity {
                 .addPathSegment(rulesConfigKey)
                 .build()
                 .toString();
-        CustomRequest<RulesConfig> request = new CustomRequest<>(this.client, url, HttpMethod.PUT, new TypeReference<RulesConfig>() {
+        ExtendedBaseRequest<RulesConfig> request = new ExtendedBaseRequest<>(this.client, url, HttpMethod.PUT, new TypeReference<RulesConfig>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(rulesConfig);

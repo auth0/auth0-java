@@ -1,7 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.EmailTemplate;
-import com.auth0.net.CustomRequest;
+import com.auth0.net.ExtendedBaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.HttpMethod;
@@ -47,7 +47,7 @@ public class EmailTemplatesEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/email-templates")
                 .addPathSegment(templateName);
         String url = builder.build().toString();
-        CustomRequest<EmailTemplate> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<EmailTemplate>() {
+        ExtendedBaseRequest<EmailTemplate> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<EmailTemplate>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -68,7 +68,7 @@ public class EmailTemplatesEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/email-templates")
                 .build()
                 .toString();
-        CustomRequest<EmailTemplate> request = new CustomRequest<>(this.client, url, HttpMethod.POST, new TypeReference<EmailTemplate>() {
+        ExtendedBaseRequest<EmailTemplate> request = new ExtendedBaseRequest<>(this.client, url, HttpMethod.POST, new TypeReference<EmailTemplate>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(template);
@@ -93,7 +93,7 @@ public class EmailTemplatesEntity extends BaseManagementEntity {
                 .addPathSegment(templateName)
                 .build()
                 .toString();
-        CustomRequest<EmailTemplate> request = new CustomRequest<>(this.client, url, HttpMethod.PATCH, new TypeReference<EmailTemplate>() {
+        ExtendedBaseRequest<EmailTemplate> request = new ExtendedBaseRequest<>(this.client, url, HttpMethod.PATCH, new TypeReference<EmailTemplate>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(template);

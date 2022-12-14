@@ -1,7 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.userblocks.UserBlocks;
-import com.auth0.net.CustomRequest;
+import com.auth0.net.ExtendedBaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.net.client.Auth0HttpClient;
@@ -40,7 +40,7 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .addQueryParameter("identifier", identifier)
                 .build()
                 .toString();
-        CustomRequest<UserBlocks> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<UserBlocks>() {
+        ExtendedBaseRequest<UserBlocks> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<UserBlocks>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -83,7 +83,7 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .addPathSegment(userId)
                 .build()
                 .toString();
-        CustomRequest<UserBlocks> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<UserBlocks>() {
+        ExtendedBaseRequest<UserBlocks> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<UserBlocks>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;

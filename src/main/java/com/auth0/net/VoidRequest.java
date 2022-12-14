@@ -17,7 +17,7 @@ import java.util.HashMap;
  *
  * @see CustomRequest
  */
-public class VoidRequest extends CustomRequest<Void> {
+public class VoidRequest extends ExtendedBaseRequest<Void> {
 
     public VoidRequest(Auth0HttpClient client, String url, HttpMethod method) {
         super(client, url, method, new TypeReference<Void>() {

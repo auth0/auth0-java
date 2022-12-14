@@ -1,7 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.DailyStats;
-import com.auth0.net.CustomRequest;
+import com.auth0.net.ExtendedBaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.HttpMethod;
@@ -40,7 +40,7 @@ public class StatsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<Integer> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Integer>() {
+        ExtendedBaseRequest<Integer> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<Integer>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -68,7 +68,7 @@ public class StatsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<List<DailyStats>> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<List<DailyStats>>() {
+        ExtendedBaseRequest<List<DailyStats>> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<DailyStats>>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;

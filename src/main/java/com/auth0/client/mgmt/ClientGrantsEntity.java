@@ -3,7 +3,7 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.filter.ClientGrantsFilter;
 import com.auth0.json.mgmt.ClientGrant;
 import com.auth0.json.mgmt.ClientGrantsPage;
-import com.auth0.net.CustomRequest;
+import com.auth0.net.ExtendedBaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.net.client.Auth0HttpClient;
@@ -47,7 +47,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
         }
 
         String url = builder.build().toString();
-        CustomRequest<ClientGrantsPage> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<ClientGrantsPage>() {
+        ExtendedBaseRequest<ClientGrantsPage> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<ClientGrantsPage>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -68,7 +68,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/client-grants")
                 .build()
                 .toString();
-        CustomRequest<List<ClientGrant>> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<List<ClientGrant>>() {
+        ExtendedBaseRequest<List<ClientGrant>> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<ClientGrant>>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -93,7 +93,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/client-grants")
                 .build()
                 .toString();
-        CustomRequest<ClientGrant> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<ClientGrant>() {
+        ExtendedBaseRequest<ClientGrant> request = new ExtendedBaseRequest<>(client, url, HttpMethod.POST, new TypeReference<ClientGrant>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.addParameter("client_id", clientId);
@@ -142,7 +142,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
                 .addPathSegment(clientGrantId)
                 .build()
                 .toString();
-        CustomRequest<ClientGrant> request = new CustomRequest<>(client, url, HttpMethod.PATCH, new TypeReference<ClientGrant>() {
+        ExtendedBaseRequest<ClientGrant> request = new ExtendedBaseRequest<>(client, url, HttpMethod.PATCH, new TypeReference<ClientGrant>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.addParameter("scope", scope);

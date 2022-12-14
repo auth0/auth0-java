@@ -6,7 +6,7 @@ import com.auth0.client.mgmt.filter.InvitationsFilter;
 import com.auth0.client.mgmt.filter.PageFilter;
 import com.auth0.json.mgmt.RolesPage;
 import com.auth0.json.mgmt.organizations.*;
-import com.auth0.net.CustomRequest;
+import com.auth0.net.ExtendedBaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.net.client.Auth0HttpClient;
@@ -51,7 +51,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        CustomRequest<OrganizationsPage> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<OrganizationsPage>() {
+        ExtendedBaseRequest<OrganizationsPage> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<OrganizationsPage>() {
         });
 
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
@@ -76,7 +76,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<Organization> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Organization>() {
+        ExtendedBaseRequest<Organization> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<Organization>() {
         });
 
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
@@ -102,7 +102,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<Organization> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Organization>() {
+        ExtendedBaseRequest<Organization> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<Organization>() {
         });
 
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
@@ -126,7 +126,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<Organization> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<Organization>() {
+        ExtendedBaseRequest<Organization> request = new ExtendedBaseRequest<>(client, url, HttpMethod.POST, new TypeReference<Organization>() {
         });
 
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
@@ -154,7 +154,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<Organization> request = new CustomRequest<>(client, url, HttpMethod.PATCH, new TypeReference<Organization>() {
+        ExtendedBaseRequest<Organization> request = new ExtendedBaseRequest<>(client, url, HttpMethod.PATCH, new TypeReference<Organization>() {
         });
 
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
@@ -208,7 +208,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        CustomRequest<MembersPage> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<MembersPage>() {
+        ExtendedBaseRequest<MembersPage> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<MembersPage>() {
         });
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
@@ -291,7 +291,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        CustomRequest<EnabledConnectionsPage> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<EnabledConnectionsPage>() {
+        ExtendedBaseRequest<EnabledConnectionsPage> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<EnabledConnectionsPage>() {
         });
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
@@ -319,7 +319,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<EnabledConnection> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<EnabledConnection>() {
+        ExtendedBaseRequest<EnabledConnection> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<EnabledConnection>() {
         });
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
@@ -346,7 +346,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<EnabledConnection> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<EnabledConnection>() {
+        ExtendedBaseRequest<EnabledConnection> request = new ExtendedBaseRequest<>(client, url, HttpMethod.POST, new TypeReference<EnabledConnection>() {
         });
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         request.setBody(connection);
@@ -404,7 +404,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<EnabledConnection> request = new CustomRequest<>(client, url, HttpMethod.PATCH, new TypeReference<EnabledConnection>() {
+        ExtendedBaseRequest<EnabledConnection> request = new ExtendedBaseRequest<>(client, url, HttpMethod.PATCH, new TypeReference<EnabledConnection>() {
         });
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         request.setBody(connection);
@@ -438,7 +438,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        CustomRequest<RolesPage> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<RolesPage>() {
+        ExtendedBaseRequest<RolesPage> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<RolesPage>() {
         });
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
@@ -529,7 +529,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        CustomRequest<Invitation> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<Invitation>() {
+        ExtendedBaseRequest<Invitation> request = new ExtendedBaseRequest<>(client, url, HttpMethod.POST, new TypeReference<Invitation>() {
         });
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         request.setBody(invitation);
@@ -561,7 +561,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        CustomRequest<Invitation> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Invitation>() {
+        ExtendedBaseRequest<Invitation> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<Invitation>() {
         });
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
@@ -588,7 +588,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        CustomRequest<InvitationsPage> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<InvitationsPage>() {
+        ExtendedBaseRequest<InvitationsPage> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<InvitationsPage>() {
         });
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;

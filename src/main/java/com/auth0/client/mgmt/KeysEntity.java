@@ -1,8 +1,8 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.Key;
-import com.auth0.net.CustomRequest;
 import com.auth0.net.EmptyBodyRequest;
+import com.auth0.net.ExtendedBaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.HttpMethod;
@@ -38,7 +38,7 @@ public class KeysEntity extends BaseManagementEntity {
             .newBuilder()
             .addEncodedPathSegments("api/v2/keys/signing");
         String url = builder.build().toString();
-        CustomRequest<List<Key>> request = new CustomRequest<>(this.client, url, HttpMethod.GET, new TypeReference<List<Key>>() {
+        ExtendedBaseRequest<List<Key>> request = new ExtendedBaseRequest<>(this.client, url, HttpMethod.GET, new TypeReference<List<Key>>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -60,7 +60,7 @@ public class KeysEntity extends BaseManagementEntity {
             .addPathSegments("api/v2/keys/signing")
             .addPathSegment(kid);
         String url = builder.build().toString();
-        CustomRequest<Key> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Key>() {
+        ExtendedBaseRequest<Key> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<Key>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -79,7 +79,7 @@ public class KeysEntity extends BaseManagementEntity {
             .addPathSegments("api/v2/keys/signing/rotate")
             .build()
             .toString();
-        CustomRequest<Key> request = new EmptyBodyRequest<>(this.client, url, HttpMethod.POST, new TypeReference<Key>() {
+        ExtendedBaseRequest<Key> request = new EmptyBodyRequest<>(this.client, url, HttpMethod.POST, new TypeReference<Key>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -103,7 +103,7 @@ public class KeysEntity extends BaseManagementEntity {
             .addPathSegment("revoke")
             .build()
             .toString();
-        CustomRequest<Key> request = new EmptyBodyRequest<>(this.client, url, HttpMethod.PUT, new TypeReference<Key>() {
+        ExtendedBaseRequest<Key> request = new EmptyBodyRequest<>(this.client, url, HttpMethod.PUT, new TypeReference<Key>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;

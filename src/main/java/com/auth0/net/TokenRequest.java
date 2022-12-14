@@ -5,7 +5,7 @@ import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.HttpMethod;
 import com.fasterxml.jackson.core.type.TypeReference;
 
-public class TokenRequest extends CustomRequest<TokenHolder> implements AuthRequest {
+public class TokenRequest extends ExtendedBaseRequest<TokenHolder> implements AuthRequest, Request<TokenHolder> {
 
     public TokenRequest(Auth0HttpClient client, String url) {
         super(client, url, HttpMethod.POST, new TypeReference<TokenHolder>() {

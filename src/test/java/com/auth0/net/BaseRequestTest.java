@@ -31,6 +31,21 @@ public class BaseRequestTest {
 
         BaseRequest<String> req = new BaseRequest<String>(client) {
             @Override
+            public Request<String> addHeader(String name, String value) {
+                return null;
+            }
+
+            @Override
+            public Request<String> addParameter(String name, Object value) {
+                return null;
+            }
+
+            @Override
+            public Request<String> setBody(Object body) {
+                return null;
+            }
+
+            @Override
             protected Auth0HttpRequest createRequest() throws Auth0Exception {
                 return null;
             }
@@ -50,6 +65,21 @@ public class BaseRequestTest {
         DefaultHttpClient client = DefaultHttpClient.newBuilder().build();
 
         BaseRequest<String> req = new BaseRequest<String>(client) {
+            @Override
+            public Request<String> addHeader(String name, String value) {
+                return null;
+            }
+
+            @Override
+            public Request<String> addParameter(String name, Object value) {
+                return null;
+            }
+
+            @Override
+            public Request<String> setBody(Object body) {
+                return null;
+            }
+
             @Override
             protected Auth0HttpRequest createRequest() throws Auth0Exception {
                 throw new Auth0Exception("error", new IOException("boom"));

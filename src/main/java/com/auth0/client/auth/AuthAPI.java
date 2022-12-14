@@ -249,7 +249,7 @@ public class AuthAPI {
                 .addPathSegment("userinfo")
                 .build()
                 .toString();
-        CustomRequest<UserInfo> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<UserInfo>() {
+        ExtendedBaseRequest<UserInfo> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<UserInfo>() {
         });
         request.addHeader("Authorization", "Bearer " + accessToken);
         return request;
@@ -798,7 +798,7 @@ public class AuthAPI {
      * @see <a href="https://auth0.com/docs/connections/passwordless/guides/email-otp">Passwordless Authentication with Email documentation</a>
      * @see <a href="https://auth0.com/docs/api/authentication#get-code-or-link">Get code or link API reference documentation</a>
      */
-    public CustomRequest<PasswordlessEmailResponse> startPasswordlessEmailFlow(String email, PasswordlessEmailType type) {
+    public ExtendedBaseRequest<PasswordlessEmailResponse> startPasswordlessEmailFlow(String email, PasswordlessEmailType type) {
         Asserts.assertNotNull(email, "email");
         Asserts.assertNotNull(type, "type");
 
@@ -809,7 +809,7 @@ public class AuthAPI {
                 .build()
                 .toString();
 
-        CustomRequest<PasswordlessEmailResponse> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordlessEmailResponse>() {
+        ExtendedBaseRequest<PasswordlessEmailResponse> request = new ExtendedBaseRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordlessEmailResponse>() {
         });
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_CONNECTION, "email");
@@ -841,7 +841,7 @@ public class AuthAPI {
      * @see <a href="https://auth0.com/docs/connections/passwordless/guides/sms-otp">Passwordless Authentication with SMS documentation</a>
      * @see <a href="https://auth0.com/docs/api/authentication#get-code-or-link">Get code or link API reference documentation</a>
      */
-    public CustomRequest<PasswordlessSmsResponse> startPasswordlessSmsFlow(String phoneNumber) {
+    public ExtendedBaseRequest<PasswordlessSmsResponse> startPasswordlessSmsFlow(String phoneNumber) {
         Asserts.assertNotNull(phoneNumber, "phoneNumber");
 
         String url = baseUrl
@@ -851,7 +851,7 @@ public class AuthAPI {
                 .build()
                 .toString();
 
-        CustomRequest<PasswordlessSmsResponse> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordlessSmsResponse>() {
+        ExtendedBaseRequest<PasswordlessSmsResponse> request = new ExtendedBaseRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordlessSmsResponse>() {
         });
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_CONNECTION, "sms");
@@ -917,7 +917,7 @@ public class AuthAPI {
             .toString();
     }
 
-    private void addSecret(CustomRequest<?> request, boolean required) {
+    private void addSecret(ExtendedBaseRequest<?> request, boolean required) {
         if (required && Objects.isNull(this.clientSecret)) {
             throw new IllegalStateException("A client secret is required for this operation");
         }
