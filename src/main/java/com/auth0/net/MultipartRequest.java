@@ -20,9 +20,9 @@ import static com.auth0.utils.Asserts.assertNotNull;
  * from a different or un-synchronized thread.
  *
  * @param <T> The type expected to be received as part of the response.
- * @see ExtendedBaseRequest
+ * @see BaseRequest
  */
-public class MultipartRequest<T> extends ExtendedBaseRequest<T> implements FormDataRequest<T> {
+public class MultipartRequest<T> extends BaseRequest<T> implements FormDataRequest<T> {
 
     private static final String CONTENT_TYPE_FORM_DATA = "multipart/form-data";
     private final Auth0MultipartRequestBody.Builder bodyBuilder;

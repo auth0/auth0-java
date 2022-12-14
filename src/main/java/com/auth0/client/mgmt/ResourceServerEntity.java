@@ -3,7 +3,7 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.filter.ResourceServersFilter;
 import com.auth0.json.mgmt.ResourceServer;
 import com.auth0.json.mgmt.ResourceServersPage;
-import com.auth0.net.ExtendedBaseRequest;
+import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.net.client.Auth0HttpClient;
@@ -46,7 +46,7 @@ public class ResourceServerEntity extends BaseManagementEntity {
         }
 
         String url = builder.build().toString();
-        ExtendedBaseRequest<ResourceServersPage> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET,
+        BaseRequest<ResourceServersPage> request = new BaseRequest<>(client, url, HttpMethod.GET,
                 new TypeReference<ResourceServersPage>() {
                 });
         request.addHeader("Authorization", "Bearer " + apiToken);
@@ -68,7 +68,7 @@ public class ResourceServerEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/resource-servers");
 
         String url = builder.build().toString();
-        ExtendedBaseRequest<List<ResourceServer>> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET,
+        BaseRequest<List<ResourceServer>> request = new BaseRequest<>(client, url, HttpMethod.GET,
                 new TypeReference<List<ResourceServer>>() {
                 });
         request.addHeader("Authorization", "Bearer " + apiToken);
@@ -91,7 +91,7 @@ public class ResourceServerEntity extends BaseManagementEntity {
                 .addPathSegment(resourceServerIdOrIdentifier);
 
         String url = builder.build().toString();
-        ExtendedBaseRequest<ResourceServer> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET,
+        BaseRequest<ResourceServer> request = new BaseRequest<>(client, url, HttpMethod.GET,
                 new TypeReference<ResourceServer>() {
                 });
         request.addHeader("Authorization", "Bearer " + apiToken);
@@ -113,7 +113,7 @@ public class ResourceServerEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/resource-servers");
 
         String url = builder.build().toString();
-        ExtendedBaseRequest<ResourceServer> request = new ExtendedBaseRequest<>(client, url, HttpMethod.POST,
+        BaseRequest<ResourceServer> request = new BaseRequest<>(client, url, HttpMethod.POST,
                 new TypeReference<ResourceServer>() {
                 });
         request.addHeader("Authorization", "Bearer " + apiToken);
@@ -160,7 +160,7 @@ public class ResourceServerEntity extends BaseManagementEntity {
                 .addPathSegment(resourceServerId);
 
         String url = builder.build().toString();
-        ExtendedBaseRequest<ResourceServer> request = new ExtendedBaseRequest<ResourceServer>(client, url, HttpMethod.PATCH,
+        BaseRequest<ResourceServer> request = new BaseRequest<ResourceServer>(client, url, HttpMethod.PATCH,
                 new TypeReference<ResourceServer>() {
                 });
         request.addHeader("Authorization", "Bearer " + apiToken);

@@ -1,10 +1,12 @@
 package com.auth0.net;
 
 import com.auth0.exception.Auth0Exception;
+import com.auth0.json.mgmt.userblocks.UserBlocks;
 import com.auth0.net.client.Auth0HttpRequest;
 import com.auth0.net.client.Auth0HttpResponse;
 import com.auth0.net.client.DefaultHttpClient;
 import com.auth0.net.client.HttpMethod;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -29,19 +31,20 @@ public class BaseRequestTest {
         DefaultHttpClient client = mock(DefaultHttpClient.class);
         when(client.sendRequest(any())).thenThrow(IOException.class);
 
-        BaseRequest<String> req = new BaseRequest<String>(client) {
+        BaseRequest<String> req = new BaseRequest<String>(client, "", HttpMethod.GET, new TypeReference<String>() {
+        }) {
             @Override
-            public Request<String> addHeader(String name, String value) {
+            public BaseRequest<String> addHeader(String name, String value) {
                 return null;
             }
 
             @Override
-            public Request<String> addParameter(String name, Object value) {
+            public BaseRequest<String> addParameter(String name, Object value) {
                 return null;
             }
 
             @Override
-            public Request<String> setBody(Object body) {
+            public BaseRequest<String> setBody(Object body) {
                 return null;
             }
 
@@ -64,19 +67,20 @@ public class BaseRequestTest {
     public void asyncHandlesIOExceptionWhenCreatingRequest() throws Exception {
         DefaultHttpClient client = DefaultHttpClient.newBuilder().build();
 
-        BaseRequest<String> req = new BaseRequest<String>(client) {
+        BaseRequest<String> req = new BaseRequest<String>(client, "", HttpMethod.GET, new TypeReference<String>() {
+        }) {
             @Override
-            public Request<String> addHeader(String name, String value) {
+            public BaseRequest<String> addHeader(String name, String value) {
                 return null;
             }
 
             @Override
-            public Request<String> addParameter(String name, Object value) {
+            public BaseRequest<String> addParameter(String name, Object value) {
                 return null;
             }
 
             @Override
-            public Request<String> setBody(Object body) {
+            public BaseRequest<String> setBody(Object body) {
                 return null;
             }
 

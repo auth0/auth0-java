@@ -5,7 +5,7 @@ import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.json.mgmt.client.Client;
 import com.auth0.json.mgmt.client.ClientsPage;
 import com.auth0.net.EmptyBodyRequest;
-import com.auth0.net.ExtendedBaseRequest;
+import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.net.client.Auth0HttpClient;
@@ -46,7 +46,7 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/clients")
                 .build()
                 .toString();
-        ExtendedBaseRequest<List<Client>> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<Client>>() {
+        BaseRequest<List<Client>> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<Client>>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -69,7 +69,7 @@ public class ClientsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        ExtendedBaseRequest<ClientsPage> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<ClientsPage>() {
+        BaseRequest<ClientsPage> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<ClientsPage>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -91,7 +91,7 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegment(clientId)
                 .build()
                 .toString();
-        ExtendedBaseRequest<Client> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<Client>() {
+        BaseRequest<Client> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<Client>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -118,7 +118,7 @@ public class ClientsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        ExtendedBaseRequest<Client> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<Client>() {
+        BaseRequest<Client> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<Client>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -139,7 +139,7 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/clients")
                 .build()
                 .toString();
-        ExtendedBaseRequest<Client> request = new ExtendedBaseRequest<>(this.client, url, HttpMethod.POST, new TypeReference<Client>() {
+        BaseRequest<Client> request = new BaseRequest<>(this.client, url, HttpMethod.POST, new TypeReference<Client>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(client);
@@ -185,7 +185,7 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegment(clientId)
                 .build()
                 .toString();
-        ExtendedBaseRequest<Client> request = new ExtendedBaseRequest<>(this.client, url, HttpMethod.PATCH, new TypeReference<Client>() {
+        BaseRequest<Client> request = new BaseRequest<>(this.client, url, HttpMethod.PATCH, new TypeReference<Client>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(client);
@@ -210,7 +210,7 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegment("rotate-secret")
                 .build()
                 .toString();
-        ExtendedBaseRequest<Client> request = new EmptyBodyRequest<>(this.client, url, HttpMethod.POST, new TypeReference<Client>() {
+        BaseRequest<Client> request = new EmptyBodyRequest<>(this.client, url, HttpMethod.POST, new TypeReference<Client>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;

@@ -908,7 +908,7 @@ public class AuthAPITest {
         authParams.put("scope", "openid profile email");
         authParams.put("state", "abc123");
 
-        ExtendedBaseRequest<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow("user@domain.com", PasswordlessEmailType.CODE)
+        BaseRequest<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow("user@domain.com", PasswordlessEmailType.CODE)
                 .addParameter("authParams", authParams);
 
         // verify that connection parameter can be overridden for custom connection types
@@ -982,7 +982,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateStartSmsPasswordlessFlowRequestWithCustomConnection() throws Exception {
-        ExtendedBaseRequest<PasswordlessSmsResponse> request = api.startPasswordlessSmsFlow("+16511234567");
+        BaseRequest<PasswordlessSmsResponse> request = api.startPasswordlessSmsFlow("+16511234567");
 
         // verify that connection parameter can be overridden for custom connection types
         request.addParameter("connection", "custom-sms");

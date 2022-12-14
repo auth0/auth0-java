@@ -11,9 +11,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * The content type of this request is "application/json".
  *
  * @param <T> The type expected to be received as part of the response.
- * @see CustomRequest
+ * @see BaseRequest
  */
-public class EmptyBodyRequest<T> extends ExtendedBaseRequest<T> {
+public class EmptyBodyRequest<T> extends BaseRequest<T> {
 
     public EmptyBodyRequest(Auth0HttpClient client, String url, HttpMethod method, TypeReference<T> tType) {
         super(client, url, method, tType);

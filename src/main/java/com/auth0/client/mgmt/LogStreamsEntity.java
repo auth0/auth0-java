@@ -1,7 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.logstreams.LogStream;
-import com.auth0.net.ExtendedBaseRequest;
+import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.net.client.Auth0HttpClient;
@@ -41,7 +41,7 @@ public class LogStreamsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        ExtendedBaseRequest<List<LogStream>> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<LogStream>>() {
+        BaseRequest<List<LogStream>> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<LogStream>>() {
         });
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
@@ -64,7 +64,7 @@ public class LogStreamsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        ExtendedBaseRequest<LogStream> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<LogStream>() {
+        BaseRequest<LogStream> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<LogStream>() {
         });
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
@@ -86,7 +86,7 @@ public class LogStreamsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        ExtendedBaseRequest<LogStream> request = new ExtendedBaseRequest<>(client, url, HttpMethod.POST, new TypeReference<LogStream>(){});
+        BaseRequest<LogStream> request = new BaseRequest<>(client, url, HttpMethod.POST, new TypeReference<LogStream>(){});
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         request.setBody(logStream);
         return request;
@@ -111,7 +111,7 @@ public class LogStreamsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        ExtendedBaseRequest<LogStream> request = new ExtendedBaseRequest<>(client, url, HttpMethod.PATCH, new TypeReference<LogStream>(){
+        BaseRequest<LogStream> request = new BaseRequest<>(client, url, HttpMethod.PATCH, new TypeReference<LogStream>(){
         });
         request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         request.setBody(logStream);

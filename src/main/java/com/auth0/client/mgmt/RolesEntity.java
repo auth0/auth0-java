@@ -7,7 +7,7 @@ import com.auth0.json.mgmt.PermissionsPage;
 import com.auth0.json.mgmt.Role;
 import com.auth0.json.mgmt.RolesPage;
 import com.auth0.json.mgmt.users.UsersPage;
-import com.auth0.net.ExtendedBaseRequest;
+import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.net.client.Auth0HttpClient;
@@ -52,7 +52,7 @@ public class RolesEntity extends BaseManagementEntity {
       }
     }
     String url = builder.build().toString();
-    ExtendedBaseRequest<RolesPage> request = new ExtendedBaseRequest<>(this.client, url, HttpMethod.GET, new TypeReference<RolesPage>() {});
+    BaseRequest<RolesPage> request = new BaseRequest<>(this.client, url, HttpMethod.GET, new TypeReference<RolesPage>() {});
     request.addHeader("Authorization", "Bearer " + apiToken);
     return request;
   }
@@ -74,7 +74,7 @@ public class RolesEntity extends BaseManagementEntity {
         .addEncodedPathSegments(roleId);
 
     String url = builder.build().toString();
-    ExtendedBaseRequest<Role> request = new ExtendedBaseRequest<>(this.client, url, HttpMethod.GET, new TypeReference<Role>() {});
+    BaseRequest<Role> request = new BaseRequest<>(this.client, url, HttpMethod.GET, new TypeReference<Role>() {});
     request.addHeader("Authorization", "Bearer " + apiToken);
     return request;
   }
@@ -96,7 +96,7 @@ public class RolesEntity extends BaseManagementEntity {
         .addEncodedPathSegments("api/v2/roles")
         .build()
         .toString();
-    ExtendedBaseRequest<Role> request = new ExtendedBaseRequest<>(this.client, url, HttpMethod.POST, new TypeReference<Role>() {});
+    BaseRequest<Role> request = new BaseRequest<>(this.client, url, HttpMethod.POST, new TypeReference<Role>() {});
     request.addHeader("Authorization", "Bearer " + apiToken);
     request.setBody(role);
     return request;
@@ -143,7 +143,7 @@ public class RolesEntity extends BaseManagementEntity {
         .addEncodedPathSegments(roleId)
         .build()
         .toString();
-    ExtendedBaseRequest<Role> request = new ExtendedBaseRequest<>(this.client, url, HttpMethod.PATCH, new TypeReference<Role>() {});
+    BaseRequest<Role> request = new BaseRequest<>(this.client, url, HttpMethod.PATCH, new TypeReference<Role>() {});
     request.addHeader("Authorization", "Bearer " + apiToken);
     request.setBody(role);
     return request;
@@ -172,7 +172,7 @@ public class RolesEntity extends BaseManagementEntity {
       }
     }
     String url = builder.build().toString();
-    ExtendedBaseRequest<UsersPage> request = new ExtendedBaseRequest<>(this.client, url, HttpMethod.GET, new TypeReference<UsersPage>() {});
+    BaseRequest<UsersPage> request = new BaseRequest<>(this.client, url, HttpMethod.GET, new TypeReference<UsersPage>() {});
     request.addHeader("Authorization", "Bearer " + apiToken);
     return request;
   }
@@ -229,7 +229,7 @@ public class RolesEntity extends BaseManagementEntity {
       }
     }
     String url = builder.build().toString();
-    ExtendedBaseRequest<PermissionsPage> request = new ExtendedBaseRequest<>(this.client, url, HttpMethod.GET, new TypeReference<PermissionsPage>() {});
+    BaseRequest<PermissionsPage> request = new BaseRequest<>(this.client, url, HttpMethod.GET, new TypeReference<PermissionsPage>() {});
     request.addHeader("Authorization", "Bearer " + apiToken);
     return request;
   }

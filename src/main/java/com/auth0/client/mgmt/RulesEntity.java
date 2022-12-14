@@ -3,7 +3,7 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.filter.RulesFilter;
 import com.auth0.json.mgmt.Rule;
 import com.auth0.json.mgmt.RulesPage;
-import com.auth0.net.ExtendedBaseRequest;
+import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.net.client.Auth0HttpClient;
@@ -46,7 +46,7 @@ public class RulesEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        ExtendedBaseRequest<RulesPage> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<RulesPage>() {
+        BaseRequest<RulesPage> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<RulesPage>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -75,7 +75,7 @@ public class RulesEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        ExtendedBaseRequest<List<Rule>> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<Rule>>() {
+        BaseRequest<List<Rule>> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<Rule>>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -102,7 +102,7 @@ public class RulesEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        ExtendedBaseRequest<Rule> request = new ExtendedBaseRequest<>(client, url, HttpMethod.GET, new TypeReference<Rule>() {
+        BaseRequest<Rule> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<Rule>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -123,7 +123,7 @@ public class RulesEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/rules")
                 .build()
                 .toString();
-        ExtendedBaseRequest<Rule> request = new ExtendedBaseRequest<>(this.client, url, HttpMethod.POST, new TypeReference<Rule>() {
+        BaseRequest<Rule> request = new BaseRequest<>(this.client, url, HttpMethod.POST, new TypeReference<Rule>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(rule);
@@ -169,7 +169,7 @@ public class RulesEntity extends BaseManagementEntity {
                 .addPathSegment(ruleId)
                 .build()
                 .toString();
-        ExtendedBaseRequest<Rule> request = new ExtendedBaseRequest<>(this.client, url, HttpMethod.PATCH, new TypeReference<Rule>() {
+        BaseRequest<Rule> request = new BaseRequest<>(this.client, url, HttpMethod.PATCH, new TypeReference<Rule>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(rule);
