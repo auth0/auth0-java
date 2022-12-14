@@ -8,7 +8,7 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CreatedOTPResponse {
+public class CreatedOtpResponse {
 
     @JsonProperty("secret")
     private String secret;
@@ -38,11 +38,4 @@ public class CreatedOTPResponse {
         return recoveryCodes;
     }
 
-
-    /*
-    "secret": "ABCDEFGMK5CE6WTZKRTTQRKUJVFXOVRF",
-  "barcode_uri":"otpauth://...",
-  "authenticator_type":"otp",
-  "recovery_codes":["ABCDEFGDRFK75ABYR7PH8TJA"],
-     */
 }

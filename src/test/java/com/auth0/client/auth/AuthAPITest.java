@@ -21,6 +21,7 @@ import static org.junit.Assert.assertThrows;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -1156,7 +1157,44 @@ public class AuthAPITest {
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
-    // MFA grant
+    // PKCE
+
+    @Test
+    public void shouldCreateLogInWithAuthorizationCodeGrantWithPKCERequest() throws Exception {
+        AuthRequest request = api.exchangeCodeWithVerifier("code123", "verifier", "https://domain.auth0.com/callback");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("code", "code123"));
+        assertThat(body, hasEntry("code_verifier", "verifier"));
+        assertThat(body, hasEntry("redirect_uri", "https://domain.auth0.com/callback"));
+        assertThat(body, hasEntry("grant_type", "authorization_code"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowWhenVerifierNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'verifier' cannot be null!");
+        api.exchangeCodeWithVerifier("code", null,"https://domain.auth0.com/callback");
+    }
+
+    // MFA
 
     @Test
     public void shouldThrowWhenExchangeMfaOtpCalledWithNullMfaToken() {
@@ -1215,14 +1253,37 @@ public class AuthAPITest {
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
-
-    // PKCE
+    @Test
+    public void shouldThrowWhenExchangeMfaOobCalledWithNullMfaToken() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'mfa token' cannot be null!");
+        api.exchangeMfaOob(null, new char[]{'o','t','p'}, null);
+    }
 
     @Test
-    public void shouldCreateLogInWithAuthorizationCodeGrantWithPKCERequest() throws Exception {
-        AuthRequest request = api.exchangeCodeWithVerifier("code123", "verifier", "https://domain.auth0.com/callback");
+    public void shouldThrowWhenExchangeMfaOobCalledWithNullOoob() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'OOB code' cannot be null!");
+        api.exchangeMfaOob("mfaToken", null, null);
+    }
+
+    @Test
+    public void shouldCreateExchangeMfaOobRequest() throws Exception {
+        AuthRequest request = api.exchangeMfaOob("mfaToken", new char[]{'o','o','b'}, null);
         assertThat(request, is(notNullValue()));
 
+        mfaOobExchangeRequest(request, null, true);
+    }
+
+    @Test
+    public void shouldCreateExchangeMfaOobRequestWithoutSecret() throws Exception {
+        AuthRequest request = apiNoSecret.exchangeMfaOob("mfaToken", new char[]{'o','o','b'}, new char[]{'b','o','b'});
+        assertThat(request, is(notNullValue()));
+
+        mfaOobExchangeRequest(request, "bob", false);
+    }
+
+    private void mfaOobExchangeRequest(AuthRequest request, String bindingCode, boolean secretSent) throws Exception {
         server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
@@ -1231,12 +1292,22 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("code", "code123"));
-        assertThat(body, hasEntry("code_verifier", "verifier"));
-        assertThat(body, hasEntry("redirect_uri", "https://domain.auth0.com/callback"));
-        assertThat(body, hasEntry("grant_type", "authorization_code"));
+        assertThat(body, hasEntry("grant_type", "http://auth0.com/oauth/grant-type/mfa-oob"));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+
+        if (bindingCode != null) {
+            assertThat(body, hasEntry("binding_code", bindingCode));
+        } else {
+            assertThat(body, not(hasKey("binding_code")));
+        }
+
+        if (secretSent) {
+            assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        } else {
+            assertThat(body, not(hasKey("client_secret")));
+        }
+        assertThat(body, hasEntry("mfa_token", "mfaToken"));
+        assertThat(body, hasEntry("oob_code", "oob"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getAccessToken(), not(emptyOrNullString()));
@@ -1247,9 +1318,179 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldThrowWhenVerifierNull() {
+    public void shouldThrowWhenExchangeMfaRecoveryCodeCalledWithNullMfaToken() {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'verifier' cannot be null!");
-        api.exchangeCodeWithVerifier("code", null,"https://domain.auth0.com/callback");
+        exception.expectMessage("'mfa token' cannot be null!");
+        api.exchangeMfaRecoveryCode(null, new char[]{'c','o','d','e'});
+    }
+
+    @Test
+    public void shouldThrowWhenExchangeMfaRecoveryCodeCalledWithNullCode() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'recovery code' cannot be null!");
+        api.exchangeMfaRecoveryCode("mfaToken", null);
+    }
+
+    @Test
+    public void shouldCreateExchangeMfaRecoveryCodeRequest() throws Exception {
+        AuthRequest request = api.exchangeMfaRecoveryCode("mfaToken", new char[]{'c','o','d','e'});
+        assertThat(request, is(notNullValue()));
+
+        mfaRecoveryCodeExchangeRequest(request, true);
+    }
+
+    @Test
+    public void shouldCreateExchangeMfaRecoveryCodeRequestWithoutSecret() throws Exception {
+        AuthRequest request = apiNoSecret.exchangeMfaRecoveryCode("mfaToken", new char[]{'c','o','d','e'});
+        assertThat(request, is(notNullValue()));
+
+        mfaRecoveryCodeExchangeRequest(request, false);
+    }
+
+    private void mfaRecoveryCodeExchangeRequest(AuthRequest request, boolean secretSent) throws Exception {
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("grant_type", "http://auth0.com/oauth/grant-type/mfa-recovery-code"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+
+        if (secretSent) {
+            assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        } else {
+            assertThat(body, not(hasKey("client_secret")));
+        }
+        assertThat(body, hasEntry("mfa_token", "mfaToken"));
+        assertThat(body, hasEntry("recovery_code", "code"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+    @Test
+    public void addOtpAuthenticatorThrowsWhenTokenNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'mfa token' cannot be null!");
+        api.addOtpAuthenticator(null);
+    }
+
+    @Test
+    public void addOtpAuthenticatorRequest() throws Exception {
+        Request<CreatedOtpResponse> request = api.addOtpAuthenticator("mfaToken");
+
+        server.jsonResponse(AUTH_OTP_AUTHENTICATOR_RESPONSE, 200);
+        CreatedOtpResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/mfa/associate"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("authenticator_types", Collections.singletonList("otp")));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAuthenticatorType(), not(emptyOrNullString()));
+        assertThat(response.getSecret(), not(emptyOrNullString()));
+        assertThat(response.getBarcodeUri(), not(emptyOrNullString()));
+        assertThat(response.getRecoveryCodes(), notNullValue());
+    }
+
+    @Test
+    public void addOobAuthenticatorThrowsWhenTokenNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'mfa token' cannot be null!");
+        api.addOobAuthenticator(null, Collections.singletonList("otp"), null);
+    }
+
+    @Test
+    public void addOobAuthenticatorThrowsWhenChannelsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'OOB channels' cannot be null!");
+        api.addOobAuthenticator("mfaToken", null, null);
+    }
+
+    @Test
+    public void addOobAuthenticatorRequest() throws Exception {
+        Request<CreatedOobResponse> request = api.addOobAuthenticator("mfaToken", Collections.singletonList("sms"), "phone-number");
+
+        server.jsonResponse(AUTH_OOB_AUTHENTICATOR_RESPONSE, 200);
+        CreatedOobResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/mfa/associate"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("authenticator_types", Collections.singletonList("oob")));
+        assertThat(body, hasEntry("oob_channels", Collections.singletonList("sms")));
+        assertThat(body, hasEntry("phone_number", "phone-number"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAuthenticatorType(), not(emptyOrNullString()));
+        assertThat(response.getOobChannel(), not(emptyOrNullString()));
+        assertThat(response.getOobCode(), not(emptyOrNullString()));
+        assertThat(response.getBarcodeUri(), not(emptyOrNullString()));
+        assertThat(response.getRecoveryCodes(), notNullValue());
+    }
+
+    @Test
+    public void listAuthenticatorsThrowsWhenTokenNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'access token' cannot be null!");
+        api.listAuthenticators(null);
+    }
+
+    @Test
+    public void listAuthenticatorsRequest() throws Exception {
+        Request<List<MfaAuthenticator>> request = api.listAuthenticators("token");
+
+        server.jsonResponse(AUTH_LIST_AUTHENTICATORS_RESPONSE, 200);
+        List<MfaAuthenticator> response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/mfa/authenticators"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer token"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void challengeRequestThrowsWhenTokenNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'mfa token' cannot be null!");
+        api.mfaChallengeRequest(null, "otp", "authenticatorId");
+    }
+
+    @Test
+    public void challengeRequest() throws Exception {
+        Request<MfaChallengeResponse> request = api.mfaChallengeRequest("mfaToken", "otp", "authenticatorId");
+
+        server.jsonResponse(AUTH_CHALLENGE_RESPONSE, 200);
+        MfaChallengeResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/mfa/challenge"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("mfa_token", "mfaToken"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        assertThat(body, hasEntry("challenge_type", "otp"));
+        assertThat(body, hasEntry("authenticator_id", "authenticatorId"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getChallengeType(), not(emptyOrNullString()));
+        assertThat(response.getBindingMethod(), not(emptyOrNullString()));
+        assertThat(response.getOobCode(), not(emptyOrNullString()));
     }
 }
