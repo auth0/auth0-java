@@ -28,6 +28,10 @@ public class MockServer {
     public static final String AUTH_ERROR_WITH_DESCRIPTION = "src/test/resources/auth/error_with_description.json";
     public static final String AUTH_ERROR_WITH_DESCRIPTION_AND_EXTRA_PROPERTIES = "src/test/resources/auth/error_with_description_and_extra_properties.json";
     public static final String AUTH_ERROR_PLAINTEXT = "src/test/resources/auth/error_plaintext.json";
+    public static final String AUTH_OOB_AUTHENTICATOR_RESPONSE = "src/test/resources/auth/add_oob_authenticator_response.json";
+    public static final String AUTH_OTP_AUTHENTICATOR_RESPONSE = "src/test/resources/auth/add_otp_authenticator_response.json";
+    public static final String AUTH_LIST_AUTHENTICATORS_RESPONSE = "src/test/resources/auth/list_authenticators_response.json";
+    public static final String AUTH_CHALLENGE_RESPONSE = "src/test/resources/auth/mfa_challenge_request_response.json";
     public static final String MGMT_ERROR_WITH_MESSAGE = "src/test/resources/mgmt/error_with_message.json";
     public static final String MGMT_CLIENT_GRANTS_LIST = "src/test/resources/mgmt/client_grants_list.json";
     public static final String MGMT_CLIENT_GRANTS_PAGED_LIST = "src/test/resources/mgmt/client_grants_paged_list.json";

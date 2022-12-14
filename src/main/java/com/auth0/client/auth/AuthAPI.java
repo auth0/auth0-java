@@ -12,7 +12,6 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.TestOnly;
 
-import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -903,7 +902,7 @@ public class AuthAPI {
      * <pre>
      * {@code
      * try {
-     *      TokenHolder result = authAPI.exchangeMfaOOB("the-mfa-token", new char[]{'a','n','o','t','p'}, new char[]{'b','i','n','d','c','o','d','e'})
+     *      TokenHolder result = authAPI.exchangeMfaOob("the-mfa-token", new char[]{'a','n','o','t','p'}, new char[]{'b','i','n','d','c','o','d','e'})
      *          .execute()
      *          .getBody();
      * } catch (Auth0Exception e) {
@@ -973,9 +972,29 @@ public class AuthAPI {
         return request;
     }
 
-    //  https://auth0.com/docs/api/authentication#challenge-request
-    public Request<MfaChallengeResponse> mfaChallengeRequest(String token, String challengeType, String authenticatorId) {
-        Asserts.assertNotNull(token, "token");
+    /**
+     * Request a challenge for multi-factor authentication (MFA) based on the challenge types supported by the application and user.
+     * Confidential clients (Regular Web Apps) <strong>must</strong> have a client secret configured on this {@code AuthAPI} instance.
+     * <pre>
+     * {@code
+     * try {
+     *      MfaChallengeResponse result = authAPI.mfaChallengeRequest("the-mfa-token", "otp", "authenticator-id")
+     *          .execute()
+     *          .getBody();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param mfaToken The token received from mfa_required error. Must not be null.
+     * @param challengeType A whitespace-separated list of the challenges types accepted by your application.
+     * @param authenticatorId The ID of the authenticator to challenge.
+     * @return a Request to execute.
+     * @see <a href="https://auth0.com/docs/api/authentication#challenge-request">Challenge Request API documentation</a>
+     */
+    public Request<MfaChallengeResponse> mfaChallengeRequest(String mfaToken, String challengeType, String authenticatorId) {
+        Asserts.assertNotNull(mfaToken, "mfa token");
 
         String url = baseUrl
             .newBuilder()
@@ -984,10 +1003,10 @@ public class AuthAPI {
             .build()
             .toString();
 
-        CustomRequest<MfaChallengeResponse> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<MfaChallengeResponse>() {
+        BaseRequest<MfaChallengeResponse> request = new BaseRequest<>(client, null, url, HttpMethod.POST, new TypeReference<MfaChallengeResponse>() {
         });
 
-        request.addParameter(KEY_MFA_TOKEN, token);
+        request.addParameter(KEY_MFA_TOKEN, mfaToken);
         request.addParameter(KEY_CLIENT_ID, clientId);
         addSecret(request, false);
         if (Objects.nonNull(challengeType)) {
@@ -999,13 +1018,27 @@ public class AuthAPI {
         return request;
     }
 
-
-
-
-
-    //  https://auth0.com/docs/api/authentication#add-an-authenticator
-    public Request<CreatedOTPResponse> addOTPAuthenticator(String token) {
-        Asserts.assertNotNull(token, "token");
+    /**
+     * Associates or adds a new OTP authenticator for multi-factor authentication (MFA).
+     * Confidential clients (Regular Web Apps) <strong>must</strong> have a client secret configured on this {@code AuthAPI} instance.
+     * <pre>
+     * {@code
+     * try {
+     *      CreatedOTPResponse result = authAPI.addOTPAuthenticator("the-mfa-token")
+     *          .execute()
+     *          .getBody();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param mfaToken The token received from mfa_required error. Must not be null.
+     * @return a Request to execute.
+     * @see <a href="https://auth0.com/docs/api/authentication#add-an-authenticator">Add an Authenticator API documentation</a>
+     */
+    public Request<CreatedOtpResponse> addOtpAuthenticator(String mfaToken) {
+        Asserts.assertNotNull(mfaToken, "mfa token");
 
         String url = baseUrl
             .newBuilder()
@@ -1014,20 +1047,82 @@ public class AuthAPI {
             .build()
             .toString();
 
-        CustomRequest<CreatedOTPResponse> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<CreatedOTPResponse>() {
+        BaseRequest<CreatedOtpResponse> request = new BaseRequest<>(client, null,  url, HttpMethod.POST, new TypeReference<CreatedOtpResponse>() {
         });
 
         request.addParameter("authenticator_types", Collections.singletonList("otp"));
         request.addParameter(KEY_CLIENT_ID, clientId);
         addSecret(request, false);
-        request.addHeader("Authorization", "Bearer " + token);
+        request.addHeader("Authorization", "Bearer " + mfaToken);
         return request;
     }
 
-    //  https://auth0.com/docs/api/authentication#list-authenticators
-    // token requires read:authenticators scope and audience claim of https://YOUR_DOMAIN/mfa/
-    // TODO token has audience claim or needs to be added in request??
-    //  token has it. Login request would need to specify scope and audience for access token
+    /**
+     * Associates or adds a new OOB authenticator for multi-factor authentication (MFA).
+     * Confidential clients (Regular Web Apps) <strong>must</strong> have a client secret configured on this {@code AuthAPI} instance.
+     * <pre>
+     * {@code
+     * try {
+     *      CreatedOobResponse result = authAPI.addOobAuthenticator("the-mfa-token", Collections.singletonList("sms"), "phone-number")
+     *          .execute()
+     *          .getBody();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param mfaToken The token received from mfa_required error. Must not be null.
+     * @param oobChannels The type of OOB channels supported by the client. Must not be null.
+     * @param phoneNumber The phone number for "sms" or "voice" channels. May be null if not using "sms" or "voice".
+     * @return a Request to execute.
+     * @see <a href="https://auth0.com/docs/api/authentication#add-an-authenticator">Add an Authenticator API documentation</a>
+     */
+    public Request<CreatedOobResponse> addOobAuthenticator(String mfaToken, List<String> oobChannels, String phoneNumber) {
+        Asserts.assertNotNull(mfaToken, "mfa token");
+        Asserts.assertNotNull(oobChannels, "OOB channels");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegment("mfa")
+            .addPathSegment("associate")
+            .build()
+            .toString();
+
+        BaseRequest<CreatedOobResponse> request = new BaseRequest<>(client, null, url, HttpMethod.POST, new TypeReference<CreatedOobResponse>() {
+        });
+
+        request.addParameter("authenticator_types", Collections.singletonList("oob"));
+        request.addParameter("oob_channels", oobChannels);
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        if (phoneNumber != null) {
+            request.addParameter("phone_number", phoneNumber);
+        }
+        addSecret(request, false);
+        request.addHeader("Authorization", "Bearer " + mfaToken);
+        return request;
+    }
+
+
+    /**
+     * Returns a list of authenticators associated with your application.
+     * <pre>
+     * {@code
+     * try {
+     *      List<MfaAuthenticator> result = authAPI.listAuthenticators("token")
+     *          .execute()
+     *          .getBody();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param accessToken The Access Token obtained during login. The token must possess a scope of {@code read:authenticators}
+     *                    and an audience of {@code https://YOUR_DOMAIN/mfa/}
+     * @return a Request to execute.
+     * @see <a href="https://auth0.com/docs/api/authentication#list-authenticators">List authenticators API documentation</a>
+     */
     public Request<List<MfaAuthenticator>> listAuthenticators(String accessToken) {
         Asserts.assertNotNull(accessToken, "access token");
 
@@ -1038,74 +1133,12 @@ public class AuthAPI {
             .build()
             .toString();
 
-        CustomRequest<List<MfaAuthenticator>> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<List<MfaAuthenticator>>() {
+        BaseRequest<List<MfaAuthenticator>> request = new BaseRequest<>(client, null, url, HttpMethod.GET, new TypeReference<List<MfaAuthenticator>>() {
         });
 
         request.addHeader("Authorization", "Bearer " + accessToken);
         return request;
-        // MfaAuthenticator:
-        //  id: String
-        //  authenticator_tyupe: String
-        //  active: boolean
-        //  name: String (may be null)
-        //  oob_channel: String (may be null)
-        //
-        // add access token header?
-        /*
-        [
-          {
-            "id":"recovery-code|dev_DsvzGfZw2Fg5N3rI",
-            "authenticator_type":"recovery-code",
-            "active":true
-          },
-          {
-            "id":"sms|dev_gB342kcL2K22S4yB",
-            "authenticator_type":"oob",
-            "oob_channel":"sms",
-            "name":"+X XXXX1234",
-            "active":true
-          },
-          {
-            "id":"sms|dev_gB342kcL2K22S4yB",
-            "authenticator_type":"oob",
-            "oob_channel":"sms",
-            "name":"+X XXXX1234",
-            "active":false
-          },
-          {
-            "id":"push|dev_433sJ7Mcwj9P794y",
-            "authenticator_type":"oob",
-            "oob_channel":"auth0",
-            "name":"John's Device",
-            "active":true
-          },
-            {
-            "id":"totp|dev_LJaKaN5O3tjRFOw2",
-            "authenticator_type":"otp",
-            "active":true
-          }
-        ]
-         */
     }
-
-    //  https://auth0.com/docs/api/authentication#delete-an-authenticator
-    public Request<Void> deleteAuthenticator(String accessToken, String authenticatorId) {
-        Asserts.assertNotNull(accessToken, "access token");
-        Asserts.assertNotNull(authenticatorId, "authenticator ID");
-
-        String url = baseUrl
-            .newBuilder()
-            .addPathSegment("mfa")
-            .addPathSegment("authenticators")
-            .addPathSegment(authenticatorId)
-            .build()
-            .toString();
-
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
-        request.addHeader("Authorization", "Bearer " + accessToken);
-        return request;
-    }
-
 
     private TokenRequest exchangeCode(String code, String redirectUri, boolean secretRequired) {
         Asserts.assertNotNull(code, "code");

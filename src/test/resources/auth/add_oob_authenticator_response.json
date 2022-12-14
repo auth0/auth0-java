@@ -1,0 +1,8 @@
+{
+  "oob_code": "Fe26.2**da6....",
+  "binding_method":"prompt",
+  "authenticator_type":"oob",
+  "oob_channel":"sms",
+  "recovery_codes":["ABCDEFGDRFK75ABYR7PH8TJA"],
+  "barcode_uri":"otpauth://..."
+}
