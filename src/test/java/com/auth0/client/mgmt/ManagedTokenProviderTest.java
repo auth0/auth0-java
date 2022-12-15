@@ -12,6 +12,8 @@ import org.mockito.Mockito;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -71,6 +73,20 @@ public class ManagedTokenProviderTest {
     }
 
     @Test
+    public void fetchesTokenInitiallyAsync() throws Exception {
+        when(authAPI.getManagementAPIAudience()).thenReturn("https://domain.auth0.com/api/v2/");
+        TokenRequest tokenRequest = mock(TokenRequest.class);
+        @SuppressWarnings("unchecked")
+        CompletableFuture<Response<TokenHolder>> tokenHolderResponse = mock(CompletableFuture.class);
+        when(tokenRequest.executeAsync()).thenReturn(tokenHolderResponse);
+        when(authAPI.requestToken("https://domain.auth0.com/api/v2/")).thenReturn(tokenRequest);
+
+        providerBuilder.build().getTokenAsync();
+
+        verify(authAPI, times(1)).requestToken(eq("https://domain.auth0.com/api/v2/"));
+    }
+
+    @Test
     public void returnsTokenWhenNotExpired() throws Exception {
         int defaultLeeway = 10;
 
@@ -88,6 +104,43 @@ public class ManagedTokenProviderTest {
         TokenProvider provider = providerBuilder.build();
         provider.getToken();
         provider.getToken();
+
+        verify(authAPI, times(1)).requestToken(eq("https://domain.auth0.com/api/v2/"));
+    }
+
+    @Test
+    public void returnsTokenWhenNotExpiredAsync() throws Exception {
+        int defaultLeeway = 10;
+
+        when(authAPI.getManagementAPIAudience()).thenReturn("https://domain.auth0.com/api/v2/");
+
+        TokenRequest tokenRequest = mock(TokenRequest.class);
+        TokenHolder tokenHolder = mock(TokenHolder.class);
+        when(tokenHolder.getExpiresAt()).thenReturn(Date.from(Instant.now().plusSeconds(defaultLeeway + 1)));
+
+        CompletableFuture<Response<TokenHolder>> tokenHolderResponse = CompletableFuture.supplyAsync(() -> new Response<TokenHolder>() {
+            @Override
+            public Map<String, String> getHeaders() {
+                return null;
+            }
+
+            @Override
+            public TokenHolder getBody() {
+                return tokenHolder;
+            }
+
+            @Override
+            public int getStatusCode() {
+                return 0;
+            }
+        });
+
+        when(tokenRequest.executeAsync()).thenReturn(tokenHolderResponse);
+        when(authAPI.requestToken("https://domain.auth0.com/api/v2/")).thenReturn(tokenRequest);
+
+        TokenProvider provider = providerBuilder.build();
+        provider.getTokenAsync();
+        provider.getTokenAsync();
 
         verify(authAPI, times(1)).requestToken(eq("https://domain.auth0.com/api/v2/"));
     }
@@ -115,6 +168,43 @@ public class ManagedTokenProviderTest {
     }
 
     @Test
+    public void fetchesNewTokenWhenExpiredAsync() throws Exception {
+        int defaultLeeway = 10;
+
+        when(authAPI.getManagementAPIAudience()).thenReturn("https://domain.auth0.com/api/v2/");
+
+        TokenRequest tokenRequest = mock(TokenRequest.class);
+        TokenHolder tokenHolder = mock(TokenHolder.class);
+        when(tokenHolder.getExpiresAt()).thenReturn(Date.from(Instant.now().plusSeconds(defaultLeeway - 1)));
+
+        CompletableFuture<Response<TokenHolder>> tokenHolderResponse = CompletableFuture.supplyAsync(() -> new Response<TokenHolder>() {
+            @Override
+            public Map<String, String> getHeaders() {
+                return null;
+            }
+
+            @Override
+            public TokenHolder getBody() {
+                return tokenHolder;
+            }
+
+            @Override
+            public int getStatusCode() {
+                return 0;
+            }
+        });
+
+        when(tokenRequest.executeAsync()).thenReturn(tokenHolderResponse);
+        when(authAPI.requestToken("https://domain.auth0.com/api/v2/")).thenReturn(tokenRequest);
+
+        TokenProvider provider = providerBuilder.build();
+        provider.getTokenAsync();
+        provider.getTokenAsync();
+
+        verify(authAPI, times(2)).requestToken(eq("https://domain.auth0.com/api/v2/"));
+    }
+
+    @Test
     public void returnsTokenWhenNotExpiredWithCustomLeeway() throws Exception {
         int leeway = 15;
 
@@ -134,6 +224,43 @@ public class ManagedTokenProviderTest {
             .build();
         provider.getToken();
         provider.getToken();
+
+        verify(authAPI, times(1)).requestToken(eq("https://domain.auth0.com/api/v2/"));
+    }
+
+    @Test
+    public void returnsTokenWhenNotExpiredWithCustomLeewayAsync() throws Exception {
+        int leeway = 15;
+
+        when(authAPI.getManagementAPIAudience()).thenReturn("https://domain.auth0.com/api/v2/");
+
+        TokenRequest tokenRequest = mock(TokenRequest.class);
+        TokenHolder tokenHolder = mock(TokenHolder.class);
+        when(tokenHolder.getExpiresAt()).thenReturn(Date.from(Instant.now().plusSeconds(leeway + 1)));
+
+        CompletableFuture<Response<TokenHolder>> tokenHolderResponse = CompletableFuture.supplyAsync(() -> new Response<TokenHolder>() {
+            @Override
+            public Map<String, String> getHeaders() {
+                return null;
+            }
+
+            @Override
+            public TokenHolder getBody() {
+                return tokenHolder;
+            }
+
+            @Override
+            public int getStatusCode() {
+                return 0;
+            }
+        });
+
+        when(tokenRequest.executeAsync()).thenReturn(tokenHolderResponse);
+        when(authAPI.requestToken("https://domain.auth0.com/api/v2/")).thenReturn(tokenRequest);
+
+        TokenProvider provider = providerBuilder.build();
+        provider.getTokenAsync();
+        provider.getTokenAsync();
 
         verify(authAPI, times(1)).requestToken(eq("https://domain.auth0.com/api/v2/"));
     }

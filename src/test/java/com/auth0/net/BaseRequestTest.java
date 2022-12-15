@@ -31,7 +31,7 @@ public class BaseRequestTest {
 
         BaseRequest<String> req = new BaseRequest<String>(client, null) {
             @Override
-            protected Auth0HttpRequest createRequest() throws Auth0Exception {
+            protected Auth0HttpRequest createRequest(String token) throws Auth0Exception {
                 return null;
             }
 
@@ -51,7 +51,7 @@ public class BaseRequestTest {
 
         BaseRequest<String> req = new BaseRequest<String>(client, null) {
             @Override
-            protected Auth0HttpRequest createRequest() throws Auth0Exception {
+            protected Auth0HttpRequest createRequest(String token) throws Auth0Exception {
                 throw new Auth0Exception("error", new IOException("boom"));
             }
 

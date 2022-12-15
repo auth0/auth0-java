@@ -45,9 +45,7 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
     }
 
     @Override
-    protected Auth0HttpRequest createRequest() throws Auth0Exception {
-        // createRequest() called by execute(), so fetch token now
-        String token = getToken();
+    protected Auth0HttpRequest createRequest(String apiToken) throws Auth0Exception {
         HttpRequestBody body;
         try {
             body = this.createRequestBody();
@@ -56,25 +54,17 @@ abstract class ExtendedBaseRequest<T> extends BaseRequest<T> {
         }
         headers.put("Content-Type", getContentType());
 
-        // Auth APIs don't take tokens, but are used...
-        if (Objects.nonNull(token)) {
-            headers.put("Authorization", "Bearer " + token);
+        // Auth APIs don't take tokens
+        if (Objects.nonNull(apiToken)) {
+            headers.put("Authorization", "Bearer " + apiToken);
         }
+
         Auth0HttpRequest request = Auth0HttpRequest.newBuilder(url, method)
             .withBody(body)
             .withHeaders(headers)
             .build();
 
         return request;
-    }
-
-    private String getToken() throws Auth0Exception {
-        TokenProvider tokenProvider = this.getTokenProvider();
-        // may be null for Auth requests, e.g., TokenRequest
-        if (Objects.isNull(tokenProvider)) {
-            return null;
-        }
-        return tokenProvider.getToken();
     }
 
     @Override
