@@ -16,7 +16,7 @@ import static com.auth0.client.MockServer.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-public class CreateUserRequestTest {
+public class SignUpRequestTest {
 
     private Auth0HttpClient client;
     private MockServer server;
