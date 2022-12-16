@@ -1,6 +1,6 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.net.CustomRequest;
+import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.net.client.Auth0HttpClient;
@@ -54,13 +54,13 @@ class RequestBuilder<T> {
 
     @SuppressWarnings("unchecked")
     public Request<T> build() {
-        CustomRequest<T> request;
+        BaseRequest<T> request;
 
         final String url = this.url.build().toString();
         if ("java.lang.Void".equals(target.getType().getTypeName())) {
-            request = (CustomRequest<T>) new VoidRequest(client, url, method);
+            request = (BaseRequest<T>) new VoidRequest(client, url, method);
         } else {
-            request = new CustomRequest<>(client, url, method, target);
+            request = new BaseRequest<>(client, url, method, target);
         }
 
         if (body != null) {

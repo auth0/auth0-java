@@ -249,7 +249,7 @@ public class AuthAPI {
                 .addPathSegment("userinfo")
                 .build()
                 .toString();
-        CustomRequest<UserInfo> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<UserInfo>() {
+        BaseRequest<UserInfo> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<UserInfo>() {
         });
         request.addHeader("Authorization", "Bearer " + accessToken);
         return request;
@@ -351,7 +351,7 @@ public class AuthAPI {
     public SignUpRequest signUp(String email, String username, char[] password, String connection) {
         Asserts.assertNotNull(username, "username");
 
-        CreateUserRequest request = (CreateUserRequest) this.signUp(email, password, connection);
+        SignUpRequest request = this.signUp(email, password, connection);
         request.addParameter(KEY_USERNAME, username);
         return request;
     }
@@ -419,7 +419,7 @@ public class AuthAPI {
                 .addPathSegment("signup")
                 .build()
                 .toString();
-        CreateUserRequest request = new CreateUserRequest(client, url);
+        SignUpRequest request = new SignUpRequest(client, url);
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_EMAIL, email);
         request.addParameter(KEY_PASSWORD, password);
@@ -798,7 +798,7 @@ public class AuthAPI {
      * @see <a href="https://auth0.com/docs/connections/passwordless/guides/email-otp">Passwordless Authentication with Email documentation</a>
      * @see <a href="https://auth0.com/docs/api/authentication#get-code-or-link">Get code or link API reference documentation</a>
      */
-    public CustomRequest<PasswordlessEmailResponse> startPasswordlessEmailFlow(String email, PasswordlessEmailType type) {
+    public BaseRequest<PasswordlessEmailResponse> startPasswordlessEmailFlow(String email, PasswordlessEmailType type) {
         Asserts.assertNotNull(email, "email");
         Asserts.assertNotNull(type, "type");
 
@@ -809,7 +809,7 @@ public class AuthAPI {
                 .build()
                 .toString();
 
-        CustomRequest<PasswordlessEmailResponse> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordlessEmailResponse>() {
+        BaseRequest<PasswordlessEmailResponse> request = new BaseRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordlessEmailResponse>() {
         });
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_CONNECTION, "email");
@@ -841,7 +841,7 @@ public class AuthAPI {
      * @see <a href="https://auth0.com/docs/connections/passwordless/guides/sms-otp">Passwordless Authentication with SMS documentation</a>
      * @see <a href="https://auth0.com/docs/api/authentication#get-code-or-link">Get code or link API reference documentation</a>
      */
-    public CustomRequest<PasswordlessSmsResponse> startPasswordlessSmsFlow(String phoneNumber) {
+    public BaseRequest<PasswordlessSmsResponse> startPasswordlessSmsFlow(String phoneNumber) {
         Asserts.assertNotNull(phoneNumber, "phoneNumber");
 
         String url = baseUrl
@@ -851,7 +851,7 @@ public class AuthAPI {
                 .build()
                 .toString();
 
-        CustomRequest<PasswordlessSmsResponse> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordlessSmsResponse>() {
+        BaseRequest<PasswordlessSmsResponse> request = new BaseRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordlessSmsResponse>() {
         });
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_CONNECTION, "sms");
@@ -917,7 +917,7 @@ public class AuthAPI {
             .toString();
     }
 
-    private void addSecret(CustomRequest<?> request, boolean required) {
+    private void addSecret(BaseRequest<?> request, boolean required) {
         if (required && Objects.isNull(this.clientSecret)) {
             throw new IllegalStateException("A client secret is required for this operation");
         }

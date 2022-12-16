@@ -2,7 +2,7 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.DeviceCredentialsFilter;
 import com.auth0.json.mgmt.DeviceCredentials;
-import com.auth0.net.CustomRequest;
+import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.net.client.Auth0HttpClient;
@@ -45,7 +45,7 @@ public class DeviceCredentialsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<List<DeviceCredentials>> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<List<DeviceCredentials>>() {
+        BaseRequest<List<DeviceCredentials>> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<DeviceCredentials>>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -66,7 +66,7 @@ public class DeviceCredentialsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/device-credentials")
                 .build()
                 .toString();
-        CustomRequest<DeviceCredentials> request = new CustomRequest<>(this.client, url, HttpMethod.POST, new TypeReference<DeviceCredentials>() {
+        BaseRequest<DeviceCredentials> request = new BaseRequest<>(this.client, url, HttpMethod.POST, new TypeReference<DeviceCredentials>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(deviceCredentials);

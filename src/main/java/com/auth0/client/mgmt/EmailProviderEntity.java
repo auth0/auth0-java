@@ -2,7 +2,7 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.json.mgmt.emailproviders.EmailProvider;
-import com.auth0.net.CustomRequest;
+import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.net.client.Auth0HttpClient;
@@ -43,7 +43,7 @@ public class EmailProviderEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<EmailProvider> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<EmailProvider>() {
+        BaseRequest<EmailProvider> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<EmailProvider>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -64,7 +64,7 @@ public class EmailProviderEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/emails/provider")
                 .build()
                 .toString();
-        CustomRequest<EmailProvider> request = new CustomRequest<>(this.client, url, HttpMethod.POST, new TypeReference<EmailProvider>() {
+        BaseRequest<EmailProvider> request = new BaseRequest<>(this.client, url, HttpMethod.POST, new TypeReference<EmailProvider>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(emailProvider);
@@ -103,7 +103,7 @@ public class EmailProviderEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/emails/provider")
                 .build()
                 .toString();
-        CustomRequest<EmailProvider> request = new CustomRequest<>(this.client, url, HttpMethod.PATCH, new TypeReference<EmailProvider>() {
+        BaseRequest<EmailProvider> request = new BaseRequest<>(this.client, url, HttpMethod.PATCH, new TypeReference<EmailProvider>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(emailProvider);

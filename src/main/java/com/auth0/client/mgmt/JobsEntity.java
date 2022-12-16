@@ -5,7 +5,7 @@ import com.auth0.client.mgmt.filter.UsersImportOptions;
 import com.auth0.json.mgmt.EmailVerificationIdentity;
 import com.auth0.json.mgmt.jobs.Job;
 import com.auth0.json.mgmt.jobs.JobErrorDetails;
-import com.auth0.net.CustomRequest;
+import com.auth0.net.BaseRequest;
 import com.auth0.net.MultipartRequest;
 import com.auth0.net.Request;
 import com.auth0.net.client.Auth0HttpClient;
@@ -53,7 +53,7 @@ public class JobsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<Job> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<Job>() {
+        BaseRequest<Job> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<Job>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -79,7 +79,7 @@ public class JobsEntity extends BaseManagementEntity {
 
         TypeReference<List<JobErrorDetails>> jobErrorDetailsListType = new TypeReference<List<JobErrorDetails>>() {
         };
-        CustomRequest<List<JobErrorDetails>> request = new CustomRequest<List<JobErrorDetails>>(client, url, HttpMethod.GET, jobErrorDetailsListType) {
+        BaseRequest<List<JobErrorDetails>> request = new BaseRequest<List<JobErrorDetails>>(client, url, HttpMethod.GET, jobErrorDetailsListType) {
             @Override
             protected List<JobErrorDetails> readResponseBody(Auth0HttpResponse response) throws IOException {
                 if (response.getBody() == null || response.getBody().length() == 0) {
@@ -158,7 +158,7 @@ public class JobsEntity extends BaseManagementEntity {
             Asserts.assertNotNull(emailVerificationIdentity.getUserId(), "identity user id");
             requestBody.put("identity", emailVerificationIdentity);
         }
-        CustomRequest<Job> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>() {
+        BaseRequest<Job> request = new BaseRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(requestBody);
@@ -189,7 +189,7 @@ public class JobsEntity extends BaseManagementEntity {
             requestBody.putAll(filter.getAsMap());
         }
 
-        CustomRequest<Job> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>() {
+        BaseRequest<Job> request = new BaseRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(requestBody);

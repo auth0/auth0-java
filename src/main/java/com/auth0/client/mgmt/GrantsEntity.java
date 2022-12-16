@@ -3,7 +3,7 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.filter.GrantsFilter;
 import com.auth0.json.mgmt.Grant;
 import com.auth0.json.mgmt.GrantsPage;
-import com.auth0.net.CustomRequest;
+import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.net.client.Auth0HttpClient;
@@ -51,7 +51,7 @@ public class GrantsEntity extends BaseManagementEntity {
         }
 
         String url = builder.build().toString();
-        CustomRequest<GrantsPage> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<GrantsPage>() {
+        BaseRequest<GrantsPage> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<GrantsPage>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
@@ -76,7 +76,7 @@ public class GrantsEntity extends BaseManagementEntity {
                 .addQueryParameter("user_id", userId)
                 .build()
                 .toString();
-        CustomRequest<List<Grant>> request = new CustomRequest<>(client, url, HttpMethod.GET, new TypeReference<List<Grant>>() {
+        BaseRequest<List<Grant>> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<Grant>>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         return request;

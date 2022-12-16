@@ -71,8 +71,8 @@ You can use the Authentication API to obtain a token for a previously authorized
 
 ```java
 AuthAPI authAPI = AuthAPI.newBuilder("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}").build();
-AuthRequest authRequest = authAPI.requestToken("https://{YOUR_DOMAIN}/api/v2/");
-TokenHolder holder = authRequest.execute().getBody();
+TokenRequest tokenRequest = authAPI.requestToken("https://{YOUR_DOMAIN}/api/v2/");
+TokenHolder holder = tokenRequest.execute().getBody();
 String accessToken = holder.getAccessToken();
 ManagementAPI mgmt = ManagementAPI.newBuilder("{YOUR_DOMAIN}", accessToken).build();
 ```

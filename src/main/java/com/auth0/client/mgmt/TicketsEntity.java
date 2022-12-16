@@ -2,7 +2,7 @@ package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.tickets.EmailVerificationTicket;
 import com.auth0.json.mgmt.tickets.PasswordChangeTicket;
-import com.auth0.net.CustomRequest;
+import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.HttpMethod;
@@ -40,7 +40,7 @@ public class TicketsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<EmailVerificationTicket> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<EmailVerificationTicket>() {
+        BaseRequest<EmailVerificationTicket> request = new BaseRequest<>(client, url, HttpMethod.POST, new TypeReference<EmailVerificationTicket>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(emailVerificationTicket);
@@ -63,7 +63,7 @@ public class TicketsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<PasswordChangeTicket> request = new CustomRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordChangeTicket>() {
+        BaseRequest<PasswordChangeTicket> request = new BaseRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordChangeTicket>() {
         });
         request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(passwordChangeTicket);

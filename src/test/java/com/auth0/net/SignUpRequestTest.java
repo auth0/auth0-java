@@ -16,7 +16,7 @@ import static com.auth0.client.MockServer.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-public class CreateUserRequestTest {
+public class SignUpRequestTest {
 
     private Auth0HttpClient client;
     private MockServer server;
@@ -29,7 +29,7 @@ public class CreateUserRequestTest {
 
     @Test
     public void shouldCreatePOSTRequest() throws Exception {
-        CreateUserRequest request = new CreateUserRequest(client, server.getBaseUrl());
+        SignUpRequest request = new SignUpRequest(client, server.getBaseUrl());
         assertThat(request, is(notNullValue()));
         request.addParameter("non_empty", "body");
 
@@ -42,7 +42,7 @@ public class CreateUserRequestTest {
 
     @Test
     public void shouldSetSignUpCustomFields() throws Exception {
-        CreateUserRequest request = new CreateUserRequest(client, server.getBaseUrl());
+        SignUpRequest request = new SignUpRequest(client, server.getBaseUrl());
         assertThat(request, is(notNullValue()));
         Map<String, String> customFields = new HashMap<>();
         customFields.put("name", "john");

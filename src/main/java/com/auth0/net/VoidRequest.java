@@ -15,9 +15,9 @@ import java.util.HashMap;
  * It makes use of {@link HashMap} for storing the parameters. Make sure to not modify headers or the parameters
  * from a different or un-synchronized thread.
  *
- * @see CustomRequest
+ * @see BaseRequest
  */
-public class VoidRequest extends CustomRequest<Void> {
+public class VoidRequest extends BaseRequest<Void> {
 
     public VoidRequest(Auth0HttpClient client, String url, HttpMethod method) {
         super(client, url, method, new TypeReference<Void>() {

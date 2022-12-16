@@ -15,6 +15,21 @@ public class RequestTest {
                 public Response<String> execute() throws Auth0Exception {
                     return null;
                 }
+
+                @Override
+                public Request<String> addHeader(String name, String value) {
+                    return null;
+                }
+
+                @Override
+                public Request<String> addParameter(String name, Object value) {
+                    return null;
+                }
+
+                @Override
+                public Request<String> setBody(Object body) {
+                    return null;
+                }
             }::executeAsync);
     }
 }
