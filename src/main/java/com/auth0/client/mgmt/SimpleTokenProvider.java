@@ -5,9 +5,8 @@ import com.auth0.utils.Asserts;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * An implementation of {@link TokenProvider} that simply returns the token it is configured with. This is used
- * when creating the {@link ManagementAPI} with an API token directly. Tokens will not be renewed; consumers are
- * responsible for renewing the token when needed and then calling {@link ManagementAPI#setApiToken(String)} with the
+ * An implementation of {@link TokenProvider} that simply returns the token it is configured with. Tokens will not be renewed;
+ * consumers are responsible for renewing the token when needed and then calling {@link ManagementAPI#setApiToken(String)} with the
  * new token.
  */
 public class SimpleTokenProvider implements TokenProvider {

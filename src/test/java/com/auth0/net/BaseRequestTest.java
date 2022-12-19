@@ -1,6 +1,7 @@
 package com.auth0.net;
 
 import com.auth0.client.MockServer;
+import com.auth0.client.mgmt.TokenProvider;
 import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.RateLimitException;
@@ -48,6 +49,7 @@ import static org.mockito.Mockito.when;
 public class BaseRequestTest {
     private MockServer server;
     private Auth0HttpClient client;
+    private TokenProvider tokenProvider;
 
     @SuppressWarnings("deprecation")
     @Rule
@@ -66,6 +68,16 @@ public class BaseRequestTest {
         };
         voidType = new TypeReference<Void>() {
         };
+        tokenProvider = new TokenProvider() {
+            @Override
+            public String getToken() throws Auth0Exception {
+                return "xyz";
+            }
+            @Override
+            public CompletableFuture<String> getTokenAsync() {
+                return CompletableFuture.completedFuture("xyz");
+            }
+        };
     }
 
     @After
@@ -78,7 +90,7 @@ public class BaseRequestTest {
         DefaultHttpClient client = mock(DefaultHttpClient.class);
         when(client.sendRequest(any())).thenThrow(IOException.class);
 
-        BaseRequest<String> req = new BaseRequest<String>(client, "", HttpMethod.GET, new TypeReference<String>() {
+        BaseRequest<String> req = new BaseRequest<String>(client, tokenProvider, "", HttpMethod.GET, new TypeReference<String>() {
         }) {
             @Override
             public BaseRequest<String> addHeader(String name, String value) {
@@ -96,7 +108,7 @@ public class BaseRequestTest {
             }
 
             @Override
-            protected Auth0HttpRequest createRequest() throws Auth0Exception {
+            protected Auth0HttpRequest createRequest(String apiToken) throws Auth0Exception {
                 return null;
             }
 
@@ -114,7 +126,7 @@ public class BaseRequestTest {
     public void asyncHandlesIOExceptionWhenCreatingRequest() throws Exception {
         DefaultHttpClient client = DefaultHttpClient.newBuilder().build();
 
-        BaseRequest<String> req = new BaseRequest<String>(client, "", HttpMethod.GET, new TypeReference<String>() {
+        BaseRequest<String> req = new BaseRequest<String>(client, tokenProvider, "", HttpMethod.GET, new TypeReference<String>() {
         }) {
             @Override
             public BaseRequest<String> addHeader(String name, String value) {
@@ -132,7 +144,7 @@ public class BaseRequestTest {
             }
 
             @Override
-            protected Auth0HttpRequest createRequest() throws Auth0Exception {
+            protected Auth0HttpRequest createRequest(String apiToken) throws Auth0Exception {
                 throw new Auth0Exception("error", new IOException("boom"));
             }
 
@@ -150,7 +162,7 @@ public class BaseRequestTest {
 
     @Test
     public void shouldCreateGETRequest() throws Exception {
-        BaseRequest<TokenHolder> request = new BaseRequest<>(client, server.getBaseUrl(), HttpMethod.GET, tokenHolderType);
+        BaseRequest<TokenHolder> request = new BaseRequest<>(client, tokenProvider, server.getBaseUrl(), HttpMethod.GET, tokenHolderType);
         assertThat(request, Matchers.is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
@@ -162,7 +174,7 @@ public class BaseRequestTest {
 
     @Test
     public void shouldCreatePOSTRequest() throws Exception {
-        BaseRequest<TokenHolder> request = new BaseRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
+        BaseRequest<TokenHolder> request = new BaseRequest<>(client, tokenProvider, server.getBaseUrl(),  HttpMethod.POST, tokenHolderType);
         assertThat(request, Matchers.is(notNullValue()));
         request.addParameter("non_empty", "body");
 
@@ -175,7 +187,7 @@ public class BaseRequestTest {
 
     @Test
     public void shouldAddParameters() throws Exception {
-        BaseRequest<TokenHolder> request = new BaseRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
+        BaseRequest<TokenHolder> request = new BaseRequest<>(client, tokenProvider, server.getBaseUrl(),  HttpMethod.POST, tokenHolderType);
         Map mapValue = mock(Map.class);
         request.addParameter("key", "value");
         request.addParameter("map", mapValue);
@@ -190,7 +202,7 @@ public class BaseRequestTest {
 
     @Test
     public void shouldAddHeaders() throws Exception {
-        BaseRequest<TokenHolder> request = new BaseRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
+        BaseRequest<TokenHolder> request = new BaseRequest<>(client, tokenProvider, server.getBaseUrl(),  HttpMethod.POST, tokenHolderType);
         request.addParameter("non_empty", "body");
         request.addHeader("Extra-Info", "this is a test");
         request.addHeader("Authorization", "Bearer my_access_token");
@@ -200,12 +212,13 @@ public class BaseRequestTest {
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest.getHeader("Extra-Info"), Matchers.is("this is a test"));
-        assertThat(recordedRequest.getHeader("Authorization"), Matchers.is("Bearer my_access_token"));
+        // auth header will be done on the request handling
+        assertThat(recordedRequest.getHeader("Authorization"), Matchers.is("Bearer xyz"));
     }
 
     @Test
     public void shouldNotOverrideContentTypeHeader() throws Exception {
-        BaseRequest<TokenHolder> request = new BaseRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
+        BaseRequest<TokenHolder> request = new BaseRequest<>(client, tokenProvider, server.getBaseUrl(),  HttpMethod.POST, tokenHolderType);
         request.addParameter("non_empty", "body");
         request.addHeader("Content-Type", "plaintext");
 
@@ -221,7 +234,7 @@ public class BaseRequestTest {
         ObjectMapper mapper = mock(ObjectMapper.class);
         when(mapper.writeValueAsBytes(any(Object.class))).thenThrow(JsonProcessingException.class);
 
-        BaseRequest request = new BaseRequest<>(client, server.getBaseUrl(), HttpMethod.POST, mapper, voidType);
+        BaseRequest request = new BaseRequest<>(client, tokenProvider, server.getBaseUrl(),  HttpMethod.POST, mapper, voidType);
         request.addParameter("name", "value");
         exception.expect(Auth0Exception.class);
         exception.expectCause(Matchers.<Throwable>instanceOf(JsonProcessingException.class));
@@ -231,7 +244,7 @@ public class BaseRequestTest {
 
     @Test
     public void shouldParseSuccessfulResponse() throws Exception {
-        BaseRequest<TokenHolder> request = new BaseRequest<>(client, server.getBaseUrl(), HttpMethod.GET, tokenHolderType);
+        BaseRequest<TokenHolder> request = new BaseRequest<>(client, tokenProvider, server.getBaseUrl(),  HttpMethod.GET, tokenHolderType);
         server.jsonResponse(AUTH_TOKENS, 200);
         TokenHolder response = request.execute().getBody();
         server.takeRequest();
@@ -246,7 +259,7 @@ public class BaseRequestTest {
 
     @Test
     public void shouldThrowOnParseInvalidSuccessfulResponse() throws Exception {
-        BaseRequest<List> request = new BaseRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
+        BaseRequest<List> request = new BaseRequest<>(client, tokenProvider, server.getBaseUrl(),  HttpMethod.GET, listType);
         server.jsonResponse(AUTH_TOKENS, 200);
         Exception exception = null;
         try {
@@ -267,7 +280,7 @@ public class BaseRequestTest {
 
     @Test
     public void shouldParseJSONErrorResponseWithErrorDescription() throws Exception {
-        BaseRequest<List> request = new BaseRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
+        BaseRequest<List> request = new BaseRequest<>(client, tokenProvider, server.getBaseUrl(),  HttpMethod.GET, listType);
         server.jsonResponse(AUTH_ERROR_WITH_ERROR_DESCRIPTION, 400);
         Exception exception = null;
         try {
@@ -288,7 +301,7 @@ public class BaseRequestTest {
 
     @Test
     public void shouldParseJSONErrorResponseWithError() throws Exception {
-        BaseRequest<List> request = new BaseRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
+        BaseRequest<List> request = new BaseRequest<>(client, tokenProvider, server.getBaseUrl(),  HttpMethod.GET, listType);
         server.jsonResponse(AUTH_ERROR_WITH_ERROR, 400);
         Exception exception = null;
         try {
@@ -310,7 +323,7 @@ public class BaseRequestTest {
     @SuppressWarnings("RedundantCast")
     @Test
     public void shouldParseJSONErrorResponseWithDescriptionAndExtraProperties() throws Exception {
-        BaseRequest<List> request = new BaseRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
+        BaseRequest<List> request = new BaseRequest<>(client, tokenProvider, server.getBaseUrl(),  HttpMethod.GET, listType);
         server.jsonResponse(AUTH_ERROR_WITH_DESCRIPTION_AND_EXTRA_PROPERTIES, 400);
         Exception exception = null;
         try {
@@ -333,7 +346,7 @@ public class BaseRequestTest {
 
     @Test
     public void shouldParseJSONErrorResponseWithDescription() throws Exception {
-        BaseRequest<List> request = new BaseRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
+        BaseRequest<List> request = new BaseRequest<>(client, tokenProvider, server.getBaseUrl(),  HttpMethod.GET, listType);
         server.jsonResponse(AUTH_ERROR_WITH_DESCRIPTION, 400);
         Exception exception = null;
         try {
@@ -354,7 +367,7 @@ public class BaseRequestTest {
 
     @Test
     public void shouldParseJSONErrorResponseWithMessage() throws Exception {
-        BaseRequest<List> request = new BaseRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
+        BaseRequest<List> request = new BaseRequest<>(client, tokenProvider, server.getBaseUrl(),  HttpMethod.GET, listType);
         server.jsonResponse(MGMT_ERROR_WITH_MESSAGE, 400);
         Exception exception = null;
         try {
@@ -375,7 +388,7 @@ public class BaseRequestTest {
 
     @Test
     public void shouldParsePlainTextErrorResponse() throws Exception {
-        BaseRequest<List> request = new BaseRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
+        BaseRequest<List> request = new BaseRequest<>(client, tokenProvider, server.getBaseUrl(),  HttpMethod.GET, listType);
         server.textResponse(AUTH_ERROR_PLAINTEXT, 400);
         Exception exception = null;
         try {
@@ -397,7 +410,7 @@ public class BaseRequestTest {
 
     @Test
     public void shouldParseRateLimitsHeaders() {
-        BaseRequest<List> request = new BaseRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
+        BaseRequest<List> request = new BaseRequest<>(client, tokenProvider, server.getBaseUrl(),  HttpMethod.GET, listType);
         server.rateLimitReachedResponse(100, 10, 5);
         Exception exception = null;
         try {
@@ -422,7 +435,7 @@ public class BaseRequestTest {
 
     @Test
     public void shouldDefaultRateLimitsHeadersWhenMissing() {
-        BaseRequest<List> request = new BaseRequest<>(client, server.getBaseUrl(), HttpMethod.GET, listType);
+        BaseRequest<List> request = new BaseRequest<>(client, tokenProvider, server.getBaseUrl(),  HttpMethod.GET, listType);
         server.rateLimitReachedResponse(-1, -1, -1);
         Exception exception = null;
         try {

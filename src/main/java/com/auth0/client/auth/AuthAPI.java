@@ -249,7 +249,7 @@ public class AuthAPI {
                 .addPathSegment("userinfo")
                 .build()
                 .toString();
-        BaseRequest<UserInfo> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<UserInfo>() {
+        BaseRequest<UserInfo> request = new BaseRequest<>(client, null, url, HttpMethod.GET, new TypeReference<UserInfo>() {
         });
         request.addHeader("Authorization", "Bearer " + accessToken);
         return request;
@@ -284,7 +284,7 @@ public class AuthAPI {
                 .addPathSegment("change_password")
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.POST);
+        VoidRequest request = new VoidRequest(client, null, url, HttpMethod.POST);
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_EMAIL, email);
         request.addParameter(KEY_CONNECTION, connection);
@@ -659,7 +659,7 @@ public class AuthAPI {
                 .addPathSegment(PATH_REVOKE)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.POST);
+        VoidRequest request = new VoidRequest(client, null, url, HttpMethod.POST);
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_TOKEN, refreshToken);
         addSecret(request, false);
@@ -809,7 +809,7 @@ public class AuthAPI {
                 .build()
                 .toString();
 
-        BaseRequest<PasswordlessEmailResponse> request = new BaseRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordlessEmailResponse>() {
+        BaseRequest<PasswordlessEmailResponse> request = new BaseRequest<>(client, null, url, HttpMethod.POST, new TypeReference<PasswordlessEmailResponse>() {
         });
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_CONNECTION, "email");
@@ -851,7 +851,7 @@ public class AuthAPI {
                 .build()
                 .toString();
 
-        BaseRequest<PasswordlessSmsResponse> request = new BaseRequest<>(client, url, HttpMethod.POST, new TypeReference<PasswordlessSmsResponse>() {
+        BaseRequest<PasswordlessSmsResponse> request = new BaseRequest<>(client, null, url, HttpMethod.POST, new TypeReference<PasswordlessSmsResponse>() {
         });
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_CONNECTION, "sms");

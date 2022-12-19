@@ -25,8 +25,8 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class GrantsEntity extends BaseManagementEntity {
 
-    GrantsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    GrantsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -51,9 +51,8 @@ public class GrantsEntity extends BaseManagementEntity {
         }
 
         String url = builder.build().toString();
-        BaseRequest<GrantsPage> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<GrantsPage>() {
+        BaseRequest<GrantsPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<GrantsPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -76,9 +75,8 @@ public class GrantsEntity extends BaseManagementEntity {
                 .addQueryParameter("user_id", userId)
                 .build()
                 .toString();
-        BaseRequest<List<Grant>> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<Grant>>() {
+        BaseRequest<List<Grant>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Grant>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -98,8 +96,7 @@ public class GrantsEntity extends BaseManagementEntity {
                 .addPathSegment(grantId)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        VoidRequest request =  new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
         return request;
     }
 
@@ -119,8 +116,7 @@ public class GrantsEntity extends BaseManagementEntity {
                 .addQueryParameter("user_id", userId)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        VoidRequest request =  new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
         return request;
     }
 

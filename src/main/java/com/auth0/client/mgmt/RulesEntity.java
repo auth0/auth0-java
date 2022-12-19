@@ -25,8 +25,8 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class RulesEntity extends BaseManagementEntity {
 
-    RulesEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    RulesEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -46,9 +46,8 @@ public class RulesEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<RulesPage> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<RulesPage>() {
+        BaseRequest<RulesPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<RulesPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -75,9 +74,8 @@ public class RulesEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<List<Rule>> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<Rule>>() {
+        BaseRequest<List<Rule>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Rule>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -102,9 +100,8 @@ public class RulesEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<Rule> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<Rule>() {
+        BaseRequest<Rule> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Rule>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -123,9 +120,8 @@ public class RulesEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/rules")
                 .build()
                 .toString();
-        BaseRequest<Rule> request = new BaseRequest<>(this.client, url, HttpMethod.POST, new TypeReference<Rule>() {
+        BaseRequest<Rule> request = new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.POST, new TypeReference<Rule>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(rule);
         return request;
     }
@@ -146,8 +142,7 @@ public class RulesEntity extends BaseManagementEntity {
                 .addPathSegment(ruleId)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        VoidRequest request =  new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
         return request;
     }
 
@@ -169,9 +164,8 @@ public class RulesEntity extends BaseManagementEntity {
                 .addPathSegment(ruleId)
                 .build()
                 .toString();
-        BaseRequest<Rule> request = new BaseRequest<>(this.client, url, HttpMethod.PATCH, new TypeReference<Rule>() {
+        BaseRequest<Rule> request = new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.PATCH, new TypeReference<Rule>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(rule);
         return request;
     }

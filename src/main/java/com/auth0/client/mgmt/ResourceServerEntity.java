@@ -24,8 +24,8 @@ import java.util.Map;
  */
 public class ResourceServerEntity extends BaseManagementEntity {
 
-    ResourceServerEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    ResourceServerEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -46,10 +46,9 @@ public class ResourceServerEntity extends BaseManagementEntity {
         }
 
         String url = builder.build().toString();
-        BaseRequest<ResourceServersPage> request = new BaseRequest<>(client, url, HttpMethod.GET,
+        BaseRequest<ResourceServersPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET,
                 new TypeReference<ResourceServersPage>() {
                 });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -68,10 +67,9 @@ public class ResourceServerEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/resource-servers");
 
         String url = builder.build().toString();
-        BaseRequest<List<ResourceServer>> request = new BaseRequest<>(client, url, HttpMethod.GET,
+        BaseRequest<List<ResourceServer>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET,
                 new TypeReference<List<ResourceServer>>() {
                 });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -91,10 +89,9 @@ public class ResourceServerEntity extends BaseManagementEntity {
                 .addPathSegment(resourceServerIdOrIdentifier);
 
         String url = builder.build().toString();
-        BaseRequest<ResourceServer> request = new BaseRequest<>(client, url, HttpMethod.GET,
+        BaseRequest<ResourceServer> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET,
                 new TypeReference<ResourceServer>() {
                 });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -113,10 +110,9 @@ public class ResourceServerEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/resource-servers");
 
         String url = builder.build().toString();
-        BaseRequest<ResourceServer> request = new BaseRequest<>(client, url, HttpMethod.POST,
+        BaseRequest<ResourceServer> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.POST,
                 new TypeReference<ResourceServer>() {
                 });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(resourceServer);
         return request;
     }
@@ -137,8 +133,7 @@ public class ResourceServerEntity extends BaseManagementEntity {
                 .addPathSegment(resourceServerId);
 
         String url = builder.build().toString();
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        VoidRequest request =  new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
         return request;
     }
 
@@ -160,10 +155,9 @@ public class ResourceServerEntity extends BaseManagementEntity {
                 .addPathSegment(resourceServerId);
 
         String url = builder.build().toString();
-        BaseRequest<ResourceServer> request = new BaseRequest<ResourceServer>(client, url, HttpMethod.PATCH,
+        BaseRequest<ResourceServer> request = new BaseRequest<ResourceServer>(client, tokenProvider, url, HttpMethod.PATCH,
                 new TypeReference<ResourceServer>() {
                 });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(resourceServer);
         return request;
     }
