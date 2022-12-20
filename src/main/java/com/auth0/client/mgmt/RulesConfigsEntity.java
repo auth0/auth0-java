@@ -1,6 +1,6 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.json.mgmt.RulesConfig;
+import com.auth0.json.mgmt.rules.RulesConfig;
 import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;

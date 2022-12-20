@@ -1,7 +1,6 @@
 
 package com.auth0.json.mgmt.tickets;
 
-import com.auth0.json.mgmt.EmailVerificationIdentity;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

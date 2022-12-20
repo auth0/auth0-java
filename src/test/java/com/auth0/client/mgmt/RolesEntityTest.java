@@ -2,10 +2,10 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.PageFilter;
 import com.auth0.client.mgmt.filter.RolesFilter;
-import com.auth0.json.mgmt.Permission;
-import com.auth0.json.mgmt.PermissionsPage;
-import com.auth0.json.mgmt.Role;
-import com.auth0.json.mgmt.RolesPage;
+import com.auth0.json.mgmt.permissions.Permission;
+import com.auth0.json.mgmt.permissions.PermissionsPage;
+import com.auth0.json.mgmt.roles.Role;
+import com.auth0.json.mgmt.roles.RolesPage;
 import com.auth0.json.mgmt.users.UsersPage;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;

@@ -1,6 +1,6 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.json.mgmt.Key;
+import com.auth0.json.mgmt.keys.Key;
 import com.auth0.net.EmptyBodyRequest;
 import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;

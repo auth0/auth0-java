@@ -1,8 +1,8 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.ConnectionFilter;
-import com.auth0.json.mgmt.Connection;
-import com.auth0.json.mgmt.ConnectionsPage;
+import com.auth0.json.mgmt.connections.Connection;
+import com.auth0.json.mgmt.connections.ConnectionsPage;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;

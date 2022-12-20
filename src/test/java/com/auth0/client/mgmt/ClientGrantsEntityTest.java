@@ -1,8 +1,8 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.ClientGrantsFilter;
-import com.auth0.json.mgmt.ClientGrant;
-import com.auth0.json.mgmt.ClientGrantsPage;
+import com.auth0.json.mgmt.clientgrants.ClientGrant;
+import com.auth0.json.mgmt.clientgrants.ClientGrantsPage;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;

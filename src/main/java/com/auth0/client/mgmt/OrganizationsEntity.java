@@ -4,7 +4,7 @@ import com.auth0.client.mgmt.filter.BaseFilter;
 import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.client.mgmt.filter.InvitationsFilter;
 import com.auth0.client.mgmt.filter.PageFilter;
-import com.auth0.json.mgmt.RolesPage;
+import com.auth0.json.mgmt.roles.RolesPage;
 import com.auth0.json.mgmt.organizations.*;
 import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;

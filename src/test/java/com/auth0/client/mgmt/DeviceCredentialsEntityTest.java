@@ -1,7 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.DeviceCredentialsFilter;
-import com.auth0.json.mgmt.DeviceCredentials;
+import com.auth0.json.mgmt.devicecredentials.DeviceCredentials;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;

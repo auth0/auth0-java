@@ -1,8 +1,8 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.RulesFilter;
-import com.auth0.json.mgmt.Rule;
-import com.auth0.json.mgmt.RulesPage;
+import com.auth0.json.mgmt.rules.Rule;
+import com.auth0.json.mgmt.rules.RulesPage;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
