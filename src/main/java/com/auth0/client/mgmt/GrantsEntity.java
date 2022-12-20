@@ -51,7 +51,7 @@ public class GrantsEntity extends BaseManagementEntity {
         }
 
         String url = builder.build().toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<GrantsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<GrantsPage>() {
         });
     }
 
@@ -74,7 +74,7 @@ public class GrantsEntity extends BaseManagementEntity {
                 .addQueryParameter("user_id", userId)
                 .build()
                 .toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Grant>>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<Grant>>() {
         });
     }
 

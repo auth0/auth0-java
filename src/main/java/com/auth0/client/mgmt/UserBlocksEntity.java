@@ -40,7 +40,7 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .addQueryParameter("identifier", identifier)
                 .build()
                 .toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<UserBlocks>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<UserBlocks>() {
         });
     }
 
@@ -79,7 +79,7 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .addPathSegment(userId)
                 .build()
                 .toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<UserBlocks>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<UserBlocks>() {
         });
     }
 

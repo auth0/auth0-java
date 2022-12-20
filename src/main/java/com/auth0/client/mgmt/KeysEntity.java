@@ -38,7 +38,7 @@ public class KeysEntity extends BaseManagementEntity {
             .newBuilder()
             .addEncodedPathSegments("api/v2/keys/signing");
         String url = builder.build().toString();
-        return new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Key>>() {
+        return new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<Key>>() {
         });
     }
 
@@ -58,7 +58,7 @@ public class KeysEntity extends BaseManagementEntity {
             .addPathSegments("api/v2/keys/signing")
             .addPathSegment(kid);
         String url = builder.build().toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Key>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Key>() {
         });
     }
 

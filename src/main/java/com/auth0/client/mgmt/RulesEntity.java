@@ -46,7 +46,7 @@ public class RulesEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<RulesPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<RulesPage>() {
         });
     }
 
@@ -73,7 +73,7 @@ public class RulesEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Rule>>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<Rule>>() {
         });
     }
 
@@ -98,7 +98,7 @@ public class RulesEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Rule>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Rule>() {
         });
     }
 
@@ -117,7 +117,7 @@ public class RulesEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/rules")
                 .build()
                 .toString();
-        BaseRequest<Rule> request = new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.POST, new TypeReference<Rule>() {
+        BaseRequest<Rule> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<Rule>() {
         });
         request.setBody(rule);
         return request;
@@ -160,7 +160,7 @@ public class RulesEntity extends BaseManagementEntity {
                 .addPathSegment(ruleId)
                 .build()
                 .toString();
-        BaseRequest<Rule> request = new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.PATCH, new TypeReference<Rule>() {
+        BaseRequest<Rule> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<Rule>() {
         });
         request.setBody(rule);
         return request;

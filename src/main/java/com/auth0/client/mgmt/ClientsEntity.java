@@ -46,7 +46,7 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/clients")
                 .build()
                 .toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Client>>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<Client>>() {
         });
     }
 
@@ -67,7 +67,7 @@ public class ClientsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<ClientsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<ClientsPage>() {
         });
     }
 
@@ -87,7 +87,7 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegment(clientId)
                 .build()
                 .toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Client>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Client>() {
         });
     }
 
@@ -112,7 +112,7 @@ public class ClientsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Client>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Client>() {
         });
     }
 
@@ -131,7 +131,7 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/clients")
                 .build()
                 .toString();
-        BaseRequest<Client> request = new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.POST, new TypeReference<Client>() {
+        BaseRequest<Client> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<Client>() {
         });
         request.setBody(client);
         return request;
@@ -174,7 +174,7 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegment(clientId)
                 .build()
                 .toString();
-        BaseRequest<Client> request = new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.PATCH, new TypeReference<Client>() {
+        BaseRequest<Client> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<Client>() {
         });
         request.setBody(client);
         return request;

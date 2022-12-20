@@ -53,7 +53,7 @@ public class JobsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Job>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Job>() {
         });
     }
 
@@ -154,7 +154,7 @@ public class JobsEntity extends BaseManagementEntity {
             Asserts.assertNotNull(emailVerificationIdentity.getUserId(), "identity user id");
             requestBody.put("identity", emailVerificationIdentity);
         }
-        BaseRequest<Job> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.POST, new TypeReference<Job>() {
+        BaseRequest<Job> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<Job>() {
         });
         request.setBody(requestBody);
         return request;
@@ -184,7 +184,7 @@ public class JobsEntity extends BaseManagementEntity {
             requestBody.putAll(filter.getAsMap());
         }
 
-        BaseRequest<Job> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.POST, new TypeReference<Job>() {
+        BaseRequest<Job> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<Job>() {
         });
         request.setBody(requestBody);
         return request;

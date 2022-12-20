@@ -47,7 +47,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<ConnectionsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<ConnectionsPage>() {
         });
     }
 
@@ -75,7 +75,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Connection>>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<Connection>>() {
         });
     }
 
@@ -100,7 +100,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Connection>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Connection>() {
         });
     }
 
@@ -119,7 +119,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/connections")
                 .build()
                 .toString();
-        BaseRequest<Connection> request = new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.POST, new TypeReference<Connection>() {
+        BaseRequest<Connection> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<Connection>() {
         });
         request.setBody(connection);
         return request;
@@ -162,7 +162,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addPathSegment(connectionId)
                 .build()
                 .toString();
-        BaseRequest<Connection> request = new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.PATCH, new TypeReference<Connection>() {
+        BaseRequest<Connection> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<Connection>() {
         });
         request.setBody(connection);
         return request;
@@ -188,6 +188,6 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addQueryParameter("email", email)
                 .build()
                 .toString();
-        return new VoidRequest(this.client, tokenProvider, url,  HttpMethod.DELETE);
+        return new VoidRequest(this.client, tokenProvider, url, HttpMethod.DELETE);
     }
 }

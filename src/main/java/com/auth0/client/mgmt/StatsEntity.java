@@ -40,7 +40,7 @@ public class StatsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Integer>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Integer>() {
         });
     }
 
@@ -66,7 +66,7 @@ public class StatsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<DailyStats>>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<DailyStats>>() {
         });
     }
 

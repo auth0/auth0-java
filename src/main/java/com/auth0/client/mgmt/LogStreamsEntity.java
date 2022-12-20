@@ -40,7 +40,7 @@ public class LogStreamsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<LogStream>>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<LogStream>>() {
         });
     }
 
@@ -61,7 +61,7 @@ public class LogStreamsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<LogStream>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<LogStream>() {
         });
     }
 
@@ -81,7 +81,7 @@ public class LogStreamsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        BaseRequest<LogStream> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.POST, new TypeReference<LogStream>(){});
+        BaseRequest<LogStream> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<LogStream>(){});
         request.setBody(logStream);
         return request;
     }
@@ -105,7 +105,7 @@ public class LogStreamsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        BaseRequest<LogStream> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.PATCH, new TypeReference<LogStream>(){
+        BaseRequest<LogStream> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<LogStream>(){
         });
         request.setBody(logStream);
         return request;

@@ -55,7 +55,7 @@ public class ActionsEntity extends BaseManagementEntity {
 
         String url = builder.build().toString();
 
-        BaseRequest<Action> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.POST, new TypeReference<Action>() {
+        BaseRequest<Action> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<Action>() {
         });
 
         request.setBody(action);
@@ -81,7 +81,7 @@ public class ActionsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Action>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Action>() {
         });
     }
 
@@ -136,7 +136,7 @@ public class ActionsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Triggers>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Triggers>() {
         });
     }
 
@@ -162,7 +162,7 @@ public class ActionsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        BaseRequest<Action> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.PATCH, new TypeReference<Action>() {
+        BaseRequest<Action> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<Action>() {
         });
 
         request.setBody(action);
@@ -192,7 +192,7 @@ public class ActionsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        return new EmptyBodyRequest<>(client, tokenProvider, url,  HttpMethod.POST, new TypeReference<Version>() {
+        return new EmptyBodyRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<Version>() {
         });
     }
 
@@ -220,7 +220,7 @@ public class ActionsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Version>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Version>() {
         });
     }
 
@@ -277,7 +277,7 @@ public class ActionsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Execution>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Execution>() {
         });
     }
 
@@ -299,7 +299,7 @@ public class ActionsEntity extends BaseManagementEntity {
 
         String url = builder.build().toString();
 
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<ActionsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<ActionsPage>() {
         });
     }
 
@@ -329,7 +329,7 @@ public class ActionsEntity extends BaseManagementEntity {
 
         String url = builder.build().toString();
 
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<VersionsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<VersionsPage>() {
         });
     }
 
@@ -360,7 +360,7 @@ public class ActionsEntity extends BaseManagementEntity {
 
         String url = builder.build().toString();
 
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<BindingsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<BindingsPage>() {
         });
     }
 
@@ -389,7 +389,7 @@ public class ActionsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        BaseRequest<BindingsPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.PATCH, new TypeReference<BindingsPage>() {
+        BaseRequest<BindingsPage> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<BindingsPage>() {
         });
 
         request.setBody(bindingsUpdateRequest);

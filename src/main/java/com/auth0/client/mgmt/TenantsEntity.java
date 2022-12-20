@@ -43,7 +43,7 @@ public class TenantsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Tenant>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Tenant>() {
         });
     }
 
@@ -63,7 +63,7 @@ public class TenantsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        BaseRequest<Tenant> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.PATCH, new TypeReference<Tenant>() {
+        BaseRequest<Tenant> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<Tenant>() {
         });
         request.setBody(tenant);
         return request;

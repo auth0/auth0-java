@@ -50,7 +50,7 @@ public class LogEventsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<LogEventsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<LogEventsPage>() {
         });
     }
 
@@ -70,7 +70,7 @@ public class LogEventsEntity extends BaseManagementEntity {
                 .addPathSegment(logEventId)
                 .build()
                 .toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<LogEvent>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<LogEvent>() {
         });
     }
 }

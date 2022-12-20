@@ -40,7 +40,7 @@ public class TicketsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        BaseRequest<EmailVerificationTicket> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.POST, new TypeReference<EmailVerificationTicket>() {
+        BaseRequest<EmailVerificationTicket> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<EmailVerificationTicket>() {
         });
         request.setBody(emailVerificationTicket);
         return request;
@@ -62,7 +62,7 @@ public class TicketsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        BaseRequest<PasswordChangeTicket> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.POST, new TypeReference<PasswordChangeTicket>() {
+        BaseRequest<PasswordChangeTicket> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<PasswordChangeTicket>() {
         });
         request.setBody(passwordChangeTicket);
         return request;

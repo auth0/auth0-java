@@ -62,7 +62,7 @@ class RequestBuilder<T> {
         if ("java.lang.Void".equals(target.getType().getTypeName())) {
             request = (BaseRequest<T>)  new VoidRequest(client, tokenProvider,  url, method);
         } else {
-            request =  new BaseRequest<>(client, tokenProvider, url,  method, target);
+            request =  new BaseRequest<>(client, tokenProvider, url, method, target);
         }
 
         if (body != null) {

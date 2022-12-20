@@ -47,7 +47,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
         }
 
         String url = builder.build().toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<ClientGrantsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<ClientGrantsPage>() {
         });
     }
 
@@ -66,7 +66,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/client-grants")
                 .build()
                 .toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<ClientGrant>>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<ClientGrant>>() {
         });
     }
 
@@ -89,7 +89,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/client-grants")
                 .build()
                 .toString();
-        BaseRequest<ClientGrant> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.POST, new TypeReference<ClientGrant>() {
+        BaseRequest<ClientGrant> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<ClientGrant>() {
         });
         request.addParameter("client_id", clientId);
         request.addParameter("audience", audience);
@@ -135,7 +135,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
                 .addPathSegment(clientGrantId)
                 .build()
                 .toString();
-        BaseRequest<ClientGrant> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.PATCH, new TypeReference<ClientGrant>() {
+        BaseRequest<ClientGrant> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<ClientGrant>() {
         });
         request.addParameter("scope", scope);
         return request;

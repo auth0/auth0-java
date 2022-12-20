@@ -51,7 +51,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
 
         String url = builder.build().toString();
 
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<OrganizationsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<OrganizationsPage>() {
         });
     }
 
@@ -73,7 +73,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Organization>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Organization>() {
         });
     }
 
@@ -96,7 +96,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Organization>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Organization>() {
         });
     }
 
@@ -117,7 +117,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        BaseRequest<Organization> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.POST, new TypeReference<Organization>() {
+        BaseRequest<Organization> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<Organization>() {
         });
 
         request.setBody(organization);
@@ -144,7 +144,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        BaseRequest<Organization> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.PATCH, new TypeReference<Organization>() {
+        BaseRequest<Organization> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<Organization>() {
         });
 
         request.setBody(organization);
@@ -195,7 +195,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<MembersPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<MembersPage>() {
         });
     }
 
@@ -274,7 +274,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<EnabledConnectionsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<EnabledConnectionsPage>() {
         });
     }
 
@@ -300,7 +300,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<EnabledConnection>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<EnabledConnection>() {
         });
     }
 
@@ -325,7 +325,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        BaseRequest<EnabledConnection> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.POST, new TypeReference<EnabledConnection>() {
+        BaseRequest<EnabledConnection> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<EnabledConnection>() {
         });
         request.setBody(connection);
         return request;
@@ -380,7 +380,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        BaseRequest<EnabledConnection> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.PATCH, new TypeReference<EnabledConnection>() {
+        BaseRequest<EnabledConnection> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<EnabledConnection>() {
         });
         request.setBody(connection);
         return request;
@@ -413,7 +413,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<RolesPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<RolesPage>() {
         });
     }
 
@@ -500,7 +500,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        BaseRequest<Invitation> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.POST, new TypeReference<Invitation>() {
+        BaseRequest<Invitation> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<Invitation>() {
         });
         request.setBody(invitation);
         return request;
@@ -531,7 +531,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Invitation>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Invitation>() {
         });
     }
 
@@ -556,7 +556,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<InvitationsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<InvitationsPage>() {
         });
     }
 
