@@ -23,8 +23,8 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class StatsEntity extends BaseManagementEntity {
 
-    StatsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    StatsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -40,9 +40,8 @@ public class StatsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        BaseRequest<Integer> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<Integer>() {
+        BaseRequest<Integer> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Integer>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -68,9 +67,8 @@ public class StatsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        BaseRequest<List<DailyStats>> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<DailyStats>>() {
+        BaseRequest<List<DailyStats>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<DailyStats>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 

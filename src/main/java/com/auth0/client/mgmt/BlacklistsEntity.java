@@ -22,8 +22,8 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class BlacklistsEntity extends BaseManagementEntity {
 
-    BlacklistsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    BlacklistsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -42,9 +42,8 @@ public class BlacklistsEntity extends BaseManagementEntity {
                 .addQueryParameter("aud", audience)
                 .build()
                 .toString();
-        BaseRequest<List<Token>> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<Token>>() {
+        BaseRequest<List<Token>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Token>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -63,8 +62,7 @@ public class BlacklistsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/blacklists/tokens")
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.POST);
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        VoidRequest request =  new VoidRequest(client, tokenProvider,  url, HttpMethod.POST);
         request.setBody(token);
         return request;
     }

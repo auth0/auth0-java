@@ -1,6 +1,7 @@
 package com.auth0.net;
 
 import com.auth0.client.MockServer;
+import com.auth0.client.mgmt.SimpleTokenProvider;
 import com.auth0.json.auth.TokenHolder;
 import com.auth0.net.client.DefaultHttpClient;
 import com.auth0.net.client.Auth0HttpClient;
@@ -41,7 +42,7 @@ public class EmptyBodyRequestTest {
 
     @Test
     public void shouldCreateEmptyRequestBody() throws Exception {
-        EmptyBodyRequest<TokenHolder> request = new EmptyBodyRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
+        EmptyBodyRequest<TokenHolder> request = new EmptyBodyRequest<>(client, SimpleTokenProvider.create("apiToken"), server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
@@ -53,7 +54,7 @@ public class EmptyBodyRequestTest {
 
     @Test
     public void shouldNotAddParameters() throws Exception {
-        EmptyBodyRequest<TokenHolder> request = new EmptyBodyRequest<>(client, server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
+        EmptyBodyRequest<TokenHolder> request = new EmptyBodyRequest<>(client, SimpleTokenProvider.create("apiToken"), server.getBaseUrl(), HttpMethod.POST, tokenHolderType);
         Map mapValue = mock(Map.class);
         request.addParameter("key", "value");
         request.addParameter("map", mapValue);

@@ -15,8 +15,8 @@ import okhttp3.HttpUrl;
  * @see ManagementAPI
  */
 public class AttackProtectionEntity extends BaseManagementEntity {
-    AttackProtectionEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    AttackProtectionEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**

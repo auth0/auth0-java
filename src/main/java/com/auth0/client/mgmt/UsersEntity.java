@@ -37,8 +37,8 @@ import static com.auth0.client.mgmt.filter.QueryFilter.KEY_QUERY;
 @SuppressWarnings("WeakerAccess")
 public class UsersEntity extends BaseManagementEntity {
 
-    UsersEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    UsersEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -65,9 +65,8 @@ public class UsersEntity extends BaseManagementEntity {
         }
 
         String url = builder.build().toString();
-        BaseRequest<List<User>> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<User>>() {
+        BaseRequest<List<User>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<User>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -86,9 +85,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/users");
         encodeAndAddQueryParam(builder, filter);
         String url = builder.build().toString();
-        BaseRequest<UsersPage> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<UsersPage>() {
+        BaseRequest<UsersPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<UsersPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -115,9 +113,8 @@ public class UsersEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<User> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<User>() {
+        BaseRequest<User> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<User>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -137,9 +134,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/users")
                 .build()
                 .toString();
-        BaseRequest<User> request = new BaseRequest<>(this.client, url, HttpMethod.POST, new TypeReference<User>() {
+        BaseRequest<User> request = new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.POST, new TypeReference<User>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(user);
         return request;
     }
@@ -161,8 +157,7 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegment(userId)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        VoidRequest request =   new VoidRequest(client, tokenProvider, url, HttpMethod.DELETE);
         return request;
     }
 
@@ -186,9 +181,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegment(userId)
                 .build()
                 .toString();
-        BaseRequest<User> request = new BaseRequest<>(this.client, url, HttpMethod.PATCH, new TypeReference<User>() {
+        BaseRequest<User> request = new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.PATCH, new TypeReference<User>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(user);
         return request;
     }
@@ -212,9 +206,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        BaseRequest<List<Enrollment>> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<Enrollment>>() {
+        BaseRequest<List<Enrollment>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Enrollment>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -238,9 +231,8 @@ public class UsersEntity extends BaseManagementEntity {
 
         encodeAndAddQueryParam(builder, filter);
         String url = builder.build().toString();
-        BaseRequest<LogEventsPage> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<LogEventsPage>() {
+        BaseRequest<LogEventsPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<LogEventsPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -282,8 +274,7 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegment(provider)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        VoidRequest request =   new VoidRequest(client, tokenProvider, url, HttpMethod.DELETE);
         return request;
     }
 
@@ -306,9 +297,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        EmptyBodyRequest<RecoveryCode> request = new EmptyBodyRequest<>(client, url, HttpMethod.POST, new TypeReference<RecoveryCode>() {
+        EmptyBodyRequest<RecoveryCode> request =  new EmptyBodyRequest<>(client, tokenProvider, url,  HttpMethod.POST, new TypeReference<RecoveryCode>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -336,9 +326,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        BaseRequest<List<Identity>> request = new BaseRequest<>(client, url, HttpMethod.POST, new TypeReference<List<Identity>>() {
+        BaseRequest<List<Identity>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.POST, new TypeReference<List<Identity>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.addParameter("provider", provider);
         request.addParameter("user_id", secondaryUserId);
         if (connectionId != null) {
@@ -368,9 +357,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        BaseRequest<List<Identity>> request = new BaseRequest<>(client, url, HttpMethod.POST, new TypeReference<List<Identity>>() {
+        BaseRequest<List<Identity>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.POST, new TypeReference<List<Identity>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.addParameter("link_with", secondaryIdToken);
 
         return request;
@@ -401,9 +389,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        BaseRequest<List<Identity>> request = new BaseRequest<>(client, url, HttpMethod.DELETE, new TypeReference<List<Identity>>() {
+        BaseRequest<List<Identity>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.DELETE, new TypeReference<List<Identity>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -429,9 +416,8 @@ public class UsersEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<PermissionsPage> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<PermissionsPage>() {
+        BaseRequest<PermissionsPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<PermissionsPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -459,9 +445,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegments("permissions")
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(this.client, url, HttpMethod.DELETE);
+        VoidRequest request = new VoidRequest(this.client, tokenProvider, url,  HttpMethod.DELETE);
         request.setBody(body);
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -488,9 +473,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegments("permissions")
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(this.client, url, HttpMethod.POST);
+        VoidRequest request = new VoidRequest(this.client, tokenProvider, url,  HttpMethod.POST);
         request.setBody(body);
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -516,9 +500,8 @@ public class UsersEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<RolesPage> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<RolesPage>() {
+        BaseRequest<RolesPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<RolesPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -546,9 +529,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegments("roles")
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(this.client, url, HttpMethod.DELETE);
+        VoidRequest request = new VoidRequest(this.client, tokenProvider, url,  HttpMethod.DELETE);
         request.setBody(body);
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -575,9 +557,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegments("roles")
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(this.client, url, HttpMethod.POST);
+        VoidRequest request = new VoidRequest(this.client, tokenProvider, url,  HttpMethod.POST);
         request.setBody(body);
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -606,9 +587,8 @@ public class UsersEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<OrganizationsPage> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<OrganizationsPage>() {
+        BaseRequest<OrganizationsPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<OrganizationsPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 

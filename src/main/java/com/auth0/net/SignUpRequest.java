@@ -13,7 +13,7 @@ import java.util.Map;
 public class SignUpRequest extends BaseRequest<CreatedUser> {
 
     public SignUpRequest(Auth0HttpClient client, String url) {
-        super(client, url, HttpMethod.POST, new TypeReference<CreatedUser>() {
+        super(client, null, url, HttpMethod.POST, new TypeReference<CreatedUser>() {
         });
     }
 

@@ -25,8 +25,8 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class ConnectionsEntity extends BaseManagementEntity {
 
-    ConnectionsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    ConnectionsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
 
@@ -47,9 +47,8 @@ public class ConnectionsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<ConnectionsPage> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<ConnectionsPage>() {
+        BaseRequest<ConnectionsPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<ConnectionsPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -77,9 +76,8 @@ public class ConnectionsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<List<Connection>> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<Connection>>() {
+        BaseRequest<List<Connection>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Connection>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -104,9 +102,8 @@ public class ConnectionsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<Connection> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<Connection>() {
+        BaseRequest<Connection> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Connection>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -125,9 +122,8 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/connections")
                 .build()
                 .toString();
-        BaseRequest<Connection> request = new BaseRequest<>(this.client, url, HttpMethod.POST, new TypeReference<Connection>() {
+        BaseRequest<Connection> request = new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.POST, new TypeReference<Connection>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(connection);
         return request;
     }
@@ -148,8 +144,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addPathSegment(connectionId)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        VoidRequest request =  new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
         return request;
     }
 
@@ -171,9 +166,8 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addPathSegment(connectionId)
                 .build()
                 .toString();
-        BaseRequest<Connection> request = new BaseRequest<>(this.client, url, HttpMethod.PATCH, new TypeReference<Connection>() {
+        BaseRequest<Connection> request = new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.PATCH, new TypeReference<Connection>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(connection);
         return request;
     }
@@ -198,8 +192,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addQueryParameter("email", email)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(this.client, url, HttpMethod.DELETE);
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        VoidRequest request = new VoidRequest(this.client, tokenProvider, url,  HttpMethod.DELETE);
         return request;
     }
 }

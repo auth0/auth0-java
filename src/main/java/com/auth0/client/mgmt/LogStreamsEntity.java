@@ -24,8 +24,8 @@ public class LogStreamsEntity extends BaseManagementEntity {
     private final static String LOG_STREAMS_PATH = "api/v2/log-streams";
     private final static String AUTHORIZATION_HEADER = "Authorization";
 
-    LogStreamsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    LogStreamsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -41,9 +41,8 @@ public class LogStreamsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        BaseRequest<List<LogStream>> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<LogStream>>() {
+        BaseRequest<List<LogStream>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<LogStream>>() {
         });
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
     }
 
@@ -64,9 +63,8 @@ public class LogStreamsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        BaseRequest<LogStream> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<LogStream>() {
+        BaseRequest<LogStream> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<LogStream>() {
         });
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         return request;
     }
 
@@ -86,8 +84,7 @@ public class LogStreamsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        BaseRequest<LogStream> request = new BaseRequest<>(client, url, HttpMethod.POST, new TypeReference<LogStream>(){});
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        BaseRequest<LogStream> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.POST, new TypeReference<LogStream>(){});
         request.setBody(logStream);
         return request;
     }
@@ -111,9 +108,8 @@ public class LogStreamsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        BaseRequest<LogStream> request = new BaseRequest<>(client, url, HttpMethod.PATCH, new TypeReference<LogStream>(){
+        BaseRequest<LogStream> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.PATCH, new TypeReference<LogStream>(){
         });
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
         request.setBody(logStream);
         return request;
     }
@@ -135,8 +131,7 @@ public class LogStreamsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
-        request.addHeader(AUTHORIZATION_HEADER, "Bearer " + apiToken);
+        VoidRequest request =  new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
         return request;
     }
 }

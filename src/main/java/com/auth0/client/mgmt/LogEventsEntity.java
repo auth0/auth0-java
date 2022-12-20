@@ -25,8 +25,8 @@ import static com.auth0.client.mgmt.filter.QueryFilter.KEY_QUERY;
 @SuppressWarnings("WeakerAccess")
 public class LogEventsEntity extends BaseManagementEntity {
 
-    LogEventsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    LogEventsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -50,9 +50,8 @@ public class LogEventsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<LogEventsPage> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<LogEventsPage>() {
+        BaseRequest<LogEventsPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<LogEventsPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -72,9 +71,8 @@ public class LogEventsEntity extends BaseManagementEntity {
                 .addPathSegment(logEventId)
                 .build()
                 .toString();
-        BaseRequest<LogEvent> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<LogEvent>() {
+        BaseRequest<LogEvent> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<LogEvent>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 }

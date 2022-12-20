@@ -20,8 +20,8 @@ import okhttp3.HttpUrl;
 @SuppressWarnings("WeakerAccess")
 public class BrandingEntity extends BaseManagementEntity {
 
-    BrandingEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    BrandingEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**

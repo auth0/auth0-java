@@ -1,5 +1,6 @@
 package com.auth0.net;
 
+import com.auth0.client.mgmt.TokenProvider;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.Auth0HttpResponse;
@@ -19,8 +20,8 @@ import java.util.HashMap;
  */
 public class VoidRequest extends BaseRequest<Void> {
 
-    public VoidRequest(Auth0HttpClient client, String url, HttpMethod method) {
-        super(client, url, method, new TypeReference<Void>() {
+    public VoidRequest(Auth0HttpClient client, TokenProvider tokenProvider, String url, HttpMethod method) {
+        super(client, tokenProvider, url, method, new TypeReference<Void>() {
         });
     }
 

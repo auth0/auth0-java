@@ -1,5 +1,6 @@
 package com.auth0.net;
 
+import com.auth0.client.mgmt.TokenProvider;
 import com.auth0.json.ObjectMapperProvider;
 import com.auth0.net.client.*;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -32,8 +33,8 @@ public class MultipartRequest<T> extends BaseRequest<T> {
     private int partsCount;
 
     //TODO multipartBuilder is not used? Refactor it?
-    MultipartRequest(Auth0HttpClient client, String url, HttpMethod method, ObjectMapper mapper, TypeReference<T> tType, Auth0MultipartRequestBody.Builder multipartBuilder) {
-        super(client, url, method, mapper, tType);
+    MultipartRequest(Auth0HttpClient client, TokenProvider tokenProvider, String url, HttpMethod method, ObjectMapper mapper, TypeReference<T> tType, Auth0MultipartRequestBody.Builder multipartBuilder) {
+        super(client, tokenProvider, url, method, mapper, tType);
         if (HttpMethod.GET.equals(method)) {
             throw new IllegalArgumentException("Multipart/form-data requests do not support the GET method.");
         }
@@ -42,8 +43,8 @@ public class MultipartRequest<T> extends BaseRequest<T> {
         this.bodyBuilder = Auth0MultipartRequestBody.newBuilder();
     }
 
-    public MultipartRequest(Auth0HttpClient client, String url, HttpMethod method, TypeReference<T> tType) {
-        this(client, url, method, ObjectMapperProvider.getMapper(), tType, Auth0MultipartRequestBody.newBuilder());
+    public MultipartRequest(Auth0HttpClient client, TokenProvider tokenProvider, String url, HttpMethod method, TypeReference<T> tType) {
+        this(client, tokenProvider, url, method, ObjectMapperProvider.getMapper(), tType, Auth0MultipartRequestBody.newBuilder());
     }
 
     @Override
