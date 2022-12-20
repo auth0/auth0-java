@@ -2,7 +2,7 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.UsersExportFilter;
 import com.auth0.client.mgmt.filter.UsersImportOptions;
-import com.auth0.json.mgmt.EmailVerificationIdentity;
+import com.auth0.json.mgmt.tickets.EmailVerificationIdentity;
 import com.auth0.json.mgmt.jobs.Job;
 import com.auth0.json.mgmt.jobs.JobErrorDetails;
 import com.auth0.net.BaseRequest;

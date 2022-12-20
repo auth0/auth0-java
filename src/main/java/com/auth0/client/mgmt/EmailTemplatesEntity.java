@@ -1,6 +1,6 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.json.mgmt.EmailTemplate;
+import com.auth0.json.mgmt.emailtemplates.EmailTemplate;
 import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.client.Auth0HttpClient;

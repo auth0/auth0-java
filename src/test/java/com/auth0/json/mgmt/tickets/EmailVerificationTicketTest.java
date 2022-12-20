@@ -2,7 +2,6 @@ package com.auth0.json.mgmt.tickets;
 
 import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
-import com.auth0.json.mgmt.EmailVerificationIdentity;
 import org.junit.Test;
 
 import java.util.HashMap;

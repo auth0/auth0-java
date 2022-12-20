@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.auth0.json.JsonTest;
+import com.auth0.json.mgmt.resourceserver.ResourceServer;
+import com.auth0.json.mgmt.resourceserver.Scope;
 import org.junit.Test;
 
 import static com.auth0.json.JsonMatcher.hasEntry;

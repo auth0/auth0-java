@@ -1,8 +1,8 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.ResourceServersFilter;
-import com.auth0.json.mgmt.ResourceServer;
-import com.auth0.json.mgmt.ResourceServersPage;
+import com.auth0.json.mgmt.resourceserver.ResourceServer;
+import com.auth0.json.mgmt.resourceserver.ResourceServersPage;
 import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
