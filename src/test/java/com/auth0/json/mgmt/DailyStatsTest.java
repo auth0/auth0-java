@@ -1,6 +1,7 @@
 package com.auth0.json.mgmt;
 
 import com.auth0.json.JsonTest;
+import com.auth0.json.mgmt.stats.DailyStats;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;

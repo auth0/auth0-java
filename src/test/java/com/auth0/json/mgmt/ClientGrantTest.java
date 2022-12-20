@@ -2,6 +2,7 @@ package com.auth0.json.mgmt;
 
 import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
+import com.auth0.json.mgmt.clientgrants.ClientGrant;
 import org.junit.Test;
 
 import java.util.Arrays;
