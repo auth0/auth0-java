@@ -1,5 +1,6 @@
 package com.auth0.net;
 
+import com.auth0.client.mgmt.TokenProvider;
 import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.RateLimitException;
@@ -12,6 +13,7 @@ import com.fasterxml.jackson.databind.type.MapType;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 
@@ -40,9 +42,11 @@ public class BaseRequest<T> implements Request<T> {
     private static final int STATUS_CODE_TOO_MANY_REQUEST = 429;
 
     private final Auth0HttpClient client;
+    private final TokenProvider tokenProvider;
 
-    BaseRequest(Auth0HttpClient client, String url, HttpMethod method, ObjectMapper mapper, TypeReference<T> tType) {
+    BaseRequest(Auth0HttpClient client, TokenProvider tokenProvider, String url, HttpMethod method, ObjectMapper mapper, TypeReference<T> tType) {
         this.client = client;
+        this.tokenProvider = tokenProvider;
         this.url = url;
         this.method = method;
         this.mapper = mapper;
@@ -51,11 +55,11 @@ public class BaseRequest<T> implements Request<T> {
         this.parameters = new HashMap<>();
     }
 
-    public BaseRequest(Auth0HttpClient client, String url, HttpMethod method, TypeReference<T> tType) {
-        this(client, url, method, ObjectMapperProvider.getMapper(), tType);
+    public BaseRequest(Auth0HttpClient client, TokenProvider tokenProvider, String url, HttpMethod method, TypeReference<T> tType) {
+        this(client, tokenProvider, url, method, ObjectMapperProvider.getMapper(), tType);
     }
 
-    protected Auth0HttpRequest createRequest() throws Auth0Exception {
+    protected Auth0HttpRequest createRequest(String apiToken) throws Auth0Exception {
         HttpRequestBody body;
         try {
             body = this.createRequestBody();
@@ -63,6 +67,10 @@ public class BaseRequest<T> implements Request<T> {
             throw new Auth0Exception("Couldn't create the request body.", e);
         }
         headers.put("Content-Type", getContentType());
+        // Auth APIs don't take tokens
+        if (Objects.nonNull(apiToken)) {
+            headers.put("Authorization", "Bearer " + apiToken);
+        }
         Auth0HttpRequest request = Auth0HttpRequest.newBuilder(url, method)
             .withBody(body)
             .withHeaders(headers)
@@ -118,7 +126,11 @@ public class BaseRequest<T> implements Request<T> {
      */
     @Override
     public com.auth0.net.Response<T> execute() throws Auth0Exception {
-        Auth0HttpRequest request = createRequest();
+        String apiToken = null;
+        if (Objects.nonNull(tokenProvider)) {
+            apiToken = tokenProvider.getToken();
+        }
+        Auth0HttpRequest request = createRequest(apiToken);
         try {
             Auth0HttpResponse response = client.sendRequest(request);
             T body = parseResponseBody(response);
@@ -133,17 +145,26 @@ public class BaseRequest<T> implements Request<T> {
     @Override
     public CompletableFuture<com.auth0.net.Response<T>> executeAsync() {
         final CompletableFuture<com.auth0.net.Response<T>> future = new CompletableFuture<>();
-        Auth0HttpRequest request;
+
+        if (Objects.nonNull(tokenProvider)) {
+            return tokenProvider.getTokenAsync().thenCompose(token -> {
+                try {
+                    return client.sendRequestAsync(createRequest(token))
+                        .thenCompose(this::getResponseFuture);
+                } catch (Auth0Exception e) {
+                    future.completeExceptionally(e);
+                    return future;
+                }
+            });
+        }
 
         try {
-            request = createRequest();
+            return client.sendRequestAsync(createRequest(null))
+                .thenCompose(this::getResponseFuture);
         } catch (Auth0Exception e) {
             future.completeExceptionally(e);
             return future;
         }
-
-        return client.sendRequestAsync(request)
-            .thenCompose(this::getResponseFuture);
     }
 
     private CompletableFuture<Response<T>> getResponseFuture(Auth0HttpResponse httpResponse) {

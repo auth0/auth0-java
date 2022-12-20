@@ -29,8 +29,8 @@ public class EmailTemplatesEntity extends BaseManagementEntity {
     public static final String TEMPLATE_PASSWORD_RESET = "password_reset";
     public static final String TEMPLATE_MFA_OOB_CODE = "mfa_oob_code";
 
-    EmailTemplatesEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    EmailTemplatesEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -47,10 +47,8 @@ public class EmailTemplatesEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/email-templates")
                 .addPathSegment(templateName);
         String url = builder.build().toString();
-        BaseRequest<EmailTemplate> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<EmailTemplate>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<EmailTemplate>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -68,9 +66,8 @@ public class EmailTemplatesEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/email-templates")
                 .build()
                 .toString();
-        BaseRequest<EmailTemplate> request = new BaseRequest<>(this.client, url, HttpMethod.POST, new TypeReference<EmailTemplate>() {
+        BaseRequest<EmailTemplate> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<EmailTemplate>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(template);
         return request;
     }
@@ -93,9 +90,8 @@ public class EmailTemplatesEntity extends BaseManagementEntity {
                 .addPathSegment(templateName)
                 .build()
                 .toString();
-        BaseRequest<EmailTemplate> request = new BaseRequest<>(this.client, url, HttpMethod.PATCH, new TypeReference<EmailTemplate>() {
+        BaseRequest<EmailTemplate> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<EmailTemplate>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(template);
         return request;
     }

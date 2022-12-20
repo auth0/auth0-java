@@ -22,8 +22,8 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class RulesConfigsEntity extends BaseManagementEntity {
 
-    RulesConfigsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    RulesConfigsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -39,10 +39,8 @@ public class RulesConfigsEntity extends BaseManagementEntity {
                 .newBuilder()
                 .addPathSegments("api/v2/rules-configs");
         String url = builder.build().toString();
-        BaseRequest<List<RulesConfig>> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<RulesConfig>>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<RulesConfig>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -61,9 +59,7 @@ public class RulesConfigsEntity extends BaseManagementEntity {
                 .addPathSegment(rulesConfigKey)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 
     /**
@@ -84,9 +80,8 @@ public class RulesConfigsEntity extends BaseManagementEntity {
                 .addPathSegment(rulesConfigKey)
                 .build()
                 .toString();
-        BaseRequest<RulesConfig> request = new BaseRequest<>(this.client, url, HttpMethod.PUT, new TypeReference<RulesConfig>() {
+        BaseRequest<RulesConfig> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.PUT, new TypeReference<RulesConfig>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(rulesConfig);
         return request;
     }

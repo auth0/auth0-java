@@ -32,8 +32,8 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class JobsEntity extends BaseManagementEntity {
 
-    JobsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    JobsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -53,10 +53,8 @@ public class JobsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        BaseRequest<Job> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<Job>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Job>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -79,7 +77,7 @@ public class JobsEntity extends BaseManagementEntity {
 
         TypeReference<List<JobErrorDetails>> jobErrorDetailsListType = new TypeReference<List<JobErrorDetails>>() {
         };
-        BaseRequest<List<JobErrorDetails>> request = new BaseRequest<List<JobErrorDetails>>(client, url, HttpMethod.GET, jobErrorDetailsListType) {
+        return new BaseRequest<List<JobErrorDetails>>(client, tokenProvider, url, HttpMethod.GET, jobErrorDetailsListType) {
             @Override
             protected List<JobErrorDetails> readResponseBody(Auth0HttpResponse response) throws IOException {
                 if (response.getBody() == null || response.getBody().length() == 0) {
@@ -88,8 +86,6 @@ public class JobsEntity extends BaseManagementEntity {
                 return super.readResponseBody(response);
             }
         };
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -158,9 +154,8 @@ public class JobsEntity extends BaseManagementEntity {
             Asserts.assertNotNull(emailVerificationIdentity.getUserId(), "identity user id");
             requestBody.put("identity", emailVerificationIdentity);
         }
-        BaseRequest<Job> request = new BaseRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>() {
+        BaseRequest<Job> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<Job>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(requestBody);
         return request;
     }
@@ -189,9 +184,8 @@ public class JobsEntity extends BaseManagementEntity {
             requestBody.putAll(filter.getAsMap());
         }
 
-        BaseRequest<Job> request = new BaseRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>() {
+        BaseRequest<Job> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<Job>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(requestBody);
         return request;
     }
@@ -217,7 +211,7 @@ public class JobsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        MultipartRequest<Job> request = new MultipartRequest<>(client, url, HttpMethod.POST, new TypeReference<Job>() {
+        MultipartRequest<Job> request = new MultipartRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<Job>() {
         });
         if (options != null) {
             for (Map.Entry<String, Object> e : options.getAsMap().entrySet()) {
@@ -226,7 +220,6 @@ public class JobsEntity extends BaseManagementEntity {
         }
         request.addPart("connection_id", connectionId);
         request.addPart("users", users, "text/json");
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 }

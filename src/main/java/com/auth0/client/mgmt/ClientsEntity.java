@@ -27,8 +27,8 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class ClientsEntity extends BaseManagementEntity {
 
-    ClientsEntity(Auth0HttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    ClientsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -46,10 +46,8 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/clients")
                 .build()
                 .toString();
-        BaseRequest<List<Client>> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<List<Client>>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<Client>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -69,10 +67,8 @@ public class ClientsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<ClientsPage> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<ClientsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<ClientsPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -91,10 +87,8 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegment(clientId)
                 .build()
                 .toString();
-        BaseRequest<Client> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<Client>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Client>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -118,10 +112,8 @@ public class ClientsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<Client> request = new BaseRequest<>(client, url, HttpMethod.GET, new TypeReference<Client>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Client>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -139,9 +131,8 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/clients")
                 .build()
                 .toString();
-        BaseRequest<Client> request = new BaseRequest<>(this.client, url, HttpMethod.POST, new TypeReference<Client>() {
+        BaseRequest<Client> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<Client>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(client);
         return request;
     }
@@ -162,9 +153,7 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegment(clientId)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, HttpMethod.DELETE);
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 
     /**
@@ -185,9 +174,8 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegment(clientId)
                 .build()
                 .toString();
-        BaseRequest<Client> request = new BaseRequest<>(this.client, url, HttpMethod.PATCH, new TypeReference<Client>() {
+        BaseRequest<Client> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<Client>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(client);
         return request;
     }
@@ -210,9 +198,7 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegment("rotate-secret")
                 .build()
                 .toString();
-        BaseRequest<Client> request = new EmptyBodyRequest<>(this.client, url, HttpMethod.POST, new TypeReference<Client>() {
+        return new EmptyBodyRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<Client>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 }
