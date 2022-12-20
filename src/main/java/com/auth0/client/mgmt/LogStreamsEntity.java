@@ -22,7 +22,6 @@ import java.util.List;
 public class LogStreamsEntity extends BaseManagementEntity {
 
     private final static String LOG_STREAMS_PATH = "api/v2/log-streams";
-    private final static String AUTHORIZATION_HEADER = "Authorization";
 
     LogStreamsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
         super(client, baseUrl, tokenProvider);
@@ -41,9 +40,8 @@ public class LogStreamsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        BaseRequest<List<LogStream>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<LogStream>>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<LogStream>>() {
         });
-        return request;
     }
 
     /**
@@ -63,9 +61,8 @@ public class LogStreamsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        BaseRequest<LogStream> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<LogStream>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<LogStream>() {
         });
-        return request;
     }
 
     /**
@@ -131,7 +128,6 @@ public class LogStreamsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        VoidRequest request =  new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
-        return request;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 }

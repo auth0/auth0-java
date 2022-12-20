@@ -40,9 +40,8 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .addQueryParameter("identifier", identifier)
                 .build()
                 .toString();
-        BaseRequest<UserBlocks> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<UserBlocks>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<UserBlocks>() {
         });
-        return request;
     }
 
     /**
@@ -61,8 +60,7 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .addQueryParameter("identifier", identifier)
                 .build()
                 .toString();
-        VoidRequest request =  new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
-        return request;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 
     /**
@@ -81,9 +79,8 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .addPathSegment(userId)
                 .build()
                 .toString();
-        BaseRequest<UserBlocks> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<UserBlocks>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<UserBlocks>() {
         });
-        return request;
     }
 
     /**
@@ -102,7 +99,6 @@ public class UserBlocksEntity extends BaseManagementEntity {
                 .addPathSegment(userId)
                 .build()
                 .toString();
-        VoidRequest request =  new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
-        return request;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 }

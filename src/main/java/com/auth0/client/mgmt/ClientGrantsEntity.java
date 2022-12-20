@@ -47,9 +47,8 @@ public class ClientGrantsEntity extends BaseManagementEntity {
         }
 
         String url = builder.build().toString();
-        BaseRequest<ClientGrantsPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<ClientGrantsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<ClientGrantsPage>() {
         });
-        return request;
     }
 
     /**
@@ -67,9 +66,8 @@ public class ClientGrantsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/client-grants")
                 .build()
                 .toString();
-        BaseRequest<List<ClientGrant>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<ClientGrant>>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<ClientGrant>>() {
         });
-        return request;
     }
 
     /**
@@ -116,8 +114,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
                 .addPathSegment(clientGrantId)
                 .build()
                 .toString();
-        VoidRequest request =  new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
-        return request;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 
     /**

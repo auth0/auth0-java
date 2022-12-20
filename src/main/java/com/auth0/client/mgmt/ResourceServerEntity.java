@@ -46,10 +46,9 @@ public class ResourceServerEntity extends BaseManagementEntity {
         }
 
         String url = builder.build().toString();
-        BaseRequest<ResourceServersPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET,
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET,
                 new TypeReference<ResourceServersPage>() {
                 });
-        return request;
     }
 
     /**
@@ -67,10 +66,9 @@ public class ResourceServerEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/resource-servers");
 
         String url = builder.build().toString();
-        BaseRequest<List<ResourceServer>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET,
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET,
                 new TypeReference<List<ResourceServer>>() {
                 });
-        return request;
     }
 
     /**
@@ -89,10 +87,9 @@ public class ResourceServerEntity extends BaseManagementEntity {
                 .addPathSegment(resourceServerIdOrIdentifier);
 
         String url = builder.build().toString();
-        BaseRequest<ResourceServer> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET,
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET,
                 new TypeReference<ResourceServer>() {
                 });
-        return request;
     }
 
     /**
@@ -133,8 +130,7 @@ public class ResourceServerEntity extends BaseManagementEntity {
                 .addPathSegment(resourceServerId);
 
         String url = builder.build().toString();
-        VoidRequest request =  new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
-        return request;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 
     /**
@@ -155,9 +151,9 @@ public class ResourceServerEntity extends BaseManagementEntity {
                 .addPathSegment(resourceServerId);
 
         String url = builder.build().toString();
-        BaseRequest<ResourceServer> request = new BaseRequest<ResourceServer>(client, tokenProvider, url, HttpMethod.PATCH,
-                new TypeReference<ResourceServer>() {
-                });
+        BaseRequest<ResourceServer> request = new BaseRequest<>(client, tokenProvider, url, HttpMethod.PATCH,
+            new TypeReference<ResourceServer>() {
+            });
         request.setBody(resourceServer);
         return request;
     }

@@ -38,9 +38,8 @@ public class KeysEntity extends BaseManagementEntity {
             .newBuilder()
             .addEncodedPathSegments("api/v2/keys/signing");
         String url = builder.build().toString();
-        BaseRequest<List<Key>> request = new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Key>>() {
+        return new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Key>>() {
         });
-        return request;
     }
 
 
@@ -59,9 +58,8 @@ public class KeysEntity extends BaseManagementEntity {
             .addPathSegments("api/v2/keys/signing")
             .addPathSegment(kid);
         String url = builder.build().toString();
-        BaseRequest<Key> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Key>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Key>() {
         });
-        return request;
     }
 
     /**
@@ -77,9 +75,8 @@ public class KeysEntity extends BaseManagementEntity {
             .addPathSegments("api/v2/keys/signing/rotate")
             .build()
             .toString();
-        BaseRequest<Key> request = new EmptyBodyRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<Key>() {
+        return new EmptyBodyRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<Key>() {
         });
-        return request;
     }
 
     /**
@@ -100,8 +97,7 @@ public class KeysEntity extends BaseManagementEntity {
             .addPathSegment("revoke")
             .build()
             .toString();
-        BaseRequest<Key> request = new EmptyBodyRequest<>(this.client, tokenProvider, url, HttpMethod.PUT, new TypeReference<Key>() {
+        return new EmptyBodyRequest<>(this.client, tokenProvider, url, HttpMethod.PUT, new TypeReference<Key>() {
         });
-        return request;
     }
 }

@@ -39,9 +39,8 @@ public class RulesConfigsEntity extends BaseManagementEntity {
                 .newBuilder()
                 .addPathSegments("api/v2/rules-configs");
         String url = builder.build().toString();
-        BaseRequest<List<RulesConfig>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<RulesConfig>>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<RulesConfig>>() {
         });
-        return request;
     }
 
     /**
@@ -60,8 +59,7 @@ public class RulesConfigsEntity extends BaseManagementEntity {
                 .addPathSegment(rulesConfigKey)
                 .build()
                 .toString();
-        VoidRequest request =  new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
-        return request;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 
     /**

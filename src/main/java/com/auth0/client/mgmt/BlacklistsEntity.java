@@ -42,9 +42,8 @@ public class BlacklistsEntity extends BaseManagementEntity {
                 .addQueryParameter("aud", audience)
                 .build()
                 .toString();
-        BaseRequest<List<Token>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Token>>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Token>>() {
         });
-        return request;
     }
 
     /**

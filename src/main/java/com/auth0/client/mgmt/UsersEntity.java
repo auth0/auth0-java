@@ -65,9 +65,8 @@ public class UsersEntity extends BaseManagementEntity {
         }
 
         String url = builder.build().toString();
-        BaseRequest<List<User>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<User>>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<User>>() {
         });
-        return request;
     }
 
     /**
@@ -85,9 +84,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/users");
         encodeAndAddQueryParam(builder, filter);
         String url = builder.build().toString();
-        BaseRequest<UsersPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<UsersPage>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<UsersPage>() {
         });
-        return request;
     }
 
     /**
@@ -113,9 +111,8 @@ public class UsersEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<User> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<User>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<User>() {
         });
-        return request;
     }
 
     /**
@@ -157,8 +154,7 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegment(userId)
                 .build()
                 .toString();
-        VoidRequest request =   new VoidRequest(client, tokenProvider, url, HttpMethod.DELETE);
-        return request;
+        return new VoidRequest(client, tokenProvider, url, HttpMethod.DELETE);
     }
 
     /**
@@ -206,9 +202,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        BaseRequest<List<Enrollment>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Enrollment>>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Enrollment>>() {
         });
-        return request;
     }
 
     /**
@@ -231,9 +226,8 @@ public class UsersEntity extends BaseManagementEntity {
 
         encodeAndAddQueryParam(builder, filter);
         String url = builder.build().toString();
-        BaseRequest<LogEventsPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<LogEventsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<LogEventsPage>() {
         });
-        return request;
     }
 
     /**
@@ -248,9 +242,7 @@ public class UsersEntity extends BaseManagementEntity {
     public Request<Void> deleteAllAuthenticators(String userId) {
         Asserts.assertNotNull(userId, "user id");
 
-        return voidRequest(HttpMethod.DELETE, builder -> {
-            builder.withPathSegments(String.format("api/v2/users/%s/authenticators", userId));
-        });
+        return voidRequest(HttpMethod.DELETE, builder -> builder.withPathSegments(String.format("api/v2/users/%s/authenticators", userId)));
     }
     
     /**
@@ -274,8 +266,7 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegment(provider)
                 .build()
                 .toString();
-        VoidRequest request =   new VoidRequest(client, tokenProvider, url, HttpMethod.DELETE);
-        return request;
+        return new VoidRequest(client, tokenProvider, url, HttpMethod.DELETE);
     }
 
     /**
@@ -297,9 +288,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        EmptyBodyRequest<RecoveryCode> request =  new EmptyBodyRequest<>(client, tokenProvider, url,  HttpMethod.POST, new TypeReference<RecoveryCode>() {
+        return new EmptyBodyRequest<>(client, tokenProvider, url,  HttpMethod.POST, new TypeReference<RecoveryCode>() {
         });
-        return request;
     }
 
     /**
@@ -389,9 +379,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        BaseRequest<List<Identity>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.DELETE, new TypeReference<List<Identity>>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.DELETE, new TypeReference<List<Identity>>() {
         });
-        return request;
     }
 
     /**
@@ -416,9 +405,8 @@ public class UsersEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<PermissionsPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<PermissionsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<PermissionsPage>() {
         });
-        return request;
     }
 
 
@@ -500,9 +488,8 @@ public class UsersEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<RolesPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<RolesPage>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<RolesPage>() {
         });
-        return request;
     }
 
 
@@ -587,9 +574,8 @@ public class UsersEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<OrganizationsPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<OrganizationsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<OrganizationsPage>() {
         });
-        return request;
     }
 
     private static void encodeAndAddQueryParam(HttpUrl.Builder builder, BaseFilter filter) {

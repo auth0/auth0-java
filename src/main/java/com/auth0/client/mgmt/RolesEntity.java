@@ -52,8 +52,7 @@ public class RolesEntity extends BaseManagementEntity {
       }
     }
     String url = builder.build().toString();
-    BaseRequest<RolesPage> request = new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.GET, new TypeReference<RolesPage>() {});
-    return request;
+      return new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.GET, new TypeReference<RolesPage>() {});
   }
 
   /**
@@ -73,8 +72,7 @@ public class RolesEntity extends BaseManagementEntity {
         .addEncodedPathSegments(roleId);
 
     String url = builder.build().toString();
-    BaseRequest<Role> request = new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Role>() {});
-    return request;
+      return new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Role>() {});
   }
 
 
@@ -116,8 +114,7 @@ public class RolesEntity extends BaseManagementEntity {
         .addEncodedPathSegments(roleId)
         .build()
         .toString();
-    VoidRequest request = new VoidRequest(this.client, tokenProvider, url,  HttpMethod.DELETE);
-    return request;
+      return new VoidRequest(this.client, tokenProvider, url,  HttpMethod.DELETE);
   }
 
   /**
@@ -167,8 +164,7 @@ public class RolesEntity extends BaseManagementEntity {
       }
     }
     String url = builder.build().toString();
-    BaseRequest<UsersPage> request = new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.GET, new TypeReference<UsersPage>() {});
-    return request;
+      return new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.GET, new TypeReference<UsersPage>() {});
   }
 
   /**
@@ -222,8 +218,7 @@ public class RolesEntity extends BaseManagementEntity {
       }
     }
     String url = builder.build().toString();
-    BaseRequest<PermissionsPage> request = new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.GET, new TypeReference<PermissionsPage>() {});
-    return request;
+      return new BaseRequest<>(this.client, tokenProvider, url,  HttpMethod.GET, new TypeReference<PermissionsPage>() {});
   }
 
   /**

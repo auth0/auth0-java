@@ -47,9 +47,8 @@ public class EmailTemplatesEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/email-templates")
                 .addPathSegment(templateName);
         String url = builder.build().toString();
-        BaseRequest<EmailTemplate> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<EmailTemplate>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<EmailTemplate>() {
         });
-        return request;
     }
 
     /**

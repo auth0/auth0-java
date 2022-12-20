@@ -43,9 +43,8 @@ public class EmailProviderEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<EmailProvider> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<EmailProvider>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<EmailProvider>() {
         });
-        return request;
     }
 
     /**
@@ -81,8 +80,7 @@ public class EmailProviderEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/emails/provider")
                 .build()
                 .toString();
-        VoidRequest request =  new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
-        return request;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 
     /**

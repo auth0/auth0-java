@@ -53,9 +53,8 @@ public class JobsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        BaseRequest<Job> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Job>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Job>() {
         });
-        return request;
     }
 
     /**
@@ -78,7 +77,7 @@ public class JobsEntity extends BaseManagementEntity {
 
         TypeReference<List<JobErrorDetails>> jobErrorDetailsListType = new TypeReference<List<JobErrorDetails>>() {
         };
-        BaseRequest<List<JobErrorDetails>> request = new BaseRequest<List<JobErrorDetails>>(client, tokenProvider, url, HttpMethod.GET, jobErrorDetailsListType) {
+        return new BaseRequest<List<JobErrorDetails>>(client, tokenProvider, url, HttpMethod.GET, jobErrorDetailsListType) {
             @Override
             protected List<JobErrorDetails> readResponseBody(Auth0HttpResponse response) throws IOException {
                 if (response.getBody() == null || response.getBody().length() == 0) {
@@ -87,7 +86,6 @@ public class JobsEntity extends BaseManagementEntity {
                 return super.readResponseBody(response);
             }
         };
-        return request;
     }
 
     /**

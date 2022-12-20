@@ -51,9 +51,8 @@ public class GrantsEntity extends BaseManagementEntity {
         }
 
         String url = builder.build().toString();
-        BaseRequest<GrantsPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<GrantsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<GrantsPage>() {
         });
-        return request;
     }
 
     /**
@@ -75,9 +74,8 @@ public class GrantsEntity extends BaseManagementEntity {
                 .addQueryParameter("user_id", userId)
                 .build()
                 .toString();
-        BaseRequest<List<Grant>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Grant>>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Grant>>() {
         });
-        return request;
     }
 
     /**
@@ -96,8 +94,7 @@ public class GrantsEntity extends BaseManagementEntity {
                 .addPathSegment(grantId)
                 .build()
                 .toString();
-        VoidRequest request =  new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
-        return request;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 
     /**
@@ -116,8 +113,7 @@ public class GrantsEntity extends BaseManagementEntity {
                 .addQueryParameter("user_id", userId)
                 .build()
                 .toString();
-        VoidRequest request =  new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
-        return request;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 
 }

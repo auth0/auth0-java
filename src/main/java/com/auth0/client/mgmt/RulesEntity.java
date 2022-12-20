@@ -46,9 +46,8 @@ public class RulesEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<RulesPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<RulesPage>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<RulesPage>() {
         });
-        return request;
     }
 
     /**
@@ -74,9 +73,8 @@ public class RulesEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<List<Rule>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Rule>>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Rule>>() {
         });
-        return request;
     }
 
     /**
@@ -100,9 +98,8 @@ public class RulesEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<Rule> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Rule>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Rule>() {
         });
-        return request;
     }
 
     /**
@@ -142,8 +139,7 @@ public class RulesEntity extends BaseManagementEntity {
                 .addPathSegment(ruleId)
                 .build()
                 .toString();
-        VoidRequest request =  new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
-        return request;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 
     /**

@@ -27,7 +27,6 @@ import java.util.Map;
 public class OrganizationsEntity extends BaseManagementEntity {
 
     private final static String ORGS_PATH = "api/v2/organizations";
-    private final static String AUTHORIZATION_HEADER = "Authorization";
 
     OrganizationsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
         super(client, baseUrl, tokenProvider);
@@ -51,10 +50,9 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        BaseRequest<OrganizationsPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<OrganizationsPage>() {
-        });
 
-        return request;
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<OrganizationsPage>() {
+        });
     }
 
     /**
@@ -75,10 +73,8 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        BaseRequest<Organization> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Organization>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Organization>() {
         });
-
-        return request;
     }
 
     /**
@@ -100,10 +96,8 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        BaseRequest<Organization> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Organization>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Organization>() {
         });
-
-        return request;
     }
 
     /**
@@ -175,8 +169,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        VoidRequest voidRequest =  new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
-        return voidRequest;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 
     // Organization members
@@ -202,9 +195,8 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        BaseRequest<MembersPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<MembersPage>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<MembersPage>() {
         });
-        return request;
     }
 
     /**
@@ -282,9 +274,8 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        BaseRequest<EnabledConnectionsPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<EnabledConnectionsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<EnabledConnectionsPage>() {
         });
-        return request;
     }
 
     /**
@@ -309,9 +300,8 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        BaseRequest<EnabledConnection> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<EnabledConnection>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<EnabledConnection>() {
         });
-        return request;
     }
 
     /**
@@ -363,8 +353,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        VoidRequest voidRequest =  new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
-        return voidRequest;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 
     /**
@@ -424,9 +413,8 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        BaseRequest<RolesPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<RolesPage>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<RolesPage>() {
         });
-        return request;
     }
 
     /**
@@ -543,9 +531,8 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        BaseRequest<Invitation> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Invitation>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Invitation>() {
         });
-        return request;
     }
 
     /**
@@ -569,9 +556,8 @@ public class OrganizationsEntity extends BaseManagementEntity {
         applyFilter(filter, builder);
 
         String url = builder.build().toString();
-        BaseRequest<InvitationsPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<InvitationsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<InvitationsPage>() {
         });
-        return request;
     }
 
     /**
@@ -596,8 +582,7 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        VoidRequest request =  new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
-        return request;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 
     private void applyFilter(BaseFilter filter, HttpUrl.Builder builder) {

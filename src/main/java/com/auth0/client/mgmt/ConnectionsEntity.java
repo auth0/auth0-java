@@ -47,9 +47,8 @@ public class ConnectionsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<ConnectionsPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<ConnectionsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<ConnectionsPage>() {
         });
-        return request;
     }
 
 
@@ -76,9 +75,8 @@ public class ConnectionsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<List<Connection>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Connection>>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Connection>>() {
         });
-        return request;
     }
 
     /**
@@ -102,9 +100,8 @@ public class ConnectionsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<Connection> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Connection>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Connection>() {
         });
-        return request;
     }
 
     /**
@@ -144,8 +141,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addPathSegment(connectionId)
                 .build()
                 .toString();
-        VoidRequest request =  new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
-        return request;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 
     /**
@@ -192,7 +188,6 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addQueryParameter("email", email)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(this.client, tokenProvider, url,  HttpMethod.DELETE);
-        return request;
+        return new VoidRequest(this.client, tokenProvider, url,  HttpMethod.DELETE);
     }
 }

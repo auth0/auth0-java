@@ -43,9 +43,8 @@ public class TenantsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<Tenant> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Tenant>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Tenant>() {
         });
-        return request;
     }
 
     /**

@@ -46,9 +46,8 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/clients")
                 .build()
                 .toString();
-        BaseRequest<List<Client>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Client>>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<Client>>() {
         });
-        return request;
     }
 
     /**
@@ -68,9 +67,8 @@ public class ClientsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<ClientsPage> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<ClientsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<ClientsPage>() {
         });
-        return request;
     }
 
     /**
@@ -89,9 +87,8 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegment(clientId)
                 .build()
                 .toString();
-        BaseRequest<Client> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Client>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Client>() {
         });
-        return request;
     }
 
     /**
@@ -115,9 +112,8 @@ public class ClientsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<Client> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Client>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<Client>() {
         });
-        return request;
     }
 
     /**
@@ -157,8 +153,7 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegment(clientId)
                 .build()
                 .toString();
-        VoidRequest request =  new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
-        return request;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 
     /**
@@ -203,8 +198,7 @@ public class ClientsEntity extends BaseManagementEntity {
                 .addPathSegment("rotate-secret")
                 .build()
                 .toString();
-        BaseRequest<Client> request = new EmptyBodyRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<Client>() {
+        return new EmptyBodyRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<Client>() {
         });
-        return request;
     }
 }

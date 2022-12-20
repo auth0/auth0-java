@@ -45,9 +45,8 @@ public class DeviceCredentialsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        BaseRequest<List<DeviceCredentials>> request =  new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<DeviceCredentials>>() {
+        return new BaseRequest<>(client, tokenProvider, url,  HttpMethod.GET, new TypeReference<List<DeviceCredentials>>() {
         });
-        return request;
     }
 
     /**
@@ -87,7 +86,6 @@ public class DeviceCredentialsEntity extends BaseManagementEntity {
                 .addPathSegment(deviceCredentialsId)
                 .build()
                 .toString();
-        VoidRequest request =  new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
-        return request;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 }
