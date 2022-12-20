@@ -32,8 +32,7 @@ public class MultipartRequest<T> extends BaseRequest<T> {
     private final ObjectMapper mapper;
     private int partsCount;
 
-    //TODO multipartBuilder is not used? Refactor it?
-    MultipartRequest(Auth0HttpClient client, TokenProvider tokenProvider, String url, HttpMethod method, ObjectMapper mapper, TypeReference<T> tType, Auth0MultipartRequestBody.Builder multipartBuilder) {
+    MultipartRequest(Auth0HttpClient client, TokenProvider tokenProvider, String url, HttpMethod method, ObjectMapper mapper, TypeReference<T> tType) {
         super(client, tokenProvider, url, method, mapper, tType);
         if (HttpMethod.GET.equals(method)) {
             throw new IllegalArgumentException("Multipart/form-data requests do not support the GET method.");
@@ -44,7 +43,7 @@ public class MultipartRequest<T> extends BaseRequest<T> {
     }
 
     public MultipartRequest(Auth0HttpClient client, TokenProvider tokenProvider, String url, HttpMethod method, TypeReference<T> tType) {
-        this(client, tokenProvider, url, method, ObjectMapperProvider.getMapper(), tType, Auth0MultipartRequestBody.newBuilder());
+        this(client, tokenProvider, url, method, ObjectMapperProvider.getMapper(), tType);
     }
 
     @Override

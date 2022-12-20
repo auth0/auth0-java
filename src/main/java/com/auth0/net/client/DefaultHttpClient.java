@@ -108,8 +108,6 @@ public class DefaultHttpClient implements Auth0HttpClient {
     }
 
     private Request buildRequest(Auth0HttpRequest a0Request) {
-        // TODO only use body on request methods that support it
-        // TODO not use null?
         RequestBody okBody = addBody(a0Request);
 
         okhttp3.Request.Builder builder = new okhttp3.Request.Builder()
@@ -155,7 +153,8 @@ public class DefaultHttpClient implements Auth0HttpClient {
     @SuppressWarnings("deprecation")
     private RequestBody addBody(Auth0HttpRequest request) {
         // null body added to request results in request without body
-        if (Objects.isNull(request.getBody())) {
+        if (Objects.isNull(request.getBody()) ||
+                HttpMethod.GET.equals(request.getMethod())) {
             return null;
         }
 
@@ -262,7 +261,6 @@ public class DefaultHttpClient implements Auth0HttpClient {
     /**
      * Builder for {@link DefaultHttpClient} instances.
      */
-    // TODO accept default headers
     public static class Builder {
         private int readTimeout = 10;
         private int connectTimeout = 10;

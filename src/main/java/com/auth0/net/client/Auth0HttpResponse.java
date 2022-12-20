@@ -41,12 +41,10 @@ public class Auth0HttpResponse {
     }
 
     public String getHeader(String header) {
-        // TODO null check?
         return headers.get(header);
     }
 
     public String getHeader(String header, String defaultValue) {
-        // TODO null check?
         return headers.get(header) != null ? headers.get(header) : defaultValue;
     }
     public static class Builder {
