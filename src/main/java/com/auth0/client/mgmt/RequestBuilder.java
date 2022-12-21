@@ -16,8 +16,6 @@ class RequestBuilder<T> {
     private final Auth0HttpClient client;
     private final TokenProvider tokenProvider;
     private final HttpMethod method;
-
-    // TODO decouple from OkHttp
     private final HttpUrl.Builder url;
     private final TypeReference<T> target;
 

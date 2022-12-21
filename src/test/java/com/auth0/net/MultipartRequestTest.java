@@ -92,11 +92,8 @@ public class MultipartRequestTest {
 
     @Test
     public void shouldAddMultipleParts() throws Exception {
-//        String boundary = UUID.randomUUID().toString();
-//        MultipartBody.Builder bodyBuilder = new MultipartBody.Builder(boundary);
         Auth0MultipartRequestBody.Builder bodyBuilder = Auth0MultipartRequestBody.newBuilder();
-//        MultipartBody.Builder bodyBuilder = new MultipartBody.Builder(boundary);
-        MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, tokenProvider, server.getBaseUrl(), HttpMethod.POST, new ObjectMapper(), tokenHolderType, bodyBuilder);
+        MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, tokenProvider, server.getBaseUrl(), HttpMethod.POST, new ObjectMapper(), tokenHolderType);
 
         File fileValue = new File(MULTIPART_SAMPLE);
         request.addPart("keyName", "keyValue");
@@ -107,7 +104,6 @@ public class MultipartRequestTest {
         RecordedRequest recordedRequest = server.takeRequest();
         RecordedMultipartRequest recordedMultipartRequest = new RecordedMultipartRequest(recordedRequest);
         assertThat(recordedMultipartRequest.getPartsCount(), is(2));
-//        assertThat(recordedMultipartRequest.getBoundary(), is(boundary));
 
         KeyValuePart formParam = recordedMultipartRequest.getKeyValuePart("keyName");
         assertThat(formParam, is(notNullValue()));
@@ -123,8 +119,7 @@ public class MultipartRequestTest {
 
     @Test
     public void shouldNotOverrideContentTypeHeader() throws Exception {
-        Auth0MultipartRequestBody.Builder bodyBuilder = Auth0MultipartRequestBody.newBuilder();
-        MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, tokenProvider, server.getBaseUrl(), HttpMethod.POST, new ObjectMapper(), tokenHolderType, bodyBuilder);
+        MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, tokenProvider, server.getBaseUrl(), HttpMethod.POST, new ObjectMapper(), tokenHolderType);
         request.addPart("non_empty", "body");
         request.addHeader("Content-Type", "plaintext");
 
