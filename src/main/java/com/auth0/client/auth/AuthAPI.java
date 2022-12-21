@@ -1,6 +1,5 @@
 package com.auth0.client.auth;
 
-import com.auth0.client.HttpOptions;
 import com.auth0.client.mgmt.ManagementAPI;
 import com.auth0.json.auth.PasswordlessEmailResponse;
 import com.auth0.json.auth.PasswordlessSmsResponse;
@@ -71,7 +70,7 @@ public class AuthAPI {
     /**
      * Create a new instance with the given tenant's domain, application's client id and client secret.
      * These values can be obtained at {@code https://manage.auth0.com/#/applications/{YOUR_CLIENT_ID}/settings}.
-     * In addition, accepts an {@link HttpOptions} that will be used to configure the networking client.
+     * In addition, accepts an {@link com.auth0.client.HttpOptions} that will be used to configure the networking client.
      *
      * @deprecated Use the {@link Builder} to configure and create instances.
      *
@@ -82,7 +81,8 @@ public class AuthAPI {
      * @see #AuthAPI(String, String, String)
      */
     @Deprecated
-    public AuthAPI(String domain, String clientId, String clientSecret, HttpOptions options) {
+    @SuppressWarnings("deprecation")
+    public AuthAPI(String domain, String clientId, String clientSecret, com.auth0.client.HttpOptions options) {
         this(domain, clientId, clientSecret, buildNetworkingClient(options));
     }
 
@@ -98,7 +98,7 @@ public class AuthAPI {
      */
     @Deprecated
     public AuthAPI(String domain, String clientId, String clientSecret) {
-        this(domain, clientId, clientSecret, new HttpOptions());
+        this(domain, clientId, clientSecret, new com.auth0.client.HttpOptions());
     }
 
     /**
@@ -145,7 +145,8 @@ public class AuthAPI {
      * @param options the options to set to the client.
      * @return a new networking client instance configured as requested.
      */
-    private static Auth0HttpClient buildNetworkingClient(HttpOptions options) {
+    @SuppressWarnings("deprecation")
+    private static Auth0HttpClient buildNetworkingClient(com.auth0.client.HttpOptions options) {
         Asserts.assertNotNull(options, "Http options");
         return DefaultHttpClient.newBuilder()
             .withLogging(options.getLoggingOptions())

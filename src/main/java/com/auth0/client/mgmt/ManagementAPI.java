@@ -1,6 +1,5 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.client.HttpOptions;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.DefaultHttpClient;
 import com.auth0.utils.Asserts;
@@ -37,7 +36,8 @@ public class ManagementAPI {
      * @see #ManagementAPI(String, String)
      */
     @Deprecated
-    public ManagementAPI(String domain, String apiToken, HttpOptions options) {
+    @SuppressWarnings("baz")
+    public ManagementAPI(String domain, String apiToken, com.auth0.client.HttpOptions options) {
         this(domain, SimpleTokenProvider.create(apiToken), buildNetworkingClient(options));
     }
 
@@ -86,7 +86,8 @@ public class ManagementAPI {
      * @param options the options to set to the client.
      * @return a new networking client instance configured as requested.
      */
-    private static DefaultHttpClient buildNetworkingClient(HttpOptions options) {
+    @SuppressWarnings("deprecation")
+    private static DefaultHttpClient buildNetworkingClient(com.auth0.client.HttpOptions options) {
         Asserts.assertNotNull(options, "Http options");
         return DefaultHttpClient.newBuilder()
             .withLogging(options.getLoggingOptions())
