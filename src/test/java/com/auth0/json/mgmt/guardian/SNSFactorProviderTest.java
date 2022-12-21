@@ -15,12 +15,7 @@ public class SNSFactorProviderTest extends JsonTest<SNSFactorProvider> {
     @SuppressWarnings("deprecation")
     @Test
     public void shouldSerializeWithDeprecatedSetters() throws Exception {
-        SNSFactorProvider provider = new SNSFactorProvider();
-        provider.setAWSRegion("ar");
-        provider.setAWSAccessKeyId("akey");
-        provider.setAWSSecretAccessKey("secretakey");
-        provider.setSNSAPNSPlatformApplicationARN("arn1");
-        provider.setSNSGCMPlatformApplicationARN("arn2");
+        SNSFactorProvider provider = new SNSFactorProvider("akey", "secretakey", "ar", "arn1", "arn2");
 
         String serialized = toJSON(provider);
         assertThat(serialized, is(notNullValue()));

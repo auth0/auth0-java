@@ -56,29 +56,6 @@ public class GrantsEntity extends BaseManagementEntity {
     }
 
     /**
-     * Request all Grants. A token with scope read:grants is needed
-     * See https://auth0.com/docs/api/management/v2#!/Grants/get_grants
-     *
-     * @param userId The user id of the grants to retrieve
-     * @return a Request to execute.
-     * @deprecated Calling this method will soon stop returning the complete list of grants and instead, limit to the first page of results.
-     * Please use {@link #list(String, GrantsFilter)} instead as it provides pagination support.
-     */
-    @Deprecated
-    public Request<List<Grant>> list(String userId) {
-        Asserts.assertNotNull(userId, "user id");
-
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/grants")
-                .addQueryParameter("user_id", userId)
-                .build()
-                .toString();
-        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<Grant>>() {
-        });
-    }
-
-    /**
      * Delete an existing Grant. A token with scope delete:grants is needed.
      * See https://auth0.com/docs/api/management/v2#!/Grants/delete_grants_by_id<br>
      *

@@ -1,6 +1,5 @@
 package com.auth0.client.auth;
 
-import com.auth0.client.HttpOptions;
 import com.auth0.client.MockServer;
 import com.auth0.exception.APIException;
 import com.auth0.json.auth.*;
@@ -69,7 +68,7 @@ public class AuthAPITest {
     @Test
     @SuppressWarnings("deprecation")
     public void shouldAcceptHttpOptions() {
-        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, new HttpOptions());
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, new com.auth0.client.HttpOptions());
         assertThat(api, is(notNullValue()));
     }
 
@@ -139,11 +138,12 @@ public class AuthAPITest {
     }
 
     @Test
+    @SuppressWarnings("deprecation")
     public void shouldThrowOnInValidMaxRequestsPerHostConfiguration() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("maxRequestsPerHost must be one or greater.");
 
-        HttpOptions options = new HttpOptions();
+        com.auth0.client.HttpOptions options = new com.auth0.client.HttpOptions();
         options.setMaxRequestsPerHost(0);
     }
 

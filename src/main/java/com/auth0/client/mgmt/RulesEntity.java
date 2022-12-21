@@ -51,33 +51,6 @@ public class RulesEntity extends BaseManagementEntity {
     }
 
     /**
-     * Request all the Rules. A token with scope read:rules is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Rules/get_rules
-     *
-     * @param filter the filter to use. Can be null.
-     * @return a Request to execute.
-     * @deprecated Calling this method will soon stop returning the complete list of rules and instead, limit to the first page of results.
-     * Please use {@link #listAll(RulesFilter)} instead as it provides pagination support.
-     */
-    @Deprecated
-    public Request<List<Rule>> list(RulesFilter filter) {
-        HttpUrl.Builder builder = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/rules");
-        if (filter != null) {
-            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                //This check below is to prevent JSON parsing errors
-                if (!e.getKey().equalsIgnoreCase("include_totals")) {
-                    builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
-                }
-            }
-        }
-        String url = builder.build().toString();
-        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<Rule>>() {
-        });
-    }
-
-    /**
      * Request a Rule. A token with scope read:rules is needed.
      * See https://auth0.com/docs/api/management/v2#!/Rules/get_rules_by_id
      *

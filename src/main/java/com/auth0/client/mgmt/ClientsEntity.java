@@ -35,25 +35,6 @@ public class ClientsEntity extends BaseManagementEntity {
      * Request all the Applications. A token with scope read:clients is needed. If you also need the client_secret and encryption_key attributes the token must have read:client_keys scope.
      * See https://auth0.com/docs/api/management/v2#!/Clients/get_clients
      *
-     * @return a Request to execute.
-     * @deprecated Calling this method will soon stop returning the complete list of clients and instead, limit to the first page of results.
-     * Please use {@link #list(ClientFilter)} instead as it provides pagination support.
-     */
-    @Deprecated
-    public Request<List<Client>> list() {
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/clients")
-                .build()
-                .toString();
-        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<Client>>() {
-        });
-    }
-
-    /**
-     * Request all the Applications. A token with scope read:clients is needed. If you also need the client_secret and encryption_key attributes the token must have read:client_keys scope.
-     * See https://auth0.com/docs/api/management/v2#!/Clients/get_clients
-     *
      * @param filter the filter to use. Can be null.
      * @return a Request to execute.
      */

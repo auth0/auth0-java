@@ -82,25 +82,6 @@ public class ResourceServerEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldListResourceServers() throws Exception {
-        @SuppressWarnings("deprecation")
-        Request<List<ResourceServer>> request = api.resourceServers().list();
-
-        assertThat(request, is(notNullValue()));
-        server.jsonResponse(MGMT_RESOURCE_SERVERS_LIST, 200);
-
-        List<ResourceServer> response = request.execute().getBody();
-        RecordedRequest recordedRequest = server.takeRequest();
-
-        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/resource-servers"));
-        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
-        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response, hasSize(2));
-    }
-
-    @Test
     public void shouldUpdateResourceServer() throws Exception {
         ResourceServer resourceServer = new ResourceServer("https://api.my-company.com/api/v2/");
         resourceServer.setId("23445566abab");

@@ -1,6 +1,5 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.client.HttpOptions;
 import com.auth0.client.MockServer;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.net.client.Auth0HttpClient;
@@ -168,7 +167,7 @@ public class ManagementAPITest {
     @Test
     @SuppressWarnings("deprecation")
     public void acceptsHttpOptions() {
-        HttpOptions httpOptions = new HttpOptions();
+        com.auth0.client.HttpOptions httpOptions = new com.auth0.client.HttpOptions();
         httpOptions.setConnectTimeout(15);
         ManagementAPI api = new ManagementAPI(DOMAIN, "CLIENT_ID", httpOptions);
         assertThat(api, is(notNullValue()));
@@ -181,11 +180,12 @@ public class ManagementAPITest {
     }
 
     @Test
+    @SuppressWarnings("deprecation")
     public void shouldThrowOnInValidMaxRequestsPerHostConfiguration() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("maxRequestsPerHost must be one or greater.");
 
-        HttpOptions options = new HttpOptions();
+        com.auth0.client.HttpOptions options = new com.auth0.client.HttpOptions();
         options.setMaxRequestsPerHost(0);
     }
 

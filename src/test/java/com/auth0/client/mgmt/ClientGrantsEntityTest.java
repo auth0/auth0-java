@@ -101,38 +101,6 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
         assertThat(response.getItems(), hasSize(2));
     }
 
-
-    @Test
-    public void shouldListClientGrants() throws Exception {
-        @SuppressWarnings("deprecation")
-        Request<List<ClientGrant>> request = api.clientGrants().list();
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MGMT_CLIENT_GRANTS_LIST, 200);
-        List<ClientGrant> response = request.execute().getBody();
-        RecordedRequest recordedRequest = server.takeRequest();
-
-        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/client-grants"));
-        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
-        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response, hasSize(2));
-    }
-
-    @Test
-    public void shouldReturnEmptyClientGrants() throws Exception {
-        @SuppressWarnings("deprecation")
-        Request<List<ClientGrant>> request = api.clientGrants().list();
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MGMT_EMPTY_LIST, 200);
-        List<ClientGrant> response = request.execute().getBody();
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response, is(emptyCollectionOf(ClientGrant.class)));
-    }
-
     @Test
     public void shouldThrowOnCreateClientGrantWithNullClientId() {
         exception.expect(IllegalArgumentException.class);
