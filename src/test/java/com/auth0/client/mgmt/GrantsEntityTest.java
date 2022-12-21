@@ -110,55 +110,6 @@ public class GrantsEntityTest extends BaseMgmtEntityTest {
         assertThat(response.getItems(), hasSize(2));
     }
 
-
-    @Test
-    public void shouldListGrants() throws Exception {
-        @SuppressWarnings("deprecation")
-        Request<List<Grant>> request = api.grants().list("userId");
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MGMT_GRANTS_LIST, 200);
-        List<Grant> response = request.execute().getBody();
-        RecordedRequest recordedRequest = server.takeRequest();
-
-        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/grants"));
-        assertThat(recordedRequest, hasQueryParameter("user_id", "userId"));
-        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
-        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response, hasSize(2));
-        for (Grant grant : response) {
-            assertThat(grant.getAudience(), notNullValue());
-            assertThat(grant.getClientId(), notNullValue());
-            assertThat(grant.getId(), notNullValue());
-            assertThat(grant.getScope(), notNullValue());
-            assertThat(grant.getScope(), hasSize(2));
-            assertThat(grant.getUserId(), equalTo("userId"));
-        }
-    }
-
-    @SuppressWarnings("deprecation")
-    @Test
-    public void shouldThrowOnListGrantsWithNullUserId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'user id' cannot be null!");
-        api.grants().list(null);
-    }
-
-    @Test
-    public void shouldReturnEmptyGrants() throws Exception {
-        @SuppressWarnings("deprecation")
-        Request<List<Grant>> request = api.grants().list("userId");
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MGMT_EMPTY_LIST, 200);
-        List<Grant> response = request.execute().getBody();
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response, is(emptyCollectionOf(Grant.class)));
-    }
-
     @Test
     public void shouldThrowOnDeleteGrantWithNullId() {
         exception.expect(IllegalArgumentException.class);

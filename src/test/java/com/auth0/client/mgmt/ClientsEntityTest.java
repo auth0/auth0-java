@@ -124,37 +124,6 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldListClients() throws Exception {
-        @SuppressWarnings("deprecation")
-        Request<List<Client>> request = api.clients().list();
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MGMT_CLIENTS_LIST, 200);
-        List<Client> response = request.execute().getBody();
-        RecordedRequest recordedRequest = server.takeRequest();
-
-        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/clients"));
-        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
-        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response, hasSize(2));
-    }
-
-    @Test
-    public void shouldReturnEmptyClients() throws Exception {
-        @SuppressWarnings("deprecation")
-        Request<List<Client>> request = api.clients().list();
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MGMT_EMPTY_LIST, 200);
-        List<Client> response = request.execute().getBody();
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response, is(emptyCollectionOf(Client.class)));
-    }
-
-    @Test
     public void shouldThrowOnGetClientWithNullId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client id' cannot be null!");

@@ -53,33 +53,6 @@ public class ConnectionsEntity extends BaseManagementEntity {
 
 
     /**
-     * Request all the ConnectionsEntity. A token with scope read:connections is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Connections/get_connections
-     *
-     * @param filter the filter to use. Can be null.
-     * @return a Request to execute.
-     * @deprecated Calling this method will soon stop returning the complete list of connections and instead, limit to the first page of results.
-     * Please use {@link #listAll(ConnectionFilter)} instead as it provides pagination support.
-     */
-    @Deprecated
-    public Request<List<Connection>> list(ConnectionFilter filter) {
-        HttpUrl.Builder builder = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/connections");
-        if (filter != null) {
-            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                //This check below is to prevent JSON parsing errors
-                if (!e.getKey().equalsIgnoreCase("include_totals")) {
-                    builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
-                }
-            }
-        }
-        String url = builder.build().toString();
-        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<Connection>>() {
-        });
-    }
-
-    /**
      * Request a Connection. A token with scope read:connections is needed.
      * See https://auth0.com/docs/api/management/v2#!/Connections/get_connections_by_id
      *

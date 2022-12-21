@@ -52,26 +52,6 @@ public class ResourceServerEntity extends BaseManagementEntity {
     }
 
     /**
-     * Creates request to fetch all resource servers.
-     * See <a href=https://auth0.com/docs/api/management/v2#!/Resource_Servers/get_resource_servers>API documentation</a>
-     *
-     * @return request to execute
-     * @deprecated Calling this method will soon stop returning the complete list of resource servers and instead, limit to the first page of results.
-     * Please use {@link #list(ResourceServersFilter)} instead as it provides pagination support.
-     */
-    @Deprecated
-    public Request<List<ResourceServer>> list() {
-        HttpUrl.Builder builder = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/resource-servers");
-
-        String url = builder.build().toString();
-        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET,
-                new TypeReference<List<ResourceServer>>() {
-                });
-    }
-
-    /**
      * Cretes request for fetching single resource server by it's ID.
      * See <a href=https://auth0.com/docs/api/management/v2#!/Resource_Servers/get_resource_servers_by_id>API documentation</a>
      *
