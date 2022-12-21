@@ -24,7 +24,7 @@ public class ManagementAPI {
 
     /**
      * Create an instance with the given tenant's domain and API token.
-     * In addition, accepts an {@link HttpOptions} that will be used to configure the networking client.
+     * In addition, accepts an {@link com.auth0.client.HttpOptions} that will be used to configure the networking client.
      * See the Management API section in the readme or visit https://auth0.com/docs/api/management/v2/tokens
      * to learn how to obtain a token.
      *
