@@ -24,18 +24,9 @@ public interface Request<T> {
     /**
      * Executes this request asynchronously.
      *
-     * Note: This method was added after the interface was released in version 1.0.
-     * It is defined as a default method for compatibility reasons.
-     * From version 2.0 on, the method will be abstract and all implementations of this interface
-     * will have to provide their own implementation.
-     *
-     * The default implementation throws an {@linkplain UnsupportedOperationException}.
-     *
      * @return a {@linkplain CompletableFuture} representing the specified request.
      */
-    default CompletableFuture<Response<T>> executeAsync() {
-        throw new UnsupportedOperationException("executeAsync");
-    }
+    CompletableFuture<Response<T>> executeAsync();
 
     /**
      * Adds an HTTP header to the request
