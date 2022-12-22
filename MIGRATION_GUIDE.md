@@ -130,7 +130,7 @@ The following summarizes details of the changes in version 2, including types an
 - Deprecated `void com.auth0.json.mgmt.guardian.TwilioFactorProvider#setMessagingServiceSID(String messagingServiceSID)` has been removed. Use the constructor instead.
 - Deprecated `void com.auth0.json.mgmt.guardian.TwilioFactorProvider#setAuthToken(String authToken)` has been removed. Use the constructor instead.
 - Deprecated `void com.auth0.json.mgmt.guardian.TwilioFactorProvider#setSID(String SID)` has been removed. Use the constructor instead.
-- The default implementation of `com.auth0.net.Request#executeAsync()` has been removed; implementation must provide an implementation of `executeAsync`.
+- The default implementation of `com.auth0.net.Request#executeAsync()` has been removed; implementations must provide an implementation of `executeAsync`.
 
 ### New classes and methods
 
