@@ -1,7 +1,9 @@
 package com.auth0.net;
 
+import com.auth0.exception.Auth0Exception;
 import com.auth0.net.client.DefaultHttpClient;
 import net.jodah.failsafe.Failsafe;
+import net.jodah.failsafe.FailsafeException;
 import net.jodah.failsafe.RetryPolicy;
 import net.jodah.failsafe.event.ExecutionAttemptedEvent;
 import net.jodah.failsafe.function.CheckedConsumer;
@@ -78,6 +80,12 @@ public class RateLimitInterceptor implements Interceptor {
             retryPolicy.onRetry(retryListener);
         }
 
-        return Failsafe.with(retryPolicy).get(() -> chain.proceed(chain.request()));
+        try {
+            // throw Auth0Exception instead of FailSafe exception on error
+            // see https://github.com/auth0/auth0-java/issues/483
+            return Failsafe.with(retryPolicy).get(() -> chain.proceed(chain.request()));
+        } catch (FailsafeException fe) {
+            throw new Auth0Exception("Failed to execute request", fe.getCause());
+        }
     }
 }
