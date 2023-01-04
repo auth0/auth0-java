@@ -2,11 +2,13 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.MockServer;
 import com.auth0.json.mgmt.logstreams.LogStream;
+import com.auth0.json.mgmt.logstreams.LogStreamFilter;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +41,7 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(response, everyItem(hasProperty("type", is(notNullValue()))));
         assertThat(response, everyItem(hasProperty("status", is(notNullValue()))));
         assertThat(response, everyItem(hasProperty("sink", is(notNullValue()))));
+        assertThat(response, everyItem(hasProperty("filters", is(notNullValue()))));
     }
 
     @Test
@@ -72,11 +75,14 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(response, hasProperty("type", is(notNullValue())));
         assertThat(response, hasProperty("status", is(notNullValue())));
         assertThat(response, hasProperty("sink", is(notNullValue())));
+        assertThat(response, hasProperty("filters", is(notNullValue())));
     }
 
     @Test
     public void shouldCreateLogStream() throws Exception {
         LogStream logStream = getLogStream("log stream", "http");
+        LogStreamFilter filter = new LogStreamFilter("category", "auth.ancillary.success");
+        logStream.setFilters(Collections.singletonList(filter));
 
         Request<LogStream> request = api.logStreams().create(logStream);
         assertThat(request, is(notNullValue()));
@@ -90,10 +96,12 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body.size(), is(3));
+        assertThat(body.size(), is(4));
         assertThat(body, hasEntry("name", "log stream"));
         assertThat(body, hasEntry("type", "http"));
         assertThat(body, hasEntry("sink", logStream.getSink()));
+        assertThat(body, hasKey("filters"));
+        assertThat(body.get("filters"), is(notNullValue()));
 
         assertThat(response, is(notNullValue()));
         assertThat(response, hasProperty("id", is(notNullValue())));
@@ -101,6 +109,7 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(response, hasProperty("type", is(notNullValue())));
         assertThat(response, hasProperty("status", is(notNullValue())));
         assertThat(response, hasProperty("sink", is(notNullValue())));
+        assertThat(response, hasProperty("filters", is(notNullValue())));
 
     }
 
