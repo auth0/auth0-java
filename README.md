@@ -1,3 +1,5 @@
+> **Warning** You are viewing the v2 beta version; it is subject to breaking changes prior to the General Availability release. It is not recommended for production use, but your feedback and help in testing is appreciated!
+
 ![A Java client library for the Auth0 Authentication and Management APIs.](https://cdn.auth0.com/website/sdks/banners/auth0-java-banner.png)
 
 [![CircleCI](https://img.shields.io/circleci/project/github/auth0/auth0-java.svg?style=flat-square)](https://circleci.com/gh/auth0/auth0-java/tree/master)
