@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.44.2](https://github.com/auth0/auth0-java/tree/1.44.2) (2023-01-11)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.44.1...1.44.2)
+
+This patch release does not contain any functional changes, but is being released using an updated signing key for verification as part of our commitment to best security practices.
+Please review [the README note for additional details.](https://github.com/auth0/auth0-java/blob/master/README.md)
+
+**Security**
+- Bump java-jwt dependency to 3.19.4 [\#498](https://github.com/auth0/auth0-java/pull/498) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.44.1](https://github.com/auth0/auth0-java/tree/1.44.1) (2022-10-25)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.44.0...1.44.1)
 
