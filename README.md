@@ -1,3 +1,8 @@
+> **Note**
+> As part of our ongoing commitment to best security practices, we have rotated the signing keys used to sign previous releases of this SDK. As a result, new patch builds have been released using the new signing key. Please upgrade at your earliest convenience.
+>
+> While this change won't affect most developers, if you have implemented a dependency signature validation step in your build process, you may notice a warning that past releases can't be verified. This is expected, and a result of the key rotation process. Updating to the latest version will resolve this for you.
+
 ![A Java client library for the Auth0 Authentication and Management APIs.](https://cdn.auth0.com/website/sdks/banners/auth0-java-banner.png)
 
 [![CircleCI](https://img.shields.io/circleci/project/github/auth0/auth0-java.svg?style=flat-square)](https://circleci.com/gh/auth0/auth0-java/tree/master)
@@ -28,14 +33,14 @@ Add the dependency via Maven:
 <dependency>
   <groupId>com.auth0</groupId>
   <artifactId>auth0</artifactId>
-  <version>1.44.1</version>
+  <version>1.44.2</version>
 </dependency>
 ```
 
 or Gradle:
 
 ```gradle
-implementation 'com.auth0:auth0:1.44.1'
+implementation 'com.auth0:auth0:1.44.2'
 ```
 
 ### Configure the SDK
