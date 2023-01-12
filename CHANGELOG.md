@@ -1,5 +1,18 @@
 # Change Log
 
+## [2.0.0 Beta 0](https://github.com/auth0/auth0-java/tree/2.0.0-beta.0) (2023-01-12)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.44.2...2.0.0-beta.0)
+
+> **Warning** This SDK is in beta and is subject to breaking changes. It is not recommended for production use, but your feedback and help in testing is appreciated!
+
+This release introduces several enhancement, including:
+- HTTP response information returned from requests
+- Additional HTTP client configurability
+- Authentication API improvements to not require a client secret
+- ... and more!
+
+Please see the [Migration Guide](MIGRATION_GUIDE.md) for guidance on updating your application.
+
 ## [1.44.2](https://github.com/auth0/auth0-java/tree/1.44.2) (2023-01-11)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.44.1...1.44.2)
 
