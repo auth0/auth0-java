@@ -102,6 +102,11 @@ public class MockServer {
     public static final String MULTIPART_SAMPLE = "src/test/resources/mgmt/multipart_sample.json";
     public static final String PASSWORDLESS_EMAIL_RESPONSE = "src/test/resources/auth/passwordless_email.json";
     public static final String PASSWORDLESS_SMS_RESPONSE = "src/test/resources/auth/passwordless_sms.json";
+    public static final String AUTHENTICATOR_METHOD_BY_ID = "src/test/resources/mgmt/authenticator_method_by_id.json";
+    public static final String AUTHENTICATOR_METHOD_CREATE = "src/test/resources/mgmt/authenticator_method_create.json";
+    public static final String AUTHENTICATOR_METHOD_LIST = "src/test/resources/mgmt/authenticator_method_list.json";
+    public static final String AUTHENTICATOR_METHOD_UPDATE = "src/test/resources/mgmt/authenticator_method_update.json";
+    public static final String AUTHENTICATOR_METHOD_UPDATE_BY_ID = "src/test/resources/mgmt/authenticator_method_update_by_id.json";
     public static final String ORGANIZATION = "src/test/resources/mgmt/organization.json";
     public static final String ORGANIZATIONS_LIST = "src/test/resources/mgmt/organizations_list.json";
     public static final String ORGANIZATIONS_PAGED_LIST = "src/test/resources/mgmt/organizations_paged_list.json";

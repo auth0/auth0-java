@@ -4,6 +4,8 @@ import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.client.mgmt.filter.LogEventFilter;
 import com.auth0.client.mgmt.filter.PageFilter;
 import com.auth0.client.mgmt.filter.UserFilter;
+import com.auth0.json.mgmt.authenticationmethods.AuthenticationMethod;
+import com.auth0.json.mgmt.authenticationmethods.AuthenticationMethodsPage;
 import com.auth0.json.mgmt.permissions.Permission;
 import com.auth0.json.mgmt.permissions.PermissionsPage;
 import com.auth0.json.mgmt.roles.RolesPage;
@@ -1078,5 +1080,229 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(response.getStart(), is(0));
         assertThat(response.getTotal(), is(2));
         assertThat(response.getLimit(), is(20));
+    }
+
+    @Test
+    public void shouldGetUserAuthenticationMethodsWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("user ID");
+        api.users().getAuthenticationMethods(null, null);
+    }
+
+    @Test
+    public void shouldGetUserAuthenticationMethodsWithoutFilter() throws Exception {
+        Request<AuthenticationMethodsPage> request = api.users().getAuthenticationMethods("1", null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTHENTICATOR_METHOD_LIST, 200);
+        AuthenticationMethodsPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/authentication-methods"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+
+
+    @Test
+    public void shouldGetUserAuthenticationMethodsWithPaging() throws Exception {
+        Request<AuthenticationMethodsPage> request = api.users().getAuthenticationMethods("1",
+            new PageFilter().withPage(0, 20));
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTHENTICATOR_METHOD_LIST, 200);
+        AuthenticationMethodsPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/authentication-methods"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("page", "0"));
+        assertThat(recordedRequest, hasQueryParameter("per_page", "20"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldGetUserAuthenticationMethodsWithTotals() throws Exception {
+        Request<AuthenticationMethodsPage> request = api.users().getAuthenticationMethods("1",
+            new PageFilter().withTotals(true));
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTHENTICATOR_METHOD_LIST, 200);
+        AuthenticationMethodsPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/authentication-methods"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+        assertThat(response.getStart(), is(0));
+        assertThat(response.getTotal(), is(2));
+        assertThat(response.getLimit(), is(20));
+    }
+
+    @Test
+    public void shouldUpdateUserAuthenticationMethodsWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("user ID");
+        api.users().updateAuthenticationMethods(null, new ArrayList<>());
+    }
+
+    @Test
+    public void shouldUpdateUserAuthenticationMethodsWithAuthenticatorMethodsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("authentication methods");
+        api.users().updateAuthenticationMethods("1", null);
+    }
+
+    @Test
+    public void shouldUpdateUserAuthenticationMethods() throws Exception {
+        ArrayList<AuthenticationMethod> list = new ArrayList<>();
+        AuthenticationMethod authenticationMethod = new AuthenticationMethod();
+        list.add(authenticationMethod);
+        Request<List<AuthenticationMethod>> request = api.users().updateAuthenticationMethods("1", list);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTHENTICATOR_METHOD_UPDATE, 200);
+        List<AuthenticationMethod> response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PUT, "/api/v2/users/1/authentication-methods"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+
+    }
+
+    @Test
+    public void shouldNotCreateUserAuthenticationMethodsWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("user ID");
+        api.users().createAuthenticationMethods(null, new AuthenticationMethod());
+    }
+
+    @Test
+    public void shouldNotCreateUserAuthenticationMethodsWithAuthenticatorMethodsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("authentication methods");
+        api.users().createAuthenticationMethods("1", null);
+    }
+
+    @Test
+    public void shouldCreateUserAuthenticationMethods() throws Exception {
+        AuthenticationMethod authenticationMethod = new AuthenticationMethod();
+        Request<AuthenticationMethod> request = api.users().createAuthenticationMethods("1", authenticationMethod);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTHENTICATOR_METHOD_CREATE, 200);
+        AuthenticationMethod response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/users/1/authentication-methods"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldNotGetUserAuthenticationMethodsByIdWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("user ID");
+        api.users().getAuthenticationMethodById(null, "1");
+    }
+
+    @Test
+    public void shouldNotGetUserAuthenticationMethodsByIdWithAuthenticatorMethodIdNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("authentication method id");
+        api.users().getAuthenticationMethodById("1", null);
+    }
+
+    @Test
+    public void shouldGetUserAuthenticationMethodById() throws Exception {
+        Request<AuthenticationMethod> request = api.users().getAuthenticationMethodById("1", "1");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTHENTICATOR_METHOD_BY_ID, 200);
+        AuthenticationMethod response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/authentication-methods/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldNotUpdateUserAuthenticationMethodsByIdWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("user ID");
+        api.users().updateAuthenticationMethodById(null, "1", new AuthenticationMethod());
+    }
+
+    @Test
+    public void shouldNotUpdateUserAuthenticationMethodsByIdWithAuthenticatorMethodIdNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("authentication method id");
+        api.users().updateAuthenticationMethodById("1", null, new AuthenticationMethod());
+    }
+
+    @Test
+    public void shouldNotUpdateUserAuthenticationMethodsByIdWithAuthenticatorMethodNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("authentication method");
+        api.users().updateAuthenticationMethodById("1", "1", null);
+    }
+
+    @Test
+    public void shouldUpdateUserAuthenticationMethodById() throws Exception {
+        Request<AuthenticationMethod> request = api.users().updateAuthenticationMethodById("1", "1", new AuthenticationMethod());
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTHENTICATOR_METHOD_UPDATE_BY_ID, 200);
+        AuthenticationMethod response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/authentication-methods/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldNotDeleteUserAuthenticationMethodsByIdWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("user ID");
+        api.users().deleteAuthenticationMethodById(null, "1");
+    }
+
+    @Test
+    public void shouldNotDeleteUserAuthenticationMethodsByIdWithAuthenticatorMethodIdNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("authentication method ID");
+        api.users().deleteAuthenticationMethodById("1", null);
+    }
+
+    @Test
+    public void shouldDeleteUserAuthenticationMethodById() throws Exception {
+        Request<Void> request = api.users().deleteAuthenticationMethodById("1", "1");
+        assertThat(request, is(notNullValue()));
+
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/authentication-methods/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     }
 }
