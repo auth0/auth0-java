@@ -1,15 +1,14 @@
 package com.auth0.json.mgmt.authenticationmethods;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AuthenticationMethod {
+public class AuthenticationMethod implements Serializable {
     @JsonProperty("id")
     private String id;
     @JsonProperty("type")
@@ -29,11 +28,11 @@ public class AuthenticationMethod {
     @JsonProperty("public_key")
     private String publicKey;
     @JsonProperty("created_at")
-    private String createdAt;
+    private Date createdAt;
     @JsonProperty("enrolled_at")
-    private String enrolledAt;
+    private Date enrolledAt;
     @JsonProperty("last_auth_at")
-    private String lastAuthedAt;
+    private Date lastAuthedAt;
     @JsonProperty("totp_secret")
     private String totpSecret;
     @JsonProperty("preferred_authentication_method")
@@ -170,21 +169,27 @@ public class AuthenticationMethod {
      *
      * @return Authenticator creation date
      */
-    public String getCreatedAt() {
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @JsonProperty("created_at")
+    public Date getCreatedAt() {
         return createdAt;
     }
 
     /**
      * @return Enrollment date
      */
-    public String getEnrolledAt() {
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @JsonProperty("enrolled_at")
+    public Date getEnrolledAt() {
         return enrolledAt;
     }
 
     /**
      * @return Last authentication
      */
-    public String getLastAuthedAt() {
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @JsonProperty("last_auth_at")
+    public Date getLastAuthedAt() {
         return lastAuthedAt;
     }
 

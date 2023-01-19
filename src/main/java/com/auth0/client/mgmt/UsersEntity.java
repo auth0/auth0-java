@@ -620,6 +620,7 @@ public class UsersEntity extends BaseManagementEntity {
      */
     public Request<AuthenticationMethod> createAuthenticationMethods(String userId, AuthenticationMethod authenticationMethod) {
         Asserts.assertNotNull(userId, "user ID");
+        Asserts.assertNotNull(authenticationMethod, "authentication methods");
 
         String url = baseUrl
             .newBuilder()
@@ -643,8 +644,9 @@ public class UsersEntity extends BaseManagementEntity {
      * @param authenticationMethods the list of authentication method information to be updated
      * @return a Request to execute.
      */
-    public Request<Void> updateAuthenticationMethods(String userId, List<AuthenticationMethod> authenticationMethods) {
+    public Request<List<AuthenticationMethod>> updateAuthenticationMethods(String userId, List<AuthenticationMethod> authenticationMethods) {
         Asserts.assertNotNull(userId, "user ID");
+        Asserts.assertNotNull(authenticationMethods, "authentication methods");
 
         String url = baseUrl
             .newBuilder()
@@ -653,7 +655,7 @@ public class UsersEntity extends BaseManagementEntity {
             .addPathSegment("authentication-methods")
             .build()
             .toString();
-        BaseRequest<Void> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.PUT, new TypeReference<Void>() {
+        BaseRequest<List<AuthenticationMethod>> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.PUT, new TypeReference<List<AuthenticationMethod>>() {
         });
         request.setBody(authenticationMethods);
         return request;
@@ -670,6 +672,7 @@ public class UsersEntity extends BaseManagementEntity {
      */
     public Request<AuthenticationMethod> getAuthenticationMethodById(String userId, String authenticationMethodId) {
         Asserts.assertNotNull(userId, "user ID");
+        Asserts.assertNotNull(userId, "authentication method ID");
 
         String url = baseUrl
             .newBuilder()
@@ -695,6 +698,7 @@ public class UsersEntity extends BaseManagementEntity {
      */
     public Request<Void> deleteAuthenticationMethodById(String userId, String authenticationMethodId) {
         Asserts.assertNotNull(userId, "user ID");
+        Asserts.assertNotNull(authenticationMethodId, "authentication method ID");
 
         String url = baseUrl
             .newBuilder()
@@ -721,6 +725,8 @@ public class UsersEntity extends BaseManagementEntity {
      */
     public Request<AuthenticationMethod> updateAuthenticationMethodById(String userId, String authenticationMethodId, AuthenticationMethod authenticationMethod) {
         Asserts.assertNotNull(userId, "user ID");
+        Asserts.assertNotNull(authenticationMethodId, "authentication method ID");
+        Asserts.assertNotNull(authenticationMethod, "authentication method");
 
         String url = baseUrl
             .newBuilder()
