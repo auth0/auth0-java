@@ -58,7 +58,7 @@ public class RSAClientAssertion implements ClientAssertion {
         }
     }
 
-    enum RSASigningAlgorithm {
+    public enum RSASigningAlgorithm {
         RSA256,
         RSA384
     }

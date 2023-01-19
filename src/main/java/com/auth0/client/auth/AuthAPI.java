@@ -54,7 +54,8 @@ public class AuthAPI {
     private static final String KEY_OTP = "otp";
     private static final String KEY_REALM = "realm";
     private static final String KEY_MFA_TOKEN = "mfa_token";
-
+    private static final String KEY_CLIENT_ASSERTION = "client_assertion";
+    private static final String KEY_CLIENT_ASSERTION_TYPE = "client_assertion_type";
     private static final String PATH_OAUTH = "oauth";
     private static final String PATH_TOKEN = "token";
     private static final String PATH_DBCONNECTIONS = "dbconnections";
@@ -931,8 +932,8 @@ public class AuthAPI {
         }
 
         if (Objects.nonNull(this.clientAssertion)) {
-            request.addParameter("client_assertion", this.clientAssertion.createSignedClientAssertion(clientId, baseUrl.toString(), clientId));
-            request.addParameter("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer");
+            request.addParameter(KEY_CLIENT_ASSERTION, this.clientAssertion.createSignedClientAssertion(clientId, baseUrl.toString(), clientId));
+            request.addParameter(KEY_CLIENT_ASSERTION_TYPE, "urn:ietf:params:oauth:client-assertion-type:jwt-bearer");
         } else if (Objects.nonNull(this.clientSecret)) {
             request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         }
