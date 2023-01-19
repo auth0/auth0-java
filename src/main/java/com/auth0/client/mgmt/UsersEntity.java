@@ -1,6 +1,8 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.*;
+import com.auth0.json.mgmt.authenticationmethods.AuthenticationMethod;
+import com.auth0.json.mgmt.authenticationmethods.AuthenticationMethodsPage;
 import com.auth0.json.mgmt.permissions.Permission;
 import com.auth0.json.mgmt.permissions.PermissionsPage;
 import com.auth0.json.mgmt.roles.RolesPage;
@@ -576,6 +578,161 @@ public class UsersEntity extends BaseManagementEntity {
         String url = builder.build().toString();
         return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<OrganizationsPage>() {
         });
+    }
+
+    /**
+     * Get the authentication methods of the user.
+     * A token with {@code read:authentication_methods} is required.
+     *
+     * @param userId the user ID
+     * @param filter an optional pagination filter
+     * @return a Request to execute
+     *
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Users/get_authentication_methods">https://auth0.com/docs/api/management/v2#!/Users/get_authentication_methods</a>
+     */
+    public Request<AuthenticationMethodsPage> getAuthenticationMethods(String userId, PageFilter filter) {
+        Asserts.assertNotNull(userId, "user ID");
+
+        HttpUrl.Builder builder = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegment(userId)
+            .addPathSegment("authentication-methods");
+
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+        String url = builder.build().toString();
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<AuthenticationMethodsPage>() {
+        });
+    }
+
+    /**
+     * Create an authentication method for a given user.
+     * A token with scope {@code create:authentication_methods} is needed.
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Users/post_authentication_methods">https://auth0.com/docs/api/management/v2#!/Users/post_authentication_methods</a>
+     *
+     * @param userId the user to add authentication method to
+     * @param authenticationMethod the authentication method to be created
+     * @return a Request to execute.
+     */
+    public Request<AuthenticationMethod> createAuthenticationMethods(String userId, AuthenticationMethod authenticationMethod) {
+        Asserts.assertNotNull(userId, "user ID");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegment(userId)
+            .addPathSegment("authentication-methods")
+            .build()
+            .toString();
+        BaseRequest<AuthenticationMethod> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<AuthenticationMethod>() {
+        });
+        request.setBody(authenticationMethod);
+        return request;
+    }
+
+    /**
+     * Updates an authentication method for a given user.
+     * A token with scope {@code update:authentication_methods} is needed.
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Users/put_authentication_methods">https://auth0.com/docs/api/management/v2#!/Users/put_authentication_methods</a>
+     *
+     * @param userId the user to update authentication method
+     * @param authenticationMethod the information to be updated
+     * @return a Request to execute.
+     */
+    public Request<Void> updateAuthenticationMethods(String userId, AuthenticationMethod authenticationMethod) {
+        Asserts.assertNotNull(userId, "user ID");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .build()
+            .toString();
+        BaseRequest<Void> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.PUT, new TypeReference<Void>() {
+        });
+        request.setBody(authenticationMethod);
+        return request;
+    }
+
+    /**
+     * Gets an authentication method by ID.
+     * A token with scope {@code read:authentication_methods} is needed.
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Users/get_authentication_methods_by_authentication_method_id">https://auth0.com/docs/api/management/v2#!/Users/get_authentication_methods_by_authentication_method_id</a>
+     *
+     * @param userId the user to get authentication method for
+     * @param authenticationMethodId the authentication method to be fetched
+     * @return a Request to execute.
+     */
+    public Request<AuthenticationMethod> getAuthenticationMethodById(String userId, String authenticationMethodId) {
+        Asserts.assertNotNull(userId, "user ID");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegment(userId)
+            .addPathSegment("authentication-methods")
+            .addPathSegment(authenticationMethodId)
+            .build()
+            .toString();
+
+        return new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.GET, new TypeReference<AuthenticationMethod>() {
+        });
+    }
+
+    /**
+     * Deletes an authentication method by ID.
+     * A token with scope {@code delete:authentication_methods} is needed.
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Users/delete_authentication_methods_by_authentication_method_id">https://auth0.com/docs/api/management/v2#!/Users/delete_authentication_methods_by_authentication_method_id</a>
+     *
+     * @param userId the user to delete the authentication method for
+     * @param authenticationMethodId the authentication method to be deleted
+     * @return a Request to execute.
+     */
+    public Request<Void> deleteAuthenticationMethodById(String userId, String authenticationMethodId) {
+        Asserts.assertNotNull(userId, "user ID");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegment(userId)
+            .addPathSegment("authentication-methods")
+            .addPathSegment(authenticationMethodId)
+            .build()
+            .toString();
+
+        return new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.GET, new TypeReference<Void>() {
+        });
+    }
+
+    /**
+     * Updates an authentication method.
+     * A token with scope {@code update:authentication_methods} is needed.
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Users/patch_authentication_methods_by_authentication_method_id">https://auth0.com/docs/api/management/v2#!/Users/patch_authentication_methods_by_authentication_method_id</a>
+     *
+     * @param userId the user to delete the authentication method for
+     * @param authenticationMethodId the authentication method to be deleted
+     * @param authenticationMethod the information to be updated
+     * @return a Request to execute.
+     */
+    public Request<AuthenticationMethod> updateAuthenticationMethodById(String userId, String authenticationMethodId, AuthenticationMethod authenticationMethod) {
+        Asserts.assertNotNull(userId, "user ID");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegment(userId)
+            .addPathSegment("authentication-methods")
+            .addPathSegment(authenticationMethodId)
+            .build()
+            .toString();
+
+        BaseRequest<AuthenticationMethod> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<AuthenticationMethod>() {
+        });
+        request.setBody(authenticationMethod);
+        return request;
     }
 
     private static void encodeAndAddQueryParam(HttpUrl.Builder builder, BaseFilter filter) {
