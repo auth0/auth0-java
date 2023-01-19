@@ -133,7 +133,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldAcceptNullClientSecret() {
-        assertThat(AuthAPI.newBuilder(DOMAIN, CLIENT_ID, null).build(),
+        assertThat(AuthAPI.newBuilder(DOMAIN, CLIENT_ID, (String) null).build(),
             is(notNullValue()));
     }
 

@@ -65,6 +65,7 @@ public class AuthAPI {
     private final Auth0HttpClient client;
     private final String clientId;
     private final String clientSecret;
+    private final ClientAssertion clientAssertion;
     private final HttpUrl baseUrl;
 
     /**
@@ -83,7 +84,7 @@ public class AuthAPI {
     @Deprecated
     @SuppressWarnings("deprecation")
     public AuthAPI(String domain, String clientId, String clientSecret, com.auth0.client.HttpOptions options) {
-        this(domain, clientId, clientSecret, buildNetworkingClient(options));
+        this(domain, clientId, clientSecret, null, buildNetworkingClient(options));
     }
 
     /**
@@ -110,7 +111,11 @@ public class AuthAPI {
      * @return a Builder for further configuration.
      */
     public static AuthAPI.Builder newBuilder(String domain, String clientId, String clientSecret) {
-        return new AuthAPI.Builder(domain, clientId, clientSecret);
+        return new AuthAPI.Builder(domain, clientId).withClientSecret(clientSecret);
+    }
+
+    public static AuthAPI.Builder newBuilder(String domain, String clientId, ClientAssertion clientAssertion) {
+        return new AuthAPI.Builder(domain, clientId).withClientAssertion(clientAssertion);
     }
 
     /**
@@ -124,7 +129,7 @@ public class AuthAPI {
         return new AuthAPI.Builder(domain, clientId);
     }
 
-    private AuthAPI(String domain, String clientId, String clientSecret, Auth0HttpClient httpClient) {
+    private AuthAPI(String domain, String clientId, String clientSecret, ClientAssertion clientAssertion, Auth0HttpClient httpClient) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(clientId, "client id");
         Asserts.assertNotNull(httpClient, "Http client");
@@ -135,9 +140,11 @@ public class AuthAPI {
         }
         this.clientId = clientId;
         this.clientSecret = clientSecret;
+        this.clientAssertion = clientAssertion;
         this.client = httpClient;
-
     }
+
+
     /**
      * Given a set of options, it creates a new instance of the {@link OkHttpClient}
      * configuring them according to their availability.
@@ -487,7 +494,7 @@ public class AuthAPI {
         request.addParameter(KEY_GRANT_TYPE, "password");
         request.addParameter(KEY_USERNAME, emailOrUsername);
         request.addParameter(KEY_PASSWORD, password);
-        addSecret(request, true);
+        addClientAuthentication(request, true);
         return request;
     }
 
@@ -555,7 +562,7 @@ public class AuthAPI {
         request.addParameter(KEY_USERNAME, emailOrUsername);
         request.addParameter(KEY_PASSWORD, password);
         request.addParameter(KEY_REALM, realm);
-        addSecret(request, true);
+        addClientAuthentication(request, true);
         return request;
     }
 
@@ -597,7 +604,7 @@ public class AuthAPI {
         request.addParameter(KEY_USERNAME, emailOrPhone);
         request.addParameter(KEY_REALM, realm);
         request.addParameter(KEY_OTP, otp);
-        addSecret(request, false);
+        addClientAuthentication(request, false);
         return request;
     }
 
@@ -629,7 +636,7 @@ public class AuthAPI {
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_GRANT_TYPE, "client_credentials");
         request.addParameter(KEY_AUDIENCE, audience);
-        addSecret(request, true);
+        addClientAuthentication(request, true);
         return request;
     }
 
@@ -663,7 +670,7 @@ public class AuthAPI {
         VoidRequest request = new VoidRequest(client, null, url, HttpMethod.POST);
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_TOKEN, refreshToken);
-        addSecret(request, false);
+        addClientAuthentication(request, false);
         return request;
     }
 
@@ -696,7 +703,7 @@ public class AuthAPI {
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_GRANT_TYPE, "refresh_token");
         request.addParameter(KEY_REFRESH_TOKEN, refreshToken);
-        addSecret(request, false);
+        addClientAuthentication(request, false);
         return request;
     }
 
@@ -816,7 +823,7 @@ public class AuthAPI {
         request.addParameter(KEY_CONNECTION, "email");
         request.addParameter(KEY_EMAIL, email);
         request.addParameter("send", type.getType());
-        addSecret(request, false);
+        addClientAuthentication(request, false);
         return request;
     }
 
@@ -857,7 +864,7 @@ public class AuthAPI {
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_CONNECTION, "sms");
         request.addParameter("phone_number", phoneNumber);
-        addSecret(request, false);
+        addClientAuthentication(request, false);
         return request;
     }
 
@@ -892,7 +899,7 @@ public class AuthAPI {
         request.addParameter(KEY_GRANT_TYPE, "http://auth0.com/oauth/grant-type/mfa-otp");
         request.addParameter(KEY_MFA_TOKEN, mfaToken);
         request.addParameter(KEY_OTP, otp);
-        addSecret(request, false);
+        addClientAuthentication(request, false);
         return request;
     }
 
@@ -905,7 +912,7 @@ public class AuthAPI {
         request.addParameter(KEY_GRANT_TYPE, "authorization_code");
         request.addParameter("code", code);
         request.addParameter("redirect_uri", redirectUri);
-        addSecret(request, secretRequired);
+        addClientAuthentication(request, secretRequired);
         return request;
     }
 
@@ -918,14 +925,19 @@ public class AuthAPI {
             .toString();
     }
 
-    private void addSecret(BaseRequest<?> request, boolean required) {
-        if (required && Objects.isNull(this.clientSecret)) {
-            throw new IllegalStateException("A client secret is required for this operation");
+    private void addClientAuthentication(BaseRequest<?> request, boolean required) {
+        if (required && (this.clientSecret == null && this.clientAssertion == null)) {
+            throw new IllegalStateException("A client secret or client assertion signing key is required for this operation");
         }
-        if (Objects.nonNull(this.clientSecret)) {
-            request.addParameter(KEY_CLIENT_SECRET, this.clientSecret);
+
+        if (Objects.nonNull(this.clientAssertion)) {
+            request.addParameter("client_assertion", this.clientAssertion.createSignedClientAssertion(clientId, baseUrl.toString(), clientId));
+            request.addParameter("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer");
+        } else if (Objects.nonNull(this.clientSecret)) {
+            request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         }
     }
+
 
     /**
      * Builder for {@link AuthAPI} API client instances.
@@ -933,25 +945,24 @@ public class AuthAPI {
     public static class Builder {
         private final String domain;
         private final String clientId;
-        private final String clientSecret;
+        private String clientSecret;
+        private ClientAssertion clientAssertion;
         private Auth0HttpClient httpClient;
-
-        /**
-         * Create a new Builder
-         * @param domain the domain of the tenant.
-         * @param clientId the client ID of the Auth0 application.
-         * @param clientSecret the client secret of the Auth0 application.
-         */
-        public Builder(String domain, String clientId, String clientSecret) {
-            this.domain = domain;
-            this.clientId = clientId;
-            this.clientSecret = clientSecret;
-        }
 
         public Builder(String domain, String clientId) {
             this.domain = domain;
             this.clientId = clientId;
             this.clientSecret = null;
+        }
+
+        public Builder withClientSecret(String clientSecret) {
+            this.clientSecret = clientSecret;
+            return this;
+        }
+
+        public Builder withClientAssertion(ClientAssertion clientAssertion) {
+            this.clientAssertion = clientAssertion;
+            return this;
         }
 
         /**
@@ -970,7 +981,7 @@ public class AuthAPI {
          * @return the configured {@code AuthAPI} instance.
          */
         public AuthAPI build() {
-            return new AuthAPI(domain, clientId, clientSecret,
+            return new AuthAPI(domain, clientId, clientSecret, clientAssertion,
                 Objects.nonNull(httpClient) ? httpClient : DefaultHttpClient.newBuilder().build());
         }
     }
