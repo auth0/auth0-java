@@ -45,12 +45,9 @@ public class AuthenticationMethod {
 
     /**
      * Create a new instance.
-     *
-     * @param type the type of enrollment
      */
     @JsonCreator
-    public AuthenticationMethod(@JsonProperty("type") String type) {
-        this.type = type;
+    public AuthenticationMethod() {
     }
 
     /**
@@ -69,6 +66,7 @@ public class AuthenticationMethod {
 
     /**
      * Sets the type of this enrollment
+     * Should be ["phone" or "email" or "totp" or "webauthn-roaming"]
      *
      * @param type the type of the enrollment.
      */

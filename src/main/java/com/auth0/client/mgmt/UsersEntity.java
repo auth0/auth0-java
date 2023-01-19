@@ -640,20 +640,22 @@ public class UsersEntity extends BaseManagementEntity {
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Users/put_authentication_methods">https://auth0.com/docs/api/management/v2#!/Users/put_authentication_methods</a>
      *
      * @param userId the user to update authentication method
-     * @param authenticationMethod the information to be updated
+     * @param authenticationMethods the list of authentication method information to be updated
      * @return a Request to execute.
      */
-    public Request<Void> updateAuthenticationMethods(String userId, AuthenticationMethod authenticationMethod) {
+    public Request<Void> updateAuthenticationMethods(String userId, List<AuthenticationMethod> authenticationMethods) {
         Asserts.assertNotNull(userId, "user ID");
 
         String url = baseUrl
             .newBuilder()
             .addPathSegments("api/v2/users")
+            .addPathSegment(userId)
+            .addPathSegment("authentication-methods")
             .build()
             .toString();
         BaseRequest<Void> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.PUT, new TypeReference<Void>() {
         });
-        request.setBody(authenticationMethod);
+        request.setBody(authenticationMethods);
         return request;
     }
 
@@ -703,7 +705,7 @@ public class UsersEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        return new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.GET, new TypeReference<Void>() {
+        return new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.DELETE, new TypeReference<Void>() {
         });
     }
 
