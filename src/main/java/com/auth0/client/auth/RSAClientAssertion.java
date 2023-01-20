@@ -19,7 +19,7 @@ public class RSAClientAssertion implements ClientAssertion {
 
     public RSAClientAssertion(RSAPrivateKey assertionSigningKey, RSASigningAlgorithm assertionSigningAlgorithm) {
         Asserts.assertNotNull(assertionSigningKey, "assertion signing key");
-        Asserts.assertNotNull(assertionSigningKey, "assertion signing algorithm");
+        Asserts.assertNotNull(assertionSigningAlgorithm, "assertion signing algorithm");
 
         this.assertionSigningKey = assertionSigningKey;
         this.assertionSigningAlgorithm = assertionSigningAlgorithm;
@@ -56,6 +56,10 @@ public class RSAClientAssertion implements ClientAssertion {
             default:
                 throw new ClientAssertionSigningException("Error creating the JWT used for client assertion. Unknown algorithm.");
         }
+    }
+
+    public RSASigningAlgorithm getAssertionSigningAlgorithm() {
+        return this.assertionSigningAlgorithm;
     }
 
     public enum RSASigningAlgorithm {
