@@ -1,11 +1,10 @@
-package com.auth0.json.mgmt.authenticationmethods;
+package com.auth0.json.mgmt.users.authenticationmethods;
 
 import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
+import com.auth0.json.mgmt.users.authenticationmethods.AuthenticationMethod;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;

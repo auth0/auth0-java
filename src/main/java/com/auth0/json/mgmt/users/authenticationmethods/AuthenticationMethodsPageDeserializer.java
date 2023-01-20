@@ -1,4 +1,4 @@
-package com.auth0.json.mgmt.authenticationmethods;
+package com.auth0.json.mgmt.users.authenticationmethods;
 
 import com.auth0.json.mgmt.PageDeserializer;
 

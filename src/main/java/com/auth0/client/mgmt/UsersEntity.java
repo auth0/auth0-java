@@ -1,8 +1,8 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.*;
-import com.auth0.json.mgmt.authenticationmethods.AuthenticationMethod;
-import com.auth0.json.mgmt.authenticationmethods.AuthenticationMethodsPage;
+import com.auth0.json.mgmt.users.authenticationmethods.AuthenticationMethod;
+import com.auth0.json.mgmt.users.authenticationmethods.AuthenticationMethodsPage;
 import com.auth0.json.mgmt.permissions.Permission;
 import com.auth0.json.mgmt.permissions.PermissionsPage;
 import com.auth0.json.mgmt.roles.RolesPage;

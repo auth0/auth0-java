@@ -1,14 +1,13 @@
-package com.auth0.json.mgmt.authenticationmethods;
+package com.auth0.json.mgmt.users.authenticationmethods;
 
 import com.fasterxml.jackson.annotation.*;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AuthenticationMethod implements Serializable {
+public class AuthenticationMethod {
     @JsonProperty("id")
     private String id;
     @JsonProperty("type")

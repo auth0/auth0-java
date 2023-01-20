@@ -1,4 +1,4 @@
-package com.auth0.json.mgmt.authenticationmethods;
+package com.auth0.json.mgmt.users.authenticationmethods;
 
 import com.auth0.json.mgmt.Page;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -20,7 +20,7 @@ public class AuthenticationMethodsPage extends Page<AuthenticationMethod> {
     }
 
     /**
-     * @deprecated use {@linkplain com.auth0.json.mgmt.authenticationmethods.AuthenticationMethodsPage#AuthenticationMethodsPage(Integer, Integer, Integer, Integer, String, List)} instead.
+     * @deprecated use {@linkplain AuthenticationMethodsPage#AuthenticationMethodsPage(Integer, Integer, Integer, Integer, String, List)} instead.
      */
     @Deprecated
     public AuthenticationMethodsPage(Integer start, Integer length, Integer total, Integer limit, List<AuthenticationMethod> items) {
