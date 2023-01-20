@@ -1142,10 +1142,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getItems(), hasSize(2));
+        assertThat(response.getItems(), hasSize(1));
         assertThat(response.getStart(), is(0));
-        assertThat(response.getTotal(), is(2));
-        assertThat(response.getLimit(), is(20));
+        assertThat(response.getTotal(), is(1));
+        assertThat(response.getLimit(), is(50));
     }
 
     @Test
@@ -1223,7 +1223,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldNotGetUserAuthenticationMethodsByIdWithAuthenticatorMethodIdNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("authentication method id");
+        exception.expectMessage("authentication method ID");
         api.users().getAuthenticationMethodById("1", null);
     }
 
@@ -1253,7 +1253,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldNotUpdateUserAuthenticationMethodsByIdWithAuthenticatorMethodIdNull() throws Exception {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("authentication method id");
+        exception.expectMessage("authentication method ID");
         api.users().updateAuthenticationMethodById("1", null, new AuthenticationMethod());
     }
 
@@ -1273,7 +1273,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         AuthenticationMethod response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/authentication-methods/1"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PATCH, "/api/v2/users/1/authentication-methods/1"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -1299,9 +1299,11 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         Request<Void> request = api.users().deleteAuthenticationMethodById("1", "1");
         assertThat(request, is(notNullValue()));
 
+        server.jsonResponse(AUTHENTICATOR_METHOD_UPDATE_BY_ID, 200);
+        Void response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/authentication-methods/1"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/users/1/authentication-methods/1"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     }
