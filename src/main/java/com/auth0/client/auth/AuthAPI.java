@@ -1,9 +1,7 @@
 package com.auth0.client.auth;
 
 import com.auth0.client.mgmt.ManagementAPI;
-import com.auth0.json.auth.PasswordlessEmailResponse;
-import com.auth0.json.auth.PasswordlessSmsResponse;
-import com.auth0.json.auth.UserInfo;
+import com.auth0.json.auth.*;
 import com.auth0.net.*;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.DefaultHttpClient;
@@ -14,6 +12,8 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.TestOnly;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -893,6 +893,250 @@ public class AuthAPI {
         request.addParameter(KEY_MFA_TOKEN, mfaToken);
         request.addParameter(KEY_OTP, otp);
         addSecret(request, false);
+        return request;
+    }
+
+    /**
+     * Creates a request to exchange the mfa token and an out-of-band (OOB) challenge (either Push notification, SMS, or Voice).
+     * Confidential clients (Regular Web Apps) <strong>must</strong> have a client secret configured on this {@code AuthAPI} instance.
+     * <pre>
+     * {@code
+     * try {
+     *      TokenHolder result = authAPI.exchangeMfaOob("the-mfa-token", new char[]{'a','n','o','t','p'}, new char[]{'b','i','n','d','c','o','d','e'})
+     *          .execute()
+     *          .getBody();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param mfaToken the mfa_token received from the mfa_required error that occurred during login. Must not be null.
+     * @param oobCode  the OOB Code provided by the user. Must not be null.
+     * @param bindingCode A code used to bind the side channel (used to deliver the challenge) with the main channel you are using to authenticate. This is usually an OTP-like code delivered as part of the challenge message. May be null.
+     *
+     * @return a Request to configure and execute.
+     *
+     * @see <a href="https://auth0.com/docs/api/authentication#verify-with-out-of-band-oob-">Verify with Out-of-band (OOB) API documentation</a>
+     */
+    public TokenRequest exchangeMfaOob(String mfaToken, char[] oobCode, char[] bindingCode) {
+        Asserts.assertNotNull(mfaToken, "mfa token");
+        Asserts.assertNotNull(oobCode, "OOB code");
+
+        TokenRequest request = new TokenRequest(client, getTokenUrl());
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_GRANT_TYPE, "http://auth0.com/oauth/grant-type/mfa-oob");
+        request.addParameter(KEY_MFA_TOKEN, mfaToken);
+        request.addParameter("oob_code", oobCode);
+
+        if (Objects.nonNull(bindingCode) && bindingCode.length > 0) {
+            request.addParameter("binding_code", bindingCode);
+        }
+
+        addSecret(request, false);
+        return request;
+    }
+
+    /**
+     * Creates a request to exchange the mfa token using a recovery code.
+     * Confidential clients (Regular Web Apps) <strong>must</strong> have a client secret configured on this {@code AuthAPI} instance.
+     * <pre>
+     * {@code
+     * try {
+     *      TokenHolder result = authAPI.exchangeMfaRecoveryCode("the-mfa-token", new char[]{'c','o','d','e'})
+     *          .execute()
+     *          .getBody();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param mfaToken the mfa_token received from the mfa_required error that occurred during login. Must not be null.
+     * @param recoveryCode  the recovery code provided by the user. Must not be null.
+     * @return a Request to configure and execute.
+     *
+     * @see <a href="https://auth0.com/docs/api/authentication#verify-with-recovery-code">Verify with a recovery code API documentation</a>
+     */
+    public TokenRequest exchangeMfaRecoveryCode(String mfaToken, char[] recoveryCode) {
+        Asserts.assertNotNull(mfaToken, "mfa token");
+        Asserts.assertNotNull(recoveryCode, "recovery code");
+
+        TokenRequest request = new TokenRequest(client, getTokenUrl());
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_GRANT_TYPE, "http://auth0.com/oauth/grant-type/mfa-recovery-code");
+        request.addParameter(KEY_MFA_TOKEN, mfaToken);
+        request.addParameter("recovery_code", recoveryCode);
+
+        addSecret(request, false);
+        return request;
+    }
+
+    /**
+     * Request a challenge for multi-factor authentication (MFA) based on the challenge types supported by the application and user.
+     * Confidential clients (Regular Web Apps) <strong>must</strong> have a client secret configured on this {@code AuthAPI} instance.
+     * <pre>
+     * {@code
+     * try {
+     *      MfaChallengeResponse result = authAPI.mfaChallengeRequest("the-mfa-token", "otp", "authenticator-id")
+     *          .execute()
+     *          .getBody();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param mfaToken The token received from mfa_required error. Must not be null.
+     * @param challengeType A whitespace-separated list of the challenges types accepted by your application.
+     * @param authenticatorId The ID of the authenticator to challenge.
+     * @return a Request to execute.
+     * @see <a href="https://auth0.com/docs/api/authentication#challenge-request">Challenge Request API documentation</a>
+     */
+    public Request<MfaChallengeResponse> mfaChallengeRequest(String mfaToken, String challengeType, String authenticatorId) {
+        Asserts.assertNotNull(mfaToken, "mfa token");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegment("mfa")
+            .addPathSegment("challenge")
+            .build()
+            .toString();
+
+        BaseRequest<MfaChallengeResponse> request = new BaseRequest<>(client, null, url, HttpMethod.POST, new TypeReference<MfaChallengeResponse>() {
+        });
+
+        request.addParameter(KEY_MFA_TOKEN, mfaToken);
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        addSecret(request, false);
+        if (Objects.nonNull(challengeType)) {
+            request.addParameter("challenge_type", challengeType);
+        }
+        if (Objects.nonNull(authenticatorId)) {
+            request.addParameter("authenticator_id", authenticatorId);
+        }
+        return request;
+    }
+
+    /**
+     * Associates or adds a new OTP authenticator for multi-factor authentication (MFA).
+     * Confidential clients (Regular Web Apps) <strong>must</strong> have a client secret configured on this {@code AuthAPI} instance.
+     * <pre>
+     * {@code
+     * try {
+     *      CreatedOTPResponse result = authAPI.addOTPAuthenticator("the-mfa-token")
+     *          .execute()
+     *          .getBody();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param mfaToken The token received from mfa_required error. Must not be null.
+     * @return a Request to execute.
+     * @see <a href="https://auth0.com/docs/api/authentication#add-an-authenticator">Add an Authenticator API documentation</a>
+     */
+    public Request<CreatedOtpResponse> addOtpAuthenticator(String mfaToken) {
+        Asserts.assertNotNull(mfaToken, "mfa token");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegment("mfa")
+            .addPathSegment("associate")
+            .build()
+            .toString();
+
+        BaseRequest<CreatedOtpResponse> request = new BaseRequest<>(client, null,  url, HttpMethod.POST, new TypeReference<CreatedOtpResponse>() {
+        });
+
+        request.addParameter("authenticator_types", Collections.singletonList("otp"));
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        addSecret(request, false);
+        request.addHeader("Authorization", "Bearer " + mfaToken);
+        return request;
+    }
+
+    /**
+     * Associates or adds a new OOB authenticator for multi-factor authentication (MFA).
+     * Confidential clients (Regular Web Apps) <strong>must</strong> have a client secret configured on this {@code AuthAPI} instance.
+     * <pre>
+     * {@code
+     * try {
+     *      CreatedOobResponse result = authAPI.addOobAuthenticator("the-mfa-token", Collections.singletonList("sms"), "phone-number")
+     *          .execute()
+     *          .getBody();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param mfaToken The token received from mfa_required error. Must not be null.
+     * @param oobChannels The type of OOB channels supported by the client. Must not be null.
+     * @param phoneNumber The phone number for "sms" or "voice" channels. May be null if not using "sms" or "voice".
+     * @return a Request to execute.
+     * @see <a href="https://auth0.com/docs/api/authentication#add-an-authenticator">Add an Authenticator API documentation</a>
+     */
+    public Request<CreatedOobResponse> addOobAuthenticator(String mfaToken, List<String> oobChannels, String phoneNumber) {
+        Asserts.assertNotNull(mfaToken, "mfa token");
+        Asserts.assertNotNull(oobChannels, "OOB channels");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegment("mfa")
+            .addPathSegment("associate")
+            .build()
+            .toString();
+
+        BaseRequest<CreatedOobResponse> request = new BaseRequest<>(client, null, url, HttpMethod.POST, new TypeReference<CreatedOobResponse>() {
+        });
+
+        request.addParameter("authenticator_types", Collections.singletonList("oob"));
+        request.addParameter("oob_channels", oobChannels);
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        if (phoneNumber != null) {
+            request.addParameter("phone_number", phoneNumber);
+        }
+        addSecret(request, false);
+        request.addHeader("Authorization", "Bearer " + mfaToken);
+        return request;
+    }
+
+
+    /**
+     * Returns a list of authenticators associated with your application.
+     * <pre>
+     * {@code
+     * try {
+     *      List<MfaAuthenticator> result = authAPI.listAuthenticators("token")
+     *          .execute()
+     *          .getBody();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param accessToken The Access Token obtained during login. The token must possess a scope of {@code read:authenticators}
+     *                    and an audience of {@code https://YOUR_DOMAIN/mfa/}
+     * @return a Request to execute.
+     * @see <a href="https://auth0.com/docs/api/authentication#list-authenticators">List authenticators API documentation</a>
+     */
+    public Request<List<MfaAuthenticator>> listAuthenticators(String accessToken) {
+        Asserts.assertNotNull(accessToken, "access token");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegment("mfa")
+            .addPathSegment("authenticators")
+            .build()
+            .toString();
+
+        BaseRequest<List<MfaAuthenticator>> request = new BaseRequest<>(client, null, url, HttpMethod.GET, new TypeReference<List<MfaAuthenticator>>() {
+        });
+
+        request.addHeader("Authorization", "Bearer " + accessToken);
         return request;
     }
 
