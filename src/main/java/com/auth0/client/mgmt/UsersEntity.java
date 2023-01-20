@@ -672,7 +672,7 @@ public class UsersEntity extends BaseManagementEntity {
      */
     public Request<AuthenticationMethod> getAuthenticationMethodById(String userId, String authenticationMethodId) {
         Asserts.assertNotNull(userId, "user ID");
-        Asserts.assertNotNull(userId, "authentication method ID");
+        Asserts.assertNotNull(authenticationMethodId, "authentication method ID");
 
         String url = baseUrl
             .newBuilder()

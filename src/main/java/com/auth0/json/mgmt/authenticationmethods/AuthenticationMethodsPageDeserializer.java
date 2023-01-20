@@ -10,7 +10,7 @@ import java.util.List;
 public class AuthenticationMethodsPageDeserializer extends PageDeserializer<AuthenticationMethodsPage, AuthenticationMethod> {
 
     protected AuthenticationMethodsPageDeserializer() {
-        super(AuthenticationMethod.class, "authentication_methods");
+        super(AuthenticationMethod.class, "authenticators");
     }
 
     @Override
