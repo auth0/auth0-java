@@ -46,7 +46,8 @@ public class AuthAPITest {
 
     private MockServer server;
     private AuthAPI api;
-    private AuthAPI apiNoSecret;
+    private AuthAPI apiNoClientAuthentication;
+
 
     @SuppressWarnings("deprecation")
     @Rule
@@ -56,7 +57,7 @@ public class AuthAPITest {
     public void setUp() throws Exception {
         server = new MockServer();
         api = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID, CLIENT_SECRET).build();
-        apiNoSecret = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
+        apiNoClientAuthentication = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
     }
 
     @After
@@ -134,7 +135,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldAcceptNullClientSecret() {
-        assertThat(AuthAPI.newBuilder(DOMAIN, CLIENT_ID, null).build(),
+        assertThat(AuthAPI.newBuilder(DOMAIN, CLIENT_ID, (String) null).build(),
             is(notNullValue()));
     }
 
@@ -539,9 +540,9 @@ public class AuthAPITest {
     }
 
     @Test
-    public void authorizationCodeGrantRequestRequiresSecret() throws Exception {
-        IllegalStateException e = assertThrows(IllegalStateException.class, () -> apiNoSecret.exchangeCode("code", "https://domain.auth0.com/callback"));
-        assertThat(e.getMessage(), is("A client secret is required for this operation"));
+    public void authorizationCodeGrantRequestRequiresClientAuthentication() throws Exception {
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> apiNoClientAuthentication.exchangeCode("code", "https://domain.auth0.com/callback"));
+        assertThat(e.getMessage(), is("A client secret or client assertion signing key is required for this operation"));
     }
 
     @Test
@@ -632,10 +633,10 @@ public class AuthAPITest {
     }
 
     @Test
-    public void passwordGrantRequestRequiresSecret() {
+    public void passwordGrantRequestRequiresClientAuthentication() {
         @SuppressWarnings("deprecation")
-        IllegalStateException e = assertThrows(IllegalStateException.class, () -> apiNoSecret.login("me", "p455w0rd"));
-        assertThat(e.getMessage(), is("A client secret is required for this operation"));
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> apiNoClientAuthentication.login("me", "p455w0rd"));
+        assertThat(e.getMessage(), is("A client secret or client assertion signing key is required for this operation"));
     }
 
     @Test
@@ -763,10 +764,10 @@ public class AuthAPITest {
     }
 
     @Test
-    public void passwordRealmGrantRequestRequiresSecret()  {
+    public void passwordRealmGrantRequestRequiresClientAuthentication()  {
         @SuppressWarnings("deprecation")
-        IllegalStateException e = assertThrows(IllegalStateException.class, () -> apiNoSecret.login("me", "p455w0rd", "realm"));
-        assertThat(e.getMessage(), is("A client secret is required for this operation"));
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> apiNoClientAuthentication.login("me", "p455w0rd", "realm"));
+        assertThat(e.getMessage(), is("A client secret or client assertion signing key is required for this operation"));
     }
 
     @Test
@@ -840,9 +841,9 @@ public class AuthAPITest {
     }
 
     @Test
-    public void clientCredentialsGrantRequestRequiresSecret() {
-        IllegalStateException e = assertThrows(IllegalStateException.class, () -> apiNoSecret.requestToken("https://myapi.auth0.com/users"));
-        assertThat(e.getMessage(), is("A client secret is required for this operation"));
+    public void clientCredentialsGrantRequestRequiresClientAuthentication() {
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> apiNoClientAuthentication.requestToken("https://myapi.auth0.com/users"));
+        assertThat(e.getMessage(), is("A client secret or client assertion signing key is required for this operation"));
     }
 
     // Login with Passwordless
@@ -857,8 +858,8 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldCreateStartEmailPasswordlessFlowRequestWithoutSecret() throws Exception {
-        Request<PasswordlessEmailResponse> request = apiNoSecret.startPasswordlessEmailFlow("user@domain.com",
+    public void shouldCreateStartEmailPasswordlessFlowRequestWithoutClientAuthentication() throws Exception {
+        Request<PasswordlessEmailResponse> request = apiNoClientAuthentication.startPasswordlessEmailFlow("user@domain.com",
             PasswordlessEmailType.CODE);
         assertThat(request, is(notNullValue()));
 
@@ -949,8 +950,8 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldCreateStartSmsPasswordlessFlowRequestWithoutSecret() throws Exception {
-        Request<PasswordlessSmsResponse> request = apiNoSecret.startPasswordlessSmsFlow("+16511234567");
+    public void shouldCreateStartSmsPasswordlessFlowRequestWithoutClientAuthentication() throws Exception {
+        Request<PasswordlessSmsResponse> request = apiNoClientAuthentication.startPasswordlessSmsFlow("+16511234567");
         assertThat(request, is(notNullValue()));
 
         smsPasswordlessFlow(request, false);
@@ -1026,8 +1027,8 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldCreateLoginWithPasswordlessCodeRequestWithoutSecret() throws Exception {
-        TokenRequest request = apiNoSecret.exchangePasswordlessOtp("+16511234567", "email", "otp".toCharArray());
+    public void shouldCreateLoginWithPasswordlessCodeRequestWithoutClientAuthentication() throws Exception {
+        TokenRequest request = apiNoClientAuthentication.exchangePasswordlessOtp("+16511234567", "email", "otp".toCharArray());
         assertThat(request, is(notNullValue()));
 
         passwordlessCodeRequest(request, false);
@@ -1078,8 +1079,8 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldCreateRevokeTokenRequestWithoutSecret() throws Exception {
-        Request<Void> request = apiNoSecret.revokeToken("2679NfkaBn62e6w5E8zNEzjr");
+    public void shouldCreateRevokeTokenRequestWithoutClientAuthentication() throws Exception {
+        Request<Void> request = apiNoClientAuthentication.revokeToken("2679NfkaBn62e6w5E8zNEzjr");
         assertThat(request, is(notNullValue()));
 
         revokeTokenRequest(request, false);
@@ -1124,8 +1125,8 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldCreateRenewTokenRequestWithoutSecret() throws Exception {
-        TokenRequest request = apiNoSecret.renewAuth("ej2E8zNEzjrcSD2edjaE");
+    public void shouldCreateRenewTokenRequestWithoutClientAuthentication() throws Exception {
+        TokenRequest request = apiNoClientAuthentication.renewAuth("ej2E8zNEzjrcSD2edjaE");
         assertThat(request, is(notNullValue()));
 
         renewTokenRequest(request, false);
@@ -1219,8 +1220,8 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldCreateExchangeMfaOtpRequestWithoutSecret() throws Exception {
-        TokenRequest request = apiNoSecret.exchangeMfaOtp("mfaToken", new char[]{'o','t','p'});
+    public void shouldCreateExchangeMfaOtpRequestWithoutClientAuthentication() throws Exception {
+        TokenRequest request = apiNoClientAuthentication.exchangeMfaOtp("mfaToken", new char[]{'o','t','p'});
         assertThat(request, is(notNullValue()));
 
         mfaOtpRequest(request, false);
@@ -1277,7 +1278,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateExchangeMfaOobRequestWithoutSecret() throws Exception {
-        TokenRequest request = apiNoSecret.exchangeMfaOob("mfaToken", new char[]{'o','o','b'}, new char[]{'b','o','b'});
+        TokenRequest request = apiNoClientAuthentication.exchangeMfaOob("mfaToken", new char[]{'o','o','b'}, new char[]{'b','o','b'});
         assertThat(request, is(notNullValue()));
 
         mfaOobExchangeRequest(request, "bob", false);
@@ -1341,7 +1342,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateExchangeMfaRecoveryCodeRequestWithoutSecret() throws Exception {
-        TokenRequest request = apiNoSecret.exchangeMfaRecoveryCode("mfaToken", new char[]{'c','o','d','e'});
+        TokenRequest request = apiNoClientAuthentication.exchangeMfaRecoveryCode("mfaToken", new char[]{'c','o','d','e'});
         assertThat(request, is(notNullValue()));
 
         mfaRecoveryCodeExchangeRequest(request, false);
@@ -1492,5 +1493,84 @@ public class AuthAPITest {
         assertThat(response.getChallengeType(), not(emptyOrNullString()));
         assertThat(response.getBindingMethod(), not(emptyOrNullString()));
         assertThat(response.getOobCode(), not(emptyOrNullString()));
+    }
+
+    // Client Assertion tests
+    @Test
+    public void shouldAddAndPreferClientAuthentication() throws Exception {
+        AuthAPI authAPI = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID, CLIENT_SECRET)
+            .withClientAssertion(new TestAssertionSigner("token"))
+            .build();
+        TokenRequest request = authAPI.exchangeCode("code123", "https://domain.auth0.com/callback");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("code", "code123"));
+        assertThat(body, hasEntry("redirect_uri", "https://domain.auth0.com/callback"));
+        assertThat(body, hasEntry("grant_type", "authorization_code"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, not(hasEntry("client_secret", CLIENT_SECRET)));
+        assertThat(body, hasEntry("client_assertion", "token"));
+        assertThat(body, hasEntry("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+    @Test
+    public void shouldNotAddAnyParamsIfNoSecretOrAssertion() throws Exception {
+        AuthAPI authAPI = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
+        TokenRequest request = authAPI.exchangeCodeWithVerifier("code123", "verifier", "https://domain.auth0.com/callback");
+
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("code", "code123"));
+        assertThat(body, hasEntry("code_verifier", "verifier"));
+        assertThat(body, hasEntry("redirect_uri", "https://domain.auth0.com/callback"));
+        assertThat(body, hasEntry("grant_type", "authorization_code"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, not(hasEntry("client_secret", CLIENT_SECRET)));
+        assertThat(body, not(hasEntry("client_assertion", "token")));
+        assertThat(body, not(hasEntry("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+    static class TestAssertionSigner implements ClientAssertionSigner {
+
+        private final String token;
+
+        public TestAssertionSigner(String token) {
+            this.token = token;
+        }
+
+        @Override
+        public String createSignedClientAssertion(String issuer, String audience, String subject) {
+            return token;
+        }
     }
 }
