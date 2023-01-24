@@ -125,7 +125,7 @@ public class AuthAPI {
      * @return a Builder for further configuration.
      */
     public static AuthAPI.Builder newBuilder(String domain, String clientId, ClientAssertionSigner clientAssertionSigner) {
-        return new AuthAPI.Builder(domain, clientId).withClientAssertion(clientAssertionSigner);
+        return new AuthAPI.Builder(domain, clientId).withClientAssertionSigner(clientAssertionSigner);
     }
 
     /**
@@ -1224,7 +1224,7 @@ public class AuthAPI {
          * @param clientAssertionSigner the client assertion signer to create the signed client assertion.
          * @return the builder instance.
          */
-        public Builder withClientAssertion(ClientAssertionSigner clientAssertionSigner) {
+        public Builder withClientAssertionSigner(ClientAssertionSigner clientAssertionSigner) {
             this.clientAssertionSigner = clientAssertionSigner;
             return this;
         }

@@ -1499,7 +1499,7 @@ public class AuthAPITest {
     @Test
     public void shouldAddAndPreferClientAuthentication() throws Exception {
         AuthAPI authAPI = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID, CLIENT_SECRET)
-            .withClientAssertion(new TestAssertionSigner("token"))
+            .withClientAssertionSigner(new TestAssertionSigner("token"))
             .build();
         TokenRequest request = authAPI.exchangeCode("code123", "https://domain.auth0.com/callback");
         assertThat(request, is(notNullValue()));
