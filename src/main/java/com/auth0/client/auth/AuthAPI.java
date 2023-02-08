@@ -274,8 +274,8 @@ public class AuthAPI {
     }
 
     /**
-     * Request a password reset for the given email and database connection. The response will always be successful even if
-     * there's no user associated to the given email for that database connection.
+     * Request a password reset for the given email and database connection, using the client ID configured for this client instance.
+     * The response will always be successful even if there's no user associated to the given email for that database connection.
      * i.e.:
      * <pre>
      * {@code
@@ -293,15 +293,39 @@ public class AuthAPI {
      * @return a Request to execute.
      */
     public Request<Void> resetPassword(String email, String connection) {
+        return resetPassword(this.clientId, email, connection);
+    }
+
+    /**
+     * Request a password reset for the given client ID, email, and database connection. The response will always be successful even if
+     * there's no user associated to the given email for that database connection.
+     * i.e.:
+     * <pre>
+     * {@code
+     * try {
+     *      authAPI.resetPassword("CLIENT-ID", "me@auth0.com", "db-connection").execute().getBody();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @see <a href="https://auth0.com/docs/api/authentication#change-password">Change Password API docs</a>
+     * @param clientId   the client ID of your client.
+     * @param email      the email associated to the database user.
+     * @param connection the database connection where the user was created.
+     * @return a Request to execute.
+     */
+    public Request<Void> resetPassword(String clientId, String email, String connection) {
         Asserts.assertNotNull(email, "email");
         Asserts.assertNotNull(connection, "connection");
 
         String url = baseUrl
-                .newBuilder()
-                .addPathSegment(PATH_DBCONNECTIONS)
-                .addPathSegment("change_password")
-                .build()
-                .toString();
+            .newBuilder()
+            .addPathSegment(PATH_DBCONNECTIONS)
+            .addPathSegment("change_password")
+            .build()
+            .toString();
         VoidRequest request = new VoidRequest(client, null, url, HttpMethod.POST);
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_EMAIL, email);
