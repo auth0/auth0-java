@@ -308,6 +308,26 @@ public class AuthAPITest {
         assertThat(response, is(nullValue()));
     }
 
+    @Test
+    public void shouldCreateResetPasswordRequestWithSpecifiedClientId() throws Exception {
+        Request<Void> request = api.resetPassword("CLIENT-ID", "me@auth0.com", "db-connection");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_RESET_PASSWORD, 200);
+        Void response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/dbconnections/change_password"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("email", "me@auth0.com"));
+        assertThat(body, hasEntry("connection", "db-connection"));
+        assertThat(body, hasEntry("client_id", "CLIENT-ID"));
+        assertThat(body, not(hasKey("password")));
+
+        assertThat(response, is(nullValue()));
+    }
 
     //Sign Up
 
