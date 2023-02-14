@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.0.0 Beta 2](https://github.com/auth0/auth0-java/tree/2.0.0-beta.2) (2023-02-13)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.0.0-beta.1...2.0.0-beta.2)
+
+**Changed**
+- Update to latest java-jwt version [\#512](https://github.com/auth0/auth0-java/pull/512) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [2.0.0 Beta 1](https://github.com/auth0/auth0-java/tree/2.0.0-beta.1) (2023-01-26)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.0.0-beta.0...2.0.0-beta.1)
 
