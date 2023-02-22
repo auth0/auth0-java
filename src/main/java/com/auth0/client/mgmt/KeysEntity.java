@@ -1,13 +1,14 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.json.mgmt.Key;
-import com.auth0.net.CustomRequest;
+import com.auth0.json.mgmt.keys.Key;
 import com.auth0.net.EmptyBodyRequest;
+import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 import java.util.List;
 
@@ -20,9 +21,9 @@ import java.util.List;
  */
 public class KeysEntity extends BaseManagementEntity {
 
-    KeysEntity(OkHttpClient client, HttpUrl baseUrl,
-               String apiToken) {
-        super(client, baseUrl, apiToken);
+    KeysEntity(Auth0HttpClient client, HttpUrl baseUrl,
+               TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -37,10 +38,8 @@ public class KeysEntity extends BaseManagementEntity {
             .newBuilder()
             .addEncodedPathSegments("api/v2/keys/signing");
         String url = builder.build().toString();
-        CustomRequest<List<Key>> request = new CustomRequest<>(this.client, url, "GET", new TypeReference<List<Key>>() {
+        return new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<Key>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
 
@@ -59,10 +58,8 @@ public class KeysEntity extends BaseManagementEntity {
             .addPathSegments("api/v2/keys/signing")
             .addPathSegment(kid);
         String url = builder.build().toString();
-        CustomRequest<Key> request = new CustomRequest<>(client, url, "GET", new TypeReference<Key>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Key>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -78,10 +75,8 @@ public class KeysEntity extends BaseManagementEntity {
             .addPathSegments("api/v2/keys/signing/rotate")
             .build()
             .toString();
-        CustomRequest<Key> request = new EmptyBodyRequest<>(this.client, url, "POST", new TypeReference<Key>() {
+        return new EmptyBodyRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<Key>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -102,9 +97,7 @@ public class KeysEntity extends BaseManagementEntity {
             .addPathSegment("revoke")
             .build()
             .toString();
-        CustomRequest<Key> request = new EmptyBodyRequest<>(this.client, url, "PUT", new TypeReference<Key>() {
+        return new EmptyBodyRequest<>(this.client, tokenProvider, url, HttpMethod.PUT, new TypeReference<Key>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 }

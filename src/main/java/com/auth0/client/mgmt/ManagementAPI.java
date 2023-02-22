@@ -1,18 +1,11 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.client.HttpOptions;
-import com.auth0.client.LoggingOptions;
-import com.auth0.client.ProxyOptions;
-import com.auth0.net.RateLimitInterceptor;
-import com.auth0.net.Telemetry;
-import com.auth0.net.TelemetryInterceptor;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.DefaultHttpClient;
 import com.auth0.utils.Asserts;
-import okhttp3.*;
-import okhttp3.logging.HttpLoggingInterceptor;
-import okhttp3.logging.HttpLoggingInterceptor.Level;
-
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import org.jetbrains.annotations.TestOnly;
 
 /**
  * Class that provides an implementation of the Management API methods defined in https://auth0.com/docs/api/management/v2.
@@ -26,35 +19,26 @@ import java.util.concurrent.TimeUnit;
 public class ManagementAPI {
 
     private final HttpUrl baseUrl;
-    private String apiToken;
-    private final OkHttpClient client;
-    private final TelemetryInterceptor telemetry;
-    private final HttpLoggingInterceptor logging;
+    private TokenProvider tokenProvider;
+    private final Auth0HttpClient client;
 
     /**
      * Create an instance with the given tenant's domain and API token.
-     * In addition, accepts an {@link HttpOptions} that will be used to configure the networking client.
+     * In addition, accepts an {@link com.auth0.client.HttpOptions} that will be used to configure the networking client.
      * See the Management API section in the readme or visit https://auth0.com/docs/api/management/v2/tokens
      * to learn how to obtain a token.
+     *
+     * @deprecated Use the {@link Builder} to configure and create instances.
      *
      * @param domain   the tenant's domain.
      * @param apiToken the token to authenticate the calls with.
      * @param options  configuration options for this client instance.
      * @see #ManagementAPI(String, String)
      */
-    public ManagementAPI(String domain, String apiToken, HttpOptions options) {
-        Asserts.assertNotNull(domain, "domain");
-        Asserts.assertNotNull(apiToken, "api token");
-
-        this.baseUrl = createBaseUrl(domain);
-        if (baseUrl == null) {
-            throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
-        }
-        this.apiToken = apiToken;
-
-        telemetry = new TelemetryInterceptor();
-        logging = new HttpLoggingInterceptor();
-        client = buildNetworkingClient(options);
+    @Deprecated
+    @SuppressWarnings("baz")
+    public ManagementAPI(String domain, String apiToken, com.auth0.client.HttpOptions options) {
+        this(domain, SimpleTokenProvider.create(apiToken), buildNetworkingClient(options));
     }
 
     /**
@@ -62,11 +46,37 @@ public class ManagementAPI {
      * See the Management API section in the readme or visit https://auth0.com/docs/api/management/v2/tokens
      * to learn how to obtain a token.
      *
+     * @deprecated Use the {@link Builder} to configure and create instances.
+     *
      * @param domain   the tenant's domain.
      * @param apiToken the token to authenticate the calls with.
      */
+    @Deprecated
     public ManagementAPI(String domain, String apiToken) {
-        this(domain, apiToken, new HttpOptions());
+        this(domain, SimpleTokenProvider.create(apiToken), DefaultHttpClient.newBuilder().build());
+    }
+
+    /**
+     * Instantiate a new {@link Builder} to configure and build a new ManagementAPI client.
+     *
+     * @param domain the tenant's domain. Must be a non-null valid HTTPS domain.
+     * @param apiToken the token to use when making API requests to the Auth0 Management API.
+     * @return a Builder for further configuration.
+     */
+    public static ManagementAPI.Builder newBuilder(String domain, String apiToken) {
+        return new ManagementAPI.Builder(domain, apiToken);
+    }
+
+    private ManagementAPI(String domain, TokenProvider tokenProvider, Auth0HttpClient httpClient) {
+        Asserts.assertNotNull(domain, "domain");
+        Asserts.assertNotNull(tokenProvider, "token provider");
+
+        this.baseUrl = createBaseUrl(domain);
+        if (baseUrl == null) {
+            throw new IllegalArgumentException("The domain had an invalid format and couldn't be parsed as an URL.");
+        }
+        this.tokenProvider = tokenProvider;
+        this.client = httpClient;
     }
 
     /**
@@ -76,43 +86,18 @@ public class ManagementAPI {
      * @param options the options to set to the client.
      * @return a new networking client instance configured as requested.
      */
-    private OkHttpClient buildNetworkingClient(HttpOptions options) {
-        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
-        final ProxyOptions proxyOptions = options.getProxyOptions();
-        if (proxyOptions != null) {
-            //Set proxy
-            clientBuilder.proxy(proxyOptions.getProxy());
-            //Set authentication, if present
-            final String proxyAuth = proxyOptions.getBasicAuthentication();
-            if (proxyAuth != null) {
-                clientBuilder.proxyAuthenticator(new Authenticator() {
-
-                    private static final String PROXY_AUTHORIZATION_HEADER = "Proxy-Authorization";
-
-                    @Override
-                    public okhttp3.Request authenticate(Route route, Response response) throws IOException {
-                        if (response.request().header(PROXY_AUTHORIZATION_HEADER) != null) {
-                            return null;
-                        }
-                        return response.request().newBuilder()
-                                .header(PROXY_AUTHORIZATION_HEADER, proxyAuth)
-                                .build();
-                    }
-                });
-            }
-        }
-        configureLogging(options.getLoggingOptions());
-        Dispatcher dispatcher = new Dispatcher();
-        dispatcher.setMaxRequestsPerHost(options.getMaxRequestsPerHost());
-        dispatcher.setMaxRequests(options.getMaxRequests());
-        return clientBuilder
-                .addInterceptor(logging)
-                .addInterceptor(telemetry)
-                .addInterceptor(new RateLimitInterceptor(options.getManagementAPIMaxRetries()))
-                .connectTimeout(options.getConnectTimeout(), TimeUnit.SECONDS)
-                .readTimeout(options.getReadTimeout(), TimeUnit.SECONDS)
-                .dispatcher(dispatcher)
-                .build();
+    @SuppressWarnings("deprecation")
+    private static DefaultHttpClient buildNetworkingClient(com.auth0.client.HttpOptions options) {
+        Asserts.assertNotNull(options, "Http options");
+        return DefaultHttpClient.newBuilder()
+            .withLogging(options.getLoggingOptions())
+            .withMaxRetries(options.getManagementAPIMaxRetries())
+            .withMaxRequests(options.getMaxRequests())
+            .withMaxRequestsPerHost(options.getMaxRequestsPerHost())
+            .withProxy(options.getProxyOptions())
+            .withConnectTimeout(options.getConnectTimeout())
+            .withReadTimeout(options.getReadTimeout())
+            .build();
     }
 
     /**
@@ -124,65 +109,12 @@ public class ManagementAPI {
      */
     public void setApiToken(String apiToken) {
         Asserts.assertNotNull(apiToken, "api token");
-        this.apiToken = apiToken;
+        this.tokenProvider = SimpleTokenProvider.create(apiToken);
     }
 
-    /**
-     * Avoid sending Telemetry data in every request to the Auth0 servers.
-     */
-    public void doNotSendTelemetry() {
-        telemetry.setEnabled(false);
-    }
-
-    /**
-     * Setter for the Telemetry to send in every request to Auth0.
-     *
-     * @param telemetry to send in every request to Auth0
-     */
-    public void setTelemetry(Telemetry telemetry) {
-        this.telemetry.setTelemetry(telemetry);
-    }
-
-    /**
-     * @deprecated use the logging configuration available in {@link HttpOptions#setLoggingOptions(LoggingOptions)}
-     *
-     * Whether to enable or not the current HTTP Logger for every request and response line, body, and headers.
-     * <strong>Warning: Enabling logging can leek sensitive information, and should only be done in a controlled, non-production environment.</strong>
-     *
-     * @param enabled whether to enable the HTTP logger or not.
-     */
-    @Deprecated
-    public void setLoggingEnabled(boolean enabled) {
-        logging.setLevel(enabled ? Level.BODY : Level.NONE);
-    }
-
-    private void configureLogging(LoggingOptions loggingOptions) {
-        if (loggingOptions == null) {
-            logging.setLevel(Level.NONE);
-            return;
-        }
-        switch (loggingOptions.getLogLevel()) {
-            case BASIC:
-                logging.setLevel(Level.BASIC);
-                break;
-            case HEADERS:
-                logging.setLevel(Level.HEADERS);
-                break;
-            case BODY:
-                logging.setLevel(Level.BODY);
-                break;
-            case NONE:
-            default:
-                logging.setLevel(Level.NONE);
-        }
-        for (String header : loggingOptions.getHeadersToRedact()) {
-            logging.redactHeader(header);
-        }
-    }
-
-    //Visible for testing
-    OkHttpClient getClient() {
-        return client;
+    @TestOnly
+    Auth0HttpClient getHttpClient() {
+        return this.client;
     }
 
     //Visible for testing
@@ -204,7 +136,7 @@ public class ManagementAPI {
      * @return the Branding entity.
      */
     public BrandingEntity branding() {
-        return new BrandingEntity(client, baseUrl, apiToken);
+        return new BrandingEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -213,7 +145,7 @@ public class ManagementAPI {
      * @return the Client Grants entity.
      */
     public ClientGrantsEntity clientGrants() {
-        return new ClientGrantsEntity(client, baseUrl, apiToken);
+        return new ClientGrantsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -222,7 +154,7 @@ public class ManagementAPI {
      * @return the Applications entity.
      */
     public ClientsEntity clients() {
-        return new ClientsEntity(client, baseUrl, apiToken);
+        return new ClientsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -231,7 +163,7 @@ public class ManagementAPI {
      * @return the Connections entity.
      */
     public ConnectionsEntity connections() {
-        return new ConnectionsEntity(client, baseUrl, apiToken);
+        return new ConnectionsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -240,7 +172,7 @@ public class ManagementAPI {
      * @return the Device Credentials entity.
      */
     public DeviceCredentialsEntity deviceCredentials() {
-        return new DeviceCredentialsEntity(client, baseUrl, apiToken);
+        return new DeviceCredentialsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -249,7 +181,7 @@ public class ManagementAPI {
      * @return the Grants entity.
      */
     public GrantsEntity grants() {
-        return new GrantsEntity(client, baseUrl, apiToken);
+        return new GrantsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -258,7 +190,7 @@ public class ManagementAPI {
      * @return the Log Events entity.
      */
     public LogEventsEntity logEvents() {
-        return new LogEventsEntity(client, baseUrl, apiToken);
+        return new LogEventsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -267,7 +199,7 @@ public class ManagementAPI {
      * @return the Log Streams entity.
      */
     public LogStreamsEntity logStreams() {
-        return new LogStreamsEntity(client, baseUrl, apiToken);
+        return new LogStreamsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -276,7 +208,7 @@ public class ManagementAPI {
      * @return the Rules entity.
      */
     public RulesEntity rules() {
-        return new RulesEntity(client, baseUrl, apiToken);
+        return new RulesEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -285,7 +217,7 @@ public class ManagementAPI {
      * @return the Rules Configs entity.
      */
     public RulesConfigsEntity rulesConfigs() {
-        return new RulesConfigsEntity(client, baseUrl, apiToken);
+        return new RulesConfigsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -294,7 +226,7 @@ public class ManagementAPI {
      * @return the User Blocks entity.
      */
     public UserBlocksEntity userBlocks() {
-        return new UserBlocksEntity(client, baseUrl, apiToken);
+        return new UserBlocksEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -303,7 +235,7 @@ public class ManagementAPI {
      * @return the Users entity.
      */
     public UsersEntity users() {
-        return new UsersEntity(client, baseUrl, apiToken);
+        return new UsersEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -312,7 +244,7 @@ public class ManagementAPI {
      * @return the Blacklists entity.
      */
     public BlacklistsEntity blacklists() {
-        return new BlacklistsEntity(client, baseUrl, apiToken);
+        return new BlacklistsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -321,7 +253,7 @@ public class ManagementAPI {
      * @return the Email Templates entity.
      */
     public EmailTemplatesEntity emailTemplates() {
-        return new EmailTemplatesEntity(client, baseUrl, apiToken);
+        return new EmailTemplatesEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -330,7 +262,7 @@ public class ManagementAPI {
      * @return the Email Provider entity.
      */
     public EmailProviderEntity emailProvider() {
-        return new EmailProviderEntity(client, baseUrl, apiToken);
+        return new EmailProviderEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -339,7 +271,7 @@ public class ManagementAPI {
      * @return the Guardian entity.
      */
     public GuardianEntity guardian() {
-        return new GuardianEntity(client, baseUrl, apiToken);
+        return new GuardianEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -348,7 +280,7 @@ public class ManagementAPI {
      * @return the Stats entity.
      */
     public StatsEntity stats() {
-        return new StatsEntity(client, baseUrl, apiToken);
+        return new StatsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -357,7 +289,7 @@ public class ManagementAPI {
      * @return the Tenants entity.
      */
     public TenantsEntity tenants() {
-        return new TenantsEntity(client, baseUrl, apiToken);
+        return new TenantsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -366,7 +298,7 @@ public class ManagementAPI {
      * @return the Tickets entity.
      */
     public TicketsEntity tickets() {
-        return new TicketsEntity(client, baseUrl, apiToken);
+        return new TicketsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -375,7 +307,7 @@ public class ManagementAPI {
      * @return the Resource Servers entity.
      */
     public ResourceServerEntity resourceServers() {
-        return new ResourceServerEntity(client, baseUrl, apiToken);
+        return new ResourceServerEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -384,7 +316,7 @@ public class ManagementAPI {
      * @return the Jobs entity.
      */
     public JobsEntity jobs() {
-        return new JobsEntity(client, baseUrl, apiToken);
+        return new JobsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -393,7 +325,7 @@ public class ManagementAPI {
      * @return the Roles entity.
      */
     public RolesEntity roles() {
-        return new RolesEntity(client, baseUrl, apiToken);
+        return new RolesEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -402,7 +334,7 @@ public class ManagementAPI {
      * @return the Organizations entity.
      */
     public OrganizationsEntity organizations() {
-        return new OrganizationsEntity(client, baseUrl, apiToken);
+        return new OrganizationsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -411,7 +343,7 @@ public class ManagementAPI {
      * @return the Actions entity.
      */
     public ActionsEntity actions() {
-        return new ActionsEntity(client, baseUrl, apiToken);
+        return new ActionsEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -420,7 +352,7 @@ public class ManagementAPI {
      * @return the Attack Protection Entity
      */
     public AttackProtectionEntity attackProtection() {
-        return new AttackProtectionEntity(client, baseUrl, apiToken);
+        return new AttackProtectionEntity(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -429,6 +361,44 @@ public class ManagementAPI {
      * @return the Keys Entity
      */
     public KeysEntity keys() {
-        return new KeysEntity(client, baseUrl, apiToken);
+        return new KeysEntity(client, baseUrl, tokenProvider);
+    }
+
+    /**
+     * Builder for {@link ManagementAPI} API client instances.
+     */
+    public static class Builder {
+        private final String domain;
+        private final String apiToken;
+        private Auth0HttpClient httpClient = DefaultHttpClient.newBuilder().build();
+
+        /**
+         * Create a new Builder
+         * @param domain the domain of the tenant.
+         * @param apiToken the API token used to make requests to the Auth0 Management API.
+         */
+        public Builder(String domain, String apiToken) {
+            this.domain = domain;
+            this.apiToken = apiToken;
+        }
+
+        /**
+         * Configure the client with an {@link Auth0HttpClient}.
+         * @param httpClient the HTTP client to use when making requests.
+         * @return the builder instance.
+         * @see DefaultHttpClient
+         */
+        public Builder withHttpClient(Auth0HttpClient httpClient) {
+            this.httpClient = httpClient;
+            return this;
+        }
+
+        /**
+         * Build a {@link ManagementAPI} instance using this builder's configuration.
+         * @return the configured {@code ManagementAPI} instance.
+         */
+        public ManagementAPI build() {
+            return new ManagementAPI(domain, SimpleTokenProvider.create(apiToken), httpClient);
+        }
     }
 }

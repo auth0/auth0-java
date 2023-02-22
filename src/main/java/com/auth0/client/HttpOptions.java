@@ -2,7 +2,9 @@ package com.auth0.client;
 
 /**
  * Used to configure additional configuration options when customizing the API client instance.
+ * @deprecated use the {@link com.auth0.net.client.DefaultHttpClient} to configure HTTP client behavior
  */
+@Deprecated
 public class HttpOptions {
 
     private ProxyOptions proxyOptions;

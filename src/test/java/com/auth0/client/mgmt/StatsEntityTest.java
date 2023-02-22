@@ -1,7 +1,8 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.json.mgmt.DailyStats;
+import com.auth0.json.mgmt.stats.DailyStats;
 import com.auth0.net.Request;
+import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
 
@@ -11,8 +12,8 @@ import java.util.List;
 
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.*;
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class StatsEntityTest extends BaseMgmtEntityTest {
 
@@ -22,10 +23,10 @@ public class StatsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_ACTIVE_USERS_COUNT, 200);
-        Integer response = request.execute();
+        Integer response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/stats/active-users"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/stats/active-users"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -60,10 +61,10 @@ public class StatsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_DAILY_STATS_LIST, 200);
-        List<DailyStats> response = request.execute();
+        List<DailyStats> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/stats/daily"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/stats/daily"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("from", "20161011"));
@@ -78,7 +79,7 @@ public class StatsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
-        List<DailyStats> response = request.execute();
+        List<DailyStats> response = request.execute().getBody();
 
         assertThat(response, is(notNullValue()));
         assertThat(response, is(emptyCollectionOf(DailyStats.class)));

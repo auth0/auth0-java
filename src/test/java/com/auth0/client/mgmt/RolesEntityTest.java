@@ -2,12 +2,13 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.PageFilter;
 import com.auth0.client.mgmt.filter.RolesFilter;
-import com.auth0.json.mgmt.Permission;
-import com.auth0.json.mgmt.PermissionsPage;
-import com.auth0.json.mgmt.Role;
-import com.auth0.json.mgmt.RolesPage;
+import com.auth0.json.mgmt.permissions.Permission;
+import com.auth0.json.mgmt.permissions.PermissionsPage;
+import com.auth0.json.mgmt.roles.Role;
+import com.auth0.json.mgmt.roles.RolesPage;
 import com.auth0.json.mgmt.users.UsersPage;
 import com.auth0.net.Request;
+import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
 
@@ -29,10 +30,10 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
     assertThat(request, is(notNullValue()));
 
     server.jsonResponse(MGMT_ROLES_LIST, 200);
-    RolesPage response = request.execute();
+    RolesPage response = request.execute().getBody();
     RecordedRequest recordedRequest = server.takeRequest();
 
-    assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/roles"));
+    assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/roles"));
     assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
     assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -47,10 +48,10 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
     assertThat(request, is(notNullValue()));
 
     server.jsonResponse(MGMT_ROLES_LIST, 200);
-    RolesPage response = request.execute();
+    RolesPage response = request.execute().getBody();
     RecordedRequest recordedRequest = server.takeRequest();
 
-    assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/roles"));
+    assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/roles"));
     assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
     assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     assertThat(recordedRequest, hasQueryParameter("page", "23"));
@@ -67,10 +68,10 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
     assertThat(request, is(notNullValue()));
 
     server.jsonResponse(MGMT_ROLES_PAGED_LIST, 200);
-    RolesPage response = request.execute();
+    RolesPage response = request.execute().getBody();
     RecordedRequest recordedRequest = server.takeRequest();
 
-    assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/roles"));
+    assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/roles"));
     assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
     assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
@@ -89,10 +90,10 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
     assertThat(request, is(notNullValue()));
 
     server.jsonResponse(MGMT_ROLE, 200);
-    Role response = request.execute();
+    Role response = request.execute().getBody();
     RecordedRequest recordedRequest = server.takeRequest();
 
-    assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/roles/1"));
+    assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/roles/1"));
     assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
     assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -121,10 +122,10 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
     assertThat(request, is(notNullValue()));
 
     server.jsonResponse(MGMT_ROLE, 200);
-    Role response = request.execute();
+    Role response = request.execute().getBody();
     RecordedRequest recordedRequest = server.takeRequest();
 
-    assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/roles"));
+    assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/roles"));
     assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
     assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -157,10 +158,10 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
     assertThat(request, is(notNullValue()));
 
     server.jsonResponse(MGMT_ROLE, 200);
-    Role response = request.execute();
+    Role response = request.execute().getBody();
     RecordedRequest recordedRequest = server.takeRequest();
 
-    assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/roles/1"));
+    assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PATCH, "/api/v2/roles/1"));
     assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
     assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -184,10 +185,10 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
     assertThat(request, is(notNullValue()));
 
     server.emptyResponse(200);
-    request.execute();
+    request.execute().getBody();
     RecordedRequest recordedRequest = server.takeRequest();
 
-    assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/roles/1"));
+    assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/roles/1"));
     assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
     assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
   }
@@ -205,10 +206,10 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
     assertThat(request, is(notNullValue()));
 
     server.jsonResponse(MGMT_ROLE_USERS_PAGED_LIST, 200);
-    UsersPage response = request.execute();
+    UsersPage response = request.execute().getBody();
     RecordedRequest recordedRequest = server.takeRequest();
 
-    assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/roles/1/users"));
+    assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/roles/1/users"));
     assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
     assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -223,10 +224,10 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
     assertThat(request, is(notNullValue()));
 
     server.jsonResponse(MGMT_ROLE_USERS_PAGED_LIST, 200);
-    UsersPage response = request.execute();
+    UsersPage response = request.execute().getBody();
     RecordedRequest recordedRequest = server.takeRequest();
 
-    assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/roles/1/users"));
+    assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/roles/1/users"));
     assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
     assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     assertThat(recordedRequest, hasQueryParameter("page", "23"));
@@ -243,10 +244,10 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
     assertThat(request, is(notNullValue()));
 
     server.jsonResponse(MGMT_ROLE_USERS_PAGED_LIST, 200);
-    UsersPage response = request.execute();
+    UsersPage response = request.execute().getBody();
     RecordedRequest recordedRequest = server.takeRequest();
 
-    assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/roles/1/users"));
+    assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/roles/1/users"));
     assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
     assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
@@ -266,10 +267,10 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_ROLE_USERS_CHECKPOINT_PAGED_LIST, 200);
-        UsersPage response = request.execute();
+        UsersPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/roles/1/users"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/roles/1/users"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("take", "2"));
@@ -313,10 +314,10 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
     assertThat(request, is(notNullValue()));
 
     server.emptyResponse(200);
-    Object response = request.execute();
+    Object response = request.execute().getBody();
     RecordedRequest recordedRequest = server.takeRequest();
 
-    assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/roles/1/users"));
+    assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/roles/1/users"));
     assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
     assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -333,10 +334,10 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
     assertThat(request, is(notNullValue()));
 
     server.jsonResponse(MGMT_ROLE_PERMISSIONS_PAGED_LIST, 200);
-    PermissionsPage response = request.execute();
+    PermissionsPage response = request.execute().getBody();
     RecordedRequest recordedRequest = server.takeRequest();
 
-    assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/roles/1/permissions"));
+    assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/roles/1/permissions"));
     assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
     assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -351,10 +352,10 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
     assertThat(request, is(notNullValue()));
 
     server.jsonResponse(MGMT_ROLE_PERMISSIONS_PAGED_LIST, 200);
-    PermissionsPage response = request.execute();
+    PermissionsPage response = request.execute().getBody();
     RecordedRequest recordedRequest = server.takeRequest();
 
-    assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/roles/1/permissions"));
+    assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/roles/1/permissions"));
     assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
     assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     assertThat(recordedRequest, hasQueryParameter("page", "23"));
@@ -371,10 +372,10 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
     assertThat(request, is(notNullValue()));
 
     server.jsonResponse(MGMT_ROLE_PERMISSIONS_PAGED_LIST, 200);
-    PermissionsPage response = request.execute();
+    PermissionsPage response = request.execute().getBody();
     RecordedRequest recordedRequest = server.takeRequest();
 
-    assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/roles/1/permissions"));
+    assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/roles/1/permissions"));
     assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
     assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
@@ -418,10 +419,10 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
     assertThat(request, is(notNullValue()));
 
     server.emptyResponse(200);
-    Object response = request.execute();
+    Object response = request.execute().getBody();
     RecordedRequest recordedRequest = server.takeRequest();
 
-    assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/roles/1/permissions"));
+    assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/roles/1/permissions"));
     assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
     assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -463,10 +464,10 @@ public class RolesEntityTest extends BaseMgmtEntityTest {
     assertThat(request, is(notNullValue()));
 
     server.emptyResponse(200);
-    Object response = request.execute();
+    Object response = request.execute().getBody();
     RecordedRequest recordedRequest = server.takeRequest();
 
-    assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/roles/1/permissions"));
+    assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/roles/1/permissions"));
     assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
     assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 

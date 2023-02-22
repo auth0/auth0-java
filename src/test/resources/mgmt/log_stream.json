@@ -9,5 +9,15 @@
     "httpContentType": "application/json",
     "httpAuthorization": "abc123",
     "httpEndpoint": "https//me.org"
-  }
+  },
+  "filters": [
+    {
+      "type": "category",
+      "name": "auth.ancillary.success"
+    },
+    {
+      "type": "category",
+      "name": "auth.ancillary.fail"
+    }
+  ]
 }

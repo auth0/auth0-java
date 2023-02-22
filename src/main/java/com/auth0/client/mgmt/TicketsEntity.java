@@ -2,12 +2,13 @@ package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.tickets.EmailVerificationTicket;
 import com.auth0.json.mgmt.tickets.PasswordChangeTicket;
-import com.auth0.net.CustomRequest;
+import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 /**
  * Class that provides an implementation of the Tickets methods of the Management API as defined in https://auth0.com/docs/api/management/v2#!/Tickets
@@ -19,8 +20,8 @@ import okhttp3.OkHttpClient;
 @SuppressWarnings("WeakerAccess")
 public class TicketsEntity extends BaseManagementEntity {
 
-    TicketsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    TicketsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -39,9 +40,8 @@ public class TicketsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<EmailVerificationTicket> request = new CustomRequest<>(client, url, "POST", new TypeReference<EmailVerificationTicket>() {
+        BaseRequest<EmailVerificationTicket> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<EmailVerificationTicket>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(emailVerificationTicket);
         return request;
     }
@@ -62,9 +62,8 @@ public class TicketsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<PasswordChangeTicket> request = new CustomRequest<>(client, url, "POST", new TypeReference<PasswordChangeTicket>() {
+        BaseRequest<PasswordChangeTicket> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<PasswordChangeTicket>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(passwordChangeTicket);
         return request;
     }

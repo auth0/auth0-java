@@ -2,13 +2,14 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.json.mgmt.emailproviders.EmailProvider;
-import com.auth0.net.CustomRequest;
+import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 import java.util.Map;
 
@@ -21,8 +22,8 @@ import java.util.Map;
  */
 @SuppressWarnings("WeakerAccess")
 public class EmailProviderEntity extends BaseManagementEntity {
-    EmailProviderEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    EmailProviderEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -42,10 +43,8 @@ public class EmailProviderEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<EmailProvider> request = new CustomRequest<>(client, url, "GET", new TypeReference<EmailProvider>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<EmailProvider>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -63,9 +62,8 @@ public class EmailProviderEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/emails/provider")
                 .build()
                 .toString();
-        CustomRequest<EmailProvider> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<EmailProvider>() {
+        BaseRequest<EmailProvider> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<EmailProvider>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(emailProvider);
         return request;
     }
@@ -82,9 +80,7 @@ public class EmailProviderEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/emails/provider")
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 
     /**
@@ -102,9 +98,8 @@ public class EmailProviderEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/emails/provider")
                 .build()
                 .toString();
-        CustomRequest<EmailProvider> request = new CustomRequest<>(this.client, url, "PATCH", new TypeReference<EmailProvider>() {
+        BaseRequest<EmailProvider> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<EmailProvider>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(emailProvider);
         return request;
     }

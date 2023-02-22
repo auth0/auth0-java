@@ -1,9 +1,11 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.*;
-import com.auth0.json.mgmt.Permission;
-import com.auth0.json.mgmt.PermissionsPage;
-import com.auth0.json.mgmt.RolesPage;
+import com.auth0.json.mgmt.users.authenticationmethods.AuthenticationMethod;
+import com.auth0.json.mgmt.users.authenticationmethods.AuthenticationMethodsPage;
+import com.auth0.json.mgmt.permissions.Permission;
+import com.auth0.json.mgmt.permissions.PermissionsPage;
+import com.auth0.json.mgmt.roles.RolesPage;
 import com.auth0.json.mgmt.guardian.Enrollment;
 import com.auth0.json.mgmt.logevents.LogEventsPage;
 import com.auth0.json.mgmt.organizations.OrganizationsPage;
@@ -11,14 +13,15 @@ import com.auth0.json.mgmt.users.Identity;
 import com.auth0.json.mgmt.users.RecoveryCode;
 import com.auth0.json.mgmt.users.User;
 import com.auth0.json.mgmt.users.UsersPage;
-import com.auth0.net.CustomRequest;
 import com.auth0.net.EmptyBodyRequest;
+import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,8 +39,8 @@ import static com.auth0.client.mgmt.filter.QueryFilter.KEY_QUERY;
 @SuppressWarnings("WeakerAccess")
 public class UsersEntity extends BaseManagementEntity {
 
-    UsersEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    UsersEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -64,10 +67,8 @@ public class UsersEntity extends BaseManagementEntity {
         }
 
         String url = builder.build().toString();
-        CustomRequest<List<User>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<User>>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<User>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -85,10 +86,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/users");
         encodeAndAddQueryParam(builder, filter);
         String url = builder.build().toString();
-        CustomRequest<UsersPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<UsersPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<UsersPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -114,10 +113,8 @@ public class UsersEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<User> request = new CustomRequest<>(client, url, "GET", new TypeReference<User>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<User>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -136,9 +133,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/users")
                 .build()
                 .toString();
-        CustomRequest<User> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<User>() {
+        BaseRequest<User> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<User>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(user);
         return request;
     }
@@ -160,9 +156,7 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegment(userId)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return new VoidRequest(client, tokenProvider, url, HttpMethod.DELETE);
     }
 
     /**
@@ -185,9 +179,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegment(userId)
                 .build()
                 .toString();
-        CustomRequest<User> request = new CustomRequest<>(this.client, url, "PATCH", new TypeReference<User>() {
+        BaseRequest<User> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<User>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(user);
         return request;
     }
@@ -211,10 +204,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<List<Enrollment>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Enrollment>>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<Enrollment>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -237,10 +228,8 @@ public class UsersEntity extends BaseManagementEntity {
 
         encodeAndAddQueryParam(builder, filter);
         String url = builder.build().toString();
-        CustomRequest<LogEventsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<LogEventsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<LogEventsPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -255,9 +244,7 @@ public class UsersEntity extends BaseManagementEntity {
     public Request<Void> deleteAllAuthenticators(String userId) {
         Asserts.assertNotNull(userId, "user id");
 
-        return voidRequest("DELETE", builder -> {
-            builder.withPathSegments(String.format("api/v2/users/%s/authenticators", userId));
-        });
+        return voidRequest(HttpMethod.DELETE, builder -> builder.withPathSegments(String.format("api/v2/users/%s/authenticators", userId)));
     }
     
     /**
@@ -281,9 +268,7 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegment(provider)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return new VoidRequest(client, tokenProvider, url, HttpMethod.DELETE);
     }
 
     /**
@@ -305,10 +290,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        EmptyBodyRequest<RecoveryCode> request = new EmptyBodyRequest<>(client, url, "POST", new TypeReference<RecoveryCode>() {
+        return new EmptyBodyRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<RecoveryCode>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -335,9 +318,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<List<Identity>> request = new CustomRequest<>(client, url, "POST", new TypeReference<List<Identity>>() {
+        BaseRequest<List<Identity>> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<List<Identity>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.addParameter("provider", provider);
         request.addParameter("user_id", secondaryUserId);
         if (connectionId != null) {
@@ -367,9 +349,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<List<Identity>> request = new CustomRequest<>(client, url, "POST", new TypeReference<List<Identity>>() {
+        BaseRequest<List<Identity>> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<List<Identity>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.addParameter("link_with", secondaryIdToken);
 
         return request;
@@ -400,10 +381,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<List<Identity>> request = new CustomRequest<>(client, url, "DELETE", new TypeReference<List<Identity>>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.DELETE, new TypeReference<List<Identity>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -428,10 +407,8 @@ public class UsersEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<PermissionsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<PermissionsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<PermissionsPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
 
@@ -458,9 +435,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegments("permissions")
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(this.client, url, "DELETE");
+        VoidRequest request = new VoidRequest(this.client, tokenProvider, url, HttpMethod.DELETE);
         request.setBody(body);
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -487,9 +463,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegments("permissions")
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(this.client, url, "POST");
+        VoidRequest request = new VoidRequest(this.client, tokenProvider, url, HttpMethod.POST);
         request.setBody(body);
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -515,10 +490,8 @@ public class UsersEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<RolesPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<RolesPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<RolesPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
 
@@ -545,9 +518,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegments("roles")
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(this.client, url, "DELETE");
+        VoidRequest request = new VoidRequest(this.client, tokenProvider, url, HttpMethod.DELETE);
         request.setBody(body);
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -574,9 +546,8 @@ public class UsersEntity extends BaseManagementEntity {
                 .addPathSegments("roles")
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(this.client, url, "POST");
+        VoidRequest request = new VoidRequest(this.client, tokenProvider, url, HttpMethod.POST);
         request.setBody(body);
-        request.addHeader("Authorization", "Bearer " + apiToken);
         return request;
     }
 
@@ -605,9 +576,170 @@ public class UsersEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<OrganizationsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<OrganizationsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<OrganizationsPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
+    }
+
+    /**
+     * Get the authentication methods of the user.
+     * A token with {@code read:authentication_methods} is required.
+     *
+     * @param userId the user ID
+     * @param filter an optional pagination filter
+     * @return a Request to execute
+     *
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Users/get_authentication_methods">https://auth0.com/docs/api/management/v2#!/Users/get_authentication_methods</a>
+     */
+    public Request<AuthenticationMethodsPage> getAuthenticationMethods(String userId, PageFilter filter) {
+        Asserts.assertNotNull(userId, "user ID");
+
+        HttpUrl.Builder builder = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegment(userId)
+            .addPathSegment("authentication-methods");
+
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+        String url = builder.build().toString();
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<AuthenticationMethodsPage>() {
+        });
+    }
+
+    /**
+     * Create an authentication method for a given user.
+     * A token with scope {@code create:authentication_methods} is needed.
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Users/post_authentication_methods">https://auth0.com/docs/api/management/v2#!/Users/post_authentication_methods</a>
+     *
+     * @param userId the user to add authentication method to
+     * @param authenticationMethod the authentication method to be created
+     * @return a Request to execute.
+     */
+    public Request<AuthenticationMethod> createAuthenticationMethods(String userId, AuthenticationMethod authenticationMethod) {
+        Asserts.assertNotNull(userId, "user ID");
+        Asserts.assertNotNull(authenticationMethod, "authentication methods");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegment(userId)
+            .addPathSegment("authentication-methods")
+            .build()
+            .toString();
+        BaseRequest<AuthenticationMethod> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<AuthenticationMethod>() {
+        });
+        request.setBody(authenticationMethod);
+        return request;
+    }
+
+    /**
+     * Updates an authentication method for a given user.
+     * A token with scope {@code update:authentication_methods} is needed.
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Users/put_authentication_methods">https://auth0.com/docs/api/management/v2#!/Users/put_authentication_methods</a>
+     *
+     * @param userId the user to update authentication method
+     * @param authenticationMethods the list of authentication method information to be updated
+     * @return a Request to execute.
+     */
+    public Request<List<AuthenticationMethod>> updateAuthenticationMethods(String userId, List<AuthenticationMethod> authenticationMethods) {
+        Asserts.assertNotNull(userId, "user ID");
+        Asserts.assertNotNull(authenticationMethods, "authentication methods");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegment(userId)
+            .addPathSegment("authentication-methods")
+            .build()
+            .toString();
+        BaseRequest<List<AuthenticationMethod>> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.PUT, new TypeReference<List<AuthenticationMethod>>() {
+        });
+        request.setBody(authenticationMethods);
+        return request;
+    }
+
+    /**
+     * Gets an authentication method by ID.
+     * A token with scope {@code read:authentication_methods} is needed.
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Users/get_authentication_methods_by_authentication_method_id">https://auth0.com/docs/api/management/v2#!/Users/get_authentication_methods_by_authentication_method_id</a>
+     *
+     * @param userId the user to get authentication method for
+     * @param authenticationMethodId the authentication method to be fetched
+     * @return a Request to execute.
+     */
+    public Request<AuthenticationMethod> getAuthenticationMethodById(String userId, String authenticationMethodId) {
+        Asserts.assertNotNull(userId, "user ID");
+        Asserts.assertNotNull(authenticationMethodId, "authentication method ID");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegment(userId)
+            .addPathSegment("authentication-methods")
+            .addPathSegment(authenticationMethodId)
+            .build()
+            .toString();
+
+        return new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.GET, new TypeReference<AuthenticationMethod>() {
+        });
+    }
+
+    /**
+     * Deletes an authentication method by ID.
+     * A token with scope {@code delete:authentication_methods} is needed.
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Users/delete_authentication_methods_by_authentication_method_id">https://auth0.com/docs/api/management/v2#!/Users/delete_authentication_methods_by_authentication_method_id</a>
+     *
+     * @param userId the user to delete the authentication method for
+     * @param authenticationMethodId the authentication method to be deleted
+     * @return a Request to execute.
+     */
+    public Request<Void> deleteAuthenticationMethodById(String userId, String authenticationMethodId) {
+        Asserts.assertNotNull(userId, "user ID");
+        Asserts.assertNotNull(authenticationMethodId, "authentication method ID");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegment(userId)
+            .addPathSegment("authentication-methods")
+            .addPathSegment(authenticationMethodId)
+            .build()
+            .toString();
+
+        return new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.DELETE, new TypeReference<Void>() {
+        });
+    }
+
+    /**
+     * Updates an authentication method.
+     * A token with scope {@code update:authentication_methods} is needed.
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Users/patch_authentication_methods_by_authentication_method_id">https://auth0.com/docs/api/management/v2#!/Users/patch_authentication_methods_by_authentication_method_id</a>
+     *
+     * @param userId the user to delete the authentication method for
+     * @param authenticationMethodId the authentication method to be deleted
+     * @param authenticationMethod the information to be updated
+     * @return a Request to execute.
+     */
+    public Request<AuthenticationMethod> updateAuthenticationMethodById(String userId, String authenticationMethodId, AuthenticationMethod authenticationMethod) {
+        Asserts.assertNotNull(userId, "user ID");
+        Asserts.assertNotNull(authenticationMethodId, "authentication method ID");
+        Asserts.assertNotNull(authenticationMethod, "authentication method");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegment(userId)
+            .addPathSegment("authentication-methods")
+            .addPathSegment(authenticationMethodId)
+            .build()
+            .toString();
+
+        BaseRequest<AuthenticationMethod> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<AuthenticationMethod>() {
+        });
+        request.setBody(authenticationMethod);
         return request;
     }
 

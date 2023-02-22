@@ -1,5 +1,32 @@
 # Change Log
 
+## [2.0.0 Beta 2](https://github.com/auth0/auth0-java/tree/2.0.0-beta.2) (2023-02-13)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.0.0-beta.1...2.0.0-beta.2)
+
+**Changed**
+- Update to latest java-jwt version [\#512](https://github.com/auth0/auth0-java/pull/512) ([jimmyjames](https://github.com/jimmyjames))
+
+## [2.0.0 Beta 1](https://github.com/auth0/auth0-java/tree/2.0.0-beta.1) (2023-01-26)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.0.0-beta.0...2.0.0-beta.1)
+
+**Added**
+- Add support for MFA APIs [\#505](https://github.com/auth0/auth0-java/pull/505) ([poovamraj](https://github.com/poovamraj))
+- Add support MFA Methods API [\#506](https://github.com/auth0/auth0-java/pull/506) ([poovamraj](https://github.com/poovamraj))
+- Support JWT Client Authentication [\#507](https://github.com/auth0/auth0-java/pull/507) ([jimmyjames](https://github.com/jimmyjames))
+
+## [2.0.0 Beta 0](https://github.com/auth0/auth0-java/tree/2.0.0-beta.0) (2023-01-12)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.44.2...2.0.0-beta.0)
+
+> **Warning** This SDK is in beta and is subject to breaking changes. It is not recommended for production use, but your feedback and help in testing is appreciated!
+
+This release introduces several enhancement, including:
+- HTTP response information returned from requests
+- Additional HTTP client configurability
+- Authentication API improvements to not require a client secret
+- ... and more!
+
+Please see the [Migration Guide](MIGRATION_GUIDE.md) for guidance on updating your application.
+
 ## [1.44.2](https://github.com/auth0/auth0-java/tree/1.44.2) (2023-01-11)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.44.1...1.44.2)
 

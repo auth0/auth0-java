@@ -1,3 +1,5 @@
+> **Warning** You are viewing the v2 beta version; it is subject to breaking changes prior to the General Availability release. It is not recommended for production use, but your feedback and help in testing is appreciated!
+
 > **Note**
 > As part of our ongoing commitment to best security practices, we have rotated the signing keys used to sign previous releases of this SDK. As a result, new patch builds have been released using the new signing key. Please upgrade at your earliest convenience.
 >
@@ -15,6 +17,7 @@
 
 ## Documentation
 - [Examples](./EXAMPLES.md) - code samples for common auth0-java scenarios.
+- [Migration Guide](./MIGRATION_GUIDE.md) - guidance for updating your application to use version 2 of auth0-java.
 - [Docs site](https://www.auth0.com/docs) - explore our docs site and learn more about Auth0.
 
 ## Getting Started
@@ -33,14 +36,14 @@ Add the dependency via Maven:
 <dependency>
   <groupId>com.auth0</groupId>
   <artifactId>auth0</artifactId>
-  <version>1.44.2</version>
+  <version>2.0.0-beta.2</version>
 </dependency>
 ```
 
 or Gradle:
 
 ```gradle
-implementation 'com.auth0:auth0:1.44.2'
+implementation 'com.auth0:auth0:2.0.0-beta.2'
 ```
 
 ### Configure the SDK
@@ -52,7 +55,7 @@ The Authentication API client is based on the [Auth0 Authentication API](https:/
 Create an `AuthAPI` instance by providing the Application details from the [dashboard](https://manage.auth0.com/#/applications).
 
 ```java
-AuthAPI auth = new AuthAPI("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}");
+AuthAPI auth = AuthAPI.newBuilder("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}").build();
 ```
 
 #### Management API Client
@@ -62,24 +65,24 @@ The Management API client is based on the [Management API Docs](https://auth0.co
 Create a `ManagementAPI` instance by providing the domain from the [Application dashboard](https://manage.auth0.com/#/applications) and a valid API Token.
 
 ```java
-ManagementAPI mgmt = new ManagementAPI("{YOUR_DOMAIN}", "{YOUR_API_TOKEN}");
+ManagementAPI mgmt = ManagementAPI.newBuilder("{YOUR_DOMAIN}", "{YOUR_API_TOKEN}").build();
 ```
 
 The Management API is organized by entities represented by the Auth0 Management API objects.
 
 ```java
-User user = mgmt.users().get("auth0|user-id", new UserFilter()).execute();
-Role role = mgmt.roles().get("role-id").execute();
+User user = mgmt.users().get("auth0|user-id", new UserFilter()).execute().getBody();
+Role role = mgmt.roles().get("role-id").execute().getBody();
 ```
 
 You can use the Authentication API to obtain a token for a previously authorized Application:
 
 ```java
-AuthAPI authAPI = new AuthAPI("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}");
-AuthRequest authRequest = authAPI.requestToken("https://{YOUR_DOMAIN}/api/v2/");
-TokenHolder holder = authRequest.execute();
+AuthAPI authAPI = AuthAPI.newBuilder("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}").build();
+TokenRequest tokenRequest = authAPI.requestToken("https://{YOUR_DOMAIN}/api/v2/");
+TokenHolder holder = tokenRequest.execute().getBody();
 String accessToken = holder.getAccessToken();
-ManagementAPI mgmt = new ManagementAPI("{YOUR_DOMAIN}", accessToken);
+ManagementAPI mgmt = ManagementAPI.newBuilder("{YOUR_DOMAIN}", accessToken).build();
 ```
 
 An expired token for an existing `ManagementAPI` instance can be replaced by calling the `setApiToken` method with the new token.

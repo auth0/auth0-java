@@ -2,19 +2,19 @@ package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.guardian.*;
 import com.auth0.net.Request;
-import java.util.Arrays;
-import java.util.Collections;
+import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.hasHeader;
 import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class GuardianEntityTest extends BaseMgmtEntityTest {
 
@@ -31,10 +31,10 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_ENROLLMENT, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/guardian/enrollments/1"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/guardian/enrollments/1"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     }
@@ -52,10 +52,10 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_ENROLLMENT_TICKET, 200);
-        EnrollmentTicket response = request.execute();
+        EnrollmentTicket response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/guardian/enrollments/ticket"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/guardian/enrollments/ticket"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -72,10 +72,10 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_TEMPLATES, 200);
-        GuardianTemplates response = request.execute();
+        GuardianTemplates response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/guardian/factors/sms/templates"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/guardian/factors/sms/templates"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -95,10 +95,10 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_TEMPLATES, 200);
-        GuardianTemplates response = request.execute();
+        GuardianTemplates response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/guardian/factors/sms/templates"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PUT, "/api/v2/guardian/factors/sms/templates"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -111,10 +111,10 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_FACTORS_LIST, 200);
-        List<Factor> response = request.execute();
+        List<Factor> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/guardian/factors"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/guardian/factors"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -128,7 +128,7 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
-        List<Factor> response = request.execute();
+        List<Factor> response = request.execute().getBody();
 
         assertThat(response, is(notNullValue()));
         assertThat(response, is(emptyCollectionOf(Factor.class)));
@@ -154,10 +154,10 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_FACTOR, 200);
-        Factor response = request.execute();
+        Factor response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/guardian/factors/my-factor"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PUT, "/api/v2/guardian/factors/my-factor"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -174,10 +174,10 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER_WITH_MSSID, 200);
-        TwilioFactorProvider response = request.execute();
+        TwilioFactorProvider response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/guardian/factors/sms/providers/twilio"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/guardian/factors/sms/providers/twilio"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -190,10 +190,10 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER_WITH_FROM, 200);
-        TwilioFactorProvider response = request.execute();
+        TwilioFactorProvider response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/guardian/factors/sms/providers/twilio"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/guardian/factors/sms/providers/twilio"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -214,10 +214,10 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER_WITH_FROM, 200);
-        TwilioFactorProvider response = request.execute();
+        TwilioFactorProvider response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/guardian/factors/sms/providers/twilio"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PUT, "/api/v2/guardian/factors/sms/providers/twilio"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -241,10 +241,10 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER_WITH_MSSID, 200);
-        TwilioFactorProvider response = request.execute();
+        TwilioFactorProvider response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/guardian/factors/sms/providers/twilio"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PUT, "/api/v2/guardian/factors/sms/providers/twilio"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -267,10 +267,10 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_TWILIO_FACTOR_PROVIDER_EMPTY, 200);
-        TwilioFactorProvider response = request.execute();
+        TwilioFactorProvider response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/guardian/factors/sms/providers/twilio"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PUT, "/api/v2/guardian/factors/sms/providers/twilio"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -290,10 +290,10 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_SNS_FACTOR_PROVIDER, 200);
-        SNSFactorProvider response = request.execute();
+        SNSFactorProvider response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/guardian/factors/push-notification/providers/sns"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/guardian/factors/push-notification/providers/sns"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -314,10 +314,10 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_SNS_FACTOR_PROVIDER, 200);
-        SNSFactorProvider response = request.execute();
+        SNSFactorProvider response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/guardian/factors/push-notification/providers/sns"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PUT, "/api/v2/guardian/factors/push-notification/providers/sns"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -338,10 +338,10 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_SNS_FACTOR_PROVIDER_EMPTY, 200);
-        SNSFactorProvider response = request.execute();
+        SNSFactorProvider response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/guardian/factors/push-notification/providers/sns"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PUT, "/api/v2/guardian/factors/push-notification/providers/sns"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -362,10 +362,10 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_AUTHENTICATION_POLICIES_LIST, 200);
-        List<String> response = request.execute();
+        List<String> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/guardian/policies"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/guardian/policies"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -386,10 +386,10 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_AUTHENTICATION_POLICIES_LIST, 200);
-        List<String> response = request.execute();
+        List<String> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("PUT", "/api/v2/guardian/policies"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PUT, "/api/v2/guardian/policies"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 

@@ -63,4 +63,23 @@ public class DeviceCredentialsFilterTest {
         assertThat(filter.getAsMap(), Matchers.hasEntry("fields", "a,b,c"));
         assertThat(filter.getAsMap(), Matchers.hasEntry("include_fields", false));
     }
+
+    @Test
+    public void shouldFilterWithPage() {
+        DeviceCredentialsFilter instance = filter.withPage(1, 10);
+
+        assertThat(filter, is(instance));
+        assertThat(filter.getAsMap(), is(notNullValue()));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("page", 1));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("per_page", 10));
+    }
+
+    @Test
+    public void shouldFilterWithTotals() {
+        DeviceCredentialsFilter instance = filter.withTotals(true);
+
+        assertThat(filter, is(instance));
+        assertThat(filter.getAsMap(), is(notNullValue()));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("include_totals", true));
+    }
 }
