@@ -1,5 +1,19 @@
 # Change Log
 
+## [2.0.0](https://github.com/auth0/auth0-java/tree/2.0.0) (2023-02-23)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.44.2...2.0.0)
+
+2.0.0 introduces several enhances, including:
+- HTTP response information returned from requests
+- Additional HTTP client configurability
+- Ability to configure requests such as add additional parameters and headers
+- Support for Authentication API MFA-related APIs
+- Authentication API improvements to not require a client secret
+- ... and more!
+
+As a major version release, 2.0.0 does include breaking changes.
+Please see the [Migration Guide](MIGRATION_GUIDE.md) for additional details as well as guidance for updating your application.
+
 ## [2.0.0 Beta 2](https://github.com/auth0/auth0-java/tree/2.0.0-beta.2) (2023-02-13)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.0.0-beta.1...2.0.0-beta.2)
 
