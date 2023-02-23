@@ -1,9 +1,10 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.RulesFilter;
-import com.auth0.json.mgmt.Rule;
-import com.auth0.json.mgmt.RulesPage;
+import com.auth0.json.mgmt.rules.Rule;
+import com.auth0.json.mgmt.rules.RulesPage;
 import com.auth0.net.Request;
+import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
 
@@ -12,28 +13,10 @@ import java.util.Map;
 
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.*;
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class RulesEntityTest extends BaseMgmtEntityTest {
-
-    @Test
-    public void shouldListRules() throws Exception {
-        @SuppressWarnings("deprecation")
-        Request<List<Rule>> request = api.rules().list(null);
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MGMT_RULES_LIST, 200);
-        List<Rule> response = request.execute();
-        RecordedRequest recordedRequest = server.takeRequest();
-
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/rules"));
-        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
-        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response, hasSize(2));
-    }
 
     @Test
     public void shouldListRulesWithoutFilter() throws Exception {
@@ -41,79 +24,15 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RULES_LIST, 200);
-        RulesPage response = request.execute();
+        RulesPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/rules"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/rules"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getItems(), hasSize(2));
-    }
-
-    @Test
-    public void shouldListRulesWithEnabled() throws Exception {
-        RulesFilter filter = new RulesFilter().withEnabled(true);
-
-        @SuppressWarnings("deprecation")
-        Request<List<Rule>> request = api.rules().list(filter);
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MGMT_RULES_LIST, 200);
-        List<Rule> response = request.execute();
-        RecordedRequest recordedRequest = server.takeRequest();
-
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/rules"));
-        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
-        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-        assertThat(recordedRequest, hasQueryParameter("enabled", "true"));
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response, hasSize(2));
-    }
-
-    @Test
-    public void shouldListRulesWithFields() throws Exception {
-        RulesFilter filter = new RulesFilter().withFields("some,random,fields", true);
-
-        @SuppressWarnings("deprecation")
-        Request<List<Rule>> request = api.rules().list(filter);
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MGMT_RULES_LIST, 200);
-        List<Rule> response = request.execute();
-        RecordedRequest recordedRequest = server.takeRequest();
-
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/rules"));
-        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
-        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-        assertThat(recordedRequest, hasQueryParameter("fields", "some,random,fields"));
-        assertThat(recordedRequest, hasQueryParameter("include_fields", "true"));
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response, hasSize(2));
-    }
-
-    @Test
-    public void shouldNotListRulesWithTotals() throws Exception {
-        RulesFilter filter = new RulesFilter().withTotals(true);
-
-        @SuppressWarnings("deprecation")
-        Request<List<Rule>> request = api.rules().list(filter);
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MGMT_RULES_LIST, 200);
-        List<Rule> response = request.execute();
-        RecordedRequest recordedRequest = server.takeRequest();
-
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/rules"));
-        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
-        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-        assertThat(recordedRequest, not(hasQueryParameter("include_totals")));
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response, hasSize(2));
     }
 
     @Test
@@ -123,10 +42,10 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RULES_LIST, 200);
-        RulesPage response = request.execute();
+        RulesPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/rules"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/rules"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("page", "23"));
@@ -143,10 +62,10 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RULES_PAGED_LIST, 200);
-        RulesPage response = request.execute();
+        RulesPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/rules"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/rules"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
@@ -157,19 +76,6 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
         assertThat(response.getLength(), is(14));
         assertThat(response.getTotal(), is(14));
         assertThat(response.getLimit(), is(50));
-    }
-
-    @Test
-    public void shouldReturnEmptyRules() throws Exception {
-        @SuppressWarnings("deprecation")
-        Request<List<Rule>> request = api.rules().list(null);
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MGMT_EMPTY_LIST, 200);
-        List<Rule> response = request.execute();
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response, is(emptyCollectionOf(Rule.class)));
     }
 
     @Test
@@ -185,10 +91,10 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RULE, 200);
-        Rule response = request.execute();
+        Rule response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/rules/1"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/rules/1"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -202,10 +108,10 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RULE, 200);
-        Rule response = request.execute();
+        Rule response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/rules/1"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/rules/1"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("fields", "some,random,fields"));
@@ -227,10 +133,10 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RULE, 200);
-        Rule response = request.execute();
+        Rule response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/rules"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/rules"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -255,10 +161,10 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RULE, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/rules/1"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/rules/1"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     }
@@ -283,10 +189,10 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTION, 200);
-        Rule response = request.execute();
+        Rule response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/rules/1"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PATCH, "/api/v2/rules/1"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 

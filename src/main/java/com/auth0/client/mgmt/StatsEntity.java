@@ -1,12 +1,13 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.json.mgmt.DailyStats;
-import com.auth0.net.CustomRequest;
+import com.auth0.json.mgmt.stats.DailyStats;
+import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,8 +23,8 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class StatsEntity extends BaseManagementEntity {
 
-    StatsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    StatsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -39,10 +40,8 @@ public class StatsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<Integer> request = new CustomRequest<>(client, url, "GET", new TypeReference<Integer>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Integer>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -67,10 +66,8 @@ public class StatsEntity extends BaseManagementEntity {
                 .build()
                 .toString();
 
-        CustomRequest<List<DailyStats>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<DailyStats>>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<DailyStats>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     protected String formatDate(Date date) {

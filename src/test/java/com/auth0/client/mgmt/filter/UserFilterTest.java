@@ -87,4 +87,13 @@ public class UserFilterTest {
         assertThat(filter.getAsMap(), Matchers.hasEntry("fields", "a,b,c"));
         assertThat(filter.getAsMap(), Matchers.hasEntry("include_fields", false));
     }
+
+    @Test
+    public void shouldFilterWithConnection() {
+        UserFilter instance = filter.withConnection("test");
+
+        assertThat(filter, is(instance));
+        assertThat(filter.getAsMap(), is(notNullValue()));
+        assertThat(filter.getAsMap(), Matchers.hasEntry("connection", "test"));
+    }
 }

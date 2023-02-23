@@ -28,33 +28,8 @@ public class TwilioFactorProviderTest extends JsonTest<TwilioFactorProvider> {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void shouldFailWhenSettingFromAndMessagingServiceSIDWasAlreadySet() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("You must specify either `from` or `messagingServiceSID`, but not both");
-
-        TwilioFactorProvider provider = new TwilioFactorProvider();
-        provider.setFrom("+12356789");
-        provider.setMessagingServiceSID("id321");
-    }
-
-    @SuppressWarnings("deprecation")
-    @Test
-    public void shouldFailWhenSettingMessagingServiceSIDAndFromWasAlreadySet() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("You must specify either `from` or `messagingServiceSID`, but not both");
-
-        TwilioFactorProvider provider = new TwilioFactorProvider();
-        provider.setMessagingServiceSID("id321");
-        provider.setFrom("+12356789");
-    }
-
-    @SuppressWarnings("deprecation")
-    @Test
     public void shouldSerializeWithDeprecatedSettersWithFrom() throws Exception {
-        TwilioFactorProvider provider = new TwilioFactorProvider();
-        provider.setAuthToken("atokEn");
-        provider.setFrom("+12356789");
-        provider.setSID("id123");
+        TwilioFactorProvider provider = new TwilioFactorProvider("+12356789", null, "atokEn", "id123");
 
         String serialized = toJSON(provider);
         assertThat(serialized, is(notNullValue()));
@@ -67,10 +42,7 @@ public class TwilioFactorProviderTest extends JsonTest<TwilioFactorProvider> {
     @SuppressWarnings("deprecation")
     @Test
     public void shouldSerializeWithDeprecatedSettersWithMessagingServiceSID() throws Exception {
-        TwilioFactorProvider provider = new TwilioFactorProvider();
-        provider.setAuthToken("atokEn");
-        provider.setMessagingServiceSID("id321");
-        provider.setSID("id123");
+        TwilioFactorProvider provider = new TwilioFactorProvider(null, "id321", "atokEn", "id123");
 
         String serialized = toJSON(provider);
         assertThat(serialized, is(notNullValue()));

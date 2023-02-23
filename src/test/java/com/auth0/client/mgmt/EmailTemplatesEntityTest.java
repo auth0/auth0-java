@@ -1,7 +1,8 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.json.mgmt.EmailTemplate;
+import com.auth0.json.mgmt.emailtemplates.EmailTemplate;
 import com.auth0.net.Request;
+import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
 
@@ -10,8 +11,8 @@ import java.util.Map;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.hasHeader;
 import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 @SuppressWarnings("RedundantThrows")
 public class EmailTemplatesEntityTest extends BaseMgmtEntityTest {
@@ -21,10 +22,10 @@ public class EmailTemplatesEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMAIL_TEMPLATE, 200);
-        EmailTemplate response = request.execute();
+        EmailTemplate response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/email-templates/welcome_email"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/email-templates/welcome_email"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -52,10 +53,10 @@ public class EmailTemplatesEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMAIL_PROVIDER, 200);
-        EmailTemplate response = request.execute();
+        EmailTemplate response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/email-templates"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/email-templates"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -91,10 +92,10 @@ public class EmailTemplatesEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMAIL_PROVIDER, 200);
-        EmailTemplate response = request.execute();
+        EmailTemplate response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/email-templates/welcome_email"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PATCH, "/api/v2/email-templates/welcome_email"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 

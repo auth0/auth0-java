@@ -1,7 +1,9 @@
 package com.auth0.net;
 
-import com.auth0.client.HttpOptions;
+import com.auth0.exception.Auth0Exception;
+import com.auth0.net.client.DefaultHttpClient;
 import net.jodah.failsafe.Failsafe;
+import net.jodah.failsafe.FailsafeException;
 import net.jodah.failsafe.RetryPolicy;
 import net.jodah.failsafe.event.ExecutionAttemptedEvent;
 import net.jodah.failsafe.function.CheckedConsumer;
@@ -16,11 +18,9 @@ import java.time.temporal.ChronoUnit;
  * An OkHttp {@linkplain Interceptor} responsible for retrying rate-limit errors (429) using a configurable maximum
  * number of retries, and an exponential backoff on retry attempts.
  * <p>
- * See {@link com.auth0.client.HttpOptions#setManagementAPIMaxRetries(int)} and {@link com.auth0.client.mgmt.ManagementAPI#ManagementAPI(String, String, HttpOptions)}
- * </p>
- * <p>
  * <strong>Note: This class is not intended for general use or extension, and may change at any time.</strong>
  * </p>
+ * @see DefaultHttpClient
  */
 public class RateLimitInterceptor implements Interceptor {
 
@@ -59,6 +59,9 @@ public class RateLimitInterceptor implements Interceptor {
     @NotNull
     @Override
     public Response intercept(@NotNull Chain chain) throws IOException {
+        if (maxRetries == 0) {
+            return chain.proceed(chain.request());
+        }
 
         RetryPolicy<Response> retryPolicy = new RetryPolicy<Response>()
             .withMaxRetries(maxRetries)
@@ -77,6 +80,12 @@ public class RateLimitInterceptor implements Interceptor {
             retryPolicy.onRetry(retryListener);
         }
 
-        return Failsafe.with(retryPolicy).get(() -> chain.proceed(chain.request()));
+        try {
+            // throw Auth0Exception instead of FailSafe exception on error
+            // see https://github.com/auth0/auth0-java/issues/483
+            return Failsafe.with(retryPolicy).get(() -> chain.proceed(chain.request()));
+        } catch (FailsafeException fe) {
+            throw new Auth0Exception("Failed to execute request", fe.getCause());
+        }
     }
 }

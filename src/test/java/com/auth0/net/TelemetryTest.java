@@ -2,6 +2,7 @@ package com.auth0.net;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.nio.charset.StandardCharsets;
@@ -12,6 +13,12 @@ import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TelemetryTest {
+
+    @BeforeClass
+    public static void setup() {
+        //Set so that Telemetry object doesn't use different Java versions while testing which will create different Base64 encoded value
+        System.setProperty("java.specification.version", "1.8");
+    }
 
     @Test
     public void shouldReturnBasicTelemetryBase64Value() throws Exception {

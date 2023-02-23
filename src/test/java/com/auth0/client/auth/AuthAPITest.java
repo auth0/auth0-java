@@ -1,29 +1,30 @@
 package com.auth0.client.auth;
 
-import com.auth0.client.HttpOptions;
-import com.auth0.client.LoggingOptions;
 import com.auth0.client.MockServer;
-import com.auth0.client.ProxyOptions;
 import com.auth0.exception.APIException;
 import com.auth0.json.auth.*;
-import com.auth0.net.Request;
 import com.auth0.net.*;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.Auth0HttpRequest;
+import com.auth0.net.client.Auth0HttpResponse;
+import com.auth0.net.client.HttpMethod;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import okhttp3.*;
-import okhttp3.logging.HttpLoggingInterceptor;
-import okhttp3.logging.HttpLoggingInterceptor.Level;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mockito.Mockito;
+import static org.junit.Assert.assertThrows;
 
 import java.io.FileReader;
-import java.net.Proxy;
-import java.util.*;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.hasHeader;
@@ -45,6 +46,8 @@ public class AuthAPITest {
 
     private MockServer server;
     private AuthAPI api;
+    private AuthAPI apiNoClientAuthentication;
+
 
     @SuppressWarnings("deprecation")
     @Rule
@@ -53,7 +56,8 @@ public class AuthAPITest {
     @Before
     public void setUp() throws Exception {
         server = new MockServer();
-        api = new AuthAPI(server.getBaseUrl(), CLIENT_ID, CLIENT_SECRET);
+        api = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID, CLIENT_SECRET).build();
+        apiNoClientAuthentication = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
     }
 
     @After
@@ -64,8 +68,37 @@ public class AuthAPITest {
     // Configuration
 
     @Test
+    @SuppressWarnings("deprecation")
+    public void shouldAcceptHttpOptions() {
+        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, new com.auth0.client.HttpOptions());
+        assertThat(api, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldAcceptHttpClient() {
+        Auth0HttpClient httpClient = new Auth0HttpClient() {
+            @Override
+            public Auth0HttpResponse sendRequest(Auth0HttpRequest request) throws IOException {
+                return null;
+            }
+
+            @Override
+            public CompletableFuture<Auth0HttpResponse> sendRequestAsync(Auth0HttpRequest request) {
+                return null;
+            }
+        };
+
+        AuthAPI api = AuthAPI.newBuilder(DOMAIN, CLIENT_ID, CLIENT_SECRET)
+            .withHttpClient(httpClient)
+            .build();
+
+        assertThat(api, is(notNullValue()));
+        assertThat(api.getHttpClient(), is(notNullValue()));
+    }
+
+    @Test
     public void shouldAcceptDomainWithNoScheme() {
-        AuthAPI api = new AuthAPI("me.something.com", CLIENT_ID, CLIENT_SECRET);
+        AuthAPI api = AuthAPI.newBuilder("me.something.com", CLIENT_ID, CLIENT_SECRET).build();
 
         assertThat(api.getBaseUrl(), is(notNullValue()));
         assertThat(api.getBaseUrl().toString(), isUrl("https", "me.something.com"));
@@ -73,7 +106,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldAcceptDomainWithHttpScheme() {
-        AuthAPI api = new AuthAPI("http://me.something.com", CLIENT_ID, CLIENT_SECRET);
+        AuthAPI api = AuthAPI.newBuilder("http://me.something.com", CLIENT_ID, CLIENT_SECRET).build();
 
         assertThat(api.getBaseUrl(), is(notNullValue()));
         assertThat(api.getBaseUrl().toString(), isUrl("http", "me.something.com"));
@@ -83,392 +116,36 @@ public class AuthAPITest {
     public void shouldThrowWhenDomainIsInvalid() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("The domain had an invalid format and couldn't be parsed as an URL.");
-        new AuthAPI("", CLIENT_ID, CLIENT_SECRET);
+        AuthAPI.newBuilder("", CLIENT_ID, CLIENT_SECRET).build();
     }
 
     @Test
     public void shouldThrowWhenDomainIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'domain' cannot be null!");
-        new AuthAPI(null, CLIENT_ID, CLIENT_SECRET);
+        AuthAPI.newBuilder(null, CLIENT_ID, CLIENT_SECRET).build();
     }
 
     @Test
     public void shouldThrowWhenClientIdIsNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'client id' cannot be null!");
-        new AuthAPI(DOMAIN, null, CLIENT_SECRET);
+        AuthAPI.newBuilder(DOMAIN, null, CLIENT_SECRET).build();
     }
 
     @Test
-    public void shouldThrowWhenClientSecretIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'client secret' cannot be null!");
-        new AuthAPI(DOMAIN, CLIENT_ID, null);
-    }
-
-    @Test
-    public void shouldUseDefaultTimeValues() {
-        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
-        assertThat(api.getClient().connectTimeoutMillis(), is(10 * 1000));
-        assertThat(api.getClient().readTimeoutMillis(), is(10 * 1000));
-    }
-
-    @Test
-    public void shouldUseConfiguredTimeoutValues() {
-        HttpOptions options = new HttpOptions();
-        options.setConnectTimeout(20);
-        options.setReadTimeout(30);
-        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, options);
-
-        assertThat(api.getClient().connectTimeoutMillis(), is(20 * 1000));
-        assertThat(api.getClient().readTimeoutMillis(), is(30 * 1000));
-    }
-
-    @Test
-    public void shouldUseZeroIfNegativeTimoutConfigured() {
-        HttpOptions options = new HttpOptions();
-        options.setConnectTimeout(-1);
-        options.setReadTimeout(-10);
-        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, options);
-
-        assertThat(api.getClient().connectTimeoutMillis(), is(0));
-        assertThat(api.getClient().readTimeoutMillis(), is(0));
-    }
-
-    @Test
-    public void shouldNotUseProxyByDefault() throws Exception {
-        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
-        assertThat(api.getClient().proxy(), is(nullValue()));
-        Authenticator authenticator = api.getClient().proxyAuthenticator();
-        assertThat(authenticator, is(notNullValue()));
-
-        Route route = Mockito.mock(Route.class);
-        okhttp3.Request nonAuthenticatedRequest = new okhttp3.Request.Builder()
-                .url("https://test.com/app")
-                .addHeader("some-header", "some-value")
-                .build();
-        okhttp3.Response nonAuthenticatedResponse = new okhttp3.Response.Builder()
-                .protocol(Protocol.HTTP_2)
-                .code(200)
-                .message("OK")
-                .request(nonAuthenticatedRequest)
-                .build();
-
-        okhttp3.Request processedRequest = authenticator.authenticate(route, nonAuthenticatedResponse);
-        assertThat(processedRequest, is(nullValue()));
-    }
-
-    @Test
-    public void shouldUseProxy() throws Exception {
-        Proxy proxy = Mockito.mock(Proxy.class);
-        ProxyOptions proxyOptions = new ProxyOptions(proxy);
-        HttpOptions httpOptions = new HttpOptions();
-        httpOptions.setProxyOptions(proxyOptions);
-
-        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, httpOptions);
-        assertThat(api.getClient().proxy(), is(proxy));
-        Authenticator authenticator = api.getClient().proxyAuthenticator();
-        assertThat(authenticator, is(notNullValue()));
-
-        Route route = Mockito.mock(Route.class);
-        okhttp3.Request nonAuthenticatedRequest = new okhttp3.Request.Builder()
-                .url("https://test.com/app")
-                .addHeader("some-header", "some-value")
-                .build();
-        okhttp3.Response nonAuthenticatedResponse = new okhttp3.Response.Builder()
-                .protocol(Protocol.HTTP_2)
-                .code(200)
-                .message("OK")
-                .request(nonAuthenticatedRequest)
-                .build();
-
-        okhttp3.Request processedRequest = authenticator.authenticate(route, nonAuthenticatedResponse);
-
-        assertThat(processedRequest, is(nullValue()));
-    }
-
-    @Test
-    public void shouldUseProxyWithAuthentication() throws Exception {
-        Proxy proxy = Mockito.mock(Proxy.class);
-        ProxyOptions proxyOptions = new ProxyOptions(proxy);
-        proxyOptions.setBasicAuthentication("johndoe", "psswd".toCharArray());
-        assertThat(proxyOptions.getBasicAuthentication(), is("Basic am9obmRvZTpwc3N3ZA=="));
-        HttpOptions httpOptions = new HttpOptions();
-        httpOptions.setProxyOptions(proxyOptions);
-
-        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, httpOptions);
-        assertThat(api.getClient().proxy(), is(proxy));
-        Authenticator authenticator = api.getClient().proxyAuthenticator();
-        assertThat(authenticator, is(notNullValue()));
-
-        Route route = Mockito.mock(Route.class);
-        okhttp3.Request nonAuthenticatedRequest = new okhttp3.Request.Builder()
-                .url("https://test.com/app")
-                .addHeader("some-header", "some-value")
-                .build();
-        okhttp3.Response nonAuthenticatedResponse = new okhttp3.Response.Builder()
-                .protocol(Protocol.HTTP_2)
-                .code(200)
-                .message("OK")
-                .request(nonAuthenticatedRequest)
-                .build();
-
-        okhttp3.Request processedRequest = authenticator.authenticate(route, nonAuthenticatedResponse);
-
-        assertThat(processedRequest, is(notNullValue()));
-        assertThat(processedRequest.url(), is(HttpUrl.parse("https://test.com/app")));
-        assertThat(processedRequest.header("Proxy-Authorization"), is(proxyOptions.getBasicAuthentication()));
-        assertThat(processedRequest.header("some-header"), is("some-value"));
-    }
-
-    @Test
-    public void proxyShouldNotProcessAlreadyAuthenticatedRequest() throws Exception {
-        Proxy proxy = Mockito.mock(Proxy.class);
-        ProxyOptions proxyOptions = new ProxyOptions(proxy);
-        proxyOptions.setBasicAuthentication("johndoe", "psswd".toCharArray());
-        assertThat(proxyOptions.getBasicAuthentication(), is("Basic am9obmRvZTpwc3N3ZA=="));
-        HttpOptions httpOptions = new HttpOptions();
-        httpOptions.setProxyOptions(proxyOptions);
-
-        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, httpOptions);
-        assertThat(api.getClient().proxy(), is(proxy));
-        Authenticator authenticator = api.getClient().proxyAuthenticator();
-        assertThat(authenticator, is(notNullValue()));
-
-        Route route = Mockito.mock(Route.class);
-        okhttp3.Request alreadyAuthenticatedRequest = new okhttp3.Request.Builder()
-                .url("https://test.com/app")
-                .addHeader("some-header", "some-value")
-                .header("Proxy-Authorization", "pre-existing-value")
-                .build();
-        okhttp3.Response alreadyAuthenticatedResponse = new okhttp3.Response.Builder()
-                .protocol(Protocol.HTTP_2)
-                .code(200)
-                .message("OK")
-                .request(alreadyAuthenticatedRequest)
-                .build();
-
-        okhttp3.Request processedRequest = authenticator.authenticate(route, alreadyAuthenticatedResponse);
-        assertThat(processedRequest, is(nullValue()));
-    }
-
-    @Test
-    public void shouldUseCustomTelemetry() {
-        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
-        assertThat(api.getClient().interceptors(), hasItem(isA(TelemetryInterceptor.class)));
-
-        Telemetry currentTelemetry = null;
-        for (Interceptor i : api.getClient().interceptors()) {
-            if (i instanceof TelemetryInterceptor) {
-                TelemetryInterceptor interceptor = (TelemetryInterceptor) i;
-                currentTelemetry = interceptor.getTelemetry();
-            }
-        }
-        assertThat(currentTelemetry, is(notNullValue()));
-
-        Telemetry newTelemetry = Mockito.mock(Telemetry.class);
-        api.setTelemetry(newTelemetry);
-
-        Telemetry updatedTelemetry = null;
-        for (Interceptor i : api.getClient().interceptors()) {
-            if (i instanceof TelemetryInterceptor) {
-                TelemetryInterceptor interceptor = (TelemetryInterceptor) i;
-                updatedTelemetry = interceptor.getTelemetry();
-            }
-        }
-        assertThat(updatedTelemetry, is(newTelemetry));
-    }
-
-    @Test
-    public void shouldAddAndEnableTelemetryInterceptor() {
-        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
-        assertThat(api.getClient().interceptors(), hasItem(isA(TelemetryInterceptor.class)));
-
-        for (Interceptor i : api.getClient().interceptors()) {
-            if (i instanceof TelemetryInterceptor) {
-                TelemetryInterceptor telemetry = (TelemetryInterceptor) i;
-                assertThat(telemetry.isEnabled(), is(true));
-            }
-        }
-    }
-
-    @Test
-    public void shouldDisableTelemetryInterceptor() {
-        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
-        assertThat(api.getClient().interceptors(), hasItem(isA(TelemetryInterceptor.class)));
-        api.doNotSendTelemetry();
-
-        for (Interceptor i : api.getClient().interceptors()) {
-            if (i instanceof TelemetryInterceptor) {
-                TelemetryInterceptor telemetry = (TelemetryInterceptor) i;
-                assertThat(telemetry.isEnabled(), is(false));
-            }
-        }
-    }
-
-    @Test
-    public void shouldAddAndDisableLoggingInterceptor() {
-        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
-        assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
-
-        for (Interceptor i : api.getClient().interceptors()) {
-            if (i instanceof HttpLoggingInterceptor) {
-                HttpLoggingInterceptor logging = (HttpLoggingInterceptor) i;
-                assertThat(logging.getLevel(), is(Level.NONE));
-            }
-        }
+    public void shouldAcceptNullClientSecret() {
+        assertThat(AuthAPI.newBuilder(DOMAIN, CLIENT_ID, (String) null).build(),
+            is(notNullValue()));
     }
 
     @Test
     @SuppressWarnings("deprecation")
-    public void shouldEnableLoggingInterceptor() {
-        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
-        assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
-        api.setLoggingEnabled(true);
-
-        for (Interceptor i : api.getClient().interceptors()) {
-            if (i instanceof HttpLoggingInterceptor) {
-                HttpLoggingInterceptor logging = (HttpLoggingInterceptor) i;
-                assertThat(logging.getLevel(), is(Level.BODY));
-            }
-        }
-    }
-
-    @Test
-    @SuppressWarnings("deprecation")
-    public void shouldDisableLoggingInterceptor() {
-        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
-        assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
-        api.setLoggingEnabled(false);
-
-        for (Interceptor i : api.getClient().interceptors()) {
-            if (i instanceof HttpLoggingInterceptor) {
-                HttpLoggingInterceptor logging = (HttpLoggingInterceptor) i;
-                assertThat(logging.getLevel(), is(Level.NONE));
-            }
-        }
-    }
-
-    @Test
-    public void shouldConfigureNoneLoggingFromOptions() {
-        LoggingOptions loggingOptions = new LoggingOptions(LoggingOptions.LogLevel.NONE);
-        HttpOptions options = new HttpOptions();
-        options.setLoggingOptions(loggingOptions);
-
-        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, options);
-        assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
-
-        for (Interceptor i : api.getClient().interceptors()) {
-            if (i instanceof HttpLoggingInterceptor) {
-                HttpLoggingInterceptor logging = (HttpLoggingInterceptor) i;
-                assertThat(logging.getLevel(), is(Level.NONE));
-            }
-        }
-    }
-
-    @Test
-    public void shouldConfigureBasicLoggingFromOptions() {
-        LoggingOptions loggingOptions = new LoggingOptions(LoggingOptions.LogLevel.BASIC);
-        HttpOptions options = new HttpOptions();
-        options.setLoggingOptions(loggingOptions);
-
-        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, options);
-        assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
-
-        for (Interceptor i : api.getClient().interceptors()) {
-            if (i instanceof HttpLoggingInterceptor) {
-                HttpLoggingInterceptor logging = (HttpLoggingInterceptor) i;
-                assertThat(logging.getLevel(), is(Level.BASIC));
-            }
-        }
-    }
-
-    @Test
-    public void shouldConfigureHeaderLoggingFromOptions() {
-        LoggingOptions loggingOptions = new LoggingOptions(LoggingOptions.LogLevel.HEADERS);
-        Set<String> headersToRedact = new HashSet<>();
-        headersToRedact.add("Authorization");
-        headersToRedact.add("Cookie");
-        loggingOptions.setHeadersToRedact(headersToRedact);
-        HttpOptions options = new HttpOptions();
-        options.setLoggingOptions(loggingOptions);
-
-        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, options);
-        assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
-
-        for (Interceptor i : api.getClient().interceptors()) {
-            if (i instanceof HttpLoggingInterceptor) {
-                HttpLoggingInterceptor logging = (HttpLoggingInterceptor) i;
-                assertThat(logging.getLevel(), is(Level.HEADERS));
-            }
-        }
-    }
-
-    @Test
-    public void shouldConfigureBodyLoggingFromOptions() {
-        LoggingOptions loggingOptions = new LoggingOptions(LoggingOptions.LogLevel.BODY);
-        Set<String> headersToRedact = new HashSet<>();
-        headersToRedact.add("Authorization");
-        headersToRedact.add("Cookie");
-        loggingOptions.setHeadersToRedact(headersToRedact);
-        HttpOptions options = new HttpOptions();
-        options.setLoggingOptions(loggingOptions);
-
-        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, options);
-        assertThat(api.getClient().interceptors(), hasItem(isA(HttpLoggingInterceptor.class)));
-
-        for (Interceptor i : api.getClient().interceptors()) {
-            if (i instanceof HttpLoggingInterceptor) {
-                HttpLoggingInterceptor logging = (HttpLoggingInterceptor) i;
-                assertThat(logging.getLevel(), is(Level.BODY));
-            }
-        }
-    }
-
-    @Test
-    public void shouldUseDefaultMaxRequests() {
-        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
-        assertThat(api.getClient().dispatcher().getMaxRequests(), is(64));
-    }
-
-    @Test
-    public void shouldUseConfiguredMaxRequests() {
-        HttpOptions options = new HttpOptions();
-        options.setMaxRequests(10);
-        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, options);
-        assertThat(api.getClient().dispatcher().getMaxRequests(), is(10));
-    }
-
-    @Test
-    public void shouldThrowOnInValidMaxRequestsConfiguration() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("maxRequests must be one or greater.");
-
-        HttpOptions options = new HttpOptions();
-        options.setMaxRequests(0);
-    }
-
-    @Test
-    public void shouldUseDefaultMaxRequestsPerHost() {
-        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET);
-        assertThat(api.getClient().dispatcher().getMaxRequestsPerHost(), is(5));
-    }
-
-    @Test
-    public void shouldUseConfiguredMaxRequestsPerHost() {
-        HttpOptions options = new HttpOptions();
-        options.setMaxRequestsPerHost(10);
-        AuthAPI api = new AuthAPI(DOMAIN, CLIENT_ID, CLIENT_SECRET, options);
-        assertThat(api.getClient().dispatcher().getMaxRequestsPerHost(), is(10));
-    }
-
-    @Test
     public void shouldThrowOnInValidMaxRequestsPerHostConfiguration() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("maxRequestsPerHost must be one or greater.");
 
-        HttpOptions options = new HttpOptions();
+        com.auth0.client.HttpOptions options = new com.auth0.client.HttpOptions();
         options.setMaxRequestsPerHost(0);
     }
 
@@ -496,7 +173,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldSetAuthorizeUrlBuilderDefaultValues() {
-        AuthAPI api = new AuthAPI("domain.auth0.com", CLIENT_ID, CLIENT_SECRET);
+        AuthAPI api = AuthAPI.newBuilder("domain.auth0.com", CLIENT_ID, CLIENT_SECRET).build();
         String url = api.authorizeUrl("https://domain.auth0.com/callback").build();
 
         assertThat(url, isUrl("https", "domain.auth0.com", "/authorize"));
@@ -531,7 +208,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldSetLogoutUrlBuilderDefaultValues() {
-        AuthAPI api = new AuthAPI("domain.auth0.com", CLIENT_ID, CLIENT_SECRET);
+        AuthAPI api = AuthAPI.newBuilder("domain.auth0.com", CLIENT_ID, CLIENT_SECRET).build();
         String url = api.logoutUrl("https://my.domain.com/welcome", false).build();
 
         assertThat(url, isUrl("https", "domain.auth0.com", "/v2/logout"));
@@ -541,7 +218,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldSetLogoutUrlBuilderDefaultValuesAndClientId() {
-        AuthAPI api = new AuthAPI("domain.auth0.com", CLIENT_ID, CLIENT_SECRET);
+        AuthAPI api = AuthAPI.newBuilder("domain.auth0.com", CLIENT_ID, CLIENT_SECRET).build();
         String url = api.logoutUrl("https://my.domain.com/welcome", true).build();
 
         assertThat(url, isUrl("https", "domain.auth0.com", "/v2/logout"));
@@ -565,10 +242,10 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_USER_INFO, 200);
-        UserInfo response = request.execute();
+        UserInfo response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/userinfo"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/userinfo"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer accessToken"));
 
@@ -616,10 +293,10 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_RESET_PASSWORD, 200);
-        Void response = request.execute();
+        Void response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/dbconnections/change_password"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/dbconnections/change_password"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -631,6 +308,26 @@ public class AuthAPITest {
         assertThat(response, is(nullValue()));
     }
 
+    @Test
+    public void shouldCreateResetPasswordRequestWithSpecifiedClientId() throws Exception {
+        Request<Void> request = api.resetPassword("CLIENT-ID", "me@auth0.com", "db-connection");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_RESET_PASSWORD, 200);
+        Void response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/dbconnections/change_password"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("email", "me@auth0.com"));
+        assertThat(body, hasEntry("connection", "db-connection"));
+        assertThat(body, hasEntry("client_id", "CLIENT-ID"));
+        assertThat(body, not(hasKey("password")));
+
+        assertThat(response, is(nullValue()));
+    }
 
     //Sign Up
 
@@ -735,10 +432,10 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_SIGN_UP_USERNAME, 200);
-        CreatedUser response = request.execute();
+        CreatedUser response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/dbconnections/signup"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/dbconnections/signup"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -763,10 +460,10 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_SIGN_UP, 200);
-        CreatedUser response = request.execute();
+        CreatedUser response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/dbconnections/signup"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/dbconnections/signup"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -794,10 +491,10 @@ public class AuthAPITest {
         request.setCustomFields(customFields);
 
         server.jsonResponse(AUTH_SIGN_UP, 200);
-        CreatedUser response = request.execute();
+        CreatedUser response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/dbconnections/signup"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/dbconnections/signup"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -837,14 +534,14 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateLogInWithAuthorizationCodeGrantRequest() throws Exception {
-        AuthRequest request = api.exchangeCode("code123", "https://domain.auth0.com/callback");
+        TokenRequest request = api.exchangeCode("code123", "https://domain.auth0.com/callback");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -863,18 +560,24 @@ public class AuthAPITest {
     }
 
     @Test
+    public void authorizationCodeGrantRequestRequiresClientAuthentication() throws Exception {
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> apiNoClientAuthentication.exchangeCode("code", "https://domain.auth0.com/callback"));
+        assertThat(e.getMessage(), is("A client secret or client assertion signing key is required for this operation"));
+    }
+
+    @Test
     public void shouldCreateLogInWithAuthorizationCodeGrantRequestWithCustomParameters() throws Exception {
-        AuthRequest request = api.exchangeCode("code123", "https://domain.auth0.com/callback");
+        TokenRequest request = api.exchangeCode("code123", "https://domain.auth0.com/callback");
         assertThat(request, is(notNullValue()));
         request.setAudience("https://myapi.auth0.com/users");
         request.setRealm("dbconnection");
         request.setScope("profile photos contacts");
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -924,14 +627,14 @@ public class AuthAPITest {
     @Test
     public void shouldCreateLogInWithPasswordGrantRequest() throws Exception {
         @SuppressWarnings("deprecation")
-        AuthRequest request = api.login("me", "p455w0rd");
+        TokenRequest request = api.login("me", "p455w0rd");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -950,19 +653,26 @@ public class AuthAPITest {
     }
 
     @Test
+    public void passwordGrantRequestRequiresClientAuthentication() {
+        @SuppressWarnings("deprecation")
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> apiNoClientAuthentication.login("me", "p455w0rd"));
+        assertThat(e.getMessage(), is("A client secret or client assertion signing key is required for this operation"));
+    }
+
+    @Test
     public void shouldCreateLogInWithPasswordGrantRequestWithCustomParameters() throws Exception {
         @SuppressWarnings("deprecation")
-        AuthRequest request = api.login("me", "p455w0rd");
+        TokenRequest request = api.login("me", "p455w0rd");
         assertThat(request, is(notNullValue()));
         request.setRealm("dbconnection");
         request.setScope("profile photos contacts");
         request.setAudience("https://myapi.auth0.com/users");
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -989,10 +699,10 @@ public class AuthAPITest {
         request.addHeader("some-header", "some-value");
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("some-header", "some-value"));
 
@@ -1047,14 +757,14 @@ public class AuthAPITest {
     @Test
     public void shouldCreateLogInWithPasswordRealmGrantRequest() throws Exception {
         @SuppressWarnings("deprecation")
-        AuthRequest request = api.login("me", "p455w0rd", "realm");
+        TokenRequest request = api.login("me", "p455w0rd", "realm");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -1074,19 +784,26 @@ public class AuthAPITest {
     }
 
     @Test
+    public void passwordRealmGrantRequestRequiresClientAuthentication()  {
+        @SuppressWarnings("deprecation")
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> apiNoClientAuthentication.login("me", "p455w0rd", "realm"));
+        assertThat(e.getMessage(), is("A client secret or client assertion signing key is required for this operation"));
+    }
+
+    @Test
     public void shouldCreateLogInWithPasswordRealmGrantRequestWithCustomParameters() throws Exception {
         @SuppressWarnings("deprecation")
-        AuthRequest request = api.login("me", "p455w0rd", "realm");
+        TokenRequest request = api.login("me", "p455w0rd", "realm");
         assertThat(request, is(notNullValue()));
         request.setAudience("https://myapi.auth0.com/users");
         request.setRealm("dbconnection");
         request.setScope("profile photos contacts");
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -1119,14 +836,14 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateLogInWithClientCredentialsGrantRequest() throws Exception {
-        AuthRequest request = api.requestToken("https://myapi.auth0.com/users");
+        TokenRequest request = api.requestToken("https://myapi.auth0.com/users");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -1143,6 +860,12 @@ public class AuthAPITest {
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
+    @Test
+    public void clientCredentialsGrantRequestRequiresClientAuthentication() {
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> apiNoClientAuthentication.requestToken("https://myapi.auth0.com/users"));
+        assertThat(e.getMessage(), is("A client secret or client assertion signing key is required for this operation"));
+    }
+
     // Login with Passwordless
 
     @Test
@@ -1151,17 +874,34 @@ public class AuthAPITest {
                 PasswordlessEmailType.CODE);
         assertThat(request, is(notNullValue()));
 
+        emailPasswordlessRequest(request, true);
+    }
+
+    @Test
+    public void shouldCreateStartEmailPasswordlessFlowRequestWithoutClientAuthentication() throws Exception {
+        Request<PasswordlessEmailResponse> request = apiNoClientAuthentication.startPasswordlessEmailFlow("user@domain.com",
+            PasswordlessEmailType.CODE);
+        assertThat(request, is(notNullValue()));
+
+        emailPasswordlessRequest(request, false);
+    }
+
+    private void emailPasswordlessRequest(Request<PasswordlessEmailResponse> request, boolean secretSent) throws Exception{
         server.jsonResponse(PASSWORDLESS_EMAIL_RESPONSE, 200);
-        PasswordlessEmailResponse response = request.execute();
+        PasswordlessEmailResponse response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/passwordless/start"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/passwordless/start"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body, hasEntry("connection", "email"));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        if (secretSent) {
+            assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        } else {
+            assertThat(body, not(hasKey("client_secret")));
+        }
         assertThat(body, hasEntry("email", "user@domain.com"));
 
         assertThat(response, is(notNullValue()));
@@ -1190,7 +930,7 @@ public class AuthAPITest {
         authParams.put("scope", "openid profile email");
         authParams.put("state", "abc123");
 
-        CustomRequest<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow("user@domain.com", PasswordlessEmailType.CODE)
+        BaseRequest<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow("user@domain.com", PasswordlessEmailType.CODE)
                 .addParameter("authParams", authParams);
 
         // verify that connection parameter can be overridden for custom connection types
@@ -1199,10 +939,10 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(PASSWORDLESS_EMAIL_RESPONSE, 200);
-        PasswordlessEmailResponse response = request.execute();
+        PasswordlessEmailResponse response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/passwordless/start"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/passwordless/start"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -1226,17 +966,33 @@ public class AuthAPITest {
         Request<PasswordlessSmsResponse> request = api.startPasswordlessSmsFlow("+16511234567");
         assertThat(request, is(notNullValue()));
 
+        smsPasswordlessFlow(request, true);
+    }
+
+    @Test
+    public void shouldCreateStartSmsPasswordlessFlowRequestWithoutClientAuthentication() throws Exception {
+        Request<PasswordlessSmsResponse> request = apiNoClientAuthentication.startPasswordlessSmsFlow("+16511234567");
+        assertThat(request, is(notNullValue()));
+
+        smsPasswordlessFlow(request, false);
+    }
+
+    private void smsPasswordlessFlow(Request<PasswordlessSmsResponse> request, boolean secretSent) throws Exception {
         server.jsonResponse(PASSWORDLESS_SMS_RESPONSE, 200);
-        PasswordlessSmsResponse response = request.execute();
+        PasswordlessSmsResponse response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/passwordless/start"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/passwordless/start"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body, hasEntry("connection", "sms"));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        if (secretSent) {
+            assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        } else {
+            assertThat(body, not(hasKey("client_secret")));
+        }
         assertThat(body, hasEntry("phone_number", "+16511234567"));
 
         assertThat(response, is(notNullValue()));
@@ -1248,7 +1004,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateStartSmsPasswordlessFlowRequestWithCustomConnection() throws Exception {
-        CustomRequest<PasswordlessSmsResponse> request = api.startPasswordlessSmsFlow("+16511234567");
+        BaseRequest<PasswordlessSmsResponse> request = api.startPasswordlessSmsFlow("+16511234567");
 
         // verify that connection parameter can be overridden for custom connection types
         request.addParameter("connection", "custom-sms");
@@ -1256,10 +1012,10 @@ public class AuthAPITest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(PASSWORDLESS_SMS_RESPONSE, 200);
-        PasswordlessSmsResponse response = request.execute();
+        PasswordlessSmsResponse response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/passwordless/start"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/passwordless/start"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
@@ -1284,19 +1040,35 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateLoginWithPasswordlessCodeRequest() throws Exception {
-        AuthRequest request = api.exchangePasswordlessOtp("+16511234567", "email", "otp".toCharArray());
+        TokenRequest request = api.exchangePasswordlessOtp("+16511234567", "email", "otp".toCharArray());
         assertThat(request, is(notNullValue()));
 
+        passwordlessCodeRequest(request, true);
+    }
+
+    @Test
+    public void shouldCreateLoginWithPasswordlessCodeRequestWithoutClientAuthentication() throws Exception {
+        TokenRequest request = apiNoClientAuthentication.exchangePasswordlessOtp("+16511234567", "email", "otp".toCharArray());
+        assertThat(request, is(notNullValue()));
+
+        passwordlessCodeRequest(request, false);
+    }
+
+    private void passwordlessCodeRequest(TokenRequest request, boolean secretSent) throws Exception {
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body, hasEntry("client_id", CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        if (secretSent) {
+            assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        } else {
+            assertThat(body, not(hasKey("client_secret")));
+        }
         assertThat(body, hasEntry("realm", "email"));
         assertThat(body, hasEntry("grant_type", "http://auth0.com/oauth/grant-type/passwordless/otp"));
         assertThat(body, hasEntry("otp", "otp"));
@@ -1323,16 +1095,32 @@ public class AuthAPITest {
         Request<Void> request = api.revokeToken("2679NfkaBn62e6w5E8zNEzjr");
         assertThat(request, is(notNullValue()));
 
+        revokeTokenRequest(request, true);
+    }
+
+    @Test
+    public void shouldCreateRevokeTokenRequestWithoutClientAuthentication() throws Exception {
+        Request<Void> request = apiNoClientAuthentication.revokeToken("2679NfkaBn62e6w5E8zNEzjr");
+        assertThat(request, is(notNullValue()));
+
+        revokeTokenRequest(request, false);
+    }
+
+    private void revokeTokenRequest( Request<Void> request, boolean secretSent) throws Exception {
         server.emptyResponse(200);
-        Void response = request.execute();
+        Void response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/revoke"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/revoke"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body, hasEntry("client_id", CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        if (secretSent) {
+            assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        } else {
+            assertThat(body, not(hasKey("client_secret")));
+        }
         assertThat(body, hasEntry("token", "2679NfkaBn62e6w5E8zNEzjr"));
 
         assertThat(response, is(nullValue()));
@@ -1349,21 +1137,37 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldCreateRenewAuthRequest() throws Exception {
-        AuthRequest request = api.renewAuth("ej2E8zNEzjrcSD2edjaE");
+    public void shouldCreateRenewTokenRequest() throws Exception {
+        TokenRequest request = api.renewAuth("ej2E8zNEzjrcSD2edjaE");
         assertThat(request, is(notNullValue()));
 
+        renewTokenRequest(request, true);
+    }
+
+    @Test
+    public void shouldCreateRenewTokenRequestWithoutClientAuthentication() throws Exception {
+        TokenRequest request = apiNoClientAuthentication.renewAuth("ej2E8zNEzjrcSD2edjaE");
+        assertThat(request, is(notNullValue()));
+
+        renewTokenRequest(request, false);
+    }
+
+    private void renewTokenRequest(TokenRequest request, boolean secretSent) throws Exception {
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body, hasEntry("grant_type", "refresh_token"));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        if (secretSent) {
+            assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        } else {
+            assertThat(body, not(hasKey("clieht_secret")));
+        }
         assertThat(body, hasEntry("refresh_token", "ej2E8zNEzjrcSD2edjaE"));
 
         assertThat(response, is(notNullValue()));
@@ -1374,7 +1178,44 @@ public class AuthAPITest {
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
-    // MFA grant
+    // PKCE
+
+    @Test
+    public void shouldCreateLogInWithAuthorizationCodeGrantWithPKCERequest() throws Exception {
+        TokenRequest request = api.exchangeCodeWithVerifier("code123", "verifier", "https://domain.auth0.com/callback");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("code", "code123"));
+        assertThat(body, hasEntry("code_verifier", "verifier"));
+        assertThat(body, hasEntry("redirect_uri", "https://domain.auth0.com/callback"));
+        assertThat(body, hasEntry("grant_type", "authorization_code"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowWhenVerifierNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'verifier' cannot be null!");
+        api.exchangeCodeWithVerifier("code", null,"https://domain.auth0.com/callback");
+    }
+
+    // MFA
 
     @Test
     public void shouldThrowWhenExchangeMfaOtpCalledWithNullMfaToken() {
@@ -1392,20 +1233,36 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateExchangeMfaOtpRequest() throws Exception {
-        AuthRequest request = api.exchangeMfaOtp("mfaToken", new char[]{'o','t','p'});
+        TokenRequest request = api.exchangeMfaOtp("mfaToken", new char[]{'o','t','p'});
         assertThat(request, is(notNullValue()));
 
+        mfaOtpRequest(request, true);
+    }
+
+    @Test
+    public void shouldCreateExchangeMfaOtpRequestWithoutClientAuthentication() throws Exception {
+        TokenRequest request = apiNoClientAuthentication.exchangeMfaOtp("mfaToken", new char[]{'o','t','p'});
+        assertThat(request, is(notNullValue()));
+
+        mfaOtpRequest(request, false);
+    }
+
+    private void mfaOtpRequest(TokenRequest request, boolean secretSent) throws Exception {
         server.jsonResponse(AUTH_TOKENS, 200);
-        TokenHolder response = request.execute();
+        TokenHolder response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/oauth/token"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body, hasEntry("grant_type", "http://auth0.com/oauth/grant-type/mfa-otp"));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
-        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        if (secretSent) {
+            assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        } else {
+            assertThat(body, not(hasKey("client_secret")));
+        }
         assertThat(body, hasEntry("mfa_token", "mfaToken"));
         assertThat(body, hasEntry("otp", "otp"));
 
@@ -1415,5 +1272,325 @@ public class AuthAPITest {
         assertThat(response.getRefreshToken(), not(emptyOrNullString()));
         assertThat(response.getTokenType(), not(emptyOrNullString()));
         assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowWhenExchangeMfaOobCalledWithNullMfaToken() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'mfa token' cannot be null!");
+        api.exchangeMfaOob(null, new char[]{'o','t','p'}, null);
+    }
+
+    @Test
+    public void shouldThrowWhenExchangeMfaOobCalledWithNullOoob() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'OOB code' cannot be null!");
+        api.exchangeMfaOob("mfaToken", null, null);
+    }
+
+    @Test
+    public void shouldCreateExchangeMfaOobRequest() throws Exception {
+        TokenRequest request = api.exchangeMfaOob("mfaToken", new char[]{'o','o','b'}, null);
+        assertThat(request, is(notNullValue()));
+
+        mfaOobExchangeRequest(request, null, true);
+    }
+
+    @Test
+    public void shouldCreateExchangeMfaOobRequestWithoutSecret() throws Exception {
+        TokenRequest request = apiNoClientAuthentication.exchangeMfaOob("mfaToken", new char[]{'o','o','b'}, new char[]{'b','o','b'});
+        assertThat(request, is(notNullValue()));
+
+        mfaOobExchangeRequest(request, "bob", false);
+    }
+
+    private void mfaOobExchangeRequest(TokenRequest request, String bindingCode, boolean secretSent) throws Exception {
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("grant_type", "http://auth0.com/oauth/grant-type/mfa-oob"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+
+        if (bindingCode != null) {
+            assertThat(body, hasEntry("binding_code", bindingCode));
+        } else {
+            assertThat(body, not(hasKey("binding_code")));
+        }
+
+        if (secretSent) {
+            assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        } else {
+            assertThat(body, not(hasKey("client_secret")));
+        }
+        assertThat(body, hasEntry("mfa_token", "mfaToken"));
+        assertThat(body, hasEntry("oob_code", "oob"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowWhenExchangeMfaRecoveryCodeCalledWithNullMfaToken() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'mfa token' cannot be null!");
+        api.exchangeMfaRecoveryCode(null, new char[]{'c','o','d','e'});
+    }
+
+    @Test
+    public void shouldThrowWhenExchangeMfaRecoveryCodeCalledWithNullCode() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'recovery code' cannot be null!");
+        api.exchangeMfaRecoveryCode("mfaToken", null);
+    }
+
+    @Test
+    public void shouldCreateExchangeMfaRecoveryCodeRequest() throws Exception {
+        TokenRequest request = api.exchangeMfaRecoveryCode("mfaToken", new char[]{'c','o','d','e'});
+        assertThat(request, is(notNullValue()));
+
+        mfaRecoveryCodeExchangeRequest(request, true);
+    }
+
+    @Test
+    public void shouldCreateExchangeMfaRecoveryCodeRequestWithoutSecret() throws Exception {
+        TokenRequest request = apiNoClientAuthentication.exchangeMfaRecoveryCode("mfaToken", new char[]{'c','o','d','e'});
+        assertThat(request, is(notNullValue()));
+
+        mfaRecoveryCodeExchangeRequest(request, false);
+    }
+
+    private void mfaRecoveryCodeExchangeRequest(TokenRequest request, boolean secretSent) throws Exception {
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("grant_type", "http://auth0.com/oauth/grant-type/mfa-recovery-code"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+
+        if (secretSent) {
+            assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        } else {
+            assertThat(body, not(hasKey("client_secret")));
+        }
+        assertThat(body, hasEntry("mfa_token", "mfaToken"));
+        assertThat(body, hasEntry("recovery_code", "code"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+    @Test
+    public void addOtpAuthenticatorThrowsWhenTokenNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'mfa token' cannot be null!");
+        api.addOtpAuthenticator(null);
+    }
+
+    @Test
+    public void addOtpAuthenticatorRequest() throws Exception {
+        Request<CreatedOtpResponse> request = api.addOtpAuthenticator("mfaToken");
+
+        server.jsonResponse(AUTH_OTP_AUTHENTICATOR_RESPONSE, 200);
+        CreatedOtpResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/mfa/associate"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("authenticator_types", Collections.singletonList("otp")));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAuthenticatorType(), not(emptyOrNullString()));
+        assertThat(response.getSecret(), not(emptyOrNullString()));
+        assertThat(response.getBarcodeUri(), not(emptyOrNullString()));
+        assertThat(response.getRecoveryCodes(), notNullValue());
+    }
+
+    @Test
+    public void addOobAuthenticatorThrowsWhenTokenNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'mfa token' cannot be null!");
+        api.addOobAuthenticator(null, Collections.singletonList("otp"), null);
+    }
+
+    @Test
+    public void addOobAuthenticatorThrowsWhenChannelsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'OOB channels' cannot be null!");
+        api.addOobAuthenticator("mfaToken", null, null);
+    }
+
+    @Test
+    public void addOobAuthenticatorRequest() throws Exception {
+        Request<CreatedOobResponse> request = api.addOobAuthenticator("mfaToken", Collections.singletonList("sms"), "phone-number");
+
+        server.jsonResponse(AUTH_OOB_AUTHENTICATOR_RESPONSE, 200);
+        CreatedOobResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/mfa/associate"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("authenticator_types", Collections.singletonList("oob")));
+        assertThat(body, hasEntry("oob_channels", Collections.singletonList("sms")));
+        assertThat(body, hasEntry("phone_number", "phone-number"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAuthenticatorType(), not(emptyOrNullString()));
+        assertThat(response.getOobChannel(), not(emptyOrNullString()));
+        assertThat(response.getOobCode(), not(emptyOrNullString()));
+        assertThat(response.getBarcodeUri(), not(emptyOrNullString()));
+        assertThat(response.getRecoveryCodes(), notNullValue());
+    }
+
+    @Test
+    public void listAuthenticatorsThrowsWhenTokenNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'access token' cannot be null!");
+        api.listAuthenticators(null);
+    }
+
+    @Test
+    public void listAuthenticatorsRequest() throws Exception {
+        Request<List<MfaAuthenticator>> request = api.listAuthenticators("token");
+
+        server.jsonResponse(AUTH_LIST_AUTHENTICATORS_RESPONSE, 200);
+        List<MfaAuthenticator> response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/mfa/authenticators"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer token"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void challengeRequestThrowsWhenTokenNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'mfa token' cannot be null!");
+        api.mfaChallengeRequest(null, "otp", "authenticatorId");
+    }
+
+    @Test
+    public void challengeRequest() throws Exception {
+        Request<MfaChallengeResponse> request = api.mfaChallengeRequest("mfaToken", "otp", "authenticatorId");
+
+        server.jsonResponse(AUTH_CHALLENGE_RESPONSE, 200);
+        MfaChallengeResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/mfa/challenge"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("mfa_token", "mfaToken"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        assertThat(body, hasEntry("challenge_type", "otp"));
+        assertThat(body, hasEntry("authenticator_id", "authenticatorId"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getChallengeType(), not(emptyOrNullString()));
+        assertThat(response.getBindingMethod(), not(emptyOrNullString()));
+        assertThat(response.getOobCode(), not(emptyOrNullString()));
+    }
+
+    // Client Assertion tests
+    @Test
+    public void shouldAddAndPreferClientAuthentication() throws Exception {
+        AuthAPI authAPI = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID, CLIENT_SECRET)
+            .withClientAssertionSigner(new TestAssertionSigner("token"))
+            .build();
+        TokenRequest request = authAPI.exchangeCode("code123", "https://domain.auth0.com/callback");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("code", "code123"));
+        assertThat(body, hasEntry("redirect_uri", "https://domain.auth0.com/callback"));
+        assertThat(body, hasEntry("grant_type", "authorization_code"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, not(hasEntry("client_secret", CLIENT_SECRET)));
+        assertThat(body, hasEntry("client_assertion", "token"));
+        assertThat(body, hasEntry("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+    @Test
+    public void shouldNotAddAnyParamsIfNoSecretOrAssertion() throws Exception {
+        AuthAPI authAPI = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
+        TokenRequest request = authAPI.exchangeCodeWithVerifier("code123", "verifier", "https://domain.auth0.com/callback");
+
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("code", "code123"));
+        assertThat(body, hasEntry("code_verifier", "verifier"));
+        assertThat(body, hasEntry("redirect_uri", "https://domain.auth0.com/callback"));
+        assertThat(body, hasEntry("grant_type", "authorization_code"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, not(hasEntry("client_secret", CLIENT_SECRET)));
+        assertThat(body, not(hasEntry("client_assertion", "token")));
+        assertThat(body, not(hasEntry("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+    static class TestAssertionSigner implements ClientAssertionSigner {
+
+        private final String token;
+
+        public TestAssertionSigner(String token) {
+            this.token = token;
+        }
+
+        @Override
+        public String createSignedClientAssertion(String issuer, String audience, String subject) {
+            return token;
+        }
     }
 }

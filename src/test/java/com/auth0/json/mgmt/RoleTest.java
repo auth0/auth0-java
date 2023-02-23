@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.notNullValue;
 
 import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
+import com.auth0.json.mgmt.roles.Role;
 import org.junit.Test;
 
 public class RoleTest extends JsonTest<Role> {

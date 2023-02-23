@@ -1,9 +1,10 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.ClientGrantsFilter;
-import com.auth0.json.mgmt.ClientGrant;
-import com.auth0.json.mgmt.ClientGrantsPage;
+import com.auth0.json.mgmt.clientgrants.ClientGrant;
+import com.auth0.json.mgmt.clientgrants.ClientGrantsPage;
 import com.auth0.net.Request;
+import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
 
@@ -13,8 +14,8 @@ import java.util.Map;
 
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.*;
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
 
@@ -24,10 +25,10 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT_GRANTS_LIST, 200);
-        ClientGrantsPage response = request.execute();
+        ClientGrantsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/client-grants"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/client-grants"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -42,10 +43,10 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT_GRANTS_LIST, 200);
-        ClientGrantsPage response = request.execute();
+        ClientGrantsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/client-grants"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/client-grants"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("page", "23"));
@@ -62,10 +63,10 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT_GRANTS_PAGED_LIST, 200);
-        ClientGrantsPage response = request.execute();
+        ClientGrantsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/client-grants"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/client-grants"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
@@ -87,10 +88,10 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT_GRANTS_LIST, 200);
-        ClientGrantsPage response = request.execute();
+        ClientGrantsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/client-grants"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/client-grants"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("audience", "https://myapi.auth0.com"));
@@ -98,38 +99,6 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getItems(), hasSize(2));
-    }
-
-
-    @Test
-    public void shouldListClientGrants() throws Exception {
-        @SuppressWarnings("deprecation")
-        Request<List<ClientGrant>> request = api.clientGrants().list();
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MGMT_CLIENT_GRANTS_LIST, 200);
-        List<ClientGrant> response = request.execute();
-        RecordedRequest recordedRequest = server.takeRequest();
-
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/client-grants"));
-        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
-        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response, hasSize(2));
-    }
-
-    @Test
-    public void shouldReturnEmptyClientGrants() throws Exception {
-        @SuppressWarnings("deprecation")
-        Request<List<ClientGrant>> request = api.clientGrants().list();
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MGMT_EMPTY_LIST, 200);
-        List<ClientGrant> response = request.execute();
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response, is(emptyCollectionOf(ClientGrant.class)));
     }
 
     @Test
@@ -159,10 +128,10 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT_GRANT, 200);
-        ClientGrant response = request.execute();
+        ClientGrant response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/client-grants"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/client-grants"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -189,10 +158,10 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT_GRANT, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/client-grants/1"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/client-grants/1"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     }
@@ -217,10 +186,10 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT_GRANT, 200);
-        ClientGrant response = request.execute();
+        ClientGrant response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/client-grants/1"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PATCH, "/api/v2/client-grants/1"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 

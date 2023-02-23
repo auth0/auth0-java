@@ -1,7 +1,6 @@
 package com.auth0.json.mgmt.permissions;
 
 import com.auth0.json.JsonTest;
-import com.auth0.json.mgmt.PermissionSource;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;

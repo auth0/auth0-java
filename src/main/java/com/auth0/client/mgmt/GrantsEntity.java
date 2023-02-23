@@ -1,15 +1,16 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.GrantsFilter;
-import com.auth0.json.mgmt.Grant;
-import com.auth0.json.mgmt.GrantsPage;
-import com.auth0.net.CustomRequest;
+import com.auth0.json.mgmt.grants.Grant;
+import com.auth0.json.mgmt.grants.GrantsPage;
+import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 import java.util.List;
 import java.util.Map;
@@ -24,8 +25,8 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class GrantsEntity extends BaseManagementEntity {
 
-    GrantsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    GrantsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -50,35 +51,8 @@ public class GrantsEntity extends BaseManagementEntity {
         }
 
         String url = builder.build().toString();
-        CustomRequest<GrantsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<GrantsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<GrantsPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
-    }
-
-    /**
-     * Request all Grants. A token with scope read:grants is needed
-     * See https://auth0.com/docs/api/management/v2#!/Grants/get_grants
-     *
-     * @param userId The user id of the grants to retrieve
-     * @return a Request to execute.
-     * @deprecated Calling this method will soon stop returning the complete list of grants and instead, limit to the first page of results.
-     * Please use {@link #list(String, GrantsFilter)} instead as it provides pagination support.
-     */
-    @Deprecated
-    public Request<List<Grant>> list(String userId) {
-        Asserts.assertNotNull(userId, "user id");
-
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/grants")
-                .addQueryParameter("user_id", userId)
-                .build()
-                .toString();
-        CustomRequest<List<Grant>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Grant>>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -97,9 +71,7 @@ public class GrantsEntity extends BaseManagementEntity {
                 .addPathSegment(grantId)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 
     /**
@@ -118,9 +90,7 @@ public class GrantsEntity extends BaseManagementEntity {
                 .addQueryParameter("user_id", userId)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 
 }

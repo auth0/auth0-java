@@ -1,15 +1,16 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.ClientGrantsFilter;
-import com.auth0.json.mgmt.ClientGrant;
-import com.auth0.json.mgmt.ClientGrantsPage;
-import com.auth0.net.CustomRequest;
+import com.auth0.json.mgmt.clientgrants.ClientGrant;
+import com.auth0.json.mgmt.clientgrants.ClientGrantsPage;
+import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 import java.util.List;
 import java.util.Map;
@@ -24,8 +25,8 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class ClientGrantsEntity extends BaseManagementEntity {
 
-    ClientGrantsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    ClientGrantsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -46,31 +47,8 @@ public class ClientGrantsEntity extends BaseManagementEntity {
         }
 
         String url = builder.build().toString();
-        CustomRequest<ClientGrantsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<ClientGrantsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<ClientGrantsPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
-    }
-
-    /**
-     * Request all the Client Grants. A token with scope read:client_grants is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Client_Grants/get_client_grants
-     *
-     * @return a Request to execute.
-     * @deprecated Calling this method will soon stop returning the complete list of client grants and instead, limit to the first page of results.
-     * Please use {@link #list(ClientGrantsFilter)} instead as it provides pagination support.
-     */
-    @Deprecated
-    public Request<List<ClientGrant>> list() {
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/client-grants")
-                .build()
-                .toString();
-        CustomRequest<List<ClientGrant>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<ClientGrant>>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -92,9 +70,8 @@ public class ClientGrantsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/client-grants")
                 .build()
                 .toString();
-        CustomRequest<ClientGrant> request = new CustomRequest<>(client, url, "POST", new TypeReference<ClientGrant>() {
+        BaseRequest<ClientGrant> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<ClientGrant>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.addParameter("client_id", clientId);
         request.addParameter("audience", audience);
         request.addParameter("scope", scope);
@@ -118,9 +95,7 @@ public class ClientGrantsEntity extends BaseManagementEntity {
                 .addPathSegment(clientGrantId)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 
     /**
@@ -141,9 +116,8 @@ public class ClientGrantsEntity extends BaseManagementEntity {
                 .addPathSegment(clientGrantId)
                 .build()
                 .toString();
-        CustomRequest<ClientGrant> request = new CustomRequest<>(client, url, "PATCH", new TypeReference<ClientGrant>() {
+        BaseRequest<ClientGrant> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<ClientGrant>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.addParameter("scope", scope);
         return request;
     }

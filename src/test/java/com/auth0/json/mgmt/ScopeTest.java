@@ -2,6 +2,7 @@ package com.auth0.json.mgmt;
 
 import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
+import com.auth0.json.mgmt.resourceserver.Scope;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;

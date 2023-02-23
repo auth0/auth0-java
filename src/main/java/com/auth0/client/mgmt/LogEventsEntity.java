@@ -3,12 +3,13 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.filter.LogEventFilter;
 import com.auth0.json.mgmt.logevents.LogEvent;
 import com.auth0.json.mgmt.logevents.LogEventsPage;
-import com.auth0.net.CustomRequest;
+import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 import java.util.Map;
 
@@ -24,8 +25,8 @@ import static com.auth0.client.mgmt.filter.QueryFilter.KEY_QUERY;
 @SuppressWarnings("WeakerAccess")
 public class LogEventsEntity extends BaseManagementEntity {
 
-    LogEventsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    LogEventsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -49,10 +50,8 @@ public class LogEventsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<LogEventsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<LogEventsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<LogEventsPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -71,9 +70,7 @@ public class LogEventsEntity extends BaseManagementEntity {
                 .addPathSegment(logEventId)
                 .build()
                 .toString();
-        CustomRequest<LogEvent> request = new CustomRequest<>(client, url, "GET", new TypeReference<LogEvent>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<LogEvent>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 }

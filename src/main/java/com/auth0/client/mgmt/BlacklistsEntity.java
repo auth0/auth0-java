@@ -1,13 +1,14 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.json.mgmt.Token;
-import com.auth0.net.CustomRequest;
+import com.auth0.json.mgmt.blacklists.Token;
+import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 import java.util.List;
 
@@ -21,8 +22,8 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class BlacklistsEntity extends BaseManagementEntity {
 
-    BlacklistsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    BlacklistsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -41,10 +42,8 @@ public class BlacklistsEntity extends BaseManagementEntity {
                 .addQueryParameter("aud", audience)
                 .build()
                 .toString();
-        CustomRequest<List<Token>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Token>>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<Token>>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -62,8 +61,7 @@ public class BlacklistsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/blacklists/tokens")
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "POST");
-        request.addHeader("Authorization", "Bearer " + apiToken);
+        VoidRequest request =  new VoidRequest(client, tokenProvider,  url, HttpMethod.POST);
         request.setBody(token);
         return request;
     }

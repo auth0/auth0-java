@@ -2,10 +2,13 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.MockServer;
 import com.auth0.json.mgmt.logstreams.LogStream;
+import com.auth0.json.mgmt.logstreams.LogStreamFilter;
 import com.auth0.net.Request;
+import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,8 +16,8 @@ import java.util.Map;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.hasHeader;
 import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class LogStreamsEntityTest extends BaseMgmtEntityTest {
 
@@ -24,10 +27,10 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.MGMT_LOG_STREAMS_LIST, 200);
-        List<LogStream> response = request.execute();
+        List<LogStream> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/log-streams"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/log-streams"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -38,6 +41,7 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(response, everyItem(hasProperty("type", is(notNullValue()))));
         assertThat(response, everyItem(hasProperty("status", is(notNullValue()))));
         assertThat(response, everyItem(hasProperty("sink", is(notNullValue()))));
+        assertThat(response, everyItem(hasProperty("filters", is(notNullValue()))));
     }
 
     @Test
@@ -46,7 +50,7 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
-        List<LogStream> response = request.execute();
+        List<LogStream> response = request.execute().getBody();
 
         assertThat(response, is(notNullValue()));
         assertThat(response, empty());
@@ -58,10 +62,10 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.MGMT_LOG_STREAM, 200);
-        LogStream response = request.execute();
+        LogStream response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/log-streams/123"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/log-streams/123"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -71,28 +75,33 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(response, hasProperty("type", is(notNullValue())));
         assertThat(response, hasProperty("status", is(notNullValue())));
         assertThat(response, hasProperty("sink", is(notNullValue())));
+        assertThat(response, hasProperty("filters", is(notNullValue())));
     }
 
     @Test
     public void shouldCreateLogStream() throws Exception {
         LogStream logStream = getLogStream("log stream", "http");
+        LogStreamFilter filter = new LogStreamFilter("category", "auth.ancillary.success");
+        logStream.setFilters(Collections.singletonList(filter));
 
         Request<LogStream> request = api.logStreams().create(logStream);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_STREAM, 200);
-        LogStream response = request.execute();
+        LogStream response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/log-streams"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/log-streams"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body.size(), is(3));
+        assertThat(body.size(), is(4));
         assertThat(body, hasEntry("name", "log stream"));
         assertThat(body, hasEntry("type", "http"));
         assertThat(body, hasEntry("sink", logStream.getSink()));
+        assertThat(body, hasKey("filters"));
+        assertThat(body.get("filters"), is(notNullValue()));
 
         assertThat(response, is(notNullValue()));
         assertThat(response, hasProperty("id", is(notNullValue())));
@@ -100,6 +109,7 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(response, hasProperty("type", is(notNullValue())));
         assertThat(response, hasProperty("status", is(notNullValue())));
         assertThat(response, hasProperty("sink", is(notNullValue())));
+        assertThat(response, hasProperty("filters", is(notNullValue())));
 
     }
 
@@ -112,10 +122,10 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_STREAM, 200);
-        LogStream response = request.execute();
+        LogStream response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/log-streams/123"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PATCH, "/api/v2/log-streams/123"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -139,10 +149,10 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/log-streams/1"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/log-streams/1"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     }

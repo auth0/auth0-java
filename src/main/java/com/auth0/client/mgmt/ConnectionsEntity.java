@@ -1,15 +1,16 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.ConnectionFilter;
-import com.auth0.json.mgmt.Connection;
-import com.auth0.json.mgmt.ConnectionsPage;
-import com.auth0.net.CustomRequest;
+import com.auth0.json.mgmt.connections.Connection;
+import com.auth0.json.mgmt.connections.ConnectionsPage;
+import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 import java.util.List;
 import java.util.Map;
@@ -24,8 +25,8 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class ConnectionsEntity extends BaseManagementEntity {
 
-    ConnectionsEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    ConnectionsEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
 
@@ -46,41 +47,10 @@ public class ConnectionsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<ConnectionsPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<ConnectionsPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<ConnectionsPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
-
-    /**
-     * Request all the ConnectionsEntity. A token with scope read:connections is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Connections/get_connections
-     *
-     * @param filter the filter to use. Can be null.
-     * @return a Request to execute.
-     * @deprecated Calling this method will soon stop returning the complete list of connections and instead, limit to the first page of results.
-     * Please use {@link #listAll(ConnectionFilter)} instead as it provides pagination support.
-     */
-    @Deprecated
-    public Request<List<Connection>> list(ConnectionFilter filter) {
-        HttpUrl.Builder builder = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/connections");
-        if (filter != null) {
-            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                //This check below is to prevent JSON parsing errors
-                if (!e.getKey().equalsIgnoreCase("include_totals")) {
-                    builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
-                }
-            }
-        }
-        String url = builder.build().toString();
-        CustomRequest<List<Connection>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Connection>>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
-    }
 
     /**
      * Request a Connection. A token with scope read:connections is needed.
@@ -103,10 +73,8 @@ public class ConnectionsEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<Connection> request = new CustomRequest<>(client, url, "GET", new TypeReference<Connection>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Connection>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -124,9 +92,8 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/connections")
                 .build()
                 .toString();
-        CustomRequest<Connection> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<Connection>() {
+        BaseRequest<Connection> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<Connection>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(connection);
         return request;
     }
@@ -147,9 +114,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addPathSegment(connectionId)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 
     /**
@@ -170,9 +135,8 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addPathSegment(connectionId)
                 .build()
                 .toString();
-        CustomRequest<Connection> request = new CustomRequest<>(this.client, url, "PATCH", new TypeReference<Connection>() {
+        BaseRequest<Connection> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<Connection>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(connection);
         return request;
     }
@@ -197,8 +161,6 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addQueryParameter("email", email)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(this.client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return new VoidRequest(this.client, tokenProvider, url, HttpMethod.DELETE);
     }
 }

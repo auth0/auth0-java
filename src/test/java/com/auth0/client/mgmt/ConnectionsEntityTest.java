@@ -1,9 +1,10 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.ConnectionFilter;
-import com.auth0.json.mgmt.Connection;
-import com.auth0.json.mgmt.ConnectionsPage;
+import com.auth0.json.mgmt.connections.Connection;
+import com.auth0.json.mgmt.connections.ConnectionsPage;
 import com.auth0.net.Request;
+import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
 
@@ -12,92 +13,10 @@ import java.util.Map;
 
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.*;
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class ConnectionsEntityTest extends BaseMgmtEntityTest {
-
-    @Test
-    public void shouldListConnections() throws Exception {
-        @SuppressWarnings("deprecation")
-        Request<List<Connection>> request = api.connections().list(null);
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MGMT_CONNECTIONS_LIST, 200);
-        List<Connection> response = request.execute();
-        RecordedRequest recordedRequest = server.takeRequest();
-
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/connections"));
-        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
-        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response, hasSize(2));
-    }
-
-    @Test
-    public void shouldListConnectionsWithStrategy() throws Exception {
-        ConnectionFilter filter = new ConnectionFilter().withStrategy("auth0");
-
-        @SuppressWarnings("deprecation")
-        Request<List<Connection>> request = api.connections().list(filter);
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MGMT_CONNECTIONS_LIST, 200);
-        List<Connection> response = request.execute();
-        RecordedRequest recordedRequest = server.takeRequest();
-
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/connections"));
-        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
-        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-        assertThat(recordedRequest, hasQueryParameter("strategy", "auth0"));
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response, hasSize(2));
-    }
-
-    @Test
-    public void shouldListConnectionsWithName() throws Exception {
-        ConnectionFilter filter = new ConnectionFilter().withName("my-connection");
-
-        @SuppressWarnings("deprecation")
-        Request<List<Connection>> request = api.connections().list(filter);
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MGMT_CONNECTIONS_LIST, 200);
-        List<Connection> response = request.execute();
-        RecordedRequest recordedRequest = server.takeRequest();
-
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/connections"));
-        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
-        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-        assertThat(recordedRequest, hasQueryParameter("name", "my-connection"));
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response, hasSize(2));
-    }
-
-    @Test
-    public void shouldListConnectionsWithFields() throws Exception {
-        ConnectionFilter filter = new ConnectionFilter().withFields("some,random,fields", true);
-
-        @SuppressWarnings("deprecation")
-        Request<List<Connection>> request = api.connections().list(filter);
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MGMT_CONNECTIONS_LIST, 200);
-        List<Connection> response = request.execute();
-        RecordedRequest recordedRequest = server.takeRequest();
-
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/connections"));
-        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
-        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-        assertThat(recordedRequest, hasQueryParameter("fields", "some,random,fields"));
-        assertThat(recordedRequest, hasQueryParameter("include_fields", "true"));
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response, hasSize(2));
-    }
 
     @Test
     public void shouldListConnectionsWithoutFilter() throws Exception {
@@ -105,36 +24,15 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTIONS_LIST, 200);
-        ConnectionsPage response = request.execute();
+        ConnectionsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/connections"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/connections"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getItems(), hasSize(2));
-    }
-
-    @Test
-    public void shouldNotListConnectionsWithTotals() throws Exception {
-        ConnectionFilter filter = new ConnectionFilter().withTotals(true);
-
-        @SuppressWarnings("deprecation")
-        Request<List<Connection>> request = api.connections().list(filter);
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MGMT_CONNECTIONS_LIST, 200);
-        List<Connection> response = request.execute();
-        RecordedRequest recordedRequest = server.takeRequest();
-
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/connections"));
-        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
-        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-        assertThat(recordedRequest, not(hasQueryParameter("include_totals")));
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response, hasSize(2));
     }
 
     @Test
@@ -144,10 +42,10 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTIONS_LIST, 200);
-        ConnectionsPage response = request.execute();
+        ConnectionsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/connections"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/connections"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("page", "23"));
@@ -164,10 +62,10 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTIONS_PAGED_LIST, 200);
-        ConnectionsPage response = request.execute();
+        ConnectionsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/connections"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/connections"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
@@ -178,20 +76,6 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
         assertThat(response.getLength(), is(14));
         assertThat(response.getTotal(), is(14));
         assertThat(response.getLimit(), is(50));
-    }
-
-
-    @Test
-    public void shouldReturnEmptyConnections() throws Exception {
-        @SuppressWarnings("deprecation")
-        Request<List<Connection>> request = api.connections().list(null);
-        assertThat(request, is(notNullValue()));
-
-        server.jsonResponse(MGMT_EMPTY_LIST, 200);
-        List<Connection> response = request.execute();
-
-        assertThat(response, is(notNullValue()));
-        assertThat(response, is(emptyCollectionOf(Connection.class)));
     }
 
     @Test
@@ -207,10 +91,10 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTION, 200);
-        Connection response = request.execute();
+        Connection response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/connections/1"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/connections/1"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -224,10 +108,10 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTION, 200);
-        Connection response = request.execute();
+        Connection response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/connections/1"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/connections/1"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("fields", "some,random,fields"));
@@ -249,10 +133,10 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTION, 200);
-        Connection response = request.execute();
+        Connection response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/connections"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/connections"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -277,10 +161,10 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTION, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/connections/1"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/connections/1"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     }
@@ -305,10 +189,10 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTION, 200);
-        Connection response = request.execute();
+        Connection response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/connections/1"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PATCH, "/api/v2/connections/1"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -340,10 +224,10 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTION, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/connections/1/users"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/connections/1/users"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("email", "user@domain.com"));

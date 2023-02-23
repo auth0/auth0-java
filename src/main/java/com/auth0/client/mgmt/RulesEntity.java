@@ -1,15 +1,16 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.RulesFilter;
-import com.auth0.json.mgmt.Rule;
-import com.auth0.json.mgmt.RulesPage;
-import com.auth0.net.CustomRequest;
+import com.auth0.json.mgmt.rules.Rule;
+import com.auth0.json.mgmt.rules.RulesPage;
+import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
+import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 
 import java.util.List;
 import java.util.Map;
@@ -24,8 +25,8 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class RulesEntity extends BaseManagementEntity {
 
-    RulesEntity(OkHttpClient client, HttpUrl baseUrl, String apiToken) {
-        super(client, baseUrl, apiToken);
+    RulesEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
+        super(client, baseUrl, tokenProvider);
     }
 
     /**
@@ -45,39 +46,8 @@ public class RulesEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<RulesPage> request = new CustomRequest<>(client, url, "GET", new TypeReference<RulesPage>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<RulesPage>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
-    }
-
-    /**
-     * Request all the Rules. A token with scope read:rules is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Rules/get_rules
-     *
-     * @param filter the filter to use. Can be null.
-     * @return a Request to execute.
-     * @deprecated Calling this method will soon stop returning the complete list of rules and instead, limit to the first page of results.
-     * Please use {@link #listAll(RulesFilter)} instead as it provides pagination support.
-     */
-    @Deprecated
-    public Request<List<Rule>> list(RulesFilter filter) {
-        HttpUrl.Builder builder = baseUrl
-                .newBuilder()
-                .addPathSegments("api/v2/rules");
-        if (filter != null) {
-            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
-                //This check below is to prevent JSON parsing errors
-                if (!e.getKey().equalsIgnoreCase("include_totals")) {
-                    builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
-                }
-            }
-        }
-        String url = builder.build().toString();
-        CustomRequest<List<Rule>> request = new CustomRequest<>(client, url, "GET", new TypeReference<List<Rule>>() {
-        });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -101,10 +71,8 @@ public class RulesEntity extends BaseManagementEntity {
             }
         }
         String url = builder.build().toString();
-        CustomRequest<Rule> request = new CustomRequest<>(client, url, "GET", new TypeReference<Rule>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Rule>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
     }
 
     /**
@@ -122,9 +90,8 @@ public class RulesEntity extends BaseManagementEntity {
                 .addPathSegments("api/v2/rules")
                 .build()
                 .toString();
-        CustomRequest<Rule> request = new CustomRequest<>(this.client, url, "POST", new TypeReference<Rule>() {
+        BaseRequest<Rule> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<Rule>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(rule);
         return request;
     }
@@ -145,9 +112,7 @@ public class RulesEntity extends BaseManagementEntity {
                 .addPathSegment(ruleId)
                 .build()
                 .toString();
-        VoidRequest request = new VoidRequest(client, url, "DELETE");
-        request.addHeader("Authorization", "Bearer " + apiToken);
-        return request;
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 
     /**
@@ -168,9 +133,8 @@ public class RulesEntity extends BaseManagementEntity {
                 .addPathSegment(ruleId)
                 .build()
                 .toString();
-        CustomRequest<Rule> request = new CustomRequest<>(this.client, url, "PATCH", new TypeReference<Rule>() {
+        BaseRequest<Rule> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<Rule>() {
         });
-        request.addHeader("Authorization", "Bearer " + apiToken);
         request.setBody(rule);
         return request;
     }

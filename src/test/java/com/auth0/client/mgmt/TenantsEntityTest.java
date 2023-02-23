@@ -3,14 +3,15 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.json.mgmt.tenants.Tenant;
 import com.auth0.net.Request;
+import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
 
 import static com.auth0.client.MockServer.MGMT_TENANT;
 import static com.auth0.client.RecordedRequestMatcher.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TenantsEntityTest extends BaseMgmtEntityTest {
 
@@ -20,10 +21,10 @@ public class TenantsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_TENANT, 200);
-        Tenant response = request.execute();
+        Tenant response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/tenants/settings"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/tenants/settings"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -37,10 +38,10 @@ public class TenantsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_TENANT, 200);
-        Tenant response = request.execute();
+        Tenant response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/tenants/settings"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/tenants/settings"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("fields", "some,random,fields"));
@@ -62,10 +63,10 @@ public class TenantsEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_TENANT, 200);
-        Tenant response = request.execute();
+        Tenant response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/tenants/settings"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PATCH, "/api/v2/tenants/settings"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 

@@ -4,9 +4,11 @@ import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.client.mgmt.filter.LogEventFilter;
 import com.auth0.client.mgmt.filter.PageFilter;
 import com.auth0.client.mgmt.filter.UserFilter;
-import com.auth0.json.mgmt.Permission;
-import com.auth0.json.mgmt.PermissionsPage;
-import com.auth0.json.mgmt.RolesPage;
+import com.auth0.json.mgmt.users.authenticationmethods.AuthenticationMethod;
+import com.auth0.json.mgmt.users.authenticationmethods.AuthenticationMethodsPage;
+import com.auth0.json.mgmt.permissions.Permission;
+import com.auth0.json.mgmt.permissions.PermissionsPage;
+import com.auth0.json.mgmt.roles.RolesPage;
 import com.auth0.json.mgmt.guardian.Enrollment;
 import com.auth0.json.mgmt.logevents.LogEvent;
 import com.auth0.json.mgmt.logevents.LogEventsPage;
@@ -16,6 +18,7 @@ import com.auth0.json.mgmt.users.RecoveryCode;
 import com.auth0.json.mgmt.users.User;
 import com.auth0.json.mgmt.users.UsersPage;
 import com.auth0.net.Request;
+import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
 
@@ -37,10 +40,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USERS_LIST, 200);
-        List<User> response = request.execute();
+        List<User> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users-by-email"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users-by-email"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("email", "johndoe@auth0.com"));
@@ -56,10 +59,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USERS_LIST, 200);
-        List<User> response = request.execute();
+        List<User> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users-by-email"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users-by-email"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("email", "johndoe@auth0.com"));
@@ -76,7 +79,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
-        List<User> response = request.execute();
+        List<User> response = request.execute().getBody();
 
         assertThat(response, is(notNullValue()));
         assertThat(response, is(emptyCollectionOf(User.class)));
@@ -88,10 +91,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USERS_LIST, 200);
-        UsersPage response = request.execute();
+        UsersPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -106,10 +109,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USERS_LIST, 200);
-        UsersPage response = request.execute();
+        UsersPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("page", "23"));
@@ -126,10 +129,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USERS_PAGED_LIST, 200);
-        UsersPage response = request.execute();
+        UsersPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
@@ -149,10 +152,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USERS_LIST, 200);
-        UsersPage response = request.execute();
+        UsersPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("sort", "date:1"));
@@ -168,10 +171,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USERS_LIST, 200);
-        UsersPage response = request.execute();
+        UsersPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, not(hasQueryParameter("search_engine")));
@@ -188,10 +191,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USERS_LIST, 200);
-        UsersPage response = request.execute();
+        UsersPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("fields", "some,random,fields"));
@@ -207,7 +210,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
-        UsersPage response = request.execute();
+        UsersPage response = request.execute().getBody();
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getItems(), is(emptyCollectionOf(User.class)));
@@ -226,10 +229,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER, 200);
-        User response = request.execute();
+        User response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -243,10 +246,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER, 200);
-        User response = request.execute();
+        User response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("fields", "some,random,fields"));
@@ -268,10 +271,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER, 200);
-        User response = request.execute();
+        User response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/users"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/users"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -295,10 +298,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/users/1"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/users/1"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     }
@@ -323,10 +326,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER, 200);
-        User response = request.execute();
+        User response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("PATCH", "/api/v2/users/1"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PATCH, "/api/v2/users/1"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -351,10 +354,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_GUARDIAN_ENROLLMENTS_LIST, 200);
-        List<Enrollment> response = request.execute();
+        List<Enrollment> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/enrollments"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/enrollments"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -367,7 +370,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
-        List<Enrollment> response = request.execute();
+        List<Enrollment> response = request.execute().getBody();
 
         assertThat(response, is(notNullValue()));
         assertThat(response, is(emptyCollectionOf(Enrollment.class)));
@@ -386,10 +389,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
-        LogEventsPage response = request.execute();
+        LogEventsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/logs"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/logs"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -403,10 +406,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
-        LogEventsPage response = request.execute();
+        LogEventsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/logs"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/logs"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("q", "date:[2022-03-13 TO *]"));
@@ -422,10 +425,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
-        LogEventsPage response = request.execute();
+        LogEventsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/logs"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/logs"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("page", "23"));
@@ -442,10 +445,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_EVENTS_PAGED_LIST, 200);
-        LogEventsPage response = request.execute();
+        LogEventsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/logs"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/logs"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
@@ -465,10 +468,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
-        LogEventsPage response = request.execute();
+        LogEventsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/logs"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/logs"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("sort", "date:1"));
@@ -484,10 +487,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_LOG_EVENTS_LIST, 200);
-        LogEventsPage response = request.execute();
+        LogEventsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/logs"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/logs"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("fields", "some,random,fields"));
@@ -503,7 +506,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMPTY_LIST, 200);
-        LogEventsPage response = request.execute();
+        LogEventsPage response = request.execute().getBody();
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getItems(), is(emptyCollectionOf(LogEvent.class)));
@@ -522,10 +525,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/users/auth0%7C23/authenticators"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/users/auth0%7C23/authenticators"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     }
@@ -550,10 +553,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_EMAIL_PROVIDER, 200);
-        request.execute();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/users/1/multifactor/duo"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/users/1/multifactor/duo"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     }
@@ -571,10 +574,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_RECOVERY_CODE, 200);
-        RecoveryCode response = request.execute();
+        RecoveryCode response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/users/1/recovery-code-regeneration"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/users/1/recovery-code-regeneration"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -622,10 +625,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_IDENTITIES_LIST, 200);
-        List<Identity> response = request.execute();
+        List<Identity> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/users/1/identities"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/users/1/identities"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -643,10 +646,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_IDENTITIES_LIST, 200);
-        List<Identity> response = request.execute();
+        List<Identity> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/users/1/identities"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/users/1/identities"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -663,10 +666,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_IDENTITIES_LIST, 200);
-        List<Identity> response = request.execute();
+        List<Identity> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/users/1/identities"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/users/1/identities"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -706,10 +709,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_IDENTITIES_LIST, 200);
-        List<Identity> response = request.execute();
+        List<Identity> response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/users/1/identities/auth0/2"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/users/1/identities/auth0/2"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -729,10 +732,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER_ROLES_PAGED_LIST, 200);
-        RolesPage response = request.execute();
+        RolesPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/roles"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/roles"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -747,10 +750,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER_ROLES_PAGED_LIST, 200);
-        RolesPage response = request.execute();
+        RolesPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/roles"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/roles"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("page", "23"));
@@ -767,10 +770,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER_ROLES_PAGED_LIST, 200);
-        RolesPage response = request.execute();
+        RolesPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/roles"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/roles"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
@@ -810,10 +813,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(200);
-        Object response = request.execute();
+        Object response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/users/1/roles"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/users/1/roles"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -851,10 +854,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse( 200);
-        Object response = request.execute();
+        Object response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/users/1/roles"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/users/1/roles"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -871,10 +874,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER_PERMISSIONS_PAGED_LIST, 200);
-        PermissionsPage response = request.execute();
+        PermissionsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/permissions"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/permissions"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -889,10 +892,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER_PERMISSIONS_PAGED_LIST, 200);
-        PermissionsPage response = request.execute();
+        PermissionsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/permissions"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/permissions"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("page", "23"));
@@ -909,10 +912,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_USER_PERMISSIONS_PAGED_LIST, 200);
-        PermissionsPage response = request.execute();
+        PermissionsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/permissions"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/permissions"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
@@ -956,10 +959,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(200);
-        Object response = request.execute();
+        Object response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("POST", "/api/v2/users/1/permissions"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/users/1/permissions"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -1001,10 +1004,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(200);
-        Object response = request.execute();
+        Object response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("DELETE", "/api/v2/users/1/permissions"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/users/1/permissions"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -1028,10 +1031,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(ORGANIZATIONS_LIST, 200);
-        OrganizationsPage response = request.execute();
+        OrganizationsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/organizations"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/organizations"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
@@ -1045,10 +1048,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(ORGANIZATIONS_LIST, 200);
-        OrganizationsPage response = request.execute();
+        OrganizationsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/organizations"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/organizations"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("page", "0"));
@@ -1064,10 +1067,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(ORGANIZATIONS_PAGED_LIST, 200);
-        OrganizationsPage response = request.execute();
+        OrganizationsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
-        assertThat(recordedRequest, hasMethodAndPath("GET", "/api/v2/users/1/organizations"));
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/organizations"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
@@ -1077,5 +1080,231 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(response.getStart(), is(0));
         assertThat(response.getTotal(), is(2));
         assertThat(response.getLimit(), is(20));
+    }
+
+    @Test
+    public void shouldGetUserAuthenticationMethodsWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("user ID");
+        api.users().getAuthenticationMethods(null, null);
+    }
+
+    @Test
+    public void shouldGetUserAuthenticationMethodsWithoutFilter() throws Exception {
+        Request<AuthenticationMethodsPage> request = api.users().getAuthenticationMethods("1", null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTHENTICATOR_METHOD_LIST, 200);
+        AuthenticationMethodsPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/authentication-methods"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+
+
+    @Test
+    public void shouldGetUserAuthenticationMethodsWithPaging() throws Exception {
+        Request<AuthenticationMethodsPage> request = api.users().getAuthenticationMethods("1",
+            new PageFilter().withPage(0, 20));
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTHENTICATOR_METHOD_LIST, 200);
+        AuthenticationMethodsPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/authentication-methods"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("page", "0"));
+        assertThat(recordedRequest, hasQueryParameter("per_page", "20"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldGetUserAuthenticationMethodsWithTotals() throws Exception {
+        Request<AuthenticationMethodsPage> request = api.users().getAuthenticationMethods("1",
+            new PageFilter().withTotals(true));
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTHENTICATOR_METHOD_LIST, 200);
+        AuthenticationMethodsPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/authentication-methods"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(1));
+        assertThat(response.getStart(), is(0));
+        assertThat(response.getTotal(), is(1));
+        assertThat(response.getLimit(), is(50));
+    }
+
+    @Test
+    public void shouldUpdateUserAuthenticationMethodsWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("user ID");
+        api.users().updateAuthenticationMethods(null, new ArrayList<>());
+    }
+
+    @Test
+    public void shouldUpdateUserAuthenticationMethodsWithAuthenticatorMethodsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("authentication methods");
+        api.users().updateAuthenticationMethods("1", null);
+    }
+
+    @Test
+    public void shouldUpdateUserAuthenticationMethods() throws Exception {
+        ArrayList<AuthenticationMethod> list = new ArrayList<>();
+        AuthenticationMethod authenticationMethod = new AuthenticationMethod();
+        list.add(authenticationMethod);
+        Request<List<AuthenticationMethod>> request = api.users().updateAuthenticationMethods("1", list);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTHENTICATOR_METHOD_UPDATE, 200);
+        List<AuthenticationMethod> response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PUT, "/api/v2/users/1/authentication-methods"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+
+    }
+
+    @Test
+    public void shouldNotCreateUserAuthenticationMethodsWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("user ID");
+        api.users().createAuthenticationMethods(null, new AuthenticationMethod());
+    }
+
+    @Test
+    public void shouldNotCreateUserAuthenticationMethodsWithAuthenticatorMethodsNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("authentication methods");
+        api.users().createAuthenticationMethods("1", null);
+    }
+
+    @Test
+    public void shouldCreateUserAuthenticationMethods() throws Exception {
+        AuthenticationMethod authenticationMethod = new AuthenticationMethod();
+        Request<AuthenticationMethod> request = api.users().createAuthenticationMethods("1", authenticationMethod);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTHENTICATOR_METHOD_CREATE, 200);
+        AuthenticationMethod response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/users/1/authentication-methods"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldNotGetUserAuthenticationMethodsByIdWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("user ID");
+        api.users().getAuthenticationMethodById(null, "1");
+    }
+
+    @Test
+    public void shouldNotGetUserAuthenticationMethodsByIdWithAuthenticatorMethodIdNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("authentication method ID");
+        api.users().getAuthenticationMethodById("1", null);
+    }
+
+    @Test
+    public void shouldGetUserAuthenticationMethodById() throws Exception {
+        Request<AuthenticationMethod> request = api.users().getAuthenticationMethodById("1", "1");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTHENTICATOR_METHOD_BY_ID, 200);
+        AuthenticationMethod response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/authentication-methods/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldNotUpdateUserAuthenticationMethodsByIdWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("user ID");
+        api.users().updateAuthenticationMethodById(null, "1", new AuthenticationMethod());
+    }
+
+    @Test
+    public void shouldNotUpdateUserAuthenticationMethodsByIdWithAuthenticatorMethodIdNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("authentication method ID");
+        api.users().updateAuthenticationMethodById("1", null, new AuthenticationMethod());
+    }
+
+    @Test
+    public void shouldNotUpdateUserAuthenticationMethodsByIdWithAuthenticatorMethodNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("authentication method");
+        api.users().updateAuthenticationMethodById("1", "1", null);
+    }
+
+    @Test
+    public void shouldUpdateUserAuthenticationMethodById() throws Exception {
+        Request<AuthenticationMethod> request = api.users().updateAuthenticationMethodById("1", "1", new AuthenticationMethod());
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTHENTICATOR_METHOD_UPDATE_BY_ID, 200);
+        AuthenticationMethod response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PATCH, "/api/v2/users/1/authentication-methods/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldNotDeleteUserAuthenticationMethodsByIdWithNullId() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("user ID");
+        api.users().deleteAuthenticationMethodById(null, "1");
+    }
+
+    @Test
+    public void shouldNotDeleteUserAuthenticationMethodsByIdWithAuthenticatorMethodIdNull() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("authentication method ID");
+        api.users().deleteAuthenticationMethodById("1", null);
+    }
+
+    @Test
+    public void shouldDeleteUserAuthenticationMethodById() throws Exception {
+        Request<Void> request = api.users().deleteAuthenticationMethodById("1", "1");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTHENTICATOR_METHOD_UPDATE_BY_ID, 200);
+        Void response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/users/1/authentication-methods/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     }
 }
