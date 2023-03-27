@@ -1,5 +1,3 @@
-> **Warning** You are viewing the v2 beta version; it is subject to breaking changes prior to the General Availability release. It is not recommended for production use, but your feedback and help in testing is appreciated!
-
 > **Note**
 > As part of our ongoing commitment to best security practices, we have rotated the signing keys used to sign previous releases of this SDK. As a result, new patch builds have been released using the new signing key. Please upgrade at your earliest convenience.
 >
