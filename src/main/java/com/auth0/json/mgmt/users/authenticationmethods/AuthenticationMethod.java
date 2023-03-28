@@ -39,7 +39,7 @@ public class AuthenticationMethod {
     @JsonProperty("relying_party_identifier")
     private String relyingPartyIdentifier;
     @JsonProperty("authentication_methods")
-    private List<String> authenticationMethods;
+    private List<AuthMethod> authenticationMethods;
 
     /**
      * Create a new instance.
@@ -240,7 +240,7 @@ public class AuthenticationMethod {
     /**
      * @return list of authentication methods
      */
-    public List<String> getAuthenticationMethods() {
+    public List<AuthMethod> getAuthenticationMethods() {
         return authenticationMethods;
     }
 }

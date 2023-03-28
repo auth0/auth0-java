@@ -1113,7 +1113,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
             new PageFilter().withPage(0, 20));
         assertThat(request, is(notNullValue()));
 
-        server.jsonResponse(AUTHENTICATOR_METHOD_LIST, 200);
+        server.jsonResponse(AUTHENTICATOR_METHOD_PAGED_LIST, 200);
         AuthenticationMethodsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -1132,7 +1132,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
             new PageFilter().withTotals(true));
         assertThat(request, is(notNullValue()));
 
-        server.jsonResponse(AUTHENTICATOR_METHOD_LIST, 200);
+        server.jsonResponse(AUTHENTICATOR_METHOD_PAGED_LIST, 200);
         AuthenticationMethodsPage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -1144,8 +1144,8 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(response, is(notNullValue()));
         assertThat(response.getItems(), hasSize(1));
         assertThat(response.getStart(), is(0));
-        assertThat(response.getTotal(), is(1));
-        assertThat(response.getLimit(), is(50));
+        assertThat(response.getTotal(), is(3));
+        assertThat(response.getLimit(), is(1));
     }
 
     @Test
