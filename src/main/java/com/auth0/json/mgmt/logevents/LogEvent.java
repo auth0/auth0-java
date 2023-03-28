@@ -46,7 +46,7 @@ public class LogEvent {
     @JsonProperty("description")
     private String description;
     @JsonProperty("hostname")
-    private String hostName;
+    private String hostname;
     @JsonProperty("audience")
     private String audience;
 
@@ -185,8 +185,8 @@ public class LogEvent {
     /**
      * @return the hostname.
      */
-    public String getHostName() {
-        return hostName;
+    public String getHostname() {
+        return hostname;
     }
 
     /**

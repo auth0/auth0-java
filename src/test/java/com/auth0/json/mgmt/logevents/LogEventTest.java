@@ -47,7 +47,7 @@ public class LogEventTest extends JsonTest<LogEvent> {
         assertThat(logEvent.getAudience(), is("audience"));
         assertThat(logEvent.getConnection(), is("connection"));
         assertThat(logEvent.getConnectionId(), is("connectionId"));
-        assertThat(logEvent.getHostName(), is("hostname"));
+        assertThat(logEvent.getHostname(), is("hostname"));
         assertThat(logEvent.getDescription(), is("description"));
 
     }
