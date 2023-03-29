@@ -31,7 +31,7 @@ public class AuthenticationMethodTest extends JsonTest<AuthenticationMethod> {
             "      \"totp_secret\":\"totp\",\n" +
             "      \"preferred_authentication_method\":\"phone\",\n" +
             "      \"relying_party_identifier\":\"abc\",\n" +
-            "      \"authentication_methods\":[]\n" +
+            "      \"authentication_methods\":[{\"id\": \"id\", \"type\": \"type\"}]\n" +
             "   }";
 
 
@@ -52,7 +52,9 @@ public class AuthenticationMethodTest extends JsonTest<AuthenticationMethod> {
         assertThat(authenticationMethod.getCreatedAt(), is(parseJSONDate(("2023-01-19T15:15:16.427Z"))));
         assertThat(authenticationMethod.getLastAuthedAt(), is(parseJSONDate(("2023-01-19T15:15:16.427Z"))));
         assertThat(authenticationMethod.getEnrolledAt(), is(parseJSONDate(("2023-01-19T15:15:16.427Z"))));
-        assertThat(authenticationMethod.getAuthenticationMethods(), Matchers.is(notNullValue()));
+        assertThat(authenticationMethod.getAuthenticationMethods(), hasSize(1));
+        assertThat(authenticationMethod.getAuthenticationMethods().get(0).getId(), is("id"));
+        assertThat(authenticationMethod.getAuthenticationMethods().get(0).getType(), is("type"));
 
     }
 

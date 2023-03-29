@@ -1,0 +1,22 @@
+{
+  "authenticators": [
+    {
+      "id": "phone|id",
+      "type": "phone",
+      "confirmed": true,
+      "phone_number": "XXXXXXXX0000",
+      "created_at": "2023-02-01T18:44:46.483Z",
+      "last_auth_at": "2023-02-07T20:29:33.547Z",
+      "preferred_authentication_method": "sms",
+      "authentication_methods": [
+        {
+          "id": "sms|id",
+          "type": "sms"
+        }
+      ]
+    }
+  ],
+  "total": 3,
+  "start": 0,
+  "limit": 1
+}

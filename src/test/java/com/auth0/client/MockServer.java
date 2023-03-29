@@ -109,6 +109,7 @@ public class MockServer {
     public static final String AUTHENTICATOR_METHOD_BY_ID = "src/test/resources/mgmt/authenticator_method_by_id.json";
     public static final String AUTHENTICATOR_METHOD_CREATE = "src/test/resources/mgmt/authenticator_method_create.json";
     public static final String AUTHENTICATOR_METHOD_LIST = "src/test/resources/mgmt/authenticator_method_list.json";
+    public static final String AUTHENTICATOR_METHOD_PAGED_LIST = "src/test/resources/mgmt/authenticator_method_paged_list.json";
     public static final String AUTHENTICATOR_METHOD_UPDATE = "src/test/resources/mgmt/authenticator_method_update.json";
     public static final String AUTHENTICATOR_METHOD_UPDATE_BY_ID = "src/test/resources/mgmt/authenticator_method_update_by_id.json";
     public static final String ORGANIZATION = "src/test/resources/mgmt/organization.json";
