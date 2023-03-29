@@ -39,6 +39,16 @@ public class LogEvent {
     private Map<String, Object> locationInfo;
     @JsonProperty("details")
     private Map<String, Object> details;
+    @JsonProperty("connection")
+    private String connection;
+    @JsonProperty("connection_id")
+    private String connectionId;
+    @JsonProperty("description")
+    private String description;
+    @JsonProperty("hostname")
+    private String hostname;
+    @JsonProperty("audience")
+    private String audience;
 
     /**
      * Getter for the id of this event.
@@ -149,5 +159,40 @@ public class LogEvent {
     @JsonProperty("details")
     public Map<String, Object> getDetails() {
         return details;
+    }
+
+    /**
+     * @return the connection.
+     */
+    public String getConnection() {
+        return connection;
+    }
+
+    /**
+     * @return the connection ID
+     */
+    public String getConnectionId() {
+        return connectionId;
+    }
+
+    /**
+     * @return the description.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @return the hostname.
+     */
+    public String getHostname() {
+        return hostname;
+    }
+
+    /**
+     * @return the audience.
+     */
+    public String getAudience() {
+        return audience;
     }
 }
