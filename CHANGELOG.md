@@ -1,5 +1,16 @@
 # Change Log
 
+## [2.1.0](https://github.com/auth0/auth0-java/tree/2.1.0) (2023-03-31)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.0.0...2.1.0)
+
+**Added**
+- Add missing LogEvent fields [\#521](https://github.com/auth0/auth0-java/pull/521) ([jimmyjames](https://github.com/jimmyjames)) 
+
+**Changed**
+- authentication_methods is an object, not a string [\#520](https://github.com/auth0/auth0-java/pull/520) ([jimmyjames](https://github.com/jimmyjames))
+- Bump jackson dependency to 2.14.2 [\#522](https://github.com/auth0/auth0-java/pull/522) ([jimmyjames](https://github.com/jimmyjames))
+- Update java-jwt dependency to 4.4.0 [\#523](https://github.com/auth0/auth0-java/pull/523) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [2.0.0](https://github.com/auth0/auth0-java/tree/2.0.0) (2023-02-23)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.44.2...2.0.0)
 
