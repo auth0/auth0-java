@@ -27,9 +27,19 @@ public class Credential {
     private String kid;
     @JsonProperty("thumbprint")
     private String thumbprint;
+    @JsonProperty("alg")
+    private String alg;
+    @JsonProperty("parse_expiry_from_cert")
+    private Boolean parseExpiryFromCert;
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonProperty("created_at")
     private Date createdAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @JsonProperty("updated_at")
+    private Date updatedAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @JsonProperty("expires_at")
+    private Date expiresAt;
 
     /**
      * Create a new credential
@@ -125,5 +135,57 @@ public class Credential {
      */
     public Date getCreatedAt() {
         return createdAt;
+    }
+
+    /**
+     * @return the algorithm of this credential
+     */
+    public String getAlg() {
+        return alg;
+    }
+
+    /**
+     * Set the algorithm
+     * @param alg the algorithm
+     */
+    public void setAlg(String alg) {
+        this.alg = alg;
+    }
+
+    /**
+     * @return the time this credential was last updated
+     */
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    /**
+     * @return the expiration time of this credential
+     */
+    public Date getExpiresAt() {
+        return expiresAt;
+    }
+
+    /**
+     * Set the expires_at value for this credential
+     * @param expiresAt the time this credential should expire
+     */
+    public void setExpiresAt(Date expiresAt) {
+        this.expiresAt = expiresAt;
+    }
+
+    /**
+     * @return whether the expiry will be parsed from the x509 certificate
+     */
+    public Boolean getParseExpiryFromCert() {
+        return parseExpiryFromCert;
+    }
+
+    /**
+     * Whether to parse expiry from x509 certificate
+     * @param parseExpiryFromCert true to parse expiry; false otherwise.
+     */
+    public void setParseExpiryFromCert(Boolean parseExpiryFromCert) {
+        this.parseExpiryFromCert = parseExpiryFromCert;
     }
 }
