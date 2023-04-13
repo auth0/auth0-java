@@ -15,7 +15,91 @@ import static org.hamcrest.Matchers.*;
 public class ClientTest extends JsonTest<Client> {
 
     private static final String readOnlyJson = "{\"client_id\":\"clientId\",\"is_heroku_app\":true,\"signing_keys\":[{\"cert\":\"ce\",\"pkcs7\":\"pk\",\"subject\":\"su\"}]}";
-    private static final String json = "{\"name\":\"name\",\"description\":\"description\",\"client_secret\":\"secret\",\"app_type\":\"type\",\"logo_uri\":\"uri\",\"oidc_conformant\":true,\"is_first_party\":true,\"initiate_login_uri\":\"https://myhome.com/login\",\"callbacks\":[\"value\"],\"allowed_origins\":[\"value\"],\"web_origins\":[\"value\"],\"grant_types\":[\"value\"],\"client_aliases\":[\"value\"],\"allowed_clients\":[\"value\"],\"allowed_logout_urls\":[\"value\"],\"organization_usage\":\"allow\",\"organization_require_behavior\":\"no_prompt\",\"jwt_configuration\":{\"lifetime_in_seconds\":100,\"scopes\":\"openid\",\"alg\":\"alg\"},\"encryption_key\":{\"pub\":\"pub\",\"cert\":\"cert\"},\"sso\":true,\"sso_disabled\":true,\"custom_login_page_on\":true,\"custom_login_page\":\"custom\",\"custom_login_page_preview\":\"preview\",\"form_template\":\"template\",\"addons\":{\"rms\":{},\"mscrm\":{},\"slack\":{},\"layer\":{}},\"token_endpoint_auth_method\":\"method\",\"client_metadata\":{\"key\":\"value\"},\"mobile\":{\"android\":{\"app_package_name\":\"pkg\",\"sha256_cert_fingerprints\":[\"256\"]},\"ios\":{\"team_id\":\"team\",\"app_bundle_identifier\":\"id\"}},\"refresh_token\":{\"rotation_type\":\"non-rotating\"}}";
+    private static final String json = "{\n" +
+        "  \"name\": \"name\",\n" +
+        "  \"description\": \"description\",\n" +
+        "  \"client_secret\": \"secret\",\n" +
+        "  \"app_type\": \"type\",\n" +
+        "  \"logo_uri\": \"uri\",\n" +
+        "  \"oidc_conformant\": true,\n" +
+        "  \"is_first_party\": true,\n" +
+        "  \"initiate_login_uri\": \"https://myhome.com/login\",\n" +
+        "  \"callbacks\": [\n" +
+        "    \"value\"\n" +
+        "  ],\n" +
+        "  \"allowed_origins\": [\n" +
+        "    \"value\"\n" +
+        "  ],\n" +
+        "  \"web_origins\": [\n" +
+        "    \"value\"\n" +
+        "  ],\n" +
+        "  \"grant_types\": [\n" +
+        "    \"value\"\n" +
+        "  ],\n" +
+        "  \"client_aliases\": [\n" +
+        "    \"value\"\n" +
+        "  ],\n" +
+        "  \"allowed_clients\": [\n" +
+        "    \"value\"\n" +
+        "  ],\n" +
+        "  \"allowed_logout_urls\": [\n" +
+        "    \"value\"\n" +
+        "  ],\n" +
+        "  \"organization_usage\": \"allow\",\n" +
+        "  \"organization_require_behavior\": \"no_prompt\",\n" +
+        "  \"jwt_configuration\": {\n" +
+        "    \"lifetime_in_seconds\": 100,\n" +
+        "    \"scopes\": \"openid\",\n" +
+        "    \"alg\": \"alg\"\n" +
+        "  },\n" +
+        "  \"encryption_key\": {\n" +
+        "    \"pub\": \"pub\",\n" +
+        "    \"cert\": \"cert\"\n" +
+        "  },\n" +
+        "  \"sso\": true,\n" +
+        "  \"sso_disabled\": true,\n" +
+        "  \"custom_login_page_on\": true,\n" +
+        "  \"custom_login_page\": \"custom\",\n" +
+        "  \"custom_login_page_preview\": \"preview\",\n" +
+        "  \"form_template\": \"template\",\n" +
+        "  \"addons\": {\n" +
+        "    \"rms\": {},\n" +
+        "    \"mscrm\": {},\n" +
+        "    \"slack\": {},\n" +
+        "    \"layer\": {}\n" +
+        "  },\n" +
+        "  \"token_endpoint_auth_method\": \"method\",\n" +
+        "  \"client_metadata\": {\n" +
+        "    \"key\": \"value\"\n" +
+        "  },\n" +
+        "  \"mobile\": {\n" +
+        "    \"android\": {\n" +
+        "      \"app_package_name\": \"pkg\",\n" +
+        "      \"sha256_cert_fingerprints\": [\n" +
+        "        \"256\"\n" +
+        "      ]\n" +
+        "    },\n" +
+        "    \"ios\": {\n" +
+        "      \"team_id\": \"team\",\n" +
+        "      \"app_bundle_identifier\": \"id\"\n" +
+        "    }\n" +
+        "  },\n" +
+        "  \"refresh_token\": {\n" +
+        "    \"rotation_type\": \"non-rotating\"\n" +
+        "  },\n" +
+        "  \"client_authentication_methods\": {\n" +
+        "    \"private_key_jwt\": {\n" +
+        "      \"credentials\": [\n" +
+        "        {\n" +
+        "          \"id\": \"cred_abc\"\n" +
+        "        },\n" +
+        "        {\n" +
+        "          \"id\": \"cred_123\"\n" +
+        "        }\n" +
+        "      ]\n" +
+        "    }\n" +
+        "  }\n" +
+        "}";
 
     @Test
     public void shouldSerialize() throws Exception {
@@ -58,6 +142,10 @@ public class ClientTest extends JsonTest<Client> {
         client.setRefreshToken(refreshToken);
         client.setOrganizationUsage("require");
         client.setOrganizationRequireBehavior("pre_login_prompt");
+        Credential credential = new Credential("public_key", "PEM");
+        PrivateKeyJwt privateKeyJwt = new PrivateKeyJwt(Collections.singletonList(credential));
+        ClientAuthenticationMethods cam = new ClientAuthenticationMethods(privateKeyJwt);
+        client.setClientAuthenticationMethods(cam);
 
         String serialized = toJSON(client);
         assertThat(serialized, is(notNullValue()));
@@ -91,6 +179,8 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(serialized, JsonMatcher.hasEntry("refresh_token", notNullValue()));
         assertThat(serialized, JsonMatcher.hasEntry("organization_usage", "require"));
         assertThat(serialized, JsonMatcher.hasEntry("organization_require_behavior", "pre_login_prompt"));
+        assertThat(serialized, JsonMatcher.hasEntry("client_authentication_methods", notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("client_authentication_methods", containsString("{\"private_key_jwt\":{\"credentials\":[{\"credential_type\":\"public_key\",\"pem\":\"PEM\"}]}}")));
     }
 
     @Test
@@ -134,6 +224,13 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(client.getRefreshToken(), is(notNullValue()));
         assertThat(client.getOrganizationUsage(), is("allow"));
         assertThat(client.getOrganizationRequireBehavior(), is("no_prompt"));
+
+        assertThat(client.getClientAuthenticationMethods(), is(notNullValue()));
+        assertThat(client.getClientAuthenticationMethods().getPrivateKeyJwt(), is(notNullValue()));
+        assertThat(client.getClientAuthenticationMethods().getPrivateKeyJwt().getCredentials(), is(notNullValue()));
+        assertThat(client.getClientAuthenticationMethods().getPrivateKeyJwt().getCredentials().size(), is(2));
+        assertThat(client.getClientAuthenticationMethods().getPrivateKeyJwt().getCredentials().get(0).getId(), is("cred_abc"));
+        assertThat(client.getClientAuthenticationMethods().getPrivateKeyJwt().getCredentials().get(1).getId(), is("cred_123"));
     }
 
     @Test

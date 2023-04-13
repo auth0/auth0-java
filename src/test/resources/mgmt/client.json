@@ -59,5 +59,12 @@
       "team_id": "9JA89QQLNQ",
       "app_bundle_identifier": "com.my.bundle.id"
     }
+  },
+  "client_authentication_methods": {
+    "private_key_jwt": {
+      "credentials": [ {
+        "id": "cred_abc"
+      }]
+    }
   }
 }

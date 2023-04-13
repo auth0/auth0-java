@@ -4,6 +4,7 @@ import com.auth0.client.mgmt.filter.ClientFilter;
 import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.json.mgmt.client.Client;
 import com.auth0.json.mgmt.client.ClientsPage;
+import com.auth0.json.mgmt.client.Credential;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -289,4 +290,120 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
         assertThat(response, is(notNullValue()));
     }
 
+    @Test
+    public void shouldListClientCredentials() throws Exception {
+        Request<List<Credential>> request = api.clients().listCredentials("clientId");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CLIENT_CREDENTIAL_LIST, 200);
+        List<Credential> response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/clients/clientId/credentials"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnListCredentialsWithNullClientId() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'client id' cannot be null!");
+        api.clients().listCredentials(null);
+    }
+
+    @Test
+    public void shouldGetClientCredential() throws Exception {
+        Request<Credential> request = api.clients().getCredential("clientId", "credId");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CLIENT_CREDENTIAL, 200);
+        Credential response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/clients/clientId/credentials/credId"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnGetCredentialsWithNullClientId() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'client id' cannot be null!");
+        api.clients().getCredential(null, "credId");
+    }
+
+    @Test
+    public void shouldThrowOnGetCredentialsWithNullCredentialId() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'credential id' cannot be null!");
+        api.clients().getCredential("clientId", null);
+    }
+
+    @Test
+    public void shouldCreateClientCredential() throws Exception {
+        Credential credential = new Credential("public_key", "pem");
+        Request<Credential> request = api.clients().createCredential("clientId", credential);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CLIENT_CREDENTIAL, 201);
+        Credential response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/clients/clientId/credentials"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(2));
+        assertThat(body, hasEntry("credential_type", "public_key"));
+        assertThat(body, hasEntry("pem", "pem"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnCreateCredentialsWithNullClientId() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'client id' cannot be null!");
+        api.clients().createCredential(null, new Credential());
+    }
+
+    @Test
+    public void shouldThrowOnCreateCredentialsWithNullCredentialId() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'credential id' cannot be null!");
+        api.clients().deleteCredential("clientId", null);
+    }
+
+    @Test
+    public void shouldDeleteCredential() throws Exception {
+        Request<Void> request = api.clients().deleteCredential("clientId", "credId");
+        assertThat(request, is(notNullValue()));
+
+        server.emptyResponse(204);
+        request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/clients/clientId/credentials/credId"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
+
+    @Test
+    public void shouldThrowOnDeleteCredentialsWithNullClientId() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'client id' cannot be null!");
+        api.clients().deleteCredential(null, "credId");
+    }
+
+    @Test
+    public void shouldThrowOnDeleteCredentialsWithNullCredentialId() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'credential id' cannot be null!");
+        api.clients().deleteCredential("clientId", null);
+    }
 }
