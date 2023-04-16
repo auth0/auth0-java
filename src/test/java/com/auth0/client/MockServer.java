@@ -184,13 +184,13 @@ public class MockServer {
     public void rateLimitReachedResponse(long limit, long remaining, long reset) {
         MockResponse response = new MockResponse().setResponseCode(429);
         if (limit != -1) {
-            response.addHeader("X-RateLimit-Limit", String.valueOf(limit));
+            response.addHeader("x-ratelimit-limit", String.valueOf(limit));
         }
         if (remaining != -1) {
-            response.addHeader("X-RateLimit-Remaining", String.valueOf(remaining));
+            response.addHeader("x-ratelimit-remaining", String.valueOf(remaining));
         }
         if (reset != -1) {
-            response.addHeader("X-RateLimit-Reset", String.valueOf(reset));
+            response.addHeader("x-ratelimit-reset", String.valueOf(reset));
         }
         server.enqueue(response);
     }
