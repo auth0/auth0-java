@@ -23,7 +23,8 @@ commands:
   run-tests:
     steps:
       - run: ./gradlew check jacocoTestReport --continue --console=plain
-      - codecov/upload
+      - codecov/upload:
+        file: /home/circleci/project/coverage/coverage.xml
       
   run-api-diff:
     steps:
