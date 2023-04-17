@@ -42,7 +42,9 @@ public class CredentialTest extends JsonTest<Credential> {
 
     @Test
     public void shouldSerialize() throws Exception {
-        Credential credential = new Credential("public_key", "pem");
+        Credential credential = new Credential("id");
+        credential.setCredentialType("public_key");
+        credential.setPem("pem");
         credential.setAlg("alg");
         credential.setName("name");
         credential.setParseExpiryFromCert(true);
