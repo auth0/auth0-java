@@ -4,6 +4,7 @@ import com.auth0.client.mgmt.filter.ClientFilter;
 import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.json.mgmt.client.Client;
 import com.auth0.json.mgmt.client.ClientsPage;
+import com.auth0.json.mgmt.client.Credential;
 import com.auth0.net.EmptyBodyRequest;
 import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
@@ -181,5 +182,87 @@ public class ClientsEntity extends BaseManagementEntity {
                 .toString();
         return new EmptyBodyRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<Client>() {
         });
+    }
+
+    /**
+     * Creates an Application's client credential. A token with scope {@code create:client_credentials} is required.
+     *
+     * @param clientId the application's client id.
+     * @param credential the credential to create.
+     * @return a Request to execute.
+     */
+    public Request<Credential> createCredential(String clientId, Credential credential) {
+        Asserts.assertNotNull(clientId, "client id");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/clients")
+            .addPathSegment(clientId)
+            .addPathSegment("credentials")
+            .build()
+            .toString();
+        BaseRequest<Credential> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<Credential>() {
+        });
+        request.setBody(credential);
+        return request;
+    }
+
+    /**
+     * Get the client credentials associated with this application. A token with scope {@code read:client_credentials} is required.
+     * @param clientId the ID of the application
+     * @return a request to execute.
+     */
+    public Request<List<Credential>> listCredentials(String clientId) {
+        Asserts.assertNotNull(clientId, "client id");
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/clients")
+            .addPathSegment(clientId)
+            .addPathSegment("credentials").build().toString();
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<Credential>>() {
+        });
+    }
+
+    /**
+     * Get a client credentials object. A token with scope {@code read:client_credentials} is required.
+     * @param clientId the ID of the application.
+     * @param credentialId the ID of the credential to retrieve.
+     * @return a request to execute.
+     */
+    public Request<Credential> getCredential(String clientId, String credentialId) {
+        Asserts.assertNotNull(clientId, "client id");
+        Asserts.assertNotNull(credentialId, "credential id");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/clients")
+            .addPathSegment(clientId)
+            .addPathSegment("credentials")
+            .addPathSegment(credentialId)
+            .build().toString();
+
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Credential>() {
+        });
+    }
+
+    /**
+     * Deletes a client credential. A token with scope {@code } is required.
+     * @param clientId the ID of the application.
+     * @param credentialId the ID of the credential to delete
+     * @return a request to execute.
+     */
+    public Request<Void> deleteCredential(String clientId, String credentialId) {
+        Asserts.assertNotNull(clientId, "client id");
+        Asserts.assertNotNull(credentialId, "credential id");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/clients")
+            .addPathSegment(clientId)
+            .addPathSegment("credentials")
+            .addPathSegment(credentialId)
+            .build()
+            .toString();
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
 }
