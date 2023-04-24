@@ -90,6 +90,8 @@ public class Client {
     private Boolean crossOriginAuth;
     @JsonProperty("cross_origin_loc")
     private String crossOriginLoc;
+    @JsonProperty("client_authentication_methods")
+    private ClientAuthenticationMethods clientAuthenticationMethods;
 
     /**
      * Getter for the name of the tenant this client belongs to.
@@ -792,6 +794,14 @@ public class Client {
     @JsonProperty("cross_origin_loc")
     public String getCrossOriginLoc() {
         return crossOriginLoc;
+    }
+
+    public void setClientAuthenticationMethods(ClientAuthenticationMethods clientAuthenticationMethods) {
+        this.clientAuthenticationMethods = clientAuthenticationMethods;
+    }
+
+    public ClientAuthenticationMethods getClientAuthenticationMethods() {
+        return clientAuthenticationMethods;
     }
 }
 
