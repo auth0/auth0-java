@@ -212,9 +212,9 @@ public class BaseRequest<T> implements Request<T> {
 
     private RateLimitException createRateLimitException(Auth0HttpResponse response) {
         // -1 as default value if the header could not be found.
-        long limit = Long.parseLong(response.getHeader("X-RateLimit-Limit", "-1"));
-        long remaining = Long.parseLong(response.getHeader("X-RateLimit-Remaining", "-1"));
-        long reset = Long.parseLong(response.getHeader("X-RateLimit-Reset", "-1"));
+        long limit = Long.parseLong(response.getHeader("x-ratelimit-limit", "-1"));
+        long remaining = Long.parseLong(response.getHeader("x-ratelimit-remaining", "-1"));
+        long reset = Long.parseLong(response.getHeader("x-ratelimit-reset", "-1"));
         return new RateLimitException(limit, remaining, reset);
     }
 
