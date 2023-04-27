@@ -92,7 +92,6 @@ public class ClientTest extends JsonTest<Client> {
 
     @Test
     public void shouldSerialize() throws Exception {
-        System.out.println(json);
         Client client = new Client("ignored");
 
         client.setName("name");
