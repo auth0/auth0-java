@@ -1,5 +1,6 @@
 package com.auth0.json.auth;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,7 +14,8 @@ public class PushedAuthorizationResponse {
     @JsonProperty("expires_in")
     private Integer expiresIn;
 
-    public PushedAuthorizationResponse(String requestURI, Integer expiresIn) {
+    @JsonCreator
+    public PushedAuthorizationResponse(@JsonProperty("request_uri") String requestURI, @JsonProperty("expires_in") Integer expiresIn) {
         this.requestURI = requestURI;
         this.expiresIn = expiresIn;
     }
