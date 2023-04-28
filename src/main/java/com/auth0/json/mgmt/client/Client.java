@@ -90,6 +90,8 @@ public class Client {
     private Boolean crossOriginAuth;
     @JsonProperty("cross_origin_loc")
     private String crossOriginLoc;
+    @JsonProperty("require_pushed_authorization_requests")
+    private Boolean requiresPushedAuthorizationRequests;
 
     /**
      * Getter for the name of the tenant this client belongs to.
@@ -792,6 +794,21 @@ public class Client {
     @JsonProperty("cross_origin_loc")
     public String getCrossOriginLoc() {
         return crossOriginLoc;
+    }
+
+    /**
+     * @return whether this client requires pushed authorization requests or not.
+     */
+    public Boolean getRequiresPushedAuthorizationRequests() {
+        return requiresPushedAuthorizationRequests;
+    }
+
+    /**
+     * Sets whether the client requires pushed authorization requests or not.
+     * @param requiresPushedAuthorizationRequests true if the client should require pushed authorization requests, false if not.
+     */
+    public void setRequiresPushedAuthorizationRequests(Boolean requiresPushedAuthorizationRequests) {
+        this.requiresPushedAuthorizationRequests = requiresPushedAuthorizationRequests;
     }
 }
 

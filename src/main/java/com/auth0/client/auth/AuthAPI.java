@@ -5,6 +5,7 @@ import com.auth0.client.LoggingOptions;
 import com.auth0.client.ProxyOptions;
 import com.auth0.json.auth.PasswordlessEmailResponse;
 import com.auth0.json.auth.PasswordlessSmsResponse;
+import com.auth0.json.auth.PushedAuthorizationResponse;
 import com.auth0.json.auth.UserInfo;
 import com.auth0.net.Request;
 import com.auth0.net.*;
@@ -13,8 +14,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.*;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -236,6 +239,57 @@ public class AuthAPI {
         Asserts.assertValidUrl(redirectUri, "redirect uri");
 
         return AuthorizeUrlBuilder.newInstance(baseUrl, clientId, redirectUri);
+    }
+
+    /**
+     * Builds an authorization URL for Pushed Authorization Requests (PAR)
+     * @param requestUri the {@code request_uri} parameter from a successful pushed authorization request.
+     * @see AuthAPI#pushedAuthorizationRequest(String, String, Map)
+     * @see <a href="https://www.rfc-editor.org/rfc/rfc9126.html">RFC 9126</a>
+     * @return the {@code request_uri} from a successful pushed authorization request.
+     */
+    public String authorizeUrlWithPAR(String requestUri) {
+        Asserts.assertNotNull(requestUri, "request uri");
+        return baseUrl
+            .newBuilder()
+            .addPathSegment("authorize")
+            .addQueryParameter("client_id", clientId)
+            .addQueryParameter("request_uri", requestUri)
+            .build()
+            .toString();
+    }
+
+    /**
+     * Builds a request to make a Pushed Authorization Request (PAR) to receive a {@code request_uri} to send to the {@code /authorize} endpoint.
+     * @param redirectUri the URL to redirect to after authorization has been granted by the user. Your Auth0 application
+     *                    must have this URL as one of its Allowed Callback URLs. Must be a valid non-encoded URL.
+     * @param responseType the response type to set. Must not be null.
+     * @param params an optional map of key/value pairs representing any additional parameters to send on the request.
+     * @see <a href="https://www.rfc-editor.org/rfc/rfc9126.html">RFC 9126</a>
+     * @return a request to execute.
+     */
+    public Request<PushedAuthorizationResponse> pushedAuthorizationRequest(String redirectUri, String responseType, Map<String, String> params) {
+        Asserts.assertValidUrl(redirectUri, "redirect uri");
+        Asserts.assertNotNull(responseType, "response type");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("oauth/par")
+            .build()
+            .toString();
+
+        FormBodyRequest<PushedAuthorizationResponse>
+            request = new FormBodyRequest<>(client, url, "POST", new TypeReference<PushedAuthorizationResponse>() {});
+        request.addData("client_id", clientId);
+        request.addData("client_secret", clientSecret);
+        request.addData("redirect_uri", redirectUri);
+        request.addData("response_type", responseType);
+
+        if (params != null) {
+            params.forEach(request::addData);
+        }
+
+        return request;
     }
 
     /**
