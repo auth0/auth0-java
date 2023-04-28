@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.45.0](https://github.com/auth0/auth0-java/tree/1.45.0) (2023-04-28)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/1.44.2...1.45.0)
+
+**Added**
+- Add support for Pushed Authorization Requests [\#451](https://github.com/auth0/auth0-java/pull/531) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [1.44.2](https://github.com/auth0/auth0-java/tree/1.44.2) (2023-01-11)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.44.1...1.44.2)
 
