@@ -1,5 +1,15 @@
 # Change Log
 
+## [2.2.0](https://github.com/auth0/auth0-java/tree/2.2.0) (2023-05-02)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.1.0...2.2.0)
+
+**Added**
+- Add support for client credential management [\#525](https://github.com/auth0/auth0-java/pull/525) ([jimmyjames](https://github.com/jimmyjames)) 
+
+**Fixed**
+- Fix headers to lowercase [\#528](https://github.com/auth0/auth0-java/pull/528) ([alexz75](https://github.com/alexz75))
+
+
 ## [2.1.0](https://github.com/auth0/auth0-java/tree/2.1.0) (2023-03-31)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.0.0...2.1.0)
 
