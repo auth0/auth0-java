@@ -19,9 +19,7 @@ import org.mockito.Mockito;
 import java.io.IOException;
 import java.net.Proxy;
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -493,6 +491,39 @@ public class DefaultHttpClientTest {
 
         Auth0HttpResponse aoResponse = client.sendRequest(request);
         verify(response, times(1)).close();
+    }
+
+    @Test
+    public void makesFormBodyPostRequest() throws Exception {
+        Map<String, Object> params = new HashMap<>();
+        params.put("key", "value");
+        params.put("key2", 5);
+        HttpRequestBody body = HttpRequestBody.create("application/x-www-form-urlencoded", new Auth0FormRequestBody(params));
+        Auth0HttpRequest request = Auth0HttpRequest.newBuilder(server.url("/users/2").toString(), HttpMethod.POST)
+            .withHeaders(Collections.singletonMap("foo", "bar"))
+            .withBody(body)
+            .build();
+
+        DefaultHttpClient client = new DefaultHttpClient(new OkHttpClient());
+        String responseBody = "{\"id\":\"123\", \"name\":\"timmy\"}";
+        MockResponse mockResponse = new MockResponse()
+            .setResponseCode(200)
+            .setHeader("fiz", "bang")
+            .setBody(responseBody);
+
+        server.enqueue(mockResponse);
+
+        Auth0HttpResponse response = client.sendRequest(request);
+        RecordedRequest madeRequest = server.takeRequest();
+
+        assertThat(madeRequest.getPath(), is("/users/2"));
+        assertThat(madeRequest.getHeader("foo"), is("bar"));
+        assertThat(madeRequest.getMethod(), is("POST"));
+
+        assertThat(response.getCode(), is(200));
+        assertThat(response.isSuccessful(), is(true));
+        assertThat(response.getBody(), is(responseBody));
+        assertThat(response.getHeader("fiz"), is("bang"));
     }
 
     //////////////////////////////////////////////////////////
