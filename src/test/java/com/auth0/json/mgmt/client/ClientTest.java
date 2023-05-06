@@ -98,7 +98,8 @@ public class ClientTest extends JsonTest<Client> {
         "        }\n" +
         "      ]\n" +
         "    }\n" +
-        "  }\n" +
+        "  },\n" +
+        "  \"require_pushed_authorization_requests\": true\n" +
         "}";
 
     @Test
@@ -146,6 +147,7 @@ public class ClientTest extends JsonTest<Client> {
         PrivateKeyJwt privateKeyJwt = new PrivateKeyJwt(Collections.singletonList(credential));
         ClientAuthenticationMethods cam = new ClientAuthenticationMethods(privateKeyJwt);
         client.setClientAuthenticationMethods(cam);
+        client.setRequiresPushedAuthorizationRequests(true);
 
         String serialized = toJSON(client);
         assertThat(serialized, is(notNullValue()));
@@ -181,6 +183,7 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(serialized, JsonMatcher.hasEntry("organization_require_behavior", "pre_login_prompt"));
         assertThat(serialized, JsonMatcher.hasEntry("client_authentication_methods", notNullValue()));
         assertThat(serialized, JsonMatcher.hasEntry("client_authentication_methods", containsString("{\"private_key_jwt\":{\"credentials\":[{\"credential_type\":\"public_key\",\"pem\":\"PEM\"}]}}")));
+        assertThat(serialized, JsonMatcher.hasEntry("require_pushed_authorization_requests", true));
     }
 
     @Test
@@ -231,6 +234,7 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(client.getClientAuthenticationMethods().getPrivateKeyJwt().getCredentials().size(), is(2));
         assertThat(client.getClientAuthenticationMethods().getPrivateKeyJwt().getCredentials().get(0).getId(), is("cred_abc"));
         assertThat(client.getClientAuthenticationMethods().getPrivateKeyJwt().getCredentials().get(1).getId(), is("cred_123"));
+        assertThat(client.getRequiresPushedAuthorizationRequests(), is(true));
     }
 
     @Test

@@ -118,6 +118,9 @@ public class BaseRequest<T> implements Request<T> {
         return mapper.readValue(payload, tType);
     }
 
+    protected Map<String, Object> getParameters() {
+        return this.parameters;
+    }
     /**
      * Executes this request.
      *

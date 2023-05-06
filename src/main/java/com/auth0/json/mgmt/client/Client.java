@@ -92,6 +92,8 @@ public class Client {
     private String crossOriginLoc;
     @JsonProperty("client_authentication_methods")
     private ClientAuthenticationMethods clientAuthenticationMethods;
+    @JsonProperty("require_pushed_authorization_requests")
+    private Boolean requiresPushedAuthorizationRequests;
 
     /**
      * Getter for the name of the tenant this client belongs to.
@@ -802,6 +804,21 @@ public class Client {
 
     public ClientAuthenticationMethods getClientAuthenticationMethods() {
         return clientAuthenticationMethods;
+    }
+
+    /**
+     * @return whether this client requires pushed authorization requests or not.
+     */
+    public Boolean getRequiresPushedAuthorizationRequests() {
+        return requiresPushedAuthorizationRequests;
+    }
+
+    /**
+     * Sets whether the client requires pushed authorization requests or not.
+     * @param requiresPushedAuthorizationRequests true if the client should require pushed authorization requests, false if not.
+     */
+    public void setRequiresPushedAuthorizationRequests(Boolean requiresPushedAuthorizationRequests) {
+        this.requiresPushedAuthorizationRequests = requiresPushedAuthorizationRequests;
     }
 }
 
