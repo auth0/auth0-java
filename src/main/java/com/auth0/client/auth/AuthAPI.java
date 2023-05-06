@@ -14,6 +14,7 @@ import org.jetbrains.annotations.TestOnly;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -216,6 +217,56 @@ public class AuthAPI {
         Asserts.assertValidUrl(redirectUri, "redirect uri");
 
         return AuthorizeUrlBuilder.newInstance(baseUrl, clientId, redirectUri);
+    }
+
+    /**
+     * Builds an authorization URL for Pushed Authorization Requests (PAR)
+     * @param requestUri the {@code request_uri} parameter from a successful pushed authorization request.
+     * @see AuthAPI#pushedAuthorizationRequest(String, String, Map)
+     * @see <a href="https://www.rfc-editor.org/rfc/rfc9126.html">RFC 9126</a>
+     * @return the {@code request_uri} from a successful pushed authorization request.
+     */
+    public String authorizeUrlWithPAR(String requestUri) {
+        Asserts.assertNotNull(requestUri, "request uri");
+        return baseUrl
+            .newBuilder()
+            .addPathSegment("authorize")
+            .addQueryParameter("client_id", clientId)
+            .addQueryParameter("request_uri", requestUri)
+            .build()
+            .toString();
+    }
+
+    /**
+     * Builds a request to make a Pushed Authorization Request (PAR) to receive a {@code request_uri} to send to the {@code /authorize} endpoint.
+     * @param redirectUri the URL to redirect to after authorization has been granted by the user. Your Auth0 application
+     *                    must have this URL as one of its Allowed Callback URLs. Must be a valid non-encoded URL.
+     * @param responseType the response type to set. Must not be null.
+     * @param params an optional map of key/value pairs representing any additional parameters to send on the request.
+     * @see <a href="https://www.rfc-editor.org/rfc/rfc9126.html">RFC 9126</a>
+     * @return a request to execute.
+     */
+    public Request<PushedAuthorizationResponse> pushedAuthorizationRequest(String redirectUri, String responseType, Map<String, String> params) {
+        Asserts.assertValidUrl(redirectUri, "redirect uri");
+        Asserts.assertNotNull(responseType, "response type");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("oauth/par")
+            .build()
+            .toString();
+
+        FormBodyRequest<PushedAuthorizationResponse> request = new FormBodyRequest<>(client, null, url, HttpMethod.POST, new TypeReference<PushedAuthorizationResponse>() {});
+        request.addParameter("client_id", clientId);
+        request.addParameter("redirect_uri", redirectUri);
+        request.addParameter("response_type", responseType);
+        if (Objects.nonNull(this.clientSecret)) {
+            request.addParameter("client_secret", clientSecret);
+        }
+        if (params != null) {
+            params.forEach(request::addParameter);
+        }
+        return request;
     }
 
     /**

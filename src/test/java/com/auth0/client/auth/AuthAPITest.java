@@ -1580,6 +1580,113 @@ public class AuthAPITest {
         assertThat(response.getExpiresIn(), is(notNullValue()));
     }
 
+    @Test
+    public void authorizeUrlWithPARShouldThrowWhenRequestUriNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'request uri' cannot be null!");
+        api.authorizeUrlWithPAR(null);
+    }
+
+    @Test
+    public void shouldBuildAuthorizeUrlWithPAR() {
+        AuthAPI api = AuthAPI.newBuilder("domain.auth0.com", CLIENT_ID, CLIENT_SECRET).build();
+        String url = api.authorizeUrlWithPAR("urn:example:bwc4JK-ESC0w8acc191e-Y1LTC2");
+        assertThat(url, is(notNullValue()));
+        assertThat(url, isUrl("https", "domain.auth0.com", "/authorize"));
+
+        assertThat(url, hasQueryParameter("request_uri", "urn:example:bwc4JK-ESC0w8acc191e-Y1LTC2"));
+        assertThat(url, hasQueryParameter("client_id", CLIENT_ID));
+    }
+
+    @Test
+    public void pushedAuthorizationRequestShouldThrowWhenRedirectUriIsNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'redirect uri' must be a valid URL!");
+        api.pushedAuthorizationRequest(null, "code", Collections.emptyMap());
+    }
+
+    @Test
+    public void pushedAuthorizationRequestShouldThrowWhenResponseTypeIsNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'response type' cannot be null!");
+        api.pushedAuthorizationRequest("https://domain.com/callback", null, Collections.emptyMap());
+    }
+
+    @Test
+    public void shouldCreatePushedAuthorizationRequestWithNullAdditionalParams() throws Exception {
+        Request<PushedAuthorizationResponse> request = api.pushedAuthorizationRequest("https://domain.com/callback", "code", null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(PUSHED_AUTHORIZATION_RESPONSE, 200);
+        PushedAuthorizationResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/par"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/x-www-form-urlencoded"));
+
+        String body = readFromRequest(recordedRequest);
+        assertThat(body, containsString("client_id=" + CLIENT_ID));
+        assertThat(body, containsString("redirect_uri=" + "https%3A%2F%2Fdomain.com%2Fcallback"));
+        assertThat(body, containsString("response_type=" + "code"));
+        assertThat(body, containsString("client_secret=" + CLIENT_SECRET));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getRequestURI(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), notNullValue());
+    }
+
+    @Test
+    public void shouldCreatePushedAuthorizationRequestWithAdditionalParams() throws Exception {
+        Map<String, String> additionalParams = new HashMap<>();
+        additionalParams.put("audience", "aud");
+        additionalParams.put("connection", "conn");
+        Request<PushedAuthorizationResponse> request = api.pushedAuthorizationRequest("https://domain.com/callback", "code", additionalParams);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(PUSHED_AUTHORIZATION_RESPONSE, 200);
+        PushedAuthorizationResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/par"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/x-www-form-urlencoded"));
+
+        String body = readFromRequest(recordedRequest);
+        assertThat(body, containsString("client_id=" + CLIENT_ID));
+        assertThat(body, containsString("redirect_uri=" + "https%3A%2F%2Fdomain.com%2Fcallback"));
+        assertThat(body, containsString("response_type=" + "code"));
+        assertThat(body, containsString("client_secret=" + CLIENT_SECRET));
+        assertThat(body, containsString("audience=" + "aud"));
+        assertThat(body, containsString("connection=" + "conn"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getRequestURI(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), notNullValue());
+    }
+
+    @Test
+    public void shouldCreatePushedAuthorizationRequestWithoutSecret() throws Exception {
+        AuthAPI api = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
+        Request<PushedAuthorizationResponse> request = api.pushedAuthorizationRequest("https://domain.com/callback", "code", null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(PUSHED_AUTHORIZATION_RESPONSE, 200);
+        PushedAuthorizationResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/par"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/x-www-form-urlencoded"));
+
+        String body = readFromRequest(recordedRequest);
+        assertThat(body, containsString("client_id=" + CLIENT_ID));
+        assertThat(body, containsString("redirect_uri=" + "https%3A%2F%2Fdomain.com%2Fcallback"));
+        assertThat(body, containsString("response_type=" + "code"));
+        assertThat(body, not(containsString("client_secret")));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getRequestURI(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), notNullValue());
+    }
+
     static class TestAssertionSigner implements ClientAssertionSigner {
 
         private final String token;

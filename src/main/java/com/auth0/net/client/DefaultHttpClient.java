@@ -161,7 +161,16 @@ public class DefaultHttpClient implements Auth0HttpClient {
         HttpRequestBody body = request.getBody();
         RequestBody okBody;
 
-        if (Objects.nonNull(body.getMultipartRequestBody())) {
+        if (Objects.nonNull(body.getFormRequestBody())) {
+            Auth0FormRequestBody formData = body.getFormRequestBody();
+            FormBody.Builder builder = new FormBody.Builder();
+            for (Map.Entry<String, Object> entry : formData.getParams().entrySet()) {
+                Object val = entry.getValue();
+                builder.add(entry.getKey(), val instanceof String ? (String) val : val.toString());
+            }
+            okBody = builder.build();
+        }
+        else if (Objects.nonNull(body.getMultipartRequestBody())) {
             Auth0MultipartRequestBody multipartRequestBody = body.getMultipartRequestBody();
             MultipartBody.Builder bodyBuilder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM);
