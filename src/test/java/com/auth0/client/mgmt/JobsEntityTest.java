@@ -7,6 +7,7 @@ import com.auth0.json.mgmt.jobs.Job;
 import com.auth0.json.mgmt.jobs.JobErrorDetails;
 import com.auth0.json.mgmt.jobs.UsersExportField;
 import com.auth0.net.Request;
+import com.auth0.net.Response;
 import com.auth0.net.client.HttpMethod;
 import com.auth0.net.client.multipart.FilePart;
 import com.auth0.net.client.multipart.KeyValuePart;
@@ -100,6 +101,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
+    @SuppressWarnings("deprecation")
     public void shouldThrowOnRequestUsersExportWithNullConnectionId() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'connection id' cannot be null!");
@@ -107,11 +109,13 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
+    @SuppressWarnings("deprecation")
     public void shouldNotThrowOnRequestUsersExportWithNullFilter() {
         api.jobs().exportUsers("con_123456789", null);
     }
 
     @Test
+    @SuppressWarnings("deprecation")
     public void shouldRequestUsersExport() throws Exception {
         Request<Job> request = api.jobs().exportUsers("con_123456789", null);
         assertThat(request, is(notNullValue()));
@@ -132,6 +136,105 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
+    @SuppressWarnings("deprecation")
+    public void usersExportWithFilterOverridesClientId() throws Exception {
+        UsersExportFilter filter = new UsersExportFilter();
+        filter.withConnectionId("filter_con");
+
+        Request<Job> request = api.jobs().exportUsers("con_123456789", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_JOB_POST_USERS_EXPORTS, 200);
+        Job response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/jobs/users-exports"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(1));
+        assertThat(body, hasEntry("connection_id", "filter_con"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldRequestUsersExportWithoutConnectionOrFilter() throws Exception {
+        Request<Job> request = api.jobs().exportUsers(null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_JOB_POST_USERS_EXPORTS, 200);
+        Job response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/jobs/users-exports"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(0));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldRequestUsersExportWithFilter() throws Exception {
+        UsersExportFilter filter = new UsersExportFilter();
+        filter.withConnectionId("conId");
+        filter.withFormat("json");
+        List<UsersExportField> fields = new ArrayList<>();
+        fields.add(new UsersExportField("full_name"));
+        fields.add(new UsersExportField("user_metadata.company_name", "company"));
+        filter.withFields(fields);
+
+        Request<Job> request = api.jobs().exportUsers(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_JOB_POST_USERS_EXPORTS, 200);
+        Job response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/jobs/users-exports"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(3));
+        assertThat(body, hasEntry("connection_id", "conId"));
+        assertThat(body, hasEntry("format", "json"));
+        assertThat(body, hasKey("fields"));
+        @SuppressWarnings("unchecked")
+        List<Map<String, String>> bodyFields = (List<Map<String, String>>) body.get("fields");
+        assertThat(bodyFields.get(0).get("name"), is("full_name"));
+        assertThat(bodyFields.get(0).get("export_as"), is(nullValue()));
+        assertThat(bodyFields.get(1).get("name"), is("user_metadata.company_name"));
+        assertThat(bodyFields.get(1).get("export_as"), is("company"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void usersExportShouldHandleNullFilter() throws Exception {
+        Request<Job> request = api.jobs().exportUsers(null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_JOB_POST_USERS_EXPORTS, 200);
+        Job response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/jobs/users-exports"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(0));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    @SuppressWarnings("deprecation")
     public void shouldRequestUsersExportWithLimit() throws Exception {
         UsersExportFilter filter = new UsersExportFilter();
         filter.withLimit(82);
@@ -155,6 +258,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
+    @SuppressWarnings("deprecation")
     public void shouldRequestUsersExportWithFormat() throws Exception {
         UsersExportFilter filter = new UsersExportFilter();
         filter.withFormat("csv");
@@ -178,6 +282,7 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
+    @SuppressWarnings("deprecation")
     public void shouldRequestUsersExportWithFields() throws Exception {
         UsersExportFilter filter = new UsersExportFilter();
         ArrayList<UsersExportField> fields = new ArrayList<>();
@@ -437,5 +542,4 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
 
         assertThat(response, is(notNullValue()));
     }
-
 }
