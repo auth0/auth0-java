@@ -38,7 +38,7 @@ public class JobsEntity extends BaseManagementEntity {
 
     /**
      * Request a Job. A token with scope create:users is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Jobs/get_jobs_by_id.
+     * See <a href="https://auth0.com/docs/api/management/v2#!/Jobs/get_jobs_by_id">GET Jobs by ID</a>.
      *
      * @param jobId the id of the job to retrieve.
      * @return a Request to execute.
@@ -59,7 +59,7 @@ public class JobsEntity extends BaseManagementEntity {
 
     /**
      * Get error details of a failed job. A token with scope create:users is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Jobs/get_errors.
+     * See <a href="https://auth0.com/docs/api/management/v2#!/Jobs/get_errors">GET Job Errors</a>.
      *
      * @param jobId the id of the job to retrieve.
      * @return a Request to execute.
@@ -90,7 +90,7 @@ public class JobsEntity extends BaseManagementEntity {
 
     /**
      * Sends an Email Verification. A token with scope update:users is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Jobs/post_verification_email.
+     * See <a href="https://auth0.com/docs/api/management/v2#!/Jobs/post_verification_email">POST Verification Email</a>.
      *
      * @param userId   The user_id of the user to whom the email will be sent.
      * @param clientId The id of the client, if not provided the global one will be used.
@@ -105,7 +105,7 @@ public class JobsEntity extends BaseManagementEntity {
 
     /**
      * Sends an Email Verification. A token with scope update:users is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Jobs/post_verification_email.
+     * See <a href="https://auth0.com/docs/api/management/v2#!/Jobs/post_verification_email">POST Verification Email</a>.
      *
      * @param userId   The user_id of the user to whom the email will be sent.
      * @param clientId The id of the client, if not provided the global one will be used.
@@ -121,7 +121,7 @@ public class JobsEntity extends BaseManagementEntity {
 
     /**
      * Sends an Email Verification. A token with scope update:users is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Jobs/post_verification_email.
+     * See <a href="https://auth0.com/docs/api/management/v2#!/Jobs/post_verification_email">POST Verification Email</a>.
      *
      * @param userId   The user_id of the user to whom the email will be sent.
      * @param clientId The id of the client, if not provided the global one will be used.
@@ -161,14 +161,17 @@ public class JobsEntity extends BaseManagementEntity {
     }
 
     /**
+     * @deprecated Use {@link #exportUsers(UsersExportFilter)} instead.
+     *
      * Requests a Users Exports job. A token with scope read:users is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports.
-     * See https://auth0.com/docs/users/guides/bulk-user-exports.
+     * See <a href="https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports">POST Users Exports</a>.
+     * See <a href="https://auth0.com/docs/users/guides/bulk-user-exports">Bulk User Exports</a>.
      *
      * @param connectionId The id of the connection to export the users from.
      * @param filter       the filter to use. Can be null.
      * @return a Request to execute.
      */
+    @Deprecated
     public Request<Job> exportUsers(String connectionId, UsersExportFilter filter) {
         Asserts.assertNotNull(connectionId, "connection id");
 
@@ -190,11 +193,36 @@ public class JobsEntity extends BaseManagementEntity {
         return request;
     }
 
+    /**
+     * Requests a Users Exports job. A token with scope read:users is needed.
+     * See <a href="https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports">POST Users Exports</a>.
+     * See <a href="https://auth0.com/docs/users/guides/bulk-user-exports">Bulk User Exports</a>.
+     *
+     * @param filter the filter to use. Can be null.
+     * @return a Request to execute.
+     */
+    public Request<Job> exportUsers(UsersExportFilter filter) {
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/jobs/users-exports")
+            .build()
+            .toString();
+
+        Map<String, Object> requestBody = new HashMap<>();
+        if (filter != null) {
+            requestBody.putAll(filter.getAsMap());
+        }
+
+        BaseRequest<Job> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<Job>() {
+        });
+        request.setBody(requestBody);
+        return request;
+    }
 
     /**
      * Requests a Users Imports job. A token with scope write:users is needed.
-     * See https://auth0.com/docs/api/management/v2#!/Jobs/post_users_imports.
-     * See https://auth0.com/docs/users/guides/bulk-user-imports.
+     * See <a href="https://auth0.com/docs/api/management/v2#!/Jobs/post_users_imports">POST User Imports</a>.
+     * See <a href="https://auth0.com/docs/users/guides/bulk-user-imports">Bulk User Imports</a>.
      *
      * @param connectionId The id of the connection to import the users to.
      * @param users        The users file. Must have an array with the users' information in JSON format.
