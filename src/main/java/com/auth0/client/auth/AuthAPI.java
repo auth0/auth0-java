@@ -1233,11 +1233,11 @@ public class AuthAPI {
     }
 
     /**
-     * Deletes a list of authenticators associated with your application.
+     * Deletes an associated authenticator using its ID.
      * <pre>
      * {@code
      * try {
-     *    authAPI.deleteAuthenticator("token", "deviceId)
+     *    authAPI.deleteAuthenticator("token", "deviceId")
      *          .execute()
      *          .getBody();
      * } catch (Auth0Exception e) {
@@ -1246,9 +1246,10 @@ public class AuthAPI {
      * }
      * </pre>
      *
-     * @param accessToken The Access Token obtained during login. The token must possess a scope of {@code read:authenticators}
+     * @param accessToken The Access Token obtained during login. The token must possess a scope of {@code remove:authenticators}
      *                    and an audience of {@code https://YOUR_DOMAIN/mfa/}
-     * @param authenticatorId The id associated with the authenticator.
+     * @param authenticatorId The unique identifier associated with the authenticator. We can obtain the authenticatorIds by making a
+     *                        call to {@code listAuthenticators} method in this api.
      * @return a Request to execute.
      * @see <a href="https://auth0.com/docs/api/authentication#delete-an-authenticator">Delete authenticators API documentation</a>
      */
