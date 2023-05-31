@@ -1232,6 +1232,23 @@ public class AuthAPI {
         return request;
     }
 
+    public Request<Void> deleteAuthenticator(String accessToken, String authenticatorId) {
+        Asserts.assertNotNull(accessToken, "access token");
+        Asserts.assertNotNull(authenticatorId, "authenticator id");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegment("mfa")
+            .addPathSegment("authenticators")
+            .addPathSegment(authenticatorId)
+            .build()
+            .toString();
+
+        VoidRequest request = new VoidRequest(client, null, url, HttpMethod.DELETE);
+        request.addHeader("Authorization", "Bearer " + accessToken);
+        return request;
+    }
+
     private TokenRequest exchangeCode(String code, String redirectUri, boolean secretRequired) {
         Asserts.assertNotNull(code, "code");
         Asserts.assertNotNull(redirectUri, "redirect uri");
