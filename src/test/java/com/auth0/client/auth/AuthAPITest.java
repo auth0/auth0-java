@@ -1485,6 +1485,35 @@ public class AuthAPITest {
     }
 
     @Test
+    public void deleteAuthenticatorThrowsWhenTokenNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'access token' cannot be null!");
+        api.deleteAuthenticator(null, "authenticatorId");
+    }
+
+    @Test
+    public void deleteAuthenticatorThrowsWhenAuthenticatorIdNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("'authenticator id' cannot be null!");
+        api.deleteAuthenticator("Bearer accessToken", null);
+    }
+
+    @Test
+    public void deleteAuthenticatorRequest() throws Exception {
+        Request<Void> request = api.deleteAuthenticator("accessToken", "authenticatorId");
+
+        server.jsonResponse(AUTH_LIST_AUTHENTICATORS_RESPONSE, 200);
+        Void response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/mfa/authenticators/authenticatorId"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer accessToken"));
+
+        assertThat(response, is(nullValue()));
+    }
+
+    @Test
     public void challengeRequestThrowsWhenTokenNull() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("'mfa token' cannot be null!");

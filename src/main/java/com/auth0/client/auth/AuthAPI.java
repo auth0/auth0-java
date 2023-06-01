@@ -1232,6 +1232,44 @@ public class AuthAPI {
         return request;
     }
 
+    /**
+     * Deletes an associated authenticator using its ID.
+     * <pre>
+     * {@code
+     * try {
+     *    authAPI.deleteAuthenticator("token", "deviceId")
+     *          .execute()
+     *          .getBody();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param accessToken The Access Token obtained during login. The token must possess a scope of {@code remove:authenticators}
+     *                    and an audience of {@code https://YOUR_DOMAIN/mfa/}
+     * @param authenticatorId The unique identifier associated with the authenticator. We can obtain the authenticatorIds by making a
+     *                        call to {@code listAuthenticators} method in this api.
+     * @return a Request to execute.
+     * @see <a href="https://auth0.com/docs/api/authentication#delete-an-authenticator">Delete authenticators API documentation</a>
+     */
+    public Request<Void> deleteAuthenticator(String accessToken, String authenticatorId) {
+        Asserts.assertNotNull(accessToken, "access token");
+        Asserts.assertNotNull(authenticatorId, "authenticator id");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegment("mfa")
+            .addPathSegment("authenticators")
+            .addPathSegment(authenticatorId)
+            .build()
+            .toString();
+
+        VoidRequest request = new VoidRequest(client, null, url, HttpMethod.DELETE);
+        request.addHeader("Authorization", "Bearer " + accessToken);
+        return request;
+    }
+
     private TokenRequest exchangeCode(String code, String redirectUri, boolean secretRequired) {
         Asserts.assertNotNull(code, "code");
         Asserts.assertNotNull(redirectUri, "redirect uri");
