@@ -386,6 +386,29 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
+     * Invalidate all remembered browsers across all authentication factors for a user.
+     * A token with scope {@code update:users} is required.
+     *
+     * @param userId the ID of the user to invalidate all remembered browsers and authentication factors for.
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Users/post_invalidate_remember_browser">Invalidate all remembered browsers.</a>
+     */
+    public Request<Void> invalidateRememberedBrowsers(String userId) {
+        Asserts.assertNotNull(userId, "user ID");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegment(userId)
+            .addPathSegments("multifactor/actions/invalidate-remember-browser")
+            .build()
+            .toString();
+
+        VoidRequest request = new VoidRequest(client, tokenProvider, url, HttpMethod.POST);
+        request.setBody("");
+        return request;
+    }
+
+    /**
      * Get the permissions associated to the user.
      * A token with read:users is needed.
      * See https://auth0.com/docs/api/management/v2#!/Users/get_permissions
