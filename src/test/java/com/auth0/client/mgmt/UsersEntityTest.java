@@ -1326,6 +1326,5 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
         assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/users/userId/multifactor/actions/invalidate-remember-browser"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-        System.out.println(recordedRequest.getBody());
     }
 }
