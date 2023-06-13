@@ -1307,4 +1307,24 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     }
+
+    @Test
+    public void invalidateRememberedBrowsersThrowsWhenUserIdIsNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("user ID");
+        api.users().invalidateRememberedBrowsers(null);
+    }
+
+    @Test
+    public void shouldInvalidateRememberedBrowsers() throws Exception {
+        Request<Void> request = api.users().invalidateRememberedBrowsers("userId");
+        assertThat(request, is(notNullValue()));
+
+        server.noContentResponse();
+        Void response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/users/userId/multifactor/actions/invalidate-remember-browser"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
 }
