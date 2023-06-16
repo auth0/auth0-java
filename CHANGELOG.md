@@ -1,5 +1,15 @@
 # Change Log
 
+## [2.4.0](https://github.com/auth0/auth0-java/tree/2.4.0) (2023-06-15)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.3.0...2.4.0)
+
+**Added**
+- Support delete authenticator endpoint [\#541](https://github.com/auth0/auth0-java/pull/541) ([vasantteja](https://github.com/vasantteja))
+- Support invalidate remembered browsers endpoint [\#543](https://github.com/auth0/auth0-java/pull/543) ([jimmyjames](https://github.com/jimmyjames))
+
+**Fixed**
+- Export users does not require connection_id [\#537](https://github.com/auth0/auth0-java/pull/537) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [2.3.0](https://github.com/auth0/auth0-java/tree/2.3.0) (2023-05-11)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.2.0...2.3.0)
 
