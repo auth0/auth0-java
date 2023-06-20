@@ -2,18 +2,17 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.UsersExportFilter;
 import com.auth0.client.mgmt.filter.UsersImportOptions;
-import com.auth0.json.mgmt.tickets.EmailVerificationIdentity;
 import com.auth0.json.mgmt.jobs.Job;
 import com.auth0.json.mgmt.jobs.JobErrorDetails;
 import com.auth0.json.mgmt.jobs.UsersExportField;
+import com.auth0.json.mgmt.tickets.EmailVerificationIdentity;
 import com.auth0.net.Request;
-import com.auth0.net.Response;
 import com.auth0.net.client.HttpMethod;
 import com.auth0.net.client.multipart.FilePart;
 import com.auth0.net.client.multipart.KeyValuePart;
 import com.auth0.net.client.multipart.RecordedMultipartRequest;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.nio.file.Files;

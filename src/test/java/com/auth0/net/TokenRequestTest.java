@@ -2,13 +2,13 @@ package com.auth0.net;
 
 import com.auth0.client.MockServer;
 import com.auth0.json.auth.TokenHolder;
-import com.auth0.net.client.DefaultHttpClient;
 import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.DefaultHttpClient;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
@@ -22,13 +22,13 @@ public class TokenRequestTest {
     private Auth0HttpClient client;
     private MockServer server;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         client = new DefaultHttpClient.Builder().build();
         server = new MockServer();
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         server.stop();
     }

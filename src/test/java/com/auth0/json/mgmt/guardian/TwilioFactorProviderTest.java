@@ -3,7 +3,7 @@ package com.auth0.json.mgmt.guardian;
 import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.rules.ExpectedException;
 
 import static org.hamcrest.MatcherAssert.assertThat;

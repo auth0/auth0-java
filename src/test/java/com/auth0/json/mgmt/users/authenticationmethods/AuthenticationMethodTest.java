@@ -2,12 +2,11 @@ package com.auth0.json.mgmt.users.authenticationmethods;
 
 import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
-import com.auth0.json.mgmt.users.authenticationmethods.AuthenticationMethod;
-import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 
 public class AuthenticationMethodTest extends JsonTest<AuthenticationMethod> {

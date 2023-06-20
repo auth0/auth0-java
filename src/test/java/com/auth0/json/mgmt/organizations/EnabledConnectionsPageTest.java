@@ -1,7 +1,7 @@
 package com.auth0.json.mgmt.organizations;
 
 import com.auth0.json.JsonTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;

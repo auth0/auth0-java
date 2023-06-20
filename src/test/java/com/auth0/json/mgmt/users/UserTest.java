@@ -2,14 +2,12 @@ package com.auth0.json.mgmt.users;
 
 import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.collection.IsMapContaining.hasEntry;
 
 public class UserTest extends JsonTest<User> {

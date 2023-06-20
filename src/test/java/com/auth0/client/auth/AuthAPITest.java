@@ -3,7 +3,10 @@ package com.auth0.client.auth;
 import com.auth0.client.MockServer;
 import com.auth0.exception.APIException;
 import com.auth0.json.auth.*;
-import com.auth0.net.*;
+import com.auth0.net.BaseRequest;
+import com.auth0.net.Request;
+import com.auth0.net.SignUpRequest;
+import com.auth0.net.TokenRequest;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.Auth0HttpRequest;
 import com.auth0.net.client.Auth0HttpResponse;
@@ -11,12 +14,11 @@ import com.auth0.net.client.HttpMethod;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.rules.ExpectedException;
-import static org.junit.Assert.assertThrows;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -35,6 +37,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.collection.IsMapContaining.hasEntry;
 import static org.hamcrest.collection.IsMapContaining.hasKey;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AuthAPITest {
 
@@ -48,19 +51,18 @@ public class AuthAPITest {
     private AuthAPI api;
     private AuthAPI apiNoClientAuthentication;
 
-
     @SuppressWarnings("deprecation")
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         server = new MockServer();
         api = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID, CLIENT_SECRET).build();
         apiNoClientAuthentication = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         server.stop();
     }

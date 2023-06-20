@@ -4,7 +4,7 @@ import com.auth0.json.mgmt.branding.*;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static com.auth0.client.MockServer.MGMT_BRANDING_LOGIN_TEMPLATE;
 import static com.auth0.client.MockServer.MGMT_BRANDING_SETTINGS;

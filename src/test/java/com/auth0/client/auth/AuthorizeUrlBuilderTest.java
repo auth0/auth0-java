@@ -2,7 +2,7 @@ package com.auth0.client.auth;
 
 import okhttp3.HttpUrl;
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.rules.ExpectedException;
 
 import java.net.URLEncoder;

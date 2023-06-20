@@ -4,15 +4,16 @@ import com.auth0.exception.IdTokenValidationException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import org.junit.Before;
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.rules.ExpectedException;
 
 import java.util.Calendar;
 import java.util.Date;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class IdTokenVerifierTest {
 
@@ -29,7 +30,7 @@ public class IdTokenVerifierTest {
 
     private SignatureVerifier signatureVerifier;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         signatureVerifier = mock(SignatureVerifier.class);
     }

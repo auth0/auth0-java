@@ -7,9 +7,6 @@ import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.RateLimitException;
 import com.auth0.json.auth.TokenHolder;
 import com.auth0.net.client.*;
-import com.auth0.net.client.Auth0HttpClient;
-import com.auth0.net.client.DefaultHttpClient;
-import com.auth0.net.client.HttpMethod;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -17,11 +14,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.hamcrest.Matchers;
-import static org.hamcrest.MatcherAssert.assertThat;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.rules.ExpectedException;
 
 import java.io.IOException;
@@ -31,11 +27,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import static com.auth0.client.MockServer.*;
-import static com.auth0.client.MockServer.AUTH_ERROR_PLAINTEXT;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -58,7 +53,7 @@ public class BaseRequestTest {
     private TypeReference<List> listType;
     private TypeReference<Void> voidType;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         server = new MockServer();
         client = DefaultHttpClient.newBuilder().withMaxRetries(0).build();
@@ -80,7 +75,7 @@ public class BaseRequestTest {
         };
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         server.stop();
     }

@@ -5,10 +5,10 @@ import com.auth0.exception.Auth0Exception;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.Auth0HttpRequest;
 import com.auth0.net.client.Auth0HttpResponse;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.rules.ExpectedException;
 
 import java.io.IOException;
@@ -16,7 +16,8 @@ import java.util.concurrent.CompletableFuture;
 
 import static com.auth0.client.UrlMatcher.isUrl;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThrows;
 
 public class ManagementAPITest {
@@ -31,13 +32,13 @@ public class ManagementAPITest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         server = new MockServer();
         api = ManagementAPI.newBuilder(server.getBaseUrl(), API_TOKEN).build();
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         server.stop();
     }

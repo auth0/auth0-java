@@ -1,16 +1,14 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.GrantsFilter;
-import com.auth0.json.mgmt.grants.Grant;
 import com.auth0.json.mgmt.grants.GrantsPage;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
-import static com.auth0.client.MockServer.*;
+import static com.auth0.client.MockServer.MGMT_GRANTS_LIST;
+import static com.auth0.client.MockServer.MGMT_GRANTS_PAGED_LIST;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;

@@ -2,7 +2,7 @@ package com.auth0.json.mgmt.tickets;
 
 import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -18,7 +18,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.*;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.rules.ExpectedException;
 
 import java.io.File;
@@ -43,7 +46,7 @@ public class MultipartRequestTest {
     private TypeReference<List> listType;
     private TypeReference<Void> voidType;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         server = new MockServer();
         client = new DefaultHttpClient.Builder().withMaxRetries(0).build();
@@ -65,7 +68,7 @@ public class MultipartRequestTest {
         };
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         server.stop();
     }

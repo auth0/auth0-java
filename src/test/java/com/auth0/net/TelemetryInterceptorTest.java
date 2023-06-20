@@ -5,8 +5,8 @@ import okhttp3.Request;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 public class TelemetryInterceptorTest {
     private Telemetry telemetry;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         telemetry = mock(Telemetry.class);
         when(telemetry.getValue()).thenReturn("ClientInfo");

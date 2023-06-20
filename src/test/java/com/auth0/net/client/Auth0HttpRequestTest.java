@@ -1,6 +1,6 @@
 package com.auth0.net.client;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;

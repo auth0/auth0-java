@@ -8,9 +8,9 @@ import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 import okhttp3.mockwebserver.SocketPolicy;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -26,12 +26,12 @@ public class RateLimitInterceptorTest {
 
     MockWebServer server = new MockWebServer();
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         server.start();
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         server.shutdown();
     }

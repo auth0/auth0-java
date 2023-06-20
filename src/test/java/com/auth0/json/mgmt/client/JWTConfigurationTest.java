@@ -3,7 +3,7 @@ package com.auth0.json.mgmt.client;
 import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.hamcrest.collection.IsMapContaining;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.Map;

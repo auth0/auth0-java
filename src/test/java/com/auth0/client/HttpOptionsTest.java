@@ -1,10 +1,10 @@
 package com.auth0.client;
 
-import org.junit.Test;
-import static org.junit.Assert.assertThrows;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThrows;
 
 @SuppressWarnings("deprecation")
 public class HttpOptionsTest {

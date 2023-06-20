@@ -4,12 +4,12 @@ import com.auth0.client.MockServer;
 import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.client.mgmt.filter.InvitationsFilter;
 import com.auth0.client.mgmt.filter.PageFilter;
-import com.auth0.json.mgmt.roles.RolesPage;
 import com.auth0.json.mgmt.organizations.*;
+import com.auth0.json.mgmt.roles.RolesPage;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 

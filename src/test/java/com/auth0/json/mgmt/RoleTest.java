@@ -1,13 +1,13 @@
 package com.auth0.json.mgmt;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
-
 import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
 import com.auth0.json.mgmt.roles.Role;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class RoleTest extends JsonTest<Role> {
 
