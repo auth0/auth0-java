@@ -18,11 +18,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.rules.ExpectedException;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,15 +31,13 @@ import java.util.concurrent.CompletableFuture;
 import static com.auth0.client.MockServer.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static com.auth0.AssertsUtil.verifyThrows;
 
 public class MultipartRequestTest {
     private MockServer server;
     private Auth0HttpClient client;
     private TokenProvider tokenProvider;
 
-    @SuppressWarnings("deprecation")
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
     private TypeReference<TokenHolder> tokenHolderType;
     private TypeReference<List> listType;
     private TypeReference<Void> voidType;
@@ -75,9 +71,9 @@ public class MultipartRequestTest {
 
     @Test
     public void shouldNotSupportGETMethod() {
-        exception.expect(instanceOf(IllegalArgumentException.class));
-        exception.expectMessage("Multipart/form-data requests do not support the GET method.");
-        MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, tokenProvider, server.getBaseUrl(), HttpMethod.GET, tokenHolderType);
+        verifyThrows(IllegalArgumentException.class,
+            () -> new MultipartRequest<>(client, tokenProvider, server.getBaseUrl(), HttpMethod.GET, tokenHolderType),
+            "Multipart/form-data requests do not support the GET method.");
     }
 
     @Test

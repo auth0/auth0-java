@@ -14,6 +14,7 @@ import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static com.auth0.AssertsUtil.verifyThrows;
 
 public class ConnectionsEntityTest extends BaseMgmtEntityTest {
 
@@ -79,9 +80,9 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetConnectionWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'connection id' cannot be null!");
-        api.connections().get(null, null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().get(null, null),
+            "'connection id' cannot be null!");
     }
 
     @Test
@@ -121,9 +122,9 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnCreateConnectionWithNullData() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'connection' cannot be null!");
-        api.connections().create(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().create(null),
+            "'connection' cannot be null!");
     }
 
     @Test
@@ -149,9 +150,9 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnDeleteConnectionWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'connection id' cannot be null!");
-        api.connections().delete(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().delete(null),
+            "'connection id' cannot be null!");
     }
 
     @Test
@@ -170,16 +171,16 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnUpdateConnectionWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'connection id' cannot be null!");
-        api.connections().update(null, new Connection("my-connection", "auth0"));
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().update(null, new Connection("my-connection", "auth0")),
+            "'connection id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnUpdateConnectionWithNullData() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'connection' cannot be null!");
-        api.connections().update("1", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().update("1", null),
+            "'connection' cannot be null!");
     }
 
     @Test
@@ -205,16 +206,16 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnDeleteConnectionUserWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'connection id' cannot be null!");
-        api.connections().deleteUser(null, "user@domain.com");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().deleteUser(null, "user@domain.com"),
+            "'connection id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnDeleteConnectionUserWithNullEmail() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'email' cannot be null!");
-        api.connections().deleteUser("1", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().deleteUser("1", null),
+            "'email' cannot be null!");
     }
 
     @Test

@@ -1,25 +1,18 @@
 package com.auth0.client.mgmt.filter;
 
 import org.hamcrest.Matchers;
-import org.junit.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
 
 import java.io.UnsupportedEncodingException;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static com.auth0.AssertsUtil.verifyThrows;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.isA;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.spy;
 
 public class QueryFilterTest {
-
-    @SuppressWarnings("deprecation")
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     private QueryFilter filter;
 
@@ -87,13 +80,14 @@ public class QueryFilterTest {
 
     @Test
     public void shouldThrowIllegalStateExceptionWhenUtf8IsNotSupported() throws Exception {
-        exception.expect(IllegalStateException.class);
-        exception.expectMessage("UTF-8 encoding not supported by current Java platform implementation.");
-        exception.expectCause(isA(UnsupportedEncodingException.class));
         String value = "my test value";
         QueryFilter filter = spy(new QueryFilter());
         doThrow(UnsupportedEncodingException.class).when(filter).urlEncode(value);
-        filter.withQuery(value);
+
+        IllegalStateException e = verifyThrows(IllegalStateException.class,
+            () -> filter.withQuery(value),
+            "UTF-8 encoding not supported by current Java platform implementation.");
+        assertThat(e.getCause(), instanceOf(UnsupportedEncodingException.class));
     }
 
 }

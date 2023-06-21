@@ -1,10 +1,8 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.MockServer;
-import org.junit.Rule;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.rules.ExpectedException;
 
 public class BaseMgmtEntityTest {
 
@@ -12,10 +10,6 @@ public class BaseMgmtEntityTest {
 
     protected MockServer server;
     protected ManagementAPI api;
-
-    @SuppressWarnings("deprecation")
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     @BeforeEach
     public void setUp() throws Exception {

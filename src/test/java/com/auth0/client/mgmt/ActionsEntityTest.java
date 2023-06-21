@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.bodyFromRequest;
 import static com.auth0.client.MockServer.readFromRequest;
 import static com.auth0.client.RecordedRequestMatcher.*;
@@ -23,9 +24,9 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void getActionShouldThrowOnNullActionId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("action ID");
-        api.actions().get(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.actions().get(null),
+            "'action ID' cannot be null!");
     }
 
     @Test
@@ -46,9 +47,9 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void createActionShouldThrowOnNullAction() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("action");
-        api.actions().create(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.actions().create(null),
+            "'action' cannot be null!");
     }
 
     @Test
@@ -115,9 +116,9 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void deleteActionShouldThrowWhenActionIdIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("action ID");
-        api.actions().delete(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.actions().delete(null),
+            "'action ID' cannot be null!");
     }
 
     @Test
@@ -169,16 +170,16 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void updateActionShouldThrowWhenActionIdIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("action ID");
-        api.actions().update(null, new Action());
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.actions().update(null, new Action()),
+            "'action ID' cannot be null!");
     }
 
     @Test
     public void updateActionShouldThrowWhenActionIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("action");
-        api.actions().update("action-id", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.actions().update("action-id", null),
+            "'action' cannot be null!");
     }
 
     @Test
@@ -229,9 +230,9 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void deployActionShouldThrowWhenActionIdIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("action ID");
-        api.actions().deploy(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.actions().deploy(null),
+            "'action ID' cannot be null!");
     }
 
     @Test
@@ -254,16 +255,16 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void getVersionShouldThrowWhenActionIdIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("action ID");
-        api.actions().getVersion(null, "version-id");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.actions().getVersion(null, "version-id"),
+            "'action ID' cannot be null!");
     }
 
     @Test
     public void getVersionShouldThrowWhenVersionIdIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("action version ID");
-        api.actions().getVersion("action-id", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.actions().getVersion("action-id", null),
+            "'action version ID' cannot be null!");
     }
 
     @Test
@@ -284,16 +285,16 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void rollBackToVersionShouldThrowWhenActionIdIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("action ID");
-        api.actions().rollBackToVersion(null, "version-id");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.actions().rollBackToVersion(null, "version-id"),
+            "'action ID' cannot be null!");
     }
 
     @Test
     public void rollbackToVersionShouldThrowWhenVersionIdIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("action version ID");
-        api.actions().rollBackToVersion("action-id", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.actions().rollBackToVersion("action-id", null),
+            "'action version ID' cannot be null!");
     }
 
     @Test
@@ -316,9 +317,9 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void getExecutionShouldThrowWhenExecutionIdIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("execution ID");
-        api.actions().getExecution( null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.actions().getExecution(null),
+            "'execution ID' cannot be null!");
     }
 
     @Test
@@ -384,9 +385,9 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void getActionVetsionsShouldThrowWhenActionIdIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("action ID");
-        api.actions().getVersions(null, null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.actions().getVersions(null, null),
+            "'action ID' cannot be null!");
     }
 
     @Test
@@ -428,9 +429,9 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void getTriggerBindingsShouldThrowWhenTriggerIdIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("trigger ID");
-        api.actions().getTriggerBindings(null, null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.actions().getTriggerBindings(null, null),
+            "'trigger ID' cannot be null!");
     }
 
     @Test
@@ -472,16 +473,16 @@ public class ActionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void updateTriggerBindingsShouldThrowWhenTriggerIdIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("trigger ID");
-        api.actions().updateTriggerBindings(null, null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.actions().updateTriggerBindings(null, null),
+            "'trigger ID' cannot be null!");
     }
 
     @Test
     public void updateTriggerBindingsShouldThrowWhenRequestBodyIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("request body");
-        api.actions().updateTriggerBindings("triggeId", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.actions().updateTriggerBindings("triggerId", null),
+            "'request body' cannot be null!");
     }
 
     @Test

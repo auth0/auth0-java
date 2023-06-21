@@ -15,6 +15,7 @@ import static com.auth0.client.RecordedRequestMatcher.hasHeader;
 import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static com.auth0.AssertsUtil.verifyThrows;
 
 public class AttackProtectionEntityTest extends BaseMgmtEntityTest {
 
@@ -219,22 +220,22 @@ public class AttackProtectionEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void updateBreachedPasswordSettingsShouldThrowWithNullParam() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("breached password");
-        api.attackProtection().updateBreachedPasswordSettings(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.attackProtection().updateBreachedPasswordSettings(null),
+            "'breached password' cannot be null!");
     }
 
     @Test
     public void updateBruteForceConfigurationShouldThrowWithNullParam() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("configuration");
-        api.attackProtection().updateBruteForceConfiguration(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.attackProtection().updateBruteForceConfiguration(null),
+            "'configuration' cannot be null!");
     }
 
     @Test
     public void updateSuspiciousIPThrottlingConfigurationShouldThrowWithNullParam() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("configuration");
-        api.attackProtection().updateSuspiciousIPThrottlingConfiguration(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.attackProtection().updateSuspiciousIPThrottlingConfiguration(null),
+            "'configuration' cannot be null!");
     }
 }

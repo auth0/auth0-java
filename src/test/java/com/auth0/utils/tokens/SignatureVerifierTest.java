@@ -20,10 +20,10 @@ import java.security.spec.EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Scanner;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SignatureVerifierTest {
 
@@ -36,7 +36,7 @@ public class SignatureVerifierTest {
 
     @Test
     public void failsWhenAlgorithmIsNotExpected() {
-        assertThrows(IdTokenValidationException.class,
+        verifyThrows(IdTokenValidationException.class,
             () -> SignatureVerifier.forHS256("secret")
                 .verifySignature(NONE_JWT),
             "Signature algorithm of \"none\" is not supported. Expected the ID token to be signed with \"HS256\"");
@@ -44,7 +44,7 @@ public class SignatureVerifierTest {
 
     @Test
     public void failsWhenTokenCannotBeDecoded() {
-        assertThrows(IdTokenValidationException.class,
+        verifyThrows(IdTokenValidationException.class,
             () -> SignatureVerifier.forHS256("secret")
                 .verifySignature("boom"),
             "ID token could not be decoded");
@@ -52,7 +52,7 @@ public class SignatureVerifierTest {
 
     @Test
     public void failsWhenAlgorithmRS256IsNotExpected() {
-        assertThrows(IdTokenValidationException.class,
+        verifyThrows(IdTokenValidationException.class,
             () -> SignatureVerifier.forHS256("secret")
                 .verifySignature(RS_JWT),
             "Signature algorithm of \"RS256\" is not supported. Expected the ID token to be signed with \"HS256\"");
@@ -60,10 +60,10 @@ public class SignatureVerifierTest {
 
     @Test
     public void failsWhenAlgorithmHS256IsNotExpected() throws Exception {
-        IdTokenValidationException e = assertThrows(IdTokenValidationException.class,
-            () -> SignatureVerifier.forRS256(getRSProvider(RS_PUBLIC_KEY))
+        IdTokenValidationException e = verifyThrows(IdTokenValidationException.class,
+            () -> SignatureVerifier.forHS256("secret")
                 .verifySignature(RS_JWT),
-            "Signature algorithm of \"HS256\" is not supported. Expected the ID token to be signed with \"RS256\"");
+            "Signature algorithm of \"RS256\" is not supported. Expected the ID token to be signed with \"HS256\"");
         assertThat(e.getCause(), instanceOf(AlgorithmMismatchException.class));
     }
 
@@ -85,7 +85,7 @@ public class SignatureVerifierTest {
 
     @Test
     public void failsWithInvalidSignatureHS256Token() {
-        assertThrows(IdTokenValidationException.class,
+        verifyThrows(IdTokenValidationException.class,
             () -> SignatureVerifier.forHS256("badsecret")
                 .verifySignature(HS_JWT),
             "Invalid ID token signature");
@@ -101,19 +101,16 @@ public class SignatureVerifierTest {
 
     @Test
     public void failsWithInvalidSignatureRS256Token() throws Exception {
-        assertThrows(IdTokenValidationException.class,
-            () -> {
-                DecodedJWT decodedJWT = SignatureVerifier
+        verifyThrows(IdTokenValidationException.class,
+            () -> SignatureVerifier
                     .forRS256(getRSProvider(RS_PUBLIC_KEY_BAD))
-                    .verifySignature(RS_JWT);
-                assertThat(decodedJWT, notNullValue());
-            },
+                    .verifySignature(RS_JWT),
             "Invalid ID token signature");
     }
 
     @Test
     public void failsWhenErrorGettingPublicKey() {
-        assertThrows(IdTokenValidationException.class,
+        verifyThrows(IdTokenValidationException.class,
             () -> {
                 SignatureVerifier.forRS256(new PublicKeyProvider() {
                     @Override
@@ -127,9 +124,9 @@ public class SignatureVerifierTest {
 
     @Test
     public void failsWithNullVerifier() {
-        assertThrows(IllegalArgumentException.class,
+        verifyThrows(IllegalArgumentException.class,
             NullVerifier::new,
-            "'algorithm' cannot be null");
+            "'algorithm' cannot be null!");
     }
 
     private PublicKeyProvider getRSProvider(String rsaPath) {

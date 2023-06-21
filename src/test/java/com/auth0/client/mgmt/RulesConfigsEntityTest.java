@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Map;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.hasHeader;
 import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
@@ -48,9 +49,9 @@ public class RulesConfigsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnDeleteRulesConfigWithNullKey() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'rules config key' cannot be null!");
-        api.rulesConfigs().delete(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.rulesConfigs().delete(null),
+            "'rules config key' cannot be null!");
     }
 
     @Test
@@ -69,16 +70,16 @@ public class RulesConfigsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnUpdateRulesConfigWithNullKey() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'rules config key' cannot be null!");
-        api.rulesConfigs().update(null, new RulesConfig("my-value"));
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.rulesConfigs().update(null, new RulesConfig("my-value")),
+            "'rules config key' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnUpdateRulesConfigWithNullData() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'rules config' cannot be null!");
-        api.rulesConfigs().update("1", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.rulesConfigs().update("1", null),
+            "'rules config' cannot be null!");
     }
 
     @Test

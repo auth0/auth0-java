@@ -13,14 +13,15 @@ import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static com.auth0.AssertsUtil.verifyThrows;
 
 public class BlacklistsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetBlacklistedTokensWithNullAudience() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'audience' cannot be null!");
-        api.blacklists().getBlacklist(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.blacklists().getBlacklist(null),
+            "'audience' cannot be null!");
     }
 
     @Test
@@ -55,9 +56,9 @@ public class BlacklistsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnBlacklistTokensWithNullToken() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'token' cannot be null!");
-        api.blacklists().blacklistToken(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.blacklists().blacklistToken(null),
+            "'token' cannot be null!");
     }
 
     @Test

@@ -29,6 +29,7 @@ import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.hamcrest.core.IsNull.nullValue;
+import static com.auth0.AssertsUtil.verifyThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -36,9 +37,9 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetJobWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'job id' cannot be null!");
-        api.jobs().get(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.jobs().get(null),
+            "'job id' cannot be null!");
     }
 
     @Test
@@ -59,9 +60,9 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetJobErrorDetailsWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'job id' cannot be null!");
-        api.jobs().getErrorDetails(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.jobs().getErrorDetails(null),
+            "'job id' cannot be null!");
     }
 
     @Test
@@ -102,9 +103,9 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
     @Test
     @SuppressWarnings("deprecation")
     public void shouldThrowOnRequestUsersExportWithNullConnectionId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'connection id' cannot be null!");
-        api.jobs().exportUsers(null, null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.jobs().exportUsers(null, null),
+            "'connection id' cannot be null!");
     }
 
     @Test
@@ -405,41 +406,41 @@ public class JobsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnSendUserVerificationEmailWithNullIdentityProvider() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'identity provider' cannot be null!");
-        api.jobs().sendVerificationEmail("google-oauth2|1234", null, new EmailVerificationIdentity(null, "user-id"));
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.jobs().sendVerificationEmail("google-oauth2|1234", null, new EmailVerificationIdentity(null, "user-id")),
+            "'identity provider' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnSendUserVerificationEmailWithNullIdentityUserId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'identity user id' cannot be null!");
-        api.jobs().sendVerificationEmail("google-oauth2|1234", null, new EmailVerificationIdentity("google-oauth2", null));
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.jobs().sendVerificationEmail("google-oauth2|1234", null, new EmailVerificationIdentity("google-oauth2", null)),
+            "'identity user id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnSendUserVerificationEmailWithNullIdentityProviderAndUserId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'identity provider' cannot be null!");
-        api.jobs().sendVerificationEmail("google-oauth2|1234", null, new EmailVerificationIdentity(null, null));
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.jobs().sendVerificationEmail("google-oauth2|1234", null, new EmailVerificationIdentity(null, null)),
+            "'identity provider' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnRequestUsersImportWithNullConnectionId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'connection id' cannot be null!");
         File usersFile = mock(File.class);
         when(usersFile.exists()).thenReturn(true);
         UsersImportOptions options = mock(UsersImportOptions.class);
-        api.jobs().importUsers(null, usersFile, options);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.jobs().importUsers(null, usersFile, options),
+            "'connection id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnRequestUsersImportWithNullUsersFile() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'users file' cannot be null!");
         UsersImportOptions options = mock(UsersImportOptions.class);
-        api.jobs().importUsers("con_123456789", null, options);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.jobs().importUsers("con_123456789", null, options),
+            "'users file' cannot be null!");
     }
 
     @Test

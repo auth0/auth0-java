@@ -13,6 +13,7 @@ import static com.auth0.client.RecordedRequestMatcher.hasHeader;
 import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static com.auth0.AssertsUtil.verifyThrows;
 
 @SuppressWarnings("RedundantThrows")
 public class EmailTemplatesEntityTest extends BaseMgmtEntityTest {
@@ -34,9 +35,9 @@ public class EmailTemplatesEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetEmailTemplateWithNullName() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'template name' cannot be null!");
-        api.emailTemplates().get(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.emailTemplates().get(null),
+            "'template name' cannot be null!");
     }
 
     @Test
@@ -76,9 +77,9 @@ public class EmailTemplatesEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnCreateEmailTemplateWithNullData() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'template' cannot be null!");
-        api.emailTemplates().create(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.emailTemplates().create(null),
+            "'template' cannot be null!");
     }
 
     @Test
@@ -114,15 +115,15 @@ public class EmailTemplatesEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnPatchEmailTemplateWithNullData() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'template' cannot be null!");
-        api.emailTemplates().update("welcome_email", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.emailTemplates().update("welcome_email", null),
+            "'template' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnPatchEmailTemplateWithNullName() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'template name' cannot be null!");
-        api.emailTemplates().update(null, new EmailTemplate());
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.emailTemplates().update(null, new EmailTemplate()),
+            "'template name' cannot be null!");
     }
 }

@@ -14,6 +14,7 @@ import static com.auth0.client.MockServer.bodyFromRequest;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static com.auth0.AssertsUtil.verifyThrows;
 
 public class EmailProviderEntityTest extends BaseMgmtEntityTest {
     @Test
@@ -53,9 +54,9 @@ public class EmailProviderEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnSetupEmailProviderWithNullData() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'email provider' cannot be null!");
-        api.emailProvider().setup(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.emailProvider().setup(null),
+            "'email provider' cannot be null!");
     }
 
     @Test
@@ -94,9 +95,9 @@ public class EmailProviderEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnUpdateEmailProviderWithNullData() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'email provider' cannot be null!");
-        api.emailProvider().update(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.emailProvider().update(null),
+            "'email provider' cannot be null!");
     }
 
     @Test

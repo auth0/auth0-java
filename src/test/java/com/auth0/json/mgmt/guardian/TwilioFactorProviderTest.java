@@ -2,28 +2,22 @@ package com.auth0.json.mgmt.guardian;
 
 import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static com.auth0.AssertsUtil.verifyThrows;
 
 public class TwilioFactorProviderTest extends JsonTest<TwilioFactorProvider> {
-
-    @SuppressWarnings("deprecation")
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     private static final String JSON_WITH_FROM = "{\"from\":\"+12356789\",\"auth_token\":\"atokEn\",\"sid\":\"id123\"}";
     private static final String JSON_WITH_MESSAGING_SERVICE_SID = "{\"messaging_service_sid\":\"id321\",\"auth_token\":\"atokEn\",\"sid\":\"id123\"}";
 
     @Test
     public void shouldFailConstructionWithBothFromAndMessagingServiceSID() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("You must specify either `from` or `messagingServiceSID`, but not both");
-
-        new TwilioFactorProvider("+12356789", "messaging_service_sid", "atokEn", "id123");
+        verifyThrows(IllegalArgumentException.class,
+            () -> new TwilioFactorProvider("+12356789", "messaging_service_sid", "atokEn", "id123"),
+            "You must specify either `from` or `messagingServiceSID`, but not both");
     }
 
     @SuppressWarnings("deprecation")

@@ -16,11 +16,12 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.greaterThan;
-import static org.junit.Assert.assertThrows;
+import static com.auth0.AssertsUtil.verifyThrows;
 
 public class RateLimitInterceptorTest {
 
@@ -193,7 +194,8 @@ public class RateLimitInterceptorTest {
             .url(server.url("/"))
             .build();
 
-        Auth0Exception e = assertThrows(Auth0Exception.class, () -> client.newCall(request).execute());
-        assertThat(e.getMessage(), is("Failed to execute request"));
+        Auth0Exception e = verifyThrows(Auth0Exception.class,
+            () -> client.newCall(request).execute(),
+            "Failed to execute request");
     }
 }

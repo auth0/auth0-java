@@ -13,21 +13,22 @@ import static com.auth0.client.RecordedRequestMatcher.hasHeader;
 import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static com.auth0.AssertsUtil.verifyThrows;
 
 public class KeysEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetWithIdNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'kid' cannot be null!");
-        api.keys().get(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.keys().get(null),
+            "'kid' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnRevokeWithIdNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'kid' cannot be null!");
-        api.keys().revoke(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.keys().revoke(null),
+            "'kid' cannot be null!");
     }
 
     @Test

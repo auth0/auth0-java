@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -100,9 +101,9 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetOrgWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("organization ID");
-        api.organizations().get(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().get(null),
+            "'organization ID' cannot be null!");
     }
 
     @Test
@@ -123,9 +124,9 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetOrgWithNullName() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("organization name");
-        api.organizations().getByName(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().getByName( null),
+            "'organization name' cannot be null!");
     }
 
     @Test
@@ -146,9 +147,9 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnCreateOrgWithNullOrg() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("organization");
-        api.organizations().create(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().create(null),
+            "'organization' cannot be null!");
     }
 
     @Test
@@ -199,16 +200,16 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnUpdateOrgWithNullOrgId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("organization ID");
-        api.organizations().update(null, new Organization());
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().update(null, new Organization()),
+            "'organization ID' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnUpdateOrgWithNullOrg() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("organization");
-        api.organizations().update("org_123", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().update("org_123", null),
+            "'organization' cannot be null!");
     }
 
     @Test
@@ -251,9 +252,9 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnDeleteOrgWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("organization ID");
-        api.organizations().delete(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().delete(null),
+            "'organization ID' cannot be null!");
     }
 
     @Test
@@ -274,9 +275,9 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetMembersWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("organization ID");
-        api.organizations().getMembers(null, null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().getMembers(null, null),
+            "'organization ID' cannot be null!");
     }
 
     @Test
@@ -357,16 +358,16 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnAddMembersWhenOrgIdNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("organization ID");
-        api.organizations().addMembers(null, new Members(Collections.singletonList("user1")));
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().addMembers(null, new Members(Collections.singletonList("user1"))),
+            "'organization ID' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnAddMembersWhenMembersIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("members");
-        api.organizations().addMembers("org_abc", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().addMembers("org_abc", null),
+            "'members' cannot be null!");
     }
 
     @Test
@@ -391,16 +392,16 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnDeleteMembersWhenOrgIdNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("organization ID");
-        api.organizations().deleteMembers(null, new Members(Collections.singletonList("user1")));
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().deleteMembers(null, new Members(Collections.singletonList("user1"))),
+            "'organization ID' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnDeleteMembersWhenMembersIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("members");
-        api.organizations().deleteMembers("org_abc", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().deleteMembers("org_abc", null),
+            "'members' cannot be null!");
     }
 
     @Test
@@ -427,9 +428,9 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetConnectionsWhenOrgIdNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("organization ID");
-        api.organizations().deleteMembers(null, null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().deleteMembers(null, null),
+            "'organization ID' cannot be null!");
     }
 
     @Test
@@ -490,16 +491,16 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetConnectionWhenOrgIdNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("organization ID");
-        api.organizations().getConnection(null, "con_id");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().getConnection(null, "con_id"),
+            "'organization ID' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnGetConnectionWhenConnectionIdNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("connection ID");
-        api.organizations().getConnection("org_abc", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().getConnection("org_abc",null),
+            "'connection ID' cannot be null!");
     }
 
     @Test
@@ -520,16 +521,16 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnAddConnectionWhenOrgIdNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("organization ID");
-        api.organizations().addConnection(null, new EnabledConnection());
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().addConnection(null, new EnabledConnection()),
+            "'organization ID' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnAddConnectionWhenConnectionIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("connection");
-        api.organizations().addConnection("org_abc", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().addConnection("org_abc", null),
+            "'connection' cannot be null!");
     }
 
     @Test
@@ -557,16 +558,16 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnDeleteConnectionWhenOrgIdNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("organization ID");
-        api.organizations().deleteConnection(null, "con_123");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().deleteConnection(null, "con_123"),
+            "'organization ID' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnDeleteConnectionWhenConnectionIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("connection");
-        api.organizations().deleteConnection("org_abc", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().deleteConnection("org_abc", null),
+            "'connection ID' cannot be null!");
     }
 
     @Test
@@ -585,23 +586,24 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnUpdateConnectionWhenOrgIdNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("organization ID");
-        api.organizations().updateConnection(null, "con_123", new EnabledConnection());
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().updateConnection(null, "con_123", new EnabledConnection()),
+            "'organization ID' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnUpdateConnectionWhenUserIdIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("connection");
-        api.organizations().updateConnection("org_abc", null, new EnabledConnection());
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().updateConnection("org_abc", null, new EnabledConnection()),
+            "'connection ID' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnUpdateConnectionWhenConnectionIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("connection");
-        api.organizations().updateConnection("org_abc", "con_123", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().updateConnection("org_abc", "con_123", null),
+            "'connection' cannot be null!");
+
     }
 
     @Test
@@ -629,16 +631,16 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetOrgRolesWhenOrgIdIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("organization ID");
-        api.organizations().getRoles(null, "user_123",null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().getRoles(null, "user_123", null),
+            "'organization ID' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnGetOrgRolesWhenUserIdIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("user ID");
-        api.organizations().getRoles("org_abc", null, null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().getRoles("org_abc", null, null),
+            "'user ID' cannot be null!");
     }
 
     @Test
@@ -697,23 +699,23 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnAddOrgRolesWhenOrgIdIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("organization ID");
-        api.organizations().addRoles(null, "user_123", new Roles(Collections.singletonList("role_id")));
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().addRoles(null, "user_123", new Roles(Collections.singletonList("role_id"))),
+            "'organization ID' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnAddOrgRolesWhenUserIdIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("user ID");
-        api.organizations().addRoles("org_abc", null, new Roles(Collections.singletonList("role_id")));
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().addRoles("org_abc", null, new Roles(Collections.singletonList("role_id"))),
+            "'user ID' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnAddOrgRolesWhenRolesIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("roles");
-        api.organizations().addRoles("org_abc", "user_123", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().addRoles("org_abc", "user_123", null),
+            "'roles' cannot be null!");
     }
 
     @Test
@@ -737,23 +739,24 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnDeleteOrgRolesWhenOrgIdIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("organization ID");
-        api.organizations().deleteRoles(null, "user_123", new Roles(Collections.singletonList("role_id")));
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().deleteRoles(null, "user_123", new Roles(Collections.singletonList("role_id"))),
+            "'organization ID' cannot be null!");
     }
 
     @Test
     public void shouldThrowDeleteOrgRolesWhenUserIdIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("user ID");
-        api.organizations().deleteRoles("org_abc", null, new Roles(Collections.singletonList("role_id")));
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().deleteRoles("org_abc", null, new Roles(Collections.singletonList("role_id"))),
+            "'user ID' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnDeleteOrgRolesWhenRolesIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("roles");
-        api.organizations().deleteRoles("org_abc", "user_123", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().deleteRoles("org_abc", "user_123", null),
+            "'roles' cannot be null!");
+
     }
 
     @Test
@@ -779,16 +782,16 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetInvitationWithNullOrgId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("organization ID");
-        api.organizations().getInvitation(null, "invitation_id", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().getInvitation(null, "invitation_id", null),
+            "'organization ID' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnGetInvitationWithNullInvitationId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("invitation ID");
-        api.organizations().getInvitation("org_id", null, null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().getInvitation("org_id", null, null),
+            "'invitation ID' cannot be null!");
     }
 
     @Test
@@ -828,9 +831,9 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetInvitationsWithNullOrgId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("organization ID");
-        api.organizations().getInvitations(null, null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().getInvitations(null, null),
+            "'organization ID' cannot be null!");
     }
 
     @Test
@@ -913,16 +916,16 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnCreateInvitationWithNullOrgId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("organization ID");
-        api.organizations().createInvitation(null, null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().createInvitation(null, null),
+            "'organization ID' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnCreateInvitationWithNullInvitation() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("invitation");
-        api.organizations().createInvitation("org_abc", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().createInvitation("org_abc", null),
+            "'invitation' cannot be null!");
     }
 
     @Test
@@ -957,16 +960,16 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnDeleteInvitationWithNullOrgId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("organization ID");
-        api.organizations().deleteInvitation(null, "inv_123");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().deleteInvitation(null, "inv_123"),
+            "'organization ID' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnDeleteInvitationWithNullInvitationId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("invitation ID");
-        api.organizations().deleteInvitation("org_abc", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().deleteInvitation("org_abc", null),
+            "'invitation ID' cannot be null!");
     }
 
     @Test

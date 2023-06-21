@@ -13,6 +13,7 @@ import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static com.auth0.AssertsUtil.verifyThrows;
 
 public class BrandingEntityTest extends BaseMgmtEntityTest {
     @Test
@@ -33,9 +34,9 @@ public class BrandingEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnUpdateBrandingSettingsWithNullSettings() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'settings' cannot be null!");
-        api.branding().updateBrandingSettings(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.branding().updateBrandingSettings(null),
+            "'settings' cannot be null!");
     }
 
     @Test
@@ -86,9 +87,9 @@ public class BrandingEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnSetUniversalLoginTemplateNullTemplate() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'template' cannot be null!");
-        api.branding().setUniversalLoginTemplate(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.branding().setUniversalLoginTemplate(null),
+            "'template' cannot be null!");
     }
 
     @Test

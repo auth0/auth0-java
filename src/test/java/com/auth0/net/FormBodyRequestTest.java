@@ -9,11 +9,9 @@ import com.auth0.net.client.DefaultHttpClient;
 import com.auth0.net.client.HttpMethod;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Rule;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -26,9 +24,6 @@ public class FormBodyRequestTest {
     private Auth0HttpClient client;
     private TokenProvider tokenProvider;
 
-    @SuppressWarnings("deprecation")
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
     private TypeReference<PushedAuthorizationResponse> pushedAuthorizationResponseTypeReference;
 
     @BeforeEach

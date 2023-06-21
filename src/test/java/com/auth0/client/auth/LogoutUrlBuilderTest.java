@@ -1,12 +1,11 @@
 package com.auth0.client.auth;
 
 import okhttp3.HttpUrl;
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
 
 import java.net.URLEncoder;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.UrlMatcher.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -18,22 +17,18 @@ public class LogoutUrlBuilderTest {
     private static final String CLIENT_ID = "clientId";
     private static final String RETURN_TO_URL = "https://domain.auth0.com/callback";
 
-    @SuppressWarnings("deprecation")
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-
     @Test
     public void shouldThrowWhenBaseUrlIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'base url' cannot be null!");
-        LogoutUrlBuilder.newInstance(null, CLIENT_ID, RETURN_TO_URL, true);
+        verifyThrows(IllegalArgumentException.class,
+            () -> LogoutUrlBuilder.newInstance(null, CLIENT_ID, RETURN_TO_URL, true),
+            "'base url' cannot be null!");
     }
 
     @Test
     public void shouldThrowWhenReturnToURLIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'return to url' cannot be null!");
-        LogoutUrlBuilder.newInstance(DOMAIN, CLIENT_ID, null, true);
+        verifyThrows(IllegalArgumentException.class,
+            () -> LogoutUrlBuilder.newInstance(DOMAIN, CLIENT_ID, null, true),
+            "'return to url' cannot be null!");
     }
 
     @Test

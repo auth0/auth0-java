@@ -12,6 +12,7 @@ import static com.auth0.client.MockServer.MGMT_GRANTS_PAGED_LIST;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static com.auth0.AssertsUtil.verifyThrows;
 
 public class GrantsEntityTest extends BaseMgmtEntityTest {
 
@@ -35,9 +36,9 @@ public class GrantsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnListGrantsWithoutFilterWithNullUserId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'user id' cannot be null!");
-        api.grants().list(null, null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.grants().list(null, null),
+            "'user id' cannot be null!");
     }
 
     @Test
@@ -110,9 +111,9 @@ public class GrantsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnDeleteGrantWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'grant id' cannot be null!");
-        api.grants().delete(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.grants().delete(null),
+            "'grant id' cannot be null!");
     }
 
     @Test
@@ -131,9 +132,9 @@ public class GrantsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnDeleteAllGrantsWithNullUserId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'user id' cannot be null!");
-        api.grants().deleteAll(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.grants().deleteAll(null),
+            "'user id' cannot be null!");
     }
 
     @Test

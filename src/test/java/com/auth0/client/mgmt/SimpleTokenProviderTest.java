@@ -4,16 +4,18 @@ import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.CompletableFuture;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThrows;
+import static com.auth0.AssertsUtil.verifyThrows;
 
 public class SimpleTokenProviderTest {
 
     @Test
     public void throwsWhenTokenNull() {
-        IllegalArgumentException iae = assertThrows(IllegalArgumentException.class, () -> SimpleTokenProvider.create(null));
-        assertThat(iae.getMessage(), is("'api token' cannot be null!"));
+        verifyThrows(IllegalArgumentException.class,
+            () -> SimpleTokenProvider.create(null),
+            "'api token' cannot be null!");
     }
 
     @Test
