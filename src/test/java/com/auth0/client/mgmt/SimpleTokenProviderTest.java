@@ -7,7 +7,6 @@ import java.util.concurrent.CompletableFuture;
 import static com.auth0.AssertsUtil.verifyThrows;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static com.auth0.AssertsUtil.verifyThrows;
 
 public class SimpleTokenProviderTest {
 

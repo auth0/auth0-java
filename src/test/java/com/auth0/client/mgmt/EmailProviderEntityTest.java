@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.MGMT_EMAIL_PROVIDER;
 import static com.auth0.client.MockServer.bodyFromRequest;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static com.auth0.AssertsUtil.verifyThrows;
 
 public class EmailProviderEntityTest extends BaseMgmtEntityTest {
     @Test

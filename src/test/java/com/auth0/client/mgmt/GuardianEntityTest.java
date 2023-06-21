@@ -10,12 +10,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.hasHeader;
 import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static com.auth0.AssertsUtil.verifyThrows;
 
 public class GuardianEntityTest extends BaseMgmtEntityTest {
 

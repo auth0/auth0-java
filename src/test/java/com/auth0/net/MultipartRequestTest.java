@@ -28,10 +28,10 @@ import java.nio.file.Files;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static com.auth0.AssertsUtil.verifyThrows;
 
 public class MultipartRequestTest {
     private MockServer server;

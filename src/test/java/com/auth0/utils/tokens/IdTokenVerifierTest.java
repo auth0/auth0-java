@@ -12,7 +12,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import static com.auth0.AssertsUtil.verifyThrows;
-import static com.auth0.AssertsUtil.verifyThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

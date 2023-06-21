@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Map;
 
-import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.MatcherAssert.assertThat;

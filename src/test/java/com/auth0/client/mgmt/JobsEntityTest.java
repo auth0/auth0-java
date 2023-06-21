@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.hasHeader;
 import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
@@ -29,7 +30,6 @@ import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.hamcrest.core.IsNull.nullValue;
-import static com.auth0.AssertsUtil.verifyThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

@@ -4,9 +4,9 @@ import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
 import org.junit.jupiter.api.Test;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static com.auth0.AssertsUtil.verifyThrows;
 
 public class TwilioFactorProviderTest extends JsonTest<TwilioFactorProvider> {
 

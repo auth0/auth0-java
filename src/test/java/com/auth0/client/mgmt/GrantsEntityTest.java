@@ -7,12 +7,12 @@ import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.jupiter.api.Test;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.MGMT_GRANTS_LIST;
 import static com.auth0.client.MockServer.MGMT_GRANTS_PAGED_LIST;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static com.auth0.AssertsUtil.verifyThrows;
 
 public class GrantsEntityTest extends BaseMgmtEntityTest {
 

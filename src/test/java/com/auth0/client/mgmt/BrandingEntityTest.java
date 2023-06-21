@@ -6,6 +6,7 @@ import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.jupiter.api.Test;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.MGMT_BRANDING_LOGIN_TEMPLATE;
 import static com.auth0.client.MockServer.MGMT_BRANDING_SETTINGS;
 import static com.auth0.client.RecordedRequestMatcher.hasHeader;
@@ -13,7 +14,6 @@ import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static com.auth0.AssertsUtil.verifyThrows;
 
 public class BrandingEntityTest extends BaseMgmtEntityTest {
     @Test
