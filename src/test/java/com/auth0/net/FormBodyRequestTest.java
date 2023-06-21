@@ -2,7 +2,6 @@ package com.auth0.net;
 
 import com.auth0.client.MockServer;
 import com.auth0.client.mgmt.TokenProvider;
-import com.auth0.exception.Auth0Exception;
 import com.auth0.json.auth.PushedAuthorizationResponse;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.DefaultHttpClient;

@@ -14,14 +14,11 @@ import com.auth0.net.client.HttpMethod;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Rule;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
 
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -50,10 +47,6 @@ public class AuthAPITest {
     private MockServer server;
     private AuthAPI api;
     private AuthAPI apiNoClientAuthentication;
-
-    @SuppressWarnings("deprecation")
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     @BeforeEach
     public void setUp() throws Exception {

@@ -5,13 +5,10 @@ import com.auth0.exception.Auth0Exception;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.Auth0HttpRequest;
 import com.auth0.net.client.Auth0HttpResponse;
-import org.junit.Rule;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
 
-import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
 import static com.auth0.AssertsUtil.verifyThrows;
@@ -27,10 +24,6 @@ public class ManagementAPITest {
 
     private MockServer server;
     private ManagementAPI api;
-
-    @SuppressWarnings("deprecation")
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     @BeforeEach
     public void setUp() throws Exception {
