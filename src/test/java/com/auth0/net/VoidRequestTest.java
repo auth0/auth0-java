@@ -27,7 +27,7 @@ public class VoidRequestTest {
         server = new MockServer();
         tokenProvider = new TokenProvider() {
             @Override
-            public String getToken() throws Auth0Exception {
+            public String getToken() {
                 return "Bearer xyz";
             }
 

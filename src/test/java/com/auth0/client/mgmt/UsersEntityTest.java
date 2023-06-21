@@ -1084,7 +1084,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldGetUserAuthenticationMethodsWithNullId() throws Exception {
+    public void shouldGetUserAuthenticationMethodsWithNullId() {
         verifyThrows(IllegalArgumentException.class,
             () -> api.users().getAuthenticationMethods(null, null),
             "'user ID' cannot be null!");
@@ -1150,14 +1150,14 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldUpdateUserAuthenticationMethodsWithNullId() throws Exception {
+    public void shouldUpdateUserAuthenticationMethodsWithNullId() {
         verifyThrows(IllegalArgumentException.class,
             () -> api.users().updateAuthenticationMethods(null, new ArrayList<>()),
             "'user ID' cannot be null!");
     }
 
     @Test
-    public void shouldUpdateUserAuthenticationMethodsWithAuthenticatorMethodsNull() throws Exception {
+    public void shouldUpdateUserAuthenticationMethodsWithAuthenticatorMethodsNull() {
         verifyThrows(IllegalArgumentException.class,
             () -> api.users().updateAuthenticationMethods("1", null),
             "'authentication methods' cannot be null!");
@@ -1184,14 +1184,14 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldNotCreateUserAuthenticationMethodsWithNullId() throws Exception {
+    public void shouldNotCreateUserAuthenticationMethodsWithNullId() {
         verifyThrows(IllegalArgumentException.class,
             () -> api.users().createAuthenticationMethods(null, new AuthenticationMethod()),
             "'user ID' cannot be null!");
     }
 
     @Test
-    public void shouldNotCreateUserAuthenticationMethodsWithAuthenticatorMethodsNull() throws Exception {
+    public void shouldNotCreateUserAuthenticationMethodsWithAuthenticatorMethodsNull() {
         verifyThrows(IllegalArgumentException.class,
             () -> api.users().createAuthenticationMethods("1", null),
             "'authentication methods' cannot be null!");
@@ -1215,14 +1215,14 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldNotGetUserAuthenticationMethodsByIdWithNullId() throws Exception {
+    public void shouldNotGetUserAuthenticationMethodsByIdWithNullId() {
         verifyThrows(IllegalArgumentException.class,
             () -> api.users().getAuthenticationMethodById(null, "1"),
             "'user ID' cannot be null!");
     }
 
     @Test
-    public void shouldNotGetUserAuthenticationMethodsByIdWithAuthenticatorMethodIdNull() throws Exception {
+    public void shouldNotGetUserAuthenticationMethodsByIdWithAuthenticatorMethodIdNull() {
         verifyThrows(IllegalArgumentException.class,
             () -> api.users().getAuthenticationMethodById("1", null),
             "'authentication method ID' cannot be null!");
@@ -1245,21 +1245,21 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldNotUpdateUserAuthenticationMethodsByIdWithNullId() throws Exception {
+    public void shouldNotUpdateUserAuthenticationMethodsByIdWithNullId() {
         verifyThrows(IllegalArgumentException.class,
             () -> api.users().updateAuthenticationMethodById(null, "1", new AuthenticationMethod()),
             "'user ID' cannot be null!");
     }
 
     @Test
-    public void shouldNotUpdateUserAuthenticationMethodsByIdWithAuthenticatorMethodIdNull() throws Exception {
+    public void shouldNotUpdateUserAuthenticationMethodsByIdWithAuthenticatorMethodIdNull() {
         verifyThrows(IllegalArgumentException.class,
             () -> api.users().updateAuthenticationMethodById("1", null, new AuthenticationMethod()),
             "'authentication method ID' cannot be null!");
     }
 
     @Test
-    public void shouldNotUpdateUserAuthenticationMethodsByIdWithAuthenticatorMethodNull() throws Exception {
+    public void shouldNotUpdateUserAuthenticationMethodsByIdWithAuthenticatorMethodNull() {
         verifyThrows(IllegalArgumentException.class,
             () -> api.users().updateAuthenticationMethodById("1", "1", null),
             "'authentication method' cannot be null!");
@@ -1282,14 +1282,14 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldNotDeleteUserAuthenticationMethodsByIdWithNullId() throws Exception {
+    public void shouldNotDeleteUserAuthenticationMethodsByIdWithNullId() {
         verifyThrows(IllegalArgumentException.class,
             () -> api.users().deleteAuthenticationMethodById(null, "1"),
             "'user ID' cannot be null!");
     }
 
     @Test
-    public void shouldNotDeleteUserAuthenticationMethodsByIdWithAuthenticatorMethodIdNull() throws Exception {
+    public void shouldNotDeleteUserAuthenticationMethodsByIdWithAuthenticatorMethodIdNull() {
         verifyThrows(IllegalArgumentException.class,
             () -> api.users().deleteAuthenticationMethodById("1", null),
             "'authentication method ID' cannot be null!");

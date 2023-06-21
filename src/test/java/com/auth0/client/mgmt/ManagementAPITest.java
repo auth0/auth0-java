@@ -64,7 +64,7 @@ public class ManagementAPITest {
     public void shouldCreateWithHttpClient() {
         Auth0HttpClient httpClient = new Auth0HttpClient() {
             @Override
-            public Auth0HttpResponse sendRequest(Auth0HttpRequest request) throws IOException {
+            public Auth0HttpResponse sendRequest(Auth0HttpRequest request) {
                 return null;
             }
 

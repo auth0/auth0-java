@@ -61,7 +61,7 @@ public class BaseRequestTest {
         };
         tokenProvider = new TokenProvider() {
             @Override
-            public String getToken() throws Auth0Exception {
+            public String getToken() {
                 return "xyz";
             }
             @Override
@@ -99,12 +99,12 @@ public class BaseRequestTest {
             }
 
             @Override
-            protected Auth0HttpRequest createRequest(String apiToken) throws Auth0Exception {
+            protected Auth0HttpRequest createRequest(String apiToken) {
                 return null;
             }
 
             @Override
-            protected String parseResponseBody(Auth0HttpResponse response) throws Auth0Exception {
+            protected String parseResponseBody(Auth0HttpResponse response) {
                 return null;
             }
         };
@@ -114,7 +114,7 @@ public class BaseRequestTest {
     }
 
     @Test
-    public void asyncHandlesIOExceptionWhenCreatingRequest() throws Exception {
+    public void asyncHandlesIOExceptionWhenCreatingRequest() {
         DefaultHttpClient client = DefaultHttpClient.newBuilder().build();
 
         BaseRequest<String> req = new BaseRequest<String>(client, tokenProvider, "", HttpMethod.GET, new TypeReference<String>() {
@@ -140,7 +140,7 @@ public class BaseRequestTest {
             }
 
             @Override
-            protected String parseResponseBody(Auth0HttpResponse response) throws Auth0Exception {
+            protected String parseResponseBody(Auth0HttpResponse response) {
                 return null;
             }
         };

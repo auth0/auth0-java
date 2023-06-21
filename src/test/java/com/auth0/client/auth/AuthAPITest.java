@@ -80,7 +80,7 @@ public class AuthAPITest {
     public void shouldAcceptHttpClient() {
         Auth0HttpClient httpClient = new Auth0HttpClient() {
             @Override
-            public Auth0HttpResponse sendRequest(Auth0HttpRequest request) throws IOException {
+            public Auth0HttpResponse sendRequest(Auth0HttpRequest request) {
                 return null;
             }
 
@@ -561,7 +561,7 @@ public class AuthAPITest {
     }
 
     @Test
-    public void authorizationCodeGrantRequestRequiresClientAuthentication() throws Exception {
+    public void authorizationCodeGrantRequestRequiresClientAuthentication() {
         verifyThrows(IllegalStateException.class,
             () -> apiNoClientAuthentication.exchangeCode("code", "https://domain.auth0.com/callback"),
             "A client secret or client assertion signing key is required for this operation");
@@ -1402,7 +1402,7 @@ public class AuthAPITest {
     }
 
     @Test
-    public void addOtpAuthenticatorThrowsWhenTokenNull() throws Exception {
+    public void addOtpAuthenticatorThrowsWhenTokenNull() {
         verifyThrows(IllegalArgumentException.class,
             () -> api.addOtpAuthenticator(null),
             "'mfa token' cannot be null!");
@@ -1430,14 +1430,14 @@ public class AuthAPITest {
     }
 
     @Test
-    public void addOobAuthenticatorThrowsWhenTokenNull() throws Exception {
+    public void addOobAuthenticatorThrowsWhenTokenNull() {
         verifyThrows(IllegalArgumentException.class,
             () -> api.addOobAuthenticator(null, Collections.singletonList("otp"), null),
             "'mfa token' cannot be null!");
     }
 
     @Test
-    public void addOobAuthenticatorThrowsWhenChannelsNull() throws Exception {
+    public void addOobAuthenticatorThrowsWhenChannelsNull() {
         verifyThrows(IllegalArgumentException.class,
             () -> api.addOobAuthenticator("mfaToken", null, null),
             "'OOB channels' cannot be null!");

@@ -34,7 +34,7 @@ public class FormBodyRequestTest {
         };
         tokenProvider = new TokenProvider() {
             @Override
-            public String getToken() throws Auth0Exception {
+            public String getToken() {
                 return "xyz";
             }
 

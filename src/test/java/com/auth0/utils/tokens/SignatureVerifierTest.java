@@ -59,7 +59,7 @@ public class SignatureVerifierTest {
     }
 
     @Test
-    public void failsWhenAlgorithmHS256IsNotExpected() throws Exception {
+    public void failsWhenAlgorithmHS256IsNotExpected() {
         IdTokenValidationException e = verifyThrows(IdTokenValidationException.class,
             () -> SignatureVerifier.forHS256("secret")
                 .verifySignature(RS_JWT),
@@ -92,7 +92,7 @@ public class SignatureVerifierTest {
     }
 
     @Test
-    public void succeedsWithValidSignatureRS256Token() throws Exception {
+    public void succeedsWithValidSignatureRS256Token() {
         SignatureVerifier verifier = SignatureVerifier.forRS256(getRSProvider(RS_PUBLIC_KEY));
         DecodedJWT decodedJWT = verifier.verifySignature(RS_JWT);
 
@@ -100,7 +100,7 @@ public class SignatureVerifierTest {
     }
 
     @Test
-    public void failsWithInvalidSignatureRS256Token() throws Exception {
+    public void failsWithInvalidSignatureRS256Token() {
         verifyThrows(IdTokenValidationException.class,
             () -> SignatureVerifier
                     .forRS256(getRSProvider(RS_PUBLIC_KEY_BAD))
