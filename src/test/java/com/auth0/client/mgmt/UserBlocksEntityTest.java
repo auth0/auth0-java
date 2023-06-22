@@ -4,8 +4,9 @@ import com.auth0.json.mgmt.userblocks.UserBlocks;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.MGMT_USER_BLOCKS;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -16,9 +17,9 @@ public class UserBlocksEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetUserBlocksByIdentifierWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'identifier' cannot be null!");
-        api.userBlocks().getByIdentifier(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.userBlocks().getByIdentifier(null),
+            "'identifier' cannot be null!");
     }
 
     @Test
@@ -40,9 +41,9 @@ public class UserBlocksEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetUserBlocksWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'user id' cannot be null!");
-        api.userBlocks().get(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.userBlocks().get(null),
+            "'user id' cannot be null!");
     }
 
     @Test
@@ -63,9 +64,9 @@ public class UserBlocksEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnDeleteUserBlocksByIdentifierWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'identifier' cannot be null!");
-        api.userBlocks().deleteByIdentifier(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.userBlocks().deleteByIdentifier(null),
+            "'identifier' cannot be null!");
     }
 
     @Test
@@ -85,9 +86,9 @@ public class UserBlocksEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnDeleteUserBlocksWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'user id' cannot be null!");
-        api.userBlocks().delete(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.userBlocks().delete(null),
+            "'user id' cannot be null!");
     }
 
     @Test

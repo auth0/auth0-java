@@ -6,13 +6,14 @@ import com.auth0.json.mgmt.logstreams.LogStreamFilter;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.hasHeader;
 import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
@@ -159,37 +160,37 @@ public class LogStreamsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetLogStreamWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'log stream id' cannot be null!");
-        api.logStreams().get(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.logStreams().get(null),
+            "'log stream id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnDeleteLogStreamWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'log stream id' cannot be null!");
-        api.logStreams().delete(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.logStreams().delete(null),
+            "'log stream id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnUpdateLogStreamWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'log stream id' cannot be null!");
-        api.logStreams().update(null, new LogStream());
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.logStreams().update(null, new LogStream()),
+            "'log stream id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnUpdateLogStreamWithNullLogStream() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'log stream' cannot be null!");
-        api.logStreams().update("123", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.logStreams().update("123", null),
+            "'log stream' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnCreateLogStreamWithNullLogStream() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'log stream' cannot be null!");
-        api.logStreams().create(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.logStreams().create(null),
+            "'log stream' cannot be null!");
     }
 
     private LogStream getLogStream(String name, String type) {

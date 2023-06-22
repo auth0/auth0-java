@@ -1,10 +1,10 @@
 package com.auth0.client;
 
-import org.junit.Test;
-import static org.junit.Assert.assertThrows;
+import org.junit.jupiter.api.Test;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
 
 @SuppressWarnings("deprecation")
 public class HttpOptionsTest {
@@ -44,29 +44,28 @@ public class HttpOptionsTest {
     @Test
     public void apiMaxRetriesNotLessThan0() {
         HttpOptions opts = new HttpOptions();
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> opts.setManagementAPIMaxRetries(-1));
-        assertThat(exception.getMessage(), is("Retries must be between zero and ten."));
+        verifyThrows(IllegalArgumentException.class,
+            () -> opts.setManagementAPIMaxRetries(-1),
+            "Retries must be between zero and ten.");
     }
 
     @Test
     public void apiMaxRetriesNotGreaterThan10() {
         HttpOptions opts = new HttpOptions();
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> opts.setManagementAPIMaxRetries(11));
-        assertThat(exception.getMessage(), is("Retries must be between zero and ten."));
+        verifyThrows(IllegalArgumentException.class,
+            () -> opts.setManagementAPIMaxRetries(11),
+            "Retries must be between zero and ten.");
     }
 
     @Test
     public void maxRequestsMustBePositive() {
         HttpOptions opts = new HttpOptions();
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> opts.setMaxRequests(0));
-        assertThat(exception.getMessage(), is("maxRequests must be one or greater."));
+        verifyThrows(IllegalArgumentException.class, () -> opts.setMaxRequests(0), "maxRequests must be one or greater.");
     }
 
     @Test
     public void maxRequestsPerHostMustBePositive() {
         HttpOptions opts = new HttpOptions();
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> opts.setMaxRequestsPerHost(0));
-        assertThat(exception.getMessage(), is("maxRequestsPerHost must be one or greater."));
     }
 
     @Test

@@ -5,8 +5,9 @@ import com.auth0.json.mgmt.tenants.Tenant;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.MGMT_TENANT;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -52,9 +53,9 @@ public class TenantsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnUpdateTenantSettingsWithNullData() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'tenant' cannot be null!");
-        api.tenants().update(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.tenants().update(null),
+            "'tenant' cannot be null!");
     }
 
     @Test

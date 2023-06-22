@@ -3,7 +3,7 @@ package com.auth0.json.mgmt;
 import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
 import com.auth0.json.mgmt.grants.Grant;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 

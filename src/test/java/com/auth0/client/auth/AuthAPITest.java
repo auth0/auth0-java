@@ -3,7 +3,10 @@ package com.auth0.client.auth;
 import com.auth0.client.MockServer;
 import com.auth0.exception.APIException;
 import com.auth0.json.auth.*;
-import com.auth0.net.*;
+import com.auth0.net.BaseRequest;
+import com.auth0.net.Request;
+import com.auth0.net.SignUpRequest;
+import com.auth0.net.TokenRequest;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.Auth0HttpRequest;
 import com.auth0.net.client.Auth0HttpResponse;
@@ -11,21 +14,18 @@ import com.auth0.net.client.HttpMethod;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import static org.junit.Assert.assertThrows;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.hasHeader;
 import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
@@ -48,19 +48,14 @@ public class AuthAPITest {
     private AuthAPI api;
     private AuthAPI apiNoClientAuthentication;
 
-
-    @SuppressWarnings("deprecation")
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         server = new MockServer();
         api = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID, CLIENT_SECRET).build();
         apiNoClientAuthentication = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         server.stop();
     }
@@ -78,7 +73,7 @@ public class AuthAPITest {
     public void shouldAcceptHttpClient() {
         Auth0HttpClient httpClient = new Auth0HttpClient() {
             @Override
-            public Auth0HttpResponse sendRequest(Auth0HttpRequest request) throws IOException {
+            public Auth0HttpResponse sendRequest(Auth0HttpRequest request) {
                 return null;
             }
 
@@ -114,23 +109,23 @@ public class AuthAPITest {
 
     @Test
     public void shouldThrowWhenDomainIsInvalid() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("The domain had an invalid format and couldn't be parsed as an URL.");
-        AuthAPI.newBuilder("", CLIENT_ID, CLIENT_SECRET).build();
+        verifyThrows(IllegalArgumentException.class,
+            () -> AuthAPI.newBuilder("", CLIENT_ID, CLIENT_SECRET).build(),
+            "The domain had an invalid format and couldn't be parsed as an URL.");
     }
 
     @Test
     public void shouldThrowWhenDomainIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'domain' cannot be null!");
-        AuthAPI.newBuilder(null, CLIENT_ID, CLIENT_SECRET).build();
+        verifyThrows(IllegalArgumentException.class,
+            () -> AuthAPI.newBuilder(null, CLIENT_ID, CLIENT_SECRET).build(),
+            "'domain' cannot be null!");
     }
 
     @Test
     public void shouldThrowWhenClientIdIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'client id' cannot be null!");
-        AuthAPI.newBuilder(DOMAIN, null, CLIENT_SECRET).build();
+        verifyThrows(IllegalArgumentException.class,
+            () -> AuthAPI.newBuilder(DOMAIN, null, CLIENT_SECRET).build(),
+            "'client id' cannot be null!");
     }
 
     @Test
@@ -142,27 +137,26 @@ public class AuthAPITest {
     @Test
     @SuppressWarnings("deprecation")
     public void shouldThrowOnInValidMaxRequestsPerHostConfiguration() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("maxRequestsPerHost must be one or greater.");
-
         com.auth0.client.HttpOptions options = new com.auth0.client.HttpOptions();
-        options.setMaxRequestsPerHost(0);
+        verifyThrows(IllegalArgumentException.class,
+            () -> options.setMaxRequestsPerHost(0),
+            "maxRequestsPerHost must be one or greater.");
     }
 
     //Authorize
 
     @Test
     public void shouldThrowWhenAuthorizeUrlBuilderRedirectUriIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'redirect uri' must be a valid URL!");
-        api.authorizeUrl(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.authorizeUrl(null),
+            "'redirect uri' must be a valid URL!");
     }
 
     @Test
     public void shouldThrowWhenAuthorizeUrlBuilderRedirectUriIsNotValidURL() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'redirect uri' must be a valid URL!");
-        api.authorizeUrl("notvalid.url");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.authorizeUrl("notvalid.url"),
+            "'redirect uri' must be a valid URL!");
     }
 
     @Test
@@ -188,16 +182,16 @@ public class AuthAPITest {
 
     @Test
     public void shouldThrowWhenLogoutUrlBuilderReturnToUrlIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'return to url' must be a valid URL!");
-        api.logoutUrl(null, true);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.logoutUrl(null, true),
+            "'return to url' must be a valid URL!");
     }
 
     @Test
     public void shouldThrowWhenLogoutUrlBuilderRedirectUriIsNotValidURL() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'return to url' must be a valid URL!");
-        api.logoutUrl("notvalid.url", true);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.logoutUrl("notvalid.url", true),
+            "'return to url' must be a valid URL!");
     }
 
     @Test
@@ -231,9 +225,9 @@ public class AuthAPITest {
 
     @Test
     public void shouldThrowOnUserInfoWithNullAccessToken() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'access token' cannot be null!");
-        api.userInfo(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.userInfo(null),
+            "'access token' cannot be null!");
     }
 
     @Test
@@ -275,16 +269,16 @@ public class AuthAPITest {
 
     @Test
     public void shouldThrowOnResetPasswordWithNullEmail() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'email' cannot be null!");
-        api.resetPassword(null, "my-connection");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.resetPassword(null, "my-connection"),
+            "'email' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnResetPasswordWithNullConnection() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'connection' cannot be null!");
-        api.resetPassword("me@auth0.com", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.resetPassword("me@auth0.com", null),
+            "'connection' cannot be null!");
     }
 
     @Test
@@ -334,71 +328,71 @@ public class AuthAPITest {
     @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnSignUpWithNullEmail() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'email' cannot be null!");
-        api.signUp(null, "p455w0rd", "my-connection");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.signUp(null, "p455w0rd", "my-connection"),
+            "'email' cannot be null!");
     }
 
     @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnSignUpWithNullPasswordString() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'password' cannot be null!");
-        api.signUp("me@auth0.com", (String) null, "my-connection");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.signUp("me@auth0.com", (String) null, "my-connection"),
+            "'password' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnSignUpWithNullPasswordCharArray() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'password' cannot be null!");
-        api.signUp("me@auth0.com", (char[]) null, "my-connection");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.signUp("me@auth0.com", (char[]) null, "my-connection"),
+            "'password' cannot be null!");
     }
 
     @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnSignUpWithNullConnection() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'connection' cannot be null!");
-        api.signUp("me@auth0.com", "p455w0rd", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.signUp("me@auth0.com", "p455w0rd", null),
+            "'connection' cannot be null!");
     }
 
     @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnUsernameSignUpWithNullEmail() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'email' cannot be null!");
-        api.signUp(null, "me", "p455w0rd", "my-connection");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.signUp(null, "me", "p455w0rd", "my-connection"),
+            "'email' cannot be null!");
     }
 
     @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnUsernameSignUpWithNullUsername() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'username' cannot be null!");
-        api.signUp("me@auth0.com", null, "p455w0rd", "my-connection");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.signUp("me@auth0.com", null, "p455w0rd", "my-connection"),
+            "'username' cannot be null!");
     }
 
     @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnUsernameSignUpWithNullPasswordString() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'password' cannot be null!");
-        api.signUp("me@auth0.com", "me", (String) null, "my-connection");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.signUp("me@auth0.com", "me", (String) null, "my-connection"),
+            "'password' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnUsernameSignUpWithNullPasswordCharArray() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'password' cannot be null!");
-        api.signUp("me@auth0.com", "me", (char[]) null, "my-connection");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.signUp("me@auth0.com", "me", (char[]) null, "my-connection"),
+            "'password' cannot be null!");
     }
 
     @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnUsernameSignUpWithNullConnection() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'connection' cannot be null!");
-        api.signUp("me@auth0.com", "me", "p455w0rd", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.signUp("me@auth0.com", "me", "p455w0rd", null),
+            "'connection' cannot be null!");
     }
 
     @Test
@@ -520,16 +514,16 @@ public class AuthAPITest {
 
     @Test
     public void shouldThrowOnLogInWithAuthorizationCodeGrantAndRedirectUriWithNullCode() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'code' cannot be null!");
-        api.exchangeCode(null, "https://domain.auth0.com/callback");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.exchangeCode(null, "https://domain.auth0.com/callback"),
+            "'code' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnLogInWithAuthorizationCodeGrantAndRedirectUriWithNullRedirectUri() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'redirect uri' cannot be null!");
-        api.exchangeCode("code", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.exchangeCode("code", null),
+            "'redirect uri' cannot be null!");
     }
 
     @Test
@@ -560,9 +554,10 @@ public class AuthAPITest {
     }
 
     @Test
-    public void authorizationCodeGrantRequestRequiresClientAuthentication() throws Exception {
-        IllegalStateException e = assertThrows(IllegalStateException.class, () -> apiNoClientAuthentication.exchangeCode("code", "https://domain.auth0.com/callback"));
-        assertThat(e.getMessage(), is("A client secret or client assertion signing key is required for this operation"));
+    public void authorizationCodeGrantRequestRequiresClientAuthentication() {
+        verifyThrows(IllegalStateException.class,
+            () -> apiNoClientAuthentication.exchangeCode("code", "https://domain.auth0.com/callback"),
+            "A client secret or client assertion signing key is required for this operation");
     }
 
     @Test
@@ -604,24 +599,24 @@ public class AuthAPITest {
     @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnLogInWithPasswordWithNullUsername() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'email or username' cannot be null!");
-        api.login(null, "p455w0rd");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.login(null, "p455w0rd"),
+            "'email or username' cannot be null!");
     }
 
     @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnLogInWithPasswordWithNullPassword() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'password' cannot be null!");
-        api.login("me", (String) null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.login("me", (String) null),
+            "'password' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnLogInWithCharPasswordWithNullPassword() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'password' cannot be null!");
-        api.login("me", (char[]) null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.login("me", (char[]) null),
+            "'password' cannot be null!");
     }
 
     @Test
@@ -653,10 +648,11 @@ public class AuthAPITest {
     }
 
     @Test
+    @SuppressWarnings("deprecation")
     public void passwordGrantRequestRequiresClientAuthentication() {
-        @SuppressWarnings("deprecation")
-        IllegalStateException e = assertThrows(IllegalStateException.class, () -> apiNoClientAuthentication.login("me", "p455w0rd"));
-        assertThat(e.getMessage(), is("A client secret or client assertion signing key is required for this operation"));
+        verifyThrows(IllegalStateException.class,
+            () -> apiNoClientAuthentication.login("me", "p455w0rd"),
+            "A client secret or client assertion signing key is required for this operation");
     }
 
     @Test
@@ -726,32 +722,32 @@ public class AuthAPITest {
     @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnLogInWithPasswordRealmWithNullUsername() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'email or username' cannot be null!");
-        api.login(null, "p455w0rd", "realm");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.login(null, "p455w0rd", "realm"),
+            "'email or username' cannot be null!");
     }
 
     @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnLogInWithPasswordRealmWithNullPasswordString() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'password' cannot be null!");
-        api.login("me", (String) null, "realm");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.login("me", (String) null, "realm"),
+            "'password' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnLogInWithPasswordRealmWithNullPasswordCharArray() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'password' cannot be null!");
-        api.login("me", (char[]) null, "realm");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.login("me", (char[]) null, "realm"),
+            "'password' cannot be null!");
     }
 
     @SuppressWarnings("deprecation")
     @Test
     public void shouldThrowOnLogInWithPasswordRealmWithNullRealm() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'realm' cannot be null!");
-        api.login("me", "p455w0rd", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.login("me", "p455w0rd", null),
+            "'realm' cannot be null!");
     }
 
     @Test
@@ -784,10 +780,11 @@ public class AuthAPITest {
     }
 
     @Test
+    @SuppressWarnings("deprecation")
     public void passwordRealmGrantRequestRequiresClientAuthentication()  {
-        @SuppressWarnings("deprecation")
-        IllegalStateException e = assertThrows(IllegalStateException.class, () -> apiNoClientAuthentication.login("me", "p455w0rd", "realm"));
-        assertThat(e.getMessage(), is("A client secret or client assertion signing key is required for this operation"));
+        verifyThrows(IllegalStateException.class,
+            () -> apiNoClientAuthentication.login("me", "p455w0rd", "realm"),
+            "A client secret or client assertion signing key is required for this operation");
     }
 
     @Test
@@ -829,9 +826,9 @@ public class AuthAPITest {
 
     @Test
     public void shouldThrowOnLogInWithClientCredentialsWithNullAudience() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'audience' cannot be null!");
-        api.requestToken(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.requestToken(null),
+            "'audience' cannot be null!");
     }
 
     @Test
@@ -862,8 +859,9 @@ public class AuthAPITest {
 
     @Test
     public void clientCredentialsGrantRequestRequiresClientAuthentication() {
-        IllegalStateException e = assertThrows(IllegalStateException.class, () -> apiNoClientAuthentication.requestToken("https://myapi.auth0.com/users"));
-        assertThat(e.getMessage(), is("A client secret or client assertion signing key is required for this operation"));
+        verifyThrows(IllegalStateException.class,
+            () -> apiNoClientAuthentication.requestToken("https://myapi.auth0.com/users"),
+            "A client secret or client assertion signing key is required for this operation");
     }
 
     // Login with Passwordless
@@ -912,16 +910,16 @@ public class AuthAPITest {
 
     @Test
     public void startPasswordlessEmailFlowShouldThrowWhenEmailIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'email' cannot be null!");
-        Request<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow(null, PasswordlessEmailType.CODE);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.startPasswordlessEmailFlow(null, PasswordlessEmailType.CODE),
+            "'email' cannot be null!");
     }
 
     @Test
     public void startPasswordlessEmailFlowShouldThrowWhenTypeIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'type' cannot be null!");
-        Request<PasswordlessEmailResponse> request = api.startPasswordlessEmailFlow("user@domain.com", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.startPasswordlessEmailFlow("user@domain.com", null),
+            "'type' cannot be null!");
     }
 
     @Test
@@ -1033,9 +1031,9 @@ public class AuthAPITest {
 
     @Test
     public void startPasswordlessSmsFlowShouldThrowWhenPhoneIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'phoneNumber' cannot be null!");
-        api.startPasswordlessSmsFlow(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.startPasswordlessSmsFlow(null),
+            "'phoneNumber' cannot be null!");
     }
 
     @Test
@@ -1085,9 +1083,9 @@ public class AuthAPITest {
 
     @Test
     public void shouldThrowOnRevokeTokenWithNullToken() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'refresh token' cannot be null!");
-        api.revokeToken(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.revokeToken(null),
+            "'refresh token' cannot be null!");
     }
 
     @Test
@@ -1131,9 +1129,9 @@ public class AuthAPITest {
 
     @Test
     public void shouldThrowOnRenewAuthWithNullRefreshToken() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'refresh token' cannot be null!");
-        api.renewAuth(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.renewAuth(null),
+            "'refresh token' cannot be null!");
     }
 
     @Test
@@ -1210,25 +1208,25 @@ public class AuthAPITest {
 
     @Test
     public void shouldThrowWhenVerifierNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'verifier' cannot be null!");
-        api.exchangeCodeWithVerifier("code", null,"https://domain.auth0.com/callback");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.exchangeCodeWithVerifier("code", null,"https://domain.auth0.com/callback"),
+            "'verifier' cannot be null!");
     }
 
     // MFA
 
     @Test
     public void shouldThrowWhenExchangeMfaOtpCalledWithNullMfaToken() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'mfa token' cannot be null!");
-        api.exchangeMfaOtp(null, new char[]{'o','t','p'});
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.exchangeMfaOtp(null, new char[]{'o','t','p'}),
+            "'mfa token' cannot be null!");
     }
 
     @Test
     public void shouldThrowWhenExchangeMfaOtpCalledWithNullOtp() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'otp' cannot be null!");
-        api.exchangeMfaOtp("mfaToken", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.exchangeMfaOtp("mfaToken", null),
+            "'otp' cannot be null!");
     }
 
     @Test
@@ -1276,16 +1274,16 @@ public class AuthAPITest {
 
     @Test
     public void shouldThrowWhenExchangeMfaOobCalledWithNullMfaToken() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'mfa token' cannot be null!");
-        api.exchangeMfaOob(null, new char[]{'o','t','p'}, null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.exchangeMfaOob(null, new char[]{'o','t','p'}, null),
+            "'mfa token' cannot be null!");
     }
 
     @Test
     public void shouldThrowWhenExchangeMfaOobCalledWithNullOoob() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'OOB code' cannot be null!");
-        api.exchangeMfaOob("mfaToken", null, null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.exchangeMfaOob("mfaToken", null, null),
+            "'OOB code' cannot be null!");
     }
 
     @Test
@@ -1340,16 +1338,16 @@ public class AuthAPITest {
 
     @Test
     public void shouldThrowWhenExchangeMfaRecoveryCodeCalledWithNullMfaToken() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'mfa token' cannot be null!");
-        api.exchangeMfaRecoveryCode(null, new char[]{'c','o','d','e'});
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.exchangeMfaRecoveryCode(null, new char[]{'c','o','d','e'}),
+            "'mfa token' cannot be null!");
     }
 
     @Test
     public void shouldThrowWhenExchangeMfaRecoveryCodeCalledWithNullCode() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'recovery code' cannot be null!");
-        api.exchangeMfaRecoveryCode("mfaToken", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.exchangeMfaRecoveryCode("mfaToken", null),
+            "'recovery code' cannot be null!");
     }
 
     @Test
@@ -1397,10 +1395,10 @@ public class AuthAPITest {
     }
 
     @Test
-    public void addOtpAuthenticatorThrowsWhenTokenNull() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'mfa token' cannot be null!");
-        api.addOtpAuthenticator(null);
+    public void addOtpAuthenticatorThrowsWhenTokenNull() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.addOtpAuthenticator(null),
+            "'mfa token' cannot be null!");
     }
 
     @Test
@@ -1425,17 +1423,17 @@ public class AuthAPITest {
     }
 
     @Test
-    public void addOobAuthenticatorThrowsWhenTokenNull() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'mfa token' cannot be null!");
-        api.addOobAuthenticator(null, Collections.singletonList("otp"), null);
+    public void addOobAuthenticatorThrowsWhenTokenNull() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.addOobAuthenticator(null, Collections.singletonList("otp"), null),
+            "'mfa token' cannot be null!");
     }
 
     @Test
-    public void addOobAuthenticatorThrowsWhenChannelsNull() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'OOB channels' cannot be null!");
-        api.addOobAuthenticator("mfaToken", null, null);
+    public void addOobAuthenticatorThrowsWhenChannelsNull() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.addOobAuthenticator("mfaToken", null, null),
+            "'OOB channels' cannot be null!");
     }
 
     @Test
@@ -1464,9 +1462,9 @@ public class AuthAPITest {
 
     @Test
     public void listAuthenticatorsThrowsWhenTokenNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'access token' cannot be null!");
-        api.listAuthenticators(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.listAuthenticators(null),
+            "'access token' cannot be null!");
     }
 
     @Test
@@ -1486,16 +1484,16 @@ public class AuthAPITest {
 
     @Test
     public void deleteAuthenticatorThrowsWhenTokenNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'access token' cannot be null!");
-        api.deleteAuthenticator(null, "authenticatorId");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.deleteAuthenticator(null, "authenticatorId"),
+            "'access token' cannot be null!");
     }
 
     @Test
     public void deleteAuthenticatorThrowsWhenAuthenticatorIdNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'authenticator id' cannot be null!");
-        api.deleteAuthenticator("Bearer accessToken", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.deleteAuthenticator("Bearer accessToken", null),
+            "'authenticator id' cannot be null!");
     }
 
     @Test
@@ -1515,9 +1513,9 @@ public class AuthAPITest {
 
     @Test
     public void challengeRequestThrowsWhenTokenNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'mfa token' cannot be null!");
-        api.mfaChallengeRequest(null, "otp", "authenticatorId");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.mfaChallengeRequest(null, "otp", "authenticatorId"),
+            "'mfa token' cannot be null!");
     }
 
     @Test
@@ -1611,9 +1609,9 @@ public class AuthAPITest {
 
     @Test
     public void authorizeUrlWithPARShouldThrowWhenRequestUriNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'request uri' cannot be null!");
-        api.authorizeUrlWithPAR(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.authorizeUrlWithPAR(null),
+            "'request uri' cannot be null!");
     }
 
     @Test
@@ -1629,16 +1627,16 @@ public class AuthAPITest {
 
     @Test
     public void pushedAuthorizationRequestShouldThrowWhenRedirectUriIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'redirect uri' must be a valid URL!");
-        api.pushedAuthorizationRequest(null, "code", Collections.emptyMap());
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.pushedAuthorizationRequest(null, "code", Collections.emptyMap()),
+            "'redirect uri' must be a valid URL!");
     }
 
     @Test
     public void pushedAuthorizationRequestShouldThrowWhenResponseTypeIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'response type' cannot be null!");
-        api.pushedAuthorizationRequest("https://domain.com/callback", null, Collections.emptyMap());
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.pushedAuthorizationRequest("https://domain.com/callback", null, Collections.emptyMap()),
+            "'response type' cannot be null!");
     }
 
     @Test

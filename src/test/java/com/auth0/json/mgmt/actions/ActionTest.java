@@ -2,13 +2,14 @@ package com.auth0.json.mgmt.actions;
 
 import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class ActionTest extends JsonTest<Action> {
 

@@ -60,11 +60,13 @@ test {
         events "skipped", "failed"
         exceptionFormat "short"
     }
+    useJUnitPlatform()
 }
 
 ext {
     okhttpVersion = '4.10.0'
     hamcrestVersion = '2.2'
+    jupiterVersion = '5.9.3'
 }
 
 dependencies {
@@ -77,9 +79,9 @@ dependencies {
     testImplementation "org.bouncycastle:bcprov-jdk15on:1.68"
     testImplementation "org.mockito:mockito-core:4.8.1"
     testImplementation "com.squareup.okhttp3:mockwebserver:${okhttpVersion}"
-    testImplementation "org.hamcrest:hamcrest-core:${hamcrestVersion}"
-    testImplementation "org.hamcrest:hamcrest-library:${hamcrestVersion}"
-    testImplementation "junit:junit:4.13.1"
+    testImplementation "org.hamcrest:hamcrest:${hamcrestVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jupiterVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}"
 }
 
 // Creates a version.txt file containing the current version of the SDK.

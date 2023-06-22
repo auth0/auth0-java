@@ -1,12 +1,11 @@
 package com.auth0.client.auth;
 
 import okhttp3.HttpUrl;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 import java.net.URLEncoder;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.UrlMatcher.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -18,29 +17,25 @@ public class AuthorizeUrlBuilderTest {
     private static final String CLIENT_ID = "clientId";
     private static final String REDIRECT_URI = "https://domain.auth0.com/callback";
 
-    @SuppressWarnings("deprecation")
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-
     @Test
     public void shouldThrowWhenBaseUrlIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'base url' cannot be null!");
-        AuthorizeUrlBuilder.newInstance(null, CLIENT_ID, REDIRECT_URI);
+        verifyThrows(IllegalArgumentException.class,
+            () -> AuthorizeUrlBuilder.newInstance(null, CLIENT_ID, REDIRECT_URI),
+            "'base url' cannot be null!");
     }
 
     @Test
     public void shouldThrowWhenRedirectUriIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'redirect uri' cannot be null!");
-        AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, null),
+            "'redirect uri' cannot be null!");
     }
 
     @Test
     public void shouldThrowWhenClientIdIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'client id' cannot be null!");
-        AuthorizeUrlBuilder.newInstance(DOMAIN, null, REDIRECT_URI);
+        verifyThrows(IllegalArgumentException.class,
+            () -> AuthorizeUrlBuilder.newInstance(DOMAIN, null, REDIRECT_URI),
+            "'client id' cannot be null!");
     }
 
     @Test
@@ -99,10 +94,10 @@ public class AuthorizeUrlBuilderTest {
 
     @Test
     public void shouldThrowWhenConnectionIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'connection' cannot be null!");
-        AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
-                .withConnection(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
+                .withConnection(null),
+            "'connection' cannot be null!");
     }
 
     @Test
@@ -115,10 +110,10 @@ public class AuthorizeUrlBuilderTest {
 
     @Test
     public void shouldThrowWhenAudienceIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'audience' cannot be null!");
-        AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
-                .withAudience(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
+                .withAudience(null),
+            "'audience' cannot be null!");
     }
 
     @Test
@@ -131,10 +126,10 @@ public class AuthorizeUrlBuilderTest {
 
     @Test
     public void shouldThrowWhenStateIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'state' cannot be null!");
-        AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
-                .withState(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
+                .withState(null),
+            "'state' cannot be null!");
     }
 
     @Test
@@ -147,10 +142,10 @@ public class AuthorizeUrlBuilderTest {
 
     @Test
     public void shouldThrowWhenScopeIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'scope' cannot be null!");
-        AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
-                .withScope(null);
+        verifyThrows(IllegalArgumentException.class,
+            () ->  AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
+                .withScope(null),
+            "'scope' cannot be null!");
     }
 
     @Test
@@ -163,10 +158,10 @@ public class AuthorizeUrlBuilderTest {
 
     @Test
     public void shouldThrowWhenResponseTypeIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'response type' cannot be null!");
-        AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
-                .withResponseType(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
+                .withResponseType(null),
+            "'response type' cannot be null!");
     }
 
     @Test
@@ -179,18 +174,18 @@ public class AuthorizeUrlBuilderTest {
 
     @Test
     public void shouldThrowWhenCustomParameterNameIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'name' cannot be null!");
-        AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
-                .withParameter(null, "value");
+        verifyThrows(IllegalArgumentException.class,
+            () -> AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
+                .withParameter(null, "value"),
+            "'name' cannot be null!");
     }
 
     @Test
     public void shouldThrowWhenCustomParameterValueIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'value' cannot be null!");
-        AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
-                .withParameter("name", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
+                .withParameter("name", null),
+            "'value' cannot be null!");
     }
 
     @Test
@@ -203,11 +198,11 @@ public class AuthorizeUrlBuilderTest {
 
     @Test
     public void shouldThrowWhenOrganizationIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'organization' cannot be null!");
-        AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
-            .withOrganization(null)
-            .build();
+        verifyThrows(IllegalArgumentException.class,
+            () -> AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
+                .withOrganization(null)
+                .build(),
+            "'organization' cannot be null!");
     }
 
     @Test
@@ -220,11 +215,11 @@ public class AuthorizeUrlBuilderTest {
 
     @Test
     public void shouldThrowWhenInvitationIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'invitation' cannot be null!");
-        AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
-            .withInvitation(null)
-            .build();
+        verifyThrows(IllegalArgumentException.class,
+            () -> AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
+                .withInvitation(null)
+                .build(),
+            "'invitation' cannot be null!");
     }
 
     @Test
@@ -238,10 +233,10 @@ public class AuthorizeUrlBuilderTest {
 
     @Test
     public void shouldThrowWhenChallengeIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'challenge' cannot be null!");
-        AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
-            .withCodeChallenge(null)
-            .build();
+        verifyThrows(IllegalArgumentException.class,
+            () -> AuthorizeUrlBuilder.newInstance(DOMAIN, CLIENT_ID, REDIRECT_URI)
+                .withCodeChallenge(null)
+                .build(),
+            "'challenge' cannot be null!");
     }
 }

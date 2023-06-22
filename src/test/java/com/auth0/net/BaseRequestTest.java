@@ -1,5 +1,6 @@
 package com.auth0.net;
 
+import com.auth0.AssertsUtil;
 import com.auth0.client.MockServer;
 import com.auth0.client.mgmt.TokenProvider;
 import com.auth0.exception.APIException;
@@ -7,9 +8,6 @@ import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.RateLimitException;
 import com.auth0.json.auth.TokenHolder;
 import com.auth0.net.client.*;
-import com.auth0.net.client.Auth0HttpClient;
-import com.auth0.net.client.DefaultHttpClient;
-import com.auth0.net.client.HttpMethod;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -17,12 +15,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.hamcrest.Matchers;
-import static org.hamcrest.MatcherAssert.assertThat;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,13 +25,12 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.*;
-import static com.auth0.client.MockServer.AUTH_ERROR_PLAINTEXT;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -51,14 +45,11 @@ public class BaseRequestTest {
     private Auth0HttpClient client;
     private TokenProvider tokenProvider;
 
-    @SuppressWarnings("deprecation")
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
     private TypeReference<TokenHolder> tokenHolderType;
     private TypeReference<List> listType;
     private TypeReference<Void> voidType;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         server = new MockServer();
         client = DefaultHttpClient.newBuilder().withMaxRetries(0).build();
@@ -70,7 +61,7 @@ public class BaseRequestTest {
         };
         tokenProvider = new TokenProvider() {
             @Override
-            public String getToken() throws Auth0Exception {
+            public String getToken() {
                 return "xyz";
             }
             @Override
@@ -80,7 +71,7 @@ public class BaseRequestTest {
         };
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         server.stop();
     }
@@ -108,22 +99,22 @@ public class BaseRequestTest {
             }
 
             @Override
-            protected Auth0HttpRequest createRequest(String apiToken) throws Auth0Exception {
+            protected Auth0HttpRequest createRequest(String apiToken) {
                 return null;
             }
 
             @Override
-            protected String parseResponseBody(Auth0HttpResponse response) throws Auth0Exception {
+            protected String parseResponseBody(Auth0HttpResponse response) {
                 return null;
             }
         };
 
-        Auth0Exception exception = assertThrows(Auth0Exception.class, req::execute);
+        Auth0Exception exception = verifyThrows(Auth0Exception.class, req::execute);
         assertThat(exception.getCause(), is(instanceOf(IOException.class)));
     }
 
     @Test
-    public void asyncHandlesIOExceptionWhenCreatingRequest() throws Exception {
+    public void asyncHandlesIOExceptionWhenCreatingRequest() {
         DefaultHttpClient client = DefaultHttpClient.newBuilder().build();
 
         BaseRequest<String> req = new BaseRequest<String>(client, tokenProvider, "", HttpMethod.GET, new TypeReference<String>() {
@@ -149,14 +140,14 @@ public class BaseRequestTest {
             }
 
             @Override
-            protected String parseResponseBody(Auth0HttpResponse response) throws Auth0Exception {
+            protected String parseResponseBody(Auth0HttpResponse response) {
                 return null;
             }
         };
 
         Auth0HttpRequest a0Request = Auth0HttpRequest.newBuilder("https://foo.com", HttpMethod.GET).build();
         CompletableFuture<Response<String>> future = req.executeAsync();
-        ExecutionException e = assertThrows(ExecutionException.class, future::get);
+        ExecutionException e = verifyThrows(ExecutionException.class, future::get);
         assertThat(e.getCause(), is(instanceOf(IOException.class)));
     }
 
@@ -236,10 +227,11 @@ public class BaseRequestTest {
 
         BaseRequest request = new BaseRequest<>(client, tokenProvider, server.getBaseUrl(),  HttpMethod.POST, mapper, voidType);
         request.addParameter("name", "value");
-        exception.expect(Auth0Exception.class);
-        exception.expectCause(Matchers.<Throwable>instanceOf(JsonProcessingException.class));
-        exception.expectMessage("Couldn't create the request body.");
-        request.execute().getBody();
+
+        Auth0Exception e = AssertsUtil.verifyThrows(Auth0Exception.class,
+            () -> request.execute().getBody(),
+            "Couldn't create the request body.");
+        assertThat(e.getCause(), Matchers.instanceOf(JsonProcessingException.class));
     }
 
     @Test

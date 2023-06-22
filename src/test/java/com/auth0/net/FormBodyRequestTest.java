@@ -2,37 +2,30 @@ package com.auth0.net;
 
 import com.auth0.client.MockServer;
 import com.auth0.client.mgmt.TokenProvider;
-import com.auth0.exception.Auth0Exception;
 import com.auth0.json.auth.PushedAuthorizationResponse;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.DefaultHttpClient;
 import com.auth0.net.client.HttpMethod;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.CompletableFuture;
 
-import static com.auth0.client.MockServer.*;
+import static com.auth0.client.MockServer.PUSHED_AUTHORIZATION_RESPONSE;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.is;
 
 public class FormBodyRequestTest {
     private MockServer server;
     private Auth0HttpClient client;
     private TokenProvider tokenProvider;
 
-    @SuppressWarnings("deprecation")
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
     private TypeReference<PushedAuthorizationResponse> pushedAuthorizationResponseTypeReference;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         server = new MockServer();
         client = new DefaultHttpClient.Builder().withMaxRetries(0).build();
@@ -40,7 +33,7 @@ public class FormBodyRequestTest {
         };
         tokenProvider = new TokenProvider() {
             @Override
-            public String getToken() throws Auth0Exception {
+            public String getToken() {
                 return "xyz";
             }
 
@@ -51,7 +44,7 @@ public class FormBodyRequestTest {
         };
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         server.stop();
     }

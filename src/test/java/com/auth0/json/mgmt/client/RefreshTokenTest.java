@@ -1,12 +1,12 @@
 package com.auth0.json.mgmt.client;
 
+import com.auth0.json.JsonMatcher;
+import com.auth0.json.JsonTest;
+import org.junit.jupiter.api.Test;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-
-import com.auth0.json.JsonMatcher;
-import com.auth0.json.JsonTest;
-import org.junit.Test;
 
 public class RefreshTokenTest extends JsonTest<RefreshToken> {
 

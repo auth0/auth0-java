@@ -1,12 +1,13 @@
 package com.auth0.client.auth;
 
+import com.auth0.AssertsUtil;
 import com.auth0.exception.ClientAssertionSigningException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.net.URI;
@@ -23,11 +24,10 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
-import static org.junit.Assert.assertThrows;
-
-import static org.mockito.Mockito.mock;
+import static com.auth0.AssertsUtil.verifyThrows;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class RSAClientAssertionSignerTest {
@@ -44,15 +44,17 @@ public class RSAClientAssertionSignerTest {
 
     @Test
     public void throwsOnNullSigningKey() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new RSAClientAssertionSigner(null));
-        assertThat(exception.getMessage(), is("'assertion signing key' cannot be null!"));
+        AssertsUtil.verifyThrows(IllegalArgumentException.class,
+            () -> new RSAClientAssertionSigner(null),
+            "'assertion signing key' cannot be null!");
     }
 
     @Test
     public void throwsOnNullSigningAlgorithm() {
         RSAPrivateKey privateKey = mock(RSAPrivateKey.class);
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new RSAClientAssertionSigner(privateKey, null));
-        assertThat(exception.getMessage(), is("'assertion signing algorithm' cannot be null!"));
+        verifyThrows(IllegalArgumentException.class,
+            () -> new RSAClientAssertionSigner(privateKey, null),
+            "'assertion signing algorithm' cannot be null!");
     }
 
     @Test
@@ -62,11 +64,10 @@ public class RSAClientAssertionSignerTest {
 
         when(mockBuilder.sign(Algorithm.RSA256(null,mockPrivateKey))).thenThrow(JWTCreationException.class);
 
-        ClientAssertionSigningException e = assertThrows(ClientAssertionSigningException.class, () -> {
-            new RSAClientAssertionSigner(mockPrivateKey).createSignedClientAssertion("iss", "aud", "sub");
-        });
+        ClientAssertionSigningException e = verifyThrows(ClientAssertionSigningException.class,
+            () -> new RSAClientAssertionSigner(mockPrivateKey).createSignedClientAssertion("iss", "aud", "sub"),
+            "Error creating the JWT used for client assertion using the RSA256 signing algorithm");
 
-        assertThat(e.getMessage(), is("Error creating the JWT used for client assertion using the RSA256 signing algorithm"));
         assertThat(e.getCause(), is(instanceOf(JWTCreationException.class)));
     }
 
@@ -77,11 +78,10 @@ public class RSAClientAssertionSignerTest {
 
         when(mockBuilder.sign(Algorithm.RSA384(null,mockPrivateKey))).thenThrow(JWTCreationException.class);
 
-        ClientAssertionSigningException e = assertThrows(ClientAssertionSigningException.class, () -> {
-            new RSAClientAssertionSigner(mockPrivateKey, RSAClientAssertionSigner.RSASigningAlgorithm.RSA384).createSignedClientAssertion("iss", "aud", "sub");
-        });
+        ClientAssertionSigningException e = verifyThrows(ClientAssertionSigningException.class,
+            () -> new RSAClientAssertionSigner(mockPrivateKey, RSAClientAssertionSigner.RSASigningAlgorithm.RSA384).createSignedClientAssertion("iss", "aud", "sub"),
+            "Error creating the JWT used for client assertion using the RSA384 signing algorithm");
 
-        assertThat(e.getMessage(), is("Error creating the JWT used for client assertion using the RSA384 signing algorithm"));
         assertThat(e.getCause(), is(instanceOf(JWTCreationException.class)));
     }
 

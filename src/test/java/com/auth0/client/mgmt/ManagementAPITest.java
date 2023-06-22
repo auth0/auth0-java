@@ -5,19 +5,17 @@ import com.auth0.exception.Auth0Exception;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.Auth0HttpRequest;
 import com.auth0.net.client.Auth0HttpResponse;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.UrlMatcher.isUrl;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThrows;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class ManagementAPITest {
 
@@ -27,17 +25,13 @@ public class ManagementAPITest {
     private MockServer server;
     private ManagementAPI api;
 
-    @SuppressWarnings("deprecation")
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         server = new MockServer();
         api = ManagementAPI.newBuilder(server.getBaseUrl(), API_TOKEN).build();
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         server.stop();
     }
@@ -63,7 +57,7 @@ public class ManagementAPITest {
     public void shouldCreateWithHttpClient() {
         Auth0HttpClient httpClient = new Auth0HttpClient() {
             @Override
-            public Auth0HttpResponse sendRequest(Auth0HttpRequest request) throws IOException {
+            public Auth0HttpResponse sendRequest(Auth0HttpRequest request) {
                 return null;
             }
 
@@ -89,32 +83,32 @@ public class ManagementAPITest {
 
     @Test
     public void shouldThrowWhenDomainIsInvalid() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("The domain had an invalid format and couldn't be parsed as an URL.");
-        ManagementAPI.newBuilder("", API_TOKEN).build();
+        verifyThrows(IllegalArgumentException.class,
+            () -> ManagementAPI.newBuilder("", API_TOKEN).build(),
+            "The domain had an invalid format and couldn't be parsed as an URL.");
     }
 
     @Test
     public void shouldThrowWhenDomainIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'domain' cannot be null!");
-        ManagementAPI.newBuilder(null, API_TOKEN).build();
+        verifyThrows(IllegalArgumentException.class,
+            () -> ManagementAPI.newBuilder(null, API_TOKEN).build(),
+            "'domain' cannot be null!");
     }
 
     @Test
     public void shouldThrowWhenApiTokenIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'api token' cannot be null!");
-        ManagementAPI.newBuilder(DOMAIN, null).build();
+        verifyThrows(IllegalArgumentException.class,
+            () -> ManagementAPI.newBuilder(DOMAIN, null).build(),
+            "'api token' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnUpdateWhenApiTokenIsNull() {
         ManagementAPI api = ManagementAPI.newBuilder(DOMAIN, API_TOKEN).build();
 
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'api token' cannot be null!");
-        api.setApiToken(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.setApiToken(null),
+            "'api token' cannot be null!");
     }
 
     @Test
@@ -176,17 +170,17 @@ public class ManagementAPITest {
     @Test
     @SuppressWarnings("deprecation")
     public void httpOptionsShouldThrowWhenNull() {
-        assertThrows(IllegalArgumentException.class, () -> new ManagementAPI(DOMAIN, API_TOKEN, null));
+        verifyThrows(IllegalArgumentException.class, () -> new ManagementAPI(DOMAIN, API_TOKEN, null));
     }
 
     @Test
     @SuppressWarnings("deprecation")
     public void shouldThrowOnInValidMaxRequestsPerHostConfiguration() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("maxRequestsPerHost must be one or greater.");
-
         com.auth0.client.HttpOptions options = new com.auth0.client.HttpOptions();
-        options.setMaxRequestsPerHost(0);
+
+        verifyThrows(IllegalArgumentException.class,
+            () -> options.setMaxRequestsPerHost(0),
+            "maxRequestsPerHost must be one or greater.");
     }
 
     //Entities

@@ -4,12 +4,13 @@ import com.auth0.json.mgmt.stats.DailyStats;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -35,16 +36,17 @@ public class StatsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetDailyStatsWithNullDateFrom() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'date from' cannot be null!");
-        api.stats().getDailyStats(null, new Date());
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.stats().getDailyStats(null, new Date()),
+            "'date from' cannot be null!");
+
     }
 
     @Test
     public void shouldThrowOnGetDailyStatsWithNullDateTo() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'date to' cannot be null!");
-        api.stats().getDailyStats(new Date(), null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.stats().getDailyStats(new Date(), null),
+            "'date to' cannot be null!");
     }
 
     @SuppressWarnings("deprecation")

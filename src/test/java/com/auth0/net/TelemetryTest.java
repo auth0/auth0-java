@@ -2,19 +2,19 @@ package com.auth0.net;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Map;
 
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class TelemetryTest {
 
-    @BeforeClass
+    @BeforeAll
     public static void setup() {
         //Set so that Telemetry object doesn't use different Java versions while testing which will create different Base64 encoded value
         System.setProperty("java.specification.version", "1.8");

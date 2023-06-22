@@ -4,12 +4,13 @@ import com.auth0.json.mgmt.guardian.*;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.hasHeader;
 import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
@@ -20,9 +21,9 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnDeleteGuardianEnrollmentWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'enrollment id' cannot be null!");
-        api.guardian().deleteEnrollment(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.guardian().deleteEnrollment(null),
+            "'enrollment id' cannot be null!");
     }
 
     @Test
@@ -41,9 +42,9 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnCreateGuardianEnrollmentTicketWithNullData() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'enrollment ticket' cannot be null!");
-        api.guardian().createEnrollmentTicket(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.guardian().createEnrollmentTicket(null),
+            "'enrollment ticket' cannot be null!");
     }
 
     @Test
@@ -84,9 +85,9 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnUpdateGuardianTemplatesWithNullData() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'guardian templates' cannot be null!");
-        api.guardian().updateTemplates(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.guardian().updateTemplates(null),
+            "'guardian templates' cannot be null!");
     }
 
     @Test
@@ -136,16 +137,16 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnUpdateGuardianFactorWithNullName() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'name' cannot be null!");
-        api.guardian().updateFactor(null, true);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.guardian().updateFactor(null, true),
+            "'name' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnUpdateGuardianFactorWithNullEnabled() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'enabled' cannot be null!");
-        api.guardian().updateFactor("my-factor", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.guardian().updateFactor("my-factor", null),
+            "'enabled' cannot be null!");
     }
 
     @Test
@@ -202,9 +203,9 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnUpdateGuardianTwilioFactorProviderWithNullData() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'provider' cannot be null!");
-        api.guardian().updateTwilioFactorProvider(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.guardian().updateTwilioFactorProvider(null),
+            "'provider' cannot be null!");
     }
 
     @Test
@@ -302,9 +303,9 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnUpdateGuardianSnsFactorProviderWithNullData() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'provider' cannot be null!");
-        api.guardian().updateSNSFactorProvider(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.guardian().updateSNSFactorProvider(null),
+            "'provider' cannot be null!");
     }
 
     @Test
@@ -374,9 +375,9 @@ public class GuardianEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnUpdateAuthenticationPoliciesWithNullData() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'policies' cannot be null!");
-        api.guardian().updateAuthenticationPolicies(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.guardian().updateAuthenticationPolicies(null),
+            "'policies' cannot be null!");
     }
 
     @Test

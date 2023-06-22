@@ -3,10 +3,10 @@ package com.auth0.json.mgmt;
 import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
 import com.auth0.json.mgmt.resourceserver.Scope;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 public class ScopeTest extends JsonTest<Scope> {
     private static final String SCOPE_JSON = "src/test/resources/mgmt/scope.json";

@@ -2,13 +2,14 @@ package com.auth0.json.mgmt.organizations;
 
 import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class EnabledConnectionsTest extends JsonTest<EnabledConnection> {
 

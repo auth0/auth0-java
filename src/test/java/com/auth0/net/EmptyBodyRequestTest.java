@@ -3,14 +3,14 @@ package com.auth0.net;
 import com.auth0.client.MockServer;
 import com.auth0.client.mgmt.SimpleTokenProvider;
 import com.auth0.json.auth.TokenHolder;
-import com.auth0.net.client.DefaultHttpClient;
 import com.auth0.net.client.Auth0HttpClient;
+import com.auth0.net.client.DefaultHttpClient;
 import com.auth0.net.client.HttpMethod;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
@@ -27,7 +27,7 @@ public class EmptyBodyRequestTest {
 
     private TypeReference<TokenHolder> tokenHolderType;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         server = new MockServer();
         client = new DefaultHttpClient.Builder().build();
@@ -35,7 +35,7 @@ public class EmptyBodyRequestTest {
         };
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         server.stop();
     }

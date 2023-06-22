@@ -2,7 +2,7 @@ package com.auth0.json.mgmt;
 
 import com.auth0.json.JsonTest;
 import com.auth0.json.mgmt.keys.Key;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
 import java.util.Date;

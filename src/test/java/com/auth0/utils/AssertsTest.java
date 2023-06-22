@@ -1,16 +1,12 @@
 package com.auth0.utils;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+
+import static com.auth0.AssertsUtil.verifyThrows;
 
 public class AssertsTest {
 
     private static final String URI_NAME = "name";
-
-    @SuppressWarnings("deprecation")
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     @Test
     public void succeedsForHttps() {
@@ -56,22 +52,22 @@ public class AssertsTest {
 
     @Test
     public void throwsIllegalArgumentExceptionWhenValueIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage(String.format("'%s' must be a valid URL!", URI_NAME));
-        Asserts.assertValidUrl(null, URI_NAME);
+        verifyThrows(IllegalArgumentException.class,
+            () -> Asserts.assertValidUrl(null, URI_NAME),
+            String.format("'%s' must be a valid URL!", URI_NAME));
     }
 
     @Test
     public void throwsIllegalArgumentExceptionWhenValueIsInvalid() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage(String.format("'%s' must be a valid URL!", URI_NAME));
-        Asserts.assertValidUrl("not.a.domain", URI_NAME);
+        verifyThrows(IllegalArgumentException.class,
+            () -> Asserts.assertValidUrl("not.a.domain", URI_NAME),
+            String.format("'%s' must be a valid URL!", URI_NAME));
     }
 
     @Test
     public void throwsIllegalArgumentExceptionWhenValueIsCustomSchemeAndInvalid() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage(String.format("'%s' must be a valid URL!", URI_NAME));
-        Asserts.assertValidUrl("demo://host:%39%39/", URI_NAME);
+        verifyThrows(IllegalArgumentException.class,
+            () -> Asserts.assertValidUrl("demo://host:%39%39/", URI_NAME),
+            String.format("'%s' must be a valid URL!", URI_NAME));
     }
 }

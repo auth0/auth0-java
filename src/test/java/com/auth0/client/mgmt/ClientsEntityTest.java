@@ -8,11 +8,12 @@ import com.auth0.json.mgmt.client.Credential;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -126,9 +127,9 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetClientWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'client id' cannot be null!");
-        api.clients().get(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.clients().get(null),
+            "'client id' cannot be null!");
     }
 
     @Test
@@ -186,9 +187,9 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnCreateClientWithNullData() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'client' cannot be null!");
-        api.clients().create(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.clients().create(null),
+            "'client' cannot be null!");
     }
 
     @Test
@@ -213,9 +214,9 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnDeleteClientWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'client id' cannot be null!");
-        api.clients().delete(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.clients().delete(null),
+            "'client id' cannot be null!");
     }
 
     @Test
@@ -234,16 +235,16 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnUpdateClientWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'client id' cannot be null!");
-        api.clients().update(null, new Client("name"));
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.clients().update(null, new Client("name")),
+            "'client id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnUpdateClientWithNullData() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'client' cannot be null!");
-        api.clients().update("clientId", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.clients().update("clientId", null),
+            "'client' cannot be null!");
     }
 
     @Test
@@ -268,9 +269,9 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnRotateClientSecretWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'client id' cannot be null!");
-        api.clients().rotateSecret(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.clients().rotateSecret(null),
+            "'client id' cannot be null!");
     }
 
     @Test
@@ -308,9 +309,9 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnListCredentialsWithNullClientId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'client id' cannot be null!");
-        api.clients().listCredentials(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.clients().listCredentials(null),
+            "'client id' cannot be null!");
     }
 
     @Test
@@ -331,16 +332,16 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetCredentialsWithNullClientId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'client id' cannot be null!");
-        api.clients().getCredential(null, "credId");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.clients().getCredential(null, "credId"),
+            "'client id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnGetCredentialsWithNullCredentialId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'credential id' cannot be null!");
-        api.clients().getCredential("clientId", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.clients().getCredential("clientId", null),
+            "'credential id' cannot be null!");
     }
 
     @Test
@@ -367,16 +368,16 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnCreateCredentialsWithNullClientId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'client id' cannot be null!");
-        api.clients().createCredential(null, new Credential());
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.clients().createCredential(null, new Credential()),
+            "'client id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnCreateCredentialsWithNullCredentialId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'credential id' cannot be null!");
-        api.clients().deleteCredential("clientId", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.clients().deleteCredential("clientId", null),
+            "'credential id' cannot be null!");
     }
 
     @Test
@@ -395,15 +396,15 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnDeleteCredentialsWithNullClientId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'client id' cannot be null!");
-        api.clients().deleteCredential(null, "credId");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.clients().deleteCredential(null, "credId"),
+            "'client id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnDeleteCredentialsWithNullCredentialId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'credential id' cannot be null!");
-        api.clients().deleteCredential("clientId", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.clients().deleteCredential("clientId", null),
+            "'credential id' cannot be null!");
     }
 }

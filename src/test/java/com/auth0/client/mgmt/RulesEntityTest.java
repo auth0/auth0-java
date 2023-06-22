@@ -6,11 +6,11 @@ import com.auth0.json.mgmt.rules.RulesPage;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import java.util.List;
 import java.util.Map;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -80,9 +80,9 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetRuleWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'rule id' cannot be null!");
-        api.rules().get(null, null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.rules().get(null, null),
+            "'rule id' cannot be null!");
     }
 
     @Test
@@ -122,9 +122,9 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnCreateRuleWithNullData() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'rule' cannot be null!");
-        api.rules().create(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.rules().create(null),
+            "'rule' cannot be null!");
     }
 
     @Test
@@ -150,9 +150,9 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnDeleteRuleWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'rule id' cannot be null!");
-        api.rules().delete(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.rules().delete(null),
+            "'rule id' cannot be null!");
     }
 
     @Test
@@ -171,16 +171,16 @@ public class RulesEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnUpdateRuleWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'rule id' cannot be null!");
-        api.rules().update(null, new Rule("my-rule", "function(){}"));
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.rules().update(null, new Rule("my-rule", "function(){}")),
+            "'rule id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnUpdateRuleWithNullData() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'rule' cannot be null!");
-        api.rules().update("1", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.rules().update("1", null),
+            "'rule' cannot be null!");
     }
 
     @Test

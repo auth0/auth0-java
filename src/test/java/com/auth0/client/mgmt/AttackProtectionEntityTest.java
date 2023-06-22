@@ -4,12 +4,13 @@ import com.auth0.json.mgmt.attackprotection.*;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.hasHeader;
 import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
@@ -219,22 +220,22 @@ public class AttackProtectionEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void updateBreachedPasswordSettingsShouldThrowWithNullParam() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("breached password");
-        api.attackProtection().updateBreachedPasswordSettings(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.attackProtection().updateBreachedPasswordSettings(null),
+            "'breached password' cannot be null!");
     }
 
     @Test
     public void updateBruteForceConfigurationShouldThrowWithNullParam() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("configuration");
-        api.attackProtection().updateBruteForceConfiguration(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.attackProtection().updateBruteForceConfiguration(null),
+            "'configuration' cannot be null!");
     }
 
     @Test
     public void updateSuspiciousIPThrottlingConfigurationShouldThrowWithNullParam() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("configuration");
-        api.attackProtection().updateSuspiciousIPThrottlingConfiguration(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.attackProtection().updateSuspiciousIPThrottlingConfiguration(null),
+            "'configuration' cannot be null!");
     }
 }

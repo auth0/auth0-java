@@ -1,12 +1,10 @@
 package com.auth0.json.auth;
 
 import com.auth0.json.JsonTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.*;
 
 public class PasswordlessSmsResponseTest extends JsonTest<PasswordlessSmsResponse> {
 

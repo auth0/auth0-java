@@ -6,8 +6,9 @@ import com.auth0.json.mgmt.logevents.LogEventsPage;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -167,9 +168,9 @@ public class LogEventsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetLogEventWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'log event id' cannot be null!");
-        api.logEvents().get(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.logEvents().get(null),
+            "'log event id' cannot be null!");
     }
 
     @Test

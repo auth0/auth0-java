@@ -1,7 +1,7 @@
 package com.auth0.exception;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ public class APIExceptionTest {
     private final static int ERROR_CODE = 42;
     private final static String EXPECTED_ERROR_MESSAGE_PREFIX = "Request failed with status code " + ERROR_CODE + ": ";
 
-    @Before
+    @BeforeEach
     public void setUp() {
         values = new HashMap<>();
     }

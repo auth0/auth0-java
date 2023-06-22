@@ -8,30 +8,30 @@ import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 import okhttp3.mockwebserver.SocketPolicy;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.greaterThan;
-import static org.junit.Assert.assertThrows;
 
 public class RateLimitInterceptorTest {
 
     MockWebServer server = new MockWebServer();
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         server.start();
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         server.shutdown();
     }
@@ -193,7 +193,8 @@ public class RateLimitInterceptorTest {
             .url(server.url("/"))
             .build();
 
-        Auth0Exception e = assertThrows(Auth0Exception.class, () -> client.newCall(request).execute());
-        assertThat(e.getMessage(), is("Failed to execute request"));
+        Auth0Exception e = verifyThrows(Auth0Exception.class,
+            () -> client.newCall(request).execute(),
+            "Failed to execute request");
     }
 }

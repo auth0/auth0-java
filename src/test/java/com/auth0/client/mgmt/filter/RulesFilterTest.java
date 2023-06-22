@@ -1,8 +1,8 @@
 package com.auth0.client.mgmt.filter;
 
 import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -12,7 +12,7 @@ public class RulesFilterTest {
 
     private RulesFilter filter;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         filter = new RulesFilter();
     }

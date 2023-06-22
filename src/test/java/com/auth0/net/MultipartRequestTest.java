@@ -18,8 +18,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.*;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +28,7 @@ import java.nio.file.Files;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -36,14 +38,11 @@ public class MultipartRequestTest {
     private Auth0HttpClient client;
     private TokenProvider tokenProvider;
 
-    @SuppressWarnings("deprecation")
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
     private TypeReference<TokenHolder> tokenHolderType;
     private TypeReference<List> listType;
     private TypeReference<Void> voidType;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         server = new MockServer();
         client = new DefaultHttpClient.Builder().withMaxRetries(0).build();
@@ -55,7 +54,7 @@ public class MultipartRequestTest {
         };
         tokenProvider = new TokenProvider() {
             @Override
-            public String getToken() throws Auth0Exception {
+            public String getToken() {
                 return "xyz";
             }
             @Override
@@ -65,16 +64,16 @@ public class MultipartRequestTest {
         };
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         server.stop();
     }
 
     @Test
     public void shouldNotSupportGETMethod() {
-        exception.expect(instanceOf(IllegalArgumentException.class));
-        exception.expectMessage("Multipart/form-data requests do not support the GET method.");
-        MultipartRequest<TokenHolder> request = new MultipartRequest<>(client, tokenProvider, server.getBaseUrl(), HttpMethod.GET, tokenHolderType);
+        verifyThrows(IllegalArgumentException.class,
+            () -> new MultipartRequest<>(client, tokenProvider, server.getBaseUrl(), HttpMethod.GET, tokenHolderType),
+            "Multipart/form-data requests do not support the GET method.");
     }
 
     @Test

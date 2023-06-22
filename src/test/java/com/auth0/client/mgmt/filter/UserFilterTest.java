@@ -1,8 +1,8 @@
 package com.auth0.client.mgmt.filter;
 
 import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -11,7 +11,7 @@ public class UserFilterTest {
 
     private UserFilter filter;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         filter = new UserFilter();
     }

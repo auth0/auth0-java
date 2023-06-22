@@ -1,11 +1,12 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.AssertsUtil;
 import com.auth0.client.mgmt.filter.DeviceCredentialsFilter;
 import com.auth0.json.mgmt.devicecredentials.DeviceCredentials;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
@@ -126,9 +127,9 @@ public class DeviceCredentialsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnCreateDeviceCredentialsWithNullData() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'device credentials' cannot be null!");
-        api.deviceCredentials().create(null);
+        AssertsUtil.verifyThrows(IllegalArgumentException.class,
+            () -> api.deviceCredentials().create(null),
+            "'device credentials' cannot be null!");
     }
 
     @Test
@@ -157,9 +158,9 @@ public class DeviceCredentialsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnDeleteDeviceCredentialsWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'device credentials id' cannot be null!");
-        api.deviceCredentials().delete(null);
+        AssertsUtil.verifyThrows(IllegalArgumentException.class,
+            () -> api.deviceCredentials().delete(null),
+            "'device credentials id' cannot be null!");
     }
 
     @Test

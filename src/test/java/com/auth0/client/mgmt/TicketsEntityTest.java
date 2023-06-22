@@ -5,10 +5,11 @@ import com.auth0.json.mgmt.tickets.PasswordChangeTicket;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.hasHeader;
 import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
@@ -19,9 +20,9 @@ public class TicketsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnCreateEmailVerificationTicketWithNullData() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'email verification ticket' cannot be null!");
-        api.tickets().requestEmailVerification(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.tickets().requestEmailVerification(null),
+            "'email verification ticket' cannot be null!");
     }
 
     @Test
@@ -52,9 +53,9 @@ public class TicketsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnCreatePasswordChangeTicketWithNullData() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'password change ticket' cannot be null!");
-        api.tickets().requestPasswordChange(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.tickets().requestPasswordChange(null),
+            "'password change ticket' cannot be null!");
     }
 
     @Test

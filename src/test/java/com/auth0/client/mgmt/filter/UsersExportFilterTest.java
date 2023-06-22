@@ -2,22 +2,22 @@ package com.auth0.client.mgmt.filter;
 
 import com.auth0.json.mgmt.jobs.UsersExportField;
 import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.core.IsNull.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsNull.nullValue;
 
 public class UsersExportFilterTest {
 
     private UsersExportFilter filter;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         filter = new UsersExportFilter();
     }

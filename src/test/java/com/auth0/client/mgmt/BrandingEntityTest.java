@@ -4,8 +4,9 @@ import com.auth0.json.mgmt.branding.*;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.MGMT_BRANDING_LOGIN_TEMPLATE;
 import static com.auth0.client.MockServer.MGMT_BRANDING_SETTINGS;
 import static com.auth0.client.RecordedRequestMatcher.hasHeader;
@@ -33,9 +34,9 @@ public class BrandingEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnUpdateBrandingSettingsWithNullSettings() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'settings' cannot be null!");
-        api.branding().updateBrandingSettings(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.branding().updateBrandingSettings(null),
+            "'settings' cannot be null!");
     }
 
     @Test
@@ -86,9 +87,9 @@ public class BrandingEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnSetUniversalLoginTemplateNullTemplate() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'template' cannot be null!");
-        api.branding().setUniversalLoginTemplate(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.branding().setUniversalLoginTemplate(null),
+            "'template' cannot be null!");
     }
 
     @Test

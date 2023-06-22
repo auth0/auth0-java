@@ -1,8 +1,8 @@
 package com.auth0.client.mgmt.filter;
 
 import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -11,7 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class UsersImportOptionsTest {
     private UsersImportOptions options;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         options = new UsersImportOptions();
     }

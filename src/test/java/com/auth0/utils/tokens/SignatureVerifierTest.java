@@ -5,9 +5,7 @@ import com.auth0.exception.PublicKeyProviderException;
 import com.auth0.jwt.exceptions.AlgorithmMismatchException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.bouncycastle.util.io.pem.PemReader;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileInputStream;
 import java.io.FileReader;
@@ -22,7 +20,9 @@ import java.security.spec.EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Scanner;
 
-import static org.hamcrest.CoreMatchers.*;
+import static com.auth0.AssertsUtil.verifyThrows;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class SignatureVerifierTest {
@@ -34,48 +34,37 @@ public class SignatureVerifierTest {
     private static final String RS_PUBLIC_KEY = "src/test/resources/keys/public-rsa.pem";
     private static final String RS_PUBLIC_KEY_BAD = "src/test/resources/keys/bad-public-rsa.pem";
 
-    @SuppressWarnings("deprecation")
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-
     @Test
     public void failsWhenAlgorithmIsNotExpected() {
-        exception.expect(IdTokenValidationException.class);
-        exception.expectMessage("Signature algorithm of \"none\" is not supported. Expected the ID token to be signed with \"HS256\"");
-        exception.expectCause(isA(AlgorithmMismatchException.class));
-
-        SignatureVerifier verifier = SignatureVerifier.forHS256("secret");
-        verifier.verifySignature(NONE_JWT);
+        verifyThrows(IdTokenValidationException.class,
+            () -> SignatureVerifier.forHS256("secret")
+                .verifySignature(NONE_JWT),
+            "Signature algorithm of \"none\" is not supported. Expected the ID token to be signed with \"HS256\"");
     }
 
     @Test
     public void failsWhenTokenCannotBeDecoded() {
-        exception.expect(IdTokenValidationException.class);
-        exception.expectMessage("ID token could not be decoded");
-
-        SignatureVerifier verifier = SignatureVerifier.forHS256("secret");
-        verifier.verifySignature("boom");
+        verifyThrows(IdTokenValidationException.class,
+            () -> SignatureVerifier.forHS256("secret")
+                .verifySignature("boom"),
+            "ID token could not be decoded");
     }
 
     @Test
     public void failsWhenAlgorithmRS256IsNotExpected() {
-        exception.expect(IdTokenValidationException.class);
-        exception.expectMessage("Signature algorithm of \"RS256\" is not supported. Expected the ID token to be signed with \"HS256\"");
-        exception.expectCause(isA(AlgorithmMismatchException.class));
-
-        SignatureVerifier verifier = SignatureVerifier.forHS256("secret");
-        verifier.verifySignature(RS_JWT);
+        verifyThrows(IdTokenValidationException.class,
+            () -> SignatureVerifier.forHS256("secret")
+                .verifySignature(RS_JWT),
+            "Signature algorithm of \"RS256\" is not supported. Expected the ID token to be signed with \"HS256\"");
     }
 
     @Test
-    public void failsWhenAlgorithmHS256IsNotExpected() throws Exception {
-        exception.expect(IdTokenValidationException.class);
-        exception.expectMessage("Signature algorithm of \"HS256\" is not supported. Expected the ID token to be signed with \"RS256\"");
-        exception.expectCause(isA(AlgorithmMismatchException.class));
-
-        SignatureVerifier verifier = SignatureVerifier.forRS256(getRSProvider(RS_PUBLIC_KEY));
-
-        verifier.verifySignature(HS_JWT);
+    public void failsWhenAlgorithmHS256IsNotExpected() {
+        IdTokenValidationException e = verifyThrows(IdTokenValidationException.class,
+            () -> SignatureVerifier.forHS256("secret")
+                .verifySignature(RS_JWT),
+            "Signature algorithm of \"RS256\" is not supported. Expected the ID token to be signed with \"HS256\"");
+        assertThat(e.getCause(), instanceOf(AlgorithmMismatchException.class));
     }
 
     @Test
@@ -96,15 +85,14 @@ public class SignatureVerifierTest {
 
     @Test
     public void failsWithInvalidSignatureHS256Token() {
-        exception.expect(IdTokenValidationException.class);
-        exception.expectMessage("Invalid ID token signature");
-
-        SignatureVerifier verifier = SignatureVerifier.forHS256("badsecret");
-        verifier.verifySignature(HS_JWT);
+        verifyThrows(IdTokenValidationException.class,
+            () -> SignatureVerifier.forHS256("badsecret")
+                .verifySignature(HS_JWT),
+            "Invalid ID token signature");
     }
 
     @Test
-    public void succeedsWithValidSignatureRS256Token() throws Exception {
+    public void succeedsWithValidSignatureRS256Token() {
         SignatureVerifier verifier = SignatureVerifier.forRS256(getRSProvider(RS_PUBLIC_KEY));
         DecodedJWT decodedJWT = verifier.verifySignature(RS_JWT);
 
@@ -112,35 +100,33 @@ public class SignatureVerifierTest {
     }
 
     @Test
-    public void failsWithInvalidSignatureRS256Token() throws Exception {
-        exception.expect(IdTokenValidationException.class);
-        exception.expectMessage("Invalid ID token signature");
-        SignatureVerifier verifier = SignatureVerifier.forRS256(getRSProvider(RS_PUBLIC_KEY_BAD));
-        DecodedJWT decodedJWT = verifier.verifySignature(RS_JWT);
-
-        assertThat(decodedJWT, notNullValue());
+    public void failsWithInvalidSignatureRS256Token() {
+        verifyThrows(IdTokenValidationException.class,
+            () -> SignatureVerifier
+                    .forRS256(getRSProvider(RS_PUBLIC_KEY_BAD))
+                    .verifySignature(RS_JWT),
+            "Invalid ID token signature");
     }
 
     @Test
     public void failsWhenErrorGettingPublicKey() {
-        exception.expect(IdTokenValidationException.class);
-        exception.expectCause(isA(PublicKeyProviderException.class));
-        exception.expectMessage("Could not find a public key for Key ID (kid) \"abc123\"");
-
-        SignatureVerifier verifier = SignatureVerifier.forRS256(new PublicKeyProvider() {
-            @Override
-            public RSAPublicKey getPublicKeyById(String keyId) throws PublicKeyProviderException {
-                throw new PublicKeyProviderException("error");
-            }
-        });
-        verifier.verifySignature(RS_JWT);
+        verifyThrows(IdTokenValidationException.class,
+            () -> {
+                SignatureVerifier.forRS256(new PublicKeyProvider() {
+                    @Override
+                    public RSAPublicKey getPublicKeyById(String keyId) throws PublicKeyProviderException {
+                        throw new PublicKeyProviderException("error");
+                    }
+                }).verifySignature(RS_JWT);
+            },
+            "Could not find a public key for Key ID (kid) \"abc123\"");
     }
 
     @Test
     public void failsWithNullVerifier() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'algorithm' cannot be null");
-        new NullVerifier();
+        verifyThrows(IllegalArgumentException.class,
+            NullVerifier::new,
+            "'algorithm' cannot be null!");
     }
 
     private PublicKeyProvider getRSProvider(String rsaPath) {

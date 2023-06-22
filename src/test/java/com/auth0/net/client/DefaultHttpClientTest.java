@@ -11,9 +11,9 @@ import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 import okhttp3.mockwebserver.SocketPolicy;
 import okio.Buffer;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.io.IOException;
@@ -23,29 +23,26 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.isA;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.*;
 
 public class DefaultHttpClientTest {
 
     private MockWebServer server;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         server = new MockWebServer();
         server.start();
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         server.shutdown();
     }
@@ -397,7 +394,7 @@ public class DefaultHttpClientTest {
 
         server.enqueue(mockResponse);
 
-        assertThrows(IOException.class, () -> client.sendRequest(request));
+        verifyThrows(IOException.class, () -> client.sendRequest(request));
     }
 
     @Test
@@ -415,7 +412,7 @@ public class DefaultHttpClientTest {
         server.enqueue(mockResponse);
 
         CompletableFuture<Auth0HttpResponse> future = client.sendRequestAsync(request);
-        ExecutionException e = assertThrows(ExecutionException.class, future::get);
+        ExecutionException e = verifyThrows(ExecutionException.class, future::get);
         assertThat(e.getCause(), is(instanceOf(IOException.class)));
     }
 
@@ -438,7 +435,7 @@ public class DefaultHttpClientTest {
             .build();
 
         CompletableFuture<Auth0HttpResponse> future = client.sendRequestAsync(request);
-        ExecutionException e = assertThrows(ExecutionException.class, future::get);
+        ExecutionException e = verifyThrows(ExecutionException.class, future::get);
         assertThat(e.getCause(), is(instanceOf(IOException.class)));
     }
 
@@ -834,18 +831,16 @@ public class DefaultHttpClientTest {
 
     @Test
     public void shouldThrowOnNegativeMaxRetriesConfiguration() {
-        IllegalArgumentException iae = assertThrows(IllegalArgumentException.class, () ->
-            DefaultHttpClient.newBuilder().withMaxRetries(-1).build()
-        );
-        assertThat(iae.getMessage(), is("Retries must be between zero and ten."));
+        IllegalArgumentException iae = verifyThrows(IllegalArgumentException.class,
+            () -> DefaultHttpClient.newBuilder().withMaxRetries(-1).build(),
+            "Retries must be between zero and ten.");
     }
 
     @Test
     public void shouldThrowOnTooManyMaxRetriesConfiguration() {
-        IllegalArgumentException iae = assertThrows(IllegalArgumentException.class, () ->
-            DefaultHttpClient.newBuilder().withMaxRetries(11).build()
-        );
-        assertThat(iae.getMessage(), is("Retries must be between zero and ten."));
+        IllegalArgumentException iae = verifyThrows(IllegalArgumentException.class,
+            () -> DefaultHttpClient.newBuilder().withMaxRetries(11).build(),
+            "Retries must be between zero and ten.");
     }
 
     @Test
@@ -865,8 +860,9 @@ public class DefaultHttpClientTest {
 
     @Test
     public void shouldThrowOnInValidMaxRequestsConfiguration() {
-        IllegalArgumentException iae = assertThrows(IllegalArgumentException.class, () -> DefaultHttpClient.newBuilder().withMaxRequests(0).build());
-        assertThat(iae.getMessage(), is("maxRequests must be one or greater."));
+        IllegalArgumentException iae = verifyThrows(IllegalArgumentException.class,
+            () -> DefaultHttpClient.newBuilder().withMaxRequests(0).build(),
+            "maxRequests must be one or greater.");
     }
 
     @Test
@@ -885,9 +881,9 @@ public class DefaultHttpClientTest {
 
     @Test
     public void shouldThrowOnInValidMaxRequestsPerHostConfiguration() {
-        IllegalArgumentException iae = assertThrows(IllegalArgumentException.class, () ->
-            DefaultHttpClient.newBuilder().withMaxRequestsPerHost(0).build());
-        assertThat(iae.getMessage(), is("maxRequestsPerHost must be one or greater."));
+        IllegalArgumentException iae = verifyThrows(IllegalArgumentException.class,
+            () -> DefaultHttpClient.newBuilder().withMaxRequestsPerHost(0).build(),
+            "maxRequestsPerHost must be one or greater.");
     }
 
 }

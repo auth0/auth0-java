@@ -4,29 +4,30 @@ import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.client.mgmt.filter.LogEventFilter;
 import com.auth0.client.mgmt.filter.PageFilter;
 import com.auth0.client.mgmt.filter.UserFilter;
-import com.auth0.json.mgmt.users.authenticationmethods.AuthenticationMethod;
-import com.auth0.json.mgmt.users.authenticationmethods.AuthenticationMethodsPage;
-import com.auth0.json.mgmt.permissions.Permission;
-import com.auth0.json.mgmt.permissions.PermissionsPage;
-import com.auth0.json.mgmt.roles.RolesPage;
 import com.auth0.json.mgmt.guardian.Enrollment;
 import com.auth0.json.mgmt.logevents.LogEvent;
 import com.auth0.json.mgmt.logevents.LogEventsPage;
 import com.auth0.json.mgmt.organizations.OrganizationsPage;
+import com.auth0.json.mgmt.permissions.Permission;
+import com.auth0.json.mgmt.permissions.PermissionsPage;
+import com.auth0.json.mgmt.roles.RolesPage;
 import com.auth0.json.mgmt.users.Identity;
 import com.auth0.json.mgmt.users.RecoveryCode;
 import com.auth0.json.mgmt.users.User;
 import com.auth0.json.mgmt.users.UsersPage;
+import com.auth0.json.mgmt.users.authenticationmethods.AuthenticationMethod;
+import com.auth0.json.mgmt.users.authenticationmethods.AuthenticationMethodsPage;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -218,9 +219,9 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetUserWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'user id' cannot be null!");
-        api.users().get(null, null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().get(null, null),
+            "'user id' cannot be null!");
     }
 
     @Test
@@ -260,9 +261,9 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnCreateUserWithNullData() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'user' cannot be null!");
-        api.users().create(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().create(null),
+            "'user' cannot be null!");
     }
 
     @Test
@@ -287,9 +288,9 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnDeleteUserWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'user id' cannot be null!");
-        api.users().delete(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().delete(null),
+            "'user id' cannot be null!");
     }
 
     @Test
@@ -308,16 +309,16 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnUpdateUserWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'user id' cannot be null!");
-        api.users().update(null, new User("auth0"));
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().update(null, new User("auth0")),
+            "'user id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnUpdateUserWithNullData() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'user' cannot be null!");
-        api.users().update("1", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().update("1", null),
+            "'user' cannot be null!");
     }
 
     @Test
@@ -343,9 +344,9 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetUserGuardianEnrollmentsWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'user id' cannot be null!");
-        api.users().getEnrollments(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().getEnrollments(null),
+            "'user id' cannot be null!");
     }
 
     @Test
@@ -378,9 +379,9 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetUserLogEventsWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'user id' cannot be null!");
-        api.users().getLogEvents(null, null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().getLogEvents(null, null),
+            "'user id' cannot be null!");
     }
 
     @Test
@@ -514,9 +515,9 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnDeleteUserAuthenticatorsWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'user id' cannot be null!");
-        api.users().deleteAllAuthenticators(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().deleteAllAuthenticators(null),
+            "'user id' cannot be null!");
     }
 
     @Test
@@ -535,16 +536,16 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnDeleteUserMultifactorProviderWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'user id' cannot be null!");
-        api.users().deleteMultifactorProvider(null, "duo");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().deleteMultifactorProvider(null, "duo"),
+            "'user id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnDeleteUserMultifactorProviderWithNullProvider() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'provider' cannot be null!");
-        api.users().deleteMultifactorProvider("1", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().deleteMultifactorProvider("1", null),
+            "'provider' cannot be null!");
     }
 
     @Test
@@ -563,9 +564,9 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnRotateUserRecoveryCodeWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'user id' cannot be null!");
-        api.users().rotateRecoveryCode(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().rotateRecoveryCode(null),
+            "'user id' cannot be null!");
     }
 
     @Test
@@ -586,37 +587,37 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnLinkUserIdentityWithNullPrimaryId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'primary user id' cannot be null!");
-        api.users().linkIdentity(null, "2", "auth0", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().linkIdentity(null, "2", "auth0", null),
+            "'primary user id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnLinkUserIdentityWithNullSecondaryId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'secondary user id' cannot be null!");
-        api.users().linkIdentity("1", null, "auth0", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().linkIdentity("1", null, "auth0", null),
+            "'secondary user id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnLinkUserIdentityWithNullSecondaryToken() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'secondary id token' cannot be null!");
-        api.users().linkIdentity("1", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().linkIdentity("1", null),
+            "'secondary id token' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnLinkUserIdentityWithNullUserId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'primary user id' cannot be null!");
-        api.users().linkIdentity(null, "2");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().linkIdentity(null, "2"),
+            "'primary user id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnLinkUserIdentityWithNullProvider() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'provider' cannot be null!");
-        api.users().linkIdentity("1", "2", null, null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().linkIdentity("1", "2", null, null),
+            "'provider' cannot be null!");
     }
 
     @Test
@@ -684,23 +685,23 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnUnlinkUserIdentityWithNullPrimaryId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'primary user id' cannot be null!");
-        api.users().unlinkIdentity(null, "2", "auth0");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().unlinkIdentity(null, "2", "auth0"),
+            "'primary user id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnUnlinkUserIdentityWithNullSecondaryId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'secondary user id' cannot be null!");
-        api.users().unlinkIdentity("1", null, "auth0");
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().unlinkIdentity("1", null, "auth0"),
+            "'secondary user id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnUnlinkUserIdentityWithNullProvider() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'provider' cannot be null!");
-        api.users().unlinkIdentity("1", "2", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().unlinkIdentity("1", "2", null),
+            "'provider' cannot be null!");
     }
 
     @Test
@@ -721,9 +722,9 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnListRolesWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'user id' cannot be null!");
-        api.users().listRoles(null, null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().listRoles(null, null),
+            "'user id' cannot be null!");
     }
 
     @Test
@@ -788,23 +789,23 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnAddRolesWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'user id' cannot be null!");
-        api.users().addRoles(null, Collections.emptyList());
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().addRoles(null, Collections.emptyList()),
+            "'user id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnAddRolesWithNullList() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'role ids' cannot be null!");
-        api.users().addRoles("1", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().addRoles("1", null),
+            "'role ids' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnAddRolesWithEmptyList() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'role ids' cannot be empty!");
-        api.users().addRoles("1", Collections.emptyList());
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().addRoles("1", Collections.emptyList()),
+            "'role ids' cannot be empty!");
     }
 
     @Test
@@ -829,23 +830,23 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnRemoveRolesWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'user id' cannot be null!");
-        api.users().removeRoles(null, Collections.emptyList());
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().removeRoles(null, Collections.emptyList()),
+            "'user id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnRemoveRolesWithNullList() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'role ids' cannot be null!");
-        api.users().removeRoles("1", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().removeRoles("1", null),
+            "'role ids' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnRemoveRolesWithEmptyList() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'role ids' cannot be empty!");
-        api.users().removeRoles("1", Collections.emptyList());
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().removeRoles("1", Collections.emptyList()),
+            "'role ids' cannot be empty!");
     }
 
     @Test
@@ -930,23 +931,23 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnAddPermissionsWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'user id' cannot be null!");
-        api.users().addPermissions(null, Collections.emptyList());
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().addPermissions(null, Collections.emptyList()),
+            "'user id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnAddPermissionsWithNullList() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'permissions' cannot be null!");
-        api.users().addPermissions("1", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().addPermissions("1", null),
+            "'permissions' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnAddPermissionsWithEmptyList() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'permissions' cannot be empty!");
-        api.users().addPermissions("1", Collections.emptyList());
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().addPermissions("1", Collections.emptyList()),
+            "'permissions' cannot be empty!");
     }
 
     @Test
@@ -975,23 +976,23 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnRemovePermissionsWithNullId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'user id' cannot be null!");
-        api.users().removePermissions(null, Collections.emptyList());
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().removePermissions(null, Collections.emptyList()),
+            "'user id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnRemovePermissionsWithNullList() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'permissions' cannot be null!");
-        api.users().removePermissions("roleId", null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().removePermissions("roleId", null),
+            "'permissions' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnRemovePermissionsWithEmptyList() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("'permissions' cannot be empty!");
-        api.users().removePermissions("roleId", Collections.emptyList());
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().removePermissions("roleId", Collections.emptyList()),
+            "'permissions' cannot be empty!");
     }
 
     @Test
@@ -1020,9 +1021,9 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldThrowOnGetOrganizationsWithNullUserId() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("user ID");
-        api.users().getOrganizations(null, null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().getOrganizations(null, null),
+            "'user ID' cannot be null!");
     }
 
     @Test
@@ -1083,10 +1084,10 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldGetUserAuthenticationMethodsWithNullId() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("user ID");
-        api.users().getAuthenticationMethods(null, null);
+    public void shouldGetUserAuthenticationMethodsWithNullId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().getAuthenticationMethods(null, null),
+            "'user ID' cannot be null!");
     }
 
     @Test
@@ -1149,17 +1150,17 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldUpdateUserAuthenticationMethodsWithNullId() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("user ID");
-        api.users().updateAuthenticationMethods(null, new ArrayList<>());
+    public void shouldUpdateUserAuthenticationMethodsWithNullId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().updateAuthenticationMethods(null, new ArrayList<>()),
+            "'user ID' cannot be null!");
     }
 
     @Test
-    public void shouldUpdateUserAuthenticationMethodsWithAuthenticatorMethodsNull() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("authentication methods");
-        api.users().updateAuthenticationMethods("1", null);
+    public void shouldUpdateUserAuthenticationMethodsWithAuthenticatorMethodsNull() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().updateAuthenticationMethods("1", null),
+            "'authentication methods' cannot be null!");
     }
 
     @Test
@@ -1183,17 +1184,17 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldNotCreateUserAuthenticationMethodsWithNullId() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("user ID");
-        api.users().createAuthenticationMethods(null, new AuthenticationMethod());
+    public void shouldNotCreateUserAuthenticationMethodsWithNullId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().createAuthenticationMethods(null, new AuthenticationMethod()),
+            "'user ID' cannot be null!");
     }
 
     @Test
-    public void shouldNotCreateUserAuthenticationMethodsWithAuthenticatorMethodsNull() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("authentication methods");
-        api.users().createAuthenticationMethods("1", null);
+    public void shouldNotCreateUserAuthenticationMethodsWithAuthenticatorMethodsNull() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().createAuthenticationMethods("1", null),
+            "'authentication methods' cannot be null!");
     }
 
     @Test
@@ -1214,17 +1215,17 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldNotGetUserAuthenticationMethodsByIdWithNullId() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("user ID");
-        api.users().getAuthenticationMethodById(null, "1");
+    public void shouldNotGetUserAuthenticationMethodsByIdWithNullId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().getAuthenticationMethodById(null, "1"),
+            "'user ID' cannot be null!");
     }
 
     @Test
-    public void shouldNotGetUserAuthenticationMethodsByIdWithAuthenticatorMethodIdNull() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("authentication method ID");
-        api.users().getAuthenticationMethodById("1", null);
+    public void shouldNotGetUserAuthenticationMethodsByIdWithAuthenticatorMethodIdNull() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().getAuthenticationMethodById("1", null),
+            "'authentication method ID' cannot be null!");
     }
 
     @Test
@@ -1244,24 +1245,24 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldNotUpdateUserAuthenticationMethodsByIdWithNullId() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("user ID");
-        api.users().updateAuthenticationMethodById(null, "1", new AuthenticationMethod());
+    public void shouldNotUpdateUserAuthenticationMethodsByIdWithNullId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().updateAuthenticationMethodById(null, "1", new AuthenticationMethod()),
+            "'user ID' cannot be null!");
     }
 
     @Test
-    public void shouldNotUpdateUserAuthenticationMethodsByIdWithAuthenticatorMethodIdNull() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("authentication method ID");
-        api.users().updateAuthenticationMethodById("1", null, new AuthenticationMethod());
+    public void shouldNotUpdateUserAuthenticationMethodsByIdWithAuthenticatorMethodIdNull() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().updateAuthenticationMethodById("1", null, new AuthenticationMethod()),
+            "'authentication method ID' cannot be null!");
     }
 
     @Test
-    public void shouldNotUpdateUserAuthenticationMethodsByIdWithAuthenticatorMethodNull() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("authentication method");
-        api.users().updateAuthenticationMethodById("1", "1", null);
+    public void shouldNotUpdateUserAuthenticationMethodsByIdWithAuthenticatorMethodNull() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().updateAuthenticationMethodById("1", "1", null),
+            "'authentication method' cannot be null!");
     }
 
     @Test
@@ -1281,17 +1282,17 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
-    public void shouldNotDeleteUserAuthenticationMethodsByIdWithNullId() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("user ID");
-        api.users().deleteAuthenticationMethodById(null, "1");
+    public void shouldNotDeleteUserAuthenticationMethodsByIdWithNullId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().deleteAuthenticationMethodById(null, "1"),
+            "'user ID' cannot be null!");
     }
 
     @Test
-    public void shouldNotDeleteUserAuthenticationMethodsByIdWithAuthenticatorMethodIdNull() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("authentication method ID");
-        api.users().deleteAuthenticationMethodById("1", null);
+    public void shouldNotDeleteUserAuthenticationMethodsByIdWithAuthenticatorMethodIdNull() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().deleteAuthenticationMethodById("1", null),
+            "'authentication method ID' cannot be null!");
     }
 
     @Test
@@ -1310,9 +1311,9 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void invalidateRememberedBrowsersThrowsWhenUserIdIsNull() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("user ID");
-        api.users().invalidateRememberedBrowsers(null);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().invalidateRememberedBrowsers(null),
+            "'user ID' cannot be null!");
     }
 
     @Test
