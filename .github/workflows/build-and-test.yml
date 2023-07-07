@@ -1,0 +1,25 @@
+name: auth0/auth0-java/build-and-test
+
+on:
+  pull_request:
+  merge_group:
+  push:
+    branches: ["master", "main", "v1"]
+
+# TODO what is the purpose of this?
+env:
+  PACKAGE_NAME: xxxxh0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: openjdk:8-jdk
+    env:
+      GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"
+      _JAVA_OPTIONS: "-Xms512m -Xmx1024m"
+      TERM: dumb
+    steps:
+    - uses: actions/checkout@v3.5.0
+    - uses: "./.github/actions/checkout-and-build"
+    - uses: "./.github/actions/run-tests"
