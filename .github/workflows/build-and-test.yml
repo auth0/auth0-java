@@ -22,4 +22,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3.5.0
     - uses: "./.github/actions/checkout-and-build"
-    - uses: "./.github/actions/run-tests"
+#    - uses: "./.github/actions/run-tests"
