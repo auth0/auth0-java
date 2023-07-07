@@ -24,5 +24,5 @@ jobs:
           arguments: check jacocoTestReport --continue --console=plain
       - uses: codecov/codecov-action@v3
         with:
-          files: ./coverage/coverage.xml
+#          files: ./coverage/coverage.xml
           flags: unittests
