@@ -109,7 +109,7 @@ public class AuthorizeUrlBuilder {
     /**
      * Sets the organization query string parameter value used to login to an organization.
      *
-     * @param organization The ID of the organization to log the user in to.
+     * @param organization The ID or name of the organization to log the user in to.
      * @return the builder instance.
      */
     public AuthorizeUrlBuilder withOrganization(String organization) {
