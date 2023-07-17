@@ -732,8 +732,7 @@ public class UsersEntity extends BaseManagementEntity {
             .build()
             .toString();
 
-        return new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.DELETE, new TypeReference<Void>() {
-        });
+        return new VoidRequest(this.client, tokenProvider, url, HttpMethod.DELETE);
     }
 
     /**

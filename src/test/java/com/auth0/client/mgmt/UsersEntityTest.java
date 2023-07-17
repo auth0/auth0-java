@@ -1300,8 +1300,8 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         Request<Void> request = api.users().deleteAuthenticationMethodById("1", "1");
         assertThat(request, is(notNullValue()));
 
-        server.jsonResponse(AUTHENTICATOR_METHOD_UPDATE_BY_ID, 200);
-        Void response = request.execute().getBody();
+        server.noContentResponse();
+        request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/users/1/authentication-methods/1"));
