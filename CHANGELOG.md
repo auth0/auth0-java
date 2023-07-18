@@ -1,5 +1,14 @@
 # Change Log
 
+## [2.5.0](https://github.com/auth0/auth0-java/tree/2.5.0) (2023-07-18)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.4.0...2.5.0)
+
+**Added**
+- Support Organization Name on Authorize URL [\#550](https://github.com/auth0/auth0-java/pull/550) ([vasantteja](https://github.com/vasantteja))
+
+**Fixed**
+- Fix deleteAuthenticationMethodById [\#552](https://github.com/auth0/auth0-java/pull/552) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [2.4.0](https://github.com/auth0/auth0-java/tree/2.4.0) (2023-06-15)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.3.0...2.4.0)
 
