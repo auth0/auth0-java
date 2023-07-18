@@ -154,7 +154,7 @@ public final class IdTokenVerifier {
                 if (isEmpty(orgNameClaim)) {
                     throw new IdTokenValidationException("Organization name (org_name) claim must be a string present in the ID token");
                 }
-                if (!org.equalsIgnoreCase(orgNameClaim)) {
+                if (!org.toLowerCase().equals(orgNameClaim)) {
                     throw new IdTokenValidationException(String.format("Organization (org_name) claim mismatch in the ID token; expected \"%s\" but found \"%s\"", this.organization, orgNameClaim));
                 }
             }
