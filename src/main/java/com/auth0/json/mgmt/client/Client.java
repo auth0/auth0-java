@@ -86,7 +86,7 @@ public class Client {
     private String tenant;
     @JsonProperty("global")
     private Boolean global;
-    @JsonProperty("cross_origin_auth")
+    @JsonProperty("cross_origin_authentication")
     private Boolean crossOriginAuth;
     @JsonProperty("cross_origin_loc")
     private String crossOriginLoc;
@@ -766,7 +766,7 @@ public class Client {
      * Setter whether this client can be used to make cross-origin authentication requests (true) or it is not allowed to make such requests (false).
      * @param crossOriginAuth whether an application can make cross-origin authentication requests or not
      */
-    @JsonProperty("cross_origin_auth")
+    @JsonProperty("cross_origin_authentication")
     public void setCrossOriginAuth(Boolean crossOriginAuth) {
         this.crossOriginAuth = crossOriginAuth;
     }
@@ -775,7 +775,7 @@ public class Client {
      * Whether this client can be used to make cross-origin authentication requests (true) or it is not allowed to make such requests (false).
      * @return true if application can make cross-origin authentication requests, false otherwise
      */
-    @JsonProperty("cross_origin_auth")
+    @JsonProperty("cross_origin_authentication")
     public Boolean getCrossOriginAuth() {
         return crossOriginAuth;
     }

@@ -41,7 +41,7 @@
     "is_heroku_app": false,
     "tenant": "auth0",
     "global": false,
-    "cross_origin_auth": false,
+    "cross_origin_authentication": false,
     "cross_origin_loc": "https://auth0.com/auth/callback-cross-auth",
     "addons": {
       "rms": {},
