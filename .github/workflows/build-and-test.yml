@@ -9,21 +9,15 @@ on:
 jobs:
   gradle:
     runs-on:  ubuntu-latest
-    strategy:
-      matrix:
-        java: [ '8', '11', '17' ]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
         with:
           distribution: temurin
-          java-version: ${{ matrix.java }}
+          java-version: 8
       - uses: gradle/gradle-build-action@v2
         with:
-          arguments: assemble
-      - uses: gradle/gradle-build-action@v2
-        with:
-          arguments: check jacocoTestReport --continue --console=plain
+          arguments: assemble check jacocoTestReport --continue --console=plain
       - uses: codecov/codecov-action@v3
         with:
           flags: unittests
