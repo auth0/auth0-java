@@ -16,7 +16,7 @@ oss {
     repository 'auth0-java'
     organization 'auth0'
     description 'Java client library for the Auth0 platform.'
-    baselineCompareVersion '1.27.0'
+    baselineCompareVersion '2.0.0'
     testInJavaVersions = [8, 11, 17]
 
     developers {
