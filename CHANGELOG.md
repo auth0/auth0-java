@@ -1,5 +1,10 @@
 # Change Log
 
+## [Unreleased]
+
+**Security**
+- Updated OkHttp to 4.11.0
+
 ## [2.5.0](https://github.com/auth0/auth0-java/tree/2.5.0) (2023-07-18)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.4.0...2.5.0)
 
