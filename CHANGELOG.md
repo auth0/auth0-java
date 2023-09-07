@@ -1,9 +1,13 @@
 # Change Log
 
-## [Unreleased]
+## [2.6.0](https://github.com/auth0/auth0-java/tree/2.6.0) (2023-09-07)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.5.0...2.6.0)
 
 **Security**
-- Updated OkHttp to 4.11.0
+- Update OkHttp to 4.11.0 [\#558](https://github.com/auth0/auth0-java/pull/558) ([evansims](https://github.com/evansims))
+
+**Fixed**
+- Align json property 'cross_origin_authentication' with api docs [\#555](https://github.com/auth0/auth0-java/pull/555) ([Jojo134](https://github.com/Jojo134))
 
 ## [2.5.0](https://github.com/auth0/auth0-java/tree/2.5.0) (2023-07-18)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.4.0...2.5.0)
