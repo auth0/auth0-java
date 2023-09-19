@@ -63,13 +63,15 @@ test {
 }
 
 ext {
-    okhttpVersion = '4.10.0'
+    okhttpVersion = '4.11.0'
     hamcrestVersion = '2.2'
 }
 
 dependencies {
     implementation "com.squareup.okhttp3:okhttp:${okhttpVersion}"
     implementation "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
+    // TODO remove direct dependency when OkHttp 4.12.0 is released
+    implementation "com.squareup.okio:okio:3.4.0"
     implementation "com.fasterxml.jackson.core:jackson-databind:2.13.4.2"
     implementation "com.auth0:java-jwt:3.19.4"
     implementation "net.jodah:failsafe:2.4.1"
