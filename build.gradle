@@ -70,7 +70,12 @@ ext {
 }
 
 dependencies {
-    implementation "com.squareup.okhttp3:okhttp:${okhttpVersion}"
+    // TODO remove direct dependency when OkHttp 4.12.0 is released
+    implementation ("com.squareup.okhttp3:okhttp:${okhttpVersion}") {
+      exclude group: 'com.squareup.okhttp3', module: 'okio'
+    }
+    implementation "com.squareup.okio:okio:3.5.0"
+
     implementation "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
     implementation "com.fasterxml.jackson.core:jackson-databind:2.14.2"
     implementation "com.auth0:java-jwt:4.4.0"
