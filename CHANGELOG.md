@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.6.1](https://github.com/auth0/auth0-java/tree/2.6.1) (2023-09-22)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.6.0...2.6.1)
+
+**Security**
+- Update Okio to resolve CVE-2023-3635 [\#560](https://github.com/auth0/auth0-java/pull/560) ([evansims](https://github.com/evansims))
+
 ## [2.6.0](https://github.com/auth0/auth0-java/tree/2.6.0) (2023-09-07)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.5.0...2.6.0)
 
