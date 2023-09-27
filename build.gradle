@@ -81,12 +81,21 @@ dependencies {
     implementation "com.auth0:java-jwt:4.4.0"
     implementation "net.jodah:failsafe:2.4.4"
 
-    testImplementation "org.bouncycastle:bcprov-jdk15on:1.68"
+    testImplementation "org.bouncycastle:bcprov-jdk15on:1.70"
     testImplementation "org.mockito:mockito-core:4.8.1"
     testImplementation "com.squareup.okhttp3:mockwebserver:${okhttpVersion}"
     testImplementation "org.hamcrest:hamcrest:${hamcrestVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-api:${jupiterVersion}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}"
+
+    // Override MockWebServer's junit transitive dependency to latest v4
+    constraints {
+      testImplementation( group: 'junit', name: 'junit'){
+        version{
+          strictly "[4.13.2]"
+        }
+      }
+    }
 }
 
 // Creates a version.txt file containing the current version of the SDK.
