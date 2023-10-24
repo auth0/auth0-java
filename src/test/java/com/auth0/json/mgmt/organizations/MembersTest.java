@@ -30,7 +30,13 @@ public class MembersTest extends JsonTest<Member> {
             "   \"user_id\": \"user_123\",\n" +
             "   \"email\": \"fred@domain.com\",\n" +
             "   \"picture\": \"https://profilepic.com/mypic.png\",\n" +
-            "   \"name\": \"fred\"\n" +
+            "   \"name\": \"fred\",\n" +
+            "   \"roles\": [\n" +
+            "      {\n" +
+            "        \"id\": \"rol_abc\",\n" +
+            "        \"name\": \"test role\"\n" +
+            "      }\n" +
+            "   ]" +
             "}";
 
         Member member = fromJSON(memberJson, Member.class);
@@ -39,6 +45,8 @@ public class MembersTest extends JsonTest<Member> {
         assertThat(member.getEmail(), is("fred@domain.com"));
         assertThat(member.getPicture(), is("https://profilepic.com/mypic.png"));
         assertThat(member.getName(), is("fred"));
-
+        assertThat(member.getRoles().size(), is(1));
+        assertThat(member.getRoles().get(0).getName(), is("test role"));
+        assertThat(member.getRoles().get(0).getId(), is("rol_abc"));
     }
 }
