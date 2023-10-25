@@ -1,8 +1,11 @@
 package com.auth0.json.mgmt.organizations;
 
+import com.auth0.json.mgmt.roles.Role;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
 
 /**
  * Represents the member of an organization.
@@ -20,6 +23,8 @@ public class Member {
     private String picture;
     @JsonProperty("name")
     private String name;
+    @JsonProperty("roles")
+    private List<Role> roles;
 
     /**
      * @return the user ID of this Member.
@@ -74,5 +79,9 @@ public class Member {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
     }
 }

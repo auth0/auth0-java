@@ -184,6 +184,22 @@ public class OrganizationsEntity extends BaseManagementEntity {
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Organizations/get_members">https://auth0.com/docs/api/management/v2#!/Organizations/get_members</a>
      */
     public Request<MembersPage> getMembers(String orgId, PageFilter filter) {
+        return getMembers(orgId, filter, null);
+    }
+
+    /**
+     * Get the members of an organization. A token with {@code read:organization_members} scope is required.
+     * <br/>
+     * Member roles are not sent by default. Supply a {@linkplain FieldsFilter} that includes "roles" (and {@code includeFields = true} to retrieve the roles assigned to each listed member. To include the roles in the response, you must include the {@code read:organization_member_roles} scope in the token.
+     *
+     * @param orgId the ID of the organization
+     * @param pageFilter an optional pagination filter
+     * @param fieldsFilter an optional fields filter. If null, all fields (except roles) are returned.
+     * @return a Request to execute
+     *
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/Organizations/get_members">https://auth0.com/docs/api/management/v2#!/Organizations/get_members</a>
+     */
+    public Request<MembersPage> getMembers(String orgId, PageFilter pageFilter, FieldsFilter fieldsFilter) {
         Asserts.assertNotNull(orgId, "organization ID");
 
         HttpUrl.Builder builder = baseUrl
@@ -192,7 +208,8 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .addPathSegment(orgId)
             .addPathSegment("members");
 
-        applyFilter(filter, builder);
+        applyFilter(pageFilter, builder);
+        applyFilter(fieldsFilter, builder);
 
         String url = builder.build().toString();
         return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<MembersPage>() {

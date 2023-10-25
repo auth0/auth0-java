@@ -298,6 +298,27 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
+    public void shouldListOrgMembersWithFieldsFilter() throws Exception {
+        FieldsFilter fieldsFilter = new FieldsFilter().withFields("name,email,user_id,roles", true);
+
+        Request<MembersPage> request = api.organizations().getMembers("org_abc", null, fieldsFilter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MockServer.ORGANIZATION_MEMBERS_LIST, 200);
+        MembersPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/organizations/org_abc/members"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("fields", "name,email,user_id,roles"));
+        assertThat(recordedRequest, hasQueryParameter("include_fields", "true"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(3));
+    }
+
+    @Test
     public void shouldListOrgMembersWithPage() throws Exception {
         PageFilter filter = new PageFilter().withPage(0, 20);
         Request<MembersPage> request = api.organizations().getMembers("org_abc", filter);
@@ -310,6 +331,30 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/organizations/org_abc/members"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("page", "0"));
+        assertThat(recordedRequest, hasQueryParameter("per_page", "20"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(3));
+    }
+
+    @Test
+    public void shouldListOrgMembersWithFieldsFilterAndPageFilter() throws Exception {
+        PageFilter pageFilter = new PageFilter().withPage(0, 20);
+        FieldsFilter fieldsFilter = new FieldsFilter().withFields("name,email,user_id,roles", true);
+
+        Request<MembersPage> request = api.organizations().getMembers("org_abc", pageFilter, fieldsFilter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MockServer.ORGANIZATION_MEMBERS_LIST, 200);
+        MembersPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/organizations/org_abc/members"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("fields", "name,email,user_id,roles"));
+        assertThat(recordedRequest, hasQueryParameter("include_fields", "true"));
         assertThat(recordedRequest, hasQueryParameter("page", "0"));
         assertThat(recordedRequest, hasQueryParameter("per_page", "20"));
 
