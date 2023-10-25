@@ -30,7 +30,11 @@ public class AuthenticationMethodTest extends JsonTest<AuthenticationMethod> {
             "      \"totp_secret\":\"totp\",\n" +
             "      \"preferred_authentication_method\":\"phone\",\n" +
             "      \"relying_party_identifier\":\"abc\",\n" +
-            "      \"authentication_methods\":[{\"id\": \"id\", \"type\": \"type\"}]\n" +
+            "      \"authentication_methods\":[{\"id\": \"id\", \"type\": \"type\"}],\n" +
+            "      \"credential_device_type\": \"single_device\",\n" +
+            "      \"credential_backed_up\": true,\n" +
+            "      \"identity_user_id\": \"identityId\",\n" +
+            "      \"user_agent\": \"userAgent\"" +
             "   }";
 
 
@@ -54,7 +58,10 @@ public class AuthenticationMethodTest extends JsonTest<AuthenticationMethod> {
         assertThat(authenticationMethod.getAuthenticationMethods(), hasSize(1));
         assertThat(authenticationMethod.getAuthenticationMethods().get(0).getId(), is("id"));
         assertThat(authenticationMethod.getAuthenticationMethods().get(0).getType(), is("type"));
-
+        assertThat(authenticationMethod.getCredentialDeviceType(), is("single_device"));
+        assertThat(authenticationMethod.getCredentialBackedUp(), is(true));
+        assertThat(authenticationMethod.getIdentityUserId(), is("identityId"));
+        assertThat(authenticationMethod.getUserAgent(), is("userAgent"));
     }
 
     @Test
