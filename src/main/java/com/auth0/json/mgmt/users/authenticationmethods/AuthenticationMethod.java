@@ -40,6 +40,14 @@ public class AuthenticationMethod {
     private String relyingPartyIdentifier;
     @JsonProperty("authentication_methods")
     private List<AuthMethod> authenticationMethods;
+    @JsonProperty("credential_device_type")
+    private String credentialDeviceType;
+    @JsonProperty("credential_backed_up")
+    private Boolean credentialBackedUp;
+    @JsonProperty("identity_user_id")
+    private String identityUserId;
+    @JsonProperty("user_agent")
+    private String userAgent;
 
     /**
      * Create a new instance.
@@ -242,5 +250,41 @@ public class AuthenticationMethod {
      */
     public List<AuthMethod> getAuthenticationMethods() {
         return authenticationMethods;
+    }
+
+    /**
+     * Applies to passkeys only.
+     *
+     * @return The kind of device the credential is stored on as defined by backup eligibility. "single_device" credentials cannot be backed up and synced to another device, "multi_device" credentials can be backed up if enabled by the end-user.
+     */
+    public String getCredentialDeviceType() {
+        return credentialDeviceType;
+    }
+
+    /**
+     * Applies to passkeys only.
+     *
+     * @return Whether the credential was backed up.
+     */
+    public Boolean getCredentialBackedUp() {
+        return credentialBackedUp;
+    }
+
+    /**
+     * Applies to passkeys only.
+     *
+     * @return The ID of the user identity linked with the authentication method.
+     */
+    public String getIdentityUserId() {
+        return identityUserId;
+    }
+
+    /**
+     * Applies to passkeys only.
+     *
+     * @return The user-agent of the browser used to create the passkey.
+     */
+    public String getUserAgent() {
+        return userAgent;
     }
 }

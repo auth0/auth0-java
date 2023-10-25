@@ -7,6 +7,10 @@
     "created_at": "2023-02-01T18:44:46.483Z",
     "last_auth_at": "2023-02-07T20:29:33.547Z",
     "preferred_authentication_method": "sms",
+    "credential_device_type": "single_device",
+    "credential_backed_up": true,
+    "identity_user_id": "identityId",
+    "user_agent": "userAgent",
     "authentication_methods": [
       {
         "id": "sms|id",
