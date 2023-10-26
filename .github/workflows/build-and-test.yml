@@ -15,7 +15,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 8
-      - uses: gradle/gradle-build-action@0bfe00a136db5e61ba3416b372542a65863a9fee
+      - uses: gradle/gradle-build-action@842c587ad8aa4c68eeba24c396e15af4c2e9f30a
         with:
           arguments: assemble apiDiff check jacocoTestReport --continue --console=plain
       - uses: codecov/codecov-action@eaaf4bedf32dbdc6b720b63067d99c4d77d6047d
