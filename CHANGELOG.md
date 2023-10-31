@@ -1,5 +1,12 @@
 # Change Log
 
+## [2.7.0](https://github.com/auth0/auth0-java/tree/2.7.0) (2023-10-31)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.6.1...2.7.0)
+
+**Added**
+- Support organization get member roles [\#574](https://github.com/auth0/auth0-java/pull/574) ([jimmyjames](https://github.com/jimmyjames))
+- Add passkey properties to authentication method response [\#575](https://github.com/auth0/auth0-java/pull/575) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [2.6.1](https://github.com/auth0/auth0-java/tree/2.6.1) (2023-09-22)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.6.0...2.6.1)
 
