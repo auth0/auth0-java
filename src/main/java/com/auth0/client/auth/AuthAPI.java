@@ -1359,7 +1359,7 @@ public class AuthAPI {
          */
         public AuthAPI build() {
             return new AuthAPI(domain, clientId, clientSecret, clientAssertionSigner,
-                Objects.nonNull(httpClient) ? httpClient : DefaultHttpClient.newBuilder().build());
+                Objects.nonNull(httpClient) ? httpClient : DefaultHttpClient.newBuilder().withMaxRetries(0).build());
         }
     }
 }

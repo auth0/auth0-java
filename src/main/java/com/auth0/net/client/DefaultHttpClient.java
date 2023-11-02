@@ -138,9 +138,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
         ResponseBody responseBody = okResponse.body();
         String content = null;
 
-        // The RateLimitInterceptor needs to close the response; we don't need the body in that case and trying to
-        // get the body will result in an exception because the responsebody has been closed
-        if (Objects.nonNull(responseBody) && okResponse.code() != 429) {
+        if (Objects.nonNull(responseBody)) {
             content = responseBody.string();
         }
         return Auth0HttpResponse.newBuilder()

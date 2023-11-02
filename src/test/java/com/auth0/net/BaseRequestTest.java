@@ -401,9 +401,9 @@ public class BaseRequestTest {
     }
 
     @Test
-    public void shouldParseRateLimitsHeaders() {
+    public void shouldParseRateLimitException() throws Exception {
         BaseRequest<List> request = new BaseRequest<>(client, tokenProvider, server.getBaseUrl(),  HttpMethod.GET, listType);
-        server.rateLimitReachedResponse(100, 10, 5);
+        server.rateLimitReachedResponse(100, 10, 5, RATE_LIMIT_ERROR);
         Exception exception = null;
         try {
             request.execute().getBody();
@@ -414,10 +414,10 @@ public class BaseRequestTest {
         assertThat(exception, Matchers.is(notNullValue()));
         assertThat(exception, Matchers.is(Matchers.instanceOf(RateLimitException.class)));
         assertThat(exception.getCause(), Matchers.is(nullValue()));
-        assertThat(exception.getMessage(), Matchers.is("Request failed with status code 429: Rate limit reached"));
+        assertThat(exception.getMessage(), Matchers.is("Request failed with status code 429: Global limit has been reached"));
         RateLimitException rateLimitException = (RateLimitException) exception;
-        assertThat(rateLimitException.getDescription(), Matchers.is("Rate limit reached"));
-        assertThat(rateLimitException.getError(), Matchers.is(nullValue()));
+        assertThat(rateLimitException.getDescription(), Matchers.is("Global limit has been reached"));
+        assertThat(rateLimitException.getError(), Matchers.is("too_many_requests"));
         assertThat(rateLimitException.getValue("non_existing_key"), Matchers.is(nullValue()));
         assertThat(rateLimitException.getStatusCode(), Matchers.is(429));
         assertThat(rateLimitException.getLimit(), Matchers.is(100L));
@@ -426,7 +426,7 @@ public class BaseRequestTest {
     }
 
     @Test
-    public void shouldDefaultRateLimitsHeadersWhenMissing() {
+    public void shouldDefaultRateLimitsHeadersWhenMissing() throws Exception {
         BaseRequest<List> request = new BaseRequest<>(client, tokenProvider, server.getBaseUrl(),  HttpMethod.GET, listType);
         server.rateLimitReachedResponse(-1, -1, -1);
         Exception exception = null;
