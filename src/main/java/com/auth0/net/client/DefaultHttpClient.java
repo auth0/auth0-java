@@ -100,6 +100,8 @@ public class DefaultHttpClient implements Auth0HttpClient {
                     future.complete(buildResponse(response));
                 } catch (IOException e) {
                     future.completeExceptionally(e);
+                } finally {
+                    response.close();
                 }
             }
         });
