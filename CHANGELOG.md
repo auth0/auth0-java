@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.8.0](https://github.com/auth0/auth0-java/tree/2.8.0) (2023-11-07)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.7.0...2.8.0)
+
+**Fixed**
+- Propagate error messages on rate limit exceptions [\#579](https://github.com/auth0/auth0-java/pull/579) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [2.7.0](https://github.com/auth0/auth0-java/tree/2.7.0) (2023-10-31)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.6.1...2.7.0)
 
