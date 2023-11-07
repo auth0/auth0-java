@@ -108,9 +108,7 @@ public class RateLimitInterceptorTest {
 
         int index = 0;
         for (int i = 0; i < maxRetries + 1; i++) {
-            System.out.println("about to take request " + i);
             index = server.takeRequest().getSequenceNumber();
-            System.out.println("took request " + i);
         }
 
         assertThat(response.code(), is(429));

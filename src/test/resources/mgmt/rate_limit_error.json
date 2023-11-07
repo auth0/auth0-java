@@ -1,0 +1,6 @@
+{
+  "statusCode":429,
+  "error":"Too Many Requests",
+  "message":"Global limit has been reached",
+  "errorCode":"too_many_requests"
+}

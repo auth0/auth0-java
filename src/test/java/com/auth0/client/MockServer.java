@@ -144,6 +144,7 @@ public class MockServer {
     public static final String KEY_LIST = "src/test/resources/mgmt/key_list.json";
     public static final String KEY_REVOKE = "src/test/resources/mgmt/key_revoke.json";
     public static final String KEY_ROTATE = "src/test/resources/mgmt/key_rotate.json";
+    public static final String RATE_LIMIT_ERROR = "src/test/resources/mgmt/rate_limit_error.json";
 
     private final MockWebServer server;
 
@@ -184,7 +185,11 @@ public class MockServer {
         server.enqueue(response);
     }
 
-    public void rateLimitReachedResponse(long limit, long remaining, long reset) {
+    public void rateLimitReachedResponse(long limit, long remaining, long reset) throws IOException {
+        rateLimitReachedResponse(limit, remaining, reset, null);
+    }
+
+    public void rateLimitReachedResponse(long limit, long remaining, long reset, String path) throws IOException {
         MockResponse response = new MockResponse().setResponseCode(429);
         if (limit != -1) {
             response.addHeader("x-ratelimit-limit", String.valueOf(limit));
@@ -194,6 +199,11 @@ public class MockServer {
         }
         if (reset != -1) {
             response.addHeader("x-ratelimit-reset", String.valueOf(reset));
+        }
+        if (path != null) {
+                response
+                    .addHeader("Content-Type", "application/json")
+                    .setBody(readTextFile(path));
         }
         server.enqueue(response);
     }

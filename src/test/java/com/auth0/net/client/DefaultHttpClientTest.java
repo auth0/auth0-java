@@ -463,6 +463,31 @@ public class DefaultHttpClientTest {
     }
 
     @Test
+    public void alwaysCloseResponseOnSuccessfulRequestAsync() throws Exception {
+        OkHttpClient okClient = Mockito.mock(OkHttpClient.class);
+        okhttp3.Response response = Mockito.mock(okhttp3.Response.class);
+        Call call = Mockito.mock(Call.class);
+
+        doReturn(call).when(okClient).newCall(any());
+
+        doAnswer(invocation -> {
+            ((Callback) invocation.getArgument(0)).onResponse(call, response);
+            return null;
+        }).when(call).enqueue(any(Callback.class));
+
+        Headers headers = Mockito.mock(Headers.class);
+        when(response.headers()).thenReturn(headers);
+
+        DefaultHttpClient client = new DefaultHttpClient(okClient);
+        Auth0HttpRequest request = Auth0HttpRequest.newBuilder(server.url("/users/").toString(), HttpMethod.POST)
+            .withBody(HttpRequestBody.create("application/json", "{}".getBytes()))
+            .build();
+
+        client.sendRequestAsync(request).get();
+        verify(response, times(1)).close();
+    }
+
+    @Test
     public void closesResponseOnAPIError() throws Exception {
         okhttp3.Response response = Mockito.mock(okhttp3.Response.class);
 
@@ -487,6 +512,36 @@ public class DefaultHttpClientTest {
         server.enqueue(mockResponse);
 
         Auth0HttpResponse aoResponse = client.sendRequest(request);
+        verify(response, times(1)).close();
+    }
+
+    @Test
+    public void closesResponseOnAPIErrorAsync() throws Exception {
+        OkHttpClient okClient = Mockito.mock(OkHttpClient.class);
+        okhttp3.Response response = Mockito.mock(okhttp3.Response.class);
+        Call call = Mockito.mock(Call.class);
+
+        doReturn(call).when(okClient).newCall(any());
+
+        doAnswer(invocation -> {
+            ((Callback) invocation.getArgument(0)).onResponse(call, response);
+            return null;
+        }).when(call).enqueue(any(Callback.class));
+
+        Headers headers = Mockito.mock(Headers.class);
+        when(response.headers()).thenReturn(headers);
+
+        DefaultHttpClient client = new DefaultHttpClient(okClient);
+        Auth0HttpRequest request = Auth0HttpRequest.newBuilder(server.url("/users/").toString(), HttpMethod.POST)
+            .withBody(HttpRequestBody.create("application/json", "{}".getBytes()))
+            .build();
+
+        MockResponse mockResponse = new MockResponse()
+            .setResponseCode(500)
+            .setBody("server error");
+
+        server.enqueue(mockResponse);
+        client.sendRequestAsync(request).get();
         verify(response, times(1)).close();
     }
 

@@ -218,7 +218,15 @@ public class BaseRequest<T> implements Request<T> {
         long limit = Long.parseLong(response.getHeader("x-ratelimit-limit", "-1"));
         long remaining = Long.parseLong(response.getHeader("x-ratelimit-remaining", "-1"));
         long reset = Long.parseLong(response.getHeader("x-ratelimit-reset", "-1"));
-        return new RateLimitException(limit, remaining, reset);
+
+        String payload = response.getBody();
+        MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
+        try {
+            Map<String, Object> values = mapper.readValue(payload, mapType);
+            return new RateLimitException(limit, remaining, reset, values);
+        } catch (IOException e) {
+            return new RateLimitException(limit, remaining, reset);
+        }
     }
 
     /**

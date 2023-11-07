@@ -1,5 +1,7 @@
 package com.auth0.exception;
 
+import java.util.Map;
+
 /**
  * Represents a server error when a rate limit has been exceeded.
  * <p>
@@ -15,6 +17,13 @@ public class RateLimitException extends APIException {
     private final long reset;
 
     private static final int STATUS_CODE_TOO_MANY_REQUEST = 429;
+
+    public RateLimitException(long limit, long remaining, long reset, Map<String, Object> values) {
+        super(values, STATUS_CODE_TOO_MANY_REQUEST);
+        this.limit = limit;
+        this.remaining = remaining;
+        this.reset = reset;
+    }
 
     public RateLimitException(long limit, long remaining, long reset) {
         super("Rate limit reached", STATUS_CODE_TOO_MANY_REQUEST, null);

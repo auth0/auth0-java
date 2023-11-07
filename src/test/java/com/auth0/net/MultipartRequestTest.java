@@ -335,7 +335,7 @@ public class MultipartRequestTest {
     }
 
     @Test
-    public void shouldParseRateLimitsHeaders() {
+    public void shouldParseRateLimitsHeaders() throws Exception {
         MultipartRequest<List> request = new MultipartRequest<>(client, tokenProvider, server.getBaseUrl(), HttpMethod.POST, listType);
         request.addPart("non_empty", "body");
         server.rateLimitReachedResponse(100, 10, 5);
@@ -361,7 +361,7 @@ public class MultipartRequestTest {
     }
 
     @Test
-    public void shouldDefaultRateLimitsHeadersWhenMissing() {
+    public void shouldDefaultRateLimitsHeadersWhenMissing() throws Exception {
         MultipartRequest<List> request = new MultipartRequest<>(client, tokenProvider, server.getBaseUrl(), HttpMethod.POST, listType);
         request.addPart("non_empty", "body");
         server.rateLimitReachedResponse(-1, -1, -1);

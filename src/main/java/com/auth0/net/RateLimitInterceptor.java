@@ -67,13 +67,7 @@ public class RateLimitInterceptor implements Interceptor {
             .withMaxRetries(maxRetries)
             .withBackoff(INITIAL_INTERVAL, MAX_INTERVAL, ChronoUnit.MILLIS)
             .withJitter(JITTER)
-            .handleResultIf(response -> {
-                if (response.code() == 429) {
-                    response.close();
-                    return true;
-                }
-                return false;
-            });
+            .handleResultIf(response -> response.code() == 429);
 
         // For testing purposes only, allow test to hook into retry listener to enable verification of retry backoff
         if (retryListener != null) {
@@ -81,10 +75,16 @@ public class RateLimitInterceptor implements Interceptor {
         }
 
         try {
+            return Failsafe.with(retryPolicy).get((context) -> {
+                // ensure response of last recorded response prior to retry is closed
+                if (context.getLastResult() != null) {
+                    context.getLastResult().close();;
+                }
+                return chain.proceed(chain.request());
+            });
+        } catch (FailsafeException fe) {
             // throw Auth0Exception instead of FailSafe exception on error
             // see https://github.com/auth0/auth0-java/issues/483
-            return Failsafe.with(retryPolicy).get(() -> chain.proceed(chain.request()));
-        } catch (FailsafeException fe) {
             throw new Auth0Exception("Failed to execute request", fe.getCause());
         }
     }
