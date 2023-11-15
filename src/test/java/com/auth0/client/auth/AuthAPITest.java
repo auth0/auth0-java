@@ -848,6 +848,61 @@ public class AuthAPITest {
         assertThat(body, hasEntry("client_id", CLIENT_ID));
         assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
         assertThat(body, hasEntry("audience", "https://myapi.auth0.com/users"));
+        assertThat(body, not(hasEntry("organization", any(String.class))));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+    @Test
+    public void shouldCreateLogInWithClientCredentialsGrantRequestWithOrg() throws Exception {
+        TokenRequest request = api.requestToken("https://myapi.auth0.com/users", "org_123");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("grant_type", "client_credentials"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        assertThat(body, hasEntry("audience", "https://myapi.auth0.com/users"));
+        assertThat(body, hasEntry("organization", "org_123"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getRefreshToken(), not(emptyOrNullString()));
+        assertThat(response.getTokenType(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), is(notNullValue()));
+    }
+
+    @Test
+    public void shouldCreateLogInWithClientCredentialsGrantRequestWithoutOrgWhenEmpty() throws Exception {
+        TokenRequest request = api.requestToken("https://myapi.auth0.com/users", " ");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("grant_type", "client_credentials"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        assertThat(body, hasEntry("audience", "https://myapi.auth0.com/users"));
+        assertThat(body, not(hasKey("organization")));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getAccessToken(), not(emptyOrNullString()));

@@ -63,6 +63,7 @@ public class AuthAPI {
     private static final String PATH_REVOKE = "revoke";
     private static final String PATH_PASSWORDLESS = "passwordless";
     private static final String PATH_START = "start";
+    private static final String KEY_ORGANIZATION = "organization";
 
     private final Auth0HttpClient client;
     private final String clientId;
@@ -715,12 +716,40 @@ public class AuthAPI {
      * @return a Request to configure and execute.
      */
     public TokenRequest requestToken(String audience) {
+        return requestToken(audience, null);
+    }
+
+    /**
+     * Creates a request to get a Token for the given audience using the 'Client Credentials' grant.
+     * Default used realm is defined in the "API Authorization Settings" in the account's advanced settings in the Auth0 Dashboard.
+     * <strong>This operation requires that a client secret be configured for the {@code AuthAPI} client.</strong>
+     * <pre>
+     * {@code
+     * try {
+     *      TokenHolder result = authAPI.requestToken("https://myapi.me.auth0.com/users", "org_123")
+     *          .execute()
+     *          .getBody();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @see <a href="https://auth0.com/docs/api/authentication#client-credentials-flow">Client Credentials Flow API docs</a>
+     * @param audience the audience of the API to request access to.
+     * @param org the organization name or ID to be included in the request.
+     * @return a Request to configure and execute.
+     */
+    public TokenRequest requestToken(String audience, String org) {
         Asserts.assertNotNull(audience, "audience");
 
         TokenRequest request = new TokenRequest(client, getTokenUrl());
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_GRANT_TYPE, "client_credentials");
         request.addParameter(KEY_AUDIENCE, audience);
+        if (org != null && !org.trim().isEmpty()) {
+            request.addParameter(KEY_ORGANIZATION, org);
+        }
         addClientAuthentication(request, true);
         return request;
     }
