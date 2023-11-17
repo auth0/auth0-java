@@ -1,0 +1,17 @@
+[
+  {
+    "id": "cgr_4pI9a42haOLLWnwq",
+    "client_id": "client-id",
+    "audience": "https://api-identifier",
+    "scope": [
+      "update:items",
+      "read:messages"
+    ]
+  },
+  {
+    "id": "cgr_D018f9kmBmwbZod",
+    "client_id": "client-id",
+    "audience": "https://api-identifier",
+    "scope": []
+  }
+]

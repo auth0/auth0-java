@@ -3,6 +3,7 @@ package com.auth0.client.mgmt;
 import com.auth0.client.MockServer;
 import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.client.mgmt.filter.InvitationsFilter;
+import com.auth0.client.mgmt.filter.OrganizationClientGrantsFilter;
 import com.auth0.client.mgmt.filter.PageFilter;
 import com.auth0.json.mgmt.organizations.*;
 import com.auth0.json.mgmt.roles.RolesPage;
@@ -1029,5 +1030,123 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/organizations/org_abc/invitations/inv_123"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
+
+    @Test
+    public void shouldListClientGrantsWithoutFilter() throws Exception {
+        Request<OrganizationClientGrantsPage> request = api.organizations().listClientGrants("orgId", null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(ORGANIZATION_CLIENT_GRANTS, 200);
+        OrganizationClientGrantsPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/organizations/orgId/client-grants"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
+    @Test
+    public void shouldListClientGrantsWithFilter() throws Exception {
+        OrganizationClientGrantsFilter filter = new OrganizationClientGrantsFilter();
+        filter
+            .withClientId("clientId")
+            .withAudience("https://api-identifier/")
+            .withPage(1, 2)
+            .withTotals(true);
+
+        Request<OrganizationClientGrantsPage> request = api.organizations().listClientGrants("orgId", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(ORGANIZATION_CLIENT_GRANTS_PAGED_LIST, 200);
+        OrganizationClientGrantsPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/organizations/orgId/client-grants"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("page", "1"));
+        assertThat(recordedRequest, hasQueryParameter("per_page", "2"));
+        assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
+        assertThat(recordedRequest, hasQueryParameter("audience", "https://api-identifier/"));
+        assertThat(recordedRequest, hasQueryParameter("client_id", "clientId"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(1));
+    }
+
+    @Test
+    public void shouldThrowOnGetClientGrantsWithNullOrgId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().listClientGrants(null, null),
+            "'organization ID' cannot be null!");
+    }
+
+    @Test
+    public void shouldCreateClientGrant() throws Exception {
+        CreateOrganizationClientGrantRequestBody requestBody = new CreateOrganizationClientGrantRequestBody("grant-id");
+
+        Request<OrganizationClientGrant> request = api.organizations().addClientGrant("org_123", requestBody);
+
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CLIENT_GRANT, 201);
+        OrganizationClientGrant response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/organizations/org_123/client-grants"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, aMapWithSize(1));
+        assertThat(body, hasEntry("grant_id", "grant-id"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnCreateClientGrantWithNullOrgId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().addClientGrant(null, new CreateOrganizationClientGrantRequestBody("id")),
+            "'organization ID' cannot be null!");
+    }
+
+    @Test
+    public void shouldThrowOnCreateClientGreatWithNullGrant() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().addClientGrant("org_1213", null),
+            "'client grant' cannot be null!");
+    }
+
+    @Test
+    public void shouldDeleteClientGrant() throws Exception {
+        Request<Void> request = api.organizations().deleteClientGrant("org_abc", "grant_123");
+        assertThat(request, is(notNullValue()));
+
+        server.emptyResponse(204);
+        request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/organizations/org_abc/client-grants/grant_123"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
+
+    @Test
+    public void shouldThrowOnDeleteClientGrantWithNullOrgId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().deleteClientGrant(null, "grant-id"),
+            "'organization ID' cannot be null!");
+    }
+
+    @Test
+    public void shouldThrowOnDeleteClientGreatWithNullGrant() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.organizations().deleteClientGrant("org_1213", null),
+            "'client grant ID' cannot be null!");
     }
 }

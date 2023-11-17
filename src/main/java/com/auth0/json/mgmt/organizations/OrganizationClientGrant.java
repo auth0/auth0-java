@@ -1,4 +1,4 @@
-package com.auth0.json.mgmt.clientgrants;
+package com.auth0.json.mgmt.organizations;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -7,13 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 /**
- * Class that represents an Auth0 Client Grant object. Related to the {@link com.auth0.client.mgmt.ClientGrantsEntity} entity.
+ * Represents a client grant associated with an organization.
+ * @see com.auth0.client.mgmt.OrganizationsEntity
  */
-@SuppressWarnings("unused")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ClientGrant {
-
+public class OrganizationClientGrant {
     @JsonProperty("id")
     private String id;
     @JsonProperty("client_id")
@@ -22,10 +21,6 @@ public class ClientGrant {
     private String audience;
     @JsonProperty("scope")
     private List<String> scope;
-    @JsonProperty("organization_usage")
-    private String organizationUsage;
-    @JsonProperty("allow_any_organization")
-    private Boolean allowAnyOrganization;
 
     /**
      * Getter for the id of the client grant.
@@ -97,31 +92,4 @@ public class ClientGrant {
         this.scope = scope;
     }
 
-    /**
-     * @return the organization use
-     */
-    public String getOrganizationUsage() {
-        return organizationUsage;
-    }
-
-    /**
-     * @param organizationUsage the value of {@code organization_usage} to set.
-     */
-    public void setOrganizationUsage(String organizationUsage) {
-        this.organizationUsage = organizationUsage;
-    }
-
-    /**
-     * @return the value of {@code allow_any_organization}
-     */
-    public Boolean getAllowAnyOrganization() {
-        return allowAnyOrganization;
-    }
-
-    /**
-     * @param allowAnyOrganization the value of {@code allow_any_organization} to set.
-     */
-    public void setAllowAnyOrganization(Boolean allowAnyOrganization) {
-        this.allowAnyOrganization = allowAnyOrganization;
-    }
 }

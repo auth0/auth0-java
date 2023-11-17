@@ -127,6 +127,9 @@ public class MockServer {
     public static final String ORGANIZATION_CONNECTION = "src/test/resources/mgmt/organization_connection.json";
     public static final String ORGANIZATION_MEMBER_ROLES_LIST = "src/test/resources/mgmt/organization_member_roles_list.json";
     public static final String ORGANIZATION_MEMBER_ROLES_PAGED_LIST = "src/test/resources/mgmt/organization_member_roles_paged_list.json";
+    public static final String ORGANIZATION_CLIENT_GRANTS = "src/test/resources/mgmt/organization_client_grants.json";
+    public static final String ORGANIZATION_CLIENT_GRANTS_PAGED_LIST = "src/test/resources/mgmt/organization_client_grants_paged_list.json";
+    public static final String ORGANIZATION_CLIENT_GRANT = "src/test/resources/mgmt/organization_client_grant.json";
     public static final String INVITATION = "src/test/resources/mgmt/invitation.json";
     public static final String INVITATIONS_LIST = "src/test/resources/mgmt/invitations_list.json";
     public static final String INVITATIONS_PAGED_LIST = "src/test/resources/mgmt/invitations_paged_list.json";
