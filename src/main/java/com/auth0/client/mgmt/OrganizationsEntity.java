@@ -1,9 +1,6 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.client.mgmt.filter.BaseFilter;
-import com.auth0.client.mgmt.filter.FieldsFilter;
-import com.auth0.client.mgmt.filter.InvitationsFilter;
-import com.auth0.client.mgmt.filter.PageFilter;
+import com.auth0.client.mgmt.filter.*;
 import com.auth0.json.mgmt.roles.RolesPage;
 import com.auth0.json.mgmt.organizations.*;
 import com.auth0.net.BaseRequest;
@@ -596,6 +593,73 @@ public class OrganizationsEntity extends BaseManagementEntity {
             .addPathSegment(orgId)
             .addPathSegment("invitations")
             .addPathSegment(invitationId)
+            .build()
+            .toString();
+
+        return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
+    }
+
+    /**
+     * Get the client grants associated with this organization. A token with scope {@code read:organization_client_grants} is required.
+     * @param orgId the organization ID.
+     * @param filter an optional filter to refine results.
+     * @return a request to execute.
+     */
+    public Request<OrganizationClientGrantsPage> listClientGrants(String orgId, OrganizationClientGrantsFilter filter) {
+        Asserts.assertNotNull(orgId, "organization ID");
+
+         HttpUrl.Builder builder = baseUrl
+            .newBuilder()
+            .addPathSegments(ORGS_PATH)
+            .addPathSegments(orgId)
+            .addPathSegment("client-grants");
+
+         applyFilter(filter, builder);
+
+         String url = builder.build().toString();
+
+         return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<OrganizationClientGrantsPage>() {});
+    }
+
+    /**
+     * Associate a client grant with an organization. A token with scope {@code create:organization_client_grants} is required.
+     * @param orgId the organization ID.
+     * @param addOrganizationClientGrantRequestBody the body of the request containing information about the client grant to associate.
+     * @return a request to execute.
+     */
+    public Request<OrganizationClientGrant> addClientGrant(String orgId, CreateOrganizationClientGrantRequestBody addOrganizationClientGrantRequestBody) {
+        Asserts.assertNotNull(orgId, "organization ID");
+        Asserts.assertNotNull(addOrganizationClientGrantRequestBody, "client grant");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments(ORGS_PATH)
+            .addPathSegment(orgId)
+            .addPathSegment("client-grants")
+            .build()
+            .toString();
+
+        BaseRequest<OrganizationClientGrant> request =  new BaseRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<OrganizationClientGrant>() {});
+        request.setBody(addOrganizationClientGrantRequestBody);
+        return request;
+    }
+
+    /**
+     * Remove a client grant from an organization. A token with scope {@code delete:organization_client_grants} is required.
+     * @param orgId the organization ID.
+     * @param grantId the client grant ID.
+     * @return a request to execute.
+     */
+    public Request<Void> deleteClientGrant(String orgId, String grantId) {
+        Asserts.assertNotNull(orgId, "organization ID");
+        Asserts.assertNotNull(grantId, "client grant ID");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments(ORGS_PATH)
+            .addPathSegment(orgId)
+            .addPathSegment("client-grants")
+            .addPathSegment(grantId)
             .build()
             .toString();
 

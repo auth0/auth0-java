@@ -1,8 +1,10 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.ClientGrantsFilter;
+import com.auth0.client.mgmt.filter.PageFilter;
 import com.auth0.json.mgmt.clientgrants.ClientGrant;
 import com.auth0.json.mgmt.clientgrants.ClientGrantsPage;
+import com.auth0.json.mgmt.organizations.OrganizationsPage;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -83,6 +85,7 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
     public void shouldListClientGrantsWithAdditionalProperties() throws Exception {
         ClientGrantsFilter filter = new ClientGrantsFilter()
                 .withAudience("https://myapi.auth0.com")
+                .withAllowAnyOrganization(true)
                 .withClientId("u9e3hh3e9j2fj9092ked");
         Request<ClientGrantsPage> request = api.clientGrants().list(filter);
         assertThat(request, is(notNullValue()));
@@ -96,6 +99,7 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("audience", "https://myapi.auth0.com"));
         assertThat(recordedRequest, hasQueryParameter("client_id", "u9e3hh3e9j2fj9092ked"));
+        assertThat(recordedRequest, hasQueryParameter("allow_any_organization", "true"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getItems(), hasSize(2));
@@ -141,6 +145,58 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
         assertThat(body, hasEntry("audience", "audience"));
         assertThat(body, hasKey("scope"));
         assertThat((Iterable<?>) body.get("scope"), contains("openid"));
+        assertThat(body, not(hasKey("organization_usage")));
+        assertThat(body, not(hasKey("allow_any_organization")));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldCreateClientGrantWithOrgParams() throws Exception {
+        Request<ClientGrant> request = api.clientGrants().create("clientId", "audience", new String[]{"openid"}, "allow", false);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CLIENT_GRANT, 200);
+        ClientGrant response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/client-grants"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(5));
+        assertThat(body, hasEntry("client_id", "clientId"));
+        assertThat(body, hasEntry("audience", "audience"));
+        assertThat(body, hasKey("scope"));
+        assertThat((Iterable<?>) body.get("scope"), contains("openid"));
+        assertThat(body, hasEntry("organization_usage", "allow"));
+        assertThat(body, hasEntry("allow_any_organization", false));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void createClientGrantWithOrgParamsShouldNotSendEmptyOrgUsage() throws Exception {
+        Request<ClientGrant> request = api.clientGrants().create("clientId", "audience", new String[]{"openid"}, " ", false);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CLIENT_GRANT, 200);
+        ClientGrant response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/client-grants"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(4));
+        assertThat(body, hasEntry("client_id", "clientId"));
+        assertThat(body, hasEntry("audience", "audience"));
+        assertThat(body, hasKey("scope"));
+        assertThat((Iterable<?>) body.get("scope"), contains("openid"));
+        assertThat(body, not(hasKey("organization_usage")));
+        assertThat(body, hasEntry("allow_any_organization", false));
 
         assertThat(response, is(notNullValue()));
     }
@@ -196,8 +252,97 @@ public class ClientGrantsEntityTest extends BaseMgmtEntityTest {
         Map<String, Object> body = bodyFromRequest(recordedRequest);
         assertThat(body.size(), is(1));
         assertThat((ArrayList<?>) body.get("scope"), contains("openid", "profile"));
+        assertThat(body, not(hasKey("organization_usage")));
+        assertThat(body, not(hasKey("allow_any_organization")));
 
         assertThat(response, is(notNullValue()));
     }
 
+    @Test
+    public void shouldUpdateClientGrantWithOrgParams() throws Exception {
+        Request<ClientGrant> request = api.clientGrants().update("1", new String[]{"openid", "profile"}, "allow", true);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CLIENT_GRANT, 200);
+        ClientGrant response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PATCH, "/api/v2/client-grants/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(3));
+        assertThat((ArrayList<?>) body.get("scope"), contains("openid", "profile"));
+        assertThat(body, hasEntry("organization_usage", "allow"));
+        assertThat(body, hasEntry("allow_any_organization", true));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void updateClientGrantWithOrgParamsShouldNotSendEmptyOrgUsage() throws Exception {
+        Request<ClientGrant> request = api.clientGrants().update("1", new String[]{"openid", "profile"}, " ", true);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CLIENT_GRANT, 200);
+        ClientGrant response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PATCH, "/api/v2/client-grants/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(2));
+        assertThat((ArrayList<?>) body.get("scope"), contains("openid", "profile"));
+        assertThat(body, not(hasKey("organization_usage")));
+        assertThat(body, hasEntry("allow_any_organization", true));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldListOrganizationsWithoutFilter() throws Exception {
+        Request<OrganizationsPage> request = api.clientGrants().listOrganizations("grant-id", null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(ORGANIZATIONS_LIST, 200);
+        OrganizationsPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/client-grants/grant-id/organizations"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
+    @Test
+    public void shouldListOrganizationsWithPage() throws Exception {
+        PageFilter filter = new PageFilter().withPage(23, 5);
+        Request<OrganizationsPage> request = api.clientGrants().listOrganizations("grant-id", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(ORGANIZATIONS_PAGED_LIST, 200);
+        OrganizationsPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/client-grants/grant-id/organizations"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("page", "23"));
+        assertThat(recordedRequest, hasQueryParameter("per_page", "5"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
+    @Test
+    public void shouldThrowOnGetOrganizationsWithNullId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.clientGrants().listOrganizations(null, new PageFilter()),
+            "'client grant ID' cannot be null!");
+    }
 }

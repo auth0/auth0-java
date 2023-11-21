@@ -1,0 +1,15 @@
+{
+  "total": 13,
+  "start": 0,
+  "limit": 1,
+  "client_grants": [
+    {
+      "id": "cgr_3aidkk3skLVOM3Ay7",
+      "client_id": "client-id",
+      "audience": "https://api-identifier/",
+      "scope": [
+        "read:messages"
+      ]
+    }
+  ]
+}
