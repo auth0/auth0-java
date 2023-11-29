@@ -1,5 +1,11 @@
 # Change Log
 
+# [2.9.0](https://github.com/auth0/auth0-java/tree/2.9.0) (2023-11-21)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.8.0...2.9.0)
+
+**Added**
+- Support organization in client credentials [\#582](https://github.com/auth0/auth0-java/pull/582) ([jimmyjames](https://github.com/jimmyjames))
+ 
 # [2.8.0](https://github.com/auth0/auth0-java/tree/2.8.0) (2023-11-07)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.7.0...2.8.0)
 
