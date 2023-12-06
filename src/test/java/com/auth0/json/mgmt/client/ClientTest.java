@@ -99,7 +99,10 @@ public class ClientTest extends JsonTest<Client> {
         "      ]\n" +
         "    }\n" +
         "  },\n" +
-        "  \"require_pushed_authorization_requests\": true\n" +
+        "  \"require_pushed_authorization_requests\": true,\n" +
+        "  \"oidc_backchannel_logout\": {\n" +
+        "     \"backchannel_logout_urls\": [\"http://acme.eu.auth0.com/events\"]\n" +
+        "  }\n" +
         "}";
 
     @Test
@@ -148,6 +151,7 @@ public class ClientTest extends JsonTest<Client> {
         ClientAuthenticationMethods cam = new ClientAuthenticationMethods(privateKeyJwt);
         client.setClientAuthenticationMethods(cam);
         client.setRequiresPushedAuthorizationRequests(true);
+        client.setOidcBackchannelLogout(new OIDCBackchannelLogout(Collections.singletonList("http://acme.eu.auth0.com/events")));
 
         String serialized = toJSON(client);
         assertThat(serialized, is(notNullValue()));
@@ -184,6 +188,7 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(serialized, JsonMatcher.hasEntry("client_authentication_methods", notNullValue()));
         assertThat(serialized, JsonMatcher.hasEntry("client_authentication_methods", containsString("{\"private_key_jwt\":{\"credentials\":[{\"credential_type\":\"public_key\",\"pem\":\"PEM\"}]}}")));
         assertThat(serialized, JsonMatcher.hasEntry("require_pushed_authorization_requests", true));
+        assertThat(serialized, JsonMatcher.hasEntry("oidc_backchannel_logout", containsString("{\"backchannel_logout_urls\":[\"http://acme.eu.auth0.com/events\"]}")));
     }
 
     @Test
@@ -235,6 +240,7 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(client.getClientAuthenticationMethods().getPrivateKeyJwt().getCredentials().get(0).getId(), is("cred_abc"));
         assertThat(client.getClientAuthenticationMethods().getPrivateKeyJwt().getCredentials().get(1).getId(), is("cred_123"));
         assertThat(client.getRequiresPushedAuthorizationRequests(), is(true));
+        assertThat(client.getOidcBackchannelLogout().getBackchannelLogoutUrls().size(), is(1));
     }
 
     @Test

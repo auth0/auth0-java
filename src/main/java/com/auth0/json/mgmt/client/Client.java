@@ -94,6 +94,8 @@ public class Client {
     private ClientAuthenticationMethods clientAuthenticationMethods;
     @JsonProperty("require_pushed_authorization_requests")
     private Boolean requiresPushedAuthorizationRequests;
+    @JsonProperty("oidc_backchannel_logout")
+    private OIDCBackchannelLogout oidcBackchannelLogout;
 
     /**
      * Getter for the name of the tenant this client belongs to.
@@ -819,6 +821,21 @@ public class Client {
      */
     public void setRequiresPushedAuthorizationRequests(Boolean requiresPushedAuthorizationRequests) {
         this.requiresPushedAuthorizationRequests = requiresPushedAuthorizationRequests;
+    }
+
+    /**
+     * @return the value of the {@code oidc_backchannel_logout} property.
+     */
+    public OIDCBackchannelLogout getOidcBackchannelLogout() {
+        return oidcBackchannelLogout;
+    }
+
+    /**
+     * Sets the {@code oidc_backchannel_logout} property.
+     * @param oidcBackchannelLogout the value to set the {@code oidc_backchannel_logout} property to.
+     */
+    public void setOidcBackchannelLogout(OIDCBackchannelLogout oidcBackchannelLogout) {
+        this.oidcBackchannelLogout = oidcBackchannelLogout;
     }
 }
 
