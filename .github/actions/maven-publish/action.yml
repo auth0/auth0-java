@@ -38,9 +38,9 @@ runs:
     - name: Publish Java
       shell: bash
       if: inputs.is-android == 'false'
-      run: ./gradlew publishMavenJavaPublicationToMavenRepository -PossrhUsername="${{ inputs.OSSR_USERNAME }}" -PossrhPassword="${{ inputs.OSSR_PASSWORD }}" -PsigningKey="${{ inputs.SIGNING_KEY }}" -PsigningPassword="${{ inputs.SIGNING_PASSWORD }}" -PisSnapshot="false"
+      run: ./gradlew publishMavenJavaPublicationToMavenRepository -PossrhUsername="${{ inputs.ossr-username }}" -PossrhPassword="${{ inputs.ossr-password }}" -PsigningKey="${{ inputs.signing-key }}" -PsigningPassword="${{ inputs.signing-password }}" -PisSnapshot="false"
 
     - name: Publish Android
       shell: bash
       if: inputs.is-android == 'true'
-      run: ./gradlew publishAndroidLibraryPublicationToMavenRepository -PossrhUsername="${{ secrets.OSSR_USERNAME }}" -PossrhPassword="${{ secrets.OSSR_PASSWORD }}" -PsigningKey="${{ secrets.SIGNING_KEY }}" -PsigningPassword="${{ secrets.SIGNING_PASSWORD }}" -PisSnapshot="false"
+      run: ./gradlew publishAndroidLibraryPublicationToMavenRepository -PossrhUsername="${{ inputs.ossr-username }}" -PossrhPassword="${{ inputs.ossr-password }}" -PsigningKey="${{ inputs.signing-key }}" -PsigningPassword="${{ inputs.signing-password }}" -PisSnapshot="false"
