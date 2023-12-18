@@ -71,6 +71,7 @@ jobs:
         with:
           java-version: ${{ inputs.java-version }}
           is-android: ${{ inputs.is-android }}
+          version: ${{ steps.get_version.outputs.version }}
           ossr-username: ${{ secrets.ossr-username }}
           ossr-password: ${{ secrets.ossr-password }}
           signing-key: ${{ secrets.signing-key }}
