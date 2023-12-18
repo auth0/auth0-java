@@ -33,16 +33,12 @@ runs:
 
     - uses: gradle/wrapper-validation-action@56b90f209b02bf6d1deae490e9ef18b21a389cd4 # pin@1.1.0
 
-    - name: Build Project
-      shell: bash
-      run: ./gradlew clean assemble -PisSnapshot=false -Pversion="${{ inputs.version }}"
-
     - name: Publish Java
       shell: bash
       if: inputs.is-android == 'false'
-      run: ./gradlew publishMavenJavaPublicationToMavenRepository -PossrhUsername="${{ inputs.ossr-username }}" -PossrhPassword="${{ inputs.ossr-password }}" -PsigningKey="${{ inputs.signing-key }}" -PsigningPassword="${{ inputs.signing-password }}" -PisSnapshot="false"
+      run: ./gradlew clean assemble publishMavenJavaPublicationToMavenRepository -PisSnapshot=false -Pversion="${{ inputs.version }}" -PossrhUsername="${{ inputs.ossr-username }}" -PossrhPassword="${{ inputs.ossr-password }}" -PsigningKey="${{ inputs.signing-key }}" -PsigningPassword="${{ inputs.signing-password }}" -PisSnapshot="false"
 
     - name: Publish Android
       shell: bash
       if: inputs.is-android == 'true'
-      run: ./gradlew publishAndroidLibraryPublicationToMavenRepository -PossrhUsername="${{ inputs.ossr-username }}" -PossrhPassword="${{ inputs.ossr-password }}" -PsigningKey="${{ inputs.signing-key }}" -PsigningPassword="${{ inputs.signing-password }}" -PisSnapshot="false"
+      run: ./gradlew publishAndroidLibraryPublicationToMavenRepository -PisSnapshot=false -Pversion="${{ inputs.version }}" -PossrhUsername="${{ inputs.ossr-username }}" -PossrhPassword="${{ inputs.ossr-password }}" -PsigningKey="${{ inputs.signing-key }}" -PsigningPassword="${{ inputs.signing-password }}" -PisSnapshot="false"
