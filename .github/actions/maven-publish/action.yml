@@ -33,8 +33,6 @@ runs:
 
     - run: ./gradlew clean assemble -PisSnapshot=false
 
-    - run: ./gradlew exportVersion -PisSnapshot=false
-
     - name: Publish Java
       shell: bash
       if: inputs.is-android == 'false'
