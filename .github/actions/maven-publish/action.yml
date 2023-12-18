@@ -31,7 +31,9 @@ runs:
 
     - uses: gradle/wrapper-validation-action@56b90f209b02bf6d1deae490e9ef18b21a389cd4 # pin@1.1.0
 
-    - run: ./gradlew clean assemble -PisSnapshot=false
+    - name: Build Project
+      shell: bash
+      run: ./gradlew clean assemble -PisSnapshot=false
 
     - name: Publish Java
       shell: bash
