@@ -11,6 +11,8 @@ inputs:
     required: true
   java-version:
     required: true
+  is-android:
+    required: true
 
 runs:
   using: composite
@@ -33,4 +35,10 @@ runs:
 
     - run: ./gradlew exportVersion -PisSnapshot=false
 
-    - run: ./gradlew publishMavenJavaPublicationToMavenRepository -PossrhUsername="${{ inputs.OSSR_USERNAME }}" -PossrhPassword="${{ inputs.OSSR_PASSWORD }}" -PsigningKey="${{ inputs.SIGNING_KEY }}" -PsigningPassword="${{ inputs.SIGNING_PASSWORD }}" -PisSnapshot="false"
+    - name: Publish Java
+      if: inputs.is-android == 'false'
+      run: ./gradlew publishMavenJavaPublicationToMavenRepository -PossrhUsername="${{ inputs.OSSR_USERNAME }}" -PossrhPassword="${{ inputs.OSSR_PASSWORD }}" -PsigningKey="${{ inputs.SIGNING_KEY }}" -PsigningPassword="${{ inputs.SIGNING_PASSWORD }}" -PisSnapshot="false"
+
+    - name: Publish Android
+      if: inputs.is-android == 'true'
+      run: ./gradlew publishAndroidLibraryPublicationToMavenRepository -PossrhUsername="${{ secrets.OSSR_USERNAME }}" -PossrhPassword="${{ secrets.OSSR_PASSWORD }}" -PsigningKey="${{ secrets.SIGNING_KEY }}" -PsigningPassword="${{ secrets.SIGNING_PASSWORD }}" -PisSnapshot="false"

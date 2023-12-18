@@ -6,6 +6,9 @@ on:
       java-version:
         required: true
         type: string
+      is-android:
+        required: true
+        type: string
     secrets:
       ossr-username:
         required: true
@@ -64,9 +67,10 @@ jobs:
         run: exit 1
 
       # Publish the release to Maven
-      - uses: ./.github/actions/java-publish
+      - uses: ./.github/actions/maven-publish
         with:
           java-version: ${{ inputs.java-version }}
+          is-android: ${{ inputs.is-android }}
           ossr-username: ${{ secrets.ossr-username }}
           ossr-password: ${{ secrets.ossr-password }}
           signing-key: ${{ secrets.signing-key }}
