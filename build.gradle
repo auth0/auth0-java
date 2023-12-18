@@ -11,6 +11,9 @@ repositories {
 group = 'com.auth0'
 logger.lifecycle("Using version ${version} for ${name} group $group")
 
+def signingKey = project.hasProperty('signingKey')
+def signingKeyPwd = project.hasProperty('signingPassword')
+
 oss {
     name 'auth0'
     repository 'auth0-java'
@@ -18,6 +21,7 @@ oss {
     description 'Java client library for the Auth0 platform.'
     baselineCompareVersion '2.0.0'
     testInJavaVersions = [8, 11, 17]
+    skipAssertSigningConfiguration true
 
     developers {
         auth0 {
@@ -29,6 +33,10 @@ oss {
             email = 'luciano.balmaceda@auth0.com'
         }
     }
+}
+
+signing {
+  useInMemoryPgpKeys(signingKey, signingKeyPwd)
 }
 
 jacocoTestReport {
