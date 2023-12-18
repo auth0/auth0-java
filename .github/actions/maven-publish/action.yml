@@ -35,7 +35,7 @@ runs:
 
     - name: Build Project
       shell: bash
-      run: ./gradlew clean assemble -PisSnapshot=false -Pversion="${{ inputs.version }}
+      run: ./gradlew clean assemble -PisSnapshot=false -Pversion="${{ inputs.version }}"
 
     - name: Publish Java
       shell: bash
