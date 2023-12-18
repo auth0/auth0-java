@@ -77,12 +77,12 @@ jobs:
           signing-key: ${{ secrets.signing-key }}
           signing-password: ${{ secrets.signing-password }}
 
-#      # Create a release for the tag
-#      - uses: ./.github/actions/release-create
-#        with:
-#          token: ${{ secrets.github-token }}
-#          name: ${{ steps.get_version.outputs.version }}
-#          body: ${{ steps.get_release_notes.outputs.release-notes }}
-#          tag: ${{ steps.get_version.outputs.version }}
-#          commit: ${{ github.sha }}
-#          prerelease: ${{ steps.get_prerelease.outputs.prerelease }}
+      # Create a release for the tag
+      - uses: ./.github/actions/release-create
+        with:
+          token: ${{ secrets.github-token }}
+          name: ${{ steps.get_version.outputs.version }}
+          body: ${{ steps.get_release_notes.outputs.release-notes }}
+          tag: ${{ steps.get_version.outputs.version }}
+          commit: ${{ github.sha }}
+          prerelease: ${{ steps.get_prerelease.outputs.prerelease }}
