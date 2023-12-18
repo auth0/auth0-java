@@ -97,11 +97,3 @@ dependencies {
       }
     }
 }
-
-// Creates a version.txt file containing the current version of the SDK.
-// This file is picked up and parsed by our Ship Orb to determine the version.
-task exportVersion()  {
-  doLast {
-    new File(rootDir, "version.txt").text = "$version"
-  }
-}
