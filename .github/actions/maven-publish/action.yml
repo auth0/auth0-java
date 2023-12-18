@@ -13,6 +13,8 @@ inputs:
     required: true
   is-android:
     required: true
+  version:
+    required: true
 
 runs:
   using: composite
@@ -33,7 +35,7 @@ runs:
 
     - name: Build Project
       shell: bash
-      run: ./gradlew clean assemble -PisSnapshot=false
+      run: ./gradlew clean assemble -PisSnapshot=false -Pversion="${{ inputs.version }}
 
     - name: Publish Java
       shell: bash
