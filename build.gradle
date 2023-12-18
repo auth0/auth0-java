@@ -11,8 +11,8 @@ repositories {
 group = 'com.auth0'
 logger.lifecycle("Using version ${version} for ${name} group $group")
 
-def signingKey = project.hasProperty('signingKey')
-def signingKeyPwd = project.hasProperty('signingPassword')
+def signingKey = findProperty('signingKey')
+def signingKeyPwd = findProperty('signingPassword')
 
 oss {
     name 'auth0'
