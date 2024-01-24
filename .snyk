@@ -5,14 +5,14 @@ ignore:
   SNYK-JAVA-ORGJETBRAINSKOTLIN-2393744:
     - '*':
       reason: 'unaffected, only affects createTempFile and createTempDir kotlin function, which are not used'
-      expires: 2023-12-31T00:00:00.000Z
+      expires: 2024-12-31T00:00:00.000Z
   SNYK-JAVA-ORGBOUNCYCASTLE-5771339:
     - '*':
       reason: 'test-only dependency, no update available'
-      expires: 2023-12-31T00:00:00.000Z
+      expires: 2024-12-31T00:00:00.000Z
   SNYK-JAVA-ORGBOUNCYCASTLE-6084022:
     - '*':
           reason: 'test-only dependency, no update available'
-          expires: 2023-12-31T00:00:00.000Z
+          expires: 2024-12-31T00:00:00.000Z
 
 patch: {}
