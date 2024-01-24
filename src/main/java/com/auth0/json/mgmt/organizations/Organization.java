@@ -1,5 +1,6 @@
 package com.auth0.json.mgmt.organizations;
 
+import com.auth0.client.mgmt.filter.PageFilter;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -114,7 +115,11 @@ public class Organization {
 
     /**
      * @return the enabled connections of this Organization.
+     * @deprecated the {@code enabled_connections} property was removed from the API response body, so this will always
+     * return {@code null}. Use {@link com.auth0.client.mgmt.OrganizationsEntity#getConnections(String, PageFilter)}
+     * instead.
      */
+    @Deprecated
     public List<EnabledConnection> getEnabledConnections() {
         return enabledConnections;
     }

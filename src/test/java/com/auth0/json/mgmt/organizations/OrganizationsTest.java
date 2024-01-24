@@ -30,13 +30,7 @@ public class OrganizationsTest extends JsonTest<Organization> {
             "        },\n" +
             "        \"metadata\": {\n" +
             "            \"key1\": \"val1\"\n" +
-            "        },\n" +
-            "        \"enabled_connections\": [\n" +
-            "            {\n" +
-            "               \"connection_id\": \"con-1\",\n" +
-            "               \"assign_membership_on_login\": \"false\"\n" +
-            "            }\n" +
-            "        ]\n" +
+            "        }\n" +
             "    }";
 
         Organization org = fromJSON(orgJson, Organization.class);
@@ -51,8 +45,6 @@ public class OrganizationsTest extends JsonTest<Organization> {
         assertThat(org.getBranding().getColors().getPageBackground(), is("#FF0000"));
         assertThat(org.getMetadata(), is(notNullValue()));
         assertThat(org.getMetadata().get("key1"), is("val1"));
-        assertThat(org.getEnabledConnections().get(0).getConnectionId(), is("con-1"));
-        assertThat(org.getEnabledConnections().get(0).isAssignMembershipOnLogin(), is(false));
     }
 
     @Test
