@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.10.1](https://github.com/auth0/auth0-java/tree/2.10.1) (2024-01-29)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.10.0...2.10.1)
+
+**Deprecated**
+- Organizations API no longer returns enabled_connections [\#604](https://github.com/auth0/auth0-java/pull/604) ([jimmyjames](https://github.com/jimmyjames))
+
 # [2.10.0](https://github.com/auth0/auth0-java/tree/2.10.0) (2023-12-15)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.9.0...2.10.0)
 
