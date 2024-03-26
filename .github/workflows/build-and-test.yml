@@ -18,7 +18,7 @@ jobs:
       - uses: gradle/gradle-build-action@29c0906b64b8fc82467890bfb7a0a7ef34bda89e
         with:
           arguments: assemble apiDiff check jacocoTestReport --continue --console=plain
-      - uses: codecov/codecov-action@54bcd8715eee62d40e33596ef5e8f0f48dbbccab
+      - uses: codecov/codecov-action@c16abc29c95fcf9174b58eb7e1abf4c866893bc8
         with:
           flags: unittests
       - uses: actions/upload-artifact@v4
