@@ -46,6 +46,10 @@ public class Tenant {
     @JsonProperty("idle_session_lifetime")
     private Integer idleSessionLifetime;
 
+    @JsonProperty("acr_values_supported")
+    private List<String> acrValuesSupported;
+
+
     /**
      * Getter for the change password page customization.
      *
@@ -319,5 +323,21 @@ public class Tenant {
     @JsonProperty("idle_session_lifetime")
     public void setIdleSessionLifetime(Integer idleSessionLifetime) {
         this.idleSessionLifetime = idleSessionLifetime;
+    }
+
+    /**
+     * @return the value of the {@code acr_values_supported} field
+     */
+    public List<String> getAcrValuesSupported() {
+        return acrValuesSupported;
+    }
+
+    /**
+     * Sets the value of the {@code acr_values_supported} field
+     *
+     * @param acrValuesSupported the value of the {@code acr_values_supported_field}
+     */
+    public void setAcrValuesSupported(List<String> acrValuesSupported) {
+        this.acrValuesSupported = acrValuesSupported;
     }
 }

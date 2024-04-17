@@ -32,5 +32,6 @@
   ],
   "session_cookie": {
     "mode": "persistent"
-  }
+  },
+  "acr_values_supported": ["string1", "string2"]
 }
