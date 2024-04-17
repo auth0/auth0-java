@@ -106,6 +106,16 @@ public class ClientTest extends JsonTest<Client> {
         "          \"id\": \"cred_id\"\n" +
         "        }\n" +
         "      ]\n" +
+        "    },\n" +
+        "    \"tls_client_auth\": {\n" +
+        "      \"credentials\": [\n" +
+        "        {\n" +
+        "          \"id\": \"cred_id\",\n" +
+        "          \"credential_type\": \"cert_subject_dn\",\n" +
+        "          \"name\": \"My cA mtls credential\",\n" +
+        "          \"subject_dn\": \"subject dn\"\n" +
+        "        }\n" +
+        "      ]\n" +
         "    }\n" +
         "  },\n" +
         "  \"require_pushed_authorization_requests\": true,\n" +
@@ -179,7 +189,13 @@ public class ClientTest extends JsonTest<Client> {
         selfSignedCredential.setPem("pem");
         SelfSignedTLSClientAuth selfSignedTLSClientAuth = new SelfSignedTLSClientAuth(Collections.singletonList(selfSignedCredential));
 
-        ClientAuthenticationMethods cam = new ClientAuthenticationMethods(privateKeyJwt, selfSignedTLSClientAuth);
+        Credential tlsCredential = new Credential();
+        tlsCredential.setName("My cA mtls credential");
+        tlsCredential.setSubjectDn("subject dn");
+        tlsCredential.setCredentialType("cert_subject_dn");
+        TLSClientAuth tlsClientAuth = new TLSClientAuth(Collections.singletonList(tlsCredential));
+
+        ClientAuthenticationMethods cam = new ClientAuthenticationMethods(privateKeyJwt, selfSignedTLSClientAuth, tlsClientAuth);
 
         client.setClientAuthenticationMethods(cam);
         client.setRequiresPushedAuthorizationRequests(true);
@@ -229,7 +245,8 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(serialized, JsonMatcher.hasEntry("organization_usage", "require"));
         assertThat(serialized, JsonMatcher.hasEntry("organization_require_behavior", "pre_login_prompt"));
         assertThat(serialized, JsonMatcher.hasEntry("client_authentication_methods", notNullValue()));
-        assertThat(serialized, JsonMatcher.hasEntry("client_authentication_methods", containsString("{\"private_key_jwt\":{\"credentials\":[{\"credential_type\":\"public_key\",\"pem\":\"PEM\"}]},\"self_signed_tls_client_auth\":{\"credentials\":[{\"credential_type\":\"x509_cert\",\"name\":\"mtls credential\",\"pem\":\"pem\"}]}}")));
+        //      but: was "{"name":"name","description":"description","client_secret":"secret","app_type":"type","logo_uri":"uri","is_first_party":true,"oidc_conformant":true,"callbacks":["value"],"allowed_origins":["value"],"web_origins":["value"],"grant_types":["value"],"client_aliases":["value"],"allowed_clients":["value"],"allowed_logout_urls":["value"],"jwt_configuration":{"lifetime_in_seconds":100,"scopes":"openid","alg":"alg"},"encryption_key":{"pub":"pub","cert":"cert"},"sso":true,"sso_disabled":true,"custom_login_page_on":true,"initiate_login_uri":"https://appzero.com/login","custom_login_page":"custom","custom_login_page_preview":"preview","form_template":"template","addons":{"rms":{},"mscrm":{},"slack":{},"layer":{}},"token_endpoint_auth_method":"method","client_metadata":{"key":"value"},"mobile":{"android":{"app_package_name":"pkg","sha256_cert_fingerprints":["256"]},"ios":{"team_id":"team","app_bundle_identifier":"id"}},"refresh_token":{},"organization_usage":"require","organization_require_behavior":"pre_login_prompt","client_authentication_methods":{"private_key_jwt":{"credentials":[{"credential_type":"public_key","pem":"PEM"}]},"self_signed_tls_client_auth":{"credentials":[{"credential_type":"x509_cert","name":"mtls credential","pem":"pem"}]},"tls_client_auth":{"credentials":[{"credential_type":"cert_subject_dn","name":"My cA mtls credential","subject_dn":"subject dn"}]}},"require_pushed_authorization_requests":true,"oidc_backchannel_logout":{"backchannel_logout_urls":["http://acme.eu.auth0.com/events"]},"signed_request_object":{"required":true,"credentials":[{"credential_type":"public_key","name":"cred name","pem":"pem"}]},"compliance_level":"fapi1_adv_pkj_par"}"
+        assertThat(serialized, JsonMatcher.hasEntry("client_authentication_methods", containsString("{\"private_key_jwt\":{\"credentials\":[{\"credential_type\":\"public_key\",\"pem\":\"PEM\"}]},\"self_signed_tls_client_auth\":{\"credentials\":[{\"credential_type\":\"x509_cert\",\"name\":\"mtls credential\",\"pem\":\"pem\"}]},\"tls_client_auth\":{\"credentials\":[{\"credential_type\":\"cert_subject_dn\",\"name\":\"My cA mtls credential\",\"subject_dn\":\"subject dn\"}]}}")));
         assertThat(serialized, JsonMatcher.hasEntry("require_pushed_authorization_requests", true));
         assertThat(serialized, JsonMatcher.hasEntry("oidc_backchannel_logout", containsString("{\"backchannel_logout_urls\":[\"http://acme.eu.auth0.com/events\"]}")));
         assertThat(serialized, JsonMatcher.hasEntry("signed_request_object", containsString("{\"required\":true,\"credentials\":[{\"credential_type\":\"public_key\",\"name\":\"cred name\",\"pem\":\"pem\"}]}")));
@@ -288,6 +305,13 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(client.getClientAuthenticationMethods().getSelfSignedTLSClientAuth().getCredentials(), is(notNullValue()));
         assertThat(client.getClientAuthenticationMethods().getSelfSignedTLSClientAuth().getCredentials().size(), is(1));
         assertThat(client.getClientAuthenticationMethods().getSelfSignedTLSClientAuth().getCredentials().get(0).getId(), is("cred_id"));
+        assertThat(client.getClientAuthenticationMethods().getTlsClientAuth(), is(notNullValue()));
+        assertThat(client.getClientAuthenticationMethods().getTlsClientAuth().getCredentials(), is(notNullValue()));
+        assertThat(client.getClientAuthenticationMethods().getTlsClientAuth().getCredentials().size(), is(1));
+        assertThat(client.getClientAuthenticationMethods().getTlsClientAuth().getCredentials().get(0).getId(), is("cred_id"));
+        assertThat(client.getClientAuthenticationMethods().getTlsClientAuth().getCredentials().get(0).getName(), is("My cA mtls credential"));
+        assertThat(client.getClientAuthenticationMethods().getTlsClientAuth().getCredentials().get(0).getSubjectDn(), is("subject dn"));
+        assertThat(client.getClientAuthenticationMethods().getTlsClientAuth().getCredentials().get(0).getCredentialType(), is("cert_subject_dn"));
         assertThat(client.getRequiresPushedAuthorizationRequests(), is(true));
         assertThat(client.getOidcBackchannelLogout().getBackchannelLogoutUrls().size(), is(1));
 

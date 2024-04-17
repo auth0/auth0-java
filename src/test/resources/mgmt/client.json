@@ -65,6 +65,16 @@
       "credentials": [ {
         "id": "cred_abc"
       }]
+    },
+    "self_signed_tls_client_auth": {
+      "credentials": [ {
+        "id": "cred_123"
+      }]
+    },
+    "tls_client_auth": {
+      "credentials": [ {
+        "id": "cred_789"
+      }]
     }
   },
   "signed_request_object": {

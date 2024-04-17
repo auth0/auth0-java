@@ -15,22 +15,40 @@ public class ClientAuthenticationMethods {
     private PrivateKeyJwt privateKeyJwt;
     @JsonProperty("self_signed_tls_client_auth")
     private SelfSignedTLSClientAuth selfSignedTLSClientAuth;
+    @JsonProperty("tls_client_auth")
+    private TLSClientAuth tlsClientAuth;
 
     public ClientAuthenticationMethods() {
 
     }
 
+    /**
+     * Create a new instance.
+     * @param privateKeyJwt the value of the {@code private_key_jwt} field.
+     */
     public ClientAuthenticationMethods(PrivateKeyJwt privateKeyJwt) {
-        this(privateKeyJwt, null);
+        this(privateKeyJwt, null, null);
     }
 
     /**
      * Create a new instance.
+     * @param privateKeyJwt the value of the {@code private_key_jwt} field.
      * @param selfSignedTLSClientAuth the value of the {@code self_signed_tls_client_auth} field.
      */
     public ClientAuthenticationMethods(PrivateKeyJwt privateKeyJwt, SelfSignedTLSClientAuth selfSignedTLSClientAuth) {
+        this(privateKeyJwt, selfSignedTLSClientAuth, null);
+    }
+
+    /**
+     * Create a new instance.
+     * @param privateKeyJwt the value of the {@code private_key_jwt} field.
+     * @param selfSignedTLSClientAuth the value of the {@code self_signed_tls_client_auth} field.
+     * @param tlsClientAuth the value of the {@code tls_client_auth} field.
+     */
+    public ClientAuthenticationMethods(PrivateKeyJwt privateKeyJwt, SelfSignedTLSClientAuth selfSignedTLSClientAuth, TLSClientAuth tlsClientAuth) {
         this.privateKeyJwt = privateKeyJwt;
         this.selfSignedTLSClientAuth = selfSignedTLSClientAuth;
+        this.tlsClientAuth = tlsClientAuth;
     }
 
     public PrivateKeyJwt getPrivateKeyJwt() {
@@ -42,5 +60,12 @@ public class ClientAuthenticationMethods {
      */
     public SelfSignedTLSClientAuth getSelfSignedTLSClientAuth() {
         return selfSignedTLSClientAuth;
+    }
+
+    /**
+     * @return the value of the {@code tls_client_auth} field
+     */
+    public TLSClientAuth getTlsClientAuth() {
+        return tlsClientAuth;
     }
 }
