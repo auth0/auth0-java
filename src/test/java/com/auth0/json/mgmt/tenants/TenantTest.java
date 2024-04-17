@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.*;
 
 public class TenantTest extends JsonTest<Tenant> {
 
-    private static final String json = "{\"change_password\":{},\"guardian_mfa_page\":{},\"default_audience\":\"https://domain.auth0.com/myapi\",\"default_directory\":\"Username-Password-Authentication\",\"error_page\":{},\"flags\":{},\"friendly_name\":\"My-Tenant\",\"picture_url\":\"https://pic.to/123\",\"support_email\":\"support@auth0.com\",\"support_url\":\"https://support.auth0.com\",\"allowed_logout_urls\":[\"https://domain.auth0.com/logout\"], \"session_lifetime\":24, \"idle_session_lifetime\":0.5, \"session_cookie\":{\"mode\": \"persistent\"}, \"acr_values_supported\":[\"string1\",\"string2\"], \"pushed_authorization_requests_supported\": true}";
+    private static final String json = "{\"change_password\":{},\"guardian_mfa_page\":{},\"default_audience\":\"https://domain.auth0.com/myapi\",\"default_directory\":\"Username-Password-Authentication\",\"error_page\":{},\"flags\":{},\"friendly_name\":\"My-Tenant\",\"picture_url\":\"https://pic.to/123\",\"support_email\":\"support@auth0.com\",\"support_url\":\"https://support.auth0.com\",\"allowed_logout_urls\":[\"https://domain.auth0.com/logout\"], \"session_lifetime\":24, \"idle_session_lifetime\":0.5, \"session_cookie\":{\"mode\": \"persistent\"}, \"acr_values_supported\":[\"string1\",\"string2\"], \"pushed_authorization_requests_supported\": true, \"remove_alg_from_jwks\": true}";
 
 
     @Test
@@ -34,6 +34,7 @@ public class TenantTest extends JsonTest<Tenant> {
         tenant.setSessionCookie(new SessionCookie("persistent"));
         tenant.setAcrValuesSupported(Collections.singletonList("supported acr value"));
         tenant.setPushedAuthorizationRequestsSupported(true);
+        tenant.setRemoveAlgFromJwks(true);
 
         String serialized = toJSON(tenant);
         assertThat(serialized, is(notNullValue()));
@@ -54,6 +55,7 @@ public class TenantTest extends JsonTest<Tenant> {
         assertThat(serialized, JsonMatcher.hasEntry("session_cookie", notNullValue()));
         assertThat(serialized, JsonMatcher.hasEntry("acr_values_supported", Collections.singletonList("supported acr value")));
         assertThat(serialized, JsonMatcher.hasEntry("pushed_authorization_requests_supported", true));
+        assertThat(serialized, JsonMatcher.hasEntry("remove_alg_from_jwks", true));
     }
 
     @Test
@@ -78,6 +80,7 @@ public class TenantTest extends JsonTest<Tenant> {
         assertThat(tenant.getSessionCookie().getMode(), is("persistent"));
         assertThat(tenant.getAcrValuesSupported(), contains("string1", "string2"));
         assertThat(tenant.getPushedAuthorizationRequestsSupported(), is(true));
+        assertThat(tenant.getRemoveAlgFromJwks(), is(true));
     }
 
 }

@@ -52,6 +52,9 @@ public class Tenant {
     @JsonProperty("pushed_authorization_requests_supported")
     private Boolean pushedAuthorizationRequestsSupported;
 
+    @JsonProperty("remove_alg_from_jwks")
+    private Boolean removeAlgFromJwks;
+
 
     /**
      * Getter for the change password page customization.
@@ -358,5 +361,21 @@ public class Tenant {
      */
     public void setPushedAuthorizationRequestsSupported(Boolean pushedAuthorizationRequestsSupported) {
         this.pushedAuthorizationRequestsSupported = pushedAuthorizationRequestsSupported;
+    }
+
+    /**
+     * @return the value of the {@code remove_alg_from_jwks} field
+     */
+    public Boolean getRemoveAlgFromJwks() {
+        return removeAlgFromJwks;
+    }
+
+    /**
+     * Sets the value of the {@code remove_alg_from_jwks} field
+     *
+     * @param removeAlgFromJwks the value of the {@code remove_alg_from_jwks} field
+     */
+    public void setRemoveAlgFromJwks(Boolean removeAlgFromJwks) {
+        this.removeAlgFromJwks = removeAlgFromJwks;
     }
 }

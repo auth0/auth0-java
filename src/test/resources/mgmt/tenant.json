@@ -34,5 +34,6 @@
     "mode": "persistent"
   },
   "acr_values_supported": ["string1", "string2"],
-  "pushed_authorization_requests_supported": true
+  "pushed_authorization_requests_supported": true,
+  "remove_alg_from_jwks": true
 }
