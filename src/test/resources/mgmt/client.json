@@ -66,5 +66,18 @@
         "id": "cred_abc"
       }]
     }
+  },
+  "signed_request_object": {
+    "credentials": [
+      {
+        "id": "cred_id",
+        "credential_type": "public_key",
+        "kid": "cred_kid",
+        "alg": "RS256",
+        "name": "My JAR credential",
+        "created_at": "2024-03-14T11:34:28.893Z",
+        "updated_at": "2024-03-14T11:34:28.893Z"
+      }
+    ]
   }
 }

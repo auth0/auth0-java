@@ -5,7 +5,9 @@ import com.auth0.json.JsonTest;
 import org.hamcrest.collection.IsMapContaining;
 import org.junit.jupiter.api.Test;
 
+import java.time.Instant;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -102,7 +104,20 @@ public class ClientTest extends JsonTest<Client> {
         "  \"require_pushed_authorization_requests\": true,\n" +
         "  \"oidc_backchannel_logout\": {\n" +
         "     \"backchannel_logout_urls\": [\"http://acme.eu.auth0.com/events\"]\n" +
-        "  }\n" +
+        "  },\n" +
+        "  \"signed_request_object\": {\n" +
+        "    \"credentials\": [\n" +
+        "     {\n" +
+        "       \"id\": \"cred_id\",\n" +
+        "       \"credential_type\": \"public_key\",\n" +
+        "       \"kid\": \"cred_kid\",\n" +
+        "       \"alg\": \"RS256\",\n" +
+        "       \"name\": \"My JAR credential\",\n" +
+        "       \"created_at\": \"2024-03-14T11:34:28.893Z\",\n" +
+        "       \"updated_at\": \"2024-03-14T11:34:28.893Z\"\n" +
+        "     }\n" +
+        "   ]\n" +
+        "  }" +
         "}";
 
     @Test
@@ -153,6 +168,16 @@ public class ClientTest extends JsonTest<Client> {
         client.setRequiresPushedAuthorizationRequests(true);
         client.setOidcBackchannelLogout(new OIDCBackchannelLogout(Collections.singletonList("http://acme.eu.auth0.com/events")));
 
+        // JAR configuration
+        Credential signedRequestCredential = new Credential();
+        signedRequestCredential.setName("cred name");
+        signedRequestCredential.setCredentialType("public_key");
+        signedRequestCredential.setPem("pem");
+        SignedRequest signedRequest = new SignedRequest();
+        signedRequest.setRequired(true);
+        signedRequest.setCredentials(Collections.singletonList(signedRequestCredential));
+        client.setSignedRequest(signedRequest);
+
         String serialized = toJSON(client);
         assertThat(serialized, is(notNullValue()));
 
@@ -189,6 +214,7 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(serialized, JsonMatcher.hasEntry("client_authentication_methods", containsString("{\"private_key_jwt\":{\"credentials\":[{\"credential_type\":\"public_key\",\"pem\":\"PEM\"}]}}")));
         assertThat(serialized, JsonMatcher.hasEntry("require_pushed_authorization_requests", true));
         assertThat(serialized, JsonMatcher.hasEntry("oidc_backchannel_logout", containsString("{\"backchannel_logout_urls\":[\"http://acme.eu.auth0.com/events\"]}")));
+        assertThat(serialized, JsonMatcher.hasEntry("signed_request_object", containsString("{\"required\":true,\"credentials\":[{\"credential_type\":\"public_key\",\"name\":\"cred name\",\"pem\":\"pem\"}]}")));
     }
 
     @Test
@@ -241,6 +267,17 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(client.getClientAuthenticationMethods().getPrivateKeyJwt().getCredentials().get(1).getId(), is("cred_123"));
         assertThat(client.getRequiresPushedAuthorizationRequests(), is(true));
         assertThat(client.getOidcBackchannelLogout().getBackchannelLogoutUrls().size(), is(1));
+
+        assertThat(client.getSignedRequest(), is(notNullValue()));
+        assertThat(client.getSignedRequest().getCredentials(), is(notNullValue()));
+        assertThat(client.getSignedRequest().getCredentials().size(), is(1));
+        assertThat(client.getSignedRequest().getCredentials().get(0).getId(), is("cred_id"));
+        assertThat(client.getSignedRequest().getCredentials().get(0).getCredentialType(), is("public_key"));
+        assertThat(client.getSignedRequest().getCredentials().get(0).getKid(), is("cred_kid"));
+        assertThat(client.getSignedRequest().getCredentials().get(0).getAlg(), is("RS256"));
+        assertThat(client.getSignedRequest().getCredentials().get(0).getName(), is("My JAR credential"));
+        assertThat(client.getSignedRequest().getCredentials().get(0).getCreatedAt(), is(Date.from(Instant.parse("2024-03-14T11:34:28.893Z"))));
+        assertThat(client.getSignedRequest().getCredentials().get(0).getUpdatedAt(), is(Date.from(Instant.parse("2024-03-14T11:34:28.893Z"))));
     }
 
     @Test
