@@ -99,6 +99,13 @@ public class ClientTest extends JsonTest<Client> {
         "          \"id\": \"cred_123\"\n" +
         "        }\n" +
         "      ]\n" +
+        "    },\n" +
+        "    \"self_signed_tls_client_auth\": {\n" +
+        "      \"credentials\": [\n" +
+        "        {\n" +
+        "          \"id\": \"cred_id\"\n" +
+        "        }\n" +
+        "      ]\n" +
         "    }\n" +
         "  },\n" +
         "  \"require_pushed_authorization_requests\": true,\n" +
@@ -162,9 +169,18 @@ public class ClientTest extends JsonTest<Client> {
         client.setRefreshToken(refreshToken);
         client.setOrganizationUsage("require");
         client.setOrganizationRequireBehavior("pre_login_prompt");
+
         Credential credential = new Credential("public_key", "PEM");
         PrivateKeyJwt privateKeyJwt = new PrivateKeyJwt(Collections.singletonList(credential));
-        ClientAuthenticationMethods cam = new ClientAuthenticationMethods(privateKeyJwt);
+
+        Credential selfSignedCredential = new Credential();
+        selfSignedCredential.setName("mtls credential");
+        selfSignedCredential.setCredentialType("x509_cert");
+        selfSignedCredential.setPem("pem");
+        SelfSignedTLSClientAuth selfSignedTLSClientAuth = new SelfSignedTLSClientAuth(Collections.singletonList(selfSignedCredential));
+
+        ClientAuthenticationMethods cam = new ClientAuthenticationMethods(privateKeyJwt, selfSignedTLSClientAuth);
+
         client.setClientAuthenticationMethods(cam);
         client.setRequiresPushedAuthorizationRequests(true);
         client.setOidcBackchannelLogout(new OIDCBackchannelLogout(Collections.singletonList("http://acme.eu.auth0.com/events")));
@@ -213,7 +229,7 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(serialized, JsonMatcher.hasEntry("organization_usage", "require"));
         assertThat(serialized, JsonMatcher.hasEntry("organization_require_behavior", "pre_login_prompt"));
         assertThat(serialized, JsonMatcher.hasEntry("client_authentication_methods", notNullValue()));
-        assertThat(serialized, JsonMatcher.hasEntry("client_authentication_methods", containsString("{\"private_key_jwt\":{\"credentials\":[{\"credential_type\":\"public_key\",\"pem\":\"PEM\"}]}}")));
+        assertThat(serialized, JsonMatcher.hasEntry("client_authentication_methods", containsString("{\"private_key_jwt\":{\"credentials\":[{\"credential_type\":\"public_key\",\"pem\":\"PEM\"}]},\"self_signed_tls_client_auth\":{\"credentials\":[{\"credential_type\":\"x509_cert\",\"name\":\"mtls credential\",\"pem\":\"pem\"}]}}")));
         assertThat(serialized, JsonMatcher.hasEntry("require_pushed_authorization_requests", true));
         assertThat(serialized, JsonMatcher.hasEntry("oidc_backchannel_logout", containsString("{\"backchannel_logout_urls\":[\"http://acme.eu.auth0.com/events\"]}")));
         assertThat(serialized, JsonMatcher.hasEntry("signed_request_object", containsString("{\"required\":true,\"credentials\":[{\"credential_type\":\"public_key\",\"name\":\"cred name\",\"pem\":\"pem\"}]}")));
@@ -268,6 +284,10 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(client.getClientAuthenticationMethods().getPrivateKeyJwt().getCredentials().size(), is(2));
         assertThat(client.getClientAuthenticationMethods().getPrivateKeyJwt().getCredentials().get(0).getId(), is("cred_abc"));
         assertThat(client.getClientAuthenticationMethods().getPrivateKeyJwt().getCredentials().get(1).getId(), is("cred_123"));
+        assertThat(client.getClientAuthenticationMethods().getSelfSignedTLSClientAuth(), is(notNullValue()));
+        assertThat(client.getClientAuthenticationMethods().getSelfSignedTLSClientAuth().getCredentials(), is(notNullValue()));
+        assertThat(client.getClientAuthenticationMethods().getSelfSignedTLSClientAuth().getCredentials().size(), is(1));
+        assertThat(client.getClientAuthenticationMethods().getSelfSignedTLSClientAuth().getCredentials().get(0).getId(), is("cred_id"));
         assertThat(client.getRequiresPushedAuthorizationRequests(), is(true));
         assertThat(client.getOidcBackchannelLogout().getBackchannelLogoutUrls().size(), is(1));
 
