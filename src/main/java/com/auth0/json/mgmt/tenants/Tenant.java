@@ -49,6 +49,9 @@ public class Tenant {
     @JsonProperty("acr_values_supported")
     private List<String> acrValuesSupported;
 
+    @JsonProperty("pushed_authorization_requests_supported")
+    private Boolean pushedAuthorizationRequestsSupported;
+
 
     /**
      * Getter for the change password page customization.
@@ -339,5 +342,21 @@ public class Tenant {
      */
     public void setAcrValuesSupported(List<String> acrValuesSupported) {
         this.acrValuesSupported = acrValuesSupported;
+    }
+
+    /**
+     * @return the value of the {@code pushed_authorization_requests_supported} field.
+     */
+    public Boolean getPushedAuthorizationRequestsSupported() {
+        return pushedAuthorizationRequestsSupported;
+    }
+
+    /**
+     * Sets the value of the {@code pushed_authorization_requests_supported} field
+     *
+     * @param pushedAuthorizationRequestsSupported the value of the {@code pushed_authorization_requests_supported} field
+     */
+    public void setPushedAuthorizationRequestsSupported(Boolean pushedAuthorizationRequestsSupported) {
+        this.pushedAuthorizationRequestsSupported = pushedAuthorizationRequestsSupported;
     }
 }

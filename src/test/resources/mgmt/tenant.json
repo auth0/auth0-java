@@ -33,5 +33,6 @@
   "session_cookie": {
     "mode": "persistent"
   },
-  "acr_values_supported": ["string1", "string2"]
+  "acr_values_supported": ["string1", "string2"],
+  "pushed_authorization_requests_supported": true
 }
