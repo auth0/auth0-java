@@ -98,6 +98,9 @@ public class Client {
     private OIDCBackchannelLogout oidcBackchannelLogout;
     @JsonProperty("signed_request_object")
     private SignedRequest signedRequest;
+    @JsonProperty("compliance_level")
+    private String complianceLevel;
+
     /**
      * Getter for the name of the tenant this client belongs to.
      * @return the tenant name
@@ -853,6 +856,21 @@ public class Client {
      */
     public void setSignedRequest(SignedRequest signedRequest) {
         this.signedRequest = signedRequest;
+    }
+
+    /**
+     * @return the value of the {@code compliance_level} field
+     */
+    public String getComplianceLevel() {
+        return complianceLevel;
+    }
+
+    /**
+     * Sets the value of the {@code compliance_level} field
+     * @param complianceLevel the value of the {@code compliance_level} field
+     */
+    public void setComplianceLevel(String complianceLevel) {
+        this.complianceLevel = complianceLevel;
     }
 }
 

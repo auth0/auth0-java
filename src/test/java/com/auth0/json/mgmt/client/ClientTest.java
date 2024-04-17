@@ -117,7 +117,8 @@ public class ClientTest extends JsonTest<Client> {
         "       \"updated_at\": \"2024-03-14T11:34:28.893Z\"\n" +
         "     }\n" +
         "   ]\n" +
-        "  }" +
+        "  },\n" +
+        "  \"compliance_level\": \"fapi1_adv_pkj_par\"\n" +
         "}";
 
     @Test
@@ -168,7 +169,7 @@ public class ClientTest extends JsonTest<Client> {
         client.setRequiresPushedAuthorizationRequests(true);
         client.setOidcBackchannelLogout(new OIDCBackchannelLogout(Collections.singletonList("http://acme.eu.auth0.com/events")));
 
-        // JAR configuration
+        // HRI configuration
         Credential signedRequestCredential = new Credential();
         signedRequestCredential.setName("cred name");
         signedRequestCredential.setCredentialType("public_key");
@@ -177,6 +178,7 @@ public class ClientTest extends JsonTest<Client> {
         signedRequest.setRequired(true);
         signedRequest.setCredentials(Collections.singletonList(signedRequestCredential));
         client.setSignedRequest(signedRequest);
+        client.setComplianceLevel("fapi1_adv_pkj_par");
 
         String serialized = toJSON(client);
         assertThat(serialized, is(notNullValue()));
@@ -215,6 +217,7 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(serialized, JsonMatcher.hasEntry("require_pushed_authorization_requests", true));
         assertThat(serialized, JsonMatcher.hasEntry("oidc_backchannel_logout", containsString("{\"backchannel_logout_urls\":[\"http://acme.eu.auth0.com/events\"]}")));
         assertThat(serialized, JsonMatcher.hasEntry("signed_request_object", containsString("{\"required\":true,\"credentials\":[{\"credential_type\":\"public_key\",\"name\":\"cred name\",\"pem\":\"pem\"}]}")));
+        assertThat(serialized, JsonMatcher.hasEntry("compliance_level", "fapi1_adv_pkj_par"));
     }
 
     @Test
@@ -268,6 +271,7 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(client.getRequiresPushedAuthorizationRequests(), is(true));
         assertThat(client.getOidcBackchannelLogout().getBackchannelLogoutUrls().size(), is(1));
 
+        assertThat(client.getComplianceLevel(), is("fapi1_adv_pkj_par"));
         assertThat(client.getSignedRequest(), is(notNullValue()));
         assertThat(client.getSignedRequest().getCredentials(), is(notNullValue()));
         assertThat(client.getSignedRequest().getCredentials().size(), is(1));

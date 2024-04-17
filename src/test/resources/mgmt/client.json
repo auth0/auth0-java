@@ -79,5 +79,6 @@
         "updated_at": "2024-03-14T11:34:28.893Z"
       }
     ]
-  }
+  },
+  "compliance_level": "fapi1_adv_pkj_par"
 }
