@@ -35,5 +35,8 @@
   },
   "acr_values_supported": ["string1", "string2"],
   "pushed_authorization_requests_supported": true,
-  "remove_alg_from_jwks": true
+  "remove_alg_from_jwks": true,
+  "mtls": {
+    "enable_endpoint_aliases": true
+  }
 }

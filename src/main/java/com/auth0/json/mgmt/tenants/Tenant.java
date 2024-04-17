@@ -55,6 +55,9 @@ public class Tenant {
     @JsonProperty("remove_alg_from_jwks")
     private Boolean removeAlgFromJwks;
 
+    @JsonProperty("mtls")
+    private Mtls mtls;
+
 
     /**
      * Getter for the change password page customization.
@@ -377,5 +380,21 @@ public class Tenant {
      */
     public void setRemoveAlgFromJwks(Boolean removeAlgFromJwks) {
         this.removeAlgFromJwks = removeAlgFromJwks;
+    }
+
+    /**
+     * @return the value of the {@code mtls} field
+     */
+    public Mtls getMtls() {
+        return mtls;
+    }
+
+    /**
+     * Sets the value of the {@code mtls} field
+     *
+     * @param mtls the value of the {@code mtls} field
+     */
+    public void setMtls(Mtls mtls) {
+        this.mtls = mtls;
     }
 }
