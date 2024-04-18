@@ -19,14 +19,9 @@ public class SelfSignedTLSClientAuth {
 
     /**
      * Create a new instance
-     */
-    public SelfSignedTLSClientAuth() {}
-
-    /**
-     * Create a new instance
      * @param credentials the credentials to use
      */
-    public SelfSignedTLSClientAuth(List<Credential> credentials) {
+    public SelfSignedTLSClientAuth(@JsonProperty("credentials") List<Credential> credentials) {
         this.credentials = credentials;
     }
 

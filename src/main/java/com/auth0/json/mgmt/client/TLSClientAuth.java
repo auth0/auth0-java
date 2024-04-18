@@ -17,14 +17,9 @@ public class TLSClientAuth  {
 
     /**
      * Create a new instance
-     */
-    public TLSClientAuth() {}
-
-    /**
-     * Create a new instance
      * @param credentials the credentials to use
      */
-    public TLSClientAuth(List<Credential> credentials) {
+    public TLSClientAuth(@JsonProperty("credentials") List<Credential> credentials) {
         this.credentials = credentials;
     }
 
