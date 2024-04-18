@@ -41,9 +41,10 @@ public class ResourceServer {
     private Boolean enforcePolicies;
     @JsonProperty("consent_policy")
     private String consentPolicy;
-
     @JsonProperty("authorization_details")
     private List<AuthorizationDetails> authorizationDetails;
+    @JsonProperty("token_encryption")
+    private TokenEncryption tokenEncryption;
 
     @JsonCreator
     public ResourceServer(@JsonProperty("identifier") String identifier) {
@@ -211,5 +212,20 @@ public class ResourceServer {
      */
     public void setAuthorizationDetails(List<AuthorizationDetails> authorizationDetails) {
         this.authorizationDetails = authorizationDetails;
+    }
+
+    /**
+     * @return the value of the {@code token_encryption} field.
+     */
+    public TokenEncryption getTokenEncryption() {
+        return tokenEncryption;
+    }
+
+    /**
+     * Sets the value of the {@code token_encryption} field.
+     * @param tokenEncryption the value of the {@code token_encryption} field.
+     */
+    public void setTokenEncryption(TokenEncryption tokenEncryption) {
+        this.tokenEncryption = tokenEncryption;
     }
 }

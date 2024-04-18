@@ -26,12 +26,4 @@ public class AuthorizationDetails {
     public String getType() {
         return type;
     }
-
-    /**
-     * Sets the value of the {@code type} field
-     * @param type the value of the {@code type} field
-     */
-    public void setType(String type) {
-        this.type = type;
-    }
 }

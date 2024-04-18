@@ -27,5 +27,14 @@
     "type": "payment"
   }, {
     "type": "my custom type"
-  }]
+  }],
+  "token_encryption": {
+    "format": "compact-nested-jwe",
+    "encryption_key": {
+      "name": "my JWE public key",
+      "kid": "my kid",
+      "alg": "RSA-OAEP-256",
+      "thumbprint_sha256": "thumbprint"
+    }
+  }
 }

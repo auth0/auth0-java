@@ -1,9 +1,7 @@
 package com.auth0.json.mgmt;
 
 import com.auth0.json.JsonTest;
-import com.auth0.json.mgmt.resourceserver.AuthorizationDetails;
-import com.auth0.json.mgmt.resourceserver.ResourceServer;
-import com.auth0.json.mgmt.resourceserver.Scope;
+import com.auth0.json.mgmt.resourceserver.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -38,6 +36,12 @@ public class ResourceServerTest extends JsonTest<ResourceServer> {
         assertThat(deserialized.getAuthorizationDetails(), is(notNullValue()));
         assertThat(deserialized.getAuthorizationDetails().size(), is(2));
         assertThat(deserialized.getAuthorizationDetails().stream().map(AuthorizationDetails::getType).collect(Collectors.toList()), containsInAnyOrder("payment", "my custom type"));
+        assertThat(deserialized.getTokenEncryption(), notNullValue());
+        assertThat(deserialized.getTokenEncryption().getFormat(), is("compact-nested-jwe"));
+        assertThat(deserialized.getTokenEncryption().getEncryptionKey().getAlg(), is("RSA-OAEP-256"));
+        assertThat(deserialized.getTokenEncryption().getEncryptionKey().getKid(), is("my kid"));
+        assertThat(deserialized.getTokenEncryption().getEncryptionKey().getName(), is("my JWE public key"));
+        assertThat(deserialized.getTokenEncryption().getEncryptionKey().getThumbprintSha256(), is("thumbprint"));
     }
 
     @Test
@@ -66,8 +70,17 @@ public class ResourceServerTest extends JsonTest<ResourceServer> {
         AuthorizationDetails authorizationDetails1 = new AuthorizationDetails("type1");
         AuthorizationDetails authorizationDetails2 = new AuthorizationDetails("type2");
         entity.setAuthorizationDetails(Arrays.asList(authorizationDetails1, authorizationDetails2));
+        EncryptionKey encryptionKey = new EncryptionKey();
+        encryptionKey.setName("name");
+        encryptionKey.setAlg("alg");
+        encryptionKey.setKid("kid");
+        encryptionKey.setPem("pem");
+        TokenEncryption tokenEncryption = new TokenEncryption("format", encryptionKey);
+        entity.setTokenEncryption(tokenEncryption);
 
         String json = toJSON(entity);
+
+        System.out.println(json);
 
         assertThat(json, hasEntry("id", "23445566abab"));
         assertThat(json, hasEntry("name", "Some API"));
@@ -82,5 +95,6 @@ public class ResourceServerTest extends JsonTest<ResourceServer> {
         assertThat(json, hasEntry("verification_location", "verification_location"));
         assertThat(json, hasEntry("consent_policy", "transactional-authorization-with-mfa"));
         assertThat(json, hasEntry("authorization_details", notNullValue()));
+        assertThat(json, hasEntry("token_encryption", containsString("{\"format\":\"format\",\"encryption_key\":{\"name\":\"name\",\"alg\":\"alg\",\"pem\":\"pem\",\"kid\":\"kid\"}}")));
     }
 }
