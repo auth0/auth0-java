@@ -1,17 +1,19 @@
 package com.auth0.json.mgmt;
 
 import com.auth0.json.JsonTest;
+import com.auth0.json.mgmt.resourceserver.AuthorizationDetails;
 import com.auth0.json.mgmt.resourceserver.ResourceServer;
 import com.auth0.json.mgmt.resourceserver.Scope;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.auth0.json.JsonMatcher.hasEntry;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 public class ResourceServerTest extends JsonTest<ResourceServer> {
     private final static String RESOURCE_SERVER_JSON = "src/test/resources/mgmt/resource_server.json";
@@ -33,6 +35,9 @@ public class ResourceServerTest extends JsonTest<ResourceServer> {
         assertThat(deserialized.getTokenLifetime(), is(86400));
         assertThat(deserialized.getVerificationLocation(), is("verification_location"));
         assertThat(deserialized.getConsentPolicy(), is("transactional-authorization-with-mfa"));
+        assertThat(deserialized.getAuthorizationDetails(), is(notNullValue()));
+        assertThat(deserialized.getAuthorizationDetails().size(), is(2));
+        assertThat(deserialized.getAuthorizationDetails().stream().map(AuthorizationDetails::getType).collect(Collectors.toList()), containsInAnyOrder("payment", "my custom type"));
     }
 
     @Test
@@ -58,6 +63,9 @@ public class ResourceServerTest extends JsonTest<ResourceServer> {
         entity.setTokenDialect("access_token_authz");
         entity.setVerificationLocation("verification_location");
         entity.setConsentPolicy("transactional-authorization-with-mfa");
+        AuthorizationDetails authorizationDetails1 = new AuthorizationDetails("type1");
+        AuthorizationDetails authorizationDetails2 = new AuthorizationDetails("type2");
+        entity.setAuthorizationDetails(Arrays.asList(authorizationDetails1, authorizationDetails2));
 
         String json = toJSON(entity);
 
@@ -73,5 +81,6 @@ public class ResourceServerTest extends JsonTest<ResourceServer> {
         assertThat(json, hasEntry("token_dialect", "access_token_authz"));
         assertThat(json, hasEntry("verification_location", "verification_location"));
         assertThat(json, hasEntry("consent_policy", "transactional-authorization-with-mfa"));
+        assertThat(json, hasEntry("authorization_details", notNullValue()));
     }
 }

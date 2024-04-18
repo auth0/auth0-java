@@ -22,5 +22,10 @@
   ],
   "is_system": true,
   "enforce_policies": false,
-  "consent_policy": "transactional-authorization-with-mfa"
+  "consent_policy": "transactional-authorization-with-mfa",
+  "authorization_details": [{
+    "type": "payment"
+  }, {
+    "type": "my custom type"
+  }]
 }

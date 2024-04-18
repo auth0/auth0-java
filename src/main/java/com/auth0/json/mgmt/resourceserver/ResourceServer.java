@@ -42,6 +42,9 @@ public class ResourceServer {
     @JsonProperty("consent_policy")
     private String consentPolicy;
 
+    @JsonProperty("authorization_details")
+    private List<AuthorizationDetails> authorizationDetails;
+
     @JsonCreator
     public ResourceServer(@JsonProperty("identifier") String identifier) {
         this.identifier = identifier;
@@ -193,5 +196,20 @@ public class ResourceServer {
      */
     public void setConsentPolicy(String consentPolicy) {
         this.consentPolicy = consentPolicy;
+    }
+
+    /**
+     * @return the value of the {@code authorization_details} field.
+     */
+    public List<AuthorizationDetails> getAuthorizationDetails() {
+        return authorizationDetails;
+    }
+
+    /**
+     * Sets the value of the {@code authorization_details} field.
+     * @param authorizationDetails the value of the {@code authorization_details} field.
+     */
+    public void setAuthorizationDetails(List<AuthorizationDetails> authorizationDetails) {
+        this.authorizationDetails = authorizationDetails;
     }
 }
