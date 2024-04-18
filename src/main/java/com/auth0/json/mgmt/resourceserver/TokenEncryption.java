@@ -17,6 +17,11 @@ public class TokenEncryption {
     @JsonProperty("encryption_key")
     private EncryptionKey encryptionKey;
 
+    /**
+     * Create a new instance.
+     * @param format the value of the {@code format} field.
+     * @param encryptionKey the value of the {@code encryption_key} field.
+     */
     @JsonCreator
     public TokenEncryption(@JsonProperty("format") String format, @JsonProperty("encryption_key") EncryptionKey encryptionKey) {
         this.format = format;

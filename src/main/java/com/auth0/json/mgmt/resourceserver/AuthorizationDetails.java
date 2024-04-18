@@ -1,5 +1,6 @@
 package com.auth0.json.mgmt.resourceserver;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,9 +15,12 @@ public class AuthorizationDetails {
     @JsonProperty("type")
     private String type;
 
-    public AuthorizationDetails() {}
-
-    public AuthorizationDetails(String type) {
+    /**
+     * Create a new instance.
+     * @param type the value of the {@code type} field.
+     */
+    @JsonCreator
+    public AuthorizationDetails(@JsonProperty("type") String type) {
         this.type = type;
     }
 
