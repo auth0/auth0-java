@@ -39,6 +39,8 @@ public class ResourceServer {
     private Boolean isSystem;
     @JsonProperty("enforce_policies")
     private Boolean enforcePolicies;
+    @JsonProperty("consent_policy")
+    private String consentPolicy;
 
     @JsonCreator
     public ResourceServer(@JsonProperty("identifier") String identifier) {
@@ -178,4 +180,18 @@ public class ResourceServer {
         this.tokenLifetimeForWeb = tokenLifetimeForWeb;
     }
 
+    /**
+     * @return the value of the {@code consent_policy} field.
+     */
+    public String getConsentPolicy() {
+        return consentPolicy;
+    }
+
+    /**
+     * Sets the value of the {@code consent_policy} field
+     * @param consentPolicy the value of the {@code consent_policy} field
+     */
+    public void setConsentPolicy(String consentPolicy) {
+        this.consentPolicy = consentPolicy;
+    }
 }

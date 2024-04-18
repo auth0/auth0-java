@@ -32,6 +32,7 @@ public class ResourceServerTest extends JsonTest<ResourceServer> {
         assertThat(deserialized.getTokenDialect(), is("access_token"));
         assertThat(deserialized.getTokenLifetime(), is(86400));
         assertThat(deserialized.getVerificationLocation(), is("verification_location"));
+        assertThat(deserialized.getConsentPolicy(), is("transactional-authorization-with-mfa"));
     }
 
     @Test
@@ -56,6 +57,7 @@ public class ResourceServerTest extends JsonTest<ResourceServer> {
         entity.setTokenLifetime(86400);
         entity.setTokenDialect("access_token_authz");
         entity.setVerificationLocation("verification_location");
+        entity.setConsentPolicy("transactional-authorization-with-mfa");
 
         String json = toJSON(entity);
 
@@ -70,5 +72,6 @@ public class ResourceServerTest extends JsonTest<ResourceServer> {
         assertThat(json, hasEntry("token_lifetime", 86400));
         assertThat(json, hasEntry("token_dialect", "access_token_authz"));
         assertThat(json, hasEntry("verification_location", "verification_location"));
+        assertThat(json, hasEntry("consent_policy", "transactional-authorization-with-mfa"));
     }
 }

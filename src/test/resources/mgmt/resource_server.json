@@ -21,5 +21,6 @@
     }
   ],
   "is_system": true,
-  "enforce_policies": false
+  "enforce_policies": false,
+  "consent_policy": "transactional-authorization-with-mfa"
 }
