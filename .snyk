@@ -18,5 +18,8 @@ ignore:
     - '*':
           reason: 'test-only dependency, no update available'
           expires: 2024-12-31T00:00:00.000Z
-
+  SNYK-JAVA-ORGBOUNCYCASTLE-6613080:
+    - '*':
+          reason: 'test-only dependency, no update available'
+          expires: 2024-12-31T00:00:00.000Z
 patch: {}
