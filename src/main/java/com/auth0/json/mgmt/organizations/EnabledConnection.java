@@ -18,6 +18,8 @@ public class EnabledConnection {
     private boolean assignMembershipOnLogin;
     @JsonProperty("connection_id")
     private String connectionId;
+    @JsonProperty("show_as_button")
+    private Boolean showAsButton;
 
     public EnabledConnection() {}
 
@@ -76,5 +78,21 @@ public class EnabledConnection {
      */
     public void setConnectionId(String connectionId) {
         this.connectionId = connectionId;
+    }
+
+    /**
+     * @return the value of the {@code show_as_button} field.
+     */
+    public Boolean getShowAsButton() {
+        return showAsButton;
+    }
+
+    /**
+     * Sets the {@code show_as_button} value.
+     *
+     * @param showAsButton the value for {@code show_as_button}.
+     */
+    public void setShowAsButton(Boolean showAsButton) {
+        this.showAsButton = showAsButton;
     }
 }

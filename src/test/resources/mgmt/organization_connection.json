@@ -1,4 +1,5 @@
 {
   "connection_id": "con_At4BWXhV3lKv82jd",
-  "assign_membership_on_login": false
+  "assign_membership_on_login": false,
+  "show_as_button": true
 }
