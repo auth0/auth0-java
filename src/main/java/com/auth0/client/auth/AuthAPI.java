@@ -239,6 +239,25 @@ public class AuthAPI {
     }
 
     /**
+     * Builds an authorization URL for JWT-Secured Authorization Request (JAR)
+     * @param request the {@code request} parameter value. As specified, it must be a signed JWT and contain claims representing the authorization parameters.
+     * @see AuthAPI#pushedAuthorizationRequestWithJAR(String)
+     * @see <a href="https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow/authorization-code-flow-with-jar">Authorization Code Flow with JWT-Secured Authorization Requests (JAR)</a>
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9101">RFC 9101</a>
+     * @return the authorization URL to redirect users to for authentication.
+     */
+    public String authorizeUrlWithJAR(String request) {
+        Asserts.assertNotNull(request, "request");
+        return baseUrl
+            .newBuilder()
+            .addPathSegment("authorize")
+            .addQueryParameter("client_id", clientId)
+            .addQueryParameter("request", request)
+            .build()
+            .toString();
+    }
+
+    /**
      * Builds a request to make a Pushed Authorization Request (PAR) to receive a {@code request_uri} to send to the {@code /authorize} endpoint.
      * @param redirectUri the URL to redirect to after authorization has been granted by the user. Your Auth0 application
      *                    must have this URL as one of its Allowed Callback URLs. Must be a valid non-encoded URL.
@@ -268,6 +287,33 @@ public class AuthAPI {
             params.forEach(request::addParameter);
         }
         return request;
+    }
+
+    /**
+     * Builds a request to make a Pushed Authorization Request (PAR) with JWT-Secured Authorization Requests (JAR), to receive a {@code request_uri} to send to the {@code /authorize} endpoint.
+     * @param request The signed JWT containing the authorization parameters as claims.
+     * @see <a href="https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow/authorization-code-flow-with-par-and-jar">Authorization Code Flow with PAR and JAR</a>
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9101">RFC 9101</a>
+     * @see <a href="https://www.rfc-editor.org/rfc/rfc9126.html">RFC 9126</a>
+     * @return a request to execute.
+     */
+    public Request<PushedAuthorizationResponse> pushedAuthorizationRequestWithJAR(String request) {
+        Asserts.assertNotNull(request, "request");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("oauth/par")
+            .build()
+            .toString();
+
+        FormBodyRequest<PushedAuthorizationResponse> req = new FormBodyRequest<>(client, null, url, HttpMethod.POST, new TypeReference<PushedAuthorizationResponse>() {});
+        req.addParameter("client_id", clientId);
+        req.addParameter("request", request);
+        if (Objects.nonNull(this.clientSecret)) {
+            req.addParameter("client_secret", clientSecret);
+        }
+
+        return req;
     }
 
     /**
