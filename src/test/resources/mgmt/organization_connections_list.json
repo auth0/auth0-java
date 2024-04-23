@@ -2,6 +2,7 @@
   {
     "connection_id": "con_At4BWXhV3lKv82jd",
     "assign_membership_on_login": false,
+    "show_as_button": true,
     "connection": {
       "name": "google-oauth2",
       "strategy": "google-oauth2"
@@ -10,6 +11,7 @@
   {
     "connection_id": "con_kai93HmEDCs8ai3d",
     "assign_membership_on_login": true,
+    "show_as_button": true,
     "connection": {
       "name": "Username-Password-Authentication",
       "strategy": "auth0"

@@ -584,6 +584,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         EnabledConnection connection = new EnabledConnection();
         connection.setAssignMembershipOnLogin(false);
         connection.setConnectionId("con_123");
+        connection.setShowAsButton(true);
 
         Request<EnabledConnection> request = api.organizations().addConnection("org_abc", connection);
         assertThat(request, is(notNullValue()));
@@ -597,9 +598,10 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, aMapWithSize(2));
+        assertThat(body, aMapWithSize(3));
         assertThat(body, hasEntry("connection_id", "con_123"));
         assertThat(body, hasEntry("assign_membership_on_login", false));
+        assertThat(body, hasEntry("show_as_button", true));
     }
 
     @Test
@@ -656,6 +658,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
     public void shouldUpdateOrgConnection() throws Exception {
         EnabledConnection connection = new EnabledConnection();
         connection.setAssignMembershipOnLogin(true);
+        connection.setShowAsButton(false);
 
         Request<EnabledConnection> request = api.organizations().updateConnection("org_abc", "con_123", connection);
         assertThat(request, is(notNullValue()));
@@ -669,8 +672,9 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, aMapWithSize(1));
+        assertThat(body, aMapWithSize(2));
         assertThat(body, hasEntry("assign_membership_on_login", true));
+        assertThat(body, hasEntry("show_as_button", false));
     }
 
     // Organization roles
