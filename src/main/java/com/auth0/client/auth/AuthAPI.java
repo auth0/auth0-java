@@ -1,12 +1,14 @@
 package com.auth0.client.auth;
 
 import com.auth0.client.mgmt.ManagementAPI;
+import com.auth0.json.ObjectMapperProvider;
 import com.auth0.json.auth.*;
 import com.auth0.net.*;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.DefaultHttpClient;
 import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -267,6 +269,22 @@ public class AuthAPI {
      * @return a request to execute.
      */
     public Request<PushedAuthorizationResponse> pushedAuthorizationRequest(String redirectUri, String responseType, Map<String, String> params) {
+        return pushedAuthorizationRequest(redirectUri, responseType, params, null);
+    }
+
+    /**
+     * Builds a request to make a Pushed Authorization Request (PAR) to receive a {@code request_uri} to send to the {@code /authorize} endpoint.
+     * @param redirectUri the URL to redirect to after authorization has been granted by the user. Your Auth0 application
+     *                    must have this URL as one of its Allowed Callback URLs. Must be a valid non-encoded URL.
+     * @param responseType the response type to set. Must not be null.
+     * @param params an optional map of key/value pairs representing any additional parameters to send on the request.
+     * @param authorizationDetails A list of maps representing the value of the (optional) {code authorization_details} parameter. The list will be serialized to JSON and sent on the request.
+     * @see #pushedAuthorizationRequest(String, String, Map, List)
+     * @see <a href="https://www.rfc-editor.org/rfc/rfc9126.html">RFC 9126</a>
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9396">RFC 9396</a>
+     * @return a request to execute.
+     */
+    public Request<PushedAuthorizationResponse> pushedAuthorizationRequest(String redirectUri, String responseType, Map<String, String> params, List<Map<String, Object>> authorizationDetails) {
         Asserts.assertValidUrl(redirectUri, "redirect uri");
         Asserts.assertNotNull(responseType, "response type");
 
@@ -286,18 +304,43 @@ public class AuthAPI {
         if (params != null) {
             params.forEach(request::addParameter);
         }
+        try {
+            if (Objects.nonNull(authorizationDetails)) {
+                String authDetailsJson = ObjectMapperProvider.getMapper().writeValueAsString(authorizationDetails);
+                request.addParameter("authorization_details", authDetailsJson);
+            }
+        } catch (JsonProcessingException e) {
+            throw new IllegalArgumentException("'authorizationDetails' must be a list that can be serialized to JSON", e);
+        }
         return request;
     }
 
     /**
      * Builds a request to make a Pushed Authorization Request (PAR) with JWT-Secured Authorization Requests (JAR), to receive a {@code request_uri} to send to the {@code /authorize} endpoint.
      * @param request The signed JWT containing the authorization parameters as claims.
+     * @see #pushedAuthorizationRequestWithJAR(String, List)
      * @see <a href="https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow/authorization-code-flow-with-par-and-jar">Authorization Code Flow with PAR and JAR</a>
      * @see <a href="https://datatracker.ietf.org/doc/html/rfc9101">RFC 9101</a>
      * @see <a href="https://www.rfc-editor.org/rfc/rfc9126.html">RFC 9126</a>
      * @return a request to execute.
      */
     public Request<PushedAuthorizationResponse> pushedAuthorizationRequestWithJAR(String request) {
+        return pushedAuthorizationRequestWithJAR(request, null);
+    }
+
+    /**
+     * Builds a request to make a Pushed Authorization Request (PAR) with JWT-Secured Authorization Requests (JAR), to receive a {@code request_uri} to send to the {@code /authorize} endpoint.
+     * @param request The signed JWT containing the authorization parameters as claims.
+     * @param authorizationDetails A list of maps representing the value of the (optional) {code authorization_details} parameter. The list will be serialized to JSON and sent on the request.
+     * @see #pushedAuthorizationRequestWithJAR(String)                              
+     * @see <a href="https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow/authorization-code-flow-with-par-and-jar">Authorization Code Flow with PAR and JAR</a>
+     * @see <a href="https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow/authorization-code-flow-with-rar">Authorization Code Flow with Rich Authorization Requests (RAR)</a>
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9101">RFC 9101</a>
+     * @see <a href="https://www.rfc-editor.org/rfc/rfc9126.html">RFC 9126</a>
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9396">RFC 9396</a>
+     * @return a request to execute.
+     */
+    public Request<PushedAuthorizationResponse> pushedAuthorizationRequestWithJAR(String request, List<Map<String, Object>> authorizationDetails) {
         Asserts.assertNotNull(request, "request");
 
         String url = baseUrl
@@ -313,6 +356,14 @@ public class AuthAPI {
             req.addParameter("client_secret", clientSecret);
         }
 
+        try {
+            if (Objects.nonNull(authorizationDetails)) {
+                String authDetailsJson = ObjectMapperProvider.getMapper().writeValueAsString(authorizationDetails);
+                req.addParameter("authorization_details", authDetailsJson);
+            }
+        } catch (JsonProcessingException e) {
+            throw new IllegalArgumentException("'authorizationDetails' must be a list that can be serialized to JSON", e);
+        }
         return req;
     }
 
