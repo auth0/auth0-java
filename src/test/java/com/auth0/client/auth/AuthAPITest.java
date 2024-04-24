@@ -1769,6 +1769,79 @@ public class AuthAPITest {
         assertThat(response.getExpiresIn(), notNullValue());
     }
 
+    @Test
+    public void authorizeUrlWithJARShouldThrowWhenRequestNull() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.authorizeUrlWithJAR(null),
+            "'request' cannot be null!");
+    }
+
+    @Test
+    public void shouldBuildAuthorizeUrlWithJAR() {
+        String requestJwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiIxMjM0NTYiLCJyZWRpcmVjdF91cmkiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJyZXNwb25zZV90eXBlIjoiY29kZSIsIm5vbmNlIjoiMTIzNCIsInN0YXRlIjoiNzhkeXVma2poZGYifQ.UQDz8hBIabaqatY75BvqGyiPoOqNYJQIsimUKg4_VrU";
+        AuthAPI api = AuthAPI.newBuilder("domain.auth0.com", CLIENT_ID, CLIENT_SECRET).build();
+        String url = api.authorizeUrlWithJAR("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiIxMjM0NTYiLCJyZWRpcmVjdF91cmkiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJyZXNwb25zZV90eXBlIjoiY29kZSIsIm5vbmNlIjoiMTIzNCIsInN0YXRlIjoiNzhkeXVma2poZGYifQ.UQDz8hBIabaqatY75BvqGyiPoOqNYJQIsimUKg4_VrU");
+        assertThat(url, is(notNullValue()));
+        assertThat(url, isUrl("https", "domain.auth0.com", "/authorize"));
+
+        assertThat(url, hasQueryParameter("request", requestJwt));
+        assertThat(url, hasQueryParameter("client_id", CLIENT_ID));
+    }
+
+    @Test
+    public void pushedAuthorizationRequestShouldThrowWhenRequestIsNull() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.pushedAuthorizationRequestWithJAR(null),
+            "'request' cannot be null!");
+    }
+
+    @Test
+    public void shouldCreatePushedAuthorizationJarRequest() throws Exception {
+        String requestJwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiIxMjM0NTYiLCJyZWRpcmVjdF91cmkiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJyZXNwb25zZV90eXBlIjoiY29kZSIsIm5vbmNlIjoiMTIzNCIsInN0YXRlIjoiNzhkeXVma2poZGYifQ.UQDz8hBIabaqatY75BvqGyiPoOqNYJQIsimUKg4_VrU";
+        Request<PushedAuthorizationResponse> request = api.pushedAuthorizationRequestWithJAR(requestJwt);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(PUSHED_AUTHORIZATION_RESPONSE, 200);
+        PushedAuthorizationResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/par"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/x-www-form-urlencoded"));
+
+        String body = readFromRequest(recordedRequest);
+        assertThat(body, containsString("client_id=" + CLIENT_ID));
+        assertThat(body, containsString("request=" + requestJwt));
+        assertThat(body, containsString("client_secret=" + CLIENT_SECRET));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getRequestURI(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), notNullValue());
+    }
+
+    @Test
+    public void shouldCreatePushedAuthorizationJarRequestWithoutSecret() throws Exception {
+        String requestJwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiIxMjM0NTYiLCJyZWRpcmVjdF91cmkiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJyZXNwb25zZV90eXBlIjoiY29kZSIsIm5vbmNlIjoiMTIzNCIsInN0YXRlIjoiNzhkeXVma2poZGYifQ.UQDz8hBIabaqatY75BvqGyiPoOqNYJQIsimUKg4_VrU";
+        AuthAPI api = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
+        Request<PushedAuthorizationResponse> request = api.pushedAuthorizationRequestWithJAR(requestJwt);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(PUSHED_AUTHORIZATION_RESPONSE, 200);
+        PushedAuthorizationResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/par"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/x-www-form-urlencoded"));
+
+        String body = readFromRequest(recordedRequest);
+        assertThat(body, containsString("client_id=" + CLIENT_ID));
+        assertThat(body, containsString("request=" + requestJwt));
+        assertThat(body, not(containsString("client_secret")));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getRequestURI(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), notNullValue());
+    }
+
     static class TestAssertionSigner implements ClientAssertionSigner {
 
         private final String token;
