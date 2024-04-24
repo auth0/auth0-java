@@ -39,6 +39,12 @@ public class ResourceServer {
     private Boolean isSystem;
     @JsonProperty("enforce_policies")
     private Boolean enforcePolicies;
+    @JsonProperty("consent_policy")
+    private String consentPolicy;
+    @JsonProperty("authorization_details")
+    private List<AuthorizationDetails> authorizationDetails;
+    @JsonProperty("token_encryption")
+    private TokenEncryption tokenEncryption;
 
     @JsonCreator
     public ResourceServer(@JsonProperty("identifier") String identifier) {
@@ -178,4 +184,48 @@ public class ResourceServer {
         this.tokenLifetimeForWeb = tokenLifetimeForWeb;
     }
 
+    /**
+     * @return the value of the {@code consent_policy} field.
+     */
+    public String getConsentPolicy() {
+        return consentPolicy;
+    }
+
+    /**
+     * Sets the value of the {@code consent_policy} field
+     * @param consentPolicy the value of the {@code consent_policy} field
+     */
+    public void setConsentPolicy(String consentPolicy) {
+        this.consentPolicy = consentPolicy;
+    }
+
+    /**
+     * @return the value of the {@code authorization_details} field.
+     */
+    public List<AuthorizationDetails> getAuthorizationDetails() {
+        return authorizationDetails;
+    }
+
+    /**
+     * Sets the value of the {@code authorization_details} field.
+     * @param authorizationDetails the value of the {@code authorization_details} field.
+     */
+    public void setAuthorizationDetails(List<AuthorizationDetails> authorizationDetails) {
+        this.authorizationDetails = authorizationDetails;
+    }
+
+    /**
+     * @return the value of the {@code token_encryption} field.
+     */
+    public TokenEncryption getTokenEncryption() {
+        return tokenEncryption;
+    }
+
+    /**
+     * Sets the value of the {@code token_encryption} field.
+     * @param tokenEncryption the value of the {@code token_encryption} field.
+     */
+    public void setTokenEncryption(TokenEncryption tokenEncryption) {
+        this.tokenEncryption = tokenEncryption;
+    }
 }

@@ -31,6 +31,8 @@ public class Credential {
     private String alg;
     @JsonProperty("parse_expiry_from_cert")
     private Boolean parseExpiryFromCert;
+    @JsonProperty("subject_dn")
+    private String subjectDn;
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonProperty("created_at")
     private Date createdAt;
@@ -187,5 +189,20 @@ public class Credential {
      */
     public void setParseExpiryFromCert(Boolean parseExpiryFromCert) {
         this.parseExpiryFromCert = parseExpiryFromCert;
+    }
+
+    /**
+     * @return the value of the {@code subject_dn} field
+     */
+    public String getSubjectDn() {
+        return subjectDn;
+    }
+
+    /**
+     * Sets the value of the {@code subject_dn} field
+     * @param subjectDn the value of the {@code subject_dn} field
+     */
+    public void setSubjectDn(String subjectDn) {
+        this.subjectDn = subjectDn;
     }
 }

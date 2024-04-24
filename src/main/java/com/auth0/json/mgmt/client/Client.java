@@ -96,6 +96,10 @@ public class Client {
     private Boolean requiresPushedAuthorizationRequests;
     @JsonProperty("oidc_backchannel_logout")
     private OIDCBackchannelLogout oidcBackchannelLogout;
+    @JsonProperty("signed_request_object")
+    private SignedRequest signedRequest;
+    @JsonProperty("compliance_level")
+    private String complianceLevel;
 
     /**
      * Getter for the name of the tenant this client belongs to.
@@ -836,6 +840,37 @@ public class Client {
      */
     public void setOidcBackchannelLogout(OIDCBackchannelLogout oidcBackchannelLogout) {
         this.oidcBackchannelLogout = oidcBackchannelLogout;
+    }
+
+    /**
+     * @return the value of the {@code signed_request_object} field.
+     */
+    public SignedRequest getSignedRequest() {
+        return signedRequest;
+    }
+
+    /**
+     * Sets the value of the  {@code SignedRequest} field.
+     *
+     * @param signedRequest the value to set the {@code signed_request_field} field to.
+     */
+    public void setSignedRequest(SignedRequest signedRequest) {
+        this.signedRequest = signedRequest;
+    }
+
+    /**
+     * @return the value of the {@code compliance_level} field
+     */
+    public String getComplianceLevel() {
+        return complianceLevel;
+    }
+
+    /**
+     * Sets the value of the {@code compliance_level} field
+     * @param complianceLevel the value of the {@code compliance_level} field
+     */
+    public void setComplianceLevel(String complianceLevel) {
+        this.complianceLevel = complianceLevel;
     }
 }
 

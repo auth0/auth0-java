@@ -38,7 +38,7 @@ public class JsonMatcher extends TypeSafeDiagnosingMatcher<String> {
                 return false;
             }
             if (!item.contains(getStringKey(key))) {
-                mismatchDescription.appendText("JSON didn't contained the key ").appendValue(key);
+                mismatchDescription.appendText("JSON does not contain the key ").appendValue(key);
                 return false;
             }
         }

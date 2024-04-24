@@ -46,6 +46,19 @@ public class Tenant {
     @JsonProperty("idle_session_lifetime")
     private Integer idleSessionLifetime;
 
+    @JsonProperty("acr_values_supported")
+    private List<String> acrValuesSupported;
+
+    @JsonProperty("pushed_authorization_requests_supported")
+    private Boolean pushedAuthorizationRequestsSupported;
+
+    @JsonProperty("remove_alg_from_jwks")
+    private Boolean removeAlgFromJwks;
+
+    @JsonProperty("mtls")
+    private Mtls mtls;
+
+
     /**
      * Getter for the change password page customization.
      *
@@ -319,5 +332,69 @@ public class Tenant {
     @JsonProperty("idle_session_lifetime")
     public void setIdleSessionLifetime(Integer idleSessionLifetime) {
         this.idleSessionLifetime = idleSessionLifetime;
+    }
+
+    /**
+     * @return the value of the {@code acr_values_supported} field
+     */
+    public List<String> getAcrValuesSupported() {
+        return acrValuesSupported;
+    }
+
+    /**
+     * Sets the value of the {@code acr_values_supported} field
+     *
+     * @param acrValuesSupported the value of the {@code acr_values_supported_field}
+     */
+    public void setAcrValuesSupported(List<String> acrValuesSupported) {
+        this.acrValuesSupported = acrValuesSupported;
+    }
+
+    /**
+     * @return the value of the {@code pushed_authorization_requests_supported} field.
+     */
+    public Boolean getPushedAuthorizationRequestsSupported() {
+        return pushedAuthorizationRequestsSupported;
+    }
+
+    /**
+     * Sets the value of the {@code pushed_authorization_requests_supported} field
+     *
+     * @param pushedAuthorizationRequestsSupported the value of the {@code pushed_authorization_requests_supported} field
+     */
+    public void setPushedAuthorizationRequestsSupported(Boolean pushedAuthorizationRequestsSupported) {
+        this.pushedAuthorizationRequestsSupported = pushedAuthorizationRequestsSupported;
+    }
+
+    /**
+     * @return the value of the {@code remove_alg_from_jwks} field
+     */
+    public Boolean getRemoveAlgFromJwks() {
+        return removeAlgFromJwks;
+    }
+
+    /**
+     * Sets the value of the {@code remove_alg_from_jwks} field
+     *
+     * @param removeAlgFromJwks the value of the {@code remove_alg_from_jwks} field
+     */
+    public void setRemoveAlgFromJwks(Boolean removeAlgFromJwks) {
+        this.removeAlgFromJwks = removeAlgFromJwks;
+    }
+
+    /**
+     * @return the value of the {@code mtls} field
+     */
+    public Mtls getMtls() {
+        return mtls;
+    }
+
+    /**
+     * Sets the value of the {@code mtls} field
+     *
+     * @param mtls the value of the {@code mtls} field
+     */
+    public void setMtls(Mtls mtls) {
+        this.mtls = mtls;
     }
 }
