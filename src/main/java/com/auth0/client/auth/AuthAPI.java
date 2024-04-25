@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.auth0.json.ObjectMapperProvider.getMapper;
+
 /**
  * Class that provides an implementation of of the Authentication and Authorization API methods defined by the
  * <a href="https://auth0.com/docs/api/authentication">Auth0 Authentication API</a>.
@@ -307,7 +309,7 @@ public class AuthAPI {
         }
         try {
             if (Objects.nonNull(authorizationDetails)) {
-                String authDetailsJson = ObjectMapperProvider.getMapper().writeValueAsString(authorizationDetails);
+                String authDetailsJson = getMapper().writeValueAsString(authorizationDetails);
                 request.addParameter("authorization_details", authDetailsJson);
             }
         } catch (JsonProcessingException e) {
@@ -359,7 +361,7 @@ public class AuthAPI {
 
         try {
             if (Objects.nonNull(authorizationDetails)) {
-                String authDetailsJson = ObjectMapperProvider.getMapper().writeValueAsString(authorizationDetails);
+                String authDetailsJson = getMapper().writeValueAsString(authorizationDetails);
                 req.addParameter("authorization_details", authDetailsJson);
             }
         } catch (JsonProcessingException e) {

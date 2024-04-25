@@ -260,6 +260,7 @@ public class AuthAPITest {
         assertThat(response.getValues(), hasEntry("created_at", "2016-12-05T11:16:59.640Z"));
         assertThat(response.getValues(), hasEntry("sub", "auth0|58454..."));
         assertThat(response.getValues(), hasKey("identities"));
+        @SuppressWarnings("unchecked")
         List<Map<String, Object>> identities = (List<Map<String, Object>>) response.getValues().get("identities");
         assertThat(identities, hasSize(1));
         assertThat(identities.get(0), hasEntry("user_id", "58454..."));
@@ -501,6 +502,7 @@ public class AuthAPITest {
         assertThat(body, hasEntry("connection", "db-connection"));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
         assertThat(body, hasKey("user_metadata"));
+        @SuppressWarnings("unchecked")
         Map<String, String> metadata = (Map<String, String>) body.get("user_metadata");
         assertThat(metadata, hasEntry("age", "25"));
         assertThat(metadata, hasEntry("address", "123, fake street"));
@@ -1008,6 +1010,7 @@ public class AuthAPITest {
         assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
         assertThat(body, hasEntry("email", "user@domain.com"));
         assertThat(body, hasKey("authParams"));
+        @SuppressWarnings("unchecked")
         Map<String, String> authParamsSent = (Map<String, String>) body.get("authParams");
         assertThat(authParamsSent, hasEntry("scope", authParams.get("scope")));
         assertThat(authParamsSent, hasEntry("state", authParams.get("state")));
@@ -1797,11 +1800,11 @@ public class AuthAPITest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     public void shouldThrowWhenCreatePushedAuthorizationRequestWithInvalidAuthDetails() {
         // force Jackson to throw error on serialization
         // see https://stackoverflow.com/questions/26716020/how-to-get-a-jsonprocessingexception-using-jackson
-        List mockList = mock(List.class);
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> mockList = mock(List.class);
         when(mockList.toString()).thenReturn(mockList.getClass().getName());
 
         IllegalArgumentException e = verifyThrows(IllegalArgumentException.class,
