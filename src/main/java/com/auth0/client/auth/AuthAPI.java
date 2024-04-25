@@ -278,10 +278,11 @@ public class AuthAPI {
      *                    must have this URL as one of its Allowed Callback URLs. Must be a valid non-encoded URL.
      * @param responseType the response type to set. Must not be null.
      * @param params an optional map of key/value pairs representing any additional parameters to send on the request.
-     * @param authorizationDetails A list of maps representing the value of the (optional) {code authorization_details} parameter. The list will be serialized to JSON and sent on the request.
+     * @param authorizationDetails A list of maps representing the value of the (optional) {@code authorization_details} parameter, used to perform Rich Authorization Requests. The list will be serialized to JSON and sent on the request.
      * @see #pushedAuthorizationRequest(String, String, Map, List)
      * @see <a href="https://www.rfc-editor.org/rfc/rfc9126.html">RFC 9126</a>
      * @see <a href="https://datatracker.ietf.org/doc/html/rfc9396">RFC 9396</a>
+     * @see <a href="https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow/authorization-code-flow-with-rar">Authorization Code Flow with Rich Authorization Requests (RAR)</a>
      * @return a request to execute.
      */
     public Request<PushedAuthorizationResponse> pushedAuthorizationRequest(String redirectUri, String responseType, Map<String, String> params, List<Map<String, Object>> authorizationDetails) {
@@ -331,7 +332,7 @@ public class AuthAPI {
     /**
      * Builds a request to make a Pushed Authorization Request (PAR) with JWT-Secured Authorization Requests (JAR), to receive a {@code request_uri} to send to the {@code /authorize} endpoint.
      * @param request The signed JWT containing the authorization parameters as claims.
-     * @param authorizationDetails A list of maps representing the value of the (optional) {code authorization_details} parameter. The list will be serialized to JSON and sent on the request.
+     * @param authorizationDetails A list of maps representing the value of the (optional) {@code authorization_details} parameter, used to perform Rich Authorization Requests. The list will be serialized to JSON and sent on the request.
      * @see #pushedAuthorizationRequestWithJAR(String)                              
      * @see <a href="https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow/authorization-code-flow-with-par-and-jar">Authorization Code Flow with PAR and JAR</a>
      * @see <a href="https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow/authorization-code-flow-with-rar">Authorization Code Flow with Rich Authorization Requests (RAR)</a>
