@@ -2,6 +2,7 @@ package com.auth0.client.auth;
 
 import com.auth0.client.MockServer;
 import com.auth0.exception.APIException;
+import com.auth0.json.ObjectMapperProvider;
 import com.auth0.json.auth.*;
 import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
@@ -11,6 +12,7 @@ import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.Auth0HttpRequest;
 import com.auth0.net.client.Auth0HttpResponse;
 import com.auth0.net.client.HttpMethod;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -19,11 +21,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileReader;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 import static com.auth0.AssertsUtil.verifyThrows;
 import static com.auth0.client.MockServer.*;
@@ -35,6 +37,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.collection.IsMapContaining.hasEntry;
 import static org.hamcrest.collection.IsMapContaining.hasKey;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class AuthAPITest {
 
@@ -256,6 +260,7 @@ public class AuthAPITest {
         assertThat(response.getValues(), hasEntry("created_at", "2016-12-05T11:16:59.640Z"));
         assertThat(response.getValues(), hasEntry("sub", "auth0|58454..."));
         assertThat(response.getValues(), hasKey("identities"));
+        @SuppressWarnings("unchecked")
         List<Map<String, Object>> identities = (List<Map<String, Object>>) response.getValues().get("identities");
         assertThat(identities, hasSize(1));
         assertThat(identities.get(0), hasEntry("user_id", "58454..."));
@@ -497,6 +502,7 @@ public class AuthAPITest {
         assertThat(body, hasEntry("connection", "db-connection"));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
         assertThat(body, hasKey("user_metadata"));
+        @SuppressWarnings("unchecked")
         Map<String, String> metadata = (Map<String, String>) body.get("user_metadata");
         assertThat(metadata, hasEntry("age", "25"));
         assertThat(metadata, hasEntry("address", "123, fake street"));
@@ -1004,6 +1010,7 @@ public class AuthAPITest {
         assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
         assertThat(body, hasEntry("email", "user@domain.com"));
         assertThat(body, hasKey("authParams"));
+        @SuppressWarnings("unchecked")
         Map<String, String> authParamsSent = (Map<String, String>) body.get("authParams");
         assertThat(authParamsSent, hasEntry("scope", authParams.get("scope")));
         assertThat(authParamsSent, hasEntry("state", authParams.get("state")));
@@ -1746,6 +1753,68 @@ public class AuthAPITest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
+    public void shouldCreatePushedAuthorizationRequestWithAuthDetails() throws Exception {
+        Map<String, Object> authorizationDetails = new HashMap<>();
+        authorizationDetails.put("type", "account information");
+        authorizationDetails.put("locations", Collections.singletonList("https://example.com/customers"));
+        authorizationDetails.put("actions", Arrays.asList("read", "write"));
+        List<Map<String, Object>> authDetailsList = Collections.singletonList(authorizationDetails);
+
+        Request<PushedAuthorizationResponse> request = api.pushedAuthorizationRequest("https://domain.com/callback", "code", null, authDetailsList);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(PUSHED_AUTHORIZATION_RESPONSE, 200);
+        PushedAuthorizationResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/par"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/x-www-form-urlencoded"));
+
+        String body = readFromRequest(recordedRequest);
+        assertThat(body, containsString("client_id=" + CLIENT_ID));
+        assertThat(body, containsString("redirect_uri=" + "https%3A%2F%2Fdomain.com%2Fcallback"));
+        assertThat(body, containsString("response_type=" + "code"));
+        assertThat(body, containsString("client_secret=" + CLIENT_SECRET));
+
+        String authDetailsParam = getQueryMap(body).get("authorization_details");
+        String decodedAuthDetails = URLDecoder.decode(authDetailsParam, StandardCharsets.UTF_8.name());
+        TypeReference<List<Map<String, Object>>> typeReference = new TypeReference<List<Map<String, Object>>>() {
+        };
+        List<Map<String, Object>> deserialized = ObjectMapperProvider.getMapper().readValue(decodedAuthDetails, typeReference);
+        assertThat(deserialized, notNullValue());
+        assertThat(deserialized, hasSize(1));
+        assertThat(deserialized.get(0).get("type"), is("account information"));
+
+        List<String> locations = (List<String>) deserialized.get(0).get("locations");
+        List<String> actions = (List<String>) deserialized.get(0).get("actions");
+
+        assertThat(locations, hasSize(1));
+        assertThat(locations.get(0), is("https://example.com/customers"));
+        assertThat(actions, hasSize(2));
+        assertThat(actions, contains("read", "write"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getRequestURI(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), notNullValue());
+    }
+
+    @Test
+    public void shouldThrowWhenCreatePushedAuthorizationRequestWithInvalidAuthDetails() {
+        // force Jackson to throw error on serialization
+        // see https://stackoverflow.com/questions/26716020/how-to-get-a-jsonprocessingexception-using-jackson
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> mockList = mock(List.class);
+        when(mockList.toString()).thenReturn(mockList.getClass().getName());
+
+        IllegalArgumentException e = verifyThrows(IllegalArgumentException.class,
+            () -> api.pushedAuthorizationRequest("https://domain.com/callback", "code", null, mockList));
+
+        assertThat(e.getMessage(), is("'authorizationDetails' must be a list that can be serialized to JSON"));
+        assertThat(e.getCause(), instanceOf(JsonProcessingException.class));
+    }
+
+    @Test
     public void shouldCreatePushedAuthorizationRequestWithoutSecret() throws Exception {
         AuthAPI api = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID).build();
         Request<PushedAuthorizationResponse> request = api.pushedAuthorizationRequest("https://domain.com/callback", "code", null);
@@ -1840,6 +1909,77 @@ public class AuthAPITest {
         assertThat(response, is(notNullValue()));
         assertThat(response.getRequestURI(), not(emptyOrNullString()));
         assertThat(response.getExpiresIn(), notNullValue());
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void shouldCreatePushedAuthorizationJarRequestWithoutAuthDetails() throws Exception {
+        String requestJwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiIxMjM0NTYiLCJyZWRpcmVjdF91cmkiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJyZXNwb25zZV90eXBlIjoiY29kZSIsIm5vbmNlIjoiMTIzNCIsInN0YXRlIjoiNzhkeXVma2poZGYifQ.UQDz8hBIabaqatY75BvqGyiPoOqNYJQIsimUKg4_VrU";
+        Map<String, Object> authorizationDetails = new HashMap<>();
+        authorizationDetails.put("type", "account information");
+        authorizationDetails.put("locations", Collections.singletonList("https://example.com/customers"));
+        authorizationDetails.put("actions", Arrays.asList("read", "write"));
+        List<Map<String, Object>> authDetailsList = Collections.singletonList(authorizationDetails);
+
+        Request<PushedAuthorizationResponse> request = api.pushedAuthorizationRequestWithJAR(requestJwt, authDetailsList);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(PUSHED_AUTHORIZATION_RESPONSE, 200);
+        PushedAuthorizationResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/par"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/x-www-form-urlencoded"));
+
+        String body = readFromRequest(recordedRequest);
+        assertThat(body, containsString("client_id=" + CLIENT_ID));
+        assertThat(body, containsString("request=" + requestJwt));
+        assertThat(body, containsString("client_secret=" + CLIENT_SECRET));
+
+        String authDetailsParam = getQueryMap(body).get("authorization_details");
+        String decodedAuthDetails = URLDecoder.decode(authDetailsParam, StandardCharsets.UTF_8.name());
+        TypeReference<List<Map<String, Object>>> typeReference = new TypeReference<List<Map<String, Object>>>() {
+        };
+        List<Map<String, Object>> deserialized = ObjectMapperProvider.getMapper().readValue(decodedAuthDetails, typeReference);
+        assertThat(deserialized, notNullValue());
+        assertThat(deserialized, hasSize(1));
+        assertThat(deserialized.get(0).get("type"), is("account information"));
+
+        List<String> locations = (List<String>) deserialized.get(0).get("locations");
+        List<String> actions = (List<String>) deserialized.get(0).get("actions");
+
+        assertThat(locations, hasSize(1));
+        assertThat(locations.get(0), is("https://example.com/customers"));
+        assertThat(actions, hasSize(2));
+        assertThat(actions, contains("read", "write"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getRequestURI(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), notNullValue());
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void shouldThrowWhenCreatePushedAuthorizationJarRequestWithInvalidAuthDetails() {
+        String requestJwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiIxMjM0NTYiLCJyZWRpcmVjdF91cmkiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJyZXNwb25zZV90eXBlIjoiY29kZSIsIm5vbmNlIjoiMTIzNCIsInN0YXRlIjoiNzhkeXVma2poZGYifQ.UQDz8hBIabaqatY75BvqGyiPoOqNYJQIsimUKg4_VrU";
+        // force Jackson to throw error on serialization
+        // see https://stackoverflow.com/questions/26716020/how-to-get-a-jsonprocessingexception-using-jackson
+        List mockList = mock(List.class);
+        when(mockList.toString()).thenReturn(mockList.getClass().getName());
+
+        IllegalArgumentException e = verifyThrows(IllegalArgumentException.class,
+            () -> api.pushedAuthorizationRequestWithJAR(requestJwt, mockList));
+
+        assertThat(e.getMessage(), is("'authorizationDetails' must be a list that can be serialized to JSON"));
+        assertThat(e.getCause(), instanceOf(JsonProcessingException.class));
+    }
+
+    private Map<String, String> getQueryMap(String input) {
+        String[] params = input.split("&");
+
+        return Arrays.stream(params)
+            .map(param -> param.split("="))
+            .collect(Collectors.toMap(p -> p[0], p -> p[1]));
     }
 
     static class TestAssertionSigner implements ClientAssertionSigner {
