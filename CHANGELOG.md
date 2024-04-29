@@ -1,5 +1,14 @@
 # Change Log
 
+## [2.11.0](https://github.com/auth0/auth0-java/tree/2.11.0) (2024-04-29)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.10.1...2.11.0)
+
+**Added**
+- [SDK-4763] - RIch Authorization Request (RAR) [\#637](https://github.com/auth0/auth0-java/pull/637) ([jimmyjames](https://github.com/jimmyjames))
+- [SDK-4763] - Add support for HRI Management API changes  [\#635](https://github.com/auth0/auth0-java/pull/635) ([jimmyjames](https://github.com/jimmyjames))
+- [SDK-4763] - add support for JAR and PAR with JAR to Authentication API [\#636](https://github.com/auth0/auth0-java/pull/636) ([jimmyjames](https://github.com/jimmyjames))
+- [SDK-4769] - add show_as_button to Organization Enabled Connections [\#631](https://github.com/auth0/auth0-java/pull/631) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [2.10.1](https://github.com/auth0/auth0-java/tree/2.10.1) (2024-01-29)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.10.0...2.10.1)
 
