@@ -736,6 +736,28 @@ public class UsersEntity extends BaseManagementEntity {
     }
 
     /**
+     * Deletes all authentication methods for the given user.
+     * A token with scope {@code delete:authentication_methods} is needed.
+     * @see <a href="https://auth0.com/docs/api/management/v2/users/delete-authentication-methods">https://auth0.com/docs/api/management/v2/users/delete-authentication-methods</a>
+     *
+     * @param userId the user to delete the authentication method for
+     * @return a Request to execute.
+     */
+    public Request<Void> deleteAllAuthenticationMethods(String userId) {
+        Asserts.assertNotNull(userId, "user ID");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegment(userId)
+            .addPathSegment("authentication-methods")
+            .build()
+            .toString();
+
+        return new VoidRequest(this.client, tokenProvider, url, HttpMethod.DELETE);
+    }
+
+    /**
      * Updates an authentication method.
      * A token with scope {@code update:authentication_methods} is needed.
      * @see <a href="https://auth0.com/docs/api/management/v2#!/Users/patch_authentication_methods_by_authentication_method_id">https://auth0.com/docs/api/management/v2#!/Users/patch_authentication_methods_by_authentication_method_id</a>
