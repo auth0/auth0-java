@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.12.0](https://github.com/auth0/auth0-java/tree/2.12.0) (2024-05-29)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.11.0...2.12.0)
+
+**Added**
+- Support delete all authentication methods endpoint [\#645](https://github.com/auth0/auth0-java/pull/645) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [2.11.0](https://github.com/auth0/auth0-java/tree/2.11.0) (2024-04-29)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.10.1...2.11.0)
 
