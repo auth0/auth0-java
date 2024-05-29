@@ -1310,6 +1310,26 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
+    public void shouldNotDeleteAllAuthenticationMethodsWithNullUserId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().deleteAllAuthenticationMethods(null),
+            "'user ID' cannot be null!");
+    }
+
+    @Test
+    public void shouldDeleteAllAuthenticationMethods() throws Exception {
+        Request<Void> request = api.users().deleteAllAuthenticationMethods("1");
+        assertThat(request, is(notNullValue()));
+
+        server.noContentResponse();
+        request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/users/1/authentication-methods"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
+
+    @Test
     public void invalidateRememberedBrowsersThrowsWhenUserIdIsNull() {
         verifyThrows(IllegalArgumentException.class,
             () -> api.users().invalidateRememberedBrowsers(null),
