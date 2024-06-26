@@ -13,6 +13,8 @@ import com.auth0.json.mgmt.users.Identity;
 import com.auth0.json.mgmt.users.RecoveryCode;
 import com.auth0.json.mgmt.users.User;
 import com.auth0.json.mgmt.users.UsersPage;
+import com.auth0.json.mgmt.users.refreshtokens.RefreshTokensPage;
+import com.auth0.json.mgmt.users.sessions.SessionsPage;
 import com.auth0.net.EmptyBodyRequest;
 import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
@@ -785,6 +787,103 @@ public class UsersEntity extends BaseManagementEntity {
         });
         request.setBody(authenticationMethod);
         return request;
+    }
+
+    /**
+     * Get refresh tokens for a user
+     * A token with {@code read:refresh_tokens} is needed.
+     * See <a href="https://auth0.com/docs/api/management/v2/users/get-refresh-tokens-for-user">https://auth0.com/docs/api/management/v2/users/get-refresh-tokens-for-user</a>
+     *
+     * @param userId the role id
+     * @param filter an optional pagination filter
+     * @return a Request to execute
+     */
+    public Request<RefreshTokensPage> listRefreshTokens(String userId, CheckpointPaginationFilter filter) {
+        Asserts.assertNotNull(userId, "user id");
+        HttpUrl.Builder builder = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegment(userId)
+            .addPathSegment("refresh-tokens");
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+        String url = builder.build().toString();
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<RefreshTokensPage>() {
+        });
+    }
+
+    /**
+     * Delete all refresh tokens for a user.
+     * A token with scope {@code delete:refresh_tokens} is needed.
+     * See <a href="https://auth0.com/docs/api/management/v2/users/delete-refresh-tokens-for-user">https://auth0.com/docs/api/management/v2/users/delete-refresh-tokens-for-user</a>
+     *
+     * @param userId the user to delete the refresh tokens for
+     * @return a Request to execute.
+     */
+    public Request<Void> deleteRefreshTokens(String userId) {
+        Asserts.assertNotNull(userId, "user ID");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegment(userId)
+            .addPathSegment("refresh-tokens")
+            .build()
+            .toString();
+
+        return new VoidRequest(this.client, tokenProvider, url, HttpMethod.DELETE);
+    }
+
+
+    /**
+     * Get sessions for user
+     * A token with {@code read:sessions} is needed.
+     * See <a href="https://auth0.com/docs/api/management/v2/users/get-sessions-for-user">https://auth0.com/docs/api/management/v2/users/get-sessions-for-user</a>
+     *
+     * @param userId the role id
+     * @param filter an optional pagination filter
+     * @return a Request to execute
+     */
+    public Request<SessionsPage> listSessions(String userId, CheckpointPaginationFilter filter) {
+        Asserts.assertNotNull(userId, "user id");
+        HttpUrl.Builder builder = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegment(userId)
+            .addPathSegment("sessions");
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+        String url = builder.build().toString();
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<SessionsPage>() {
+        });
+    }
+
+    /**
+     * Delete sessions for user
+     * A token with scope {@code delete:sessions} is needed.
+     * See <a href="https://auth0.com/docs/api/management/v2/users/delete-sessions-for-user">https://auth0.com/docs/api/management/v2/users/delete-sessions-for-user</a>
+     *
+     * @param userId the user to delete the sessions for
+     * @return a Request to execute.
+     */
+    public Request<Void> deleteSessions(String userId) {
+        Asserts.assertNotNull(userId, "user ID");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegment(userId)
+            .addPathSegment("sessions")
+            .build()
+            .toString();
+
+        return new VoidRequest(this.client, tokenProvider, url, HttpMethod.DELETE);
     }
 
     private static void encodeAndAddQueryParam(HttpUrl.Builder builder, BaseFilter filter) {
