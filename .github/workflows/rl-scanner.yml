@@ -1,0 +1,61 @@
+name: RL-Secure Workflow
+run-name: rl-scanner-only
+
+on:
+  merge_group:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  checkout-build-scan-only:
+    runs-on: ubuntu-latest
+
+    permissions:
+      statuses: write
+      pull-requests: write
+      security-events: write
+      actions: read
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 8
+
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@4c39dd82cd5e1ec7c6fa0173bb41b4b6bb3b86ff
+        with:
+          arguments: assemble apiDiff check jacocoTestReport --continue --console=plain
+
+      - name: List build/libs contents
+        run: ls -la build/libs
+
+      - name: Output build artifact
+        id: output_build_artifact
+        run: |
+          echo "scanfile=$(ls build/libs/auth0-*-SNAPSHOT.jar)" >> $GITHUB_OUTPUT
+
+      - name: Scan packages with rl-secure
+        id: scan
+        env:
+          RLSECURE_ENCODED_LICENSE: ${{ secrets.RLSECURE_ENCODED_LICENSE }}
+          RLSECURE_SITE_KEY: ${{ secrets.RLSECURE_SITE_KEY }}
+        uses: reversinglabs/gh-action-rl-scanner-composite@v1
+        with:
+          artifact-to-scan: ${{ steps.output_build_artifact.outputs.scanfile }}
+
+      - name: Get the scan status output
+        if: success() || failure()
+        run: |
+          echo "The status is: '${{ steps.scan.outputs.status }}'"
+          echo "The description is: '${{ steps.scan.outputs.description }}'"
