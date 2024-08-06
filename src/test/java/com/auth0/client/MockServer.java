@@ -78,6 +78,8 @@ public class MockServer {
     public static final String MGMT_USERS_PAGED_LIST = "src/test/resources/mgmt/users_paged_list.json";
     public static final String MGMT_USER_PERMISSIONS_PAGED_LIST = "src/test/resources/mgmt/user_permissions_paged_list.json";
     public static final String MGMT_USER_ROLES_PAGED_LIST = "src/test/resources/mgmt/user_roles_paged_list.json";
+    public static final String MGMT_USER_REFRESH_TOKENS = "src/test/resources/mgmt/user_refresh_tokens.json";
+    public static final String MGMT_USER_SESSIONS = "src/test/resources/mgmt/user_sessions.json";
     public static final String MGMT_USER = "src/test/resources/mgmt/user.json";
     public static final String MGMT_RECOVERY_CODE = "src/test/resources/mgmt/recovery_code.json";
     public static final String MGMT_IDENTITIES_LIST = "src/test/resources/mgmt/identities_list.json";
