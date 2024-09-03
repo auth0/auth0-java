@@ -24,6 +24,8 @@ public class Session {
     private Date idleExpiresAt;
     @JsonProperty("expires_at")
     private Date expiresAt;
+    @JsonProperty("last_interacted_at")
+    private Date lastInteractedAt;
     @JsonProperty("device")
     private Device device;
     @JsonProperty("clients")

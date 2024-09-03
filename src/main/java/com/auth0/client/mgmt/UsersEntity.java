@@ -798,8 +798,8 @@ public class UsersEntity extends BaseManagementEntity {
      * @param filter an optional pagination filter
      * @return a Request to execute
      */
-    public Request<RefreshTokensPage> listRefreshTokens(String userId, CheckpointPaginationFilter filter) {
-        Asserts.assertNotNull(userId, "user id");
+    public Request<RefreshTokensPage> listRefreshTokens(String userId, PageFilter filter) {
+        Asserts.assertNotNull(userId, "user ID");
         HttpUrl.Builder builder = baseUrl
             .newBuilder()
             .addPathSegments("api/v2/users")
@@ -847,8 +847,8 @@ public class UsersEntity extends BaseManagementEntity {
      * @param filter an optional pagination filter
      * @return a Request to execute
      */
-    public Request<SessionsPage> listSessions(String userId, CheckpointPaginationFilter filter) {
-        Asserts.assertNotNull(userId, "user id");
+    public Request<SessionsPage> listSessions(String userId, PageFilter filter) {
+        Asserts.assertNotNull(userId, "user ID");
         HttpUrl.Builder builder = baseUrl
             .newBuilder()
             .addPathSegments("api/v2/users")

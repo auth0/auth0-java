@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Device {
+    @JsonProperty("initial_user_agent")
+    private String initialUserAgent;
     @JsonProperty("initial_ip")
     private String initialIP;
     @JsonProperty("initial_asn")
@@ -17,6 +19,13 @@ public class Device {
     private String lastIP;
     @JsonProperty("last_asn")
     private String lastASN;
+
+    /**
+     * @return First user agent associated with this session
+     */
+    public String getInitialUserAgent() {
+        return initialUserAgent;
+    }
 
     /**
      * @return First IP address associated with this session

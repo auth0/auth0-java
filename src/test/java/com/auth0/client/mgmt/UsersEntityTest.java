@@ -5,6 +5,7 @@ import com.auth0.client.mgmt.filter.LogEventFilter;
 import com.auth0.client.mgmt.filter.PageFilter;
 import com.auth0.client.mgmt.filter.UserFilter;
 import com.auth0.client.mgmt.filter.CheckpointPaginationFilter;
+import com.auth0.json.mgmt.Page;
 import com.auth0.json.mgmt.guardian.Enrollment;
 import com.auth0.json.mgmt.logevents.LogEvent;
 import com.auth0.json.mgmt.logevents.LogEventsPage;
@@ -1371,7 +1372,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldListRefreshTokensWithPage() throws Exception {
-        CheckpointPaginationFilter filter = new CheckpointPaginationFilter().withFrom("tokenId2").withTake(5);
+        PageFilter filter = new PageFilter().withFrom("tokenId2").withTake(5);
         Request<RefreshTokensPage> request = api.users().listRefreshTokens("1", filter);
         assertThat(request, is(notNullValue()));
 
@@ -1391,7 +1392,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldListRefreshTokensWithTotal() throws Exception {
-        CheckpointPaginationFilter filter = new CheckpointPaginationFilter().withTotals(true);
+        PageFilter filter = new PageFilter().withTotals(true);
         Request<RefreshTokensPage> request = api.users().listRefreshTokens("1", filter);
         assertThat(request, is(notNullValue()));
 
@@ -1448,7 +1449,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldListSessionsWithPage() throws Exception {
-        CheckpointPaginationFilter filter = new CheckpointPaginationFilter().withFrom("sessionId3").withTake(9);
+        PageFilter filter = new PageFilter().withFrom("sessionId3").withTake(9);
         Request<SessionsPage> request = api.users().listSessions("1", filter);
         assertThat(request, is(notNullValue()));
 
@@ -1468,7 +1469,7 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldListSessionsWithTotal() throws Exception {
-        CheckpointPaginationFilter filter = new CheckpointPaginationFilter().withTotals(true);
+        PageFilter filter = new PageFilter().withTotals(true);
         Request<SessionsPage> request = api.users().listSessions("1", filter);
         assertThat(request, is(notNullValue()));
 

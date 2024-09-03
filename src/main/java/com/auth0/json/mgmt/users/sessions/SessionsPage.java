@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 /**
- * This does not extend com.auth0.json.mgmt.Page<RefreshToken> because the URL only supports "next" and "take" pagination.
+ * Class that represents a given Page of Sessions. Related to the {@link com.auth0.client.mgmt.UsersEntity} entity.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)

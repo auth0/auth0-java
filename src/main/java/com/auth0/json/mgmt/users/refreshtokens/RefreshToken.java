@@ -20,6 +20,8 @@ public class RefreshToken {
     private Date idleExpiresAt;
     @JsonProperty("expires_at")
     private Date expiresAt;
+    @JsonProperty("device")
+    private Device device;
     @JsonProperty("client_id")
     private String clientId;
     @JsonProperty("session_id")
@@ -28,6 +30,8 @@ public class RefreshToken {
     private Boolean rotating;
     @JsonProperty("resource_servers")
     private List<ResourceServer> resourceServers;
+    @JsonProperty("last_exchanged_at")
+    private Date lastExchangedAt;
 
     /**
      * @return The ID of the refresh token
@@ -67,6 +71,13 @@ public class RefreshToken {
     }
 
     /**
+     * @return Device information
+     */
+    public Device getDevice() {
+        return device;
+    }
+
+    /**
      * @return ID of the client application granted with this refresh token
      */
     public String getClientId() {
@@ -93,5 +104,12 @@ public class RefreshToken {
      */
     public List<ResourceServer> getResourceServers() {
         return resourceServers;
+    }
+
+    /**
+     * @return The date and time when the refresh token was last exchanged
+     */
+    public Date getLastExchangedAt() {
+        return lastExchangedAt;
     }
 }
