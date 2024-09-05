@@ -1,4 +1,4 @@
-package com.auth0.json.mgmt.users.sessions;
+package com.auth0.json.mgmt.refreshtokens;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -7,19 +7,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 /**
- * Class that represents a given Page of Sessions. Related to the {@link com.auth0.client.mgmt.UsersEntity} entity.
+ * Class that represents a page of Refresh Tokens.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SessionsPage {
+public class RefreshTokensPage {
     @JsonProperty("total")
     private Integer total;
 
     @JsonProperty("next")
     private String next;
 
-    @JsonProperty("sessions")
-    private List<Session> sessions;
+    @JsonProperty("tokens")
+    private List<RefreshToken> tokens;
 
     /**
      * @return the total number of refresh tokens. This is only present when `include_totals` is passed as a query parameter.
@@ -36,9 +36,9 @@ public class SessionsPage {
     }
 
     /**
-     * @return the list of Sessions
+     * @return the list of Tokens
      */
-    public List<Session> getSessions() {
-        return sessions;
+    public List<RefreshToken> getTokens() {
+        return tokens;
     }
 }

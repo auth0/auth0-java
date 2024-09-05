@@ -1,4 +1,4 @@
-package com.auth0.json.mgmt.users.refreshtokens;
+package com.auth0.json.mgmt.refreshtokens;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

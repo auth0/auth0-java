@@ -17,6 +17,7 @@
       "idle_expires_at": "2024-06-26T09:40:27.131Z",
       "expires_at": "2024-07-03T09:10:26.643Z",
       "device": {
+        "initial_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
         "initial_asn": "1234",
         "initial_ip": "203.0.113.1",
         "last_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",

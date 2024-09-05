@@ -1,4 +1,4 @@
-package com.auth0.json.mgmt.users.sessions;
+package com.auth0.json.mgmt.sessions;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
