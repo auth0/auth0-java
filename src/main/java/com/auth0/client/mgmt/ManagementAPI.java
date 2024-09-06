@@ -365,16 +365,16 @@ public class ManagementAPI {
     }
 
     /**
-     * Getter for the Prompts Entity
-     * @return the Prompts Entity
+     * Getter for the RefreshTokens Entity
+     * @return the RefreshTokens Entity
      */
     public RefreshTokensEntity refreshTokens() {
         return new RefreshTokensEntity(client, baseUrl, tokenProvider);
     }
 
     /**
-     * Getter for the Prompts Entity
-     * @return the Prompts Entity
+     * Getter for the Sessions Entity
+     * @return the Sessions Entity
      */
     public SessionsEntity sessions() {
         return new SessionsEntity(client, baseUrl, tokenProvider);
