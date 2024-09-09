@@ -42,6 +42,11 @@ jobs:
       - name: List build/libs contents
         run: ls -la build/libs
 
+      - name: Output build artifact
+        id: output_build_artifact
+        run: |
+          echo "scanfile=$(ls build/libs/auth0-*-SNAPSHOT.jar)" >> $GITHUB_OUTPUT
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -59,7 +64,7 @@ jobs:
           SIGNAL_HANDLER_TOKEN: ${{ secrets.SIGNAL_HANDLER_TOKEN }}
         run: |
           python scripts/rl-wrapper.py \
-            --artifact "build/libs" \
+            --artifact "${{ steps.output_build_artifact.outputs.scanfile }}" \
             --name "${{ github.event.repository.name }}" \
             --version "${{ steps.get_version.outputs.version }}" \
             --repository "${{ github.repository }}" \
