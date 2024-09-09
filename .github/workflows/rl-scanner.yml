@@ -45,7 +45,7 @@ jobs:
       - name: Output build artifact
         id: output_build_artifact
         run: |
-          echo "scanfile=$(ls build/libs/auth0-*-SNAPSHOT.jar)" >> $GITHUB_OUTPUT
+          echo "scanfile=$(pwd)/$(ls build/libs/auth0-*-SNAPSHOT.jar)" >> $GITHUB_OUTPUT
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -64,10 +64,10 @@ jobs:
           SIGNAL_HANDLER_TOKEN: ${{ secrets.SIGNAL_HANDLER_TOKEN }}
         run: |
           python scripts/rl-wrapper.py \
-            --artifact "${{ steps.output_build_artifact.outputs.scanfile }}" \
+            --artifact "$(pwd)/${{ steps.output_build_artifact.outputs.scanfile }}" \
             --name "${{ github.event.repository.name }}" \
             --version "${{ steps.get_version.outputs.version }}" \
             --repository "${{ github.repository }}" \
             --commit "${{ github.sha }}" \
-            --build-env "GitHub Actions"
+            --build-env "github_action"
         continue-on-error: true
