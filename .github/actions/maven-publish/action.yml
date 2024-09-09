@@ -3,7 +3,7 @@ name: Publish release to Java
 inputs:
   ossr-username:
     required: true
-  ossr-password:
+  ossr-token:
     required: true
   signing-key:
     required: true
@@ -36,9 +36,9 @@ runs:
     - name: Publish Java
       shell: bash
       if: inputs.is-android == 'false'
-      run: ./gradlew clean assemble sign publishMavenJavaPublicationToMavenRepository -PisSnapshot=false -Pversion="${{ inputs.version }}" -PossrhUsername="${{ inputs.ossr-username }}" -PossrhPassword="${{ inputs.ossr-password }}" -PsigningKey="${{ inputs.signing-key }}" -PsigningPassword="${{ inputs.signing-password }}"
+      run: ./gradlew clean assemble sign publishMavenJavaPublicationToMavenRepository -PisSnapshot=false -Pversion="${{ inputs.version }}" -PossrhUsername="${{ inputs.ossr-username }}" -PossrhPassword="${{ inputs.ossr-token }}" -PsigningKey="${{ inputs.signing-key }}" -PsigningPassword="${{ inputs.signing-password }}"
 
     - name: Publish Android
       shell: bash
       if: inputs.is-android == 'true'
-      run: ./gradlew clean assemble sign publishAndroidLibraryPublicationToMavenRepository -PisSnapshot=false -Pversion="${{ inputs.version }}" -PossrhUsername="${{ inputs.ossr-username }}" -PossrhPassword="${{ inputs.ossr-password }}" -PsigningKey="${{ inputs.signing-key }}" -PsigningPassword="${{ inputs.signing-password }}"
+      run: ./gradlew clean assemble sign publishAndroidLibraryPublicationToMavenRepository -PisSnapshot=false -Pversion="${{ inputs.version }}" -PossrhUsername="${{ inputs.ossr-username }}" -PossrhPassword="${{ inputs.ossr-token }}" -PsigningKey="${{ inputs.signing-key }}" -PsigningPassword="${{ inputs.signing-password }}"
