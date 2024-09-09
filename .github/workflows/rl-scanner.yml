@@ -39,6 +39,9 @@ jobs:
         id: get_version
         run: echo "::set-output name=version::$(cat .version)"
 
+      - name: List build/libs contents
+        run: ls -la build/libs
+
       - name: Output build artifact
         id: output_build_artifact
         run: |
