@@ -16,11 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      statuses: write
       pull-requests: write
-      security-events: write
-      actions: read
-      contents: read
 
     steps:
       - name: Checkout code
@@ -37,25 +33,36 @@ jobs:
         with:
           arguments: assemble apiDiff check jacocoTestReport --continue --console=plain
 
-      - name: List build/libs contents
-        run: ls -la build/libs
+      - name: Get Artifact Version
+        id: get_version
+        run: echo "::set-output name=version::$(cat .version)"
 
       - name: Output build artifact
         id: output_build_artifact
         run: |
           echo "scanfile=$(ls build/libs/auth0-*-SNAPSHOT.jar)" >> $GITHUB_OUTPUT
 
-      - name: Scan packages with rl-secure
-        id: scan
-        env:
-          RLSECURE_ENCODED_LICENSE: ${{ secrets.RLSECURE_ENCODED_LICENSE }}
-          RLSECURE_SITE_KEY: ${{ secrets.RLSECURE_SITE_KEY }}
-        uses: reversinglabs/gh-action-rl-scanner-composite@v1
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          artifact-to-scan: ${{ steps.output_build_artifact.outputs.scanfile }}
+          python-version: "3.9"
 
-      - name: Get the scan status output
-        if: success() || failure()
+      - name: Install Python dependencies
         run: |
-          echo "The status is: '${{ steps.scan.outputs.status }}'"
-          echo "The description is: '${{ steps.scan.outputs.description }}'"
+          pip install --upgrade pip
+          pip install -r scripts/requirements.txt
+
+      - name: Run Reversing Labs Wrapper Scanner
+        env:
+          RLSECURE_LICENSE: ${{ secrets.RLSECURE_LICENSE }}
+          RLSECURE_SITE_KEY: ${{ secrets.RLSECURE_SITE_KEY }}
+          SIGNAL_HANDLER_TOKEN: ${{ secrets.SIGNAL_HANDLER_TOKEN }}
+        run: |
+          python scripts/rl-wrapper.py \
+            --artifact "${{ steps.output_build_artifact.outputs.scanfile }}" \
+            --name "${{ github.event.repository.name }}" \
+            --version "${{ steps.get_version.outputs.version }}" \
+            --repository "${{ github.repository }}" \
+            --commit "${{ github.sha }}" \
+            --build-env "GitHub Actions"
+        continue-on-error: true
