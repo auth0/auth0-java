@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.13.0](https://github.com/auth0/auth0-java/tree/2.13.0) (2024-09-11)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.12.0...2.13.0)
+
+**Added**
+- Add sessions and refresh tokens to Users Management API [\#661](https://github.com/auth0/auth0-java/pull/661) ([tanya732](https://github.com/tanya732))
+
 ## [2.12.0](https://github.com/auth0/auth0-java/tree/2.12.0) (2024-05-29)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.11.0...2.12.0)
 
