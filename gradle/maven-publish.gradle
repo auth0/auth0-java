@@ -99,3 +99,17 @@ javadoc {
   }
 }
 
+apply plugin: 'me.champeau.gradle.japicmp'
+task('apiDiff', type: JapicmpTask, dependsOn: 'jar') {
+  oldClasspath = files(getBaselineJar(project, baselineVersion))
+  newClasspath = files(jar.archiveFile)
+  onlyModified = true
+  failOnModification = true
+  ignoreMissingClasses = true
+  htmlOutputFile = file("$buildDir/reports/apiDiff/apiDiff.html")
+  txtOutputFile = file("$buildDir/reports/apiDiff/apiDiff.txt")
+  doLast {
+    project.logger.quiet("Comparing against baseline version ${baselineVersion}")
+  }
+}
+
