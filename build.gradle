@@ -51,7 +51,7 @@ def baselineJarPath = file("$rootDir/libs/baseline-version.jar")
 
 task('apiDiff', type: JapicmpTask, dependsOn: 'jar') {
   oldClasspath = files(baselineJarPath)
-  newClasspath = files(jar.archiveFile)
+  newClasspath = files(tasks.named('jar').get().archiveFile)
   onlyModified = true
   failOnModification = true
   ignoreMissingClasses = true
