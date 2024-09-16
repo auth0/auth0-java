@@ -1,11 +1,20 @@
 plugins {
     id 'java'
     id 'jacoco'
+    id 'me.champeau.gradle.japicmp' version '0.2.9'
+    id 'java-gradle-plugin'
+    id "com.gradle.plugin-publish" version "0.12.0"
 }
 
 repositories {
+    jcenter()
+    google()
+    gradlePluginPortal()
     mavenCentral()
 }
+
+import me.champeau.gradle.japicmp.JapicmpTask
+
 
 apply from: rootProject.file('gradle/versioning.gradle')
 
@@ -37,6 +46,33 @@ compileTestJava {
     options.compilerArgs << "-Xlint:deprecation" << "-Werror"
 }
 
+// Define or replace this method with the actual implementation
+def getBaselineJar(Project project, String baselineVersion) {
+  file("${project.buildDir}/libs/${project.name}-${baselineVersion}.jar")
+}
+
+project.afterEvaluate {
+  def lib = project.extensions.findByName('oss')
+  if (lib?.baselineCompareVersion) {
+    project.configure(project) {
+      task('apiDiff', type: JapicmpTask, dependsOn: 'jar') {
+        oldClasspath = files(getBaselineJar(project, lib.baselineCompareVersion))
+        newClasspath = files(jar.archiveFile)
+        onlyModified = true
+        failOnModification = true
+        ignoreMissingClasses = true
+        htmlOutputFile = file("$buildDir/reports/apiDiff/apiDiff.html")
+        txtOutputFile = file("$buildDir/reports/apiDiff/apiDiff.txt")
+        doLast {
+          project.logger.quiet("Comparing against baseline version ${lib.baselineCompareVersion}")
+        }
+      }
+    }
+  } else {
+    project.logger.warn("The 'oss' extension or 'baselineCompareVersion' property is not defined.")
+  }
+}
+
 test {
     testLogging {
         events "skipped", "failed"
@@ -57,6 +93,7 @@ dependencies {
       exclude group: 'com.squareup.okhttp3', module: 'okio'
     }
     implementation "com.squareup.okio:okio:3.5.0"
+    implementation "me.champeau.gradle:japicmp-gradle-plugin:0.2.9"
 
     implementation "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
     implementation "com.fasterxml.jackson.core:jackson-databind:2.15.0"
