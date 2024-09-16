@@ -47,8 +47,7 @@ compileTestJava {
 }
 
 // Define or replace this method with the actual implementation
-def baselineJarPath = file("$buildDir/libs/baseline-version.jar")
-
+def baselineJarPath = file("$rootDir/libs/baseline-version.jar")
 
 task('apiDiff', type: JapicmpTask, dependsOn: 'jar') {
   oldClasspath = files(baselineJarPath)
@@ -59,7 +58,7 @@ task('apiDiff', type: JapicmpTask, dependsOn: 'jar') {
   htmlOutputFile = file("$buildDir/reports/apiDiff/apiDiff.html")
   txtOutputFile = file("$buildDir/reports/apiDiff/apiDiff.txt")
   doLast {
-    project.logger.quiet("Comparing against baseline version ${lib.baselineCompareVersion}")
+    project.logger.quiet("Comparing against manually specified baseline JAR at ${baselineJarPath}")
   }
 }
 
