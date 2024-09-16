@@ -1,20 +1,30 @@
+
+buildscript {
+  repositories {
+    jcenter()
+  }
+
+  dependencies {
+    // https://github.com/melix/japicmp-gradle-plugin/issues/36
+    classpath 'com.google.guava:guava:28.2-jre'
+  }
+}
+
+
 plugins {
     id 'java'
     id 'jacoco'
     id 'me.champeau.gradle.japicmp' version '0.2.9'
-    id 'java-gradle-plugin'
-    id "com.gradle.plugin-publish" version "0.12.0"
+//    id 'java-gradle-plugin'
+//    id "com.gradle.plugin-publish" version "0.12.0"
 }
 
 repositories {
-    jcenter()
-    google()
-    gradlePluginPortal()
+//    jcenter()
+//    google()
+//    gradlePluginPortal()
     mavenCentral()
 }
-
-import me.champeau.gradle.japicmp.JapicmpTask
-
 
 apply from: rootProject.file('gradle/versioning.gradle')
 
@@ -46,38 +56,44 @@ compileTestJava {
     options.compilerArgs << "-Xlint:deprecation" << "-Werror"
 }
 
-
-//baselineCompareVersion '2.0.0'
-//testInJavaVersions = [8, 11, 17]
-//skipAssertSigningConfiguration true
-//
-//// Define or replace this method with the actual implementation
-//def baselineJarPath = file("$rootDir/libs/baseline-version.jar")
-//
-//task('apiDiff', type: JapicmpTask, dependsOn: 'jar') {
-//  oldClasspath = files(baselineJarPath)
-//  newClasspath = files(tasks.named('jar').get().archiveFile)
-//  onlyModified = true
-//  failOnModification = true
-//  ignoreMissingClasses = true
-//  htmlOutputFile = file("$buildDir/reports/apiDiff/apiDiff.html")
-//  txtOutputFile = file("$buildDir/reports/apiDiff/apiDiff.txt")
-//  doLast {
-//    project.logger.quiet("Comparing against manually specified baseline JAR at ${baselineJarPath}")
-//  }
-//}
-
+import me.champeau.gradle.japicmp.JapicmpTask
 
 project.afterEvaluate {
-  def baselineVersion = '2.0.0'
-  testInJavaVersions = [8, 11, 17]
-  if (!baselineVersion) {
-    return
+
+  def versions = project.ext.testInJavaVersions
+  println "All Test will be running in ${versions}"
+  for (pluginJavaTestVersion in versions) {
+    def taskName = "testInJava-${pluginJavaTestVersion}"
+    tasks.register(taskName, Test) {
+      def versionToUse = taskName.split("-").getAt(1) as Integer
+      description = "Runs unit tests on Java version ${versionToUse}."
+      println "Test will be running in ${versionToUse}"
+      group = 'verification'
+      javaLauncher.set(javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(versionToUse)
+      })
+      shouldRunAfter(tasks.named('test'))
+    }
+    tasks.named('check') {
+      dependsOn(taskName)
+    }
   }
+
   project.configure(project) {
+    def baselineVersion = project.ext.baselineCompareVersion
+    println "baselineVersion ${baselineVersion}"
+
     task('apiDiff', type: JapicmpTask, dependsOn: 'jar') {
+      def baselineJarFile = getBaselineJar(project, baselineVersion)
+      def currentJarFile = tasks.jar.archiveFile.get().asFile
+
+      println "Baseline JAR: ${baselineJarFile}"
+      println "Current JAR: ${currentJarFile}"
+
       oldClasspath = files(getBaselineJar(project, baselineVersion))
+      println "oldClasspath ${oldClasspath}"
       newClasspath = files(jar.archiveFile)
+      println "newClasspath ${newClasspath}"
       onlyModified = true
       failOnModification = true
       ignoreMissingClasses = true
@@ -95,6 +111,7 @@ private static File getBaselineJar(Project project, String baselineVersion) {
   def group = project.group
   try {
     def baseline = "${project.group}:${project.name}:$baselineVersion"
+    println "baseline ${baseline}"
     project.group = 'virtual_group_for_japicmp'
     def dependency = project.dependencies.create(baseline + "@jar")
     return project.configurations.detachedConfiguration(dependency).files.find {
@@ -118,6 +135,9 @@ ext {
     okhttpVersion = '4.11.0'
     hamcrestVersion = '2.2'
     jupiterVersion = '5.9.3'
+
+    baselineCompareVersion = '2.0.0'
+    testInJavaVersions = [8, 11, 17]
 }
 
 dependencies {
@@ -126,7 +146,8 @@ dependencies {
       exclude group: 'com.squareup.okhttp3', module: 'okio'
     }
     implementation "com.squareup.okio:okio:3.5.0"
-    implementation "me.champeau.gradle:japicmp-gradle-plugin:0.2.9"
+//    implementation "me.champeau.gradle:japicmp-gradle-plugin:0.2.9"
+//    implementation 'com.google.guava:guava:30.0-jre'
 
     implementation "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
     implementation "com.fasterxml.jackson.core:jackson-databind:2.15.0"
