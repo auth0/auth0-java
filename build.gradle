@@ -47,29 +47,19 @@ compileTestJava {
 }
 
 // Define or replace this method with the actual implementation
-def getBaselineJar(Project project, String baselineVersion) {
-  file("${project.buildDir}/libs/${project.name}-${baselineVersion}.jar")
-}
+def baselineJarPath = file("$buildDir/libs/baseline-version.jar")
 
-project.afterEvaluate {
-  def lib = project.extensions.findByName('oss')
-  if (lib?.baselineCompareVersion) {
-    project.configure(project) {
-      task('apiDiff', type: JapicmpTask, dependsOn: 'jar') {
-        oldClasspath = files(getBaselineJar(project, lib.baselineCompareVersion))
-        newClasspath = files(jar.archiveFile)
-        onlyModified = true
-        failOnModification = true
-        ignoreMissingClasses = true
-        htmlOutputFile = file("$buildDir/reports/apiDiff/apiDiff.html")
-        txtOutputFile = file("$buildDir/reports/apiDiff/apiDiff.txt")
-        doLast {
-          project.logger.quiet("Comparing against baseline version ${lib.baselineCompareVersion}")
-        }
-      }
-    }
-  } else {
-    project.logger.warn("The 'oss' extension or 'baselineCompareVersion' property is not defined.")
+
+task('apiDiff', type: JapicmpTask, dependsOn: 'jar') {
+  oldClasspath = files(baselineJarPath)
+  newClasspath = files(jar.archiveFile)
+  onlyModified = true
+  failOnModification = true
+  ignoreMissingClasses = true
+  htmlOutputFile = file("$buildDir/reports/apiDiff/apiDiff.html")
+  txtOutputFile = file("$buildDir/reports/apiDiff/apiDiff.txt")
+  doLast {
+    project.logger.quiet("Comparing against baseline version ${lib.baselineCompareVersion}")
   }
 }
 
