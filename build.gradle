@@ -46,21 +46,65 @@ compileTestJava {
     options.compilerArgs << "-Xlint:deprecation" << "-Werror"
 }
 
-// Define or replace this method with the actual implementation
-def baselineJarPath = file("$rootDir/libs/baseline-version.jar")
 
-task('apiDiff', type: JapicmpTask, dependsOn: 'jar') {
-  oldClasspath = files(baselineJarPath)
-  newClasspath = files(tasks.named('jar').get().archiveFile)
-  onlyModified = true
-  failOnModification = true
-  ignoreMissingClasses = true
-  htmlOutputFile = file("$buildDir/reports/apiDiff/apiDiff.html")
-  txtOutputFile = file("$buildDir/reports/apiDiff/apiDiff.txt")
-  doLast {
-    project.logger.quiet("Comparing against manually specified baseline JAR at ${baselineJarPath}")
+//baselineCompareVersion '2.0.0'
+//testInJavaVersions = [8, 11, 17]
+//skipAssertSigningConfiguration true
+//
+//// Define or replace this method with the actual implementation
+//def baselineJarPath = file("$rootDir/libs/baseline-version.jar")
+//
+//task('apiDiff', type: JapicmpTask, dependsOn: 'jar') {
+//  oldClasspath = files(baselineJarPath)
+//  newClasspath = files(tasks.named('jar').get().archiveFile)
+//  onlyModified = true
+//  failOnModification = true
+//  ignoreMissingClasses = true
+//  htmlOutputFile = file("$buildDir/reports/apiDiff/apiDiff.html")
+//  txtOutputFile = file("$buildDir/reports/apiDiff/apiDiff.txt")
+//  doLast {
+//    project.logger.quiet("Comparing against manually specified baseline JAR at ${baselineJarPath}")
+//  }
+//}
+
+
+project.afterEvaluate {
+  def baselineVersion = '2.0.0'
+  testInJavaVersions = [8, 11, 17]
+  if (!baselineVersion) {
+    return
+  }
+  project.configure(project) {
+    task('apiDiff', type: JapicmpTask, dependsOn: 'jar') {
+      oldClasspath = files(getBaselineJar(project, baselineVersion))
+      newClasspath = files(jar.archiveFile)
+      onlyModified = true
+      failOnModification = true
+      ignoreMissingClasses = true
+      htmlOutputFile = file("$buildDir/reports/apiDiff/apiDiff.html")
+      txtOutputFile = file("$buildDir/reports/apiDiff/apiDiff.txt")
+      doLast {
+        project.logger.quiet("Comparing against baseline version ${baselineVersion}")
+      }
+    }
   }
 }
+
+private static File getBaselineJar(Project project, String baselineVersion) {
+  // Use detached configuration: https://github.com/square/okhttp/blob/master/build.gradle#L270
+  def group = project.group
+  try {
+    def baseline = "${project.group}:${project.name}:$baselineVersion"
+    project.group = 'virtual_group_for_japicmp'
+    def dependency = project.dependencies.create(baseline + "@jar")
+    return project.configurations.detachedConfiguration(dependency).files.find {
+      it.name == "${project.name}-${baselineVersion}.jar"
+    }
+  } finally {
+    project.group = group
+  }
+}
+
 
 test {
     testLogging {
