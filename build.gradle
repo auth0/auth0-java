@@ -1,11 +1,9 @@
-
 buildscript {
   repositories {
     jcenter()
   }
 
   dependencies {
-    // https://github.com/melix/japicmp-gradle-plugin/issues/36
     classpath 'com.google.guava:guava:28.2-jre'
   }
 }
@@ -15,14 +13,9 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'me.champeau.gradle.japicmp' version '0.2.9'
-//    id 'java-gradle-plugin'
-//    id "com.gradle.plugin-publish" version "0.12.0"
 }
 
 repositories {
-//    jcenter()
-//    google()
-//    gradlePluginPortal()
     mavenCentral()
 }
 
@@ -146,8 +139,6 @@ dependencies {
       exclude group: 'com.squareup.okhttp3', module: 'okio'
     }
     implementation "com.squareup.okio:okio:3.5.0"
-//    implementation "me.champeau.gradle:japicmp-gradle-plugin:0.2.9"
-//    implementation 'com.google.guava:guava:30.0-jre'
 
     implementation "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
     implementation "com.fasterxml.jackson.core:jackson-databind:2.15.0"
@@ -171,5 +162,4 @@ dependencies {
     }
 }
 
-//apply from: rootProject.file('gradle/jacoco.gradle')
 apply from: rootProject.file('gradle/maven-publish.gradle')
