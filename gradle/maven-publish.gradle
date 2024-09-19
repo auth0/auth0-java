@@ -37,7 +37,6 @@ publishing {
       artifactId = POM_ARTIFACT_ID
       version = getVersionName()
 
-      //artifact("$buildDir/libs/${project.name}-${version}.jar")
       artifact sourcesJar
       artifact javadocJar
 
