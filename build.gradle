@@ -1,43 +1,30 @@
+buildscript {
+  repositories {
+    jcenter()
+  }
+
+  dependencies {
+    // https://github.com/melix/japicmp-gradle-plugin/issues/36
+    classpath 'com.google.guava:guava:31.1-jre'
+  }
+}
+
+
 plugins {
     id 'java'
     id 'jacoco'
-    id 'com.auth0.gradle.oss-library.java'
+    id 'me.champeau.gradle.japicmp' version '0.2.9'
 }
 
 repositories {
     mavenCentral()
 }
 
-group = 'com.auth0'
+apply from: rootProject.file('gradle/versioning.gradle')
+
+version = getVersionFromFile()
+group = GROUP
 logger.lifecycle("Using version ${version} for ${name} group $group")
-
-def signingKey = findProperty('signingKey')
-def signingKeyPwd = findProperty('signingPassword')
-
-oss {
-    name 'auth0'
-    repository 'auth0-java'
-    organization 'auth0'
-    description 'Java client library for the Auth0 platform.'
-    baselineCompareVersion '2.0.0'
-    testInJavaVersions = [8, 11, 17]
-    skipAssertSigningConfiguration true
-
-    developers {
-        auth0 {
-            displayName = 'Auth0'
-            email = 'oss@auth0.com'
-        }
-        lbalmaceda {
-            displayName = 'Luciano Balmaceda'
-            email = 'luciano.balmaceda@auth0.com'
-        }
-    }
-}
-
-signing {
-  useInMemoryPgpKeys(signingKey, signingKeyPwd)
-}
 
 jacocoTestReport {
     reports {
@@ -63,6 +50,61 @@ compileTestJava {
     options.compilerArgs << "-Xlint:deprecation" << "-Werror"
 }
 
+import me.champeau.gradle.japicmp.JapicmpTask
+
+project.afterEvaluate {
+
+  def versions = project.ext.testInJavaVersions
+  for (pluginJavaTestVersion in versions) {
+    def taskName = "testInJava-${pluginJavaTestVersion}"
+    tasks.register(taskName, Test) {
+      def versionToUse = taskName.split("-").getAt(1) as Integer
+      description = "Runs unit tests on Java version ${versionToUse}."
+      project.logger.quiet("Test will be running in ${versionToUse}")
+      group = 'verification'
+      javaLauncher.set(javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(versionToUse)
+      })
+      shouldRunAfter(tasks.named('test'))
+    }
+    tasks.named('check') {
+      dependsOn(taskName)
+    }
+  }
+
+  project.configure(project) {
+    def baselineVersion = project.ext.baselineCompareVersion
+    task('apiDiff', type: JapicmpTask, dependsOn: 'jar') {
+      oldClasspath = files(getBaselineJar(project, baselineVersion))
+      newClasspath = files(jar.archiveFile)
+      onlyModified = true
+      failOnModification = true
+      ignoreMissingClasses = true
+      htmlOutputFile = file("$buildDir/reports/apiDiff/apiDiff.html")
+      txtOutputFile = file("$buildDir/reports/apiDiff/apiDiff.txt")
+      doLast {
+        project.logger.quiet("Comparing against baseline version ${baselineVersion}")
+      }
+    }
+  }
+}
+
+private static File getBaselineJar(Project project, String baselineVersion) {
+  // Use detached configuration: https://github.com/square/okhttp/blob/master/build.gradle#L270
+  def group = project.group
+  try {
+    def baseline = "${project.group}:${project.name}:$baselineVersion"
+    project.group = 'virtual_group_for_japicmp'
+    def dependency = project.dependencies.create(baseline + "@jar")
+    return project.configurations.detachedConfiguration(dependency).files.find {
+      it.name == "${project.name}-${baselineVersion}.jar"
+    }
+  } finally {
+    project.group = group
+  }
+}
+
+
 test {
     testLogging {
         events "skipped", "failed"
@@ -75,6 +117,9 @@ ext {
     okhttpVersion = '4.11.0'
     hamcrestVersion = '2.2'
     jupiterVersion = '5.9.3'
+
+    baselineCompareVersion = '2.0.0'
+    testInJavaVersions = [8, 11, 17, 21]
 }
 
 dependencies {
@@ -105,3 +150,5 @@ dependencies {
       }
     }
 }
+
+apply from: rootProject.file('gradle/maven-publish.gradle')
