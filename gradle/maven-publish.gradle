@@ -108,4 +108,8 @@ javadoc {
   }
 }
 
+tasks.named('publish').configure {
+  dependsOn tasks.named('assemble')
+}
+
 
