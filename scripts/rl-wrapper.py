@@ -174,6 +174,7 @@ def submit_to_s3(workdir, targetdir, s3_bucket_name, tool_name, artifact_repo, a
     return s3_results_path
 
 def submit_to_scan_log(payload):
+    print('[+] Scan Completed')
     print('---------------------------------------------')
     endpoint = 'https://signal-handler.oktasecurity.com/scan'
     headers = {
@@ -197,8 +198,6 @@ def main():
 
     if not (RLSECURE_SITE_KEY or RLSECURE_LICENSE):
         sys.exit('[x] Missing RLSECURE_SITE_KEY and/or RLSECURE_LICENSE.')
-
-    print(f'''Artifact: {args.artifact}\nName: {args.name}\nVersion: {args.version}\n----------------- Execution -----------------''')
 
     workdir = create_workdir()
     timestamp = generate_timestamp()
