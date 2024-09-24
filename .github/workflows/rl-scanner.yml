@@ -61,7 +61,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: ${{ secrets.TEST_AWS_ARN }}
-          aws-region: us-east-1
+          aws-region: us-east-2
           mask-aws-account-id: true
 
       - name: Run Reversing Labs Wrapper Scanner
