@@ -11,6 +11,10 @@ on:
       - opened
       - synchronize
 
+# Enable JWT read
+permissions:
+  id-token: write # This is required for requesting the JWT
+
 jobs:
   checkout-build-scan-only:
     runs-on: ubuntu-latest
