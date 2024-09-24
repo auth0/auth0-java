@@ -57,6 +57,13 @@ jobs:
           pip install --upgrade pip
           pip install -r scripts/requirements.txt
 
+      - name: Configure test AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.TEST_AWS_ARN }}
+          aws-region: us-east-1
+          mask-aws-account-id: true
+
       - name: Run Reversing Labs Wrapper Scanner
         env:
           RLSECURE_LICENSE: ${{ secrets.RLSECURE_LICENSE }}
