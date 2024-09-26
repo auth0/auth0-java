@@ -45,6 +45,8 @@ public class ResourceServer {
     private List<AuthorizationDetails> authorizationDetails;
     @JsonProperty("token_encryption")
     private TokenEncryption tokenEncryption;
+    @JsonProperty("proof_of_possession")
+    private ProofOfPossession proofOfPossession;
 
     @JsonCreator
     public ResourceServer(@JsonProperty("identifier") String identifier) {
@@ -227,5 +229,20 @@ public class ResourceServer {
      */
     public void setTokenEncryption(TokenEncryption tokenEncryption) {
         this.tokenEncryption = tokenEncryption;
+    }
+
+    /**
+     * @return the value of the {@code proof_of_possession} field.
+     */
+    public ProofOfPossession getProofOfPossession() {
+        return proofOfPossession;
+    }
+
+    /**
+     * Sets the value of the {@code proof_of_possession} field.
+     * @param proofOfPossession the value of the {@code proof_of_possession} field.
+     */
+    public void setProofOfPossession(ProofOfPossession proofOfPossession) {
+        this.proofOfPossession = proofOfPossession;
     }
 }
