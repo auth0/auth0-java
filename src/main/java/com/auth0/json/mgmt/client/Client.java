@@ -100,6 +100,8 @@ public class Client {
     private SignedRequest signedRequest;
     @JsonProperty("compliance_level")
     private String complianceLevel;
+    @JsonProperty("require_proof_of_possession")
+    private Boolean requireProofOfPossession;
 
     /**
      * Getter for the name of the tenant this client belongs to.
@@ -871,6 +873,21 @@ public class Client {
      */
     public void setComplianceLevel(String complianceLevel) {
         this.complianceLevel = complianceLevel;
+    }
+
+    /**
+     * @return the value of the {@code require_proof_of_possession} field
+     */
+    public Boolean getRequireProofOfPossession() {
+        return requireProofOfPossession;
+    }
+
+    /**
+     * Sets the value of the {@code require_proof_of_possession} field
+     * @param requireProofOfPossession the value of the {@code require_proof_of_possession} field
+     */
+    public void setRequireProofOfPossession(Boolean requireProofOfPossession) {
+        this.requireProofOfPossession = requireProofOfPossession;
     }
 }
 
