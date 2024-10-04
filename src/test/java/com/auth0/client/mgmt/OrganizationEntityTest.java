@@ -1,11 +1,15 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.MockServer;
-import com.auth0.client.mgmt.filter.FieldsFilter;
-import com.auth0.client.mgmt.filter.InvitationsFilter;
-import com.auth0.client.mgmt.filter.OrganizationClientGrantsFilter;
-import com.auth0.client.mgmt.filter.PageFilter;
+import com.auth0.client.mgmt.filter.*;
+import com.auth0.exception.Auth0Exception;
+import com.auth0.json.mgmt.client.Client;
+import com.auth0.json.mgmt.client.ClientDefaultOrganization;
+import com.auth0.json.mgmt.client.ClientsPage;
+import com.auth0.json.mgmt.clientgrants.ClientGrant;
+import com.auth0.json.mgmt.clientgrants.ClientGrantsPage;
 import com.auth0.json.mgmt.organizations.*;
+import com.auth0.json.mgmt.resourceserver.ResourceServer;
 import com.auth0.json.mgmt.roles.RolesPage;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
@@ -1083,6 +1087,32 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
+    public void shouldListClientGrantsWithGrantIds() throws Exception {
+        OrganizationClientGrantsFilter filter = new OrganizationClientGrantsFilter();
+        filter
+            .withClientId("clientId")
+            .withAudience("https://api-identifier/")
+            .withGrantIds("cgr_123456789012,cgr_abcdefghijkl");
+
+        Request<OrganizationClientGrantsPage> request = api.organizations().listClientGrants("orgId", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(ORGANIZATION_CLIENT_GRANTS_PAGED_LIST, 200);
+        OrganizationClientGrantsPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/organizations/orgId/client-grants"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("grant_ids", "cgr_123456789012,cgr_abcdefghijkl"));
+        assertThat(recordedRequest, hasQueryParameter("audience", "https://api-identifier/"));
+        assertThat(recordedRequest, hasQueryParameter("client_id", "clientId"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(1));
+    }
+
+    @Test
     public void shouldThrowOnGetClientGrantsWithNullOrgId() {
         verifyThrows(IllegalArgumentException.class,
             () -> api.organizations().listClientGrants(null, null),
@@ -1152,5 +1182,103 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
         verifyThrows(IllegalArgumentException.class,
             () -> api.organizations().deleteClientGrant("org_1213", null),
             "'client grant ID' cannot be null!");
+    }
+
+    @Test
+    public void testClientGrantsWithOrg() throws Auth0Exception {
+
+        Organization organization = null;
+        ResourceServer resourceServer = null;
+        Client client = null;
+        ClientGrant clientGrant = null;
+        OrganizationClientGrant organizationClientGrant = null;
+
+        try {
+            //Create organization
+            organization = givenAnOrganization();
+
+            //Create resource server
+            resourceServer = givenAResourceServer();
+
+            //Create client
+            client = createNewClient(organization.getId());
+
+            //Create client grants
+            clientGrant = createNewClientGrant(client, resourceServer);
+
+            //Associates the grant with an organization.
+            organizationClientGrant = api.organizations().addClientGrant(organization.getId(), new CreateOrganizationClientGrantRequestBody(clientGrant.getId())).execute().getBody();
+
+            ClientFilter clientFilter = new ClientFilter();
+            clientFilter.withQuery("client_grant.organization_id:" + organization.getId());
+
+            // List all clients associated with a ClientGrant given an organizationID as query param
+            ClientsPage clientsPage = api.clients().list(clientFilter).execute().getBody();
+
+            for (Client c : clientsPage.getItems()) {
+                assertThat(organization.getId(), is(c.getDefaultOrganization().getOrganizationId()));
+            }
+
+            OrganizationClientGrantsFilter filter = new OrganizationClientGrantsFilter();
+            filter.withGrantIds(clientGrant.getId());
+
+            // List all ClientGrants given a list of grant_ids as query param
+            OrganizationClientGrantsPage organizationClientGrantsPage = api.organizations().listClientGrants(organization.getId(), filter).execute().getBody();
+
+            assertThat(organizationClientGrantsPage.getItems().size(), is(1));
+            assertThat(organizationClientGrantsPage.getItems().get(0).getClientId(), is(clientGrant.getClientId()));
+
+            // Remove the associated ClientGrants
+            api.organizations().deleteClientGrant(organization.getId(), organizationClientGrant.getId()).execute();
+
+            // List all ClientGrants which should be an empty list since grant has been removed from the organization.
+            OrganizationClientGrantsPage organizationClientGrantsPage1 = api.organizations().listClientGrants(organization.getId(), filter).execute().getBody();
+            assertThat(organizationClientGrantsPage1.getItems().size(), is(0));
+
+            // Delete the ClientGrant.
+            api.clientGrants().delete(clientGrant.getId()).execute();
+
+            // Retrieve the ClientGrant and ensure error is return since grant has been deleted.
+            ClientGrantsPage clientGrantsPage = api.clientGrants().list(new ClientGrantsFilter().withClientId(clientGrant.getId())).execute().getBody();
+            assertThat(clientGrantsPage.getItems().size(), is(0));
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    private ClientGrant createNewClientGrant(Client client, ResourceServer resourceServer) throws Auth0Exception {
+        ClientGrant clientGrant = new ClientGrant();
+        clientGrant.setClientId(client.getClientId());
+        clientGrant.setAudience(resourceServer.getIdentifier());
+        clientGrant.setScope(Arrays.asList("create:resource", "create:organization_client_grants"));
+        clientGrant.setAllowAnyOrganization(true);
+        clientGrant.setOrganizationUsage("allow");
+
+        return api.clientGrants().create(client.getClientId(), resourceServer.getIdentifier(), new String[]{"create:resource", "create:organization_client_grants"}).execute().getBody();
+    }
+
+    private Client createNewClient(String orgId) throws Auth0Exception {
+        Client client = new Client("Test Client (" + System.currentTimeMillis() + ")");
+        client.setDescription("This is just a test client.");
+        client.setOrganizationUsage("allow");
+        client.setDefaultOrganization(new ClientDefaultOrganization(Arrays.asList("client_credentials"), orgId));
+
+        return api.clients().create(client).execute().getBody();
+    }
+
+    private Organization givenAnOrganization() throws Auth0Exception {
+        Organization organization = new Organization();
+        organization.setName("test-organization");
+        organization.setDisplayName("test-organization");
+
+        return api.organizations().create(organization).execute().getBody();
+    }
+
+    private ResourceServer givenAResourceServer() throws Auth0Exception {
+        ResourceServer resourceServer = new ResourceServer("https://www.tanyaisawesome.com");
+        resourceServer.setName("tanyaisawesome");
+
+        return api.resourceServers().create(resourceServer).execute().getBody();
     }
 }
