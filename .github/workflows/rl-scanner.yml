@@ -61,7 +61,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: ${{ secrets.TEST_AWS_ARN }}
+          role-to-assume: ${{ secrets.PRODSEC_TOOLS_ARN }}
           aws-region: us-east-1
           mask-aws-account-id: true
 
