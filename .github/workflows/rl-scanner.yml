@@ -72,7 +72,7 @@ jobs:
           SIGNAL_HANDLER_TOKEN: ${{ secrets.SIGNAL_HANDLER_TOKEN }}
           PIP_EXTRA_INDEX_URL: "https://${{ secrets.PRODSEC_TOOLS_USER }}:${{ secrets.PRODSEC_TOOLS_TOKEN }}@a0us.jfrog.io/artifactory/api/pypi/python-local/simple"
         run: |
-          pip install rl-wrapper && \
+          pip install rl-wrapper --index-url $PIP_EXTRA_INDEX_URL && \
           rl-wrapper \
             --artifact "${{ steps.get_artifact.outputs.path }}" \
             --version "${{ steps.get_version.outputs.version }}" \
