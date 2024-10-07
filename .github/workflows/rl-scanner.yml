@@ -44,9 +44,9 @@ jobs:
         run: ls -la build/libs
 
       - name: Output build artifact
-        id: output_build_artifact
+        id: get_artifact
         run: |
-          echo "scanfile=$(pwd)/build/libs/auth0-${{ steps.get_version.outputs.version }}.jar" >> $GITHUB_OUTPUT
+          echo "::set-output name=path::$(echo $(pwd)/build/libs/auth0-${{ steps.get_version.outputs.version }}.jar)" >> $GITHUB_OUTPUT
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -58,11 +58,11 @@ jobs:
           pip install --upgrade pip
           pip install -r scripts/requirements.txt
 
-      - name: Configure test AWS credentials
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: ${{ secrets.TEST_AWS_ARN }}
-          aws-region: us-east-2
+          aws-region: us-east-1
           mask-aws-account-id: true
 
       - name: Run Reversing Labs Wrapper Scanner
@@ -70,12 +70,15 @@ jobs:
           RLSECURE_LICENSE: ${{ secrets.RLSECURE_LICENSE }}
           RLSECURE_SITE_KEY: ${{ secrets.RLSECURE_SITE_KEY }}
           SIGNAL_HANDLER_TOKEN: ${{ secrets.SIGNAL_HANDLER_TOKEN }}
+          PIP_EXTRA_INDEX_URL: "https://${{ secrets.PRODSEC_TOOLS_USER }}:${{ secrets.PRODSEC_TOOLS_TOKEN }}@a0us.jfrog.io/artifactory/api/pypi/python-local/simple"
         run: |
-          python scripts/rl-wrapper.py \
-            --artifact "${{ steps.output_build_artifact.outputs.scanfile }}" \
-            --name "${{ github.event.repository.name }}" \
+          pip install rl-wrapper && \
+          rl-wrapper \
+            --artifact "${{ steps.get_artifact.outputs.path }}" \
             --version "${{ steps.get_version.outputs.version }}" \
-            --repository "${{ github.repository }}" \
+            --name "${{ github.event.repository.name }}" \
+            --repository "${{ github.repository_owner }}/${{ github.repository }}" \
             --commit "${{ github.sha }}" \
             --build-env "github_action"
+            --suppress_output
         continue-on-error: true
