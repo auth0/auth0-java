@@ -77,7 +77,7 @@ jobs:
             --artifact "${{ steps.output_build_artifact.outputs.scanfile }}" \
             --version "${{ steps.get_version.outputs.version }}" \
             --name "${{ github.event.repository.name }}" \
-            --repository "${{ github.repository_owner }}/${{ github.repository }}" \
+            --repository "${{ github.repository }}" \
             --commit "${{ github.sha }}" \
             --build-env "github_action" \
             --suppress_output
