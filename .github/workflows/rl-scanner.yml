@@ -71,6 +71,7 @@ jobs:
           RLSECURE_SITE_KEY: ${{ secrets.RLSECURE_SITE_KEY }}
           SIGNAL_HANDLER_TOKEN: ${{ secrets.SIGNAL_HANDLER_TOKEN }}
           WRAPPER_INDEX_URL: "https://${{ secrets.PRODSEC_TOOLS_USER }}:${{ secrets.PRODSEC_TOOLS_TOKEN }}@a0us.jfrog.io/artifactory/api/pypi/python-local/simple"
+          PYTHONUNBUFFERED: 1
         run: |
           pip install rl-wrapper --index-url "$WRAPPER_INDEX_URL" && \
           rl-wrapper \
