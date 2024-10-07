@@ -79,6 +79,6 @@ jobs:
             --name "${{ github.event.repository.name }}" \
             --repository "${{ github.repository }}" \
             --commit "${{ github.sha }}" \
-            --build-env "github_action" \
+            --build-env "github_actions" \
             --suppress_output
         continue-on-error: true
