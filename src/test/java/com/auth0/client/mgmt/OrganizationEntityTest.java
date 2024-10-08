@@ -1239,7 +1239,7 @@ public class OrganizationEntityTest extends BaseMgmtEntityTest {
             api.clientGrants().delete(clientGrant.getId()).execute();
 
             // Retrieve the ClientGrant and ensure error is return since grant has been deleted.
-            ClientGrantsPage clientGrantsPage = api.clientGrants().list(new ClientGrantsFilter().withClientId(clientGrant.getId())).execute().getBody();
+            ClientGrantsPage clientGrantsPage = api.clientGrants().list(new ClientGrantsFilter().withClientId(client.getClientId())).execute().getBody();
             assertThat(clientGrantsPage.getItems().size(), is(0));
         }
         catch (Exception ex){
