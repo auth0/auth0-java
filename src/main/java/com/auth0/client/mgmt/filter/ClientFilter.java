@@ -71,4 +71,15 @@ public class ClientFilter extends FieldsFilter {
         super.withFields(fields, includeFields);
         return this;
     }
+
+    /**
+     * Filter by custom query
+     *
+     * @param query the query string using Lucene query syntax
+     * @return this filter instance
+     */
+    public ClientFilter withQuery(String query) {
+        parameters.put("q", query);
+        return this;
+    }
 }
