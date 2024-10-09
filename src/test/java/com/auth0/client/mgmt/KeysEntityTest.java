@@ -95,4 +95,18 @@ public class KeysEntityTest extends BaseMgmtEntityTest {
 
         assertThat(response, is(notNullValue()));
     }
+
+    @Test
+    public void shouldRekey() throws Exception {
+        Request<Void> request = api.keys().postEncryptionRekey();
+        assertThat(request, is(notNullValue()));
+
+        server.emptyResponse(204);
+        request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/keys/encryption/rekey"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
 }
