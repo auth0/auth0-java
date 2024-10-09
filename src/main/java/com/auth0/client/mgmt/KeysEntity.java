@@ -108,7 +108,7 @@ public class KeysEntity extends BaseManagementEntity {
      * See https://auth0.com/docs/api/management/v2#!/Keys/post-encryption-rekey
      * @return a Request to execute.
      */
-    public Request<Void> rekey(){
+    public Request<Void> postEncryptionRekey(){
         String url = baseUrl
             .newBuilder()
             .addPathSegments("api/v2/keys/encryption/rekey")

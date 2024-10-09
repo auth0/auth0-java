@@ -98,7 +98,7 @@ public class KeysEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldRekey() throws Exception {
-        Request<Void> request = api.keys().rekey();
+        Request<Void> request = api.keys().postEncryptionRekey();
         assertThat(request, is(notNullValue()));
 
         server.emptyResponse(204);
