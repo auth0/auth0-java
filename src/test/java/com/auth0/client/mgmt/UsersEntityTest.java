@@ -17,6 +17,8 @@ import com.auth0.json.mgmt.users.User;
 import com.auth0.json.mgmt.users.UsersPage;
 import com.auth0.json.mgmt.users.authenticationmethods.AuthenticationMethod;
 import com.auth0.json.mgmt.users.authenticationmethods.AuthenticationMethodsPage;
+import com.auth0.json.mgmt.refreshtokens.RefreshTokensPage;
+import com.auth0.json.mgmt.sessions.SessionsPage;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -1346,6 +1348,160 @@ public class UsersEntityTest extends BaseMgmtEntityTest {
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/users/userId/multifactor/actions/invalidate-remember-browser"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
+
+    @Test
+    public void shouldListRefreshTokensWithoutFilter() throws Exception {
+        Request<RefreshTokensPage> request = api.users().listRefreshTokens("1", null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER_REFRESH_TOKENS, 200);
+        RefreshTokensPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/refresh-tokens"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getTokens(), hasSize(2));
+    }
+
+    @Test
+    public void shouldListRefreshTokensWithPage() throws Exception {
+        PageFilter filter = new PageFilter().withFrom("tokenId2").withTake(5);
+        Request<RefreshTokensPage> request = api.users().listRefreshTokens("1", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER_REFRESH_TOKENS, 200);
+        RefreshTokensPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/refresh-tokens"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("from", "tokenId2"));
+        assertThat(recordedRequest, hasQueryParameter("take", "5"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getTokens(), hasSize(2));
+    }
+
+    @Test
+    public void shouldListRefreshTokensWithTotal() throws Exception {
+        PageFilter filter = new PageFilter().withTotals(true);
+        Request<RefreshTokensPage> request = api.users().listRefreshTokens("1", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER_REFRESH_TOKENS, 200);
+        RefreshTokensPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/refresh-tokens"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getTokens(), hasSize(2));
+        assertThat(response.getTotal(), is(11));
+    }
+
+    @Test
+    public void shouldNotDeleteRefreshTokensWithNullUserId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().deleteRefreshTokens(null),
+            "'user ID' cannot be null!");
+    }
+
+    @Test
+    public void shouldDeleteRefreshTokens() throws Exception {
+        Request<Void> request = api.users().deleteRefreshTokens("1");
+        assertThat(request, is(notNullValue()));
+
+        server.noContentResponse();
+        request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/users/1/refresh-tokens"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
+
+    @Test
+    public void shouldListSessionsWithoutFilter() throws Exception {
+        Request<SessionsPage> request = api.users().listSessions("1", null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER_SESSIONS, 200);
+        SessionsPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/sessions"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getSessions(), hasSize(1));
+    }
+
+    @Test
+    public void shouldListSessionsWithPage() throws Exception {
+        PageFilter filter = new PageFilter().withFrom("sessionId3").withTake(9);
+        Request<SessionsPage> request = api.users().listSessions("1", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER_SESSIONS, 200);
+        SessionsPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/sessions"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("from", "sessionId3"));
+        assertThat(recordedRequest, hasQueryParameter("take", "9"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getSessions(), hasSize(1));
+    }
+
+    @Test
+    public void shouldListSessionsWithTotal() throws Exception {
+        PageFilter filter = new PageFilter().withTotals(true);
+        Request<SessionsPage> request = api.users().listSessions("1", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_USER_SESSIONS, 200);
+        SessionsPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/users/1/sessions"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getSessions(), hasSize(1));
+        assertThat(response.getTotal(), is(9));
+    }
+
+    @Test
+    public void shouldNotDeleteSessionsWithNullUserId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.users().deleteRefreshTokens(null),
+            "'user ID' cannot be null!");
+    }
+
+    @Test
+    public void shouldDeleteSessions() throws Exception {
+        Request<Void> request = api.users().deleteSessions("1");
+        assertThat(request, is(notNullValue()));
+
+        server.noContentResponse();
+        request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/users/1/sessions"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     }
 }
