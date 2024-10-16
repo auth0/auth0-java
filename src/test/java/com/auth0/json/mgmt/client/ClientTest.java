@@ -136,7 +136,11 @@ public class ClientTest extends JsonTest<Client> {
         "   ]\n" +
         "  },\n" +
         "  \"require_proof_of_possession\": true,\n" +
-        "  \"compliance_level\": \"fapi1_adv_pkj_par\"\n" +
+        "  \"compliance_level\": \"fapi1_adv_pkj_par\",\n" +
+        "  \"default_organization\": {\n" +
+        "    \"flows\": [\"client_credentials\"],\n" +
+        "    \"organizations_id\": \"org_id\"\n" +
+        "  }\n" +
         "}";
 
     @Test
@@ -214,6 +218,11 @@ public class ClientTest extends JsonTest<Client> {
         client.setSignedRequest(signedRequest);
         client.setComplianceLevel("fapi1_adv_pkj_par");
 
+        ClientDefaultOrganization defaultOrganization = new ClientDefaultOrganization();
+        defaultOrganization.setFlows(Collections.singletonList("client_credentials"));
+        defaultOrganization.setOrganizationId("org_id");
+        client.setDefaultOrganization(defaultOrganization);
+
         String serialized = toJSON(client);
         assertThat(serialized, is(notNullValue()));
 
@@ -254,6 +263,7 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(serialized, JsonMatcher.hasEntry("signed_request_object", containsString("{\"required\":true,\"credentials\":[{\"credential_type\":\"public_key\",\"name\":\"cred name\",\"pem\":\"pem\"}]}")));
         assertThat(serialized, JsonMatcher.hasEntry("compliance_level", "fapi1_adv_pkj_par"));
         assertThat(serialized, JsonMatcher.hasEntry("require_proof_of_possession", true));
+        assertThat(serialized, JsonMatcher.hasEntry("default_organization", notNullValue()));
     }
 
     @Test
