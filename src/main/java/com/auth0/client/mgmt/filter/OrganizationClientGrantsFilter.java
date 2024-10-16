@@ -51,4 +51,15 @@ public class OrganizationClientGrantsFilter extends BaseFilter {
         parameters.put("include_totals", includeTotals);
         return this;
     }
+
+    /**
+     * Filter by grant IDs
+     *
+     * @param grantIds comma-separated list of grant IDs to filter results on.
+     * @return this filter instance
+     */
+    public OrganizationClientGrantsFilter withGrantIds(String grantIds) {
+        parameters.put("grant_ids", grantIds);
+        return this;
+    }
 }
