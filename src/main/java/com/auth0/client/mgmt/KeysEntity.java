@@ -3,6 +3,7 @@ package com.auth0.client.mgmt;
 import com.auth0.json.mgmt.keys.Key;
 import com.auth0.net.EmptyBodyRequest;
 import com.auth0.net.BaseRequest;
+import com.auth0.net.EmptyBodyVoidRequest;
 import com.auth0.net.Request;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.HttpMethod;
@@ -99,5 +100,21 @@ public class KeysEntity extends BaseManagementEntity {
             .toString();
         return new EmptyBodyRequest<>(this.client, tokenProvider, url, HttpMethod.PUT, new TypeReference<Key>() {
         });
+    }
+
+    /**
+     * Perform rekeying operation on the key hierarchy.
+     * A token with scope create:encryption_keys and update:encryption_keys is needed
+     * See https://auth0.com/docs/api/management/v2#!/Keys/post-encryption-rekey
+     * @return a Request to execute.
+     */
+    public Request<Void> postEncryptionRekey(){
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/keys/encryption/rekey")
+            .build()
+            .toString();
+
+        return new EmptyBodyVoidRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<Void>() {});
     }
 }
