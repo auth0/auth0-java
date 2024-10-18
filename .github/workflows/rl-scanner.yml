@@ -13,6 +13,8 @@ on:
 
 jobs:
   checkout-build-scan-only:
+    if: github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request' && startsWith(github.event.pull_request.head.ref, 'release/'))
     runs-on: ubuntu-latest
 
     environment: security
@@ -40,13 +42,9 @@ jobs:
         id: get_version
         run: echo "::set-output name=version::$(cat .version)"
 
-      - name: List build/libs contents
-        run: ls -la build/libs
-
-      - name: Output build artifact
-        id: output_build_artifact
+      - name: Create tgz build artifact
         run: |
-          echo "scanfile=$(pwd)/build/libs/auth0-${{ steps.get_version.outputs.version }}.jar" >> $GITHUB_OUTPUT
+          tar -czvf auth0-java.tgz *
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -75,7 +73,7 @@ jobs:
         run: |
           pip install rl-wrapper --index-url "$WRAPPER_INDEX_URL" && \
           rl-wrapper \
-            --artifact "${{ steps.output_build_artifact.outputs.scanfile }}" \
+            --artifact "$(pwd)/auth0-java.tgz" \
             --version "${{ steps.get_version.outputs.version }}" \
             --name "${{ github.event.repository.name }}" \
             --repository "${{ github.repository }}" \
