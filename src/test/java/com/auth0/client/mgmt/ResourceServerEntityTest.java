@@ -81,6 +81,52 @@ public class ResourceServerEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
+    public void shouldListResourceServerWithIdentifiers() throws Exception {
+        ResourceServersFilter filter = new ResourceServersFilter().withIdentifiers("identifier");
+        Request<ResourceServersPage> request = api.resourceServers().list(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_RESOURCE_SERVERS_PAGED_LIST, 200);
+        ResourceServersPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/resource-servers"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("identifiers", "identifier"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+        assertThat(response.getStart(), is(0));
+        assertThat(response.getLength(), is(14));
+        assertThat(response.getTotal(), is(14));
+        assertThat(response.getLimit(), is(50));
+    }
+
+    @Test
+    public void shouldListResourceServerWithCheckpointPagination() throws Exception {
+        ResourceServersFilter filter = new ResourceServersFilter().withCheckpointPagination("tokenId2", 5);
+        Request<ResourceServersPage> request = api.resourceServers().list(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_RESOURCE_SERVERS_PAGED_LIST, 200);
+        ResourceServersPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/resource-servers"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("from", "tokenId2"));
+        assertThat(recordedRequest, hasQueryParameter("take", "5"));
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+        assertThat(response.getStart(), is(0));
+        assertThat(response.getLength(), is(14));
+        assertThat(response.getTotal(), is(14));
+        assertThat(response.getLimit(), is(50));
+    }
+
+    @Test
     public void shouldUpdateResourceServer() throws Exception {
         ResourceServer resourceServer = new ResourceServer("https://api.my-company.com/api/v2/");
         resourceServer.setId("23445566abab");

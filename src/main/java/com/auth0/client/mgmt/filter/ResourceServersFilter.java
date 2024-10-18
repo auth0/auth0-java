@@ -33,4 +33,28 @@ public class ResourceServersFilter extends BaseFilter {
         return this;
     }
 
+    /**
+     * Filter by specific identifier IDs (i.e. audience)
+     *
+     * @param identifiers the identifier IDs to filter by
+     * @return this filter instance
+     */
+    public ResourceServersFilter withIdentifiers(String identifiers) {
+        parameters.put("identifiers", identifiers);
+        return this;
+    }
+
+    /**
+     * Filter by checkpoint pagination support
+     *
+     * @param from the starting index identifier
+     * @param take the number of items to retrieve
+     * @return this filter instance
+     */
+    public ResourceServersFilter withCheckpointPagination(String from, int take) {
+        parameters.put("from", from);
+        parameters.put("take", take);
+        return this;
+    }
+
 }
