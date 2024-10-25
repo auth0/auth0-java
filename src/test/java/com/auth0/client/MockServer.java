@@ -151,6 +151,8 @@ public class MockServer {
     public static final String KEY_LIST = "src/test/resources/mgmt/key_list.json";
     public static final String KEY_REVOKE = "src/test/resources/mgmt/key_revoke.json";
     public static final String KEY_ROTATE = "src/test/resources/mgmt/key_rotate.json";
+    public static final String ENCRYPTION_KEY = "src/test/resources/mgmt/encryption_key.json";
+    public static final String ENCRYPTION_KEYS_LIST = "src/test/resources/mgmt/encryption_keys_list.json";
     public static final String RATE_LIMIT_ERROR = "src/test/resources/mgmt/rate_limit_error.json";
 
     private final MockWebServer server;
