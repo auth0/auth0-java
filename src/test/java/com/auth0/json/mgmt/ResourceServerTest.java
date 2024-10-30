@@ -1,5 +1,6 @@
 package com.auth0.json.mgmt;
 
+import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
 import com.auth0.json.mgmt.resourceserver.*;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 import static com.auth0.json.JsonMatcher.hasEntry;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.containsString;
 
 public class ResourceServerTest extends JsonTest<ResourceServer> {
     private final static String RESOURCE_SERVER_JSON = "src/test/resources/mgmt/resource_server.json";
@@ -42,6 +44,8 @@ public class ResourceServerTest extends JsonTest<ResourceServer> {
         assertThat(deserialized.getTokenEncryption().getEncryptionKey().getKid(), is("my kid"));
         assertThat(deserialized.getTokenEncryption().getEncryptionKey().getName(), is("my JWE public key"));
         assertThat(deserialized.getTokenEncryption().getEncryptionKey().getThumbprintSha256(), is("thumbprint"));
+        assertThat(deserialized.getProofOfPossession().getMechanism(), is("mtls"));
+        assertThat(deserialized.getProofOfPossession().getRequired(), is(true));
     }
 
     @Test
@@ -77,6 +81,8 @@ public class ResourceServerTest extends JsonTest<ResourceServer> {
         encryptionKey.setPem("pem");
         TokenEncryption tokenEncryption = new TokenEncryption("format", encryptionKey);
         entity.setTokenEncryption(tokenEncryption);
+        ProofOfPossession proofOfPossession = new ProofOfPossession("mtls", true);
+        entity.setProofOfPossession(proofOfPossession);
 
         String json = toJSON(entity);
 
@@ -96,5 +102,6 @@ public class ResourceServerTest extends JsonTest<ResourceServer> {
         assertThat(json, hasEntry("consent_policy", "transactional-authorization-with-mfa"));
         assertThat(json, hasEntry("authorization_details", notNullValue()));
         assertThat(json, hasEntry("token_encryption", containsString("{\"format\":\"format\",\"encryption_key\":{\"name\":\"name\",\"alg\":\"alg\",\"pem\":\"pem\",\"kid\":\"kid\"}}")));
+        assertThat(json, hasEntry("proof_of_possession", containsString("{\"mechanism\":\"mtls\",\"required\":true}")));
     }
 }

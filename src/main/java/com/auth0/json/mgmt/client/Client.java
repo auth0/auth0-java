@@ -100,6 +100,10 @@ public class Client {
     private SignedRequest signedRequest;
     @JsonProperty("compliance_level")
     private String complianceLevel;
+    @JsonProperty("require_proof_of_possession")
+    private Boolean requireProofOfPossession;
+    @JsonProperty("default_organization")
+    private ClientDefaultOrganization defaultOrganization;
 
     /**
      * Getter for the name of the tenant this client belongs to.
@@ -871,6 +875,37 @@ public class Client {
      */
     public void setComplianceLevel(String complianceLevel) {
         this.complianceLevel = complianceLevel;
+    }
+
+    /**
+     * @return the value of the {@code require_proof_of_possession} field
+     */
+    public Boolean getRequireProofOfPossession() {
+        return requireProofOfPossession;
+    }
+
+    /**
+     * Sets the value of the {@code require_proof_of_possession} field
+     * @param requireProofOfPossession the value of the {@code require_proof_of_possession} field
+     */
+    public void setRequireProofOfPossession(Boolean requireProofOfPossession) {
+        this.requireProofOfPossession = requireProofOfPossession;
+    }
+
+    /**
+     * Getter for the default organization configuration.
+     * @return the default organization configuration.
+     */
+    public ClientDefaultOrganization getDefaultOrganization() {
+        return defaultOrganization;
+    }
+
+    /**
+     * Setter for the default organization configuration.
+     * @param defaultOrganization the default organization configuration to set.
+     */
+    public void setDefaultOrganization(ClientDefaultOrganization defaultOrganization) {
+        this.defaultOrganization = defaultOrganization;
     }
 }
 
