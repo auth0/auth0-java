@@ -19,7 +19,7 @@ jobs:
     uses: ./.github/workflows/rl-scanner.yml
     with:
       java-version: 8
-      artifact-name: "auth0-react.tgz"
+      artifact-name: "auth0-java.tgz"
     secrets:
       RLSECURE_LICENSE: ${{ secrets.RLSECURE_LICENSE }}
       RLSECURE_SITE_KEY: ${{ secrets.RLSECURE_SITE_KEY }}
