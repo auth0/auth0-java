@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.15.0](https://github.com/auth0/auth0-java/tree/2.15.0) (2024-10-31)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.14.0...2.15.0)
+
+**Added**
+- Added support for byok [\#673](https://github.com/auth0/auth0-java/pull/673) ([tanya732](https://github.com/tanya732))
+
 ## [2.14.0](https://github.com/auth0/auth0-java/tree/2.14.0) (2024-10-16)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.13.0...2.14.0)
 
