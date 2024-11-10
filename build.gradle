@@ -1,6 +1,6 @@
 buildscript {
   repositories {
-    jcenter()
+    mavenCentral()
   }
 
   dependencies {
@@ -13,7 +13,7 @@ buildscript {
 plugins {
     id 'java'
     id 'jacoco'
-    id 'me.champeau.gradle.japicmp' version '0.2.9'
+    id 'me.champeau.gradle.japicmp' version '0.4.1'
 }
 
 repositories {
@@ -27,10 +27,10 @@ group = GROUP
 logger.lifecycle("Using version ${version} for ${name} group $group")
 
 jacocoTestReport {
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
+  reports {
+    xml.required.set(true)
+    html.required.set(true)
+  }
 }
 
 java {
