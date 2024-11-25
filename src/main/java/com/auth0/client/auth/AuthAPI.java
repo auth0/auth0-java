@@ -68,6 +68,7 @@ public class AuthAPI {
     private static final String PATH_PASSWORDLESS = "passwordless";
     private static final String PATH_START = "start";
     private static final String KEY_ORGANIZATION = "organization";
+    private static final String KEY_PHONE_NUMBER = "phone_number";
 
     private final Auth0HttpClient client;
     private final String clientId;
@@ -482,6 +483,41 @@ public class AuthAPI {
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_EMAIL, email);
         request.addParameter(KEY_CONNECTION, connection);
+        return request;
+    }
+
+    /**
+     * Creates a sign up request with the given credentials, phone number and database connection.
+     * "Requires Username" option must be turned on in the Connection's configuration first.
+     * i.e.:
+     * <pre>
+     * {@code
+     * try {
+     *      Map<String, String> fields = new HashMap<String, String>();
+     *      fields.put("age", "25);
+     *      fields.put("city", "Buenos Aires");
+     *      authAPI.signUp("me@auth0.com", "myself", new char[]{'s','e','c','r','e','t'}, "db-connection", "1234567890")
+     *          .setCustomFields(fields)
+     *          .execute();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @see <a href="https://auth0.com/docs/api/authentication#signup">Signup API docs</a>
+     * @param email         the desired user's email.
+     * @param username      the desired user's username.
+     * @param password      the desired user's password.
+     * @param connection    the database connection where the user is going to be created.
+     * @param phoneNumber   the desired users's phone number.
+     * @return a Request to configure and execute.
+     */
+    public SignUpRequest signUp(String email, String username, char[] password, String connection, String phoneNumber) {
+        Asserts.assertNotNull(phoneNumber, "phone number");
+
+        SignUpRequest request = this.signUp(email, username, password, connection);
+        request.addParameter(KEY_PHONE_NUMBER, phoneNumber);
         return request;
     }
 

@@ -401,6 +401,13 @@ public class AuthAPITest {
     }
 
     @Test
+    public void shouldThrowOnUsernameAndPhoneNumberSignUpWithNullPhoneNumber() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.signUp("me@auth0.com", "me", new char[]{'p','4','5','5','w','0','r','d'}, "my-connection", null),
+            "'phone number' cannot be null!");
+    }
+
+    @Test
     public void shouldHaveNotStrongPasswordWithDetailedDescription() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         FileReader fr = new FileReader(PASSWORD_STRENGTH_ERROR_RESPONSE_NONE);
@@ -422,6 +429,34 @@ public class AuthAPITest {
         assertThat(ex.getError(), is("invalid_password"));
         String expectedDescription = "Should contain: lower case letters (a-z), upper case letters (A-Z), numbers (i.e. 0-9), special characters (e.g. !@#$%^&*)";
         assertThat(ex.getDescription(), is(expectedDescription));
+    }
+
+    @Test
+    public void shouldCreateSignUpRequestWithUsernameAndPhoneNumber() throws Exception {
+        SignUpRequest request = api.signUp("me@auth0.com", "me", new char[]{'p','4','5','5','w','0','r','d'}, "db-connection", "1234567890");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_SIGN_UP_USERNAME, 200);
+        CreatedUser response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/dbconnections/signup"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("email", "me@auth0.com"));
+        assertThat(body, hasEntry("username", "me"));
+        assertThat(body, hasEntry("password", "p455w0rd"));
+        assertThat(body, hasEntry("connection", "db-connection"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("phone_number", "1234567890"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getUserId(), is("58457fe6b27"));
+        assertThat(response.getEmail(), is("me@auth0.com"));
+        assertThat(response.isEmailVerified(), is(false));
+        assertThat(response.getUsername(), is("me"));
+        assertThat(response.getPhoneNumber(), is("1234567890"));
     }
 
     @Test
