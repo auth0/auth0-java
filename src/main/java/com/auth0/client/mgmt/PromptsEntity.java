@@ -34,8 +34,9 @@ public class PromptsEntity extends BaseManagementEntity {
     }
 
     /**
-     * Get the prompt.
+     * Update the prompt.
      * A token with {@code update:prompts} scope is required.
+     * @param prompt the prompt to update.
      * @return a Request to execute.
      *
      * @see <a href="https://auth0.com/docs/api/management/v2#!/prompts/patch-prompts">https://auth0.com/docs/api/management/v2#!/prompts/patch-prompts</a>

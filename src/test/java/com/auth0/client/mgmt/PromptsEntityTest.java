@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.auth0.client.MockServer.MGMT_PARTIALS_PROMPT;
-import static com.auth0.client.MockServer.MGMT_PROMPT;
+import static com.auth0.client.MockServer.*;
 import static com.auth0.client.RecordedRequestMatcher.hasHeader;
 import static com.auth0.client.RecordedRequestMatcher.hasMethodAndPath;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -86,7 +85,7 @@ public class PromptsEntityTest extends BaseMgmtEntityTest{
         Request<Object> request = api.prompts().getCustomText("login", "en");
         assertThat(request, is(notNullValue()));
 
-        server.jsonResponse(MGMT_PARTIALS_PROMPT, 200);
+        server.jsonResponse(MGMT_CUSTOM_TEXT_PROMPT, 200);
         Object response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -120,11 +119,16 @@ public class PromptsEntityTest extends BaseMgmtEntityTest{
 
     @Test
     public void shouldSetCustomText() throws Exception {
+        Map<String, String> signup = new HashMap<>();
+        signup.put("description", "Sign up to access amazing features for my login domain");
+
         Map<String, Object> customText = new HashMap<>();
+        customText.put("signup", signup);
+
         Request<Void> request = api.prompts().setCustomText("login", "en", customText);
         assertThat(request, is(notNullValue()));
 
-        server.jsonResponse(MGMT_PARTIALS_PROMPT, 200);
+        server.jsonResponse(MGMT_CUSTOM_TEXT_PROMPT, 200);
         request.execute();
         RecordedRequest recordedRequest = server.takeRequest();
 
