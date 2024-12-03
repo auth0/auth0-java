@@ -12,6 +12,7 @@ public class EnabledConnectionsPageTest extends JsonTest<EnabledConnectionsPage>
         "    {\n" +
         "        \"connection_id\": \"con_1\",\n" +
         "        \"assign_membership_on_login\": false,\n" +
+        "        \"is_signup_enabled\": true,\n" +
         "        \"connection\": {\n" +
         "            \"name\": \"google-oauth2\",\n" +
         "            \"strategy\": \"google-oauth2\"\n" +
@@ -20,6 +21,7 @@ public class EnabledConnectionsPageTest extends JsonTest<EnabledConnectionsPage>
         "    {\n" +
         "        \"connection_id\": \"con_2\",\n" +
         "        \"assign_membership_on_login\": true,\n" +
+        "        \"is_signup_enabled\": true,\n" +
         "        \"connection\": {\n" +
         "            \"name\": \"Username-Password-Authentication\",\n" +
         "            \"strategy\": \"auth0\"\n" +
@@ -32,6 +34,7 @@ public class EnabledConnectionsPageTest extends JsonTest<EnabledConnectionsPage>
         "        {\n" +
         "            \"connection_id\": \"con_1\",\n" +
         "            \"assign_membership_on_login\": false,\n" +
+        "            \"is_signup_enabled\": true,\n" +
         "            \"connection\": {\n" +
         "                \"name\": \"google-oauth2\",\n" +
         "                \"strategy\": \"google-oauth2\"\n" +
@@ -40,6 +43,7 @@ public class EnabledConnectionsPageTest extends JsonTest<EnabledConnectionsPage>
         "        {\n" +
         "            \"connection_id\": \"con_2\",\n" +
         "            \"assign_membership_on_login\": true,\n" +
+        "            \"is_signup_enabled\": true,\n" +
         "            \"connection\": {\n" +
         "                \"name\": \"Username-Password-Authentication\",\n" +
         "                \"strategy\": \"auth0\"\n" +
