@@ -22,6 +22,8 @@ public class CreatedUser {
     private String username;
     @JsonProperty("email_verified")
     private Boolean emailVerified;
+    @JsonProperty("phone_number")
+    private String phoneNumber;
 
     @JsonProperty("_id")
     @JsonAlias({"_id", "id", "user_id"})
@@ -44,4 +46,8 @@ public class CreatedUser {
         return emailVerified;
     }
 
+    @JsonProperty("phone_number")
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 }
