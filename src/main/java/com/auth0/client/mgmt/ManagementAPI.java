@@ -381,6 +381,14 @@ public class ManagementAPI {
     }
 
     /**
+     * Getter for the Prompts Entity
+     * @return the Prompts Entity
+     */
+    public PromptsEntity prompts() {
+        return new PromptsEntity(client, baseUrl, tokenProvider);
+    }
+
+    /**
      * Builder for {@link ManagementAPI} API client instances.
      */
     public static class Builder {
