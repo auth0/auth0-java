@@ -225,11 +225,11 @@ public class AuthAPI {
         return AuthorizeUrlBuilder.newInstance(baseUrl, clientId, redirectUri);
     }
 
-    public Request<BackChannelAuthorizeResponse> backChannelAuthorize(String scope, String bindingMessage, Map<String, Object> loginHint) {
-        return backChannelAuthorize(scope, bindingMessage, loginHint, null, null);
+    public Request<BackChannelAuthorizeResponse> authorizeBackChannel(String scope, String bindingMessage, Map<String, Object> loginHint) {
+        return authorizeBackChannel(scope, bindingMessage, loginHint, null, null);
     }
 
-    public Request<BackChannelAuthorizeResponse> backChannelAuthorize(String scope, String bindingMessage, Map<String, Object> loginHint, String audience, Integer requestExpiry) {
+    public Request<BackChannelAuthorizeResponse> authorizeBackChannel(String scope, String bindingMessage, Map<String, Object> loginHint, String audience, Integer requestExpiry) {
         Asserts.assertNotNull(scope, "scope");
         Asserts.assertNotNull(bindingMessage, "binding message");
         Asserts.assertNotNull(loginHint, "login hint");
@@ -243,9 +243,7 @@ public class AuthAPI {
         FormBodyRequest<BackChannelAuthorizeResponse> request = new FormBodyRequest<>(client, null, url, HttpMethod.POST, new TypeReference<BackChannelAuthorizeResponse>() {});
 
         request.addParameter(KEY_CLIENT_ID, clientId);
-        if(Objects.nonNull(clientSecret)){
-            request.addParameter(KEY_CLIENT_SECRET, clientSecret);
-        }
+        addClientAuthentication(request, false);
         request.addParameter("scope", scope);
         request.addParameter("binding_message", bindingMessage);
 
@@ -267,8 +265,8 @@ public class AuthAPI {
     }
 
     public Request<BackChannelTokenResponse> getBackChannelLoginStatus(String authReqId, String grantType) {
-        Asserts.assertNotNull(authReqId, "authReqId");
-        Asserts.assertNotNull(grantType, "grantType");
+        Asserts.assertNotNull(authReqId, "auth req id");
+        Asserts.assertNotNull(grantType, "grant type");
 
         String url = getTokenUrl();
 

@@ -8,12 +8,12 @@ public class BackChannelAuthorizeResponse {
     @JsonProperty("auth_req_id")
     private String authReqId;
     @JsonProperty("expires_in")
-    private long expiresIn;
+    private Long expiresIn;
     @JsonProperty("interval")
-    private int interval;
+    private Integer interval;
 
     @JsonCreator
-    public BackChannelAuthorizeResponse(@JsonProperty("auth_req_id") String authReqId, @JsonProperty("expires_in") int expiresIn, @JsonProperty("interval") int interval) {
+    public BackChannelAuthorizeResponse(@JsonProperty("auth_req_id") String authReqId, @JsonProperty("expires_in") Long expiresIn, @JsonProperty("interval") Integer interval) {
         this.authReqId = authReqId;
         this.expiresIn = expiresIn;
         this.interval = interval;
@@ -31,7 +31,7 @@ public class BackChannelAuthorizeResponse {
      * Getter for the Expires In value.
      * @return the Expires In value.
      */
-    public long getExpiresIn() {
+    public Long getExpiresIn() {
         return expiresIn;
     }
 
@@ -39,7 +39,7 @@ public class BackChannelAuthorizeResponse {
      * Getter for the Interval value.
      * @return the Interval value.
      */
-    public int getInterval() {
+    public Integer getInterval() {
         return interval;
     }
 }
