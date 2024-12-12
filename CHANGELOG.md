@@ -1,5 +1,13 @@
 # Change Log
 
+## [2.16.0](https://github.com/auth0/auth0-java/tree/2.16.0) (2024-12-03)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.15.0...2.16.0)
+
+**Added**
+- Added support for custom prompts [\#680](https://github.com/auth0/auth0-java/pull/680) ([tanya732](https://github.com/tanya732))
+- Added phone number identifier in signup Auth API [\#679](https://github.com/auth0/auth0-java/pull/679) ([tanya732](https://github.com/tanya732))
+- Added is_signup_enabled field to OrganizationConnection  [\#677](https://github.com/auth0/auth0-java/pull/677) ([tanya732](https://github.com/tanya732))
+
 ## [2.15.0](https://github.com/auth0/auth0-java/tree/2.15.0) (2024-10-31)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.14.0...2.15.0)
 
