@@ -1,7 +1,7 @@
 {
   "id": "id",
   "name": "Test",
-  "description": "This is for Test",
+  "description": "This is a Test",
   "user_attributes": [
     {
       "name": "Phone",
@@ -9,13 +9,15 @@
       "is_optional": true
     }
   ],
+  "allowed_strategies": [
+    "oidc"
+  ],
+  "created_at": "2024-12-20T09:32:13.885Z",
+  "updated_at": "2024-12-20T09:32:13.885Z",
   "branding": {
     "logo_url": "https://www.google.com",
     "colors": {
       "primary": "#ffffff"
     }
-  },
-  "allowed_strategies": [
-    "oidc"
-  ]
+  }
 }

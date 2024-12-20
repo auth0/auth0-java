@@ -33,7 +33,7 @@ public class SelfServiceProfilesEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getItems(), hasSize(2));
+        assertThat(response.getItems(), hasSize(3));
     }
 
     @Test
@@ -53,7 +53,7 @@ public class SelfServiceProfilesEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasQueryParameter("per_page", "5"));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getItems(), hasSize(2));
+        assertThat(response.getItems(), hasSize(3));
     }
 
     @Test
@@ -72,7 +72,7 @@ public class SelfServiceProfilesEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasQueryParameter("include_totals", "true"));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getItems(), hasSize(2));
+        assertThat(response.getItems(), hasSize(3));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class SelfServiceProfilesEntityTest extends BaseMgmtEntityTest {
         Request<SelfServiceProfileResponse> request = api.selfServiceProfiles().create(profile);
         assertThat(request, is(notNullValue()));
 
-        server.jsonResponse(SELF_SERVICE_PROFILE, 201);
+        server.jsonResponse(SELF_SERVICE_PROFILE_RESPONSE, 201);
         SelfServiceProfileResponse response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -122,7 +122,7 @@ public class SelfServiceProfilesEntityTest extends BaseMgmtEntityTest {
         Request<SelfServiceProfileResponse> request = api.selfServiceProfiles().getById("id");
         assertThat(request, is(notNullValue()));
 
-        server.jsonResponse(SELF_SERVICE_PROFILE, 200);
+        server.jsonResponse(SELF_SERVICE_PROFILE_RESPONSE, 200);
         SelfServiceProfileResponse response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -144,7 +144,7 @@ public class SelfServiceProfilesEntityTest extends BaseMgmtEntityTest {
         Request<Void> request = api.selfServiceProfiles().delete("id");
         assertThat(request, is(notNullValue()));
 
-        server.jsonResponse(SELF_SERVICE_PROFILE, 200);
+        server.jsonResponse(SELF_SERVICE_PROFILE_RESPONSE, 200);
         request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
@@ -170,7 +170,7 @@ public class SelfServiceProfilesEntityTest extends BaseMgmtEntityTest {
         Request<SelfServiceProfileResponse> request = api.selfServiceProfiles().update(new SelfServiceProfile(), "id");
         assertThat(request, is(notNullValue()));
 
-        server.jsonResponse(SELF_SERVICE_PROFILE, 200);
+        server.jsonResponse(SELF_SERVICE_PROFILE_RESPONSE, 200);
         SelfServiceProfileResponse response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 

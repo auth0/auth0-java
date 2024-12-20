@@ -2,7 +2,7 @@
   {
     "id": "id1",
     "name": "test1",
-    "description": "This is for Test1",
+    "description": "This is for testing",
     "user_attributes": [
       {
         "name": "Phone",
@@ -37,5 +37,28 @@
     ],
     "created_at": "2024-12-16T15:29:06.119Z",
     "updated_at": "2024-12-16T15:29:06.119Z"
+  },
+  {
+    "id": "id3",
+    "name": "Test3",
+    "description": "This is a Test3",
+    "user_attributes": [
+      {
+        "name": "Name",
+        "description": "Name Field",
+        "is_optional": true
+      }
+    ],
+    "allowed_strategies": [
+      "oidc"
+    ],
+    "created_at": "2024-12-20T09:32:13.885Z",
+    "updated_at": "2024-12-20T09:32:13.885Z",
+    "branding": {
+      "logo_url": "https://www.google.com",
+      "colors": {
+        "primary": "#ffffff"
+      }
+    }
   }
 ]
