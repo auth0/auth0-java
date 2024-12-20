@@ -157,6 +157,8 @@ public class MockServer {
     public static final String ENCRYPTION_KEY = "src/test/resources/mgmt/encryption_key.json";
     public static final String ENCRYPTION_KEYS_LIST = "src/test/resources/mgmt/encryption_keys_list.json";
     public static final String RATE_LIMIT_ERROR = "src/test/resources/mgmt/rate_limit_error.json";
+    public static final String SELF_SERVICE_PROFILES_LIST = "src/test/resources/mgmt/self_service_profiles_list.json";
+    public static final String SELF_SERVICE_PROFILE = "src/test/resources/mgmt/self_service_profile.json";
 
     private final MockWebServer server;
 
