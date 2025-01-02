@@ -225,6 +225,61 @@ public class AuthAPI {
         return AuthorizeUrlBuilder.newInstance(baseUrl, clientId, redirectUri);
     }
 
+    public Request<BackChannelAuthorizeResponse> authorizeBackChannel(String scope, String bindingMessage, Map<String, Object> loginHint) {
+        return authorizeBackChannel(scope, bindingMessage, loginHint, null, null);
+    }
+
+    public Request<BackChannelAuthorizeResponse> authorizeBackChannel(String scope, String bindingMessage, Map<String, Object> loginHint, String audience, Integer requestExpiry) {
+        Asserts.assertNotNull(scope, "scope");
+        Asserts.assertNotNull(bindingMessage, "binding message");
+        Asserts.assertNotNull(loginHint, "login hint");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegment("bc-authorize")
+            .build()
+            .toString();
+
+        FormBodyRequest<BackChannelAuthorizeResponse> request = new FormBodyRequest<>(client, null, url, HttpMethod.POST, new TypeReference<BackChannelAuthorizeResponse>() {});
+
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        addClientAuthentication(request, false);
+        request.addParameter("scope", scope);
+        request.addParameter("binding_message", bindingMessage);
+
+        if(Objects.nonNull(audience)){
+            request.addParameter(KEY_AUDIENCE, audience);
+        }
+        if(Objects.nonNull(requestExpiry)){
+            request.addParameter("request_expiry", requestExpiry);
+        }
+
+        try {
+            String loginHintJson = getMapper().writeValueAsString(loginHint);
+            request.addParameter("login_hint", loginHintJson);
+        }
+        catch (JsonProcessingException e) {
+            throw new IllegalArgumentException("'loginHint' must be a map that can be serialized to JSON", e);
+        }
+        return request;
+    }
+
+    public Request<BackChannelTokenResponse> getBackChannelLoginStatus(String authReqId, String grantType) {
+        Asserts.assertNotNull(authReqId, "auth req id");
+        Asserts.assertNotNull(grantType, "grant type");
+
+        String url = getTokenUrl();
+
+        FormBodyRequest<BackChannelTokenResponse> request = new FormBodyRequest<>(client, null, url, HttpMethod.POST, new TypeReference<BackChannelTokenResponse>() {});
+
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        addClientAuthentication(request, false);
+        request.addParameter("auth_req_id", authReqId);
+        request.addParameter(KEY_GRANT_TYPE, grantType);
+
+        return request;
+    }
+
     /**
      * Builds an authorization URL for Pushed Authorization Requests (PAR)
      * @param requestUri the {@code request_uri} parameter from a successful pushed authorization request.
