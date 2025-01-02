@@ -159,7 +159,8 @@ public class MockServer {
     public static final String RATE_LIMIT_ERROR = "src/test/resources/mgmt/rate_limit_error.json";
     public static final String SELF_SERVICE_PROFILES_LIST = "src/test/resources/mgmt/self_service_profiles_list.json";
     public static final String SELF_SERVICE_PROFILE_RESPONSE = "src/test/resources/mgmt/self_service_profile_response.json";
-    public static final String SELF_SERVICE_PROFILE = "src/test/resources/mgmt/self_service_profile.json";
+    public static final String SELF_SERVICE_PROFILE_CUSTOM_TEXT = "src/test/resources/mgmt/self_service_profile_custom_text.json";
+    public static final String SELF_SERVICE_PROFILE_SSO_TICKET = "src/test/resources/mgmt/self_service_profile_sso_ticket.json";
 
     private final MockWebServer server;
 
