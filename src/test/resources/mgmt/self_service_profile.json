@@ -1,0 +1,21 @@
+{
+  "id": "id",
+  "name": "Test",
+  "description": "This is for Test",
+  "user_attributes": [
+    {
+      "name": "Phone",
+      "description": "This is Phone Number",
+      "is_optional": true
+    }
+  ],
+  "branding": {
+    "logo_url": "https://www.google.com",
+    "colors": {
+      "primary": "#ffffff"
+    }
+  },
+  "allowed_strategies": [
+    "oidc"
+  ]
+}

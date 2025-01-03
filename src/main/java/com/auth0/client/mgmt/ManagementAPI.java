@@ -389,6 +389,14 @@ public class ManagementAPI {
     }
 
     /**
+     * Getter for the SelfServiceProfiles Entity
+     * @return the SelfServiceProfiles Entity
+     */
+    public SelfServiceProfilesEntity selfServiceProfiles() {
+        return new SelfServiceProfilesEntity(client, baseUrl, tokenProvider);
+    }
+
+    /**
      * Builder for {@link ManagementAPI} API client instances.
      */
     public static class Builder {
