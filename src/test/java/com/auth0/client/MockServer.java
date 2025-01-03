@@ -116,6 +116,8 @@ public class MockServer {
     public static final String PASSWORDLESS_EMAIL_RESPONSE = "src/test/resources/auth/passwordless_email.json";
     public static final String PASSWORDLESS_SMS_RESPONSE = "src/test/resources/auth/passwordless_sms.json";
     public static final String PUSHED_AUTHORIZATION_RESPONSE = "src/test/resources/auth/pushed_authorization_response.json";
+    public static final String BACK_CHANNEL_AUTHORIZE_RESPONSE = "src/test/resources/auth/back_channel_authorize_response.json";
+    public static final String BACK_CHANNEL_LOGIN_STATUS_RESPONSE = "src/test/resources/auth/back_channel_login_status_response.json";
     public static final String AUTHENTICATOR_METHOD_BY_ID = "src/test/resources/mgmt/authenticator_method_by_id.json";
     public static final String AUTHENTICATOR_METHOD_CREATE = "src/test/resources/mgmt/authenticator_method_create.json";
     public static final String AUTHENTICATOR_METHOD_LIST = "src/test/resources/mgmt/authenticator_method_list.json";
