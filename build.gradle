@@ -4,6 +4,7 @@ buildscript {
   }
 
   dependencies {
+    classpath 'org.codehaus.groovy:groovy-all:2.5.14' // Ensure Groovy version compatible with Java 8
     // https://github.com/melix/japicmp-gradle-plugin/issues/36
     classpath 'com.google.guava:guava:31.1-jre'
   }
