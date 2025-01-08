@@ -1,5 +1,12 @@
 # Change Log
 
+## [2.17.0](https://github.com/auth0/auth0-java/tree/2.17.0) (2025-01-08)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.16.0...2.17.0)
+
+**Added**
+- Added Support for Self-Service-Profile [\#683](https://github.com/auth0/auth0-java/pull/683) ([tanya732](https://github.com/tanya732))
+- Added support for Back Channel Login [\#682](https://github.com/auth0/auth0-java/pull/682) ([tanya732](https://github.com/tanya732))
+
 ## [2.16.0](https://github.com/auth0/auth0-java/tree/2.16.0) (2024-12-03)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.15.0...2.16.0)
 
