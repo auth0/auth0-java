@@ -36,5 +36,9 @@
       "alg": "RSA-OAEP-256",
       "thumbprint_sha256": "thumbprint"
     }
+  },
+  "proof_of_possession": {
+    "mechanism": "mtls",
+    "required": true
   }
 }

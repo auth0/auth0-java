@@ -1,0 +1,30 @@
+{
+  "id": "sessionId1",
+  "user_id": "userId1",
+  "created_at": "2024-09-04T06:41:46.145Z",
+  "updated_at": "2024-09-04T06:41:46.621Z",
+  "authenticated_at": "2024-09-04T06:41:46.145Z",
+  "authentication": {
+    "methods": [
+      {
+        "name": "federated",
+        "timestamp": "2024-09-04T06:41:46.145Z"
+      }
+    ]
+  },
+  "idle_expires_at": "2024-09-07T06:41:46.622Z",
+  "expires_at": "2024-09-11T06:41:46.145Z",
+  "device": {
+    "initial_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+    "initial_asn": "1234",
+    "initial_ip": "134.1.15.0",
+    "last_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+    "last_ip": "134.1.15.0",
+    "last_asn": "1234"
+  },
+  "clients": [
+    {
+      "client_id": "clientId1"
+    }
+  ]
+}

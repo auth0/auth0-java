@@ -365,6 +365,38 @@ public class ManagementAPI {
     }
 
     /**
+     * Getter for the RefreshTokens Entity
+     * @return the RefreshTokens Entity
+     */
+    public RefreshTokensEntity refreshTokens() {
+        return new RefreshTokensEntity(client, baseUrl, tokenProvider);
+    }
+
+    /**
+     * Getter for the Sessions Entity
+     * @return the Sessions Entity
+     */
+    public SessionsEntity sessions() {
+        return new SessionsEntity(client, baseUrl, tokenProvider);
+    }
+
+    /**
+     * Getter for the Prompts Entity
+     * @return the Prompts Entity
+     */
+    public PromptsEntity prompts() {
+        return new PromptsEntity(client, baseUrl, tokenProvider);
+    }
+
+    /**
+     * Getter for the SelfServiceProfiles Entity
+     * @return the SelfServiceProfiles Entity
+     */
+    public SelfServiceProfilesEntity selfServiceProfiles() {
+        return new SelfServiceProfilesEntity(client, baseUrl, tokenProvider);
+    }
+
+    /**
      * Builder for {@link ManagementAPI} API client instances.
      */
     public static class Builder {

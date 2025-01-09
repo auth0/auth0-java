@@ -1,5 +1,40 @@
 # Change Log
 
+## [2.17.0](https://github.com/auth0/auth0-java/tree/2.17.0) (2025-01-08)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.16.0...2.17.0)
+
+**Added**
+- Added Support for Self-Service-Profile [\#683](https://github.com/auth0/auth0-java/pull/683) ([tanya732](https://github.com/tanya732))
+- Added support for Back Channel Login [\#682](https://github.com/auth0/auth0-java/pull/682) ([tanya732](https://github.com/tanya732))
+
+## [2.16.0](https://github.com/auth0/auth0-java/tree/2.16.0) (2024-12-03)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.15.0...2.16.0)
+
+**Added**
+- Added support for custom prompts [\#680](https://github.com/auth0/auth0-java/pull/680) ([tanya732](https://github.com/tanya732))
+- Added phone number identifier in signup Auth API [\#679](https://github.com/auth0/auth0-java/pull/679) ([tanya732](https://github.com/tanya732))
+- Added is_signup_enabled field to OrganizationConnection  [\#677](https://github.com/auth0/auth0-java/pull/677) ([tanya732](https://github.com/tanya732))
+
+## [2.15.0](https://github.com/auth0/auth0-java/tree/2.15.0) (2024-10-31)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.14.0...2.15.0)
+
+**Added**
+- Added support for byok [\#673](https://github.com/auth0/auth0-java/pull/673) ([tanya732](https://github.com/tanya732))
+
+## [2.14.0](https://github.com/auth0/auth0-java/tree/2.14.0) (2024-10-16)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.13.0...2.14.0)
+
+**Added**
+- SDKs support for Control Your Own Key [\#671](https://github.com/auth0/auth0-java/pull/671) ([tanya732](https://github.com/tanya732))
+- Added client credentials changes [\#670](https://github.com/auth0/auth0-java/pull/670) ([tanya732](https://github.com/tanya732))
+- Added support for HRI phase 2 changes [\#668](https://github.com/auth0/auth0-java/pull/668) ([tanya732](https://github.com/tanya732))
+
+## [2.13.0](https://github.com/auth0/auth0-java/tree/2.13.0) (2024-09-11)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.12.0...2.13.0)
+
+**Added**
+- Add sessions and refresh tokens to Users Management API [\#661](https://github.com/auth0/auth0-java/pull/661) ([tanya732](https://github.com/tanya732))
+
 ## [2.12.0](https://github.com/auth0/auth0-java/tree/2.12.0) (2024-05-29)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.11.0...2.12.0)
 
