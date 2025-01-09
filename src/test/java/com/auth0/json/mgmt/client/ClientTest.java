@@ -135,7 +135,12 @@ public class ClientTest extends JsonTest<Client> {
         "     }\n" +
         "   ]\n" +
         "  },\n" +
-        "  \"compliance_level\": \"fapi1_adv_pkj_par\"\n" +
+        "  \"require_proof_of_possession\": true,\n" +
+        "  \"compliance_level\": \"fapi1_adv_pkj_par\",\n" +
+        "  \"default_organization\": {\n" +
+        "    \"flows\": [\"client_credentials\"],\n" +
+        "    \"organizations_id\": \"org_id\"\n" +
+        "  }\n" +
         "}";
 
     @Test
@@ -179,6 +184,7 @@ public class ClientTest extends JsonTest<Client> {
         client.setRefreshToken(refreshToken);
         client.setOrganizationUsage("require");
         client.setOrganizationRequireBehavior("pre_login_prompt");
+        client.setRequireProofOfPossession(true);
 
         Credential credential = new Credential("public_key", "PEM");
         PrivateKeyJwt privateKeyJwt = new PrivateKeyJwt(Collections.singletonList(credential));
@@ -211,6 +217,11 @@ public class ClientTest extends JsonTest<Client> {
         signedRequest.setCredentials(Collections.singletonList(signedRequestCredential));
         client.setSignedRequest(signedRequest);
         client.setComplianceLevel("fapi1_adv_pkj_par");
+
+        ClientDefaultOrganization defaultOrganization = new ClientDefaultOrganization();
+        defaultOrganization.setFlows(Collections.singletonList("client_credentials"));
+        defaultOrganization.setOrganizationId("org_id");
+        client.setDefaultOrganization(defaultOrganization);
 
         String serialized = toJSON(client);
         assertThat(serialized, is(notNullValue()));
@@ -251,6 +262,8 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(serialized, JsonMatcher.hasEntry("oidc_backchannel_logout", containsString("{\"backchannel_logout_urls\":[\"http://acme.eu.auth0.com/events\"]}")));
         assertThat(serialized, JsonMatcher.hasEntry("signed_request_object", containsString("{\"required\":true,\"credentials\":[{\"credential_type\":\"public_key\",\"name\":\"cred name\",\"pem\":\"pem\"}]}")));
         assertThat(serialized, JsonMatcher.hasEntry("compliance_level", "fapi1_adv_pkj_par"));
+        assertThat(serialized, JsonMatcher.hasEntry("require_proof_of_possession", true));
+        assertThat(serialized, JsonMatcher.hasEntry("default_organization", notNullValue()));
     }
 
     @Test
@@ -326,6 +339,8 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(client.getSignedRequest().getCredentials().get(0).getName(), is("My JAR credential"));
         assertThat(client.getSignedRequest().getCredentials().get(0).getCreatedAt(), is(Date.from(Instant.parse("2024-03-14T11:34:28.893Z"))));
         assertThat(client.getSignedRequest().getCredentials().get(0).getUpdatedAt(), is(Date.from(Instant.parse("2024-03-14T11:34:28.893Z"))));
+
+        assertThat(client.getRequireProofOfPossession(), is(true));
     }
 
     @Test
