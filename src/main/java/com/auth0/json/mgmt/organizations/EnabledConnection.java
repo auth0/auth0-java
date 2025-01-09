@@ -20,6 +20,8 @@ public class EnabledConnection {
     private String connectionId;
     @JsonProperty("show_as_button")
     private Boolean showAsButton;
+    @JsonProperty("is_signup_enabled")
+    private Boolean isSignupEnabled;
 
     public EnabledConnection() {}
 
@@ -94,5 +96,20 @@ public class EnabledConnection {
      */
     public void setShowAsButton(Boolean showAsButton) {
         this.showAsButton = showAsButton;
+    }
+
+    /**
+     * @return whether signup is enabled for this connection.
+     */
+    public Boolean getSignupEnabled() {
+        return isSignupEnabled;
+    }
+
+    /**
+     * Sets whether signup is enabled for this connection.
+     * @param signupEnabled {@code true} to enable signup, {@code false} to disable it.
+     */
+    public void setSignupEnabled(Boolean signupEnabled) {
+        isSignupEnabled = signupEnabled;
     }
 }

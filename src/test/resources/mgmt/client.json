@@ -90,5 +90,6 @@
       }
     ]
   },
-  "compliance_level": "fapi1_adv_pkj_par"
+  "compliance_level": "fapi1_adv_pkj_par",
+  "require_proof_of_possession": true
 }

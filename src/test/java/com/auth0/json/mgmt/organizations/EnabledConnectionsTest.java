@@ -22,6 +22,7 @@ public class EnabledConnectionsTest extends JsonTest<EnabledConnection> {
         EnabledConnection enabledConnection = new EnabledConnection();
         enabledConnection.setAssignMembershipOnLogin(true);
         enabledConnection.setConnection(connection);
+        enabledConnection.setSignupEnabled(true);
 
         String serialized = toJSON(enabledConnection);
         assertThat(serialized, is(notNullValue()));
@@ -39,6 +40,7 @@ public class EnabledConnectionsTest extends JsonTest<EnabledConnection> {
         String json = "{\n" +
             "   \"connection_id\": \"con_id\",\n" +
             "   \"assign_membership_on_login\": false,\n" +
+            "   \"is_signup_enabled\": true,\n" +
             "   \"connection\": {\n" +
             "       \"name\": \"google-oauth2\",\n" +
             "       \"strategy\": \"google-oauth2\"\n" +
@@ -49,6 +51,7 @@ public class EnabledConnectionsTest extends JsonTest<EnabledConnection> {
         assertThat(enabledConnection, is(notNullValue()));
         assertThat(enabledConnection.getConnectionId(), is("con_id"));
         assertThat(enabledConnection.isAssignMembershipOnLogin(), is(false));
+        assertThat(enabledConnection.getSignupEnabled(), is(true));
         assertThat(enabledConnection.getConnection(), is(notNullValue()));
         assertThat(enabledConnection.getConnection().getName(), is("google-oauth2"));
         assertThat(enabledConnection.getConnection().getStrategy(), is("google-oauth2"));

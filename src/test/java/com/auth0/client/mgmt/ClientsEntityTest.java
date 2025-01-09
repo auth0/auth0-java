@@ -126,6 +126,25 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
+    public void shouldListClientsWithQuery() throws Exception {
+        ClientFilter filter = new ClientFilter().withQuery("client_grant.organization_id:" + "org_123");
+        Request<ClientsPage> request = api.clients().list(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CLIENTS_PAGED_LIST, 200);
+        ClientsPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/clients"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("q", "client_grant.organization_id:" + "org_123"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+    }
+
+    @Test
     public void shouldThrowOnGetClientWithNullId() {
         verifyThrows(IllegalArgumentException.class,
             () -> api.clients().get(null),
