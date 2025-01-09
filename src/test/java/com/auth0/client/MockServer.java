@@ -78,9 +78,16 @@ public class MockServer {
     public static final String MGMT_USERS_PAGED_LIST = "src/test/resources/mgmt/users_paged_list.json";
     public static final String MGMT_USER_PERMISSIONS_PAGED_LIST = "src/test/resources/mgmt/user_permissions_paged_list.json";
     public static final String MGMT_USER_ROLES_PAGED_LIST = "src/test/resources/mgmt/user_roles_paged_list.json";
+    public static final String MGMT_REFRESH_TOKEN = "src/test/resources/mgmt/refresh_token.json";
+    public static final String MGMT_SESSION = "src/test/resources/mgmt/session.json";
+    public static final String MGMT_USER_REFRESH_TOKENS = "src/test/resources/mgmt/user_refresh_tokens.json";
+    public static final String MGMT_USER_SESSIONS = "src/test/resources/mgmt/user_sessions.json";
     public static final String MGMT_USER = "src/test/resources/mgmt/user.json";
     public static final String MGMT_RECOVERY_CODE = "src/test/resources/mgmt/recovery_code.json";
     public static final String MGMT_IDENTITIES_LIST = "src/test/resources/mgmt/identities_list.json";
+    public static final String MGMT_PROMPT = "src/test/resources/mgmt/prompt.json";
+    public static final String MGMT_CUSTOM_TEXT_PROMPT = "src/test/resources/mgmt/custom_text_prompt.json";
+    public static final String MGMT_PARTIALS_PROMPT = "src/test/resources/mgmt/partials_prompt.json";
     public static final String MGMT_GUARDIAN_AUTHENTICATION_POLICIES_LIST = "src/test/resources/mgmt/guardian_authentication_policies_list.json";
     public static final String MGMT_GUARDIAN_ENROLLMENT = "src/test/resources/mgmt/guardian_enrollment.json";
     public static final String MGMT_GUARDIAN_ENROLLMENTS_LIST = "src/test/resources/mgmt/guardian_enrollments_list.json";
@@ -109,6 +116,8 @@ public class MockServer {
     public static final String PASSWORDLESS_EMAIL_RESPONSE = "src/test/resources/auth/passwordless_email.json";
     public static final String PASSWORDLESS_SMS_RESPONSE = "src/test/resources/auth/passwordless_sms.json";
     public static final String PUSHED_AUTHORIZATION_RESPONSE = "src/test/resources/auth/pushed_authorization_response.json";
+    public static final String BACK_CHANNEL_AUTHORIZE_RESPONSE = "src/test/resources/auth/back_channel_authorize_response.json";
+    public static final String BACK_CHANNEL_LOGIN_STATUS_RESPONSE = "src/test/resources/auth/back_channel_login_status_response.json";
     public static final String AUTHENTICATOR_METHOD_BY_ID = "src/test/resources/mgmt/authenticator_method_by_id.json";
     public static final String AUTHENTICATOR_METHOD_CREATE = "src/test/resources/mgmt/authenticator_method_create.json";
     public static final String AUTHENTICATOR_METHOD_LIST = "src/test/resources/mgmt/authenticator_method_list.json";
@@ -147,7 +156,13 @@ public class MockServer {
     public static final String KEY_LIST = "src/test/resources/mgmt/key_list.json";
     public static final String KEY_REVOKE = "src/test/resources/mgmt/key_revoke.json";
     public static final String KEY_ROTATE = "src/test/resources/mgmt/key_rotate.json";
+    public static final String ENCRYPTION_KEY = "src/test/resources/mgmt/encryption_key.json";
+    public static final String ENCRYPTION_KEYS_LIST = "src/test/resources/mgmt/encryption_keys_list.json";
     public static final String RATE_LIMIT_ERROR = "src/test/resources/mgmt/rate_limit_error.json";
+    public static final String SELF_SERVICE_PROFILES_LIST = "src/test/resources/mgmt/self_service_profiles_list.json";
+    public static final String SELF_SERVICE_PROFILE_RESPONSE = "src/test/resources/mgmt/self_service_profile_response.json";
+    public static final String SELF_SERVICE_PROFILE_CUSTOM_TEXT = "src/test/resources/mgmt/self_service_profile_custom_text.json";
+    public static final String SELF_SERVICE_PROFILE_SSO_TICKET = "src/test/resources/mgmt/self_service_profile_sso_ticket.json";
 
     private final MockWebServer server;
 

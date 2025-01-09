@@ -401,6 +401,13 @@ public class AuthAPITest {
     }
 
     @Test
+    public void shouldThrowOnUsernameAndPhoneNumberSignUpWithNullPhoneNumber() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.signUp("me@auth0.com", "me", new char[]{'p','4','5','5','w','0','r','d'}, "my-connection", null),
+            "'phone number' cannot be null!");
+    }
+
+    @Test
     public void shouldHaveNotStrongPasswordWithDetailedDescription() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         FileReader fr = new FileReader(PASSWORD_STRENGTH_ERROR_RESPONSE_NONE);
@@ -422,6 +429,34 @@ public class AuthAPITest {
         assertThat(ex.getError(), is("invalid_password"));
         String expectedDescription = "Should contain: lower case letters (a-z), upper case letters (A-Z), numbers (i.e. 0-9), special characters (e.g. !@#$%^&*)";
         assertThat(ex.getDescription(), is(expectedDescription));
+    }
+
+    @Test
+    public void shouldCreateSignUpRequestWithUsernameAndPhoneNumber() throws Exception {
+        SignUpRequest request = api.signUp("me@auth0.com", "me", new char[]{'p','4','5','5','w','0','r','d'}, "db-connection", "1234567890");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_SIGN_UP_USERNAME, 200);
+        CreatedUser response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/dbconnections/signup"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("email", "me@auth0.com"));
+        assertThat(body, hasEntry("username", "me"));
+        assertThat(body, hasEntry("password", "p455w0rd"));
+        assertThat(body, hasEntry("connection", "db-connection"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("phone_number", "1234567890"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getUserId(), is("58457fe6b27"));
+        assertThat(response.getEmail(), is("me@auth0.com"));
+        assertThat(response.isEmailVerified(), is(false));
+        assertThat(response.getUsername(), is("me"));
+        assertThat(response.getPhoneNumber(), is("1234567890"));
     }
 
     @Test
@@ -1973,6 +2008,127 @@ public class AuthAPITest {
         assertThat(e.getMessage(), is("'authorizationDetails' must be a list that can be serialized to JSON"));
         assertThat(e.getCause(), instanceOf(JsonProcessingException.class));
     }
+
+    @Test
+    public void authorizeBackChannelWhenScopeIsNull() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.authorizeBackChannel(null, "This is binding message", getLoginHint()),
+            "'scope' cannot be null!");
+    }
+
+    @Test
+    public void authorizeBackChannelWhenBindingMessageIsNull() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.authorizeBackChannel("openid", null, getLoginHint()),
+            "'binding message' cannot be null!");
+    }
+
+    @Test
+    public void authorizeBackChannelWhenLoginHintIsNull() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.authorizeBackChannel("openid", "This is binding message", null),
+            "'login hint' cannot be null!");
+    }
+
+    @Test
+    public void authorizeBackChannel() throws Exception {
+        Request<BackChannelAuthorizeResponse> request = api.authorizeBackChannel("openid", "This is binding message", getLoginHint());
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(BACK_CHANNEL_AUTHORIZE_RESPONSE, 200);
+        BackChannelAuthorizeResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/bc-authorize"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/x-www-form-urlencoded"));
+
+        String body = URLDecoder.decode(readFromRequest(recordedRequest), StandardCharsets.UTF_8.name());
+        assertThat(body, containsString("scope=" + "openid"));
+        assertThat(body, containsString("client_id=" + CLIENT_ID));
+        assertThat(body, containsString("client_secret=" + CLIENT_SECRET));
+        assertThat(body, containsString("binding_message=This is binding message"));
+        assertThat(body, containsString("login_hint={\"sub\":\"auth0|user1\",\"format\":\"format1\",\"iss\":\"https://auth0.com\"}"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAuthReqId(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), notNullValue());
+        assertThat(response.getInterval(), notNullValue());
+    }
+
+    @Test
+    public void authorizeBackChannelWithAudienceAndRequestExpiry() throws Exception {
+        Request<BackChannelAuthorizeResponse> request = api.authorizeBackChannel("openid", "This is binding message", getLoginHint(), "https://api.example.com", 300);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(BACK_CHANNEL_AUTHORIZE_RESPONSE, 200);
+        BackChannelAuthorizeResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/bc-authorize"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/x-www-form-urlencoded"));
+
+        String body = URLDecoder.decode(readFromRequest(recordedRequest), StandardCharsets.UTF_8.name());
+        assertThat(body, containsString("scope=" + "openid"));
+        assertThat(body, containsString("client_id=" + CLIENT_ID));
+        assertThat(body, containsString("client_secret=" + CLIENT_SECRET));
+        assertThat(body, containsString("binding_message=This is binding message"));
+        assertThat(body, containsString("login_hint={\"sub\":\"auth0|user1\",\"format\":\"format1\",\"iss\":\"https://auth0.com\"}"));
+        assertThat(body, containsString("request_expiry=" + 300));
+        assertThat(body, containsString("audience=" + "https://api.example.com"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAuthReqId(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), notNullValue());
+        assertThat(response.getInterval(), notNullValue());
+    }
+
+    private Map<String, Object> getLoginHint() {
+        Map<String, Object> loginHint = new HashMap<>();
+        loginHint.put("format", "format1");
+        loginHint.put("iss", "https://auth0.com");
+        loginHint.put("sub", "auth0|user1");
+        return  loginHint;
+    }
+
+    @Test
+    public void getBackChannelLoginStatusWhenAuthReqIdIsNull() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.getBackChannelLoginStatus(null, "ciba"),
+            "'auth req id' cannot be null!");
+    }
+
+    @Test
+    public void getBackChannelLoginStatusWhenGrantTypeIsNull() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.getBackChannelLoginStatus("red_id_1", null),
+            "'grant type' cannot be null!");
+    }
+
+    @Test
+    public void getBackChannelLoginStatus() throws Exception {
+        Request<BackChannelTokenResponse> request = api.getBackChannelLoginStatus("red_id_1", "ciba");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(BACK_CHANNEL_LOGIN_STATUS_RESPONSE, 200);
+        BackChannelTokenResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/x-www-form-urlencoded"));
+
+        String body = URLDecoder.decode(readFromRequest(recordedRequest), StandardCharsets.UTF_8.name());
+        assertThat(body, containsString("client_id=" + CLIENT_ID));
+        assertThat(body, containsString("client_secret=" + CLIENT_SECRET));
+        assertThat(body, containsString("auth_req_id=red_id_1"));
+        assertThat(body, containsString("grant_type=ciba"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+        assertThat(response.getIdToken(), not(emptyOrNullString()));
+        assertThat(response.getExpiresIn(), notNullValue());
+        assertThat(response.getScope(), not(emptyOrNullString()));
+    }
+
 
     private Map<String, String> getQueryMap(String input) {
         String[] params = input.split("&");

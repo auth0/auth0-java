@@ -1,0 +1,9 @@
+{
+  "kid": "kid",
+  "type": "tenant-master-key",
+  "state": "active",
+  "created_at": "2024-10-16T10:50:44.107Z",
+  "updated_at": "2024-10-24T06:47:24.899Z",
+  "parent_kid": "pkid",
+  "public_key": "pkey"
+}
