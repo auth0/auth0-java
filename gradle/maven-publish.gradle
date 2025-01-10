@@ -102,6 +102,10 @@ signing {
   sign publishing.publications.mavenJava
 }
 
+tasks.named('signMavenJavaPublication').configure {
+  dependsOn tasks.named('jar')
+}
+
 javadoc {
   if(JavaVersion.current().isJava9Compatible()) {
     options.addBooleanOption('html5', true)
