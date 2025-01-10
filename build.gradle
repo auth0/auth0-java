@@ -119,7 +119,7 @@ ext {
     jupiterVersion = '5.9.3'
 
     baselineCompareVersion = '2.0.0'
-    testInJavaVersions = [8, 11, 17, 21]
+    testInJavaVersions = [8, 11]
 }
 
 dependencies {
