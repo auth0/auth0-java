@@ -20,7 +20,7 @@ public class ScimTokenRequestTest extends JsonTest<ScimTokenRequest> {
     @Test
     public void serialize() throws Exception {
         ScimTokenRequest request = new ScimTokenRequest();
-        request.setToken_lifetime(1000);
+        request.setTokenLifetime(1000);
         List<String> scopes = new ArrayList<>();
         scopes.add("get:users");
         request.setScopes(scopes);
@@ -38,7 +38,7 @@ public class ScimTokenRequestTest extends JsonTest<ScimTokenRequest> {
 
         assertThat(deserialized, is(notNullValue()));
 
-        assertThat(deserialized.getToken_lifetime(), is(1000));
+        assertThat(deserialized.getTokenLifetime(), is(1000));
         assertThat(deserialized.getScopes().get(0), is("get:users"));
     }
 }

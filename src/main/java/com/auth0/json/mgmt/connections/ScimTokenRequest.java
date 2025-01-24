@@ -12,7 +12,7 @@ public class ScimTokenRequest {
     @JsonProperty("scopes")
     private List<String> scopes;
     @JsonProperty("token_lifetime")
-    private Integer token_lifetime;
+    private Integer tokenLifetime;
 
     /**
      * Getter for the scopes.
@@ -34,15 +34,15 @@ public class ScimTokenRequest {
      * Getter for the token lifetime.
      * @return the token lifetime.
      */
-    public Integer getToken_lifetime() {
-        return token_lifetime;
+    public Integer getTokenLifetime() {
+        return tokenLifetime;
     }
 
     /**
      * Setter for the token lifetime.
-     * @param token_lifetime the token lifetime to set.
+     * @param tokenLifetime the token lifetime to set.
      */
-    public void setToken_lifetime(Integer token_lifetime) {
-        this.token_lifetime = token_lifetime;
+    public void setTokenLifetime(Integer tokenLifetime) {
+        this.tokenLifetime = tokenLifetime;
     }
 }

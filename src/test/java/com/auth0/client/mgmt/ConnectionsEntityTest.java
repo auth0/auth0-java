@@ -501,7 +501,7 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
         List<String> scopes = new ArrayList<>();
         scopes.add("get:users");
         request.setScopes(scopes);
-        request.setToken_lifetime(1000);
+        request.setTokenLifetime(1000);
         return request;
     }
 
