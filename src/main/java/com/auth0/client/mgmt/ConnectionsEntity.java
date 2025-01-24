@@ -264,7 +264,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
      * @param connectionId the connection id.
      * @return a Request to execute.
      */
-    public Request<Mapping> getDefaultScimConfiguration(String connectionId){
+    public Request<DefaultScimMappingResponse> getDefaultScimConfiguration(String connectionId){
         Asserts.assertNotNull(connectionId, "connection id");
 
         String url = baseUrl
@@ -275,7 +275,7 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addPathSegment("default-mapping")
                 .build()
                 .toString();
-        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<Mapping>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<DefaultScimMappingResponse>() {
         });
     }
 

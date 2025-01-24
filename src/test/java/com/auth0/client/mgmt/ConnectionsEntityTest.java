@@ -372,11 +372,11 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldGetDefaultScimConfiguration() throws Exception {
-        Request<Mapping> request = api.connections().getDefaultScimConfiguration("1");
+        Request<DefaultScimMappingResponse> request = api.connections().getDefaultScimConfiguration("1");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTION_DEFAULT_SCIM_CONFIGURATION, 200);
-        Mapping response = request.execute().getBody();
+        DefaultScimMappingResponse response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/connections/1/scim-configuration/default-mapping"));
