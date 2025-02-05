@@ -36,7 +36,7 @@ public class LogEvent {
     @JsonProperty("user_name")
     private String userName;
     @JsonProperty("location_info")
-    private LocationInfo locationInfo;
+    private Map<String, Object> locationInfo;
     @JsonProperty("details")
     private Map<String, Object> details;
     @JsonProperty("connection")
@@ -202,7 +202,7 @@ public class LogEvent {
      * @return the location info object.
      */
     @JsonProperty("location_info")
-    public LocationInfo getLocationInfo() {
+    public Map<String, Object> getLocationInfo() {
         return locationInfo;
     }
 
