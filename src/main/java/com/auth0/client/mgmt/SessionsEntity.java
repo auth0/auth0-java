@@ -2,6 +2,7 @@ package com.auth0.client.mgmt;
 
 import com.auth0.json.mgmt.sessions.Session;
 import com.auth0.net.BaseRequest;
+import com.auth0.net.EmptyBodyVoidRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.net.client.Auth0HttpClient;
@@ -63,5 +64,26 @@ public class SessionsEntity extends BaseManagementEntity{
             .toString();
 
         return new VoidRequest(client, tokenProvider, url, HttpMethod.DELETE);
+    }
+
+    /**
+     * Revoke the session for a given session ID.
+     * A token with scope {@code delete:sessions}, {@code delete:refresh_tokens} is needed.
+     * See <a href="https://auth0.com/docs/api/management/v2/sessions/revoke-session">https://auth0.com/docs/api/management/v2/sessions/revoke-session</a>
+     * @param sessionId the session ID.
+     * @return a Request to execute.
+     */
+    public Request<Void> revoke(String sessionId){
+        Asserts.assertNotNull(sessionId, "session ID");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/sessions")
+            .addPathSegment(sessionId)
+            .addPathSegment("revoke")
+            .build()
+            .toString();
+
+        return new EmptyBodyVoidRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<Void>() {});
     }
 }

@@ -1,13 +1,14 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.ConnectionFilter;
-import com.auth0.json.mgmt.connections.Connection;
-import com.auth0.json.mgmt.connections.ConnectionsPage;
+import com.auth0.json.mgmt.connections.*;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static com.auth0.AssertsUtil.verifyThrows;
@@ -232,4 +233,289 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("email", "user@domain.com"));
     }
+
+    @Test
+    public void shouldThrowOnGetScimConfigurationWithNullId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().getScimConfiguration(null),
+            "'connection id' cannot be null!");
+    }
+
+    @Test
+    public void shouldGetScimConfiguration() throws Exception {
+        Request<ScimConfigurationResponse> request = api.connections().getScimConfiguration("1");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CONNECTION_SCIM_CONFIGURATION, 200);
+        ScimConfigurationResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/connections/1/scim-configuration"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnDeleteScimConfigurationWithNullId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().deleteScimConfiguration(null),
+            "'connection id' cannot be null!");
+    }
+
+    @Test
+    public void shouldDeleteScimConfiguration() throws Exception {
+        Request<Void> request = api.connections().deleteScimConfiguration("1");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CONNECTION_SCIM_CONFIGURATION, 200);
+        request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/connections/1/scim-configuration"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
+
+    @Test
+    public void shouldThrowOnUpdateScimConfigurationWithNullId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().updateScimConfiguration(null, null),
+            "'connection id' cannot be null!");
+    }
+
+    @Test
+    public void shouldThrowOnUpdateScimConfigurationWithNullScimConfigurationRequest() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().updateScimConfiguration("1", null),
+            "'scim configuration request' cannot be null!");
+    }
+
+    @Test
+    public void shouldThrowOnUpdateScimConfigurationWithNullUserIdAttribute() {
+        ScimConfigurationRequest request = new ScimConfigurationRequest();
+        request.setMapping(getMappings());
+
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().updateScimConfiguration("1", request),
+            "'user id attribute' cannot be null!");
+    }
+
+    @Test
+    public void shouldThrowOnUpdateScimConfigurationWithNullMapping() {
+        ScimConfigurationRequest request = new ScimConfigurationRequest();
+        request.setUserIdAttribute("externalId");
+
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().updateScimConfiguration("1", request),
+            "'mapping' cannot be null!");
+    }
+
+    @Test
+    public void shouldUpdateScimConfiguration() throws Exception {
+        ScimConfigurationRequest scimConfigurationRequest = getScimConfiguration();
+        Request<ScimConfigurationResponse> request = api.connections().updateScimConfiguration("1", scimConfigurationRequest);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CONNECTION_SCIM_CONFIGURATION, 200);
+        ScimConfigurationResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PATCH, "/api/v2/connections/1/scim-configuration"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(2));
+        assertThat(body, hasEntry("user_id_attribute", "externalId"));
+        assertThat(body, hasKey("mapping"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnCreateScimConfigurationWithNullId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().createScimConfiguration(null, getScimConfiguration()),
+            "'connection id' cannot be null!");
+    }
+
+    @Test
+    public void shouldCreateScimConfiguration() throws Exception {
+        ScimConfigurationRequest scimConfigurationRequest = getScimConfiguration();
+        Request<ScimConfigurationResponse> request = api.connections().createScimConfiguration("1", scimConfigurationRequest);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CONNECTION_SCIM_CONFIGURATION, 200);
+        ScimConfigurationResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/connections/1/scim-configuration"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(2));
+        assertThat(body, hasEntry("user_id_attribute", "externalId"));
+        assertThat(body, hasKey("mapping"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnGetDefaultScimConfigurationWithNullId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().createScimConfiguration(null, getScimConfiguration()),
+            "'connection id' cannot be null!");
+    }
+
+    @Test
+    public void shouldGetDefaultScimConfiguration() throws Exception {
+        Request<DefaultScimMappingResponse> request = api.connections().getDefaultScimConfiguration("1");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CONNECTION_DEFAULT_SCIM_CONFIGURATION, 200);
+        DefaultScimMappingResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/connections/1/scim-configuration/default-mapping"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnGetScimTokenWithNullId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().getScimToken(null),
+            "'connection id' cannot be null!");
+    }
+
+    @Test
+    public void shouldGetScimToken() throws Exception {
+        Request<List<ScimTokenResponse>> request = api.connections().getScimToken("1");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CONNECTION_SCIM_TOKENS, 200);
+        List<ScimTokenResponse> response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/connections/1/scim-configuration/tokens"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.size(), is(2));
+    }
+
+    @Test
+    public void shouldThrowOnCreateScimTokenWithNullId() {
+        ScimTokenRequest request = getScimToken();
+
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().createScimToken(null, request),
+            "'connection id' cannot be null!");
+    }
+
+    @Test
+    public void shouldThrowOnCreateScimTokenWithNullScimTokenRequest() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().createScimToken("1", null),
+            "'scim token request' cannot be null!");
+    }
+
+    @Test
+    public void shouldCreateScimToken() throws Exception {
+        ScimTokenRequest scimTokenRequest = getScimToken();
+        Request<ScimTokenCreateResponse> request = api.connections().createScimToken("1", scimTokenRequest);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CONNECTION_SCIM_TOKEN, 200);
+        ScimTokenBaseResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/connections/1/scim-configuration/tokens"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(2));
+        assertThat(body, hasKey("scopes"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnDeleteScimTokenWithNullId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().deleteScimToken(null, "1"),
+            "'connection id' cannot be null!");
+    }
+
+    @Test
+    public void shouldThrowOnDeleteScimTokenWithNullTokenId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().deleteScimToken("1", null),
+            "'token id' cannot be null!");
+    }
+
+    @Test
+    public void shouldDeleteScimToken() throws Exception {
+        Request<Void> request = api.connections().deleteScimToken("1", "1");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CONNECTION_SCIM_CONFIGURATION, 200);
+        request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.DELETE, "/api/v2/connections/1/scim-configuration/tokens/1"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
+
+    @Test
+    public void shouldThrowOnCheckConnectionStatusWithNullId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().checkConnectionStatus(null),
+            "'connection id' cannot be null!");
+    }
+
+    @Test
+    public void shouldCheckConnectionStatus() throws Exception {
+        Request<Void> request = api.connections().checkConnectionStatus("1");
+        assertThat(request, is(notNullValue()));
+
+        server.emptyResponse(204);
+        request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/connections/1/status"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
+
+    private ScimTokenRequest getScimToken() {
+        ScimTokenRequest request = new ScimTokenRequest();
+        List<String> scopes = new ArrayList<>();
+        scopes.add("get:users");
+        request.setScopes(scopes);
+        request.setTokenLifetime(1000);
+        return request;
+    }
+
+    private ScimConfigurationRequest getScimConfiguration() {
+        ScimConfigurationRequest request = new ScimConfigurationRequest();
+        request.setUserIdAttribute("externalId");
+        request.setMapping(getMappings());
+        return request;
+    }
+
+    private List<Mapping> getMappings() {
+        List<Mapping> mappingList = new ArrayList<>();
+        mappingList.add(new Mapping("user_id", "id"));
+        return mappingList;
+    }
+
 }
