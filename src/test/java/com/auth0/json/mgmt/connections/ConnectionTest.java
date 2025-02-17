@@ -1,8 +1,7 @@
-package com.auth0.json.mgmt;
+package com.auth0.json.mgmt.connections;
 
 import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
-import com.auth0.json.mgmt.connections.Connection;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
