@@ -49,6 +49,16 @@ public class LogEvent {
     private String hostname;
     @JsonProperty("audience")
     private String audience;
+    @JsonProperty("scope")
+    private String scope;
+    @JsonProperty("strategy")
+    private String strategy;
+    @JsonProperty("strategy_type")
+    private String strategyType;
+    @JsonProperty("isMobile")
+    private boolean isMobile;
+    @JsonProperty("user_agent")
+    private String userAgent;
 
     /**
      * Getter for the id of this event.
@@ -129,6 +139,51 @@ public class LogEvent {
     @JsonProperty("user_id")
     public String getUserId() {
         return userId;
+    }
+
+    /**
+     * Getter for the scope of this event.
+     * @return the scope.
+     */
+    @JsonProperty("scope")
+    public String getScope() {
+        return scope;
+    }
+
+    /**
+     * Getter for the strategy of this event.
+     * @return the strategy.
+     */
+    @JsonProperty("strategy")
+    public String getStrategy() {
+        return strategy;
+    }
+
+    /**
+     * Getter for the strategy type of this event.
+     * @return the strategy type.
+     */
+    @JsonProperty("strategy_type")
+    public String getStrategyType() {
+        return strategyType;
+    }
+
+    /**
+     * Getter for the isMobile flag of this event.
+     * @return the isMobile flag.
+     */
+    @JsonProperty("isMobile")
+    public boolean isMobile() {
+        return isMobile;
+    }
+
+    /**
+     * Getter for the user agent related to this event.
+     * @return the user agent.
+     */
+    @JsonProperty("user_agent")
+    public String getUserAgent() {
+        return userAgent;
     }
 
     /**
