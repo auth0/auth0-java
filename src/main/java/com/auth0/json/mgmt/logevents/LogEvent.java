@@ -59,6 +59,14 @@ public class LogEvent {
     private boolean isMobile;
     @JsonProperty("user_agent")
     private String userAgent;
+    @JsonProperty("organization_id")
+    private String organizationId;
+    @JsonProperty("organization_name")
+    private String organizationName;
+    @JsonProperty("tenant_name")
+    private String tenantName;
+    @JsonProperty("$event_schema")
+    private Object eventSchema;
 
     /**
      * Getter for the id of this event.
@@ -249,5 +257,34 @@ public class LogEvent {
      */
     public String getAudience() {
         return audience;
+    }
+
+    /**
+     * @return the organization ID.
+     */
+    public String getOrganizationId() {
+        return organizationId;
+    }
+
+    /**
+     * @return the organization name.
+     */
+    public String getOrganizationName() {
+        return organizationName;
+    }
+
+    /**
+     * @return the tenant name.
+     */
+    public String getTenantName() {
+        return tenantName;
+    }
+
+    /**
+     * Getter for the event schema object.
+     * @return the event schema object.
+     */
+    public Object getEventSchema() {
+        return eventSchema;
     }
 }
