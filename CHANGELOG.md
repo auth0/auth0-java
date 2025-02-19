@@ -1,5 +1,13 @@
 # Change Log
 
+## [2.18.0](https://github.com/auth0/auth0-java/tree/2.18.0) (2025-02-19)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.17.0...2.18.0)
+
+**Added**
+- Added missing fields in LogEventClass [\#698](https://github.com/auth0/auth0-java/pull/698) ([tanya732](https://github.com/tanya732))
+- Added support for revoke session endpoint [\#699](https://github.com/auth0/auth0-java/pull/699) ([tanya732](https://github.com/tanya732))
+- Added Connection's SCIM Server Support [\#696](https://github.com/auth0/auth0-java/pull/696) ([tanya732](https://github.com/tanya732))
+
 ## [2.17.0](https://github.com/auth0/auth0-java/tree/2.17.0) (2025-01-10)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.16.0...2.17.0)
 
