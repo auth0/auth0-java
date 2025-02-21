@@ -1,0 +1,38 @@
+{
+  "connection_config": {
+    "name": "sso-test1",
+    "display_name": "sso-test1",
+    "is_domain_connection": true,
+    "show_as_button": true,
+    "metadata": {
+      "key1":"value1"
+    },
+    "options":{
+      "icon_url":"url",
+      "domain_aliases":[
+        "acme.corp",
+        "okta.com"
+      ],
+      "idpinitiated": {
+        "enabled": true,
+        "client_id": "client-id",
+        "client_protocol": "client-protocol",
+        "client_authorizequery": "client-authorizequery"
+      }
+    }
+  },
+  "enabled_clients": [
+    "client-id"
+  ],
+  "enabled_organizations": [
+    {
+      "organization_id": "org_1",
+      "assign_membership_on_login": true,
+      "show_as_button": true
+    }
+  ],
+  "ttl_sec": 0,
+  "domain_aliases_config": {
+    "domain_verification": "domain-verification"
+  }
+}
