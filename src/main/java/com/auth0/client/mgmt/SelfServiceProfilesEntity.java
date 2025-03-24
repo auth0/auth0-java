@@ -1,5 +1,6 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.client.auth.AuthAPI;
 import com.auth0.client.mgmt.filter.PageBasedPaginationFilter;
 import com.auth0.json.mgmt.selfserviceprofiles.*;
 import com.auth0.net.*;
@@ -206,6 +207,34 @@ public class SelfServiceProfilesEntity extends BaseManagementEntity {
         BaseRequest<SsoAccessTicketResponse> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<SsoAccessTicketResponse>() {
         });
         request.setBody(requestBody);
+        return request;
+    }
+
+
+    /**
+     * Create a new SSO access ticket.
+     * A token with {@code create:sso_access_tickets} scope is needed
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/self-service-profiles/post-sso-ticket">https://auth0.com/docs/api/management/v2#!/self-service-profiles/post-sso-ticket</a>
+     * @param id the self-service profile ID.
+     * @param payload the payload.
+     * @return a Request to execute.
+     *
+     * @deprecated Use {@link #createSsoAccessTicket(String, SsoAccessTicketRequest)} to create sso access ticket.
+     */
+    @Deprecated
+    public Request<SsoAccessTicketResponse> createSsoAccessTicket(String id, Object payload) {
+        Asserts.assertNotNull(id, "id");
+        Asserts.assertNotNull(payload, "payload");
+
+        HttpUrl.Builder builder = baseUrl.newBuilder()
+            .addPathSegments(ORGS_PATH)
+            .addPathSegment(id)
+            .addPathSegment("sso-ticket");
+        String url = builder.build().toString();
+
+        BaseRequest<SsoAccessTicketResponse> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.POST, new TypeReference<SsoAccessTicketResponse>() {
+        });
+        request.setBody(payload);
         return request;
     }
 
