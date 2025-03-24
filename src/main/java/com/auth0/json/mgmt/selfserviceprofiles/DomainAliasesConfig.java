@@ -11,8 +11,6 @@ public class DomainAliasesConfig {
     @JsonProperty("domain_verification")
     private String domainVerification;
 
-    public DomainAliasesConfig() {}
-
     /**
      * Creates a new instance of the DomainAliasesConfig class.
      */

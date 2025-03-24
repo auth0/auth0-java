@@ -1,7 +1,7 @@
 {
   "connection_config": {
-    "name": "sso-test1",
-    "display_name": "sso-test1",
+    "name": "okta",
+    "display_name": "okta connection",
     "is_domain_connection": true,
     "show_as_button": true,
     "metadata": {
@@ -15,14 +15,14 @@
       ],
       "idpinitiated": {
         "enabled": true,
-        "client_id": "client-id",
-        "client_protocol": "client-protocol",
-        "client_authorizequery": "client-authorizequery"
+        "client_id": "client-1",
+        "client_protocol": "oauth2",
+        "client_authorizequery": "response_type=code&scope=openid%20profile%20email"
       }
     }
   },
   "enabled_clients": [
-    "client-id"
+    "client-1"
   ],
   "enabled_organizations": [
     {
@@ -33,6 +33,6 @@
   ],
   "ttl_sec": 0,
   "domain_aliases_config": {
-    "domain_verification": "domain-verification"
+    "domain_verification": "none"
   }
 }

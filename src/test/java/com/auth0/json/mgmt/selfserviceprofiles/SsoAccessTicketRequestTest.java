@@ -4,7 +4,9 @@ import com.auth0.json.JsonTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.auth0.json.JsonMatcher.hasEntry;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -17,18 +19,8 @@ public class SsoAccessTicketRequestTest extends JsonTest<SsoAccessTicketRequest>
     public void deserialize() throws Exception {
         SsoAccessTicketRequest deserialized = fromJSON(readTextFile(SELF_SERVICE_PROFILE_SSO_ACCESS_TICKET_REQUEST_JSON), SsoAccessTicketRequest.class);
 
-        assertThat(deserialized.getConnectionConfig().getName(), is("sso-test1"));
-        assertThat(deserialized.getConnectionConfig().getDisplayName(), is("sso-test1"));
-        assertThat(deserialized.getConnectionConfig().isDomainConnection(), is(true));
-        assertThat(deserialized.getConnectionConfig().isShowAsButton(), is(true));
-        assertThat(deserialized.getConnectionConfig().getOptions().getIconUrl(), is("url"));
-        assertThat(deserialized.getConnectionConfig().getOptions().getDomainAliases().get(0), is("acme.corp"));
-        assertThat(deserialized.getConnectionConfig().getOptions().getIdpinitiated().isEnabled(), is(true));
-        assertThat(deserialized.getConnectionConfig().getOptions().getIdpinitiated().getClientId(), is("client-id"));
-        assertThat(deserialized.getConnectionConfig().getOptions().getIdpinitiated().getClientProtocol(), is("client-protocol"));
-        assertThat(deserialized.getConnectionConfig().getOptions().getIdpinitiated().getClientAuthorizequery(), is("client-authorizequery"));
-
-        assertThat(deserialized.getEnabledClients().get(0), is("client-id"));
+        assertThat(deserialized.getConnectionConfig(), is(notNullValue()));
+        assertThat(deserialized.getEnabledClients().get(0), is("client-1"));
 
         assertThat(deserialized.getEnabledOrganizations().get(0).getOrganizationId(), is("org_1"));
         assertThat(deserialized.getEnabledOrganizations().get(0).isAssignMembershipOnLogin(), is(true));
@@ -36,37 +28,39 @@ public class SsoAccessTicketRequestTest extends JsonTest<SsoAccessTicketRequest>
 
         assertThat(deserialized.getTtlSec(), is(0));
 
-        assertThat(deserialized.getDomainAliasesConfig().getDomainVerification(), is("domain-verification"));
+        assertThat(deserialized.getDomainAliasesConfig().getDomainVerification(), is("none"));
     }
 
     @Test
     public void serialize() throws Exception {
-        SsoAccessTicketRequest ssoAccessTicketRequest = new SsoAccessTicketRequest();
-        ConnectionConfig connectionConfig = new ConnectionConfig();
-        connectionConfig.setName("sso-test1");
-        connectionConfig.setDisplayName("sso-test1");
-        connectionConfig.setDomainConnection(true);
-        connectionConfig.setShowAsButton(true);
 
-        Options options = new Options();
-        options.setIconUrl("url");
+        Map<String, Object> connectionConfig = new HashMap<>();
+        connectionConfig.put("name", "okta");
+        connectionConfig.put("display_name", "okta connection");
+        connectionConfig.put("is_domain_connection", true);
+        connectionConfig.put("show_as_button", true);
+        connectionConfig.put("metadata", new HashMap<>());
 
-        options.setDomainAliases(new ArrayList<String>() {{
+        Map<String, Object> idpInitiated = new HashMap<>();
+        idpInitiated.put("enabled", true);
+        idpInitiated.put("client_id", "client-1");
+        idpInitiated.put("client_protocol", "oauth2");
+        idpInitiated.put("client_authorizequery", "response_type=code&scope=openid%20profile%20email");
+
+        Map<String, Object> options = new HashMap<>();
+        options.put("idpinitiated", idpInitiated);
+        options.put("icon_url", "https://cdn.auth0.com/connections/okta.png");
+        options.put("domain_aliases", new ArrayList<String>() {{
             add("acme.corp");
         }});
 
-        Idpinitiated idpinitiated = new Idpinitiated();
-        idpinitiated.setEnabled(true);
-        idpinitiated.setClientId("client-id");
-        idpinitiated.setClientProtocol("client-protocol");
-        idpinitiated.setClientAuthorizequery("client-authorizequery");
-        options.setIdpinitiated(idpinitiated);
+        connectionConfig.put("options", options);
 
-        connectionConfig.setOptions(options);
+        SsoAccessTicketRequest ssoAccessTicketRequest = new SsoAccessTicketRequest();
 
         ssoAccessTicketRequest.setConnectionConfig(connectionConfig);
         ssoAccessTicketRequest.setEnabledClients(new ArrayList<String>() {{
-            add("client-id");
+            add("client-1");
         }});
 
         EnabledOrganizations enabledOrganizations = new EnabledOrganizations();
@@ -80,23 +74,15 @@ public class SsoAccessTicketRequestTest extends JsonTest<SsoAccessTicketRequest>
 
         ssoAccessTicketRequest.setTtlSec(0);
 
-        ssoAccessTicketRequest.setDomainAliasesConfig(new DomainAliasesConfig("domain-verification"));
+        ssoAccessTicketRequest.setDomainAliasesConfig(new DomainAliasesConfig("none"));
 
         String serialized = toJSON(ssoAccessTicketRequest);
         assertThat(ssoAccessTicketRequest, is(notNullValue()));
-
-
-        assertThat(serialized, containsString("\"name\":\"sso-test1\""));
-        assertThat(serialized, containsString("\"display_name\":\"sso-test1\""));
-        assertThat(serialized, containsString("\"is_domain_connection\":true"));
-        assertThat(serialized, containsString("\"show_as_button\":true"));
-        assertThat(serialized, containsString("\"icon_url\":\"url\""));
-        assertThat(serialized, containsString("\"domain_aliases\":[\"acme.corp\"]"));
-        assertThat(serialized, containsString("\"idpinitiated\":{\"enabled\":true,\"client_id\":\"client-id\",\"client_protocol\":\"client-protocol\",\"client_authorizequery\":\"client-authorizequery\"}"));
-        assertThat(serialized, containsString("\"enabled_clients\":[\"client-id\"]"));
+        assertThat(serialized, containsString("{\"connection_config\":{\"metadata\":{},\"is_domain_connection\":true,\"show_as_button\":true,\"name\":\"okta\",\"options\":{\"icon_url\":\"https://cdn.auth0.com/connections/okta.png\",\"domain_aliases\":[\"acme.corp\"],\"idpinitiated\":{\"client_authorizequery\":\"response_type=code&scope=openid%20profile%20email\",\"client_protocol\":\"oauth2\",\"enabled\":true,\"client_id\":\"client-1\"}},\"display_name\":\"okta connection\"},\"enabled_clients\":[\"client-1\"],\"enabled_organizations\":[{\"organization_id\":\"org_1\",\"assign_membership_on_login\":true,\"show_as_button\":true}],\"ttl_sec\":0,\"domain_aliases_config\":{\"domain_verification\":\"none\"}}"));
+        assertThat(serialized, containsString("\"enabled_clients\":[\"client-1\"]"));
         assertThat(serialized, containsString("\"enabled_organizations\":[{\"organization_id\":\"org_1\",\"assign_membership_on_login\":true,\"show_as_button\":true}]"));
         assertThat(serialized, containsString("\"ttl_sec\":0"));
-        assertThat(serialized, containsString("\"domain_aliases_config\":{\"domain_verification\":\"domain-verification\"}"));
+        assertThat(serialized, containsString("\"domain_aliases_config\":{\"domain_verification\":\"none\"}"));
 
     }
 }

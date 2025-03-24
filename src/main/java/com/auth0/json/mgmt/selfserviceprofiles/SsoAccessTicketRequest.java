@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
+import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -12,7 +13,7 @@ public class SsoAccessTicketRequest {
     @JsonProperty("connection_id")
     private String connectionId;
     @JsonProperty("connection_config")
-    private ConnectionConfig connectionConfig;
+    private Map<String, Object> connectionConfig;
     @JsonProperty("enabled_clients")
     private List<String> enabledClients;
     @JsonProperty("enabled_organizations")
@@ -42,7 +43,7 @@ public class SsoAccessTicketRequest {
      * Getter for the connection configuration.
      * @return the connection configuration.
      */
-    public ConnectionConfig getConnectionConfig() {
+    public Map<String, Object> getConnectionConfig() {
         return connectionConfig;
     }
 
@@ -50,7 +51,7 @@ public class SsoAccessTicketRequest {
      * Setter for the connection configuration.
      * @param connectionConfig the connection configuration to set.
      */
-    public void setConnectionConfig(ConnectionConfig connectionConfig) {
+    public void setConnectionConfig(Map<String, Object> connectionConfig) {
         this.connectionConfig = connectionConfig;
     }
 
