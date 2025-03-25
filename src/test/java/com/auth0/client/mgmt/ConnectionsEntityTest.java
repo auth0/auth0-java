@@ -80,6 +80,52 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
     }
 
     @Test
+    public void shouldListConnectionsWithFrom() throws Exception {
+        ConnectionFilter filter = new ConnectionFilter().withFrom("10");
+        Request<ConnectionsPage> request = api.connections().listAll(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CONNECTIONS_PAGED_LIST, 200);
+        ConnectionsPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/connections"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("from", "10"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+        assertThat(response.getStart(), is(0));
+        assertThat(response.getLength(), is(14));
+        assertThat(response.getTotal(), is(14));
+        assertThat(response.getLimit(), is(50));
+    }
+
+    @Test
+    public void shouldListConnectionsWithTake() throws Exception {
+        ConnectionFilter filter = new ConnectionFilter().withTake(1);
+        Request<ConnectionsPage> request = api.connections().listAll(filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CONNECTIONS_PAGED_LIST, 200);
+        ConnectionsPage response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/connections"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("take", "1"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getItems(), hasSize(2));
+        assertThat(response.getStart(), is(0));
+        assertThat(response.getLength(), is(14));
+        assertThat(response.getTotal(), is(14));
+        assertThat(response.getLimit(), is(50));
+    }
+
+    @Test
     public void shouldThrowOnGetConnectionWithNullId() {
         verifyThrows(IllegalArgumentException.class,
             () -> api.connections().get(null, null),
