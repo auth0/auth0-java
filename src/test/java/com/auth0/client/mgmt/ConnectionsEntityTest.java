@@ -188,7 +188,7 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body.size(), is(2));
+        assertThat(body.size(), is(5));
         assertThat(body, hasEntry("name", "my-connection"));
         assertThat(body, hasEntry("strategy", "auth0"));
 
@@ -244,7 +244,7 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body.size(), is(2));
+        assertThat(body.size(), is(5));
         assertThat(body, hasEntry("name", "my-connection"));
         assertThat(body, hasEntry("strategy", "auth0"));
 

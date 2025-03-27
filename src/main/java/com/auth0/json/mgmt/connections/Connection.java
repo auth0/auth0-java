@@ -34,6 +34,10 @@ public class Connection {
     private Map<String, String> metadata;
     @JsonProperty("realms")
     private List<String> realms;
+    @JsonProperty("show_as_button")
+    private boolean showAsButton;
+    @JsonProperty("is_domain_connection")
+    private boolean isDomainConnection;
 
     public Connection() {
     }
@@ -182,5 +186,39 @@ public class Connection {
     @JsonProperty("realms")
     public void setRealms(List<String> realms) {
         this.realms = realms;
+    }
+
+    /**
+     * Getter for the show as button flag.
+     *
+     * @return the show as button flag.
+     */
+    public boolean isShowAsButton() {
+        return showAsButton;
+    }
+
+    /**
+     * Setter for the show as button flag.
+     *
+     * @param showAsButton the show as button flag to set.
+     */
+    public void setShowAsButton(boolean showAsButton) {
+        this.showAsButton = showAsButton;
+    }
+
+    /**
+     * Getter for the domain connection flag.
+     * @return the domain connection flag.
+     */
+    public boolean isDomainConnection() {
+        return isDomainConnection;
+    }
+
+    /**
+     * Setter for the domain connection flag.
+     * @param domainConnection the domain connection flag to set.
+     */
+    public void setDomainConnection(boolean domainConnection) {
+        isDomainConnection = domainConnection;
     }
 }
