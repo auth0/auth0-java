@@ -99,7 +99,7 @@ public class ManagementAPITest {
     public void shouldThrowWhenApiTokenIsNull() {
         verifyThrows(IllegalArgumentException.class,
             () -> ManagementAPI.newBuilder(DOMAIN, null).build(),
-            "'api token' cannot be null!");
+            "Exactly one of 'apiToken' or 'tokenProvider' must be non-null for Builder.");
     }
 
     @Test
@@ -109,6 +109,13 @@ public class ManagementAPITest {
         verifyThrows(IllegalArgumentException.class,
             () -> api.setApiToken(null),
             "'api token' cannot be null!");
+    }
+
+    @Test
+    public void shouldThrowWhenTokenProviderIsNull() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> ManagementAPI.newBuilderForTokenProvider(DOMAIN, null).build(),
+            "Exactly one of 'apiToken' or 'tokenProvider' must be non-null for Builder.");
     }
 
     @Test

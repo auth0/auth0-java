@@ -67,6 +67,17 @@ public class ManagementAPI {
         return new ManagementAPI.Builder(domain, apiToken);
     }
 
+    /**
+     * Instantiate a new {@link Builder} to configure and build a new ManagementAPI client.
+     *
+     * @param domain the tenant's domain. Must be a non-null valid HTTPS domain.
+     * @param tokenProvider an implementation of {@link TokenProvider}
+     * @return a Builder for further configuration.
+     */
+    public static ManagementAPI.Builder newBuilderForTokenProvider(String domain, TokenProvider tokenProvider) {
+        return new ManagementAPI.Builder(domain, tokenProvider);
+    }
+
     private ManagementAPI(String domain, TokenProvider tokenProvider, Auth0HttpClient httpClient) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(tokenProvider, "token provider");
@@ -402,6 +413,7 @@ public class ManagementAPI {
     public static class Builder {
         private final String domain;
         private final String apiToken;
+        private final TokenProvider tokenProvider;
         private Auth0HttpClient httpClient = DefaultHttpClient.newBuilder().build();
 
         /**
@@ -409,9 +421,22 @@ public class ManagementAPI {
          * @param domain the domain of the tenant.
          * @param apiToken the API token used to make requests to the Auth0 Management API.
          */
-        public Builder(String domain, String apiToken) {
+        private Builder(String domain, String apiToken) {
             this.domain = domain;
             this.apiToken = apiToken;
+            this.tokenProvider = null;
+        }
+
+        /**
+         * Create a new Builder, which is based on an implementation of {@link TokenProvider}.
+         * This allows for more flexibility, e.g. for transparent token renewal.
+         * @param domain the domain of the tenant.
+         * @param tokenProvider an implementation of {@link TokenProvider}
+         */
+        private Builder(String domain, TokenProvider tokenProvider) {
+            this.domain = domain;
+            this.apiToken = null;
+            this.tokenProvider = tokenProvider;
         }
 
         /**
@@ -430,7 +455,14 @@ public class ManagementAPI {
          * @return the configured {@code ManagementAPI} instance.
          */
         public ManagementAPI build() {
-            return new ManagementAPI(domain, SimpleTokenProvider.create(apiToken), httpClient);
+            checkState();
+            return new ManagementAPI(domain, tokenProvider == null ? SimpleTokenProvider.create(apiToken) : tokenProvider, httpClient);
+        }
+
+        private void checkState() {
+            if((apiToken == null && tokenProvider == null) || (apiToken != null && tokenProvider != null)) {
+                throw new IllegalArgumentException("Exactly one of 'apiToken' or 'tokenProvider' must be non-null for Builder.");
+            }
         }
     }
 }
