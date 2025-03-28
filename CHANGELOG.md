@@ -1,5 +1,12 @@
 # Change Log
 
+## [2.19.0](https://github.com/auth0/auth0-java/tree/2.19.0) (2025-03-28)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.18.0...2.19.0)
+
+**Added**
+- Added support for SSO-FF [\#702](https://github.com/auth0/auth0-java/pull/702) ([tanya732](https://github.com/tanya732))
+- Check point pagination support for get connection [\#704](https://github.com/auth0/auth0-java/pull/704) ([tanya732](https://github.com/tanya732))
+
 ## [2.18.0](https://github.com/auth0/auth0-java/tree/2.18.0) (2025-02-19)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.17.0...2.18.0)
 
