@@ -1,10 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.PageBasedPaginationFilter;
-import com.auth0.json.mgmt.selfserviceprofiles.SelfServiceProfile;
-import com.auth0.json.mgmt.selfserviceprofiles.SelfServiceProfileResponse;
-import com.auth0.json.mgmt.selfserviceprofiles.SelfServiceProfileResponsePage;
-import com.auth0.json.mgmt.selfserviceprofiles.SsoAccessTicketResponse;
+import com.auth0.json.mgmt.selfserviceprofiles.*;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -268,22 +265,21 @@ public class SelfServiceProfilesEntityTest extends BaseMgmtEntityTest {
     @Test
     public void shouldThrowOnCreateSsoAccessTicketWhenIdIsNull() {
         verifyThrows(IllegalArgumentException.class,
-            () -> api.selfServiceProfiles().createSsoAccessTicket(null, new Object()), "'id' cannot be null!");
+            () -> api.selfServiceProfiles().createSsoAccessTicket(null, new SsoAccessTicketRequest()), "'id' cannot be null!");
     }
 
     @Test
     public void shouldThrowOnCreateSsoAccessTicketWhenPayloadIsNull() {
         verifyThrows(IllegalArgumentException.class,
-            () -> api.selfServiceProfiles().createSsoAccessTicket("id", null), "'payload' cannot be null!");
+            () -> api.selfServiceProfiles().createSsoAccessTicket("id", null), "'request body' cannot be null!");
     }
 
     @Test
     public void shouldCreateSsoAccessTicket() throws Exception{
-        Map<String, Object> payload = new HashMap<>();
+        SsoAccessTicketRequest requestBody = new SsoAccessTicketRequest();
+        requestBody.setConnectionId("test-connection");
 
-        payload.put("connection_id", "test-connection");
-
-        Request<SsoAccessTicketResponse> request = api.selfServiceProfiles().createSsoAccessTicket("id", payload);
+        Request<SsoAccessTicketResponse> request = api.selfServiceProfiles().createSsoAccessTicket("id", requestBody);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(SELF_SERVICE_PROFILE_SSO_TICKET, 200);

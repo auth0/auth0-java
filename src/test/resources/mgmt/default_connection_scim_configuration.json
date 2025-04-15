@@ -1,0 +1,12 @@
+{
+  "mapping": [
+    {
+      "auth0": "preferred_username",
+      "scim": "userName"
+    },
+    {
+      "auth0": "email",
+      "scim": "emails[primary eq true].value"
+    }
+  ]
+}

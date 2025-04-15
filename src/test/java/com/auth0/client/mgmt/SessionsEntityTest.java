@@ -58,4 +58,24 @@ public class SessionsEntityTest extends BaseMgmtEntityTest{
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     }
 
+    @Test
+    public void revokeShouldThrowOnNullSessionId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.sessions().revoke(null),
+            "'session ID' cannot be null!");
+    }
+
+    @Test
+    public void shouldRevoke() throws Exception {
+        Request<Void> request = api.sessions().revoke("session_ID");
+        assertThat(request, is(notNullValue()));
+
+        server.noContentResponse();
+        request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/api/v2/sessions/session_ID/revoke"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+    }
+
 }
