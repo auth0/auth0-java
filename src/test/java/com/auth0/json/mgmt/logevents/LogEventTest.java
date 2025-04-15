@@ -25,7 +25,16 @@ public class LogEventTest extends JsonTest<LogEvent> {
         "  \"connection_id\": \"connectionId\",\n" +
         "  \"description\": \"description\",\n" +
         "  \"hostname\": \"hostname\",\n" +
-        "  \"audience\": \"audience\"\n" +
+        "  \"audience\": \"audience\",\n" +
+        "  \"organization_id\": \"org_1\",\n" +
+        "  \"organization_name\": \"org2\",\n" +
+        "  \"$event_schema\": {\n" +
+        "    \"version\": \"1.0.0\"\n" +
+        "  },\n" +
+        "  \"tenant_name\": \"paid-testing\",\n" +
+        "  \"audience\": \"audience\",\n" +
+        "  \"isMobile\": \"false\",\n" +
+        "  \"user_agent\": \"okhttp 4.11.0 / Other 0.0.0\"\n" +
         "}";
 
     @Test
@@ -49,6 +58,11 @@ public class LogEventTest extends JsonTest<LogEvent> {
         assertThat(logEvent.getConnectionId(), is("connectionId"));
         assertThat(logEvent.getHostname(), is("hostname"));
         assertThat(logEvent.getDescription(), is("description"));
-
+        assertThat(logEvent.isMobile(), is(false));
+        assertThat(logEvent.getUserAgent(), is("okhttp 4.11.0 / Other 0.0.0"));
+        assertThat(logEvent.getOrganizationId(), is("org_1"));
+        assertThat(logEvent.getOrganizationName(), is("org2"));
+        assertThat(logEvent.getTenantName(), is("paid-testing"));
+        assertThat(logEvent.getEventSchema(), is(notNullValue()));
     }
 }

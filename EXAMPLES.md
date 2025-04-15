@@ -58,7 +58,7 @@ To verify an ID Token that is signed using the RS256 signing algorithm, you will
 
 ```java
 JwkProvider provider = new JwkProviderBuilder("https://your-domain.auth0.com").build();
-SignatureVerifier sigVerifier = SignatureVerifier.forRS256(new PublicKeyProvider() {
+SignatureVerifier signatureVerifier = SignatureVerifier.forRS256(new PublicKeyProvider() {
     @Override
     public RSAPublicKey getPublicKeyById(String keyId) throws PublicKeyProviderException {
        try {
