@@ -29,4 +29,62 @@ class ResponseImpl<T> implements Response<T> {
     public int getStatusCode() {
         return statusCode;
     }
+
+    @Override
+    public TokenQuotaBucket getClientQuotaLimit() {
+        String quotaHeader = headers.get("X-Quota-Client-Limit");
+        if (quotaHeader != null) {
+            return parseQuota(quotaHeader);
+        }
+        return null;
+    }
+
+    @Override
+    public TokenQuotaBucket getOrganizationQuotaLimit() {
+        String quotaHeader = headers.get("X-Quota-Organization-Limit");
+        if (quotaHeader != null) {
+            return parseQuota(quotaHeader);
+        }
+        return null;
+    }
+
+    public static TokenQuotaBucket parseQuota(String tokenQuota) {
+
+        TokenQuota perHour = null;
+        TokenQuota perDay = null;
+
+        String[] parts = tokenQuota.split(",");
+        for (String part : parts) {
+            String[] attributes = part.split(";");
+            int quota = 0, remaining = 0, time = 0;
+
+            for (String attribute : attributes) {
+                String[] keyValue = attribute.split("=");
+                if (keyValue.length != 2) continue;
+
+                String key = keyValue[0].trim();
+                String value = keyValue[1].trim();
+
+                switch (key) {
+                    case "q":
+                        quota = Integer.parseInt(value);
+                        break;
+                    case "r":
+                        remaining = Integer.parseInt(value);
+                        break;
+                    case "t":
+                        time = Integer.parseInt(value);
+                        break;
+                }
+            }
+
+            if (attributes[0].contains("per_hour")) {
+                perHour = new TokenQuota(quota, remaining, time);
+            } else if (attributes[0].contains("per_day")) {
+                perDay = new TokenQuota(quota, remaining, time);
+            }
+        }
+
+        return new TokenQuotaBucket(perHour, perDay);
+    }
 }
