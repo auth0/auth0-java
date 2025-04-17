@@ -2,6 +2,7 @@ package com.auth0.json.mgmt.tenants;
 
 import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
+import com.auth0.json.mgmt.tokenquota.ClientCredentials;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -12,7 +13,51 @@ import static org.hamcrest.Matchers.*;
 
 public class TenantTest extends JsonTest<Tenant> {
 
-    private static final String json = "{\"change_password\":{},\"guardian_mfa_page\":{},\"default_audience\":\"https://domain.auth0.com/myapi\",\"default_directory\":\"Username-Password-Authentication\",\"error_page\":{},\"flags\":{},\"friendly_name\":\"My-Tenant\",\"picture_url\":\"https://pic.to/123\",\"support_email\":\"support@auth0.com\",\"support_url\":\"https://support.auth0.com\",\"allowed_logout_urls\":[\"https://domain.auth0.com/logout\"], \"session_lifetime\":24, \"idle_session_lifetime\":0.5, \"session_cookie\":{\"mode\": \"persistent\"}, \"acr_values_supported\":[\"string1\",\"string2\"], \"pushed_authorization_requests_supported\": true, \"remove_alg_from_jwks\": true, \"mtls\": {\"enable_endpoint_aliases\": true}}";
+    private static final String json = "{\n" +
+        "  \"change_password\": {},\n" +
+        "  \"guardian_mfa_page\": {},\n" +
+        "  \"default_audience\": \"https://domain.auth0.com/myapi\",\n" +
+        "  \"default_directory\": \"Username-Password-Authentication\",\n" +
+        "  \"error_page\": {},\n" +
+        "  \"flags\": {},\n" +
+        "  \"friendly_name\": \"My-Tenant\",\n" +
+        "  \"picture_url\": \"https://pic.to/123\",\n" +
+        "  \"support_email\": \"support@auth0.com\",\n" +
+        "  \"support_url\": \"https://support.auth0.com\",\n" +
+        "  \"allowed_logout_urls\": [\n" +
+        "    \"https://domain.auth0.com/logout\"\n" +
+        "  ],\n" +
+        "  \"session_lifetime\": 24,\n" +
+        "  \"idle_session_lifetime\": 0.5,\n" +
+        "  \"session_cookie\": {\n" +
+        "    \"mode\": \"persistent\"\n" +
+        "  },\n" +
+        "  \"acr_values_supported\": [\n" +
+        "    \"string1\",\n" +
+        "    \"string2\"\n" +
+        "  ],\n" +
+        "  \"pushed_authorization_requests_supported\": true,\n" +
+        "  \"remove_alg_from_jwks\": true,\n" +
+        "  \"mtls\": {\n" +
+        "    \"enable_endpoint_aliases\": true\n" +
+        "  },\n" +
+        "  \"default_token_quota\": {\n" +
+        "    \"clients\": {\n" +
+        "      \"client_credentials\": {\n" +
+        "        \"per_day\": 100,\n" +
+        "        \"per_hour\": 20,\n" +
+        "        \"enforce\": true\n" +
+        "      }\n" +
+        "    },\n" +
+        "    \"organizations\": {\n" +
+        "      \"client_credentials\": {\n" +
+        "        \"per_day\": 100,\n" +
+        "        \"per_hour\": 20,\n" +
+        "        \"enforce\": true\n" +
+        "      }\n" +
+        "    }\n" +
+        "  }\n" +
+        "}";
 
 
     @Test
@@ -35,6 +80,15 @@ public class TenantTest extends JsonTest<Tenant> {
         tenant.setAcrValuesSupported(Collections.singletonList("supported acr value"));
         tenant.setPushedAuthorizationRequestsSupported(true);
         tenant.setRemoveAlgFromJwks(true);
+
+        ClientCredentials clientCredentials = new ClientCredentials();
+        clientCredentials.setPerDay(100);
+        clientCredentials.setPerHour(20);
+        clientCredentials.setEnforce(true);
+        Clients clientTokenQuota = new Clients(clientCredentials);
+        Organizations organizationTokenQuota = new Organizations(clientCredentials);
+        tenant.setDefaultTokenQuota(new DefaultTokenQuota(clientTokenQuota, organizationTokenQuota));
+
         Mtls mtls = new Mtls();
         mtls.setEnableEndpointAliases(true);
         tenant.setMtls(mtls);
@@ -60,6 +114,8 @@ public class TenantTest extends JsonTest<Tenant> {
         assertThat(serialized, JsonMatcher.hasEntry("pushed_authorization_requests_supported", true));
         assertThat(serialized, JsonMatcher.hasEntry("remove_alg_from_jwks", true));
         assertThat(serialized, JsonMatcher.hasEntry("enable_endpoint_aliases", notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("mtls", notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("default_token_quota", notNullValue()));
     }
 
     @Test
@@ -87,6 +143,17 @@ public class TenantTest extends JsonTest<Tenant> {
         assertThat(tenant.getRemoveAlgFromJwks(), is(true));
         assertThat(tenant.getMtls(), is(notNullValue()));
         assertThat(tenant.getMtls().getEnableEndpointAliases(), is(true));
+        assertThat(tenant.getDefaultTokenQuota(), is(notNullValue()));
+        assertThat(tenant.getDefaultTokenQuota().getClient(), is(notNullValue()));
+        assertThat(tenant.getDefaultTokenQuota().getClient().getClientCredentials(), is(notNullValue()));
+        assertThat(tenant.getDefaultTokenQuota().getClient().getClientCredentials().getPerDay(), is(100));
+        assertThat(tenant.getDefaultTokenQuota().getClient().getClientCredentials().getPerHour(), is(20));
+        assertThat(tenant.getDefaultTokenQuota().getClient().getClientCredentials().isEnforce(), is(true));
+        assertThat(tenant.getDefaultTokenQuota().getOrganizations(), is(notNullValue()));
+        assertThat(tenant.getDefaultTokenQuota().getOrganizations().getClientCredentials(), is(notNullValue()));
+        assertThat(tenant.getDefaultTokenQuota().getOrganizations().getClientCredentials().getPerDay(), is(100));
+        assertThat(tenant.getDefaultTokenQuota().getOrganizations().getClientCredentials().getPerHour(), is(20));
+        assertThat(tenant.getDefaultTokenQuota().getOrganizations().getClientCredentials().isEnforce(), is(true));
     }
 
 }

@@ -1,11 +1,11 @@
-package com.auth0.net;
+package com.auth0.json.auth;
 
-public class TokenQuota {
+public class TokenQuotaLimit {
     private int quota;
     private int remaining;
     private int time;
 
-    public TokenQuota(int quota, int remaining, int time) {
+    public TokenQuotaLimit(int quota, int remaining, int time) {
         this.quota = quota;
         this.remaining = remaining;
         this.time = time;

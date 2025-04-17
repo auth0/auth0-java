@@ -1,5 +1,7 @@
 package com.auth0.net;
 
+import com.auth0.json.auth.TokenQuotaLimit;
+
 import java.util.Collections;
 import java.util.Map;
 
@@ -50,8 +52,8 @@ class ResponseImpl<T> implements Response<T> {
 
     public static TokenQuotaBucket parseQuota(String tokenQuota) {
 
-        TokenQuota perHour = null;
-        TokenQuota perDay = null;
+        TokenQuotaLimit perHour = null;
+        TokenQuotaLimit perDay = null;
 
         String[] parts = tokenQuota.split(",");
         for (String part : parts) {
@@ -79,9 +81,9 @@ class ResponseImpl<T> implements Response<T> {
             }
 
             if (attributes[0].contains("per_hour")) {
-                perHour = new TokenQuota(quota, remaining, time);
+                perHour = new TokenQuotaLimit(quota, remaining, time);
             } else if (attributes[0].contains("per_day")) {
-                perDay = new TokenQuota(quota, remaining, time);
+                perDay = new TokenQuotaLimit(quota, remaining, time);
             }
         }
 

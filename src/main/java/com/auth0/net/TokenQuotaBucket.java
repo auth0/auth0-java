@@ -1,19 +1,21 @@
 package com.auth0.net;
 
-public class TokenQuotaBucket {
-    private TokenQuota perHour;
-    private TokenQuota perDay;
+import com.auth0.json.auth.TokenQuotaLimit;
 
-    public TokenQuotaBucket(TokenQuota perHour, TokenQuota perDay) {
+public class TokenQuotaBucket {
+    private TokenQuotaLimit perHour;
+    private TokenQuotaLimit perDay;
+
+    public TokenQuotaBucket(TokenQuotaLimit perHour, TokenQuotaLimit perDay) {
         this.perHour = perHour;
         this.perDay = perDay;
     }
 
-    public TokenQuota getPerHour() {
+    public TokenQuotaLimit getPerHour() {
         return perHour;
     }
 
-    public TokenQuota getPerDay() {
+    public TokenQuotaLimit getPerDay() {
         return perDay;
     }
 }
