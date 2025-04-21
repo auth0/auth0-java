@@ -23,8 +23,4 @@ public interface Response<T> {
      * @return the HTTP status code.
      */
     int getStatusCode();
-
-    TokenQuotaBucket getClientQuotaLimit();
-
-    TokenQuotaBucket getOrganizationQuotaLimit();
 }

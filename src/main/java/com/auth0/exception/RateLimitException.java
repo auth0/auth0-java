@@ -1,5 +1,7 @@
 package com.auth0.exception;
 
+import com.auth0.net.TokenQuotaBucket;
+
 import java.util.Map;
 
 /**
@@ -15,21 +17,27 @@ public class RateLimitException extends APIException {
     private final long limit;
     private final long remaining;
     private final long reset;
+    private final TokenQuotaBucket clientQuotaLimit;
+    private final TokenQuotaBucket organizationQuotaLimit;
 
     private static final int STATUS_CODE_TOO_MANY_REQUEST = 429;
 
-    public RateLimitException(long limit, long remaining, long reset, Map<String, Object> values) {
+    public RateLimitException(long limit, long remaining, long reset, TokenQuotaBucket clientQuotaLimit, TokenQuotaBucket organizationQuotaLimit, Map<String, Object> values) {
         super(values, STATUS_CODE_TOO_MANY_REQUEST);
         this.limit = limit;
         this.remaining = remaining;
         this.reset = reset;
+        this.clientQuotaLimit = clientQuotaLimit;
+        this.organizationQuotaLimit = organizationQuotaLimit;
     }
 
-    public RateLimitException(long limit, long remaining, long reset) {
+    public RateLimitException(long limit, long remaining, long reset, TokenQuotaBucket clientQuotaLimit, TokenQuotaBucket organizationQuotaLimit) {
         super("Rate limit reached", STATUS_CODE_TOO_MANY_REQUEST, null);
         this.limit = limit;
         this.remaining = remaining;
         this.reset = reset;
+        this.clientQuotaLimit = clientQuotaLimit;
+        this.organizationQuotaLimit = organizationQuotaLimit;
     }
 
     /**
@@ -54,6 +62,22 @@ public class RateLimitException extends APIException {
      */
     public long getReset() {
         return reset;
+    }
+
+    /**
+     * Getter for the client quota limit.
+     * @return The client quota limit or null if missing.
+     */
+    public TokenQuotaBucket getClientQuotaLimit() {
+        return clientQuotaLimit;
+    }
+
+    /**
+     * Getter for the organization quota limit.
+     * @return The organization quota limit or null if missing.
+     */
+    public TokenQuotaBucket getOrganizationQuotaLimit() {
+        return organizationQuotaLimit;
     }
 
 }
