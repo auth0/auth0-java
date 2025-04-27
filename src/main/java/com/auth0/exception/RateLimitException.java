@@ -17,27 +17,24 @@ public class RateLimitException extends APIException {
     private final long limit;
     private final long remaining;
     private final long reset;
-    private final TokenQuotaBucket clientQuotaLimit;
-    private final TokenQuotaBucket organizationQuotaLimit;
+
+    private TokenQuotaBucket clientQuotaLimit;
+    private TokenQuotaBucket organizationQuotaLimit;
 
     private static final int STATUS_CODE_TOO_MANY_REQUEST = 429;
 
-    public RateLimitException(long limit, long remaining, long reset, TokenQuotaBucket clientQuotaLimit, TokenQuotaBucket organizationQuotaLimit, Map<String, Object> values) {
+    public RateLimitException(long limit, long remaining, long reset, Map<String, Object> values) {
         super(values, STATUS_CODE_TOO_MANY_REQUEST);
         this.limit = limit;
         this.remaining = remaining;
         this.reset = reset;
-        this.clientQuotaLimit = clientQuotaLimit;
-        this.organizationQuotaLimit = organizationQuotaLimit;
     }
 
-    public RateLimitException(long limit, long remaining, long reset, TokenQuotaBucket clientQuotaLimit, TokenQuotaBucket organizationQuotaLimit) {
+    public RateLimitException(long limit, long remaining, long reset) {
         super("Rate limit reached", STATUS_CODE_TOO_MANY_REQUEST, null);
         this.limit = limit;
         this.remaining = remaining;
         this.reset = reset;
-        this.clientQuotaLimit = clientQuotaLimit;
-        this.organizationQuotaLimit = organizationQuotaLimit;
     }
 
     /**
@@ -78,6 +75,89 @@ public class RateLimitException extends APIException {
      */
     public TokenQuotaBucket getOrganizationQuotaLimit() {
         return organizationQuotaLimit;
+    }
+
+    /**
+     * Builder class for creating instances of RateLimitException.
+     */
+    public static class Builder {
+        private long limit;
+        private long remaining;
+        private long reset;
+        private TokenQuotaBucket clientQuotaLimit;
+        private TokenQuotaBucket organizationQuotaLimit;
+        private Map<String, Object> values;
+
+        /**
+         * Constructor for the Builder.
+         * @param limit The maximum number of requests available in the current time frame.
+         * @param remaining The number of remaining requests in the current time frame.
+         * @param reset The UNIX timestamp of the expected time when the rate limit will reset.
+         */
+        public Builder(long limit, long remaining, long reset) {
+            this.limit = limit;
+            this.remaining = remaining;
+            this.reset = reset;
+        }
+
+        /**
+         * Constructor for the Builder.
+         * @param limit The maximum number of requests available in the current time frame.
+         * @param remaining The number of remaining requests in the current time frame.
+         * @param reset The UNIX timestamp of the expected time when the rate limit will reset.
+         * @param values The values map.
+         */
+        public Builder(long limit, long remaining, long reset, Map<String, Object> values) {
+            this.limit = limit;
+            this.remaining = remaining;
+            this.reset = reset;
+            this.values = values;
+        }
+
+        /**
+         * Sets the client quota limit.
+         * @param clientQuotaLimit The client quota limit.
+         * @return The Builder instance.
+         */
+        public Builder clientQuotaLimit(TokenQuotaBucket clientQuotaLimit) {
+            this.clientQuotaLimit = clientQuotaLimit;
+            return this;
+        }
+
+        /**
+         * Sets the organization quota limit.
+         * @param organizationQuotaLimit The organization quota limit.
+         * @return The Builder instance.
+         */
+        public Builder organizationQuotaLimit(TokenQuotaBucket organizationQuotaLimit) {
+            this.organizationQuotaLimit = organizationQuotaLimit;
+            return this;
+        }
+
+        /**
+         * Sets the values map.
+         * @param values The values map.
+         * @return The Builder instance.
+         */
+        public Builder values(Map<String, Object> values) {
+            this.values = values;
+            return this;
+        }
+
+        public RateLimitException build() {
+            RateLimitException exception = (this.values != null)
+                ? new RateLimitException(this.limit, this.remaining, this.reset, this.values)
+                : new RateLimitException(this.limit, this.remaining, this.reset);
+
+            if(this.clientQuotaLimit != null) {
+                exception.clientQuotaLimit = this.clientQuotaLimit;
+            }
+            if(this.organizationQuotaLimit != null) {
+                exception.organizationQuotaLimit = this.organizationQuotaLimit;
+            }
+
+            return exception;
+        }
     }
 
 }

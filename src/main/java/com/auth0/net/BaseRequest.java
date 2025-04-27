@@ -223,7 +223,7 @@ public class BaseRequest<T> implements Request<T> {
         TokenQuotaBucket clientQuotaLimit = null;
         TokenQuotaBucket organizationQuotaLimit = null;
 
-        if (response.getHeaders().containsKey("x-rate-limit-remaining") && response.getHeaders().get("x-rate-limit-remaining").equals("0")) {
+        if (remaining == 0) {
             clientQuotaLimit = HttpResponseHeadersUtils.getClientQuotaLimit(response.getHeaders());
             organizationQuotaLimit = HttpResponseHeadersUtils.getOrganizationQuotaLimit(response.getHeaders());
         }
@@ -232,9 +232,30 @@ public class BaseRequest<T> implements Request<T> {
         MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
         try {
             Map<String, Object> values = mapper.readValue(payload, mapType);
-            return new RateLimitException(limit, remaining, reset, clientQuotaLimit, organizationQuotaLimit, values);
+
+            RateLimitException.Builder builder = new RateLimitException.Builder(limit, remaining, reset, values);
+
+            if (clientQuotaLimit != null) {
+                builder.clientQuotaLimit(clientQuotaLimit);
+            }
+
+            if (organizationQuotaLimit != null) {
+                builder.organizationQuotaLimit(organizationQuotaLimit);
+            }
+
+            return builder.build();
         } catch (IOException e) {
-            return new RateLimitException(limit, remaining, reset, clientQuotaLimit, organizationQuotaLimit);
+            RateLimitException.Builder builder = new RateLimitException.Builder(limit, remaining, reset);
+
+            if (clientQuotaLimit != null) {
+                builder.clientQuotaLimit(clientQuotaLimit);
+            }
+
+            if (organizationQuotaLimit != null) {
+                builder.organizationQuotaLimit(organizationQuotaLimit);
+            }
+
+            return builder.build();
         }
     }
 

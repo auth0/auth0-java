@@ -6,6 +6,7 @@ import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.RateLimitException;
 import com.auth0.json.auth.TokenHolder;
+import com.auth0.json.auth.TokenQuotaLimit;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.Auth0MultipartRequestBody;
 import com.auth0.net.client.DefaultHttpClient;
@@ -18,6 +19,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.mockwebserver.RecordedRequest;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -361,6 +363,32 @@ public class MultipartRequestTest {
     }
 
     @Test
+    public void shouldParseRateLimitsWithAllHeaders() throws Exception {
+        MultipartRequest<List> request = new MultipartRequest<>(client, tokenProvider, server.getBaseUrl(), HttpMethod.POST, listType);
+        request.addPart("non_empty", "body");
+        server.rateLimitReachedResponse(100, 10, 5, getTokenQuotaString(), getTokenQuotaString());
+        Exception exception = null;
+        try {
+            request.execute().getBody();
+            server.takeRequest();
+        } catch (Exception e) {
+            exception = e;
+        }
+        assertThat(exception, is(notNullValue()));
+        assertThat(exception, is(instanceOf(RateLimitException.class)));
+        assertThat(exception.getCause(), is(nullValue()));
+        assertThat(exception.getMessage(), is("Request failed with status code 429: Rate limit reached"));
+        RateLimitException rateLimitException = (RateLimitException) exception;
+        assertThat(rateLimitException.getDescription(), is("Rate limit reached"));
+        assertThat(rateLimitException.getError(), is(nullValue()));
+        assertThat(rateLimitException.getValue("non_existing_key"), is(nullValue()));
+        assertThat(rateLimitException.getStatusCode(), is(429));
+        assertThat(rateLimitException.getLimit(), is(100L));
+        assertThat(rateLimitException.getRemaining(), is(10L));
+        assertThat(rateLimitException.getReset(), is(5L));
+    }
+
+    @Test
     public void shouldDefaultRateLimitsHeadersWhenMissing() throws Exception {
         MultipartRequest<List> request = new MultipartRequest<>(client, tokenProvider, server.getBaseUrl(), HttpMethod.POST, listType);
         request.addPart("non_empty", "body");
@@ -384,6 +412,29 @@ public class MultipartRequestTest {
         assertThat(rateLimitException.getLimit(), is(-1L));
         assertThat(rateLimitException.getRemaining(), is(-1L));
         assertThat(rateLimitException.getReset(), is(-1L));
+        assertThat(rateLimitException.getClientQuotaLimit(), Matchers.is(nullValue()));
+        assertThat(rateLimitException.getOrganizationQuotaLimit(), Matchers.is(nullValue()));
     }
 
+    public String getTokenQuotaString() {
+        TokenQuotaLimit perHourLimit = new TokenQuotaLimit(100, 80, 3600);
+        TokenQuotaLimit perDayLimit = new TokenQuotaLimit(100, 90, 86400);
+
+        StringBuilder builder = new StringBuilder();
+
+        if (perHourLimit != null) {
+            builder.append(String.format("b=per_hour;q=%d;r=%d;t=%d",
+                perHourLimit.getQuota(), perHourLimit.getRemaining(), perHourLimit.getTime()));
+        }
+
+        if (perDayLimit != null) {
+            if (builder.length() > 0) {
+                builder.append(",");
+            }
+            builder.append(String.format("b=per_day;q=%d;r=%d;t=%d",
+                perDayLimit.getQuota(), perDayLimit.getRemaining(), perDayLimit.getTime()));
+        }
+
+        return builder.toString();
+    }
 }
