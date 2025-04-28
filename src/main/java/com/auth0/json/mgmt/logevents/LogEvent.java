@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -50,7 +51,7 @@ public class LogEvent {
     @JsonProperty("audience")
     private String audience;
     @JsonProperty("scope")
-    private String scope;
+    private List<String> scope;
     @JsonProperty("strategy")
     private String strategy;
     @JsonProperty("strategy_type")
@@ -154,7 +155,7 @@ public class LogEvent {
      * @return the scope.
      */
     @JsonProperty("scope")
-    public String getScope() {
+    public List<String> getScope() {
         return scope;
     }
 
