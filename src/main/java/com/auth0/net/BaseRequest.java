@@ -220,13 +220,8 @@ public class BaseRequest<T> implements Request<T> {
         long remaining = Long.parseLong(response.getHeader("x-ratelimit-remaining", "-1"));
         long reset = Long.parseLong(response.getHeader("x-ratelimit-reset", "-1"));
 
-        TokenQuotaBucket clientQuotaLimit = null;
-        TokenQuotaBucket organizationQuotaLimit = null;
-
-        if (remaining == 0) {
-            clientQuotaLimit = HttpResponseHeadersUtils.getClientQuotaLimit(response.getHeaders());
-            organizationQuotaLimit = HttpResponseHeadersUtils.getOrganizationQuotaLimit(response.getHeaders());
-        }
+        TokenQuotaBucket clientQuotaLimit = HttpResponseHeadersUtils.getClientQuotaLimit(response.getHeaders());
+        TokenQuotaBucket organizationQuotaLimit = HttpResponseHeadersUtils.getOrganizationQuotaLimit(response.getHeaders());
 
         String payload = response.getBody();
         MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
