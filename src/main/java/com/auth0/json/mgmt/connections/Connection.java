@@ -210,6 +210,7 @@ public class Connection {
      * Getter for the domain connection flag.
      * @return the domain connection flag.
      */
+    @JsonProperty("is_domain_connection")
     public boolean isDomainConnection() {
         return isDomainConnection;
     }
@@ -218,7 +219,8 @@ public class Connection {
      * Setter for the domain connection flag.
      * @param domainConnection the domain connection flag to set.
      */
+    @JsonProperty("is_domain_connection")
     public void setDomainConnection(boolean domainConnection) {
-        isDomainConnection = domainConnection;
+        this.isDomainConnection = domainConnection;
     }
 }

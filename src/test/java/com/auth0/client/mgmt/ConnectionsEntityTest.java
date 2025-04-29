@@ -176,7 +176,10 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldCreateConnection() throws Exception {
-        Request<Connection> request = api.connections().create(new Connection("my-connection", "auth0"));
+        Connection createConnection = new Connection("my-connection", "auth0");
+        createConnection.setDomainConnection(true);
+        createConnection.setShowAsButton(true);
+        Request<Connection> request = api.connections().create(createConnection);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CONNECTION, 200);
@@ -188,7 +191,7 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body.size(), is(5));
+        assertThat(body.size(), is(4));
         assertThat(body, hasEntry("name", "my-connection"));
         assertThat(body, hasEntry("strategy", "auth0"));
 
@@ -244,7 +247,7 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body.size(), is(5));
+        assertThat(body.size(), is(4));
         assertThat(body, hasEntry("name", "my-connection"));
         assertThat(body, hasEntry("strategy", "auth0"));
 
