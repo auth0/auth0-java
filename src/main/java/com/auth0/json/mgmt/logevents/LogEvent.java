@@ -51,7 +51,7 @@ public class LogEvent {
     @JsonProperty("audience")
     private String audience;
     @JsonProperty("scope")
-    private List<String> scope;
+    private Object scope;
     @JsonProperty("strategy")
     private String strategy;
     @JsonProperty("strategy_type")
@@ -155,7 +155,7 @@ public class LogEvent {
      * @return the scope.
      */
     @JsonProperty("scope")
-    public List<String> getScope() {
+    public Object getScope() {
         return scope;
     }
 
