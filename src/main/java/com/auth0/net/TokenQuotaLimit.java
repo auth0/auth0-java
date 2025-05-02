@@ -1,4 +1,4 @@
-package com.auth0.json.auth;
+package com.auth0.net;
 
 public class TokenQuotaLimit {
     private int quota;

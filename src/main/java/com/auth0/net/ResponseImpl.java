@@ -1,7 +1,5 @@
 package com.auth0.net;
 
-import com.auth0.json.auth.TokenQuotaLimit;
-
 import java.util.Collections;
 import java.util.Map;
 

@@ -6,7 +6,6 @@ import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.RateLimitException;
 import com.auth0.json.auth.TokenHolder;
-import com.auth0.json.auth.TokenQuotaLimit;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.Auth0MultipartRequestBody;
 import com.auth0.net.client.DefaultHttpClient;

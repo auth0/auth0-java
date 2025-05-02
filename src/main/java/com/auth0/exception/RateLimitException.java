@@ -149,12 +149,8 @@ public class RateLimitException extends APIException {
                 ? new RateLimitException(this.limit, this.remaining, this.reset, this.values)
                 : new RateLimitException(this.limit, this.remaining, this.reset);
 
-            if(this.clientQuotaLimit != null) {
-                exception.clientQuotaLimit = this.clientQuotaLimit;
-            }
-            if(this.organizationQuotaLimit != null) {
-                exception.organizationQuotaLimit = this.organizationQuotaLimit;
-            }
+            exception.clientQuotaLimit = this.clientQuotaLimit;
+            exception.organizationQuotaLimit = this.organizationQuotaLimit;
 
             return exception;
         }

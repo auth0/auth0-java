@@ -1,6 +1,6 @@
 package com.auth0.utils;
 
-import com.auth0.json.auth.TokenQuotaLimit;
+import com.auth0.net.TokenQuotaLimit;
 import com.auth0.net.TokenQuotaBucket;
 
 import java.util.Map;
@@ -14,10 +14,7 @@ public class HttpResponseHeadersUtils {
      * @return a TokenQuotaBucket containing client rate limits, or null if not present.
      */
     public static TokenQuotaBucket getClientQuotaLimit(Map<String, String> headers) {
-        String quotaHeader = headers.get("auth0-Quota-Client-Limit");
-        if( quotaHeader == null) {
-            quotaHeader = headers.get("auth0-quota-client-limit");
-        }
+        String quotaHeader = headers.get("auth0-quota-client-limit");
         if (quotaHeader != null) {
             return parseQuota(quotaHeader);
         }
@@ -31,10 +28,7 @@ public class HttpResponseHeadersUtils {
      * @return a TokenQuotaBucket containing organization rate limits, or null if not present.
      */
     public static TokenQuotaBucket getOrganizationQuotaLimit(Map<String, String> headers) {
-        String quotaHeader = headers.get("auth0-Quota-Organization-Limit");
-        if( quotaHeader == null) {
-            quotaHeader = headers.get("auth0-quota-organization-limit");
-        }
+        String quotaHeader = headers.get("auth0-quota-organization-limit");
         if (quotaHeader != null) {
             return parseQuota(quotaHeader);
         }

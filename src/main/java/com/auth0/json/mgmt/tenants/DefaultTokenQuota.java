@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DefaultTokenQuota {
     @JsonProperty("clients")
-    private Clients client;
+    private Clients clients;
 
     @JsonProperty("organizations")
     private Organizations organizations;
@@ -21,26 +21,26 @@ public class DefaultTokenQuota {
     /**
      * Constructor for DefaultTokenQuota.
      *
-     * @param client the clients
+     * @param clients the clients
      * @param organizations the organizations
      */
-    public DefaultTokenQuota(Clients client, Organizations organizations) {
-        this.client = client;
+    public DefaultTokenQuota(Clients clients, Organizations organizations) {
+        this.clients = clients;
         this.organizations = organizations;
     }
 
     /**
      * @return the clients
      */
-    public Clients getClient() {
-        return client;
+    public Clients getClients() {
+        return clients;
     }
 
     /**
-     * @param client the clients to set
+     * @param clients the clients to set
      */
-    public void setClient(Clients client) {
-        this.client = client;
+    public void setClients(Clients clients) {
+        this.clients = clients;
     }
 
     /**

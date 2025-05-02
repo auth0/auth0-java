@@ -144,11 +144,11 @@ public class TenantTest extends JsonTest<Tenant> {
         assertThat(tenant.getMtls(), is(notNullValue()));
         assertThat(tenant.getMtls().getEnableEndpointAliases(), is(true));
         assertThat(tenant.getDefaultTokenQuota(), is(notNullValue()));
-        assertThat(tenant.getDefaultTokenQuota().getClient(), is(notNullValue()));
-        assertThat(tenant.getDefaultTokenQuota().getClient().getClientCredentials(), is(notNullValue()));
-        assertThat(tenant.getDefaultTokenQuota().getClient().getClientCredentials().getPerDay(), is(100));
-        assertThat(tenant.getDefaultTokenQuota().getClient().getClientCredentials().getPerHour(), is(20));
-        assertThat(tenant.getDefaultTokenQuota().getClient().getClientCredentials().isEnforce(), is(true));
+        assertThat(tenant.getDefaultTokenQuota().getClients(), is(notNullValue()));
+        assertThat(tenant.getDefaultTokenQuota().getClients().getClientCredentials(), is(notNullValue()));
+        assertThat(tenant.getDefaultTokenQuota().getClients().getClientCredentials().getPerDay(), is(100));
+        assertThat(tenant.getDefaultTokenQuota().getClients().getClientCredentials().getPerHour(), is(20));
+        assertThat(tenant.getDefaultTokenQuota().getClients().getClientCredentials().isEnforce(), is(true));
         assertThat(tenant.getDefaultTokenQuota().getOrganizations(), is(notNullValue()));
         assertThat(tenant.getDefaultTokenQuota().getOrganizations().getClientCredentials(), is(notNullValue()));
         assertThat(tenant.getDefaultTokenQuota().getOrganizations().getClientCredentials().getPerDay(), is(100));

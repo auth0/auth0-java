@@ -9,6 +9,23 @@ public class ClientCredentials {
     private int perHour;
     @JsonProperty("enforce")
     private boolean enforce;
+    /**
+     * Default constructor for ClientCredentials.
+     */
+    public ClientCredentials() {}
+
+    /**
+     * Constructor for ClientCredentials.
+     *
+     * @param perDay the number of client credentials allowed per day
+     * @param perHour the number of client credentials allowed per hour
+     * @param enforce true if the quota is enforced, false otherwise
+     */
+    public ClientCredentials(int perDay, int perHour, boolean enforce) {
+        this.perDay = perDay;
+        this.perHour = perHour;
+        this.enforce = enforce;
+    }
 
     /**
      * @return the number of client credentials allowed per day

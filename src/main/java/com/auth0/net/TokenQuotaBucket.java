@@ -1,7 +1,5 @@
 package com.auth0.net;
 
-import com.auth0.json.auth.TokenQuotaLimit;
-
 public class TokenQuotaBucket {
     private TokenQuotaLimit perHour;
     private TokenQuotaLimit perDay;
