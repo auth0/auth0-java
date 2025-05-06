@@ -232,11 +232,11 @@ public class MockServer {
     }
 
     public void rateLimitReachedResponse(long limit, long remaining, long reset,
-                                         String clientQuotaLimit, String organizationQuotaLimit) throws IOException {
-        rateLimitReachedResponse(limit, remaining, reset, null, clientQuotaLimit, organizationQuotaLimit);
+                                         String clientQuotaLimit, String organizationQuotaLimit, long retryAfter) throws IOException {
+        rateLimitReachedResponse(limit, remaining, reset, null, clientQuotaLimit, organizationQuotaLimit, retryAfter);
     }
 
-    public void rateLimitReachedResponse(long limit, long remaining, long reset, String path, String clientQuotaLimit, String organizationQuotaLimit) throws IOException {
+    public void rateLimitReachedResponse(long limit, long remaining, long reset, String path, String clientQuotaLimit, String organizationQuotaLimit, long retryAfter) throws IOException {
         MockResponse response = new MockResponse().setResponseCode(429);
         if (limit != -1) {
             response.addHeader("x-ratelimit-limit", String.valueOf(limit));
@@ -248,10 +248,13 @@ public class MockServer {
             response.addHeader("x-ratelimit-reset", String.valueOf(reset));
         }
         if (clientQuotaLimit != null) {
-            response.addHeader("auth0-quota-client-limit", clientQuotaLimit);
+            response.addHeader("auth0-client-quota-limit", clientQuotaLimit);
         }
         if (organizationQuotaLimit != null) {
-            response.addHeader("auth0-quota-organization-limit", organizationQuotaLimit);
+            response.addHeader("auth0-organization-quota-limit", organizationQuotaLimit);
+        }
+        if(retryAfter != -1) {
+            response.addHeader("retry-after", String.valueOf(retryAfter));
         }
         if (path != null) {
             response

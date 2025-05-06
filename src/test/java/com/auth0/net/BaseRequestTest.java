@@ -430,7 +430,7 @@ public class BaseRequestTest {
     @Test
     public void shouldParseRateLimitExceptionWithZeroRemaining() throws Exception {
         BaseRequest<List> request = new BaseRequest<>(client, tokenProvider, server.getBaseUrl(),  HttpMethod.GET, listType);
-        server.rateLimitReachedResponse(100, 0, 5, RATE_LIMIT_ERROR, getTokenQuotaString(), getTokenQuotaString());
+        server.rateLimitReachedResponse(100, 0, 5, RATE_LIMIT_ERROR, getTokenQuotaString(), getTokenQuotaString(), 1000);
         Exception exception = null;
         try {
             request.execute().getBody();

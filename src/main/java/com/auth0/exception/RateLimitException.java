@@ -20,6 +20,7 @@ public class RateLimitException extends APIException {
 
     private TokenQuotaBucket clientQuotaLimit;
     private TokenQuotaBucket organizationQuotaLimit;
+    private long retryAfter;
 
     private static final int STATUS_CODE_TOO_MANY_REQUEST = 429;
 
@@ -78,6 +79,14 @@ public class RateLimitException extends APIException {
     }
 
     /**
+     * Getter for the retry after time in seconds.
+     * @return The retry after time in seconds or -1 if missing.
+     */
+    public long getRetryAfter() {
+        return retryAfter;
+    }
+
+    /**
      * Builder class for creating instances of RateLimitException.
      */
     public static class Builder {
@@ -86,6 +95,7 @@ public class RateLimitException extends APIException {
         private long reset;
         private TokenQuotaBucket clientQuotaLimit;
         private TokenQuotaBucket organizationQuotaLimit;
+        private long retryAfter;
         private Map<String, Object> values;
 
         /**
@@ -135,6 +145,16 @@ public class RateLimitException extends APIException {
         }
 
         /**
+         * Sets the retry after time in seconds.
+         * @param retryAfter The retry after time in seconds.
+         * @return The Builder instance.
+         */
+        public Builder retryAfter(long retryAfter) {
+            this.retryAfter = retryAfter;
+            return this;
+        }
+
+        /**
          * Sets the values map.
          * @param values The values map.
          * @return The Builder instance.
@@ -151,6 +171,7 @@ public class RateLimitException extends APIException {
 
             exception.clientQuotaLimit = this.clientQuotaLimit;
             exception.organizationQuotaLimit = this.organizationQuotaLimit;
+            exception.retryAfter = this.retryAfter;
 
             return exception;
         }

@@ -365,7 +365,7 @@ public class MultipartRequestTest {
     public void shouldParseRateLimitsWithAllHeaders() throws Exception {
         MultipartRequest<List> request = new MultipartRequest<>(client, tokenProvider, server.getBaseUrl(), HttpMethod.POST, listType);
         request.addPart("non_empty", "body");
-        server.rateLimitReachedResponse(100, 10, 5, getTokenQuotaString(), getTokenQuotaString());
+        server.rateLimitReachedResponse(100, 10, 5, getTokenQuotaString(), getTokenQuotaString(), 1000);
         Exception exception = null;
         try {
             request.execute().getBody();
@@ -385,6 +385,25 @@ public class MultipartRequestTest {
         assertThat(rateLimitException.getLimit(), is(100L));
         assertThat(rateLimitException.getRemaining(), is(10L));
         assertThat(rateLimitException.getReset(), is(5L));
+        assertThat(rateLimitException.getRetryAfter(), is(1000L));
+        assertThat(rateLimitException.getClientQuotaLimit(), is(notNullValue()));
+        assertThat(rateLimitException.getClientQuotaLimit().getPerHour(), is(notNullValue()));
+        assertThat(rateLimitException.getClientQuotaLimit().getPerDay(), is(notNullValue()));
+        assertThat(rateLimitException.getClientQuotaLimit().getPerHour().getQuota(), is(100));
+        assertThat(rateLimitException.getClientQuotaLimit().getPerHour().getRemaining(), is(80));
+        assertThat(rateLimitException.getClientQuotaLimit().getPerHour().getTime(), is(3600));
+        assertThat(rateLimitException.getClientQuotaLimit().getPerDay().getQuota(), is(100));
+        assertThat(rateLimitException.getClientQuotaLimit().getPerDay().getRemaining(), is(90));
+        assertThat(rateLimitException.getClientQuotaLimit().getPerDay().getTime(), is(86400));
+        assertThat(rateLimitException.getOrganizationQuotaLimit(), is(notNullValue()));
+        assertThat(rateLimitException.getOrganizationQuotaLimit().getPerHour(), is(notNullValue()));
+        assertThat(rateLimitException.getOrganizationQuotaLimit().getPerDay(), is(notNullValue()));
+        assertThat(rateLimitException.getOrganizationQuotaLimit().getPerHour().getQuota(), is(100));
+        assertThat(rateLimitException.getOrganizationQuotaLimit().getPerHour().getRemaining(), is(80));
+        assertThat(rateLimitException.getOrganizationQuotaLimit().getPerHour().getTime(), is(3600));
+        assertThat(rateLimitException.getOrganizationQuotaLimit().getPerDay().getQuota(), is(100));
+        assertThat(rateLimitException.getOrganizationQuotaLimit().getPerDay().getRemaining(), is(90));
+        assertThat(rateLimitException.getOrganizationQuotaLimit().getPerDay().getTime(), is(86400));
     }
 
     @Test

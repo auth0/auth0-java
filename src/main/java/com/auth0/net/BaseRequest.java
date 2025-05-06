@@ -223,6 +223,8 @@ public class BaseRequest<T> implements Request<T> {
         TokenQuotaBucket clientQuotaLimit = HttpResponseHeadersUtils.getClientQuotaLimit(response.getHeaders());
         TokenQuotaBucket organizationQuotaLimit = HttpResponseHeadersUtils.getOrganizationQuotaLimit(response.getHeaders());
 
+        long retryAfter = Long.parseLong(response.getHeader("retry-after", "-1"));
+
         String payload = response.getBody();
         MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
         try {
@@ -230,26 +232,16 @@ public class BaseRequest<T> implements Request<T> {
 
             RateLimitException.Builder builder = new RateLimitException.Builder(limit, remaining, reset, values);
 
-            if (clientQuotaLimit != null) {
-                builder.clientQuotaLimit(clientQuotaLimit);
-            }
-
-            if (organizationQuotaLimit != null) {
-                builder.organizationQuotaLimit(organizationQuotaLimit);
-            }
+            builder.clientQuotaLimit(clientQuotaLimit);
+            builder.organizationQuotaLimit(organizationQuotaLimit);
+            builder.retryAfter(retryAfter);
 
             return builder.build();
         } catch (IOException e) {
             RateLimitException.Builder builder = new RateLimitException.Builder(limit, remaining, reset);
-
-            if (clientQuotaLimit != null) {
-                builder.clientQuotaLimit(clientQuotaLimit);
-            }
-
-            if (organizationQuotaLimit != null) {
-                builder.organizationQuotaLimit(organizationQuotaLimit);
-            }
-
+            builder.clientQuotaLimit(clientQuotaLimit);
+            builder.organizationQuotaLimit(organizationQuotaLimit);
+            builder.retryAfter(retryAfter);
             return builder.build();
         }
     }
