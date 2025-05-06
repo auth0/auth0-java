@@ -8,6 +8,8 @@
     "ScKKdrpyUwfkhOQP6KXItH32INgZf7Rb"
   ],
   "metadata": {
-  	"key": "value"
-  }
+    "key": "value"
+  },
+  "is_domain_connection": true,
+  "show_as_button": true
 }
