@@ -72,6 +72,13 @@
         "team_id": "9JA89QQLNQ",
         "app_bundle_identifier": "com.my.bundle.id"
       }
+    },
+    "token_quota": {
+      "client_credentials": {
+        "per_day": 100,
+        "per_hour": 20,
+        "enforce": true
+      }
     }
   },
   {

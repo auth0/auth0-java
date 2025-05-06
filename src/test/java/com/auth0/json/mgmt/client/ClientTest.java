@@ -2,6 +2,8 @@ package com.auth0.json.mgmt.client;
 
 import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
+import com.auth0.json.mgmt.tokenquota.ClientCredentials;
+import com.auth0.json.mgmt.tokenquota.TokenQuota;
 import org.hamcrest.collection.IsMapContaining;
 import org.junit.jupiter.api.Test;
 
@@ -140,7 +142,14 @@ public class ClientTest extends JsonTest<Client> {
         "  \"default_organization\": {\n" +
         "    \"flows\": [\"client_credentials\"],\n" +
         "    \"organizations_id\": \"org_id\"\n" +
-        "  }\n" +
+        "  },\n" +
+        "   \"token_quota\": {\n" +
+        "    \"client_credentials\": {\n" +
+        "      \"per_hour\": 10,\n" +
+        "      \"per_day\": 100,\n" +
+    "           \"enforce\": true\n" +
+        "    }\n" +
+        "  }" +
         "}";
 
     @Test
@@ -223,6 +232,14 @@ public class ClientTest extends JsonTest<Client> {
         defaultOrganization.setOrganizationId("org_id");
         client.setDefaultOrganization(defaultOrganization);
 
+        ClientCredentials clientCredentials = new ClientCredentials();
+        clientCredentials.setPerDay(100);
+        clientCredentials.setPerHour(20);
+        clientCredentials.setEnforce(true);
+
+        TokenQuota tokenQuota = new TokenQuota(clientCredentials);
+        client.setTokenQuota(tokenQuota);
+
         String serialized = toJSON(client);
         assertThat(serialized, is(notNullValue()));
 
@@ -264,6 +281,8 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(serialized, JsonMatcher.hasEntry("compliance_level", "fapi1_adv_pkj_par"));
         assertThat(serialized, JsonMatcher.hasEntry("require_proof_of_possession", true));
         assertThat(serialized, JsonMatcher.hasEntry("default_organization", notNullValue()));
+        assertThat(serialized, JsonMatcher.hasEntry("token_quota", notNullValue()));
+        assertThat(serialized, containsString("\"token_quota\":{\"client_credentials\":{\"per_day\":100,\"per_hour\":20,\"enforce\":true}}"));
     }
 
     @Test
@@ -341,6 +360,12 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(client.getSignedRequest().getCredentials().get(0).getUpdatedAt(), is(Date.from(Instant.parse("2024-03-14T11:34:28.893Z"))));
 
         assertThat(client.getRequireProofOfPossession(), is(true));
+
+        assertThat(client.getTokenQuota(), is(notNullValue()));
+        assertThat(client.getTokenQuota().getClientCredentials(), is(notNullValue()));
+        assertThat(client.getTokenQuota().getClientCredentials().getPerDay(), is(100));
+        assertThat(client.getTokenQuota().getClientCredentials().getPerHour(), is(10));
+        assertThat(client.getTokenQuota().getClientCredentials().isEnforce(), is(true));
     }
 
     @Test

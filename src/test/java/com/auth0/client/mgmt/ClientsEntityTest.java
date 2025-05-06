@@ -5,6 +5,8 @@ import com.auth0.client.mgmt.filter.FieldsFilter;
 import com.auth0.json.mgmt.client.Client;
 import com.auth0.json.mgmt.client.ClientsPage;
 import com.auth0.json.mgmt.client.Credential;
+import com.auth0.json.mgmt.tokenquota.ClientCredentials;
+import com.auth0.json.mgmt.tokenquota.TokenQuota;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -163,7 +165,6 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/clients/1"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
-
         assertThat(response, is(notNullValue()));
     }
 
@@ -213,7 +214,15 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldCreateClient() throws Exception {
-        Request<Client> request = api.clients().create(new Client("My Application"));
+        Client clientCreate = new Client("My Application");
+        ClientCredentials clientCredentials = new ClientCredentials();
+        clientCredentials.setPerDay(100);
+        clientCredentials.setPerHour(20);
+        clientCredentials.setEnforce(true);
+
+        TokenQuota tokenQuota = new TokenQuota(clientCredentials);
+        clientCreate.setTokenQuota(tokenQuota);
+        Request<Client> request = api.clients().create(clientCreate);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT, 200);
@@ -225,8 +234,17 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body.size(), is(1));
+        assertThat(body.size(), is(2));
         assertThat(body, hasEntry("name", "My Application"));
+
+        // Verify the token_quota structure
+        Map<String, Object> tokenQuotaMap = (Map<String, Object>) body.get("token_quota");
+        assertThat(tokenQuotaMap, is(notNullValue()));
+        Map<String, Object> clientCredentialsMap = (Map<String, Object>) tokenQuotaMap.get("client_credentials");
+        assertThat(clientCredentialsMap, is(notNullValue()));
+        assertThat(clientCredentialsMap, hasEntry("per_day", 100));
+        assertThat(clientCredentialsMap, hasEntry("per_hour", 20));
+        assertThat(clientCredentialsMap, hasEntry("enforce", true));
 
         assertThat(response, is(notNullValue()));
     }
@@ -268,7 +286,15 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldUpdateClient() throws Exception {
-        Request<Client> request = api.clients().update("1", new Client("My Application"));
+        Client clientUpdate = new Client( "My Application");
+        ClientCredentials clientCredentials = new ClientCredentials();
+        clientCredentials.setPerDay(100);
+        clientCredentials.setPerHour(20);
+        clientCredentials.setEnforce(true);
+
+        TokenQuota tokenQuota = new TokenQuota(clientCredentials);
+        clientUpdate.setTokenQuota(tokenQuota);
+        Request<Client> request = api.clients().update("1", clientUpdate);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MGMT_CLIENT, 200);
@@ -280,8 +306,17 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body.size(), is(1));
+        assertThat(body.size(), is(2));
         assertThat(body, hasEntry("name", "My Application"));
+
+        Map<String, Object> tokenQuotaMap = (Map<String, Object>) body.get("token_quota");
+        assertThat(tokenQuotaMap, is(notNullValue()));
+        Map<String, Object> clientCredentialsMap = (Map<String, Object>) tokenQuotaMap.get("client_credentials");
+        assertThat(clientCredentialsMap, is(notNullValue()));
+        assertThat(clientCredentialsMap, hasEntry("per_day", 100));
+        assertThat(clientCredentialsMap, hasEntry("per_hour", 20));
+        assertThat(clientCredentialsMap, hasEntry("enforce", true));
+
 
         assertThat(response, is(notNullValue()));
     }

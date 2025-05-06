@@ -91,5 +91,12 @@
     ]
   },
   "compliance_level": "fapi1_adv_pkj_par",
-  "require_proof_of_possession": true
+  "require_proof_of_possession": true,
+  "token_quota": {
+    "client_credentials": {
+      "per_day": 100,
+      "per_hour": 20,
+      "enforce": true
+    }
+  }
 }
