@@ -12,6 +12,13 @@
     },
     "metadata": {
       "key1": "val1"
+    },
+    "token_quota": {
+      "client_credentials": {
+        "per_day": 100,
+        "per_hour": 20,
+        "enforce": true
+      }
     }
   },
   {
