@@ -72,6 +72,10 @@ public class HttpResponseHeadersUtils {
             }
         }
 
+        if(perHour == null && perDay == null) {
+            return null;
+        }
+
         return new TokenQuotaBucket(perHour, perDay);
     }
 

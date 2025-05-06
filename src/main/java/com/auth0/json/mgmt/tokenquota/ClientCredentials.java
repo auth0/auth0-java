@@ -1,12 +1,16 @@
 package com.auth0.json.mgmt.tokenquota;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClientCredentials {
     @JsonProperty("per_day")
-    private int perDay;
+    private Integer perDay;
     @JsonProperty("per_hour")
-    private int perHour;
+    private Integer perHour;
     @JsonProperty("enforce")
     private boolean enforce;
     /**
@@ -21,7 +25,7 @@ public class ClientCredentials {
      * @param perHour the number of client credentials allowed per hour
      * @param enforce true if the quota is enforced, false otherwise
      */
-    public ClientCredentials(int perDay, int perHour, boolean enforce) {
+    public ClientCredentials(Integer perDay, Integer perHour, boolean enforce) {
         this.perDay = perDay;
         this.perHour = perHour;
         this.enforce = enforce;
@@ -30,7 +34,7 @@ public class ClientCredentials {
     /**
      * @return the number of client credentials allowed per day
      */
-    public int getPerDay() {
+    public Integer getPerDay() {
         return perDay;
     }
 
@@ -39,14 +43,14 @@ public class ClientCredentials {
      *
      * @param perDay the number of client credentials allowed per day
      */
-    public void setPerDay(int perDay) {
+    public void setPerDay(Integer perDay) {
         this.perDay = perDay;
     }
 
     /**
      * @return the number of client credentials allowed per hour
      */
-    public int getPerHour() {
+    public Integer getPerHour() {
         return perHour;
     }
 
@@ -55,7 +59,7 @@ public class ClientCredentials {
      *
      * @param perHour the number of client credentials allowed per hour
      */
-    public void setPerHour(int perHour) {
+    public void setPerHour(Integer perHour) {
         this.perHour = perHour;
     }
 
