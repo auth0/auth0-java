@@ -84,7 +84,7 @@ public class OrganizationsTest extends JsonTest<Organization> {
         enabledConnections.add(enabledConnection);
         organization.setEnabledConnections(enabledConnections);
 
-        TokenQuota tokenQuota = new TokenQuota(new ClientCredentials(10, 100, true));
+        TokenQuota tokenQuota = new TokenQuota(new ClientCredentials(100, 10, true));
         organization.setTokenQuota(tokenQuota);
 
         String serialized = toJSON(organization);
