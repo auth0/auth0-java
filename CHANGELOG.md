@@ -1,5 +1,12 @@
 # Change Log
 
+## [2.20.0](https://github.com/auth0/auth0-java/tree/2.20.0) (2025-05-06)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.19.0...2.20.0)
+
+**Fixed**
+- Fixed POST/PATCH connection endpoints [\#710](https://github.com/auth0/auth0-java/pull/710) ([tanya732](https://github.com/tanya732))
+- Fix log event [\#711](https://github.com/auth0/auth0-java/pull/711) ([tanya732](https://github.com/tanya732))
+
 ## [2.19.0](https://github.com/auth0/auth0-java/tree/2.19.0) (2025-03-28)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.18.0...2.19.0)
 

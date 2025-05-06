@@ -3,6 +3,8 @@ package com.auth0.json.mgmt.logevents;
 import com.auth0.json.JsonTest;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -34,7 +36,8 @@ public class LogEventTest extends JsonTest<LogEvent> {
         "  \"tenant_name\": \"paid-testing\",\n" +
         "  \"audience\": \"audience\",\n" +
         "  \"isMobile\": \"false\",\n" +
-        "  \"user_agent\": \"okhttp 4.11.0 / Other 0.0.0\"\n" +
+        "  \"user_agent\": \"okhttp 4.11.0 / Other 0.0.0\",\n" +
+    "      \"scope\": [\"read:client_grants\", \"create:client_grants\"]\n" +
         "}";
 
     @Test
@@ -64,5 +67,6 @@ public class LogEventTest extends JsonTest<LogEvent> {
         assertThat(logEvent.getOrganizationName(), is("org2"));
         assertThat(logEvent.getTenantName(), is("paid-testing"));
         assertThat(logEvent.getEventSchema(), is(notNullValue()));
+        assertThat(logEvent.getScope(), is(Arrays.asList("read:client_grants", "create:client_grants")));
     }
 }
