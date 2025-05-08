@@ -265,4 +265,32 @@ public class ClientsEntity extends BaseManagementEntity {
             .toString();
         return new VoidRequest(client, tokenProvider,  url, HttpMethod.DELETE);
     }
+
+    /**
+     * Update an existing client credential. A token with scope update:clients is needed. If you also need to update the client_secret and encryption_key attributes the token must have update:client_keys scope.
+     * See https://auth0.com/docs/api/management/v2/clients/patch-credentials-by-credential-id
+     *
+     * @param clientId the application's client id.
+     * @param credentialId the ID of the credential.
+     * @param credential the credential to update.
+     * @return a Request to execute.
+     */
+    public Request<Credential> updateCredential(String clientId, String credentialId, Credential credential) {
+        Asserts.assertNotNull(clientId, "client id");
+        Asserts.assertNotNull(credentialId, "credential id");
+        Asserts.assertNotNull(credential, "credential");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/clients")
+            .addPathSegment(clientId)
+            .addPathSegment("credentials")
+            .addPathSegment(credentialId)
+            .build()
+            .toString();
+        BaseRequest<Credential> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<Credential>() {
+        });
+        request.setBody(credential);
+        return request;
+    }
 }
