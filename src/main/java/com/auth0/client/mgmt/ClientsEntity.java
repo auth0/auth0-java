@@ -267,7 +267,7 @@ public class ClientsEntity extends BaseManagementEntity {
     }
 
     /**
-     * Update an existing client credential. A token with scope update:clients is needed. If you also need to update the client_secret and encryption_key attributes the token must have update:client_keys scope.
+     * Update an existing client credential. A token with scope update:client_credentials is needed.
      * See https://auth0.com/docs/api/management/v2/clients/patch-credentials-by-credential-id
      *
      * @param clientId the application's client id.
