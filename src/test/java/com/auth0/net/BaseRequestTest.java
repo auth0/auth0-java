@@ -197,6 +197,8 @@ public class BaseRequestTest {
         request.addParameter("non_empty", "body");
         request.addHeader("Extra-Info", "this is a test");
         request.addHeader("Authorization", "Bearer my_access_token");
+        request.addHeader("X-Client-Quota", getTokenQuotaString());
+        request.addHeader("X-Organization-Quota", getTokenQuotaString());
 
         server.jsonResponse(AUTH_TOKENS, 200);
         request.execute().getBody();
@@ -426,6 +428,33 @@ public class BaseRequestTest {
     }
 
     @Test
+    public void shouldParseRateLimitExceptionWithZeroRemaining() throws Exception {
+        BaseRequest<List> request = new BaseRequest<>(client, tokenProvider, server.getBaseUrl(),  HttpMethod.GET, listType);
+        server.rateLimitReachedResponse(100, 0, 5, RATE_LIMIT_ERROR, getTokenQuotaString(), getTokenQuotaString(), 1000);
+        Exception exception = null;
+        try {
+            request.execute().getBody();
+            server.takeRequest();
+        } catch (Exception e) {
+            exception = e;
+        }
+        assertThat(exception, Matchers.is(notNullValue()));
+        assertThat(exception, Matchers.is(Matchers.instanceOf(RateLimitException.class)));
+        assertThat(exception.getCause(), Matchers.is(nullValue()));
+        assertThat(exception.getMessage(), Matchers.is("Request failed with status code 429: Global limit has been reached"));
+        RateLimitException rateLimitException = (RateLimitException) exception;
+        assertThat(rateLimitException.getDescription(), Matchers.is("Global limit has been reached"));
+        assertThat(rateLimitException.getError(), Matchers.is("too_many_requests"));
+        assertThat(rateLimitException.getValue("non_existing_key"), Matchers.is(nullValue()));
+        assertThat(rateLimitException.getStatusCode(), Matchers.is(429));
+        assertThat(rateLimitException.getLimit(), Matchers.is(100L));
+        assertThat(rateLimitException.getRemaining(), Matchers.is(0L));
+        assertThat(rateLimitException.getReset(), Matchers.is(5L));
+        assertThat(rateLimitException.getClientQuotaLimit().getPerDay().getQuota(), Matchers.is(getTokenQuota().getPerDay().getQuota()));
+        assertThat(rateLimitException.getOrganizationQuotaLimit().getPerDay().getQuota(), Matchers.is(getTokenQuota().getPerDay().getQuota()));
+    }
+
+    @Test
     public void shouldDefaultRateLimitsHeadersWhenMissing() throws Exception {
         BaseRequest<List> request = new BaseRequest<>(client, tokenProvider, server.getBaseUrl(),  HttpMethod.GET, listType);
         server.rateLimitReachedResponse(-1, -1, -1);
@@ -448,5 +477,31 @@ public class BaseRequestTest {
         assertThat(rateLimitException.getLimit(), Matchers.is(-1L));
         assertThat(rateLimitException.getRemaining(), Matchers.is(-1L));
         assertThat(rateLimitException.getReset(), Matchers.is(-1L));
+        assertThat(rateLimitException.getClientQuotaLimit(), Matchers.is(nullValue()));
+        assertThat(rateLimitException.getOrganizationQuotaLimit(), Matchers.is(nullValue()));
+    }
+
+    private TokenQuotaBucket getTokenQuota() {
+        TokenQuotaLimit perHourLimit = new TokenQuotaLimit(100, 80, 3600);
+        TokenQuotaLimit perDayLimit = new TokenQuotaLimit(100, 90, 86400);
+        return new TokenQuotaBucket(perHourLimit, perDayLimit);
+    }
+
+    public String getTokenQuotaString() {
+        TokenQuotaLimit perHourLimit = new TokenQuotaLimit(100, 80, 3600);
+        TokenQuotaLimit perDayLimit = new TokenQuotaLimit(100, 90, 86400);
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(String.format("b=per_hour;q=%d;r=%d;t=%d",
+            perHourLimit.getQuota(), perHourLimit.getRemaining(), perHourLimit.getResetAfter()));
+
+        if (builder.length() > 0) {
+            builder.append(",");
+        }
+        builder.append(String.format("b=per_day;q=%d;r=%d;t=%d",
+            perDayLimit.getQuota(), perDayLimit.getRemaining(), perDayLimit.getResetAfter()));
+
+        return builder.toString();
     }
 }

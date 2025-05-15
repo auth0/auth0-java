@@ -58,6 +58,11 @@ public class Tenant {
     @JsonProperty("mtls")
     private Mtls mtls;
 
+    @JsonProperty("authorization_response_iss_parameter_supported")
+    private boolean authorizationResponseIssParameterSupported;
+
+    @JsonProperty("default_token_quota")
+    private DefaultTokenQuota defaultTokenQuota;
 
     /**
      * Getter for the change password page customization.
@@ -396,5 +401,37 @@ public class Tenant {
      */
     public void setMtls(Mtls mtls) {
         this.mtls = mtls;
+    }
+
+    /**
+     * @return the value of the {@code authorization_response_iss_parameter_supported} field
+     */
+    public boolean isAuthorizationResponseIssParameterSupported() {
+        return authorizationResponseIssParameterSupported;
+    }
+
+    /**
+     * Sets the value of the {@code authorization_response_iss_parameter_supported} field
+     *
+     * @param authorizationResponseIssParameterSupported the value of the {@code authorization_response_iss_parameter_supported} field
+     */
+    public void setAuthorizationResponseIssParameterSupported(boolean authorizationResponseIssParameterSupported) {
+        this.authorizationResponseIssParameterSupported = authorizationResponseIssParameterSupported;
+    }
+
+    /**
+     * @return the value of the {@code default_token_quota} field
+     */
+    public DefaultTokenQuota getDefaultTokenQuota() {
+        return defaultTokenQuota;
+    }
+
+    /**
+     * Sets the value of the {@code default_token_quota} field
+     *
+     * @param defaultTokenQuota the value of the {@code default_token_quota} field
+     */
+    public void setDefaultTokenQuota(DefaultTokenQuota defaultTokenQuota) {
+        this.defaultTokenQuota = defaultTokenQuota;
     }
 }
