@@ -391,19 +391,19 @@ public class MultipartRequestTest {
         assertThat(rateLimitException.getClientQuotaLimit().getPerDay(), is(notNullValue()));
         assertThat(rateLimitException.getClientQuotaLimit().getPerHour().getQuota(), is(100));
         assertThat(rateLimitException.getClientQuotaLimit().getPerHour().getRemaining(), is(80));
-        assertThat(rateLimitException.getClientQuotaLimit().getPerHour().getTime(), is(3600));
+        assertThat(rateLimitException.getClientQuotaLimit().getPerHour().getResetAfter(), is(3600));
         assertThat(rateLimitException.getClientQuotaLimit().getPerDay().getQuota(), is(100));
         assertThat(rateLimitException.getClientQuotaLimit().getPerDay().getRemaining(), is(90));
-        assertThat(rateLimitException.getClientQuotaLimit().getPerDay().getTime(), is(86400));
+        assertThat(rateLimitException.getClientQuotaLimit().getPerDay().getResetAfter(), is(86400));
         assertThat(rateLimitException.getOrganizationQuotaLimit(), is(notNullValue()));
         assertThat(rateLimitException.getOrganizationQuotaLimit().getPerHour(), is(notNullValue()));
         assertThat(rateLimitException.getOrganizationQuotaLimit().getPerDay(), is(notNullValue()));
         assertThat(rateLimitException.getOrganizationQuotaLimit().getPerHour().getQuota(), is(100));
         assertThat(rateLimitException.getOrganizationQuotaLimit().getPerHour().getRemaining(), is(80));
-        assertThat(rateLimitException.getOrganizationQuotaLimit().getPerHour().getTime(), is(3600));
+        assertThat(rateLimitException.getOrganizationQuotaLimit().getPerHour().getResetAfter(), is(3600));
         assertThat(rateLimitException.getOrganizationQuotaLimit().getPerDay().getQuota(), is(100));
         assertThat(rateLimitException.getOrganizationQuotaLimit().getPerDay().getRemaining(), is(90));
-        assertThat(rateLimitException.getOrganizationQuotaLimit().getPerDay().getTime(), is(86400));
+        assertThat(rateLimitException.getOrganizationQuotaLimit().getPerDay().getResetAfter(), is(86400));
     }
 
     @Test
@@ -442,7 +442,7 @@ public class MultipartRequestTest {
 
         if (perHourLimit != null) {
             builder.append(String.format("b=per_hour;q=%d;r=%d;t=%d",
-                perHourLimit.getQuota(), perHourLimit.getRemaining(), perHourLimit.getTime()));
+                perHourLimit.getQuota(), perHourLimit.getRemaining(), perHourLimit.getResetAfter()));
         }
 
         if (perDayLimit != null) {
@@ -450,7 +450,7 @@ public class MultipartRequestTest {
                 builder.append(",");
             }
             builder.append(String.format("b=per_day;q=%d;r=%d;t=%d",
-                perDayLimit.getQuota(), perDayLimit.getRemaining(), perDayLimit.getTime()));
+                perDayLimit.getQuota(), perDayLimit.getRemaining(), perDayLimit.getResetAfter()));
         }
 
         return builder.toString();

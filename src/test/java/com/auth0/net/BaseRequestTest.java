@@ -494,13 +494,13 @@ public class BaseRequestTest {
         StringBuilder builder = new StringBuilder();
 
         builder.append(String.format("b=per_hour;q=%d;r=%d;t=%d",
-            perHourLimit.getQuota(), perHourLimit.getRemaining(), perHourLimit.getTime()));
+            perHourLimit.getQuota(), perHourLimit.getRemaining(), perHourLimit.getResetAfter()));
 
         if (builder.length() > 0) {
             builder.append(",");
         }
         builder.append(String.format("b=per_day;q=%d;r=%d;t=%d",
-            perDayLimit.getQuota(), perDayLimit.getRemaining(), perDayLimit.getTime()));
+            perDayLimit.getQuota(), perDayLimit.getRemaining(), perDayLimit.getResetAfter()));
 
         return builder.toString();
     }

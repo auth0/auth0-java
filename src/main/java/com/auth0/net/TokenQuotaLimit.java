@@ -8,12 +8,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class TokenQuotaLimit {
     private int quota;
     private int remaining;
-    private int time;
+    private int resetAfter;
 
-    public TokenQuotaLimit(int quota, int remaining, int time) {
+    public TokenQuotaLimit(int quota, int remaining, int resetAfter) {
         this.quota = quota;
         this.remaining = remaining;
-        this.time = time;
+        this.resetAfter = resetAfter;
     }
 
     public int getQuota() {
@@ -24,7 +24,7 @@ public class TokenQuotaLimit {
         return remaining;
     }
 
-    public int getTime() {
-        return time;
+    public int getResetAfter() {
+        return resetAfter;
     }
 }
