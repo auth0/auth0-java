@@ -101,6 +101,7 @@ public class EnabledConnection {
     /**
      * @return whether signup is enabled for this connection.
      */
+    @JsonProperty("is_signup_enabled")
     public Boolean getSignupEnabled() {
         return isSignupEnabled;
     }
@@ -109,6 +110,7 @@ public class EnabledConnection {
      * Sets whether signup is enabled for this connection.
      * @param signupEnabled {@code true} to enable signup, {@code false} to disable it.
      */
+    @JsonProperty("is_signup_enabled")
     public void setSignupEnabled(Boolean signupEnabled) {
         isSignupEnabled = signupEnabled;
     }
