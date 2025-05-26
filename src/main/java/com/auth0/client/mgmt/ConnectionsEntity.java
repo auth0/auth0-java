@@ -4,7 +4,6 @@ import com.auth0.client.mgmt.filter.ConnectionFilter;
 import com.auth0.client.mgmt.filter.EnabledClientsFilter;
 import com.auth0.json.mgmt.connections.*;
 import com.auth0.net.BaseRequest;
-import com.auth0.net.EmptyBodyVoidRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.net.client.Auth0HttpClient;
