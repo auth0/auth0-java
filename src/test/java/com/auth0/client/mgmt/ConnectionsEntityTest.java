@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.ConnectionFilter;
+import com.auth0.client.mgmt.filter.EnabledClientsFilter;
 import com.auth0.json.mgmt.connections.*;
 import com.auth0.net.Request;
 import com.auth0.net.client.HttpMethod;
@@ -544,6 +545,108 @@ public class ConnectionsEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
     }
+
+    @Test
+    public void shouldThrowOnGetEnabledClientsWithNullId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().getEnabledClients(null, new EnabledClientsFilter()),
+            "'connection id' cannot be null!");
+    }
+
+    @Test
+    public void shouldGetEnabledClientsWithoutFilter() throws Exception {
+        Request<EnabledClientResponse> request = api.connections().getEnabledClients("1", null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_ENABLED_CLIENTS_FOR_CONNECTION, 200);
+        EnabledClientResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/connections/1/clients"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getClients(), hasSize(2));
+    }
+
+    @Test
+    public void shouldGetEnabledClientsWithFromFilter() throws Exception {
+        EnabledClientsFilter filter = new EnabledClientsFilter().withFrom("1");
+        Request<EnabledClientResponse> request = api.connections().getEnabledClients("1", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_ENABLED_CLIENTS_FOR_CONNECTION, 200);
+        EnabledClientResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/connections/1/clients"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("from", "1"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getClients(), hasSize(2));
+    }
+
+    @Test
+    public void shouldGetEnabledClientsWithTakeFilter() throws Exception {
+        EnabledClientsFilter filter = new EnabledClientsFilter().withTake(2);
+        Request<EnabledClientResponse> request = api.connections().getEnabledClients("1", filter);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_ENABLED_CLIENTS_FOR_CONNECTION, 200);
+        EnabledClientResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/connections/1/clients"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+        assertThat(recordedRequest, hasQueryParameter("take", "2"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getClients(), hasSize(2));
+    }
+
+    @Test
+    public void shouldThrowOnUpdateEnabledClientsWithNullId() {
+        EnabledClientRequest clientRequest = new EnabledClientRequest("clientId", true);
+        List<EnabledClientRequest> enabledClientRequests = new ArrayList<>();
+        enabledClientRequests.add(clientRequest);
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.connections().updateEnabledClients(null, enabledClientRequests),
+            "'connection id' cannot be null!");
+    }
+
+//    @Test
+//    public void shouldThrowOnUpdateEnabledClientsWithNullRequest() {
+//;        verifyThrows(IllegalArgumentException.class,
+//            () -> api.connections().updateEnabledClients("1", null),
+//            "'client id' cannot be null!");
+//    }
+
+
+//    @Test
+//    public void shouldUpdateEnabledClients() throws Exception {
+//        EnabledClientRequest clientRequest = new EnabledClientRequest("clientId", true);
+//        List<EnabledClientRequest> enabledClientRequests = new ArrayList<>();
+//        enabledClientRequests.add(clientRequest);
+//        Request<Void> request = api.connections().updateEnabledClients("1", enabledClientRequests);
+//        assertThat(request, is(notNullValue()));
+//
+//        server.jsonResponse(MGMT_ENABLED_CLIENTS_FOR_CONNECTION, 200);
+//        request.execute().getBody();
+//        RecordedRequest recordedRequest = server.takeRequest();
+//
+//        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PATCH, "/api/v2/connections/1/clients"));
+//        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+//        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+//
+//        Map<String, Object> body = bodyFromRequest(recordedRequest);
+//        assertThat(body.size(), is(2));
+//        assertThat(body, hasEntry("client_id", "clientId"));
+//        assertThat(body, hasEntry("status", true));
+//    }
 
     private ScimTokenRequest getScimToken() {
         ScimTokenRequest request = new ScimTokenRequest();

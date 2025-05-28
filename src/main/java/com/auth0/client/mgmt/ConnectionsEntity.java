@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.filter.ConnectionFilter;
+import com.auth0.client.mgmt.filter.EnabledClientsFilter;
 import com.auth0.json.mgmt.connections.*;
 import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
@@ -370,4 +371,57 @@ public class ConnectionsEntity extends BaseManagementEntity {
 
         return new VoidRequest(client, tokenProvider, url, HttpMethod.GET);
     }
+
+    /**
+     * Get the enabled clients for a connection.
+     * A token with scope read:connections is needed.
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/connections/get-connection-clients">https://auth0.com/docs/api/management/v2#!/connections/get-connection-clients</a>
+     * @param filter the filter to use. Can be null.
+     * @return a Request to execute.
+     */
+    public Request<EnabledClientResponse> getEnabledClients(String connectionId, EnabledClientsFilter filter) {
+        Asserts.assertNotNull(connectionId, "connection id");
+
+        HttpUrl.Builder builder = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/connections")
+            .addPathSegment(connectionId)
+            .addPathSegment("clients");
+
+        if (filter != null) {
+            for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
+                builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+        String url = builder.build().toString();
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<EnabledClientResponse>() {
+        });
+    }
+
+    /**
+     * Update the enabled clients for a connection.
+     * A token with scope update:connections is needed.
+     * @see <a href="https://auth0.com/docs/api/management/v2#!/connections/patch-clients">https://auth0.com/docs/api/management/v2#!/connections/patch-clients</a>
+     *
+     * @param connectionId the connection id.
+     * @param enabledClientRequests      the enabled client request to set.
+     * @return a Request to execute.
+     */
+    public Request<Void> updateEnabledClients(String connectionId, List<EnabledClientRequest> enabledClientRequests){
+        Asserts.assertNotNull(connectionId, "connection id");
+        Asserts.assertNotEmpty(enabledClientRequests, "enabled client Request");
+
+        String url = baseUrl
+                .newBuilder()
+                .addPathSegments("api/v2/connections")
+                .addPathSegment(connectionId)
+                .addPathSegments("clients")
+                .build()
+                .toString();
+
+        VoidRequest request = new VoidRequest(client, tokenProvider, url, HttpMethod.PATCH);
+        request.setBody(enabledClientRequests);
+        return request;
+    }
+
 }

@@ -28,6 +28,9 @@ public class EmailTemplatesEntity extends BaseManagementEntity {
     public static final String TEMPLATE_CHANGE_PASSWORD = "change_password";
     public static final String TEMPLATE_PASSWORD_RESET = "password_reset";
     public static final String TEMPLATE_MFA_OOB_CODE = "mfa_oob_code";
+    public static final String TEMPLATE_VERIFY_EMAIL_BY_CODE = "verify_email_by_code";
+    public static final String TEMPLATE_RESET_EMAIL_BY_CODE = "reset_email_by_code";
+    public static final String TEMPLATE_USER_INVITATION = "user_invitation";
 
     EmailTemplatesEntity(Auth0HttpClient client, HttpUrl baseUrl, TokenProvider tokenProvider) {
         super(client, baseUrl, tokenProvider);
