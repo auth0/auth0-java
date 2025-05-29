@@ -17,5 +17,12 @@
       "connection_id": "con-1",
       "assign_membership_on_login": false
     }
-  ]
+  ],
+  "token_quota": {
+    "client_credentials": {
+      "per_day": 100,
+      "per_hour": 20,
+      "enforce": true
+    }
+  }
 }

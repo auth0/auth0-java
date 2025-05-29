@@ -1,6 +1,7 @@
 package com.auth0.json.mgmt.organizations;
 
 import com.auth0.client.mgmt.filter.PageFilter;
+import com.auth0.json.mgmt.tokenquota.TokenQuota;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -29,6 +30,8 @@ public class Organization {
     private Branding branding;
     @JsonProperty("enabled_connections")
     private List<EnabledConnection> enabledConnections;
+    @JsonProperty("token_quota")
+    private TokenQuota tokenQuota;
 
     public Organization() {}
 
@@ -131,5 +134,21 @@ public class Organization {
      */
     public void setEnabledConnections(List<EnabledConnection> enabledConnections) {
         this.enabledConnections = enabledConnections;
+    }
+
+    /**
+     * @return the token quota of this Organization.
+     */
+    public TokenQuota getTokenQuota() {
+        return tokenQuota;
+    }
+
+    /**
+     * Sets the token quota of this Organization.
+     *
+     * @param tokenQuota the token quota of this Organization.
+     */
+    public void setTokenQuota(TokenQuota tokenQuota) {
+        this.tokenQuota = tokenQuota;
     }
 }

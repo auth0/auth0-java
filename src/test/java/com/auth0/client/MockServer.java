@@ -1,5 +1,6 @@
 package com.auth0.client;
 
+import com.auth0.net.TokenQuotaBucket;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapType;
@@ -227,6 +228,39 @@ public class MockServer {
                 response
                     .addHeader("Content-Type", "application/json")
                     .setBody(readTextFile(path));
+        }
+        server.enqueue(response);
+    }
+
+    public void rateLimitReachedResponse(long limit, long remaining, long reset,
+                                         String clientQuotaLimit, String organizationQuotaLimit, long retryAfter) throws IOException {
+        rateLimitReachedResponse(limit, remaining, reset, null, clientQuotaLimit, organizationQuotaLimit, retryAfter);
+    }
+
+    public void rateLimitReachedResponse(long limit, long remaining, long reset, String path, String clientQuotaLimit, String organizationQuotaLimit, long retryAfter) throws IOException {
+        MockResponse response = new MockResponse().setResponseCode(429);
+        if (limit != -1) {
+            response.addHeader("x-ratelimit-limit", String.valueOf(limit));
+        }
+        if (remaining != -1) {
+            response.addHeader("x-ratelimit-remaining", String.valueOf(remaining));
+        }
+        if (reset != -1) {
+            response.addHeader("x-ratelimit-reset", String.valueOf(reset));
+        }
+        if (clientQuotaLimit != null) {
+            response.addHeader("auth0-client-quota-limit", clientQuotaLimit);
+        }
+        if (organizationQuotaLimit != null) {
+            response.addHeader("auth0-organization-quota-limit", organizationQuotaLimit);
+        }
+        if(retryAfter != -1) {
+            response.addHeader("retry-after", String.valueOf(retryAfter));
+        }
+        if (path != null) {
+            response
+                .addHeader("Content-Type", "application/json")
+                .setBody(readTextFile(path));
         }
         server.enqueue(response);
     }
