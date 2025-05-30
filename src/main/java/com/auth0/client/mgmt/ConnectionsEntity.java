@@ -424,4 +424,21 @@ public class ConnectionsEntity extends BaseManagementEntity {
         return request;
     }
 
+    /**
+     *
+     */
+    public Request<ConnectionKeys> getKeys(String connectionId) {
+        Asserts.assertNotNull(connectionId, "connection id");
+
+        String url = baseUrl
+                .newBuilder()
+                .addPathSegments("api/v2/connections")
+                .addPathSegment(connectionId)
+                .addPathSegment("keys")
+                .build()
+                .toString();
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<ConnectionKeys>() {
+        });
+    }
+
 }
