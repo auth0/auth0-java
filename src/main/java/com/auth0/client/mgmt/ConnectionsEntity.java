@@ -4,6 +4,7 @@ import com.auth0.client.mgmt.filter.ConnectionFilter;
 import com.auth0.client.mgmt.filter.EnabledClientsFilter;
 import com.auth0.json.mgmt.connections.*;
 import com.auth0.net.BaseRequest;
+import com.auth0.net.EmptyBodyRequest;
 import com.auth0.net.Request;
 import com.auth0.net.VoidRequest;
 import com.auth0.net.client.Auth0HttpClient;
@@ -425,9 +426,12 @@ public class ConnectionsEntity extends BaseManagementEntity {
     }
 
     /**
-     *
+     * Get the Connection Keys.
+     * A token with scope read:connections_keys is needed.
+     * @param connectionId the connection id.
+     * @return a Request to execute.
      */
-    public Request<ConnectionKeys> getKeys(String connectionId) {
+    public Request<List<ConnectionKeys>> getKeys(String connectionId) {
         Asserts.assertNotNull(connectionId, "connection id");
 
         String url = baseUrl
@@ -437,8 +441,26 @@ public class ConnectionsEntity extends BaseManagementEntity {
                 .addPathSegment("keys")
                 .build()
                 .toString();
-        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<ConnectionKeys>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<List<ConnectionKeys>>() {
         });
     }
 
+    /** * Rotate the Connection Keys.
+     * A token with scope create:connections_keys and update:connections_keys is needed.
+     * @param connectionId the connection id.
+     * @return a Request to execute.
+     */
+    public Request<RotateKey> rotateKey(String connectionId) {
+        Asserts.assertNotNull(connectionId, "connection id");
+
+        String url = baseUrl
+                .newBuilder()
+                .addPathSegments("api/v2/connections")
+                .addPathSegment(connectionId)
+                .addPathSegments("keys/rotate")
+                .build()
+                .toString();
+
+        return new EmptyBodyRequest<>(client, tokenProvider, url, HttpMethod.POST, new TypeReference<RotateKey>() {});
+    }
 }
