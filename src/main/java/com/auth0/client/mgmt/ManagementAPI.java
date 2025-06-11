@@ -397,6 +397,14 @@ public class ManagementAPI {
     }
 
     /**
+     * Getter for the Network Acls Entity
+     * @return the Network Acls Entity
+     */
+    public NetworkAclsEntity networkAcls() {
+        return new NetworkAclsEntity(client, baseUrl, tokenProvider);
+    }
+
+    /**
      * Builder for {@link ManagementAPI} API client instances.
      */
     public static class Builder {
