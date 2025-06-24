@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.22.0](https://github.com/auth0/auth0-java/tree/2.22.0) (2025-06-20)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.21.0...2.22.0)
+
+**Added**
+- Added support for connectionKeys Endpoint [\#721](https://github.com/auth0/auth0-java/pull/721) ([tanya732](https://github.com/tanya732))
+
 ## [2.21.0](https://github.com/auth0/auth0-java/tree/2.21.0) (2025-05-30)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.20.0...2.21.0)
 
