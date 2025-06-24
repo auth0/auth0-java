@@ -135,7 +135,7 @@ public class NetworkAclsEntity extends BaseManagementEntity {
      * @param networkAcls the Network ACL to update.
      * @return a Request that can be executed to partially update the Network ACL.
      */
-    Request<NetworkAcls> patch(String id, NetworkAcls networkAcls) {
+    public Request<NetworkAcls> patch(String id, NetworkAcls networkAcls) {
         Asserts.assertNotNull(id, "id");
 
         String url = baseUrl.newBuilder()

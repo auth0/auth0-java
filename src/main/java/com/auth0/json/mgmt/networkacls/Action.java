@@ -8,22 +8,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Action {
     @JsonProperty("block")
-    private boolean block;
+    private Boolean block;
     @JsonProperty("allow")
-    private boolean allow;
+    private Boolean allow;
     @JsonProperty("log")
-    private boolean log;
+    private Boolean log;
     @JsonProperty("redirect")
-    private boolean redirect;
+    private Boolean redirect;
     @JsonProperty("redirect_uri")
-    private String redrectUri;
+    private String redirectUri;
 
     /**
      * Getter for the block action.
      * @return true if the action is to block.
      */
     @JsonProperty("block")
-    public boolean isBlock() {
+    public Boolean isBlock() {
         return block;
     }
 
@@ -32,7 +32,7 @@ public class Action {
      * @param block true to set the action as block, false otherwise.
      */
     @JsonProperty("block")
-    public void setBlock(boolean block) {
+    public void setBlock(Boolean block) {
         this.block = block;
     }
 
@@ -41,7 +41,7 @@ public class Action {
      * @return true if the action is to allow.
      */
     @JsonProperty("allow")
-    public boolean isAllow() {
+    public Boolean isAllow() {
         return allow;
     }
 
@@ -50,7 +50,7 @@ public class Action {
      * @param allow true to set the action as allow, false otherwise.
      */
     @JsonProperty("allow")
-    public void setAllow(boolean allow) {
+    public void setAllow(Boolean allow) {
         this.allow = allow;
     }
 
@@ -59,7 +59,7 @@ public class Action {
      * @return true if the action is to log.
      */
     @JsonProperty("log")
-    public boolean isLog() {
+    public Boolean isLog() {
         return log;
     }
 
@@ -68,7 +68,7 @@ public class Action {
      * @param log true to set the action as log, false otherwise.
      */
     @JsonProperty("log")
-    public void setLog(boolean log) {
+    public void setLog(Boolean log) {
         this.log = log;
     }
 
@@ -77,7 +77,7 @@ public class Action {
      * @return true if the action is to redirect.
      */
     @JsonProperty("redirect")
-    public boolean isRedirect() {
+    public Boolean isRedirect() {
         return redirect;
     }
 
@@ -86,7 +86,7 @@ public class Action {
      * @param redirect true to set the action as redirect, false otherwise.
      */
     @JsonProperty("redirect")
-    public void setRedirect(boolean redirect) {
+    public void setRedirect(Boolean redirect) {
         this.redirect = redirect;
     }
 
@@ -95,7 +95,7 @@ public class Action {
      * @return the redirect URI if set, null otherwise.
      */
     public String getRedrectUri() {
-        return redrectUri;
+        return redirectUri;
     }
 
     /**
@@ -103,6 +103,6 @@ public class Action {
      * @param redrectUri the URI to set for redirection.
      */
     public void setRedrectUri(String redrectUri) {
-        this.redrectUri = redrectUri;
+        this.redirectUri = redrectUri;
     }
 }
