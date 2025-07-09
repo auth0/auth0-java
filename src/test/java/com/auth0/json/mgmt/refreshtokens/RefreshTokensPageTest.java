@@ -30,10 +30,7 @@ public class RefreshTokensPageTest extends JsonTest<RefreshTokensPage> {
         "      \"resource_servers\": [\n" +
         "        {\n" +
         "          \"audience\": \"https://api.example.com\",\n" +
-        "          \"scopes\": [\n" +
-        "            \"read:examples\",\n" +
-        "            \"write:examples\"\n" +
-        "          ]\n" +
+        "          \"scopes\": \"offline_access\"\n" +
         "        }\n" +
         "      ],\n" +
         "      \"last_exchanged_at\": \"2024-07-03T09:10:26.643Z\"\n" +
@@ -58,10 +55,7 @@ public class RefreshTokensPageTest extends JsonTest<RefreshTokensPage> {
         "      \"resource_servers\": [\n" +
         "        {\n" +
         "          \"audience\": \"https://api.example.com\",\n" +
-        "          \"scopes\": [\n" +
-        "            \"read:examples\",\n" +
-        "            \"write:examples\"\n" +
-        "          ]\n" +
+        "          \"scopes\": \"offline_access\"\n" +
         "        }\n" +
         "      ],\n" +
         "      \"last_exchanged_at\": \"2024-07-03T09:10:26.643Z\"\n" +
@@ -92,10 +86,7 @@ public class RefreshTokensPageTest extends JsonTest<RefreshTokensPage> {
         "      \"resource_servers\": [\n" +
         "        {\n" +
         "          \"audience\": \"https://api.example.com\",\n" +
-        "          \"scopes\": [\n" +
-        "            \"read:examples\",\n" +
-        "            \"write:examples\"\n" +
-        "          ]\n" +
+        "          \"scopes\": \"offline_access\"\n" +
         "        }\n" +
         "      ],\n" +
         "      \"last_exchanged_at\": \"2024-07-03T09:10:26.643Z\"\n" +
@@ -120,10 +111,7 @@ public class RefreshTokensPageTest extends JsonTest<RefreshTokensPage> {
         "      \"resource_servers\": [\n" +
         "        {\n" +
         "          \"audience\": \"https://api.example.com\",\n" +
-        "          \"scopes\": [\n" +
-        "            \"read:examples\",\n" +
-        "            \"write:examples\"\n" +
-        "          ]\n" +
+        "          \"scopes\": \"offline_access\"\n" +
         "        }\n" +
         "      ],\n" +
         "      \"last_exchanged_at\": \"2024-07-03T09:10:26.643Z\"\n" +
@@ -159,9 +147,7 @@ public class RefreshTokensPageTest extends JsonTest<RefreshTokensPage> {
 
         assertThat(page.getTokens().get(0).getResourceServers().size(), is(1));
         assertThat(page.getTokens().get(0).getResourceServers().get(0).getAudience(), is("https://api.example.com"));
-        assertThat(page.getTokens().get(0).getResourceServers().get(0).getScopes().size(), is(2));
-        assertThat(page.getTokens().get(0).getResourceServers().get(0).getScopes().get(0), is("read:examples"));
-        assertThat(page.getTokens().get(0).getResourceServers().get(0).getScopes().get(1), is("write:examples"));
+        assertThat(page.getTokens().get(0).getResourceServers().get(0).getScopes(), is("offline_access"));
 
         assertThat(page.getTokens().get(0).getLastExchangedAt(), is(parseJSONDate("2024-07-03T09:10:26.643Z")));
     }
