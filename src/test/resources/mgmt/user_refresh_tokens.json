@@ -20,10 +20,7 @@
       "resource_servers": [
         {
           "audience": "https://api.example.com",
-          "scopes": [
-            "read:examples",
-            "write:examples"
-          ]
+          "scopes": "offline_access"
         }
       ],
       "last_exchanged_at": "2024-07-03T09:10:26.643Z"
@@ -49,10 +46,7 @@
       "resource_servers": [
         {
           "audience": "https://api.example.com",
-          "scopes": [
-            "read:examples",
-            "write:examples"
-          ]
+          "scopes": "offline_access"
         }
       ],
       "last_exchanged_at": "2024-07-03T09:10:26.643Z"
