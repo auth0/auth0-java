@@ -1,5 +1,6 @@
 package com.auth0.json.mgmt.client;
 
+import com.auth0.json.mgmt.tokenquota.TokenQuota;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -104,6 +105,8 @@ public class Client {
     private Boolean requireProofOfPossession;
     @JsonProperty("default_organization")
     private ClientDefaultOrganization defaultOrganization;
+    @JsonProperty("token_quota")
+    private TokenQuota tokenQuota;
 
     /**
      * Getter for the name of the tenant this client belongs to.
@@ -906,6 +909,22 @@ public class Client {
      */
     public void setDefaultOrganization(ClientDefaultOrganization defaultOrganization) {
         this.defaultOrganization = defaultOrganization;
+    }
+
+    /**
+     * Getter for the token quota configuration.
+     * @return the token quota configuration.
+     */
+    public TokenQuota getTokenQuota() {
+        return tokenQuota;
+    }
+
+    /**
+     * Setter for the token quota configuration.
+     * @param tokenQuota the token quota configuration to set.
+     */
+    public void setTokenQuota(TokenQuota tokenQuota) {
+        this.tokenQuota = tokenQuota;
     }
 }
 
