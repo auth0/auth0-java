@@ -28,10 +28,7 @@ public class RefreshTokenTest extends JsonTest<RefreshToken> {
         "  \"resource_servers\": [\n" +
         "    {\n" +
         "      \"audience\": \"https://api.example.com\",\n" +
-        "      \"scopes\": [\n" +
-        "        \"read:examples\",\n" +
-        "        \"write:examples\"\n" +
-        "      ]\n" +
+        "      \"scopes\": \"offline_access\"\n" +
         "    }\n" +
         "  ],\n" +
         "  \"last_exchanged_at\": \"2024-07-03T09:10:26.643Z\"\n" +
@@ -69,8 +66,7 @@ public class RefreshTokenTest extends JsonTest<RefreshToken> {
         assertThat(refreshToken.getResourceServers(), is(notNullValue()));
         assertThat(refreshToken.getResourceServers().get(0).getAudience(), is("https://api.example.com"));
         assertThat(refreshToken.getResourceServers().get(0).getScopes(), is(notNullValue()));
-        assertThat(refreshToken.getResourceServers().get(0).getScopes().get(0), is("read:examples"));
-        assertThat(refreshToken.getResourceServers().get(0).getScopes().get(1), is("write:examples"));
+        assertThat(refreshToken.getResourceServers().get(0).getScopes(), is("offline_access"));
 
         assertThat(refreshToken.getLastExchangedAt(), is(parseJSONDate("2024-07-03T09:10:26.643Z")));
     }

@@ -35,9 +35,9 @@ public class Connection {
     @JsonProperty("realms")
     private List<String> realms;
     @JsonProperty("show_as_button")
-    private boolean showAsButton;
+    private Boolean showAsButton;
     @JsonProperty("is_domain_connection")
-    private boolean isDomainConnection;
+    private Boolean isDomainConnection;
 
     public Connection() {
     }
@@ -120,6 +120,8 @@ public class Connection {
 
     /**
      * Getter for the list of applications this connection is enabled for.
+     * <p><b>Deprecated:</b> This field is deprecated and will be removed in future versions.
+     * Use `updateEnabledClients` and `getEnabledClients` methods instead for managing enabled clients
      *
      * @return the list of enabled applications.
      */
@@ -130,6 +132,8 @@ public class Connection {
 
     /**
      * Setter for the list of applications this connection is enabled for.
+     * <p><b>Deprecated:</b> This field is deprecated and will be removed in future versions.
+     * Use `updateEnabledClients` and `getEnabledClients` methods instead for managing enabled clients
      *
      * @param enabledClients the list of enabled applications to set.
      */
@@ -193,7 +197,8 @@ public class Connection {
      *
      * @return the show as button flag.
      */
-    public boolean isShowAsButton() {
+    @JsonProperty("show_as_button")
+    public Boolean isShowAsButton() {
         return showAsButton;
     }
 
@@ -202,7 +207,8 @@ public class Connection {
      *
      * @param showAsButton the show as button flag to set.
      */
-    public void setShowAsButton(boolean showAsButton) {
+    @JsonProperty("show_as_button")
+    public void setShowAsButton(Boolean showAsButton) {
         this.showAsButton = showAsButton;
     }
 
@@ -210,7 +216,8 @@ public class Connection {
      * Getter for the domain connection flag.
      * @return the domain connection flag.
      */
-    public boolean isDomainConnection() {
+    @JsonProperty("is_domain_connection")
+    public Boolean isDomainConnection() {
         return isDomainConnection;
     }
 
@@ -218,7 +225,8 @@ public class Connection {
      * Setter for the domain connection flag.
      * @param domainConnection the domain connection flag to set.
      */
-    public void setDomainConnection(boolean domainConnection) {
-        isDomainConnection = domainConnection;
+    @JsonProperty("is_domain_connection")
+    public void setDomainConnection(Boolean domainConnection) {
+        this.isDomainConnection = domainConnection;
     }
 }
