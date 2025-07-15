@@ -39,10 +39,11 @@ jobs:
           distribution: temurin
           java-version: ${{ inputs.java-version }}
 
-      - name: Build with Gradle
-        uses: gradle/gradle-build-action@4c39dd82cd5e1ec7c6fa0173bb41b4b6bb3b86ff
-        with:
-          arguments: assemble apiDiff check jacocoTestReport --continue --console=plain
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@06832c7b30a0129d7fb559bcc6e43d26f6374244 # v4.3.1
+
+      - name: Test and Assemble and ApiDiff with Gradle
+        run: ./gradlew assemble apiDiff check jacocoTestReport --continue --console=plain
 
       - id: get_version
         uses: ./.github/actions/get-version
