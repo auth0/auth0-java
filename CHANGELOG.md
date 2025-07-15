@@ -1,5 +1,36 @@
 # Change Log
 
+## [2.23.0](https://github.com/auth0/auth0-java/tree/2.23.0) (2025-07-14)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.22.0...2.23.0)
+
+**Added**
+- Added organization support for Change Password [\#726](https://github.com/auth0/auth0-java/pull/726) ([tanya732](https://github.com/tanya732))
+- Fix: Resource Server Scopes [\#725](https://github.com/auth0/auth0-java/pull/725) ([tanya732](https://github.com/tanya732))
+
+## [2.22.0](https://github.com/auth0/auth0-java/tree/2.22.0) (2025-06-20)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.21.0...2.22.0)
+
+**Added**
+- Added support for connectionKeys Endpoint [\#721](https://github.com/auth0/auth0-java/pull/721) ([tanya732](https://github.com/tanya732))
+
+## [2.21.0](https://github.com/auth0/auth0-java/tree/2.21.0) (2025-05-30)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.20.0...2.21.0)
+
+**Added**
+- SDK Limit M2M Java Support [\#708](https://github.com/auth0/auth0-java/pull/708) ([tanya732](https://github.com/tanya732))
+- Added support for GET/PATCH Connection Endpoints  [\#718](https://github.com/auth0/auth0-java/pull/718) ([tanya732](https://github.com/tanya732))
+- Added support for EmailTemplate [\#720](https://github.com/auth0/auth0-java/pull/720) ([tanya732](https://github.com/tanya732))
+
+**Fixed**
+- Updated EnabledConnection [\#719](https://github.com/auth0/auth0-java/pull/719) ([tanya732](https://github.com/tanya732))
+
+## [2.20.0](https://github.com/auth0/auth0-java/tree/2.20.0) (2025-05-06)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.19.0...2.20.0)
+
+**Fixed**
+- Fixed POST/PATCH connection endpoints [\#710](https://github.com/auth0/auth0-java/pull/710) ([tanya732](https://github.com/tanya732))
+- Fix log event [\#711](https://github.com/auth0/auth0-java/pull/711) ([tanya732](https://github.com/tanya732))
+
 ## [2.19.0](https://github.com/auth0/auth0-java/tree/2.19.0) (2025-03-28)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.18.0...2.19.0)
 
