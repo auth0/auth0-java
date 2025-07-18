@@ -25,10 +25,6 @@ artifacts {
   archives sourcesJar, javadocJar
 }
 
-
-final releaseRepositoryUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-final snapshotRepositoryUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
-
 publishing {
   publications {
     mavenJava(MavenPublication) {
@@ -68,28 +64,18 @@ publishing {
           connection = POM_SCM_CONNECTION
           developerConnection = POM_SCM_DEV_CONNECTION
         }
-
-        pom.withXml {
-          def dependenciesNode = asNode().appendNode('dependencies')
-
-          project.configurations.implementation.allDependencies.each {
-            def dependencyNode = dependenciesNode.appendNode('dependency')
-            dependencyNode.appendNode('groupId', it.group)
-            dependencyNode.appendNode('artifactId', it.name)
-            dependencyNode.appendNode('version', it.version)
-          }
-        }
       }
     }
   }
+}
+
+nexusPublishing {
   repositories {
-    maven {
-      name = "sonatype"
-      url = version.endsWith('SNAPSHOT') ? snapshotRepositoryUrl : releaseRepositoryUrl
-      credentials {
-        username = System.getenv("MAVEN_USERNAME")
-        password = System.getenv("MAVEN_PASSWORD")
-      }
+    sonatype {
+      nexusUrl.set(uri('https://ossrh-staging-api.central.sonatype.com/service/local/'))
+      snapshotRepositoryUrl.set(uri('https://central.sonatype.com/repository/maven-snapshots/'))
+      username.set(System.getenv("MAVEN_USERNAME"))
+      password.set(System.getenv("MAVEN_PASSWORD"))
     }
   }
 }
