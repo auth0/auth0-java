@@ -1,5 +1,14 @@
 # Change Log
 
+## [2.23.0](https://github.com/auth0/auth0-java/tree/2.23.0) (2025-07-21)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.22.0...2.23.0)
+
+**Added**
+- Added organization support for Change Password [\#726](https://github.com/auth0/auth0-java/pull/726) ([tanya732](https://github.com/tanya732))
+
+**Fixed**
+- Fix: Resource Server Scopes [\#725](https://github.com/auth0/auth0-java/pull/725) ([tanya732](https://github.com/tanya732))
+
 ## [2.22.0](https://github.com/auth0/auth0-java/tree/2.22.0) (2025-06-20)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.21.0...2.22.0)
 
