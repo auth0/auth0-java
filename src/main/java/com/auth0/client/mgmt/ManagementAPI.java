@@ -401,7 +401,7 @@ public class ManagementAPI {
      */
     public static class Builder {
         private final String domain;
-        private final String apiToken;
+        private TokenProvider tokenProvider
         private Auth0HttpClient httpClient = DefaultHttpClient.newBuilder().build();
 
         /**
@@ -411,7 +411,7 @@ public class ManagementAPI {
          */
         public Builder(String domain, String apiToken) {
             this.domain = domain;
-            this.apiToken = apiToken;
+            this.tokenProvider = SimpleTokenProvider.create(apiToken);
         }
 
         /**
@@ -426,11 +426,21 @@ public class ManagementAPI {
         }
 
         /**
+         * Configure the token provider with an {@link TokenProvider}.
+         * @param tokenProvider the API Token provider to use when making requests.
+         * @return the builder instance.
+         */
+        public Builder withTokenProvider(TokenProvider tokenProvider) {
+            this.tokenProvider = tokenProvider;
+            return this;
+        }
+
+        /**
          * Build a {@link ManagementAPI} instance using this builder's configuration.
          * @return the configured {@code ManagementAPI} instance.
          */
         public ManagementAPI build() {
-            return new ManagementAPI(domain, SimpleTokenProvider.create(apiToken), httpClient);
+            return new ManagementAPI(domain, tokenProvider, httpClient);
         }
     }
 }
