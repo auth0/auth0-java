@@ -1,0 +1,47 @@
+{
+  "total": 14,
+  "start": 0,
+  "length": 14,
+  "network_acls": [
+    {
+      "description": "Log America and Canada all the time.",
+      "active": true,
+      "priority": 1,
+      "rule": {
+        "match": {
+          "geo_country_codes": [
+            "US",
+            "CA"
+          ]
+        },
+        "scope": "authentication",
+        "action": {
+          "log": true
+        }
+      },
+      "created_at": "2025-03-17T12:31:57.782Z",
+      "updated_at": "2025-03-17T12:31:57.782Z",
+      "id": "acl_1"
+    },
+    {
+      "description": "Test Desc - 1",
+      "active": true,
+      "priority": 10,
+      "rule": {
+        "match": {
+          "ipv4_cidrs": [
+            "198.51.100.48",
+            "10.0.0.0/24"
+          ]
+        },
+        "scope": "management",
+        "action": {
+          "block": true
+        }
+      },
+      "created_at": "2025-06-10T06:18:10.277Z",
+      "updated_at": "2025-06-10T06:18:10.277Z",
+      "id": "acl_2"
+    }
+  ]
+}
