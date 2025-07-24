@@ -1542,22 +1542,22 @@ public class AuthAPITest {
     }
 
     @Test
-    public void addOobAuthenticatorThrowsWhenTokenNull() {
+    public void addPhoneOobAuthenticatorThrowsWhenTokenNull() {
         verifyThrows(IllegalArgumentException.class,
-            () -> api.addOobAuthenticator(null, Collections.singletonList("otp"), null),
+            () -> api.addPhoneOobAuthenticator(null, Collections.singletonList("otp"), null),
             "'mfa token' cannot be null!");
     }
 
     @Test
-    public void addOobAuthenticatorThrowsWhenChannelsNull() {
+    public void addPhoneOobAuthenticatorThrowsWhenChannelsNull() {
         verifyThrows(IllegalArgumentException.class,
-            () -> api.addOobAuthenticator("mfaToken", null, null),
+            () -> api.addPhoneOobAuthenticator("mfaToken", null, null),
             "'OOB channels' cannot be null!");
     }
 
     @Test
     public void addOobAuthenticatorRequest() throws Exception {
-        Request<CreatedOobResponse> request = api.addOobAuthenticator("mfaToken", Collections.singletonList("sms"), "phone-number");
+        Request<CreatedOobResponse> request = api.addPhoneOobAuthenticator("mfaToken", Collections.singletonList("sms"), "phone-number");
 
         server.jsonResponse(AUTH_OOB_AUTHENTICATOR_RESPONSE, 200);
         CreatedOobResponse response = request.execute().getBody();
@@ -1570,6 +1570,37 @@ public class AuthAPITest {
         assertThat(body, hasEntry("authenticator_types", Collections.singletonList("oob")));
         assertThat(body, hasEntry("oob_channels", Collections.singletonList("sms")));
         assertThat(body, hasEntry("phone_number", "phone-number"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAuthenticatorType(), not(emptyOrNullString()));
+        assertThat(response.getOobChannel(), not(emptyOrNullString()));
+        assertThat(response.getOobCode(), not(emptyOrNullString()));
+        assertThat(response.getBarcodeUri(), not(emptyOrNullString()));
+        assertThat(response.getRecoveryCodes(), notNullValue());
+    }
+
+    @Test
+    public void addEmailOobAuthenticatorThrowsWhenTokenNull() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.addEmailOobAuthenticator(null, null),
+            "'mfa token' cannot be null!");
+    }
+
+    @Test
+    public void addEmailOobAuthenticatorRequest() throws Exception {
+        Request<CreatedOobResponse> request = api.addEmailOobAuthenticator("mfaToken", "email-address");
+
+        server.jsonResponse(AUTH_OOB_AUTHENTICATOR_RESPONSE, 200);
+        CreatedOobResponse response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/mfa/associate"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("authenticator_types", Collections.singletonList("oob")));
+        assertThat(body, hasEntry("oob_channels", Collections.singletonList("email")));
+        assertThat(body, hasEntry("email", "email-address"));
 
         assertThat(response, is(notNullValue()));
         assertThat(response.getAuthenticatorType(), not(emptyOrNullString()));
