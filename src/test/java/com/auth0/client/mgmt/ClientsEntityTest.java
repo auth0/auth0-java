@@ -426,4 +426,47 @@ public class ClientsEntityTest extends BaseMgmtEntityTest {
             () -> api.clients().deleteCredential("clientId", null),
             "'credential id' cannot be null!");
     }
+
+    @Test
+    public void shouldUpdateClientCredential() throws Exception {
+        Credential credential = new Credential();
+        credential.setName("Updated credential name");
+        Request<Credential> request = api.clients().updateCredential("clientId", "credId", credential);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(MGMT_CLIENT_CREDENTIAL, 200);
+        Credential response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.PATCH, "/api/v2/clients/clientId/credentials/credId"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+        assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body.size(), is(1));
+        assertThat(body, hasEntry("name", "Updated credential name"));
+
+        assertThat(response, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldThrowOnUpdateCredentialWithNullClientId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.clients().updateCredential(null, "credId", new Credential()),
+            "'client id' cannot be null!");
+    }
+
+    @Test
+    public void shouldThrowOnUpdateCredentialWithNullCredentialId() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.clients().updateCredential("clientId", null, new Credential()),
+            "'credential id' cannot be null!");
+    }
+
+    @Test
+    public void shouldThrowOnUpdateCredentialWithNullCredential() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.clients().updateCredential("clientId", "credId", null),
+            "'credential' cannot be null!");
+    }
 }

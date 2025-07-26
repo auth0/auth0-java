@@ -4,6 +4,7 @@
 - [HTTP Client configuration](#http-client-configuration)
 - [Verifying an ID token](#verifying-an-id-token)
 - [Organizations](#organizations)
+- [Client credential management](#client-credential-management)
 - [Asynchronous operations](#asynchronous-operations)
 
 ## Error handling
@@ -130,6 +131,59 @@ String url = auth.authorizeUrl("https://me.auth0.com/callback")
     .withInvitation("{YOUR_INVITATION_ID}")
     .build();
 ```
+
+## Client credential management
+
+The SDK provides comprehensive support for managing client credentials used for machine-to-machine authentication and API access.
+
+### List client credentials
+
+```java
+ManagementAPI mgmt = ManagementAPI.newBuilder("{YOUR_DOMAIN}", "{YOUR_API_TOKEN}").build();
+Request<List<Credential>> request = mgmt.clients().listCredentials("{CLIENT_ID}");
+List<Credential> credentials = request.execute().getBody();
+```
+
+### Get a specific client credential
+
+```java
+Request<Credential> request = mgmt.clients().getCredential("{CLIENT_ID}", "{CREDENTIAL_ID}");
+Credential credential = request.execute().getBody();
+```
+
+### Create a new client credential
+
+```java
+Credential newCredential = new Credential("public_key", "{PEM_CONTENT}");
+newCredential.setName("My API Credential");
+Request<Credential> request = mgmt.clients().createCredential("{CLIENT_ID}", newCredential);
+Credential createdCredential = request.execute().getBody();
+```
+
+### Update an existing client credential
+
+```java
+Credential updates = new Credential();
+updates.setName("Updated credential name");
+// Note: expires_at can also be updated by setting a Date object
+Request<Credential> request = mgmt.clients().updateCredential("{CLIENT_ID}", "{CREDENTIAL_ID}", updates);
+Credential updatedCredential = request.execute().getBody();
+```
+
+### Delete a client credential
+
+```java
+Request<Void> request = mgmt.clients().deleteCredential("{CLIENT_ID}", "{CREDENTIAL_ID}");
+request.execute();
+```
+
+**Required Scopes**: 
+- `read:client_credentials` - for listing and getting credentials
+- `create:client_credentials` - for creating new credentials  
+- `update:client_credentials` - for updating existing credentials
+- `delete:client_credentials` - for deleting credentials
+
+For more information, see the [Auth0 Management API documentation](https://auth0.com/docs/api/management/v2/clients).
 
 ## Asynchronous operations
 
