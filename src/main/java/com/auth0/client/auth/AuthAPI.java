@@ -525,6 +525,31 @@ public class AuthAPI {
      * @return a Request to execute.
      */
     public Request<Void> resetPassword(String clientId, String email, String connection) {
+        return resetPassword(clientId, email, connection, null);
+    }
+
+    /**
+     * Request a password reset for the given client ID, email, database connection and organization ID. The response will always be successful even if
+     * there's no user associated to the given email for that database connection.
+     * i.e.:
+     * <pre>
+     * {@code
+     * try {
+     *      authAPI.resetPassword("CLIENT-ID", "me@auth0.com", "db-connection", "ORGANIZATION-ID").execute().getBody();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @see <a href="https://auth0.com/docs/api/authentication#change-password">Change Password API docs</a>
+     * @param clientId   the client ID of your client.
+     * @param email      the email associated to the database user.
+     * @param connection the database connection where the user was created.
+     * @param organization the organization ID where the user was created.
+     * @return a Request to execute.
+     */
+    public Request<Void> resetPassword(String clientId, String email, String connection, String organization) {
         Asserts.assertNotNull(email, "email");
         Asserts.assertNotNull(connection, "connection");
 
@@ -538,6 +563,7 @@ public class AuthAPI {
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_EMAIL, email);
         request.addParameter(KEY_CONNECTION, connection);
+        request.addParameter(KEY_ORGANIZATION, organization);
         return request;
     }
 

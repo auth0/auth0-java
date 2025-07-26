@@ -22,7 +22,8 @@ public class ConnectionTest extends JsonTest<Connection> {
         Connection connection = new Connection("my-connection", "auth0");
         connection.setDisplayName("COOL!");
         connection.setOptions(new HashMap<String, Object>());
-        connection.setEnabledClients(Arrays.asList("client1", "client2"));
+        // enabled_clients is deprecated as part of the new connections API GET/PATCH Enabled Clients
+//        connection.setEnabledClients(Arrays.asList("client1", "client2"));
         connection.setMetadata(new HashMap<String, String>());
         connection.setRealms(Arrays.asList("realm1", "realm2"));
 
@@ -32,7 +33,8 @@ public class ConnectionTest extends JsonTest<Connection> {
         assertThat(serialized, JsonMatcher.hasEntry("display_name", "COOL!"));
         assertThat(serialized, JsonMatcher.hasEntry("strategy", "auth0"));
         assertThat(serialized, JsonMatcher.hasEntry("options", notNullValue()));
-        assertThat(serialized, JsonMatcher.hasEntry("enabled_clients", Arrays.asList("client1", "client2")));
+        // enabled_clients is deprecated as part of the new connections API GET/PATCH Enabled Clients
+//        assertThat(serialized, JsonMatcher.hasEntry("enabled_clients", Arrays.asList("client1", "client2")));
         assertThat(serialized, JsonMatcher.hasEntry("provisioning_ticket_url", null));
         assertThat(serialized, JsonMatcher.hasEntry("metadata", notNullValue()));
         assertThat(serialized, JsonMatcher.hasEntry("realms", Arrays.asList("realm1", "realm2")));
@@ -47,7 +49,8 @@ public class ConnectionTest extends JsonTest<Connection> {
         assertThat(connection.getDisplayName(), is("My cool connection!"));
         assertThat(connection.getOptions(), is(notNullValue()));
         assertThat(connection.getStrategy(), is("auth0"));
-        assertThat(connection.getEnabledClients(), contains("client1", "client2"));
+        // enabled_clients is deprecated as part of the new connections API GET/PATCH Enabled Clients
+//        assertThat(connection.getEnabledClients(), contains("client1", "client2"));
         assertThat(connection.getProvisioningTicketUrl(), is(nullValue()));
         assertThat(connection.getMetadata(), is(notNullValue()));
         assertThat(connection.getRealms(), contains("realm1", "realm2"));
@@ -61,7 +64,8 @@ public class ConnectionTest extends JsonTest<Connection> {
         assertThat(connection.getName(), is("my-ad-connection"));
         assertThat(connection.getOptions(), is(notNullValue()));
         assertThat(connection.getStrategy(), is("ad"));
-        assertThat(connection.getEnabledClients(), contains("client1", "client2"));
+        // enabled_clients is deprecated as part of the new connections API GET/PATCH Enabled Clients
+        //assertThat(connection.getEnabledClients(), contains("client1", "client2"));
         assertThat(connection.getProvisioningTicketUrl(), is("https://demo.auth0.com/p/ad/ddQTRlVt"));
         assertThat(connection.getMetadata(), is(nullValue()));
     }

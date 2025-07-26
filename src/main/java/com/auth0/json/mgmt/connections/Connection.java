@@ -120,6 +120,8 @@ public class Connection {
 
     /**
      * Getter for the list of applications this connection is enabled for.
+     * <p><b>Deprecated:</b> This field is deprecated and will be removed in future versions.
+     * Use `updateEnabledClients` and `getEnabledClients` methods instead for managing enabled clients
      *
      * @return the list of enabled applications.
      */
@@ -130,6 +132,8 @@ public class Connection {
 
     /**
      * Setter for the list of applications this connection is enabled for.
+     * <p><b>Deprecated:</b> This field is deprecated and will be removed in future versions.
+     * Use `updateEnabledClients` and `getEnabledClients` methods instead for managing enabled clients
      *
      * @param enabledClients the list of enabled applications to set.
      */
