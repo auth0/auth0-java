@@ -6,6 +6,7 @@ import com.auth0.exception.Auth0Exception;
 import com.auth0.exception.RateLimitException;
 import com.auth0.json.ObjectMapperProvider;
 import com.auth0.net.client.*;
+import com.auth0.utils.HttpResponseHeadersUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.MapType;
@@ -219,13 +220,29 @@ public class BaseRequest<T> implements Request<T> {
         long remaining = Long.parseLong(response.getHeader("x-ratelimit-remaining", "-1"));
         long reset = Long.parseLong(response.getHeader("x-ratelimit-reset", "-1"));
 
+        TokenQuotaBucket clientQuotaLimit = HttpResponseHeadersUtils.getClientQuotaLimit(response.getHeaders());
+        TokenQuotaBucket organizationQuotaLimit = HttpResponseHeadersUtils.getOrganizationQuotaLimit(response.getHeaders());
+
+        long retryAfter = Long.parseLong(response.getHeader("retry-after", "-1"));
+
         String payload = response.getBody();
         MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
         try {
             Map<String, Object> values = mapper.readValue(payload, mapType);
-            return new RateLimitException(limit, remaining, reset, values);
+
+            RateLimitException.Builder builder = new RateLimitException.Builder(limit, remaining, reset, values);
+
+            builder.clientQuotaLimit(clientQuotaLimit);
+            builder.organizationQuotaLimit(organizationQuotaLimit);
+            builder.retryAfter(retryAfter);
+
+            return builder.build();
         } catch (IOException e) {
-            return new RateLimitException(limit, remaining, reset);
+            RateLimitException.Builder builder = new RateLimitException.Builder(limit, remaining, reset);
+            builder.clientQuotaLimit(clientQuotaLimit);
+            builder.organizationQuotaLimit(organizationQuotaLimit);
+            builder.retryAfter(retryAfter);
+            return builder.build();
         }
     }
 

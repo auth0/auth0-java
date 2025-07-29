@@ -12,7 +12,7 @@ public class ResourceServer {
     @JsonProperty("audience")
     private String audience;
     @JsonProperty("scopes")
-    private List<String> scopes;
+    private String scopes;
 
     /**
      * @return Resource server ID
@@ -24,7 +24,7 @@ public class ResourceServer {
     /**
      * @return List of scopes for the refresh token
      */
-    public List<String> getScopes() {
+    public String getScopes() {
         return scopes;
     }
 }

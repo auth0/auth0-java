@@ -38,5 +38,21 @@
   "remove_alg_from_jwks": true,
   "mtls": {
     "enable_endpoint_aliases": true
+  },
+  "default_token_quota": {
+    "clients": {
+      "client_credentials": {
+        "per_day": 100,
+        "per_hour": 20,
+        "enforce": true
+      }
+    },
+    "organizations": {
+      "client_credentials": {
+        "per_day": 100,
+        "per_hour": 20,
+        "enforce": true
+      }
+    }
   }
 }
