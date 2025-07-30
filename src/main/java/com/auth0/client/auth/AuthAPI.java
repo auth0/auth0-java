@@ -1413,6 +1413,54 @@ public class AuthAPI {
      * @param mfaToken The token received from mfa_required error. Must not be null.
      * @param oobChannels The type of OOB channels supported by the client. Must not be null.
      * @param phoneNumber The phone number for "sms" or "voice" channels. May be null if not using "sms" or "voice".
+     * @return a Request to execute.
+     * @see <a href="https://auth0.com/docs/api/authentication#add-an-authenticator">Add an Authenticator API documentation</a>
+     * @deprecated Use {@linkplain #addOobAuthenticator(String, List, String, String)} instead.
+     */
+    @Deprecated
+    public Request<CreatedOobResponse> addOobAuthenticator(String mfaToken, List<String> oobChannels, String phoneNumber) {
+        Asserts.assertNotNull(mfaToken, "mfa token");
+        Asserts.assertNotNull(oobChannels, "OOB channels");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegment("mfa")
+            .addPathSegment("associate")
+            .build()
+            .toString();
+
+        BaseRequest<CreatedOobResponse> request = new BaseRequest<>(client, null, url, HttpMethod.POST, new TypeReference<CreatedOobResponse>() {
+        });
+
+        request.addParameter("authenticator_types", Collections.singletonList("oob"));
+        request.addParameter("oob_channels", oobChannels);
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        if (phoneNumber != null) {
+            request.addParameter("phone_number", phoneNumber);
+        }
+        addClientAuthentication(request, false);
+        request.addHeader("Authorization", "Bearer " + mfaToken);
+        return request;
+    }
+
+    /**
+     * Associates or adds a new OOB authenticator for multi-factor authentication (MFA).
+     * Confidential clients (Regular Web Apps) <strong>must</strong> have a client secret configured on this {@code AuthAPI} instance.
+     * <pre>
+     * {@code
+     * try {
+     *      CreatedOobResponse result = authAPI.addOobAuthenticator("the-mfa-token", Arrays.asList("sms", "email"), "phone-number", "email-address")
+     *          .execute()
+     *          .getBody();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @param mfaToken The token received from mfa_required error. Must not be null.
+     * @param oobChannels The type of OOB channels supported by the client. Must not be null.
+     * @param phoneNumber The phone number for "sms" or "voice" channels. May be null if not using "sms" or "voice".
      * @param emailAddress The  email address for "email" channel. May be null if not using "email".
      * @return a Request to execute.
      * @see <a href="https://auth0.com/docs/secure/multi-factor-authentication/authenticate-using-ropg-flow-with-mfa/enroll-challenge-sms-voice-authenticators#enroll-with-sms-or-voice">Enroll with SMS or voice</a>
