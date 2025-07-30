@@ -1395,6 +1395,32 @@ public class AuthAPI {
         return request;
     }
 
+    private BaseRequest<CreatedOobResponse> createBaseOobRequest(String mfaToken, List<String> oobChannels, String phoneNumber) {
+        Asserts.assertNotNull(mfaToken, "mfa token");
+        Asserts.assertNotNull(oobChannels, "OOB channels");
+
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegment("mfa")
+            .addPathSegment("associate")
+            .build()
+            .toString();
+
+        BaseRequest<CreatedOobResponse> request = new BaseRequest<>(client, null, url, HttpMethod.POST, new TypeReference<CreatedOobResponse>() {
+        });
+
+        request.addParameter("authenticator_types", Collections.singletonList("oob"));
+        request.addParameter("oob_channels", oobChannels);
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        if (phoneNumber != null) {
+            request.addParameter("phone_number", phoneNumber);
+        }
+        addClientAuthentication(request, false);
+        request.addHeader("Authorization", "Bearer " + mfaToken);
+
+        return request;
+    }
+
     /**
      * Associates or adds a new OOB authenticator for multi-factor authentication (MFA).
      * Confidential clients (Regular Web Apps) <strong>must</strong> have a client secret configured on this {@code AuthAPI} instance.
@@ -1419,28 +1445,7 @@ public class AuthAPI {
      */
     @Deprecated
     public Request<CreatedOobResponse> addOobAuthenticator(String mfaToken, List<String> oobChannels, String phoneNumber) {
-        Asserts.assertNotNull(mfaToken, "mfa token");
-        Asserts.assertNotNull(oobChannels, "OOB channels");
-
-        String url = baseUrl
-            .newBuilder()
-            .addPathSegment("mfa")
-            .addPathSegment("associate")
-            .build()
-            .toString();
-
-        BaseRequest<CreatedOobResponse> request = new BaseRequest<>(client, null, url, HttpMethod.POST, new TypeReference<CreatedOobResponse>() {
-        });
-
-        request.addParameter("authenticator_types", Collections.singletonList("oob"));
-        request.addParameter("oob_channels", oobChannels);
-        request.addParameter(KEY_CLIENT_ID, clientId);
-        if (phoneNumber != null) {
-            request.addParameter("phone_number", phoneNumber);
-        }
-        addClientAuthentication(request, false);
-        request.addHeader("Authorization", "Bearer " + mfaToken);
-        return request;
+        return createBaseOobRequest(mfaToken, oobChannels, phoneNumber);
     }
 
     /**
@@ -1466,8 +1471,6 @@ public class AuthAPI {
      * @see <a href="https://auth0.com/docs/secure/multi-factor-authentication/authenticate-using-ropg-flow-with-mfa/enroll-challenge-sms-voice-authenticators#enroll-with-sms-or-voice">Enroll with SMS or voice</a>
      */
     public Request<CreatedOobResponse> addOobAuthenticator(String mfaToken, List<String> oobChannels, String phoneNumber, String emailAddress) {
-        Asserts.assertNotNull(mfaToken, "mfa token");
-        Asserts.assertNotNull(oobChannels, "OOB channels");
         if (oobChannels.contains("sms") || oobChannels.contains("voice")) {
             Asserts.assertNotNull(phoneNumber, "phone number");
         }
@@ -1475,28 +1478,10 @@ public class AuthAPI {
             Asserts.assertNotNull(emailAddress, "email address");
         }
 
-        String url = baseUrl
-            .newBuilder()
-            .addPathSegment("mfa")
-            .addPathSegment("associate")
-            .build()
-            .toString();
-
-        BaseRequest<CreatedOobResponse> request = new BaseRequest<>(client, null, url, HttpMethod.POST, new TypeReference<CreatedOobResponse>() {
-        });
-
-        request.addParameter("authenticator_types", Collections.singletonList("oob"));
-        request.addParameter("oob_channels", oobChannels);
-        request.addParameter(KEY_CLIENT_ID, clientId);
-
-        if (phoneNumber != null) {
-            request.addParameter("phone_number", phoneNumber);
-        }
+        BaseRequest<CreatedOobResponse> request = createBaseOobRequest(mfaToken, oobChannels, phoneNumber);
         if (emailAddress != null) {
             request.addParameter("email", emailAddress);
         }
-        addClientAuthentication(request, false);
-        request.addHeader("Authorization", "Bearer " + mfaToken);
         return request;
     }
 
