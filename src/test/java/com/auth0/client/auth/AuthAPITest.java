@@ -1558,14 +1558,6 @@ public class AuthAPITest {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void addOobAuthenticatorThrowsWhenPhoneNumberNull() {
-        verifyThrows(IllegalArgumentException.class,
-            () -> api.addOobAuthenticator("mfaToken", Collections.singletonList("sms"), null, null),
-            "'phone number' cannot be null!");
-    }
-
-    @SuppressWarnings("deprecation")
-    @Test
     public void addOobAuthenticatorRequest() throws Exception {
         Request<CreatedOobResponse> request = api.addOobAuthenticator("mfaToken", Collections.singletonList("sms"), "phone-number");
 
@@ -1587,6 +1579,13 @@ public class AuthAPITest {
         assertThat(response.getOobCode(), not(emptyOrNullString()));
         assertThat(response.getBarcodeUri(), not(emptyOrNullString()));
         assertThat(response.getRecoveryCodes(), notNullValue());
+    }
+
+    @Test
+    public void addOobAuthenticatorThrowsWhenPhoneNumberNull() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> api.addOobAuthenticator("mfaToken", Collections.singletonList("sms"), null, null),
+            "'phone number' cannot be null!");
     }
 
     @Test
