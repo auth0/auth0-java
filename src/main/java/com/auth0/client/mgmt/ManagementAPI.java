@@ -401,7 +401,7 @@ public class ManagementAPI {
      */
     public static class Builder {
         private final String domain;
-        private TokenProvider tokenProvider
+        private TokenProvider tokenProvider;
         private Auth0HttpClient httpClient = DefaultHttpClient.newBuilder().build();
 
         /**
