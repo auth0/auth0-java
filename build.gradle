@@ -15,6 +15,7 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'me.champeau.gradle.japicmp' version '0.2.9'
+    id 'io.github.gradle-nexus.publish-plugin' version '2.0.0'
 }
 
 repositories {
