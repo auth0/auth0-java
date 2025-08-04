@@ -1395,7 +1395,8 @@ public class AuthAPI {
         return request;
     }
 
-    private BaseRequest<CreatedOobResponse> createBaseOobRequest(String mfaToken, List<String> oobChannels, String phoneNumber) {
+
+    private BaseRequest<CreatedOobResponse> createBaseOobRequest(String mfaToken, List<String> oobChannels) {
         Asserts.assertNotNull(mfaToken, "mfa token");
         Asserts.assertNotNull(oobChannels, "OOB channels");
 
@@ -1412,9 +1413,6 @@ public class AuthAPI {
         request.addParameter("authenticator_types", Collections.singletonList("oob"));
         request.addParameter("oob_channels", oobChannels);
         request.addParameter(KEY_CLIENT_ID, clientId);
-        if (phoneNumber != null) {
-            request.addParameter("phone_number", phoneNumber);
-        }
         addClientAuthentication(request, false);
         request.addHeader("Authorization", "Bearer " + mfaToken);
 
@@ -1445,7 +1443,12 @@ public class AuthAPI {
      */
     @Deprecated
     public Request<CreatedOobResponse> addOobAuthenticator(String mfaToken, List<String> oobChannels, String phoneNumber) {
-        return createBaseOobRequest(mfaToken, oobChannels, phoneNumber);
+        BaseRequest<CreatedOobResponse> request = createBaseOobRequest(mfaToken, oobChannels);
+        if (phoneNumber != null) {
+            request.addParameter("phone_number", phoneNumber);
+        }
+
+        return request;
     }
 
     /**
@@ -1478,10 +1481,14 @@ public class AuthAPI {
             Asserts.assertNotNull(emailAddress, "email address");
         }
 
-        BaseRequest<CreatedOobResponse> request = createBaseOobRequest(mfaToken, oobChannels, phoneNumber);
+        BaseRequest<CreatedOobResponse> request = createBaseOobRequest(mfaToken, oobChannels);
+        if (phoneNumber != null) {
+            request.addParameter("phone_number", phoneNumber);
+        }
         if (emailAddress != null) {
             request.addParameter("email", emailAddress);
         }
+
         return request;
     }
 
