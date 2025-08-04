@@ -1397,9 +1397,6 @@ public class AuthAPI {
 
 
     private BaseRequest<CreatedOobResponse> createBaseOobRequest(String mfaToken, List<String> oobChannels) {
-        Asserts.assertNotNull(mfaToken, "mfa token");
-        Asserts.assertNotNull(oobChannels, "OOB channels");
-
         String url = baseUrl
             .newBuilder()
             .addPathSegment("mfa")
@@ -1443,7 +1440,14 @@ public class AuthAPI {
      */
     @Deprecated
     public Request<CreatedOobResponse> addOobAuthenticator(String mfaToken, List<String> oobChannels, String phoneNumber) {
+        Asserts.assertNotNull(mfaToken, "mfa token");
+        Asserts.assertNotNull(oobChannels, "OOB channels");
+        if (oobChannels.contains("sms") || oobChannels.contains("voice")) {
+            Asserts.assertNotNull(phoneNumber, "phone number");
+        }
+
         BaseRequest<CreatedOobResponse> request = createBaseOobRequest(mfaToken, oobChannels);
+
         if (phoneNumber != null) {
             request.addParameter("phone_number", phoneNumber);
         }
@@ -1474,6 +1478,8 @@ public class AuthAPI {
      * @see <a href="https://auth0.com/docs/secure/multi-factor-authentication/authenticate-using-ropg-flow-with-mfa/enroll-challenge-sms-voice-authenticators#enroll-with-sms-or-voice">Enroll with SMS or voice</a>
      */
     public Request<CreatedOobResponse> addOobAuthenticator(String mfaToken, List<String> oobChannels, String phoneNumber, String emailAddress) {
+        Asserts.assertNotNull(mfaToken, "mfa token");
+        Asserts.assertNotNull(oobChannels, "OOB channels");
         if (oobChannels.contains("sms") || oobChannels.contains("voice")) {
             Asserts.assertNotNull(phoneNumber, "phone number");
         }
