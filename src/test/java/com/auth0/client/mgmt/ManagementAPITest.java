@@ -68,7 +68,9 @@ public class ManagementAPITest {
         };
 
         ManagementAPI api = ManagementAPI.newBuilder(DOMAIN, API_TOKEN)
-            .withHttpClient(httpClient).build();
+            .withHttpClient(httpClient)
+            .withTokenProvider(SimpleTokenProvider.create(API_TOKEN))
+            .build();
         assertThat(api, is(notNullValue()));
         assertThat(api.getHttpClient(), is(httpClient));
     }
