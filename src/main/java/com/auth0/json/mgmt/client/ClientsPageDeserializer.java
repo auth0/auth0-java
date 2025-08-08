@@ -29,4 +29,8 @@ class ClientsPageDeserializer extends PageDeserializer<ClientsPage, Client> {
         return new ClientsPage(start, length, total, limit, items);
     }
 
+    @Override
+    protected ClientsPage createPage(Integer start, Integer length, Integer total, Integer limit, String next, List<Client> items) {
+        return new ClientsPage(start, length, total, limit, next, items);
+    }
 }
