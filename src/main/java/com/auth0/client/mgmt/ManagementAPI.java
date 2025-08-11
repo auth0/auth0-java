@@ -423,6 +423,16 @@ public class ManagementAPI {
         }
 
         /**
+         * Create a new Builder
+         * @param domain the domain of the tenant.
+         * @param tokenProvider the API Token provider to use when making requests.
+         */
+        public Builder(String domain, TokenProvider tokenProvider) {
+            this.domain = domain;
+            this.tokenProvider = tokenProvider;
+        }
+
+        /**
          * Configure the client with an {@link Auth0HttpClient}.
          * @param httpClient the HTTP client to use when making requests.
          * @return the builder instance.
@@ -430,16 +440,6 @@ public class ManagementAPI {
          */
         public Builder withHttpClient(Auth0HttpClient httpClient) {
             this.httpClient = httpClient;
-            return this;
-        }
-
-        /**
-         * Configure the token provider with an {@link TokenProvider}.
-         * @param tokenProvider the API Token provider to use when making requests.
-         * @return the builder instance.
-         */
-        public Builder withTokenProvider(TokenProvider tokenProvider) {
-            this.tokenProvider = tokenProvider;
             return this;
         }
 
