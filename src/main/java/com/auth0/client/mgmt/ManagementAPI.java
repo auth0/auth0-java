@@ -418,8 +418,7 @@ public class ManagementAPI {
          * @param apiToken the API token used to make requests to the Auth0 Management API.
          */
         public Builder(String domain, String apiToken) {
-            this.domain = domain;
-            this.tokenProvider = SimpleTokenProvider.create(apiToken);
+            this(domain, SimpleTokenProvider.create(apiToken));
         }
 
         /**
