@@ -67,8 +67,12 @@ public class ManagementAPITest {
             }
         };
 
-        ManagementAPI api = ManagementAPI.newBuilder(DOMAIN, API_TOKEN)
-            .withHttpClient(httpClient).build();
+        ManagementAPI api = ManagementAPI.newBuilder(
+                DOMAIN,
+                SimpleTokenProvider.create(API_TOKEN)
+            )
+            .withHttpClient(httpClient)
+            .build();
         assertThat(api, is(notNullValue()));
         assertThat(api.getHttpClient(), is(httpClient));
     }
@@ -98,7 +102,7 @@ public class ManagementAPITest {
     @Test
     public void shouldThrowWhenApiTokenIsNull() {
         verifyThrows(IllegalArgumentException.class,
-            () -> ManagementAPI.newBuilder(DOMAIN, null).build(),
+            () -> ManagementAPI.newBuilder(DOMAIN, (String) null).build(),
             "'api token' cannot be null!");
     }
 
