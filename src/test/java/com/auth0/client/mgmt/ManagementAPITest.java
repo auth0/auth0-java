@@ -102,7 +102,7 @@ public class ManagementAPITest {
     @Test
     public void shouldThrowWhenApiTokenIsNull() {
         verifyThrows(IllegalArgumentException.class,
-            () -> ManagementAPI.newBuilder(DOMAIN, null).build(),
+            () -> ManagementAPI.newBuilder(DOMAIN, (String) null).build(),
             "'api token' cannot be null!");
     }
 

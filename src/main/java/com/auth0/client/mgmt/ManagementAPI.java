@@ -67,6 +67,17 @@ public class ManagementAPI {
         return new ManagementAPI.Builder(domain, apiToken);
     }
 
+    /**
+     * Instantiate a new {@link Builder} to configure and build a new ManagementAPI client.
+     *
+     * @param domain the tenant's domain. Must be a non-null valid HTTPS domain.
+     * @param tokenProvider the API Token provider to use when making requests.
+     * @return a Builder for further configuration.
+     */
+    public static ManagementAPI.Builder newBuilder(String domain, TokenProvider tokenProvider) {
+        return new ManagementAPI.Builder(domain, tokenProvider);
+    }
+
     private ManagementAPI(String domain, TokenProvider tokenProvider, Auth0HttpClient httpClient) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(tokenProvider, "token provider");
