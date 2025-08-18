@@ -458,7 +458,7 @@ public class ManagementAPI {
          * @return the configured {@code ManagementAPI} instance.
          */
         public ManagementAPI build() {
-            return new ManagementAPI(domain, SimpleTokenProvider.create(apiToken), httpClient);
+            return new ManagementAPI(domain, tokenProvider, httpClient);
         }
     }
 }
