@@ -54,7 +54,28 @@ public class ManagementAPITest {
     }
 
     @Test
-    public void shouldCreateWithHttpClient() {
+    public void shouldCreateWithHttpClientWithApiToken() {
+        Auth0HttpClient httpClient = new Auth0HttpClient() {
+            @Override
+            public Auth0HttpResponse sendRequest(Auth0HttpRequest request) {
+                return null;
+            }
+
+            @Override
+            public CompletableFuture<Auth0HttpResponse> sendRequestAsync(Auth0HttpRequest request) {
+                return null;
+            }
+        };
+
+        ManagementAPI api = ManagementAPI.newBuilder(DOMAIN, API_TOKEN)
+            .withHttpClient(httpClient).build();
+
+        assertThat(api, is(notNullValue()));
+        assertThat(api.getHttpClient(), is(httpClient));
+    }
+
+    @Test
+    public void shouldCreateWithHttpClientWithTokenProvider() {
         Auth0HttpClient httpClient = new Auth0HttpClient() {
             @Override
             public Auth0HttpResponse sendRequest(Auth0HttpRequest request) {
@@ -104,6 +125,13 @@ public class ManagementAPITest {
         verifyThrows(IllegalArgumentException.class,
             () -> ManagementAPI.newBuilder(DOMAIN, (String) null).build(),
             "'api token' cannot be null!");
+    }
+
+    @Test
+    public void shouldThrowWhenTokenProviderIsNull() {
+        verifyThrows(IllegalArgumentException.class,
+            () -> ManagementAPI.newBuilder(DOMAIN, (TokenProvider) null).build(),
+            "'token provider' cannot be null!");
     }
 
     @Test
