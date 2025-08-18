@@ -67,6 +67,17 @@ public class ManagementAPI {
         return new ManagementAPI.Builder(domain, apiToken);
     }
 
+    /**
+     * Instantiate a new {@link Builder} to configure and build a new ManagementAPI client.
+     *
+     * @param domain the tenant's domain. Must be a non-null valid HTTPS domain.
+     * @param tokenProvider the API Token provider to use when making requests.
+     * @return a Builder for further configuration.
+     */
+    public static ManagementAPI.Builder newBuilder(String domain, TokenProvider tokenProvider) {
+        return new ManagementAPI.Builder(domain, tokenProvider);
+    }
+
     private ManagementAPI(String domain, TokenProvider tokenProvider, Auth0HttpClient httpClient) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(tokenProvider, "token provider");
@@ -409,7 +420,7 @@ public class ManagementAPI {
      */
     public static class Builder {
         private final String domain;
-        private final String apiToken;
+        private final TokenProvider tokenProvider;
         private Auth0HttpClient httpClient = DefaultHttpClient.newBuilder().build();
 
         /**
@@ -418,8 +429,17 @@ public class ManagementAPI {
          * @param apiToken the API token used to make requests to the Auth0 Management API.
          */
         public Builder(String domain, String apiToken) {
+            this(domain, SimpleTokenProvider.create(apiToken));
+        }
+
+        /**
+         * Create a new Builder
+         * @param domain the domain of the tenant.
+         * @param tokenProvider the API Token provider to use when making requests.
+         */
+        public Builder(String domain, TokenProvider tokenProvider) {
             this.domain = domain;
-            this.apiToken = apiToken;
+            this.tokenProvider = tokenProvider;
         }
 
         /**
