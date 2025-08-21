@@ -38,9 +38,22 @@ AuthAPI auth = AuthAPI.newBuilder("DOMAIN", "CLIENT-ID", "CLIENT-SECRET")
         .withHttpClient(client)
         .build();
 
+```
+
+```java
+
 ManagementAPI mgmt = ManagementAPI.newBuilder("DOMAIN", "API-TOKEN")
         .withHttpClient(client)
         .build();
+
+// OR
+
+TokenProvider tokenProvider = SimpleTokenProvider.create("API-TOKEN");
+
+ManagementAPI mgmt = ManagementAPI.newBuilder("DOMAIN", tokenProvider)
+        .withHttpClient(client)
+        .build();
+
 ```
 
 If the `DefaultHttpClient` does not support your required networking client configuration, you may choose to implement
