@@ -36,7 +36,7 @@ runs:
 
     - name: Publish Android/Java Packages to Maven
       shell: bash
-      run: ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository -PisSnapshot=false --stacktrace
+      run: ./gradlew publishToSonatype closeSonatypeStagingRepository -PisSnapshot=false --stacktrace
       env:
         JAVA_HOME: ${{ env.JAVA_HOME }}
         MAVEN_USERNAME: ${{ inputs.ossr-username }}

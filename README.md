@@ -66,6 +66,15 @@ Create a `ManagementAPI` instance by providing the domain from the [Application 
 ManagementAPI mgmt = ManagementAPI.newBuilder("{YOUR_DOMAIN}", "{YOUR_API_TOKEN}").build();
 ```
 
+OR
+
+Create a `ManagementAPI` instance by providing the domain from the [Application dashboard](https://manage.auth0.com/#/applications) and Token Provider.
+
+```java
+TokenProvider tokenProvider = SimpleTokenProvider.create("{YOUR_API_TOKEN}");
+ManagementAPI mgmt = ManagementAPI.newBuilder("{YOUR_DOMAIN}", TokenProvider).build();
+```
+
 The Management API is organized by entities represented by the Auth0 Management API objects.
 
 ```java
