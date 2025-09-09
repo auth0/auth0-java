@@ -251,7 +251,7 @@ public class AuthAPI {
             request.addParameter(KEY_AUDIENCE, audience);
         }
         if(Objects.nonNull(requestExpiry)){
-            request.addParameter("request_expiry", requestExpiry);
+            request.addParameter("requested_expiry", requestExpiry);
         }
 
         try {
