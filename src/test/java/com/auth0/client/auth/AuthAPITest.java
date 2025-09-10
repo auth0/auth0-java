@@ -2290,7 +2290,7 @@ public class AuthAPITest {
     }
 
     @Test
-    public void authorizeBackChannelWithAudienceAndRequestExpiry() throws Exception {
+    public void authorizeBackChannelWithAudienceAndRequestedExpiry() throws Exception {
         Request<BackChannelAuthorizeResponse> request = api.authorizeBackChannel("openid", "This is binding message", getLoginHint(), "https://api.example.com", 300);
         assertThat(request, is(notNullValue()));
 
@@ -2307,7 +2307,7 @@ public class AuthAPITest {
         assertThat(body, containsString("client_secret=" + CLIENT_SECRET));
         assertThat(body, containsString("binding_message=This is binding message"));
         assertThat(body, containsString("login_hint={\"sub\":\"auth0|user1\",\"format\":\"format1\",\"iss\":\"https://auth0.com\"}"));
-        assertThat(body, containsString("request_expiry=" + 300));
+        assertThat(body, containsString("requested_expiry=" + 300));
         assertThat(body, containsString("audience=" + "https://api.example.com"));
 
         assertThat(response, is(notNullValue()));
