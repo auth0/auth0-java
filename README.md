@@ -34,14 +34,14 @@ Add the dependency via Maven:
 <dependency>
   <groupId>com.auth0</groupId>
   <artifactId>auth0</artifactId>
-  <version>2.23.0</version>
+  <version>2.24.0</version>
 </dependency>
 ```
 
 or Gradle:
 
 ```gradle
-implementation 'com.auth0:auth0:2.23.0'
+implementation 'com.auth0:auth0:2.24.0'
 ```
 
 ### Configure the SDK
@@ -64,6 +64,15 @@ Create a `ManagementAPI` instance by providing the domain from the [Application 
 
 ```java
 ManagementAPI mgmt = ManagementAPI.newBuilder("{YOUR_DOMAIN}", "{YOUR_API_TOKEN}").build();
+```
+
+OR
+
+Create a `ManagementAPI` instance by providing the domain from the [Application dashboard](https://manage.auth0.com/#/applications) and Token Provider.
+
+```java
+TokenProvider tokenProvider = SimpleTokenProvider.create("{YOUR_API_TOKEN}");
+ManagementAPI mgmt = ManagementAPI.newBuilder("{YOUR_DOMAIN}", TokenProvider).build();
 ```
 
 The Management API is organized by entities represented by the Auth0 Management API objects.

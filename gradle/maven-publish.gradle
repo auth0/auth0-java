@@ -28,14 +28,14 @@ artifacts {
 publishing {
   publications {
     mavenJava(MavenPublication) {
+      from components.java
+
+      artifact sourcesJar
+      artifact javadocJar
 
       groupId = GROUP
       artifactId = POM_ARTIFACT_ID
       version = getVersionName()
-
-      artifact("$buildDir/libs/${project.name}-${version}.jar")
-      artifact sourcesJar
-      artifact javadocJar
 
       pom {
         name = POM_NAME
