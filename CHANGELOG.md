@@ -1,12 +1,19 @@
 # Change Log
 
-## [2.23.0](https://github.com/auth0/auth0-java/tree/2.23.0) (2025-07-21)
+## [2.24.0](https://github.com/auth0/auth0-java/tree/2.24.0) (2025-08-22)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.23.0...2.24.0)
+
+**Added**
+- Update Readme and Examples [\#752](https://github.com/auth0/auth0-java/pull/752) ([tanya732](https://github.com/tanya732))
+- Customize management api token provider [\#748](https://github.com/auth0/auth0-java/pull/748) ([tanya732](https://github.com/tanya732))
+- Joaosoumoreira/add method to enroll email mfa [\#744](https://github.com/auth0/auth0-java/pull/744) ([tanya732](https://github.com/tanya732))
+
+## [2.23.0](https://github.com/auth0/auth0-java/tree/2.23.0) (2025-08-05)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.22.0...2.23.0)
 
 **Added**
+- Added support for Tenant ACL [\#723](https://github.com/auth0/auth0-java/pull/723) ([tanya732](https://github.com/tanya732))
 - Added organization support for Change Password [\#726](https://github.com/auth0/auth0-java/pull/726) ([tanya732](https://github.com/tanya732))
-
-**Fixed**
 - Fix: Resource Server Scopes [\#725](https://github.com/auth0/auth0-java/pull/725) ([tanya732](https://github.com/tanya732))
 
 ## [2.22.0](https://github.com/auth0/auth0-java/tree/2.22.0) (2025-06-20)
