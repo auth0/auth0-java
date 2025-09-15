@@ -177,7 +177,7 @@ Credential createdCredential = request.execute().getBody();
 
 ```java
 Credential updates = new Credential();
-updates.setName("Updated credential name");
+updates.setExpiresAt("<DATE>");
 // Note: expires_at can also be updated by setting a Date object
 Request<Credential> request = mgmt.clients().updateCredential("{CLIENT_ID}", "{CREDENTIAL_ID}", updates);
 Credential updatedCredential = request.execute().getBody();
