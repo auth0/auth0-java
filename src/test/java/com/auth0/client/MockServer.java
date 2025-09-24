@@ -122,6 +122,10 @@ public class MockServer {
     public static final String MGMT_JOB_ERROR_DETAILS = "src/test/resources/mgmt/job_error_details.json";
     public static final String MGMT_NETWORK_ACLS_LIST = "src/test/resources/mgmt/network_acls_list.json";
     public static final String MGMT_NETWORK_ACLS = "src/test/resources/mgmt/network_acls.json";
+    public static final String MGMT_USER_ATTRIBUTE_PROFILES_LIST = "src/test/resources/mgmt/user_attribute_profiles_list.json";
+    public static final String MGMT_USER_ATTRIBUTE_PROFILE = "src/test/resources/mgmt/user_attribute_profile.json";
+    public static final String MGMT_USER_ATTRIBUTE_PROFILE_TEMPLATE = "src/test/resources/mgmt/user_attribute_profile_template.json";
+    public static final String MGMT_USER_ATTRIBUTE_PROFILE_TEMPLATES_LIST = "src/test/resources/mgmt/user_attribute_profile_templates_list.json";
     public static final String MULTIPART_SAMPLE = "src/test/resources/mgmt/multipart_sample.json";
     public static final String PASSWORDLESS_EMAIL_RESPONSE = "src/test/resources/auth/passwordless_email.json";
     public static final String PASSWORDLESS_SMS_RESPONSE = "src/test/resources/auth/passwordless_sms.json";
@@ -207,9 +211,9 @@ public class MockServer {
 
     public void noContentResponse() {
         MockResponse response = new MockResponse()
-            .setResponseCode(204)
-            .addHeader("Content-Type", "application/json")
-            .setBody("");
+                .setResponseCode(204)
+                .addHeader("Content-Type", "application/json")
+                .setBody("");
         server.enqueue(response);
     }
 
@@ -229,7 +233,7 @@ public class MockServer {
             response.addHeader("x-ratelimit-reset", String.valueOf(reset));
         }
         if (path != null) {
-                response
+            response
                     .addHeader("Content-Type", "application/json")
                     .setBody(readTextFile(path));
         }
@@ -237,11 +241,12 @@ public class MockServer {
     }
 
     public void rateLimitReachedResponse(long limit, long remaining, long reset,
-                                         String clientQuotaLimit, String organizationQuotaLimit, long retryAfter) throws IOException {
+            String clientQuotaLimit, String organizationQuotaLimit, long retryAfter) throws IOException {
         rateLimitReachedResponse(limit, remaining, reset, null, clientQuotaLimit, organizationQuotaLimit, retryAfter);
     }
 
-    public void rateLimitReachedResponse(long limit, long remaining, long reset, String path, String clientQuotaLimit, String organizationQuotaLimit, long retryAfter) throws IOException {
+    public void rateLimitReachedResponse(long limit, long remaining, long reset, String path, String clientQuotaLimit,
+            String organizationQuotaLimit, long retryAfter) throws IOException {
         MockResponse response = new MockResponse().setResponseCode(429);
         if (limit != -1) {
             response.addHeader("x-ratelimit-limit", String.valueOf(limit));
@@ -258,13 +263,13 @@ public class MockServer {
         if (organizationQuotaLimit != null) {
             response.addHeader("auth0-organization-quota-limit", organizationQuotaLimit);
         }
-        if(retryAfter != -1) {
+        if (retryAfter != -1) {
             response.addHeader("retry-after", String.valueOf(retryAfter));
         }
         if (path != null) {
             response
-                .addHeader("Content-Type", "application/json")
-                .setBody(readTextFile(path));
+                    .addHeader("Content-Type", "application/json")
+                    .setBody(readTextFile(path));
         }
         server.enqueue(response);
     }

@@ -416,6 +416,14 @@ public class ManagementAPI {
     }
 
     /**
+     * Getter for the User Attribute Profiles Entity
+     * @return the User Attribute Profiles Entity
+     */
+    public UserAttributeProfilesEntity userAttributeProfiles() {
+        return new UserAttributeProfilesEntity(client, baseUrl, tokenProvider);
+    }
+
+    /**
      * Builder for {@link ManagementAPI} API client instances.
      */
     public static class Builder {
