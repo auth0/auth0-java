@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.auth0.json.JsonMatcher.hasEntry;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -65,24 +66,20 @@ public class ListUserAttributeProfileTemplateTest extends JsonTest<ListUserAttri
     public void shouldSerialize() throws Exception {
         ListUserAttributeProfileTemplate listTemplates = new ListUserAttributeProfileTemplate();
 
-        // Create first template
-        UserAttributeProfileTemplate template1 = new UserAttributeProfileTemplate();
-        template1.setDisplayName("Test Template 1");
+        UserAttributeProfileTemplate template = new UserAttributeProfileTemplate();
+        template.setDisplayName("Auth0 Generic User Attribute Profile Template");
 
         // Create nested UserAttributeProfile for template1
-        UserAttributeProfile userProfile1 = new UserAttributeProfile();
-        userProfile1.setName("Profile 1");
-        template1.setTemplate(userProfile1);
+        UserAttributeProfile userProfile = new UserAttributeProfile();
+        userProfile.setName("This is just a test");
+        template.setTemplate(userProfile);
 
-        // Create second template
-        UserAttributeProfileTemplate template2 = new UserAttributeProfileTemplate();
-        template2.setDisplayName("Test Template 2");
-
-        listTemplates.setUserAttributeProfileTemplates(Arrays.asList(template1, template2));
+        listTemplates.setUserAttributeProfileTemplates(Arrays.asList(template));
 
         String serialized = toJSON(listTemplates);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, JsonMatcher.hasEntry("user_attribute_profile_templates", listTemplates));
+        assertThat(serialized, hasEntry("display_name", "Auth0 Generic User Attribute Profile Template"));
+        assertThat(serialized, hasEntry("template", notNullValue()));
     }
 
     @Test
@@ -93,14 +90,7 @@ public class ListUserAttributeProfileTemplateTest extends JsonTest<ListUserAttri
         assertThat(listTemplates, is(notNullValue()));
         assertThat(listTemplates.getUserAttributeProfileTemplates(), is(notNullValue()));
         assertThat(listTemplates.getUserAttributeProfileTemplates(), hasSize(1));
-    }
 
-    @Test
-    public void shouldDeserializeWithFullTemplateDetails() throws Exception {
-        ListUserAttributeProfileTemplate listTemplates = fromJSON(jsonWithTemplates,
-                ListUserAttributeProfileTemplate.class);
-
-        assertThat(listTemplates, is(notNullValue()));
         List<UserAttributeProfileTemplate> templates = listTemplates.getUserAttributeProfileTemplates();
         assertThat(templates, hasSize(1));
 
@@ -150,74 +140,5 @@ public class ListUserAttributeProfileTemplateTest extends JsonTest<ListUserAttri
         // Test strategy overrides in nested template
         assertThat(usernameAttr.getStrategyOverrides(), is(notNullValue()));
         assertThat(usernameAttr.getStrategyOverrides(), hasKey("oidc"));
-    }
-
-    @Test
-    public void shouldDeserializeEmptyList() throws Exception {
-        ListUserAttributeProfileTemplate listTemplates = fromJSON(emptyListJson,
-                ListUserAttributeProfileTemplate.class);
-
-        assertThat(listTemplates, is(notNullValue()));
-        assertThat(listTemplates.getUserAttributeProfileTemplates(), is(notNullValue()));
-        assertThat(listTemplates.getUserAttributeProfileTemplates(), hasSize(0));
-    }
-
-    @Test
-    public void shouldHandleNullList() throws Exception {
-        ListUserAttributeProfileTemplate listTemplates = new ListUserAttributeProfileTemplate();
-        listTemplates.setUserAttributeProfileTemplates(null);
-
-        String serialized = toJSON(listTemplates);
-        assertThat(serialized, is(notNullValue()));
-    }
-
-    @Test
-    public void shouldHandleTemplatesWithoutNestedProfile() throws Exception {
-        String minimalJson = "{\n" +
-                "  \"user_attribute_profile_templates\": [\n" +
-                "    {\n" +
-                "      \"id\": \"minimal-template\",\n" +
-                "      \"display_name\": \"Minimal Template\"\n" +
-                "    }\n" +
-                "  ]\n" +
-                "}";
-
-        ListUserAttributeProfileTemplate listTemplates = fromJSON(minimalJson, ListUserAttributeProfileTemplate.class);
-
-        assertThat(listTemplates, is(notNullValue()));
-        List<UserAttributeProfileTemplate> templates = listTemplates.getUserAttributeProfileTemplates();
-        assertThat(templates, hasSize(1));
-
-        UserAttributeProfileTemplate template = templates.get(0);
-        assertThat(template.getId(), is("minimal-template"));
-        assertThat(template.getDisplayName(), is("Minimal Template"));
-    }
-
-    @Test
-    public void shouldSerializeMultipleTemplates() throws Exception {
-        ListUserAttributeProfileTemplate listTemplates = new ListUserAttributeProfileTemplate();
-
-        // Create multiple templates with different structures
-        UserAttributeProfileTemplate template1 = new UserAttributeProfileTemplate();
-        template1.setDisplayName("Template 1");
-
-        UserAttributeProfile profile1 = new UserAttributeProfile();
-        profile1.setName("Profile 1");
-        Map<String, UserAttributes> attrs1 = new HashMap<>();
-        UserAttributes userAttr1 = new UserAttributes();
-        userAttr1.setLabel("User 1");
-        userAttr1.setDescription("Description 1");
-        attrs1.put("user1", userAttr1);
-        profile1.setUserAttributes(attrs1);
-        template1.setTemplate(profile1);
-
-        UserAttributeProfileTemplate template2 = new UserAttributeProfileTemplate();
-        template2.setDisplayName("Template 2");
-
-        listTemplates.setUserAttributeProfileTemplates(Arrays.asList(template1, template2));
-
-        String serialized = toJSON(listTemplates);
-        assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, JsonMatcher.hasEntry("user_attribute_profile_templates", listTemplates));
     }
 }

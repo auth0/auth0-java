@@ -10,14 +10,14 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ListUserAttributeProfileTemplate {
     @JsonProperty("user_attribute_profile_templates")
-    private List<UserAttributeProfileTemplateResponse> userAttributeProfileTemplateResponses;
+    private List<UserAttributeProfileTemplate> userAttributeProfileTemplateResponses;
 
     /**
      * Gets the user attribute profile templates
      * @return the user attribute profile templates
      */
     @JsonProperty("user_attribute_profile_templates")
-    public List<UserAttributeProfileTemplateResponse> getUserAttributeProfileTemplates() {
+    public List<UserAttributeProfileTemplate> getUserAttributeProfileTemplates() {
         return userAttributeProfileTemplateResponses;
     }
 
@@ -26,7 +26,7 @@ public class ListUserAttributeProfileTemplate {
      * @param userAttributeProfileTemplateResponses the user attribute profile templates
      */
     @JsonProperty("user_attribute_profile_templates")
-    public void setUserAttributeProfileTemplates(List<UserAttributeProfileTemplateResponse> userAttributeProfileTemplateResponses) {
+    public void setUserAttributeProfileTemplates(List<UserAttributeProfileTemplate> userAttributeProfileTemplateResponses) {
         this.userAttributeProfileTemplateResponses = userAttributeProfileTemplateResponses;
     }
 }

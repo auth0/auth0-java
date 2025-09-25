@@ -2,6 +2,7 @@ package com.auth0.json.mgmt.userAttributeProfiles;
 
 import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -9,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.auth0.json.JsonMatcher.hasEntry;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -120,18 +122,29 @@ public class ListUserAttributeProfileTest extends JsonTest<ListUserAttributeProf
         ListUserAttributeProfile listProfiles = new ListUserAttributeProfile();
 
         // Create first profile
-        UserAttributeProfile profile1 = new UserAttributeProfile();
-        profile1.setName("Test Profile 1");
+        UserAttributeProfile profile = new UserAttributeProfile();
+        profile.setName("This is just a test");
 
         // Create second profile
         UserAttributeProfile profile2 = new UserAttributeProfile();
-        profile2.setName("Test Profile 2");
+        profile2.setName("Updated Test Organization");
 
-        listProfiles.setUserAttributeProfiles(Arrays.asList(profile1, profile2));
+        listProfiles.setUserAttributeProfiles(Arrays.asList(profile, profile2));
 
         String serialized = toJSON(listProfiles);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, JsonMatcher.hasEntry("user_attribute_profiles", listProfiles));
+
+        // Parse the serialized JSON into a Map
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> jsonMap = objectMapper.readValue(serialized, Map.class);
+
+        // Validate the structure
+        assertThat(jsonMap, hasKey("user_attribute_profiles"));
+        List<Map<String, Object>> profiles = (List<Map<String, Object>>) jsonMap.get("user_attribute_profiles");
+        assertThat(profiles, hasSize(2));
+        assertThat(profiles.get(0).get("name"), is("This is just a test"));
+        assertThat(profiles.get(1).get("name"), is("Updated Test Organization"));
+
     }
 
     @Test

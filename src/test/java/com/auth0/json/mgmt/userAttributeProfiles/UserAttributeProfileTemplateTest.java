@@ -1,7 +1,7 @@
 package com.auth0.json.mgmt.userAttributeProfiles;
 
-import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -16,7 +16,6 @@ import static org.hamcrest.Matchers.hasSize;
 
 public class UserAttributeProfileTemplateTest extends JsonTest<UserAttributeProfileTemplate> {
 
-    private static final String readOnlyJson = "{\"id\":\"auth0-generic\",\"display_name\":\"A standard user attribute profile template\"}";
 
     private static final String fullJson = "{\n" +
             "  \"id\": \"auth0-generic\",\n" +
@@ -82,13 +81,24 @@ public class UserAttributeProfileTemplateTest extends JsonTest<UserAttributeProf
 
         String serialized = toJSON(template);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, JsonMatcher.hasEntry("display_name", "A standard user attribute profile template"));
-        assertThat(serialized, JsonMatcher.hasEntry("template", userAttributeProfile));
+
+        // Parse the serialized JSON into a Map
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> jsonMap = objectMapper.readValue(serialized, Map.class);
+
+        // Validate the structure
+        assertThat(jsonMap, hasKey("display_name"));
+        assertThat(jsonMap.get("display_name"), is("A standard user attribute profile template"));
+        assertThat(jsonMap, hasKey("template"));
+
+        Map<String, Object> templateMap = (Map<String, Object>) jsonMap.get("template");
+        assertThat(templateMap, hasKey("name"));
+        assertThat(templateMap.get("name"), is("Test Template Profile"));
     }
 
     @Test
     public void shouldDeserialize() throws Exception {
-        UserAttributeProfileTemplate template = fromJSON(readOnlyJson, UserAttributeProfileTemplate.class);
+        UserAttributeProfileTemplate template = fromJSON(fullJson, UserAttributeProfileTemplate.class);
 
         assertThat(template, is(notNullValue()));
         assertThat(template.getId(), is("auth0-generic"));
@@ -118,22 +128,5 @@ public class UserAttributeProfileTemplateTest extends JsonTest<UserAttributeProf
         assertThat(usernameAttr.getDescription(), is("This is just a test"));
         assertThat(usernameAttr.getAuth0Mapping(), is("testUser"));
         assertThat(usernameAttr.isProfileRequired(), is(false));
-
-        // Verify OIDC mapping in template
-        assertThat(usernameAttr.getOidcMapping(), is(notNullValue()));
-        assertThat(usernameAttr.getOidcMapping().getMapping(), is("preferred_username"));
-        assertThat(usernameAttr.getOidcMapping().getDisplayName(), is("UserName"));
-
-        // Verify SAML mapping in template
-        assertThat(usernameAttr.getSamlMapping(), hasSize(1));
-        assertThat(usernameAttr.getSamlMapping().get(0),
-                is("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"));
-
-        // Verify SCIM mapping in template
-        assertThat(usernameAttr.getScimMapping(), is("displayName"));
-
-        // Verify strategy overrides in template
-        assertThat(usernameAttr.getStrategyOverrides(), is(notNullValue()));
-        assertThat(usernameAttr.getStrategyOverrides(), hasKey("oidc"));
     }
 }

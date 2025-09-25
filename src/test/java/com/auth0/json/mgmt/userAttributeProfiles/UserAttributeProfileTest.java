@@ -1,7 +1,7 @@
 package com.auth0.json.mgmt.userAttributeProfiles;
 
-import com.auth0.json.JsonMatcher;
 import com.auth0.json.JsonTest;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -15,8 +15,6 @@ import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.hasSize;
 
 public class UserAttributeProfileTest extends JsonTest<UserAttributeProfile> {
-
-    private static final String readOnlyJson = "{\"id\":\"uap_1234567890\",\"name\":\"This is just a test\"}";
 
     private static final String fullJson = "{\n" +
             "  \"id\": \"uap_1234567890\",\n" +
@@ -73,14 +71,21 @@ public class UserAttributeProfileTest extends JsonTest<UserAttributeProfile> {
 
         String serialized = toJSON(profile);
         assertThat(serialized, is(notNullValue()));
-        assertThat(serialized, JsonMatcher.hasEntry("name", "Test Profile"));
-        assertThat(serialized, JsonMatcher.hasEntry("user_id", userId));
-        assertThat(serialized, JsonMatcher.hasEntry("user_attributes", userAttributes));
+
+        // Parse the serialized JSON into a Map
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> jsonMap = objectMapper.readValue(serialized, Map.class);
+
+        // Validate the structure
+        assertThat(jsonMap, hasKey("name"));
+        assertThat(jsonMap.get("name"), is("Test Profile"));
+        assertThat(jsonMap, hasKey("user_id"));
+        assertThat(jsonMap, hasKey("user_attributes"));
     }
 
     @Test
     public void shouldDeserialize() throws Exception {
-        UserAttributeProfile profile = fromJSON(readOnlyJson, UserAttributeProfile.class);
+        UserAttributeProfile profile = fromJSON(fullJson, UserAttributeProfile.class);
 
         assertThat(profile, is(notNullValue()));
         assertThat(profile.getId(), is("uap_1234567890"));

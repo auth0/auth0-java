@@ -4,39 +4,68 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Map;
-
+/**
+ * Class that represents a User Attribute Profile Template object. Related to
+ * the {@link com.auth0.client.mgmt.UserAttributeProfilesEntity} entity.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserAttributeProfileTemplate {
-    @JsonProperty("name")
-    private String name;
-    @JsonProperty("user_id")
-    private UserId userId;
-    @JsonProperty("user_attributes")
-    private Map<String, UserAttributes> userAttributes;
 
-    public String getName() {
-        return name;
+    @JsonProperty("id")
+    private String id;
+    @JsonProperty("display_name")
+    private String displayName;
+    @JsonProperty("template")
+    private UserAttributeProfile template;
+
+    /**
+     * Getter for the template ID.
+     *
+     * @return the template ID.
+     */
+    @JsonProperty("id")
+    public String getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * Getter for the display name.
+     *
+     * @return the display name.
+     */
+    @JsonProperty("display_name")
+    public String getDisplayName() {
+        return displayName;
     }
 
-    public UserId getUserId() {
-        return userId;
+    /**
+     * Setter for the display name.
+     *
+     * @param displayName the display name to set.
+     */
+    @JsonProperty("display_name")
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
-    public void setUserId(UserId userId) {
-        this.userId = userId;
+    /**
+     * Getter for the template.
+     *
+     * @return the template.
+     */
+    @JsonProperty("template")
+    public UserAttributeProfile getTemplate() {
+        return template;
     }
 
-    public Map<String, UserAttributes> getUserAttributes() {
-        return userAttributes;
-    }
-
-    public void setUserAttributes(Map<String, UserAttributes> userAttributes) {
-        this.userAttributes = userAttributes;
+    /**
+     * Setter for the template.
+     *
+     * @param template the template to set.
+     */
+    @JsonProperty("template")
+    public void setTemplate(UserAttributeProfile template) {
+        this.template = template;
     }
 }

@@ -126,7 +126,7 @@ public class UserAttributeProfilesEntity  extends BaseManagementEntity {
      * @param id the ID of the user attribute profile template to retrieve.
      * @return a Request to execute.
      */
-    public Request<UserAttributeProfileTemplateResponse> getTemplate(String id) {
+    public Request<UserAttributeProfileTemplate> getTemplate(String id) {
         Asserts.assertNotNull(id, "id");
 
         String url = baseUrl.newBuilder()
@@ -135,7 +135,7 @@ public class UserAttributeProfilesEntity  extends BaseManagementEntity {
             .addPathSegment(id)
             .build().toString();
 
-        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<UserAttributeProfileTemplateResponse>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<UserAttributeProfileTemplate>() {
         });
     }
 
