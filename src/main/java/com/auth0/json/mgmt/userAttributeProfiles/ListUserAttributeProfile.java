@@ -12,6 +12,9 @@ public class ListUserAttributeProfile {
     @JsonProperty("user_attribute_profiles")
     private List<UserAttributeProfile> userAttributeProfiles;
 
+    @JsonProperty("next")
+    private String next;
+
     /**
      * Gets the user attribute profiles.
      * @return the user attribute profiles
@@ -28,5 +31,15 @@ public class ListUserAttributeProfile {
     @JsonProperty("user_attribute_profiles")
     public void setUserAttributeProfiles(List<UserAttributeProfile> userAttributeProfiles) {
         this.userAttributeProfiles = userAttributeProfiles;
+    }
+
+    @JsonProperty("next")
+    public String getNext() {
+        return next;
+    }
+
+    @JsonProperty("next")
+    public void setNext(String next) {
+        this.next = next;
     }
 }
