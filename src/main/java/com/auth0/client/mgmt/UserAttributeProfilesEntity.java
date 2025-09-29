@@ -47,20 +47,15 @@ public class UserAttributeProfilesEntity  extends BaseManagementEntity {
         HttpUrl.Builder builder = baseUrl.newBuilder()
             .addPathSegments(ORGS_PATH);
 
-        applyFilter(filter, builder);
+        if (filter != null) {
+            filter.getAsMap().forEach((k, v) -> builder.addQueryParameter(k, String.valueOf(v)));
+        }
 
         String url = builder.build().toString();
 
         return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<ListUserAttributeProfile>() {
         });
     }
-
-    private void applyFilter(UserAttributeProfilesFilter filter, HttpUrl.Builder builder) {
-        if (filter != null) {
-            filter.getAsMap().forEach((k, v) -> builder.addQueryParameter(k, String.valueOf(v)));
-        }
-    }
-
 
     /**
      * Update a user attribute profile. A token with {@code update:user_attribute_profiles} scope is required.
