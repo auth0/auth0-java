@@ -1,0 +1,95 @@
+{
+  "user_attribute_profiles": [
+    {
+      "id": "uap_1234567890",
+      "name": "This is just a test",
+      "user_id": {
+        "oidc_mapping": "sub",
+        "saml_mapping": [
+          "urn:oid:0.9.10.10.100.1.1"
+        ],
+        "scim_mapping": "userName"
+      },
+      "user_attributes": {
+        "username": {
+          "label": "test User",
+          "description": "This is just a test",
+          "oidc_mapping": {
+            "mapping": "preferred_username",
+            "display_name": "UserName"
+          },
+          "saml_mapping":["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"],
+          "scim_mapping":"displayName",
+          "auth0_mapping": "testUser",
+          "profile_required": false,
+          "strategy_overrides": {
+            "oidc": {
+              "scim_mapping":"name.givenName"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "uap_123456789012345",
+      "name": "Updated Test Organization",
+      "user_id": {
+        "oidc_mapping": "sub",
+        "saml_mapping": [
+          "urn:oid:0.9.10.10.100.1.1"
+        ],
+        "scim_mapping": "userName"
+      },
+      "user_attributes": {
+        "username": {
+          "label": "test User",
+          "description": "This is just a test",
+          "oidc_mapping": {
+            "mapping": "preferred_username",
+            "display_name": "Display Name"
+          },
+          "auth0_mapping": "testUser",
+          "profile_required": false
+        }
+      }
+    },
+    {
+      "id": "uap_1234",
+      "name": "This is another test",
+      "user_id": {
+        "oidc_mapping": "sub",
+        "saml_mapping": [
+          "urn:oid:0.9.10.10.100.1.1"
+        ],
+        "scim_mapping": "userName",
+        "strategy_overrides": {
+          "google-apps": {
+            "oidc_mapping": "email"
+          }
+        }
+      },
+      "user_attributes": {
+        "username": {
+          "label": "test User",
+          "description": "This is just a test",
+          "oidc_mapping": {
+            "mapping": "preferred_username",
+            "display_name": "Display Name"
+          },
+          "auth0_mapping": "testUser",
+          "profile_required": false,
+          "strategy_overrides": {
+            "okta": {
+              "oidc_mapping": {
+                "mapping": "${context.userinfo.groups}",
+                "display_name": "groups"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "next": "Fe26.2*API2_1758785444*34b68e78fd693520c028d0ea61ae32653a36ca05d3da972107bb12a581eea9bb*"
+
+}
