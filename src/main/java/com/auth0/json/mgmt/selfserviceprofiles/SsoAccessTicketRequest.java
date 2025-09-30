@@ -22,8 +22,6 @@ public class SsoAccessTicketRequest {
     private int ttlSec;
     @JsonProperty("domain_aliases_config")
     private DomainAliasesConfig domainAliasesConfig;
-    @JsonProperty("provisioning_config")
-    private ProvisioningConfig provisioningConfig;
 
     /**
      * Creates a new instance.
@@ -119,21 +117,5 @@ public class SsoAccessTicketRequest {
      */
     public void setDomainAliasesConfig(DomainAliasesConfig domainAliasesConfig) {
         this.domainAliasesConfig = domainAliasesConfig;
-    }
-
-    /**
-     * Getter for the provisioning configuration.
-     * @return the provisioning configuration.
-     */
-    public ProvisioningConfig getProvisioningConfig() {
-        return provisioningConfig;
-    }
-
-    /**
-     * Setter for the provisioning configuration.
-     * @param provisioningConfig the provisioning configuration to set.
-     */
-    public void setProvisioningConfig(ProvisioningConfig provisioningConfig) {
-        this.provisioningConfig = provisioningConfig;
     }
 }

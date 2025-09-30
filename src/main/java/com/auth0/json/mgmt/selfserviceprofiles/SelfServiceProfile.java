@@ -20,8 +20,6 @@ public class SelfServiceProfile {
     private Branding branding;
     @JsonProperty("allowed_strategies")
     private List<String> allowedStrategies;
-    @JsonProperty("user_attribute_profile_id")
-    private String userAttributeProfileId;
 
     /**
      * Getter for the name of the self-service profile.
@@ -101,21 +99,5 @@ public class SelfServiceProfile {
      */
     public void setAllowedStrategies(List<String> allowedStrategies) {
         this.allowedStrategies = allowedStrategies;
-    }
-
-    /**
-     * Getter for user attribute profile ID.
-     * @return the user attribute profile ID.
-     */
-    public String getUserAttributeProfileId() {
-        return userAttributeProfileId;
-    }
-
-    /**
-     * Setter for user attribute profile ID.
-     * @param userAttributeProfileId the user attribute profile ID to set.
-     */
-    public void setUserAttributeProfileId(String userAttributeProfileId) {
-        this.userAttributeProfileId = userAttributeProfileId;
     }
 }
