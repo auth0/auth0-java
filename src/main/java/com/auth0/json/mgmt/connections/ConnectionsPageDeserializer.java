@@ -29,4 +29,9 @@ class ConnectionsPageDeserializer extends PageDeserializer<ConnectionsPage, Conn
         return new ConnectionsPage(start, length, total, limit, items);
     }
 
+    @Override
+    protected ConnectionsPage createPage(Integer start, Integer length, Integer total, Integer limit, String next, List<Connection> items) {
+        return new ConnectionsPage(start, length, total, limit, next, items);
+    }
+
 }

@@ -24,4 +24,8 @@ public class ConnectionsPage extends Page<Connection> {
         super(start, length, total, limit, items);
     }
 
+    public ConnectionsPage(Integer start, Integer length, Integer total, Integer limit, String next, List<Connection> items){
+        super(start, length, total, limit, next, items);
+    }
+
 }
