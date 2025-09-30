@@ -72,7 +72,7 @@ public class PromptsEntity extends BaseManagementEntity {
                 .addPathSegments(ORGS_PATH)
                 .addPathSegment(prompt)
                 .addPathSegment("custom-text")
-                .addPathSegments(language);
+                .addPathSegment(language);
 
         String url = builder.build().toString();
 
@@ -99,7 +99,7 @@ public class PromptsEntity extends BaseManagementEntity {
                 .addPathSegments(ORGS_PATH)
                 .addPathSegment(prompt)
                 .addPathSegment("custom-text")
-                .addPathSegments(language);
+                .addPathSegment(language);
 
         String url = builder.build().toString();
 
