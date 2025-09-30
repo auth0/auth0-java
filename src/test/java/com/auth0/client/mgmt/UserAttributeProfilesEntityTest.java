@@ -80,10 +80,10 @@ public class UserAttributeProfilesEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("from", "uap_1234567890"));
-        assertThat(recordedRequest, hasQueryParameter("take", "10"));
+        assertThat(recordedRequest, hasQueryParameter("take", "2"));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getItems(), hasSize(2));
+        assertThat(response.getItems(), hasSize(3));
     }
 
     @Test
