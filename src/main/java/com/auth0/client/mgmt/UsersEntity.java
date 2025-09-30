@@ -244,9 +244,17 @@ public class UsersEntity extends BaseManagementEntity {
      * @return a Request to execute.
      */
     public Request<Void> deleteAllAuthenticators(String userId) {
+
         Asserts.assertNotNull(userId, "user id");
 
-        return voidRequest(HttpMethod.DELETE, builder -> builder.withPathSegments(String.format("api/v2/users/%s/authenticators", userId)));
+        String url = baseUrl
+            .newBuilder()
+            .addPathSegments("api/v2/users")
+            .addPathSegment(userId)
+            .addPathSegment("authenticators")
+            .build()
+            .toString();
+        return new VoidRequest(client, tokenProvider, url, HttpMethod.DELETE);
     }
     
     /**
@@ -424,8 +432,8 @@ public class UsersEntity extends BaseManagementEntity {
         HttpUrl.Builder builder = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/users")
-                .addPathSegments(userId)
-                .addPathSegments("permissions");
+                .addPathSegment(userId)
+                .addPathSegment("permissions");
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
                 builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
@@ -456,8 +464,8 @@ public class UsersEntity extends BaseManagementEntity {
         final String url = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/users")
-                .addPathSegments(userId)
-                .addPathSegments("permissions")
+                .addPathSegment(userId)
+                .addPathSegment("permissions")
                 .build()
                 .toString();
         VoidRequest request = new VoidRequest(this.client, tokenProvider, url, HttpMethod.DELETE);
@@ -484,8 +492,8 @@ public class UsersEntity extends BaseManagementEntity {
         final String url = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/users")
-                .addPathSegments(userId)
-                .addPathSegments("permissions")
+                .addPathSegment(userId)
+                .addPathSegment("permissions")
                 .build()
                 .toString();
         VoidRequest request = new VoidRequest(this.client, tokenProvider, url, HttpMethod.POST);
@@ -507,8 +515,8 @@ public class UsersEntity extends BaseManagementEntity {
         HttpUrl.Builder builder = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/users")
-                .addPathSegments(userId)
-                .addPathSegments("roles");
+                .addPathSegment(userId)
+                .addPathSegment("roles");
         if (filter != null) {
             for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
                 builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
@@ -539,8 +547,8 @@ public class UsersEntity extends BaseManagementEntity {
         final String url = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/users")
-                .addPathSegments(userId)
-                .addPathSegments("roles")
+                .addPathSegment(userId)
+                .addPathSegment("roles")
                 .build()
                 .toString();
         VoidRequest request = new VoidRequest(this.client, tokenProvider, url, HttpMethod.DELETE);
@@ -567,8 +575,8 @@ public class UsersEntity extends BaseManagementEntity {
         final String url = baseUrl
                 .newBuilder()
                 .addPathSegments("api/v2/users")
-                .addPathSegments(userId)
-                .addPathSegments("roles")
+                .addPathSegment(userId)
+                .addPathSegment("roles")
                 .build()
                 .toString();
         VoidRequest request = new VoidRequest(this.client, tokenProvider, url, HttpMethod.POST);

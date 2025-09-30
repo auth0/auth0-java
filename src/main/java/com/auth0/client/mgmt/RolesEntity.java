@@ -69,7 +69,7 @@ public class RolesEntity extends BaseManagementEntity {
     HttpUrl.Builder builder = baseUrl
         .newBuilder()
         .addEncodedPathSegments("api/v2/roles")
-        .addEncodedPathSegments(roleId);
+        .addEncodedPathSegment(roleId);
 
     String url = builder.build().toString();
       return new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.GET, new TypeReference<Role>() {});
@@ -111,7 +111,7 @@ public class RolesEntity extends BaseManagementEntity {
     final String url = baseUrl
         .newBuilder()
         .addEncodedPathSegments("api/v2/roles")
-        .addEncodedPathSegments(roleId)
+        .addEncodedPathSegment(roleId)
         .build()
         .toString();
       return new VoidRequest(this.client, tokenProvider, url, HttpMethod.DELETE);
@@ -133,7 +133,7 @@ public class RolesEntity extends BaseManagementEntity {
     String url = baseUrl
         .newBuilder()
         .addEncodedPathSegments("api/v2/roles")
-        .addEncodedPathSegments(roleId)
+        .addEncodedPathSegment(roleId)
         .build()
         .toString();
     BaseRequest<Role> request = new BaseRequest<>(this.client, tokenProvider, url, HttpMethod.PATCH, new TypeReference<Role>() {});
@@ -156,8 +156,8 @@ public class RolesEntity extends BaseManagementEntity {
     HttpUrl.Builder builder = baseUrl
         .newBuilder()
         .addEncodedPathSegments("api/v2/roles")
-        .addEncodedPathSegments(roleId)
-        .addEncodedPathSegments("users");
+        .addEncodedPathSegment(roleId)
+        .addEncodedPathSegment("users");
     if (filter != null) {
       for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
         builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
@@ -186,8 +186,8 @@ public class RolesEntity extends BaseManagementEntity {
     String url = baseUrl
         .newBuilder()
         .addEncodedPathSegments("api/v2/roles")
-        .addEncodedPathSegments(roleId)
-        .addEncodedPathSegments("users")
+        .addEncodedPathSegment(roleId)
+        .addEncodedPathSegment("users")
         .build()
         .toString();
     VoidRequest request = new VoidRequest(this.client, tokenProvider, url, HttpMethod.POST);
@@ -210,8 +210,8 @@ public class RolesEntity extends BaseManagementEntity {
     HttpUrl.Builder builder = baseUrl
         .newBuilder()
         .addEncodedPathSegments("api/v2/roles")
-        .addEncodedPathSegments(roleId)
-        .addEncodedPathSegments("permissions");
+        .addEncodedPathSegment(roleId)
+        .addEncodedPathSegment("permissions");
     if (filter != null) {
       for (Map.Entry<String, Object> e : filter.getAsMap().entrySet()) {
         builder.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));
@@ -240,8 +240,8 @@ public class RolesEntity extends BaseManagementEntity {
     final String url = baseUrl
         .newBuilder()
         .addEncodedPathSegments("api/v2/roles")
-        .addEncodedPathSegments(roleId)
-        .addEncodedPathSegments("permissions")
+        .addEncodedPathSegment(roleId)
+        .addEncodedPathSegment("permissions")
         .build()
         .toString();
     VoidRequest request = new VoidRequest(this.client, tokenProvider, url, HttpMethod.DELETE);
@@ -269,8 +269,8 @@ public class RolesEntity extends BaseManagementEntity {
     final String url = baseUrl
         .newBuilder()
         .addEncodedPathSegments("api/v2/roles")
-        .addEncodedPathSegments(roleId)
-        .addEncodedPathSegments("permissions")
+        .addEncodedPathSegment(roleId)
+        .addEncodedPathSegment("permissions")
         .build()
         .toString();
     VoidRequest request = new VoidRequest(this.client, tokenProvider, url, HttpMethod.POST);
