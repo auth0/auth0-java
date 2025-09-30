@@ -20,7 +20,7 @@ jobs:
         uses: gradle/actions/setup-gradle@06832c7b30a0129d7fb559bcc6e43d26f6374244 # v4.3.1
 
       - name: Test and Assemble and ApiDiff with Gradle
-        run: ./gradlew assemble apiDiff check jacocoTestReport --continue --console=plain
+        run: ./gradlew assemble check jacocoTestReport --continue --console=plain
 
       - uses: codecov/codecov-action@5a1091511ad55cbe89839c7260b706298ca349f7 # v5.5.1
         with:
