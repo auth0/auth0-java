@@ -1,5 +1,18 @@
 # Change Log
 
+## [2.25.0](https://github.com/auth0/auth0-java/tree/2.25.0) (2025-09-30)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.24.0...2.25.0)
+
+**Added**
+- Added UserAttributeProfilePage and Deserializer [\#768](https://github.com/auth0/auth0-java/pull/768) ([tanya732](https://github.com/tanya732))
+- Added checkpoint pagination support for Connection Endpoint [\#767](https://github.com/auth0/auth0-java/pull/767) ([tanya732](https://github.com/tanya732))
+- Sdk 6843 self service provisioning java support [\#765](https://github.com/auth0/auth0-java/pull/765) ([tanya732](https://github.com/tanya732))
+- Support for patch clients credentials [\#760](https://github.com/auth0/auth0-java/pull/760) ([tanya732](https://github.com/tanya732))
+
+**Fixed**
+- Fix: URL Encodings [\#766](https://github.com/auth0/auth0-java/pull/766) ([tanya732](https://github.com/tanya732))
+- Fix: Updated to requested_expiry params [\#757](https://github.com/auth0/auth0-java/pull/757) ([tanya732](https://github.com/tanya732))
+
 ## [2.24.0](https://github.com/auth0/auth0-java/tree/2.24.0) (2025-08-22)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.23.0...2.24.0)
 
