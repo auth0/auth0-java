@@ -43,7 +43,7 @@ public class UserAttributeProfilesEntity  extends BaseManagementEntity {
      * @return a Request to execute
      *
      */
-    public Request<ListUserAttributeProfile> getAll(UserAttributeProfilesFilter filter) {
+    public Request<UserAttributeProfilePage> getAll(UserAttributeProfilesFilter filter) {
         HttpUrl.Builder builder = baseUrl.newBuilder()
             .addPathSegments(ORGS_PATH);
 
@@ -53,7 +53,7 @@ public class UserAttributeProfilesEntity  extends BaseManagementEntity {
 
         String url = builder.build().toString();
 
-        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<ListUserAttributeProfile>() {
+        return new BaseRequest<>(client, tokenProvider, url, HttpMethod.GET, new TypeReference<UserAttributeProfilePage>() {
         });
     }
 

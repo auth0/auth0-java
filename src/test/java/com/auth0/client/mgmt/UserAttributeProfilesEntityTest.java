@@ -49,11 +49,11 @@ public class UserAttributeProfilesEntityTest extends BaseMgmtEntityTest {
 
     @Test
     public void shouldGetAllUserAttributeProfilesWithoutFilter() throws Exception {
-        Request<ListUserAttributeProfile> request = api.userAttributeProfiles().getAll(null);
+        Request<UserAttributeProfilePage> request = api.userAttributeProfiles().getAll(null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.MGMT_USER_ATTRIBUTE_PROFILES_LIST, 200);
-        ListUserAttributeProfile response = request.execute().getBody();
+        UserAttributeProfilePage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/user-attribute-profiles"));
@@ -61,29 +61,29 @@ public class UserAttributeProfilesEntityTest extends BaseMgmtEntityTest {
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getUserAttributeProfiles(), hasSize(3));
+        assertThat(response.getItems(), hasSize(3));
     }
 
     @Test
     public void shouldGetAllUserAttributeProfilesWithFilter() throws Exception {
         UserAttributeProfilesFilter filter = new UserAttributeProfilesFilter()
-                .withCheckpointPagination("uap_1234567890", 10);
+                .withCheckpointPagination("uap_1234567890", 2);
 
-        Request<ListUserAttributeProfile> request = api.userAttributeProfiles().getAll(filter);
+        Request<UserAttributeProfilePage> request = api.userAttributeProfiles().getAll(filter);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(MockServer.MGMT_USER_ATTRIBUTE_PROFILES_LIST, 200);
-        ListUserAttributeProfile response = request.execute().getBody();
+        UserAttributeProfilePage response = request.execute().getBody();
         RecordedRequest recordedRequest = server.takeRequest();
 
         assertThat(recordedRequest, hasMethodAndPath(HttpMethod.GET, "/api/v2/user-attribute-profiles"));
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
         assertThat(recordedRequest, hasHeader("Authorization", "Bearer apiToken"));
         assertThat(recordedRequest, hasQueryParameter("from", "uap_1234567890"));
-        assertThat(recordedRequest, hasQueryParameter("take", "10"));
+        assertThat(recordedRequest, hasQueryParameter("take", "2"));
 
         assertThat(response, is(notNullValue()));
-        assertThat(response.getUserAttributeProfiles(), hasSize(3));
+        assertThat(response.getItems(), hasSize(3));
     }
 
     @Test
