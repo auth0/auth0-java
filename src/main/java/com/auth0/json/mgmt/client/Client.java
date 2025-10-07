@@ -155,6 +155,17 @@ public class Client {
     }
 
     /**
+     * Creates a new Application instance setting the name and client id properties.
+     *
+     * @param name of the application.
+     * @param clientId the client id of the application.
+     */
+    public Client(String name, String clientId) {
+        this.name = name;
+        this.clientId = clientId;
+    }
+
+    /**
      * Getter for the name of the application.
      *
      * @return the name.
