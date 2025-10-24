@@ -381,4 +381,18 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(client.isHerokuApp(), is(true));
         assertThat(client.getSigningKeys(), is(notNullValue()));
     }
+
+    @Test
+    public void shouldCreateClientWithNameOnly() {
+        Client client = new Client("My App");
+        assertThat(client.getName(), is("My App"));
+        assertThat(client.getClientId(), is(nullValue()));
+    }
+
+    @Test
+    public void shouldCreateClientWithNameAndClientId() {
+        Client client = new Client("My App", "client123");
+        assertThat(client.getName(), is("My App"));
+        assertThat(client.getClientId(), is("client123"));
+    }
 }
