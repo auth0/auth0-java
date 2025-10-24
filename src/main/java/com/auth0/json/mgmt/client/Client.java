@@ -291,6 +291,7 @@ public class Client {
      *
      * @return true if the token endpoint IP header is trusted, false otherwise.
      */
+    @JsonProperty("is_token_endpoint_ip_header_trusted")
     public Boolean getIsTokenEndpointIpHeaderTrusted() {
         return isTokenEndpointIpHeaderTrusted;
     }
@@ -300,6 +301,7 @@ public class Client {
      *
      * @param isTokenEndpointIpHeaderTrusted whether the token endpoint IP header is trusted or not.
      */
+    @JsonProperty("is_token_endpoint_ip_header_trusted")
     public void setIsTokenEndpointIpHeaderTrusted(Boolean isTokenEndpointIpHeaderTrusted) {
         this.isTokenEndpointIpHeaderTrusted = isTokenEndpointIpHeaderTrusted;
     }
