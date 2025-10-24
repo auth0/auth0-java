@@ -27,6 +27,7 @@ public class ClientTest extends JsonTest<Client> {
         "  \"logo_uri\": \"uri\",\n" +
         "  \"oidc_conformant\": true,\n" +
         "  \"is_first_party\": true,\n" +
+        "  \"is_token_endpoint_ip_header_trusted\": true,\n" +
         "  \"initiate_login_uri\": \"https://myhome.com/login\",\n" +
         "  \"callbacks\": [\n" +
         "    \"value\"\n" +
@@ -163,6 +164,7 @@ public class ClientTest extends JsonTest<Client> {
         client.setLogoUri("uri");
         client.setOIDCConformant(true);
         client.setIsFirstParty(true);
+        client.setIsTokenEndpointIpHeaderTrusted(true);
         List<String> stringList = Collections.singletonList("value");
         client.setCallbacks(stringList);
         client.setAllowedOrigins(stringList);
@@ -251,6 +253,7 @@ public class ClientTest extends JsonTest<Client> {
         assertThat(serialized, JsonMatcher.hasEntry("oidc_conformant", true));
         assertThat(serialized, JsonMatcher.hasEntry("initiate_login_uri", "https://appzero.com/login"));
         assertThat(serialized, JsonMatcher.hasEntry("is_first_party", true));
+        assertThat(serialized, JsonMatcher.hasEntry("is_token_endpoint_ip_header_trusted", true));
         assertThat(serialized, JsonMatcher.hasEntry("callbacks", Collections.singletonList("value")));
         assertThat(serialized, JsonMatcher.hasEntry("grant_types", Collections.singletonList("value")));
         assertThat(serialized, JsonMatcher.hasEntry("allowed_origins", Collections.singletonList("value")));
@@ -298,6 +301,7 @@ public class ClientTest extends JsonTest<Client> {
 
         assertThat(client.isOIDCConformant(), is(true));
         assertThat(client.isFirstParty(), is(true));
+        assertThat(client.getIsTokenEndpointIpHeaderTrusted(), is(true));
 
         assertThat(client.getCallbacks(), contains("value"));
         assertThat(client.getWebOrigins(), contains("value"));

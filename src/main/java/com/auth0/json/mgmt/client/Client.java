@@ -31,6 +31,8 @@ public class Client {
     private String logoUri;
     @JsonProperty("is_first_party")
     private Boolean isFirstParty;
+    @JsonProperty("is_token_endpoint_ip_header_trusted")
+    private Boolean isTokenEndpointIpHeaderTrusted;
     @JsonProperty("oidc_conformant")
     private Boolean oidcConformant;
     @JsonProperty("callbacks")
@@ -293,6 +295,26 @@ public class Client {
     @JsonProperty("is_first_party")
     public void setIsFirstParty(Boolean isFirstParty) {
         this.isFirstParty = isFirstParty;
+    }
+
+    /**
+     * Whether the token endpoint IP header is trusted for this application.
+     *
+     * @return true if the token endpoint IP header is trusted, false otherwise.
+     */
+    @JsonProperty("is_token_endpoint_ip_header_trusted")
+    public Boolean getIsTokenEndpointIpHeaderTrusted() {
+        return isTokenEndpointIpHeaderTrusted;
+    }
+
+    /**
+     * Setter for whether the token endpoint IP header is trusted for this application.
+     *
+     * @param isTokenEndpointIpHeaderTrusted whether the token endpoint IP header is trusted or not.
+     */
+    @JsonProperty("is_token_endpoint_ip_header_trusted")
+    public void setIsTokenEndpointIpHeaderTrusted(Boolean isTokenEndpointIpHeaderTrusted) {
+        this.isTokenEndpointIpHeaderTrusted = isTokenEndpointIpHeaderTrusted;
     }
 
     /**
