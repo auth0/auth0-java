@@ -1,12 +1,5 @@
 # Change Log
 
-## [2.26.0](https://github.com/auth0/auth0-java/tree/2.26.0) (2025-10-24)
-[Full Changelog](https://github.com/auth0/auth0-java/compare/2.25.0...2.26.0)
-
-**Added**
-- Adenix/client is token endpoint id header trusted [\#782](https://github.com/auth0/auth0-java/pull/782) ([tanya732](https://github.com/tanya732))
-- Feat: add constructor to set clientId on Client creation [\#781](https://github.com/auth0/auth0-java/pull/781) ([tanya732](https://github.com/tanya732))
-
 ## [2.25.0](https://github.com/auth0/auth0-java/tree/2.25.0) (2025-09-30)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.24.0...2.25.0)
 
