@@ -3,7 +3,6 @@ package com.auth0.utils.tokens;
 import com.auth0.exception.IdTokenValidationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.utils.Asserts;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -121,7 +120,9 @@ public final class IdTokenVerifier {
             throw new IdTokenValidationException("Issuer (iss) claim must be a string present in the ID token");
         }
         if (!decoded.getIssuer().equals(this.issuer)) {
-            throw new IdTokenValidationException(String.format("Issuer (iss) claim mismatch in the ID token, expected \"%s\", found \"%s\"", this.issuer, decoded.getIssuer()));
+            throw new IdTokenValidationException(String.format(
+                    "Issuer (iss) claim mismatch in the ID token, expected \"%s\", found \"%s\"",
+                    this.issuer, decoded.getIssuer()));
         }
 
         if (isEmpty(decoded.getSubject())) {
@@ -130,10 +131,13 @@ public final class IdTokenVerifier {
 
         final List<String> audience = decoded.getAudience();
         if (audience == null) {
-            throw new IdTokenValidationException("Audience (aud) claim must be a string or array of strings present in the ID token");
+            throw new IdTokenValidationException(
+                    "Audience (aud) claim must be a string or array of strings present in the ID token");
         }
         if (!audience.contains(this.audience)) {
-            throw new IdTokenValidationException(String.format("Audience (aud) claim mismatch in the ID token; expected \"%s\" but found \"%s\"", this.audience, decoded.getAudience()));
+            throw new IdTokenValidationException(String.format(
+                    "Audience (aud) claim mismatch in the ID token; expected \"%s\" but found \"%s\"",
+                    this.audience, decoded.getAudience()));
         }
 
         // Org verification
@@ -143,19 +147,25 @@ public final class IdTokenVerifier {
                 // org ID
                 String orgClaim = decoded.getClaim("org_id").asString();
                 if (isEmpty(orgClaim)) {
-                    throw new IdTokenValidationException("Organization Id (org_id) claim must be a string present in the ID token");
+                    throw new IdTokenValidationException(
+                            "Organization Id (org_id) claim must be a string present in the ID token");
                 }
                 if (!this.organization.equals(orgClaim)) {
-                    throw new IdTokenValidationException(String.format("Organization (org_id) claim mismatch in the ID token; expected \"%s\" but found \"%s\"", this.organization, orgClaim));
+                    throw new IdTokenValidationException(String.format(
+                            "Organization (org_id) claim mismatch in the ID token; expected \"%s\" but found \"%s\"",
+                            this.organization, orgClaim));
                 }
             } else {
                 // org name
                 String orgNameClaim = decoded.getClaim("org_name").asString();
                 if (isEmpty(orgNameClaim)) {
-                    throw new IdTokenValidationException("Organization name (org_name) claim must be a string present in the ID token");
+                    throw new IdTokenValidationException(
+                            "Organization name (org_name) claim must be a string present in the ID token");
                 }
                 if (!org.toLowerCase().equals(orgNameClaim)) {
-                    throw new IdTokenValidationException(String.format("Organization (org_name) claim mismatch in the ID token; expected \"%s\" but found \"%s\"", this.organization, orgNameClaim));
+                    throw new IdTokenValidationException(String.format(
+                            "Organization (org_name) claim mismatch in the ID token; expected \"%s\" but found \"%s\"",
+                            this.organization, orgNameClaim));
                 }
             }
         }
@@ -165,7 +175,8 @@ public final class IdTokenVerifier {
         final int clockSkew = this.leeway != null ? this.leeway : DEFAULT_LEEWAY;
 
         if (decoded.getExpiresAt() == null) {
-            throw new IdTokenValidationException("Expiration Time (exp) claim must be a number present in the ID token");
+            throw new IdTokenValidationException(
+                    "Expiration Time (exp) claim must be a number present in the ID token");
         }
 
         cal.setTime(decoded.getExpiresAt());
@@ -173,7 +184,9 @@ public final class IdTokenVerifier {
         Date expDate = cal.getTime();
 
         if (now.after(expDate)) {
-            throw new IdTokenValidationException(String.format("Expiration Time (exp) claim error in the ID token; current time (%d) is after expiration time (%d)", now.getTime() / 1000, expDate.getTime() / 1000));
+            throw new IdTokenValidationException(String.format(
+                    "Expiration Time (exp) claim error in the ID token; current time (%d) is after expiration time (%d)",
+                    now.getTime() / 1000, expDate.getTime() / 1000));
         }
 
         if (decoded.getIssuedAt() == null) {
@@ -189,24 +202,30 @@ public final class IdTokenVerifier {
                 throw new IdTokenValidationException("Nonce (nonce) claim must be a string present in the ID token");
             }
             if (!nonce.equals(nonceClaim)) {
-                throw new IdTokenValidationException(String.format("Nonce (nonce) claim mismatch in the ID token; expected \"%s\", found \"%s\"", nonce, nonceClaim));
+                throw new IdTokenValidationException(String.format(
+                        "Nonce (nonce) claim mismatch in the ID token; expected \"%s\", found \"%s\"",
+                        nonce, nonceClaim));
             }
         }
 
         if (audience.size() > 1) {
             String azpClaim = decoded.getClaim(AZP_CLAIM).asString();
             if (isEmpty(azpClaim)) {
-                throw new IdTokenValidationException("Authorized Party (azp) claim must be a string present in the ID token when Audience (aud) claim has multiple values");
+                throw new IdTokenValidationException(
+                        "Authorized Party (azp) claim must be a string present in the ID token when Audience (aud) claim has multiple values");
             }
             if (!this.audience.equals(azpClaim)) {
-                throw new IdTokenValidationException(String.format("Authorized Party (azp) claim mismatch in the ID token; expected \"%s\", found \"%s\"", this.audience, azpClaim));
+                throw new IdTokenValidationException(String.format(
+                        "Authorized Party (azp) claim mismatch in the ID token; expected \"%s\", found \"%s\"",
+                        this.audience, azpClaim));
             }
         }
 
         if (maxAuthenticationAge != null) {
             Date authTime = decoded.getClaim(AUTH_TIME_CLAIM).asDate();
             if (authTime == null) {
-                throw new IdTokenValidationException("Authentication Time (auth_time) claim must be a number present in the ID token when Max Age (max_age) is specified");
+                throw new IdTokenValidationException(
+                        "Authentication Time (auth_time) claim must be a number present in the ID token when Max Age (max_age) is specified");
             }
 
             cal.setTime(authTime);
@@ -215,7 +234,9 @@ public final class IdTokenVerifier {
             Date authTimeDate = cal.getTime();
 
             if (now.after(authTimeDate)) {
-                throw new IdTokenValidationException(String.format("Authentication Time (auth_time) claim in the ID token indicates that too much time has passed since the last end-user authentication. Current time (%d) is after last auth at (%d)", now.getTime() / 1000, authTimeDate.getTime() / 1000));
+                throw new IdTokenValidationException(String.format(
+                        "Authentication Time (auth_time) claim in the ID token indicates that too much time has passed since the last end-user authentication. Current time (%d) is after last auth at (%d)",
+                        now.getTime() / 1000, authTimeDate.getTime() / 1000));
             }
         }
     }
@@ -269,7 +290,7 @@ public final class IdTokenVerifier {
         /**
          * Specify the expected organization (org_id) the token must be issued for. This should be used if using the
          * Organizations feature.
-
+         *
          * @param organization the ID of the organization.
          * @return this Builder instance.
          */

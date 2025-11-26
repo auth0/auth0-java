@@ -13,8 +13,10 @@ public class PasswordlessEmailResponse {
 
     @JsonProperty("_id")
     private String id;
+
     @JsonProperty("email")
     private String email;
+
     @JsonProperty("email_verified")
     private Boolean emailVerified;
 

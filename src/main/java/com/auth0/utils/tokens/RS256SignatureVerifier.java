@@ -4,7 +4,6 @@ import com.auth0.exception.IdTokenValidationException;
 import com.auth0.exception.PublicKeyProviderException;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.RSAKeyProvider;
-
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 
@@ -26,7 +25,8 @@ class RS256SignatureVerifier extends SignatureVerifier {
                 try {
                     return publicKeyProvider.getPublicKeyById(keyId);
                 } catch (PublicKeyProviderException pke) {
-                    throw new IdTokenValidationException(String.format("Could not find a public key for Key ID (kid) \"%s\"", keyId), pke);
+                    throw new IdTokenValidationException(
+                            String.format("Could not find a public key for Key ID (kid) \"%s\"", keyId), pke);
                 }
             }
 

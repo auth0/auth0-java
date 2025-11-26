@@ -1,9 +1,8 @@
 package com.auth0.net;
 
+import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.Response;
-
-import java.io.IOException;
 
 /**
  * OkHttp Interceptor implementation that adds the auth0-client header

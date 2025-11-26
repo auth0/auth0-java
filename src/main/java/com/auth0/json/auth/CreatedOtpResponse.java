@@ -3,7 +3,6 @@ package com.auth0.json.auth;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -37,5 +36,4 @@ public class CreatedOtpResponse {
     public List<String> getRecoveryCodes() {
         return recoveryCodes;
     }
-
 }

@@ -1,7 +1,6 @@
 package com.auth0.client;
 
 import com.auth0.utils.Asserts;
-
 import java.util.Collections;
 import java.util.Set;
 
@@ -73,5 +72,4 @@ public class LoggingOptions {
     public void setHeadersToRedact(Set<String> headersToRedact) {
         this.headersToRedact = headersToRedact;
     }
-
 }
