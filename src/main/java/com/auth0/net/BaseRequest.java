@@ -10,13 +10,11 @@ import com.auth0.utils.HttpResponseHeadersUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.MapType;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-
 
 /**
  * A request class that is able to interact fluently with the Auth0 server.
@@ -45,7 +43,13 @@ public class BaseRequest<T> implements Request<T> {
     private final Auth0HttpClient client;
     private final TokenProvider tokenProvider;
 
-    BaseRequest(Auth0HttpClient client, TokenProvider tokenProvider, String url, HttpMethod method, ObjectMapper mapper, TypeReference<T> tType) {
+    BaseRequest(
+            Auth0HttpClient client,
+            TokenProvider tokenProvider,
+            String url,
+            HttpMethod method,
+            ObjectMapper mapper,
+            TypeReference<T> tType) {
         this.client = client;
         this.tokenProvider = tokenProvider;
         this.url = url;
@@ -56,7 +60,12 @@ public class BaseRequest<T> implements Request<T> {
         this.parameters = new HashMap<>();
     }
 
-    public BaseRequest(Auth0HttpClient client, TokenProvider tokenProvider, String url, HttpMethod method, TypeReference<T> tType) {
+    public BaseRequest(
+            Auth0HttpClient client,
+            TokenProvider tokenProvider,
+            String url,
+            HttpMethod method,
+            TypeReference<T> tType) {
         this(client, tokenProvider, url, method, ObjectMapperProvider.getMapper(), tType);
     }
 
@@ -73,9 +82,9 @@ public class BaseRequest<T> implements Request<T> {
             headers.put("Authorization", "Bearer " + apiToken);
         }
         Auth0HttpRequest request = Auth0HttpRequest.newBuilder(url, method)
-            .withBody(body)
-            .withHeaders(headers)
-            .build();
+                .withBody(body)
+                .withHeaders(headers)
+                .build();
 
         return request;
     }
@@ -153,8 +162,7 @@ public class BaseRequest<T> implements Request<T> {
         if (Objects.nonNull(tokenProvider)) {
             return tokenProvider.getTokenAsync().thenCompose(token -> {
                 try {
-                    return client.sendRequestAsync(createRequest(token))
-                        .thenCompose(this::getResponseFuture);
+                    return client.sendRequestAsync(createRequest(token)).thenCompose(this::getResponseFuture);
                 } catch (Auth0Exception e) {
                     future.completeExceptionally(e);
                     return future;
@@ -163,8 +171,7 @@ public class BaseRequest<T> implements Request<T> {
         }
 
         try {
-            return client.sendRequestAsync(createRequest(null))
-                .thenCompose(this::getResponseFuture);
+            return client.sendRequestAsync(createRequest(null)).thenCompose(this::getResponseFuture);
         } catch (Auth0Exception e) {
             future.completeExceptionally(e);
             return future;
@@ -175,7 +182,8 @@ public class BaseRequest<T> implements Request<T> {
         CompletableFuture<Response<T>> future = new CompletableFuture<>();
         try {
             T body = parseResponseBody(httpResponse);
-            future = CompletableFuture.completedFuture(new ResponseImpl<>(httpResponse.getHeaders(), body, httpResponse.getCode()));
+            future = CompletableFuture.completedFuture(
+                    new ResponseImpl<>(httpResponse.getHeaders(), body, httpResponse.getCode()));
         } catch (Auth0Exception e) {
             future.completeExceptionally(e);
             return future;
@@ -221,7 +229,8 @@ public class BaseRequest<T> implements Request<T> {
         long reset = Long.parseLong(response.getHeader("x-ratelimit-reset", "-1"));
 
         TokenQuotaBucket clientQuotaLimit = HttpResponseHeadersUtils.getClientQuotaLimit(response.getHeaders());
-        TokenQuotaBucket organizationQuotaLimit = HttpResponseHeadersUtils.getOrganizationQuotaLimit(response.getHeaders());
+        TokenQuotaBucket organizationQuotaLimit =
+                HttpResponseHeadersUtils.getOrganizationQuotaLimit(response.getHeaders());
 
         long retryAfter = Long.parseLong(response.getHeader("retry-after", "-1"));
 
@@ -270,4 +279,3 @@ public class BaseRequest<T> implements Request<T> {
         return this;
     }
 }
-

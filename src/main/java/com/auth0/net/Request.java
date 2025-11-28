@@ -2,7 +2,6 @@ package com.auth0.net;
 
 import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
-
 import java.util.concurrent.CompletableFuture;
 
 /**

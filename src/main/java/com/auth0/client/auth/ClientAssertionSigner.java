@@ -13,7 +13,7 @@ public interface ClientAssertionSigner {
      * @param issuer the Issuer. This MUST contain the client_id of the OAuth Client.
      * @param audience the audience that identifies the Authorization Server as an intended audience.
      * @param subject the Subject. This MUST contain the client_id of the OAuth Client.
-
+     *
      * @return a signed JWT representing the client assertion.
      */
     String createSignedClientAssertion(String issuer, String audience, String subject);

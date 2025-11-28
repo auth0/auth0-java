@@ -35,7 +35,7 @@ publishing {
 
       groupId = GROUP
       artifactId = POM_ARTIFACT_ID
-      version = getVersionName()
+      version = project.version
 
       pom {
         name = POM_NAME

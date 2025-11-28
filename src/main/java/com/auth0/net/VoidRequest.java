@@ -6,7 +6,6 @@ import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.Auth0HttpResponse;
 import com.auth0.net.client.HttpMethod;
 import com.fasterxml.jackson.core.type.TypeReference;
-
 import java.util.HashMap;
 
 /**
@@ -21,8 +20,7 @@ import java.util.HashMap;
 public class VoidRequest extends BaseRequest<Void> {
 
     public VoidRequest(Auth0HttpClient client, TokenProvider tokenProvider, String url, HttpMethod method) {
-        super(client, tokenProvider, url, method, new TypeReference<Void>() {
-        });
+        super(client, tokenProvider, url, method, new TypeReference<Void>() {});
     }
 
     @Override

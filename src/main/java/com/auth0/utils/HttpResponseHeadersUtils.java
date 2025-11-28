@@ -1,8 +1,7 @@
 package com.auth0.utils;
 
-import com.auth0.net.TokenQuotaLimit;
 import com.auth0.net.TokenQuotaBucket;
-
+import com.auth0.net.TokenQuotaLimit;
 import java.util.Map;
 
 public class HttpResponseHeadersUtils {
@@ -65,18 +64,17 @@ public class HttpResponseHeadersUtils {
                 }
             }
 
-            if (attributes.length >0 && attributes[0].contains("per_hour")) {
+            if (attributes.length > 0 && attributes[0].contains("per_hour")) {
                 perHour = new TokenQuotaLimit(quota, remaining, time);
-            } else if (attributes.length >0 && attributes[0].contains("per_day")) {
+            } else if (attributes.length > 0 && attributes[0].contains("per_day")) {
                 perDay = new TokenQuotaLimit(quota, remaining, time);
             }
         }
 
-        if(perHour == null && perDay == null) {
+        if (perHour == null && perDay == null) {
             return null;
         }
 
         return new TokenQuotaBucket(perHour, perDay);
     }
-
 }
