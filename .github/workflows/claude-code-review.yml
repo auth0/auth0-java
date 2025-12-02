@@ -8,4 +8,4 @@ on:
 
 jobs:
   claude-review:
-    uses: atko-cic/ai-pr-analyzer-gh-action/.github/workflows/claude-code-review.yml@main
+    uses: auth0/auth0-ai-pr-analyzer-gh-action/.github/workflows/claude-code-review.yml@main
