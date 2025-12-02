@@ -16,12 +16,16 @@ public class CreatedUser {
     @JsonProperty("_id")
     @JsonAlias({"_id", "id", "user_id"})
     private String userId;
+
     @JsonProperty("email")
     private String email;
+
     @JsonProperty("username")
     private String username;
+
     @JsonProperty("email_verified")
     private Boolean emailVerified;
+
     @JsonProperty("phone_number")
     private String phoneNumber;
 

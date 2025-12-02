@@ -33,7 +33,6 @@ public class HttpOptions {
         this.proxyOptions = proxyOptions;
     }
 
-
     /**
      * @return the connect timeout, in seconds
      */

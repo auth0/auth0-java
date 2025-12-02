@@ -15,8 +15,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
  * @param <T> The type expected to be received as part of the response.
  * @see BaseRequest
  */
-public class EmptyBodyVoidRequest<T> extends BaseRequest<T>  {
-    public EmptyBodyVoidRequest(Auth0HttpClient client, TokenProvider tokenProvider, String url, HttpMethod method, TypeReference<T> tType) {
+public class EmptyBodyVoidRequest<T> extends BaseRequest<T> {
+    public EmptyBodyVoidRequest(
+            Auth0HttpClient client,
+            TokenProvider tokenProvider,
+            String url,
+            HttpMethod method,
+            TypeReference<T> tType) {
         super(client, tokenProvider, url, method, tType);
     }
 
@@ -28,9 +33,10 @@ public class EmptyBodyVoidRequest<T> extends BaseRequest<T>  {
 
     @Override
     public EmptyBodyVoidRequest<T> addParameter(String name, Object value) {
-        //do nothing
+        // do nothing
         return this;
     }
+
     @Override
     protected T parseResponseBody(Auth0HttpResponse response) throws Auth0Exception {
         if (!response.isSuccessful()) {
@@ -38,5 +44,4 @@ public class EmptyBodyVoidRequest<T> extends BaseRequest<T>  {
         }
         return null;
     }
-
 }

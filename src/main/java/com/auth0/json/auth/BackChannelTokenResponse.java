@@ -9,10 +9,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class BackChannelTokenResponse {
     @JsonProperty("access_token")
     private String accessToken;
+
     @JsonProperty("id_token")
     private String idToken;
+
     @JsonProperty("expires_in")
     private long expiresIn;
+
     @JsonProperty("scope")
     private String scope;
 

@@ -1,7 +1,6 @@
 package com.auth0.net.client;
 
 import com.auth0.utils.Asserts;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +11,7 @@ public class Auth0HttpResponse {
 
     private final Map<String, String> headers;
 
-    private Auth0HttpResponse(Builder  builder) {
+    private Auth0HttpResponse(Builder builder) {
         Asserts.assertNotNull(builder.code, "response code");
         Asserts.assertNotNull(builder.headers, "response headers");
         this.code = builder.code;
@@ -25,7 +24,7 @@ public class Auth0HttpResponse {
     }
 
     public boolean isSuccessful() {
-        return  code >= 200 && code <= 299;
+        return code >= 200 && code <= 299;
     }
 
     public String getBody() {
@@ -47,6 +46,7 @@ public class Auth0HttpResponse {
     public String getHeader(String header, String defaultValue) {
         return headers.get(header) != null ? headers.get(header) : defaultValue;
     }
+
     public static class Builder {
         private int code;
         private String body;

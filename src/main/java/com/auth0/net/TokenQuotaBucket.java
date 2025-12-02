@@ -30,6 +30,4 @@ public class TokenQuotaBucket {
     public TokenQuotaLimit getPerDay() {
         return perDay;
     }
-
-
 }

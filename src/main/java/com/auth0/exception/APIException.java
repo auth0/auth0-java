@@ -99,7 +99,8 @@ public class APIException extends Auth0Exception {
      * @return {@code true} when the username and/or password used for authentication are invalid, {@code false} otherwise.
      */
     public boolean isInvalidCredentials() {
-        return "invalid_user_password".equals(error) || "invalid_grant".equals(error) && "Wrong email or password.".equals(description);
+        return "invalid_user_password".equals(error)
+                || "invalid_grant".equals(error) && "Wrong email or password.".equals(description);
     }
 
     /**
@@ -120,8 +121,8 @@ public class APIException extends Auth0Exception {
      * @return {@code true} when the MFA Token used on the login request is malformed or has expired, {@code false} otherwise.
      */
     public boolean isMultifactorTokenInvalid() {
-        return "expired_token".equals(error) && "mfa_token is expired".equals(description) ||
-                "invalid_grant".equals(error) && "Malformed mfa_token".equals(description);
+        return "expired_token".equals(error) && "mfa_token is expired".equals(description)
+                || "invalid_grant".equals(error) && "Malformed mfa_token".equals(description);
     }
 
     /**
@@ -143,7 +144,7 @@ public class APIException extends Auth0Exception {
             Object description = values.get(DESCRIPTION);
             if (description instanceof String) {
                 return (String) description;
-            } else if (description instanceof Map){
+            } else if (description instanceof Map) {
                 @SuppressWarnings("unchecked")
                 PasswordStrengthErrorParser policy = new PasswordStrengthErrorParser((Map<String, Object>) description);
                 return policy.getDescription();
