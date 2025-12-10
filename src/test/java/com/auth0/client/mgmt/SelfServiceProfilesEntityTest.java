@@ -278,6 +278,11 @@ public class SelfServiceProfilesEntityTest extends BaseMgmtEntityTest {
     public void shouldCreateSsoAccessTicket() throws Exception{
         SsoAccessTicketRequest requestBody = new SsoAccessTicketRequest();
         requestBody.setConnectionId("test-connection");
+        ProvisioningConfig provisioningConfig = new ProvisioningConfig();
+        GoogleWorkspaceProvisioningConfig googleWorkspace = new GoogleWorkspaceProvisioningConfig();
+        googleWorkspace.setSyncUsers(true);
+        provisioningConfig.setGoogleWorkspace(googleWorkspace);
+        requestBody.setProvisioningConfig(provisioningConfig);
 
         Request<SsoAccessTicketResponse> request = api.selfServiceProfiles().createSsoAccessTicket("id", requestBody);
         assertThat(request, is(notNullValue()));
