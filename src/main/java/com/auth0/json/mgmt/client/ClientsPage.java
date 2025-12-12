@@ -24,4 +24,7 @@ public class ClientsPage extends Page<Client> {
         super(start, length, total, limit, items);
     }
 
+    public ClientsPage(Integer start, Integer length, Integer total, Integer limit, String next, List<Client> items) {
+        super(start, length, total, limit, next, items);
+    }
 }
