@@ -13,6 +13,8 @@ public class ProvisioningConfig {
     private List<String> scopes;
     @JsonProperty("token_lifetime")
     private Integer tokenLifetime;
+    @JsonProperty("google_workspace")
+    private GoogleWorkspaceProvisioningConfig googleWorkspace;
 
 
     /**
@@ -34,6 +36,15 @@ public class ProvisioningConfig {
     }
 
     /**
+     * Getter for the Google Workspace provisioning config.
+     * @return the Google Workspace provisioning config.
+     */
+    @JsonProperty("google_workspace")
+    public GoogleWorkspaceProvisioningConfig getGoogleWorkspace() {
+        return googleWorkspace;
+    }
+
+    /**
      * Getter for the token lifetime.
      * @return the token lifetime.
      */
@@ -49,5 +60,14 @@ public class ProvisioningConfig {
     @JsonProperty("token_lifetime")
     public void setTokenLifetime(Integer tokenLifetime) {
         this.tokenLifetime = tokenLifetime;
+    }
+
+    /**
+     * Setter for the Google Workspace provisioning config.
+     * @param googleWorkspace the Google Workspace provisioning config to set.
+     */
+    @JsonProperty("google_workspace")
+    public void setGoogleWorkspace(GoogleWorkspaceProvisioningConfig googleWorkspace) {
+        this.googleWorkspace = googleWorkspace;
     }
 }
