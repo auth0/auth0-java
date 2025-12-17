@@ -29,11 +29,11 @@ public class SsoAccessTicketRequestTest extends JsonTest<SsoAccessTicketRequest>
         assertThat(deserialized.getTtlSec(), is(0));
 
         assertThat(deserialized.getDomainAliasesConfig().getDomainVerification(), is("none"));
+        assertThat(deserialized.getProvisioningConfig().getScopes().get(0), is("get:users"));
     }
 
     @Test
     public void serialize() throws Exception {
-
         Map<String, Object> connectionConfig = new HashMap<>();
         connectionConfig.put("name", "okta");
         connectionConfig.put("display_name", "okta connection");
@@ -76,13 +76,19 @@ public class SsoAccessTicketRequestTest extends JsonTest<SsoAccessTicketRequest>
 
         ssoAccessTicketRequest.setDomainAliasesConfig(new DomainAliasesConfig("none"));
 
+        ProvisioningConfig provisioningConfig = new ProvisioningConfig();
+        List<String> scopes = new ArrayList<>();
+        scopes.add("get:users");
+        provisioningConfig.setScopes(scopes);
+        ssoAccessTicketRequest.setProvisioningConfig(provisioningConfig);
+
         String serialized = toJSON(ssoAccessTicketRequest);
         assertThat(ssoAccessTicketRequest, is(notNullValue()));
-        assertThat(serialized, containsString("{\"connection_config\":{\"metadata\":{},\"is_domain_connection\":true,\"show_as_button\":true,\"name\":\"okta\",\"options\":{\"icon_url\":\"https://cdn.auth0.com/connections/okta.png\",\"domain_aliases\":[\"acme.corp\"],\"idpinitiated\":{\"client_authorizequery\":\"response_type=code&scope=openid%20profile%20email\",\"client_protocol\":\"oauth2\",\"enabled\":true,\"client_id\":\"client-1\"}},\"display_name\":\"okta connection\"},\"enabled_clients\":[\"client-1\"],\"enabled_organizations\":[{\"organization_id\":\"org_1\",\"assign_membership_on_login\":true,\"show_as_button\":true}],\"ttl_sec\":0,\"domain_aliases_config\":{\"domain_verification\":\"none\"}}"));
+        assertThat(serialized, containsString("{\"connection_config\":{\"metadata\":{},\"is_domain_connection\":true,\"show_as_button\":true,\"name\":\"okta\",\"options\":{\"icon_url\":\"https://cdn.auth0.com/connections/okta.png\",\"domain_aliases\":[\"acme.corp\"],\"idpinitiated\":{\"client_authorizequery\":\"response_type=code&scope=openid%20profile%20email\",\"client_protocol\":\"oauth2\",\"enabled\":true,\"client_id\":\"client-1\"}},\"display_name\":\"okta connection\"},\"enabled_clients\":[\"client-1\"],\"enabled_organizations\":[{\"organization_id\":\"org_1\",\"assign_membership_on_login\":true,\"show_as_button\":true}],\"ttl_sec\":0,\"domain_aliases_config\":{\"domain_verification\":\"none\"},\"provisioning_config\":{\"scopes\":[\"get:users\"]}}"));
         assertThat(serialized, containsString("\"enabled_clients\":[\"client-1\"]"));
         assertThat(serialized, containsString("\"enabled_organizations\":[{\"organization_id\":\"org_1\",\"assign_membership_on_login\":true,\"show_as_button\":true}]"));
         assertThat(serialized, containsString("\"ttl_sec\":0"));
         assertThat(serialized, containsString("\"domain_aliases_config\":{\"domain_verification\":\"none\"}"));
-
+        assertThat(serialized, containsString("\"provisioning_config\":{\"scopes\":[\"get:users\"]}"));
     }
 }

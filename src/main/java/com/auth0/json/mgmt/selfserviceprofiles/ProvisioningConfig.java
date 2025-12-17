@@ -12,7 +12,7 @@ public class ProvisioningConfig {
     @JsonProperty("scopes")
     private List<String> scopes;
     @JsonProperty("token_lifetime")
-    private int tokenLifetime;
+    private Integer tokenLifetime;
     @JsonProperty("google_workspace")
     private GoogleWorkspaceProvisioningConfig googleWorkspace;
 
@@ -49,7 +49,7 @@ public class ProvisioningConfig {
      * @return the token lifetime.
      */
     @JsonProperty("token_lifetime")
-    public int getTokenLifetime() {
+    public Integer getTokenLifetime() {
         return tokenLifetime;
     }
 
@@ -58,7 +58,7 @@ public class ProvisioningConfig {
      * @param tokenLifetime the token lifetime to set.
      */
     @JsonProperty("token_lifetime")
-    public void setTokenLifetime(int tokenLifetime) {
+    public void setTokenLifetime(Integer tokenLifetime) {
         this.tokenLifetime = tokenLifetime;
     }
 
