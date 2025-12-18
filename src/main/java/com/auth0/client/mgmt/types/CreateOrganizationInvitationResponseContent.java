@@ -173,7 +173,7 @@ public final class CreateOrganizationInvitationResponseContent {
         return ticketId;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateOrganizationInvitationResponseContent
@@ -201,7 +201,7 @@ public final class CreateOrganizationInvitationResponseContent {
                 && ticketId.equals(other.ticketId);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -219,7 +219,7 @@ public final class CreateOrganizationInvitationResponseContent {
                 this.ticketId);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -42,7 +42,7 @@ public final class EventStreamActionDestination {
         return configuration;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof EventStreamActionDestination && equalTo((EventStreamActionDestination) other);
@@ -57,12 +57,12 @@ public final class EventStreamActionDestination {
         return type.equals(other.type) && configuration.equals(other.configuration);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.type, this.configuration);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -96,28 +96,28 @@ public final class EventStreamActionDestination {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(EventStreamActionDestination other) {
             type(other.getType());
             configuration(other.getConfiguration());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("type")
         public ConfigurationStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("configuration")
         public _FinalStage configuration(@NotNull EventStreamActionConfiguration configuration) {
             this.configuration = Objects.requireNonNull(configuration, "configuration must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public EventStreamActionDestination build() {
             return new EventStreamActionDestination(type, configuration, additionalProperties);
         }

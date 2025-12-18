@@ -63,7 +63,7 @@ public final class EmailProviderCredentialsSchemaClientId {
         return clientSecret;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof EmailProviderCredentialsSchemaClientId
@@ -81,12 +81,12 @@ public final class EmailProviderCredentialsSchemaClientId {
                 && clientSecret.equals(other.clientSecret);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.tenantId, this.clientId, this.clientSecret);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

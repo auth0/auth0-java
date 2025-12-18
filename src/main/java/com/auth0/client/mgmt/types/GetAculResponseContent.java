@@ -36,11 +36,11 @@ public final class GetAculResponseContent {
 
     private final Optional<Boolean> defaultHeadTagsDisabled;
 
+    private final OptionalNullable<Boolean> usePageTemplate;
+
     private final Optional<List<AculHeadTag>> headTags;
 
     private final OptionalNullable<AculFilters> filters;
-
-    private final OptionalNullable<Boolean> usePageTemplate;
 
     private final Map<String, Object> additionalProperties;
 
@@ -51,9 +51,9 @@ public final class GetAculResponseContent {
             Optional<AculRenderingModeEnum> renderingMode,
             Optional<List<String>> contextConfiguration,
             Optional<Boolean> defaultHeadTagsDisabled,
+            OptionalNullable<Boolean> usePageTemplate,
             Optional<List<AculHeadTag>> headTags,
             OptionalNullable<AculFilters> filters,
-            OptionalNullable<Boolean> usePageTemplate,
             Map<String, Object> additionalProperties) {
         this.tenant = tenant;
         this.prompt = prompt;
@@ -61,9 +61,9 @@ public final class GetAculResponseContent {
         this.renderingMode = renderingMode;
         this.contextConfiguration = contextConfiguration;
         this.defaultHeadTagsDisabled = defaultHeadTagsDisabled;
+        this.usePageTemplate = usePageTemplate;
         this.headTags = headTags;
         this.filters = filters;
-        this.usePageTemplate = usePageTemplate;
         this.additionalProperties = additionalProperties;
     }
 
@@ -113,6 +113,18 @@ public final class GetAculResponseContent {
     }
 
     /**
+     * @return Use page template with ACUL
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("use_page_template")
+    public OptionalNullable<Boolean> getUsePageTemplate() {
+        if (usePageTemplate == null) {
+            return OptionalNullable.absent();
+        }
+        return usePageTemplate;
+    }
+
+    /**
      * @return An array of head tags
      */
     @JsonProperty("head_tags")
@@ -129,15 +141,9 @@ public final class GetAculResponseContent {
         return filters;
     }
 
-    /**
-     * @return Use page template with ACUL
-     */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("use_page_template")
-    public OptionalNullable<Boolean> getUsePageTemplate() {
-        if (usePageTemplate == null) {
-            return OptionalNullable.absent();
-        }
+    private OptionalNullable<Boolean> _getUsePageTemplate() {
         return usePageTemplate;
     }
 
@@ -147,13 +153,7 @@ public final class GetAculResponseContent {
         return filters;
     }
 
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("use_page_template")
-    private OptionalNullable<Boolean> _getUsePageTemplate() {
-        return usePageTemplate;
-    }
-
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetAculResponseContent && equalTo((GetAculResponseContent) other);
@@ -171,12 +171,12 @@ public final class GetAculResponseContent {
                 && renderingMode.equals(other.renderingMode)
                 && contextConfiguration.equals(other.contextConfiguration)
                 && defaultHeadTagsDisabled.equals(other.defaultHeadTagsDisabled)
+                && usePageTemplate.equals(other.usePageTemplate)
                 && headTags.equals(other.headTags)
-                && filters.equals(other.filters)
-                && usePageTemplate.equals(other.usePageTemplate);
+                && filters.equals(other.filters);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.tenant,
@@ -185,12 +185,12 @@ public final class GetAculResponseContent {
                 this.renderingMode,
                 this.contextConfiguration,
                 this.defaultHeadTagsDisabled,
+                this.usePageTemplate,
                 this.headTags,
-                this.filters,
-                this.usePageTemplate);
+                this.filters);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -213,11 +213,11 @@ public final class GetAculResponseContent {
 
         private Optional<Boolean> defaultHeadTagsDisabled = Optional.empty();
 
+        private OptionalNullable<Boolean> usePageTemplate = OptionalNullable.absent();
+
         private Optional<List<AculHeadTag>> headTags = Optional.empty();
 
         private OptionalNullable<AculFilters> filters = OptionalNullable.absent();
-
-        private OptionalNullable<Boolean> usePageTemplate = OptionalNullable.absent();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -231,9 +231,9 @@ public final class GetAculResponseContent {
             renderingMode(other.getRenderingMode());
             contextConfiguration(other.getContextConfiguration());
             defaultHeadTagsDisabled(other.getDefaultHeadTagsDisabled());
+            usePageTemplate(other.getUsePageTemplate());
             headTags(other.getHeadTags());
             filters(other.getFilters());
-            usePageTemplate(other.getUsePageTemplate());
             return this;
         }
 
@@ -319,6 +319,40 @@ public final class GetAculResponseContent {
         }
 
         /**
+         * <p>Use page template with ACUL</p>
+         */
+        @JsonSetter(value = "use_page_template", nulls = Nulls.SKIP)
+        public Builder usePageTemplate(@Nullable OptionalNullable<Boolean> usePageTemplate) {
+            this.usePageTemplate = usePageTemplate;
+            return this;
+        }
+
+        public Builder usePageTemplate(Boolean usePageTemplate) {
+            this.usePageTemplate = OptionalNullable.of(usePageTemplate);
+            return this;
+        }
+
+        public Builder usePageTemplate(Optional<Boolean> usePageTemplate) {
+            if (usePageTemplate.isPresent()) {
+                this.usePageTemplate = OptionalNullable.of(usePageTemplate.get());
+            } else {
+                this.usePageTemplate = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder usePageTemplate(com.auth0.client.mgmt.core.Nullable<Boolean> usePageTemplate) {
+            if (usePageTemplate.isNull()) {
+                this.usePageTemplate = OptionalNullable.ofNull();
+            } else if (usePageTemplate.isEmpty()) {
+                this.usePageTemplate = OptionalNullable.absent();
+            } else {
+                this.usePageTemplate = OptionalNullable.of(usePageTemplate.get());
+            }
+            return this;
+        }
+
+        /**
          * <p>An array of head tags</p>
          */
         @JsonSetter(value = "head_tags", nulls = Nulls.SKIP)
@@ -363,40 +397,6 @@ public final class GetAculResponseContent {
             return this;
         }
 
-        /**
-         * <p>Use page template with ACUL</p>
-         */
-        @JsonSetter(value = "use_page_template", nulls = Nulls.SKIP)
-        public Builder usePageTemplate(@Nullable OptionalNullable<Boolean> usePageTemplate) {
-            this.usePageTemplate = usePageTemplate;
-            return this;
-        }
-
-        public Builder usePageTemplate(Boolean usePageTemplate) {
-            this.usePageTemplate = OptionalNullable.of(usePageTemplate);
-            return this;
-        }
-
-        public Builder usePageTemplate(Optional<Boolean> usePageTemplate) {
-            if (usePageTemplate.isPresent()) {
-                this.usePageTemplate = OptionalNullable.of(usePageTemplate.get());
-            } else {
-                this.usePageTemplate = OptionalNullable.absent();
-            }
-            return this;
-        }
-
-        public Builder usePageTemplate(com.auth0.client.mgmt.core.Nullable<Boolean> usePageTemplate) {
-            if (usePageTemplate.isNull()) {
-                this.usePageTemplate = OptionalNullable.ofNull();
-            } else if (usePageTemplate.isEmpty()) {
-                this.usePageTemplate = OptionalNullable.absent();
-            } else {
-                this.usePageTemplate = OptionalNullable.of(usePageTemplate.get());
-            }
-            return this;
-        }
-
         public GetAculResponseContent build() {
             return new GetAculResponseContent(
                     tenant,
@@ -405,9 +405,9 @@ public final class GetAculResponseContent {
                     renderingMode,
                     contextConfiguration,
                     defaultHeadTagsDisabled,
+                    usePageTemplate,
                     headTags,
                     filters,
-                    usePageTemplate,
                     additionalProperties);
         }
     }

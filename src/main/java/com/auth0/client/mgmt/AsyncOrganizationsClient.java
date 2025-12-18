@@ -8,6 +8,7 @@ import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.Suppliers;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.organizations.AsyncClientGrantsClient;
+import com.auth0.client.mgmt.organizations.AsyncDiscoveryDomainsClient;
 import com.auth0.client.mgmt.organizations.AsyncEnabledConnectionsClient;
 import com.auth0.client.mgmt.organizations.AsyncInvitationsClient;
 import com.auth0.client.mgmt.organizations.AsyncMembersClient;
@@ -29,6 +30,8 @@ public class AsyncOrganizationsClient {
 
     protected final Supplier<AsyncClientGrantsClient> clientGrantsClient;
 
+    protected final Supplier<AsyncDiscoveryDomainsClient> discoveryDomainsClient;
+
     protected final Supplier<AsyncEnabledConnectionsClient> enabledConnectionsClient;
 
     protected final Supplier<AsyncInvitationsClient> invitationsClient;
@@ -39,6 +42,7 @@ public class AsyncOrganizationsClient {
         this.clientOptions = clientOptions;
         this.rawClient = new AsyncRawOrganizationsClient(clientOptions);
         this.clientGrantsClient = Suppliers.memoize(() -> new AsyncClientGrantsClient(clientOptions));
+        this.discoveryDomainsClient = Suppliers.memoize(() -> new AsyncDiscoveryDomainsClient(clientOptions));
         this.enabledConnectionsClient = Suppliers.memoize(() -> new AsyncEnabledConnectionsClient(clientOptions));
         this.invitationsClient = Suppliers.memoize(() -> new AsyncInvitationsClient(clientOptions));
         this.membersClient = Suppliers.memoize(() -> new AsyncMembersClient(clientOptions));
@@ -197,6 +201,10 @@ public class AsyncOrganizationsClient {
 
     public AsyncClientGrantsClient clientGrants() {
         return this.clientGrantsClient.get();
+    }
+
+    public AsyncDiscoveryDomainsClient discoveryDomains() {
+        return this.discoveryDomainsClient.get();
     }
 
     public AsyncEnabledConnectionsClient enabledConnections() {

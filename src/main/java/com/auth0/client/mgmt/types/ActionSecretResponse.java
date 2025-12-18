@@ -50,7 +50,7 @@ public final class ActionSecretResponse {
         return updatedAt;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ActionSecretResponse && equalTo((ActionSecretResponse) other);
@@ -65,12 +65,12 @@ public final class ActionSecretResponse {
         return name.equals(other.name) && updatedAt.equals(other.updatedAt);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.name, this.updatedAt);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

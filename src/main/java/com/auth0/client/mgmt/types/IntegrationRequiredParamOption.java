@@ -49,7 +49,7 @@ public final class IntegrationRequiredParamOption {
         return label;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof IntegrationRequiredParamOption && equalTo((IntegrationRequiredParamOption) other);
@@ -64,12 +64,12 @@ public final class IntegrationRequiredParamOption {
         return value.equals(other.value) && label.equals(other.label);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.value, this.label);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

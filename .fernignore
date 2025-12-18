@@ -55,22 +55,13 @@ src/main/java/com/auth0/client/mgmt/core/ClientOptions.java
 src/main/java/com/auth0/client/mgmt/core/OAuthTokenSupplier.java
 src/main/java/com/auth0/client/mgmt/core/OAuthTokenException.java
 
+# Custom builder with domain-based initialization
+src/main/java/com/auth0/client/mgmt/ManagementApiBuilder.java
+
 # Custom tests
 src/test/java/com/auth0/client/mgmt/DynamicTokenManagementTest.java
 src/test/java/com/auth0/client/mgmt/OAuthTokenSupplierTest.java
-
-# TEMPORARY: Wire tests with changes from generation
-src/test/java/com/auth0/client/mgmt/ActionsVersionsWireTest.java
-src/test/java/com/auth0/client/mgmt/ConnectionsKeysWireTest.java
-src/test/java/com/auth0/client/mgmt/ConnectionsScimConfigurationWireTest.java
-src/test/java/com/auth0/client/mgmt/StreamTest.java
-
-# TEMPORARY: Fixed query string mapper
-src/main/java/com/auth0/client/mgmt/core/QueryStringMapper.java
-
-# TEMPORARY: Fixed to handle array response when include_totals is not set
-src/main/java/com/auth0/client/mgmt/RawClientsClient.java
-src/main/java/com/auth0/client/mgmt/AsyncRawClientsClient.java
+src/test/java/com/auth0/client/mgmt/ManagementApiBuilderTest.java
 
 # Configuration files from auth0-real
 .codecov.yml

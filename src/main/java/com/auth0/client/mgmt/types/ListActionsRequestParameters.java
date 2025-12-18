@@ -96,9 +96,6 @@ public final class ListActionsRequestParameters {
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("page")
     public OptionalNullable<Integer> getPage() {
-        if (page == null) {
-            return OptionalNullable.absent();
-        }
         return page;
     }
 
@@ -142,18 +139,12 @@ public final class ListActionsRequestParameters {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("page")
-    private OptionalNullable<Integer> _getPage() {
-        return page;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("installed")
     private OptionalNullable<Boolean> _getInstalled() {
         return installed;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListActionsRequestParameters && equalTo((ListActionsRequestParameters) other);
@@ -173,12 +164,12 @@ public final class ListActionsRequestParameters {
                 && installed.equals(other.installed);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.triggerId, this.actionName, this.deployed, this.page, this.perPage, this.installed);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -322,7 +313,7 @@ public final class ListActionsRequestParameters {
          * <p>Use this field to request a specific page of the list results.</p>
          */
         @JsonSetter(value = "page", nulls = Nulls.SKIP)
-        public Builder page(@Nullable OptionalNullable<Integer> page) {
+        public Builder page(OptionalNullable<Integer> page) {
             this.page = page;
             return this;
         }

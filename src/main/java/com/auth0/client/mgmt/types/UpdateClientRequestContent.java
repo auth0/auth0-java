@@ -68,6 +68,8 @@ public final class UpdateClientRequestContent {
 
     private final OptionalNullable<ClientTokenEndpointAuthMethodOrNullEnum> tokenEndpointAuthMethod;
 
+    private final Optional<Boolean> isTokenEndpointIpHeaderTrusted;
+
     private final Optional<ClientAppTypeEnum> appType;
 
     private final Optional<Boolean> isFirstParty;
@@ -100,6 +102,8 @@ public final class UpdateClientRequestContent {
 
     private final OptionalNullable<ClientOrganizationRequireBehaviorPatchEnum> organizationRequireBehavior;
 
+    private final Optional<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods;
+
     private final OptionalNullable<ClientAuthenticationMethod> clientAuthenticationMethods;
 
     private final Optional<Boolean> requirePushedAuthorizationRequests;
@@ -110,7 +114,15 @@ public final class UpdateClientRequestContent {
 
     private final OptionalNullable<ClientComplianceLevelEnum> complianceLevel;
 
+    private final OptionalNullable<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt;
+
+    private final OptionalNullable<ClientTokenExchangeConfigurationOrNull> tokenExchange;
+
     private final OptionalNullable<Integer> parRequestExpiry;
+
+    private final OptionalNullable<ExpressConfigurationOrNull> expressConfiguration;
+
+    private final Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels;
 
     private final Map<String, Object> additionalProperties;
 
@@ -137,6 +149,7 @@ public final class UpdateClientRequestContent {
             Optional<Boolean> ssoDisabled,
             Optional<Boolean> customLoginPageOn,
             OptionalNullable<ClientTokenEndpointAuthMethodOrNullEnum> tokenEndpointAuthMethod,
+            Optional<Boolean> isTokenEndpointIpHeaderTrusted,
             Optional<ClientAppTypeEnum> appType,
             Optional<Boolean> isFirstParty,
             Optional<Boolean> oidcConformant,
@@ -153,12 +166,17 @@ public final class UpdateClientRequestContent {
             OptionalNullable<ClientDefaultOrganization> defaultOrganization,
             OptionalNullable<ClientOrganizationUsagePatchEnum> organizationUsage,
             OptionalNullable<ClientOrganizationRequireBehaviorPatchEnum> organizationRequireBehavior,
+            Optional<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods,
             OptionalNullable<ClientAuthenticationMethod> clientAuthenticationMethods,
             Optional<Boolean> requirePushedAuthorizationRequests,
             Optional<Boolean> requireProofOfPossession,
             Optional<ClientSignedRequestObjectWithCredentialId> signedRequestObject,
             OptionalNullable<ClientComplianceLevelEnum> complianceLevel,
+            OptionalNullable<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt,
+            OptionalNullable<ClientTokenExchangeConfigurationOrNull> tokenExchange,
             OptionalNullable<Integer> parRequestExpiry,
+            OptionalNullable<ExpressConfigurationOrNull> expressConfiguration,
+            Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.description = description;
@@ -182,6 +200,7 @@ public final class UpdateClientRequestContent {
         this.ssoDisabled = ssoDisabled;
         this.customLoginPageOn = customLoginPageOn;
         this.tokenEndpointAuthMethod = tokenEndpointAuthMethod;
+        this.isTokenEndpointIpHeaderTrusted = isTokenEndpointIpHeaderTrusted;
         this.appType = appType;
         this.isFirstParty = isFirstParty;
         this.oidcConformant = oidcConformant;
@@ -198,12 +217,17 @@ public final class UpdateClientRequestContent {
         this.defaultOrganization = defaultOrganization;
         this.organizationUsage = organizationUsage;
         this.organizationRequireBehavior = organizationRequireBehavior;
+        this.organizationDiscoveryMethods = organizationDiscoveryMethods;
         this.clientAuthenticationMethods = clientAuthenticationMethods;
         this.requirePushedAuthorizationRequests = requirePushedAuthorizationRequests;
         this.requireProofOfPossession = requireProofOfPossession;
         this.signedRequestObject = signedRequestObject;
         this.complianceLevel = complianceLevel;
+        this.skipNonVerifiableCallbackUriConfirmationPrompt = skipNonVerifiableCallbackUriConfirmationPrompt;
+        this.tokenExchange = tokenExchange;
         this.parRequestExpiry = parRequestExpiry;
+        this.expressConfiguration = expressConfiguration;
+        this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
         this.additionalProperties = additionalProperties;
     }
 
@@ -283,7 +307,7 @@ public final class UpdateClientRequestContent {
     }
 
     /**
-     * @return A set of grant types that the client is authorized to use. Can include <code>authorization_code</code>, <code>implicit</code>, <code>refresh_token</code>, <code>client_credentials</code>, <code>password</code>, <code>http://auth0.com/oauth/grant-type/password-realm</code>, <code>http://auth0.com/oauth/grant-type/mfa-oob</code>, <code>http://auth0.com/oauth/grant-type/mfa-otp</code>, <code>http://auth0.com/oauth/grant-type/mfa-recovery-code</code>, <code>urn:openid:params:grant-type:ciba</code>, and <code>urn:ietf:params:oauth:grant-type:device_code</code>.
+     * @return A set of grant types that the client is authorized to use. Can include <code>authorization_code</code>, <code>implicit</code>, <code>refresh_token</code>, <code>client_credentials</code>, <code>password</code>, <code>http://auth0.com/oauth/grant-type/password-realm</code>, <code>http://auth0.com/oauth/grant-type/mfa-oob</code>, <code>http://auth0.com/oauth/grant-type/mfa-otp</code>, <code>http://auth0.com/oauth/grant-type/mfa-recovery-code</code>, <code>urn:openid:params:grant-type:ciba</code>, <code>urn:ietf:params:oauth:grant-type:device_code</code>, and <code>urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token</code>.
      */
     @JsonProperty("grant_types")
     public Optional<List<String>> getGrantTypes() {
@@ -379,6 +403,14 @@ public final class UpdateClientRequestContent {
             return OptionalNullable.absent();
         }
         return tokenEndpointAuthMethod;
+    }
+
+    /**
+     * @return If true, trust that the IP specified in the <code>auth0-forwarded-for</code> header is the end-user's IP for brute-force-protection on token endpoint.
+     */
+    @JsonProperty("is_token_endpoint_ip_header_trusted")
+    public Optional<Boolean> getIsTokenEndpointIpHeaderTrusted() {
+        return isTokenEndpointIpHeaderTrusted;
     }
 
     @JsonProperty("app_type")
@@ -496,6 +528,14 @@ public final class UpdateClientRequestContent {
         return organizationRequireBehavior;
     }
 
+    /**
+     * @return Defines the available methods for organization discovery during the <code>pre_login_prompt</code>. Users can discover their organization either by <code>email</code>, <code>organization_name</code> or both.
+     */
+    @JsonProperty("organization_discovery_methods")
+    public Optional<List<ClientOrganizationDiscoveryEnum>> getOrganizationDiscoveryMethods() {
+        return organizationDiscoveryMethods;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("client_authentication_methods")
     public OptionalNullable<ClientAuthenticationMethod> getClientAuthenticationMethods() {
@@ -536,6 +576,29 @@ public final class UpdateClientRequestContent {
     }
 
     /**
+     * @return Controls whether a confirmation prompt is shown during login flows when the redirect URI uses non-verifiable callback URIs (for example, a custom URI schema such as <code>myapp://</code>, or <code>localhost</code>).
+     * If set to true, a confirmation prompt will not be shown. We recommend that this is set to false for improved protection from malicious apps.
+     * See https://auth0.com/docs/secure/security-guidance/measures-against-app-impersonation for more information.
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("skip_non_verifiable_callback_uri_confirmation_prompt")
+    public OptionalNullable<Boolean> getSkipNonVerifiableCallbackUriConfirmationPrompt() {
+        if (skipNonVerifiableCallbackUriConfirmationPrompt == null) {
+            return OptionalNullable.absent();
+        }
+        return skipNonVerifiableCallbackUriConfirmationPrompt;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("token_exchange")
+    public OptionalNullable<ClientTokenExchangeConfigurationOrNull> getTokenExchange() {
+        if (tokenExchange == null) {
+            return OptionalNullable.absent();
+        }
+        return tokenExchange;
+    }
+
+    /**
      * @return Specifies how long, in seconds, a Pushed Authorization Request URI remains valid
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -545,6 +608,20 @@ public final class UpdateClientRequestContent {
             return OptionalNullable.absent();
         }
         return parRequestExpiry;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("express_configuration")
+    public OptionalNullable<ExpressConfigurationOrNull> getExpressConfiguration() {
+        if (expressConfiguration == null) {
+            return OptionalNullable.absent();
+        }
+        return expressConfiguration;
+    }
+
+    @JsonProperty("async_approval_notification_channels")
+    public Optional<List<AsyncApprovalNotificationsChannelsEnum>> getAsyncApprovalNotificationChannels() {
+        return asyncApprovalNotificationChannels;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -614,12 +691,30 @@ public final class UpdateClientRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("skip_non_verifiable_callback_uri_confirmation_prompt")
+    private OptionalNullable<Boolean> _getSkipNonVerifiableCallbackUriConfirmationPrompt() {
+        return skipNonVerifiableCallbackUriConfirmationPrompt;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("token_exchange")
+    private OptionalNullable<ClientTokenExchangeConfigurationOrNull> _getTokenExchange() {
+        return tokenExchange;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("par_request_expiry")
     private OptionalNullable<Integer> _getParRequestExpiry() {
         return parRequestExpiry;
     }
 
-    @java.lang.Override
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("express_configuration")
+    private OptionalNullable<ExpressConfigurationOrNull> _getExpressConfiguration() {
+        return expressConfiguration;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateClientRequestContent && equalTo((UpdateClientRequestContent) other);
@@ -653,6 +748,7 @@ public final class UpdateClientRequestContent {
                 && ssoDisabled.equals(other.ssoDisabled)
                 && customLoginPageOn.equals(other.customLoginPageOn)
                 && tokenEndpointAuthMethod.equals(other.tokenEndpointAuthMethod)
+                && isTokenEndpointIpHeaderTrusted.equals(other.isTokenEndpointIpHeaderTrusted)
                 && appType.equals(other.appType)
                 && isFirstParty.equals(other.isFirstParty)
                 && oidcConformant.equals(other.oidcConformant)
@@ -669,15 +765,21 @@ public final class UpdateClientRequestContent {
                 && defaultOrganization.equals(other.defaultOrganization)
                 && organizationUsage.equals(other.organizationUsage)
                 && organizationRequireBehavior.equals(other.organizationRequireBehavior)
+                && organizationDiscoveryMethods.equals(other.organizationDiscoveryMethods)
                 && clientAuthenticationMethods.equals(other.clientAuthenticationMethods)
                 && requirePushedAuthorizationRequests.equals(other.requirePushedAuthorizationRequests)
                 && requireProofOfPossession.equals(other.requireProofOfPossession)
                 && signedRequestObject.equals(other.signedRequestObject)
                 && complianceLevel.equals(other.complianceLevel)
-                && parRequestExpiry.equals(other.parRequestExpiry);
+                && skipNonVerifiableCallbackUriConfirmationPrompt.equals(
+                        other.skipNonVerifiableCallbackUriConfirmationPrompt)
+                && tokenExchange.equals(other.tokenExchange)
+                && parRequestExpiry.equals(other.parRequestExpiry)
+                && expressConfiguration.equals(other.expressConfiguration)
+                && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.name,
@@ -702,6 +804,7 @@ public final class UpdateClientRequestContent {
                 this.ssoDisabled,
                 this.customLoginPageOn,
                 this.tokenEndpointAuthMethod,
+                this.isTokenEndpointIpHeaderTrusted,
                 this.appType,
                 this.isFirstParty,
                 this.oidcConformant,
@@ -718,15 +821,20 @@ public final class UpdateClientRequestContent {
                 this.defaultOrganization,
                 this.organizationUsage,
                 this.organizationRequireBehavior,
+                this.organizationDiscoveryMethods,
                 this.clientAuthenticationMethods,
                 this.requirePushedAuthorizationRequests,
                 this.requireProofOfPossession,
                 this.signedRequestObject,
                 this.complianceLevel,
-                this.parRequestExpiry);
+                this.skipNonVerifiableCallbackUriConfirmationPrompt,
+                this.tokenExchange,
+                this.parRequestExpiry,
+                this.expressConfiguration,
+                this.asyncApprovalNotificationChannels);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -782,6 +890,8 @@ public final class UpdateClientRequestContent {
         private OptionalNullable<ClientTokenEndpointAuthMethodOrNullEnum> tokenEndpointAuthMethod =
                 OptionalNullable.absent();
 
+        private Optional<Boolean> isTokenEndpointIpHeaderTrusted = Optional.empty();
+
         private Optional<ClientAppTypeEnum> appType = Optional.empty();
 
         private Optional<Boolean> isFirstParty = Optional.empty();
@@ -815,6 +925,8 @@ public final class UpdateClientRequestContent {
         private OptionalNullable<ClientOrganizationRequireBehaviorPatchEnum> organizationRequireBehavior =
                 OptionalNullable.absent();
 
+        private Optional<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods = Optional.empty();
+
         private OptionalNullable<ClientAuthenticationMethod> clientAuthenticationMethods = OptionalNullable.absent();
 
         private Optional<Boolean> requirePushedAuthorizationRequests = Optional.empty();
@@ -825,7 +937,16 @@ public final class UpdateClientRequestContent {
 
         private OptionalNullable<ClientComplianceLevelEnum> complianceLevel = OptionalNullable.absent();
 
+        private OptionalNullable<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt = OptionalNullable.absent();
+
+        private OptionalNullable<ClientTokenExchangeConfigurationOrNull> tokenExchange = OptionalNullable.absent();
+
         private OptionalNullable<Integer> parRequestExpiry = OptionalNullable.absent();
+
+        private OptionalNullable<ExpressConfigurationOrNull> expressConfiguration = OptionalNullable.absent();
+
+        private Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels =
+                Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -855,6 +976,7 @@ public final class UpdateClientRequestContent {
             ssoDisabled(other.getSsoDisabled());
             customLoginPageOn(other.getCustomLoginPageOn());
             tokenEndpointAuthMethod(other.getTokenEndpointAuthMethod());
+            isTokenEndpointIpHeaderTrusted(other.getIsTokenEndpointIpHeaderTrusted());
             appType(other.getAppType());
             isFirstParty(other.getIsFirstParty());
             oidcConformant(other.getOidcConformant());
@@ -871,12 +993,17 @@ public final class UpdateClientRequestContent {
             defaultOrganization(other.getDefaultOrganization());
             organizationUsage(other.getOrganizationUsage());
             organizationRequireBehavior(other.getOrganizationRequireBehavior());
+            organizationDiscoveryMethods(other.getOrganizationDiscoveryMethods());
             clientAuthenticationMethods(other.getClientAuthenticationMethods());
             requirePushedAuthorizationRequests(other.getRequirePushedAuthorizationRequests());
             requireProofOfPossession(other.getRequireProofOfPossession());
             signedRequestObject(other.getSignedRequestObject());
             complianceLevel(other.getComplianceLevel());
+            skipNonVerifiableCallbackUriConfirmationPrompt(other.getSkipNonVerifiableCallbackUriConfirmationPrompt());
+            tokenExchange(other.getTokenExchange());
             parRequestExpiry(other.getParRequestExpiry());
+            expressConfiguration(other.getExpressConfiguration());
+            asyncApprovalNotificationChannels(other.getAsyncApprovalNotificationChannels());
             return this;
         }
 
@@ -1033,7 +1160,7 @@ public final class UpdateClientRequestContent {
         }
 
         /**
-         * <p>A set of grant types that the client is authorized to use. Can include <code>authorization_code</code>, <code>implicit</code>, <code>refresh_token</code>, <code>client_credentials</code>, <code>password</code>, <code>http://auth0.com/oauth/grant-type/password-realm</code>, <code>http://auth0.com/oauth/grant-type/mfa-oob</code>, <code>http://auth0.com/oauth/grant-type/mfa-otp</code>, <code>http://auth0.com/oauth/grant-type/mfa-recovery-code</code>, <code>urn:openid:params:grant-type:ciba</code>, and <code>urn:ietf:params:oauth:grant-type:device_code</code>.</p>
+         * <p>A set of grant types that the client is authorized to use. Can include <code>authorization_code</code>, <code>implicit</code>, <code>refresh_token</code>, <code>client_credentials</code>, <code>password</code>, <code>http://auth0.com/oauth/grant-type/password-realm</code>, <code>http://auth0.com/oauth/grant-type/mfa-oob</code>, <code>http://auth0.com/oauth/grant-type/mfa-otp</code>, <code>http://auth0.com/oauth/grant-type/mfa-recovery-code</code>, <code>urn:openid:params:grant-type:ciba</code>, <code>urn:ietf:params:oauth:grant-type:device_code</code>, and <code>urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token</code>.</p>
          */
         @JsonSetter(value = "grant_types", nulls = Nulls.SKIP)
         public Builder grantTypes(Optional<List<String>> grantTypes) {
@@ -1251,6 +1378,20 @@ public final class UpdateClientRequestContent {
             } else {
                 this.tokenEndpointAuthMethod = OptionalNullable.of(tokenEndpointAuthMethod.get());
             }
+            return this;
+        }
+
+        /**
+         * <p>If true, trust that the IP specified in the <code>auth0-forwarded-for</code> header is the end-user's IP for brute-force-protection on token endpoint.</p>
+         */
+        @JsonSetter(value = "is_token_endpoint_ip_header_trusted", nulls = Nulls.SKIP)
+        public Builder isTokenEndpointIpHeaderTrusted(Optional<Boolean> isTokenEndpointIpHeaderTrusted) {
+            this.isTokenEndpointIpHeaderTrusted = isTokenEndpointIpHeaderTrusted;
+            return this;
+        }
+
+        public Builder isTokenEndpointIpHeaderTrusted(Boolean isTokenEndpointIpHeaderTrusted) {
+            this.isTokenEndpointIpHeaderTrusted = Optional.ofNullable(isTokenEndpointIpHeaderTrusted);
             return this;
         }
 
@@ -1553,6 +1694,22 @@ public final class UpdateClientRequestContent {
             return this;
         }
 
+        /**
+         * <p>Defines the available methods for organization discovery during the <code>pre_login_prompt</code>. Users can discover their organization either by <code>email</code>, <code>organization_name</code> or both.</p>
+         */
+        @JsonSetter(value = "organization_discovery_methods", nulls = Nulls.SKIP)
+        public Builder organizationDiscoveryMethods(
+                Optional<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods) {
+            this.organizationDiscoveryMethods = organizationDiscoveryMethods;
+            return this;
+        }
+
+        public Builder organizationDiscoveryMethods(
+                List<ClientOrganizationDiscoveryEnum> organizationDiscoveryMethods) {
+            this.organizationDiscoveryMethods = Optional.ofNullable(organizationDiscoveryMethods);
+            return this;
+        }
+
         @JsonSetter(value = "client_authentication_methods", nulls = Nulls.SKIP)
         public Builder clientAuthenticationMethods(
                 @Nullable OptionalNullable<ClientAuthenticationMethod> clientAuthenticationMethods) {
@@ -1657,6 +1814,81 @@ public final class UpdateClientRequestContent {
         }
 
         /**
+         * <p>Controls whether a confirmation prompt is shown during login flows when the redirect URI uses non-verifiable callback URIs (for example, a custom URI schema such as <code>myapp://</code>, or <code>localhost</code>).
+         * If set to true, a confirmation prompt will not be shown. We recommend that this is set to false for improved protection from malicious apps.
+         * See https://auth0.com/docs/secure/security-guidance/measures-against-app-impersonation for more information.</p>
+         */
+        @JsonSetter(value = "skip_non_verifiable_callback_uri_confirmation_prompt", nulls = Nulls.SKIP)
+        public Builder skipNonVerifiableCallbackUriConfirmationPrompt(
+                @Nullable OptionalNullable<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt) {
+            this.skipNonVerifiableCallbackUriConfirmationPrompt = skipNonVerifiableCallbackUriConfirmationPrompt;
+            return this;
+        }
+
+        public Builder skipNonVerifiableCallbackUriConfirmationPrompt(
+                Boolean skipNonVerifiableCallbackUriConfirmationPrompt) {
+            this.skipNonVerifiableCallbackUriConfirmationPrompt =
+                    OptionalNullable.of(skipNonVerifiableCallbackUriConfirmationPrompt);
+            return this;
+        }
+
+        public Builder skipNonVerifiableCallbackUriConfirmationPrompt(
+                Optional<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt) {
+            if (skipNonVerifiableCallbackUriConfirmationPrompt.isPresent()) {
+                this.skipNonVerifiableCallbackUriConfirmationPrompt =
+                        OptionalNullable.of(skipNonVerifiableCallbackUriConfirmationPrompt.get());
+            } else {
+                this.skipNonVerifiableCallbackUriConfirmationPrompt = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder skipNonVerifiableCallbackUriConfirmationPrompt(
+                com.auth0.client.mgmt.core.Nullable<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt) {
+            if (skipNonVerifiableCallbackUriConfirmationPrompt.isNull()) {
+                this.skipNonVerifiableCallbackUriConfirmationPrompt = OptionalNullable.ofNull();
+            } else if (skipNonVerifiableCallbackUriConfirmationPrompt.isEmpty()) {
+                this.skipNonVerifiableCallbackUriConfirmationPrompt = OptionalNullable.absent();
+            } else {
+                this.skipNonVerifiableCallbackUriConfirmationPrompt =
+                        OptionalNullable.of(skipNonVerifiableCallbackUriConfirmationPrompt.get());
+            }
+            return this;
+        }
+
+        @JsonSetter(value = "token_exchange", nulls = Nulls.SKIP)
+        public Builder tokenExchange(@Nullable OptionalNullable<ClientTokenExchangeConfigurationOrNull> tokenExchange) {
+            this.tokenExchange = tokenExchange;
+            return this;
+        }
+
+        public Builder tokenExchange(ClientTokenExchangeConfigurationOrNull tokenExchange) {
+            this.tokenExchange = OptionalNullable.of(tokenExchange);
+            return this;
+        }
+
+        public Builder tokenExchange(Optional<ClientTokenExchangeConfigurationOrNull> tokenExchange) {
+            if (tokenExchange.isPresent()) {
+                this.tokenExchange = OptionalNullable.of(tokenExchange.get());
+            } else {
+                this.tokenExchange = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder tokenExchange(
+                com.auth0.client.mgmt.core.Nullable<ClientTokenExchangeConfigurationOrNull> tokenExchange) {
+            if (tokenExchange.isNull()) {
+                this.tokenExchange = OptionalNullable.ofNull();
+            } else if (tokenExchange.isEmpty()) {
+                this.tokenExchange = OptionalNullable.absent();
+            } else {
+                this.tokenExchange = OptionalNullable.of(tokenExchange.get());
+            }
+            return this;
+        }
+
+        /**
          * <p>Specifies how long, in seconds, a Pushed Authorization Request URI remains valid</p>
          */
         @JsonSetter(value = "par_request_expiry", nulls = Nulls.SKIP)
@@ -1690,6 +1922,52 @@ public final class UpdateClientRequestContent {
             return this;
         }
 
+        @JsonSetter(value = "express_configuration", nulls = Nulls.SKIP)
+        public Builder expressConfiguration(
+                @Nullable OptionalNullable<ExpressConfigurationOrNull> expressConfiguration) {
+            this.expressConfiguration = expressConfiguration;
+            return this;
+        }
+
+        public Builder expressConfiguration(ExpressConfigurationOrNull expressConfiguration) {
+            this.expressConfiguration = OptionalNullable.of(expressConfiguration);
+            return this;
+        }
+
+        public Builder expressConfiguration(Optional<ExpressConfigurationOrNull> expressConfiguration) {
+            if (expressConfiguration.isPresent()) {
+                this.expressConfiguration = OptionalNullable.of(expressConfiguration.get());
+            } else {
+                this.expressConfiguration = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder expressConfiguration(
+                com.auth0.client.mgmt.core.Nullable<ExpressConfigurationOrNull> expressConfiguration) {
+            if (expressConfiguration.isNull()) {
+                this.expressConfiguration = OptionalNullable.ofNull();
+            } else if (expressConfiguration.isEmpty()) {
+                this.expressConfiguration = OptionalNullable.absent();
+            } else {
+                this.expressConfiguration = OptionalNullable.of(expressConfiguration.get());
+            }
+            return this;
+        }
+
+        @JsonSetter(value = "async_approval_notification_channels", nulls = Nulls.SKIP)
+        public Builder asyncApprovalNotificationChannels(
+                Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels) {
+            this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
+            return this;
+        }
+
+        public Builder asyncApprovalNotificationChannels(
+                List<AsyncApprovalNotificationsChannelsEnum> asyncApprovalNotificationChannels) {
+            this.asyncApprovalNotificationChannels = Optional.ofNullable(asyncApprovalNotificationChannels);
+            return this;
+        }
+
         public UpdateClientRequestContent build() {
             return new UpdateClientRequestContent(
                     name,
@@ -1714,6 +1992,7 @@ public final class UpdateClientRequestContent {
                     ssoDisabled,
                     customLoginPageOn,
                     tokenEndpointAuthMethod,
+                    isTokenEndpointIpHeaderTrusted,
                     appType,
                     isFirstParty,
                     oidcConformant,
@@ -1730,12 +2009,17 @@ public final class UpdateClientRequestContent {
                     defaultOrganization,
                     organizationUsage,
                     organizationRequireBehavior,
+                    organizationDiscoveryMethods,
                     clientAuthenticationMethods,
                     requirePushedAuthorizationRequests,
                     requireProofOfPossession,
                     signedRequestObject,
                     complianceLevel,
+                    skipNonVerifiableCallbackUriConfirmationPrompt,
+                    tokenExchange,
                     parRequestExpiry,
+                    expressConfiguration,
+                    asyncApprovalNotificationChannels,
                     additionalProperties);
         }
     }

@@ -53,8 +53,13 @@ public class RawUserBlocksClient {
                 .newBuilder()
                 .addPathSegments("user-blocks");
         QueryStringMapper.addQueryParameter(httpUrl, "identifier", request.getIdentifier(), false);
-        QueryStringMapper.addQueryParameter(
-                httpUrl, "consider_brute_force_enablement", request.getConsiderBruteForceEnablement(), false);
+        if (!request.getConsiderBruteForceEnablement().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl,
+                    "consider_brute_force_enablement",
+                    request.getConsiderBruteForceEnablement().orElse(null),
+                    false);
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -184,8 +189,13 @@ public class RawUserBlocksClient {
                 .newBuilder()
                 .addPathSegments("user-blocks")
                 .addPathSegment(id);
-        QueryStringMapper.addQueryParameter(
-                httpUrl, "consider_brute_force_enablement", request.getConsiderBruteForceEnablement(), false);
+        if (!request.getConsiderBruteForceEnablement().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl,
+                    "consider_brute_force_enablement",
+                    request.getConsiderBruteForceEnablement().orElse(null),
+                    false);
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)

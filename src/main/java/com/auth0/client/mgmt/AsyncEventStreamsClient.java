@@ -13,9 +13,7 @@ import com.auth0.client.mgmt.types.CreateEventStreamTestEventRequestContent;
 import com.auth0.client.mgmt.types.CreateEventStreamTestEventResponseContent;
 import com.auth0.client.mgmt.types.EventStreamResponseContent;
 import com.auth0.client.mgmt.types.EventStreamsCreateRequest;
-import com.auth0.client.mgmt.types.EventStreamsGetStatsRequest;
 import com.auth0.client.mgmt.types.GetEventStreamResponseContent;
-import com.auth0.client.mgmt.types.GetEventStreamStatsResponseContent;
 import com.auth0.client.mgmt.types.ListEventStreamsRequestParameters;
 import com.auth0.client.mgmt.types.UpdateEventStreamRequestContent;
 import com.auth0.client.mgmt.types.UpdateEventStreamResponseContent;
@@ -96,20 +94,6 @@ public class AsyncEventStreamsClient {
     public CompletableFuture<UpdateEventStreamResponseContent> update(
             String id, UpdateEventStreamRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.update(id, request, requestOptions).thenApply(response -> response.body());
-    }
-
-    public CompletableFuture<GetEventStreamStatsResponseContent> getStats(String id) {
-        return this.rawClient.getStats(id).thenApply(response -> response.body());
-    }
-
-    public CompletableFuture<GetEventStreamStatsResponseContent> getStats(
-            String id, EventStreamsGetStatsRequest request) {
-        return this.rawClient.getStats(id, request).thenApply(response -> response.body());
-    }
-
-    public CompletableFuture<GetEventStreamStatsResponseContent> getStats(
-            String id, EventStreamsGetStatsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.getStats(id, request, requestOptions).thenApply(response -> response.body());
     }
 
     public CompletableFuture<CreateEventStreamTestEventResponseContent> test(

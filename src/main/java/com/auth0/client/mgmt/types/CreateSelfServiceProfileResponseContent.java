@@ -38,6 +38,8 @@ public final class CreateSelfServiceProfileResponseContent {
 
     private final Optional<List<SelfServiceProfileAllowedStrategyEnum>> allowedStrategies;
 
+    private final Optional<String> userAttributeProfileId;
+
     private final Map<String, Object> additionalProperties;
 
     private CreateSelfServiceProfileResponseContent(
@@ -49,6 +51,7 @@ public final class CreateSelfServiceProfileResponseContent {
             Optional<OffsetDateTime> updatedAt,
             Optional<SelfServiceProfileBrandingProperties> branding,
             Optional<List<SelfServiceProfileAllowedStrategyEnum>> allowedStrategies,
+            Optional<String> userAttributeProfileId,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.name = name;
@@ -58,6 +61,7 @@ public final class CreateSelfServiceProfileResponseContent {
         this.updatedAt = updatedAt;
         this.branding = branding;
         this.allowedStrategies = allowedStrategies;
+        this.userAttributeProfileId = userAttributeProfileId;
         this.additionalProperties = additionalProperties;
     }
 
@@ -122,7 +126,15 @@ public final class CreateSelfServiceProfileResponseContent {
         return allowedStrategies;
     }
 
-    @java.lang.Override
+    /**
+     * @return ID of the user-attribute-profile to associate with this self-service profile.
+     */
+    @JsonProperty("user_attribute_profile_id")
+    public Optional<String> getUserAttributeProfileId() {
+        return userAttributeProfileId;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateSelfServiceProfileResponseContent
@@ -142,10 +154,11 @@ public final class CreateSelfServiceProfileResponseContent {
                 && createdAt.equals(other.createdAt)
                 && updatedAt.equals(other.updatedAt)
                 && branding.equals(other.branding)
-                && allowedStrategies.equals(other.allowedStrategies);
+                && allowedStrategies.equals(other.allowedStrategies)
+                && userAttributeProfileId.equals(other.userAttributeProfileId);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -155,10 +168,11 @@ public final class CreateSelfServiceProfileResponseContent {
                 this.createdAt,
                 this.updatedAt,
                 this.branding,
-                this.allowedStrategies);
+                this.allowedStrategies,
+                this.userAttributeProfileId);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -185,6 +199,8 @@ public final class CreateSelfServiceProfileResponseContent {
 
         private Optional<List<SelfServiceProfileAllowedStrategyEnum>> allowedStrategies = Optional.empty();
 
+        private Optional<String> userAttributeProfileId = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -199,6 +215,7 @@ public final class CreateSelfServiceProfileResponseContent {
             updatedAt(other.getUpdatedAt());
             branding(other.getBranding());
             allowedStrategies(other.getAllowedStrategies());
+            userAttributeProfileId(other.getUserAttributeProfileId());
             return this;
         }
 
@@ -311,6 +328,20 @@ public final class CreateSelfServiceProfileResponseContent {
             return this;
         }
 
+        /**
+         * <p>ID of the user-attribute-profile to associate with this self-service profile.</p>
+         */
+        @JsonSetter(value = "user_attribute_profile_id", nulls = Nulls.SKIP)
+        public Builder userAttributeProfileId(Optional<String> userAttributeProfileId) {
+            this.userAttributeProfileId = userAttributeProfileId;
+            return this;
+        }
+
+        public Builder userAttributeProfileId(String userAttributeProfileId) {
+            this.userAttributeProfileId = Optional.ofNullable(userAttributeProfileId);
+            return this;
+        }
+
         public CreateSelfServiceProfileResponseContent build() {
             return new CreateSelfServiceProfileResponseContent(
                     id,
@@ -321,6 +352,7 @@ public final class CreateSelfServiceProfileResponseContent {
                     updatedAt,
                     branding,
                     allowedStrategies,
+                    userAttributeProfileId,
                     additionalProperties);
         }
     }

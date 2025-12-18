@@ -68,12 +68,23 @@ public class RawHooksClient {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("hooks");
-        QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "per_page", request.getPerPage(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "include_totals", request.getIncludeTotals(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "enabled", request.getEnabled(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "fields", request.getFields(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "triggerId", request.getTriggerId(), false);
+        QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage().orElse(0), false);
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "per_page", request.getPerPage().orElse(50), false);
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
+        if (!request.getEnabled().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "enabled", request.getEnabled().orElse(null), false);
+        }
+        if (!request.getFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "fields", request.getFields().orElse(null), false);
+        }
+        if (!request.getTriggerId().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "triggerId", request.getTriggerId().orElse(null), false);
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -226,7 +237,10 @@ public class RawHooksClient {
                 .newBuilder()
                 .addPathSegments("hooks")
                 .addPathSegment(id);
-        QueryStringMapper.addQueryParameter(httpUrl, "fields", request.getFields(), false);
+        if (!request.getFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "fields", request.getFields().orElse(null), false);
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)

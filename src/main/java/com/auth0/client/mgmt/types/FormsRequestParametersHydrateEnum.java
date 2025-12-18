@@ -26,20 +26,20 @@ public final class FormsRequestParametersHydrateEnum {
         return value;
     }
 
-    @java.lang.Override
+    @Override
     @JsonValue
     public String toString() {
         return this.string;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         return (this == other)
                 || (other instanceof FormsRequestParametersHydrateEnum
                         && this.string.equals(((FormsRequestParametersHydrateEnum) other).string));
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return this.string.hashCode();
     }

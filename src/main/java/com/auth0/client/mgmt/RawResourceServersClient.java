@@ -69,10 +69,15 @@ public class RawResourceServersClient {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("resource-servers");
-        QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "per_page", request.getPerPage(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "include_totals", request.getIncludeTotals(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "include_fields", request.getIncludeFields(), false);
+        QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage().orElse(0), false);
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "per_page", request.getPerPage().orElse(50), false);
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
+        if (!request.getIncludeFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "include_fields", request.getIncludeFields().orElse(null), false);
+        }
         if (request.getIdentifiers().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "identifiers", request.getIdentifiers().get(), true);
@@ -230,7 +235,10 @@ public class RawResourceServersClient {
                 .newBuilder()
                 .addPathSegments("resource-servers")
                 .addPathSegment(id);
-        QueryStringMapper.addQueryParameter(httpUrl, "include_fields", request.getIncludeFields(), false);
+        if (!request.getIncludeFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "include_fields", request.getIncludeFields().orElse(null), false);
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)

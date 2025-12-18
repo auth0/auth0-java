@@ -64,7 +64,7 @@ public final class ListRolePermissionsOffsetPaginatedResponseContent {
         return permissions;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListRolePermissionsOffsetPaginatedResponseContent
@@ -83,12 +83,12 @@ public final class ListRolePermissionsOffsetPaginatedResponseContent {
                 && permissions.equals(other.permissions);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.start, this.limit, this.total, this.permissions);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

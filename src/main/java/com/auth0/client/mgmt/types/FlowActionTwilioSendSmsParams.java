@@ -58,7 +58,7 @@ public final class FlowActionTwilioSendSmsParams {
         return message;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionTwilioSendSmsParams && equalTo((FlowActionTwilioSendSmsParams) other);
@@ -76,12 +76,12 @@ public final class FlowActionTwilioSendSmsParams {
                 && message.equals(other.message);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.from, this.to, this.message);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -127,7 +127,7 @@ public final class FlowActionTwilioSendSmsParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionTwilioSendSmsParams other) {
             connectionId(other.getConnectionId());
             from(other.getFrom());
@@ -136,35 +136,35 @@ public final class FlowActionTwilioSendSmsParams {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("connection_id")
         public FromStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("from")
         public ToStage from(@NotNull String from) {
             this.from = Objects.requireNonNull(from, "from must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("to")
         public MessageStage to(@NotNull String to) {
             this.to = Objects.requireNonNull(to, "to must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("message")
         public _FinalStage message(@NotNull String message) {
             this.message = Objects.requireNonNull(message, "message must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionTwilioSendSmsParams build() {
             return new FlowActionTwilioSendSmsParams(connectionId, from, to, message, additionalProperties);
         }

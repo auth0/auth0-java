@@ -115,8 +115,8 @@ public class AuthAPI {
      * @param clientSecret the applications client secret.
      * @return a Builder for further configuration.
      */
-    public static AuthAPI.Builder newBuilder(String domain, String clientId, String clientSecret) {
-        return new AuthAPI.Builder(domain, clientId).withClientSecret(clientSecret);
+    public static Builder newBuilder(String domain, String clientId, String clientSecret) {
+        return new Builder(domain, clientId).withClientSecret(clientSecret);
     }
 
     /**
@@ -128,9 +128,8 @@ public class AuthAPI {
      * @param clientAssertionSigner the {@code ClientAssertionSigner} used to create the signed client assertion.
      * @return a Builder for further configuration.
      */
-    public static AuthAPI.Builder newBuilder(
-            String domain, String clientId, ClientAssertionSigner clientAssertionSigner) {
-        return new AuthAPI.Builder(domain, clientId).withClientAssertionSigner(clientAssertionSigner);
+    public static Builder newBuilder(String domain, String clientId, ClientAssertionSigner clientAssertionSigner) {
+        return new Builder(domain, clientId).withClientAssertionSigner(clientAssertionSigner);
     }
 
     /**
@@ -140,8 +139,8 @@ public class AuthAPI {
      * @param clientId the application's client ID.
      * @return a Builder for further configuration.
      */
-    public static AuthAPI.Builder newBuilder(String domain, String clientId) {
-        return new AuthAPI.Builder(domain, clientId);
+    public static Builder newBuilder(String domain, String clientId) {
+        return new Builder(domain, clientId);
     }
 
     private AuthAPI(
@@ -891,8 +890,8 @@ public class AuthAPI {
      *
      * @see <a href="https://auth0.com/docs/connections/passwordless/reference/relevant-api-endpoints">Using Passwordless APIs</a>
      * @see <a href="https://auth0.com/docs/api/authentication#authenticate-user">Passwordless Authenticate User API docs</a>
-     * @see com.auth0.client.auth.AuthAPI#startPasswordlessEmailFlow(String, PasswordlessEmailType)
-     * @see com.auth0.client.auth.AuthAPI#startPasswordlessSmsFlow(String)
+     * @see AuthAPI#startPasswordlessEmailFlow(String, PasswordlessEmailType)
+     * @see AuthAPI#startPasswordlessSmsFlow(String)
      */
     public TokenRequest exchangePasswordlessOtp(String emailOrPhone, String realm, char[] otp) {
         Asserts.assertNotNull(emailOrPhone, "emailOrPhone");

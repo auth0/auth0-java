@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateUserRequestContent;
 import com.auth0.client.mgmt.types.CreateUserResponseContent;
@@ -54,16 +55,16 @@ public class UsersWireTest {
                                 "{\"start\":1.1,\"limit\":1.1,\"length\":1.1,\"total\":1.1,\"users\":[{\"user_id\":\"user_id\",\"email\":\"email\",\"email_verified\":true,\"username\":\"username\",\"phone_number\":\"phone_number\",\"phone_verified\":true,\"created_at\":\"created_at\",\"updated_at\":\"updated_at\",\"identities\":[{}],\"app_metadata\":{\"key\":\"value\"},\"user_metadata\":{\"key\":\"value\"},\"picture\":\"picture\",\"name\":\"name\",\"nickname\":\"nickname\",\"multifactor\":[\"multifactor\"],\"last_ip\":\"last_ip\",\"last_login\":\"last_login\",\"logins_count\":1,\"blocked\":true,\"given_name\":\"given_name\",\"family_name\":\"family_name\"}]}"));
         SyncPagingIterable<UserResponseSchema> response = client.users()
                 .list(ListUsersRequestParameters.builder()
-                        .page(1)
-                        .perPage(1)
-                        .includeTotals(true)
-                        .sort("sort")
-                        .connection("connection")
-                        .fields("fields")
-                        .includeFields(true)
-                        .q("q")
-                        .searchEngine(SearchEngineVersionsEnum.V1)
-                        .primaryOrder(true)
+                        .page(OptionalNullable.of(1))
+                        .perPage(OptionalNullable.of(1))
+                        .includeTotals(OptionalNullable.of(true))
+                        .sort(OptionalNullable.of("sort"))
+                        .connection(OptionalNullable.of("connection"))
+                        .fields(OptionalNullable.of("fields"))
+                        .includeFields(OptionalNullable.of(true))
+                        .q(OptionalNullable.of("q"))
+                        .searchEngine(OptionalNullable.of(SearchEngineVersionsEnum.V1))
+                        .primaryOrder(OptionalNullable.of(true))
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -203,8 +204,8 @@ public class UsersWireTest {
         List<UserResponseSchema> response = client.users()
                 .listUsersByEmail(ListUsersByEmailRequestParameters.builder()
                         .email("email")
-                        .fields("fields")
-                        .includeFields(true)
+                        .fields(OptionalNullable.of("fields"))
+                        .includeFields(OptionalNullable.of(true))
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -289,8 +290,8 @@ public class UsersWireTest {
                 .get(
                         "id",
                         GetUserRequestParameters.builder()
-                                .fields("fields")
-                                .includeFields(true)
+                                .fields(OptionalNullable.of("fields"))
+                                .includeFields(OptionalNullable.of(true))
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -578,24 +579,29 @@ public class UsersWireTest {
     }
 
     /**
-     * Compares two JsonNodes with numeric equivalence.
+     * Compares two JsonNodes with numeric equivalence and null safety.
+     * For objects, checks that all fields in 'expected' exist in 'actual' with matching values.
+     * Allows 'actual' to have extra fields (e.g., default values added during serialization).
      */
-    private boolean jsonEquals(JsonNode a, JsonNode b) {
-        if (a.equals(b)) return true;
-        if (a.isNumber() && b.isNumber()) return Math.abs(a.doubleValue() - b.doubleValue()) < 1e-10;
-        if (a.isObject() && b.isObject()) {
-            if (a.size() != b.size()) return false;
-            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = a.fields();
+    private boolean jsonEquals(JsonNode expected, JsonNode actual) {
+        if (expected == null && actual == null) return true;
+        if (expected == null || actual == null) return false;
+        if (expected.equals(actual)) return true;
+        if (expected.isNumber() && actual.isNumber())
+            return Math.abs(expected.doubleValue() - actual.doubleValue()) < 1e-10;
+        if (expected.isObject() && actual.isObject()) {
+            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = expected.fields();
             while (iter.hasNext()) {
                 java.util.Map.Entry<String, JsonNode> entry = iter.next();
-                if (!jsonEquals(entry.getValue(), b.get(entry.getKey()))) return false;
+                JsonNode actualValue = actual.get(entry.getKey());
+                if (actualValue == null || !jsonEquals(entry.getValue(), actualValue)) return false;
             }
             return true;
         }
-        if (a.isArray() && b.isArray()) {
-            if (a.size() != b.size()) return false;
-            for (int i = 0; i < a.size(); i++) {
-                if (!jsonEquals(a.get(i), b.get(i))) return false;
+        if (expected.isArray() && actual.isArray()) {
+            if (expected.size() != actual.size()) return false;
+            for (int i = 0; i < expected.size(); i++) {
+                if (!jsonEquals(expected.get(i), actual.get(i))) return false;
             }
             return true;
         }

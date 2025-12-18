@@ -116,7 +116,7 @@ public final class SessionDeviceMetadata {
         return lastIp;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SessionDeviceMetadata && equalTo((SessionDeviceMetadata) other);
@@ -136,13 +136,13 @@ public final class SessionDeviceMetadata {
                 && lastAsn.equals(other.lastAsn);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.initialUserAgent, this.initialIp, this.initialAsn, this.lastUserAgent, this.lastIp, this.lastAsn);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -22,7 +22,7 @@ import java.util.Optional;
 public final class AculHeadTag {
     private final Optional<String> tag;
 
-    private final Optional<AculHeadTagAttributes> attributes;
+    private final Optional<Map<String, Object>> attributes;
 
     private final Optional<String> content;
 
@@ -30,7 +30,7 @@ public final class AculHeadTag {
 
     private AculHeadTag(
             Optional<String> tag,
-            Optional<AculHeadTagAttributes> attributes,
+            Optional<Map<String, Object>> attributes,
             Optional<String> content,
             Map<String, Object> additionalProperties) {
         this.tag = tag;
@@ -48,20 +48,16 @@ public final class AculHeadTag {
     }
 
     @JsonProperty("attributes")
-    public Optional<AculHeadTagAttributes> getAttributes() {
+    public Optional<Map<String, Object>> getAttributes() {
         return attributes;
     }
 
-    /**
-     * @return Text/content within the opening and closing tags of the element.
-     * See &lt;a href=&quot;https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens&quot;&gt;documentation&lt;/a&gt; on using context variables
-     */
     @JsonProperty("content")
     public Optional<String> getContent() {
         return content;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof AculHeadTag && equalTo((AculHeadTag) other);
@@ -76,12 +72,12 @@ public final class AculHeadTag {
         return tag.equals(other.tag) && attributes.equals(other.attributes) && content.equals(other.content);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.tag, this.attributes, this.content);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -94,7 +90,7 @@ public final class AculHeadTag {
     public static final class Builder {
         private Optional<String> tag = Optional.empty();
 
-        private Optional<AculHeadTagAttributes> attributes = Optional.empty();
+        private Optional<Map<String, Object>> attributes = Optional.empty();
 
         private Optional<String> content = Optional.empty();
 
@@ -125,20 +121,16 @@ public final class AculHeadTag {
         }
 
         @JsonSetter(value = "attributes", nulls = Nulls.SKIP)
-        public Builder attributes(Optional<AculHeadTagAttributes> attributes) {
+        public Builder attributes(Optional<Map<String, Object>> attributes) {
             this.attributes = attributes;
             return this;
         }
 
-        public Builder attributes(AculHeadTagAttributes attributes) {
+        public Builder attributes(Map<String, Object> attributes) {
             this.attributes = Optional.ofNullable(attributes);
             return this;
         }
 
-        /**
-         * <p>Text/content within the opening and closing tags of the element.
-         * See &lt;a href=&quot;https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens&quot;&gt;documentation&lt;/a&gt; on using context variables</p>
-         */
         @JsonSetter(value = "content", nulls = Nulls.SKIP)
         public Builder content(Optional<String> content) {
             this.content = content;

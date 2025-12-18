@@ -52,7 +52,7 @@ public final class UpdateScimConfigurationRequestContent {
         return mapping;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateScimConfigurationRequestContent
@@ -68,12 +68,12 @@ public final class UpdateScimConfigurationRequestContent {
         return userIdAttribute.equals(other.userIdAttribute) && mapping.equals(other.mapping);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.userIdAttribute, this.mapping);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -115,7 +115,7 @@ public final class UpdateScimConfigurationRequestContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(UpdateScimConfigurationRequestContent other) {
             userIdAttribute(other.getUserIdAttribute());
             mapping(other.getMapping());
@@ -127,7 +127,7 @@ public final class UpdateScimConfigurationRequestContent {
          * <p>User ID attribute for generating unique user ids</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("user_id_attribute")
         public _FinalStage userIdAttribute(@NotNull String userIdAttribute) {
             this.userIdAttribute = Objects.requireNonNull(userIdAttribute, "userIdAttribute must not be null");
@@ -138,7 +138,7 @@ public final class UpdateScimConfigurationRequestContent {
          * <p>The mapping between auth0 and SCIM</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage addAllMapping(List<ScimMappingItem> mapping) {
             if (mapping != null) {
                 this.mapping.addAll(mapping);
@@ -150,7 +150,7 @@ public final class UpdateScimConfigurationRequestContent {
          * <p>The mapping between auth0 and SCIM</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage addMapping(ScimMappingItem mapping) {
             this.mapping.add(mapping);
             return this;
@@ -159,7 +159,7 @@ public final class UpdateScimConfigurationRequestContent {
         /**
          * <p>The mapping between auth0 and SCIM</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "mapping", nulls = Nulls.SKIP)
         public _FinalStage mapping(List<ScimMappingItem> mapping) {
             this.mapping.clear();
@@ -169,7 +169,7 @@ public final class UpdateScimConfigurationRequestContent {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public UpdateScimConfigurationRequestContent build() {
             return new UpdateScimConfigurationRequestContent(userIdAttribute, mapping, additionalProperties);
         }

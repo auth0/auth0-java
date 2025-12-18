@@ -75,8 +75,11 @@ public class AsyncRawTemplatesClient {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("verifiable-credentials/verification/templates");
-        QueryStringMapper.addQueryParameter(httpUrl, "from", request.getFrom(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake(), false);
+        if (!request.getFrom().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "from", request.getFrom().orElse(null), false);
+        }
+        QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)

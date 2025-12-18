@@ -64,7 +64,7 @@ public final class ListOrganizationConnectionsOffsetPaginatedResponseContent {
         return enabledConnections;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListOrganizationConnectionsOffsetPaginatedResponseContent
@@ -83,12 +83,12 @@ public final class ListOrganizationConnectionsOffsetPaginatedResponseContent {
                 && enabledConnections.equals(other.enabledConnections);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.start, this.limit, this.total, this.enabledConnections);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

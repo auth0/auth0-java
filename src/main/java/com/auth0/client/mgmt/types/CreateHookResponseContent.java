@@ -30,7 +30,7 @@ public final class CreateHookResponseContent {
 
     private final Optional<String> script;
 
-    private final Optional<Map<String, Object>> dependencies;
+    private final Optional<Map<String, String>> dependencies;
 
     private final Map<String, Object> additionalProperties;
 
@@ -40,7 +40,7 @@ public final class CreateHookResponseContent {
             Optional<String> name,
             Optional<Boolean> enabled,
             Optional<String> script,
-            Optional<Map<String, Object>> dependencies,
+            Optional<Map<String, String>> dependencies,
             Map<String, Object> additionalProperties) {
         this.triggerId = triggerId;
         this.id = id;
@@ -92,11 +92,11 @@ public final class CreateHookResponseContent {
     }
 
     @JsonProperty("dependencies")
-    public Optional<Map<String, Object>> getDependencies() {
+    public Optional<Map<String, String>> getDependencies() {
         return dependencies;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateHookResponseContent && equalTo((CreateHookResponseContent) other);
@@ -116,12 +116,12 @@ public final class CreateHookResponseContent {
                 && dependencies.equals(other.dependencies);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.triggerId, this.id, this.name, this.enabled, this.script, this.dependencies);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -142,7 +142,7 @@ public final class CreateHookResponseContent {
 
         private Optional<String> script = Optional.empty();
 
-        private Optional<Map<String, Object>> dependencies = Optional.empty();
+        private Optional<Map<String, String>> dependencies = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -230,12 +230,12 @@ public final class CreateHookResponseContent {
         }
 
         @JsonSetter(value = "dependencies", nulls = Nulls.SKIP)
-        public Builder dependencies(Optional<Map<String, Object>> dependencies) {
+        public Builder dependencies(Optional<Map<String, String>> dependencies) {
             this.dependencies = dependencies;
             return this;
         }
 
-        public Builder dependencies(Map<String, Object> dependencies) {
+        public Builder dependencies(Map<String, String> dependencies) {
             this.dependencies = Optional.ofNullable(dependencies);
             return this;
         }

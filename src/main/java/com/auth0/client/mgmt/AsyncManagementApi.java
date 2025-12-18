@@ -10,6 +10,7 @@ import com.auth0.client.mgmt.core.Suppliers;
 import com.auth0.client.mgmt.emails.AsyncEmailsClient;
 import com.auth0.client.mgmt.guardian.AsyncGuardianClient;
 import com.auth0.client.mgmt.keys.AsyncKeysClient;
+import com.auth0.client.mgmt.riskassessments.AsyncRiskAssessmentsClient;
 import com.auth0.client.mgmt.tenants.AsyncTenantsClient;
 import com.auth0.client.mgmt.verifiablecredentials.AsyncVerifiableCredentialsClient;
 import java.util.function.Supplier;
@@ -24,6 +25,8 @@ public class AsyncManagementApi {
     protected final Supplier<AsyncClientGrantsClient> clientGrantsClient;
 
     protected final Supplier<AsyncClientsClient> clientsClient;
+
+    protected final Supplier<AsyncConnectionProfilesClient> connectionProfilesClient;
 
     protected final Supplier<AsyncConnectionsClient> connectionsClient;
 
@@ -77,6 +80,8 @@ public class AsyncManagementApi {
 
     protected final Supplier<AsyncTokenExchangeProfilesClient> tokenExchangeProfilesClient;
 
+    protected final Supplier<AsyncUserAttributeProfilesClient> userAttributeProfilesClient;
+
     protected final Supplier<AsyncUserBlocksClient> userBlocksClient;
 
     protected final Supplier<AsyncUsersClient> usersClient;
@@ -91,6 +96,8 @@ public class AsyncManagementApi {
 
     protected final Supplier<AsyncKeysClient> keysClient;
 
+    protected final Supplier<AsyncRiskAssessmentsClient> riskAssessmentsClient;
+
     protected final Supplier<AsyncTenantsClient> tenantsClient;
 
     protected final Supplier<AsyncVerifiableCredentialsClient> verifiableCredentialsClient;
@@ -101,6 +108,7 @@ public class AsyncManagementApi {
         this.brandingClient = Suppliers.memoize(() -> new AsyncBrandingClient(clientOptions));
         this.clientGrantsClient = Suppliers.memoize(() -> new AsyncClientGrantsClient(clientOptions));
         this.clientsClient = Suppliers.memoize(() -> new AsyncClientsClient(clientOptions));
+        this.connectionProfilesClient = Suppliers.memoize(() -> new AsyncConnectionProfilesClient(clientOptions));
         this.connectionsClient = Suppliers.memoize(() -> new AsyncConnectionsClient(clientOptions));
         this.customDomainsClient = Suppliers.memoize(() -> new AsyncCustomDomainsClient(clientOptions));
         this.deviceCredentialsClient = Suppliers.memoize(() -> new AsyncDeviceCredentialsClient(clientOptions));
@@ -127,6 +135,7 @@ public class AsyncManagementApi {
         this.supplementalSignalsClient = Suppliers.memoize(() -> new AsyncSupplementalSignalsClient(clientOptions));
         this.ticketsClient = Suppliers.memoize(() -> new AsyncTicketsClient(clientOptions));
         this.tokenExchangeProfilesClient = Suppliers.memoize(() -> new AsyncTokenExchangeProfilesClient(clientOptions));
+        this.userAttributeProfilesClient = Suppliers.memoize(() -> new AsyncUserAttributeProfilesClient(clientOptions));
         this.userBlocksClient = Suppliers.memoize(() -> new AsyncUserBlocksClient(clientOptions));
         this.usersClient = Suppliers.memoize(() -> new AsyncUsersClient(clientOptions));
         this.anomalyClient = Suppliers.memoize(() -> new AsyncAnomalyClient(clientOptions));
@@ -134,6 +143,7 @@ public class AsyncManagementApi {
         this.emailsClient = Suppliers.memoize(() -> new AsyncEmailsClient(clientOptions));
         this.guardianClient = Suppliers.memoize(() -> new AsyncGuardianClient(clientOptions));
         this.keysClient = Suppliers.memoize(() -> new AsyncKeysClient(clientOptions));
+        this.riskAssessmentsClient = Suppliers.memoize(() -> new AsyncRiskAssessmentsClient(clientOptions));
         this.tenantsClient = Suppliers.memoize(() -> new AsyncTenantsClient(clientOptions));
         this.verifiableCredentialsClient = Suppliers.memoize(() -> new AsyncVerifiableCredentialsClient(clientOptions));
     }
@@ -152,6 +162,10 @@ public class AsyncManagementApi {
 
     public AsyncClientsClient clients() {
         return this.clientsClient.get();
+    }
+
+    public AsyncConnectionProfilesClient connectionProfiles() {
+        return this.connectionProfilesClient.get();
     }
 
     public AsyncConnectionsClient connections() {
@@ -258,6 +272,10 @@ public class AsyncManagementApi {
         return this.tokenExchangeProfilesClient.get();
     }
 
+    public AsyncUserAttributeProfilesClient userAttributeProfiles() {
+        return this.userAttributeProfilesClient.get();
+    }
+
     public AsyncUserBlocksClient userBlocks() {
         return this.userBlocksClient.get();
     }
@@ -284,6 +302,10 @@ public class AsyncManagementApi {
 
     public AsyncKeysClient keys() {
         return this.keysClient.get();
+    }
+
+    public AsyncRiskAssessmentsClient riskAssessments() {
+        return this.riskAssessmentsClient.get();
     }
 
     public AsyncTenantsClient tenants() {

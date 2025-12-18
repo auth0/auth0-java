@@ -205,7 +205,7 @@ public final class UpdateEmailTemplateResponseContent {
         return enabled;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateEmailTemplateResponseContent
@@ -229,7 +229,7 @@ public final class UpdateEmailTemplateResponseContent {
                 && enabled.equals(other.enabled);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.template,
@@ -243,7 +243,7 @@ public final class UpdateEmailTemplateResponseContent {
                 this.enabled);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

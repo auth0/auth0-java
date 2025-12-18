@@ -49,7 +49,7 @@ public final class ListUserSessionsPaginatedResponseContent {
         return next;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListUserSessionsPaginatedResponseContent
@@ -65,12 +65,12 @@ public final class ListUserSessionsPaginatedResponseContent {
         return sessions.equals(other.sessions) && next.equals(other.next);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.sessions, this.next);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

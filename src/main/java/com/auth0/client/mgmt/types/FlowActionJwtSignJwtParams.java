@@ -82,7 +82,7 @@ public final class FlowActionJwtSignJwtParams {
         return expiresIn;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionJwtSignJwtParams && equalTo((FlowActionJwtSignJwtParams) other);
@@ -102,12 +102,12 @@ public final class FlowActionJwtSignJwtParams {
                 && expiresIn.equals(other.expiresIn);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.payload, this.subject, this.issuer, this.audience, this.expiresIn);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -165,7 +165,7 @@ public final class FlowActionJwtSignJwtParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionJwtSignJwtParams other) {
             connectionId(other.getConnectionId());
             payload(other.getPayload());
@@ -176,79 +176,79 @@ public final class FlowActionJwtSignJwtParams {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("connection_id")
         public _FinalStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage expiresIn(String expiresIn) {
             this.expiresIn = Optional.ofNullable(expiresIn);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "expires_in", nulls = Nulls.SKIP)
         public _FinalStage expiresIn(Optional<String> expiresIn) {
             this.expiresIn = expiresIn;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage audience(String audience) {
             this.audience = Optional.ofNullable(audience);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "audience", nulls = Nulls.SKIP)
         public _FinalStage audience(Optional<String> audience) {
             this.audience = audience;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage issuer(String issuer) {
             this.issuer = Optional.ofNullable(issuer);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "issuer", nulls = Nulls.SKIP)
         public _FinalStage issuer(Optional<String> issuer) {
             this.issuer = issuer;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage subject(String subject) {
             this.subject = Optional.ofNullable(subject);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "subject", nulls = Nulls.SKIP)
         public _FinalStage subject(Optional<String> subject) {
             this.subject = subject;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage payload(Map<String, Object> payload) {
             this.payload = Optional.ofNullable(payload);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "payload", nulls = Nulls.SKIP)
         public _FinalStage payload(Optional<Map<String, Object>> payload) {
             this.payload = payload;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionJwtSignJwtParams build() {
             return new FlowActionJwtSignJwtParams(
                     connectionId, payload, subject, issuer, audience, expiresIn, additionalProperties);

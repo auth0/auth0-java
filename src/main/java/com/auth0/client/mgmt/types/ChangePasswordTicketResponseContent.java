@@ -36,7 +36,7 @@ public final class ChangePasswordTicketResponseContent {
         return ticket;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ChangePasswordTicketResponseContent
@@ -52,12 +52,12 @@ public final class ChangePasswordTicketResponseContent {
         return ticket.equals(other.ticket);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.ticket);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -88,7 +88,7 @@ public final class ChangePasswordTicketResponseContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(ChangePasswordTicketResponseContent other) {
             ticket(other.getTicket());
             return this;
@@ -99,14 +99,14 @@ public final class ChangePasswordTicketResponseContent {
          * <p>URL representing the ticket.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("ticket")
         public _FinalStage ticket(@NotNull String ticket) {
             this.ticket = Objects.requireNonNull(ticket, "ticket must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public ChangePasswordTicketResponseContent build() {
             return new ChangePasswordTicketResponseContent(ticket, additionalProperties);
         }

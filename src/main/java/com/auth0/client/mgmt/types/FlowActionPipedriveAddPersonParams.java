@@ -91,7 +91,7 @@ public final class FlowActionPipedriveAddPersonParams {
         return fields;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionPipedriveAddPersonParams
@@ -113,13 +113,13 @@ public final class FlowActionPipedriveAddPersonParams {
                 && fields.equals(other.fields);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.connectionId, this.name, this.email, this.phone, this.ownerId, this.organizationId, this.fields);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -183,7 +183,7 @@ public final class FlowActionPipedriveAddPersonParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionPipedriveAddPersonParams other) {
             connectionId(other.getConnectionId());
             name(other.getName());
@@ -195,86 +195,86 @@ public final class FlowActionPipedriveAddPersonParams {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("connection_id")
         public NameStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("name")
         public _FinalStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage fields(Map<String, Object> fields) {
             this.fields = Optional.ofNullable(fields);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "fields", nulls = Nulls.SKIP)
         public _FinalStage fields(Optional<Map<String, Object>> fields) {
             this.fields = fields;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage organizationId(FlowActionPipedriveAddPersonParamsOrganizationId organizationId) {
             this.organizationId = Optional.ofNullable(organizationId);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "organization_id", nulls = Nulls.SKIP)
         public _FinalStage organizationId(Optional<FlowActionPipedriveAddPersonParamsOrganizationId> organizationId) {
             this.organizationId = organizationId;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage ownerId(FlowActionPipedriveAddPersonParamsOwnerId ownerId) {
             this.ownerId = Optional.ofNullable(ownerId);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "owner_id", nulls = Nulls.SKIP)
         public _FinalStage ownerId(Optional<FlowActionPipedriveAddPersonParamsOwnerId> ownerId) {
             this.ownerId = ownerId;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage phone(String phone) {
             this.phone = Optional.ofNullable(phone);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "phone", nulls = Nulls.SKIP)
         public _FinalStage phone(Optional<String> phone) {
             this.phone = phone;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage email(String email) {
             this.email = Optional.ofNullable(email);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "email", nulls = Nulls.SKIP)
         public _FinalStage email(Optional<String> email) {
             this.email = email;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionPipedriveAddPersonParams build() {
             return new FlowActionPipedriveAddPersonParams(
                     connectionId, name, email, phone, ownerId, organizationId, fields, additionalProperties);

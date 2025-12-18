@@ -15,6 +15,9 @@ public final class NetworkAclRuleScopeEnum {
 
     public static final NetworkAclRuleScopeEnum TENANT = new NetworkAclRuleScopeEnum(Value.TENANT, "tenant");
 
+    public static final NetworkAclRuleScopeEnum DYNAMIC_CLIENT_REGISTRATION =
+            new NetworkAclRuleScopeEnum(Value.DYNAMIC_CLIENT_REGISTRATION, "dynamic_client_registration");
+
     private final Value value;
 
     private final String string;
@@ -28,20 +31,20 @@ public final class NetworkAclRuleScopeEnum {
         return value;
     }
 
-    @java.lang.Override
+    @Override
     @JsonValue
     public String toString() {
         return this.string;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         return (this == other)
                 || (other instanceof NetworkAclRuleScopeEnum
                         && this.string.equals(((NetworkAclRuleScopeEnum) other).string));
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return this.string.hashCode();
     }
@@ -54,6 +57,8 @@ public final class NetworkAclRuleScopeEnum {
                 return visitor.visitManagement();
             case TENANT:
                 return visitor.visitTenant();
+            case DYNAMIC_CLIENT_REGISTRATION:
+                return visitor.visitDynamicClientRegistration();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -69,6 +74,8 @@ public final class NetworkAclRuleScopeEnum {
                 return MANAGEMENT;
             case "tenant":
                 return TENANT;
+            case "dynamic_client_registration":
+                return DYNAMIC_CLIENT_REGISTRATION;
             default:
                 return new NetworkAclRuleScopeEnum(Value.UNKNOWN, value);
         }
@@ -81,6 +88,8 @@ public final class NetworkAclRuleScopeEnum {
 
         TENANT,
 
+        DYNAMIC_CLIENT_REGISTRATION,
+
         UNKNOWN
     }
 
@@ -90,6 +99,8 @@ public final class NetworkAclRuleScopeEnum {
         T visitAuthentication();
 
         T visitTenant();
+
+        T visitDynamicClientRegistration();
 
         T visitUnknown(String unknownType);
     }

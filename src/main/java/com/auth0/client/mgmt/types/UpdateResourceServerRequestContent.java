@@ -50,6 +50,8 @@ public final class UpdateResourceServerRequestContent {
 
     private final OptionalNullable<ResourceServerProofOfPossession> proofOfPossession;
 
+    private final Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateResourceServerRequestContent(
@@ -66,6 +68,7 @@ public final class UpdateResourceServerRequestContent {
             OptionalNullable<String> consentPolicy,
             Optional<List<Object>> authorizationDetails,
             OptionalNullable<ResourceServerProofOfPossession> proofOfPossession,
+            Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.scopes = scopes;
@@ -80,6 +83,7 @@ public final class UpdateResourceServerRequestContent {
         this.consentPolicy = consentPolicy;
         this.authorizationDetails = authorizationDetails;
         this.proofOfPossession = proofOfPossession;
+        this.subjectTypeAuthorization = subjectTypeAuthorization;
         this.additionalProperties = additionalProperties;
     }
 
@@ -181,6 +185,11 @@ public final class UpdateResourceServerRequestContent {
         return proofOfPossession;
     }
 
+    @JsonProperty("subject_type_authorization")
+    public Optional<ResourceServerSubjectTypeAuthorization> getSubjectTypeAuthorization() {
+        return subjectTypeAuthorization;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("token_encryption")
     private OptionalNullable<ResourceServerTokenEncryption> _getTokenEncryption() {
@@ -199,7 +208,7 @@ public final class UpdateResourceServerRequestContent {
         return proofOfPossession;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateResourceServerRequestContent
@@ -224,10 +233,11 @@ public final class UpdateResourceServerRequestContent {
                 && tokenEncryption.equals(other.tokenEncryption)
                 && consentPolicy.equals(other.consentPolicy)
                 && authorizationDetails.equals(other.authorizationDetails)
-                && proofOfPossession.equals(other.proofOfPossession);
+                && proofOfPossession.equals(other.proofOfPossession)
+                && subjectTypeAuthorization.equals(other.subjectTypeAuthorization);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.name,
@@ -242,10 +252,11 @@ public final class UpdateResourceServerRequestContent {
                 this.tokenEncryption,
                 this.consentPolicy,
                 this.authorizationDetails,
-                this.proofOfPossession);
+                this.proofOfPossession,
+                this.subjectTypeAuthorization);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -282,6 +293,8 @@ public final class UpdateResourceServerRequestContent {
 
         private OptionalNullable<ResourceServerProofOfPossession> proofOfPossession = OptionalNullable.absent();
 
+        private Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -301,6 +314,7 @@ public final class UpdateResourceServerRequestContent {
             consentPolicy(other.getConsentPolicy());
             authorizationDetails(other.getAuthorizationDetails());
             proofOfPossession(other.getProofOfPossession());
+            subjectTypeAuthorization(other.getSubjectTypeAuthorization());
             return this;
         }
 
@@ -533,6 +547,18 @@ public final class UpdateResourceServerRequestContent {
             return this;
         }
 
+        @JsonSetter(value = "subject_type_authorization", nulls = Nulls.SKIP)
+        public Builder subjectTypeAuthorization(
+                Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization) {
+            this.subjectTypeAuthorization = subjectTypeAuthorization;
+            return this;
+        }
+
+        public Builder subjectTypeAuthorization(ResourceServerSubjectTypeAuthorization subjectTypeAuthorization) {
+            this.subjectTypeAuthorization = Optional.ofNullable(subjectTypeAuthorization);
+            return this;
+        }
+
         public UpdateResourceServerRequestContent build() {
             return new UpdateResourceServerRequestContent(
                     name,
@@ -548,6 +574,7 @@ public final class UpdateResourceServerRequestContent {
                     consentPolicy,
                     authorizationDetails,
                     proofOfPossession,
+                    subjectTypeAuthorization,
                     additionalProperties);
         }
     }

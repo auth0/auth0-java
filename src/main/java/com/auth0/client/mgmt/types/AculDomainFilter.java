@@ -4,121 +4,92 @@
 package com.auth0.client.mgmt.types;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.annotation.Nulls;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import java.util.HashMap;
-import java.util.Map;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import java.io.IOException;
 import java.util.Objects;
-import java.util.Optional;
 
-@JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = AculDomainFilter.Builder.class)
+@JsonDeserialize(using = AculDomainFilter.Deserializer.class)
 public final class AculDomainFilter {
-    private final Optional<String> id;
+    private final Object value;
 
-    private final Optional<Map<String, Object>> metadata;
+    private final int type;
 
-    private final Map<String, Object> additionalProperties;
-
-    private AculDomainFilter(
-            Optional<String> id, Optional<Map<String, Object>> metadata, Map<String, Object> additionalProperties) {
-        this.id = id;
-        this.metadata = metadata;
-        this.additionalProperties = additionalProperties;
+    private AculDomainFilter(Object value, int type) {
+        this.value = value;
+        this.type = type;
     }
 
-    /**
-     * @return Domain ID
-     */
-    @JsonProperty("id")
-    public Optional<String> getId() {
-        return id;
+    @JsonValue
+    public Object get() {
+        return this.value;
     }
 
-    @JsonProperty("metadata")
-    public Optional<Map<String, Object>> getMetadata() {
-        return metadata;
+    @SuppressWarnings("unchecked")
+    public <T> T visit(Visitor<T> visitor) {
+        if (this.type == 0) {
+            return visitor.visit((AculDomainFilterById) this.value);
+        } else if (this.type == 1) {
+            return visitor.visit((AculDomainFilterByMetadata) this.value);
+        }
+        throw new IllegalStateException("Failed to visit value. This should never happen.");
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof AculDomainFilter && equalTo((AculDomainFilter) other);
     }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
     private boolean equalTo(AculDomainFilter other) {
-        return id.equals(other.id) && metadata.equals(other.metadata);
+        return value.equals(other.value);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.metadata);
+        return Objects.hash(this.value);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
-        return ObjectMappers.stringify(this);
+        return this.value.toString();
     }
 
-    public static Builder builder() {
-        return new Builder();
+    public static AculDomainFilter of(AculDomainFilterById value) {
+        return new AculDomainFilter(value, 0);
     }
 
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder {
-        private Optional<String> id = Optional.empty();
+    public static AculDomainFilter of(AculDomainFilterByMetadata value) {
+        return new AculDomainFilter(value, 1);
+    }
 
-        private Optional<Map<String, Object>> metadata = Optional.empty();
+    public interface Visitor<T> {
+        T visit(AculDomainFilterById value);
 
-        @JsonAnySetter
-        private Map<String, Object> additionalProperties = new HashMap<>();
+        T visit(AculDomainFilterByMetadata value);
+    }
 
-        private Builder() {}
-
-        public Builder from(AculDomainFilter other) {
-            id(other.getId());
-            metadata(other.getMetadata());
-            return this;
+    static final class Deserializer extends StdDeserializer<AculDomainFilter> {
+        Deserializer() {
+            super(AculDomainFilter.class);
         }
 
-        /**
-         * <p>Domain ID</p>
-         */
-        @JsonSetter(value = "id", nulls = Nulls.SKIP)
-        public Builder id(Optional<String> id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder id(String id) {
-            this.id = Optional.ofNullable(id);
-            return this;
-        }
-
-        @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
-        public Builder metadata(Optional<Map<String, Object>> metadata) {
-            this.metadata = metadata;
-            return this;
-        }
-
-        public Builder metadata(Map<String, Object> metadata) {
-            this.metadata = Optional.ofNullable(metadata);
-            return this;
-        }
-
-        public AculDomainFilter build() {
-            return new AculDomainFilter(id, metadata, additionalProperties);
+        @Override
+        public AculDomainFilter deserialize(JsonParser p, DeserializationContext context) throws IOException {
+            Object value = p.readValueAs(Object.class);
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, AculDomainFilterById.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, AculDomainFilterByMetadata.class));
+            } catch (RuntimeException e) {
+            }
+            throw new JsonParseException(p, "Failed to deserialize");
         }
     }
 }

@@ -106,16 +106,38 @@ public class RawUsersClient {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("users");
-        QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "per_page", request.getPerPage(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "include_totals", request.getIncludeTotals(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "sort", request.getSort(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "connection", request.getConnection(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "fields", request.getFields(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "include_fields", request.getIncludeFields(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "q", request.getQ(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "search_engine", request.getSearchEngine(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "primary_order", request.getPrimaryOrder(), false);
+        QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage().orElse(0), false);
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "per_page", request.getPerPage().orElse(50), false);
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
+        if (!request.getSort().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "sort", request.getSort().orElse(null), false);
+        }
+        if (!request.getConnection().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "connection", request.getConnection().orElse(null), false);
+        }
+        if (!request.getFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "fields", request.getFields().orElse(null), false);
+        }
+        if (!request.getIncludeFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "include_fields", request.getIncludeFields().orElse(null), false);
+        }
+        if (!request.getQ().isAbsent()) {
+            QueryStringMapper.addQueryParameter(httpUrl, "q", request.getQ().orElse(null), false);
+        }
+        if (!request.getSearchEngine().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "search_engine", request.getSearchEngine().orElse(null), false);
+        }
+        if (!request.getPrimaryOrder().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "primary_order", request.getPrimaryOrder().orElse(null), false);
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -267,8 +289,14 @@ public class RawUsersClient {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("users-by-email");
-        QueryStringMapper.addQueryParameter(httpUrl, "fields", request.getFields(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "include_fields", request.getIncludeFields(), false);
+        if (!request.getFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "fields", request.getFields().orElse(null), false);
+        }
+        if (!request.getIncludeFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "include_fields", request.getIncludeFields().orElse(null), false);
+        }
         QueryStringMapper.addQueryParameter(httpUrl, "email", request.getEmail(), false);
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -338,8 +366,14 @@ public class RawUsersClient {
                 .newBuilder()
                 .addPathSegments("users")
                 .addPathSegment(id);
-        QueryStringMapper.addQueryParameter(httpUrl, "fields", request.getFields(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "include_fields", request.getIncludeFields(), false);
+        if (!request.getFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "fields", request.getFields().orElse(null), false);
+        }
+        if (!request.getIncludeFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "include_fields", request.getIncludeFields().orElse(null), false);
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)

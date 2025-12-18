@@ -36,7 +36,7 @@ public final class EventStreamActionConfiguration {
         return actionId;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof EventStreamActionConfiguration && equalTo((EventStreamActionConfiguration) other);
@@ -51,12 +51,12 @@ public final class EventStreamActionConfiguration {
         return actionId.equals(other.actionId);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.actionId);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -87,7 +87,7 @@ public final class EventStreamActionConfiguration {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(EventStreamActionConfiguration other) {
             actionId(other.getActionId());
             return this;
@@ -98,14 +98,14 @@ public final class EventStreamActionConfiguration {
          * <p>Action ID for the action destination.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("action_id")
         public _FinalStage actionId(@NotNull String actionId) {
             this.actionId = Objects.requireNonNull(actionId, "actionId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public EventStreamActionConfiguration build() {
             return new EventStreamActionConfiguration(actionId, additionalProperties);
         }

@@ -41,7 +41,7 @@ public final class EventStreamsCreateRequest {
         throw new IllegalStateException("Failed to visit value. This should never happen.");
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof EventStreamsCreateRequest && equalTo((EventStreamsCreateRequest) other);
@@ -51,12 +51,12 @@ public final class EventStreamsCreateRequest {
         return value.equals(other.value);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.value);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return this.value.toString();
     }
@@ -86,7 +86,7 @@ public final class EventStreamsCreateRequest {
             super(EventStreamsCreateRequest.class);
         }
 
-        @java.lang.Override
+        @Override
         public EventStreamsCreateRequest deserialize(JsonParser p, DeserializationContext context) throws IOException {
             Object value = p.readValueAs(Object.class);
             try {

@@ -66,7 +66,7 @@ public final class ListUserBlocksByIdentifierRequestParameters {
         return considerBruteForceEnablement;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListUserBlocksByIdentifierRequestParameters
@@ -83,12 +83,12 @@ public final class ListUserBlocksByIdentifierRequestParameters {
                 && considerBruteForceEnablement.equals(other.considerBruteForceEnablement);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.identifier, this.considerBruteForceEnablement);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -134,7 +134,7 @@ public final class ListUserBlocksByIdentifierRequestParameters {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(ListUserBlocksByIdentifierRequestParameters other) {
             identifier(other.getIdentifier());
             considerBruteForceEnablement(other.getConsiderBruteForceEnablement());
@@ -146,7 +146,7 @@ public final class ListUserBlocksByIdentifierRequestParameters {
          * <p>Should be any of a username, phone number, or email.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("identifier")
         public _FinalStage identifier(@NotNull String identifier) {
             this.identifier = Objects.requireNonNull(identifier, "identifier must not be null");
@@ -158,7 +158,7 @@ public final class ListUserBlocksByIdentifierRequestParameters {
          * If true and Brute Force Protection is disabled, will return an empty list.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage considerBruteForceEnablement(
                 com.auth0.client.mgmt.core.Nullable<Boolean> considerBruteForceEnablement) {
             if (considerBruteForceEnablement.isNull()) {
@@ -176,7 +176,7 @@ public final class ListUserBlocksByIdentifierRequestParameters {
          * If true and Brute Force Protection is disabled, will return an empty list.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage considerBruteForceEnablement(Optional<Boolean> considerBruteForceEnablement) {
             if (considerBruteForceEnablement.isPresent()) {
                 this.considerBruteForceEnablement = OptionalNullable.of(considerBruteForceEnablement.get());
@@ -191,7 +191,7 @@ public final class ListUserBlocksByIdentifierRequestParameters {
          * If true and Brute Force Protection is disabled, will return an empty list.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage considerBruteForceEnablement(Boolean considerBruteForceEnablement) {
             this.considerBruteForceEnablement = OptionalNullable.of(considerBruteForceEnablement);
             return this;
@@ -201,7 +201,7 @@ public final class ListUserBlocksByIdentifierRequestParameters {
          * <p>If true and Brute Force Protection is enabled and configured to block logins, will return a list of blocked IP addresses.
          * If true and Brute Force Protection is disabled, will return an empty list.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "consider_brute_force_enablement", nulls = Nulls.SKIP)
         public _FinalStage considerBruteForceEnablement(
                 @Nullable OptionalNullable<Boolean> considerBruteForceEnablement) {
@@ -209,7 +209,7 @@ public final class ListUserBlocksByIdentifierRequestParameters {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public ListUserBlocksByIdentifierRequestParameters build() {
             return new ListUserBlocksByIdentifierRequestParameters(
                     identifier, considerBruteForceEnablement, additionalProperties);

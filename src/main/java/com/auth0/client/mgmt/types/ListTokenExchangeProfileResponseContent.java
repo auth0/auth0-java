@@ -49,7 +49,7 @@ public final class ListTokenExchangeProfileResponseContent {
         return tokenExchangeProfiles;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListTokenExchangeProfileResponseContent
@@ -65,12 +65,12 @@ public final class ListTokenExchangeProfileResponseContent {
         return next.equals(other.next) && tokenExchangeProfiles.equals(other.tokenExchangeProfiles);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.next, this.tokenExchangeProfiles);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

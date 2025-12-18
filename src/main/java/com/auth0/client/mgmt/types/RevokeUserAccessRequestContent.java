@@ -51,7 +51,7 @@ public final class RevokeUserAccessRequestContent {
         return preserveRefreshTokens;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof RevokeUserAccessRequestContent && equalTo((RevokeUserAccessRequestContent) other);
@@ -66,12 +66,12 @@ public final class RevokeUserAccessRequestContent {
         return sessionId.equals(other.sessionId) && preserveRefreshTokens.equals(other.preserveRefreshTokens);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.sessionId, this.preserveRefreshTokens);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

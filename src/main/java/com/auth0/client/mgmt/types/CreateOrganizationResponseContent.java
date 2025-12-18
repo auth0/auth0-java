@@ -4,6 +4,7 @@
 package com.auth0.client.mgmt.types;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -29,7 +30,7 @@ public final class CreateOrganizationResponseContent {
 
     private final Optional<OrganizationBranding> branding;
 
-    private final Optional<Map<String, Object>> metadata;
+    private final Optional<Map<String, OptionalNullable<String>>> metadata;
 
     private final Optional<TokenQuota> tokenQuota;
 
@@ -42,7 +43,7 @@ public final class CreateOrganizationResponseContent {
             Optional<String> name,
             Optional<String> displayName,
             Optional<OrganizationBranding> branding,
-            Optional<Map<String, Object>> metadata,
+            Optional<Map<String, OptionalNullable<String>>> metadata,
             Optional<TokenQuota> tokenQuota,
             Optional<List<OrganizationEnabledConnection>> enabledConnections,
             Map<String, Object> additionalProperties) {
@@ -86,7 +87,7 @@ public final class CreateOrganizationResponseContent {
     }
 
     @JsonProperty("metadata")
-    public Optional<Map<String, Object>> getMetadata() {
+    public Optional<Map<String, OptionalNullable<String>>> getMetadata() {
         return metadata;
     }
 
@@ -100,7 +101,7 @@ public final class CreateOrganizationResponseContent {
         return enabledConnections;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateOrganizationResponseContent && equalTo((CreateOrganizationResponseContent) other);
@@ -121,7 +122,7 @@ public final class CreateOrganizationResponseContent {
                 && enabledConnections.equals(other.enabledConnections);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -133,7 +134,7 @@ public final class CreateOrganizationResponseContent {
                 this.enabledConnections);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -152,7 +153,7 @@ public final class CreateOrganizationResponseContent {
 
         private Optional<OrganizationBranding> branding = Optional.empty();
 
-        private Optional<Map<String, Object>> metadata = Optional.empty();
+        private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
         private Optional<TokenQuota> tokenQuota = Optional.empty();
 
@@ -228,12 +229,12 @@ public final class CreateOrganizationResponseContent {
         }
 
         @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
-        public Builder metadata(Optional<Map<String, Object>> metadata) {
+        public Builder metadata(Optional<Map<String, OptionalNullable<String>>> metadata) {
             this.metadata = metadata;
             return this;
         }
 
-        public Builder metadata(Map<String, Object> metadata) {
+        public Builder metadata(Map<String, OptionalNullable<String>> metadata) {
             this.metadata = Optional.ofNullable(metadata);
             return this;
         }

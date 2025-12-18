@@ -62,7 +62,7 @@ public final class FormBlockResendButton {
         return config;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormBlockResendButton && equalTo((FormBlockResendButton) other);
@@ -80,12 +80,12 @@ public final class FormBlockResendButton {
                 && config.equals(other.config);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.id, this.category, this.type, this.config);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -131,7 +131,7 @@ public final class FormBlockResendButton {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FormBlockResendButton other) {
             id(other.getId());
             category(other.getCategory());
@@ -140,35 +140,35 @@ public final class FormBlockResendButton {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("id")
         public CategoryStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("category")
         public TypeStage category(@NotNull String category) {
             this.category = Objects.requireNonNull(category, "category must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("type")
         public ConfigStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("config")
         public _FinalStage config(@NotNull FormBlockResendButtonConfig config) {
             this.config = Objects.requireNonNull(config, "config must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FormBlockResendButton build() {
             return new FormBlockResendButton(id, category, type, config, additionalProperties);
         }

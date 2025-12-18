@@ -27,14 +27,18 @@ public final class UpdateCustomDomainRequestContent {
 
     private final OptionalNullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader;
 
+    private final Optional<Map<String, OptionalNullable<String>>> domainMetadata;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateCustomDomainRequestContent(
             Optional<String> tlsPolicy,
             OptionalNullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader,
+            Optional<Map<String, OptionalNullable<String>>> domainMetadata,
             Map<String, Object> additionalProperties) {
         this.tlsPolicy = tlsPolicy;
         this.customClientIpHeader = customClientIpHeader;
+        this.domainMetadata = domainMetadata;
         this.additionalProperties = additionalProperties;
     }
 
@@ -49,7 +53,12 @@ public final class UpdateCustomDomainRequestContent {
         return customClientIpHeader;
     }
 
-    @java.lang.Override
+    @JsonProperty("domain_metadata")
+    public Optional<Map<String, OptionalNullable<String>>> getDomainMetadata() {
+        return domainMetadata;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateCustomDomainRequestContent && equalTo((UpdateCustomDomainRequestContent) other);
@@ -61,15 +70,17 @@ public final class UpdateCustomDomainRequestContent {
     }
 
     private boolean equalTo(UpdateCustomDomainRequestContent other) {
-        return tlsPolicy.equals(other.tlsPolicy) && customClientIpHeader.equals(other.customClientIpHeader);
+        return tlsPolicy.equals(other.tlsPolicy)
+                && customClientIpHeader.equals(other.customClientIpHeader)
+                && domainMetadata.equals(other.domainMetadata);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
-        return Objects.hash(this.tlsPolicy, this.customClientIpHeader);
+        return Objects.hash(this.tlsPolicy, this.customClientIpHeader, this.domainMetadata);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -84,6 +95,8 @@ public final class UpdateCustomDomainRequestContent {
 
         private OptionalNullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader = OptionalNullable.absent();
 
+        private Optional<Map<String, OptionalNullable<String>>> domainMetadata = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -92,6 +105,7 @@ public final class UpdateCustomDomainRequestContent {
         public Builder from(UpdateCustomDomainRequestContent other) {
             tlsPolicy(other.getTlsPolicy());
             customClientIpHeader(other.getCustomClientIpHeader());
+            domainMetadata(other.getDomainMetadata());
             return this;
         }
 
@@ -138,8 +152,20 @@ public final class UpdateCustomDomainRequestContent {
             return this;
         }
 
+        @JsonSetter(value = "domain_metadata", nulls = Nulls.SKIP)
+        public Builder domainMetadata(Optional<Map<String, OptionalNullable<String>>> domainMetadata) {
+            this.domainMetadata = domainMetadata;
+            return this;
+        }
+
+        public Builder domainMetadata(Map<String, OptionalNullable<String>> domainMetadata) {
+            this.domainMetadata = Optional.ofNullable(domainMetadata);
+            return this;
+        }
+
         public UpdateCustomDomainRequestContent build() {
-            return new UpdateCustomDomainRequestContent(tlsPolicy, customClientIpHeader, additionalProperties);
+            return new UpdateCustomDomainRequestContent(
+                    tlsPolicy, customClientIpHeader, domainMetadata, additionalProperties);
         }
     }
 }

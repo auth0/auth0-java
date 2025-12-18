@@ -101,7 +101,7 @@ public final class ActionBase {
         return updatedAt;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ActionBase && equalTo((ActionBase) other);
@@ -121,13 +121,13 @@ public final class ActionBase {
                 && updatedAt.equals(other.updatedAt);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.id, this.name, this.supportedTriggers, this.allChangesDeployed, this.createdAt, this.updatedAt);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

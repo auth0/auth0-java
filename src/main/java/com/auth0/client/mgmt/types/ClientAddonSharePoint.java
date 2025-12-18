@@ -48,7 +48,7 @@ public final class ClientAddonSharePoint {
         return externalUrl;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientAddonSharePoint && equalTo((ClientAddonSharePoint) other);
@@ -63,12 +63,12 @@ public final class ClientAddonSharePoint {
         return url.equals(other.url) && externalUrl.equals(other.externalUrl);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.url, this.externalUrl);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

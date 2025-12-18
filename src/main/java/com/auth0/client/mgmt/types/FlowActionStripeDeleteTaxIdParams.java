@@ -50,7 +50,7 @@ public final class FlowActionStripeDeleteTaxIdParams {
         return id;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionStripeDeleteTaxIdParams && equalTo((FlowActionStripeDeleteTaxIdParams) other);
@@ -65,12 +65,12 @@ public final class FlowActionStripeDeleteTaxIdParams {
         return connectionId.equals(other.connectionId) && customerId.equals(other.customerId) && id.equals(other.id);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.customerId, this.id);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -110,7 +110,7 @@ public final class FlowActionStripeDeleteTaxIdParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionStripeDeleteTaxIdParams other) {
             connectionId(other.getConnectionId());
             customerId(other.getCustomerId());
@@ -118,28 +118,28 @@ public final class FlowActionStripeDeleteTaxIdParams {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("connection_id")
         public CustomerIdStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("customer_id")
         public IdStage customerId(@NotNull String customerId) {
             this.customerId = Objects.requireNonNull(customerId, "customerId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("id")
         public _FinalStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionStripeDeleteTaxIdParams build() {
             return new FlowActionStripeDeleteTaxIdParams(connectionId, customerId, id, additionalProperties);
         }

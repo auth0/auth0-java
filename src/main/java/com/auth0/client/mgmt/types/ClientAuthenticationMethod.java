@@ -54,7 +54,7 @@ public final class ClientAuthenticationMethod {
         return selfSignedTlsClientAuth;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientAuthenticationMethod && equalTo((ClientAuthenticationMethod) other);
@@ -71,12 +71,12 @@ public final class ClientAuthenticationMethod {
                 && selfSignedTlsClientAuth.equals(other.selfSignedTlsClientAuth);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.privateKeyJwt, this.tlsClientAuth, this.selfSignedTlsClientAuth);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

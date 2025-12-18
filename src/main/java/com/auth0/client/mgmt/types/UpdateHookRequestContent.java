@@ -26,7 +26,7 @@ public final class UpdateHookRequestContent {
 
     private final Optional<Boolean> enabled;
 
-    private final Optional<Map<String, Object>> dependencies;
+    private final Optional<Map<String, String>> dependencies;
 
     private final Map<String, Object> additionalProperties;
 
@@ -34,7 +34,7 @@ public final class UpdateHookRequestContent {
             Optional<String> name,
             Optional<String> script,
             Optional<Boolean> enabled,
-            Optional<Map<String, Object>> dependencies,
+            Optional<Map<String, String>> dependencies,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.script = script;
@@ -68,11 +68,11 @@ public final class UpdateHookRequestContent {
     }
 
     @JsonProperty("dependencies")
-    public Optional<Map<String, Object>> getDependencies() {
+    public Optional<Map<String, String>> getDependencies() {
         return dependencies;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateHookRequestContent && equalTo((UpdateHookRequestContent) other);
@@ -90,12 +90,12 @@ public final class UpdateHookRequestContent {
                 && dependencies.equals(other.dependencies);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.name, this.script, this.enabled, this.dependencies);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -112,7 +112,7 @@ public final class UpdateHookRequestContent {
 
         private Optional<Boolean> enabled = Optional.empty();
 
-        private Optional<Map<String, Object>> dependencies = Optional.empty();
+        private Optional<Map<String, String>> dependencies = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -170,12 +170,12 @@ public final class UpdateHookRequestContent {
         }
 
         @JsonSetter(value = "dependencies", nulls = Nulls.SKIP)
-        public Builder dependencies(Optional<Map<String, Object>> dependencies) {
+        public Builder dependencies(Optional<Map<String, String>> dependencies) {
             this.dependencies = dependencies;
             return this;
         }
 
-        public Builder dependencies(Map<String, Object> dependencies) {
+        public Builder dependencies(Map<String, String> dependencies) {
             this.dependencies = Optional.ofNullable(dependencies);
             return this;
         }

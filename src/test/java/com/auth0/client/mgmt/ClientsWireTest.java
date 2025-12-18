@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.Client;
 import com.auth0.client.mgmt.types.CreateClientRequestContent;
@@ -47,18 +48,18 @@ public class ClientsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"clients\":[{\"client_id\":\"client_id\",\"tenant\":\"tenant\",\"name\":\"name\",\"description\":\"description\",\"global\":true,\"client_secret\":\"client_secret\",\"app_type\":\"app_type\",\"logo_uri\":\"logo_uri\",\"is_first_party\":true,\"oidc_conformant\":true,\"callbacks\":[\"callbacks\"],\"allowed_origins\":[\"allowed_origins\"],\"web_origins\":[\"web_origins\"],\"client_aliases\":[\"client_aliases\"],\"allowed_clients\":[\"allowed_clients\"],\"allowed_logout_urls\":[\"allowed_logout_urls\"],\"grant_types\":[\"grant_types\"],\"signing_keys\":[{}],\"sso\":true,\"sso_disabled\":true,\"cross_origin_authentication\":true,\"cross_origin_loc\":\"cross_origin_loc\",\"custom_login_page_on\":true,\"custom_login_page\":\"custom_login_page\",\"custom_login_page_preview\":\"custom_login_page_preview\",\"form_template\":\"form_template\",\"token_endpoint_auth_method\":\"none\",\"client_metadata\":{\"key\":\"value\"},\"initiate_login_uri\":\"initiate_login_uri\",\"refresh_token\":{\"rotation_type\":\"rotating\",\"expiration_type\":\"expiring\"},\"default_organization\":{\"organization_id\":\"organization_id\",\"flows\":[\"client_credentials\"]},\"organization_usage\":\"deny\",\"organization_require_behavior\":\"no_prompt\",\"require_pushed_authorization_requests\":true,\"require_proof_of_possession\":true,\"compliance_level\":\"none\",\"par_request_expiry\":1,\"token_quota\":{\"client_credentials\":{}}}]}"));
+                                "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"clients\":[{\"client_id\":\"client_id\",\"tenant\":\"tenant\",\"name\":\"name\",\"description\":\"description\",\"global\":true,\"client_secret\":\"client_secret\",\"app_type\":\"native\",\"logo_uri\":\"logo_uri\",\"is_first_party\":true,\"oidc_conformant\":true,\"callbacks\":[\"callbacks\"],\"allowed_origins\":[\"allowed_origins\"],\"web_origins\":[\"web_origins\"],\"client_aliases\":[\"client_aliases\"],\"allowed_clients\":[\"allowed_clients\"],\"allowed_logout_urls\":[\"allowed_logout_urls\"],\"grant_types\":[\"grant_types\"],\"signing_keys\":[{}],\"sso\":true,\"sso_disabled\":true,\"cross_origin_authentication\":true,\"cross_origin_loc\":\"cross_origin_loc\",\"custom_login_page_on\":true,\"custom_login_page\":\"custom_login_page\",\"custom_login_page_preview\":\"custom_login_page_preview\",\"form_template\":\"form_template\",\"token_endpoint_auth_method\":\"none\",\"is_token_endpoint_ip_header_trusted\":true,\"client_metadata\":{\"key\":\"value\"},\"initiate_login_uri\":\"initiate_login_uri\",\"refresh_token\":{\"rotation_type\":\"rotating\",\"expiration_type\":\"expiring\"},\"default_organization\":{\"organization_id\":\"organization_id\",\"flows\":[\"client_credentials\"]},\"organization_usage\":\"deny\",\"organization_require_behavior\":\"no_prompt\",\"organization_discovery_methods\":[\"email\"],\"require_pushed_authorization_requests\":true,\"require_proof_of_possession\":true,\"compliance_level\":\"none\",\"skip_non_verifiable_callback_uri_confirmation_prompt\":true,\"par_request_expiry\":1,\"token_quota\":{\"client_credentials\":{}},\"express_configuration\":{\"initiate_login_uri_template\":\"initiate_login_uri_template\",\"user_attribute_profile_id\":\"user_attribute_profile_id\",\"connection_profile_id\":\"connection_profile_id\",\"enable_client\":true,\"enable_organization\":true,\"okta_oin_client_id\":\"okta_oin_client_id\",\"admin_login_domain\":\"admin_login_domain\"},\"resource_server_identifier\":\"resource_server_identifier\",\"async_approval_notification_channels\":[\"guardian-push\"]}]}"));
         SyncPagingIterable<Client> response = client.clients()
                 .list(ListClientsRequestParameters.builder()
-                        .fields("fields")
-                        .includeFields(true)
-                        .page(1)
-                        .perPage(1)
-                        .includeTotals(true)
-                        .isGlobal(true)
-                        .isFirstParty(true)
-                        .appType("app_type")
-                        .q("q")
+                        .fields(OptionalNullable.of("fields"))
+                        .includeFields(OptionalNullable.of(true))
+                        .page(OptionalNullable.of(1))
+                        .perPage(OptionalNullable.of(1))
+                        .includeTotals(OptionalNullable.of(true))
+                        .isGlobal(OptionalNullable.of(true))
+                        .isFirstParty(OptionalNullable.of(true))
+                        .appType(OptionalNullable.of("app_type"))
+                        .q(OptionalNullable.of("q"))
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -76,7 +77,7 @@ public class ClientsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"client_id\":\"client_id\",\"tenant\":\"tenant\",\"name\":\"name\",\"description\":\"description\",\"global\":true,\"client_secret\":\"client_secret\",\"app_type\":\"app_type\",\"logo_uri\":\"logo_uri\",\"is_first_party\":true,\"oidc_conformant\":true,\"callbacks\":[\"callbacks\"],\"allowed_origins\":[\"allowed_origins\"],\"web_origins\":[\"web_origins\"],\"client_aliases\":[\"client_aliases\"],\"allowed_clients\":[\"allowed_clients\"],\"allowed_logout_urls\":[\"allowed_logout_urls\"],\"session_transfer\":{\"can_create_session_transfer_token\":true,\"allowed_authentication_methods\":[\"cookie\"],\"enforce_device_binding\":\"ip\",\"allow_refresh_token\":true,\"enforce_online_refresh_tokens\":true,\"enforce_cascade_revocation\":true},\"oidc_logout\":{\"backchannel_logout_urls\":[\"backchannel_logout_urls\"],\"backchannel_logout_initiators\":{\"mode\":\"custom\",\"selected_initiators\":[\"rp-logout\"]}},\"grant_types\":[\"grant_types\"],\"jwt_configuration\":{\"lifetime_in_seconds\":1,\"secret_encoded\":true,\"scopes\":{\"key\":\"value\"},\"alg\":\"HS256\"},\"signing_keys\":[{\"pkcs7\":\"pkcs7\",\"cert\":\"cert\",\"subject\":\"subject\"}],\"encryption_key\":{\"pub\":\"pub\",\"cert\":\"cert\",\"subject\":\"subject\"},\"sso\":true,\"sso_disabled\":true,\"cross_origin_authentication\":true,\"cross_origin_loc\":\"cross_origin_loc\",\"custom_login_page_on\":true,\"custom_login_page\":\"custom_login_page\",\"custom_login_page_preview\":\"custom_login_page_preview\",\"form_template\":\"form_template\",\"addons\":{\"aws\":{\"principal\":\"principal\",\"role\":\"role\",\"lifetime_in_seconds\":1},\"azure_blob\":{\"accountName\":\"accountName\",\"storageAccessKey\":\"storageAccessKey\",\"containerName\":\"containerName\",\"blobName\":\"blobName\",\"expiration\":1,\"signedIdentifier\":\"signedIdentifier\",\"blob_read\":true,\"blob_write\":true,\"blob_delete\":true,\"container_read\":true,\"container_write\":true,\"container_delete\":true,\"container_list\":true},\"azure_sb\":{\"namespace\":\"namespace\",\"sasKeyName\":\"sasKeyName\",\"sasKey\":\"sasKey\",\"entityPath\":\"entityPath\",\"expiration\":1},\"rms\":{\"url\":\"url\"},\"mscrm\":{\"url\":\"url\"},\"slack\":{\"team\":\"team\"},\"sentry\":{\"org_slug\":\"org_slug\",\"base_url\":\"base_url\"},\"box\":{\"key\":\"value\"},\"cloudbees\":{\"key\":\"value\"},\"concur\":{\"key\":\"value\"},\"dropbox\":{\"key\":\"value\"},\"echosign\":{\"domain\":\"domain\"},\"egnyte\":{\"domain\":\"domain\"},\"firebase\":{\"secret\":\"secret\",\"private_key_id\":\"private_key_id\",\"private_key\":\"private_key\",\"client_email\":\"client_email\",\"lifetime_in_seconds\":1},\"newrelic\":{\"account\":\"account\"},\"office365\":{\"domain\":\"domain\",\"connection\":\"connection\"},\"salesforce\":{\"entity_id\":\"entity_id\"},\"salesforce_api\":{\"clientid\":\"clientid\",\"principal\":\"principal\",\"communityName\":\"communityName\",\"community_url_section\":\"community_url_section\"},\"salesforce_sandbox_api\":{\"clientid\":\"clientid\",\"principal\":\"principal\",\"communityName\":\"communityName\",\"community_url_section\":\"community_url_section\"},\"samlp\":{\"mappings\":{\"key\":\"value\"},\"audience\":\"audience\",\"recipient\":\"recipient\",\"createUpnClaim\":true,\"mapUnknownClaimsAsIs\":true,\"passthroughClaimsWithNoMapping\":true,\"mapIdentities\":true,\"signatureAlgorithm\":\"signatureAlgorithm\",\"digestAlgorithm\":\"digestAlgorithm\",\"issuer\":\"issuer\",\"destination\":\"destination\",\"lifetimeInSeconds\":1,\"signResponse\":true,\"nameIdentifierFormat\":\"nameIdentifierFormat\",\"nameIdentifierProbes\":[\"nameIdentifierProbes\"],\"authnContextClassRef\":\"authnContextClassRef\"},\"layer\":{\"providerId\":\"providerId\",\"keyId\":\"keyId\",\"privateKey\":\"privateKey\",\"principal\":\"principal\",\"expiration\":1},\"sap_api\":{\"clientid\":\"clientid\",\"usernameAttribute\":\"usernameAttribute\",\"tokenEndpointUrl\":\"tokenEndpointUrl\",\"scope\":\"scope\",\"servicePassword\":\"servicePassword\",\"nameIdentifierFormat\":\"nameIdentifierFormat\"},\"sharepoint\":{\"url\":\"url\",\"external_url\":[\"external_url\"]},\"springcm\":{\"acsurl\":\"acsurl\"},\"wams\":{\"masterkey\":\"masterkey\"},\"wsfed\":{\"key\":\"value\"},\"zendesk\":{\"accountName\":\"accountName\"},\"zoom\":{\"account\":\"account\"},\"sso_integration\":{\"name\":\"name\",\"version\":\"version\"}},\"token_endpoint_auth_method\":\"none\",\"client_metadata\":{\"key\":\"value\"},\"mobile\":{\"android\":{\"app_package_name\":\"app_package_name\",\"sha256_cert_fingerprints\":[\"sha256_cert_fingerprints\"]},\"ios\":{\"team_id\":\"team_id\",\"app_bundle_identifier\":\"app_bundle_identifier\"}},\"initiate_login_uri\":\"initiate_login_uri\",\"refresh_token\":{\"rotation_type\":\"rotating\",\"expiration_type\":\"expiring\",\"leeway\":1,\"token_lifetime\":1,\"infinite_token_lifetime\":true,\"idle_token_lifetime\":1,\"infinite_idle_token_lifetime\":true},\"default_organization\":{\"organization_id\":\"organization_id\",\"flows\":[\"client_credentials\"]},\"organization_usage\":\"deny\",\"organization_require_behavior\":\"no_prompt\",\"client_authentication_methods\":{\"private_key_jwt\":{\"credentials\":[{\"id\":\"id\"}]},\"tls_client_auth\":{\"credentials\":[{\"id\":\"id\"}]},\"self_signed_tls_client_auth\":{\"credentials\":[{\"id\":\"id\"}]}},\"require_pushed_authorization_requests\":true,\"require_proof_of_possession\":true,\"signed_request_object\":{\"required\":true,\"credentials\":[{\"id\":\"id\"}]},\"compliance_level\":\"none\",\"par_request_expiry\":1,\"token_quota\":{\"client_credentials\":{\"enforce\":true,\"per_day\":1,\"per_hour\":1}}}"));
+                                "{\"client_id\":\"client_id\",\"tenant\":\"tenant\",\"name\":\"name\",\"description\":\"description\",\"global\":true,\"client_secret\":\"client_secret\",\"app_type\":\"native\",\"logo_uri\":\"logo_uri\",\"is_first_party\":true,\"oidc_conformant\":true,\"callbacks\":[\"callbacks\"],\"allowed_origins\":[\"allowed_origins\"],\"web_origins\":[\"web_origins\"],\"client_aliases\":[\"client_aliases\"],\"allowed_clients\":[\"allowed_clients\"],\"allowed_logout_urls\":[\"allowed_logout_urls\"],\"session_transfer\":{\"can_create_session_transfer_token\":true,\"enforce_cascade_revocation\":true,\"allowed_authentication_methods\":[\"cookie\"],\"enforce_device_binding\":\"ip\",\"allow_refresh_token\":true,\"enforce_online_refresh_tokens\":true},\"oidc_logout\":{\"backchannel_logout_urls\":[\"backchannel_logout_urls\"],\"backchannel_logout_initiators\":{\"mode\":\"custom\",\"selected_initiators\":[\"rp-logout\"]},\"backchannel_logout_session_metadata\":{\"include\":true}},\"grant_types\":[\"grant_types\"],\"jwt_configuration\":{\"lifetime_in_seconds\":1,\"secret_encoded\":true,\"scopes\":{\"key\":\"value\"},\"alg\":\"HS256\"},\"signing_keys\":[{\"pkcs7\":\"pkcs7\",\"cert\":\"cert\",\"subject\":\"subject\"}],\"encryption_key\":{\"pub\":\"pub\",\"cert\":\"cert\",\"subject\":\"subject\"},\"sso\":true,\"sso_disabled\":true,\"cross_origin_authentication\":true,\"cross_origin_loc\":\"cross_origin_loc\",\"custom_login_page_on\":true,\"custom_login_page\":\"custom_login_page\",\"custom_login_page_preview\":\"custom_login_page_preview\",\"form_template\":\"form_template\",\"addons\":{\"aws\":{\"principal\":\"principal\",\"role\":\"role\",\"lifetime_in_seconds\":1},\"azure_blob\":{\"accountName\":\"accountName\",\"storageAccessKey\":\"storageAccessKey\",\"containerName\":\"containerName\",\"blobName\":\"blobName\",\"expiration\":1,\"signedIdentifier\":\"signedIdentifier\",\"blob_read\":true,\"blob_write\":true,\"blob_delete\":true,\"container_read\":true,\"container_write\":true,\"container_delete\":true,\"container_list\":true},\"azure_sb\":{\"namespace\":\"namespace\",\"sasKeyName\":\"sasKeyName\",\"sasKey\":\"sasKey\",\"entityPath\":\"entityPath\",\"expiration\":1},\"rms\":{\"url\":\"url\"},\"mscrm\":{\"url\":\"url\"},\"slack\":{\"team\":\"team\"},\"sentry\":{\"org_slug\":\"org_slug\",\"base_url\":\"base_url\"},\"box\":{\"key\":\"value\"},\"cloudbees\":{\"key\":\"value\"},\"concur\":{\"key\":\"value\"},\"dropbox\":{\"key\":\"value\"},\"echosign\":{\"domain\":\"domain\"},\"egnyte\":{\"domain\":\"domain\"},\"firebase\":{\"secret\":\"secret\",\"private_key_id\":\"private_key_id\",\"private_key\":\"private_key\",\"client_email\":\"client_email\",\"lifetime_in_seconds\":1},\"newrelic\":{\"account\":\"account\"},\"office365\":{\"domain\":\"domain\",\"connection\":\"connection\"},\"salesforce\":{\"entity_id\":\"entity_id\"},\"salesforce_api\":{\"clientid\":\"clientid\",\"principal\":\"principal\",\"communityName\":\"communityName\",\"community_url_section\":\"community_url_section\"},\"salesforce_sandbox_api\":{\"clientid\":\"clientid\",\"principal\":\"principal\",\"communityName\":\"communityName\",\"community_url_section\":\"community_url_section\"},\"samlp\":{\"mappings\":{\"key\":\"value\"},\"audience\":\"audience\",\"recipient\":\"recipient\",\"createUpnClaim\":true,\"mapUnknownClaimsAsIs\":true,\"passthroughClaimsWithNoMapping\":true,\"mapIdentities\":true,\"signatureAlgorithm\":\"signatureAlgorithm\",\"digestAlgorithm\":\"digestAlgorithm\",\"issuer\":\"issuer\",\"destination\":\"destination\",\"lifetimeInSeconds\":1,\"signResponse\":true,\"nameIdentifierFormat\":\"nameIdentifierFormat\",\"nameIdentifierProbes\":[\"nameIdentifierProbes\"],\"authnContextClassRef\":\"authnContextClassRef\"},\"layer\":{\"providerId\":\"providerId\",\"keyId\":\"keyId\",\"privateKey\":\"privateKey\",\"principal\":\"principal\",\"expiration\":1},\"sap_api\":{\"clientid\":\"clientid\",\"usernameAttribute\":\"usernameAttribute\",\"tokenEndpointUrl\":\"tokenEndpointUrl\",\"scope\":\"scope\",\"servicePassword\":\"servicePassword\",\"nameIdentifierFormat\":\"nameIdentifierFormat\"},\"sharepoint\":{\"url\":\"url\",\"external_url\":[\"external_url\"]},\"springcm\":{\"acsurl\":\"acsurl\"},\"wams\":{\"masterkey\":\"masterkey\"},\"wsfed\":{\"key\":\"value\"},\"zendesk\":{\"accountName\":\"accountName\"},\"zoom\":{\"account\":\"account\"},\"sso_integration\":{\"name\":\"name\",\"version\":\"version\"}},\"token_endpoint_auth_method\":\"none\",\"is_token_endpoint_ip_header_trusted\":true,\"client_metadata\":{\"key\":\"value\"},\"mobile\":{\"android\":{\"app_package_name\":\"app_package_name\",\"sha256_cert_fingerprints\":[\"sha256_cert_fingerprints\"]},\"ios\":{\"team_id\":\"team_id\",\"app_bundle_identifier\":\"app_bundle_identifier\"}},\"initiate_login_uri\":\"initiate_login_uri\",\"refresh_token\":{\"rotation_type\":\"rotating\",\"expiration_type\":\"expiring\",\"leeway\":1,\"token_lifetime\":1,\"infinite_token_lifetime\":true,\"idle_token_lifetime\":1,\"infinite_idle_token_lifetime\":true},\"default_organization\":{\"organization_id\":\"organization_id\",\"flows\":[\"client_credentials\"]},\"organization_usage\":\"deny\",\"organization_require_behavior\":\"no_prompt\",\"organization_discovery_methods\":[\"email\"],\"client_authentication_methods\":{\"private_key_jwt\":{\"credentials\":[{\"id\":\"id\"}]},\"tls_client_auth\":{\"credentials\":[{\"id\":\"id\"}]},\"self_signed_tls_client_auth\":{\"credentials\":[{\"id\":\"id\"}]}},\"require_pushed_authorization_requests\":true,\"require_proof_of_possession\":true,\"signed_request_object\":{\"required\":true,\"credentials\":[{\"id\":\"id\"}]},\"compliance_level\":\"none\",\"skip_non_verifiable_callback_uri_confirmation_prompt\":true,\"token_exchange\":{\"allow_any_profile_of_type\":[\"custom_authentication\"]},\"par_request_expiry\":1,\"token_quota\":{\"client_credentials\":{\"enforce\":true,\"per_day\":1,\"per_hour\":1}},\"express_configuration\":{\"initiate_login_uri_template\":\"initiate_login_uri_template\",\"user_attribute_profile_id\":\"user_attribute_profile_id\",\"connection_profile_id\":\"connection_profile_id\",\"enable_client\":true,\"enable_organization\":true,\"linked_clients\":[{\"client_id\":\"client_id\"}],\"okta_oin_client_id\":\"okta_oin_client_id\",\"admin_login_domain\":\"admin_login_domain\",\"oin_submission_id\":\"oin_submission_id\"},\"resource_server_identifier\":\"resource_server_identifier\",\"async_approval_notification_channels\":[\"guardian-push\"]}"));
         CreateClientResponseContent response = client.clients()
                 .create(CreateClientRequestContent.builder().name("name").build());
         RecordedRequest request = server.takeRequest();
@@ -123,7 +124,7 @@ public class ClientsWireTest {
                 + "  \"description\": \"description\",\n"
                 + "  \"global\": true,\n"
                 + "  \"client_secret\": \"client_secret\",\n"
-                + "  \"app_type\": \"app_type\",\n"
+                + "  \"app_type\": \"native\",\n"
                 + "  \"logo_uri\": \"logo_uri\",\n"
                 + "  \"is_first_party\": true,\n"
                 + "  \"oidc_conformant\": true,\n"
@@ -147,13 +148,13 @@ public class ClientsWireTest {
                 + "  ],\n"
                 + "  \"session_transfer\": {\n"
                 + "    \"can_create_session_transfer_token\": true,\n"
+                + "    \"enforce_cascade_revocation\": true,\n"
                 + "    \"allowed_authentication_methods\": [\n"
                 + "      \"cookie\"\n"
                 + "    ],\n"
                 + "    \"enforce_device_binding\": \"ip\",\n"
                 + "    \"allow_refresh_token\": true,\n"
-                + "    \"enforce_online_refresh_tokens\": true,\n"
-                + "    \"enforce_cascade_revocation\": true\n"
+                + "    \"enforce_online_refresh_tokens\": true\n"
                 + "  },\n"
                 + "  \"oidc_logout\": {\n"
                 + "    \"backchannel_logout_urls\": [\n"
@@ -164,6 +165,9 @@ public class ClientsWireTest {
                 + "      \"selected_initiators\": [\n"
                 + "        \"rp-logout\"\n"
                 + "      ]\n"
+                + "    },\n"
+                + "    \"backchannel_logout_session_metadata\": {\n"
+                + "      \"include\": true\n"
                 + "    }\n"
                 + "  },\n"
                 + "  \"grant_types\": [\n"
@@ -349,6 +353,7 @@ public class ClientsWireTest {
                 + "    }\n"
                 + "  },\n"
                 + "  \"token_endpoint_auth_method\": \"none\",\n"
+                + "  \"is_token_endpoint_ip_header_trusted\": true,\n"
                 + "  \"client_metadata\": {\n"
                 + "    \"key\": \"value\"\n"
                 + "  },\n"
@@ -382,6 +387,9 @@ public class ClientsWireTest {
                 + "  },\n"
                 + "  \"organization_usage\": \"deny\",\n"
                 + "  \"organization_require_behavior\": \"no_prompt\",\n"
+                + "  \"organization_discovery_methods\": [\n"
+                + "    \"email\"\n"
+                + "  ],\n"
                 + "  \"client_authentication_methods\": {\n"
                 + "    \"private_key_jwt\": {\n"
                 + "      \"credentials\": [\n"
@@ -416,6 +424,12 @@ public class ClientsWireTest {
                 + "    ]\n"
                 + "  },\n"
                 + "  \"compliance_level\": \"none\",\n"
+                + "  \"skip_non_verifiable_callback_uri_confirmation_prompt\": true,\n"
+                + "  \"token_exchange\": {\n"
+                + "    \"allow_any_profile_of_type\": [\n"
+                + "      \"custom_authentication\"\n"
+                + "    ]\n"
+                + "  },\n"
                 + "  \"par_request_expiry\": 1,\n"
                 + "  \"token_quota\": {\n"
                 + "    \"client_credentials\": {\n"
@@ -423,7 +437,26 @@ public class ClientsWireTest {
                 + "      \"per_day\": 1,\n"
                 + "      \"per_hour\": 1\n"
                 + "    }\n"
-                + "  }\n"
+                + "  },\n"
+                + "  \"express_configuration\": {\n"
+                + "    \"initiate_login_uri_template\": \"initiate_login_uri_template\",\n"
+                + "    \"user_attribute_profile_id\": \"user_attribute_profile_id\",\n"
+                + "    \"connection_profile_id\": \"connection_profile_id\",\n"
+                + "    \"enable_client\": true,\n"
+                + "    \"enable_organization\": true,\n"
+                + "    \"linked_clients\": [\n"
+                + "      {\n"
+                + "        \"client_id\": \"client_id\"\n"
+                + "      }\n"
+                + "    ],\n"
+                + "    \"okta_oin_client_id\": \"okta_oin_client_id\",\n"
+                + "    \"admin_login_domain\": \"admin_login_domain\",\n"
+                + "    \"oin_submission_id\": \"oin_submission_id\"\n"
+                + "  },\n"
+                + "  \"resource_server_identifier\": \"resource_server_identifier\",\n"
+                + "  \"async_approval_notification_channels\": [\n"
+                + "    \"guardian-push\"\n"
+                + "  ]\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -462,13 +495,13 @@ public class ClientsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"client_id\":\"client_id\",\"tenant\":\"tenant\",\"name\":\"name\",\"description\":\"description\",\"global\":true,\"client_secret\":\"client_secret\",\"app_type\":\"app_type\",\"logo_uri\":\"logo_uri\",\"is_first_party\":true,\"oidc_conformant\":true,\"callbacks\":[\"callbacks\"],\"allowed_origins\":[\"allowed_origins\"],\"web_origins\":[\"web_origins\"],\"client_aliases\":[\"client_aliases\"],\"allowed_clients\":[\"allowed_clients\"],\"allowed_logout_urls\":[\"allowed_logout_urls\"],\"session_transfer\":{\"can_create_session_transfer_token\":true,\"allowed_authentication_methods\":[\"cookie\"],\"enforce_device_binding\":\"ip\",\"allow_refresh_token\":true,\"enforce_online_refresh_tokens\":true,\"enforce_cascade_revocation\":true},\"oidc_logout\":{\"backchannel_logout_urls\":[\"backchannel_logout_urls\"],\"backchannel_logout_initiators\":{\"mode\":\"custom\",\"selected_initiators\":[\"rp-logout\"]}},\"grant_types\":[\"grant_types\"],\"jwt_configuration\":{\"lifetime_in_seconds\":1,\"secret_encoded\":true,\"scopes\":{\"key\":\"value\"},\"alg\":\"HS256\"},\"signing_keys\":[{\"pkcs7\":\"pkcs7\",\"cert\":\"cert\",\"subject\":\"subject\"}],\"encryption_key\":{\"pub\":\"pub\",\"cert\":\"cert\",\"subject\":\"subject\"},\"sso\":true,\"sso_disabled\":true,\"cross_origin_authentication\":true,\"cross_origin_loc\":\"cross_origin_loc\",\"custom_login_page_on\":true,\"custom_login_page\":\"custom_login_page\",\"custom_login_page_preview\":\"custom_login_page_preview\",\"form_template\":\"form_template\",\"addons\":{\"aws\":{\"principal\":\"principal\",\"role\":\"role\",\"lifetime_in_seconds\":1},\"azure_blob\":{\"accountName\":\"accountName\",\"storageAccessKey\":\"storageAccessKey\",\"containerName\":\"containerName\",\"blobName\":\"blobName\",\"expiration\":1,\"signedIdentifier\":\"signedIdentifier\",\"blob_read\":true,\"blob_write\":true,\"blob_delete\":true,\"container_read\":true,\"container_write\":true,\"container_delete\":true,\"container_list\":true},\"azure_sb\":{\"namespace\":\"namespace\",\"sasKeyName\":\"sasKeyName\",\"sasKey\":\"sasKey\",\"entityPath\":\"entityPath\",\"expiration\":1},\"rms\":{\"url\":\"url\"},\"mscrm\":{\"url\":\"url\"},\"slack\":{\"team\":\"team\"},\"sentry\":{\"org_slug\":\"org_slug\",\"base_url\":\"base_url\"},\"box\":{\"key\":\"value\"},\"cloudbees\":{\"key\":\"value\"},\"concur\":{\"key\":\"value\"},\"dropbox\":{\"key\":\"value\"},\"echosign\":{\"domain\":\"domain\"},\"egnyte\":{\"domain\":\"domain\"},\"firebase\":{\"secret\":\"secret\",\"private_key_id\":\"private_key_id\",\"private_key\":\"private_key\",\"client_email\":\"client_email\",\"lifetime_in_seconds\":1},\"newrelic\":{\"account\":\"account\"},\"office365\":{\"domain\":\"domain\",\"connection\":\"connection\"},\"salesforce\":{\"entity_id\":\"entity_id\"},\"salesforce_api\":{\"clientid\":\"clientid\",\"principal\":\"principal\",\"communityName\":\"communityName\",\"community_url_section\":\"community_url_section\"},\"salesforce_sandbox_api\":{\"clientid\":\"clientid\",\"principal\":\"principal\",\"communityName\":\"communityName\",\"community_url_section\":\"community_url_section\"},\"samlp\":{\"mappings\":{\"key\":\"value\"},\"audience\":\"audience\",\"recipient\":\"recipient\",\"createUpnClaim\":true,\"mapUnknownClaimsAsIs\":true,\"passthroughClaimsWithNoMapping\":true,\"mapIdentities\":true,\"signatureAlgorithm\":\"signatureAlgorithm\",\"digestAlgorithm\":\"digestAlgorithm\",\"issuer\":\"issuer\",\"destination\":\"destination\",\"lifetimeInSeconds\":1,\"signResponse\":true,\"nameIdentifierFormat\":\"nameIdentifierFormat\",\"nameIdentifierProbes\":[\"nameIdentifierProbes\"],\"authnContextClassRef\":\"authnContextClassRef\"},\"layer\":{\"providerId\":\"providerId\",\"keyId\":\"keyId\",\"privateKey\":\"privateKey\",\"principal\":\"principal\",\"expiration\":1},\"sap_api\":{\"clientid\":\"clientid\",\"usernameAttribute\":\"usernameAttribute\",\"tokenEndpointUrl\":\"tokenEndpointUrl\",\"scope\":\"scope\",\"servicePassword\":\"servicePassword\",\"nameIdentifierFormat\":\"nameIdentifierFormat\"},\"sharepoint\":{\"url\":\"url\",\"external_url\":[\"external_url\"]},\"springcm\":{\"acsurl\":\"acsurl\"},\"wams\":{\"masterkey\":\"masterkey\"},\"wsfed\":{\"key\":\"value\"},\"zendesk\":{\"accountName\":\"accountName\"},\"zoom\":{\"account\":\"account\"},\"sso_integration\":{\"name\":\"name\",\"version\":\"version\"}},\"token_endpoint_auth_method\":\"none\",\"client_metadata\":{\"key\":\"value\"},\"mobile\":{\"android\":{\"app_package_name\":\"app_package_name\",\"sha256_cert_fingerprints\":[\"sha256_cert_fingerprints\"]},\"ios\":{\"team_id\":\"team_id\",\"app_bundle_identifier\":\"app_bundle_identifier\"}},\"initiate_login_uri\":\"initiate_login_uri\",\"refresh_token\":{\"rotation_type\":\"rotating\",\"expiration_type\":\"expiring\",\"leeway\":1,\"token_lifetime\":1,\"infinite_token_lifetime\":true,\"idle_token_lifetime\":1,\"infinite_idle_token_lifetime\":true},\"default_organization\":{\"organization_id\":\"organization_id\",\"flows\":[\"client_credentials\"]},\"organization_usage\":\"deny\",\"organization_require_behavior\":\"no_prompt\",\"client_authentication_methods\":{\"private_key_jwt\":{\"credentials\":[{\"id\":\"id\"}]},\"tls_client_auth\":{\"credentials\":[{\"id\":\"id\"}]},\"self_signed_tls_client_auth\":{\"credentials\":[{\"id\":\"id\"}]}},\"require_pushed_authorization_requests\":true,\"require_proof_of_possession\":true,\"signed_request_object\":{\"required\":true,\"credentials\":[{\"id\":\"id\"}]},\"compliance_level\":\"none\",\"par_request_expiry\":1,\"token_quota\":{\"client_credentials\":{\"enforce\":true,\"per_day\":1,\"per_hour\":1}}}"));
+                                "{\"client_id\":\"client_id\",\"tenant\":\"tenant\",\"name\":\"name\",\"description\":\"description\",\"global\":true,\"client_secret\":\"client_secret\",\"app_type\":\"native\",\"logo_uri\":\"logo_uri\",\"is_first_party\":true,\"oidc_conformant\":true,\"callbacks\":[\"callbacks\"],\"allowed_origins\":[\"allowed_origins\"],\"web_origins\":[\"web_origins\"],\"client_aliases\":[\"client_aliases\"],\"allowed_clients\":[\"allowed_clients\"],\"allowed_logout_urls\":[\"allowed_logout_urls\"],\"session_transfer\":{\"can_create_session_transfer_token\":true,\"enforce_cascade_revocation\":true,\"allowed_authentication_methods\":[\"cookie\"],\"enforce_device_binding\":\"ip\",\"allow_refresh_token\":true,\"enforce_online_refresh_tokens\":true},\"oidc_logout\":{\"backchannel_logout_urls\":[\"backchannel_logout_urls\"],\"backchannel_logout_initiators\":{\"mode\":\"custom\",\"selected_initiators\":[\"rp-logout\"]},\"backchannel_logout_session_metadata\":{\"include\":true}},\"grant_types\":[\"grant_types\"],\"jwt_configuration\":{\"lifetime_in_seconds\":1,\"secret_encoded\":true,\"scopes\":{\"key\":\"value\"},\"alg\":\"HS256\"},\"signing_keys\":[{\"pkcs7\":\"pkcs7\",\"cert\":\"cert\",\"subject\":\"subject\"}],\"encryption_key\":{\"pub\":\"pub\",\"cert\":\"cert\",\"subject\":\"subject\"},\"sso\":true,\"sso_disabled\":true,\"cross_origin_authentication\":true,\"cross_origin_loc\":\"cross_origin_loc\",\"custom_login_page_on\":true,\"custom_login_page\":\"custom_login_page\",\"custom_login_page_preview\":\"custom_login_page_preview\",\"form_template\":\"form_template\",\"addons\":{\"aws\":{\"principal\":\"principal\",\"role\":\"role\",\"lifetime_in_seconds\":1},\"azure_blob\":{\"accountName\":\"accountName\",\"storageAccessKey\":\"storageAccessKey\",\"containerName\":\"containerName\",\"blobName\":\"blobName\",\"expiration\":1,\"signedIdentifier\":\"signedIdentifier\",\"blob_read\":true,\"blob_write\":true,\"blob_delete\":true,\"container_read\":true,\"container_write\":true,\"container_delete\":true,\"container_list\":true},\"azure_sb\":{\"namespace\":\"namespace\",\"sasKeyName\":\"sasKeyName\",\"sasKey\":\"sasKey\",\"entityPath\":\"entityPath\",\"expiration\":1},\"rms\":{\"url\":\"url\"},\"mscrm\":{\"url\":\"url\"},\"slack\":{\"team\":\"team\"},\"sentry\":{\"org_slug\":\"org_slug\",\"base_url\":\"base_url\"},\"box\":{\"key\":\"value\"},\"cloudbees\":{\"key\":\"value\"},\"concur\":{\"key\":\"value\"},\"dropbox\":{\"key\":\"value\"},\"echosign\":{\"domain\":\"domain\"},\"egnyte\":{\"domain\":\"domain\"},\"firebase\":{\"secret\":\"secret\",\"private_key_id\":\"private_key_id\",\"private_key\":\"private_key\",\"client_email\":\"client_email\",\"lifetime_in_seconds\":1},\"newrelic\":{\"account\":\"account\"},\"office365\":{\"domain\":\"domain\",\"connection\":\"connection\"},\"salesforce\":{\"entity_id\":\"entity_id\"},\"salesforce_api\":{\"clientid\":\"clientid\",\"principal\":\"principal\",\"communityName\":\"communityName\",\"community_url_section\":\"community_url_section\"},\"salesforce_sandbox_api\":{\"clientid\":\"clientid\",\"principal\":\"principal\",\"communityName\":\"communityName\",\"community_url_section\":\"community_url_section\"},\"samlp\":{\"mappings\":{\"key\":\"value\"},\"audience\":\"audience\",\"recipient\":\"recipient\",\"createUpnClaim\":true,\"mapUnknownClaimsAsIs\":true,\"passthroughClaimsWithNoMapping\":true,\"mapIdentities\":true,\"signatureAlgorithm\":\"signatureAlgorithm\",\"digestAlgorithm\":\"digestAlgorithm\",\"issuer\":\"issuer\",\"destination\":\"destination\",\"lifetimeInSeconds\":1,\"signResponse\":true,\"nameIdentifierFormat\":\"nameIdentifierFormat\",\"nameIdentifierProbes\":[\"nameIdentifierProbes\"],\"authnContextClassRef\":\"authnContextClassRef\"},\"layer\":{\"providerId\":\"providerId\",\"keyId\":\"keyId\",\"privateKey\":\"privateKey\",\"principal\":\"principal\",\"expiration\":1},\"sap_api\":{\"clientid\":\"clientid\",\"usernameAttribute\":\"usernameAttribute\",\"tokenEndpointUrl\":\"tokenEndpointUrl\",\"scope\":\"scope\",\"servicePassword\":\"servicePassword\",\"nameIdentifierFormat\":\"nameIdentifierFormat\"},\"sharepoint\":{\"url\":\"url\",\"external_url\":[\"external_url\"]},\"springcm\":{\"acsurl\":\"acsurl\"},\"wams\":{\"masterkey\":\"masterkey\"},\"wsfed\":{\"key\":\"value\"},\"zendesk\":{\"accountName\":\"accountName\"},\"zoom\":{\"account\":\"account\"},\"sso_integration\":{\"name\":\"name\",\"version\":\"version\"}},\"token_endpoint_auth_method\":\"none\",\"is_token_endpoint_ip_header_trusted\":true,\"client_metadata\":{\"key\":\"value\"},\"mobile\":{\"android\":{\"app_package_name\":\"app_package_name\",\"sha256_cert_fingerprints\":[\"sha256_cert_fingerprints\"]},\"ios\":{\"team_id\":\"team_id\",\"app_bundle_identifier\":\"app_bundle_identifier\"}},\"initiate_login_uri\":\"initiate_login_uri\",\"refresh_token\":{\"rotation_type\":\"rotating\",\"expiration_type\":\"expiring\",\"leeway\":1,\"token_lifetime\":1,\"infinite_token_lifetime\":true,\"idle_token_lifetime\":1,\"infinite_idle_token_lifetime\":true},\"default_organization\":{\"organization_id\":\"organization_id\",\"flows\":[\"client_credentials\"]},\"organization_usage\":\"deny\",\"organization_require_behavior\":\"no_prompt\",\"organization_discovery_methods\":[\"email\"],\"client_authentication_methods\":{\"private_key_jwt\":{\"credentials\":[{\"id\":\"id\"}]},\"tls_client_auth\":{\"credentials\":[{\"id\":\"id\"}]},\"self_signed_tls_client_auth\":{\"credentials\":[{\"id\":\"id\"}]}},\"require_pushed_authorization_requests\":true,\"require_proof_of_possession\":true,\"signed_request_object\":{\"required\":true,\"credentials\":[{\"id\":\"id\"}]},\"compliance_level\":\"none\",\"skip_non_verifiable_callback_uri_confirmation_prompt\":true,\"token_exchange\":{\"allow_any_profile_of_type\":[\"custom_authentication\"]},\"par_request_expiry\":1,\"token_quota\":{\"client_credentials\":{\"enforce\":true,\"per_day\":1,\"per_hour\":1}},\"express_configuration\":{\"initiate_login_uri_template\":\"initiate_login_uri_template\",\"user_attribute_profile_id\":\"user_attribute_profile_id\",\"connection_profile_id\":\"connection_profile_id\",\"enable_client\":true,\"enable_organization\":true,\"linked_clients\":[{\"client_id\":\"client_id\"}],\"okta_oin_client_id\":\"okta_oin_client_id\",\"admin_login_domain\":\"admin_login_domain\",\"oin_submission_id\":\"oin_submission_id\"},\"resource_server_identifier\":\"resource_server_identifier\",\"async_approval_notification_channels\":[\"guardian-push\"]}"));
         GetClientResponseContent response = client.clients()
                 .get(
                         "id",
                         GetClientRequestParameters.builder()
-                                .fields("fields")
-                                .includeFields(true)
+                                .fields(OptionalNullable.of("fields"))
+                                .includeFields(OptionalNullable.of(true))
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -485,7 +518,7 @@ public class ClientsWireTest {
                 + "  \"description\": \"description\",\n"
                 + "  \"global\": true,\n"
                 + "  \"client_secret\": \"client_secret\",\n"
-                + "  \"app_type\": \"app_type\",\n"
+                + "  \"app_type\": \"native\",\n"
                 + "  \"logo_uri\": \"logo_uri\",\n"
                 + "  \"is_first_party\": true,\n"
                 + "  \"oidc_conformant\": true,\n"
@@ -509,13 +542,13 @@ public class ClientsWireTest {
                 + "  ],\n"
                 + "  \"session_transfer\": {\n"
                 + "    \"can_create_session_transfer_token\": true,\n"
+                + "    \"enforce_cascade_revocation\": true,\n"
                 + "    \"allowed_authentication_methods\": [\n"
                 + "      \"cookie\"\n"
                 + "    ],\n"
                 + "    \"enforce_device_binding\": \"ip\",\n"
                 + "    \"allow_refresh_token\": true,\n"
-                + "    \"enforce_online_refresh_tokens\": true,\n"
-                + "    \"enforce_cascade_revocation\": true\n"
+                + "    \"enforce_online_refresh_tokens\": true\n"
                 + "  },\n"
                 + "  \"oidc_logout\": {\n"
                 + "    \"backchannel_logout_urls\": [\n"
@@ -526,6 +559,9 @@ public class ClientsWireTest {
                 + "      \"selected_initiators\": [\n"
                 + "        \"rp-logout\"\n"
                 + "      ]\n"
+                + "    },\n"
+                + "    \"backchannel_logout_session_metadata\": {\n"
+                + "      \"include\": true\n"
                 + "    }\n"
                 + "  },\n"
                 + "  \"grant_types\": [\n"
@@ -711,6 +747,7 @@ public class ClientsWireTest {
                 + "    }\n"
                 + "  },\n"
                 + "  \"token_endpoint_auth_method\": \"none\",\n"
+                + "  \"is_token_endpoint_ip_header_trusted\": true,\n"
                 + "  \"client_metadata\": {\n"
                 + "    \"key\": \"value\"\n"
                 + "  },\n"
@@ -744,6 +781,9 @@ public class ClientsWireTest {
                 + "  },\n"
                 + "  \"organization_usage\": \"deny\",\n"
                 + "  \"organization_require_behavior\": \"no_prompt\",\n"
+                + "  \"organization_discovery_methods\": [\n"
+                + "    \"email\"\n"
+                + "  ],\n"
                 + "  \"client_authentication_methods\": {\n"
                 + "    \"private_key_jwt\": {\n"
                 + "      \"credentials\": [\n"
@@ -778,6 +818,12 @@ public class ClientsWireTest {
                 + "    ]\n"
                 + "  },\n"
                 + "  \"compliance_level\": \"none\",\n"
+                + "  \"skip_non_verifiable_callback_uri_confirmation_prompt\": true,\n"
+                + "  \"token_exchange\": {\n"
+                + "    \"allow_any_profile_of_type\": [\n"
+                + "      \"custom_authentication\"\n"
+                + "    ]\n"
+                + "  },\n"
                 + "  \"par_request_expiry\": 1,\n"
                 + "  \"token_quota\": {\n"
                 + "    \"client_credentials\": {\n"
@@ -785,7 +831,26 @@ public class ClientsWireTest {
                 + "      \"per_day\": 1,\n"
                 + "      \"per_hour\": 1\n"
                 + "    }\n"
-                + "  }\n"
+                + "  },\n"
+                + "  \"express_configuration\": {\n"
+                + "    \"initiate_login_uri_template\": \"initiate_login_uri_template\",\n"
+                + "    \"user_attribute_profile_id\": \"user_attribute_profile_id\",\n"
+                + "    \"connection_profile_id\": \"connection_profile_id\",\n"
+                + "    \"enable_client\": true,\n"
+                + "    \"enable_organization\": true,\n"
+                + "    \"linked_clients\": [\n"
+                + "      {\n"
+                + "        \"client_id\": \"client_id\"\n"
+                + "      }\n"
+                + "    ],\n"
+                + "    \"okta_oin_client_id\": \"okta_oin_client_id\",\n"
+                + "    \"admin_login_domain\": \"admin_login_domain\",\n"
+                + "    \"oin_submission_id\": \"oin_submission_id\"\n"
+                + "  },\n"
+                + "  \"resource_server_identifier\": \"resource_server_identifier\",\n"
+                + "  \"async_approval_notification_channels\": [\n"
+                + "    \"guardian-push\"\n"
+                + "  ]\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -833,7 +898,7 @@ public class ClientsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"client_id\":\"client_id\",\"tenant\":\"tenant\",\"name\":\"name\",\"description\":\"description\",\"global\":true,\"client_secret\":\"client_secret\",\"app_type\":\"app_type\",\"logo_uri\":\"logo_uri\",\"is_first_party\":true,\"oidc_conformant\":true,\"callbacks\":[\"callbacks\"],\"allowed_origins\":[\"allowed_origins\"],\"web_origins\":[\"web_origins\"],\"client_aliases\":[\"client_aliases\"],\"allowed_clients\":[\"allowed_clients\"],\"allowed_logout_urls\":[\"allowed_logout_urls\"],\"session_transfer\":{\"can_create_session_transfer_token\":true,\"allowed_authentication_methods\":[\"cookie\"],\"enforce_device_binding\":\"ip\",\"allow_refresh_token\":true,\"enforce_online_refresh_tokens\":true,\"enforce_cascade_revocation\":true},\"oidc_logout\":{\"backchannel_logout_urls\":[\"backchannel_logout_urls\"],\"backchannel_logout_initiators\":{\"mode\":\"custom\",\"selected_initiators\":[\"rp-logout\"]}},\"grant_types\":[\"grant_types\"],\"jwt_configuration\":{\"lifetime_in_seconds\":1,\"secret_encoded\":true,\"scopes\":{\"key\":\"value\"},\"alg\":\"HS256\"},\"signing_keys\":[{\"pkcs7\":\"pkcs7\",\"cert\":\"cert\",\"subject\":\"subject\"}],\"encryption_key\":{\"pub\":\"pub\",\"cert\":\"cert\",\"subject\":\"subject\"},\"sso\":true,\"sso_disabled\":true,\"cross_origin_authentication\":true,\"cross_origin_loc\":\"cross_origin_loc\",\"custom_login_page_on\":true,\"custom_login_page\":\"custom_login_page\",\"custom_login_page_preview\":\"custom_login_page_preview\",\"form_template\":\"form_template\",\"addons\":{\"aws\":{\"principal\":\"principal\",\"role\":\"role\",\"lifetime_in_seconds\":1},\"azure_blob\":{\"accountName\":\"accountName\",\"storageAccessKey\":\"storageAccessKey\",\"containerName\":\"containerName\",\"blobName\":\"blobName\",\"expiration\":1,\"signedIdentifier\":\"signedIdentifier\",\"blob_read\":true,\"blob_write\":true,\"blob_delete\":true,\"container_read\":true,\"container_write\":true,\"container_delete\":true,\"container_list\":true},\"azure_sb\":{\"namespace\":\"namespace\",\"sasKeyName\":\"sasKeyName\",\"sasKey\":\"sasKey\",\"entityPath\":\"entityPath\",\"expiration\":1},\"rms\":{\"url\":\"url\"},\"mscrm\":{\"url\":\"url\"},\"slack\":{\"team\":\"team\"},\"sentry\":{\"org_slug\":\"org_slug\",\"base_url\":\"base_url\"},\"box\":{\"key\":\"value\"},\"cloudbees\":{\"key\":\"value\"},\"concur\":{\"key\":\"value\"},\"dropbox\":{\"key\":\"value\"},\"echosign\":{\"domain\":\"domain\"},\"egnyte\":{\"domain\":\"domain\"},\"firebase\":{\"secret\":\"secret\",\"private_key_id\":\"private_key_id\",\"private_key\":\"private_key\",\"client_email\":\"client_email\",\"lifetime_in_seconds\":1},\"newrelic\":{\"account\":\"account\"},\"office365\":{\"domain\":\"domain\",\"connection\":\"connection\"},\"salesforce\":{\"entity_id\":\"entity_id\"},\"salesforce_api\":{\"clientid\":\"clientid\",\"principal\":\"principal\",\"communityName\":\"communityName\",\"community_url_section\":\"community_url_section\"},\"salesforce_sandbox_api\":{\"clientid\":\"clientid\",\"principal\":\"principal\",\"communityName\":\"communityName\",\"community_url_section\":\"community_url_section\"},\"samlp\":{\"mappings\":{\"key\":\"value\"},\"audience\":\"audience\",\"recipient\":\"recipient\",\"createUpnClaim\":true,\"mapUnknownClaimsAsIs\":true,\"passthroughClaimsWithNoMapping\":true,\"mapIdentities\":true,\"signatureAlgorithm\":\"signatureAlgorithm\",\"digestAlgorithm\":\"digestAlgorithm\",\"issuer\":\"issuer\",\"destination\":\"destination\",\"lifetimeInSeconds\":1,\"signResponse\":true,\"nameIdentifierFormat\":\"nameIdentifierFormat\",\"nameIdentifierProbes\":[\"nameIdentifierProbes\"],\"authnContextClassRef\":\"authnContextClassRef\"},\"layer\":{\"providerId\":\"providerId\",\"keyId\":\"keyId\",\"privateKey\":\"privateKey\",\"principal\":\"principal\",\"expiration\":1},\"sap_api\":{\"clientid\":\"clientid\",\"usernameAttribute\":\"usernameAttribute\",\"tokenEndpointUrl\":\"tokenEndpointUrl\",\"scope\":\"scope\",\"servicePassword\":\"servicePassword\",\"nameIdentifierFormat\":\"nameIdentifierFormat\"},\"sharepoint\":{\"url\":\"url\",\"external_url\":[\"external_url\"]},\"springcm\":{\"acsurl\":\"acsurl\"},\"wams\":{\"masterkey\":\"masterkey\"},\"wsfed\":{\"key\":\"value\"},\"zendesk\":{\"accountName\":\"accountName\"},\"zoom\":{\"account\":\"account\"},\"sso_integration\":{\"name\":\"name\",\"version\":\"version\"}},\"token_endpoint_auth_method\":\"none\",\"client_metadata\":{\"key\":\"value\"},\"mobile\":{\"android\":{\"app_package_name\":\"app_package_name\",\"sha256_cert_fingerprints\":[\"sha256_cert_fingerprints\"]},\"ios\":{\"team_id\":\"team_id\",\"app_bundle_identifier\":\"app_bundle_identifier\"}},\"initiate_login_uri\":\"initiate_login_uri\",\"refresh_token\":{\"rotation_type\":\"rotating\",\"expiration_type\":\"expiring\",\"leeway\":1,\"token_lifetime\":1,\"infinite_token_lifetime\":true,\"idle_token_lifetime\":1,\"infinite_idle_token_lifetime\":true},\"default_organization\":{\"organization_id\":\"organization_id\",\"flows\":[\"client_credentials\"]},\"organization_usage\":\"deny\",\"organization_require_behavior\":\"no_prompt\",\"client_authentication_methods\":{\"private_key_jwt\":{\"credentials\":[{\"id\":\"id\"}]},\"tls_client_auth\":{\"credentials\":[{\"id\":\"id\"}]},\"self_signed_tls_client_auth\":{\"credentials\":[{\"id\":\"id\"}]}},\"require_pushed_authorization_requests\":true,\"require_proof_of_possession\":true,\"signed_request_object\":{\"required\":true,\"credentials\":[{\"id\":\"id\"}]},\"compliance_level\":\"none\",\"par_request_expiry\":1,\"token_quota\":{\"client_credentials\":{\"enforce\":true,\"per_day\":1,\"per_hour\":1}}}"));
+                                "{\"client_id\":\"client_id\",\"tenant\":\"tenant\",\"name\":\"name\",\"description\":\"description\",\"global\":true,\"client_secret\":\"client_secret\",\"app_type\":\"native\",\"logo_uri\":\"logo_uri\",\"is_first_party\":true,\"oidc_conformant\":true,\"callbacks\":[\"callbacks\"],\"allowed_origins\":[\"allowed_origins\"],\"web_origins\":[\"web_origins\"],\"client_aliases\":[\"client_aliases\"],\"allowed_clients\":[\"allowed_clients\"],\"allowed_logout_urls\":[\"allowed_logout_urls\"],\"session_transfer\":{\"can_create_session_transfer_token\":true,\"enforce_cascade_revocation\":true,\"allowed_authentication_methods\":[\"cookie\"],\"enforce_device_binding\":\"ip\",\"allow_refresh_token\":true,\"enforce_online_refresh_tokens\":true},\"oidc_logout\":{\"backchannel_logout_urls\":[\"backchannel_logout_urls\"],\"backchannel_logout_initiators\":{\"mode\":\"custom\",\"selected_initiators\":[\"rp-logout\"]},\"backchannel_logout_session_metadata\":{\"include\":true}},\"grant_types\":[\"grant_types\"],\"jwt_configuration\":{\"lifetime_in_seconds\":1,\"secret_encoded\":true,\"scopes\":{\"key\":\"value\"},\"alg\":\"HS256\"},\"signing_keys\":[{\"pkcs7\":\"pkcs7\",\"cert\":\"cert\",\"subject\":\"subject\"}],\"encryption_key\":{\"pub\":\"pub\",\"cert\":\"cert\",\"subject\":\"subject\"},\"sso\":true,\"sso_disabled\":true,\"cross_origin_authentication\":true,\"cross_origin_loc\":\"cross_origin_loc\",\"custom_login_page_on\":true,\"custom_login_page\":\"custom_login_page\",\"custom_login_page_preview\":\"custom_login_page_preview\",\"form_template\":\"form_template\",\"addons\":{\"aws\":{\"principal\":\"principal\",\"role\":\"role\",\"lifetime_in_seconds\":1},\"azure_blob\":{\"accountName\":\"accountName\",\"storageAccessKey\":\"storageAccessKey\",\"containerName\":\"containerName\",\"blobName\":\"blobName\",\"expiration\":1,\"signedIdentifier\":\"signedIdentifier\",\"blob_read\":true,\"blob_write\":true,\"blob_delete\":true,\"container_read\":true,\"container_write\":true,\"container_delete\":true,\"container_list\":true},\"azure_sb\":{\"namespace\":\"namespace\",\"sasKeyName\":\"sasKeyName\",\"sasKey\":\"sasKey\",\"entityPath\":\"entityPath\",\"expiration\":1},\"rms\":{\"url\":\"url\"},\"mscrm\":{\"url\":\"url\"},\"slack\":{\"team\":\"team\"},\"sentry\":{\"org_slug\":\"org_slug\",\"base_url\":\"base_url\"},\"box\":{\"key\":\"value\"},\"cloudbees\":{\"key\":\"value\"},\"concur\":{\"key\":\"value\"},\"dropbox\":{\"key\":\"value\"},\"echosign\":{\"domain\":\"domain\"},\"egnyte\":{\"domain\":\"domain\"},\"firebase\":{\"secret\":\"secret\",\"private_key_id\":\"private_key_id\",\"private_key\":\"private_key\",\"client_email\":\"client_email\",\"lifetime_in_seconds\":1},\"newrelic\":{\"account\":\"account\"},\"office365\":{\"domain\":\"domain\",\"connection\":\"connection\"},\"salesforce\":{\"entity_id\":\"entity_id\"},\"salesforce_api\":{\"clientid\":\"clientid\",\"principal\":\"principal\",\"communityName\":\"communityName\",\"community_url_section\":\"community_url_section\"},\"salesforce_sandbox_api\":{\"clientid\":\"clientid\",\"principal\":\"principal\",\"communityName\":\"communityName\",\"community_url_section\":\"community_url_section\"},\"samlp\":{\"mappings\":{\"key\":\"value\"},\"audience\":\"audience\",\"recipient\":\"recipient\",\"createUpnClaim\":true,\"mapUnknownClaimsAsIs\":true,\"passthroughClaimsWithNoMapping\":true,\"mapIdentities\":true,\"signatureAlgorithm\":\"signatureAlgorithm\",\"digestAlgorithm\":\"digestAlgorithm\",\"issuer\":\"issuer\",\"destination\":\"destination\",\"lifetimeInSeconds\":1,\"signResponse\":true,\"nameIdentifierFormat\":\"nameIdentifierFormat\",\"nameIdentifierProbes\":[\"nameIdentifierProbes\"],\"authnContextClassRef\":\"authnContextClassRef\"},\"layer\":{\"providerId\":\"providerId\",\"keyId\":\"keyId\",\"privateKey\":\"privateKey\",\"principal\":\"principal\",\"expiration\":1},\"sap_api\":{\"clientid\":\"clientid\",\"usernameAttribute\":\"usernameAttribute\",\"tokenEndpointUrl\":\"tokenEndpointUrl\",\"scope\":\"scope\",\"servicePassword\":\"servicePassword\",\"nameIdentifierFormat\":\"nameIdentifierFormat\"},\"sharepoint\":{\"url\":\"url\",\"external_url\":[\"external_url\"]},\"springcm\":{\"acsurl\":\"acsurl\"},\"wams\":{\"masterkey\":\"masterkey\"},\"wsfed\":{\"key\":\"value\"},\"zendesk\":{\"accountName\":\"accountName\"},\"zoom\":{\"account\":\"account\"},\"sso_integration\":{\"name\":\"name\",\"version\":\"version\"}},\"token_endpoint_auth_method\":\"none\",\"is_token_endpoint_ip_header_trusted\":true,\"client_metadata\":{\"key\":\"value\"},\"mobile\":{\"android\":{\"app_package_name\":\"app_package_name\",\"sha256_cert_fingerprints\":[\"sha256_cert_fingerprints\"]},\"ios\":{\"team_id\":\"team_id\",\"app_bundle_identifier\":\"app_bundle_identifier\"}},\"initiate_login_uri\":\"initiate_login_uri\",\"refresh_token\":{\"rotation_type\":\"rotating\",\"expiration_type\":\"expiring\",\"leeway\":1,\"token_lifetime\":1,\"infinite_token_lifetime\":true,\"idle_token_lifetime\":1,\"infinite_idle_token_lifetime\":true},\"default_organization\":{\"organization_id\":\"organization_id\",\"flows\":[\"client_credentials\"]},\"organization_usage\":\"deny\",\"organization_require_behavior\":\"no_prompt\",\"organization_discovery_methods\":[\"email\"],\"client_authentication_methods\":{\"private_key_jwt\":{\"credentials\":[{\"id\":\"id\"}]},\"tls_client_auth\":{\"credentials\":[{\"id\":\"id\"}]},\"self_signed_tls_client_auth\":{\"credentials\":[{\"id\":\"id\"}]}},\"require_pushed_authorization_requests\":true,\"require_proof_of_possession\":true,\"signed_request_object\":{\"required\":true,\"credentials\":[{\"id\":\"id\"}]},\"compliance_level\":\"none\",\"skip_non_verifiable_callback_uri_confirmation_prompt\":true,\"token_exchange\":{\"allow_any_profile_of_type\":[\"custom_authentication\"]},\"par_request_expiry\":1,\"token_quota\":{\"client_credentials\":{\"enforce\":true,\"per_day\":1,\"per_hour\":1}},\"express_configuration\":{\"initiate_login_uri_template\":\"initiate_login_uri_template\",\"user_attribute_profile_id\":\"user_attribute_profile_id\",\"connection_profile_id\":\"connection_profile_id\",\"enable_client\":true,\"enable_organization\":true,\"linked_clients\":[{\"client_id\":\"client_id\"}],\"okta_oin_client_id\":\"okta_oin_client_id\",\"admin_login_domain\":\"admin_login_domain\",\"oin_submission_id\":\"oin_submission_id\"},\"resource_server_identifier\":\"resource_server_identifier\",\"async_approval_notification_channels\":[\"guardian-push\"]}"));
         UpdateClientResponseContent response = client.clients()
                 .update("id", UpdateClientRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -880,7 +945,7 @@ public class ClientsWireTest {
                 + "  \"description\": \"description\",\n"
                 + "  \"global\": true,\n"
                 + "  \"client_secret\": \"client_secret\",\n"
-                + "  \"app_type\": \"app_type\",\n"
+                + "  \"app_type\": \"native\",\n"
                 + "  \"logo_uri\": \"logo_uri\",\n"
                 + "  \"is_first_party\": true,\n"
                 + "  \"oidc_conformant\": true,\n"
@@ -904,13 +969,13 @@ public class ClientsWireTest {
                 + "  ],\n"
                 + "  \"session_transfer\": {\n"
                 + "    \"can_create_session_transfer_token\": true,\n"
+                + "    \"enforce_cascade_revocation\": true,\n"
                 + "    \"allowed_authentication_methods\": [\n"
                 + "      \"cookie\"\n"
                 + "    ],\n"
                 + "    \"enforce_device_binding\": \"ip\",\n"
                 + "    \"allow_refresh_token\": true,\n"
-                + "    \"enforce_online_refresh_tokens\": true,\n"
-                + "    \"enforce_cascade_revocation\": true\n"
+                + "    \"enforce_online_refresh_tokens\": true\n"
                 + "  },\n"
                 + "  \"oidc_logout\": {\n"
                 + "    \"backchannel_logout_urls\": [\n"
@@ -921,6 +986,9 @@ public class ClientsWireTest {
                 + "      \"selected_initiators\": [\n"
                 + "        \"rp-logout\"\n"
                 + "      ]\n"
+                + "    },\n"
+                + "    \"backchannel_logout_session_metadata\": {\n"
+                + "      \"include\": true\n"
                 + "    }\n"
                 + "  },\n"
                 + "  \"grant_types\": [\n"
@@ -1106,6 +1174,7 @@ public class ClientsWireTest {
                 + "    }\n"
                 + "  },\n"
                 + "  \"token_endpoint_auth_method\": \"none\",\n"
+                + "  \"is_token_endpoint_ip_header_trusted\": true,\n"
                 + "  \"client_metadata\": {\n"
                 + "    \"key\": \"value\"\n"
                 + "  },\n"
@@ -1139,6 +1208,9 @@ public class ClientsWireTest {
                 + "  },\n"
                 + "  \"organization_usage\": \"deny\",\n"
                 + "  \"organization_require_behavior\": \"no_prompt\",\n"
+                + "  \"organization_discovery_methods\": [\n"
+                + "    \"email\"\n"
+                + "  ],\n"
                 + "  \"client_authentication_methods\": {\n"
                 + "    \"private_key_jwt\": {\n"
                 + "      \"credentials\": [\n"
@@ -1173,6 +1245,12 @@ public class ClientsWireTest {
                 + "    ]\n"
                 + "  },\n"
                 + "  \"compliance_level\": \"none\",\n"
+                + "  \"skip_non_verifiable_callback_uri_confirmation_prompt\": true,\n"
+                + "  \"token_exchange\": {\n"
+                + "    \"allow_any_profile_of_type\": [\n"
+                + "      \"custom_authentication\"\n"
+                + "    ]\n"
+                + "  },\n"
                 + "  \"par_request_expiry\": 1,\n"
                 + "  \"token_quota\": {\n"
                 + "    \"client_credentials\": {\n"
@@ -1180,7 +1258,26 @@ public class ClientsWireTest {
                 + "      \"per_day\": 1,\n"
                 + "      \"per_hour\": 1\n"
                 + "    }\n"
-                + "  }\n"
+                + "  },\n"
+                + "  \"express_configuration\": {\n"
+                + "    \"initiate_login_uri_template\": \"initiate_login_uri_template\",\n"
+                + "    \"user_attribute_profile_id\": \"user_attribute_profile_id\",\n"
+                + "    \"connection_profile_id\": \"connection_profile_id\",\n"
+                + "    \"enable_client\": true,\n"
+                + "    \"enable_organization\": true,\n"
+                + "    \"linked_clients\": [\n"
+                + "      {\n"
+                + "        \"client_id\": \"client_id\"\n"
+                + "      }\n"
+                + "    ],\n"
+                + "    \"okta_oin_client_id\": \"okta_oin_client_id\",\n"
+                + "    \"admin_login_domain\": \"admin_login_domain\",\n"
+                + "    \"oin_submission_id\": \"oin_submission_id\"\n"
+                + "  },\n"
+                + "  \"resource_server_identifier\": \"resource_server_identifier\",\n"
+                + "  \"async_approval_notification_channels\": [\n"
+                + "    \"guardian-push\"\n"
+                + "  ]\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -1219,7 +1316,7 @@ public class ClientsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"client_id\":\"client_id\",\"tenant\":\"tenant\",\"name\":\"name\",\"description\":\"description\",\"global\":true,\"client_secret\":\"client_secret\",\"app_type\":\"app_type\",\"logo_uri\":\"logo_uri\",\"is_first_party\":true,\"oidc_conformant\":true,\"callbacks\":[\"callbacks\"],\"allowed_origins\":[\"allowed_origins\"],\"web_origins\":[\"web_origins\"],\"client_aliases\":[\"client_aliases\"],\"allowed_clients\":[\"allowed_clients\"],\"allowed_logout_urls\":[\"allowed_logout_urls\"],\"session_transfer\":{\"can_create_session_transfer_token\":true,\"allowed_authentication_methods\":[\"cookie\"],\"enforce_device_binding\":\"ip\",\"allow_refresh_token\":true,\"enforce_online_refresh_tokens\":true,\"enforce_cascade_revocation\":true},\"oidc_logout\":{\"backchannel_logout_urls\":[\"backchannel_logout_urls\"],\"backchannel_logout_initiators\":{\"mode\":\"custom\",\"selected_initiators\":[\"rp-logout\"]}},\"grant_types\":[\"grant_types\"],\"jwt_configuration\":{\"lifetime_in_seconds\":1,\"secret_encoded\":true,\"scopes\":{\"key\":\"value\"},\"alg\":\"HS256\"},\"signing_keys\":[{\"pkcs7\":\"pkcs7\",\"cert\":\"cert\",\"subject\":\"subject\"}],\"encryption_key\":{\"pub\":\"pub\",\"cert\":\"cert\",\"subject\":\"subject\"},\"sso\":true,\"sso_disabled\":true,\"cross_origin_authentication\":true,\"cross_origin_loc\":\"cross_origin_loc\",\"custom_login_page_on\":true,\"custom_login_page\":\"custom_login_page\",\"custom_login_page_preview\":\"custom_login_page_preview\",\"form_template\":\"form_template\",\"addons\":{\"aws\":{\"principal\":\"principal\",\"role\":\"role\",\"lifetime_in_seconds\":1},\"azure_blob\":{\"accountName\":\"accountName\",\"storageAccessKey\":\"storageAccessKey\",\"containerName\":\"containerName\",\"blobName\":\"blobName\",\"expiration\":1,\"signedIdentifier\":\"signedIdentifier\",\"blob_read\":true,\"blob_write\":true,\"blob_delete\":true,\"container_read\":true,\"container_write\":true,\"container_delete\":true,\"container_list\":true},\"azure_sb\":{\"namespace\":\"namespace\",\"sasKeyName\":\"sasKeyName\",\"sasKey\":\"sasKey\",\"entityPath\":\"entityPath\",\"expiration\":1},\"rms\":{\"url\":\"url\"},\"mscrm\":{\"url\":\"url\"},\"slack\":{\"team\":\"team\"},\"sentry\":{\"org_slug\":\"org_slug\",\"base_url\":\"base_url\"},\"box\":{\"key\":\"value\"},\"cloudbees\":{\"key\":\"value\"},\"concur\":{\"key\":\"value\"},\"dropbox\":{\"key\":\"value\"},\"echosign\":{\"domain\":\"domain\"},\"egnyte\":{\"domain\":\"domain\"},\"firebase\":{\"secret\":\"secret\",\"private_key_id\":\"private_key_id\",\"private_key\":\"private_key\",\"client_email\":\"client_email\",\"lifetime_in_seconds\":1},\"newrelic\":{\"account\":\"account\"},\"office365\":{\"domain\":\"domain\",\"connection\":\"connection\"},\"salesforce\":{\"entity_id\":\"entity_id\"},\"salesforce_api\":{\"clientid\":\"clientid\",\"principal\":\"principal\",\"communityName\":\"communityName\",\"community_url_section\":\"community_url_section\"},\"salesforce_sandbox_api\":{\"clientid\":\"clientid\",\"principal\":\"principal\",\"communityName\":\"communityName\",\"community_url_section\":\"community_url_section\"},\"samlp\":{\"mappings\":{\"key\":\"value\"},\"audience\":\"audience\",\"recipient\":\"recipient\",\"createUpnClaim\":true,\"mapUnknownClaimsAsIs\":true,\"passthroughClaimsWithNoMapping\":true,\"mapIdentities\":true,\"signatureAlgorithm\":\"signatureAlgorithm\",\"digestAlgorithm\":\"digestAlgorithm\",\"issuer\":\"issuer\",\"destination\":\"destination\",\"lifetimeInSeconds\":1,\"signResponse\":true,\"nameIdentifierFormat\":\"nameIdentifierFormat\",\"nameIdentifierProbes\":[\"nameIdentifierProbes\"],\"authnContextClassRef\":\"authnContextClassRef\"},\"layer\":{\"providerId\":\"providerId\",\"keyId\":\"keyId\",\"privateKey\":\"privateKey\",\"principal\":\"principal\",\"expiration\":1},\"sap_api\":{\"clientid\":\"clientid\",\"usernameAttribute\":\"usernameAttribute\",\"tokenEndpointUrl\":\"tokenEndpointUrl\",\"scope\":\"scope\",\"servicePassword\":\"servicePassword\",\"nameIdentifierFormat\":\"nameIdentifierFormat\"},\"sharepoint\":{\"url\":\"url\",\"external_url\":[\"external_url\"]},\"springcm\":{\"acsurl\":\"acsurl\"},\"wams\":{\"masterkey\":\"masterkey\"},\"wsfed\":{\"key\":\"value\"},\"zendesk\":{\"accountName\":\"accountName\"},\"zoom\":{\"account\":\"account\"},\"sso_integration\":{\"name\":\"name\",\"version\":\"version\"}},\"token_endpoint_auth_method\":\"none\",\"client_metadata\":{\"key\":\"value\"},\"mobile\":{\"android\":{\"app_package_name\":\"app_package_name\",\"sha256_cert_fingerprints\":[\"sha256_cert_fingerprints\"]},\"ios\":{\"team_id\":\"team_id\",\"app_bundle_identifier\":\"app_bundle_identifier\"}},\"initiate_login_uri\":\"initiate_login_uri\",\"refresh_token\":{\"rotation_type\":\"rotating\",\"expiration_type\":\"expiring\",\"leeway\":1,\"token_lifetime\":1,\"infinite_token_lifetime\":true,\"idle_token_lifetime\":1,\"infinite_idle_token_lifetime\":true},\"default_organization\":{\"organization_id\":\"organization_id\",\"flows\":[\"client_credentials\"]},\"organization_usage\":\"deny\",\"organization_require_behavior\":\"no_prompt\",\"client_authentication_methods\":{\"private_key_jwt\":{\"credentials\":[{\"id\":\"id\"}]},\"tls_client_auth\":{\"credentials\":[{\"id\":\"id\"}]},\"self_signed_tls_client_auth\":{\"credentials\":[{\"id\":\"id\"}]}},\"require_pushed_authorization_requests\":true,\"require_proof_of_possession\":true,\"signed_request_object\":{\"required\":true,\"credentials\":[{\"id\":\"id\"}]},\"compliance_level\":\"none\",\"par_request_expiry\":1,\"token_quota\":{\"client_credentials\":{\"enforce\":true,\"per_day\":1,\"per_hour\":1}}}"));
+                                "{\"client_id\":\"client_id\",\"tenant\":\"tenant\",\"name\":\"name\",\"description\":\"description\",\"global\":true,\"client_secret\":\"client_secret\",\"app_type\":\"native\",\"logo_uri\":\"logo_uri\",\"is_first_party\":true,\"oidc_conformant\":true,\"callbacks\":[\"callbacks\"],\"allowed_origins\":[\"allowed_origins\"],\"web_origins\":[\"web_origins\"],\"client_aliases\":[\"client_aliases\"],\"allowed_clients\":[\"allowed_clients\"],\"allowed_logout_urls\":[\"allowed_logout_urls\"],\"session_transfer\":{\"can_create_session_transfer_token\":true,\"enforce_cascade_revocation\":true,\"allowed_authentication_methods\":[\"cookie\"],\"enforce_device_binding\":\"ip\",\"allow_refresh_token\":true,\"enforce_online_refresh_tokens\":true},\"oidc_logout\":{\"backchannel_logout_urls\":[\"backchannel_logout_urls\"],\"backchannel_logout_initiators\":{\"mode\":\"custom\",\"selected_initiators\":[\"rp-logout\"]},\"backchannel_logout_session_metadata\":{\"include\":true}},\"grant_types\":[\"grant_types\"],\"jwt_configuration\":{\"lifetime_in_seconds\":1,\"secret_encoded\":true,\"scopes\":{\"key\":\"value\"},\"alg\":\"HS256\"},\"signing_keys\":[{\"pkcs7\":\"pkcs7\",\"cert\":\"cert\",\"subject\":\"subject\"}],\"encryption_key\":{\"pub\":\"pub\",\"cert\":\"cert\",\"subject\":\"subject\"},\"sso\":true,\"sso_disabled\":true,\"cross_origin_authentication\":true,\"cross_origin_loc\":\"cross_origin_loc\",\"custom_login_page_on\":true,\"custom_login_page\":\"custom_login_page\",\"custom_login_page_preview\":\"custom_login_page_preview\",\"form_template\":\"form_template\",\"addons\":{\"aws\":{\"principal\":\"principal\",\"role\":\"role\",\"lifetime_in_seconds\":1},\"azure_blob\":{\"accountName\":\"accountName\",\"storageAccessKey\":\"storageAccessKey\",\"containerName\":\"containerName\",\"blobName\":\"blobName\",\"expiration\":1,\"signedIdentifier\":\"signedIdentifier\",\"blob_read\":true,\"blob_write\":true,\"blob_delete\":true,\"container_read\":true,\"container_write\":true,\"container_delete\":true,\"container_list\":true},\"azure_sb\":{\"namespace\":\"namespace\",\"sasKeyName\":\"sasKeyName\",\"sasKey\":\"sasKey\",\"entityPath\":\"entityPath\",\"expiration\":1},\"rms\":{\"url\":\"url\"},\"mscrm\":{\"url\":\"url\"},\"slack\":{\"team\":\"team\"},\"sentry\":{\"org_slug\":\"org_slug\",\"base_url\":\"base_url\"},\"box\":{\"key\":\"value\"},\"cloudbees\":{\"key\":\"value\"},\"concur\":{\"key\":\"value\"},\"dropbox\":{\"key\":\"value\"},\"echosign\":{\"domain\":\"domain\"},\"egnyte\":{\"domain\":\"domain\"},\"firebase\":{\"secret\":\"secret\",\"private_key_id\":\"private_key_id\",\"private_key\":\"private_key\",\"client_email\":\"client_email\",\"lifetime_in_seconds\":1},\"newrelic\":{\"account\":\"account\"},\"office365\":{\"domain\":\"domain\",\"connection\":\"connection\"},\"salesforce\":{\"entity_id\":\"entity_id\"},\"salesforce_api\":{\"clientid\":\"clientid\",\"principal\":\"principal\",\"communityName\":\"communityName\",\"community_url_section\":\"community_url_section\"},\"salesforce_sandbox_api\":{\"clientid\":\"clientid\",\"principal\":\"principal\",\"communityName\":\"communityName\",\"community_url_section\":\"community_url_section\"},\"samlp\":{\"mappings\":{\"key\":\"value\"},\"audience\":\"audience\",\"recipient\":\"recipient\",\"createUpnClaim\":true,\"mapUnknownClaimsAsIs\":true,\"passthroughClaimsWithNoMapping\":true,\"mapIdentities\":true,\"signatureAlgorithm\":\"signatureAlgorithm\",\"digestAlgorithm\":\"digestAlgorithm\",\"issuer\":\"issuer\",\"destination\":\"destination\",\"lifetimeInSeconds\":1,\"signResponse\":true,\"nameIdentifierFormat\":\"nameIdentifierFormat\",\"nameIdentifierProbes\":[\"nameIdentifierProbes\"],\"authnContextClassRef\":\"authnContextClassRef\"},\"layer\":{\"providerId\":\"providerId\",\"keyId\":\"keyId\",\"privateKey\":\"privateKey\",\"principal\":\"principal\",\"expiration\":1},\"sap_api\":{\"clientid\":\"clientid\",\"usernameAttribute\":\"usernameAttribute\",\"tokenEndpointUrl\":\"tokenEndpointUrl\",\"scope\":\"scope\",\"servicePassword\":\"servicePassword\",\"nameIdentifierFormat\":\"nameIdentifierFormat\"},\"sharepoint\":{\"url\":\"url\",\"external_url\":[\"external_url\"]},\"springcm\":{\"acsurl\":\"acsurl\"},\"wams\":{\"masterkey\":\"masterkey\"},\"wsfed\":{\"key\":\"value\"},\"zendesk\":{\"accountName\":\"accountName\"},\"zoom\":{\"account\":\"account\"},\"sso_integration\":{\"name\":\"name\",\"version\":\"version\"}},\"token_endpoint_auth_method\":\"none\",\"is_token_endpoint_ip_header_trusted\":true,\"client_metadata\":{\"key\":\"value\"},\"mobile\":{\"android\":{\"app_package_name\":\"app_package_name\",\"sha256_cert_fingerprints\":[\"sha256_cert_fingerprints\"]},\"ios\":{\"team_id\":\"team_id\",\"app_bundle_identifier\":\"app_bundle_identifier\"}},\"initiate_login_uri\":\"initiate_login_uri\",\"refresh_token\":{\"rotation_type\":\"rotating\",\"expiration_type\":\"expiring\",\"leeway\":1,\"token_lifetime\":1,\"infinite_token_lifetime\":true,\"idle_token_lifetime\":1,\"infinite_idle_token_lifetime\":true},\"default_organization\":{\"organization_id\":\"organization_id\",\"flows\":[\"client_credentials\"]},\"organization_usage\":\"deny\",\"organization_require_behavior\":\"no_prompt\",\"organization_discovery_methods\":[\"email\"],\"client_authentication_methods\":{\"private_key_jwt\":{\"credentials\":[{\"id\":\"id\"}]},\"tls_client_auth\":{\"credentials\":[{\"id\":\"id\"}]},\"self_signed_tls_client_auth\":{\"credentials\":[{\"id\":\"id\"}]}},\"require_pushed_authorization_requests\":true,\"require_proof_of_possession\":true,\"signed_request_object\":{\"required\":true,\"credentials\":[{\"id\":\"id\"}]},\"compliance_level\":\"none\",\"skip_non_verifiable_callback_uri_confirmation_prompt\":true,\"token_exchange\":{\"allow_any_profile_of_type\":[\"custom_authentication\"]},\"par_request_expiry\":1,\"token_quota\":{\"client_credentials\":{\"enforce\":true,\"per_day\":1,\"per_hour\":1}},\"express_configuration\":{\"initiate_login_uri_template\":\"initiate_login_uri_template\",\"user_attribute_profile_id\":\"user_attribute_profile_id\",\"connection_profile_id\":\"connection_profile_id\",\"enable_client\":true,\"enable_organization\":true,\"linked_clients\":[{\"client_id\":\"client_id\"}],\"okta_oin_client_id\":\"okta_oin_client_id\",\"admin_login_domain\":\"admin_login_domain\",\"oin_submission_id\":\"oin_submission_id\"},\"resource_server_identifier\":\"resource_server_identifier\",\"async_approval_notification_channels\":[\"guardian-push\"]}"));
         RotateClientSecretResponseContent response = client.clients().rotateSecret("id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -1236,7 +1333,7 @@ public class ClientsWireTest {
                 + "  \"description\": \"description\",\n"
                 + "  \"global\": true,\n"
                 + "  \"client_secret\": \"client_secret\",\n"
-                + "  \"app_type\": \"app_type\",\n"
+                + "  \"app_type\": \"native\",\n"
                 + "  \"logo_uri\": \"logo_uri\",\n"
                 + "  \"is_first_party\": true,\n"
                 + "  \"oidc_conformant\": true,\n"
@@ -1260,13 +1357,13 @@ public class ClientsWireTest {
                 + "  ],\n"
                 + "  \"session_transfer\": {\n"
                 + "    \"can_create_session_transfer_token\": true,\n"
+                + "    \"enforce_cascade_revocation\": true,\n"
                 + "    \"allowed_authentication_methods\": [\n"
                 + "      \"cookie\"\n"
                 + "    ],\n"
                 + "    \"enforce_device_binding\": \"ip\",\n"
                 + "    \"allow_refresh_token\": true,\n"
-                + "    \"enforce_online_refresh_tokens\": true,\n"
-                + "    \"enforce_cascade_revocation\": true\n"
+                + "    \"enforce_online_refresh_tokens\": true\n"
                 + "  },\n"
                 + "  \"oidc_logout\": {\n"
                 + "    \"backchannel_logout_urls\": [\n"
@@ -1277,6 +1374,9 @@ public class ClientsWireTest {
                 + "      \"selected_initiators\": [\n"
                 + "        \"rp-logout\"\n"
                 + "      ]\n"
+                + "    },\n"
+                + "    \"backchannel_logout_session_metadata\": {\n"
+                + "      \"include\": true\n"
                 + "    }\n"
                 + "  },\n"
                 + "  \"grant_types\": [\n"
@@ -1462,6 +1562,7 @@ public class ClientsWireTest {
                 + "    }\n"
                 + "  },\n"
                 + "  \"token_endpoint_auth_method\": \"none\",\n"
+                + "  \"is_token_endpoint_ip_header_trusted\": true,\n"
                 + "  \"client_metadata\": {\n"
                 + "    \"key\": \"value\"\n"
                 + "  },\n"
@@ -1495,6 +1596,9 @@ public class ClientsWireTest {
                 + "  },\n"
                 + "  \"organization_usage\": \"deny\",\n"
                 + "  \"organization_require_behavior\": \"no_prompt\",\n"
+                + "  \"organization_discovery_methods\": [\n"
+                + "    \"email\"\n"
+                + "  ],\n"
                 + "  \"client_authentication_methods\": {\n"
                 + "    \"private_key_jwt\": {\n"
                 + "      \"credentials\": [\n"
@@ -1529,6 +1633,12 @@ public class ClientsWireTest {
                 + "    ]\n"
                 + "  },\n"
                 + "  \"compliance_level\": \"none\",\n"
+                + "  \"skip_non_verifiable_callback_uri_confirmation_prompt\": true,\n"
+                + "  \"token_exchange\": {\n"
+                + "    \"allow_any_profile_of_type\": [\n"
+                + "      \"custom_authentication\"\n"
+                + "    ]\n"
+                + "  },\n"
                 + "  \"par_request_expiry\": 1,\n"
                 + "  \"token_quota\": {\n"
                 + "    \"client_credentials\": {\n"
@@ -1536,7 +1646,26 @@ public class ClientsWireTest {
                 + "      \"per_day\": 1,\n"
                 + "      \"per_hour\": 1\n"
                 + "    }\n"
-                + "  }\n"
+                + "  },\n"
+                + "  \"express_configuration\": {\n"
+                + "    \"initiate_login_uri_template\": \"initiate_login_uri_template\",\n"
+                + "    \"user_attribute_profile_id\": \"user_attribute_profile_id\",\n"
+                + "    \"connection_profile_id\": \"connection_profile_id\",\n"
+                + "    \"enable_client\": true,\n"
+                + "    \"enable_organization\": true,\n"
+                + "    \"linked_clients\": [\n"
+                + "      {\n"
+                + "        \"client_id\": \"client_id\"\n"
+                + "      }\n"
+                + "    ],\n"
+                + "    \"okta_oin_client_id\": \"okta_oin_client_id\",\n"
+                + "    \"admin_login_domain\": \"admin_login_domain\",\n"
+                + "    \"oin_submission_id\": \"oin_submission_id\"\n"
+                + "  },\n"
+                + "  \"resource_server_identifier\": \"resource_server_identifier\",\n"
+                + "  \"async_approval_notification_channels\": [\n"
+                + "    \"guardian-push\"\n"
+                + "  ]\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -1570,24 +1699,29 @@ public class ClientsWireTest {
     }
 
     /**
-     * Compares two JsonNodes with numeric equivalence.
+     * Compares two JsonNodes with numeric equivalence and null safety.
+     * For objects, checks that all fields in 'expected' exist in 'actual' with matching values.
+     * Allows 'actual' to have extra fields (e.g., default values added during serialization).
      */
-    private boolean jsonEquals(JsonNode a, JsonNode b) {
-        if (a.equals(b)) return true;
-        if (a.isNumber() && b.isNumber()) return Math.abs(a.doubleValue() - b.doubleValue()) < 1e-10;
-        if (a.isObject() && b.isObject()) {
-            if (a.size() != b.size()) return false;
-            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = a.fields();
+    private boolean jsonEquals(JsonNode expected, JsonNode actual) {
+        if (expected == null && actual == null) return true;
+        if (expected == null || actual == null) return false;
+        if (expected.equals(actual)) return true;
+        if (expected.isNumber() && actual.isNumber())
+            return Math.abs(expected.doubleValue() - actual.doubleValue()) < 1e-10;
+        if (expected.isObject() && actual.isObject()) {
+            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = expected.fields();
             while (iter.hasNext()) {
                 java.util.Map.Entry<String, JsonNode> entry = iter.next();
-                if (!jsonEquals(entry.getValue(), b.get(entry.getKey()))) return false;
+                JsonNode actualValue = actual.get(entry.getKey());
+                if (actualValue == null || !jsonEquals(entry.getValue(), actualValue)) return false;
             }
             return true;
         }
-        if (a.isArray() && b.isArray()) {
-            if (a.size() != b.size()) return false;
-            for (int i = 0; i < a.size(); i++) {
-                if (!jsonEquals(a.get(i), b.get(i))) return false;
+        if (expected.isArray() && actual.isArray()) {
+            if (expected.size() != actual.size()) return false;
+            for (int i = 0; i < expected.size(); i++) {
+                if (!jsonEquals(expected.get(i), actual.get(i))) return false;
             }
             return true;
         }

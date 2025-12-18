@@ -7,38 +7,23 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class EventStreamEventBridgeAwsRegionEnum {
+    public static final EventStreamEventBridgeAwsRegionEnum EU_SOUTH1 =
+            new EventStreamEventBridgeAwsRegionEnum(Value.EU_SOUTH1, "eu-south-1");
+
     public static final EventStreamEventBridgeAwsRegionEnum AP_NORTHEAST2 =
             new EventStreamEventBridgeAwsRegionEnum(Value.AP_NORTHEAST2, "ap-northeast-2");
-
-    public static final EventStreamEventBridgeAwsRegionEnum CN_NORTHWEST1 =
-            new EventStreamEventBridgeAwsRegionEnum(Value.CN_NORTHWEST1, "cn-northwest-1");
 
     public static final EventStreamEventBridgeAwsRegionEnum AP_SOUTHEAST1 =
             new EventStreamEventBridgeAwsRegionEnum(Value.AP_SOUTHEAST1, "ap-southeast-1");
 
-    public static final EventStreamEventBridgeAwsRegionEnum ME_SOUTH1 =
-            new EventStreamEventBridgeAwsRegionEnum(Value.ME_SOUTH1, "me-south-1");
+    public static final EventStreamEventBridgeAwsRegionEnum EU_SOUTH2 =
+            new EventStreamEventBridgeAwsRegionEnum(Value.EU_SOUTH2, "eu-south-2");
 
     public static final EventStreamEventBridgeAwsRegionEnum AP_NORTHEAST3 =
             new EventStreamEventBridgeAwsRegionEnum(Value.AP_NORTHEAST3, "ap-northeast-3");
 
-    public static final EventStreamEventBridgeAwsRegionEnum US_EAST1 =
-            new EventStreamEventBridgeAwsRegionEnum(Value.US_EAST1, "us-east-1");
-
-    public static final EventStreamEventBridgeAwsRegionEnum SA_EAST1 =
-            new EventStreamEventBridgeAwsRegionEnum(Value.SA_EAST1, "sa-east-1");
-
     public static final EventStreamEventBridgeAwsRegionEnum AP_NORTHEAST1 =
             new EventStreamEventBridgeAwsRegionEnum(Value.AP_NORTHEAST1, "ap-northeast-1");
-
-    public static final EventStreamEventBridgeAwsRegionEnum US_GOV_EAST1 =
-            new EventStreamEventBridgeAwsRegionEnum(Value.US_GOV_EAST1, "us-gov-east-1");
-
-    public static final EventStreamEventBridgeAwsRegionEnum US_EAST2 =
-            new EventStreamEventBridgeAwsRegionEnum(Value.US_EAST2, "us-east-2");
-
-    public static final EventStreamEventBridgeAwsRegionEnum CN_NORTH1 =
-            new EventStreamEventBridgeAwsRegionEnum(Value.CN_NORTH1, "cn-north-1");
 
     public static final EventStreamEventBridgeAwsRegionEnum AP_SOUTH1 =
             new EventStreamEventBridgeAwsRegionEnum(Value.AP_SOUTH1, "ap-south-1");
@@ -49,11 +34,50 @@ public final class EventStreamEventBridgeAwsRegionEnum {
     public static final EventStreamEventBridgeAwsRegionEnum EU_NORTH1 =
             new EventStreamEventBridgeAwsRegionEnum(Value.EU_NORTH1, "eu-north-1");
 
-    public static final EventStreamEventBridgeAwsRegionEnum AP_EAST1 =
-            new EventStreamEventBridgeAwsRegionEnum(Value.AP_EAST1, "ap-east-1");
+    public static final EventStreamEventBridgeAwsRegionEnum AP_SOUTH2 =
+            new EventStreamEventBridgeAwsRegionEnum(Value.AP_SOUTH2, "ap-south-2");
 
     public static final EventStreamEventBridgeAwsRegionEnum US_GOV_WEST1 =
             new EventStreamEventBridgeAwsRegionEnum(Value.US_GOV_WEST1, "us-gov-west-1");
+
+    public static final EventStreamEventBridgeAwsRegionEnum CA_WEST1 =
+            new EventStreamEventBridgeAwsRegionEnum(Value.CA_WEST1, "ca-west-1");
+
+    public static final EventStreamEventBridgeAwsRegionEnum ME_SOUTH1 =
+            new EventStreamEventBridgeAwsRegionEnum(Value.ME_SOUTH1, "me-south-1");
+
+    public static final EventStreamEventBridgeAwsRegionEnum MX_CENTRAL1 =
+            new EventStreamEventBridgeAwsRegionEnum(Value.MX_CENTRAL1, "mx-central-1");
+
+    public static final EventStreamEventBridgeAwsRegionEnum US_EAST1 =
+            new EventStreamEventBridgeAwsRegionEnum(Value.US_EAST1, "us-east-1");
+
+    public static final EventStreamEventBridgeAwsRegionEnum SA_EAST1 =
+            new EventStreamEventBridgeAwsRegionEnum(Value.SA_EAST1, "sa-east-1");
+
+    public static final EventStreamEventBridgeAwsRegionEnum AP_EAST2 =
+            new EventStreamEventBridgeAwsRegionEnum(Value.AP_EAST2, "ap-east-2");
+
+    public static final EventStreamEventBridgeAwsRegionEnum US_GOV_EAST1 =
+            new EventStreamEventBridgeAwsRegionEnum(Value.US_GOV_EAST1, "us-gov-east-1");
+
+    public static final EventStreamEventBridgeAwsRegionEnum US_EAST2 =
+            new EventStreamEventBridgeAwsRegionEnum(Value.US_EAST2, "us-east-2");
+
+    public static final EventStreamEventBridgeAwsRegionEnum AP_SOUTHEAST5 =
+            new EventStreamEventBridgeAwsRegionEnum(Value.AP_SOUTHEAST5, "ap-southeast-5");
+
+    public static final EventStreamEventBridgeAwsRegionEnum AP_EAST1 =
+            new EventStreamEventBridgeAwsRegionEnum(Value.AP_EAST1, "ap-east-1");
+
+    public static final EventStreamEventBridgeAwsRegionEnum ME_CENTRAL1 =
+            new EventStreamEventBridgeAwsRegionEnum(Value.ME_CENTRAL1, "me-central-1");
+
+    public static final EventStreamEventBridgeAwsRegionEnum AP_SOUTHEAST7 =
+            new EventStreamEventBridgeAwsRegionEnum(Value.AP_SOUTHEAST7, "ap-southeast-7");
+
+    public static final EventStreamEventBridgeAwsRegionEnum AP_SOUTHEAST6 =
+            new EventStreamEventBridgeAwsRegionEnum(Value.AP_SOUTHEAST6, "ap-southeast-6");
 
     public static final EventStreamEventBridgeAwsRegionEnum US_WEST2 =
             new EventStreamEventBridgeAwsRegionEnum(Value.US_WEST2, "us-west-2");
@@ -61,17 +85,32 @@ public final class EventStreamEventBridgeAwsRegionEnum {
     public static final EventStreamEventBridgeAwsRegionEnum EU_WEST3 =
             new EventStreamEventBridgeAwsRegionEnum(Value.EU_WEST3, "eu-west-3");
 
+    public static final EventStreamEventBridgeAwsRegionEnum AF_SOUTH1 =
+            new EventStreamEventBridgeAwsRegionEnum(Value.AF_SOUTH1, "af-south-1");
+
     public static final EventStreamEventBridgeAwsRegionEnum EU_WEST2 =
             new EventStreamEventBridgeAwsRegionEnum(Value.EU_WEST2, "eu-west-2");
 
     public static final EventStreamEventBridgeAwsRegionEnum AP_SOUTHEAST2 =
             new EventStreamEventBridgeAwsRegionEnum(Value.AP_SOUTHEAST2, "ap-southeast-2");
 
+    public static final EventStreamEventBridgeAwsRegionEnum AP_SOUTHEAST4 =
+            new EventStreamEventBridgeAwsRegionEnum(Value.AP_SOUTHEAST4, "ap-southeast-4");
+
     public static final EventStreamEventBridgeAwsRegionEnum EU_CENTRAL1 =
             new EventStreamEventBridgeAwsRegionEnum(Value.EU_CENTRAL1, "eu-central-1");
 
+    public static final EventStreamEventBridgeAwsRegionEnum IL_CENTRAL1 =
+            new EventStreamEventBridgeAwsRegionEnum(Value.IL_CENTRAL1, "il-central-1");
+
     public static final EventStreamEventBridgeAwsRegionEnum US_WEST1 =
             new EventStreamEventBridgeAwsRegionEnum(Value.US_WEST1, "us-west-1");
+
+    public static final EventStreamEventBridgeAwsRegionEnum AP_SOUTHEAST3 =
+            new EventStreamEventBridgeAwsRegionEnum(Value.AP_SOUTHEAST3, "ap-southeast-3");
+
+    public static final EventStreamEventBridgeAwsRegionEnum EU_CENTRAL2 =
+            new EventStreamEventBridgeAwsRegionEnum(Value.EU_CENTRAL2, "eu-central-2");
 
     public static final EventStreamEventBridgeAwsRegionEnum EU_WEST1 =
             new EventStreamEventBridgeAwsRegionEnum(Value.EU_WEST1, "eu-west-1");
@@ -89,70 +128,96 @@ public final class EventStreamEventBridgeAwsRegionEnum {
         return value;
     }
 
-    @java.lang.Override
+    @Override
     @JsonValue
     public String toString() {
         return this.string;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         return (this == other)
                 || (other instanceof EventStreamEventBridgeAwsRegionEnum
                         && this.string.equals(((EventStreamEventBridgeAwsRegionEnum) other).string));
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return this.string.hashCode();
     }
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
+            case EU_SOUTH1:
+                return visitor.visitEuSouth1();
             case AP_NORTHEAST2:
                 return visitor.visitApNortheast2();
-            case CN_NORTHWEST1:
-                return visitor.visitCnNorthwest1();
             case AP_SOUTHEAST1:
                 return visitor.visitApSoutheast1();
-            case ME_SOUTH1:
-                return visitor.visitMeSouth1();
+            case EU_SOUTH2:
+                return visitor.visitEuSouth2();
             case AP_NORTHEAST3:
                 return visitor.visitApNortheast3();
-            case US_EAST1:
-                return visitor.visitUsEast1();
-            case SA_EAST1:
-                return visitor.visitSaEast1();
             case AP_NORTHEAST1:
                 return visitor.visitApNortheast1();
-            case US_GOV_EAST1:
-                return visitor.visitUsGovEast1();
-            case US_EAST2:
-                return visitor.visitUsEast2();
-            case CN_NORTH1:
-                return visitor.visitCnNorth1();
             case AP_SOUTH1:
                 return visitor.visitApSouth1();
             case CA_CENTRAL1:
                 return visitor.visitCaCentral1();
             case EU_NORTH1:
                 return visitor.visitEuNorth1();
-            case AP_EAST1:
-                return visitor.visitApEast1();
+            case AP_SOUTH2:
+                return visitor.visitApSouth2();
             case US_GOV_WEST1:
                 return visitor.visitUsGovWest1();
+            case CA_WEST1:
+                return visitor.visitCaWest1();
+            case ME_SOUTH1:
+                return visitor.visitMeSouth1();
+            case MX_CENTRAL1:
+                return visitor.visitMxCentral1();
+            case US_EAST1:
+                return visitor.visitUsEast1();
+            case SA_EAST1:
+                return visitor.visitSaEast1();
+            case AP_EAST2:
+                return visitor.visitApEast2();
+            case US_GOV_EAST1:
+                return visitor.visitUsGovEast1();
+            case US_EAST2:
+                return visitor.visitUsEast2();
+            case AP_SOUTHEAST5:
+                return visitor.visitApSoutheast5();
+            case AP_EAST1:
+                return visitor.visitApEast1();
+            case ME_CENTRAL1:
+                return visitor.visitMeCentral1();
+            case AP_SOUTHEAST7:
+                return visitor.visitApSoutheast7();
+            case AP_SOUTHEAST6:
+                return visitor.visitApSoutheast6();
             case US_WEST2:
                 return visitor.visitUsWest2();
             case EU_WEST3:
                 return visitor.visitEuWest3();
+            case AF_SOUTH1:
+                return visitor.visitAfSouth1();
             case EU_WEST2:
                 return visitor.visitEuWest2();
             case AP_SOUTHEAST2:
                 return visitor.visitApSoutheast2();
+            case AP_SOUTHEAST4:
+                return visitor.visitApSoutheast4();
             case EU_CENTRAL1:
                 return visitor.visitEuCentral1();
+            case IL_CENTRAL1:
+                return visitor.visitIlCentral1();
             case US_WEST1:
                 return visitor.visitUsWest1();
+            case AP_SOUTHEAST3:
+                return visitor.visitApSoutheast3();
+            case EU_CENTRAL2:
+                return visitor.visitEuCentral2();
             case EU_WEST1:
                 return visitor.visitEuWest1();
             case UNKNOWN:
@@ -164,50 +229,76 @@ public final class EventStreamEventBridgeAwsRegionEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static EventStreamEventBridgeAwsRegionEnum valueOf(String value) {
         switch (value) {
+            case "eu-south-1":
+                return EU_SOUTH1;
             case "ap-northeast-2":
                 return AP_NORTHEAST2;
-            case "cn-northwest-1":
-                return CN_NORTHWEST1;
             case "ap-southeast-1":
                 return AP_SOUTHEAST1;
-            case "me-south-1":
-                return ME_SOUTH1;
+            case "eu-south-2":
+                return EU_SOUTH2;
             case "ap-northeast-3":
                 return AP_NORTHEAST3;
-            case "us-east-1":
-                return US_EAST1;
-            case "sa-east-1":
-                return SA_EAST1;
             case "ap-northeast-1":
                 return AP_NORTHEAST1;
-            case "us-gov-east-1":
-                return US_GOV_EAST1;
-            case "us-east-2":
-                return US_EAST2;
-            case "cn-north-1":
-                return CN_NORTH1;
             case "ap-south-1":
                 return AP_SOUTH1;
             case "ca-central-1":
                 return CA_CENTRAL1;
             case "eu-north-1":
                 return EU_NORTH1;
-            case "ap-east-1":
-                return AP_EAST1;
+            case "ap-south-2":
+                return AP_SOUTH2;
             case "us-gov-west-1":
                 return US_GOV_WEST1;
+            case "ca-west-1":
+                return CA_WEST1;
+            case "me-south-1":
+                return ME_SOUTH1;
+            case "mx-central-1":
+                return MX_CENTRAL1;
+            case "us-east-1":
+                return US_EAST1;
+            case "sa-east-1":
+                return SA_EAST1;
+            case "ap-east-2":
+                return AP_EAST2;
+            case "us-gov-east-1":
+                return US_GOV_EAST1;
+            case "us-east-2":
+                return US_EAST2;
+            case "ap-southeast-5":
+                return AP_SOUTHEAST5;
+            case "ap-east-1":
+                return AP_EAST1;
+            case "me-central-1":
+                return ME_CENTRAL1;
+            case "ap-southeast-7":
+                return AP_SOUTHEAST7;
+            case "ap-southeast-6":
+                return AP_SOUTHEAST6;
             case "us-west-2":
                 return US_WEST2;
             case "eu-west-3":
                 return EU_WEST3;
+            case "af-south-1":
+                return AF_SOUTH1;
             case "eu-west-2":
                 return EU_WEST2;
             case "ap-southeast-2":
                 return AP_SOUTHEAST2;
+            case "ap-southeast-4":
+                return AP_SOUTHEAST4;
             case "eu-central-1":
                 return EU_CENTRAL1;
+            case "il-central-1":
+                return IL_CENTRAL1;
             case "us-west-1":
                 return US_WEST1;
+            case "ap-southeast-3":
+                return AP_SOUTHEAST3;
+            case "eu-central-2":
+                return EU_CENTRAL2;
             case "eu-west-1":
                 return EU_WEST1;
             default:
@@ -216,7 +307,11 @@ public final class EventStreamEventBridgeAwsRegionEnum {
     }
 
     public enum Value {
+        AF_SOUTH1,
+
         AP_EAST1,
+
+        AP_EAST2,
 
         AP_NORTHEAST1,
 
@@ -226,19 +321,35 @@ public final class EventStreamEventBridgeAwsRegionEnum {
 
         AP_SOUTH1,
 
+        AP_SOUTH2,
+
         AP_SOUTHEAST1,
 
         AP_SOUTHEAST2,
 
+        AP_SOUTHEAST3,
+
+        AP_SOUTHEAST4,
+
+        AP_SOUTHEAST5,
+
+        AP_SOUTHEAST6,
+
+        AP_SOUTHEAST7,
+
         CA_CENTRAL1,
 
-        CN_NORTH1,
-
-        CN_NORTHWEST1,
+        CA_WEST1,
 
         EU_CENTRAL1,
 
+        EU_CENTRAL2,
+
         EU_NORTH1,
+
+        EU_SOUTH1,
+
+        EU_SOUTH2,
 
         EU_WEST1,
 
@@ -246,7 +357,13 @@ public final class EventStreamEventBridgeAwsRegionEnum {
 
         EU_WEST3,
 
+        IL_CENTRAL1,
+
+        ME_CENTRAL1,
+
         ME_SOUTH1,
+
+        MX_CENTRAL1,
 
         SA_EAST1,
 
@@ -266,7 +383,11 @@ public final class EventStreamEventBridgeAwsRegionEnum {
     }
 
     public interface Visitor<T> {
+        T visitAfSouth1();
+
         T visitApEast1();
+
+        T visitApEast2();
 
         T visitApNortheast1();
 
@@ -276,19 +397,35 @@ public final class EventStreamEventBridgeAwsRegionEnum {
 
         T visitApSouth1();
 
+        T visitApSouth2();
+
         T visitApSoutheast1();
 
         T visitApSoutheast2();
 
+        T visitApSoutheast3();
+
+        T visitApSoutheast4();
+
+        T visitApSoutheast5();
+
+        T visitApSoutheast6();
+
+        T visitApSoutheast7();
+
         T visitCaCentral1();
 
-        T visitCnNorth1();
-
-        T visitCnNorthwest1();
+        T visitCaWest1();
 
         T visitEuCentral1();
 
+        T visitEuCentral2();
+
         T visitEuNorth1();
+
+        T visitEuSouth1();
+
+        T visitEuSouth2();
 
         T visitEuWest1();
 
@@ -296,7 +433,13 @@ public final class EventStreamEventBridgeAwsRegionEnum {
 
         T visitEuWest3();
 
+        T visitIlCentral1();
+
+        T visitMeCentral1();
+
         T visitMeSouth1();
+
+        T visitMxCentral1();
 
         T visitSaEast1();
 

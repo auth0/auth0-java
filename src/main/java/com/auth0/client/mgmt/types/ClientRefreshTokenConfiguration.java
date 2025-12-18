@@ -106,7 +106,7 @@ public final class ClientRefreshTokenConfiguration {
         return infiniteIdleTokenLifetime;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientRefreshTokenConfiguration && equalTo((ClientRefreshTokenConfiguration) other);
@@ -127,7 +127,7 @@ public final class ClientRefreshTokenConfiguration {
                 && infiniteIdleTokenLifetime.equals(other.infiniteIdleTokenLifetime);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.rotationType,
@@ -139,7 +139,7 @@ public final class ClientRefreshTokenConfiguration {
                 this.infiniteIdleTokenLifetime);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -218,7 +218,7 @@ public final class ClientRefreshTokenConfiguration {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(ClientRefreshTokenConfiguration other) {
             rotationType(other.getRotationType());
             expirationType(other.getExpirationType());
@@ -230,14 +230,14 @@ public final class ClientRefreshTokenConfiguration {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("rotation_type")
         public ExpirationTypeStage rotationType(@NotNull RefreshTokenRotationTypeEnum rotationType) {
             this.rotationType = Objects.requireNonNull(rotationType, "rotationType must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("expiration_type")
         public _FinalStage expirationType(@NotNull RefreshTokenExpirationTypeEnum expirationType) {
             this.expirationType = Objects.requireNonNull(expirationType, "expirationType must not be null");
@@ -248,7 +248,7 @@ public final class ClientRefreshTokenConfiguration {
          * <p>Prevents tokens from expiring without use when <code>true</code> (takes precedence over <code>idle_token_lifetime</code> values)</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage infiniteIdleTokenLifetime(Boolean infiniteIdleTokenLifetime) {
             this.infiniteIdleTokenLifetime = Optional.ofNullable(infiniteIdleTokenLifetime);
             return this;
@@ -257,7 +257,7 @@ public final class ClientRefreshTokenConfiguration {
         /**
          * <p>Prevents tokens from expiring without use when <code>true</code> (takes precedence over <code>idle_token_lifetime</code> values)</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "infinite_idle_token_lifetime", nulls = Nulls.SKIP)
         public _FinalStage infiniteIdleTokenLifetime(Optional<Boolean> infiniteIdleTokenLifetime) {
             this.infiniteIdleTokenLifetime = infiniteIdleTokenLifetime;
@@ -268,7 +268,7 @@ public final class ClientRefreshTokenConfiguration {
          * <p>Period (in seconds) for which refresh tokens will remain valid without use</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage idleTokenLifetime(Integer idleTokenLifetime) {
             this.idleTokenLifetime = Optional.ofNullable(idleTokenLifetime);
             return this;
@@ -277,7 +277,7 @@ public final class ClientRefreshTokenConfiguration {
         /**
          * <p>Period (in seconds) for which refresh tokens will remain valid without use</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "idle_token_lifetime", nulls = Nulls.SKIP)
         public _FinalStage idleTokenLifetime(Optional<Integer> idleTokenLifetime) {
             this.idleTokenLifetime = idleTokenLifetime;
@@ -288,7 +288,7 @@ public final class ClientRefreshTokenConfiguration {
          * <p>Prevents tokens from having a set lifetime when <code>true</code> (takes precedence over <code>token_lifetime</code> values)</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage infiniteTokenLifetime(Boolean infiniteTokenLifetime) {
             this.infiniteTokenLifetime = Optional.ofNullable(infiniteTokenLifetime);
             return this;
@@ -297,7 +297,7 @@ public final class ClientRefreshTokenConfiguration {
         /**
          * <p>Prevents tokens from having a set lifetime when <code>true</code> (takes precedence over <code>token_lifetime</code> values)</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "infinite_token_lifetime", nulls = Nulls.SKIP)
         public _FinalStage infiniteTokenLifetime(Optional<Boolean> infiniteTokenLifetime) {
             this.infiniteTokenLifetime = infiniteTokenLifetime;
@@ -308,7 +308,7 @@ public final class ClientRefreshTokenConfiguration {
          * <p>Period (in seconds) for which refresh tokens will remain valid</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage tokenLifetime(Integer tokenLifetime) {
             this.tokenLifetime = Optional.ofNullable(tokenLifetime);
             return this;
@@ -317,7 +317,7 @@ public final class ClientRefreshTokenConfiguration {
         /**
          * <p>Period (in seconds) for which refresh tokens will remain valid</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "token_lifetime", nulls = Nulls.SKIP)
         public _FinalStage tokenLifetime(Optional<Integer> tokenLifetime) {
             this.tokenLifetime = tokenLifetime;
@@ -328,7 +328,7 @@ public final class ClientRefreshTokenConfiguration {
          * <p>Period in seconds where the previous refresh token can be exchanged without triggering breach detection</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage leeway(Integer leeway) {
             this.leeway = Optional.ofNullable(leeway);
             return this;
@@ -337,14 +337,14 @@ public final class ClientRefreshTokenConfiguration {
         /**
          * <p>Period in seconds where the previous refresh token can be exchanged without triggering breach detection</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "leeway", nulls = Nulls.SKIP)
         public _FinalStage leeway(Optional<Integer> leeway) {
             this.leeway = leeway;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public ClientRefreshTokenConfiguration build() {
             return new ClientRefreshTokenConfiguration(
                     rotationType,

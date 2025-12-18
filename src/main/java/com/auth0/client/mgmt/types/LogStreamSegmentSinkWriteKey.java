@@ -36,7 +36,7 @@ public final class LogStreamSegmentSinkWriteKey {
         return segmentWriteKey;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof LogStreamSegmentSinkWriteKey && equalTo((LogStreamSegmentSinkWriteKey) other);
@@ -51,12 +51,12 @@ public final class LogStreamSegmentSinkWriteKey {
         return segmentWriteKey.equals(other.segmentWriteKey);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.segmentWriteKey);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -87,7 +87,7 @@ public final class LogStreamSegmentSinkWriteKey {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(LogStreamSegmentSinkWriteKey other) {
             segmentWriteKey(other.getSegmentWriteKey());
             return this;
@@ -98,14 +98,14 @@ public final class LogStreamSegmentSinkWriteKey {
          * <p>Segment write key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("segmentWriteKey")
         public _FinalStage segmentWriteKey(@NotNull String segmentWriteKey) {
             this.segmentWriteKey = Objects.requireNonNull(segmentWriteKey, "segmentWriteKey must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public LogStreamSegmentSinkWriteKey build() {
             return new LogStreamSegmentSinkWriteKey(segmentWriteKey, additionalProperties);
         }

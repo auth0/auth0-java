@@ -42,7 +42,7 @@ public final class FlowActionClearbitFindPersonParams {
         return email;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionClearbitFindPersonParams
@@ -58,12 +58,12 @@ public final class FlowActionClearbitFindPersonParams {
         return connectionId.equals(other.connectionId) && email.equals(other.email);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.email);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -97,28 +97,28 @@ public final class FlowActionClearbitFindPersonParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionClearbitFindPersonParams other) {
             connectionId(other.getConnectionId());
             email(other.getEmail());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("connection_id")
         public EmailStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("email")
         public _FinalStage email(@NotNull String email) {
             this.email = Objects.requireNonNull(email, "email must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionClearbitFindPersonParams build() {
             return new FlowActionClearbitFindPersonParams(connectionId, email, additionalProperties);
         }

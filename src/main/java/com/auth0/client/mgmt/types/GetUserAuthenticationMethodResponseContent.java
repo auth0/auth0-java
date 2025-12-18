@@ -59,6 +59,10 @@ public final class GetUserAuthenticationMethodResponseContent {
 
     private final Optional<String> userAgent;
 
+    private final Optional<String> aaguid;
+
+    private final Optional<String> relyingPartyIdentifier;
+
     private final Map<String, Object> additionalProperties;
 
     private GetUserAuthenticationMethodResponseContent(
@@ -80,6 +84,8 @@ public final class GetUserAuthenticationMethodResponseContent {
             Optional<Boolean> credentialBackedUp,
             Optional<String> identityUserId,
             Optional<String> userAgent,
+            Optional<String> aaguid,
+            Optional<String> relyingPartyIdentifier,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.type = type;
@@ -99,6 +105,8 @@ public final class GetUserAuthenticationMethodResponseContent {
         this.credentialBackedUp = credentialBackedUp;
         this.identityUserId = identityUserId;
         this.userAgent = userAgent;
+        this.aaguid = aaguid;
+        this.relyingPartyIdentifier = relyingPartyIdentifier;
         this.additionalProperties = additionalProperties;
     }
 
@@ -237,7 +245,23 @@ public final class GetUserAuthenticationMethodResponseContent {
         return userAgent;
     }
 
-    @java.lang.Override
+    /**
+     * @return Applies to passkey authentication methods only. Authenticator Attestation Globally Unique Identifier.
+     */
+    @JsonProperty("aaguid")
+    public Optional<String> getAaguid() {
+        return aaguid;
+    }
+
+    /**
+     * @return Applies to webauthn/passkey authentication methods only. The credential's relying party identifier.
+     */
+    @JsonProperty("relying_party_identifier")
+    public Optional<String> getRelyingPartyIdentifier() {
+        return relyingPartyIdentifier;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetUserAuthenticationMethodResponseContent
@@ -267,10 +291,12 @@ public final class GetUserAuthenticationMethodResponseContent {
                 && credentialDeviceType.equals(other.credentialDeviceType)
                 && credentialBackedUp.equals(other.credentialBackedUp)
                 && identityUserId.equals(other.identityUserId)
-                && userAgent.equals(other.userAgent);
+                && userAgent.equals(other.userAgent)
+                && aaguid.equals(other.aaguid)
+                && relyingPartyIdentifier.equals(other.relyingPartyIdentifier);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -290,10 +316,12 @@ public final class GetUserAuthenticationMethodResponseContent {
                 this.credentialDeviceType,
                 this.credentialBackedUp,
                 this.identityUserId,
-                this.userAgent);
+                this.userAgent,
+                this.aaguid,
+                this.relyingPartyIdentifier);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -424,6 +452,20 @@ public final class GetUserAuthenticationMethodResponseContent {
         _FinalStage userAgent(Optional<String> userAgent);
 
         _FinalStage userAgent(String userAgent);
+
+        /**
+         * <p>Applies to passkey authentication methods only. Authenticator Attestation Globally Unique Identifier.</p>
+         */
+        _FinalStage aaguid(Optional<String> aaguid);
+
+        _FinalStage aaguid(String aaguid);
+
+        /**
+         * <p>Applies to webauthn/passkey authentication methods only. The credential's relying party identifier.</p>
+         */
+        _FinalStage relyingPartyIdentifier(Optional<String> relyingPartyIdentifier);
+
+        _FinalStage relyingPartyIdentifier(String relyingPartyIdentifier);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -433,6 +475,10 @@ public final class GetUserAuthenticationMethodResponseContent {
         private AuthenticationMethodTypeEnum type;
 
         private OffsetDateTime createdAt;
+
+        private Optional<String> relyingPartyIdentifier = Optional.empty();
+
+        private Optional<String> aaguid = Optional.empty();
 
         private Optional<String> userAgent = Optional.empty();
 
@@ -469,7 +515,7 @@ public final class GetUserAuthenticationMethodResponseContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(GetUserAuthenticationMethodResponseContent other) {
             id(other.getId());
             type(other.getType());
@@ -489,6 +535,8 @@ public final class GetUserAuthenticationMethodResponseContent {
             credentialBackedUp(other.getCredentialBackedUp());
             identityUserId(other.getIdentityUserId());
             userAgent(other.getUserAgent());
+            aaguid(other.getAaguid());
+            relyingPartyIdentifier(other.getRelyingPartyIdentifier());
             return this;
         }
 
@@ -497,14 +545,14 @@ public final class GetUserAuthenticationMethodResponseContent {
          * <p>The ID of the authentication method (auto generated)</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("id")
         public TypeStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("type")
         public CreatedAtStage type(@NotNull AuthenticationMethodTypeEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
@@ -516,7 +564,7 @@ public final class GetUserAuthenticationMethodResponseContent {
          * <p>Authenticator creation date</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("created_at")
         public _FinalStage createdAt(@NotNull OffsetDateTime createdAt) {
             this.createdAt = Objects.requireNonNull(createdAt, "createdAt must not be null");
@@ -524,10 +572,50 @@ public final class GetUserAuthenticationMethodResponseContent {
         }
 
         /**
+         * <p>Applies to webauthn/passkey authentication methods only. The credential's relying party identifier.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @Override
+        public _FinalStage relyingPartyIdentifier(String relyingPartyIdentifier) {
+            this.relyingPartyIdentifier = Optional.ofNullable(relyingPartyIdentifier);
+            return this;
+        }
+
+        /**
+         * <p>Applies to webauthn/passkey authentication methods only. The credential's relying party identifier.</p>
+         */
+        @Override
+        @JsonSetter(value = "relying_party_identifier", nulls = Nulls.SKIP)
+        public _FinalStage relyingPartyIdentifier(Optional<String> relyingPartyIdentifier) {
+            this.relyingPartyIdentifier = relyingPartyIdentifier;
+            return this;
+        }
+
+        /**
+         * <p>Applies to passkey authentication methods only. Authenticator Attestation Globally Unique Identifier.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @Override
+        public _FinalStage aaguid(String aaguid) {
+            this.aaguid = Optional.ofNullable(aaguid);
+            return this;
+        }
+
+        /**
+         * <p>Applies to passkey authentication methods only. Authenticator Attestation Globally Unique Identifier.</p>
+         */
+        @Override
+        @JsonSetter(value = "aaguid", nulls = Nulls.SKIP)
+        public _FinalStage aaguid(Optional<String> aaguid) {
+            this.aaguid = aaguid;
+            return this;
+        }
+
+        /**
          * <p>Applies to passkeys only. The user-agent of the browser used to create the passkey.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage userAgent(String userAgent) {
             this.userAgent = Optional.ofNullable(userAgent);
             return this;
@@ -536,7 +624,7 @@ public final class GetUserAuthenticationMethodResponseContent {
         /**
          * <p>Applies to passkeys only. The user-agent of the browser used to create the passkey.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "user_agent", nulls = Nulls.SKIP)
         public _FinalStage userAgent(Optional<String> userAgent) {
             this.userAgent = userAgent;
@@ -547,7 +635,7 @@ public final class GetUserAuthenticationMethodResponseContent {
          * <p>Applies to passkeys only. The ID of the user identity linked with the authentication method.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage identityUserId(String identityUserId) {
             this.identityUserId = Optional.ofNullable(identityUserId);
             return this;
@@ -556,7 +644,7 @@ public final class GetUserAuthenticationMethodResponseContent {
         /**
          * <p>Applies to passkeys only. The ID of the user identity linked with the authentication method.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "identity_user_id", nulls = Nulls.SKIP)
         public _FinalStage identityUserId(Optional<String> identityUserId) {
             this.identityUserId = identityUserId;
@@ -567,7 +655,7 @@ public final class GetUserAuthenticationMethodResponseContent {
          * <p>Applies to passkeys only. Whether the credential was backed up.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage credentialBackedUp(Boolean credentialBackedUp) {
             this.credentialBackedUp = Optional.ofNullable(credentialBackedUp);
             return this;
@@ -576,7 +664,7 @@ public final class GetUserAuthenticationMethodResponseContent {
         /**
          * <p>Applies to passkeys only. Whether the credential was backed up.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "credential_backed_up", nulls = Nulls.SKIP)
         public _FinalStage credentialBackedUp(Optional<Boolean> credentialBackedUp) {
             this.credentialBackedUp = credentialBackedUp;
@@ -587,7 +675,7 @@ public final class GetUserAuthenticationMethodResponseContent {
          * <p>Applies to passkeys only. The kind of device the credential is stored on as defined by backup eligibility. &quot;single_device&quot; credentials cannot be backed up and synced to another device, &quot;multi_device&quot; credentials can be backed up if enabled by the end-user.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage credentialDeviceType(String credentialDeviceType) {
             this.credentialDeviceType = Optional.ofNullable(credentialDeviceType);
             return this;
@@ -596,7 +684,7 @@ public final class GetUserAuthenticationMethodResponseContent {
         /**
          * <p>Applies to passkeys only. The kind of device the credential is stored on as defined by backup eligibility. &quot;single_device&quot; credentials cannot be backed up and synced to another device, &quot;multi_device&quot; credentials can be backed up if enabled by the end-user.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "credential_device_type", nulls = Nulls.SKIP)
         public _FinalStage credentialDeviceType(Optional<String> credentialDeviceType) {
             this.credentialDeviceType = credentialDeviceType;
@@ -607,7 +695,7 @@ public final class GetUserAuthenticationMethodResponseContent {
          * <p>Last authentication</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage lastAuthAt(OffsetDateTime lastAuthAt) {
             this.lastAuthAt = Optional.ofNullable(lastAuthAt);
             return this;
@@ -616,7 +704,7 @@ public final class GetUserAuthenticationMethodResponseContent {
         /**
          * <p>Last authentication</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "last_auth_at", nulls = Nulls.SKIP)
         public _FinalStage lastAuthAt(Optional<OffsetDateTime> lastAuthAt) {
             this.lastAuthAt = lastAuthAt;
@@ -627,7 +715,7 @@ public final class GetUserAuthenticationMethodResponseContent {
          * <p>Enrollment date</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage enrolledAt(OffsetDateTime enrolledAt) {
             this.enrolledAt = Optional.ofNullable(enrolledAt);
             return this;
@@ -636,7 +724,7 @@ public final class GetUserAuthenticationMethodResponseContent {
         /**
          * <p>Enrollment date</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "enrolled_at", nulls = Nulls.SKIP)
         public _FinalStage enrolledAt(Optional<OffsetDateTime> enrolledAt) {
             this.enrolledAt = enrolledAt;
@@ -647,7 +735,7 @@ public final class GetUserAuthenticationMethodResponseContent {
          * <p>Applies to webauthn authentication methods only. The public key.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage publicKey(String publicKey) {
             this.publicKey = Optional.ofNullable(publicKey);
             return this;
@@ -656,7 +744,7 @@ public final class GetUserAuthenticationMethodResponseContent {
         /**
          * <p>Applies to webauthn authentication methods only. The public key.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "public_key", nulls = Nulls.SKIP)
         public _FinalStage publicKey(Optional<String> publicKey) {
             this.publicKey = publicKey;
@@ -667,7 +755,7 @@ public final class GetUserAuthenticationMethodResponseContent {
          * <p>Applies to webauthn authentication methods only. The ID of the generated credential.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage keyId(String keyId) {
             this.keyId = Optional.ofNullable(keyId);
             return this;
@@ -676,7 +764,7 @@ public final class GetUserAuthenticationMethodResponseContent {
         /**
          * <p>Applies to webauthn authentication methods only. The ID of the generated credential.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "key_id", nulls = Nulls.SKIP)
         public _FinalStage keyId(Optional<String> keyId) {
             this.keyId = keyId;
@@ -687,7 +775,7 @@ public final class GetUserAuthenticationMethodResponseContent {
          * <p>Applies to email and email-verification authentication methods only. The email address used to send verification messages.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage email(String email) {
             this.email = Optional.ofNullable(email);
             return this;
@@ -696,7 +784,7 @@ public final class GetUserAuthenticationMethodResponseContent {
         /**
          * <p>Applies to email and email-verification authentication methods only. The email address used to send verification messages.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "email", nulls = Nulls.SKIP)
         public _FinalStage email(Optional<String> email) {
             this.email = email;
@@ -707,7 +795,7 @@ public final class GetUserAuthenticationMethodResponseContent {
          * <p>Applies to phone authentication methods only. The destination phone number used to send verification codes via text and voice.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage phoneNumber(String phoneNumber) {
             this.phoneNumber = Optional.ofNullable(phoneNumber);
             return this;
@@ -716,7 +804,7 @@ public final class GetUserAuthenticationMethodResponseContent {
         /**
          * <p>Applies to phone authentication methods only. The destination phone number used to send verification codes via text and voice.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "phone_number", nulls = Nulls.SKIP)
         public _FinalStage phoneNumber(Optional<String> phoneNumber) {
             this.phoneNumber = phoneNumber;
@@ -727,7 +815,7 @@ public final class GetUserAuthenticationMethodResponseContent {
          * <p>The ID of a linked authentication method. Linked authentication methods will be deleted together.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage linkId(String linkId) {
             this.linkId = Optional.ofNullable(linkId);
             return this;
@@ -736,21 +824,21 @@ public final class GetUserAuthenticationMethodResponseContent {
         /**
          * <p>The ID of a linked authentication method. Linked authentication methods will be deleted together.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "link_id", nulls = Nulls.SKIP)
         public _FinalStage linkId(Optional<String> linkId) {
             this.linkId = linkId;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage preferredAuthenticationMethod(
                 PreferredAuthenticationMethodEnum preferredAuthenticationMethod) {
             this.preferredAuthenticationMethod = Optional.ofNullable(preferredAuthenticationMethod);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "preferred_authentication_method", nulls = Nulls.SKIP)
         public _FinalStage preferredAuthenticationMethod(
                 Optional<PreferredAuthenticationMethodEnum> preferredAuthenticationMethod) {
@@ -758,13 +846,13 @@ public final class GetUserAuthenticationMethodResponseContent {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage authenticationMethods(List<UserAuthenticationMethodProperties> authenticationMethods) {
             this.authenticationMethods = Optional.ofNullable(authenticationMethods);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "authentication_methods", nulls = Nulls.SKIP)
         public _FinalStage authenticationMethods(
                 Optional<List<UserAuthenticationMethodProperties>> authenticationMethods) {
@@ -776,7 +864,7 @@ public final class GetUserAuthenticationMethodResponseContent {
          * <p>A human-readable label to identify the authentication method</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage name(String name) {
             this.name = Optional.ofNullable(name);
             return this;
@@ -785,7 +873,7 @@ public final class GetUserAuthenticationMethodResponseContent {
         /**
          * <p>A human-readable label to identify the authentication method</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<String> name) {
             this.name = name;
@@ -796,7 +884,7 @@ public final class GetUserAuthenticationMethodResponseContent {
          * <p>The authentication method status</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage confirmed(Boolean confirmed) {
             this.confirmed = Optional.ofNullable(confirmed);
             return this;
@@ -805,14 +893,14 @@ public final class GetUserAuthenticationMethodResponseContent {
         /**
          * <p>The authentication method status</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "confirmed", nulls = Nulls.SKIP)
         public _FinalStage confirmed(Optional<Boolean> confirmed) {
             this.confirmed = confirmed;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public GetUserAuthenticationMethodResponseContent build() {
             return new GetUserAuthenticationMethodResponseContent(
                     id,
@@ -833,6 +921,8 @@ public final class GetUserAuthenticationMethodResponseContent {
                     credentialBackedUp,
                     identityUserId,
                     userAgent,
+                    aaguid,
+                    relyingPartyIdentifier,
                     additionalProperties);
         }
     }

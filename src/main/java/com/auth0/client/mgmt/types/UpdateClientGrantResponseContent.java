@@ -35,6 +35,10 @@ public final class UpdateClientGrantResponseContent {
 
     private final Optional<Boolean> isSystem;
 
+    private final Optional<ClientGrantSubjectTypeEnum> subjectType;
+
+    private final Optional<List<String>> authorizationDetailsTypes;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateClientGrantResponseContent(
@@ -45,6 +49,8 @@ public final class UpdateClientGrantResponseContent {
             Optional<ClientGrantOrganizationUsageEnum> organizationUsage,
             Optional<Boolean> allowAnyOrganization,
             Optional<Boolean> isSystem,
+            Optional<ClientGrantSubjectTypeEnum> subjectType,
+            Optional<List<String>> authorizationDetailsTypes,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.clientId = clientId;
@@ -53,6 +59,8 @@ public final class UpdateClientGrantResponseContent {
         this.organizationUsage = organizationUsage;
         this.allowAnyOrganization = allowAnyOrganization;
         this.isSystem = isSystem;
+        this.subjectType = subjectType;
+        this.authorizationDetailsTypes = authorizationDetailsTypes;
         this.additionalProperties = additionalProperties;
     }
 
@@ -109,7 +117,20 @@ public final class UpdateClientGrantResponseContent {
         return isSystem;
     }
 
-    @java.lang.Override
+    @JsonProperty("subject_type")
+    public Optional<ClientGrantSubjectTypeEnum> getSubjectType() {
+        return subjectType;
+    }
+
+    /**
+     * @return Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s &lt;a href= &quot;https://www.okta.com/legal/&quot;&gt; Master Subscription Agreement.&lt;/a&gt;
+     */
+    @JsonProperty("authorization_details_types")
+    public Optional<List<String>> getAuthorizationDetailsTypes() {
+        return authorizationDetailsTypes;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateClientGrantResponseContent && equalTo((UpdateClientGrantResponseContent) other);
@@ -127,10 +148,12 @@ public final class UpdateClientGrantResponseContent {
                 && scope.equals(other.scope)
                 && organizationUsage.equals(other.organizationUsage)
                 && allowAnyOrganization.equals(other.allowAnyOrganization)
-                && isSystem.equals(other.isSystem);
+                && isSystem.equals(other.isSystem)
+                && subjectType.equals(other.subjectType)
+                && authorizationDetailsTypes.equals(other.authorizationDetailsTypes);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -139,10 +162,12 @@ public final class UpdateClientGrantResponseContent {
                 this.scope,
                 this.organizationUsage,
                 this.allowAnyOrganization,
-                this.isSystem);
+                this.isSystem,
+                this.subjectType,
+                this.authorizationDetailsTypes);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -167,6 +192,10 @@ public final class UpdateClientGrantResponseContent {
 
         private Optional<Boolean> isSystem = Optional.empty();
 
+        private Optional<ClientGrantSubjectTypeEnum> subjectType = Optional.empty();
+
+        private Optional<List<String>> authorizationDetailsTypes = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -180,6 +209,8 @@ public final class UpdateClientGrantResponseContent {
             organizationUsage(other.getOrganizationUsage());
             allowAnyOrganization(other.getAllowAnyOrganization());
             isSystem(other.getIsSystem());
+            subjectType(other.getSubjectType());
+            authorizationDetailsTypes(other.getAuthorizationDetailsTypes());
             return this;
         }
 
@@ -278,6 +309,31 @@ public final class UpdateClientGrantResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "subject_type", nulls = Nulls.SKIP)
+        public Builder subjectType(Optional<ClientGrantSubjectTypeEnum> subjectType) {
+            this.subjectType = subjectType;
+            return this;
+        }
+
+        public Builder subjectType(ClientGrantSubjectTypeEnum subjectType) {
+            this.subjectType = Optional.ofNullable(subjectType);
+            return this;
+        }
+
+        /**
+         * <p>Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s &lt;a href= &quot;https://www.okta.com/legal/&quot;&gt; Master Subscription Agreement.&lt;/a&gt;</p>
+         */
+        @JsonSetter(value = "authorization_details_types", nulls = Nulls.SKIP)
+        public Builder authorizationDetailsTypes(Optional<List<String>> authorizationDetailsTypes) {
+            this.authorizationDetailsTypes = authorizationDetailsTypes;
+            return this;
+        }
+
+        public Builder authorizationDetailsTypes(List<String> authorizationDetailsTypes) {
+            this.authorizationDetailsTypes = Optional.ofNullable(authorizationDetailsTypes);
+            return this;
+        }
+
         public UpdateClientGrantResponseContent build() {
             return new UpdateClientGrantResponseContent(
                     id,
@@ -287,6 +343,8 @@ public final class UpdateClientGrantResponseContent {
                     organizationUsage,
                     allowAnyOrganization,
                     isSystem,
+                    subjectType,
+                    authorizationDetailsTypes,
                     additionalProperties);
         }
     }

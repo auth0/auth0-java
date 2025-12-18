@@ -36,7 +36,7 @@ public final class ConnectionEnabledClient {
         return clientId;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionEnabledClient && equalTo((ConnectionEnabledClient) other);
@@ -51,12 +51,12 @@ public final class ConnectionEnabledClient {
         return clientId.equals(other.clientId);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.clientId);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -87,7 +87,7 @@ public final class ConnectionEnabledClient {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(ConnectionEnabledClient other) {
             clientId(other.getClientId());
             return this;
@@ -98,14 +98,14 @@ public final class ConnectionEnabledClient {
          * <p>The client id</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("client_id")
         public _FinalStage clientId(@NotNull String clientId) {
             this.clientId = Objects.requireNonNull(clientId, "clientId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public ConnectionEnabledClient build() {
             return new ConnectionEnabledClient(clientId, additionalProperties);
         }

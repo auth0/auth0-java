@@ -4,6 +4,7 @@
 package com.auth0.client.mgmt.types;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -28,7 +29,7 @@ public final class Organization {
 
     private final Optional<OrganizationBranding> branding;
 
-    private final Optional<Map<String, Object>> metadata;
+    private final Optional<Map<String, OptionalNullable<String>>> metadata;
 
     private final Optional<TokenQuota> tokenQuota;
 
@@ -39,7 +40,7 @@ public final class Organization {
             Optional<String> name,
             Optional<String> displayName,
             Optional<OrganizationBranding> branding,
-            Optional<Map<String, Object>> metadata,
+            Optional<Map<String, OptionalNullable<String>>> metadata,
             Optional<TokenQuota> tokenQuota,
             Map<String, Object> additionalProperties) {
         this.id = id;
@@ -81,7 +82,7 @@ public final class Organization {
     }
 
     @JsonProperty("metadata")
-    public Optional<Map<String, Object>> getMetadata() {
+    public Optional<Map<String, OptionalNullable<String>>> getMetadata() {
         return metadata;
     }
 
@@ -90,7 +91,7 @@ public final class Organization {
         return tokenQuota;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof Organization && equalTo((Organization) other);
@@ -110,12 +111,12 @@ public final class Organization {
                 && tokenQuota.equals(other.tokenQuota);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.id, this.name, this.displayName, this.branding, this.metadata, this.tokenQuota);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -134,7 +135,7 @@ public final class Organization {
 
         private Optional<OrganizationBranding> branding = Optional.empty();
 
-        private Optional<Map<String, Object>> metadata = Optional.empty();
+        private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
         private Optional<TokenQuota> tokenQuota = Optional.empty();
 
@@ -207,12 +208,12 @@ public final class Organization {
         }
 
         @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
-        public Builder metadata(Optional<Map<String, Object>> metadata) {
+        public Builder metadata(Optional<Map<String, OptionalNullable<String>>> metadata) {
             this.metadata = metadata;
             return this;
         }
 
-        public Builder metadata(Map<String, Object> metadata) {
+        public Builder metadata(Map<String, OptionalNullable<String>> metadata) {
             this.metadata = Optional.ofNullable(metadata);
             return this;
         }

@@ -82,7 +82,7 @@ public final class FlowActionActivecampaignUpsertContactParams {
         return customFields;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionActivecampaignUpsertContactParams
@@ -103,13 +103,13 @@ public final class FlowActionActivecampaignUpsertContactParams {
                 && customFields.equals(other.customFields);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.connectionId, this.email, this.firstName, this.lastName, this.phone, this.customFields);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -167,7 +167,7 @@ public final class FlowActionActivecampaignUpsertContactParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionActivecampaignUpsertContactParams other) {
             connectionId(other.getConnectionId());
             email(other.getEmail());
@@ -178,73 +178,73 @@ public final class FlowActionActivecampaignUpsertContactParams {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("connection_id")
         public EmailStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("email")
         public _FinalStage email(@NotNull String email) {
             this.email = Objects.requireNonNull(email, "email must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage customFields(Map<String, Object> customFields) {
             this.customFields = Optional.ofNullable(customFields);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "custom_fields", nulls = Nulls.SKIP)
         public _FinalStage customFields(Optional<Map<String, Object>> customFields) {
             this.customFields = customFields;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage phone(String phone) {
             this.phone = Optional.ofNullable(phone);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "phone", nulls = Nulls.SKIP)
         public _FinalStage phone(Optional<String> phone) {
             this.phone = phone;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage lastName(String lastName) {
             this.lastName = Optional.ofNullable(lastName);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "last_name", nulls = Nulls.SKIP)
         public _FinalStage lastName(Optional<String> lastName) {
             this.lastName = lastName;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage firstName(String firstName) {
             this.firstName = Optional.ofNullable(firstName);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "first_name", nulls = Nulls.SKIP)
         public _FinalStage firstName(Optional<String> firstName) {
             this.firstName = firstName;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionActivecampaignUpsertContactParams build() {
             return new FlowActionActivecampaignUpsertContactParams(
                     connectionId, email, firstName, lastName, phone, customFields, additionalProperties);

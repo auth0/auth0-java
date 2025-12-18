@@ -1,11 +1,13 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.types.CreateCustomDomainRequestContent;
 import com.auth0.client.mgmt.types.CreateCustomDomainResponseContent;
 import com.auth0.client.mgmt.types.CustomDomain;
 import com.auth0.client.mgmt.types.CustomDomainProvisioningTypeEnum;
 import com.auth0.client.mgmt.types.GetCustomDomainResponseContent;
+import com.auth0.client.mgmt.types.ListCustomDomainsRequestParameters;
 import com.auth0.client.mgmt.types.TestCustomDomainResponseContent;
 import com.auth0.client.mgmt.types.UpdateCustomDomainRequestContent;
 import com.auth0.client.mgmt.types.UpdateCustomDomainResponseContent;
@@ -47,8 +49,16 @@ public class CustomDomainsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "[{\"custom_domain_id\":\"custom_domain_id\",\"domain\":\"domain\",\"primary\":true,\"type\":\"auth0_managed_certs\",\"origin_domain_name\":\"origin_domain_name\",\"verification\":{\"methods\":[{\"name\":\"cname\",\"record\":\"record\"}]},\"custom_client_ip_header\":\"custom_client_ip_header\",\"tls_policy\":\"tls_policy\"}]"));
-        List<CustomDomain> response = client.customDomains().list();
+                                "[{\"custom_domain_id\":\"custom_domain_id\",\"domain\":\"domain\",\"primary\":true,\"status\":\"pending_verification\",\"type\":\"auth0_managed_certs\",\"origin_domain_name\":\"origin_domain_name\",\"verification\":{\"methods\":[{\"name\":\"cname\",\"record\":\"record\"}],\"status\":\"verified\",\"error_msg\":\"error_msg\",\"last_verified_at\":\"last_verified_at\"},\"custom_client_ip_header\":\"custom_client_ip_header\",\"tls_policy\":\"tls_policy\",\"domain_metadata\":{\"key\":\"value\"},\"certificate\":{\"status\":\"provisioning\",\"error_msg\":\"error_msg\",\"certificate_authority\":\"letsencrypt\",\"renews_before\":\"renews_before\"}}]"));
+        List<CustomDomain> response = client.customDomains()
+                .list(ListCustomDomainsRequestParameters.builder()
+                        .take(OptionalNullable.of(1))
+                        .from(OptionalNullable.of("from"))
+                        .q(OptionalNullable.of("q"))
+                        .fields(OptionalNullable.of("fields"))
+                        .includeFields(OptionalNullable.of(true))
+                        .sort(OptionalNullable.of("sort"))
+                        .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("GET", request.getMethod());
@@ -62,6 +72,7 @@ public class CustomDomainsWireTest {
                 + "    \"custom_domain_id\": \"custom_domain_id\",\n"
                 + "    \"domain\": \"domain\",\n"
                 + "    \"primary\": true,\n"
+                + "    \"status\": \"pending_verification\",\n"
                 + "    \"type\": \"auth0_managed_certs\",\n"
                 + "    \"origin_domain_name\": \"origin_domain_name\",\n"
                 + "    \"verification\": {\n"
@@ -70,10 +81,22 @@ public class CustomDomainsWireTest {
                 + "          \"name\": \"cname\",\n"
                 + "          \"record\": \"record\"\n"
                 + "        }\n"
-                + "      ]\n"
+                + "      ],\n"
+                + "      \"status\": \"verified\",\n"
+                + "      \"error_msg\": \"error_msg\",\n"
+                + "      \"last_verified_at\": \"last_verified_at\"\n"
                 + "    },\n"
                 + "    \"custom_client_ip_header\": \"custom_client_ip_header\",\n"
-                + "    \"tls_policy\": \"tls_policy\"\n"
+                + "    \"tls_policy\": \"tls_policy\",\n"
+                + "    \"domain_metadata\": {\n"
+                + "      \"key\": \"value\"\n"
+                + "    },\n"
+                + "    \"certificate\": {\n"
+                + "      \"status\": \"provisioning\",\n"
+                + "      \"error_msg\": \"error_msg\",\n"
+                + "      \"certificate_authority\": \"letsencrypt\",\n"
+                + "      \"renews_before\": \"renews_before\"\n"
+                + "    }\n"
                 + "  }\n"
                 + "]";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
@@ -113,7 +136,7 @@ public class CustomDomainsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"custom_domain_id\":\"custom_domain_id\",\"domain\":\"domain\",\"primary\":true,\"type\":\"auth0_managed_certs\",\"verification\":{\"methods\":[{\"name\":\"cname\",\"record\":\"record\"}]},\"custom_client_ip_header\":\"custom_client_ip_header\",\"tls_policy\":\"tls_policy\"}"));
+                                "{\"custom_domain_id\":\"custom_domain_id\",\"domain\":\"domain\",\"primary\":true,\"status\":\"pending_verification\",\"type\":\"auth0_managed_certs\",\"verification\":{\"methods\":[{\"name\":\"cname\",\"record\":\"record\"}],\"status\":\"verified\",\"error_msg\":\"error_msg\",\"last_verified_at\":\"last_verified_at\"},\"custom_client_ip_header\":\"custom_client_ip_header\",\"tls_policy\":\"tls_policy\",\"domain_metadata\":{\"key\":\"value\"},\"certificate\":{\"status\":\"provisioning\",\"error_msg\":\"error_msg\",\"certificate_authority\":\"letsencrypt\",\"renews_before\":\"renews_before\"}}"));
         CreateCustomDomainResponseContent response = client.customDomains()
                 .create(CreateCustomDomainRequestContent.builder()
                         .domain("domain")
@@ -161,6 +184,7 @@ public class CustomDomainsWireTest {
                 + "  \"custom_domain_id\": \"custom_domain_id\",\n"
                 + "  \"domain\": \"domain\",\n"
                 + "  \"primary\": true,\n"
+                + "  \"status\": \"pending_verification\",\n"
                 + "  \"type\": \"auth0_managed_certs\",\n"
                 + "  \"verification\": {\n"
                 + "    \"methods\": [\n"
@@ -168,10 +192,22 @@ public class CustomDomainsWireTest {
                 + "        \"name\": \"cname\",\n"
                 + "        \"record\": \"record\"\n"
                 + "      }\n"
-                + "    ]\n"
+                + "    ],\n"
+                + "    \"status\": \"verified\",\n"
+                + "    \"error_msg\": \"error_msg\",\n"
+                + "    \"last_verified_at\": \"last_verified_at\"\n"
                 + "  },\n"
                 + "  \"custom_client_ip_header\": \"custom_client_ip_header\",\n"
-                + "  \"tls_policy\": \"tls_policy\"\n"
+                + "  \"tls_policy\": \"tls_policy\",\n"
+                + "  \"domain_metadata\": {\n"
+                + "    \"key\": \"value\"\n"
+                + "  },\n"
+                + "  \"certificate\": {\n"
+                + "    \"status\": \"provisioning\",\n"
+                + "    \"error_msg\": \"error_msg\",\n"
+                + "    \"certificate_authority\": \"letsencrypt\",\n"
+                + "    \"renews_before\": \"renews_before\"\n"
+                + "  }\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -210,7 +246,7 @@ public class CustomDomainsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"custom_domain_id\":\"custom_domain_id\",\"domain\":\"domain\",\"primary\":true,\"type\":\"auth0_managed_certs\",\"origin_domain_name\":\"origin_domain_name\",\"verification\":{\"methods\":[{\"name\":\"cname\",\"record\":\"record\"}]},\"custom_client_ip_header\":\"custom_client_ip_header\",\"tls_policy\":\"tls_policy\"}"));
+                                "{\"custom_domain_id\":\"custom_domain_id\",\"domain\":\"domain\",\"primary\":true,\"status\":\"pending_verification\",\"type\":\"auth0_managed_certs\",\"origin_domain_name\":\"origin_domain_name\",\"verification\":{\"methods\":[{\"name\":\"cname\",\"record\":\"record\"}],\"status\":\"verified\",\"error_msg\":\"error_msg\",\"last_verified_at\":\"last_verified_at\"},\"custom_client_ip_header\":\"custom_client_ip_header\",\"tls_policy\":\"tls_policy\",\"domain_metadata\":{\"key\":\"value\"},\"certificate\":{\"status\":\"provisioning\",\"error_msg\":\"error_msg\",\"certificate_authority\":\"letsencrypt\",\"renews_before\":\"renews_before\"}}"));
         GetCustomDomainResponseContent response = client.customDomains().get("id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -224,6 +260,7 @@ public class CustomDomainsWireTest {
                 + "  \"custom_domain_id\": \"custom_domain_id\",\n"
                 + "  \"domain\": \"domain\",\n"
                 + "  \"primary\": true,\n"
+                + "  \"status\": \"pending_verification\",\n"
                 + "  \"type\": \"auth0_managed_certs\",\n"
                 + "  \"origin_domain_name\": \"origin_domain_name\",\n"
                 + "  \"verification\": {\n"
@@ -232,10 +269,22 @@ public class CustomDomainsWireTest {
                 + "        \"name\": \"cname\",\n"
                 + "        \"record\": \"record\"\n"
                 + "      }\n"
-                + "    ]\n"
+                + "    ],\n"
+                + "    \"status\": \"verified\",\n"
+                + "    \"error_msg\": \"error_msg\",\n"
+                + "    \"last_verified_at\": \"last_verified_at\"\n"
                 + "  },\n"
                 + "  \"custom_client_ip_header\": \"custom_client_ip_header\",\n"
-                + "  \"tls_policy\": \"tls_policy\"\n"
+                + "  \"tls_policy\": \"tls_policy\",\n"
+                + "  \"domain_metadata\": {\n"
+                + "    \"key\": \"value\"\n"
+                + "  },\n"
+                + "  \"certificate\": {\n"
+                + "    \"status\": \"provisioning\",\n"
+                + "    \"error_msg\": \"error_msg\",\n"
+                + "    \"certificate_authority\": \"letsencrypt\",\n"
+                + "    \"renews_before\": \"renews_before\"\n"
+                + "  }\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -283,7 +332,7 @@ public class CustomDomainsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"custom_domain_id\":\"custom_domain_id\",\"domain\":\"domain\",\"primary\":true,\"type\":\"auth0_managed_certs\",\"verification\":{\"methods\":[{\"name\":\"cname\",\"record\":\"record\"}]},\"custom_client_ip_header\":\"custom_client_ip_header\",\"tls_policy\":\"tls_policy\"}"));
+                                "{\"custom_domain_id\":\"custom_domain_id\",\"domain\":\"domain\",\"primary\":true,\"status\":\"pending_verification\",\"type\":\"auth0_managed_certs\",\"verification\":{\"methods\":[{\"name\":\"cname\",\"record\":\"record\"}],\"status\":\"verified\",\"error_msg\":\"error_msg\",\"last_verified_at\":\"last_verified_at\"},\"custom_client_ip_header\":\"custom_client_ip_header\",\"tls_policy\":\"tls_policy\",\"domain_metadata\":{\"key\":\"value\"},\"certificate\":{\"status\":\"provisioning\",\"error_msg\":\"error_msg\",\"certificate_authority\":\"letsencrypt\",\"renews_before\":\"renews_before\"}}"));
         UpdateCustomDomainResponseContent response = client.customDomains()
                 .update("id", UpdateCustomDomainRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -327,6 +376,7 @@ public class CustomDomainsWireTest {
                 + "  \"custom_domain_id\": \"custom_domain_id\",\n"
                 + "  \"domain\": \"domain\",\n"
                 + "  \"primary\": true,\n"
+                + "  \"status\": \"pending_verification\",\n"
                 + "  \"type\": \"auth0_managed_certs\",\n"
                 + "  \"verification\": {\n"
                 + "    \"methods\": [\n"
@@ -334,10 +384,22 @@ public class CustomDomainsWireTest {
                 + "        \"name\": \"cname\",\n"
                 + "        \"record\": \"record\"\n"
                 + "      }\n"
-                + "    ]\n"
+                + "    ],\n"
+                + "    \"status\": \"verified\",\n"
+                + "    \"error_msg\": \"error_msg\",\n"
+                + "    \"last_verified_at\": \"last_verified_at\"\n"
                 + "  },\n"
                 + "  \"custom_client_ip_header\": \"custom_client_ip_header\",\n"
-                + "  \"tls_policy\": \"tls_policy\"\n"
+                + "  \"tls_policy\": \"tls_policy\",\n"
+                + "  \"domain_metadata\": {\n"
+                + "    \"key\": \"value\"\n"
+                + "  },\n"
+                + "  \"certificate\": {\n"
+                + "    \"status\": \"provisioning\",\n"
+                + "    \"error_msg\": \"error_msg\",\n"
+                + "    \"certificate_authority\": \"letsencrypt\",\n"
+                + "    \"renews_before\": \"renews_before\"\n"
+                + "  }\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -419,7 +481,7 @@ public class CustomDomainsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"custom_domain_id\":\"custom_domain_id\",\"domain\":\"domain\",\"primary\":true,\"type\":\"auth0_managed_certs\",\"cname_api_key\":\"cname_api_key\",\"origin_domain_name\":\"origin_domain_name\",\"verification\":{\"methods\":[{\"name\":\"cname\",\"record\":\"record\"}]},\"custom_client_ip_header\":\"custom_client_ip_header\",\"tls_policy\":\"tls_policy\"}"));
+                                "{\"custom_domain_id\":\"custom_domain_id\",\"domain\":\"domain\",\"primary\":true,\"status\":\"pending_verification\",\"type\":\"auth0_managed_certs\",\"cname_api_key\":\"cname_api_key\",\"origin_domain_name\":\"origin_domain_name\",\"verification\":{\"methods\":[{\"name\":\"cname\",\"record\":\"record\"}],\"status\":\"verified\",\"error_msg\":\"error_msg\",\"last_verified_at\":\"last_verified_at\"},\"custom_client_ip_header\":\"custom_client_ip_header\",\"tls_policy\":\"tls_policy\",\"domain_metadata\":{\"key\":\"value\"},\"certificate\":{\"status\":\"provisioning\",\"error_msg\":\"error_msg\",\"certificate_authority\":\"letsencrypt\",\"renews_before\":\"renews_before\"}}"));
         VerifyCustomDomainResponseContent response = client.customDomains().verify("id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -433,6 +495,7 @@ public class CustomDomainsWireTest {
                 + "  \"custom_domain_id\": \"custom_domain_id\",\n"
                 + "  \"domain\": \"domain\",\n"
                 + "  \"primary\": true,\n"
+                + "  \"status\": \"pending_verification\",\n"
                 + "  \"type\": \"auth0_managed_certs\",\n"
                 + "  \"cname_api_key\": \"cname_api_key\",\n"
                 + "  \"origin_domain_name\": \"origin_domain_name\",\n"
@@ -442,10 +505,22 @@ public class CustomDomainsWireTest {
                 + "        \"name\": \"cname\",\n"
                 + "        \"record\": \"record\"\n"
                 + "      }\n"
-                + "    ]\n"
+                + "    ],\n"
+                + "    \"status\": \"verified\",\n"
+                + "    \"error_msg\": \"error_msg\",\n"
+                + "    \"last_verified_at\": \"last_verified_at\"\n"
                 + "  },\n"
                 + "  \"custom_client_ip_header\": \"custom_client_ip_header\",\n"
-                + "  \"tls_policy\": \"tls_policy\"\n"
+                + "  \"tls_policy\": \"tls_policy\",\n"
+                + "  \"domain_metadata\": {\n"
+                + "    \"key\": \"value\"\n"
+                + "  },\n"
+                + "  \"certificate\": {\n"
+                + "    \"status\": \"provisioning\",\n"
+                + "    \"error_msg\": \"error_msg\",\n"
+                + "    \"certificate_authority\": \"letsencrypt\",\n"
+                + "    \"renews_before\": \"renews_before\"\n"
+                + "  }\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -479,24 +554,29 @@ public class CustomDomainsWireTest {
     }
 
     /**
-     * Compares two JsonNodes with numeric equivalence.
+     * Compares two JsonNodes with numeric equivalence and null safety.
+     * For objects, checks that all fields in 'expected' exist in 'actual' with matching values.
+     * Allows 'actual' to have extra fields (e.g., default values added during serialization).
      */
-    private boolean jsonEquals(JsonNode a, JsonNode b) {
-        if (a.equals(b)) return true;
-        if (a.isNumber() && b.isNumber()) return Math.abs(a.doubleValue() - b.doubleValue()) < 1e-10;
-        if (a.isObject() && b.isObject()) {
-            if (a.size() != b.size()) return false;
-            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = a.fields();
+    private boolean jsonEquals(JsonNode expected, JsonNode actual) {
+        if (expected == null && actual == null) return true;
+        if (expected == null || actual == null) return false;
+        if (expected.equals(actual)) return true;
+        if (expected.isNumber() && actual.isNumber())
+            return Math.abs(expected.doubleValue() - actual.doubleValue()) < 1e-10;
+        if (expected.isObject() && actual.isObject()) {
+            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = expected.fields();
             while (iter.hasNext()) {
                 java.util.Map.Entry<String, JsonNode> entry = iter.next();
-                if (!jsonEquals(entry.getValue(), b.get(entry.getKey()))) return false;
+                JsonNode actualValue = actual.get(entry.getKey());
+                if (actualValue == null || !jsonEquals(entry.getValue(), actualValue)) return false;
             }
             return true;
         }
-        if (a.isArray() && b.isArray()) {
-            if (a.size() != b.size()) return false;
-            for (int i = 0; i < a.size(); i++) {
-                if (!jsonEquals(a.get(i), b.get(i))) return false;
+        if (expected.isArray() && actual.isArray()) {
+            if (expected.size() != actual.size()) return false;
+            for (int i = 0; i < expected.size(); i++) {
+                if (!jsonEquals(expected.get(i), actual.get(i))) return false;
             }
             return true;
         }

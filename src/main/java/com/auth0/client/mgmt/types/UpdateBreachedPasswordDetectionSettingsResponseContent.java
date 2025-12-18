@@ -84,7 +84,7 @@ public final class UpdateBreachedPasswordDetectionSettingsResponseContent {
         return stage;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateBreachedPasswordDetectionSettingsResponseContent
@@ -104,12 +104,12 @@ public final class UpdateBreachedPasswordDetectionSettingsResponseContent {
                 && stage.equals(other.stage);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.enabled, this.shields, this.adminNotificationFrequency, this.method, this.stage);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

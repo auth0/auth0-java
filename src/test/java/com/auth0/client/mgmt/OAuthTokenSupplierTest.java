@@ -26,7 +26,6 @@ public class OAuthTokenSupplierTest {
 
         // Verify object was created successfully
         assert supplier != null;
-        System.out.println("✓ OAuthTokenSupplier handles special characters safely");
     }
 
     /**
@@ -41,8 +40,6 @@ public class OAuthTokenSupplierTest {
                     "client-id-" + i, "client-secret-" + i, "https://tenant-" + i + ".auth0.com", null);
             assert supplier != null;
         }
-
-        System.out.println("✓ Multiple OAuthTokenSupplier instances created without resource leaks");
     }
 
     /**
@@ -66,7 +63,6 @@ public class OAuthTokenSupplierTest {
         // Both should work without issues (trailing slash normalized)
         assert supplier1 != null;
         assert supplier2 != null;
-        System.out.println("✓ Base URL trailing slash normalization works");
     }
 
     /**
@@ -82,7 +78,6 @@ public class OAuthTokenSupplierTest {
         assert options.getClientSecret().equals("client-secret");
         assert options.getBaseUrl().equals("https://example.auth0.com");
         assert options.hasClientCredentials();
-        System.out.println("✓ RequestOptions.withClientCredentials() works");
     }
 
     @Test
@@ -92,7 +87,6 @@ public class OAuthTokenSupplierTest {
 
         assert options != null;
         assert options.getAudience().equals("https://custom-api.com/api/v2/");
-        System.out.println("✓ RequestOptions.withClientCredentialsAndAudience() works");
     }
 
     @Test
@@ -108,7 +102,6 @@ public class OAuthTokenSupplierTest {
         assert options.hasClientCredentials();
         assert options.getClientId().equals("client-id");
         assert options.getBaseUrl().equals("https://example.auth0.com");
-        System.out.println("✓ RequestOptions.builder() pattern works");
     }
 
     @Test
@@ -118,41 +111,5 @@ public class OAuthTokenSupplierTest {
         assert options != null;
         assert !options.hasClientCredentials();
         assert options.getClientId() == null;
-        System.out.println("✓ RequestOptions without credentials works");
-    }
-
-    /**
-     * Run all tests and print summary.
-     */
-    public static void main(String[] args) {
-        OAuthTokenSupplierTest test = new OAuthTokenSupplierTest();
-
-        System.out.println("\n=== Running OAuth Per-Request Credentials Tests ===\n");
-
-        // Run each test
-        test.testSpecialCharactersInCredentials();
-        test.testMultipleSupplierCreation();
-        test.testTrailingSlashNormalization();
-        test.testRequestOptionsCreation();
-        test.testRequestOptionsWithAudience();
-        test.testRequestOptionsBuilder();
-        test.testRequestOptionsWithoutCredentials();
-
-        // Test validation
-        try {
-            test.testNullBaseUrl();
-            System.out.println("✗ testNullBaseUrl should have thrown exception");
-        } catch (IllegalArgumentException e) {
-            System.out.println("✓ Null base URL validation works");
-        }
-
-        try {
-            test.testEmptyBaseUrl();
-            System.out.println("✗ testEmptyBaseUrl should have thrown exception");
-        } catch (IllegalArgumentException e) {
-            System.out.println("✓ Empty base URL validation works");
-        }
-
-        System.out.println("\n=== All Tests Passed! ===\n");
     }
 }

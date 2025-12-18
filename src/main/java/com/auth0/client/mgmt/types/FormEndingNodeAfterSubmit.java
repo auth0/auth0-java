@@ -34,7 +34,7 @@ public final class FormEndingNodeAfterSubmit {
         return flowId;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormEndingNodeAfterSubmit && equalTo((FormEndingNodeAfterSubmit) other);
@@ -49,12 +49,12 @@ public final class FormEndingNodeAfterSubmit {
         return flowId.equals(other.flowId);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.flowId);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

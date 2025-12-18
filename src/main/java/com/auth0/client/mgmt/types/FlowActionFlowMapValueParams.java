@@ -55,7 +55,7 @@ public final class FlowActionFlowMapValueParams {
         return fallback;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionFlowMapValueParams && equalTo((FlowActionFlowMapValueParams) other);
@@ -70,12 +70,12 @@ public final class FlowActionFlowMapValueParams {
         return input.equals(other.input) && cases.equals(other.cases) && fallback.equals(other.fallback);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.input, this.cases, this.fallback);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -115,7 +115,7 @@ public final class FlowActionFlowMapValueParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionFlowMapValueParams other) {
             input(other.getInput());
             cases(other.getCases());
@@ -123,40 +123,40 @@ public final class FlowActionFlowMapValueParams {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("input")
         public _FinalStage input(@NotNull FlowActionFlowMapValueParamsInput input) {
             this.input = Objects.requireNonNull(input, "input must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage fallback(FlowActionFlowMapValueParamsFallback fallback) {
             this.fallback = Optional.ofNullable(fallback);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "fallback", nulls = Nulls.SKIP)
         public _FinalStage fallback(Optional<FlowActionFlowMapValueParamsFallback> fallback) {
             this.fallback = fallback;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage cases(Map<String, Object> cases) {
             this.cases = Optional.ofNullable(cases);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "cases", nulls = Nulls.SKIP)
         public _FinalStage cases(Optional<Map<String, Object>> cases) {
             this.cases = cases;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionFlowMapValueParams build() {
             return new FlowActionFlowMapValueParams(input, cases, fallback, additionalProperties);
         }

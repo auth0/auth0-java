@@ -75,7 +75,7 @@ public final class ClientAddonSalesforceApi {
         return communityUrlSection;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientAddonSalesforceApi && equalTo((ClientAddonSalesforceApi) other);
@@ -93,12 +93,12 @@ public final class ClientAddonSalesforceApi {
                 && communityUrlSection.equals(other.communityUrlSection);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.clientid, this.principal, this.communityName, this.communityUrlSection);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

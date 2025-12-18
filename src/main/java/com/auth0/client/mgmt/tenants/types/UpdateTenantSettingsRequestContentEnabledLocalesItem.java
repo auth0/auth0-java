@@ -263,20 +263,20 @@ public final class UpdateTenantSettingsRequestContentEnabledLocalesItem {
         return value;
     }
 
-    @java.lang.Override
+    @Override
     @JsonValue
     public String toString() {
         return this.string;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         return (this == other)
                 || (other instanceof UpdateTenantSettingsRequestContentEnabledLocalesItem
                         && this.string.equals(((UpdateTenantSettingsRequestContentEnabledLocalesItem) other).string));
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return this.string.hashCode();
     }

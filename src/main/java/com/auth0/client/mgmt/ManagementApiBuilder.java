@@ -5,9 +5,11 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.Environment;
+import com.auth0.client.mgmt.core.OAuthTokenSupplier;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Supplier;
 import okhttp3.OkHttpClient;
 
 public class ManagementApiBuilder {
@@ -22,6 +24,12 @@ public class ManagementApiBuilder {
     private Environment environment = Environment.DEFAULT;
 
     private OkHttpClient httpClient;
+
+    // Domain-based initialization fields
+    private String domain = null;
+    private String clientId = null;
+    private String clientSecret = null;
+    private String audience = null;
 
     /**
      * Sets token
@@ -38,6 +46,64 @@ public class ManagementApiBuilder {
 
     public ManagementApiBuilder url(String url) {
         this.environment = Environment.custom(url);
+        return this;
+    }
+
+    /**
+     * Sets the Auth0 domain for the client.
+     * This will automatically construct the Management API URL as https://{domain}/api/v2
+     *
+     * <p>Example:
+     * <pre>{@code
+     * ManagementApi client = ManagementApi.builder()
+     *     .domain("your-tenant.auth0.com")
+     *     .clientCredentials("clientId", "clientSecret")
+     *     .build();
+     * }</pre>
+     *
+     * @param domain The Auth0 domain (e.g., "your-tenant.auth0.com")
+     * @return This builder for method chaining
+     */
+    public ManagementApiBuilder domain(String domain) {
+        this.domain = domain;
+        return this;
+    }
+
+    /**
+     * Sets OAuth client credentials for automatic token management.
+     * When using client credentials, the SDK will automatically fetch and cache
+     * access tokens, refreshing them before expiry.
+     *
+     * <p>This is the recommended authentication method for server-to-server
+     * applications using the client credentials grant.
+     *
+     * <p>Example:
+     * <pre>{@code
+     * ManagementApi client = ManagementApi.builder()
+     *     .domain("your-tenant.auth0.com")
+     *     .clientCredentials("your-client-id", "your-client-secret")
+     *     .build();
+     * }</pre>
+     *
+     * @param clientId The OAuth client ID
+     * @param clientSecret The OAuth client secret
+     * @return This builder for method chaining
+     */
+    public ManagementApiBuilder clientCredentials(String clientId, String clientSecret) {
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+        return this;
+    }
+
+    /**
+     * Sets a custom audience for the OAuth token request.
+     * If not specified, defaults to https://{domain}/api/v2/
+     *
+     * @param audience The API audience for the token request
+     * @return This builder for method chaining
+     */
+    public ManagementApiBuilder audience(String audience) {
+        this.audience = audience;
         return this;
     }
 
@@ -94,31 +160,58 @@ public class ManagementApiBuilder {
 
     /**
      * Sets the environment configuration for the client.
-     * Override this method to modify URLs or add environment-specific logic.
+     * When domain is set, constructs the URL as https://{domain}/api/v2
+     * Otherwise uses the environment or url() configuration.
      *
      * @param builder The ClientOptions.Builder to configure
      */
     protected void setEnvironment(ClientOptions.Builder builder) {
-        builder.environment(this.environment);
+        if (this.domain != null) {
+            String url = "https://" + this.domain + "/api/v2";
+            builder.environment(Environment.custom(url));
+        } else {
+            builder.environment(this.environment);
+        }
     }
 
     /**
-     * Override this method to customize authentication.
-     * This method is called during client options construction to set up authentication headers.
+     * Returns the base URL for OAuth token requests.
+     * This is used internally by setAuthentication() to configure the OAuthTokenSupplier.
+     *
+     * @return The base URL (e.g., "https://your-tenant.auth0.com")
+     */
+    protected String getBaseUrl() {
+        if (this.domain != null) {
+            return "https://" + this.domain;
+        }
+        // Extract base URL from environment URL by removing /api/v2 suffix
+        String envUrl = this.environment.getUrl();
+        if (envUrl.endsWith("/api/v2")) {
+            return envUrl.substring(0, envUrl.length() - 7);
+        }
+        return envUrl;
+    }
+
+    /**
+     * Sets up authentication for the client.
+     * Supports both static token authentication and OAuth client credentials.
+     *
+     * <p>When client credentials are configured, creates an OAuthTokenSupplier that
+     * automatically fetches and caches access tokens, refreshing them before expiry.
      *
      * @param builder The ClientOptions.Builder to configure
-     *
-     * Example:
-     * <pre>{@code
-     * &#64;Override
-     * protected void setAuthentication(ClientOptions.Builder builder) {
-     *     super.setAuthentication(builder); // Keep existing auth
-     *     builder.addHeader("X-API-Key", this.apiKey);
-     * }
-     * }</pre>
      */
     protected void setAuthentication(ClientOptions.Builder builder) {
-        if (this.token != null) {
+        if (this.clientId != null && this.clientSecret != null) {
+            // OAuth client credentials flow with automatic token management
+            String baseUrl = getBaseUrl();
+            String aud = this.audience != null ? this.audience : baseUrl + "/api/v2/";
+
+            OAuthTokenSupplier tokenSupplier = new OAuthTokenSupplier(this.clientId, this.clientSecret, baseUrl, aud);
+
+            builder.addHeader("Authorization", (Supplier<String>) () -> "Bearer " + tokenSupplier.get());
+        } else if (this.token != null) {
+            // Static token authentication
             builder.addHeader("Authorization", "Bearer " + this.token);
         }
     }
@@ -195,10 +288,40 @@ public class ManagementApiBuilder {
      */
     protected void validateConfiguration() {}
 
+    /**
+     * Builds the ManagementApi client with the configured options.
+     *
+     * <p>Requires either:
+     * <ul>
+     *   <li>A static token via {@link #token(String)}, OR</li>
+     *   <li>OAuth client credentials via {@link #clientCredentials(String, String)}</li>
+     * </ul>
+     *
+     * <p>The API URL can be configured via:
+     * <ul>
+     *   <li>{@link #domain(String)} - recommended, automatically constructs the URL</li>
+     *   <li>{@link #url(String)} - full URL specification</li>
+     *   <li>{@link #environment(Environment)} - environment-based configuration</li>
+     * </ul>
+     *
+     * @return A configured ManagementApi client instance
+     * @throws RuntimeException if authentication is not configured
+     */
     public ManagementApi build() {
-        if (token == null) {
-            throw new RuntimeException("Please provide token");
+        // Validate authentication: require either token OR clientCredentials
+        boolean hasToken = this.token != null;
+        boolean hasClientCredentials = this.clientId != null && this.clientSecret != null;
+
+        if (!hasToken && !hasClientCredentials) {
+            throw new RuntimeException(
+                    "Please provide authentication: either token() or clientCredentials(clientId, clientSecret)");
         }
+
+        // Validate that if clientId is provided, clientSecret is also provided
+        if (this.clientId != null && this.clientSecret == null) {
+            throw new RuntimeException("clientSecret is required when using clientCredentials");
+        }
+
         validateConfiguration();
         return new ManagementApi(buildClientOptions());
     }

@@ -76,12 +76,25 @@ public class AsyncRawActionsClient {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("actions/actions");
-        QueryStringMapper.addQueryParameter(httpUrl, "triggerId", request.getTriggerId(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "actionName", request.getActionName(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "deployed", request.getDeployed(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "per_page", request.getPerPage(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "installed", request.getInstalled(), false);
+        if (!request.getTriggerId().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "triggerId", request.getTriggerId().orElse(null), false);
+        }
+        if (!request.getActionName().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "actionName", request.getActionName().orElse(null), false);
+        }
+        if (!request.getDeployed().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "deployed", request.getDeployed().orElse(null), false);
+        }
+        QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage().orElse(0), false);
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "per_page", request.getPerPage().orElse(50), false);
+        if (!request.getInstalled().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "installed", request.getInstalled().orElse(null), false);
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -366,7 +379,10 @@ public class AsyncRawActionsClient {
                 .newBuilder()
                 .addPathSegments("actions/actions")
                 .addPathSegment(id);
-        QueryStringMapper.addQueryParameter(httpUrl, "force", request.getForce(), false);
+        if (!request.getForce().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "force", request.getForce().orElse(null), false);
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("DELETE", null)

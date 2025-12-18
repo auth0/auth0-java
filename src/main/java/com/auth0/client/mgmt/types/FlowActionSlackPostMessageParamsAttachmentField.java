@@ -52,7 +52,7 @@ public final class FlowActionSlackPostMessageParamsAttachmentField {
         return short_;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionSlackPostMessageParamsAttachmentField
@@ -68,12 +68,12 @@ public final class FlowActionSlackPostMessageParamsAttachmentField {
         return title.equals(other.title) && value.equals(other.value) && short_.equals(other.short_);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.title, this.value, this.short_);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -113,7 +113,7 @@ public final class FlowActionSlackPostMessageParamsAttachmentField {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionSlackPostMessageParamsAttachmentField other) {
             title(other.getTitle());
             value(other.getValue());
@@ -121,40 +121,40 @@ public final class FlowActionSlackPostMessageParamsAttachmentField {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("title")
         public _FinalStage title(@NotNull String title) {
             this.title = Objects.requireNonNull(title, "title must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage short_(Boolean short_) {
             this.short_ = Optional.ofNullable(short_);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "short", nulls = Nulls.SKIP)
         public _FinalStage short_(Optional<Boolean> short_) {
             this.short_ = short_;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage value(String value) {
             this.value = Optional.ofNullable(value);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "value", nulls = Nulls.SKIP)
         public _FinalStage value(Optional<String> value) {
             this.value = value;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionSlackPostMessageParamsAttachmentField build() {
             return new FlowActionSlackPostMessageParamsAttachmentField(title, value, short_, additionalProperties);
         }

@@ -226,7 +226,7 @@ public final class CreateUserRequestContent {
         return username;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateUserRequestContent && equalTo((CreateUserRequestContent) other);
@@ -257,7 +257,7 @@ public final class CreateUserRequestContent {
                 && username.equals(other.username);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.email,
@@ -279,7 +279,7 @@ public final class CreateUserRequestContent {
                 this.username);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -448,7 +448,7 @@ public final class CreateUserRequestContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(CreateUserRequestContent other) {
             email(other.getEmail());
             phoneNumber(other.getPhoneNumber());
@@ -475,7 +475,7 @@ public final class CreateUserRequestContent {
          * <p>Name of the connection this user should be created in.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("connection")
         public _FinalStage connection(@NotNull String connection) {
             this.connection = Objects.requireNonNull(connection, "connection must not be null");
@@ -486,7 +486,7 @@ public final class CreateUserRequestContent {
          * <p>The user's username. Only valid if the connection requires a username.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage username(String username) {
             this.username = Optional.ofNullable(username);
             return this;
@@ -495,7 +495,7 @@ public final class CreateUserRequestContent {
         /**
          * <p>The user's username. Only valid if the connection requires a username.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "username", nulls = Nulls.SKIP)
         public _FinalStage username(Optional<String> username) {
             this.username = username;
@@ -506,7 +506,7 @@ public final class CreateUserRequestContent {
          * <p>Whether the user will receive a verification email after creation (true) or no email (false). Overrides behavior of <code>email_verified</code> parameter.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage verifyEmail(Boolean verifyEmail) {
             this.verifyEmail = Optional.ofNullable(verifyEmail);
             return this;
@@ -515,7 +515,7 @@ public final class CreateUserRequestContent {
         /**
          * <p>Whether the user will receive a verification email after creation (true) or no email (false). Overrides behavior of <code>email_verified</code> parameter.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "verify_email", nulls = Nulls.SKIP)
         public _FinalStage verifyEmail(Optional<Boolean> verifyEmail) {
             this.verifyEmail = verifyEmail;
@@ -526,7 +526,7 @@ public final class CreateUserRequestContent {
          * <p>Initial password for this user. Only valid for auth0 connection strategy.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage password(String password) {
             this.password = Optional.ofNullable(password);
             return this;
@@ -535,7 +535,7 @@ public final class CreateUserRequestContent {
         /**
          * <p>Initial password for this user. Only valid for auth0 connection strategy.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "password", nulls = Nulls.SKIP)
         public _FinalStage password(Optional<String> password) {
             this.password = password;
@@ -546,7 +546,7 @@ public final class CreateUserRequestContent {
          * <p>The external user's id provided by the identity provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage userId(String userId) {
             this.userId = Optional.ofNullable(userId);
             return this;
@@ -555,7 +555,7 @@ public final class CreateUserRequestContent {
         /**
          * <p>The external user's id provided by the identity provider.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "user_id", nulls = Nulls.SKIP)
         public _FinalStage userId(Optional<String> userId) {
             this.userId = userId;
@@ -566,7 +566,7 @@ public final class CreateUserRequestContent {
          * <p>A URI pointing to the user's picture.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage picture(String picture) {
             this.picture = Optional.ofNullable(picture);
             return this;
@@ -575,7 +575,7 @@ public final class CreateUserRequestContent {
         /**
          * <p>A URI pointing to the user's picture.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "picture", nulls = Nulls.SKIP)
         public _FinalStage picture(Optional<String> picture) {
             this.picture = picture;
@@ -586,7 +586,7 @@ public final class CreateUserRequestContent {
          * <p>The user's nickname.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage nickname(String nickname) {
             this.nickname = Optional.ofNullable(nickname);
             return this;
@@ -595,7 +595,7 @@ public final class CreateUserRequestContent {
         /**
          * <p>The user's nickname.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "nickname", nulls = Nulls.SKIP)
         public _FinalStage nickname(Optional<String> nickname) {
             this.nickname = nickname;
@@ -606,7 +606,7 @@ public final class CreateUserRequestContent {
          * <p>The user's full name.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage name(String name) {
             this.name = Optional.ofNullable(name);
             return this;
@@ -615,7 +615,7 @@ public final class CreateUserRequestContent {
         /**
          * <p>The user's full name.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<String> name) {
             this.name = name;
@@ -626,7 +626,7 @@ public final class CreateUserRequestContent {
          * <p>The user's family name(s).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage familyName(String familyName) {
             this.familyName = Optional.ofNullable(familyName);
             return this;
@@ -635,7 +635,7 @@ public final class CreateUserRequestContent {
         /**
          * <p>The user's family name(s).</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "family_name", nulls = Nulls.SKIP)
         public _FinalStage familyName(Optional<String> familyName) {
             this.familyName = familyName;
@@ -646,7 +646,7 @@ public final class CreateUserRequestContent {
          * <p>The user's given name(s).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage givenName(String givenName) {
             this.givenName = Optional.ofNullable(givenName);
             return this;
@@ -655,20 +655,20 @@ public final class CreateUserRequestContent {
         /**
          * <p>The user's given name(s).</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "given_name", nulls = Nulls.SKIP)
         public _FinalStage givenName(Optional<String> givenName) {
             this.givenName = givenName;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage appMetadata(Map<String, Object> appMetadata) {
             this.appMetadata = Optional.ofNullable(appMetadata);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "app_metadata", nulls = Nulls.SKIP)
         public _FinalStage appMetadata(Optional<Map<String, Object>> appMetadata) {
             this.appMetadata = appMetadata;
@@ -679,7 +679,7 @@ public final class CreateUserRequestContent {
          * <p>Whether this phone number has been verified (true) or not (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage phoneVerified(Boolean phoneVerified) {
             this.phoneVerified = Optional.ofNullable(phoneVerified);
             return this;
@@ -688,7 +688,7 @@ public final class CreateUserRequestContent {
         /**
          * <p>Whether this phone number has been verified (true) or not (false).</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "phone_verified", nulls = Nulls.SKIP)
         public _FinalStage phoneVerified(Optional<Boolean> phoneVerified) {
             this.phoneVerified = phoneVerified;
@@ -699,7 +699,7 @@ public final class CreateUserRequestContent {
          * <p>Whether this email address is verified (true) or unverified (false). User will receive a verification email after creation if <code>email_verified</code> is false or not specified</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage emailVerified(Boolean emailVerified) {
             this.emailVerified = Optional.ofNullable(emailVerified);
             return this;
@@ -708,7 +708,7 @@ public final class CreateUserRequestContent {
         /**
          * <p>Whether this email address is verified (true) or unverified (false). User will receive a verification email after creation if <code>email_verified</code> is false or not specified</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "email_verified", nulls = Nulls.SKIP)
         public _FinalStage emailVerified(Optional<Boolean> emailVerified) {
             this.emailVerified = emailVerified;
@@ -719,7 +719,7 @@ public final class CreateUserRequestContent {
          * <p>Whether this user was blocked by an administrator (true) or not (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage blocked(Boolean blocked) {
             this.blocked = Optional.ofNullable(blocked);
             return this;
@@ -728,20 +728,20 @@ public final class CreateUserRequestContent {
         /**
          * <p>Whether this user was blocked by an administrator (true) or not (false).</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "blocked", nulls = Nulls.SKIP)
         public _FinalStage blocked(Optional<Boolean> blocked) {
             this.blocked = blocked;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage userMetadata(Map<String, Object> userMetadata) {
             this.userMetadata = Optional.ofNullable(userMetadata);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "user_metadata", nulls = Nulls.SKIP)
         public _FinalStage userMetadata(Optional<Map<String, Object>> userMetadata) {
             this.userMetadata = userMetadata;
@@ -752,7 +752,7 @@ public final class CreateUserRequestContent {
          * <p>The user's phone number (following the E.164 recommendation).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage phoneNumber(String phoneNumber) {
             this.phoneNumber = Optional.ofNullable(phoneNumber);
             return this;
@@ -761,7 +761,7 @@ public final class CreateUserRequestContent {
         /**
          * <p>The user's phone number (following the E.164 recommendation).</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "phone_number", nulls = Nulls.SKIP)
         public _FinalStage phoneNumber(Optional<String> phoneNumber) {
             this.phoneNumber = phoneNumber;
@@ -772,7 +772,7 @@ public final class CreateUserRequestContent {
          * <p>The user's email.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage email(String email) {
             this.email = Optional.ofNullable(email);
             return this;
@@ -781,14 +781,14 @@ public final class CreateUserRequestContent {
         /**
          * <p>The user's email.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "email", nulls = Nulls.SKIP)
         public _FinalStage email(Optional<String> email) {
             this.email = email;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public CreateUserRequestContent build() {
             return new CreateUserRequestContent(
                     email,

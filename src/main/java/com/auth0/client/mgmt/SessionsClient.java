@@ -6,6 +6,8 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.types.GetSessionResponseContent;
+import com.auth0.client.mgmt.types.UpdateSessionRequestContent;
+import com.auth0.client.mgmt.types.UpdateSessionResponseContent;
 
 public class SessionsClient {
     protected final ClientOptions clientOptions;
@@ -50,6 +52,28 @@ public class SessionsClient {
      */
     public void delete(String id, RequestOptions requestOptions) {
         this.rawClient.delete(id, requestOptions).body();
+    }
+
+    /**
+     * Update session information.
+     */
+    public UpdateSessionResponseContent update(String id) {
+        return this.rawClient.update(id).body();
+    }
+
+    /**
+     * Update session information.
+     */
+    public UpdateSessionResponseContent update(String id, UpdateSessionRequestContent request) {
+        return this.rawClient.update(id, request).body();
+    }
+
+    /**
+     * Update session information.
+     */
+    public UpdateSessionResponseContent update(
+            String id, UpdateSessionRequestContent request, RequestOptions requestOptions) {
+        return this.rawClient.update(id, request, requestOptions).body();
     }
 
     /**

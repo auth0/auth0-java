@@ -73,7 +73,7 @@ public final class ListLogOffsetPaginatedResponseContent {
         return logs;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListLogOffsetPaginatedResponseContent
@@ -93,12 +93,12 @@ public final class ListLogOffsetPaginatedResponseContent {
                 && logs.equals(other.logs);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.start, this.limit, this.length, this.total, this.logs);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

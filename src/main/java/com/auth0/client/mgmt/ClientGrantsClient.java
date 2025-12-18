@@ -37,21 +37,21 @@ public class ClientGrantsClient {
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/api-auth/grant/client-credentials&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
+     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
      */
     public SyncPagingIterable<ClientGrantResponseContent> list() {
         return this.rawClient.list().body();
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/api-auth/grant/client-credentials&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
+     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
      */
     public SyncPagingIterable<ClientGrantResponseContent> list(ListClientGrantsRequestParameters request) {
         return this.rawClient.list(request).body();
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/api-auth/grant/client-credentials&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
+     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
      */
     public SyncPagingIterable<ClientGrantResponseContent> list(
             ListClientGrantsRequestParameters request, RequestOptions requestOptions) {

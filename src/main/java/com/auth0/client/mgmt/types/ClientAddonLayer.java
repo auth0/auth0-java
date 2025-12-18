@@ -88,7 +88,7 @@ public final class ClientAddonLayer {
         return expiration;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientAddonLayer && equalTo((ClientAddonLayer) other);
@@ -107,12 +107,12 @@ public final class ClientAddonLayer {
                 && expiration.equals(other.expiration);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.providerId, this.keyId, this.privateKey, this.principal, this.expiration);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -179,7 +179,7 @@ public final class ClientAddonLayer {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(ClientAddonLayer other) {
             providerId(other.getProviderId());
             keyId(other.getKeyId());
@@ -194,7 +194,7 @@ public final class ClientAddonLayer {
          * <p>Provider ID of your Layer account</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("providerId")
         public KeyIdStage providerId(@NotNull String providerId) {
             this.providerId = Objects.requireNonNull(providerId, "providerId must not be null");
@@ -206,7 +206,7 @@ public final class ClientAddonLayer {
          * <p>Authentication Key identifier used to sign the Layer token.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("keyId")
         public PrivateKeyStage keyId(@NotNull String keyId) {
             this.keyId = Objects.requireNonNull(keyId, "keyId must not be null");
@@ -218,7 +218,7 @@ public final class ClientAddonLayer {
          * <p>Private key for signing the Layer token.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("privateKey")
         public _FinalStage privateKey(@NotNull String privateKey) {
             this.privateKey = Objects.requireNonNull(privateKey, "privateKey must not be null");
@@ -229,7 +229,7 @@ public final class ClientAddonLayer {
          * <p>Optional expiration in minutes for the generated token. Defaults to 5 minutes.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage expiration(Integer expiration) {
             this.expiration = Optional.ofNullable(expiration);
             return this;
@@ -238,7 +238,7 @@ public final class ClientAddonLayer {
         /**
          * <p>Optional expiration in minutes for the generated token. Defaults to 5 minutes.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "expiration", nulls = Nulls.SKIP)
         public _FinalStage expiration(Optional<Integer> expiration) {
             this.expiration = expiration;
@@ -249,7 +249,7 @@ public final class ClientAddonLayer {
          * <p>Name of the property used as the unique user id in Layer. If not specified <code>user_id</code> is used.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage principal(String principal) {
             this.principal = Optional.ofNullable(principal);
             return this;
@@ -258,14 +258,14 @@ public final class ClientAddonLayer {
         /**
          * <p>Name of the property used as the unique user id in Layer. If not specified <code>user_id</code> is used.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "principal", nulls = Nulls.SKIP)
         public _FinalStage principal(Optional<String> principal) {
             this.principal = principal;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public ClientAddonLayer build() {
             return new ClientAddonLayer(providerId, keyId, privateKey, principal, expiration, additionalProperties);
         }

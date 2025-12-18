@@ -4,6 +4,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.connections.AsyncClientsClient;
+import com.auth0.client.mgmt.connections.AsyncDirectoryProvisioningClient;
 import com.auth0.client.mgmt.connections.AsyncKeysClient;
 import com.auth0.client.mgmt.connections.AsyncScimConfigurationClient;
 import com.auth0.client.mgmt.connections.AsyncUsersClient;
@@ -29,6 +30,8 @@ public class AsyncConnectionsClient {
 
     protected final Supplier<AsyncClientsClient> clientsClient;
 
+    protected final Supplier<AsyncDirectoryProvisioningClient> directoryProvisioningClient;
+
     protected final Supplier<AsyncKeysClient> keysClient;
 
     protected final Supplier<AsyncScimConfigurationClient> scimConfigurationClient;
@@ -39,6 +42,7 @@ public class AsyncConnectionsClient {
         this.clientOptions = clientOptions;
         this.rawClient = new AsyncRawConnectionsClient(clientOptions);
         this.clientsClient = Suppliers.memoize(() -> new AsyncClientsClient(clientOptions));
+        this.directoryProvisioningClient = Suppliers.memoize(() -> new AsyncDirectoryProvisioningClient(clientOptions));
         this.keysClient = Suppliers.memoize(() -> new AsyncKeysClient(clientOptions));
         this.scimConfigurationClient = Suppliers.memoize(() -> new AsyncScimConfigurationClient(clientOptions));
         this.usersClient = Suppliers.memoize(() -> new AsyncUsersClient(clientOptions));
@@ -205,6 +209,10 @@ public class AsyncConnectionsClient {
 
     public AsyncClientsClient clients() {
         return this.clientsClient.get();
+    }
+
+    public AsyncDirectoryProvisioningClient directoryProvisioning() {
+        return this.directoryProvisioningClient.get();
     }
 
     public AsyncKeysClient keys() {

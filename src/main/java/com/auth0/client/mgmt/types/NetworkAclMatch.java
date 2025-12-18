@@ -100,7 +100,7 @@ public final class NetworkAclMatch {
         return userAgents;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof NetworkAclMatch && equalTo((NetworkAclMatch) other);
@@ -122,7 +122,7 @@ public final class NetworkAclMatch {
                 && userAgents.equals(other.userAgents);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.asns,
@@ -135,7 +135,7 @@ public final class NetworkAclMatch {
                 this.userAgents);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

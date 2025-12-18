@@ -65,7 +65,7 @@ public final class FlowActionSalesforceSearchLeadsParams {
         return leadFields;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionSalesforceSearchLeadsParams
@@ -84,12 +84,12 @@ public final class FlowActionSalesforceSearchLeadsParams {
                 && leadFields.equals(other.leadFields);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.searchField, this.searchValue, this.leadFields);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -137,7 +137,7 @@ public final class FlowActionSalesforceSearchLeadsParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionSalesforceSearchLeadsParams other) {
             connectionId(other.getConnectionId());
             searchField(other.getSearchField());
@@ -146,28 +146,28 @@ public final class FlowActionSalesforceSearchLeadsParams {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("connection_id")
         public SearchFieldStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("search_field")
         public SearchValueStage searchField(@NotNull FlowActionSalesforceSearchLeadsParamsSearchField searchField) {
             this.searchField = Objects.requireNonNull(searchField, "searchField must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("search_value")
         public _FinalStage searchValue(@NotNull String searchValue) {
             this.searchValue = Objects.requireNonNull(searchValue, "searchValue must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage addAllLeadFields(List<String> leadFields) {
             if (leadFields != null) {
                 this.leadFields.addAll(leadFields);
@@ -175,13 +175,13 @@ public final class FlowActionSalesforceSearchLeadsParams {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage addLeadFields(String leadFields) {
             this.leadFields.add(leadFields);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "lead_fields", nulls = Nulls.SKIP)
         public _FinalStage leadFields(List<String> leadFields) {
             this.leadFields.clear();
@@ -191,7 +191,7 @@ public final class FlowActionSalesforceSearchLeadsParams {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionSalesforceSearchLeadsParams build() {
             return new FlowActionSalesforceSearchLeadsParams(
                     connectionId, searchField, searchValue, leadFields, additionalProperties);

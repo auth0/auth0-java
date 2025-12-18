@@ -33,7 +33,7 @@ public final class FlowActionJsonParseJsonParams {
         return json;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionJsonParseJsonParams && equalTo((FlowActionJsonParseJsonParams) other);
@@ -48,12 +48,12 @@ public final class FlowActionJsonParseJsonParams {
         return json.equals(other.json);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.json);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -81,20 +81,20 @@ public final class FlowActionJsonParseJsonParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionJsonParseJsonParams other) {
             json(other.getJson());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("json")
         public _FinalStage json(@NotNull String json) {
             this.json = Objects.requireNonNull(json, "json must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionJsonParseJsonParams build() {
             return new FlowActionJsonParseJsonParams(json, additionalProperties);
         }

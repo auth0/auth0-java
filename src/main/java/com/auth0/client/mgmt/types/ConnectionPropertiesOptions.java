@@ -72,11 +72,14 @@ public final class ConnectionPropertiesOptions {
 
     private final Optional<Boolean> disableSelfServiceChangePassword;
 
-    private final OptionalNullable<Map<String, Object>> upstreamParams;
+    private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+            upstreamParams;
 
     private final Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes;
 
     private final OptionalNullable<ConnectionGatewayAuthentication> gatewayAuthentication;
+
+    private final OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens;
 
     private final Map<String, Object> additionalProperties;
 
@@ -105,9 +108,10 @@ public final class ConnectionPropertiesOptions {
             Optional<Boolean> extAssignedPlans,
             Optional<Boolean> extProfile,
             Optional<Boolean> disableSelfServiceChangePassword,
-            OptionalNullable<Map<String, Object>> upstreamParams,
+            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
             Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes,
             OptionalNullable<ConnectionGatewayAuthentication> gatewayAuthentication,
+            OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens,
             Map<String, Object> additionalProperties) {
         this.validation = validation;
         this.nonPersistentAttrs = nonPersistentAttrs;
@@ -136,6 +140,7 @@ public final class ConnectionPropertiesOptions {
         this.upstreamParams = upstreamParams;
         this.setUserRootAttributes = setUserRootAttributes;
         this.gatewayAuthentication = gatewayAuthentication;
+        this.federatedConnectionsAccessTokens = federatedConnectionsAccessTokens;
         this.additionalProperties = additionalProperties;
     }
 
@@ -169,6 +174,9 @@ public final class ConnectionPropertiesOptions {
         return attributes;
     }
 
+    /**
+     * @return Set to true to inject context into custom DB scripts (warning: cannot be disabled once enabled)
+     */
     @JsonProperty("enable_script_context")
     public Optional<Boolean> getEnableScriptContext() {
         return enableScriptContext;
@@ -305,7 +313,7 @@ public final class ConnectionPropertiesOptions {
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("upstream_params")
-    public OptionalNullable<Map<String, Object>> getUpstreamParams() {
+    public OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams() {
         if (upstreamParams == null) {
             return OptionalNullable.absent();
         }
@@ -324,6 +332,15 @@ public final class ConnectionPropertiesOptions {
             return OptionalNullable.absent();
         }
         return gatewayAuthentication;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("federated_connections_access_tokens")
+    public OptionalNullable<ConnectionFederatedConnectionsAccessTokens> getFederatedConnectionsAccessTokens() {
+        if (federatedConnectionsAccessTokens == null) {
+            return OptionalNullable.absent();
+        }
+        return federatedConnectionsAccessTokens;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -376,7 +393,8 @@ public final class ConnectionPropertiesOptions {
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("upstream_params")
-    private OptionalNullable<Map<String, Object>> _getUpstreamParams() {
+    private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+            _getUpstreamParams() {
         return upstreamParams;
     }
 
@@ -386,7 +404,13 @@ public final class ConnectionPropertiesOptions {
         return gatewayAuthentication;
     }
 
-    @java.lang.Override
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("federated_connections_access_tokens")
+    private OptionalNullable<ConnectionFederatedConnectionsAccessTokens> _getFederatedConnectionsAccessTokens() {
+        return federatedConnectionsAccessTokens;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionPropertiesOptions && equalTo((ConnectionPropertiesOptions) other);
@@ -424,10 +448,11 @@ public final class ConnectionPropertiesOptions {
                 && disableSelfServiceChangePassword.equals(other.disableSelfServiceChangePassword)
                 && upstreamParams.equals(other.upstreamParams)
                 && setUserRootAttributes.equals(other.setUserRootAttributes)
-                && gatewayAuthentication.equals(other.gatewayAuthentication);
+                && gatewayAuthentication.equals(other.gatewayAuthentication)
+                && federatedConnectionsAccessTokens.equals(other.federatedConnectionsAccessTokens);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.validation,
@@ -456,10 +481,11 @@ public final class ConnectionPropertiesOptions {
                 this.disableSelfServiceChangePassword,
                 this.upstreamParams,
                 this.setUserRootAttributes,
-                this.gatewayAuthentication);
+                this.gatewayAuthentication,
+                this.federatedConnectionsAccessTokens);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -520,11 +546,15 @@ public final class ConnectionPropertiesOptions {
 
         private Optional<Boolean> disableSelfServiceChangePassword = Optional.empty();
 
-        private OptionalNullable<Map<String, Object>> upstreamParams = OptionalNullable.absent();
+        private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
+                OptionalNullable.absent();
 
         private Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes = Optional.empty();
 
         private OptionalNullable<ConnectionGatewayAuthentication> gatewayAuthentication = OptionalNullable.absent();
+
+        private OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens =
+                OptionalNullable.absent();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -559,6 +589,7 @@ public final class ConnectionPropertiesOptions {
             upstreamParams(other.getUpstreamParams());
             setUserRootAttributes(other.getSetUserRootAttributes());
             gatewayAuthentication(other.getGatewayAuthentication());
+            federatedConnectionsAccessTokens(other.getFederatedConnectionsAccessTokens());
             return this;
         }
 
@@ -632,6 +663,9 @@ public final class ConnectionPropertiesOptions {
             return this;
         }
 
+        /**
+         * <p>Set to true to inject context into custom DB scripts (warning: cannot be disabled once enabled)</p>
+         */
         @JsonSetter(value = "enable_script_context", nulls = Nulls.SKIP)
         public Builder enableScriptContext(Optional<Boolean> enableScriptContext) {
             this.enableScriptContext = enableScriptContext;
@@ -1011,17 +1045,22 @@ public final class ConnectionPropertiesOptions {
         }
 
         @JsonSetter(value = "upstream_params", nulls = Nulls.SKIP)
-        public Builder upstreamParams(@Nullable OptionalNullable<Map<String, Object>> upstreamParams) {
+        public Builder upstreamParams(
+                @Nullable
+                        OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+                                upstreamParams) {
             this.upstreamParams = upstreamParams;
             return this;
         }
 
-        public Builder upstreamParams(Map<String, Object> upstreamParams) {
+        public Builder upstreamParams(
+                Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>> upstreamParams) {
             this.upstreamParams = OptionalNullable.of(upstreamParams);
             return this;
         }
 
-        public Builder upstreamParams(Optional<Map<String, Object>> upstreamParams) {
+        public Builder upstreamParams(
+                Optional<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams) {
             if (upstreamParams.isPresent()) {
                 this.upstreamParams = OptionalNullable.of(upstreamParams.get());
             } else {
@@ -1030,7 +1069,10 @@ public final class ConnectionPropertiesOptions {
             return this;
         }
 
-        public Builder upstreamParams(com.auth0.client.mgmt.core.Nullable<Map<String, Object>> upstreamParams) {
+        public Builder upstreamParams(
+                com.auth0.client.mgmt.core.Nullable<
+                                Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+                        upstreamParams) {
             if (upstreamParams.isNull()) {
                 this.upstreamParams = OptionalNullable.ofNull();
             } else if (upstreamParams.isEmpty()) {
@@ -1085,6 +1127,43 @@ public final class ConnectionPropertiesOptions {
             return this;
         }
 
+        @JsonSetter(value = "federated_connections_access_tokens", nulls = Nulls.SKIP)
+        public Builder federatedConnectionsAccessTokens(
+                @Nullable
+                        OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens) {
+            this.federatedConnectionsAccessTokens = federatedConnectionsAccessTokens;
+            return this;
+        }
+
+        public Builder federatedConnectionsAccessTokens(
+                ConnectionFederatedConnectionsAccessTokens federatedConnectionsAccessTokens) {
+            this.federatedConnectionsAccessTokens = OptionalNullable.of(federatedConnectionsAccessTokens);
+            return this;
+        }
+
+        public Builder federatedConnectionsAccessTokens(
+                Optional<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens) {
+            if (federatedConnectionsAccessTokens.isPresent()) {
+                this.federatedConnectionsAccessTokens = OptionalNullable.of(federatedConnectionsAccessTokens.get());
+            } else {
+                this.federatedConnectionsAccessTokens = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder federatedConnectionsAccessTokens(
+                com.auth0.client.mgmt.core.Nullable<ConnectionFederatedConnectionsAccessTokens>
+                        federatedConnectionsAccessTokens) {
+            if (federatedConnectionsAccessTokens.isNull()) {
+                this.federatedConnectionsAccessTokens = OptionalNullable.ofNull();
+            } else if (federatedConnectionsAccessTokens.isEmpty()) {
+                this.federatedConnectionsAccessTokens = OptionalNullable.absent();
+            } else {
+                this.federatedConnectionsAccessTokens = OptionalNullable.of(federatedConnectionsAccessTokens.get());
+            }
+            return this;
+        }
+
         public ConnectionPropertiesOptions build() {
             return new ConnectionPropertiesOptions(
                     validation,
@@ -1114,6 +1193,7 @@ public final class ConnectionPropertiesOptions {
                     upstreamParams,
                     setUserRootAttributes,
                     gatewayAuthentication,
+                    federatedConnectionsAccessTokens,
                     additionalProperties);
         }
     }

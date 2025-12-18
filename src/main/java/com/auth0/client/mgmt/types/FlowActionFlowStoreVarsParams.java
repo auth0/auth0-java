@@ -34,7 +34,7 @@ public final class FlowActionFlowStoreVarsParams {
         return vars;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionFlowStoreVarsParams && equalTo((FlowActionFlowStoreVarsParams) other);
@@ -49,12 +49,12 @@ public final class FlowActionFlowStoreVarsParams {
         return vars.equals(other.vars);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.vars);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

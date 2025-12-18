@@ -55,7 +55,7 @@ public final class FormBlockImageConfig {
         return height;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormBlockImageConfig && equalTo((FormBlockImageConfig) other);
@@ -70,12 +70,12 @@ public final class FormBlockImageConfig {
         return src.equals(other.src) && position.equals(other.position) && height.equals(other.height);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.src, this.position, this.height);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -115,7 +115,7 @@ public final class FormBlockImageConfig {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FormBlockImageConfig other) {
             src(other.getSrc());
             position(other.getPosition());
@@ -123,40 +123,40 @@ public final class FormBlockImageConfig {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("src")
         public _FinalStage src(@NotNull String src) {
             this.src = Objects.requireNonNull(src, "src must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage height(Double height) {
             this.height = Optional.ofNullable(height);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "height", nulls = Nulls.SKIP)
         public _FinalStage height(Optional<Double> height) {
             this.height = height;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage position(FormBlockImageConfigPositionEnum position) {
             this.position = Optional.ofNullable(position);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "position", nulls = Nulls.SKIP)
         public _FinalStage position(Optional<FormBlockImageConfigPositionEnum> position) {
             this.position = position;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FormBlockImageConfig build() {
             return new FormBlockImageConfig(src, position, height, additionalProperties);
         }

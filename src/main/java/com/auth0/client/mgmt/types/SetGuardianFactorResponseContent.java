@@ -35,7 +35,7 @@ public final class SetGuardianFactorResponseContent {
         return enabled;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SetGuardianFactorResponseContent && equalTo((SetGuardianFactorResponseContent) other);
@@ -50,12 +50,12 @@ public final class SetGuardianFactorResponseContent {
         return enabled == other.enabled;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.enabled);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -86,7 +86,7 @@ public final class SetGuardianFactorResponseContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(SetGuardianFactorResponseContent other) {
             enabled(other.getEnabled());
             return this;
@@ -97,14 +97,14 @@ public final class SetGuardianFactorResponseContent {
          * <p>Whether this factor is enabled (true) or disabled (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("enabled")
         public _FinalStage enabled(boolean enabled) {
             this.enabled = enabled;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public SetGuardianFactorResponseContent build() {
             return new SetGuardianFactorResponseContent(enabled, additionalProperties);
         }

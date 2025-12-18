@@ -90,7 +90,7 @@ public final class FormFieldPasswordConfig {
         return strengthMeter;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldPasswordConfig && equalTo((FormFieldPasswordConfig) other);
@@ -111,7 +111,7 @@ public final class FormFieldPasswordConfig {
                 && strengthMeter.equals(other.strengthMeter);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.hash,
@@ -123,7 +123,7 @@ public final class FormFieldPasswordConfig {
                 this.strengthMeter);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

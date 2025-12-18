@@ -76,7 +76,7 @@ public final class ListUserAuthenticationMethodsOffsetPaginatedResponseContent {
         return authenticators;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListUserAuthenticationMethodsOffsetPaginatedResponseContent
@@ -95,12 +95,12 @@ public final class ListUserAuthenticationMethodsOffsetPaginatedResponseContent {
                 && authenticators.equals(other.authenticators);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.start, this.limit, this.total, this.authenticators);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

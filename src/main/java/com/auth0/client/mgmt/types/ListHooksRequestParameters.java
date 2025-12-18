@@ -3,6 +3,7 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.Nullable;
 import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
@@ -18,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ListHooksRequestParameters.Builder.class)
@@ -60,9 +60,6 @@ public final class ListHooksRequestParameters {
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("page")
     public OptionalNullable<Integer> getPage() {
-        if (page == null) {
-            return OptionalNullable.absent();
-        }
         return page;
     }
 
@@ -121,12 +118,6 @@ public final class ListHooksRequestParameters {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("page")
-    private OptionalNullable<Integer> _getPage() {
-        return page;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("enabled")
     private OptionalNullable<Boolean> _getEnabled() {
         return enabled;
@@ -144,7 +135,7 @@ public final class ListHooksRequestParameters {
         return triggerId;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListHooksRequestParameters && equalTo((ListHooksRequestParameters) other);
@@ -164,12 +155,12 @@ public final class ListHooksRequestParameters {
                 && triggerId.equals(other.triggerId);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.page, this.perPage, this.includeTotals, this.enabled, this.fields, this.triggerId);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -211,7 +202,7 @@ public final class ListHooksRequestParameters {
          * <p>Page index of the results to return. First page is 0.</p>
          */
         @JsonSetter(value = "page", nulls = Nulls.SKIP)
-        public Builder page(@Nullable OptionalNullable<Integer> page) {
+        public Builder page(OptionalNullable<Integer> page) {
             this.page = page;
             return this;
         }
@@ -230,7 +221,7 @@ public final class ListHooksRequestParameters {
             return this;
         }
 
-        public Builder page(com.auth0.client.mgmt.core.Nullable<Integer> page) {
+        public Builder page(Nullable<Integer> page) {
             if (page.isNull()) {
                 this.page = OptionalNullable.ofNull();
             } else if (page.isEmpty()) {
@@ -264,7 +255,7 @@ public final class ListHooksRequestParameters {
             return this;
         }
 
-        public Builder perPage(com.auth0.client.mgmt.core.Nullable<Integer> perPage) {
+        public Builder perPage(Nullable<Integer> perPage) {
             if (perPage.isNull()) {
                 this.perPage = OptionalNullable.ofNull();
             } else if (perPage.isEmpty()) {
@@ -298,7 +289,7 @@ public final class ListHooksRequestParameters {
             return this;
         }
 
-        public Builder includeTotals(com.auth0.client.mgmt.core.Nullable<Boolean> includeTotals) {
+        public Builder includeTotals(Nullable<Boolean> includeTotals) {
             if (includeTotals.isNull()) {
                 this.includeTotals = OptionalNullable.ofNull();
             } else if (includeTotals.isEmpty()) {
@@ -313,7 +304,7 @@ public final class ListHooksRequestParameters {
          * <p>Optional filter on whether a hook is enabled (true) or disabled (false).</p>
          */
         @JsonSetter(value = "enabled", nulls = Nulls.SKIP)
-        public Builder enabled(@Nullable OptionalNullable<Boolean> enabled) {
+        public Builder enabled(@org.jetbrains.annotations.Nullable OptionalNullable<Boolean> enabled) {
             this.enabled = enabled;
             return this;
         }
@@ -332,7 +323,7 @@ public final class ListHooksRequestParameters {
             return this;
         }
 
-        public Builder enabled(com.auth0.client.mgmt.core.Nullable<Boolean> enabled) {
+        public Builder enabled(Nullable<Boolean> enabled) {
             if (enabled.isNull()) {
                 this.enabled = OptionalNullable.ofNull();
             } else if (enabled.isEmpty()) {
@@ -347,7 +338,7 @@ public final class ListHooksRequestParameters {
          * <p>Comma-separated list of fields to include in the result. Leave empty to retrieve all fields.</p>
          */
         @JsonSetter(value = "fields", nulls = Nulls.SKIP)
-        public Builder fields(@Nullable OptionalNullable<String> fields) {
+        public Builder fields(@org.jetbrains.annotations.Nullable OptionalNullable<String> fields) {
             this.fields = fields;
             return this;
         }
@@ -366,7 +357,7 @@ public final class ListHooksRequestParameters {
             return this;
         }
 
-        public Builder fields(com.auth0.client.mgmt.core.Nullable<String> fields) {
+        public Builder fields(Nullable<String> fields) {
             if (fields.isNull()) {
                 this.fields = OptionalNullable.ofNull();
             } else if (fields.isEmpty()) {
@@ -381,7 +372,7 @@ public final class ListHooksRequestParameters {
          * <p>Retrieves hooks that match the trigger</p>
          */
         @JsonSetter(value = "triggerId", nulls = Nulls.SKIP)
-        public Builder triggerId(@Nullable OptionalNullable<HookTriggerIdEnum> triggerId) {
+        public Builder triggerId(@org.jetbrains.annotations.Nullable OptionalNullable<HookTriggerIdEnum> triggerId) {
             this.triggerId = triggerId;
             return this;
         }
@@ -400,7 +391,7 @@ public final class ListHooksRequestParameters {
             return this;
         }
 
-        public Builder triggerId(com.auth0.client.mgmt.core.Nullable<HookTriggerIdEnum> triggerId) {
+        public Builder triggerId(Nullable<HookTriggerIdEnum> triggerId) {
             if (triggerId.isNull()) {
                 this.triggerId = OptionalNullable.ofNull();
             } else if (triggerId.isEmpty()) {

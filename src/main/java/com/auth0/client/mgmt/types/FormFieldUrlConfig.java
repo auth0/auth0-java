@@ -43,7 +43,7 @@ public final class FormFieldUrlConfig {
         return placeholder;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldUrlConfig && equalTo((FormFieldUrlConfig) other);
@@ -58,12 +58,12 @@ public final class FormFieldUrlConfig {
         return defaultValue.equals(other.defaultValue) && placeholder.equals(other.placeholder);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.defaultValue, this.placeholder);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

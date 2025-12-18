@@ -36,7 +36,7 @@ public final class ClientAddonMscrm {
         return url;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientAddonMscrm && equalTo((ClientAddonMscrm) other);
@@ -51,12 +51,12 @@ public final class ClientAddonMscrm {
         return url.equals(other.url);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.url);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -87,7 +87,7 @@ public final class ClientAddonMscrm {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(ClientAddonMscrm other) {
             url(other.getUrl());
             return this;
@@ -98,14 +98,14 @@ public final class ClientAddonMscrm {
          * <p>Microsoft Dynamics CRM application URL.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("url")
         public _FinalStage url(@NotNull String url) {
             this.url = Objects.requireNonNull(url, "url must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public ClientAddonMscrm build() {
             return new ClientAddonMscrm(url, additionalProperties);
         }

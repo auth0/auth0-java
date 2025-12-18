@@ -76,7 +76,7 @@ public final class ListActionBindingsPaginatedResponseContent {
         return bindings;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListActionBindingsPaginatedResponseContent
@@ -95,12 +95,12 @@ public final class ListActionBindingsPaginatedResponseContent {
                 && bindings.equals(other.bindings);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.total, this.page, this.perPage, this.bindings);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

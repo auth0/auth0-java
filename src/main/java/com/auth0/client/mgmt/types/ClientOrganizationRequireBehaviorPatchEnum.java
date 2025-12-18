@@ -29,20 +29,20 @@ public final class ClientOrganizationRequireBehaviorPatchEnum {
         return value;
     }
 
-    @java.lang.Override
+    @Override
     @JsonValue
     public String toString() {
         return this.string;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         return (this == other)
                 || (other instanceof ClientOrganizationRequireBehaviorPatchEnum
                         && this.string.equals(((ClientOrganizationRequireBehaviorPatchEnum) other).string));
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return this.string.hashCode();
     }

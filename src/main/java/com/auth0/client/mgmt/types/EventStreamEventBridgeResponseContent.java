@@ -107,7 +107,7 @@ public final class EventStreamEventBridgeResponseContent {
         return updatedAt;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof EventStreamEventBridgeResponseContent
@@ -129,13 +129,13 @@ public final class EventStreamEventBridgeResponseContent {
                 && updatedAt.equals(other.updatedAt);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.id, this.name, this.subscriptions, this.destination, this.status, this.createdAt, this.updatedAt);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

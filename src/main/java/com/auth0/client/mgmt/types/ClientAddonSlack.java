@@ -36,7 +36,7 @@ public final class ClientAddonSlack {
         return team;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientAddonSlack && equalTo((ClientAddonSlack) other);
@@ -51,12 +51,12 @@ public final class ClientAddonSlack {
         return team.equals(other.team);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.team);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -87,7 +87,7 @@ public final class ClientAddonSlack {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(ClientAddonSlack other) {
             team(other.getTeam());
             return this;
@@ -98,14 +98,14 @@ public final class ClientAddonSlack {
          * <p>Slack team name.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("team")
         public _FinalStage team(@NotNull String team) {
             this.team = Objects.requireNonNull(team, "team must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public ClientAddonSlack build() {
             return new ClientAddonSlack(team, additionalProperties);
         }

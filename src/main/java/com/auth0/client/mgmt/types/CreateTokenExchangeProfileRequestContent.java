@@ -71,7 +71,7 @@ public final class CreateTokenExchangeProfileRequestContent {
         return type;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateTokenExchangeProfileRequestContent
@@ -90,12 +90,12 @@ public final class CreateTokenExchangeProfileRequestContent {
                 && type.equals(other.type);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.name, this.subjectTokenType, this.actionId, this.type);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -151,7 +151,7 @@ public final class CreateTokenExchangeProfileRequestContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(CreateTokenExchangeProfileRequestContent other) {
             name(other.getName());
             subjectTokenType(other.getSubjectTokenType());
@@ -165,7 +165,7 @@ public final class CreateTokenExchangeProfileRequestContent {
          * <p>Friendly name of this profile.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("name")
         public SubjectTokenTypeStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
@@ -177,7 +177,7 @@ public final class CreateTokenExchangeProfileRequestContent {
          * <p>Subject token type for this profile. When receiving a token exchange request on the Authentication API, the corresponding token exchange profile with a matching subject_token_type will be executed. This must be a URI.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("subject_token_type")
         public ActionIdStage subjectTokenType(@NotNull String subjectTokenType) {
             this.subjectTokenType = Objects.requireNonNull(subjectTokenType, "subjectTokenType must not be null");
@@ -189,21 +189,21 @@ public final class CreateTokenExchangeProfileRequestContent {
          * <p>The ID of the Custom Token Exchange action to execute for this profile, in order to validate the subject_token. The action must use the custom-token-exchange trigger.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("action_id")
         public TypeStage actionId(@NotNull String actionId) {
             this.actionId = Objects.requireNonNull(actionId, "actionId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("type")
         public _FinalStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public CreateTokenExchangeProfileRequestContent build() {
             return new CreateTokenExchangeProfileRequestContent(
                     name, subjectTokenType, actionId, type, additionalProperties);

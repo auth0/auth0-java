@@ -155,7 +155,7 @@ public final class RefreshTokenResponseContent {
         return sessionId;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof RefreshTokenResponseContent && equalTo((RefreshTokenResponseContent) other);
@@ -180,7 +180,7 @@ public final class RefreshTokenResponseContent {
                 && lastExchangedAt.equals(other.lastExchangedAt);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -196,7 +196,7 @@ public final class RefreshTokenResponseContent {
                 this.lastExchangedAt);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

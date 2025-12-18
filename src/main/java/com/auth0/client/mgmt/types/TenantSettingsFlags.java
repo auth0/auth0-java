@@ -375,7 +375,7 @@ public final class TenantSettingsFlags {
         return customDomainsProvisioning;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof TenantSettingsFlags && equalTo((TenantSettingsFlags) other);
@@ -420,7 +420,7 @@ public final class TenantSettingsFlags {
                 && customDomainsProvisioning.equals(other.customDomainsProvisioning);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.changePwdFlowV1,
@@ -454,7 +454,7 @@ public final class TenantSettingsFlags {
                 this.customDomainsProvisioning);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

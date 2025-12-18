@@ -10,10 +10,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
@@ -23,11 +25,18 @@ public final class Identity {
 
     private final IdentityProviderEnum provider;
 
+    private final Optional<String> connectionId;
+
     private final Map<String, Object> additionalProperties;
 
-    private Identity(String userId, IdentityProviderEnum provider, Map<String, Object> additionalProperties) {
+    private Identity(
+            String userId,
+            IdentityProviderEnum provider,
+            Optional<String> connectionId,
+            Map<String, Object> additionalProperties) {
         this.userId = userId;
         this.provider = provider;
+        this.connectionId = connectionId;
         this.additionalProperties = additionalProperties;
     }
 
@@ -44,7 +53,15 @@ public final class Identity {
         return provider;
     }
 
-    @java.lang.Override
+    /**
+     * @return connection_id of the identity.
+     */
+    @JsonProperty("connection_id")
+    public Optional<String> getConnectionId() {
+        return connectionId;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof Identity && equalTo((Identity) other);
@@ -56,15 +73,17 @@ public final class Identity {
     }
 
     private boolean equalTo(Identity other) {
-        return userId.equals(other.userId) && provider.equals(other.provider);
+        return userId.equals(other.userId)
+                && provider.equals(other.provider)
+                && connectionId.equals(other.connectionId);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
-        return Objects.hash(this.userId, this.provider);
+        return Objects.hash(this.userId, this.provider, this.connectionId);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -88,6 +107,13 @@ public final class Identity {
 
     public interface _FinalStage {
         Identity build();
+
+        /**
+         * <p>connection_id of the identity.</p>
+         */
+        _FinalStage connectionId(Optional<String> connectionId);
+
+        _FinalStage connectionId(String connectionId);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -96,15 +122,18 @@ public final class Identity {
 
         private IdentityProviderEnum provider;
 
+        private Optional<String> connectionId = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(Identity other) {
             userId(other.getUserId());
             provider(other.getProvider());
+            connectionId(other.getConnectionId());
             return this;
         }
 
@@ -113,23 +142,43 @@ public final class Identity {
          * <p>user_id of the identity to be verified.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("user_id")
         public ProviderStage userId(@NotNull String userId) {
             this.userId = Objects.requireNonNull(userId, "userId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("provider")
         public _FinalStage provider(@NotNull IdentityProviderEnum provider) {
             this.provider = Objects.requireNonNull(provider, "provider must not be null");
             return this;
         }
 
-        @java.lang.Override
+        /**
+         * <p>connection_id of the identity.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @Override
+        public _FinalStage connectionId(String connectionId) {
+            this.connectionId = Optional.ofNullable(connectionId);
+            return this;
+        }
+
+        /**
+         * <p>connection_id of the identity.</p>
+         */
+        @Override
+        @JsonSetter(value = "connection_id", nulls = Nulls.SKIP)
+        public _FinalStage connectionId(Optional<String> connectionId) {
+            this.connectionId = connectionId;
+            return this;
+        }
+
+        @Override
         public Identity build() {
-            return new Identity(userId, provider, additionalProperties);
+            return new Identity(userId, provider, connectionId, additionalProperties);
         }
     }
 }

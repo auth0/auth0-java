@@ -75,7 +75,7 @@ public final class CreateExportUsersRequestContent {
         return fields;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateExportUsersRequestContent && equalTo((CreateExportUsersRequestContent) other);
@@ -93,12 +93,12 @@ public final class CreateExportUsersRequestContent {
                 && fields.equals(other.fields);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.format, this.limit, this.fields);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

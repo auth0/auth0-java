@@ -55,7 +55,7 @@ public final class FlowActionStripeCreatePortalSessionParams {
         return returnUrl;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionStripeCreatePortalSessionParams
@@ -73,12 +73,12 @@ public final class FlowActionStripeCreatePortalSessionParams {
                 && returnUrl.equals(other.returnUrl);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.customerId, this.returnUrl);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -118,7 +118,7 @@ public final class FlowActionStripeCreatePortalSessionParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionStripeCreatePortalSessionParams other) {
             connectionId(other.getConnectionId());
             customerId(other.getCustomerId());
@@ -126,34 +126,34 @@ public final class FlowActionStripeCreatePortalSessionParams {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("connection_id")
         public CustomerIdStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("customer_id")
         public _FinalStage customerId(@NotNull String customerId) {
             this.customerId = Objects.requireNonNull(customerId, "customerId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage returnUrl(String returnUrl) {
             this.returnUrl = Optional.ofNullable(returnUrl);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "return_url", nulls = Nulls.SKIP)
         public _FinalStage returnUrl(Optional<String> returnUrl) {
             this.returnUrl = returnUrl;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionStripeCreatePortalSessionParams build() {
             return new FlowActionStripeCreatePortalSessionParams(
                     connectionId, customerId, returnUrl, additionalProperties);

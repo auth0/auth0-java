@@ -34,7 +34,7 @@ public final class FlowActionJsonCreateJsonParams {
         return object;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionJsonCreateJsonParams && equalTo((FlowActionJsonCreateJsonParams) other);
@@ -49,12 +49,12 @@ public final class FlowActionJsonCreateJsonParams {
         return object.equals(other.object);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.object);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

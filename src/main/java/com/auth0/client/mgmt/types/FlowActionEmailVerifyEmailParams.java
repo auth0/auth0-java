@@ -46,7 +46,7 @@ public final class FlowActionEmailVerifyEmailParams {
         return rules;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionEmailVerifyEmailParams && equalTo((FlowActionEmailVerifyEmailParams) other);
@@ -61,12 +61,12 @@ public final class FlowActionEmailVerifyEmailParams {
         return email.equals(other.email) && rules.equals(other.rules);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.email, this.rules);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -100,34 +100,34 @@ public final class FlowActionEmailVerifyEmailParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionEmailVerifyEmailParams other) {
             email(other.getEmail());
             rules(other.getRules());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("email")
         public _FinalStage email(@NotNull String email) {
             this.email = Objects.requireNonNull(email, "email must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage rules(FlowActionEmailVerifyEmailParamsRules rules) {
             this.rules = Optional.ofNullable(rules);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "rules", nulls = Nulls.SKIP)
         public _FinalStage rules(Optional<FlowActionEmailVerifyEmailParamsRules> rules) {
             this.rules = rules;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionEmailVerifyEmailParams build() {
             return new FlowActionEmailVerifyEmailParams(email, rules, additionalProperties);
         }

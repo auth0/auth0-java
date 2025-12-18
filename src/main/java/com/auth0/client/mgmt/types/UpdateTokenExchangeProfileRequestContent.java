@@ -49,7 +49,7 @@ public final class UpdateTokenExchangeProfileRequestContent {
         return subjectTokenType;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateTokenExchangeProfileRequestContent
@@ -65,12 +65,12 @@ public final class UpdateTokenExchangeProfileRequestContent {
         return name.equals(other.name) && subjectTokenType.equals(other.subjectTokenType);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.name, this.subjectTokenType);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

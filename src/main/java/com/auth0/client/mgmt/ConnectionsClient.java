@@ -4,6 +4,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.connections.ClientsClient;
+import com.auth0.client.mgmt.connections.DirectoryProvisioningClient;
 import com.auth0.client.mgmt.connections.KeysClient;
 import com.auth0.client.mgmt.connections.ScimConfigurationClient;
 import com.auth0.client.mgmt.connections.UsersClient;
@@ -28,6 +29,8 @@ public class ConnectionsClient {
 
     protected final Supplier<ClientsClient> clientsClient;
 
+    protected final Supplier<DirectoryProvisioningClient> directoryProvisioningClient;
+
     protected final Supplier<KeysClient> keysClient;
 
     protected final Supplier<ScimConfigurationClient> scimConfigurationClient;
@@ -38,6 +41,7 @@ public class ConnectionsClient {
         this.clientOptions = clientOptions;
         this.rawClient = new RawConnectionsClient(clientOptions);
         this.clientsClient = Suppliers.memoize(() -> new ClientsClient(clientOptions));
+        this.directoryProvisioningClient = Suppliers.memoize(() -> new DirectoryProvisioningClient(clientOptions));
         this.keysClient = Suppliers.memoize(() -> new KeysClient(clientOptions));
         this.scimConfigurationClient = Suppliers.memoize(() -> new ScimConfigurationClient(clientOptions));
         this.usersClient = Suppliers.memoize(() -> new UsersClient(clientOptions));
@@ -203,6 +207,10 @@ public class ConnectionsClient {
 
     public ClientsClient clients() {
         return this.clientsClient.get();
+    }
+
+    public DirectoryProvisioningClient directoryProvisioning() {
+        return this.directoryProvisioningClient.get();
     }
 
     public KeysClient keys() {

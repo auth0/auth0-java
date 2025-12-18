@@ -36,7 +36,7 @@ public final class ListPhoneTemplatesResponseContent {
         return templates;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListPhoneTemplatesResponseContent && equalTo((ListPhoneTemplatesResponseContent) other);
@@ -51,12 +51,12 @@ public final class ListPhoneTemplatesResponseContent {
         return templates.equals(other.templates);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.templates);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

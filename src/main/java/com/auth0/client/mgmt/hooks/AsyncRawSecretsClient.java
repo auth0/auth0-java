@@ -43,14 +43,14 @@ public class AsyncRawSecretsClient {
     /**
      * Retrieve a hook's secrets by the ID of the hook.
      */
-    public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> get(String id) {
+    public CompletableFuture<ManagementApiHttpResponse<Map<String, String>>> get(String id) {
         return get(id, null);
     }
 
     /**
      * Retrieve a hook's secrets by the ID of the hook.
      */
-    public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> get(
+    public CompletableFuture<ManagementApiHttpResponse<Map<String, String>>> get(
             String id, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -68,7 +68,7 @@ public class AsyncRawSecretsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> future = new CompletableFuture<>();
+        CompletableFuture<ManagementApiHttpResponse<Map<String, String>>> future = new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
@@ -77,7 +77,7 @@ public class AsyncRawSecretsClient {
                     if (response.isSuccessful()) {
                         future.complete(new ManagementApiHttpResponse<>(
                                 ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBodyString, new TypeReference<Map<String, Object>>() {}),
+                                        responseBodyString, new TypeReference<Map<String, String>>() {}),
                                 response));
                         return;
                     }
@@ -132,7 +132,7 @@ public class AsyncRawSecretsClient {
     /**
      * Add one or more secrets to an existing hook. Accepts an object of key-value pairs, where the key is the name of the secret. A hook can have a maximum of 20 secrets.
      */
-    public CompletableFuture<ManagementApiHttpResponse<Void>> create(String id, Map<String, Object> request) {
+    public CompletableFuture<ManagementApiHttpResponse<Void>> create(String id, Map<String, String> request) {
         return create(id, request, null);
     }
 
@@ -140,7 +140,7 @@ public class AsyncRawSecretsClient {
      * Add one or more secrets to an existing hook. Accepts an object of key-value pairs, where the key is the name of the secret. A hook can have a maximum of 20 secrets.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> create(
-            String id, Map<String, Object> request, RequestOptions requestOptions) {
+            String id, Map<String, String> request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("hooks")
@@ -315,7 +315,7 @@ public class AsyncRawSecretsClient {
     /**
      * Update one or more existing secrets for an existing hook. Accepts an object of key-value pairs, where the key is the name of the existing secret.
      */
-    public CompletableFuture<ManagementApiHttpResponse<Void>> update(String id, Map<String, Object> request) {
+    public CompletableFuture<ManagementApiHttpResponse<Void>> update(String id, Map<String, String> request) {
         return update(id, request, null);
     }
 
@@ -323,7 +323,7 @@ public class AsyncRawSecretsClient {
      * Update one or more existing secrets for an existing hook. Accepts an object of key-value pairs, where the key is the name of the existing secret.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> update(
-            String id, Map<String, Object> request, RequestOptions requestOptions) {
+            String id, Map<String, String> request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("hooks")

@@ -64,7 +64,7 @@ public final class ListHooksOffsetPaginatedResponseContent {
         return hooks;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListHooksOffsetPaginatedResponseContent
@@ -83,12 +83,12 @@ public final class ListHooksOffsetPaginatedResponseContent {
                 && hooks.equals(other.hooks);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.start, this.limit, this.total, this.hooks);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

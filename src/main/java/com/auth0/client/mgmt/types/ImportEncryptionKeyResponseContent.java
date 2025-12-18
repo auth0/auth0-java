@@ -107,7 +107,7 @@ public final class ImportEncryptionKeyResponseContent {
         return publicKey;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ImportEncryptionKeyResponseContent
@@ -129,13 +129,13 @@ public final class ImportEncryptionKeyResponseContent {
                 && publicKey.equals(other.publicKey);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.kid, this.type, this.state, this.createdAt, this.updatedAt, this.parentKid, this.publicKey);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -215,7 +215,7 @@ public final class ImportEncryptionKeyResponseContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(ImportEncryptionKeyResponseContent other) {
             kid(other.getKid());
             type(other.getType());
@@ -232,21 +232,21 @@ public final class ImportEncryptionKeyResponseContent {
          * <p>Key ID</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("kid")
         public TypeStage kid(@NotNull String kid) {
             this.kid = Objects.requireNonNull(kid, "kid must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("type")
         public StateStage type(@NotNull EncryptionKeyType type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("state")
         public CreatedAtStage state(@NotNull EncryptionKeyState state) {
             this.state = Objects.requireNonNull(state, "state must not be null");
@@ -258,7 +258,7 @@ public final class ImportEncryptionKeyResponseContent {
          * <p>Key creation timestamp</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("created_at")
         public UpdatedAtStage createdAt(@NotNull OffsetDateTime createdAt) {
             this.createdAt = Objects.requireNonNull(createdAt, "createdAt must not be null");
@@ -270,7 +270,7 @@ public final class ImportEncryptionKeyResponseContent {
          * <p>Key update timestamp</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("updated_at")
         public ParentKidStage updatedAt(@NotNull OffsetDateTime updatedAt) {
             this.updatedAt = Objects.requireNonNull(updatedAt, "updatedAt must not be null");
@@ -282,7 +282,7 @@ public final class ImportEncryptionKeyResponseContent {
          * <p>ID of parent wrapping key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("parent_kid")
         public _FinalStage parentKid(@NotNull String parentKid) {
             this.parentKid = Objects.requireNonNull(parentKid, "parentKid must not be null");
@@ -293,7 +293,7 @@ public final class ImportEncryptionKeyResponseContent {
          * <p>Public key in PEM format</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage publicKey(String publicKey) {
             this.publicKey = Optional.ofNullable(publicKey);
             return this;
@@ -302,14 +302,14 @@ public final class ImportEncryptionKeyResponseContent {
         /**
          * <p>Public key in PEM format</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "public_key", nulls = Nulls.SKIP)
         public _FinalStage publicKey(Optional<String> publicKey) {
             this.publicKey = publicKey;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public ImportEncryptionKeyResponseContent build() {
             return new ImportEncryptionKeyResponseContent(
                     kid, type, state, createdAt, updatedAt, parentKid, publicKey, additionalProperties);

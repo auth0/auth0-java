@@ -46,7 +46,7 @@ public final class BrandingThemeFontInputLabels {
         return size;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof BrandingThemeFontInputLabels && equalTo((BrandingThemeFontInputLabels) other);
@@ -61,12 +61,12 @@ public final class BrandingThemeFontInputLabels {
         return bold == other.bold && size == other.size;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.bold, this.size);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -106,7 +106,7 @@ public final class BrandingThemeFontInputLabels {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(BrandingThemeFontInputLabels other) {
             bold(other.getBold());
             size(other.getSize());
@@ -118,7 +118,7 @@ public final class BrandingThemeFontInputLabels {
          * <p>Input Labels bold</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("bold")
         public SizeStage bold(boolean bold) {
             this.bold = bold;
@@ -130,14 +130,14 @@ public final class BrandingThemeFontInputLabels {
          * <p>Input Labels size</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("size")
         public _FinalStage size(double size) {
             this.size = size;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public BrandingThemeFontInputLabels build() {
             return new BrandingThemeFontInputLabels(bold, size, additionalProperties);
         }

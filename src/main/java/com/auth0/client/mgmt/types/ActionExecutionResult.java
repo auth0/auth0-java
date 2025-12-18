@@ -73,7 +73,7 @@ public final class ActionExecutionResult {
         return endedAt;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ActionExecutionResult && equalTo((ActionExecutionResult) other);
@@ -91,12 +91,12 @@ public final class ActionExecutionResult {
                 && endedAt.equals(other.endedAt);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.actionName, this.error, this.startedAt, this.endedAt);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

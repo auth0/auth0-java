@@ -45,7 +45,7 @@ public final class DefaultTokenQuota {
         return organizations;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof DefaultTokenQuota && equalTo((DefaultTokenQuota) other);
@@ -60,12 +60,12 @@ public final class DefaultTokenQuota {
         return clients.equals(other.clients) && organizations.equals(other.organizations);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.clients, this.organizations);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

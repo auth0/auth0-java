@@ -33,7 +33,7 @@ public final class SessionCookieSchema {
         return mode;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SessionCookieSchema && equalTo((SessionCookieSchema) other);
@@ -48,12 +48,12 @@ public final class SessionCookieSchema {
         return mode.equals(other.mode);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.mode);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -81,20 +81,20 @@ public final class SessionCookieSchema {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(SessionCookieSchema other) {
             mode(other.getMode());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("mode")
         public _FinalStage mode(@NotNull SessionCookieModeEnum mode) {
             this.mode = Objects.requireNonNull(mode, "mode must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public SessionCookieSchema build() {
             return new SessionCookieSchema(mode, additionalProperties);
         }

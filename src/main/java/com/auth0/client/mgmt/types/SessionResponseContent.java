@@ -3,7 +3,9 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = SessionResponseContent.Builder.class)
@@ -45,6 +48,8 @@ public final class SessionResponseContent {
 
     private final Optional<SessionCookieMetadata> cookie;
 
+    private final OptionalNullable<Map<String, Object>> sessionMetadata;
+
     private final Map<String, Object> additionalProperties;
 
     private SessionResponseContent(
@@ -60,6 +65,7 @@ public final class SessionResponseContent {
             Optional<List<SessionClientMetadata>> clients,
             Optional<SessionAuthenticationSignals> authentication,
             Optional<SessionCookieMetadata> cookie,
+            OptionalNullable<Map<String, Object>> sessionMetadata,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.userId = userId;
@@ -73,6 +79,7 @@ public final class SessionResponseContent {
         this.clients = clients;
         this.authentication = authentication;
         this.cookie = cookie;
+        this.sessionMetadata = sessionMetadata;
         this.additionalProperties = additionalProperties;
     }
 
@@ -145,7 +152,22 @@ public final class SessionResponseContent {
         return cookie;
     }
 
-    @java.lang.Override
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("session_metadata")
+    public OptionalNullable<Map<String, Object>> getSessionMetadata() {
+        if (sessionMetadata == null) {
+            return OptionalNullable.absent();
+        }
+        return sessionMetadata;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("session_metadata")
+    private OptionalNullable<Map<String, Object>> _getSessionMetadata() {
+        return sessionMetadata;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SessionResponseContent && equalTo((SessionResponseContent) other);
@@ -168,10 +190,11 @@ public final class SessionResponseContent {
                 && device.equals(other.device)
                 && clients.equals(other.clients)
                 && authentication.equals(other.authentication)
-                && cookie.equals(other.cookie);
+                && cookie.equals(other.cookie)
+                && sessionMetadata.equals(other.sessionMetadata);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -185,10 +208,11 @@ public final class SessionResponseContent {
                 this.device,
                 this.clients,
                 this.authentication,
-                this.cookie);
+                this.cookie,
+                this.sessionMetadata);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -223,6 +247,8 @@ public final class SessionResponseContent {
 
         private Optional<SessionCookieMetadata> cookie = Optional.empty();
 
+        private OptionalNullable<Map<String, Object>> sessionMetadata = OptionalNullable.absent();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -241,6 +267,7 @@ public final class SessionResponseContent {
             clients(other.getClients());
             authentication(other.getAuthentication());
             cookie(other.getCookie());
+            sessionMetadata(other.getSessionMetadata());
             return this;
         }
 
@@ -385,6 +412,37 @@ public final class SessionResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "session_metadata", nulls = Nulls.SKIP)
+        public Builder sessionMetadata(@Nullable OptionalNullable<Map<String, Object>> sessionMetadata) {
+            this.sessionMetadata = sessionMetadata;
+            return this;
+        }
+
+        public Builder sessionMetadata(Map<String, Object> sessionMetadata) {
+            this.sessionMetadata = OptionalNullable.of(sessionMetadata);
+            return this;
+        }
+
+        public Builder sessionMetadata(Optional<Map<String, Object>> sessionMetadata) {
+            if (sessionMetadata.isPresent()) {
+                this.sessionMetadata = OptionalNullable.of(sessionMetadata.get());
+            } else {
+                this.sessionMetadata = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder sessionMetadata(com.auth0.client.mgmt.core.Nullable<Map<String, Object>> sessionMetadata) {
+            if (sessionMetadata.isNull()) {
+                this.sessionMetadata = OptionalNullable.ofNull();
+            } else if (sessionMetadata.isEmpty()) {
+                this.sessionMetadata = OptionalNullable.absent();
+            } else {
+                this.sessionMetadata = OptionalNullable.of(sessionMetadata.get());
+            }
+            return this;
+        }
+
         public SessionResponseContent build() {
             return new SessionResponseContent(
                     id,
@@ -399,6 +457,7 @@ public final class SessionResponseContent {
                     clients,
                     authentication,
                     cookie,
+                    sessionMetadata,
                     additionalProperties);
         }
     }

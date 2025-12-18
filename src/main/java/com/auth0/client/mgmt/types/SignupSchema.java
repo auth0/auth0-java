@@ -34,7 +34,7 @@ public final class SignupSchema {
         return status;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SignupSchema && equalTo((SignupSchema) other);
@@ -49,12 +49,12 @@ public final class SignupSchema {
         return status.equals(other.status);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.status);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

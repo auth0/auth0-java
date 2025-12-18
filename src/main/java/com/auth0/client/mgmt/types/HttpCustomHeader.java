@@ -49,7 +49,7 @@ public final class HttpCustomHeader {
         return value;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof HttpCustomHeader && equalTo((HttpCustomHeader) other);
@@ -64,12 +64,12 @@ public final class HttpCustomHeader {
         return header.equals(other.header) && value.equals(other.value);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.header, this.value);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

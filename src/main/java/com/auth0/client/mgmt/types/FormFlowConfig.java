@@ -44,7 +44,7 @@ public final class FormFlowConfig {
         return nextNode;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFlowConfig && equalTo((FormFlowConfig) other);
@@ -59,12 +59,12 @@ public final class FormFlowConfig {
         return flowId.equals(other.flowId) && nextNode.equals(other.nextNode);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.flowId, this.nextNode);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -98,34 +98,34 @@ public final class FormFlowConfig {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FormFlowConfig other) {
             flowId(other.getFlowId());
             nextNode(other.getNextNode());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("flow_id")
         public _FinalStage flowId(@NotNull String flowId) {
             this.flowId = Objects.requireNonNull(flowId, "flowId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage nextNode(FormNodePointer nextNode) {
             this.nextNode = Optional.ofNullable(nextNode);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "next_node", nulls = Nulls.SKIP)
         public _FinalStage nextNode(Optional<FormNodePointer> nextNode) {
             this.nextNode = nextNode;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FormFlowConfig build() {
             return new FormFlowConfig(flowId, nextNode, additionalProperties);
         }

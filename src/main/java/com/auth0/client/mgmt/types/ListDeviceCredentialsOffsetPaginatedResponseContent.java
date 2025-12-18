@@ -64,7 +64,7 @@ public final class ListDeviceCredentialsOffsetPaginatedResponseContent {
         return deviceCredentials;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListDeviceCredentialsOffsetPaginatedResponseContent
@@ -83,12 +83,12 @@ public final class ListDeviceCredentialsOffsetPaginatedResponseContent {
                 && deviceCredentials.equals(other.deviceCredentials);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.start, this.limit, this.total, this.deviceCredentials);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

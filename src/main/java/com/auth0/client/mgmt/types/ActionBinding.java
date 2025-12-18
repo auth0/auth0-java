@@ -94,7 +94,7 @@ public final class ActionBinding {
         return updatedAt;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ActionBinding && equalTo((ActionBinding) other);
@@ -114,12 +114,12 @@ public final class ActionBinding {
                 && updatedAt.equals(other.updatedAt);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.id, this.triggerId, this.displayName, this.action, this.createdAt, this.updatedAt);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

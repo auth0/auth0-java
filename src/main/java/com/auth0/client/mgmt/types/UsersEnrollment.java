@@ -130,7 +130,7 @@ public final class UsersEnrollment {
         return lastAuth;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UsersEnrollment && equalTo((UsersEnrollment) other);
@@ -153,7 +153,7 @@ public final class UsersEnrollment {
                 && lastAuth.equals(other.lastAuth);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -167,7 +167,7 @@ public final class UsersEnrollment {
                 this.lastAuth);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

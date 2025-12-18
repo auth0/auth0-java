@@ -40,7 +40,7 @@ public final class SetCustomSigningKeysRequestContent {
         return keys;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SetCustomSigningKeysRequestContent
@@ -56,12 +56,12 @@ public final class SetCustomSigningKeysRequestContent {
         return keys.equals(other.keys);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.keys);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

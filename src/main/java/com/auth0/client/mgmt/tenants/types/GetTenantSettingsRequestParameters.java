@@ -74,7 +74,7 @@ public final class GetTenantSettingsRequestParameters {
         return includeFields;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetTenantSettingsRequestParameters
@@ -90,12 +90,12 @@ public final class GetTenantSettingsRequestParameters {
         return fields.equals(other.fields) && includeFields.equals(other.includeFields);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.fields, this.includeFields);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -30,6 +30,8 @@ public final class CreateCustomDomainResponseContent {
 
     private final boolean primary;
 
+    private final CustomDomainStatusFilterEnum status;
+
     private final CustomDomainTypeEnum type;
 
     private final DomainVerification verification;
@@ -38,24 +40,34 @@ public final class CreateCustomDomainResponseContent {
 
     private final Optional<String> tlsPolicy;
 
+    private final Optional<Map<String, OptionalNullable<String>>> domainMetadata;
+
+    private final Optional<DomainCertificate> certificate;
+
     private final Map<String, Object> additionalProperties;
 
     private CreateCustomDomainResponseContent(
             String customDomainId,
             String domain,
             boolean primary,
+            CustomDomainStatusFilterEnum status,
             CustomDomainTypeEnum type,
             DomainVerification verification,
             OptionalNullable<String> customClientIpHeader,
             Optional<String> tlsPolicy,
+            Optional<Map<String, OptionalNullable<String>>> domainMetadata,
+            Optional<DomainCertificate> certificate,
             Map<String, Object> additionalProperties) {
         this.customDomainId = customDomainId;
         this.domain = domain;
         this.primary = primary;
+        this.status = status;
         this.type = type;
         this.verification = verification;
         this.customClientIpHeader = customClientIpHeader;
         this.tlsPolicy = tlsPolicy;
+        this.domainMetadata = domainMetadata;
+        this.certificate = certificate;
         this.additionalProperties = additionalProperties;
     }
 
@@ -81,6 +93,11 @@ public final class CreateCustomDomainResponseContent {
     @JsonProperty("primary")
     public boolean getPrimary() {
         return primary;
+    }
+
+    @JsonProperty("status")
+    public CustomDomainStatusFilterEnum getStatus() {
+        return status;
     }
 
     @JsonProperty("type")
@@ -113,13 +130,23 @@ public final class CreateCustomDomainResponseContent {
         return tlsPolicy;
     }
 
+    @JsonProperty("domain_metadata")
+    public Optional<Map<String, OptionalNullable<String>>> getDomainMetadata() {
+        return domainMetadata;
+    }
+
+    @JsonProperty("certificate")
+    public Optional<DomainCertificate> getCertificate() {
+        return certificate;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("custom_client_ip_header")
     private OptionalNullable<String> _getCustomClientIpHeader() {
         return customClientIpHeader;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateCustomDomainResponseContent && equalTo((CreateCustomDomainResponseContent) other);
@@ -134,25 +161,31 @@ public final class CreateCustomDomainResponseContent {
         return customDomainId.equals(other.customDomainId)
                 && domain.equals(other.domain)
                 && primary == other.primary
+                && status.equals(other.status)
                 && type.equals(other.type)
                 && verification.equals(other.verification)
                 && customClientIpHeader.equals(other.customClientIpHeader)
-                && tlsPolicy.equals(other.tlsPolicy);
+                && tlsPolicy.equals(other.tlsPolicy)
+                && domainMetadata.equals(other.domainMetadata)
+                && certificate.equals(other.certificate);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.customDomainId,
                 this.domain,
                 this.primary,
+                this.status,
                 this.type,
                 this.verification,
                 this.customClientIpHeader,
-                this.tlsPolicy);
+                this.tlsPolicy,
+                this.domainMetadata,
+                this.certificate);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -181,7 +214,11 @@ public final class CreateCustomDomainResponseContent {
         /**
          * <p>Whether this is a primary domain (true) or not (false).</p>
          */
-        TypeStage primary(boolean primary);
+        StatusStage primary(boolean primary);
+    }
+
+    public interface StatusStage {
+        TypeStage status(@NotNull CustomDomainStatusFilterEnum status);
     }
 
     public interface TypeStage {
@@ -212,20 +249,40 @@ public final class CreateCustomDomainResponseContent {
         _FinalStage tlsPolicy(Optional<String> tlsPolicy);
 
         _FinalStage tlsPolicy(String tlsPolicy);
+
+        _FinalStage domainMetadata(Optional<Map<String, OptionalNullable<String>>> domainMetadata);
+
+        _FinalStage domainMetadata(Map<String, OptionalNullable<String>> domainMetadata);
+
+        _FinalStage certificate(Optional<DomainCertificate> certificate);
+
+        _FinalStage certificate(DomainCertificate certificate);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder
-            implements CustomDomainIdStage, DomainStage, PrimaryStage, TypeStage, VerificationStage, _FinalStage {
+            implements CustomDomainIdStage,
+                    DomainStage,
+                    PrimaryStage,
+                    StatusStage,
+                    TypeStage,
+                    VerificationStage,
+                    _FinalStage {
         private String customDomainId;
 
         private String domain;
 
         private boolean primary;
 
+        private CustomDomainStatusFilterEnum status;
+
         private CustomDomainTypeEnum type;
 
         private DomainVerification verification;
+
+        private Optional<DomainCertificate> certificate = Optional.empty();
+
+        private Optional<Map<String, OptionalNullable<String>>> domainMetadata = Optional.empty();
 
         private Optional<String> tlsPolicy = Optional.empty();
 
@@ -236,15 +293,18 @@ public final class CreateCustomDomainResponseContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(CreateCustomDomainResponseContent other) {
             customDomainId(other.getCustomDomainId());
             domain(other.getDomain());
             primary(other.getPrimary());
+            status(other.getStatus());
             type(other.getType());
             verification(other.getVerification());
             customClientIpHeader(other.getCustomClientIpHeader());
             tlsPolicy(other.getTlsPolicy());
+            domainMetadata(other.getDomainMetadata());
+            certificate(other.getCertificate());
             return this;
         }
 
@@ -253,7 +313,7 @@ public final class CreateCustomDomainResponseContent {
          * <p>ID of the custom domain.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("custom_domain_id")
         public DomainStage customDomainId(@NotNull String customDomainId) {
             this.customDomainId = Objects.requireNonNull(customDomainId, "customDomainId must not be null");
@@ -265,7 +325,7 @@ public final class CreateCustomDomainResponseContent {
          * <p>Domain name.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("domain")
         public PrimaryStage domain(@NotNull String domain) {
             this.domain = Objects.requireNonNull(domain, "domain must not be null");
@@ -277,24 +337,57 @@ public final class CreateCustomDomainResponseContent {
          * <p>Whether this is a primary domain (true) or not (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("primary")
-        public TypeStage primary(boolean primary) {
+        public StatusStage primary(boolean primary) {
             this.primary = primary;
             return this;
         }
 
-        @java.lang.Override
+        @Override
+        @JsonSetter("status")
+        public TypeStage status(@NotNull CustomDomainStatusFilterEnum status) {
+            this.status = Objects.requireNonNull(status, "status must not be null");
+            return this;
+        }
+
+        @Override
         @JsonSetter("type")
         public VerificationStage type(@NotNull CustomDomainTypeEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("verification")
         public _FinalStage verification(@NotNull DomainVerification verification) {
             this.verification = Objects.requireNonNull(verification, "verification must not be null");
+            return this;
+        }
+
+        @Override
+        public _FinalStage certificate(DomainCertificate certificate) {
+            this.certificate = Optional.ofNullable(certificate);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "certificate", nulls = Nulls.SKIP)
+        public _FinalStage certificate(Optional<DomainCertificate> certificate) {
+            this.certificate = certificate;
+            return this;
+        }
+
+        @Override
+        public _FinalStage domainMetadata(Map<String, OptionalNullable<String>> domainMetadata) {
+            this.domainMetadata = Optional.ofNullable(domainMetadata);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "domain_metadata", nulls = Nulls.SKIP)
+        public _FinalStage domainMetadata(Optional<Map<String, OptionalNullable<String>>> domainMetadata) {
+            this.domainMetadata = domainMetadata;
             return this;
         }
 
@@ -302,7 +395,7 @@ public final class CreateCustomDomainResponseContent {
          * <p>The TLS version policy</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage tlsPolicy(String tlsPolicy) {
             this.tlsPolicy = Optional.ofNullable(tlsPolicy);
             return this;
@@ -311,7 +404,7 @@ public final class CreateCustomDomainResponseContent {
         /**
          * <p>The TLS version policy</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "tls_policy", nulls = Nulls.SKIP)
         public _FinalStage tlsPolicy(Optional<String> tlsPolicy) {
             this.tlsPolicy = tlsPolicy;
@@ -322,7 +415,7 @@ public final class CreateCustomDomainResponseContent {
          * <p>The HTTP header to fetch the client's IP address</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage customClientIpHeader(com.auth0.client.mgmt.core.Nullable<String> customClientIpHeader) {
             if (customClientIpHeader.isNull()) {
                 this.customClientIpHeader = OptionalNullable.ofNull();
@@ -338,7 +431,7 @@ public final class CreateCustomDomainResponseContent {
          * <p>The HTTP header to fetch the client's IP address</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage customClientIpHeader(Optional<String> customClientIpHeader) {
             if (customClientIpHeader.isPresent()) {
                 this.customClientIpHeader = OptionalNullable.of(customClientIpHeader.get());
@@ -352,7 +445,7 @@ public final class CreateCustomDomainResponseContent {
          * <p>The HTTP header to fetch the client's IP address</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage customClientIpHeader(String customClientIpHeader) {
             this.customClientIpHeader = OptionalNullable.of(customClientIpHeader);
             return this;
@@ -361,23 +454,26 @@ public final class CreateCustomDomainResponseContent {
         /**
          * <p>The HTTP header to fetch the client's IP address</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "custom_client_ip_header", nulls = Nulls.SKIP)
         public _FinalStage customClientIpHeader(@Nullable OptionalNullable<String> customClientIpHeader) {
             this.customClientIpHeader = customClientIpHeader;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public CreateCustomDomainResponseContent build() {
             return new CreateCustomDomainResponseContent(
                     customDomainId,
                     domain,
                     primary,
+                    status,
                     type,
                     verification,
                     customClientIpHeader,
                     tlsPolicy,
+                    domainMetadata,
+                    certificate,
                     additionalProperties);
         }
     }

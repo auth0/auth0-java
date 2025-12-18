@@ -54,7 +54,7 @@ public final class NativeSocialLogin {
         return google;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof NativeSocialLogin && equalTo((NativeSocialLogin) other);
@@ -69,12 +69,12 @@ public final class NativeSocialLogin {
         return apple.equals(other.apple) && facebook.equals(other.facebook) && google.equals(other.google);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.apple, this.facebook, this.google);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

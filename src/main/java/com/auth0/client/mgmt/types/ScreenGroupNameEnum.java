@@ -13,6 +13,9 @@ public final class ScreenGroupNameEnum {
     public static final ScreenGroupNameEnum MFA_VOICE_ENROLLMENT =
             new ScreenGroupNameEnum(Value.MFA_VOICE_ENROLLMENT, "mfa-voice-enrollment");
 
+    public static final ScreenGroupNameEnum ASYNC_APPROVAL_WRONG_USER =
+            new ScreenGroupNameEnum(Value.ASYNC_APPROVAL_WRONG_USER, "async-approval-wrong-user");
+
     public static final ScreenGroupNameEnum SIGNUP = new ScreenGroupNameEnum(Value.SIGNUP, "signup");
 
     public static final ScreenGroupNameEnum MFA_PUSH_WELCOME =
@@ -50,6 +53,9 @@ public final class ScreenGroupNameEnum {
 
     public static final ScreenGroupNameEnum MFA_PUSH_SUCCESS =
             new ScreenGroupNameEnum(Value.MFA_PUSH_SUCCESS, "mfa-push-success");
+
+    public static final ScreenGroupNameEnum ASYNC_APPROVAL_ACCEPTED =
+            new ScreenGroupNameEnum(Value.ASYNC_APPROVAL_ACCEPTED, "async-approval-accepted");
 
     public static final ScreenGroupNameEnum DEVICE_CODE_ACTIVATION_ALLOWED =
             new ScreenGroupNameEnum(Value.DEVICE_CODE_ACTIVATION_ALLOWED, "device-code-activation-allowed");
@@ -91,6 +97,9 @@ public final class ScreenGroupNameEnum {
     public static final ScreenGroupNameEnum ORGANIZATION_SELECTION =
             new ScreenGroupNameEnum(Value.ORGANIZATION_SELECTION, "organization-selection");
 
+    public static final ScreenGroupNameEnum ASYNC_APPROVAL_ERROR =
+            new ScreenGroupNameEnum(Value.ASYNC_APPROVAL_ERROR, "async-approval-error");
+
     public static final ScreenGroupNameEnum RESET_PASSWORD_MFA_PHONE_CHALLENGE =
             new ScreenGroupNameEnum(Value.RESET_PASSWORD_MFA_PHONE_CHALLENGE, "reset-password-mfa-phone-challenge");
 
@@ -105,6 +114,9 @@ public final class ScreenGroupNameEnum {
 
     public static final ScreenGroupNameEnum RESET_PASSWORD_SUCCESS =
             new ScreenGroupNameEnum(Value.RESET_PASSWORD_SUCCESS, "reset-password-success");
+
+    public static final ScreenGroupNameEnum ASYNC_APPROVAL_DENIED =
+            new ScreenGroupNameEnum(Value.ASYNC_APPROVAL_DENIED, "async-approval-denied");
 
     public static final ScreenGroupNameEnum LOGIN_PASSWORDLESS_SMS_OTP =
             new ScreenGroupNameEnum(Value.LOGIN_PASSWORDLESS_SMS_OTP, "login-passwordless-sms-otp");
@@ -188,6 +200,9 @@ public final class ScreenGroupNameEnum {
     public static final ScreenGroupNameEnum MFA_PUSH_LIST =
             new ScreenGroupNameEnum(Value.MFA_PUSH_LIST, "mfa-push-list");
 
+    public static final ScreenGroupNameEnum PRE_LOGIN_ORGANIZATION_PICKER =
+            new ScreenGroupNameEnum(Value.PRE_LOGIN_ORGANIZATION_PICKER, "pre-login-organization-picker");
+
     public static final ScreenGroupNameEnum MFA_PHONE_ENROLLMENT =
             new ScreenGroupNameEnum(Value.MFA_PHONE_ENROLLMENT, "mfa-phone-enrollment");
 
@@ -263,19 +278,19 @@ public final class ScreenGroupNameEnum {
         return value;
     }
 
-    @java.lang.Override
+    @Override
     @JsonValue
     public String toString() {
         return this.string;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         return (this == other)
                 || (other instanceof ScreenGroupNameEnum && this.string.equals(((ScreenGroupNameEnum) other).string));
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return this.string.hashCode();
     }
@@ -286,6 +301,8 @@ public final class ScreenGroupNameEnum {
                 return visitor.visitMfaPhoneChallenge();
             case MFA_VOICE_ENROLLMENT:
                 return visitor.visitMfaVoiceEnrollment();
+            case ASYNC_APPROVAL_WRONG_USER:
+                return visitor.visitAsyncApprovalWrongUser();
             case SIGNUP:
                 return visitor.visitSignup();
             case MFA_PUSH_WELCOME:
@@ -312,6 +329,8 @@ public final class ScreenGroupNameEnum {
                 return visitor.visitResetPasswordMfaVoiceChallenge();
             case MFA_PUSH_SUCCESS:
                 return visitor.visitMfaPushSuccess();
+            case ASYNC_APPROVAL_ACCEPTED:
+                return visitor.visitAsyncApprovalAccepted();
             case DEVICE_CODE_ACTIVATION_ALLOWED:
                 return visitor.visitDeviceCodeActivationAllowed();
             case INTERSTITIAL_CAPTCHA:
@@ -340,6 +359,8 @@ public final class ScreenGroupNameEnum {
                 return visitor.visitResetPasswordMfaRecoveryCodeChallenge();
             case ORGANIZATION_SELECTION:
                 return visitor.visitOrganizationSelection();
+            case ASYNC_APPROVAL_ERROR:
+                return visitor.visitAsyncApprovalError();
             case RESET_PASSWORD_MFA_PHONE_CHALLENGE:
                 return visitor.visitResetPasswordMfaPhoneChallenge();
             case MFA_RECOVERY_CODE_CHALLENGE:
@@ -350,6 +371,8 @@ public final class ScreenGroupNameEnum {
                 return visitor.visitResetPasswordMfaWebauthnPlatformChallenge();
             case RESET_PASSWORD_SUCCESS:
                 return visitor.visitResetPasswordSuccess();
+            case ASYNC_APPROVAL_DENIED:
+                return visitor.visitAsyncApprovalDenied();
             case LOGIN_PASSWORDLESS_SMS_OTP:
                 return visitor.visitLoginPasswordlessSmsOtp();
             case DEVICE_CODE_CONFIRMATION:
@@ -408,6 +431,8 @@ public final class ScreenGroupNameEnum {
                 return visitor.visitMfaEnrollResult();
             case MFA_PUSH_LIST:
                 return visitor.visitMfaPushList();
+            case PRE_LOGIN_ORGANIZATION_PICKER:
+                return visitor.visitPreLoginOrganizationPicker();
             case MFA_PHONE_ENROLLMENT:
                 return visitor.visitMfaPhoneEnrollment();
             case MFA_RECOVERY_CODE_CHALLENGE_NEW_CODE:
@@ -463,6 +488,8 @@ public final class ScreenGroupNameEnum {
                 return MFA_PHONE_CHALLENGE;
             case "mfa-voice-enrollment":
                 return MFA_VOICE_ENROLLMENT;
+            case "async-approval-wrong-user":
+                return ASYNC_APPROVAL_WRONG_USER;
             case "signup":
                 return SIGNUP;
             case "mfa-push-welcome":
@@ -489,6 +516,8 @@ public final class ScreenGroupNameEnum {
                 return RESET_PASSWORD_MFA_VOICE_CHALLENGE;
             case "mfa-push-success":
                 return MFA_PUSH_SUCCESS;
+            case "async-approval-accepted":
+                return ASYNC_APPROVAL_ACCEPTED;
             case "device-code-activation-allowed":
                 return DEVICE_CODE_ACTIVATION_ALLOWED;
             case "interstitial-captcha":
@@ -517,6 +546,8 @@ public final class ScreenGroupNameEnum {
                 return RESET_PASSWORD_MFA_RECOVERY_CODE_CHALLENGE;
             case "organization-selection":
                 return ORGANIZATION_SELECTION;
+            case "async-approval-error":
+                return ASYNC_APPROVAL_ERROR;
             case "reset-password-mfa-phone-challenge":
                 return RESET_PASSWORD_MFA_PHONE_CHALLENGE;
             case "mfa-recovery-code-challenge":
@@ -527,6 +558,8 @@ public final class ScreenGroupNameEnum {
                 return RESET_PASSWORD_MFA_WEBAUTHN_PLATFORM_CHALLENGE;
             case "reset-password-success":
                 return RESET_PASSWORD_SUCCESS;
+            case "async-approval-denied":
+                return ASYNC_APPROVAL_DENIED;
             case "login-passwordless-sms-otp":
                 return LOGIN_PASSWORDLESS_SMS_OTP;
             case "device-code-confirmation":
@@ -585,6 +618,8 @@ public final class ScreenGroupNameEnum {
                 return MFA_ENROLL_RESULT;
             case "mfa-push-list":
                 return MFA_PUSH_LIST;
+            case "pre-login-organization-picker":
+                return PRE_LOGIN_ORGANIZATION_PICKER;
             case "mfa-phone-enrollment":
                 return MFA_PHONE_ENROLLMENT;
             case "mfa-recovery-code-challenge-new-code":
@@ -785,6 +820,8 @@ public final class ScreenGroupNameEnum {
 
         ORGANIZATION_PICKER,
 
+        PRE_LOGIN_ORGANIZATION_PICKER,
+
         ACCEPT_INVITATION,
 
         REDEEM_TICKET,
@@ -800,6 +837,14 @@ public final class ScreenGroupNameEnum {
         BRUTE_FORCE_PROTECTION_UNBLOCK_SUCCESS,
 
         BRUTE_FORCE_PROTECTION_UNBLOCK_FAILURE,
+
+        ASYNC_APPROVAL_ERROR,
+
+        ASYNC_APPROVAL_WRONG_USER,
+
+        ASYNC_APPROVAL_ACCEPTED,
+
+        ASYNC_APPROVAL_DENIED,
 
         UNKNOWN
     }
@@ -957,6 +1002,8 @@ public final class ScreenGroupNameEnum {
 
         T visitOrganizationPicker();
 
+        T visitPreLoginOrganizationPicker();
+
         T visitAcceptInvitation();
 
         T visitRedeemTicket();
@@ -972,6 +1019,14 @@ public final class ScreenGroupNameEnum {
         T visitBruteForceProtectionUnblockSuccess();
 
         T visitBruteForceProtectionUnblockFailure();
+
+        T visitAsyncApprovalError();
+
+        T visitAsyncApprovalWrongUser();
+
+        T visitAsyncApprovalAccepted();
+
+        T visitAsyncApprovalDenied();
 
         T visitUnknown(String unknownType);
     }

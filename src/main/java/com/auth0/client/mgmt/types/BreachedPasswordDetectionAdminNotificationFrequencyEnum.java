@@ -32,13 +32,13 @@ public final class BreachedPasswordDetectionAdminNotificationFrequencyEnum {
         return value;
     }
 
-    @java.lang.Override
+    @Override
     @JsonValue
     public String toString() {
         return this.string;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         return (this == other)
                 || (other instanceof BreachedPasswordDetectionAdminNotificationFrequencyEnum
@@ -46,7 +46,7 @@ public final class BreachedPasswordDetectionAdminNotificationFrequencyEnum {
                                 ((BreachedPasswordDetectionAdminNotificationFrequencyEnum) other).string));
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return this.string.hashCode();
     }

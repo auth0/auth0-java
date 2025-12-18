@@ -44,7 +44,7 @@ public final class FormEndingNodeRedirection {
         return target;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormEndingNodeRedirection && equalTo((FormEndingNodeRedirection) other);
@@ -59,12 +59,12 @@ public final class FormEndingNodeRedirection {
         return delay.equals(other.delay) && target.equals(other.target);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.delay, this.target);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -98,34 +98,34 @@ public final class FormEndingNodeRedirection {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FormEndingNodeRedirection other) {
             delay(other.getDelay());
             target(other.getTarget());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("target")
         public _FinalStage target(@NotNull String target) {
             this.target = Objects.requireNonNull(target, "target must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage delay(Integer delay) {
             this.delay = Optional.ofNullable(delay);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "delay", nulls = Nulls.SKIP)
         public _FinalStage delay(Optional<Integer> delay) {
             this.delay = delay;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FormEndingNodeRedirection build() {
             return new FormEndingNodeRedirection(delay, target, additionalProperties);
         }

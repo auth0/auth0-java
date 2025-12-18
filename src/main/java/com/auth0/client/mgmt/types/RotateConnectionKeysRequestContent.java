@@ -35,7 +35,7 @@ public final class RotateConnectionKeysRequestContent {
         return signingAlg;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof RotateConnectionKeysRequestContent
@@ -51,12 +51,12 @@ public final class RotateConnectionKeysRequestContent {
         return signingAlg.equals(other.signingAlg);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.signingAlg);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

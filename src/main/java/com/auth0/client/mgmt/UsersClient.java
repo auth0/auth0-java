@@ -20,6 +20,7 @@ import com.auth0.client.mgmt.types.UpdateUserResponseContent;
 import com.auth0.client.mgmt.types.UserResponseSchema;
 import com.auth0.client.mgmt.users.AuthenticationMethodsClient;
 import com.auth0.client.mgmt.users.AuthenticatorsClient;
+import com.auth0.client.mgmt.users.ConnectedAccountsClient;
 import com.auth0.client.mgmt.users.EnrollmentsClient;
 import com.auth0.client.mgmt.users.FederatedConnectionsTokensetsClient;
 import com.auth0.client.mgmt.users.IdentitiesClient;
@@ -28,6 +29,7 @@ import com.auth0.client.mgmt.users.MultifactorClient;
 import com.auth0.client.mgmt.users.OrganizationsClient;
 import com.auth0.client.mgmt.users.PermissionsClient;
 import com.auth0.client.mgmt.users.RefreshTokenClient;
+import com.auth0.client.mgmt.users.RiskAssessmentsClient;
 import com.auth0.client.mgmt.users.RolesClient;
 import com.auth0.client.mgmt.users.SessionsClient;
 import java.util.List;
@@ -41,6 +43,8 @@ public class UsersClient {
     protected final Supplier<AuthenticationMethodsClient> authenticationMethodsClient;
 
     protected final Supplier<AuthenticatorsClient> authenticatorsClient;
+
+    protected final Supplier<ConnectedAccountsClient> connectedAccountsClient;
 
     protected final Supplier<EnrollmentsClient> enrollmentsClient;
 
@@ -56,6 +60,8 @@ public class UsersClient {
 
     protected final Supplier<PermissionsClient> permissionsClient;
 
+    protected final Supplier<RiskAssessmentsClient> riskAssessmentsClient;
+
     protected final Supplier<RolesClient> rolesClient;
 
     protected final Supplier<RefreshTokenClient> refreshTokenClient;
@@ -67,6 +73,7 @@ public class UsersClient {
         this.rawClient = new RawUsersClient(clientOptions);
         this.authenticationMethodsClient = Suppliers.memoize(() -> new AuthenticationMethodsClient(clientOptions));
         this.authenticatorsClient = Suppliers.memoize(() -> new AuthenticatorsClient(clientOptions));
+        this.connectedAccountsClient = Suppliers.memoize(() -> new ConnectedAccountsClient(clientOptions));
         this.enrollmentsClient = Suppliers.memoize(() -> new EnrollmentsClient(clientOptions));
         this.federatedConnectionsTokensetsClient =
                 Suppliers.memoize(() -> new FederatedConnectionsTokensetsClient(clientOptions));
@@ -75,6 +82,7 @@ public class UsersClient {
         this.multifactorClient = Suppliers.memoize(() -> new MultifactorClient(clientOptions));
         this.organizationsClient = Suppliers.memoize(() -> new OrganizationsClient(clientOptions));
         this.permissionsClient = Suppliers.memoize(() -> new PermissionsClient(clientOptions));
+        this.riskAssessmentsClient = Suppliers.memoize(() -> new RiskAssessmentsClient(clientOptions));
         this.rolesClient = Suppliers.memoize(() -> new RolesClient(clientOptions));
         this.refreshTokenClient = Suppliers.memoize(() -> new RefreshTokenClient(clientOptions));
         this.sessionsClient = Suppliers.memoize(() -> new SessionsClient(clientOptions));
@@ -457,6 +465,10 @@ public class UsersClient {
         return this.authenticatorsClient.get();
     }
 
+    public ConnectedAccountsClient connectedAccounts() {
+        return this.connectedAccountsClient.get();
+    }
+
     public EnrollmentsClient enrollments() {
         return this.enrollmentsClient.get();
     }
@@ -483,6 +495,10 @@ public class UsersClient {
 
     public PermissionsClient permissions() {
         return this.permissionsClient.get();
+    }
+
+    public RiskAssessmentsClient riskAssessments() {
+        return this.riskAssessmentsClient.get();
     }
 
     public RolesClient roles() {

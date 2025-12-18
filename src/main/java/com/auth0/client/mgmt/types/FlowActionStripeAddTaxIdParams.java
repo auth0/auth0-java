@@ -62,7 +62,7 @@ public final class FlowActionStripeAddTaxIdParams {
         return value;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionStripeAddTaxIdParams && equalTo((FlowActionStripeAddTaxIdParams) other);
@@ -80,12 +80,12 @@ public final class FlowActionStripeAddTaxIdParams {
                 && value.equals(other.value);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.customerId, this.type, this.value);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -132,7 +132,7 @@ public final class FlowActionStripeAddTaxIdParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionStripeAddTaxIdParams other) {
             connectionId(other.getConnectionId());
             customerId(other.getCustomerId());
@@ -141,35 +141,35 @@ public final class FlowActionStripeAddTaxIdParams {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("connection_id")
         public CustomerIdStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("customer_id")
         public TypeStage customerId(@NotNull String customerId) {
             this.customerId = Objects.requireNonNull(customerId, "customerId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("type")
         public ValueStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("value")
         public _FinalStage value(@NotNull String value) {
             this.value = Objects.requireNonNull(value, "value must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionStripeAddTaxIdParams build() {
             return new FlowActionStripeAddTaxIdParams(connectionId, customerId, type, value, additionalProperties);
         }

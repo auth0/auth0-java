@@ -4,7 +4,192 @@
 
 package sample;
 
+import com.auth0.client.auth.AuthAPI;
+import com.auth0.client.mgmt.ManagementApi;
+import com.auth0.client.mgmt.core.ClientOptions;
+import com.auth0.client.mgmt.core.Environment;
+import com.auth0.client.mgmt.core.OAuthTokenSupplier;
+import com.auth0.json.auth.TokenHolder;
+import com.auth0.net.TokenRequest;
+
+import java.io.IOException;
+
 public final class App {
 
+    private static String domain = "dev-tanya.us.auth0.com";
+    private static String clientId = "PY6HuuGyYjDktVGOrf47DIaXwUy8uVYP";
+    private static String clientSecret = "s7IGAq1eSDtoXOcA_9WW4mQRKVkzysG7CKC3hAUoQXT6irCMlhTK4hvPBGduXQn0";
+    private static String audience = "https://dev-tanya.us.auth0.com/api/v2/";
+
+    public static void main(String[] args) throws IOException {
+
+        // import com.auth0.client.mgmt.AsyncManagementApi
+
+        AuthAPI auth = AuthAPI.newBuilder(domain, clientId, clientSecret).build();
+
+        TokenRequest tokenRequest = auth.requestToken(audience);
+        TokenHolder holder = tokenRequest.execute().getBody();
+        String accessToken = holder.getAccessToken();
+        System.out.println("Access Token: " + accessToken);
+
+        try {
+
+
+//            AuthAPI auth = AuthAPI.newBuilder("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}").build();
+
+//            String accessToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Il9ZeURNSUlqVENoWDI2cHFyZlBIaCJ9.eyJpc3MiOiJodHRwczovL2Rldi10YW55YS51cy5hdXRoMC5jb20vIiwic3ViIjoiUFk2SHV1R3lZakRrdFZHT3JmNDdESWFYd1V5OHVWWVBAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vZGV2LXRhbnlhLnVzLmF1dGgwLmNvbS9hcGkvdjIvIiwiaWF0IjoxNzYzNzM2MzA2LCJleHAiOjE3NjM4MjI3MDYsInNjb3BlIjoicmVhZDpjbGllbnRfZ3JhbnRzIGNyZWF0ZTpjbGllbnRfZ3JhbnRzIGRlbGV0ZTpjbGllbnRfZ3JhbnRzIHVwZGF0ZTpjbGllbnRfZ3JhbnRzIHJlYWQ6dXNlcnMgdXBkYXRlOnVzZXJzIGRlbGV0ZTp1c2VycyBjcmVhdGU6dXNlcnMgcmVhZDp1c2Vyc19hcHBfbWV0YWRhdGEgdXBkYXRlOnVzZXJzX2FwcF9tZXRhZGF0YSBkZWxldGU6dXNlcnNfYXBwX21ldGFkYXRhIGNyZWF0ZTp1c2Vyc19hcHBfbWV0YWRhdGEgcmVhZDp1c2VyX2N1c3RvbV9ibG9ja3MgY3JlYXRlOnVzZXJfY3VzdG9tX2Jsb2NrcyBkZWxldGU6dXNlcl9jdXN0b21fYmxvY2tzIGNyZWF0ZTp1c2VyX3RpY2tldHMgcmVhZDpjbGllbnRzIHVwZGF0ZTpjbGllbnRzIGRlbGV0ZTpjbGllbnRzIGNyZWF0ZTpjbGllbnRzIHJlYWQ6Y2xpZW50X2tleXMgdXBkYXRlOmNsaWVudF9rZXlzIGRlbGV0ZTpjbGllbnRfa2V5cyBjcmVhdGU6Y2xpZW50X2tleXMgcmVhZDpjbGllbnRfY3JlZGVudGlhbHMgdXBkYXRlOmNsaWVudF9jcmVkZW50aWFscyBkZWxldGU6Y2xpZW50X2NyZWRlbnRpYWxzIGNyZWF0ZTpjbGllbnRfY3JlZGVudGlhbHMgcmVhZDpjb25uZWN0aW9ucyB1cGRhdGU6Y29ubmVjdGlvbnMgZGVsZXRlOmNvbm5lY3Rpb25zIGNyZWF0ZTpjb25uZWN0aW9ucyByZWFkOnJlc291cmNlX3NlcnZlcnMgdXBkYXRlOnJlc291cmNlX3NlcnZlcnMgZGVsZXRlOnJlc291cmNlX3NlcnZlcnMgY3JlYXRlOnJlc291cmNlX3NlcnZlcnMgcmVhZDpkZXZpY2VfY3JlZGVudGlhbHMgdXBkYXRlOmRldmljZV9jcmVkZW50aWFscyBkZWxldGU6ZGV2aWNlX2NyZWRlbnRpYWxzIGNyZWF0ZTpkZXZpY2VfY3JlZGVudGlhbHMgcmVhZDpydWxlcyB1cGRhdGU6cnVsZXMgZGVsZXRlOnJ1bGVzIGNyZWF0ZTpydWxlcyByZWFkOnJ1bGVzX2NvbmZpZ3MgdXBkYXRlOnJ1bGVzX2NvbmZpZ3MgZGVsZXRlOnJ1bGVzX2NvbmZpZ3MgcmVhZDpob29rcyB1cGRhdGU6aG9va3MgZGVsZXRlOmhvb2tzIGNyZWF0ZTpob29rcyByZWFkOmFjdGlvbnMgdXBkYXRlOmFjdGlvbnMgZGVsZXRlOmFjdGlvbnMgY3JlYXRlOmFjdGlvbnMgcmVhZDplbWFpbF9wcm92aWRlciB1cGRhdGU6ZW1haWxfcHJvdmlkZXIgZGVsZXRlOmVtYWlsX3Byb3ZpZGVyIGNyZWF0ZTplbWFpbF9wcm92aWRlciBibGFja2xpc3Q6dG9rZW5zIHJlYWQ6c3RhdHMgcmVhZDppbnNpZ2h0cyByZWFkOnRlbmFudF9zZXR0aW5ncyB1cGRhdGU6dGVuYW50X3NldHRpbmdzIHJlYWQ6bG9ncyByZWFkOmxvZ3NfdXNlcnMgcmVhZDpzaGllbGRzIGNyZWF0ZTpzaGllbGRzIHVwZGF0ZTpzaGllbGRzIGRlbGV0ZTpzaGllbGRzIHJlYWQ6YW5vbWFseV9ibG9ja3MgZGVsZXRlOmFub21hbHlfYmxvY2tzIHVwZGF0ZTp0cmlnZ2VycyByZWFkOnRyaWdnZXJzIHJlYWQ6Z3JhbnRzIGRlbGV0ZTpncmFudHMgcmVhZDpndWFyZGlhbl9mYWN0b3JzIHVwZGF0ZTpndWFyZGlhbl9mYWN0b3JzIHJlYWQ6Z3VhcmRpYW5fZW5yb2xsbWVudHMgZGVsZXRlOmd1YXJkaWFuX2Vucm9sbG1lbnRzIGNyZWF0ZTpndWFyZGlhbl9lbnJvbGxtZW50X3RpY2tldHMgcmVhZDp1c2VyX2lkcF90b2tlbnMgY3JlYXRlOnBhc3N3b3Jkc19jaGVja2luZ19qb2IgZGVsZXRlOnBhc3N3b3Jkc19jaGVja2luZ19qb2IgcmVhZDpjdXN0b21fZG9tYWlucyBkZWxldGU6Y3VzdG9tX2RvbWFpbnMgY3JlYXRlOmN1c3RvbV9kb21haW5zIHVwZGF0ZTpjdXN0b21fZG9tYWlucyByZWFkOmVtYWlsX3RlbXBsYXRlcyBjcmVhdGU6ZW1haWxfdGVtcGxhdGVzIHVwZGF0ZTplbWFpbF90ZW1wbGF0ZXMgcmVhZDptZmFfcG9saWNpZXMgdXBkYXRlOm1mYV9wb2xpY2llcyByZWFkOnJvbGVzIGNyZWF0ZTpyb2xlcyBkZWxldGU6cm9sZXMgdXBkYXRlOnJvbGVzIHJlYWQ6cHJvbXB0cyB1cGRhdGU6cHJvbXB0cyByZWFkOmJyYW5kaW5nIHVwZGF0ZTpicmFuZGluZyBkZWxldGU6YnJhbmRpbmcgcmVhZDpsb2dfc3RyZWFtcyBjcmVhdGU6bG9nX3N0cmVhbXMgZGVsZXRlOmxvZ19zdHJlYW1zIHVwZGF0ZTpsb2dfc3RyZWFtcyBjcmVhdGU6c2lnbmluZ19rZXlzIHJlYWQ6c2lnbmluZ19rZXlzIHVwZGF0ZTpzaWduaW5nX2tleXMgcmVhZDpsaW1pdHMgdXBkYXRlOmxpbWl0cyBjcmVhdGU6cm9sZV9tZW1iZXJzIHJlYWQ6cm9sZV9tZW1iZXJzIGRlbGV0ZTpyb2xlX21lbWJlcnMgcmVhZDplbnRpdGxlbWVudHMgcmVhZDphdHRhY2tfcHJvdGVjdGlvbiB1cGRhdGU6YXR0YWNrX3Byb3RlY3Rpb24gcmVhZDpvcmdhbml6YXRpb25zX3N1bW1hcnkgY3JlYXRlOmF1dGhlbnRpY2F0aW9uX21ldGhvZHMgcmVhZDphdXRoZW50aWNhdGlvbl9tZXRob2RzIHVwZGF0ZTphdXRoZW50aWNhdGlvbl9tZXRob2RzIGRlbGV0ZTphdXRoZW50aWNhdGlvbl9tZXRob2RzIHJlYWQ6b3JnYW5pemF0aW9ucyB1cGRhdGU6b3JnYW5pemF0aW9ucyBjcmVhdGU6b3JnYW5pemF0aW9ucyBkZWxldGU6b3JnYW5pemF0aW9ucyByZWFkOm9yZ2FuaXphdGlvbl9kaXNjb3ZlcnlfZG9tYWlucyB1cGRhdGU6b3JnYW5pemF0aW9uX2Rpc2NvdmVyeV9kb21haW5zIGNyZWF0ZTpvcmdhbml6YXRpb25fZGlzY292ZXJ5X2RvbWFpbnMgZGVsZXRlOm9yZ2FuaXphdGlvbl9kaXNjb3ZlcnlfZG9tYWlucyBjcmVhdGU6b3JnYW5pemF0aW9uX21lbWJlcnMgcmVhZDpvcmdhbml6YXRpb25fbWVtYmVycyBkZWxldGU6b3JnYW5pemF0aW9uX21lbWJlcnMgY3JlYXRlOm9yZ2FuaXphdGlvbl9jb25uZWN0aW9ucyByZWFkOm9yZ2FuaXphdGlvbl9jb25uZWN0aW9ucyB1cGRhdGU6b3JnYW5pemF0aW9uX2Nvbm5lY3Rpb25zIGRlbGV0ZTpvcmdhbml6YXRpb25fY29ubmVjdGlvbnMgY3JlYXRlOm9yZ2FuaXphdGlvbl9tZW1iZXJfcm9sZXMgcmVhZDpvcmdhbml6YXRpb25fbWVtYmVyX3JvbGVzIGRlbGV0ZTpvcmdhbml6YXRpb25fbWVtYmVyX3JvbGVzIGNyZWF0ZTpvcmdhbml6YXRpb25faW52aXRhdGlvbnMgcmVhZDpvcmdhbml6YXRpb25faW52aXRhdGlvbnMgZGVsZXRlOm9yZ2FuaXphdGlvbl9pbnZpdGF0aW9ucyByZWFkOnNjaW1fY29uZmlnIGNyZWF0ZTpzY2ltX2NvbmZpZyB1cGRhdGU6c2NpbV9jb25maWcgZGVsZXRlOnNjaW1fY29uZmlnIGNyZWF0ZTpzY2ltX3Rva2VuIHJlYWQ6c2NpbV90b2tlbiBkZWxldGU6c2NpbV90b2tlbiBkZWxldGU6cGhvbmVfcHJvdmlkZXJzIGNyZWF0ZTpwaG9uZV9wcm92aWRlcnMgcmVhZDpwaG9uZV9wcm92aWRlcnMgdXBkYXRlOnBob25lX3Byb3ZpZGVycyBkZWxldGU6cGhvbmVfdGVtcGxhdGVzIGNyZWF0ZTpwaG9uZV90ZW1wbGF0ZXMgcmVhZDpwaG9uZV90ZW1wbGF0ZXMgdXBkYXRlOnBob25lX3RlbXBsYXRlcyBjcmVhdGU6ZW5jcnlwdGlvbl9rZXlzIHJlYWQ6ZW5jcnlwdGlvbl9rZXlzIHVwZGF0ZTplbmNyeXB0aW9uX2tleXMgZGVsZXRlOmVuY3J5cHRpb25fa2V5cyByZWFkOnNlc3Npb25zIHVwZGF0ZTpzZXNzaW9ucyBkZWxldGU6c2Vzc2lvbnMgcmVhZDpyZWZyZXNoX3Rva2VucyB1cGRhdGU6cmVmcmVzaF90b2tlbnMgZGVsZXRlOnJlZnJlc2hfdG9rZW5zIGNyZWF0ZTpzZWxmX3NlcnZpY2VfcHJvZmlsZXMgcmVhZDpzZWxmX3NlcnZpY2VfcHJvZmlsZXMgdXBkYXRlOnNlbGZfc2VydmljZV9wcm9maWxlcyBkZWxldGU6c2VsZl9zZXJ2aWNlX3Byb2ZpbGVzIGNyZWF0ZTpzc29fYWNjZXNzX3RpY2tldHMgZGVsZXRlOnNzb19hY2Nlc3NfdGlja2V0cyByZWFkOmZvcm1zIHVwZGF0ZTpmb3JtcyBkZWxldGU6Zm9ybXMgY3JlYXRlOmZvcm1zIHJlYWQ6Zmxvd3MgdXBkYXRlOmZsb3dzIGRlbGV0ZTpmbG93cyBjcmVhdGU6Zmxvd3MgcmVhZDpmbG93c192YXVsdCByZWFkOmZsb3dzX3ZhdWx0X2Nvbm5lY3Rpb25zIHVwZGF0ZTpmbG93c192YXVsdF9jb25uZWN0aW9ucyBkZWxldGU6Zmxvd3NfdmF1bHRfY29ubmVjdGlvbnMgY3JlYXRlOmZsb3dzX3ZhdWx0X2Nvbm5lY3Rpb25zIHJlYWQ6Zmxvd3NfZXhlY3V0aW9ucyBkZWxldGU6Zmxvd3NfZXhlY3V0aW9ucyByZWFkOmNvbm5lY3Rpb25zX29wdGlvbnMgdXBkYXRlOmNvbm5lY3Rpb25zX29wdGlvbnMgcmVhZDpzZWxmX3NlcnZpY2VfcHJvZmlsZV9jdXN0b21fdGV4dHMgdXBkYXRlOnNlbGZfc2VydmljZV9wcm9maWxlX2N1c3RvbV90ZXh0cyBjcmVhdGU6bmV0d29ya19hY2xzIHVwZGF0ZTpuZXR3b3JrX2FjbHMgcmVhZDpuZXR3b3JrX2FjbHMgZGVsZXRlOm5ldHdvcmtfYWNscyBkZWxldGU6dmRjc190ZW1wbGF0ZXMgcmVhZDp2ZGNzX3RlbXBsYXRlcyBjcmVhdGU6dmRjc190ZW1wbGF0ZXMgdXBkYXRlOnZkY3NfdGVtcGxhdGVzIGNyZWF0ZTpjdXN0b21fc2lnbmluZ19rZXlzIHJlYWQ6Y3VzdG9tX3NpZ25pbmdfa2V5cyB1cGRhdGU6Y3VzdG9tX3NpZ25pbmdfa2V5cyBkZWxldGU6Y3VzdG9tX3NpZ25pbmdfa2V5cyByZWFkOmZlZGVyYXRlZF9jb25uZWN0aW9uc190b2tlbnMgZGVsZXRlOmZlZGVyYXRlZF9jb25uZWN0aW9uc190b2tlbnMgY3JlYXRlOnVzZXJfYXR0cmlidXRlX3Byb2ZpbGVzIHJlYWQ6dXNlcl9hdHRyaWJ1dGVfcHJvZmlsZXMgdXBkYXRlOnVzZXJfYXR0cmlidXRlX3Byb2ZpbGVzIGRlbGV0ZTp1c2VyX2F0dHJpYnV0ZV9wcm9maWxlcyByZWFkOmV2ZW50X3N0cmVhbXMgY3JlYXRlOmV2ZW50X3N0cmVhbXMgZGVsZXRlOmV2ZW50X3N0cmVhbXMgdXBkYXRlOmV2ZW50X3N0cmVhbXMgcmVhZDpldmVudF9kZWxpdmVyaWVzIHVwZGF0ZTpldmVudF9kZWxpdmVyaWVzIGNyZWF0ZTpjb25uZWN0aW9uX3Byb2ZpbGVzIHJlYWQ6Y29ubmVjdGlvbl9wcm9maWxlcyB1cGRhdGU6Y29ubmVjdGlvbl9wcm9maWxlcyBkZWxldGU6Y29ubmVjdGlvbl9wcm9maWxlcyByZWFkOm9yZ2FuaXphdGlvbl9jbGllbnRfZ3JhbnRzIGNyZWF0ZTpvcmdhbml6YXRpb25fY2xpZW50X2dyYW50cyBkZWxldGU6b3JnYW5pemF0aW9uX2NsaWVudF9ncmFudHMgcmVhZDpzZWN1cml0eV9tZXRyaWNzIHJlYWQ6Y29ubmVjdGlvbnNfa2V5cyB1cGRhdGU6Y29ubmVjdGlvbnNfa2V5cyBjcmVhdGU6Y29ubmVjdGlvbnNfa2V5cyIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyIsImF6cCI6IlBZNkh1dUd5WWpEa3RWR09yZjQ3RElhWHdVeTh1VllQIn0.g86ev9tdiBka5FfY9suyKF1Q94bk2EbE72tpJjMDXklAroivAnwXTKcTHmK1Mi8EhENVU02nxZwXUPCLYYIBlMb9vHtqdfUXLkb1idVL0Tas-TQN51i5xHvFWkE68Ji91YuFOdEQ7hYFWVvJasM8N2ZdoeOJefOwRWSS8BrWGfrRQ3kbJZxzUQ-w-_WvBkk06c7gP9zFb4vOxQrEyGlwzpkx9dcVkOhSk3cKhO84S-3awJA2ZOBl1ZrqG6T0-eZZZekD5SM-UqFX-cFtsASXzeqi2ziuqyNNv14kn_eV56B65W7u-BR6pkqTxa7PZKsXoIdV4fXLub48CJp6SwZNXA";
+
+//            ManagementApi client = ManagementApi
+//                .builder()
+//                .url(audience)
+//                .token(accessToken)
+//                .build();
+
+            OAuthTokenSupplier supplier = new OAuthTokenSupplier(
+                clientId, clientSecret, "https://dev-tanya.us.auth0.com", audience);
+
+            ManagementApi client = new ManagementApi(ClientOptions.builder()
+                .environment(Environment.custom("https://dev-tanya.us.auth0.com" + "/api/v2"))
+                .addHeader("Authorization", () -> "Bearer " + supplier.get())
+                .build());
+
+//
+
+//        CreateActionResponseContent resp = client.actions().create(
+//            CreateActionRequestContent
+//                .builder()
+//                .name("name")
+//                .supportedTriggers(
+//                    new ArrayList<ActionTrigger>(
+//                        Arrays.asList(
+//                            ActionTrigger
+//                                .builder()
+//                                .id("id")
+//                                .build()
+//                        )
+//                    )
+//                )
+//                .build()
+//        );
+
+//        client.users().list();
+
+//            UpdateUserRequestContent updateUserRequestContent1 = UpdateUserRequestContent.builder()
+//                .givenName(OptionalNullable.of("John")) // Set a value
+//                .familyName(OptionalNullable.of("Sinha")) // Explicitly send null
+//                .nickname(OptionalNullable.absent()) // Exclude the field from the request
+//                .build();
+//
+//
+//            UpdateUserResponseContent resp1 = client.users().update("auth0|68cb986ea95fb4c16522b85d", updateUserRequestContent1);
+//            System.out.println("resp1 " + resp1.toString());
+////
+//////
+//            UpdateUserRequestContent updateUserRequestContent = UpdateUserRequestContent.builder()
+//                .givenName(OptionalNullable.of("John")) // Set a value
+//                .familyName(OptionalNullable.ofNullable(null)) // Explicitly send null
+//                .nickname(OptionalNullable.absent()) // Exclude the field from the request
+//                .build();
+//
+//
+//        UpdateUserResponseContent resp = client.users().update("auth0|68cb986ea95fb4c16522b85d", updateUserRequestContent);
+//        System.out.println("resp " + resp.toString());
+//
+//            UpdateBrandingRequestContent update = UpdateBrandingRequestContent.builder()
+//                .logoUrl("https://example.com/logo.ico")
+//                .faviconUrl(Optional.ofNullable(null)).build();
+//            UpdateBrandingResponseContent resp2 = client.branding().update(update);
+//            System.out.println("resp2 " + resp2.toString());
+//
+//            ExecutorService executor = Executors.newFixedThreadPool(10);
+//
+//            for (int i = 0; i < 102; i++) { // Simulate 50 requests
+//                executor.submit(() -> {
+//                    try {
+//                        GetClientResponseContent get = client.clients().get("K6T6DHgl2AyzKHfgQ8A3Nqhdw15iuGdC");
+//                        System.out.println("get " + get.toString());
+//                    } catch (Exception e) {
+//                        System.out.println("Caught exception: " + e);
+//                    }
+//                });
+//            }
+
+//            GetClientResponseContent get = client.clients().get("K6T6DHgl2AyzKHfgQ8A3Nqhdw15iuGdC");
+//            System.out.println("get " + get.toString());
+//
+//            SyncPagingIterable<Client> list = client.clients().list(ListClientsRequestParameters.builder().page(0).perPage(1).includeTotals(true).build());
+//            for( Client c : list){
+//                System.out.println("Client: " + c.toString());
+//            }
+//
+//            SyncPagingIterable<Log> logs = client.logs().list();
+//            for (Log log : logs) {
+//                System.out.println("log " + log.toString());
+//            }
+//            System.out.println("Logs fetched successfully."+logs.getItems().size());
+////
+//            System.out.println("Creating connection...");
+//
+//            CreateConnectionRequestContent createConnection =
+//                CreateConnectionRequestContent
+//                .builder()
+//                    .name("my-connection-1234-1234-1234-1234-123-99")
+//                    .strategy(ConnectionIdentityProviderEnum.valueOf("auth0"))
+//                .build();
+//
+//            CreateConnectionResponseContent createClientResp = client.connections().create(createConnection);
+//            System.out.println("createClientResp " + createClientResp.toString());
+//
+//            List<String> enabledClients = new ArrayList<>();
+//            enabledClients.add("PY6HuuGyYjDktVGOrf47DIaXwUy8uVYP");
+//
+//            UpdateConnectionResponseContent updateConnectionResponseContent = client.connections().update("con_UwaU8C6gvIl2XJL3",
+//                UpdateConnectionRequestContent
+//                    .builder()
+//                    .enabledClients(enabledClients)
+//                    .build()
+//            );
+//            System.out.println("updateConnectionResponseContent " + updateConnectionResponseContent.toString());
+
+//            SyncPagingIterable<ConnectionForList> listConnection = client.connections().list();
+//            System.out.println("Connections fetched successfully."+listConnection.getItems().size());
+//
+//            GetConnectionResponseContent getConnectionResponseContent = client.connections().get("con_UwaU8C6gvIl2XJL3");
+//            System.out.println("getConnectionResponseContent " + getConnectionResponseContent.toString());
+
+            //
+            //
+            // client.connections().delete(String.valueOf(createClientResp.getId()));
+
+//            ManagementApiHttpResponse<Void> response = client.connections()
+//                .withRawResponse()
+//                .delete("con_UwaU8C6gvIl2XJL3");
+//            System.out.println("Delete connection response status code: " + response.body());
+
+
+
+//            client.users().list(null, RequestOptions.withClientCredentials(
+//                "https://dev-tanya.us.auth0.com", clientId, clientSecret));
+
+//            double get = client.stats().getActiveUsersCount();
+//            System.out.println("Active Users Count: " + get);
+
+//            List<EventStreamResponseContent> eventStreamResponseContents = client.eventStreams().list();
+//            SyncPagingIterable<EncryptionKey> getKeys = client.keys().encryption().list(
+//                ListEncryptionKeysRequestParameters
+//                    .builder()
+//                    .perPage(25)
+//                    .build()
+//            );
+//            System.out.println("Encryption Keys Count: " + getKeys.getItems().size());
+
+//            client.users().create()
+
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+            System.out.println(ex.getStackTrace());
+        }
+    }
 }
 

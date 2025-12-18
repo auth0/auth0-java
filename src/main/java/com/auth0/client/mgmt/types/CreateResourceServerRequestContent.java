@@ -53,6 +53,8 @@ public final class CreateResourceServerRequestContent {
 
     private final OptionalNullable<ResourceServerProofOfPossession> proofOfPossession;
 
+    private final Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization;
+
     private final Map<String, Object> additionalProperties;
 
     private CreateResourceServerRequestContent(
@@ -70,6 +72,7 @@ public final class CreateResourceServerRequestContent {
             OptionalNullable<String> consentPolicy,
             Optional<List<Object>> authorizationDetails,
             OptionalNullable<ResourceServerProofOfPossession> proofOfPossession,
+            Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.identifier = identifier;
@@ -85,6 +88,7 @@ public final class CreateResourceServerRequestContent {
         this.consentPolicy = consentPolicy;
         this.authorizationDetails = authorizationDetails;
         this.proofOfPossession = proofOfPossession;
+        this.subjectTypeAuthorization = subjectTypeAuthorization;
         this.additionalProperties = additionalProperties;
     }
 
@@ -194,6 +198,11 @@ public final class CreateResourceServerRequestContent {
         return proofOfPossession;
     }
 
+    @JsonProperty("subject_type_authorization")
+    public Optional<ResourceServerSubjectTypeAuthorization> getSubjectTypeAuthorization() {
+        return subjectTypeAuthorization;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("token_encryption")
     private OptionalNullable<ResourceServerTokenEncryption> _getTokenEncryption() {
@@ -212,7 +221,7 @@ public final class CreateResourceServerRequestContent {
         return proofOfPossession;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateResourceServerRequestContent
@@ -238,10 +247,11 @@ public final class CreateResourceServerRequestContent {
                 && tokenEncryption.equals(other.tokenEncryption)
                 && consentPolicy.equals(other.consentPolicy)
                 && authorizationDetails.equals(other.authorizationDetails)
-                && proofOfPossession.equals(other.proofOfPossession);
+                && proofOfPossession.equals(other.proofOfPossession)
+                && subjectTypeAuthorization.equals(other.subjectTypeAuthorization);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.name,
@@ -257,10 +267,11 @@ public final class CreateResourceServerRequestContent {
                 this.tokenEncryption,
                 this.consentPolicy,
                 this.authorizationDetails,
-                this.proofOfPossession);
+                this.proofOfPossession,
+                this.subjectTypeAuthorization);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -367,11 +378,17 @@ public final class CreateResourceServerRequestContent {
 
         _FinalStage proofOfPossession(
                 com.auth0.client.mgmt.core.Nullable<ResourceServerProofOfPossession> proofOfPossession);
+
+        _FinalStage subjectTypeAuthorization(Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization);
+
+        _FinalStage subjectTypeAuthorization(ResourceServerSubjectTypeAuthorization subjectTypeAuthorization);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements IdentifierStage, _FinalStage {
         private String identifier;
+
+        private Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization = Optional.empty();
 
         private OptionalNullable<ResourceServerProofOfPossession> proofOfPossession = OptionalNullable.absent();
 
@@ -404,7 +421,7 @@ public final class CreateResourceServerRequestContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(CreateResourceServerRequestContent other) {
             name(other.getName());
             identifier(other.getIdentifier());
@@ -420,6 +437,7 @@ public final class CreateResourceServerRequestContent {
             consentPolicy(other.getConsentPolicy());
             authorizationDetails(other.getAuthorizationDetails());
             proofOfPossession(other.getProofOfPossession());
+            subjectTypeAuthorization(other.getSubjectTypeAuthorization());
             return this;
         }
 
@@ -428,14 +446,28 @@ public final class CreateResourceServerRequestContent {
          * <p>Unique identifier for the API used as the audience parameter on authorization calls. Can not be changed once set.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("identifier")
         public _FinalStage identifier(@NotNull String identifier) {
             this.identifier = Objects.requireNonNull(identifier, "identifier must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
+        public _FinalStage subjectTypeAuthorization(ResourceServerSubjectTypeAuthorization subjectTypeAuthorization) {
+            this.subjectTypeAuthorization = Optional.ofNullable(subjectTypeAuthorization);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "subject_type_authorization", nulls = Nulls.SKIP)
+        public _FinalStage subjectTypeAuthorization(
+                Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization) {
+            this.subjectTypeAuthorization = subjectTypeAuthorization;
+            return this;
+        }
+
+        @Override
         public _FinalStage proofOfPossession(
                 com.auth0.client.mgmt.core.Nullable<ResourceServerProofOfPossession> proofOfPossession) {
             if (proofOfPossession.isNull()) {
@@ -448,7 +480,7 @@ public final class CreateResourceServerRequestContent {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage proofOfPossession(Optional<ResourceServerProofOfPossession> proofOfPossession) {
             if (proofOfPossession.isPresent()) {
                 this.proofOfPossession = OptionalNullable.of(proofOfPossession.get());
@@ -458,13 +490,13 @@ public final class CreateResourceServerRequestContent {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage proofOfPossession(ResourceServerProofOfPossession proofOfPossession) {
             this.proofOfPossession = OptionalNullable.of(proofOfPossession);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "proof_of_possession", nulls = Nulls.SKIP)
         public _FinalStage proofOfPossession(
                 @Nullable OptionalNullable<ResourceServerProofOfPossession> proofOfPossession) {
@@ -472,20 +504,20 @@ public final class CreateResourceServerRequestContent {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage authorizationDetails(List<Object> authorizationDetails) {
             this.authorizationDetails = Optional.ofNullable(authorizationDetails);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "authorization_details", nulls = Nulls.SKIP)
         public _FinalStage authorizationDetails(Optional<List<Object>> authorizationDetails) {
             this.authorizationDetails = authorizationDetails;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage consentPolicy(com.auth0.client.mgmt.core.Nullable<String> consentPolicy) {
             if (consentPolicy.isNull()) {
                 this.consentPolicy = OptionalNullable.ofNull();
@@ -497,7 +529,7 @@ public final class CreateResourceServerRequestContent {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage consentPolicy(Optional<String> consentPolicy) {
             if (consentPolicy.isPresent()) {
                 this.consentPolicy = OptionalNullable.of(consentPolicy.get());
@@ -507,20 +539,20 @@ public final class CreateResourceServerRequestContent {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage consentPolicy(String consentPolicy) {
             this.consentPolicy = OptionalNullable.of(consentPolicy);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "consent_policy", nulls = Nulls.SKIP)
         public _FinalStage consentPolicy(@Nullable OptionalNullable<String> consentPolicy) {
             this.consentPolicy = consentPolicy;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage tokenEncryption(
                 com.auth0.client.mgmt.core.Nullable<ResourceServerTokenEncryption> tokenEncryption) {
             if (tokenEncryption.isNull()) {
@@ -533,7 +565,7 @@ public final class CreateResourceServerRequestContent {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage tokenEncryption(Optional<ResourceServerTokenEncryption> tokenEncryption) {
             if (tokenEncryption.isPresent()) {
                 this.tokenEncryption = OptionalNullable.of(tokenEncryption.get());
@@ -543,13 +575,13 @@ public final class CreateResourceServerRequestContent {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage tokenEncryption(ResourceServerTokenEncryption tokenEncryption) {
             this.tokenEncryption = OptionalNullable.of(tokenEncryption);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "token_encryption", nulls = Nulls.SKIP)
         public _FinalStage tokenEncryption(@Nullable OptionalNullable<ResourceServerTokenEncryption> tokenEncryption) {
             this.tokenEncryption = tokenEncryption;
@@ -560,7 +592,7 @@ public final class CreateResourceServerRequestContent {
          * <p>Whether to enforce authorization policies (true) or to ignore them (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage enforcePolicies(Boolean enforcePolicies) {
             this.enforcePolicies = Optional.ofNullable(enforcePolicies);
             return this;
@@ -569,7 +601,7 @@ public final class CreateResourceServerRequestContent {
         /**
          * <p>Whether to enforce authorization policies (true) or to ignore them (false).</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "enforce_policies", nulls = Nulls.SKIP)
         public _FinalStage enforcePolicies(Optional<Boolean> enforcePolicies) {
             this.enforcePolicies = enforcePolicies;
@@ -580,7 +612,7 @@ public final class CreateResourceServerRequestContent {
          * <p>Whether to skip user consent for applications flagged as first party (true) or not (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage skipConsentForVerifiableFirstPartyClients(
                 Boolean skipConsentForVerifiableFirstPartyClients) {
             this.skipConsentForVerifiableFirstPartyClients =
@@ -591,7 +623,7 @@ public final class CreateResourceServerRequestContent {
         /**
          * <p>Whether to skip user consent for applications flagged as first party (true) or not (false).</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "skip_consent_for_verifiable_first_party_clients", nulls = Nulls.SKIP)
         public _FinalStage skipConsentForVerifiableFirstPartyClients(
                 Optional<Boolean> skipConsentForVerifiableFirstPartyClients) {
@@ -599,13 +631,13 @@ public final class CreateResourceServerRequestContent {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage tokenDialect(ResourceServerTokenDialectSchemaEnum tokenDialect) {
             this.tokenDialect = Optional.ofNullable(tokenDialect);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "token_dialect", nulls = Nulls.SKIP)
         public _FinalStage tokenDialect(Optional<ResourceServerTokenDialectSchemaEnum> tokenDialect) {
             this.tokenDialect = tokenDialect;
@@ -616,7 +648,7 @@ public final class CreateResourceServerRequestContent {
          * <p>Expiration value (in seconds) for access tokens issued for this API from the token endpoint.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage tokenLifetime(Integer tokenLifetime) {
             this.tokenLifetime = Optional.ofNullable(tokenLifetime);
             return this;
@@ -625,7 +657,7 @@ public final class CreateResourceServerRequestContent {
         /**
          * <p>Expiration value (in seconds) for access tokens issued for this API from the token endpoint.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "token_lifetime", nulls = Nulls.SKIP)
         public _FinalStage tokenLifetime(Optional<Integer> tokenLifetime) {
             this.tokenLifetime = tokenLifetime;
@@ -636,7 +668,7 @@ public final class CreateResourceServerRequestContent {
          * <p>Whether refresh tokens can be issued for this API (true) or not (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage allowOfflineAccess(Boolean allowOfflineAccess) {
             this.allowOfflineAccess = Optional.ofNullable(allowOfflineAccess);
             return this;
@@ -645,7 +677,7 @@ public final class CreateResourceServerRequestContent {
         /**
          * <p>Whether refresh tokens can be issued for this API (true) or not (false).</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "allow_offline_access", nulls = Nulls.SKIP)
         public _FinalStage allowOfflineAccess(Optional<Boolean> allowOfflineAccess) {
             this.allowOfflineAccess = allowOfflineAccess;
@@ -656,7 +688,7 @@ public final class CreateResourceServerRequestContent {
          * <p>Secret used to sign tokens when using symmetric algorithms (HS256).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage signingSecret(String signingSecret) {
             this.signingSecret = Optional.ofNullable(signingSecret);
             return this;
@@ -665,20 +697,20 @@ public final class CreateResourceServerRequestContent {
         /**
          * <p>Secret used to sign tokens when using symmetric algorithms (HS256).</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "signing_secret", nulls = Nulls.SKIP)
         public _FinalStage signingSecret(Optional<String> signingSecret) {
             this.signingSecret = signingSecret;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage signingAlg(SigningAlgorithmEnum signingAlg) {
             this.signingAlg = Optional.ofNullable(signingAlg);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "signing_alg", nulls = Nulls.SKIP)
         public _FinalStage signingAlg(Optional<SigningAlgorithmEnum> signingAlg) {
             this.signingAlg = signingAlg;
@@ -689,7 +721,7 @@ public final class CreateResourceServerRequestContent {
          * <p>List of permissions (scopes) that this API uses.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage scopes(List<ResourceServerScope> scopes) {
             this.scopes = Optional.ofNullable(scopes);
             return this;
@@ -698,7 +730,7 @@ public final class CreateResourceServerRequestContent {
         /**
          * <p>List of permissions (scopes) that this API uses.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "scopes", nulls = Nulls.SKIP)
         public _FinalStage scopes(Optional<List<ResourceServerScope>> scopes) {
             this.scopes = scopes;
@@ -709,7 +741,7 @@ public final class CreateResourceServerRequestContent {
          * <p>Friendly name for this resource server. Can not contain <code>&lt;</code> or <code>&gt;</code> characters.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage name(String name) {
             this.name = Optional.ofNullable(name);
             return this;
@@ -718,14 +750,14 @@ public final class CreateResourceServerRequestContent {
         /**
          * <p>Friendly name for this resource server. Can not contain <code>&lt;</code> or <code>&gt;</code> characters.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<String> name) {
             this.name = name;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public CreateResourceServerRequestContent build() {
             return new CreateResourceServerRequestContent(
                     name,
@@ -742,6 +774,7 @@ public final class CreateResourceServerRequestContent {
                     consentPolicy,
                     authorizationDetails,
                     proofOfPossession,
+                    subjectTypeAuthorization,
                     additionalProperties);
         }
     }

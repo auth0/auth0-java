@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +30,11 @@ public final class CreateClientGrantRequestContent {
 
     private final Optional<Boolean> allowAnyOrganization;
 
-    private final List<String> scope;
+    private final Optional<List<String>> scope;
+
+    private final Optional<ClientGrantSubjectTypeEnum> subjectType;
+
+    private final Optional<List<String>> authorizationDetailsTypes;
 
     private final Map<String, Object> additionalProperties;
 
@@ -40,13 +43,17 @@ public final class CreateClientGrantRequestContent {
             String audience,
             Optional<ClientGrantOrganizationUsageEnum> organizationUsage,
             Optional<Boolean> allowAnyOrganization,
-            List<String> scope,
+            Optional<List<String>> scope,
+            Optional<ClientGrantSubjectTypeEnum> subjectType,
+            Optional<List<String>> authorizationDetailsTypes,
             Map<String, Object> additionalProperties) {
         this.clientId = clientId;
         this.audience = audience;
         this.organizationUsage = organizationUsage;
         this.allowAnyOrganization = allowAnyOrganization;
         this.scope = scope;
+        this.subjectType = subjectType;
+        this.authorizationDetailsTypes = authorizationDetailsTypes;
         this.additionalProperties = additionalProperties;
     }
 
@@ -83,11 +90,24 @@ public final class CreateClientGrantRequestContent {
      * @return Scopes allowed for this client grant.
      */
     @JsonProperty("scope")
-    public List<String> getScope() {
+    public Optional<List<String>> getScope() {
         return scope;
     }
 
-    @java.lang.Override
+    @JsonProperty("subject_type")
+    public Optional<ClientGrantSubjectTypeEnum> getSubjectType() {
+        return subjectType;
+    }
+
+    /**
+     * @return Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s &lt;a href= &quot;https://www.okta.com/legal/&quot;&gt; Master Subscription Agreement.&lt;/a&gt;
+     */
+    @JsonProperty("authorization_details_types")
+    public Optional<List<String>> getAuthorizationDetailsTypes() {
+        return authorizationDetailsTypes;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateClientGrantRequestContent && equalTo((CreateClientGrantRequestContent) other);
@@ -103,16 +123,24 @@ public final class CreateClientGrantRequestContent {
                 && audience.equals(other.audience)
                 && organizationUsage.equals(other.organizationUsage)
                 && allowAnyOrganization.equals(other.allowAnyOrganization)
-                && scope.equals(other.scope);
+                && scope.equals(other.scope)
+                && subjectType.equals(other.subjectType)
+                && authorizationDetailsTypes.equals(other.authorizationDetailsTypes);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
-                this.clientId, this.audience, this.organizationUsage, this.allowAnyOrganization, this.scope);
+                this.clientId,
+                this.audience,
+                this.organizationUsage,
+                this.allowAnyOrganization,
+                this.scope,
+                this.subjectType,
+                this.authorizationDetailsTypes);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -154,11 +182,20 @@ public final class CreateClientGrantRequestContent {
         /**
          * <p>Scopes allowed for this client grant.</p>
          */
+        _FinalStage scope(Optional<List<String>> scope);
+
         _FinalStage scope(List<String> scope);
 
-        _FinalStage addScope(String scope);
+        _FinalStage subjectType(Optional<ClientGrantSubjectTypeEnum> subjectType);
 
-        _FinalStage addAllScope(List<String> scope);
+        _FinalStage subjectType(ClientGrantSubjectTypeEnum subjectType);
+
+        /**
+         * <p>Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s &lt;a href= &quot;https://www.okta.com/legal/&quot;&gt; Master Subscription Agreement.&lt;/a&gt;</p>
+         */
+        _FinalStage authorizationDetailsTypes(Optional<List<String>> authorizationDetailsTypes);
+
+        _FinalStage authorizationDetailsTypes(List<String> authorizationDetailsTypes);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -167,7 +204,11 @@ public final class CreateClientGrantRequestContent {
 
         private String audience;
 
-        private List<String> scope = new ArrayList<>();
+        private Optional<List<String>> authorizationDetailsTypes = Optional.empty();
+
+        private Optional<ClientGrantSubjectTypeEnum> subjectType = Optional.empty();
+
+        private Optional<List<String>> scope = Optional.empty();
 
         private Optional<Boolean> allowAnyOrganization = Optional.empty();
 
@@ -178,13 +219,15 @@ public final class CreateClientGrantRequestContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(CreateClientGrantRequestContent other) {
             clientId(other.getClientId());
             audience(other.getAudience());
             organizationUsage(other.getOrganizationUsage());
             allowAnyOrganization(other.getAllowAnyOrganization());
             scope(other.getScope());
+            subjectType(other.getSubjectType());
+            authorizationDetailsTypes(other.getAuthorizationDetailsTypes());
             return this;
         }
 
@@ -193,7 +236,7 @@ public final class CreateClientGrantRequestContent {
          * <p>ID of the client.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("client_id")
         public AudienceStage clientId(@NotNull String clientId) {
             this.clientId = Objects.requireNonNull(clientId, "clientId must not be null");
@@ -205,7 +248,7 @@ public final class CreateClientGrantRequestContent {
          * <p>The audience (API identifier) of this client grant</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("audience")
         public _FinalStage audience(@NotNull String audience) {
             this.audience = Objects.requireNonNull(audience, "audience must not be null");
@@ -213,14 +256,35 @@ public final class CreateClientGrantRequestContent {
         }
 
         /**
-         * <p>Scopes allowed for this client grant.</p>
+         * <p>Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s &lt;a href= &quot;https://www.okta.com/legal/&quot;&gt; Master Subscription Agreement.&lt;/a&gt;</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
-        public _FinalStage addAllScope(List<String> scope) {
-            if (scope != null) {
-                this.scope.addAll(scope);
-            }
+        @Override
+        public _FinalStage authorizationDetailsTypes(List<String> authorizationDetailsTypes) {
+            this.authorizationDetailsTypes = Optional.ofNullable(authorizationDetailsTypes);
+            return this;
+        }
+
+        /**
+         * <p>Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s &lt;a href= &quot;https://www.okta.com/legal/&quot;&gt; Master Subscription Agreement.&lt;/a&gt;</p>
+         */
+        @Override
+        @JsonSetter(value = "authorization_details_types", nulls = Nulls.SKIP)
+        public _FinalStage authorizationDetailsTypes(Optional<List<String>> authorizationDetailsTypes) {
+            this.authorizationDetailsTypes = authorizationDetailsTypes;
+            return this;
+        }
+
+        @Override
+        public _FinalStage subjectType(ClientGrantSubjectTypeEnum subjectType) {
+            this.subjectType = Optional.ofNullable(subjectType);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "subject_type", nulls = Nulls.SKIP)
+        public _FinalStage subjectType(Optional<ClientGrantSubjectTypeEnum> subjectType) {
+            this.subjectType = subjectType;
             return this;
         }
 
@@ -228,22 +292,19 @@ public final class CreateClientGrantRequestContent {
          * <p>Scopes allowed for this client grant.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
-        public _FinalStage addScope(String scope) {
-            this.scope.add(scope);
-            return this;
-        }
-
-        /**
-         * <p>Scopes allowed for this client grant.</p>
-         */
-        @java.lang.Override
-        @JsonSetter(value = "scope", nulls = Nulls.SKIP)
+        @Override
         public _FinalStage scope(List<String> scope) {
-            this.scope.clear();
-            if (scope != null) {
-                this.scope.addAll(scope);
-            }
+            this.scope = Optional.ofNullable(scope);
+            return this;
+        }
+
+        /**
+         * <p>Scopes allowed for this client grant.</p>
+         */
+        @Override
+        @JsonSetter(value = "scope", nulls = Nulls.SKIP)
+        public _FinalStage scope(Optional<List<String>> scope) {
+            this.scope = scope;
             return this;
         }
 
@@ -251,7 +312,7 @@ public final class CreateClientGrantRequestContent {
          * <p>If enabled, any organization can be used with this grant. If disabled (default), the grant must be explicitly assigned to the desired organizations.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage allowAnyOrganization(Boolean allowAnyOrganization) {
             this.allowAnyOrganization = Optional.ofNullable(allowAnyOrganization);
             return this;
@@ -260,30 +321,37 @@ public final class CreateClientGrantRequestContent {
         /**
          * <p>If enabled, any organization can be used with this grant. If disabled (default), the grant must be explicitly assigned to the desired organizations.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "allow_any_organization", nulls = Nulls.SKIP)
         public _FinalStage allowAnyOrganization(Optional<Boolean> allowAnyOrganization) {
             this.allowAnyOrganization = allowAnyOrganization;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage organizationUsage(ClientGrantOrganizationUsageEnum organizationUsage) {
             this.organizationUsage = Optional.ofNullable(organizationUsage);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "organization_usage", nulls = Nulls.SKIP)
         public _FinalStage organizationUsage(Optional<ClientGrantOrganizationUsageEnum> organizationUsage) {
             this.organizationUsage = organizationUsage;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public CreateClientGrantRequestContent build() {
             return new CreateClientGrantRequestContent(
-                    clientId, audience, organizationUsage, allowAnyOrganization, scope, additionalProperties);
+                    clientId,
+                    audience,
+                    organizationUsage,
+                    allowAnyOrganization,
+                    scope,
+                    subjectType,
+                    authorizationDetailsTypes,
+                    additionalProperties);
         }
     }
 }

@@ -35,7 +35,7 @@ public final class SessionCookieMetadata {
         return mode;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SessionCookieMetadata && equalTo((SessionCookieMetadata) other);
@@ -50,12 +50,12 @@ public final class SessionCookieMetadata {
         return mode.equals(other.mode);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.mode);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

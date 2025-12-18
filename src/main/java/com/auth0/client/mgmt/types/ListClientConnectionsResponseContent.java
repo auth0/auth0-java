@@ -48,7 +48,7 @@ public final class ListClientConnectionsResponseContent {
         return next;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListClientConnectionsResponseContent
@@ -64,12 +64,12 @@ public final class ListClientConnectionsResponseContent {
         return connections.equals(other.connections) && next.equals(other.next);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.connections, this.next);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

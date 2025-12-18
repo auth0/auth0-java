@@ -73,8 +73,9 @@ public class AsyncRawVersionsClient {
                 .addPathSegments("actions/actions")
                 .addPathSegment(actionId)
                 .addPathSegments("versions");
-        QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "per_page", request.getPerPage(), false);
+        QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage().orElse(0), false);
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "per_page", request.getPerPage().orElse(50), false);
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)

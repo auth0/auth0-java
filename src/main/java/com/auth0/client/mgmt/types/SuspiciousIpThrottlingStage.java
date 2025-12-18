@@ -45,7 +45,7 @@ public final class SuspiciousIpThrottlingStage {
         return preUserRegistration;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SuspiciousIpThrottlingStage && equalTo((SuspiciousIpThrottlingStage) other);
@@ -60,12 +60,12 @@ public final class SuspiciousIpThrottlingStage {
         return preLogin.equals(other.preLogin) && preUserRegistration.equals(other.preUserRegistration);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.preLogin, this.preUserRegistration);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

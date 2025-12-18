@@ -44,7 +44,7 @@ public final class EventStreamWebhookBasicAuth {
         return username;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof EventStreamWebhookBasicAuth && equalTo((EventStreamWebhookBasicAuth) other);
@@ -59,12 +59,12 @@ public final class EventStreamWebhookBasicAuth {
         return method.equals(other.method) && username.equals(other.username);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.method, this.username);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -101,14 +101,14 @@ public final class EventStreamWebhookBasicAuth {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(EventStreamWebhookBasicAuth other) {
             method(other.getMethod());
             username(other.getUsername());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("method")
         public UsernameStage method(@NotNull String method) {
             this.method = Objects.requireNonNull(method, "method must not be null");
@@ -120,14 +120,14 @@ public final class EventStreamWebhookBasicAuth {
          * <p>Username</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("username")
         public _FinalStage username(@NotNull String username) {
             this.username = Objects.requireNonNull(username, "username must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public EventStreamWebhookBasicAuth build() {
             return new EventStreamWebhookBasicAuth(method, username, additionalProperties);
         }

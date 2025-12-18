@@ -100,7 +100,7 @@ public final class FormWidgetGMapsAddress {
         return sensitive;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormWidgetGMapsAddress && equalTo((FormWidgetGMapsAddress) other);
@@ -122,13 +122,13 @@ public final class FormWidgetGMapsAddress {
                 && sensitive.equals(other.sensitive);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.id, this.category, this.type, this.config, this.label, this.hint, this.required, this.sensitive);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -198,7 +198,7 @@ public final class FormWidgetGMapsAddress {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FormWidgetGMapsAddress other) {
             id(other.getId());
             category(other.getCategory());
@@ -211,87 +211,87 @@ public final class FormWidgetGMapsAddress {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("id")
         public CategoryStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("category")
         public TypeStage category(@NotNull String category) {
             this.category = Objects.requireNonNull(category, "category must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("type")
         public ConfigStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("config")
         public _FinalStage config(@NotNull FormWidgetGMapsAddressConfig config) {
             this.config = Objects.requireNonNull(config, "config must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage sensitive(Boolean sensitive) {
             this.sensitive = Optional.ofNullable(sensitive);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "sensitive", nulls = Nulls.SKIP)
         public _FinalStage sensitive(Optional<Boolean> sensitive) {
             this.sensitive = sensitive;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage required(Boolean required) {
             this.required = Optional.ofNullable(required);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "required", nulls = Nulls.SKIP)
         public _FinalStage required(Optional<Boolean> required) {
             this.required = required;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage hint(String hint) {
             this.hint = Optional.ofNullable(hint);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "hint", nulls = Nulls.SKIP)
         public _FinalStage hint(Optional<String> hint) {
             this.hint = hint;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage label(String label) {
             this.label = Optional.ofNullable(label);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "label", nulls = Nulls.SKIP)
         public _FinalStage label(Optional<String> label) {
             this.label = label;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FormWidgetGMapsAddress build() {
             return new FormWidgetGMapsAddress(
                     id, category, type, config, label, hint, required, sensitive, additionalProperties);

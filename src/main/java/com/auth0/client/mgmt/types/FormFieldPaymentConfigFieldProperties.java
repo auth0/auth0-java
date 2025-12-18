@@ -43,7 +43,7 @@ public final class FormFieldPaymentConfigFieldProperties {
         return placeholder;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldPaymentConfigFieldProperties
@@ -59,12 +59,12 @@ public final class FormFieldPaymentConfigFieldProperties {
         return label.equals(other.label) && placeholder.equals(other.placeholder);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.label, this.placeholder);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

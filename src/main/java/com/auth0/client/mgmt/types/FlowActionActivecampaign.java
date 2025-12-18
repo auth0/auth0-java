@@ -39,7 +39,7 @@ public final class FlowActionActivecampaign {
         throw new IllegalStateException("Failed to visit value. This should never happen.");
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionActivecampaign && equalTo((FlowActionActivecampaign) other);
@@ -49,12 +49,12 @@ public final class FlowActionActivecampaign {
         return value.equals(other.value);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.value);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return this.value.toString();
     }
@@ -78,7 +78,7 @@ public final class FlowActionActivecampaign {
             super(FlowActionActivecampaign.class);
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionActivecampaign deserialize(JsonParser p, DeserializationContext context) throws IOException {
             Object value = p.readValueAs(Object.class);
             try {

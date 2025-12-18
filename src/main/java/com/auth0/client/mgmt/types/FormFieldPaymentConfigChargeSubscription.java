@@ -44,7 +44,7 @@ public final class FormFieldPaymentConfigChargeSubscription {
         return subscription;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldPaymentConfigChargeSubscription
@@ -60,12 +60,12 @@ public final class FormFieldPaymentConfigChargeSubscription {
         return type.equals(other.type) && subscription.equals(other.subscription);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.type, this.subscription);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -101,27 +101,27 @@ public final class FormFieldPaymentConfigChargeSubscription {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FormFieldPaymentConfigChargeSubscription other) {
             type(other.getType());
             subscription(other.getSubscription());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("type")
         public _FinalStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage subscription(String key, Object value) {
             this.subscription.put(key, value);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage putAllSubscription(Map<String, Object> subscription) {
             if (subscription != null) {
                 this.subscription.putAll(subscription);
@@ -129,7 +129,7 @@ public final class FormFieldPaymentConfigChargeSubscription {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "subscription", nulls = Nulls.SKIP)
         public _FinalStage subscription(Map<String, Object> subscription) {
             this.subscription.clear();
@@ -139,7 +139,7 @@ public final class FormFieldPaymentConfigChargeSubscription {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FormFieldPaymentConfigChargeSubscription build() {
             return new FormFieldPaymentConfigChargeSubscription(type, subscription, additionalProperties);
         }

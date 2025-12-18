@@ -69,9 +69,6 @@ public final class ListUserGrantsRequestParameters {
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("page")
     public OptionalNullable<Integer> getPage() {
-        if (page == null) {
-            return OptionalNullable.absent();
-        }
         return page;
     }
 
@@ -121,12 +118,6 @@ public final class ListUserGrantsRequestParameters {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("page")
-    private OptionalNullable<Integer> _getPage() {
-        return page;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("user_id")
     private OptionalNullable<String> _getUserId() {
         return userId;
@@ -144,7 +135,7 @@ public final class ListUserGrantsRequestParameters {
         return audience;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListUserGrantsRequestParameters && equalTo((ListUserGrantsRequestParameters) other);
@@ -164,12 +155,12 @@ public final class ListUserGrantsRequestParameters {
                 && audience.equals(other.audience);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.perPage, this.page, this.includeTotals, this.userId, this.clientId, this.audience);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -245,7 +236,7 @@ public final class ListUserGrantsRequestParameters {
          * <p>Page index of the results to return. First page is 0.</p>
          */
         @JsonSetter(value = "page", nulls = Nulls.SKIP)
-        public Builder page(@org.jetbrains.annotations.Nullable OptionalNullable<Integer> page) {
+        public Builder page(OptionalNullable<Integer> page) {
             this.page = page;
             return this;
         }

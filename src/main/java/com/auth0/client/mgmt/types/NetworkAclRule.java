@@ -64,7 +64,7 @@ public final class NetworkAclRule {
         return scope;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof NetworkAclRule && equalTo((NetworkAclRule) other);
@@ -82,12 +82,12 @@ public final class NetworkAclRule {
                 && scope.equals(other.scope);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.action, this.match, this.notMatch, this.scope);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -133,7 +133,7 @@ public final class NetworkAclRule {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(NetworkAclRule other) {
             action(other.getAction());
             match(other.getMatch());
@@ -142,47 +142,47 @@ public final class NetworkAclRule {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("action")
         public ScopeStage action(@NotNull NetworkAclAction action) {
             this.action = Objects.requireNonNull(action, "action must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("scope")
         public _FinalStage scope(@NotNull NetworkAclRuleScopeEnum scope) {
             this.scope = Objects.requireNonNull(scope, "scope must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage notMatch(NetworkAclMatch notMatch) {
             this.notMatch = Optional.ofNullable(notMatch);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "not_match", nulls = Nulls.SKIP)
         public _FinalStage notMatch(Optional<NetworkAclMatch> notMatch) {
             this.notMatch = notMatch;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage match(NetworkAclMatch match) {
             this.match = Optional.ofNullable(match);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "match", nulls = Nulls.SKIP)
         public _FinalStage match(Optional<NetworkAclMatch> match) {
             this.match = match;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public NetworkAclRule build() {
             return new NetworkAclRule(action, match, notMatch, scope, additionalProperties);
         }

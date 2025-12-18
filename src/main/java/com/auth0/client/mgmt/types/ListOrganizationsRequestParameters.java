@@ -87,7 +87,7 @@ public final class ListOrganizationsRequestParameters {
         return sort;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListOrganizationsRequestParameters
@@ -103,12 +103,12 @@ public final class ListOrganizationsRequestParameters {
         return from.equals(other.from) && take.equals(other.take) && sort.equals(other.sort);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.from, this.take, this.sort);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -100,7 +100,7 @@ public final class EventStreamCloudEvent {
         return data;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof EventStreamCloudEvent && equalTo((EventStreamCloudEvent) other);
@@ -120,12 +120,12 @@ public final class EventStreamCloudEvent {
                 && data.equals(other.data);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.id, this.source, this.specversion, this.type, this.time, this.data);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

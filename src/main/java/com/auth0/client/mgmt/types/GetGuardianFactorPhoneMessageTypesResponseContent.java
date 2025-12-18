@@ -40,7 +40,7 @@ public final class GetGuardianFactorPhoneMessageTypesResponseContent {
         return messageTypes;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetGuardianFactorPhoneMessageTypesResponseContent
@@ -56,12 +56,12 @@ public final class GetGuardianFactorPhoneMessageTypesResponseContent {
         return messageTypes.equals(other.messageTypes);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.messageTypes);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

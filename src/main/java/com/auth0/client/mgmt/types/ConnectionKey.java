@@ -166,7 +166,7 @@ public final class ConnectionKey {
         return subjectDn;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionKey && equalTo((ConnectionKey) other);
@@ -192,7 +192,7 @@ public final class ConnectionKey {
                 && subjectDn.equals(other.subjectDn);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.kid,
@@ -209,7 +209,7 @@ public final class ConnectionKey {
                 this.subjectDn);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -333,7 +333,7 @@ public final class ConnectionKey {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(ConnectionKey other) {
             kid(other.getKid());
             cert(other.getCert());
@@ -355,7 +355,7 @@ public final class ConnectionKey {
          * <p>The key id of the signing key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("kid")
         public CertStage kid(@NotNull String kid) {
             this.kid = Objects.requireNonNull(kid, "kid must not be null");
@@ -367,7 +367,7 @@ public final class ConnectionKey {
          * <p>The public certificate of the signing key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("cert")
         public FingerprintStage cert(@NotNull String cert) {
             this.cert = Objects.requireNonNull(cert, "cert must not be null");
@@ -379,7 +379,7 @@ public final class ConnectionKey {
          * <p>The cert fingerprint</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("fingerprint")
         public ThumbprintStage fingerprint(@NotNull String fingerprint) {
             this.fingerprint = Objects.requireNonNull(fingerprint, "fingerprint must not be null");
@@ -391,33 +391,33 @@ public final class ConnectionKey {
          * <p>The cert thumbprint</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("thumbprint")
         public _FinalStage thumbprint(@NotNull String thumbprint) {
             this.thumbprint = Objects.requireNonNull(thumbprint, "thumbprint must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage subjectDn(String subjectDn) {
             this.subjectDn = Optional.ofNullable(subjectDn);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "subject_dn", nulls = Nulls.SKIP)
         public _FinalStage subjectDn(Optional<String> subjectDn) {
             this.subjectDn = subjectDn;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage keyUse(ConnectionKeyUseEnum keyUse) {
             this.keyUse = Optional.ofNullable(keyUse);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "key_use", nulls = Nulls.SKIP)
         public _FinalStage keyUse(Optional<ConnectionKeyUseEnum> keyUse) {
             this.keyUse = keyUse;
@@ -428,7 +428,7 @@ public final class ConnectionKey {
          * <p>Signing key algorithm</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage algorithm(String algorithm) {
             this.algorithm = Optional.ofNullable(algorithm);
             return this;
@@ -437,7 +437,7 @@ public final class ConnectionKey {
         /**
          * <p>Signing key algorithm</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "algorithm", nulls = Nulls.SKIP)
         public _FinalStage algorithm(Optional<String> algorithm) {
             this.algorithm = algorithm;
@@ -448,7 +448,7 @@ public final class ConnectionKey {
          * <p>The date and time when the key became the current key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage currentSince(String currentSince) {
             this.currentSince = Optional.ofNullable(currentSince);
             return this;
@@ -457,7 +457,7 @@ public final class ConnectionKey {
         /**
          * <p>The date and time when the key became the current key</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "current_since", nulls = Nulls.SKIP)
         public _FinalStage currentSince(Optional<String> currentSince) {
             this.currentSince = currentSince;
@@ -468,7 +468,7 @@ public final class ConnectionKey {
          * <p>True if the key is the the previous key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage previous(Boolean previous) {
             this.previous = Optional.ofNullable(previous);
             return this;
@@ -477,7 +477,7 @@ public final class ConnectionKey {
         /**
          * <p>True if the key is the the previous key</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "previous", nulls = Nulls.SKIP)
         public _FinalStage previous(Optional<Boolean> previous) {
             this.previous = previous;
@@ -488,7 +488,7 @@ public final class ConnectionKey {
          * <p>True if the key is the the next key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage next(Boolean next) {
             this.next = Optional.ofNullable(next);
             return this;
@@ -497,7 +497,7 @@ public final class ConnectionKey {
         /**
          * <p>True if the key is the the next key</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "next", nulls = Nulls.SKIP)
         public _FinalStage next(Optional<Boolean> next) {
             this.next = next;
@@ -508,7 +508,7 @@ public final class ConnectionKey {
          * <p>True if the key is the the current key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage current(Boolean current) {
             this.current = Optional.ofNullable(current);
             return this;
@@ -517,7 +517,7 @@ public final class ConnectionKey {
         /**
          * <p>True if the key is the the current key</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "current", nulls = Nulls.SKIP)
         public _FinalStage current(Optional<Boolean> current) {
             this.current = current;
@@ -528,7 +528,7 @@ public final class ConnectionKey {
          * <p>The public certificate of the signing key in pkcs7 format</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage pkcs(String pkcs) {
             this.pkcs = Optional.ofNullable(pkcs);
             return this;
@@ -537,14 +537,14 @@ public final class ConnectionKey {
         /**
          * <p>The public certificate of the signing key in pkcs7 format</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "pkcs", nulls = Nulls.SKIP)
         public _FinalStage pkcs(Optional<String> pkcs) {
             this.pkcs = pkcs;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public ConnectionKey build() {
             return new ConnectionKey(
                     kid,

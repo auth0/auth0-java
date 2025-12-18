@@ -158,7 +158,7 @@ public final class Action {
     }
 
     /**
-     * @return The Node runtime. For example: <code>node12</code>, defaults to <code>node12</code>
+     * @return The Node runtime. For example: <code>node22</code>, defaults to <code>node22</code>
      */
     @JsonProperty("runtime")
     public Optional<String> getRuntime() {
@@ -212,7 +212,7 @@ public final class Action {
         return deploy;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof Action && equalTo((Action) other);
@@ -242,7 +242,7 @@ public final class Action {
                 && deploy.equals(other.deploy);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -263,7 +263,7 @@ public final class Action {
                 this.deploy);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -444,7 +444,7 @@ public final class Action {
         }
 
         /**
-         * <p>The Node runtime. For example: <code>node12</code>, defaults to <code>node12</code></p>
+         * <p>The Node runtime. For example: <code>node22</code>, defaults to <code>node22</code></p>
          */
         @JsonSetter(value = "runtime", nulls = Nulls.SKIP)
         public Builder runtime(Optional<String> runtime) {

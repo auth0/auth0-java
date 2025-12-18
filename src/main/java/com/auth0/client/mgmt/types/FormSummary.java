@@ -83,7 +83,7 @@ public final class FormSummary {
         return submittedAt;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormSummary && equalTo((FormSummary) other);
@@ -103,12 +103,12 @@ public final class FormSummary {
                 && submittedAt.equals(other.submittedAt);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.id, this.name, this.createdAt, this.updatedAt, this.embeddedAt, this.submittedAt);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -166,7 +166,7 @@ public final class FormSummary {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FormSummary other) {
             id(other.getId());
             name(other.getName());
@@ -177,61 +177,61 @@ public final class FormSummary {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("id")
         public NameStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("name")
         public CreatedAtStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("created_at")
         public UpdatedAtStage createdAt(@NotNull OffsetDateTime createdAt) {
             this.createdAt = Objects.requireNonNull(createdAt, "createdAt must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("updated_at")
         public _FinalStage updatedAt(@NotNull OffsetDateTime updatedAt) {
             this.updatedAt = Objects.requireNonNull(updatedAt, "updatedAt must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage submittedAt(String submittedAt) {
             this.submittedAt = Optional.ofNullable(submittedAt);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "submitted_at", nulls = Nulls.SKIP)
         public _FinalStage submittedAt(Optional<String> submittedAt) {
             this.submittedAt = submittedAt;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage embeddedAt(String embeddedAt) {
             this.embeddedAt = Optional.ofNullable(embeddedAt);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "embedded_at", nulls = Nulls.SKIP)
         public _FinalStage embeddedAt(Optional<String> embeddedAt) {
             this.embeddedAt = embeddedAt;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FormSummary build() {
             return new FormSummary(id, name, createdAt, updatedAt, embeddedAt, submittedAt, additionalProperties);
         }

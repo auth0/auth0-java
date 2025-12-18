@@ -46,7 +46,7 @@ public final class BrandingThemeFontLinks {
         return size;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof BrandingThemeFontLinks && equalTo((BrandingThemeFontLinks) other);
@@ -61,12 +61,12 @@ public final class BrandingThemeFontLinks {
         return bold == other.bold && size == other.size;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.bold, this.size);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -106,7 +106,7 @@ public final class BrandingThemeFontLinks {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(BrandingThemeFontLinks other) {
             bold(other.getBold());
             size(other.getSize());
@@ -118,7 +118,7 @@ public final class BrandingThemeFontLinks {
          * <p>Links bold</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("bold")
         public SizeStage bold(boolean bold) {
             this.bold = bold;
@@ -130,14 +130,14 @@ public final class BrandingThemeFontLinks {
          * <p>Links size</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("size")
         public _FinalStage size(double size) {
             this.size = size;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public BrandingThemeFontLinks build() {
             return new BrandingThemeFontLinks(bold, size, additionalProperties);
         }

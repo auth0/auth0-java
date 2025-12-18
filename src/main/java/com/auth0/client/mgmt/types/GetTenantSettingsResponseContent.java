@@ -86,6 +86,10 @@ public final class GetTenantSettingsResponseContent {
 
     private final OptionalNullable<Boolean> authorizationResponseIssParameterSupported;
 
+    private final OptionalNullable<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt;
+
+    private final Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile;
+
     private final Map<String, Object> additionalProperties;
 
     private GetTenantSettingsResponseContent(
@@ -120,6 +124,8 @@ public final class GetTenantSettingsResponseContent {
             OptionalNullable<TenantSettingsMtls> mtls,
             Optional<Boolean> pushedAuthorizationRequestsSupported,
             OptionalNullable<Boolean> authorizationResponseIssParameterSupported,
+            OptionalNullable<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt,
+            Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile,
             Map<String, Object> additionalProperties) {
         this.changePassword = changePassword;
         this.guardianMfaPage = guardianMfaPage;
@@ -152,6 +158,8 @@ public final class GetTenantSettingsResponseContent {
         this.mtls = mtls;
         this.pushedAuthorizationRequestsSupported = pushedAuthorizationRequestsSupported;
         this.authorizationResponseIssParameterSupported = authorizationResponseIssParameterSupported;
+        this.skipNonVerifiableCallbackUriConfirmationPrompt = skipNonVerifiableCallbackUriConfirmationPrompt;
+        this.resourceParameterProfile = resourceParameterProfile;
         this.additionalProperties = additionalProperties;
     }
 
@@ -409,6 +417,25 @@ public final class GetTenantSettingsResponseContent {
         return authorizationResponseIssParameterSupported;
     }
 
+    /**
+     * @return Controls whether a confirmation prompt is shown during login flows when the redirect URI uses non-verifiable callback URIs (for example, a custom URI schema such as <code>myapp://</code>, or <code>localhost</code>).
+     * If set to true, a confirmation prompt will not be shown. We recommend that this is set to false for improved protection from malicious apps.
+     * See https://auth0.com/docs/secure/security-guidance/measures-against-app-impersonation for more information.
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("skip_non_verifiable_callback_uri_confirmation_prompt")
+    public OptionalNullable<Boolean> getSkipNonVerifiableCallbackUriConfirmationPrompt() {
+        if (skipNonVerifiableCallbackUriConfirmationPrompt == null) {
+            return OptionalNullable.absent();
+        }
+        return skipNonVerifiableCallbackUriConfirmationPrompt;
+    }
+
+    @JsonProperty("resource_parameter_profile")
+    public Optional<TenantSettingsResourceParameterProfile> getResourceParameterProfile() {
+        return resourceParameterProfile;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("change_password")
     private OptionalNullable<TenantSettingsPasswordPage> _getChangePassword() {
@@ -463,7 +490,13 @@ public final class GetTenantSettingsResponseContent {
         return authorizationResponseIssParameterSupported;
     }
 
-    @java.lang.Override
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("skip_non_verifiable_callback_uri_confirmation_prompt")
+    private OptionalNullable<Boolean> _getSkipNonVerifiableCallbackUriConfirmationPrompt() {
+        return skipNonVerifiableCallbackUriConfirmationPrompt;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetTenantSettingsResponseContent && equalTo((GetTenantSettingsResponseContent) other);
@@ -505,10 +538,13 @@ public final class GetTenantSettingsResponseContent {
                 && acrValuesSupported.equals(other.acrValuesSupported)
                 && mtls.equals(other.mtls)
                 && pushedAuthorizationRequestsSupported.equals(other.pushedAuthorizationRequestsSupported)
-                && authorizationResponseIssParameterSupported.equals(other.authorizationResponseIssParameterSupported);
+                && authorizationResponseIssParameterSupported.equals(other.authorizationResponseIssParameterSupported)
+                && skipNonVerifiableCallbackUriConfirmationPrompt.equals(
+                        other.skipNonVerifiableCallbackUriConfirmationPrompt)
+                && resourceParameterProfile.equals(other.resourceParameterProfile);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.changePassword,
@@ -541,10 +577,12 @@ public final class GetTenantSettingsResponseContent {
                 this.acrValuesSupported,
                 this.mtls,
                 this.pushedAuthorizationRequestsSupported,
-                this.authorizationResponseIssParameterSupported);
+                this.authorizationResponseIssParameterSupported,
+                this.skipNonVerifiableCallbackUriConfirmationPrompt,
+                this.resourceParameterProfile);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -617,6 +655,10 @@ public final class GetTenantSettingsResponseContent {
 
         private OptionalNullable<Boolean> authorizationResponseIssParameterSupported = OptionalNullable.absent();
 
+        private OptionalNullable<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt = OptionalNullable.absent();
+
+        private Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -654,6 +696,8 @@ public final class GetTenantSettingsResponseContent {
             mtls(other.getMtls());
             pushedAuthorizationRequestsSupported(other.getPushedAuthorizationRequestsSupported());
             authorizationResponseIssParameterSupported(other.getAuthorizationResponseIssParameterSupported());
+            skipNonVerifiableCallbackUriConfirmationPrompt(other.getSkipNonVerifiableCallbackUriConfirmationPrompt());
+            resourceParameterProfile(other.getResourceParameterProfile());
             return this;
         }
 
@@ -1250,6 +1294,61 @@ public final class GetTenantSettingsResponseContent {
             return this;
         }
 
+        /**
+         * <p>Controls whether a confirmation prompt is shown during login flows when the redirect URI uses non-verifiable callback URIs (for example, a custom URI schema such as <code>myapp://</code>, or <code>localhost</code>).
+         * If set to true, a confirmation prompt will not be shown. We recommend that this is set to false for improved protection from malicious apps.
+         * See https://auth0.com/docs/secure/security-guidance/measures-against-app-impersonation for more information.</p>
+         */
+        @JsonSetter(value = "skip_non_verifiable_callback_uri_confirmation_prompt", nulls = Nulls.SKIP)
+        public Builder skipNonVerifiableCallbackUriConfirmationPrompt(
+                @Nullable OptionalNullable<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt) {
+            this.skipNonVerifiableCallbackUriConfirmationPrompt = skipNonVerifiableCallbackUriConfirmationPrompt;
+            return this;
+        }
+
+        public Builder skipNonVerifiableCallbackUriConfirmationPrompt(
+                Boolean skipNonVerifiableCallbackUriConfirmationPrompt) {
+            this.skipNonVerifiableCallbackUriConfirmationPrompt =
+                    OptionalNullable.of(skipNonVerifiableCallbackUriConfirmationPrompt);
+            return this;
+        }
+
+        public Builder skipNonVerifiableCallbackUriConfirmationPrompt(
+                Optional<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt) {
+            if (skipNonVerifiableCallbackUriConfirmationPrompt.isPresent()) {
+                this.skipNonVerifiableCallbackUriConfirmationPrompt =
+                        OptionalNullable.of(skipNonVerifiableCallbackUriConfirmationPrompt.get());
+            } else {
+                this.skipNonVerifiableCallbackUriConfirmationPrompt = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder skipNonVerifiableCallbackUriConfirmationPrompt(
+                com.auth0.client.mgmt.core.Nullable<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt) {
+            if (skipNonVerifiableCallbackUriConfirmationPrompt.isNull()) {
+                this.skipNonVerifiableCallbackUriConfirmationPrompt = OptionalNullable.ofNull();
+            } else if (skipNonVerifiableCallbackUriConfirmationPrompt.isEmpty()) {
+                this.skipNonVerifiableCallbackUriConfirmationPrompt = OptionalNullable.absent();
+            } else {
+                this.skipNonVerifiableCallbackUriConfirmationPrompt =
+                        OptionalNullable.of(skipNonVerifiableCallbackUriConfirmationPrompt.get());
+            }
+            return this;
+        }
+
+        @JsonSetter(value = "resource_parameter_profile", nulls = Nulls.SKIP)
+        public Builder resourceParameterProfile(
+                Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile) {
+            this.resourceParameterProfile = resourceParameterProfile;
+            return this;
+        }
+
+        public Builder resourceParameterProfile(TenantSettingsResourceParameterProfile resourceParameterProfile) {
+            this.resourceParameterProfile = Optional.ofNullable(resourceParameterProfile);
+            return this;
+        }
+
         public GetTenantSettingsResponseContent build() {
             return new GetTenantSettingsResponseContent(
                     changePassword,
@@ -1283,6 +1382,8 @@ public final class GetTenantSettingsResponseContent {
                     mtls,
                     pushedAuthorizationRequestsSupported,
                     authorizationResponseIssParameterSupported,
+                    skipNonVerifiableCallbackUriConfirmationPrompt,
+                    resourceParameterProfile,
                     additionalProperties);
         }
     }

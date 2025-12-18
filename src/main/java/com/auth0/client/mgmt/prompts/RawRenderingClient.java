@@ -18,9 +18,11 @@ import com.auth0.client.mgmt.errors.NotFoundError;
 import com.auth0.client.mgmt.errors.PaymentRequiredError;
 import com.auth0.client.mgmt.errors.TooManyRequestsError;
 import com.auth0.client.mgmt.errors.UnauthorizedError;
+import com.auth0.client.mgmt.prompts.types.BulkUpdateAculRequestContent;
 import com.auth0.client.mgmt.prompts.types.ListAculsRequestParameters;
 import com.auth0.client.mgmt.prompts.types.UpdateAculRequestContent;
 import com.auth0.client.mgmt.types.AculResponseContent;
+import com.auth0.client.mgmt.types.BulkUpdateAculResponseContent;
 import com.auth0.client.mgmt.types.GetAculResponseContent;
 import com.auth0.client.mgmt.types.ListAculsOffsetPaginatedResponseContent;
 import com.auth0.client.mgmt.types.PromptGroupNameEnum;
@@ -67,14 +69,31 @@ public class RawRenderingClient {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("prompts/rendering");
-        QueryStringMapper.addQueryParameter(httpUrl, "fields", request.getFields(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "include_fields", request.getIncludeFields(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "per_page", request.getPerPage(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "include_totals", request.getIncludeTotals(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "prompt", request.getPrompt(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "screen", request.getScreen(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "rendering_mode", request.getRenderingMode(), false);
+        if (!request.getFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "fields", request.getFields().orElse(null), false);
+        }
+        if (!request.getIncludeFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "include_fields", request.getIncludeFields().orElse(null), false);
+        }
+        QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage().orElse(0), false);
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "per_page", request.getPerPage().orElse(50), false);
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
+        if (!request.getPrompt().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "prompt", request.getPrompt().orElse(null), false);
+        }
+        if (!request.getScreen().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "screen", request.getScreen().orElse(null), false);
+        }
+        if (!request.getRenderingMode().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "rendering_mode", request.getRenderingMode().orElse(null), false);
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -102,6 +121,77 @@ public class RawRenderingClient {
                         new SyncPagingIterable<AculResponseContent>(
                                 true, result, parsedResponse, () -> list(nextRequest, requestOptions)
                                         .body()),
+                        response);
+            }
+            try {
+                switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 401:
+                        throw new UnauthorizedError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 402:
+                        throw new PaymentRequiredError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 403:
+                        throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 429:
+                        throw new TooManyRequestsError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                }
+            } catch (JsonProcessingException ignored) {
+                // unable to map error response, throwing generic error
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new ManagementApiException(
+                    "Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (IOException e) {
+            throw new ManagementException("Network error executing HTTP request", e);
+        }
+    }
+
+    /**
+     * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
+     */
+    public ManagementApiHttpResponse<BulkUpdateAculResponseContent> bulkUpdate(BulkUpdateAculRequestContent request) {
+        return bulkUpdate(request, null);
+    }
+
+    /**
+     * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
+     */
+    public ManagementApiHttpResponse<BulkUpdateAculResponseContent> bulkUpdate(
+            BulkUpdateAculRequestContent request, RequestOptions requestOptions) {
+        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("prompts/rendering")
+                .build();
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new ManagementException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl)
+                .method("PATCH", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new ManagementApiHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, BulkUpdateAculResponseContent.class),
                         response);
             }
             try {
@@ -206,32 +296,6 @@ public class RawRenderingClient {
 
     /**
      * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
-     * <p>&lt;p&gt;
-     *   Example &lt;code&gt;head_tags&lt;/code&gt; array. See our &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;documentation&lt;/a&gt; on using Liquid variables within head tags.
-     * &lt;/p&gt;
-     * &lt;pre&gt;{
-     *   &quot;head_tags&quot;: [
-     *     {
-     *       &quot;tag&quot;: &quot;script&quot;,
-     *       &quot;attributes&quot;: {
-     *         &quot;defer&quot;: true,
-     *         &quot;src&quot;: &quot;URL_TO_ASSET&quot;,
-     *         &quot;async&quot;: true,
-     *         &quot;integrity&quot;: [
-     *           &quot;ASSET_SHA&quot;
-     *         ]
-     *       }
-     *     },
-     *     {
-     *       &quot;tag&quot;: &quot;link&quot;,
-     *       &quot;attributes&quot;: {
-     *         &quot;href&quot;: &quot;URL_TO_ASSET&quot;,
-     *         &quot;rel&quot;: &quot;stylesheet&quot;
-     *       }
-     *     }
-     *   ]
-     * }
-     * &lt;/pre&gt;</p>
      */
     public ManagementApiHttpResponse<UpdateAculResponseContent> update(
             PromptGroupNameEnum prompt, ScreenGroupNameEnum screen) {
@@ -240,32 +304,6 @@ public class RawRenderingClient {
 
     /**
      * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
-     * <p>&lt;p&gt;
-     *   Example &lt;code&gt;head_tags&lt;/code&gt; array. See our &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;documentation&lt;/a&gt; on using Liquid variables within head tags.
-     * &lt;/p&gt;
-     * &lt;pre&gt;{
-     *   &quot;head_tags&quot;: [
-     *     {
-     *       &quot;tag&quot;: &quot;script&quot;,
-     *       &quot;attributes&quot;: {
-     *         &quot;defer&quot;: true,
-     *         &quot;src&quot;: &quot;URL_TO_ASSET&quot;,
-     *         &quot;async&quot;: true,
-     *         &quot;integrity&quot;: [
-     *           &quot;ASSET_SHA&quot;
-     *         ]
-     *       }
-     *     },
-     *     {
-     *       &quot;tag&quot;: &quot;link&quot;,
-     *       &quot;attributes&quot;: {
-     *         &quot;href&quot;: &quot;URL_TO_ASSET&quot;,
-     *         &quot;rel&quot;: &quot;stylesheet&quot;
-     *       }
-     *     }
-     *   ]
-     * }
-     * &lt;/pre&gt;</p>
      */
     public ManagementApiHttpResponse<UpdateAculResponseContent> update(
             PromptGroupNameEnum prompt, ScreenGroupNameEnum screen, UpdateAculRequestContent request) {
@@ -274,32 +312,6 @@ public class RawRenderingClient {
 
     /**
      * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
-     * <p>&lt;p&gt;
-     *   Example &lt;code&gt;head_tags&lt;/code&gt; array. See our &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;documentation&lt;/a&gt; on using Liquid variables within head tags.
-     * &lt;/p&gt;
-     * &lt;pre&gt;{
-     *   &quot;head_tags&quot;: [
-     *     {
-     *       &quot;tag&quot;: &quot;script&quot;,
-     *       &quot;attributes&quot;: {
-     *         &quot;defer&quot;: true,
-     *         &quot;src&quot;: &quot;URL_TO_ASSET&quot;,
-     *         &quot;async&quot;: true,
-     *         &quot;integrity&quot;: [
-     *           &quot;ASSET_SHA&quot;
-     *         ]
-     *       }
-     *     },
-     *     {
-     *       &quot;tag&quot;: &quot;link&quot;,
-     *       &quot;attributes&quot;: {
-     *         &quot;href&quot;: &quot;URL_TO_ASSET&quot;,
-     *         &quot;rel&quot;: &quot;stylesheet&quot;
-     *       }
-     *     }
-     *   ]
-     * }
-     * &lt;/pre&gt;</p>
      */
     public ManagementApiHttpResponse<UpdateAculResponseContent> update(
             PromptGroupNameEnum prompt,

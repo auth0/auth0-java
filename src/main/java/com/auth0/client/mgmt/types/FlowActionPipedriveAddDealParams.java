@@ -100,7 +100,7 @@ public final class FlowActionPipedriveAddDealParams {
         return fields;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionPipedriveAddDealParams && equalTo((FlowActionPipedriveAddDealParams) other);
@@ -122,7 +122,7 @@ public final class FlowActionPipedriveAddDealParams {
                 && fields.equals(other.fields);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.connectionId,
@@ -135,7 +135,7 @@ public final class FlowActionPipedriveAddDealParams {
                 this.fields);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -205,7 +205,7 @@ public final class FlowActionPipedriveAddDealParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionPipedriveAddDealParams other) {
             connectionId(other.getConnectionId());
             title(other.getTitle());
@@ -218,99 +218,99 @@ public final class FlowActionPipedriveAddDealParams {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("connection_id")
         public TitleStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("title")
         public _FinalStage title(@NotNull String title) {
             this.title = Objects.requireNonNull(title, "title must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage fields(Map<String, Object> fields) {
             this.fields = Optional.ofNullable(fields);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "fields", nulls = Nulls.SKIP)
         public _FinalStage fields(Optional<Map<String, Object>> fields) {
             this.fields = fields;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage stageId(FlowActionPipedriveAddDealParamsStageId stageId) {
             this.stageId = Optional.ofNullable(stageId);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "stage_id", nulls = Nulls.SKIP)
         public _FinalStage stageId(Optional<FlowActionPipedriveAddDealParamsStageId> stageId) {
             this.stageId = stageId;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage organizationId(FlowActionPipedriveAddDealParamsOrganizationId organizationId) {
             this.organizationId = Optional.ofNullable(organizationId);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "organization_id", nulls = Nulls.SKIP)
         public _FinalStage organizationId(Optional<FlowActionPipedriveAddDealParamsOrganizationId> organizationId) {
             this.organizationId = organizationId;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage personId(FlowActionPipedriveAddDealParamsPersonId personId) {
             this.personId = Optional.ofNullable(personId);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "person_id", nulls = Nulls.SKIP)
         public _FinalStage personId(Optional<FlowActionPipedriveAddDealParamsPersonId> personId) {
             this.personId = personId;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage userId(FlowActionPipedriveAddDealParamsUserId userId) {
             this.userId = Optional.ofNullable(userId);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "user_id", nulls = Nulls.SKIP)
         public _FinalStage userId(Optional<FlowActionPipedriveAddDealParamsUserId> userId) {
             this.userId = userId;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage value(String value) {
             this.value = Optional.ofNullable(value);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "value", nulls = Nulls.SKIP)
         public _FinalStage value(Optional<String> value) {
             this.value = value;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionPipedriveAddDealParams build() {
             return new FlowActionPipedriveAddDealParams(
                     connectionId,

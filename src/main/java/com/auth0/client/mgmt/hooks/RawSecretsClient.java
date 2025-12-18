@@ -39,14 +39,14 @@ public class RawSecretsClient {
     /**
      * Retrieve a hook's secrets by the ID of the hook.
      */
-    public ManagementApiHttpResponse<Map<String, Object>> get(String id) {
+    public ManagementApiHttpResponse<Map<String, String>> get(String id) {
         return get(id, null);
     }
 
     /**
      * Retrieve a hook's secrets by the ID of the hook.
      */
-    public ManagementApiHttpResponse<Map<String, Object>> get(String id, RequestOptions requestOptions) {
+    public ManagementApiHttpResponse<Map<String, String>> get(String id, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("hooks")
@@ -69,7 +69,7 @@ public class RawSecretsClient {
             if (response.isSuccessful()) {
                 return new ManagementApiHttpResponse<>(
                         ObjectMappers.JSON_MAPPER.readValue(
-                                responseBodyString, new TypeReference<Map<String, Object>>() {}),
+                                responseBodyString, new TypeReference<Map<String, String>>() {}),
                         response);
             }
             try {
@@ -104,7 +104,7 @@ public class RawSecretsClient {
     /**
      * Add one or more secrets to an existing hook. Accepts an object of key-value pairs, where the key is the name of the secret. A hook can have a maximum of 20 secrets.
      */
-    public ManagementApiHttpResponse<Void> create(String id, Map<String, Object> request) {
+    public ManagementApiHttpResponse<Void> create(String id, Map<String, String> request) {
         return create(id, request, null);
     }
 
@@ -112,7 +112,7 @@ public class RawSecretsClient {
      * Add one or more secrets to an existing hook. Accepts an object of key-value pairs, where the key is the name of the secret. A hook can have a maximum of 20 secrets.
      */
     public ManagementApiHttpResponse<Void> create(
-            String id, Map<String, Object> request, RequestOptions requestOptions) {
+            String id, Map<String, String> request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("hooks")
@@ -242,7 +242,7 @@ public class RawSecretsClient {
     /**
      * Update one or more existing secrets for an existing hook. Accepts an object of key-value pairs, where the key is the name of the existing secret.
      */
-    public ManagementApiHttpResponse<Void> update(String id, Map<String, Object> request) {
+    public ManagementApiHttpResponse<Void> update(String id, Map<String, String> request) {
         return update(id, request, null);
     }
 
@@ -250,7 +250,7 @@ public class RawSecretsClient {
      * Update one or more existing secrets for an existing hook. Accepts an object of key-value pairs, where the key is the name of the existing secret.
      */
     public ManagementApiHttpResponse<Void> update(
-            String id, Map<String, Object> request, RequestOptions requestOptions) {
+            String id, Map<String, String> request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("hooks")

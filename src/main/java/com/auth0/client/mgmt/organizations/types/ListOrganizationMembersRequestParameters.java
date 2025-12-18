@@ -109,7 +109,7 @@ public final class ListOrganizationMembersRequestParameters {
         return includeFields;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListOrganizationMembersRequestParameters
@@ -128,12 +128,12 @@ public final class ListOrganizationMembersRequestParameters {
                 && includeFields.equals(other.includeFields);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.from, this.take, this.fields, this.includeFields);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

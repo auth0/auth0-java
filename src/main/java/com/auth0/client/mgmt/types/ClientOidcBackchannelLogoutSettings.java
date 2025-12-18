@@ -3,7 +3,9 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ClientOidcBackchannelLogoutSettings.Builder.class)
@@ -25,14 +28,18 @@ public final class ClientOidcBackchannelLogoutSettings {
 
     private final Optional<ClientOidcBackchannelLogoutInitiators> backchannelLogoutInitiators;
 
+    private final OptionalNullable<ClientOidcBackchannelLogoutSessionMetadata> backchannelLogoutSessionMetadata;
+
     private final Map<String, Object> additionalProperties;
 
     private ClientOidcBackchannelLogoutSettings(
             Optional<List<String>> backchannelLogoutUrls,
             Optional<ClientOidcBackchannelLogoutInitiators> backchannelLogoutInitiators,
+            OptionalNullable<ClientOidcBackchannelLogoutSessionMetadata> backchannelLogoutSessionMetadata,
             Map<String, Object> additionalProperties) {
         this.backchannelLogoutUrls = backchannelLogoutUrls;
         this.backchannelLogoutInitiators = backchannelLogoutInitiators;
+        this.backchannelLogoutSessionMetadata = backchannelLogoutSessionMetadata;
         this.additionalProperties = additionalProperties;
     }
 
@@ -49,7 +56,22 @@ public final class ClientOidcBackchannelLogoutSettings {
         return backchannelLogoutInitiators;
     }
 
-    @java.lang.Override
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("backchannel_logout_session_metadata")
+    public OptionalNullable<ClientOidcBackchannelLogoutSessionMetadata> getBackchannelLogoutSessionMetadata() {
+        if (backchannelLogoutSessionMetadata == null) {
+            return OptionalNullable.absent();
+        }
+        return backchannelLogoutSessionMetadata;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("backchannel_logout_session_metadata")
+    private OptionalNullable<ClientOidcBackchannelLogoutSessionMetadata> _getBackchannelLogoutSessionMetadata() {
+        return backchannelLogoutSessionMetadata;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientOidcBackchannelLogoutSettings
@@ -63,15 +85,17 @@ public final class ClientOidcBackchannelLogoutSettings {
 
     private boolean equalTo(ClientOidcBackchannelLogoutSettings other) {
         return backchannelLogoutUrls.equals(other.backchannelLogoutUrls)
-                && backchannelLogoutInitiators.equals(other.backchannelLogoutInitiators);
+                && backchannelLogoutInitiators.equals(other.backchannelLogoutInitiators)
+                && backchannelLogoutSessionMetadata.equals(other.backchannelLogoutSessionMetadata);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
-        return Objects.hash(this.backchannelLogoutUrls, this.backchannelLogoutInitiators);
+        return Objects.hash(
+                this.backchannelLogoutUrls, this.backchannelLogoutInitiators, this.backchannelLogoutSessionMetadata);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -86,6 +110,9 @@ public final class ClientOidcBackchannelLogoutSettings {
 
         private Optional<ClientOidcBackchannelLogoutInitiators> backchannelLogoutInitiators = Optional.empty();
 
+        private OptionalNullable<ClientOidcBackchannelLogoutSessionMetadata> backchannelLogoutSessionMetadata =
+                OptionalNullable.absent();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -94,6 +121,7 @@ public final class ClientOidcBackchannelLogoutSettings {
         public Builder from(ClientOidcBackchannelLogoutSettings other) {
             backchannelLogoutUrls(other.getBackchannelLogoutUrls());
             backchannelLogoutInitiators(other.getBackchannelLogoutInitiators());
+            backchannelLogoutSessionMetadata(other.getBackchannelLogoutSessionMetadata());
             return this;
         }
 
@@ -123,9 +151,49 @@ public final class ClientOidcBackchannelLogoutSettings {
             return this;
         }
 
+        @JsonSetter(value = "backchannel_logout_session_metadata", nulls = Nulls.SKIP)
+        public Builder backchannelLogoutSessionMetadata(
+                @Nullable
+                        OptionalNullable<ClientOidcBackchannelLogoutSessionMetadata> backchannelLogoutSessionMetadata) {
+            this.backchannelLogoutSessionMetadata = backchannelLogoutSessionMetadata;
+            return this;
+        }
+
+        public Builder backchannelLogoutSessionMetadata(
+                ClientOidcBackchannelLogoutSessionMetadata backchannelLogoutSessionMetadata) {
+            this.backchannelLogoutSessionMetadata = OptionalNullable.of(backchannelLogoutSessionMetadata);
+            return this;
+        }
+
+        public Builder backchannelLogoutSessionMetadata(
+                Optional<ClientOidcBackchannelLogoutSessionMetadata> backchannelLogoutSessionMetadata) {
+            if (backchannelLogoutSessionMetadata.isPresent()) {
+                this.backchannelLogoutSessionMetadata = OptionalNullable.of(backchannelLogoutSessionMetadata.get());
+            } else {
+                this.backchannelLogoutSessionMetadata = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder backchannelLogoutSessionMetadata(
+                com.auth0.client.mgmt.core.Nullable<ClientOidcBackchannelLogoutSessionMetadata>
+                        backchannelLogoutSessionMetadata) {
+            if (backchannelLogoutSessionMetadata.isNull()) {
+                this.backchannelLogoutSessionMetadata = OptionalNullable.ofNull();
+            } else if (backchannelLogoutSessionMetadata.isEmpty()) {
+                this.backchannelLogoutSessionMetadata = OptionalNullable.absent();
+            } else {
+                this.backchannelLogoutSessionMetadata = OptionalNullable.of(backchannelLogoutSessionMetadata.get());
+            }
+            return this;
+        }
+
         public ClientOidcBackchannelLogoutSettings build() {
             return new ClientOidcBackchannelLogoutSettings(
-                    backchannelLogoutUrls, backchannelLogoutInitiators, additionalProperties);
+                    backchannelLogoutUrls,
+                    backchannelLogoutInitiators,
+                    backchannelLogoutSessionMetadata,
+                    additionalProperties);
         }
     }
 }

@@ -49,7 +49,7 @@ public final class RefreshTokenResourceServer {
         return scopes;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof RefreshTokenResourceServer && equalTo((RefreshTokenResourceServer) other);
@@ -64,12 +64,12 @@ public final class RefreshTokenResourceServer {
         return audience.equals(other.audience) && scopes.equals(other.scopes);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.audience, this.scopes);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

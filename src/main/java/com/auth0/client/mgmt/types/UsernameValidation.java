@@ -60,7 +60,7 @@ public final class UsernameValidation {
         return allowedTypes;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UsernameValidation && equalTo((UsernameValidation) other);
@@ -77,12 +77,12 @@ public final class UsernameValidation {
                 && allowedTypes.equals(other.allowedTypes);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.minLength, this.maxLength, this.allowedTypes);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

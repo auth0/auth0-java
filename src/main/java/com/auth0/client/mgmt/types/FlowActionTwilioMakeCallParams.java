@@ -58,7 +58,7 @@ public final class FlowActionTwilioMakeCallParams {
         return payload;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionTwilioMakeCallParams && equalTo((FlowActionTwilioMakeCallParams) other);
@@ -76,12 +76,12 @@ public final class FlowActionTwilioMakeCallParams {
                 && payload.equals(other.payload);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.from, this.to, this.payload);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -127,7 +127,7 @@ public final class FlowActionTwilioMakeCallParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionTwilioMakeCallParams other) {
             connectionId(other.getConnectionId());
             from(other.getFrom());
@@ -136,35 +136,35 @@ public final class FlowActionTwilioMakeCallParams {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("connection_id")
         public FromStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("from")
         public ToStage from(@NotNull String from) {
             this.from = Objects.requireNonNull(from, "from must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("to")
         public PayloadStage to(@NotNull String to) {
             this.to = Objects.requireNonNull(to, "to must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("payload")
         public _FinalStage payload(@NotNull String payload) {
             this.payload = Objects.requireNonNull(payload, "payload must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionTwilioMakeCallParams build() {
             return new FlowActionTwilioMakeCallParams(connectionId, from, to, payload, additionalProperties);
         }

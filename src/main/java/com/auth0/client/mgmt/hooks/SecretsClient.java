@@ -28,28 +28,28 @@ public class SecretsClient {
     /**
      * Retrieve a hook's secrets by the ID of the hook.
      */
-    public Map<String, Object> get(String id) {
+    public Map<String, String> get(String id) {
         return this.rawClient.get(id).body();
     }
 
     /**
      * Retrieve a hook's secrets by the ID of the hook.
      */
-    public Map<String, Object> get(String id, RequestOptions requestOptions) {
+    public Map<String, String> get(String id, RequestOptions requestOptions) {
         return this.rawClient.get(id, requestOptions).body();
     }
 
     /**
      * Add one or more secrets to an existing hook. Accepts an object of key-value pairs, where the key is the name of the secret. A hook can have a maximum of 20 secrets.
      */
-    public void create(String id, Map<String, Object> request) {
+    public void create(String id, Map<String, String> request) {
         this.rawClient.create(id, request).body();
     }
 
     /**
      * Add one or more secrets to an existing hook. Accepts an object of key-value pairs, where the key is the name of the secret. A hook can have a maximum of 20 secrets.
      */
-    public void create(String id, Map<String, Object> request, RequestOptions requestOptions) {
+    public void create(String id, Map<String, String> request, RequestOptions requestOptions) {
         this.rawClient.create(id, request, requestOptions).body();
     }
 
@@ -70,14 +70,14 @@ public class SecretsClient {
     /**
      * Update one or more existing secrets for an existing hook. Accepts an object of key-value pairs, where the key is the name of the existing secret.
      */
-    public void update(String id, Map<String, Object> request) {
+    public void update(String id, Map<String, String> request) {
         this.rawClient.update(id, request).body();
     }
 
     /**
      * Update one or more existing secrets for an existing hook. Accepts an object of key-value pairs, where the key is the name of the existing secret.
      */
-    public void update(String id, Map<String, Object> request, RequestOptions requestOptions) {
+    public void update(String id, Map<String, String> request, RequestOptions requestOptions) {
         this.rawClient.update(id, request, requestOptions).body();
     }
 }

@@ -36,7 +36,7 @@ public final class SetRulesConfigRequestContent {
         return value;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SetRulesConfigRequestContent && equalTo((SetRulesConfigRequestContent) other);
@@ -51,12 +51,12 @@ public final class SetRulesConfigRequestContent {
         return value.equals(other.value);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.value);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -87,7 +87,7 @@ public final class SetRulesConfigRequestContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(SetRulesConfigRequestContent other) {
             value(other.getValue());
             return this;
@@ -98,14 +98,14 @@ public final class SetRulesConfigRequestContent {
          * <p>Value for a rules config variable.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("value")
         public _FinalStage value(@NotNull String value) {
             this.value = Objects.requireNonNull(value, "value must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public SetRulesConfigRequestContent build() {
             return new SetRulesConfigRequestContent(value, additionalProperties);
         }

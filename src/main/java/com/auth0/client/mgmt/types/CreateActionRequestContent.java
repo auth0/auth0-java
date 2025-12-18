@@ -91,7 +91,7 @@ public final class CreateActionRequestContent {
     }
 
     /**
-     * @return The Node runtime. For example: <code>node12</code>, defaults to <code>node12</code>
+     * @return The Node runtime. For example: <code>node22</code>, defaults to <code>node22</code>
      */
     @JsonProperty("runtime")
     public Optional<String> getRuntime() {
@@ -114,7 +114,7 @@ public final class CreateActionRequestContent {
         return deploy;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateActionRequestContent && equalTo((CreateActionRequestContent) other);
@@ -135,7 +135,7 @@ public final class CreateActionRequestContent {
                 && deploy.equals(other.deploy);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.name,
@@ -147,7 +147,7 @@ public final class CreateActionRequestContent {
                 this.deploy);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -192,7 +192,7 @@ public final class CreateActionRequestContent {
         _FinalStage dependencies(List<ActionVersionDependency> dependencies);
 
         /**
-         * <p>The Node runtime. For example: <code>node12</code>, defaults to <code>node12</code></p>
+         * <p>The Node runtime. For example: <code>node22</code>, defaults to <code>node22</code></p>
          */
         _FinalStage runtime(Optional<String> runtime);
 
@@ -234,7 +234,7 @@ public final class CreateActionRequestContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(CreateActionRequestContent other) {
             name(other.getName());
             supportedTriggers(other.getSupportedTriggers());
@@ -251,7 +251,7 @@ public final class CreateActionRequestContent {
          * <p>The name of an action.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("name")
         public _FinalStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
@@ -262,7 +262,7 @@ public final class CreateActionRequestContent {
          * <p>True if the action should be deployed after creation.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage deploy(Boolean deploy) {
             this.deploy = Optional.ofNullable(deploy);
             return this;
@@ -271,7 +271,7 @@ public final class CreateActionRequestContent {
         /**
          * <p>True if the action should be deployed after creation.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "deploy", nulls = Nulls.SKIP)
         public _FinalStage deploy(Optional<Boolean> deploy) {
             this.deploy = deploy;
@@ -282,7 +282,7 @@ public final class CreateActionRequestContent {
          * <p>The list of secrets that are included in an action or a version of an action.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage secrets(List<ActionSecretRequest> secrets) {
             this.secrets = Optional.ofNullable(secrets);
             return this;
@@ -291,7 +291,7 @@ public final class CreateActionRequestContent {
         /**
          * <p>The list of secrets that are included in an action or a version of an action.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "secrets", nulls = Nulls.SKIP)
         public _FinalStage secrets(Optional<List<ActionSecretRequest>> secrets) {
             this.secrets = secrets;
@@ -299,19 +299,19 @@ public final class CreateActionRequestContent {
         }
 
         /**
-         * <p>The Node runtime. For example: <code>node12</code>, defaults to <code>node12</code></p>
+         * <p>The Node runtime. For example: <code>node22</code>, defaults to <code>node22</code></p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage runtime(String runtime) {
             this.runtime = Optional.ofNullable(runtime);
             return this;
         }
 
         /**
-         * <p>The Node runtime. For example: <code>node12</code>, defaults to <code>node12</code></p>
+         * <p>The Node runtime. For example: <code>node22</code>, defaults to <code>node22</code></p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "runtime", nulls = Nulls.SKIP)
         public _FinalStage runtime(Optional<String> runtime) {
             this.runtime = runtime;
@@ -322,7 +322,7 @@ public final class CreateActionRequestContent {
          * <p>The list of third party npm modules, and their versions, that this action depends on.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage dependencies(List<ActionVersionDependency> dependencies) {
             this.dependencies = Optional.ofNullable(dependencies);
             return this;
@@ -331,7 +331,7 @@ public final class CreateActionRequestContent {
         /**
          * <p>The list of third party npm modules, and their versions, that this action depends on.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "dependencies", nulls = Nulls.SKIP)
         public _FinalStage dependencies(Optional<List<ActionVersionDependency>> dependencies) {
             this.dependencies = dependencies;
@@ -342,7 +342,7 @@ public final class CreateActionRequestContent {
          * <p>The source code of the action.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage code(String code) {
             this.code = Optional.ofNullable(code);
             return this;
@@ -351,7 +351,7 @@ public final class CreateActionRequestContent {
         /**
          * <p>The source code of the action.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "code", nulls = Nulls.SKIP)
         public _FinalStage code(Optional<String> code) {
             this.code = code;
@@ -362,7 +362,7 @@ public final class CreateActionRequestContent {
          * <p>The list of triggers that this action supports. At this time, an action can only target a single trigger at a time.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage addAllSupportedTriggers(List<ActionTrigger> supportedTriggers) {
             if (supportedTriggers != null) {
                 this.supportedTriggers.addAll(supportedTriggers);
@@ -374,7 +374,7 @@ public final class CreateActionRequestContent {
          * <p>The list of triggers that this action supports. At this time, an action can only target a single trigger at a time.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage addSupportedTriggers(ActionTrigger supportedTriggers) {
             this.supportedTriggers.add(supportedTriggers);
             return this;
@@ -383,7 +383,7 @@ public final class CreateActionRequestContent {
         /**
          * <p>The list of triggers that this action supports. At this time, an action can only target a single trigger at a time.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "supported_triggers", nulls = Nulls.SKIP)
         public _FinalStage supportedTriggers(List<ActionTrigger> supportedTriggers) {
             this.supportedTriggers.clear();
@@ -393,7 +393,7 @@ public final class CreateActionRequestContent {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public CreateActionRequestContent build() {
             return new CreateActionRequestContent(
                     name, supportedTriggers, code, dependencies, runtime, secrets, deploy, additionalProperties);

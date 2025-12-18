@@ -38,7 +38,7 @@ public final class DeleteOrganizationMemberRolesRequestContent {
         return roles;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof DeleteOrganizationMemberRolesRequestContent
@@ -54,12 +54,12 @@ public final class DeleteOrganizationMemberRolesRequestContent {
         return roles.equals(other.roles);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.roles);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

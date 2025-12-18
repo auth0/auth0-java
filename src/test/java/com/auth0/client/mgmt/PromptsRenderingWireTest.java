@@ -1,17 +1,22 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
+import com.auth0.client.mgmt.prompts.types.BulkUpdateAculRequestContent;
 import com.auth0.client.mgmt.prompts.types.ListAculsRequestParameters;
 import com.auth0.client.mgmt.prompts.types.UpdateAculRequestContent;
+import com.auth0.client.mgmt.types.AculConfigsItem;
 import com.auth0.client.mgmt.types.AculRenderingModeEnum;
 import com.auth0.client.mgmt.types.AculResponseContent;
+import com.auth0.client.mgmt.types.BulkUpdateAculResponseContent;
 import com.auth0.client.mgmt.types.GetAculResponseContent;
 import com.auth0.client.mgmt.types.PromptGroupNameEnum;
 import com.auth0.client.mgmt.types.ScreenGroupNameEnum;
 import com.auth0.client.mgmt.types.UpdateAculResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Arrays;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -46,18 +51,18 @@ public class PromptsRenderingWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"configs\":[{\"rendering_mode\":\"advanced\",\"context_configuration\":[\"context_configuration\"],\"default_head_tags_disabled\":true,\"head_tags\":[{}],\"use_page_template\":true}],\"start\":1.1,\"limit\":1.1,\"total\":1.1}"));
+                                "{\"configs\":[{\"rendering_mode\":\"advanced\",\"context_configuration\":[\"context_configuration\"],\"default_head_tags_disabled\":true,\"use_page_template\":true,\"head_tags\":[{}]}],\"start\":1.1,\"limit\":1.1,\"total\":1.1}"));
         SyncPagingIterable<AculResponseContent> response = client.prompts()
                 .rendering()
                 .list(ListAculsRequestParameters.builder()
-                        .fields("fields")
-                        .includeFields(true)
-                        .page(1)
-                        .perPage(1)
-                        .includeTotals(true)
-                        .prompt("prompt")
-                        .screen("screen")
-                        .renderingMode(AculRenderingModeEnum.ADVANCED)
+                        .fields(OptionalNullable.of("fields"))
+                        .includeFields(OptionalNullable.of(true))
+                        .page(OptionalNullable.of(1))
+                        .perPage(OptionalNullable.of(1))
+                        .includeTotals(OptionalNullable.of(true))
+                        .prompt(OptionalNullable.of("prompt"))
+                        .screen(OptionalNullable.of("screen"))
+                        .renderingMode(OptionalNullable.of(AculRenderingModeEnum.ADVANCED))
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -70,12 +75,120 @@ public class PromptsRenderingWireTest {
     }
 
     @Test
+    public void testBulkUpdate() throws Exception {
+        server.enqueue(
+                new MockResponse()
+                        .setResponseCode(200)
+                        .setBody(
+                                "{\"configs\":[{\"prompt\":\"login\",\"screen\":\"login\",\"rendering_mode\":\"advanced\",\"context_configuration\":[\"branding.settings\"],\"default_head_tags_disabled\":true,\"use_page_template\":true,\"head_tags\":[{}]}]}"));
+        BulkUpdateAculResponseContent response = client.prompts()
+                .rendering()
+                .bulkUpdate(BulkUpdateAculRequestContent.builder()
+                        .configs(Arrays.asList(AculConfigsItem.builder()
+                                .prompt(PromptGroupNameEnum.LOGIN)
+                                .screen(ScreenGroupNameEnum.LOGIN)
+                                .build()))
+                        .build());
+        RecordedRequest request = server.takeRequest();
+        Assertions.assertNotNull(request);
+        Assertions.assertEquals("PATCH", request.getMethod());
+        // Validate request body
+        String actualRequestBody = request.getBody().readUtf8();
+        String expectedRequestBody = ""
+                + "{\n"
+                + "  \"configs\": [\n"
+                + "    {\n"
+                + "      \"prompt\": \"login\",\n"
+                + "      \"screen\": \"login\"\n"
+                + "    }\n"
+                + "  ]\n"
+                + "}";
+        JsonNode actualJson = objectMapper.readTree(actualRequestBody);
+        JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
+        Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");
+        if (actualJson.has("type") || actualJson.has("_type") || actualJson.has("kind")) {
+            String discriminator = null;
+            if (actualJson.has("type")) discriminator = actualJson.get("type").asText();
+            else if (actualJson.has("_type"))
+                discriminator = actualJson.get("_type").asText();
+            else if (actualJson.has("kind"))
+                discriminator = actualJson.get("kind").asText();
+            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
+            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
+        }
+
+        if (!actualJson.isNull()) {
+            Assertions.assertTrue(
+                    actualJson.isObject() || actualJson.isArray() || actualJson.isValueNode(),
+                    "request should be a valid JSON value");
+        }
+
+        if (actualJson.isArray()) {
+            Assertions.assertTrue(actualJson.size() >= 0, "Array should have valid size");
+        }
+        if (actualJson.isObject()) {
+            Assertions.assertTrue(actualJson.size() >= 0, "Object should have valid field count");
+        }
+
+        // Validate response body
+        Assertions.assertNotNull(response, "Response should not be null");
+        String actualResponseJson = objectMapper.writeValueAsString(response);
+        String expectedResponseBody = ""
+                + "{\n"
+                + "  \"configs\": [\n"
+                + "    {\n"
+                + "      \"prompt\": \"login\",\n"
+                + "      \"screen\": \"login\",\n"
+                + "      \"rendering_mode\": \"advanced\",\n"
+                + "      \"context_configuration\": [\n"
+                + "        \"branding.settings\"\n"
+                + "      ],\n"
+                + "      \"default_head_tags_disabled\": true,\n"
+                + "      \"use_page_template\": true,\n"
+                + "      \"head_tags\": [\n"
+                + "        {}\n"
+                + "      ]\n"
+                + "    }\n"
+                + "  ]\n"
+                + "}";
+        JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
+        JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
+        Assertions.assertTrue(
+                jsonEquals(expectedResponseNode, actualResponseNode),
+                "Response body structure does not match expected");
+        if (actualResponseNode.has("type") || actualResponseNode.has("_type") || actualResponseNode.has("kind")) {
+            String discriminator = null;
+            if (actualResponseNode.has("type"))
+                discriminator = actualResponseNode.get("type").asText();
+            else if (actualResponseNode.has("_type"))
+                discriminator = actualResponseNode.get("_type").asText();
+            else if (actualResponseNode.has("kind"))
+                discriminator = actualResponseNode.get("kind").asText();
+            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
+            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
+        }
+
+        if (!actualResponseNode.isNull()) {
+            Assertions.assertTrue(
+                    actualResponseNode.isObject() || actualResponseNode.isArray() || actualResponseNode.isValueNode(),
+                    "response should be a valid JSON value");
+        }
+
+        if (actualResponseNode.isArray()) {
+            Assertions.assertTrue(actualResponseNode.size() >= 0, "Array should have valid size");
+        }
+        if (actualResponseNode.isObject()) {
+            Assertions.assertTrue(actualResponseNode.size() >= 0, "Object should have valid field count");
+        }
+    }
+
+    @Test
     public void testGet() throws Exception {
         server.enqueue(
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"tenant\":\"tenant\",\"prompt\":\"prompt\",\"screen\":\"screen\",\"rendering_mode\":\"advanced\",\"context_configuration\":[\"context_configuration\"],\"default_head_tags_disabled\":true,\"head_tags\":[{\"tag\":\"tag\",\"content\":\"content\"}],\"filters\":{\"match_type\":\"includes_any\",\"clients\":[{}],\"organizations\":[{}],\"domains\":[{}]},\"use_page_template\":true}"));
+                                "{\"tenant\":\"tenant\",\"prompt\":\"prompt\",\"screen\":\"screen\",\"rendering_mode\":\"advanced\",\"context_configuration\":[\"context_configuration\"],\"default_head_tags_disabled\":true,\"use_page_template\":true,\"head_tags\":[{\"tag\":\"tag\",\"attributes\":{\"key\":\"value\"},\"content\":\"content\"}],\"filters\":{\"match_type\":\"includes_any\",\"clients\":[{\"id\":\"id\"}],\"organizations\":[{\"id\":\"id\"}],\"domains\":[{\"id\":\"id\"}]}}"));
         GetAculResponseContent response =
                 client.prompts().rendering().get(PromptGroupNameEnum.LOGIN, ScreenGroupNameEnum.LOGIN);
         RecordedRequest request = server.takeRequest();
@@ -95,25 +208,34 @@ public class PromptsRenderingWireTest {
                 + "    \"context_configuration\"\n"
                 + "  ],\n"
                 + "  \"default_head_tags_disabled\": true,\n"
+                + "  \"use_page_template\": true,\n"
                 + "  \"head_tags\": [\n"
                 + "    {\n"
                 + "      \"tag\": \"tag\",\n"
+                + "      \"attributes\": {\n"
+                + "        \"key\": \"value\"\n"
+                + "      },\n"
                 + "      \"content\": \"content\"\n"
                 + "    }\n"
                 + "  ],\n"
                 + "  \"filters\": {\n"
                 + "    \"match_type\": \"includes_any\",\n"
                 + "    \"clients\": [\n"
-                + "      {}\n"
+                + "      {\n"
+                + "        \"id\": \"id\"\n"
+                + "      }\n"
                 + "    ],\n"
                 + "    \"organizations\": [\n"
-                + "      {}\n"
+                + "      {\n"
+                + "        \"id\": \"id\"\n"
+                + "      }\n"
                 + "    ],\n"
                 + "    \"domains\": [\n"
-                + "      {}\n"
+                + "      {\n"
+                + "        \"id\": \"id\"\n"
+                + "      }\n"
                 + "    ]\n"
-                + "  },\n"
-                + "  \"use_page_template\": true\n"
+                + "  }\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -152,7 +274,7 @@ public class PromptsRenderingWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"rendering_mode\":\"advanced\",\"context_configuration\":[\"context_configuration\"],\"default_head_tags_disabled\":true,\"head_tags\":[{\"tag\":\"tag\",\"content\":\"content\"}],\"filters\":{\"match_type\":\"includes_any\",\"clients\":[{}],\"organizations\":[{}],\"domains\":[{}]},\"use_page_template\":true}"));
+                                "{\"rendering_mode\":\"advanced\",\"context_configuration\":[\"context_configuration\"],\"default_head_tags_disabled\":true,\"use_page_template\":true,\"head_tags\":[{\"tag\":\"tag\",\"attributes\":{\"key\":\"value\"},\"content\":\"content\"}],\"filters\":{\"match_type\":\"includes_any\",\"clients\":[{\"id\":\"id\"}],\"organizations\":[{\"id\":\"id\"}],\"domains\":[{\"id\":\"id\"}]}}"));
         UpdateAculResponseContent response = client.prompts()
                 .rendering()
                 .update(
@@ -202,25 +324,34 @@ public class PromptsRenderingWireTest {
                 + "    \"context_configuration\"\n"
                 + "  ],\n"
                 + "  \"default_head_tags_disabled\": true,\n"
+                + "  \"use_page_template\": true,\n"
                 + "  \"head_tags\": [\n"
                 + "    {\n"
                 + "      \"tag\": \"tag\",\n"
+                + "      \"attributes\": {\n"
+                + "        \"key\": \"value\"\n"
+                + "      },\n"
                 + "      \"content\": \"content\"\n"
                 + "    }\n"
                 + "  ],\n"
                 + "  \"filters\": {\n"
                 + "    \"match_type\": \"includes_any\",\n"
                 + "    \"clients\": [\n"
-                + "      {}\n"
+                + "      {\n"
+                + "        \"id\": \"id\"\n"
+                + "      }\n"
                 + "    ],\n"
                 + "    \"organizations\": [\n"
-                + "      {}\n"
+                + "      {\n"
+                + "        \"id\": \"id\"\n"
+                + "      }\n"
                 + "    ],\n"
                 + "    \"domains\": [\n"
-                + "      {}\n"
+                + "      {\n"
+                + "        \"id\": \"id\"\n"
+                + "      }\n"
                 + "    ]\n"
-                + "  },\n"
-                + "  \"use_page_template\": true\n"
+                + "  }\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -254,24 +385,29 @@ public class PromptsRenderingWireTest {
     }
 
     /**
-     * Compares two JsonNodes with numeric equivalence.
+     * Compares two JsonNodes with numeric equivalence and null safety.
+     * For objects, checks that all fields in 'expected' exist in 'actual' with matching values.
+     * Allows 'actual' to have extra fields (e.g., default values added during serialization).
      */
-    private boolean jsonEquals(JsonNode a, JsonNode b) {
-        if (a.equals(b)) return true;
-        if (a.isNumber() && b.isNumber()) return Math.abs(a.doubleValue() - b.doubleValue()) < 1e-10;
-        if (a.isObject() && b.isObject()) {
-            if (a.size() != b.size()) return false;
-            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = a.fields();
+    private boolean jsonEquals(JsonNode expected, JsonNode actual) {
+        if (expected == null && actual == null) return true;
+        if (expected == null || actual == null) return false;
+        if (expected.equals(actual)) return true;
+        if (expected.isNumber() && actual.isNumber())
+            return Math.abs(expected.doubleValue() - actual.doubleValue()) < 1e-10;
+        if (expected.isObject() && actual.isObject()) {
+            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = expected.fields();
             while (iter.hasNext()) {
                 java.util.Map.Entry<String, JsonNode> entry = iter.next();
-                if (!jsonEquals(entry.getValue(), b.get(entry.getKey()))) return false;
+                JsonNode actualValue = actual.get(entry.getKey());
+                if (actualValue == null || !jsonEquals(entry.getValue(), actualValue)) return false;
             }
             return true;
         }
-        if (a.isArray() && b.isArray()) {
-            if (a.size() != b.size()) return false;
-            for (int i = 0; i < a.size(); i++) {
-                if (!jsonEquals(a.get(i), b.get(i))) return false;
+        if (expected.isArray() && actual.isArray()) {
+            if (expected.size() != actual.size()) return false;
+            for (int i = 0; i < expected.size(); i++) {
+                if (!jsonEquals(expected.get(i), actual.get(i))) return false;
             }
             return true;
         }

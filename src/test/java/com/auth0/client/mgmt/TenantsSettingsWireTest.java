@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.tenants.types.GetTenantSettingsRequestParameters;
 import com.auth0.client.mgmt.tenants.types.UpdateTenantSettingsRequestContent;
 import com.auth0.client.mgmt.types.GetTenantSettingsResponseContent;
@@ -41,12 +42,12 @@ public class TenantsSettingsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"change_password\":{\"enabled\":true,\"html\":\"html\"},\"guardian_mfa_page\":{\"enabled\":true,\"html\":\"html\"},\"default_audience\":\"default_audience\",\"default_directory\":\"default_directory\",\"error_page\":{\"html\":\"html\",\"show_log_link\":true,\"url\":\"url\"},\"device_flow\":{\"charset\":\"base20\",\"mask\":\"mask\"},\"default_token_quota\":{\"clients\":{\"client_credentials\":{}},\"organizations\":{\"client_credentials\":{}}},\"flags\":{\"change_pwd_flow_v1\":true,\"enable_apis_section\":true,\"disable_impersonation\":true,\"enable_client_connections\":true,\"enable_pipeline2\":true,\"allow_legacy_delegation_grant_types\":true,\"allow_legacy_ro_grant_types\":true,\"allow_legacy_tokeninfo_endpoint\":true,\"enable_legacy_profile\":true,\"enable_idtoken_api2\":true,\"enable_public_signup_user_exists_error\":true,\"enable_sso\":true,\"allow_changing_enable_sso\":true,\"disable_clickjack_protection_headers\":true,\"no_disclose_enterprise_connections\":true,\"enforce_client_authentication_on_passwordless_start\":true,\"enable_adfs_waad_email_verification\":true,\"revoke_refresh_token_grant\":true,\"dashboard_log_streams_next\":true,\"dashboard_insights_view\":true,\"disable_fields_map_fix\":true,\"mfa_show_factor_list_on_enrollment\":true,\"remove_alg_from_jwks\":true,\"improved_signup_bot_detection_in_classic\":true,\"genai_trial\":true,\"enable_dynamic_client_registration\":true,\"disable_management_api_sms_obfuscation\":true,\"trust_azure_adfs_email_verified_connection_property\":true,\"custom_domains_provisioning\":true},\"friendly_name\":\"friendly_name\",\"picture_url\":\"picture_url\",\"support_email\":\"support_email\",\"support_url\":\"support_url\",\"allowed_logout_urls\":[\"allowed_logout_urls\"],\"session_lifetime\":1.1,\"idle_session_lifetime\":1.1,\"ephemeral_session_lifetime\":1.1,\"idle_ephemeral_session_lifetime\":1.1,\"sandbox_version\":\"sandbox_version\",\"legacy_sandbox_version\":\"legacy_sandbox_version\",\"sandbox_versions_available\":[\"sandbox_versions_available\"],\"default_redirection_uri\":\"default_redirection_uri\",\"enabled_locales\":[\"am\"],\"session_cookie\":{\"mode\":\"persistent\"},\"sessions\":{\"oidc_logout_prompt_enabled\":true},\"oidc_logout\":{\"rp_logout_end_session_endpoint_discovery\":true},\"allow_organization_name_in_authentication_api\":true,\"customize_mfa_in_postlogin_action\":true,\"acr_values_supported\":[\"acr_values_supported\"],\"mtls\":{\"enable_endpoint_aliases\":true},\"pushed_authorization_requests_supported\":true,\"authorization_response_iss_parameter_supported\":true}"));
+                                "{\"change_password\":{\"enabled\":true,\"html\":\"html\"},\"guardian_mfa_page\":{\"enabled\":true,\"html\":\"html\"},\"default_audience\":\"default_audience\",\"default_directory\":\"default_directory\",\"error_page\":{\"html\":\"html\",\"show_log_link\":true,\"url\":\"url\"},\"device_flow\":{\"charset\":\"base20\",\"mask\":\"mask\"},\"default_token_quota\":{\"clients\":{\"client_credentials\":{}},\"organizations\":{\"client_credentials\":{}}},\"flags\":{\"change_pwd_flow_v1\":true,\"enable_apis_section\":true,\"disable_impersonation\":true,\"enable_client_connections\":true,\"enable_pipeline2\":true,\"allow_legacy_delegation_grant_types\":true,\"allow_legacy_ro_grant_types\":true,\"allow_legacy_tokeninfo_endpoint\":true,\"enable_legacy_profile\":true,\"enable_idtoken_api2\":true,\"enable_public_signup_user_exists_error\":true,\"enable_sso\":true,\"allow_changing_enable_sso\":true,\"disable_clickjack_protection_headers\":true,\"no_disclose_enterprise_connections\":true,\"enforce_client_authentication_on_passwordless_start\":true,\"enable_adfs_waad_email_verification\":true,\"revoke_refresh_token_grant\":true,\"dashboard_log_streams_next\":true,\"dashboard_insights_view\":true,\"disable_fields_map_fix\":true,\"mfa_show_factor_list_on_enrollment\":true,\"remove_alg_from_jwks\":true,\"improved_signup_bot_detection_in_classic\":true,\"genai_trial\":true,\"enable_dynamic_client_registration\":true,\"disable_management_api_sms_obfuscation\":true,\"trust_azure_adfs_email_verified_connection_property\":true,\"custom_domains_provisioning\":true},\"friendly_name\":\"friendly_name\",\"picture_url\":\"picture_url\",\"support_email\":\"support_email\",\"support_url\":\"support_url\",\"allowed_logout_urls\":[\"allowed_logout_urls\"],\"session_lifetime\":1.1,\"idle_session_lifetime\":1.1,\"ephemeral_session_lifetime\":1.1,\"idle_ephemeral_session_lifetime\":1.1,\"sandbox_version\":\"sandbox_version\",\"legacy_sandbox_version\":\"legacy_sandbox_version\",\"sandbox_versions_available\":[\"sandbox_versions_available\"],\"default_redirection_uri\":\"default_redirection_uri\",\"enabled_locales\":[\"am\"],\"session_cookie\":{\"mode\":\"persistent\"},\"sessions\":{\"oidc_logout_prompt_enabled\":true},\"oidc_logout\":{\"rp_logout_end_session_endpoint_discovery\":true},\"allow_organization_name_in_authentication_api\":true,\"customize_mfa_in_postlogin_action\":true,\"acr_values_supported\":[\"acr_values_supported\"],\"mtls\":{\"enable_endpoint_aliases\":true},\"pushed_authorization_requests_supported\":true,\"authorization_response_iss_parameter_supported\":true,\"skip_non_verifiable_callback_uri_confirmation_prompt\":true,\"resource_parameter_profile\":\"audience\"}"));
         GetTenantSettingsResponseContent response = client.tenants()
                 .settings()
                 .get(GetTenantSettingsRequestParameters.builder()
-                        .fields("fields")
-                        .includeFields(true)
+                        .fields(OptionalNullable.of("fields"))
+                        .includeFields(OptionalNullable.of(true))
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -153,7 +154,9 @@ public class TenantsSettingsWireTest {
                 + "    \"enable_endpoint_aliases\": true\n"
                 + "  },\n"
                 + "  \"pushed_authorization_requests_supported\": true,\n"
-                + "  \"authorization_response_iss_parameter_supported\": true\n"
+                + "  \"authorization_response_iss_parameter_supported\": true,\n"
+                + "  \"skip_non_verifiable_callback_uri_confirmation_prompt\": true,\n"
+                + "  \"resource_parameter_profile\": \"audience\"\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -192,7 +195,7 @@ public class TenantsSettingsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"change_password\":{\"enabled\":true,\"html\":\"html\"},\"guardian_mfa_page\":{\"enabled\":true,\"html\":\"html\"},\"default_audience\":\"default_audience\",\"default_directory\":\"default_directory\",\"error_page\":{\"html\":\"html\",\"show_log_link\":true,\"url\":\"url\"},\"device_flow\":{\"charset\":\"base20\",\"mask\":\"mask\"},\"default_token_quota\":{\"clients\":{\"client_credentials\":{}},\"organizations\":{\"client_credentials\":{}}},\"flags\":{\"change_pwd_flow_v1\":true,\"enable_apis_section\":true,\"disable_impersonation\":true,\"enable_client_connections\":true,\"enable_pipeline2\":true,\"allow_legacy_delegation_grant_types\":true,\"allow_legacy_ro_grant_types\":true,\"allow_legacy_tokeninfo_endpoint\":true,\"enable_legacy_profile\":true,\"enable_idtoken_api2\":true,\"enable_public_signup_user_exists_error\":true,\"enable_sso\":true,\"allow_changing_enable_sso\":true,\"disable_clickjack_protection_headers\":true,\"no_disclose_enterprise_connections\":true,\"enforce_client_authentication_on_passwordless_start\":true,\"enable_adfs_waad_email_verification\":true,\"revoke_refresh_token_grant\":true,\"dashboard_log_streams_next\":true,\"dashboard_insights_view\":true,\"disable_fields_map_fix\":true,\"mfa_show_factor_list_on_enrollment\":true,\"remove_alg_from_jwks\":true,\"improved_signup_bot_detection_in_classic\":true,\"genai_trial\":true,\"enable_dynamic_client_registration\":true,\"disable_management_api_sms_obfuscation\":true,\"trust_azure_adfs_email_verified_connection_property\":true,\"custom_domains_provisioning\":true},\"friendly_name\":\"friendly_name\",\"picture_url\":\"picture_url\",\"support_email\":\"support_email\",\"support_url\":\"support_url\",\"allowed_logout_urls\":[\"allowed_logout_urls\"],\"session_lifetime\":1.1,\"idle_session_lifetime\":1.1,\"ephemeral_session_lifetime\":1.1,\"idle_ephemeral_session_lifetime\":1.1,\"sandbox_version\":\"sandbox_version\",\"legacy_sandbox_version\":\"legacy_sandbox_version\",\"sandbox_versions_available\":[\"sandbox_versions_available\"],\"default_redirection_uri\":\"default_redirection_uri\",\"enabled_locales\":[\"am\"],\"session_cookie\":{\"mode\":\"persistent\"},\"sessions\":{\"oidc_logout_prompt_enabled\":true},\"oidc_logout\":{\"rp_logout_end_session_endpoint_discovery\":true},\"allow_organization_name_in_authentication_api\":true,\"customize_mfa_in_postlogin_action\":true,\"acr_values_supported\":[\"acr_values_supported\"],\"mtls\":{\"enable_endpoint_aliases\":true},\"pushed_authorization_requests_supported\":true,\"authorization_response_iss_parameter_supported\":true}"));
+                                "{\"change_password\":{\"enabled\":true,\"html\":\"html\"},\"guardian_mfa_page\":{\"enabled\":true,\"html\":\"html\"},\"default_audience\":\"default_audience\",\"default_directory\":\"default_directory\",\"error_page\":{\"html\":\"html\",\"show_log_link\":true,\"url\":\"url\"},\"device_flow\":{\"charset\":\"base20\",\"mask\":\"mask\"},\"default_token_quota\":{\"clients\":{\"client_credentials\":{}},\"organizations\":{\"client_credentials\":{}}},\"flags\":{\"change_pwd_flow_v1\":true,\"enable_apis_section\":true,\"disable_impersonation\":true,\"enable_client_connections\":true,\"enable_pipeline2\":true,\"allow_legacy_delegation_grant_types\":true,\"allow_legacy_ro_grant_types\":true,\"allow_legacy_tokeninfo_endpoint\":true,\"enable_legacy_profile\":true,\"enable_idtoken_api2\":true,\"enable_public_signup_user_exists_error\":true,\"enable_sso\":true,\"allow_changing_enable_sso\":true,\"disable_clickjack_protection_headers\":true,\"no_disclose_enterprise_connections\":true,\"enforce_client_authentication_on_passwordless_start\":true,\"enable_adfs_waad_email_verification\":true,\"revoke_refresh_token_grant\":true,\"dashboard_log_streams_next\":true,\"dashboard_insights_view\":true,\"disable_fields_map_fix\":true,\"mfa_show_factor_list_on_enrollment\":true,\"remove_alg_from_jwks\":true,\"improved_signup_bot_detection_in_classic\":true,\"genai_trial\":true,\"enable_dynamic_client_registration\":true,\"disable_management_api_sms_obfuscation\":true,\"trust_azure_adfs_email_verified_connection_property\":true,\"custom_domains_provisioning\":true},\"friendly_name\":\"friendly_name\",\"picture_url\":\"picture_url\",\"support_email\":\"support_email\",\"support_url\":\"support_url\",\"allowed_logout_urls\":[\"allowed_logout_urls\"],\"session_lifetime\":1.1,\"idle_session_lifetime\":1.1,\"ephemeral_session_lifetime\":1.1,\"idle_ephemeral_session_lifetime\":1.1,\"sandbox_version\":\"sandbox_version\",\"legacy_sandbox_version\":\"legacy_sandbox_version\",\"sandbox_versions_available\":[\"sandbox_versions_available\"],\"default_redirection_uri\":\"default_redirection_uri\",\"enabled_locales\":[\"am\"],\"session_cookie\":{\"mode\":\"persistent\"},\"sessions\":{\"oidc_logout_prompt_enabled\":true},\"oidc_logout\":{\"rp_logout_end_session_endpoint_discovery\":true},\"allow_organization_name_in_authentication_api\":true,\"customize_mfa_in_postlogin_action\":true,\"acr_values_supported\":[\"acr_values_supported\"],\"mtls\":{\"enable_endpoint_aliases\":true},\"pushed_authorization_requests_supported\":true,\"authorization_response_iss_parameter_supported\":true,\"skip_non_verifiable_callback_uri_confirmation_prompt\":true,\"resource_parameter_profile\":\"audience\"}"));
         UpdateTenantSettingsResponseContent response = client.tenants()
                 .settings()
                 .update(UpdateTenantSettingsRequestContent.builder().build());
@@ -330,7 +333,9 @@ public class TenantsSettingsWireTest {
                 + "    \"enable_endpoint_aliases\": true\n"
                 + "  },\n"
                 + "  \"pushed_authorization_requests_supported\": true,\n"
-                + "  \"authorization_response_iss_parameter_supported\": true\n"
+                + "  \"authorization_response_iss_parameter_supported\": true,\n"
+                + "  \"skip_non_verifiable_callback_uri_confirmation_prompt\": true,\n"
+                + "  \"resource_parameter_profile\": \"audience\"\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -364,24 +369,29 @@ public class TenantsSettingsWireTest {
     }
 
     /**
-     * Compares two JsonNodes with numeric equivalence.
+     * Compares two JsonNodes with numeric equivalence and null safety.
+     * For objects, checks that all fields in 'expected' exist in 'actual' with matching values.
+     * Allows 'actual' to have extra fields (e.g., default values added during serialization).
      */
-    private boolean jsonEquals(JsonNode a, JsonNode b) {
-        if (a.equals(b)) return true;
-        if (a.isNumber() && b.isNumber()) return Math.abs(a.doubleValue() - b.doubleValue()) < 1e-10;
-        if (a.isObject() && b.isObject()) {
-            if (a.size() != b.size()) return false;
-            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = a.fields();
+    private boolean jsonEquals(JsonNode expected, JsonNode actual) {
+        if (expected == null && actual == null) return true;
+        if (expected == null || actual == null) return false;
+        if (expected.equals(actual)) return true;
+        if (expected.isNumber() && actual.isNumber())
+            return Math.abs(expected.doubleValue() - actual.doubleValue()) < 1e-10;
+        if (expected.isObject() && actual.isObject()) {
+            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = expected.fields();
             while (iter.hasNext()) {
                 java.util.Map.Entry<String, JsonNode> entry = iter.next();
-                if (!jsonEquals(entry.getValue(), b.get(entry.getKey()))) return false;
+                JsonNode actualValue = actual.get(entry.getKey());
+                if (actualValue == null || !jsonEquals(entry.getValue(), actualValue)) return false;
             }
             return true;
         }
-        if (a.isArray() && b.isArray()) {
-            if (a.size() != b.size()) return false;
-            for (int i = 0; i < a.size(); i++) {
-                if (!jsonEquals(a.get(i), b.get(i))) return false;
+        if (expected.isArray() && actual.isArray()) {
+            if (expected.size() != actual.size()) return false;
+            for (int i = 0; i < expected.size(); i++) {
+                if (!jsonEquals(expected.get(i), actual.get(i))) return false;
             }
             return true;
         }

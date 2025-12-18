@@ -85,7 +85,7 @@ public final class UpdateActionRequestContent {
     }
 
     /**
-     * @return The Node runtime. For example: <code>node12</code>, defaults to <code>node12</code>
+     * @return The Node runtime. For example: <code>node22</code>, defaults to <code>node22</code>
      */
     @JsonProperty("runtime")
     public Optional<String> getRuntime() {
@@ -100,7 +100,7 @@ public final class UpdateActionRequestContent {
         return secrets;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateActionRequestContent && equalTo((UpdateActionRequestContent) other);
@@ -120,13 +120,13 @@ public final class UpdateActionRequestContent {
                 && secrets.equals(other.secrets);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.name, this.supportedTriggers, this.code, this.dependencies, this.runtime, this.secrets);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -221,7 +221,7 @@ public final class UpdateActionRequestContent {
         }
 
         /**
-         * <p>The Node runtime. For example: <code>node12</code>, defaults to <code>node12</code></p>
+         * <p>The Node runtime. For example: <code>node22</code>, defaults to <code>node22</code></p>
          */
         @JsonSetter(value = "runtime", nulls = Nulls.SKIP)
         public Builder runtime(Optional<String> runtime) {

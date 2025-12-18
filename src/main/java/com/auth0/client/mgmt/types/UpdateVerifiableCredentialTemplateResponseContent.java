@@ -133,7 +133,7 @@ public final class UpdateVerifiableCredentialTemplateResponseContent {
         return updatedAt;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateVerifiableCredentialTemplateResponseContent
@@ -157,7 +157,7 @@ public final class UpdateVerifiableCredentialTemplateResponseContent {
                 && updatedAt.equals(other.updatedAt);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -171,7 +171,7 @@ public final class UpdateVerifiableCredentialTemplateResponseContent {
                 this.updatedAt);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -6,9 +6,11 @@ package com.auth0.client.mgmt.prompts;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
+import com.auth0.client.mgmt.prompts.types.BulkUpdateAculRequestContent;
 import com.auth0.client.mgmt.prompts.types.ListAculsRequestParameters;
 import com.auth0.client.mgmt.prompts.types.UpdateAculRequestContent;
 import com.auth0.client.mgmt.types.AculResponseContent;
+import com.auth0.client.mgmt.types.BulkUpdateAculResponseContent;
 import com.auth0.client.mgmt.types.GetAculResponseContent;
 import com.auth0.client.mgmt.types.PromptGroupNameEnum;
 import com.auth0.client.mgmt.types.ScreenGroupNameEnum;
@@ -54,6 +56,21 @@ public class RenderingClient {
     }
 
     /**
+     * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
+     */
+    public BulkUpdateAculResponseContent bulkUpdate(BulkUpdateAculRequestContent request) {
+        return this.rawClient.bulkUpdate(request).body();
+    }
+
+    /**
+     * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
+     */
+    public BulkUpdateAculResponseContent bulkUpdate(
+            BulkUpdateAculRequestContent request, RequestOptions requestOptions) {
+        return this.rawClient.bulkUpdate(request, requestOptions).body();
+    }
+
+    /**
      * Get render settings for a screen.
      */
     public GetAculResponseContent get(PromptGroupNameEnum prompt, ScreenGroupNameEnum screen) {
@@ -70,32 +87,6 @@ public class RenderingClient {
 
     /**
      * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
-     * <p>&lt;p&gt;
-     *   Example &lt;code&gt;head_tags&lt;/code&gt; array. See our &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;documentation&lt;/a&gt; on using Liquid variables within head tags.
-     * &lt;/p&gt;
-     * &lt;pre&gt;{
-     *   &quot;head_tags&quot;: [
-     *     {
-     *       &quot;tag&quot;: &quot;script&quot;,
-     *       &quot;attributes&quot;: {
-     *         &quot;defer&quot;: true,
-     *         &quot;src&quot;: &quot;URL_TO_ASSET&quot;,
-     *         &quot;async&quot;: true,
-     *         &quot;integrity&quot;: [
-     *           &quot;ASSET_SHA&quot;
-     *         ]
-     *       }
-     *     },
-     *     {
-     *       &quot;tag&quot;: &quot;link&quot;,
-     *       &quot;attributes&quot;: {
-     *         &quot;href&quot;: &quot;URL_TO_ASSET&quot;,
-     *         &quot;rel&quot;: &quot;stylesheet&quot;
-     *       }
-     *     }
-     *   ]
-     * }
-     * &lt;/pre&gt;</p>
      */
     public UpdateAculResponseContent update(PromptGroupNameEnum prompt, ScreenGroupNameEnum screen) {
         return this.rawClient.update(prompt, screen).body();
@@ -103,32 +94,6 @@ public class RenderingClient {
 
     /**
      * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
-     * <p>&lt;p&gt;
-     *   Example &lt;code&gt;head_tags&lt;/code&gt; array. See our &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;documentation&lt;/a&gt; on using Liquid variables within head tags.
-     * &lt;/p&gt;
-     * &lt;pre&gt;{
-     *   &quot;head_tags&quot;: [
-     *     {
-     *       &quot;tag&quot;: &quot;script&quot;,
-     *       &quot;attributes&quot;: {
-     *         &quot;defer&quot;: true,
-     *         &quot;src&quot;: &quot;URL_TO_ASSET&quot;,
-     *         &quot;async&quot;: true,
-     *         &quot;integrity&quot;: [
-     *           &quot;ASSET_SHA&quot;
-     *         ]
-     *       }
-     *     },
-     *     {
-     *       &quot;tag&quot;: &quot;link&quot;,
-     *       &quot;attributes&quot;: {
-     *         &quot;href&quot;: &quot;URL_TO_ASSET&quot;,
-     *         &quot;rel&quot;: &quot;stylesheet&quot;
-     *       }
-     *     }
-     *   ]
-     * }
-     * &lt;/pre&gt;</p>
      */
     public UpdateAculResponseContent update(
             PromptGroupNameEnum prompt, ScreenGroupNameEnum screen, UpdateAculRequestContent request) {
@@ -137,32 +102,6 @@ public class RenderingClient {
 
     /**
      * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
-     * <p>&lt;p&gt;
-     *   Example &lt;code&gt;head_tags&lt;/code&gt; array. See our &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;documentation&lt;/a&gt; on using Liquid variables within head tags.
-     * &lt;/p&gt;
-     * &lt;pre&gt;{
-     *   &quot;head_tags&quot;: [
-     *     {
-     *       &quot;tag&quot;: &quot;script&quot;,
-     *       &quot;attributes&quot;: {
-     *         &quot;defer&quot;: true,
-     *         &quot;src&quot;: &quot;URL_TO_ASSET&quot;,
-     *         &quot;async&quot;: true,
-     *         &quot;integrity&quot;: [
-     *           &quot;ASSET_SHA&quot;
-     *         ]
-     *       }
-     *     },
-     *     {
-     *       &quot;tag&quot;: &quot;link&quot;,
-     *       &quot;attributes&quot;: {
-     *         &quot;href&quot;: &quot;URL_TO_ASSET&quot;,
-     *         &quot;rel&quot;: &quot;stylesheet&quot;
-     *       }
-     *     }
-     *   ]
-     * }
-     * &lt;/pre&gt;</p>
      */
     public UpdateAculResponseContent update(
             PromptGroupNameEnum prompt,

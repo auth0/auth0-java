@@ -63,7 +63,7 @@ public final class TokenQuotaClientCredentials {
         return perHour;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof TokenQuotaClientCredentials && equalTo((TokenQuotaClientCredentials) other);
@@ -78,12 +78,12 @@ public final class TokenQuotaClientCredentials {
         return enforce.equals(other.enforce) && perDay.equals(other.perDay) && perHour.equals(other.perHour);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.enforce, this.perDay, this.perHour);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

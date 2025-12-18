@@ -76,7 +76,7 @@ public final class AddOrganizationConnectionRequestContent {
         return showAsButton;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof AddOrganizationConnectionRequestContent
@@ -95,12 +95,12 @@ public final class AddOrganizationConnectionRequestContent {
                 && showAsButton.equals(other.showAsButton);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.assignMembershipOnLogin, this.isSignupEnabled, this.showAsButton);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -158,7 +158,7 @@ public final class AddOrganizationConnectionRequestContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(AddOrganizationConnectionRequestContent other) {
             connectionId(other.getConnectionId());
             assignMembershipOnLogin(other.getAssignMembershipOnLogin());
@@ -172,7 +172,7 @@ public final class AddOrganizationConnectionRequestContent {
          * <p>Single connection ID to add to the organization.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("connection_id")
         public _FinalStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
@@ -183,7 +183,7 @@ public final class AddOrganizationConnectionRequestContent {
          * <p>Determines whether a connection should be displayed on this organization’s login prompt. Only applicable for enterprise connections. Default: true.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage showAsButton(Boolean showAsButton) {
             this.showAsButton = Optional.ofNullable(showAsButton);
             return this;
@@ -192,7 +192,7 @@ public final class AddOrganizationConnectionRequestContent {
         /**
          * <p>Determines whether a connection should be displayed on this organization’s login prompt. Only applicable for enterprise connections. Default: true.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "show_as_button", nulls = Nulls.SKIP)
         public _FinalStage showAsButton(Optional<Boolean> showAsButton) {
             this.showAsButton = showAsButton;
@@ -203,7 +203,7 @@ public final class AddOrganizationConnectionRequestContent {
          * <p>Determines whether organization signup should be enabled for this organization connection. Only applicable for database connections. Default: false.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage isSignupEnabled(Boolean isSignupEnabled) {
             this.isSignupEnabled = Optional.ofNullable(isSignupEnabled);
             return this;
@@ -212,7 +212,7 @@ public final class AddOrganizationConnectionRequestContent {
         /**
          * <p>Determines whether organization signup should be enabled for this organization connection. Only applicable for database connections. Default: false.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "is_signup_enabled", nulls = Nulls.SKIP)
         public _FinalStage isSignupEnabled(Optional<Boolean> isSignupEnabled) {
             this.isSignupEnabled = isSignupEnabled;
@@ -223,7 +223,7 @@ public final class AddOrganizationConnectionRequestContent {
          * <p>When true, all users that log in with this connection will be automatically granted membership in the organization. When false, users must be granted membership in the organization before logging in with this connection.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage assignMembershipOnLogin(Boolean assignMembershipOnLogin) {
             this.assignMembershipOnLogin = Optional.ofNullable(assignMembershipOnLogin);
             return this;
@@ -232,14 +232,14 @@ public final class AddOrganizationConnectionRequestContent {
         /**
          * <p>When true, all users that log in with this connection will be automatically granted membership in the organization. When false, users must be granted membership in the organization before logging in with this connection.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "assign_membership_on_login", nulls = Nulls.SKIP)
         public _FinalStage assignMembershipOnLogin(Optional<Boolean> assignMembershipOnLogin) {
             this.assignMembershipOnLogin = assignMembershipOnLogin;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public AddOrganizationConnectionRequestContent build() {
             return new AddOrganizationConnectionRequestContent(
                     connectionId, assignMembershipOnLogin, isSignupEnabled, showAsButton, additionalProperties);

@@ -43,7 +43,7 @@ public final class ConnectionPasswordHistoryOptions {
         return size;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionPasswordHistoryOptions && equalTo((ConnectionPasswordHistoryOptions) other);
@@ -58,12 +58,12 @@ public final class ConnectionPasswordHistoryOptions {
         return enable == other.enable && size.equals(other.size);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.enable, this.size);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -97,34 +97,34 @@ public final class ConnectionPasswordHistoryOptions {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(ConnectionPasswordHistoryOptions other) {
             enable(other.getEnable());
             size(other.getSize());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("enable")
         public _FinalStage enable(boolean enable) {
             this.enable = enable;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage size(Integer size) {
             this.size = Optional.ofNullable(size);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "size", nulls = Nulls.SKIP)
         public _FinalStage size(Optional<Integer> size) {
             this.size = size;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public ConnectionPasswordHistoryOptions build() {
             return new ConnectionPasswordHistoryOptions(enable, size, additionalProperties);
         }

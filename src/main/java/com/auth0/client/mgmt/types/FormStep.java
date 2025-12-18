@@ -73,7 +73,7 @@ public final class FormStep {
         return config;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormStep && equalTo((FormStep) other);
@@ -92,12 +92,12 @@ public final class FormStep {
                 && config.equals(other.config);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.id, this.type, this.coordinates, this.alias, this.config);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -149,7 +149,7 @@ public final class FormStep {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FormStep other) {
             id(other.getId());
             type(other.getType());
@@ -159,60 +159,60 @@ public final class FormStep {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("id")
         public TypeStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("type")
         public _FinalStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage config(FormStepConfig config) {
             this.config = Optional.ofNullable(config);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "config", nulls = Nulls.SKIP)
         public _FinalStage config(Optional<FormStepConfig> config) {
             this.config = config;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage alias(String alias) {
             this.alias = Optional.ofNullable(alias);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "alias", nulls = Nulls.SKIP)
         public _FinalStage alias(Optional<String> alias) {
             this.alias = alias;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage coordinates(FormNodeCoordinates coordinates) {
             this.coordinates = Optional.ofNullable(coordinates);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "coordinates", nulls = Nulls.SKIP)
         public _FinalStage coordinates(Optional<FormNodeCoordinates> coordinates) {
             this.coordinates = coordinates;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FormStep build() {
             return new FormStep(id, type, coordinates, alias, config, additionalProperties);
         }

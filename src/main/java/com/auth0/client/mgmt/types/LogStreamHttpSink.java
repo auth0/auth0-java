@@ -86,7 +86,7 @@ public final class LogStreamHttpSink {
         return httpCustomHeaders;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof LogStreamHttpSink && equalTo((LogStreamHttpSink) other);
@@ -105,7 +105,7 @@ public final class LogStreamHttpSink {
                 && httpCustomHeaders.equals(other.httpCustomHeaders);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.httpAuthorization,
@@ -115,7 +115,7 @@ public final class LogStreamHttpSink {
                 this.httpCustomHeaders);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -179,7 +179,7 @@ public final class LogStreamHttpSink {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(LogStreamHttpSink other) {
             httpAuthorization(other.getHttpAuthorization());
             httpContentFormat(other.getHttpContentFormat());
@@ -194,7 +194,7 @@ public final class LogStreamHttpSink {
          * <p>HTTP endpoint</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("httpEndpoint")
         public _FinalStage httpEndpoint(@NotNull String httpEndpoint) {
             this.httpEndpoint = Objects.requireNonNull(httpEndpoint, "httpEndpoint must not be null");
@@ -205,7 +205,7 @@ public final class LogStreamHttpSink {
          * <p>custom HTTP headers</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage httpCustomHeaders(List<HttpCustomHeader> httpCustomHeaders) {
             this.httpCustomHeaders = Optional.ofNullable(httpCustomHeaders);
             return this;
@@ -214,7 +214,7 @@ public final class LogStreamHttpSink {
         /**
          * <p>custom HTTP headers</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "httpCustomHeaders", nulls = Nulls.SKIP)
         public _FinalStage httpCustomHeaders(Optional<List<HttpCustomHeader>> httpCustomHeaders) {
             this.httpCustomHeaders = httpCustomHeaders;
@@ -225,7 +225,7 @@ public final class LogStreamHttpSink {
          * <p>HTTP Content-Type header</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage httpContentType(String httpContentType) {
             this.httpContentType = Optional.ofNullable(httpContentType);
             return this;
@@ -234,20 +234,20 @@ public final class LogStreamHttpSink {
         /**
          * <p>HTTP Content-Type header</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "httpContentType", nulls = Nulls.SKIP)
         public _FinalStage httpContentType(Optional<String> httpContentType) {
             this.httpContentType = httpContentType;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage httpContentFormat(LogStreamHttpContentFormatEnum httpContentFormat) {
             this.httpContentFormat = Optional.ofNullable(httpContentFormat);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "httpContentFormat", nulls = Nulls.SKIP)
         public _FinalStage httpContentFormat(Optional<LogStreamHttpContentFormatEnum> httpContentFormat) {
             this.httpContentFormat = httpContentFormat;
@@ -258,7 +258,7 @@ public final class LogStreamHttpSink {
          * <p>HTTP Authorization header</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage httpAuthorization(String httpAuthorization) {
             this.httpAuthorization = Optional.ofNullable(httpAuthorization);
             return this;
@@ -267,14 +267,14 @@ public final class LogStreamHttpSink {
         /**
          * <p>HTTP Authorization header</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "httpAuthorization", nulls = Nulls.SKIP)
         public _FinalStage httpAuthorization(Optional<String> httpAuthorization) {
             this.httpAuthorization = httpAuthorization;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public LogStreamHttpSink build() {
             return new LogStreamHttpSink(
                     httpAuthorization,

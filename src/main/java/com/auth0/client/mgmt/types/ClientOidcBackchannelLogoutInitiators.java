@@ -46,7 +46,7 @@ public final class ClientOidcBackchannelLogoutInitiators {
         return selectedInitiators;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientOidcBackchannelLogoutInitiators
@@ -62,12 +62,12 @@ public final class ClientOidcBackchannelLogoutInitiators {
         return mode.equals(other.mode) && selectedInitiators.equals(other.selectedInitiators);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.mode, this.selectedInitiators);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -60,7 +60,7 @@ public final class ConnectionPasskeyOptions {
         return localEnrollmentEnabled;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionPasskeyOptions && equalTo((ConnectionPasskeyOptions) other);
@@ -77,12 +77,12 @@ public final class ConnectionPasskeyOptions {
                 && localEnrollmentEnabled.equals(other.localEnrollmentEnabled);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.challengeUi, this.progressiveEnrollmentEnabled, this.localEnrollmentEnabled);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

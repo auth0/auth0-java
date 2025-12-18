@@ -4,6 +4,7 @@
 package com.auth0.client.mgmt.types;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -39,7 +40,11 @@ public final class GetConnectionResponseContent {
 
     private final Optional<Boolean> showAsButton;
 
-    private final Optional<Map<String, Object>> metadata;
+    private final Optional<Map<String, OptionalNullable<String>>> metadata;
+
+    private final Optional<ConnectionAuthenticationPurpose> authentication;
+
+    private final Optional<ConnectionConnectedAccountsPurpose> connectedAccounts;
 
     private final Map<String, Object> additionalProperties;
 
@@ -53,7 +58,9 @@ public final class GetConnectionResponseContent {
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
             Optional<Boolean> showAsButton,
-            Optional<Map<String, Object>> metadata,
+            Optional<Map<String, OptionalNullable<String>>> metadata,
+            Optional<ConnectionAuthenticationPurpose> authentication,
+            Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.displayName = displayName;
@@ -65,6 +72,8 @@ public final class GetConnectionResponseContent {
         this.isDomainConnection = isDomainConnection;
         this.showAsButton = showAsButton;
         this.metadata = metadata;
+        this.authentication = authentication;
+        this.connectedAccounts = connectedAccounts;
         this.additionalProperties = additionalProperties;
     }
 
@@ -138,11 +147,21 @@ public final class GetConnectionResponseContent {
     }
 
     @JsonProperty("metadata")
-    public Optional<Map<String, Object>> getMetadata() {
+    public Optional<Map<String, OptionalNullable<String>>> getMetadata() {
         return metadata;
     }
 
-    @java.lang.Override
+    @JsonProperty("authentication")
+    public Optional<ConnectionAuthenticationPurpose> getAuthentication() {
+        return authentication;
+    }
+
+    @JsonProperty("connected_accounts")
+    public Optional<ConnectionConnectedAccountsPurpose> getConnectedAccounts() {
+        return connectedAccounts;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetConnectionResponseContent && equalTo((GetConnectionResponseContent) other);
@@ -163,10 +182,12 @@ public final class GetConnectionResponseContent {
                 && enabledClients.equals(other.enabledClients)
                 && isDomainConnection.equals(other.isDomainConnection)
                 && showAsButton.equals(other.showAsButton)
-                && metadata.equals(other.metadata);
+                && metadata.equals(other.metadata)
+                && authentication.equals(other.authentication)
+                && connectedAccounts.equals(other.connectedAccounts);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.name,
@@ -178,10 +199,12 @@ public final class GetConnectionResponseContent {
                 this.enabledClients,
                 this.isDomainConnection,
                 this.showAsButton,
-                this.metadata);
+                this.metadata,
+                this.authentication,
+                this.connectedAccounts);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -210,7 +233,11 @@ public final class GetConnectionResponseContent {
 
         private Optional<Boolean> showAsButton = Optional.empty();
 
-        private Optional<Map<String, Object>> metadata = Optional.empty();
+        private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
+
+        private Optional<ConnectionAuthenticationPurpose> authentication = Optional.empty();
+
+        private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -228,6 +255,8 @@ public final class GetConnectionResponseContent {
             isDomainConnection(other.getIsDomainConnection());
             showAsButton(other.getShowAsButton());
             metadata(other.getMetadata());
+            authentication(other.getAuthentication());
+            connectedAccounts(other.getConnectedAccounts());
             return this;
         }
 
@@ -355,13 +384,35 @@ public final class GetConnectionResponseContent {
         }
 
         @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
-        public Builder metadata(Optional<Map<String, Object>> metadata) {
+        public Builder metadata(Optional<Map<String, OptionalNullable<String>>> metadata) {
             this.metadata = metadata;
             return this;
         }
 
-        public Builder metadata(Map<String, Object> metadata) {
+        public Builder metadata(Map<String, OptionalNullable<String>> metadata) {
             this.metadata = Optional.ofNullable(metadata);
+            return this;
+        }
+
+        @JsonSetter(value = "authentication", nulls = Nulls.SKIP)
+        public Builder authentication(Optional<ConnectionAuthenticationPurpose> authentication) {
+            this.authentication = authentication;
+            return this;
+        }
+
+        public Builder authentication(ConnectionAuthenticationPurpose authentication) {
+            this.authentication = Optional.ofNullable(authentication);
+            return this;
+        }
+
+        @JsonSetter(value = "connected_accounts", nulls = Nulls.SKIP)
+        public Builder connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts) {
+            this.connectedAccounts = connectedAccounts;
+            return this;
+        }
+
+        public Builder connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts) {
+            this.connectedAccounts = Optional.ofNullable(connectedAccounts);
             return this;
         }
 
@@ -377,6 +428,8 @@ public final class GetConnectionResponseContent {
                     isDomainConnection,
                     showAsButton,
                     metadata,
+                    authentication,
+                    connectedAccounts,
                     additionalProperties);
         }
     }

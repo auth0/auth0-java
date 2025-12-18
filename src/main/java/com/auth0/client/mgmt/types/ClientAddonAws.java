@@ -63,7 +63,7 @@ public final class ClientAddonAws {
         return lifetimeInSeconds;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientAddonAws && equalTo((ClientAddonAws) other);
@@ -80,12 +80,12 @@ public final class ClientAddonAws {
                 && lifetimeInSeconds.equals(other.lifetimeInSeconds);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.principal, this.role, this.lifetimeInSeconds);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

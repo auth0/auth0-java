@@ -73,7 +73,7 @@ public final class LogStreamMixpanelSinkPatch {
         return mixpanelServiceAccountPassword;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof LogStreamMixpanelSinkPatch && equalTo((LogStreamMixpanelSinkPatch) other);
@@ -91,7 +91,7 @@ public final class LogStreamMixpanelSinkPatch {
                 && mixpanelServiceAccountPassword.equals(other.mixpanelServiceAccountPassword);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.mixpanelRegion,
@@ -100,7 +100,7 @@ public final class LogStreamMixpanelSinkPatch {
                 this.mixpanelServiceAccountPassword);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -156,7 +156,7 @@ public final class LogStreamMixpanelSinkPatch {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(LogStreamMixpanelSinkPatch other) {
             mixpanelRegion(other.getMixpanelRegion());
             mixpanelProjectId(other.getMixpanelProjectId());
@@ -165,7 +165,7 @@ public final class LogStreamMixpanelSinkPatch {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("mixpanelRegion")
         public MixpanelProjectIdStage mixpanelRegion(@NotNull LogStreamMixpanelRegionEnum mixpanelRegion) {
             this.mixpanelRegion = Objects.requireNonNull(mixpanelRegion, "mixpanelRegion must not be null");
@@ -177,7 +177,7 @@ public final class LogStreamMixpanelSinkPatch {
          * <p>Mixpanel Project Id</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("mixpanelProjectId")
         public MixpanelServiceAccountUsernameStage mixpanelProjectId(@NotNull String mixpanelProjectId) {
             this.mixpanelProjectId = Objects.requireNonNull(mixpanelProjectId, "mixpanelProjectId must not be null");
@@ -189,7 +189,7 @@ public final class LogStreamMixpanelSinkPatch {
          * <p>Mixpanel Service Account Username</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("mixpanelServiceAccountUsername")
         public _FinalStage mixpanelServiceAccountUsername(@NotNull String mixpanelServiceAccountUsername) {
             this.mixpanelServiceAccountUsername = Objects.requireNonNull(
@@ -201,7 +201,7 @@ public final class LogStreamMixpanelSinkPatch {
          * <p>Mixpanel Service Account Password</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage mixpanelServiceAccountPassword(String mixpanelServiceAccountPassword) {
             this.mixpanelServiceAccountPassword = Optional.ofNullable(mixpanelServiceAccountPassword);
             return this;
@@ -210,14 +210,14 @@ public final class LogStreamMixpanelSinkPatch {
         /**
          * <p>Mixpanel Service Account Password</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "mixpanelServiceAccountPassword", nulls = Nulls.SKIP)
         public _FinalStage mixpanelServiceAccountPassword(Optional<String> mixpanelServiceAccountPassword) {
             this.mixpanelServiceAccountPassword = mixpanelServiceAccountPassword;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public LogStreamMixpanelSinkPatch build() {
             return new LogStreamMixpanelSinkPatch(
                     mixpanelRegion,

@@ -61,7 +61,7 @@ public final class EventStreamEventBridgeConfiguration {
         return awsPartnerEventSource;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof EventStreamEventBridgeConfiguration
@@ -79,12 +79,12 @@ public final class EventStreamEventBridgeConfiguration {
                 && awsPartnerEventSource.equals(other.awsPartnerEventSource);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.awsAccountId, this.awsRegion, this.awsPartnerEventSource);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -130,7 +130,7 @@ public final class EventStreamEventBridgeConfiguration {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(EventStreamEventBridgeConfiguration other) {
             awsAccountId(other.getAwsAccountId());
             awsRegion(other.getAwsRegion());
@@ -143,14 +143,14 @@ public final class EventStreamEventBridgeConfiguration {
          * <p>AWS Account ID for EventBridge destination.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("aws_account_id")
         public AwsRegionStage awsAccountId(@NotNull String awsAccountId) {
             this.awsAccountId = Objects.requireNonNull(awsAccountId, "awsAccountId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("aws_region")
         public _FinalStage awsRegion(@NotNull EventStreamEventBridgeAwsRegionEnum awsRegion) {
             this.awsRegion = Objects.requireNonNull(awsRegion, "awsRegion must not be null");
@@ -161,7 +161,7 @@ public final class EventStreamEventBridgeConfiguration {
          * <p>AWS Partner Event Source for EventBridge destination.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage awsPartnerEventSource(String awsPartnerEventSource) {
             this.awsPartnerEventSource = Optional.ofNullable(awsPartnerEventSource);
             return this;
@@ -170,14 +170,14 @@ public final class EventStreamEventBridgeConfiguration {
         /**
          * <p>AWS Partner Event Source for EventBridge destination.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "aws_partner_event_source", nulls = Nulls.SKIP)
         public _FinalStage awsPartnerEventSource(Optional<String> awsPartnerEventSource) {
             this.awsPartnerEventSource = awsPartnerEventSource;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public EventStreamEventBridgeConfiguration build() {
             return new EventStreamEventBridgeConfiguration(
                     awsAccountId, awsRegion, awsPartnerEventSource, additionalProperties);

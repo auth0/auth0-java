@@ -28,7 +28,7 @@ public final class FormFieldCustomConfig {
 
     private final Optional<String> css;
 
-    private final Optional<Map<String, Object>> params;
+    private final Optional<Map<String, String>> params;
 
     private final Map<String, Object> additionalProperties;
 
@@ -36,7 +36,7 @@ public final class FormFieldCustomConfig {
             Map<String, Object> schema,
             String code,
             Optional<String> css,
-            Optional<Map<String, Object>> params,
+            Optional<Map<String, String>> params,
             Map<String, Object> additionalProperties) {
         this.schema = schema;
         this.code = code;
@@ -61,11 +61,11 @@ public final class FormFieldCustomConfig {
     }
 
     @JsonProperty("params")
-    public Optional<Map<String, Object>> getParams() {
+    public Optional<Map<String, String>> getParams() {
         return params;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldCustomConfig && equalTo((FormFieldCustomConfig) other);
@@ -83,12 +83,12 @@ public final class FormFieldCustomConfig {
                 && params.equals(other.params);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.schema, this.code, this.css, this.params);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -116,16 +116,16 @@ public final class FormFieldCustomConfig {
 
         _FinalStage css(String css);
 
-        _FinalStage params(Optional<Map<String, Object>> params);
+        _FinalStage params(Optional<Map<String, String>> params);
 
-        _FinalStage params(Map<String, Object> params);
+        _FinalStage params(Map<String, String> params);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements CodeStage, _FinalStage {
         private String code;
 
-        private Optional<Map<String, Object>> params = Optional.empty();
+        private Optional<Map<String, String>> params = Optional.empty();
 
         private Optional<String> css = Optional.empty();
 
@@ -136,7 +136,7 @@ public final class FormFieldCustomConfig {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FormFieldCustomConfig other) {
             schema(other.getSchema());
             code(other.getCode());
@@ -145,46 +145,46 @@ public final class FormFieldCustomConfig {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("code")
         public _FinalStage code(@NotNull String code) {
             this.code = Objects.requireNonNull(code, "code must not be null");
             return this;
         }
 
-        @java.lang.Override
-        public _FinalStage params(Map<String, Object> params) {
+        @Override
+        public _FinalStage params(Map<String, String> params) {
             this.params = Optional.ofNullable(params);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "params", nulls = Nulls.SKIP)
-        public _FinalStage params(Optional<Map<String, Object>> params) {
+        public _FinalStage params(Optional<Map<String, String>> params) {
             this.params = params;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage css(String css) {
             this.css = Optional.ofNullable(css);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "css", nulls = Nulls.SKIP)
         public _FinalStage css(Optional<String> css) {
             this.css = css;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage schema(String key, Object value) {
             this.schema.put(key, value);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage putAllSchema(Map<String, Object> schema) {
             if (schema != null) {
                 this.schema.putAll(schema);
@@ -192,7 +192,7 @@ public final class FormFieldCustomConfig {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "schema", nulls = Nulls.SKIP)
         public _FinalStage schema(Map<String, Object> schema) {
             this.schema.clear();
@@ -202,7 +202,7 @@ public final class FormFieldCustomConfig {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FormFieldCustomConfig build() {
             return new FormFieldCustomConfig(schema, code, css, params, additionalProperties);
         }

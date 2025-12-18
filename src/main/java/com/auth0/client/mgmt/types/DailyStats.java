@@ -99,7 +99,7 @@ public final class DailyStats {
         return createdAt;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof DailyStats && equalTo((DailyStats) other);
@@ -119,12 +119,12 @@ public final class DailyStats {
                 && createdAt.equals(other.createdAt);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.date, this.logins, this.signups, this.leakedPasswords, this.updatedAt, this.createdAt);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

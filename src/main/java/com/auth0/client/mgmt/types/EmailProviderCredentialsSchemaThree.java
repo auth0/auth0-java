@@ -46,7 +46,7 @@ public final class EmailProviderCredentialsSchemaThree {
         return region;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof EmailProviderCredentialsSchemaThree
@@ -62,12 +62,12 @@ public final class EmailProviderCredentialsSchemaThree {
         return apiKey.equals(other.apiKey) && region.equals(other.region);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.apiKey, this.region);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

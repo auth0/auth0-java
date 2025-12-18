@@ -91,10 +91,19 @@ public class AsyncRawConnectionsClient {
                 .addPathSegments("clients")
                 .addPathSegment(id)
                 .addPathSegments("connections");
-        QueryStringMapper.addQueryParameter(httpUrl, "from", request.getFrom(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "fields", request.getFields(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "include_fields", request.getIncludeFields(), false);
+        if (!request.getFrom().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "from", request.getFrom().orElse(null), false);
+        }
+        QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
+        if (!request.getFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "fields", request.getFields().orElse(null), false);
+        }
+        if (!request.getIncludeFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "include_fields", request.getIncludeFields().orElse(null), false);
+        }
         if (request.getStrategy().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "strategy", request.getStrategy().get(), true);

@@ -42,7 +42,7 @@ public final class FlowActionSalesforceGetLeadParams {
         return leadId;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionSalesforceGetLeadParams && equalTo((FlowActionSalesforceGetLeadParams) other);
@@ -57,12 +57,12 @@ public final class FlowActionSalesforceGetLeadParams {
         return connectionId.equals(other.connectionId) && leadId.equals(other.leadId);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.leadId);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -96,28 +96,28 @@ public final class FlowActionSalesforceGetLeadParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionSalesforceGetLeadParams other) {
             connectionId(other.getConnectionId());
             leadId(other.getLeadId());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("connection_id")
         public LeadIdStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("lead_id")
         public _FinalStage leadId(@NotNull String leadId) {
             this.leadId = Objects.requireNonNull(leadId, "leadId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionSalesforceGetLeadParams build() {
             return new FlowActionSalesforceGetLeadParams(connectionId, leadId, additionalProperties);
         }

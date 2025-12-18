@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateFormRequestContent;
 import com.auth0.client.mgmt.types.CreateFormResponseContent;
@@ -49,9 +50,9 @@ public class FormsWireTest {
                                 "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"forms\":[{\"id\":\"id\",\"name\":\"name\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"embedded_at\":\"embedded_at\",\"submitted_at\":\"submitted_at\"}]}"));
         SyncPagingIterable<FormSummary> response = client.forms()
                 .list(ListFormsRequestParameters.builder()
-                        .page(1)
-                        .perPage(1)
-                        .includeTotals(true)
+                        .page(OptionalNullable.of(1))
+                        .perPage(OptionalNullable.of(1))
+                        .includeTotals(OptionalNullable.of(true))
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -69,7 +70,7 @@ public class FormsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"messages\":{\"errors\":{\"key\":\"value\"},\"custom\":{\"key\":\"value\"}},\"languages\":{\"primary\":\"primary\",\"default\":\"default\"},\"translations\":{\"key\":\"value\"},\"nodes\":[{\"id\":\"id\",\"type\":\"FLOW\",\"coordinates\":{\"x\":1,\"y\":1},\"alias\":\"alias\",\"config\":{\"flow_id\":\"flow_id\"}}],\"start\":{\"hidden_fields\":[{\"key\":\"key\"}],\"next_node\":\"next_node\",\"coordinates\":{\"x\":1,\"y\":1}},\"ending\":{\"redirection\":{\"delay\":1,\"target\":\"target\"},\"after_submit\":{\"flow_id\":\"flow_id\"},\"coordinates\":{\"x\":1,\"y\":1},\"resume_flow\":true},\"style\":{\"css\":\"css\"},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"embedded_at\":\"embedded_at\",\"submitted_at\":\"submitted_at\"}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"messages\":{\"errors\":{\"key\":\"value\"},\"custom\":{\"key\":\"value\"}},\"languages\":{\"primary\":\"primary\",\"default\":\"default\"},\"translations\":{\"key\":{\"key\":\"value\"}},\"nodes\":[{\"id\":\"id\",\"type\":\"FLOW\",\"coordinates\":{\"x\":1,\"y\":1},\"alias\":\"alias\",\"config\":{\"flow_id\":\"flow_id\"}}],\"start\":{\"hidden_fields\":[{\"key\":\"key\"}],\"next_node\":\"$ending\",\"coordinates\":{\"x\":1,\"y\":1}},\"ending\":{\"redirection\":{\"delay\":1,\"target\":\"target\"},\"after_submit\":{\"flow_id\":\"flow_id\"},\"coordinates\":{\"x\":1,\"y\":1},\"resume_flow\":true},\"style\":{\"css\":\"css\"},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"embedded_at\":\"embedded_at\",\"submitted_at\":\"submitted_at\"}"));
         CreateFormResponseContent response = client.forms()
                 .create(CreateFormRequestContent.builder().name("name").build());
         RecordedRequest request = server.takeRequest();
@@ -125,7 +126,9 @@ public class FormsWireTest {
                 + "    \"default\": \"default\"\n"
                 + "  },\n"
                 + "  \"translations\": {\n"
-                + "    \"key\": \"value\"\n"
+                + "    \"key\": {\n"
+                + "      \"key\": \"value\"\n"
+                + "    }\n"
                 + "  },\n"
                 + "  \"nodes\": [\n"
                 + "    {\n"
@@ -147,7 +150,7 @@ public class FormsWireTest {
                 + "        \"key\": \"key\"\n"
                 + "      }\n"
                 + "    ],\n"
-                + "    \"next_node\": \"next_node\",\n"
+                + "    \"next_node\": \"$ending\",\n"
                 + "    \"coordinates\": {\n"
                 + "      \"x\": 1,\n"
                 + "      \"y\": 1\n"
@@ -212,7 +215,7 @@ public class FormsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"messages\":{\"errors\":{\"key\":\"value\"},\"custom\":{\"key\":\"value\"}},\"languages\":{\"primary\":\"primary\",\"default\":\"default\"},\"translations\":{\"key\":\"value\"},\"nodes\":[{\"id\":\"id\",\"type\":\"FLOW\",\"coordinates\":{\"x\":1,\"y\":1},\"alias\":\"alias\",\"config\":{\"flow_id\":\"flow_id\"}}],\"start\":{\"hidden_fields\":[{\"key\":\"key\"}],\"next_node\":\"next_node\",\"coordinates\":{\"x\":1,\"y\":1}},\"ending\":{\"redirection\":{\"delay\":1,\"target\":\"target\"},\"after_submit\":{\"flow_id\":\"flow_id\"},\"coordinates\":{\"x\":1,\"y\":1},\"resume_flow\":true},\"style\":{\"css\":\"css\"},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"embedded_at\":\"embedded_at\",\"submitted_at\":\"submitted_at\"}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"messages\":{\"errors\":{\"key\":\"value\"},\"custom\":{\"key\":\"value\"}},\"languages\":{\"primary\":\"primary\",\"default\":\"default\"},\"translations\":{\"key\":{\"key\":\"value\"}},\"nodes\":[{\"id\":\"id\",\"type\":\"FLOW\",\"coordinates\":{\"x\":1,\"y\":1},\"alias\":\"alias\",\"config\":{\"flow_id\":\"flow_id\"}}],\"start\":{\"hidden_fields\":[{\"key\":\"key\"}],\"next_node\":\"$ending\",\"coordinates\":{\"x\":1,\"y\":1}},\"ending\":{\"redirection\":{\"delay\":1,\"target\":\"target\"},\"after_submit\":{\"flow_id\":\"flow_id\"},\"coordinates\":{\"x\":1,\"y\":1},\"resume_flow\":true},\"style\":{\"css\":\"css\"},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"embedded_at\":\"embedded_at\",\"submitted_at\":\"submitted_at\"}"));
         GetFormResponseContent response =
                 client.forms().get("id", GetFormRequestParameters.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -239,7 +242,9 @@ public class FormsWireTest {
                 + "    \"default\": \"default\"\n"
                 + "  },\n"
                 + "  \"translations\": {\n"
-                + "    \"key\": \"value\"\n"
+                + "    \"key\": {\n"
+                + "      \"key\": \"value\"\n"
+                + "    }\n"
                 + "  },\n"
                 + "  \"nodes\": [\n"
                 + "    {\n"
@@ -261,7 +266,7 @@ public class FormsWireTest {
                 + "        \"key\": \"key\"\n"
                 + "      }\n"
                 + "    ],\n"
-                + "    \"next_node\": \"next_node\",\n"
+                + "    \"next_node\": \"$ending\",\n"
                 + "    \"coordinates\": {\n"
                 + "      \"x\": 1,\n"
                 + "      \"y\": 1\n"
@@ -335,7 +340,7 @@ public class FormsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"messages\":{\"errors\":{\"key\":\"value\"},\"custom\":{\"key\":\"value\"}},\"languages\":{\"primary\":\"primary\",\"default\":\"default\"},\"translations\":{\"key\":\"value\"},\"nodes\":[{\"id\":\"id\",\"type\":\"FLOW\",\"coordinates\":{\"x\":1,\"y\":1},\"alias\":\"alias\",\"config\":{\"flow_id\":\"flow_id\"}}],\"start\":{\"hidden_fields\":[{\"key\":\"key\"}],\"next_node\":\"next_node\",\"coordinates\":{\"x\":1,\"y\":1}},\"ending\":{\"redirection\":{\"delay\":1,\"target\":\"target\"},\"after_submit\":{\"flow_id\":\"flow_id\"},\"coordinates\":{\"x\":1,\"y\":1},\"resume_flow\":true},\"style\":{\"css\":\"css\"},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"embedded_at\":\"embedded_at\",\"submitted_at\":\"submitted_at\"}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"messages\":{\"errors\":{\"key\":\"value\"},\"custom\":{\"key\":\"value\"}},\"languages\":{\"primary\":\"primary\",\"default\":\"default\"},\"translations\":{\"key\":{\"key\":\"value\"}},\"nodes\":[{\"id\":\"id\",\"type\":\"FLOW\",\"coordinates\":{\"x\":1,\"y\":1},\"alias\":\"alias\",\"config\":{\"flow_id\":\"flow_id\"}}],\"start\":{\"hidden_fields\":[{\"key\":\"key\"}],\"next_node\":\"$ending\",\"coordinates\":{\"x\":1,\"y\":1}},\"ending\":{\"redirection\":{\"delay\":1,\"target\":\"target\"},\"after_submit\":{\"flow_id\":\"flow_id\"},\"coordinates\":{\"x\":1,\"y\":1},\"resume_flow\":true},\"style\":{\"css\":\"css\"},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"embedded_at\":\"embedded_at\",\"submitted_at\":\"submitted_at\"}"));
         UpdateFormResponseContent response =
                 client.forms().update("id", UpdateFormRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -391,7 +396,9 @@ public class FormsWireTest {
                 + "    \"default\": \"default\"\n"
                 + "  },\n"
                 + "  \"translations\": {\n"
-                + "    \"key\": \"value\"\n"
+                + "    \"key\": {\n"
+                + "      \"key\": \"value\"\n"
+                + "    }\n"
                 + "  },\n"
                 + "  \"nodes\": [\n"
                 + "    {\n"
@@ -413,7 +420,7 @@ public class FormsWireTest {
                 + "        \"key\": \"key\"\n"
                 + "      }\n"
                 + "    ],\n"
-                + "    \"next_node\": \"next_node\",\n"
+                + "    \"next_node\": \"$ending\",\n"
                 + "    \"coordinates\": {\n"
                 + "      \"x\": 1,\n"
                 + "      \"y\": 1\n"
@@ -473,24 +480,29 @@ public class FormsWireTest {
     }
 
     /**
-     * Compares two JsonNodes with numeric equivalence.
+     * Compares two JsonNodes with numeric equivalence and null safety.
+     * For objects, checks that all fields in 'expected' exist in 'actual' with matching values.
+     * Allows 'actual' to have extra fields (e.g., default values added during serialization).
      */
-    private boolean jsonEquals(JsonNode a, JsonNode b) {
-        if (a.equals(b)) return true;
-        if (a.isNumber() && b.isNumber()) return Math.abs(a.doubleValue() - b.doubleValue()) < 1e-10;
-        if (a.isObject() && b.isObject()) {
-            if (a.size() != b.size()) return false;
-            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = a.fields();
+    private boolean jsonEquals(JsonNode expected, JsonNode actual) {
+        if (expected == null && actual == null) return true;
+        if (expected == null || actual == null) return false;
+        if (expected.equals(actual)) return true;
+        if (expected.isNumber() && actual.isNumber())
+            return Math.abs(expected.doubleValue() - actual.doubleValue()) < 1e-10;
+        if (expected.isObject() && actual.isObject()) {
+            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = expected.fields();
             while (iter.hasNext()) {
                 java.util.Map.Entry<String, JsonNode> entry = iter.next();
-                if (!jsonEquals(entry.getValue(), b.get(entry.getKey()))) return false;
+                JsonNode actualValue = actual.get(entry.getKey());
+                if (actualValue == null || !jsonEquals(entry.getValue(), actualValue)) return false;
             }
             return true;
         }
-        if (a.isArray() && b.isArray()) {
-            if (a.size() != b.size()) return false;
-            for (int i = 0; i < a.size(); i++) {
-                if (!jsonEquals(a.get(i), b.get(i))) return false;
+        if (expected.isArray() && actual.isArray()) {
+            if (expected.size() != actual.size()) return false;
+            for (int i = 0; i < expected.size(); i++) {
+                if (!jsonEquals(expected.get(i), actual.get(i))) return false;
             }
             return true;
         }

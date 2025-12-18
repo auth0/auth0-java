@@ -8,6 +8,7 @@ import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.Suppliers;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.flows.ExecutionsClient;
+import com.auth0.client.mgmt.flows.vault.VaultClient;
 import com.auth0.client.mgmt.types.CreateFlowRequestContent;
 import com.auth0.client.mgmt.types.CreateFlowResponseContent;
 import com.auth0.client.mgmt.types.FlowSummary;
@@ -25,10 +26,13 @@ public class FlowsClient {
 
     protected final Supplier<ExecutionsClient> executionsClient;
 
+    protected final Supplier<VaultClient> vaultClient;
+
     public FlowsClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
         this.rawClient = new RawFlowsClient(clientOptions);
         this.executionsClient = Suppliers.memoize(() -> new ExecutionsClient(clientOptions));
+        this.vaultClient = Suppliers.memoize(() -> new VaultClient(clientOptions));
     }
 
     /**
@@ -93,5 +97,9 @@ public class FlowsClient {
 
     public ExecutionsClient executions() {
         return this.executionsClient.get();
+    }
+
+    public VaultClient vault() {
+        return this.vaultClient.get();
     }
 }

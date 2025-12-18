@@ -39,7 +39,7 @@ public final class GetUniversalLoginTemplateResponseContent {
         throw new IllegalStateException("Failed to visit value. This should never happen.");
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetUniversalLoginTemplateResponseContent
@@ -50,12 +50,12 @@ public final class GetUniversalLoginTemplateResponseContent {
         return value.equals(other.value);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.value);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return this.value.toString();
     }
@@ -79,7 +79,7 @@ public final class GetUniversalLoginTemplateResponseContent {
             super(GetUniversalLoginTemplateResponseContent.class);
         }
 
-        @java.lang.Override
+        @Override
         public GetUniversalLoginTemplateResponseContent deserialize(JsonParser p, DeserializationContext context)
                 throws IOException {
             Object value = p.readValueAs(Object.class);

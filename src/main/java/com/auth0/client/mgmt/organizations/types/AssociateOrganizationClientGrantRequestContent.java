@@ -36,7 +36,7 @@ public final class AssociateOrganizationClientGrantRequestContent {
         return grantId;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof AssociateOrganizationClientGrantRequestContent
@@ -52,12 +52,12 @@ public final class AssociateOrganizationClientGrantRequestContent {
         return grantId.equals(other.grantId);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.grantId);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -88,7 +88,7 @@ public final class AssociateOrganizationClientGrantRequestContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(AssociateOrganizationClientGrantRequestContent other) {
             grantId(other.getGrantId());
             return this;
@@ -99,14 +99,14 @@ public final class AssociateOrganizationClientGrantRequestContent {
          * <p>A Client Grant ID to add to the organization.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("grant_id")
         public _FinalStage grantId(@NotNull String grantId) {
             this.grantId = Objects.requireNonNull(grantId, "grantId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public AssociateOrganizationClientGrantRequestContent build() {
             return new AssociateOrganizationClientGrantRequestContent(grantId, additionalProperties);
         }

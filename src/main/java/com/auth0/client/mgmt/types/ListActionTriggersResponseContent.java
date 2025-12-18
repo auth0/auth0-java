@@ -36,7 +36,7 @@ public final class ListActionTriggersResponseContent {
         return triggers;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListActionTriggersResponseContent && equalTo((ListActionTriggersResponseContent) other);
@@ -51,12 +51,12 @@ public final class ListActionTriggersResponseContent {
         return triggers.equals(other.triggers);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.triggers);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

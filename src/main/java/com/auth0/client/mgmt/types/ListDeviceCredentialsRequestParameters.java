@@ -3,6 +3,7 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.Nullable;
 import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
@@ -18,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ListDeviceCredentialsRequestParameters.Builder.class)
@@ -68,9 +68,6 @@ public final class ListDeviceCredentialsRequestParameters {
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("page")
     public OptionalNullable<Integer> getPage() {
-        if (page == null) {
-            return OptionalNullable.absent();
-        }
         return page;
     }
 
@@ -153,12 +150,6 @@ public final class ListDeviceCredentialsRequestParameters {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("page")
-    private OptionalNullable<Integer> _getPage() {
-        return page;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("fields")
     private OptionalNullable<String> _getFields() {
         return fields;
@@ -188,7 +179,7 @@ public final class ListDeviceCredentialsRequestParameters {
         return type;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListDeviceCredentialsRequestParameters
@@ -211,7 +202,7 @@ public final class ListDeviceCredentialsRequestParameters {
                 && type.equals(other.type);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.page,
@@ -224,7 +215,7 @@ public final class ListDeviceCredentialsRequestParameters {
                 this.type);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -272,7 +263,7 @@ public final class ListDeviceCredentialsRequestParameters {
          * <p>Page index of the results to return. First page is 0.</p>
          */
         @JsonSetter(value = "page", nulls = Nulls.SKIP)
-        public Builder page(@Nullable OptionalNullable<Integer> page) {
+        public Builder page(OptionalNullable<Integer> page) {
             this.page = page;
             return this;
         }
@@ -291,7 +282,7 @@ public final class ListDeviceCredentialsRequestParameters {
             return this;
         }
 
-        public Builder page(com.auth0.client.mgmt.core.Nullable<Integer> page) {
+        public Builder page(Nullable<Integer> page) {
             if (page.isNull()) {
                 this.page = OptionalNullable.ofNull();
             } else if (page.isEmpty()) {
@@ -325,7 +316,7 @@ public final class ListDeviceCredentialsRequestParameters {
             return this;
         }
 
-        public Builder perPage(com.auth0.client.mgmt.core.Nullable<Integer> perPage) {
+        public Builder perPage(Nullable<Integer> perPage) {
             if (perPage.isNull()) {
                 this.perPage = OptionalNullable.ofNull();
             } else if (perPage.isEmpty()) {
@@ -359,7 +350,7 @@ public final class ListDeviceCredentialsRequestParameters {
             return this;
         }
 
-        public Builder includeTotals(com.auth0.client.mgmt.core.Nullable<Boolean> includeTotals) {
+        public Builder includeTotals(Nullable<Boolean> includeTotals) {
             if (includeTotals.isNull()) {
                 this.includeTotals = OptionalNullable.ofNull();
             } else if (includeTotals.isEmpty()) {
@@ -374,7 +365,7 @@ public final class ListDeviceCredentialsRequestParameters {
          * <p>Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.</p>
          */
         @JsonSetter(value = "fields", nulls = Nulls.SKIP)
-        public Builder fields(@Nullable OptionalNullable<String> fields) {
+        public Builder fields(@org.jetbrains.annotations.Nullable OptionalNullable<String> fields) {
             this.fields = fields;
             return this;
         }
@@ -393,7 +384,7 @@ public final class ListDeviceCredentialsRequestParameters {
             return this;
         }
 
-        public Builder fields(com.auth0.client.mgmt.core.Nullable<String> fields) {
+        public Builder fields(Nullable<String> fields) {
             if (fields.isNull()) {
                 this.fields = OptionalNullable.ofNull();
             } else if (fields.isEmpty()) {
@@ -408,7 +399,7 @@ public final class ListDeviceCredentialsRequestParameters {
          * <p>Whether specified fields are to be included (true) or excluded (false).</p>
          */
         @JsonSetter(value = "include_fields", nulls = Nulls.SKIP)
-        public Builder includeFields(@Nullable OptionalNullable<Boolean> includeFields) {
+        public Builder includeFields(@org.jetbrains.annotations.Nullable OptionalNullable<Boolean> includeFields) {
             this.includeFields = includeFields;
             return this;
         }
@@ -427,7 +418,7 @@ public final class ListDeviceCredentialsRequestParameters {
             return this;
         }
 
-        public Builder includeFields(com.auth0.client.mgmt.core.Nullable<Boolean> includeFields) {
+        public Builder includeFields(Nullable<Boolean> includeFields) {
             if (includeFields.isNull()) {
                 this.includeFields = OptionalNullable.ofNull();
             } else if (includeFields.isEmpty()) {
@@ -442,7 +433,7 @@ public final class ListDeviceCredentialsRequestParameters {
          * <p>user_id of the devices to retrieve.</p>
          */
         @JsonSetter(value = "user_id", nulls = Nulls.SKIP)
-        public Builder userId(@Nullable OptionalNullable<String> userId) {
+        public Builder userId(@org.jetbrains.annotations.Nullable OptionalNullable<String> userId) {
             this.userId = userId;
             return this;
         }
@@ -461,7 +452,7 @@ public final class ListDeviceCredentialsRequestParameters {
             return this;
         }
 
-        public Builder userId(com.auth0.client.mgmt.core.Nullable<String> userId) {
+        public Builder userId(Nullable<String> userId) {
             if (userId.isNull()) {
                 this.userId = OptionalNullable.ofNull();
             } else if (userId.isEmpty()) {
@@ -476,7 +467,7 @@ public final class ListDeviceCredentialsRequestParameters {
          * <p>client_id of the devices to retrieve.</p>
          */
         @JsonSetter(value = "client_id", nulls = Nulls.SKIP)
-        public Builder clientId(@Nullable OptionalNullable<String> clientId) {
+        public Builder clientId(@org.jetbrains.annotations.Nullable OptionalNullable<String> clientId) {
             this.clientId = clientId;
             return this;
         }
@@ -495,7 +486,7 @@ public final class ListDeviceCredentialsRequestParameters {
             return this;
         }
 
-        public Builder clientId(com.auth0.client.mgmt.core.Nullable<String> clientId) {
+        public Builder clientId(Nullable<String> clientId) {
             if (clientId.isNull()) {
                 this.clientId = OptionalNullable.ofNull();
             } else if (clientId.isEmpty()) {
@@ -510,7 +501,7 @@ public final class ListDeviceCredentialsRequestParameters {
          * <p>Type of credentials to retrieve. Must be <code>public_key</code>, <code>refresh_token</code> or <code>rotating_refresh_token</code>. The property will default to <code>refresh_token</code> when paging is requested</p>
          */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
-        public Builder type(@Nullable OptionalNullable<DeviceCredentialTypeEnum> type) {
+        public Builder type(@org.jetbrains.annotations.Nullable OptionalNullable<DeviceCredentialTypeEnum> type) {
             this.type = type;
             return this;
         }
@@ -529,7 +520,7 @@ public final class ListDeviceCredentialsRequestParameters {
             return this;
         }
 
-        public Builder type(com.auth0.client.mgmt.core.Nullable<DeviceCredentialTypeEnum> type) {
+        public Builder type(Nullable<DeviceCredentialTypeEnum> type) {
             if (type.isNull()) {
                 this.type = OptionalNullable.ofNull();
             } else if (type.isEmpty()) {

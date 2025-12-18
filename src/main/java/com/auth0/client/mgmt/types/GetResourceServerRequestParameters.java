@@ -51,7 +51,7 @@ public final class GetResourceServerRequestParameters {
         return includeFields;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetResourceServerRequestParameters
@@ -67,12 +67,12 @@ public final class GetResourceServerRequestParameters {
         return includeFields.equals(other.includeFields);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.includeFields);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

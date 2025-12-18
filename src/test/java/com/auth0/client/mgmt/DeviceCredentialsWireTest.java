@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreatePublicKeyDeviceCredentialRequestContent;
 import com.auth0.client.mgmt.types.CreatePublicKeyDeviceCredentialResponseContent;
@@ -46,14 +47,14 @@ public class DeviceCredentialsWireTest {
                                 "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"device_credentials\":[{\"id\":\"id\",\"device_name\":\"device_name\",\"device_id\":\"device_id\",\"type\":\"public_key\",\"user_id\":\"user_id\",\"client_id\":\"client_id\"}]}"));
         SyncPagingIterable<DeviceCredential> response = client.deviceCredentials()
                 .list(ListDeviceCredentialsRequestParameters.builder()
-                        .page(1)
-                        .perPage(1)
-                        .includeTotals(true)
-                        .fields("fields")
-                        .includeFields(true)
-                        .userId("user_id")
-                        .clientId("client_id")
-                        .type(DeviceCredentialTypeEnum.PUBLIC_KEY)
+                        .page(OptionalNullable.of(1))
+                        .perPage(OptionalNullable.of(1))
+                        .includeTotals(OptionalNullable.of(true))
+                        .fields(OptionalNullable.of("fields"))
+                        .includeFields(OptionalNullable.of(true))
+                        .userId(OptionalNullable.of("user_id"))
+                        .clientId(OptionalNullable.of("client_id"))
+                        .type(OptionalNullable.of(DeviceCredentialTypeEnum.PUBLIC_KEY))
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -159,24 +160,29 @@ public class DeviceCredentialsWireTest {
     }
 
     /**
-     * Compares two JsonNodes with numeric equivalence.
+     * Compares two JsonNodes with numeric equivalence and null safety.
+     * For objects, checks that all fields in 'expected' exist in 'actual' with matching values.
+     * Allows 'actual' to have extra fields (e.g., default values added during serialization).
      */
-    private boolean jsonEquals(JsonNode a, JsonNode b) {
-        if (a.equals(b)) return true;
-        if (a.isNumber() && b.isNumber()) return Math.abs(a.doubleValue() - b.doubleValue()) < 1e-10;
-        if (a.isObject() && b.isObject()) {
-            if (a.size() != b.size()) return false;
-            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = a.fields();
+    private boolean jsonEquals(JsonNode expected, JsonNode actual) {
+        if (expected == null && actual == null) return true;
+        if (expected == null || actual == null) return false;
+        if (expected.equals(actual)) return true;
+        if (expected.isNumber() && actual.isNumber())
+            return Math.abs(expected.doubleValue() - actual.doubleValue()) < 1e-10;
+        if (expected.isObject() && actual.isObject()) {
+            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = expected.fields();
             while (iter.hasNext()) {
                 java.util.Map.Entry<String, JsonNode> entry = iter.next();
-                if (!jsonEquals(entry.getValue(), b.get(entry.getKey()))) return false;
+                JsonNode actualValue = actual.get(entry.getKey());
+                if (actualValue == null || !jsonEquals(entry.getValue(), actualValue)) return false;
             }
             return true;
         }
-        if (a.isArray() && b.isArray()) {
-            if (a.size() != b.size()) return false;
-            for (int i = 0; i < a.size(); i++) {
-                if (!jsonEquals(a.get(i), b.get(i))) return false;
+        if (expected.isArray() && actual.isArray()) {
+            if (expected.size() != actual.size()) return false;
+            for (int i = 0; i < expected.size(); i++) {
+                if (!jsonEquals(expected.get(i), actual.get(i))) return false;
             }
             return true;
         }

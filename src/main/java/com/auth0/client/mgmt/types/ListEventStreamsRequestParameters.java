@@ -63,7 +63,7 @@ public final class ListEventStreamsRequestParameters {
         return from;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListEventStreamsRequestParameters && equalTo((ListEventStreamsRequestParameters) other);
@@ -78,12 +78,12 @@ public final class ListEventStreamsRequestParameters {
         return from.equals(other.from) && take.equals(other.take);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.from, this.take);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

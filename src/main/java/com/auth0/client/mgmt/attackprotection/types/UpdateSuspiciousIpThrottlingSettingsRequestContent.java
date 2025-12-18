@@ -73,7 +73,7 @@ public final class UpdateSuspiciousIpThrottlingSettingsRequestContent {
         return stage;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateSuspiciousIpThrottlingSettingsRequestContent
@@ -92,12 +92,12 @@ public final class UpdateSuspiciousIpThrottlingSettingsRequestContent {
                 && stage.equals(other.stage);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.enabled, this.shields, this.allowlist, this.stage);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

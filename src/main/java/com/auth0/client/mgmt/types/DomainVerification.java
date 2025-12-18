@@ -23,11 +23,24 @@ import java.util.Optional;
 public final class DomainVerification {
     private final Optional<List<DomainVerificationMethod>> methods;
 
+    private final Optional<DomainVerificationStatusEnum> status;
+
+    private final Optional<String> errorMsg;
+
+    private final Optional<String> lastVerifiedAt;
+
     private final Map<String, Object> additionalProperties;
 
     private DomainVerification(
-            Optional<List<DomainVerificationMethod>> methods, Map<String, Object> additionalProperties) {
+            Optional<List<DomainVerificationMethod>> methods,
+            Optional<DomainVerificationStatusEnum> status,
+            Optional<String> errorMsg,
+            Optional<String> lastVerifiedAt,
+            Map<String, Object> additionalProperties) {
         this.methods = methods;
+        this.status = status;
+        this.errorMsg = errorMsg;
+        this.lastVerifiedAt = lastVerifiedAt;
         this.additionalProperties = additionalProperties;
     }
 
@@ -39,7 +52,28 @@ public final class DomainVerification {
         return methods;
     }
 
-    @java.lang.Override
+    @JsonProperty("status")
+    public Optional<DomainVerificationStatusEnum> getStatus() {
+        return status;
+    }
+
+    /**
+     * @return The user0-friendly error message in case of failed verification. This field is relevant only for Custom Domains with Auth0-Managed Certificates.
+     */
+    @JsonProperty("error_msg")
+    public Optional<String> getErrorMsg() {
+        return errorMsg;
+    }
+
+    /**
+     * @return The date and time when the custom domain was last verified. This field is relevant only for Custom Domains with Auth0-Managed Certificates.
+     */
+    @JsonProperty("last_verified_at")
+    public Optional<String> getLastVerifiedAt() {
+        return lastVerifiedAt;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof DomainVerification && equalTo((DomainVerification) other);
@@ -51,15 +85,18 @@ public final class DomainVerification {
     }
 
     private boolean equalTo(DomainVerification other) {
-        return methods.equals(other.methods);
+        return methods.equals(other.methods)
+                && status.equals(other.status)
+                && errorMsg.equals(other.errorMsg)
+                && lastVerifiedAt.equals(other.lastVerifiedAt);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
-        return Objects.hash(this.methods);
+        return Objects.hash(this.methods, this.status, this.errorMsg, this.lastVerifiedAt);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -72,6 +109,12 @@ public final class DomainVerification {
     public static final class Builder {
         private Optional<List<DomainVerificationMethod>> methods = Optional.empty();
 
+        private Optional<DomainVerificationStatusEnum> status = Optional.empty();
+
+        private Optional<String> errorMsg = Optional.empty();
+
+        private Optional<String> lastVerifiedAt = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -79,6 +122,9 @@ public final class DomainVerification {
 
         public Builder from(DomainVerification other) {
             methods(other.getMethods());
+            status(other.getStatus());
+            errorMsg(other.getErrorMsg());
+            lastVerifiedAt(other.getLastVerifiedAt());
             return this;
         }
 
@@ -96,8 +142,47 @@ public final class DomainVerification {
             return this;
         }
 
+        @JsonSetter(value = "status", nulls = Nulls.SKIP)
+        public Builder status(Optional<DomainVerificationStatusEnum> status) {
+            this.status = status;
+            return this;
+        }
+
+        public Builder status(DomainVerificationStatusEnum status) {
+            this.status = Optional.ofNullable(status);
+            return this;
+        }
+
+        /**
+         * <p>The user0-friendly error message in case of failed verification. This field is relevant only for Custom Domains with Auth0-Managed Certificates.</p>
+         */
+        @JsonSetter(value = "error_msg", nulls = Nulls.SKIP)
+        public Builder errorMsg(Optional<String> errorMsg) {
+            this.errorMsg = errorMsg;
+            return this;
+        }
+
+        public Builder errorMsg(String errorMsg) {
+            this.errorMsg = Optional.ofNullable(errorMsg);
+            return this;
+        }
+
+        /**
+         * <p>The date and time when the custom domain was last verified. This field is relevant only for Custom Domains with Auth0-Managed Certificates.</p>
+         */
+        @JsonSetter(value = "last_verified_at", nulls = Nulls.SKIP)
+        public Builder lastVerifiedAt(Optional<String> lastVerifiedAt) {
+            this.lastVerifiedAt = lastVerifiedAt;
+            return this;
+        }
+
+        public Builder lastVerifiedAt(String lastVerifiedAt) {
+            this.lastVerifiedAt = Optional.ofNullable(lastVerifiedAt);
+            return this;
+        }
+
         public DomainVerification build() {
-            return new DomainVerification(methods, additionalProperties);
+            return new DomainVerification(methods, status, errorMsg, lastVerifiedAt, additionalProperties);
         }
     }
 }

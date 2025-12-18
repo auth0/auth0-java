@@ -35,7 +35,7 @@ public final class SetGuardianFactorsProviderPhoneResponseContent {
         return provider;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SetGuardianFactorsProviderPhoneResponseContent
@@ -51,12 +51,12 @@ public final class SetGuardianFactorsProviderPhoneResponseContent {
         return provider.equals(other.provider);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.provider);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

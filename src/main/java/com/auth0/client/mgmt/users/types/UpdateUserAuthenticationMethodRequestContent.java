@@ -49,7 +49,7 @@ public final class UpdateUserAuthenticationMethodRequestContent {
         return preferredAuthenticationMethod;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateUserAuthenticationMethodRequestContent
@@ -65,12 +65,12 @@ public final class UpdateUserAuthenticationMethodRequestContent {
         return name.equals(other.name) && preferredAuthenticationMethod.equals(other.preferredAuthenticationMethod);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.name, this.preferredAuthenticationMethod);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

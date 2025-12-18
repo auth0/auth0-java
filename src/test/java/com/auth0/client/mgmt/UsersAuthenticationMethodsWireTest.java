@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.AuthenticationTypeEnum;
 import com.auth0.client.mgmt.types.CreateUserAuthenticationMethodResponseContent;
@@ -51,15 +52,15 @@ public class UsersAuthenticationMethodsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"authenticators\":[{\"id\":\"id\",\"type\":\"recovery-code\",\"confirmed\":true,\"name\":\"name\",\"authentication_methods\":[{}],\"preferred_authentication_method\":\"voice\",\"link_id\":\"link_id\",\"phone_number\":\"phone_number\",\"email\":\"email\",\"key_id\":\"key_id\",\"public_key\":\"public_key\",\"created_at\":\"2024-01-15T09:30:00Z\",\"enrolled_at\":\"2024-01-15T09:30:00Z\",\"last_auth_at\":\"2024-01-15T09:30:00Z\",\"credential_device_type\":\"credential_device_type\",\"credential_backed_up\":true,\"identity_user_id\":\"identity_user_id\",\"user_agent\":\"user_agent\"}]}"));
+                                "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"authenticators\":[{\"id\":\"id\",\"type\":\"recovery-code\",\"confirmed\":true,\"name\":\"name\",\"authentication_methods\":[{}],\"preferred_authentication_method\":\"voice\",\"link_id\":\"link_id\",\"phone_number\":\"phone_number\",\"email\":\"email\",\"key_id\":\"key_id\",\"public_key\":\"public_key\",\"created_at\":\"2024-01-15T09:30:00Z\",\"enrolled_at\":\"2024-01-15T09:30:00Z\",\"last_auth_at\":\"2024-01-15T09:30:00Z\",\"credential_device_type\":\"credential_device_type\",\"credential_backed_up\":true,\"identity_user_id\":\"identity_user_id\",\"user_agent\":\"user_agent\",\"aaguid\":\"aaguid\",\"relying_party_identifier\":\"relying_party_identifier\"}]}"));
         SyncPagingIterable<UserAuthenticationMethod> response = client.users()
                 .authenticationMethods()
                 .list(
                         "id",
                         ListUserAuthenticationMethodsRequestParameters.builder()
-                                .page(1)
-                                .perPage(1)
-                                .includeTotals(true)
+                                .page(OptionalNullable.of(1))
+                                .perPage(OptionalNullable.of(1))
+                                .includeTotals(OptionalNullable.of(true))
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -77,7 +78,7 @@ public class UsersAuthenticationMethodsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"type\":\"phone\",\"name\":\"name\",\"totp_secret\":\"totp_secret\",\"phone_number\":\"phone_number\",\"email\":\"email\",\"authentication_methods\":[{\"type\":\"totp\",\"id\":\"id\"}],\"preferred_authentication_method\":\"voice\",\"key_id\":\"key_id\",\"public_key\":\"public_key\",\"relying_party_identifier\":\"relying_party_identifier\",\"created_at\":\"2024-01-15T09:30:00Z\"}"));
+                                "{\"id\":\"id\",\"type\":\"phone\",\"name\":\"name\",\"totp_secret\":\"totp_secret\",\"phone_number\":\"phone_number\",\"email\":\"email\",\"authentication_methods\":[{\"type\":\"totp\",\"id\":\"id\"}],\"preferred_authentication_method\":\"voice\",\"key_id\":\"key_id\",\"public_key\":\"public_key\",\"aaguid\":\"aaguid\",\"relying_party_identifier\":\"relying_party_identifier\",\"created_at\":\"2024-01-15T09:30:00Z\"}"));
         CreateUserAuthenticationMethodResponseContent response = client.users()
                 .authenticationMethods()
                 .create(
@@ -138,6 +139,7 @@ public class UsersAuthenticationMethodsWireTest {
                 + "  \"preferred_authentication_method\": \"voice\",\n"
                 + "  \"key_id\": \"key_id\",\n"
                 + "  \"public_key\": \"public_key\",\n"
+                + "  \"aaguid\": \"aaguid\",\n"
                 + "  \"relying_party_identifier\": \"relying_party_identifier\",\n"
                 + "  \"created_at\": \"2024-01-15T09:30:00Z\"\n"
                 + "}";
@@ -178,7 +180,7 @@ public class UsersAuthenticationMethodsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "[{\"id\":\"id\",\"type\":\"phone\",\"name\":\"name\",\"totp_secret\":\"totp_secret\",\"phone_number\":\"phone_number\",\"email\":\"email\",\"authentication_methods\":[{}],\"preferred_authentication_method\":\"voice\",\"key_id\":\"key_id\",\"public_key\":\"public_key\",\"relying_party_identifier\":\"relying_party_identifier\",\"created_at\":\"2024-01-15T09:30:00Z\"}]"));
+                                "[{\"id\":\"id\",\"type\":\"phone\",\"name\":\"name\",\"totp_secret\":\"totp_secret\",\"phone_number\":\"phone_number\",\"email\":\"email\",\"authentication_methods\":[{}],\"preferred_authentication_method\":\"voice\",\"key_id\":\"key_id\",\"public_key\":\"public_key\",\"aaguid\":\"aaguid\",\"relying_party_identifier\":\"relying_party_identifier\",\"created_at\":\"2024-01-15T09:30:00Z\"}]"));
         List<SetUserAuthenticationMethodResponseContent> response = client.users()
                 .authenticationMethods()
                 .set(
@@ -237,6 +239,7 @@ public class UsersAuthenticationMethodsWireTest {
                 + "    \"preferred_authentication_method\": \"voice\",\n"
                 + "    \"key_id\": \"key_id\",\n"
                 + "    \"public_key\": \"public_key\",\n"
+                + "    \"aaguid\": \"aaguid\",\n"
                 + "    \"relying_party_identifier\": \"relying_party_identifier\",\n"
                 + "    \"created_at\": \"2024-01-15T09:30:00Z\"\n"
                 + "  }\n"
@@ -287,7 +290,7 @@ public class UsersAuthenticationMethodsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"type\":\"recovery-code\",\"confirmed\":true,\"name\":\"name\",\"authentication_methods\":[{\"type\":\"totp\",\"id\":\"id\"}],\"preferred_authentication_method\":\"voice\",\"link_id\":\"link_id\",\"phone_number\":\"phone_number\",\"email\":\"email\",\"key_id\":\"key_id\",\"public_key\":\"public_key\",\"created_at\":\"2024-01-15T09:30:00Z\",\"enrolled_at\":\"2024-01-15T09:30:00Z\",\"last_auth_at\":\"2024-01-15T09:30:00Z\",\"credential_device_type\":\"credential_device_type\",\"credential_backed_up\":true,\"identity_user_id\":\"identity_user_id\",\"user_agent\":\"user_agent\"}"));
+                                "{\"id\":\"id\",\"type\":\"recovery-code\",\"confirmed\":true,\"name\":\"name\",\"authentication_methods\":[{\"type\":\"totp\",\"id\":\"id\"}],\"preferred_authentication_method\":\"voice\",\"link_id\":\"link_id\",\"phone_number\":\"phone_number\",\"email\":\"email\",\"key_id\":\"key_id\",\"public_key\":\"public_key\",\"created_at\":\"2024-01-15T09:30:00Z\",\"enrolled_at\":\"2024-01-15T09:30:00Z\",\"last_auth_at\":\"2024-01-15T09:30:00Z\",\"credential_device_type\":\"credential_device_type\",\"credential_backed_up\":true,\"identity_user_id\":\"identity_user_id\",\"user_agent\":\"user_agent\",\"aaguid\":\"aaguid\",\"relying_party_identifier\":\"relying_party_identifier\"}"));
         GetUserAuthenticationMethodResponseContent response =
                 client.users().authenticationMethods().get("id", "authentication_method_id");
         RecordedRequest request = server.takeRequest();
@@ -321,7 +324,9 @@ public class UsersAuthenticationMethodsWireTest {
                 + "  \"credential_device_type\": \"credential_device_type\",\n"
                 + "  \"credential_backed_up\": true,\n"
                 + "  \"identity_user_id\": \"identity_user_id\",\n"
-                + "  \"user_agent\": \"user_agent\"\n"
+                + "  \"user_agent\": \"user_agent\",\n"
+                + "  \"aaguid\": \"aaguid\",\n"
+                + "  \"relying_party_identifier\": \"relying_party_identifier\"\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -369,7 +374,7 @@ public class UsersAuthenticationMethodsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"type\":\"phone\",\"name\":\"name\",\"totp_secret\":\"totp_secret\",\"phone_number\":\"phone_number\",\"email\":\"email\",\"authentication_methods\":[{\"type\":\"totp\",\"id\":\"id\"}],\"preferred_authentication_method\":\"voice\",\"key_id\":\"key_id\",\"public_key\":\"public_key\",\"relying_party_identifier\":\"relying_party_identifier\",\"created_at\":\"2024-01-15T09:30:00Z\"}"));
+                                "{\"id\":\"id\",\"type\":\"phone\",\"name\":\"name\",\"totp_secret\":\"totp_secret\",\"phone_number\":\"phone_number\",\"email\":\"email\",\"authentication_methods\":[{\"type\":\"totp\",\"id\":\"id\"}],\"preferred_authentication_method\":\"voice\",\"key_id\":\"key_id\",\"public_key\":\"public_key\",\"aaguid\":\"aaguid\",\"relying_party_identifier\":\"relying_party_identifier\",\"created_at\":\"2024-01-15T09:30:00Z\"}"));
         UpdateUserAuthenticationMethodResponseContent response = client.users()
                 .authenticationMethods()
                 .update(
@@ -429,6 +434,7 @@ public class UsersAuthenticationMethodsWireTest {
                 + "  \"preferred_authentication_method\": \"voice\",\n"
                 + "  \"key_id\": \"key_id\",\n"
                 + "  \"public_key\": \"public_key\",\n"
+                + "  \"aaguid\": \"aaguid\",\n"
                 + "  \"relying_party_identifier\": \"relying_party_identifier\",\n"
                 + "  \"created_at\": \"2024-01-15T09:30:00Z\"\n"
                 + "}";
@@ -464,24 +470,29 @@ public class UsersAuthenticationMethodsWireTest {
     }
 
     /**
-     * Compares two JsonNodes with numeric equivalence.
+     * Compares two JsonNodes with numeric equivalence and null safety.
+     * For objects, checks that all fields in 'expected' exist in 'actual' with matching values.
+     * Allows 'actual' to have extra fields (e.g., default values added during serialization).
      */
-    private boolean jsonEquals(JsonNode a, JsonNode b) {
-        if (a.equals(b)) return true;
-        if (a.isNumber() && b.isNumber()) return Math.abs(a.doubleValue() - b.doubleValue()) < 1e-10;
-        if (a.isObject() && b.isObject()) {
-            if (a.size() != b.size()) return false;
-            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = a.fields();
+    private boolean jsonEquals(JsonNode expected, JsonNode actual) {
+        if (expected == null && actual == null) return true;
+        if (expected == null || actual == null) return false;
+        if (expected.equals(actual)) return true;
+        if (expected.isNumber() && actual.isNumber())
+            return Math.abs(expected.doubleValue() - actual.doubleValue()) < 1e-10;
+        if (expected.isObject() && actual.isObject()) {
+            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = expected.fields();
             while (iter.hasNext()) {
                 java.util.Map.Entry<String, JsonNode> entry = iter.next();
-                if (!jsonEquals(entry.getValue(), b.get(entry.getKey()))) return false;
+                JsonNode actualValue = actual.get(entry.getKey());
+                if (actualValue == null || !jsonEquals(entry.getValue(), actualValue)) return false;
             }
             return true;
         }
-        if (a.isArray() && b.isArray()) {
-            if (a.size() != b.size()) return false;
-            for (int i = 0; i < a.size(); i++) {
-                if (!jsonEquals(a.get(i), b.get(i))) return false;
+        if (expected.isArray() && actual.isArray()) {
+            if (expected.size() != actual.size()) return false;
+            for (int i = 0; i < expected.size(); i++) {
+                if (!jsonEquals(expected.get(i), actual.get(i))) return false;
             }
             return true;
         }

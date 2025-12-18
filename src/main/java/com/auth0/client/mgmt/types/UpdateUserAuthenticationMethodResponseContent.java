@@ -43,6 +43,8 @@ public final class UpdateUserAuthenticationMethodResponseContent {
 
     private final Optional<String> publicKey;
 
+    private final Optional<String> aaguid;
+
     private final Optional<String> relyingPartyIdentifier;
 
     private final Optional<OffsetDateTime> createdAt;
@@ -60,6 +62,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
             Optional<PreferredAuthenticationMethodEnum> preferredAuthenticationMethod,
             Optional<String> keyId,
             Optional<String> publicKey,
+            Optional<String> aaguid,
             Optional<String> relyingPartyIdentifier,
             Optional<OffsetDateTime> createdAt,
             Map<String, Object> additionalProperties) {
@@ -73,6 +76,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
         this.preferredAuthenticationMethod = preferredAuthenticationMethod;
         this.keyId = keyId;
         this.publicKey = publicKey;
+        this.aaguid = aaguid;
         this.relyingPartyIdentifier = relyingPartyIdentifier;
         this.createdAt = createdAt;
         this.additionalProperties = additionalProperties;
@@ -150,6 +154,14 @@ public final class UpdateUserAuthenticationMethodResponseContent {
     }
 
     /**
+     * @return Applies to passkey authentication methods only. Authenticator Attestation Globally Unique Identifier.
+     */
+    @JsonProperty("aaguid")
+    public Optional<String> getAaguid() {
+        return aaguid;
+    }
+
+    /**
      * @return Applies to webauthn authentication methods only. The relying party identifier.
      */
     @JsonProperty("relying_party_identifier")
@@ -165,7 +177,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
         return createdAt;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateUserAuthenticationMethodResponseContent
@@ -188,11 +200,12 @@ public final class UpdateUserAuthenticationMethodResponseContent {
                 && preferredAuthenticationMethod.equals(other.preferredAuthenticationMethod)
                 && keyId.equals(other.keyId)
                 && publicKey.equals(other.publicKey)
+                && aaguid.equals(other.aaguid)
                 && relyingPartyIdentifier.equals(other.relyingPartyIdentifier)
                 && createdAt.equals(other.createdAt);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -205,11 +218,12 @@ public final class UpdateUserAuthenticationMethodResponseContent {
                 this.preferredAuthenticationMethod,
                 this.keyId,
                 this.publicKey,
+                this.aaguid,
                 this.relyingPartyIdentifier,
                 this.createdAt);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -286,6 +300,13 @@ public final class UpdateUserAuthenticationMethodResponseContent {
         _FinalStage publicKey(String publicKey);
 
         /**
+         * <p>Applies to passkey authentication methods only. Authenticator Attestation Globally Unique Identifier.</p>
+         */
+        _FinalStage aaguid(Optional<String> aaguid);
+
+        _FinalStage aaguid(String aaguid);
+
+        /**
          * <p>Applies to webauthn authentication methods only. The relying party identifier.</p>
          */
         _FinalStage relyingPartyIdentifier(Optional<String> relyingPartyIdentifier);
@@ -307,6 +328,8 @@ public final class UpdateUserAuthenticationMethodResponseContent {
         private Optional<OffsetDateTime> createdAt = Optional.empty();
 
         private Optional<String> relyingPartyIdentifier = Optional.empty();
+
+        private Optional<String> aaguid = Optional.empty();
 
         private Optional<String> publicKey = Optional.empty();
 
@@ -331,7 +354,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(UpdateUserAuthenticationMethodResponseContent other) {
             id(other.getId());
             type(other.getType());
@@ -343,12 +366,13 @@ public final class UpdateUserAuthenticationMethodResponseContent {
             preferredAuthenticationMethod(other.getPreferredAuthenticationMethod());
             keyId(other.getKeyId());
             publicKey(other.getPublicKey());
+            aaguid(other.getAaguid());
             relyingPartyIdentifier(other.getRelyingPartyIdentifier());
             createdAt(other.getCreatedAt());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("type")
         public _FinalStage type(@NotNull CreatedAuthenticationMethodTypeEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
@@ -359,7 +383,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
          * <p>Authentication method creation date</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage createdAt(OffsetDateTime createdAt) {
             this.createdAt = Optional.ofNullable(createdAt);
             return this;
@@ -368,7 +392,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
         /**
          * <p>Authentication method creation date</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<OffsetDateTime> createdAt) {
             this.createdAt = createdAt;
@@ -379,7 +403,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
          * <p>Applies to webauthn authentication methods only. The relying party identifier.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage relyingPartyIdentifier(String relyingPartyIdentifier) {
             this.relyingPartyIdentifier = Optional.ofNullable(relyingPartyIdentifier);
             return this;
@@ -388,7 +412,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
         /**
          * <p>Applies to webauthn authentication methods only. The relying party identifier.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "relying_party_identifier", nulls = Nulls.SKIP)
         public _FinalStage relyingPartyIdentifier(Optional<String> relyingPartyIdentifier) {
             this.relyingPartyIdentifier = relyingPartyIdentifier;
@@ -396,10 +420,30 @@ public final class UpdateUserAuthenticationMethodResponseContent {
         }
 
         /**
+         * <p>Applies to passkey authentication methods only. Authenticator Attestation Globally Unique Identifier.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @Override
+        public _FinalStage aaguid(String aaguid) {
+            this.aaguid = Optional.ofNullable(aaguid);
+            return this;
+        }
+
+        /**
+         * <p>Applies to passkey authentication methods only. Authenticator Attestation Globally Unique Identifier.</p>
+         */
+        @Override
+        @JsonSetter(value = "aaguid", nulls = Nulls.SKIP)
+        public _FinalStage aaguid(Optional<String> aaguid) {
+            this.aaguid = aaguid;
+            return this;
+        }
+
+        /**
          * <p>Applies to webauthn authentication methods only. The public key.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage publicKey(String publicKey) {
             this.publicKey = Optional.ofNullable(publicKey);
             return this;
@@ -408,7 +452,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
         /**
          * <p>Applies to webauthn authentication methods only. The public key.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "public_key", nulls = Nulls.SKIP)
         public _FinalStage publicKey(Optional<String> publicKey) {
             this.publicKey = publicKey;
@@ -419,7 +463,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
          * <p>Applies to webauthn authentication methods only. The id of the credential.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage keyId(String keyId) {
             this.keyId = Optional.ofNullable(keyId);
             return this;
@@ -428,21 +472,21 @@ public final class UpdateUserAuthenticationMethodResponseContent {
         /**
          * <p>Applies to webauthn authentication methods only. The id of the credential.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "key_id", nulls = Nulls.SKIP)
         public _FinalStage keyId(Optional<String> keyId) {
             this.keyId = keyId;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage preferredAuthenticationMethod(
                 PreferredAuthenticationMethodEnum preferredAuthenticationMethod) {
             this.preferredAuthenticationMethod = Optional.ofNullable(preferredAuthenticationMethod);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "preferred_authentication_method", nulls = Nulls.SKIP)
         public _FinalStage preferredAuthenticationMethod(
                 Optional<PreferredAuthenticationMethodEnum> preferredAuthenticationMethod) {
@@ -450,13 +494,13 @@ public final class UpdateUserAuthenticationMethodResponseContent {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage authenticationMethods(List<UserAuthenticationMethodProperties> authenticationMethods) {
             this.authenticationMethods = Optional.ofNullable(authenticationMethods);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "authentication_methods", nulls = Nulls.SKIP)
         public _FinalStage authenticationMethods(
                 Optional<List<UserAuthenticationMethodProperties>> authenticationMethods) {
@@ -468,7 +512,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
          * <p>Applies to email authentication methods only. The email address used to send verification messages.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage email(String email) {
             this.email = Optional.ofNullable(email);
             return this;
@@ -477,7 +521,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
         /**
          * <p>Applies to email authentication methods only. The email address used to send verification messages.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "email", nulls = Nulls.SKIP)
         public _FinalStage email(Optional<String> email) {
             this.email = email;
@@ -488,7 +532,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
          * <p>Applies to phone authentication methods only. The destination phone number used to send verification codes via text and voice.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage phoneNumber(String phoneNumber) {
             this.phoneNumber = Optional.ofNullable(phoneNumber);
             return this;
@@ -497,7 +541,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
         /**
          * <p>Applies to phone authentication methods only. The destination phone number used to send verification codes via text and voice.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "phone_number", nulls = Nulls.SKIP)
         public _FinalStage phoneNumber(Optional<String> phoneNumber) {
             this.phoneNumber = phoneNumber;
@@ -508,7 +552,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
          * <p>Base32 encoded secret for TOTP generation</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage totpSecret(String totpSecret) {
             this.totpSecret = Optional.ofNullable(totpSecret);
             return this;
@@ -517,7 +561,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
         /**
          * <p>Base32 encoded secret for TOTP generation</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "totp_secret", nulls = Nulls.SKIP)
         public _FinalStage totpSecret(Optional<String> totpSecret) {
             this.totpSecret = totpSecret;
@@ -528,7 +572,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
          * <p>A human-readable label to identify the authentication method.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage name(String name) {
             this.name = Optional.ofNullable(name);
             return this;
@@ -537,7 +581,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
         /**
          * <p>A human-readable label to identify the authentication method.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<String> name) {
             this.name = name;
@@ -548,7 +592,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
          * <p>The ID of the newly created authentication method (automatically generated by the application)</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage id(String id) {
             this.id = Optional.ofNullable(id);
             return this;
@@ -557,14 +601,14 @@ public final class UpdateUserAuthenticationMethodResponseContent {
         /**
          * <p>The ID of the newly created authentication method (automatically generated by the application)</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {
             this.id = id;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public UpdateUserAuthenticationMethodResponseContent build() {
             return new UpdateUserAuthenticationMethodResponseContent(
                     id,
@@ -577,6 +621,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
                     preferredAuthenticationMethod,
                     keyId,
                     publicKey,
+                    aaguid,
                     relyingPartyIdentifier,
                     createdAt,
                     additionalProperties);

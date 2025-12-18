@@ -20,15 +20,15 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = FormMessages.Builder.class)
 public final class FormMessages {
-    private final Optional<Map<String, Object>> errors;
+    private final Optional<Map<String, String>> errors;
 
-    private final Optional<Map<String, Object>> custom;
+    private final Optional<Map<String, String>> custom;
 
     private final Map<String, Object> additionalProperties;
 
     private FormMessages(
-            Optional<Map<String, Object>> errors,
-            Optional<Map<String, Object>> custom,
+            Optional<Map<String, String>> errors,
+            Optional<Map<String, String>> custom,
             Map<String, Object> additionalProperties) {
         this.errors = errors;
         this.custom = custom;
@@ -36,16 +36,16 @@ public final class FormMessages {
     }
 
     @JsonProperty("errors")
-    public Optional<Map<String, Object>> getErrors() {
+    public Optional<Map<String, String>> getErrors() {
         return errors;
     }
 
     @JsonProperty("custom")
-    public Optional<Map<String, Object>> getCustom() {
+    public Optional<Map<String, String>> getCustom() {
         return custom;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormMessages && equalTo((FormMessages) other);
@@ -60,12 +60,12 @@ public final class FormMessages {
         return errors.equals(other.errors) && custom.equals(other.custom);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.errors, this.custom);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -76,9 +76,9 @@ public final class FormMessages {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<Map<String, Object>> errors = Optional.empty();
+        private Optional<Map<String, String>> errors = Optional.empty();
 
-        private Optional<Map<String, Object>> custom = Optional.empty();
+        private Optional<Map<String, String>> custom = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -92,23 +92,23 @@ public final class FormMessages {
         }
 
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
-        public Builder errors(Optional<Map<String, Object>> errors) {
+        public Builder errors(Optional<Map<String, String>> errors) {
             this.errors = errors;
             return this;
         }
 
-        public Builder errors(Map<String, Object> errors) {
+        public Builder errors(Map<String, String> errors) {
             this.errors = Optional.ofNullable(errors);
             return this;
         }
 
         @JsonSetter(value = "custom", nulls = Nulls.SKIP)
-        public Builder custom(Optional<Map<String, Object>> custom) {
+        public Builder custom(Optional<Map<String, String>> custom) {
             this.custom = custom;
             return this;
         }
 
-        public Builder custom(Map<String, Object> custom) {
+        public Builder custom(Map<String, String> custom) {
             this.custom = Optional.ofNullable(custom);
             return this;
         }

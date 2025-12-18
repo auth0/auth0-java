@@ -104,7 +104,7 @@ public final class CreateLogStreamEventBridgeRequestBody {
         return startFrom;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateLogStreamEventBridgeRequestBody
@@ -126,13 +126,13 @@ public final class CreateLogStreamEventBridgeRequestBody {
                 && startFrom.equals(other.startFrom);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.name, this.type, this.isPriority, this.filters, this.piiConfig, this.sink, this.startFrom);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -208,7 +208,7 @@ public final class CreateLogStreamEventBridgeRequestBody {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(CreateLogStreamEventBridgeRequestBody other) {
             name(other.getName());
             type(other.getType());
@@ -220,14 +220,14 @@ public final class CreateLogStreamEventBridgeRequestBody {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("type")
         public SinkStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("sink")
         public _FinalStage sink(@NotNull LogStreamEventBridgeSink sink) {
             this.sink = Objects.requireNonNull(sink, "sink must not be null");
@@ -238,7 +238,7 @@ public final class CreateLogStreamEventBridgeRequestBody {
          * <p>The optional datetime (ISO 8601) to start streaming logs from</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage startFrom(String startFrom) {
             this.startFrom = Optional.ofNullable(startFrom);
             return this;
@@ -247,20 +247,20 @@ public final class CreateLogStreamEventBridgeRequestBody {
         /**
          * <p>The optional datetime (ISO 8601) to start streaming logs from</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "startFrom", nulls = Nulls.SKIP)
         public _FinalStage startFrom(Optional<String> startFrom) {
             this.startFrom = startFrom;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage piiConfig(LogStreamPiiConfig piiConfig) {
             this.piiConfig = Optional.ofNullable(piiConfig);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "pii_config", nulls = Nulls.SKIP)
         public _FinalStage piiConfig(Optional<LogStreamPiiConfig> piiConfig) {
             this.piiConfig = piiConfig;
@@ -271,7 +271,7 @@ public final class CreateLogStreamEventBridgeRequestBody {
          * <p>Only logs events matching these filters will be delivered by the stream. If omitted or empty, all events will be delivered.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage filters(List<LogStreamFilter> filters) {
             this.filters = Optional.ofNullable(filters);
             return this;
@@ -280,7 +280,7 @@ public final class CreateLogStreamEventBridgeRequestBody {
         /**
          * <p>Only logs events matching these filters will be delivered by the stream. If omitted or empty, all events will be delivered.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "filters", nulls = Nulls.SKIP)
         public _FinalStage filters(Optional<List<LogStreamFilter>> filters) {
             this.filters = filters;
@@ -291,7 +291,7 @@ public final class CreateLogStreamEventBridgeRequestBody {
          * <p>True for priority log streams, false for non-priority</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage isPriority(Boolean isPriority) {
             this.isPriority = Optional.ofNullable(isPriority);
             return this;
@@ -300,7 +300,7 @@ public final class CreateLogStreamEventBridgeRequestBody {
         /**
          * <p>True for priority log streams, false for non-priority</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "isPriority", nulls = Nulls.SKIP)
         public _FinalStage isPriority(Optional<Boolean> isPriority) {
             this.isPriority = isPriority;
@@ -311,7 +311,7 @@ public final class CreateLogStreamEventBridgeRequestBody {
          * <p>log stream name</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage name(String name) {
             this.name = Optional.ofNullable(name);
             return this;
@@ -320,14 +320,14 @@ public final class CreateLogStreamEventBridgeRequestBody {
         /**
          * <p>log stream name</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<String> name) {
             this.name = name;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public CreateLogStreamEventBridgeRequestBody build() {
             return new CreateLogStreamEventBridgeRequestBody(
                     name, type, isPriority, filters, piiConfig, sink, startFrom, additionalProperties);

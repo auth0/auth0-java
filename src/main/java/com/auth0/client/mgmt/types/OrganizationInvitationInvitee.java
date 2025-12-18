@@ -36,7 +36,7 @@ public final class OrganizationInvitationInvitee {
         return email;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof OrganizationInvitationInvitee && equalTo((OrganizationInvitationInvitee) other);
@@ -51,12 +51,12 @@ public final class OrganizationInvitationInvitee {
         return email.equals(other.email);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.email);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -87,7 +87,7 @@ public final class OrganizationInvitationInvitee {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(OrganizationInvitationInvitee other) {
             email(other.getEmail());
             return this;
@@ -98,14 +98,14 @@ public final class OrganizationInvitationInvitee {
          * <p>The invitee's email.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("email")
         public _FinalStage email(@NotNull String email) {
             this.email = Objects.requireNonNull(email, "email must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public OrganizationInvitationInvitee build() {
             return new OrganizationInvitationInvitee(email, additionalProperties);
         }

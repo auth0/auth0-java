@@ -74,7 +74,7 @@ public final class LogStreamSplunkSink {
         return splunkSecure;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof LogStreamSplunkSink && equalTo((LogStreamSplunkSink) other);
@@ -92,12 +92,12 @@ public final class LogStreamSplunkSink {
                 && splunkSecure == other.splunkSecure;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.splunkDomain, this.splunkPort, this.splunkToken, this.splunkSecure);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -156,7 +156,7 @@ public final class LogStreamSplunkSink {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(LogStreamSplunkSink other) {
             splunkDomain(other.getSplunkDomain());
             splunkPort(other.getSplunkPort());
@@ -170,7 +170,7 @@ public final class LogStreamSplunkSink {
          * <p>Splunk URL Endpoint</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("splunkDomain")
         public SplunkPortStage splunkDomain(@NotNull String splunkDomain) {
             this.splunkDomain = Objects.requireNonNull(splunkDomain, "splunkDomain must not be null");
@@ -182,7 +182,7 @@ public final class LogStreamSplunkSink {
          * <p>Port</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("splunkPort")
         public SplunkTokenStage splunkPort(@NotNull String splunkPort) {
             this.splunkPort = Objects.requireNonNull(splunkPort, "splunkPort must not be null");
@@ -194,7 +194,7 @@ public final class LogStreamSplunkSink {
          * <p>Splunk token</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("splunkToken")
         public SplunkSecureStage splunkToken(@NotNull String splunkToken) {
             this.splunkToken = Objects.requireNonNull(splunkToken, "splunkToken must not be null");
@@ -206,14 +206,14 @@ public final class LogStreamSplunkSink {
          * <p>Verify TLS certificate</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("splunkSecure")
         public _FinalStage splunkSecure(boolean splunkSecure) {
             this.splunkSecure = splunkSecure;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public LogStreamSplunkSink build() {
             return new LogStreamSplunkSink(splunkDomain, splunkPort, splunkToken, splunkSecure, additionalProperties);
         }

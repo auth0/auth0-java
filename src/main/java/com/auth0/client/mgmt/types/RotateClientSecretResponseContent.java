@@ -36,7 +36,7 @@ public final class RotateClientSecretResponseContent {
 
     private final Optional<String> clientSecret;
 
-    private final Optional<String> appType;
+    private final Optional<ClientAppTypeEnum> appType;
 
     private final Optional<String> logoUri;
 
@@ -88,6 +88,8 @@ public final class RotateClientSecretResponseContent {
 
     private final Optional<ClientTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod;
 
+    private final Optional<Boolean> isTokenEndpointIpHeaderTrusted;
+
     private final Optional<Map<String, Object>> clientMetadata;
 
     private final Optional<ClientMobile> mobile;
@@ -102,6 +104,8 @@ public final class RotateClientSecretResponseContent {
 
     private final Optional<ClientOrganizationRequireBehaviorEnum> organizationRequireBehavior;
 
+    private final Optional<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods;
+
     private final OptionalNullable<ClientAuthenticationMethod> clientAuthenticationMethods;
 
     private final Optional<Boolean> requirePushedAuthorizationRequests;
@@ -112,9 +116,19 @@ public final class RotateClientSecretResponseContent {
 
     private final OptionalNullable<ClientComplianceLevelEnum> complianceLevel;
 
+    private final Optional<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt;
+
+    private final Optional<ClientTokenExchangeConfiguration> tokenExchange;
+
     private final OptionalNullable<Integer> parRequestExpiry;
 
     private final Optional<TokenQuota> tokenQuota;
+
+    private final Optional<ExpressConfiguration> expressConfiguration;
+
+    private final Optional<String> resourceServerIdentifier;
+
+    private final Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels;
 
     private final Map<String, Object> additionalProperties;
 
@@ -125,7 +139,7 @@ public final class RotateClientSecretResponseContent {
             Optional<String> description,
             Optional<Boolean> global,
             Optional<String> clientSecret,
-            Optional<String> appType,
+            Optional<ClientAppTypeEnum> appType,
             Optional<String> logoUri,
             Optional<Boolean> isFirstParty,
             Optional<Boolean> oidcConformant,
@@ -151,6 +165,7 @@ public final class RotateClientSecretResponseContent {
             Optional<String> formTemplate,
             Optional<ClientAddons> addons,
             Optional<ClientTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod,
+            Optional<Boolean> isTokenEndpointIpHeaderTrusted,
             Optional<Map<String, Object>> clientMetadata,
             Optional<ClientMobile> mobile,
             Optional<String> initiateLoginUri,
@@ -158,13 +173,19 @@ public final class RotateClientSecretResponseContent {
             OptionalNullable<ClientDefaultOrganization> defaultOrganization,
             Optional<ClientOrganizationUsageEnum> organizationUsage,
             Optional<ClientOrganizationRequireBehaviorEnum> organizationRequireBehavior,
+            Optional<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods,
             OptionalNullable<ClientAuthenticationMethod> clientAuthenticationMethods,
             Optional<Boolean> requirePushedAuthorizationRequests,
             Optional<Boolean> requireProofOfPossession,
             Optional<ClientSignedRequestObjectWithCredentialId> signedRequestObject,
             OptionalNullable<ClientComplianceLevelEnum> complianceLevel,
+            Optional<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt,
+            Optional<ClientTokenExchangeConfiguration> tokenExchange,
             OptionalNullable<Integer> parRequestExpiry,
             Optional<TokenQuota> tokenQuota,
+            Optional<ExpressConfiguration> expressConfiguration,
+            Optional<String> resourceServerIdentifier,
+            Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels,
             Map<String, Object> additionalProperties) {
         this.clientId = clientId;
         this.tenant = tenant;
@@ -198,6 +219,7 @@ public final class RotateClientSecretResponseContent {
         this.formTemplate = formTemplate;
         this.addons = addons;
         this.tokenEndpointAuthMethod = tokenEndpointAuthMethod;
+        this.isTokenEndpointIpHeaderTrusted = isTokenEndpointIpHeaderTrusted;
         this.clientMetadata = clientMetadata;
         this.mobile = mobile;
         this.initiateLoginUri = initiateLoginUri;
@@ -205,13 +227,19 @@ public final class RotateClientSecretResponseContent {
         this.defaultOrganization = defaultOrganization;
         this.organizationUsage = organizationUsage;
         this.organizationRequireBehavior = organizationRequireBehavior;
+        this.organizationDiscoveryMethods = organizationDiscoveryMethods;
         this.clientAuthenticationMethods = clientAuthenticationMethods;
         this.requirePushedAuthorizationRequests = requirePushedAuthorizationRequests;
         this.requireProofOfPossession = requireProofOfPossession;
         this.signedRequestObject = signedRequestObject;
         this.complianceLevel = complianceLevel;
+        this.skipNonVerifiableCallbackUriConfirmationPrompt = skipNonVerifiableCallbackUriConfirmationPrompt;
+        this.tokenExchange = tokenExchange;
         this.parRequestExpiry = parRequestExpiry;
         this.tokenQuota = tokenQuota;
+        this.expressConfiguration = expressConfiguration;
+        this.resourceServerIdentifier = resourceServerIdentifier;
+        this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
         this.additionalProperties = additionalProperties;
     }
 
@@ -263,11 +291,8 @@ public final class RotateClientSecretResponseContent {
         return clientSecret;
     }
 
-    /**
-     * @return Type of client used to determine which settings are applicable. Can be <code>spa</code>, <code>native</code>, <code>non_interactive</code>, or <code>regular_web</code>.
-     */
     @JsonProperty("app_type")
-    public Optional<String> getAppType() {
+    public Optional<ClientAppTypeEnum> getAppType() {
         return appType;
     }
 
@@ -358,7 +383,7 @@ public final class RotateClientSecretResponseContent {
     }
 
     /**
-     * @return List of grant types supported for this application. Can include <code>authorization_code</code>, <code>implicit</code>, <code>refresh_token</code>, <code>client_credentials</code>, <code>password</code>, <code>http://auth0.com/oauth/grant-type/password-realm</code>, <code>http://auth0.com/oauth/grant-type/mfa-oob</code>, <code>http://auth0.com/oauth/grant-type/mfa-otp</code>, <code>http://auth0.com/oauth/grant-type/mfa-recovery-code</code>, <code>urn:openid:params:grant-type:ciba</code>, and <code>urn:ietf:params:oauth:grant-type:device_code</code>.
+     * @return List of grant types supported for this application. Can include <code>authorization_code</code>, <code>implicit</code>, <code>refresh_token</code>, <code>client_credentials</code>, <code>password</code>, <code>http://auth0.com/oauth/grant-type/password-realm</code>, <code>http://auth0.com/oauth/grant-type/mfa-oob</code>, <code>http://auth0.com/oauth/grant-type/mfa-otp</code>, <code>http://auth0.com/oauth/grant-type/mfa-recovery-code</code>, <code>urn:openid:params:grant-type:ciba</code>, <code>urn:ietf:params:oauth:grant-type:device_code</code>, and <code>urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token</code>.
      */
     @JsonProperty("grant_types")
     public Optional<List<String>> getGrantTypes() {
@@ -458,6 +483,14 @@ public final class RotateClientSecretResponseContent {
         return tokenEndpointAuthMethod;
     }
 
+    /**
+     * @return If true, trust that the IP specified in the <code>auth0-forwarded-for</code> header is the end-user's IP for brute-force-protection on token endpoint.
+     */
+    @JsonProperty("is_token_endpoint_ip_header_trusted")
+    public Optional<Boolean> getIsTokenEndpointIpHeaderTrusted() {
+        return isTokenEndpointIpHeaderTrusted;
+    }
+
     @JsonProperty("client_metadata")
     public Optional<Map<String, Object>> getClientMetadata() {
         return clientMetadata;
@@ -504,6 +537,14 @@ public final class RotateClientSecretResponseContent {
         return organizationRequireBehavior;
     }
 
+    /**
+     * @return Defines the available methods for organization discovery during the <code>pre_login_prompt</code>. Users can discover their organization either by <code>email</code>, <code>organization_name</code> or both.
+     */
+    @JsonProperty("organization_discovery_methods")
+    public Optional<List<ClientOrganizationDiscoveryEnum>> getOrganizationDiscoveryMethods() {
+        return organizationDiscoveryMethods;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("client_authentication_methods")
     public OptionalNullable<ClientAuthenticationMethod> getClientAuthenticationMethods() {
@@ -544,6 +585,21 @@ public final class RotateClientSecretResponseContent {
     }
 
     /**
+     * @return Controls whether a confirmation prompt is shown during login flows when the redirect URI uses non-verifiable callback URIs (for example, a custom URI schema such as <code>myapp://</code>, or <code>localhost</code>).
+     * If set to true, a confirmation prompt will not be shown. We recommend that this is set to false for improved protection from malicious apps.
+     * See https://auth0.com/docs/secure/security-guidance/measures-against-app-impersonation for more information.
+     */
+    @JsonProperty("skip_non_verifiable_callback_uri_confirmation_prompt")
+    public Optional<Boolean> getSkipNonVerifiableCallbackUriConfirmationPrompt() {
+        return skipNonVerifiableCallbackUriConfirmationPrompt;
+    }
+
+    @JsonProperty("token_exchange")
+    public Optional<ClientTokenExchangeConfiguration> getTokenExchange() {
+        return tokenExchange;
+    }
+
+    /**
      * @return Specifies how long, in seconds, a Pushed Authorization Request URI remains valid
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -558,6 +614,24 @@ public final class RotateClientSecretResponseContent {
     @JsonProperty("token_quota")
     public Optional<TokenQuota> getTokenQuota() {
         return tokenQuota;
+    }
+
+    @JsonProperty("express_configuration")
+    public Optional<ExpressConfiguration> getExpressConfiguration() {
+        return expressConfiguration;
+    }
+
+    /**
+     * @return The identifier of the resource server that this client is linked to.
+     */
+    @JsonProperty("resource_server_identifier")
+    public Optional<String> getResourceServerIdentifier() {
+        return resourceServerIdentifier;
+    }
+
+    @JsonProperty("async_approval_notification_channels")
+    public Optional<List<AsyncApprovalNotificationsChannelsEnum>> getAsyncApprovalNotificationChannels() {
+        return asyncApprovalNotificationChannels;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -602,7 +676,7 @@ public final class RotateClientSecretResponseContent {
         return parRequestExpiry;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof RotateClientSecretResponseContent && equalTo((RotateClientSecretResponseContent) other);
@@ -646,6 +720,7 @@ public final class RotateClientSecretResponseContent {
                 && formTemplate.equals(other.formTemplate)
                 && addons.equals(other.addons)
                 && tokenEndpointAuthMethod.equals(other.tokenEndpointAuthMethod)
+                && isTokenEndpointIpHeaderTrusted.equals(other.isTokenEndpointIpHeaderTrusted)
                 && clientMetadata.equals(other.clientMetadata)
                 && mobile.equals(other.mobile)
                 && initiateLoginUri.equals(other.initiateLoginUri)
@@ -653,16 +728,23 @@ public final class RotateClientSecretResponseContent {
                 && defaultOrganization.equals(other.defaultOrganization)
                 && organizationUsage.equals(other.organizationUsage)
                 && organizationRequireBehavior.equals(other.organizationRequireBehavior)
+                && organizationDiscoveryMethods.equals(other.organizationDiscoveryMethods)
                 && clientAuthenticationMethods.equals(other.clientAuthenticationMethods)
                 && requirePushedAuthorizationRequests.equals(other.requirePushedAuthorizationRequests)
                 && requireProofOfPossession.equals(other.requireProofOfPossession)
                 && signedRequestObject.equals(other.signedRequestObject)
                 && complianceLevel.equals(other.complianceLevel)
+                && skipNonVerifiableCallbackUriConfirmationPrompt.equals(
+                        other.skipNonVerifiableCallbackUriConfirmationPrompt)
+                && tokenExchange.equals(other.tokenExchange)
                 && parRequestExpiry.equals(other.parRequestExpiry)
-                && tokenQuota.equals(other.tokenQuota);
+                && tokenQuota.equals(other.tokenQuota)
+                && expressConfiguration.equals(other.expressConfiguration)
+                && resourceServerIdentifier.equals(other.resourceServerIdentifier)
+                && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.clientId,
@@ -697,6 +779,7 @@ public final class RotateClientSecretResponseContent {
                 this.formTemplate,
                 this.addons,
                 this.tokenEndpointAuthMethod,
+                this.isTokenEndpointIpHeaderTrusted,
                 this.clientMetadata,
                 this.mobile,
                 this.initiateLoginUri,
@@ -704,16 +787,22 @@ public final class RotateClientSecretResponseContent {
                 this.defaultOrganization,
                 this.organizationUsage,
                 this.organizationRequireBehavior,
+                this.organizationDiscoveryMethods,
                 this.clientAuthenticationMethods,
                 this.requirePushedAuthorizationRequests,
                 this.requireProofOfPossession,
                 this.signedRequestObject,
                 this.complianceLevel,
+                this.skipNonVerifiableCallbackUriConfirmationPrompt,
+                this.tokenExchange,
                 this.parRequestExpiry,
-                this.tokenQuota);
+                this.tokenQuota,
+                this.expressConfiguration,
+                this.resourceServerIdentifier,
+                this.asyncApprovalNotificationChannels);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -736,7 +825,7 @@ public final class RotateClientSecretResponseContent {
 
         private Optional<String> clientSecret = Optional.empty();
 
-        private Optional<String> appType = Optional.empty();
+        private Optional<ClientAppTypeEnum> appType = Optional.empty();
 
         private Optional<String> logoUri = Optional.empty();
 
@@ -788,6 +877,8 @@ public final class RotateClientSecretResponseContent {
 
         private Optional<ClientTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod = Optional.empty();
 
+        private Optional<Boolean> isTokenEndpointIpHeaderTrusted = Optional.empty();
+
         private Optional<Map<String, Object>> clientMetadata = Optional.empty();
 
         private Optional<ClientMobile> mobile = Optional.empty();
@@ -802,6 +893,8 @@ public final class RotateClientSecretResponseContent {
 
         private Optional<ClientOrganizationRequireBehaviorEnum> organizationRequireBehavior = Optional.empty();
 
+        private Optional<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods = Optional.empty();
+
         private OptionalNullable<ClientAuthenticationMethod> clientAuthenticationMethods = OptionalNullable.absent();
 
         private Optional<Boolean> requirePushedAuthorizationRequests = Optional.empty();
@@ -812,9 +905,20 @@ public final class RotateClientSecretResponseContent {
 
         private OptionalNullable<ClientComplianceLevelEnum> complianceLevel = OptionalNullable.absent();
 
+        private Optional<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt = Optional.empty();
+
+        private Optional<ClientTokenExchangeConfiguration> tokenExchange = Optional.empty();
+
         private OptionalNullable<Integer> parRequestExpiry = OptionalNullable.absent();
 
         private Optional<TokenQuota> tokenQuota = Optional.empty();
+
+        private Optional<ExpressConfiguration> expressConfiguration = Optional.empty();
+
+        private Optional<String> resourceServerIdentifier = Optional.empty();
+
+        private Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels =
+                Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -854,6 +958,7 @@ public final class RotateClientSecretResponseContent {
             formTemplate(other.getFormTemplate());
             addons(other.getAddons());
             tokenEndpointAuthMethod(other.getTokenEndpointAuthMethod());
+            isTokenEndpointIpHeaderTrusted(other.getIsTokenEndpointIpHeaderTrusted());
             clientMetadata(other.getClientMetadata());
             mobile(other.getMobile());
             initiateLoginUri(other.getInitiateLoginUri());
@@ -861,13 +966,19 @@ public final class RotateClientSecretResponseContent {
             defaultOrganization(other.getDefaultOrganization());
             organizationUsage(other.getOrganizationUsage());
             organizationRequireBehavior(other.getOrganizationRequireBehavior());
+            organizationDiscoveryMethods(other.getOrganizationDiscoveryMethods());
             clientAuthenticationMethods(other.getClientAuthenticationMethods());
             requirePushedAuthorizationRequests(other.getRequirePushedAuthorizationRequests());
             requireProofOfPossession(other.getRequireProofOfPossession());
             signedRequestObject(other.getSignedRequestObject());
             complianceLevel(other.getComplianceLevel());
+            skipNonVerifiableCallbackUriConfirmationPrompt(other.getSkipNonVerifiableCallbackUriConfirmationPrompt());
+            tokenExchange(other.getTokenExchange());
             parRequestExpiry(other.getParRequestExpiry());
             tokenQuota(other.getTokenQuota());
+            expressConfiguration(other.getExpressConfiguration());
+            resourceServerIdentifier(other.getResourceServerIdentifier());
+            asyncApprovalNotificationChannels(other.getAsyncApprovalNotificationChannels());
             return this;
         }
 
@@ -955,16 +1066,13 @@ public final class RotateClientSecretResponseContent {
             return this;
         }
 
-        /**
-         * <p>Type of client used to determine which settings are applicable. Can be <code>spa</code>, <code>native</code>, <code>non_interactive</code>, or <code>regular_web</code>.</p>
-         */
         @JsonSetter(value = "app_type", nulls = Nulls.SKIP)
-        public Builder appType(Optional<String> appType) {
+        public Builder appType(Optional<ClientAppTypeEnum> appType) {
             this.appType = appType;
             return this;
         }
 
-        public Builder appType(String appType) {
+        public Builder appType(ClientAppTypeEnum appType) {
             this.appType = Optional.ofNullable(appType);
             return this;
         }
@@ -1139,7 +1247,7 @@ public final class RotateClientSecretResponseContent {
         }
 
         /**
-         * <p>List of grant types supported for this application. Can include <code>authorization_code</code>, <code>implicit</code>, <code>refresh_token</code>, <code>client_credentials</code>, <code>password</code>, <code>http://auth0.com/oauth/grant-type/password-realm</code>, <code>http://auth0.com/oauth/grant-type/mfa-oob</code>, <code>http://auth0.com/oauth/grant-type/mfa-otp</code>, <code>http://auth0.com/oauth/grant-type/mfa-recovery-code</code>, <code>urn:openid:params:grant-type:ciba</code>, and <code>urn:ietf:params:oauth:grant-type:device_code</code>.</p>
+         * <p>List of grant types supported for this application. Can include <code>authorization_code</code>, <code>implicit</code>, <code>refresh_token</code>, <code>client_credentials</code>, <code>password</code>, <code>http://auth0.com/oauth/grant-type/password-realm</code>, <code>http://auth0.com/oauth/grant-type/mfa-oob</code>, <code>http://auth0.com/oauth/grant-type/mfa-otp</code>, <code>http://auth0.com/oauth/grant-type/mfa-recovery-code</code>, <code>urn:openid:params:grant-type:ciba</code>, <code>urn:ietf:params:oauth:grant-type:device_code</code>, and <code>urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token</code>.</p>
          */
         @JsonSetter(value = "grant_types", nulls = Nulls.SKIP)
         public Builder grantTypes(Optional<List<String>> grantTypes) {
@@ -1339,6 +1447,20 @@ public final class RotateClientSecretResponseContent {
             return this;
         }
 
+        /**
+         * <p>If true, trust that the IP specified in the <code>auth0-forwarded-for</code> header is the end-user's IP for brute-force-protection on token endpoint.</p>
+         */
+        @JsonSetter(value = "is_token_endpoint_ip_header_trusted", nulls = Nulls.SKIP)
+        public Builder isTokenEndpointIpHeaderTrusted(Optional<Boolean> isTokenEndpointIpHeaderTrusted) {
+            this.isTokenEndpointIpHeaderTrusted = isTokenEndpointIpHeaderTrusted;
+            return this;
+        }
+
+        public Builder isTokenEndpointIpHeaderTrusted(Boolean isTokenEndpointIpHeaderTrusted) {
+            this.isTokenEndpointIpHeaderTrusted = Optional.ofNullable(isTokenEndpointIpHeaderTrusted);
+            return this;
+        }
+
         @JsonSetter(value = "client_metadata", nulls = Nulls.SKIP)
         public Builder clientMetadata(Optional<Map<String, Object>> clientMetadata) {
             this.clientMetadata = clientMetadata;
@@ -1461,6 +1583,22 @@ public final class RotateClientSecretResponseContent {
             return this;
         }
 
+        /**
+         * <p>Defines the available methods for organization discovery during the <code>pre_login_prompt</code>. Users can discover their organization either by <code>email</code>, <code>organization_name</code> or both.</p>
+         */
+        @JsonSetter(value = "organization_discovery_methods", nulls = Nulls.SKIP)
+        public Builder organizationDiscoveryMethods(
+                Optional<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods) {
+            this.organizationDiscoveryMethods = organizationDiscoveryMethods;
+            return this;
+        }
+
+        public Builder organizationDiscoveryMethods(
+                List<ClientOrganizationDiscoveryEnum> organizationDiscoveryMethods) {
+            this.organizationDiscoveryMethods = Optional.ofNullable(organizationDiscoveryMethods);
+            return this;
+        }
+
         @JsonSetter(value = "client_authentication_methods", nulls = Nulls.SKIP)
         public Builder clientAuthenticationMethods(
                 @Nullable OptionalNullable<ClientAuthenticationMethod> clientAuthenticationMethods) {
@@ -1565,6 +1703,36 @@ public final class RotateClientSecretResponseContent {
         }
 
         /**
+         * <p>Controls whether a confirmation prompt is shown during login flows when the redirect URI uses non-verifiable callback URIs (for example, a custom URI schema such as <code>myapp://</code>, or <code>localhost</code>).
+         * If set to true, a confirmation prompt will not be shown. We recommend that this is set to false for improved protection from malicious apps.
+         * See https://auth0.com/docs/secure/security-guidance/measures-against-app-impersonation for more information.</p>
+         */
+        @JsonSetter(value = "skip_non_verifiable_callback_uri_confirmation_prompt", nulls = Nulls.SKIP)
+        public Builder skipNonVerifiableCallbackUriConfirmationPrompt(
+                Optional<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt) {
+            this.skipNonVerifiableCallbackUriConfirmationPrompt = skipNonVerifiableCallbackUriConfirmationPrompt;
+            return this;
+        }
+
+        public Builder skipNonVerifiableCallbackUriConfirmationPrompt(
+                Boolean skipNonVerifiableCallbackUriConfirmationPrompt) {
+            this.skipNonVerifiableCallbackUriConfirmationPrompt =
+                    Optional.ofNullable(skipNonVerifiableCallbackUriConfirmationPrompt);
+            return this;
+        }
+
+        @JsonSetter(value = "token_exchange", nulls = Nulls.SKIP)
+        public Builder tokenExchange(Optional<ClientTokenExchangeConfiguration> tokenExchange) {
+            this.tokenExchange = tokenExchange;
+            return this;
+        }
+
+        public Builder tokenExchange(ClientTokenExchangeConfiguration tokenExchange) {
+            this.tokenExchange = Optional.ofNullable(tokenExchange);
+            return this;
+        }
+
+        /**
          * <p>Specifies how long, in seconds, a Pushed Authorization Request URI remains valid</p>
          */
         @JsonSetter(value = "par_request_expiry", nulls = Nulls.SKIP)
@@ -1609,6 +1777,44 @@ public final class RotateClientSecretResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "express_configuration", nulls = Nulls.SKIP)
+        public Builder expressConfiguration(Optional<ExpressConfiguration> expressConfiguration) {
+            this.expressConfiguration = expressConfiguration;
+            return this;
+        }
+
+        public Builder expressConfiguration(ExpressConfiguration expressConfiguration) {
+            this.expressConfiguration = Optional.ofNullable(expressConfiguration);
+            return this;
+        }
+
+        /**
+         * <p>The identifier of the resource server that this client is linked to.</p>
+         */
+        @JsonSetter(value = "resource_server_identifier", nulls = Nulls.SKIP)
+        public Builder resourceServerIdentifier(Optional<String> resourceServerIdentifier) {
+            this.resourceServerIdentifier = resourceServerIdentifier;
+            return this;
+        }
+
+        public Builder resourceServerIdentifier(String resourceServerIdentifier) {
+            this.resourceServerIdentifier = Optional.ofNullable(resourceServerIdentifier);
+            return this;
+        }
+
+        @JsonSetter(value = "async_approval_notification_channels", nulls = Nulls.SKIP)
+        public Builder asyncApprovalNotificationChannels(
+                Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels) {
+            this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
+            return this;
+        }
+
+        public Builder asyncApprovalNotificationChannels(
+                List<AsyncApprovalNotificationsChannelsEnum> asyncApprovalNotificationChannels) {
+            this.asyncApprovalNotificationChannels = Optional.ofNullable(asyncApprovalNotificationChannels);
+            return this;
+        }
+
         public RotateClientSecretResponseContent build() {
             return new RotateClientSecretResponseContent(
                     clientId,
@@ -1643,6 +1849,7 @@ public final class RotateClientSecretResponseContent {
                     formTemplate,
                     addons,
                     tokenEndpointAuthMethod,
+                    isTokenEndpointIpHeaderTrusted,
                     clientMetadata,
                     mobile,
                     initiateLoginUri,
@@ -1650,13 +1857,19 @@ public final class RotateClientSecretResponseContent {
                     defaultOrganization,
                     organizationUsage,
                     organizationRequireBehavior,
+                    organizationDiscoveryMethods,
                     clientAuthenticationMethods,
                     requirePushedAuthorizationRequests,
                     requireProofOfPossession,
                     signedRequestObject,
                     complianceLevel,
+                    skipNonVerifiableCallbackUriConfirmationPrompt,
+                    tokenExchange,
                     parRequestExpiry,
                     tokenQuota,
+                    expressConfiguration,
+                    resourceServerIdentifier,
+                    asyncApprovalNotificationChannels,
                     additionalProperties);
         }
     }

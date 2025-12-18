@@ -111,8 +111,13 @@ public class RawStatsClient {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("stats/daily");
-        QueryStringMapper.addQueryParameter(httpUrl, "from", request.getFrom(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "to", request.getTo(), false);
+        if (!request.getFrom().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "from", request.getFrom().orElse(null), false);
+        }
+        if (!request.getTo().isAbsent()) {
+            QueryStringMapper.addQueryParameter(httpUrl, "to", request.getTo().orElse(null), false);
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)

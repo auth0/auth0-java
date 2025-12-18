@@ -48,7 +48,7 @@ public final class GetGuardianFactorSmsTemplatesResponseContent {
         return verificationMessage;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetGuardianFactorSmsTemplatesResponseContent
@@ -65,12 +65,12 @@ public final class GetGuardianFactorSmsTemplatesResponseContent {
                 && verificationMessage.equals(other.verificationMessage);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.enrollmentMessage, this.verificationMessage);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -110,7 +110,7 @@ public final class GetGuardianFactorSmsTemplatesResponseContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(GetGuardianFactorSmsTemplatesResponseContent other) {
             enrollmentMessage(other.getEnrollmentMessage());
             verificationMessage(other.getVerificationMessage());
@@ -122,7 +122,7 @@ public final class GetGuardianFactorSmsTemplatesResponseContent {
          * <p>Message sent to the user when they are invited to enroll with a phone number.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("enrollment_message")
         public VerificationMessageStage enrollmentMessage(@NotNull String enrollmentMessage) {
             this.enrollmentMessage = Objects.requireNonNull(enrollmentMessage, "enrollmentMessage must not be null");
@@ -134,7 +134,7 @@ public final class GetGuardianFactorSmsTemplatesResponseContent {
          * <p>Message sent to the user when they are prompted to verify their account.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("verification_message")
         public _FinalStage verificationMessage(@NotNull String verificationMessage) {
             this.verificationMessage =
@@ -142,7 +142,7 @@ public final class GetGuardianFactorSmsTemplatesResponseContent {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public GetGuardianFactorSmsTemplatesResponseContent build() {
             return new GetGuardianFactorSmsTemplatesResponseContent(
                     enrollmentMessage, verificationMessage, additionalProperties);

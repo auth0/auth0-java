@@ -36,7 +36,7 @@ public final class LogStreamSumoSink {
         return sumoSourceAddress;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof LogStreamSumoSink && equalTo((LogStreamSumoSink) other);
@@ -51,12 +51,12 @@ public final class LogStreamSumoSink {
         return sumoSourceAddress.equals(other.sumoSourceAddress);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.sumoSourceAddress);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -87,7 +87,7 @@ public final class LogStreamSumoSink {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(LogStreamSumoSink other) {
             sumoSourceAddress(other.getSumoSourceAddress());
             return this;
@@ -98,14 +98,14 @@ public final class LogStreamSumoSink {
          * <p>HTTP Source Address</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("sumoSourceAddress")
         public _FinalStage sumoSourceAddress(@NotNull String sumoSourceAddress) {
             this.sumoSourceAddress = Objects.requireNonNull(sumoSourceAddress, "sumoSourceAddress must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public LogStreamSumoSink build() {
             return new LogStreamSumoSink(sumoSourceAddress, additionalProperties);
         }

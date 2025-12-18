@@ -96,9 +96,6 @@ public final class ListClientsRequestParameters {
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("page")
     public OptionalNullable<Integer> getPage() {
-        if (page == null) {
-            return OptionalNullable.absent();
-        }
         return page;
     }
 
@@ -181,12 +178,6 @@ public final class ListClientsRequestParameters {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("page")
-    private OptionalNullable<Integer> _getPage() {
-        return page;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("is_global")
     private OptionalNullable<Boolean> _getIsGlobal() {
         return isGlobal;
@@ -210,7 +201,7 @@ public final class ListClientsRequestParameters {
         return q;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListClientsRequestParameters && equalTo((ListClientsRequestParameters) other);
@@ -233,7 +224,7 @@ public final class ListClientsRequestParameters {
                 && q.equals(other.q);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.fields,
@@ -247,7 +238,7 @@ public final class ListClientsRequestParameters {
                 this.q);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -366,7 +357,7 @@ public final class ListClientsRequestParameters {
          * <p>Page index of the results to return. First page is 0.</p>
          */
         @JsonSetter(value = "page", nulls = Nulls.SKIP)
-        public Builder page(@Nullable OptionalNullable<Integer> page) {
+        public Builder page(OptionalNullable<Integer> page) {
             this.page = page;
             return this;
         }

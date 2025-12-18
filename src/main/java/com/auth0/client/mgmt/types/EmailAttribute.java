@@ -22,6 +22,8 @@ import java.util.Optional;
 public final class EmailAttribute {
     private final Optional<ConnectionAttributeIdentifier> identifier;
 
+    private final Optional<Boolean> unique;
+
     private final Optional<Boolean> profileRequired;
 
     private final Optional<VerificationMethodEnum> verificationMethod;
@@ -32,11 +34,13 @@ public final class EmailAttribute {
 
     private EmailAttribute(
             Optional<ConnectionAttributeIdentifier> identifier,
+            Optional<Boolean> unique,
             Optional<Boolean> profileRequired,
             Optional<VerificationMethodEnum> verificationMethod,
             Optional<SignupVerified> signup,
             Map<String, Object> additionalProperties) {
         this.identifier = identifier;
+        this.unique = unique;
         this.profileRequired = profileRequired;
         this.verificationMethod = verificationMethod;
         this.signup = signup;
@@ -46,6 +50,14 @@ public final class EmailAttribute {
     @JsonProperty("identifier")
     public Optional<ConnectionAttributeIdentifier> getIdentifier() {
         return identifier;
+    }
+
+    /**
+     * @return Determines if the attribute is unique in a given connection
+     */
+    @JsonProperty("unique")
+    public Optional<Boolean> getUnique() {
+        return unique;
     }
 
     /**
@@ -66,7 +78,7 @@ public final class EmailAttribute {
         return signup;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof EmailAttribute && equalTo((EmailAttribute) other);
@@ -79,17 +91,18 @@ public final class EmailAttribute {
 
     private boolean equalTo(EmailAttribute other) {
         return identifier.equals(other.identifier)
+                && unique.equals(other.unique)
                 && profileRequired.equals(other.profileRequired)
                 && verificationMethod.equals(other.verificationMethod)
                 && signup.equals(other.signup);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
-        return Objects.hash(this.identifier, this.profileRequired, this.verificationMethod, this.signup);
+        return Objects.hash(this.identifier, this.unique, this.profileRequired, this.verificationMethod, this.signup);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -101,6 +114,8 @@ public final class EmailAttribute {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
         private Optional<ConnectionAttributeIdentifier> identifier = Optional.empty();
+
+        private Optional<Boolean> unique = Optional.empty();
 
         private Optional<Boolean> profileRequired = Optional.empty();
 
@@ -115,6 +130,7 @@ public final class EmailAttribute {
 
         public Builder from(EmailAttribute other) {
             identifier(other.getIdentifier());
+            unique(other.getUnique());
             profileRequired(other.getProfileRequired());
             verificationMethod(other.getVerificationMethod());
             signup(other.getSignup());
@@ -129,6 +145,20 @@ public final class EmailAttribute {
 
         public Builder identifier(ConnectionAttributeIdentifier identifier) {
             this.identifier = Optional.ofNullable(identifier);
+            return this;
+        }
+
+        /**
+         * <p>Determines if the attribute is unique in a given connection</p>
+         */
+        @JsonSetter(value = "unique", nulls = Nulls.SKIP)
+        public Builder unique(Optional<Boolean> unique) {
+            this.unique = unique;
+            return this;
+        }
+
+        public Builder unique(Boolean unique) {
+            this.unique = Optional.ofNullable(unique);
             return this;
         }
 
@@ -169,7 +199,8 @@ public final class EmailAttribute {
         }
 
         public EmailAttribute build() {
-            return new EmailAttribute(identifier, profileRequired, verificationMethod, signup, additionalProperties);
+            return new EmailAttribute(
+                    identifier, unique, profileRequired, verificationMethod, signup, additionalProperties);
         }
     }
 }

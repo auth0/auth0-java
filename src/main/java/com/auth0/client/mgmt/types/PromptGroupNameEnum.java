@@ -50,6 +50,9 @@ public final class PromptGroupNameEnum {
 
     public static final PromptGroupNameEnum LOGIN_ID = new PromptGroupNameEnum(Value.LOGIN_ID, "login-id");
 
+    public static final PromptGroupNameEnum ASYNC_APPROVAL_FLOW =
+            new PromptGroupNameEnum(Value.ASYNC_APPROVAL_FLOW, "async-approval-flow");
+
     public static final PromptGroupNameEnum MFA_OTP = new PromptGroupNameEnum(Value.MFA_OTP, "mfa-otp");
 
     public static final PromptGroupNameEnum STATUS = new PromptGroupNameEnum(Value.STATUS, "status");
@@ -104,19 +107,19 @@ public final class PromptGroupNameEnum {
         return value;
     }
 
-    @java.lang.Override
+    @Override
     @JsonValue
     public String toString() {
         return this.string;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         return (this == other)
                 || (other instanceof PromptGroupNameEnum && this.string.equals(((PromptGroupNameEnum) other).string));
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return this.string.hashCode();
     }
@@ -159,6 +162,8 @@ public final class PromptGroupNameEnum {
                 return visitor.visitOrganizations();
             case LOGIN_ID:
                 return visitor.visitLoginId();
+            case ASYNC_APPROVAL_FLOW:
+                return visitor.visitAsyncApprovalFlow();
             case MFA_OTP:
                 return visitor.visitMfaOtp();
             case STATUS:
@@ -238,6 +243,8 @@ public final class PromptGroupNameEnum {
                 return ORGANIZATIONS;
             case "login-id":
                 return LOGIN_ID;
+            case "async-approval-flow":
+                return ASYNC_APPROVAL_FLOW;
             case "mfa-otp":
                 return MFA_OTP;
             case "status":
@@ -348,6 +355,8 @@ public final class PromptGroupNameEnum {
 
         BRUTE_FORCE_PROTECTION,
 
+        ASYNC_APPROVAL_FLOW,
+
         UNKNOWN
     }
 
@@ -421,6 +430,8 @@ public final class PromptGroupNameEnum {
         T visitCaptcha();
 
         T visitBruteForceProtection();
+
+        T visitAsyncApprovalFlow();
 
         T visitUnknown(String unknownType);
     }

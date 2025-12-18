@@ -117,7 +117,7 @@ public final class UserIdentitySchema {
         return profileData;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UserIdentitySchema && equalTo((UserIdentitySchema) other);
@@ -139,7 +139,7 @@ public final class UserIdentitySchema {
                 && profileData.equals(other.profileData);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.connection,
@@ -152,7 +152,7 @@ public final class UserIdentitySchema {
                 this.profileData);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -38,7 +38,7 @@ public final class DeployActionVersionRequestBodyParams {
         return updateDraft;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof DeployActionVersionRequestBodyParams
@@ -54,12 +54,12 @@ public final class DeployActionVersionRequestBodyParams {
         return updateDraft.equals(other.updateDraft);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.updateDraft);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

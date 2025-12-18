@@ -103,7 +103,7 @@ public final class GetGuardianEnrollmentResponseContent {
         return lastAuth;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetGuardianEnrollmentResponseContent
@@ -125,13 +125,13 @@ public final class GetGuardianEnrollmentResponseContent {
                 && lastAuth.equals(other.lastAuth);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.id, this.status, this.name, this.identifier, this.phoneNumber, this.enrolledAt, this.lastAuth);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -207,7 +207,7 @@ public final class GetGuardianEnrollmentResponseContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(GetGuardianEnrollmentResponseContent other) {
             id(other.getId());
             status(other.getStatus());
@@ -224,33 +224,33 @@ public final class GetGuardianEnrollmentResponseContent {
          * <p>ID for this enrollment.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("id")
         public _FinalStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage lastAuth(String lastAuth) {
             this.lastAuth = Optional.ofNullable(lastAuth);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "last_auth", nulls = Nulls.SKIP)
         public _FinalStage lastAuth(Optional<String> lastAuth) {
             this.lastAuth = lastAuth;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage enrolledAt(String enrolledAt) {
             this.enrolledAt = Optional.ofNullable(enrolledAt);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "enrolled_at", nulls = Nulls.SKIP)
         public _FinalStage enrolledAt(Optional<String> enrolledAt) {
             this.enrolledAt = enrolledAt;
@@ -261,7 +261,7 @@ public final class GetGuardianEnrollmentResponseContent {
          * <p>Phone number.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage phoneNumber(String phoneNumber) {
             this.phoneNumber = Optional.ofNullable(phoneNumber);
             return this;
@@ -270,7 +270,7 @@ public final class GetGuardianEnrollmentResponseContent {
         /**
          * <p>Phone number.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "phone_number", nulls = Nulls.SKIP)
         public _FinalStage phoneNumber(Optional<String> phoneNumber) {
             this.phoneNumber = phoneNumber;
@@ -281,7 +281,7 @@ public final class GetGuardianEnrollmentResponseContent {
          * <p>Device identifier. This is usually the phone identifier.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage identifier(String identifier) {
             this.identifier = Optional.ofNullable(identifier);
             return this;
@@ -290,7 +290,7 @@ public final class GetGuardianEnrollmentResponseContent {
         /**
          * <p>Device identifier. This is usually the phone identifier.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "identifier", nulls = Nulls.SKIP)
         public _FinalStage identifier(Optional<String> identifier) {
             this.identifier = identifier;
@@ -301,7 +301,7 @@ public final class GetGuardianEnrollmentResponseContent {
          * <p>Device name (only for push notification).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage name(String name) {
             this.name = Optional.ofNullable(name);
             return this;
@@ -310,27 +310,27 @@ public final class GetGuardianEnrollmentResponseContent {
         /**
          * <p>Device name (only for push notification).</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<String> name) {
             this.name = name;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage status(GuardianEnrollmentStatus status) {
             this.status = Optional.ofNullable(status);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public _FinalStage status(Optional<GuardianEnrollmentStatus> status) {
             this.status = status;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public GetGuardianEnrollmentResponseContent build() {
             return new GetGuardianEnrollmentResponseContent(
                     id, status, name, identifier, phoneNumber, enrolledAt, lastAuth, additionalProperties);

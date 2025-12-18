@@ -88,7 +88,7 @@ public final class CreateScimTokenResponseContent {
         return validUntil;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateScimTokenResponseContent && equalTo((CreateScimTokenResponseContent) other);
@@ -107,12 +107,12 @@ public final class CreateScimTokenResponseContent {
                 && validUntil.equals(other.validUntil);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.tokenId, this.token, this.scopes, this.createdAt, this.validUntil);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

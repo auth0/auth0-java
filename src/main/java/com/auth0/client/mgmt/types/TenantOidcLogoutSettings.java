@@ -38,7 +38,7 @@ public final class TenantOidcLogoutSettings {
         return rpLogoutEndSessionEndpointDiscovery;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof TenantOidcLogoutSettings && equalTo((TenantOidcLogoutSettings) other);
@@ -53,12 +53,12 @@ public final class TenantOidcLogoutSettings {
         return rpLogoutEndSessionEndpointDiscovery.equals(other.rpLogoutEndSessionEndpointDiscovery);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.rpLogoutEndSessionEndpointDiscovery);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

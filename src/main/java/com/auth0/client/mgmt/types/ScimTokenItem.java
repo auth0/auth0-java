@@ -88,7 +88,7 @@ public final class ScimTokenItem {
         return lastUsedAt;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ScimTokenItem && equalTo((ScimTokenItem) other);
@@ -107,12 +107,12 @@ public final class ScimTokenItem {
                 && lastUsedAt.equals(other.lastUsedAt);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.tokenId, this.scopes, this.createdAt, this.validUntil, this.lastUsedAt);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

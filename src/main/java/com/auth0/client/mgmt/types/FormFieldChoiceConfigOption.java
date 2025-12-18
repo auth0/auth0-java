@@ -41,7 +41,7 @@ public final class FormFieldChoiceConfigOption {
         return label;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldChoiceConfigOption && equalTo((FormFieldChoiceConfigOption) other);
@@ -56,12 +56,12 @@ public final class FormFieldChoiceConfigOption {
         return value.equals(other.value) && label.equals(other.label);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.value, this.label);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -95,28 +95,28 @@ public final class FormFieldChoiceConfigOption {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FormFieldChoiceConfigOption other) {
             value(other.getValue());
             label(other.getLabel());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("value")
         public LabelStage value(@NotNull String value) {
             this.value = Objects.requireNonNull(value, "value must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("label")
         public _FinalStage label(@NotNull String label) {
             this.label = Objects.requireNonNull(label, "label must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FormFieldChoiceConfigOption build() {
             return new FormFieldChoiceConfigOption(value, label, additionalProperties);
         }

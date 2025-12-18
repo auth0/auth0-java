@@ -54,7 +54,7 @@ public final class GetGuardianFactorDuoSettingsResponseContent {
         return host;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetGuardianFactorDuoSettingsResponseContent
@@ -70,12 +70,12 @@ public final class GetGuardianFactorDuoSettingsResponseContent {
         return ikey.equals(other.ikey) && skey.equals(other.skey) && host.equals(other.host);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.ikey, this.skey, this.host);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

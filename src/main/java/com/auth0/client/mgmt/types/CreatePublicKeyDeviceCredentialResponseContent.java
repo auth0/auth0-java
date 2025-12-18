@@ -36,7 +36,7 @@ public final class CreatePublicKeyDeviceCredentialResponseContent {
         return id;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreatePublicKeyDeviceCredentialResponseContent
@@ -52,12 +52,12 @@ public final class CreatePublicKeyDeviceCredentialResponseContent {
         return id.equals(other.id);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.id);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -88,7 +88,7 @@ public final class CreatePublicKeyDeviceCredentialResponseContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(CreatePublicKeyDeviceCredentialResponseContent other) {
             id(other.getId());
             return this;
@@ -99,14 +99,14 @@ public final class CreatePublicKeyDeviceCredentialResponseContent {
          * <p>The credential's identifier</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("id")
         public _FinalStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public CreatePublicKeyDeviceCredentialResponseContent build() {
             return new CreatePublicKeyDeviceCredentialResponseContent(id, additionalProperties);
         }

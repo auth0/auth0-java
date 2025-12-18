@@ -49,7 +49,7 @@ public final class ClientAddonSsoIntegration {
         return version;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientAddonSsoIntegration && equalTo((ClientAddonSsoIntegration) other);
@@ -64,12 +64,12 @@ public final class ClientAddonSsoIntegration {
         return name.equals(other.name) && version.equals(other.version);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.name, this.version);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -4,6 +4,7 @@
 package com.auth0.client.mgmt.types;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -31,7 +32,7 @@ public final class FlowActionHttpSendRequestParams {
 
     private final Optional<FlowActionHttpSendRequestParamsBasicAuth> basic;
 
-    private final Optional<Map<String, Object>> params;
+    private final Optional<Map<String, OptionalNullable<FlowActionHttpSendRequestParamsQueryParamsValue>>> params;
 
     private final Optional<FlowActionHttpSendRequestParamsPayload> payload;
 
@@ -45,7 +46,7 @@ public final class FlowActionHttpSendRequestParams {
             Optional<FlowActionHttpSendRequestParamsMethod> method,
             Optional<Map<String, Object>> headers,
             Optional<FlowActionHttpSendRequestParamsBasicAuth> basic,
-            Optional<Map<String, Object>> params,
+            Optional<Map<String, OptionalNullable<FlowActionHttpSendRequestParamsQueryParamsValue>>> params,
             Optional<FlowActionHttpSendRequestParamsPayload> payload,
             Optional<FlowActionHttpSendRequestParamsContentType> contentType,
             Map<String, Object> additionalProperties) {
@@ -86,7 +87,7 @@ public final class FlowActionHttpSendRequestParams {
     }
 
     @JsonProperty("params")
-    public Optional<Map<String, Object>> getParams() {
+    public Optional<Map<String, OptionalNullable<FlowActionHttpSendRequestParamsQueryParamsValue>>> getParams() {
         return params;
     }
 
@@ -100,7 +101,7 @@ public final class FlowActionHttpSendRequestParams {
         return contentType;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionHttpSendRequestParams && equalTo((FlowActionHttpSendRequestParams) other);
@@ -122,7 +123,7 @@ public final class FlowActionHttpSendRequestParams {
                 && contentType.equals(other.contentType);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.connectionId,
@@ -135,7 +136,7 @@ public final class FlowActionHttpSendRequestParams {
                 this.contentType);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -169,9 +170,10 @@ public final class FlowActionHttpSendRequestParams {
 
         _FinalStage basic(FlowActionHttpSendRequestParamsBasicAuth basic);
 
-        _FinalStage params(Optional<Map<String, Object>> params);
+        _FinalStage params(
+                Optional<Map<String, OptionalNullable<FlowActionHttpSendRequestParamsQueryParamsValue>>> params);
 
-        _FinalStage params(Map<String, Object> params);
+        _FinalStage params(Map<String, OptionalNullable<FlowActionHttpSendRequestParamsQueryParamsValue>> params);
 
         _FinalStage payload(Optional<FlowActionHttpSendRequestParamsPayload> payload);
 
@@ -190,7 +192,8 @@ public final class FlowActionHttpSendRequestParams {
 
         private Optional<FlowActionHttpSendRequestParamsPayload> payload = Optional.empty();
 
-        private Optional<Map<String, Object>> params = Optional.empty();
+        private Optional<Map<String, OptionalNullable<FlowActionHttpSendRequestParamsQueryParamsValue>>> params =
+                Optional.empty();
 
         private Optional<FlowActionHttpSendRequestParamsBasicAuth> basic = Optional.empty();
 
@@ -205,7 +208,7 @@ public final class FlowActionHttpSendRequestParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionHttpSendRequestParams other) {
             connectionId(other.getConnectionId());
             url(other.getUrl());
@@ -218,105 +221,107 @@ public final class FlowActionHttpSendRequestParams {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("url")
         public _FinalStage url(@NotNull String url) {
             this.url = Objects.requireNonNull(url, "url must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage contentType(FlowActionHttpSendRequestParamsContentType contentType) {
             this.contentType = Optional.ofNullable(contentType);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "content_type", nulls = Nulls.SKIP)
         public _FinalStage contentType(Optional<FlowActionHttpSendRequestParamsContentType> contentType) {
             this.contentType = contentType;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage payload(FlowActionHttpSendRequestParamsPayload payload) {
             this.payload = Optional.ofNullable(payload);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "payload", nulls = Nulls.SKIP)
         public _FinalStage payload(Optional<FlowActionHttpSendRequestParamsPayload> payload) {
             this.payload = payload;
             return this;
         }
 
-        @java.lang.Override
-        public _FinalStage params(Map<String, Object> params) {
+        @Override
+        public _FinalStage params(
+                Map<String, OptionalNullable<FlowActionHttpSendRequestParamsQueryParamsValue>> params) {
             this.params = Optional.ofNullable(params);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "params", nulls = Nulls.SKIP)
-        public _FinalStage params(Optional<Map<String, Object>> params) {
+        public _FinalStage params(
+                Optional<Map<String, OptionalNullable<FlowActionHttpSendRequestParamsQueryParamsValue>>> params) {
             this.params = params;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage basic(FlowActionHttpSendRequestParamsBasicAuth basic) {
             this.basic = Optional.ofNullable(basic);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "basic", nulls = Nulls.SKIP)
         public _FinalStage basic(Optional<FlowActionHttpSendRequestParamsBasicAuth> basic) {
             this.basic = basic;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage headers(Map<String, Object> headers) {
             this.headers = Optional.ofNullable(headers);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "headers", nulls = Nulls.SKIP)
         public _FinalStage headers(Optional<Map<String, Object>> headers) {
             this.headers = headers;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage method(FlowActionHttpSendRequestParamsMethod method) {
             this.method = Optional.ofNullable(method);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "method", nulls = Nulls.SKIP)
         public _FinalStage method(Optional<FlowActionHttpSendRequestParamsMethod> method) {
             this.method = method;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage connectionId(String connectionId) {
             this.connectionId = Optional.ofNullable(connectionId);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "connection_id", nulls = Nulls.SKIP)
         public _FinalStage connectionId(Optional<String> connectionId) {
             this.connectionId = connectionId;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionHttpSendRequestParams build() {
             return new FlowActionHttpSendRequestParams(
                     connectionId, url, method, headers, basic, params, payload, contentType, additionalProperties);

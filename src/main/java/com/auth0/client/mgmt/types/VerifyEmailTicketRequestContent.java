@@ -109,7 +109,7 @@ public final class VerifyEmailTicketRequestContent {
         return identity;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof VerifyEmailTicketRequestContent && equalTo((VerifyEmailTicketRequestContent) other);
@@ -130,7 +130,7 @@ public final class VerifyEmailTicketRequestContent {
                 && identity.equals(other.identity);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.resultUrl,
@@ -142,7 +142,7 @@ public final class VerifyEmailTicketRequestContent {
                 this.identity);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -224,7 +224,7 @@ public final class VerifyEmailTicketRequestContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(VerifyEmailTicketRequestContent other) {
             resultUrl(other.getResultUrl());
             userId(other.getUserId());
@@ -241,20 +241,20 @@ public final class VerifyEmailTicketRequestContent {
          * <p>user_id of for whom the ticket should be created.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("user_id")
         public _FinalStage userId(@NotNull String userId) {
             this.userId = Objects.requireNonNull(userId, "userId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage identity(Identity identity) {
             this.identity = Optional.ofNullable(identity);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "identity", nulls = Nulls.SKIP)
         public _FinalStage identity(Optional<Identity> identity) {
             this.identity = identity;
@@ -265,7 +265,7 @@ public final class VerifyEmailTicketRequestContent {
          * <p>Whether to include the email address as part of the returnUrl in the reset_email (true), or not (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage includeEmailInRedirect(Boolean includeEmailInRedirect) {
             this.includeEmailInRedirect = Optional.ofNullable(includeEmailInRedirect);
             return this;
@@ -274,7 +274,7 @@ public final class VerifyEmailTicketRequestContent {
         /**
          * <p>Whether to include the email address as part of the returnUrl in the reset_email (true), or not (false).</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "includeEmailInRedirect", nulls = Nulls.SKIP)
         public _FinalStage includeEmailInRedirect(Optional<Boolean> includeEmailInRedirect) {
             this.includeEmailInRedirect = includeEmailInRedirect;
@@ -285,7 +285,7 @@ public final class VerifyEmailTicketRequestContent {
          * <p>Number of seconds for which the ticket is valid before expiration. If unspecified or set to 0, this value defaults to 432000 seconds (5 days).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage ttlSec(Integer ttlSec) {
             this.ttlSec = Optional.ofNullable(ttlSec);
             return this;
@@ -294,7 +294,7 @@ public final class VerifyEmailTicketRequestContent {
         /**
          * <p>Number of seconds for which the ticket is valid before expiration. If unspecified or set to 0, this value defaults to 432000 seconds (5 days).</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "ttl_sec", nulls = Nulls.SKIP)
         public _FinalStage ttlSec(Optional<Integer> ttlSec) {
             this.ttlSec = ttlSec;
@@ -305,7 +305,7 @@ public final class VerifyEmailTicketRequestContent {
          * <p>(Optional) Organization ID – the ID of the Organization. If provided, organization parameters will be made available to the email template and organization branding will be applied to the prompt. In addition, the redirect link in the prompt will include organization_id and organization_name query string parameters.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage organizationId(String organizationId) {
             this.organizationId = Optional.ofNullable(organizationId);
             return this;
@@ -314,7 +314,7 @@ public final class VerifyEmailTicketRequestContent {
         /**
          * <p>(Optional) Organization ID – the ID of the Organization. If provided, organization parameters will be made available to the email template and organization branding will be applied to the prompt. In addition, the redirect link in the prompt will include organization_id and organization_name query string parameters.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "organization_id", nulls = Nulls.SKIP)
         public _FinalStage organizationId(Optional<String> organizationId) {
             this.organizationId = organizationId;
@@ -325,7 +325,7 @@ public final class VerifyEmailTicketRequestContent {
          * <p>ID of the client (application). If provided for tenants using the New Universal Login experience, the email template and UI displays application details, and the user is prompted to redirect to the application's &lt;a target='' href='https://auth0.com/docs/authenticate/login/auth0-universal-login/configure-default-login-routes#completing-the-password-reset-flow'&gt;default login route&lt;/a&gt; after the ticket is used. client_id is required to use the &lt;a target='' href='https://auth0.com/docs/customize/actions/flows-and-triggers/post-change-password-flow'&gt;Password Reset Post Challenge&lt;/a&gt; trigger.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage clientId(String clientId) {
             this.clientId = Optional.ofNullable(clientId);
             return this;
@@ -334,7 +334,7 @@ public final class VerifyEmailTicketRequestContent {
         /**
          * <p>ID of the client (application). If provided for tenants using the New Universal Login experience, the email template and UI displays application details, and the user is prompted to redirect to the application's &lt;a target='' href='https://auth0.com/docs/authenticate/login/auth0-universal-login/configure-default-login-routes#completing-the-password-reset-flow'&gt;default login route&lt;/a&gt; after the ticket is used. client_id is required to use the &lt;a target='' href='https://auth0.com/docs/customize/actions/flows-and-triggers/post-change-password-flow'&gt;Password Reset Post Challenge&lt;/a&gt; trigger.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "client_id", nulls = Nulls.SKIP)
         public _FinalStage clientId(Optional<String> clientId) {
             this.clientId = clientId;
@@ -345,7 +345,7 @@ public final class VerifyEmailTicketRequestContent {
          * <p>URL the user will be redirected to in the classic Universal Login experience once the ticket is used. Cannot be specified when using client_id or organization_id.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage resultUrl(String resultUrl) {
             this.resultUrl = Optional.ofNullable(resultUrl);
             return this;
@@ -354,14 +354,14 @@ public final class VerifyEmailTicketRequestContent {
         /**
          * <p>URL the user will be redirected to in the classic Universal Login experience once the ticket is used. Cannot be specified when using client_id or organization_id.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "result_url", nulls = Nulls.SKIP)
         public _FinalStage resultUrl(Optional<String> resultUrl) {
             this.resultUrl = resultUrl;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public VerifyEmailTicketRequestContent build() {
             return new VerifyEmailTicketRequestContent(
                     resultUrl,

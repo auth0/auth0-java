@@ -60,7 +60,7 @@ public final class EmailProviderCredentialsSchemaApiKey {
         return region;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof EmailProviderCredentialsSchemaApiKey
@@ -76,12 +76,12 @@ public final class EmailProviderCredentialsSchemaApiKey {
         return apiKey.equals(other.apiKey) && domain.equals(other.domain) && region.equals(other.region);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.apiKey, this.domain, this.region);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

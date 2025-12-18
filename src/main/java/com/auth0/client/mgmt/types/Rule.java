@@ -99,7 +99,7 @@ public final class Rule {
         return stage;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof Rule && equalTo((Rule) other);
@@ -119,12 +119,12 @@ public final class Rule {
                 && stage.equals(other.stage);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.name, this.id, this.enabled, this.script, this.order, this.stage);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

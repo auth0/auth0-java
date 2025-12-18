@@ -10,18 +10,28 @@ import java.util.function.Supplier;
 public class AttackProtectionClient {
     protected final ClientOptions clientOptions;
 
+    protected final Supplier<BotDetectionClient> botDetectionClient;
+
     protected final Supplier<BreachedPasswordDetectionClient> breachedPasswordDetectionClient;
 
     protected final Supplier<BruteForceProtectionClient> bruteForceProtectionClient;
+
+    protected final Supplier<CaptchaClient> captchaClient;
 
     protected final Supplier<SuspiciousIpThrottlingClient> suspiciousIpThrottlingClient;
 
     public AttackProtectionClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.botDetectionClient = Suppliers.memoize(() -> new BotDetectionClient(clientOptions));
         this.breachedPasswordDetectionClient =
                 Suppliers.memoize(() -> new BreachedPasswordDetectionClient(clientOptions));
         this.bruteForceProtectionClient = Suppliers.memoize(() -> new BruteForceProtectionClient(clientOptions));
+        this.captchaClient = Suppliers.memoize(() -> new CaptchaClient(clientOptions));
         this.suspiciousIpThrottlingClient = Suppliers.memoize(() -> new SuspiciousIpThrottlingClient(clientOptions));
+    }
+
+    public BotDetectionClient botDetection() {
+        return this.botDetectionClient.get();
     }
 
     public BreachedPasswordDetectionClient breachedPasswordDetection() {
@@ -30,6 +40,10 @@ public class AttackProtectionClient {
 
     public BruteForceProtectionClient bruteForceProtection() {
         return this.bruteForceProtectionClient.get();
+    }
+
+    public CaptchaClient captcha() {
+        return this.captchaClient.get();
     }
 
     public SuspiciousIpThrottlingClient suspiciousIpThrottling() {

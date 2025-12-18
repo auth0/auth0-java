@@ -22,8 +22,6 @@ import java.util.Optional;
 public final class OrganizationConnection {
     private final Optional<String> connectionId;
 
-    private final Optional<String> organizationConnectionName;
-
     private final Optional<Boolean> assignMembershipOnLogin;
 
     private final Optional<Boolean> showAsButton;
@@ -32,30 +30,20 @@ public final class OrganizationConnection {
 
     private final Optional<OrganizationConnectionInformation> connection;
 
-    private final Optional<OrganizationAccessLevelEnum> organizationAccessLevel;
-
-    private final Optional<Boolean> isEnabled;
-
     private final Map<String, Object> additionalProperties;
 
     private OrganizationConnection(
             Optional<String> connectionId,
-            Optional<String> organizationConnectionName,
             Optional<Boolean> assignMembershipOnLogin,
             Optional<Boolean> showAsButton,
             Optional<Boolean> isSignupEnabled,
             Optional<OrganizationConnectionInformation> connection,
-            Optional<OrganizationAccessLevelEnum> organizationAccessLevel,
-            Optional<Boolean> isEnabled,
             Map<String, Object> additionalProperties) {
         this.connectionId = connectionId;
-        this.organizationConnectionName = organizationConnectionName;
         this.assignMembershipOnLogin = assignMembershipOnLogin;
         this.showAsButton = showAsButton;
         this.isSignupEnabled = isSignupEnabled;
         this.connection = connection;
-        this.organizationAccessLevel = organizationAccessLevel;
-        this.isEnabled = isEnabled;
         this.additionalProperties = additionalProperties;
     }
 
@@ -65,14 +53,6 @@ public final class OrganizationConnection {
     @JsonProperty("connection_id")
     public Optional<String> getConnectionId() {
         return connectionId;
-    }
-
-    /**
-     * @return Name of the connection in the scope of this organization.
-     */
-    @JsonProperty("organization_connection_name")
-    public Optional<String> getOrganizationConnectionName() {
-        return organizationConnectionName;
     }
 
     /**
@@ -104,20 +84,7 @@ public final class OrganizationConnection {
         return connection;
     }
 
-    @JsonProperty("organization_access_level")
-    public Optional<OrganizationAccessLevelEnum> getOrganizationAccessLevel() {
-        return organizationAccessLevel;
-    }
-
-    /**
-     * @return Whether the connection is enabled for the organization.
-     */
-    @JsonProperty("is_enabled")
-    public Optional<Boolean> getIsEnabled() {
-        return isEnabled;
-    }
-
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof OrganizationConnection && equalTo((OrganizationConnection) other);
@@ -130,29 +97,23 @@ public final class OrganizationConnection {
 
     private boolean equalTo(OrganizationConnection other) {
         return connectionId.equals(other.connectionId)
-                && organizationConnectionName.equals(other.organizationConnectionName)
                 && assignMembershipOnLogin.equals(other.assignMembershipOnLogin)
                 && showAsButton.equals(other.showAsButton)
                 && isSignupEnabled.equals(other.isSignupEnabled)
-                && connection.equals(other.connection)
-                && organizationAccessLevel.equals(other.organizationAccessLevel)
-                && isEnabled.equals(other.isEnabled);
+                && connection.equals(other.connection);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.connectionId,
-                this.organizationConnectionName,
                 this.assignMembershipOnLogin,
                 this.showAsButton,
                 this.isSignupEnabled,
-                this.connection,
-                this.organizationAccessLevel,
-                this.isEnabled);
+                this.connection);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -165,8 +126,6 @@ public final class OrganizationConnection {
     public static final class Builder {
         private Optional<String> connectionId = Optional.empty();
 
-        private Optional<String> organizationConnectionName = Optional.empty();
-
         private Optional<Boolean> assignMembershipOnLogin = Optional.empty();
 
         private Optional<Boolean> showAsButton = Optional.empty();
@@ -175,10 +134,6 @@ public final class OrganizationConnection {
 
         private Optional<OrganizationConnectionInformation> connection = Optional.empty();
 
-        private Optional<OrganizationAccessLevelEnum> organizationAccessLevel = Optional.empty();
-
-        private Optional<Boolean> isEnabled = Optional.empty();
-
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -186,13 +141,10 @@ public final class OrganizationConnection {
 
         public Builder from(OrganizationConnection other) {
             connectionId(other.getConnectionId());
-            organizationConnectionName(other.getOrganizationConnectionName());
             assignMembershipOnLogin(other.getAssignMembershipOnLogin());
             showAsButton(other.getShowAsButton());
             isSignupEnabled(other.getIsSignupEnabled());
             connection(other.getConnection());
-            organizationAccessLevel(other.getOrganizationAccessLevel());
-            isEnabled(other.getIsEnabled());
             return this;
         }
 
@@ -207,20 +159,6 @@ public final class OrganizationConnection {
 
         public Builder connectionId(String connectionId) {
             this.connectionId = Optional.ofNullable(connectionId);
-            return this;
-        }
-
-        /**
-         * <p>Name of the connection in the scope of this organization.</p>
-         */
-        @JsonSetter(value = "organization_connection_name", nulls = Nulls.SKIP)
-        public Builder organizationConnectionName(Optional<String> organizationConnectionName) {
-            this.organizationConnectionName = organizationConnectionName;
-            return this;
-        }
-
-        public Builder organizationConnectionName(String organizationConnectionName) {
-            this.organizationConnectionName = Optional.ofNullable(organizationConnectionName);
             return this;
         }
 
@@ -277,41 +215,13 @@ public final class OrganizationConnection {
             return this;
         }
 
-        @JsonSetter(value = "organization_access_level", nulls = Nulls.SKIP)
-        public Builder organizationAccessLevel(Optional<OrganizationAccessLevelEnum> organizationAccessLevel) {
-            this.organizationAccessLevel = organizationAccessLevel;
-            return this;
-        }
-
-        public Builder organizationAccessLevel(OrganizationAccessLevelEnum organizationAccessLevel) {
-            this.organizationAccessLevel = Optional.ofNullable(organizationAccessLevel);
-            return this;
-        }
-
-        /**
-         * <p>Whether the connection is enabled for the organization.</p>
-         */
-        @JsonSetter(value = "is_enabled", nulls = Nulls.SKIP)
-        public Builder isEnabled(Optional<Boolean> isEnabled) {
-            this.isEnabled = isEnabled;
-            return this;
-        }
-
-        public Builder isEnabled(Boolean isEnabled) {
-            this.isEnabled = Optional.ofNullable(isEnabled);
-            return this;
-        }
-
         public OrganizationConnection build() {
             return new OrganizationConnection(
                     connectionId,
-                    organizationConnectionName,
                     assignMembershipOnLogin,
                     showAsButton,
                     isSignupEnabled,
                     connection,
-                    organizationAccessLevel,
-                    isEnabled,
                     additionalProperties);
         }
     }

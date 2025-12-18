@@ -46,7 +46,7 @@ public final class CreateEventStreamTestEventRequestContent {
         return data;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateEventStreamTestEventRequestContent
@@ -62,12 +62,12 @@ public final class CreateEventStreamTestEventRequestContent {
         return eventType.equals(other.eventType) && data.equals(other.data);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.eventType, this.data);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -101,34 +101,34 @@ public final class CreateEventStreamTestEventRequestContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(CreateEventStreamTestEventRequestContent other) {
             eventType(other.getEventType());
             data(other.getData());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("event_type")
         public _FinalStage eventType(@NotNull EventStreamTestEventTypeEnum eventType) {
             this.eventType = Objects.requireNonNull(eventType, "eventType must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage data(Map<String, Object> data) {
             this.data = Optional.ofNullable(data);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "data", nulls = Nulls.SKIP)
         public _FinalStage data(Optional<Map<String, Object>> data) {
             this.data = data;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public CreateEventStreamTestEventRequestContent build() {
             return new CreateEventStreamTestEventRequestContent(eventType, data, additionalProperties);
         }

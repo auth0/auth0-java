@@ -122,7 +122,7 @@ public final class ActionDeployedVersion {
     }
 
     /**
-     * @return Indicates if this speciic version is the currently one deployed.
+     * @return Indicates if this specific version is the currently one deployed.
      */
     @JsonProperty("deployed")
     public Optional<Boolean> getDeployed() {
@@ -130,7 +130,7 @@ public final class ActionDeployedVersion {
     }
 
     /**
-     * @return The Node runtime. For example: <code>node12</code>
+     * @return The Node runtime. For example: <code>node22</code>
      */
     @JsonProperty("runtime")
     public Optional<String> getRuntime() {
@@ -203,7 +203,7 @@ public final class ActionDeployedVersion {
         return supportedTriggers;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ActionDeployedVersion && equalTo((ActionDeployedVersion) other);
@@ -232,7 +232,7 @@ public final class ActionDeployedVersion {
                 && supportedTriggers.equals(other.supportedTriggers);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -252,7 +252,7 @@ public final class ActionDeployedVersion {
                 this.supportedTriggers);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -374,7 +374,7 @@ public final class ActionDeployedVersion {
         }
 
         /**
-         * <p>Indicates if this speciic version is the currently one deployed.</p>
+         * <p>Indicates if this specific version is the currently one deployed.</p>
          */
         @JsonSetter(value = "deployed", nulls = Nulls.SKIP)
         public Builder deployed(Optional<Boolean> deployed) {
@@ -388,7 +388,7 @@ public final class ActionDeployedVersion {
         }
 
         /**
-         * <p>The Node runtime. For example: <code>node12</code></p>
+         * <p>The Node runtime. For example: <code>node22</code></p>
          */
         @JsonSetter(value = "runtime", nulls = Nulls.SKIP)
         public Builder runtime(Optional<String> runtime) {

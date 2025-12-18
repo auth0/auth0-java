@@ -10,6 +10,7 @@ import com.auth0.client.mgmt.core.Suppliers;
 import com.auth0.client.mgmt.emails.EmailsClient;
 import com.auth0.client.mgmt.guardian.GuardianClient;
 import com.auth0.client.mgmt.keys.KeysClient;
+import com.auth0.client.mgmt.riskassessments.RiskAssessmentsClient;
 import com.auth0.client.mgmt.tenants.TenantsClient;
 import com.auth0.client.mgmt.verifiablecredentials.VerifiableCredentialsClient;
 import java.util.function.Supplier;
@@ -24,6 +25,8 @@ public class ManagementApi {
     protected final Supplier<ClientGrantsClient> clientGrantsClient;
 
     protected final Supplier<ClientsClient> clientsClient;
+
+    protected final Supplier<ConnectionProfilesClient> connectionProfilesClient;
 
     protected final Supplier<ConnectionsClient> connectionsClient;
 
@@ -77,6 +80,8 @@ public class ManagementApi {
 
     protected final Supplier<TokenExchangeProfilesClient> tokenExchangeProfilesClient;
 
+    protected final Supplier<UserAttributeProfilesClient> userAttributeProfilesClient;
+
     protected final Supplier<UserBlocksClient> userBlocksClient;
 
     protected final Supplier<UsersClient> usersClient;
@@ -91,6 +96,8 @@ public class ManagementApi {
 
     protected final Supplier<KeysClient> keysClient;
 
+    protected final Supplier<RiskAssessmentsClient> riskAssessmentsClient;
+
     protected final Supplier<TenantsClient> tenantsClient;
 
     protected final Supplier<VerifiableCredentialsClient> verifiableCredentialsClient;
@@ -101,6 +108,7 @@ public class ManagementApi {
         this.brandingClient = Suppliers.memoize(() -> new BrandingClient(clientOptions));
         this.clientGrantsClient = Suppliers.memoize(() -> new ClientGrantsClient(clientOptions));
         this.clientsClient = Suppliers.memoize(() -> new ClientsClient(clientOptions));
+        this.connectionProfilesClient = Suppliers.memoize(() -> new ConnectionProfilesClient(clientOptions));
         this.connectionsClient = Suppliers.memoize(() -> new ConnectionsClient(clientOptions));
         this.customDomainsClient = Suppliers.memoize(() -> new CustomDomainsClient(clientOptions));
         this.deviceCredentialsClient = Suppliers.memoize(() -> new DeviceCredentialsClient(clientOptions));
@@ -127,6 +135,7 @@ public class ManagementApi {
         this.supplementalSignalsClient = Suppliers.memoize(() -> new SupplementalSignalsClient(clientOptions));
         this.ticketsClient = Suppliers.memoize(() -> new TicketsClient(clientOptions));
         this.tokenExchangeProfilesClient = Suppliers.memoize(() -> new TokenExchangeProfilesClient(clientOptions));
+        this.userAttributeProfilesClient = Suppliers.memoize(() -> new UserAttributeProfilesClient(clientOptions));
         this.userBlocksClient = Suppliers.memoize(() -> new UserBlocksClient(clientOptions));
         this.usersClient = Suppliers.memoize(() -> new UsersClient(clientOptions));
         this.anomalyClient = Suppliers.memoize(() -> new AnomalyClient(clientOptions));
@@ -134,6 +143,7 @@ public class ManagementApi {
         this.emailsClient = Suppliers.memoize(() -> new EmailsClient(clientOptions));
         this.guardianClient = Suppliers.memoize(() -> new GuardianClient(clientOptions));
         this.keysClient = Suppliers.memoize(() -> new KeysClient(clientOptions));
+        this.riskAssessmentsClient = Suppliers.memoize(() -> new RiskAssessmentsClient(clientOptions));
         this.tenantsClient = Suppliers.memoize(() -> new TenantsClient(clientOptions));
         this.verifiableCredentialsClient = Suppliers.memoize(() -> new VerifiableCredentialsClient(clientOptions));
     }
@@ -152,6 +162,10 @@ public class ManagementApi {
 
     public ClientsClient clients() {
         return this.clientsClient.get();
+    }
+
+    public ConnectionProfilesClient connectionProfiles() {
+        return this.connectionProfilesClient.get();
     }
 
     public ConnectionsClient connections() {
@@ -258,6 +272,10 @@ public class ManagementApi {
         return this.tokenExchangeProfilesClient.get();
     }
 
+    public UserAttributeProfilesClient userAttributeProfiles() {
+        return this.userAttributeProfilesClient.get();
+    }
+
     public UserBlocksClient userBlocks() {
         return this.userBlocksClient.get();
     }
@@ -284,6 +302,10 @@ public class ManagementApi {
 
     public KeysClient keys() {
         return this.keysClient.get();
+    }
+
+    public RiskAssessmentsClient riskAssessments() {
+        return this.riskAssessmentsClient.get();
     }
 
     public TenantsClient tenants() {

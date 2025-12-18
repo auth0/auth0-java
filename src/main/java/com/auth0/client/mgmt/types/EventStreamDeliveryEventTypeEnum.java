@@ -7,6 +7,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class EventStreamDeliveryEventTypeEnum {
+    public static final EventStreamDeliveryEventTypeEnum GROUP_DELETED =
+            new EventStreamDeliveryEventTypeEnum(Value.GROUP_DELETED, "group.deleted");
+
     public static final EventStreamDeliveryEventTypeEnum ORGANIZATION_CONNECTION_ADDED =
             new EventStreamDeliveryEventTypeEnum(Value.ORGANIZATION_CONNECTION_ADDED, "organization.connection.added");
 
@@ -29,12 +32,24 @@ public final class EventStreamDeliveryEventTypeEnum {
     public static final EventStreamDeliveryEventTypeEnum ORGANIZATION_UPDATED =
             new EventStreamDeliveryEventTypeEnum(Value.ORGANIZATION_UPDATED, "organization.updated");
 
+    public static final EventStreamDeliveryEventTypeEnum GROUP_MEMBER_ADDED =
+            new EventStreamDeliveryEventTypeEnum(Value.GROUP_MEMBER_ADDED, "group.member.added");
+
+    public static final EventStreamDeliveryEventTypeEnum GROUP_CREATED =
+            new EventStreamDeliveryEventTypeEnum(Value.GROUP_CREATED, "group.created");
+
+    public static final EventStreamDeliveryEventTypeEnum GROUP_UPDATED =
+            new EventStreamDeliveryEventTypeEnum(Value.GROUP_UPDATED, "group.updated");
+
     public static final EventStreamDeliveryEventTypeEnum USER_CREATED =
             new EventStreamDeliveryEventTypeEnum(Value.USER_CREATED, "user.created");
 
     public static final EventStreamDeliveryEventTypeEnum ORGANIZATION_CONNECTION_REMOVED =
             new EventStreamDeliveryEventTypeEnum(
                     Value.ORGANIZATION_CONNECTION_REMOVED, "organization.connection.removed");
+
+    public static final EventStreamDeliveryEventTypeEnum GROUP_MEMBER_DELETED =
+            new EventStreamDeliveryEventTypeEnum(Value.GROUP_MEMBER_DELETED, "group.member.deleted");
 
     public static final EventStreamDeliveryEventTypeEnum ORGANIZATION_MEMBER_ROLE_ASSIGNED =
             new EventStreamDeliveryEventTypeEnum(
@@ -63,26 +78,28 @@ public final class EventStreamDeliveryEventTypeEnum {
         return value;
     }
 
-    @java.lang.Override
+    @Override
     @JsonValue
     public String toString() {
         return this.string;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         return (this == other)
                 || (other instanceof EventStreamDeliveryEventTypeEnum
                         && this.string.equals(((EventStreamDeliveryEventTypeEnum) other).string));
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return this.string.hashCode();
     }
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
+            case GROUP_DELETED:
+                return visitor.visitGroupDeleted();
             case ORGANIZATION_CONNECTION_ADDED:
                 return visitor.visitOrganizationConnectionAdded();
             case USER_DELETED:
@@ -97,10 +114,18 @@ public final class EventStreamDeliveryEventTypeEnum {
                 return visitor.visitOrganizationMemberDeleted();
             case ORGANIZATION_UPDATED:
                 return visitor.visitOrganizationUpdated();
+            case GROUP_MEMBER_ADDED:
+                return visitor.visitGroupMemberAdded();
+            case GROUP_CREATED:
+                return visitor.visitGroupCreated();
+            case GROUP_UPDATED:
+                return visitor.visitGroupUpdated();
             case USER_CREATED:
                 return visitor.visitUserCreated();
             case ORGANIZATION_CONNECTION_REMOVED:
                 return visitor.visitOrganizationConnectionRemoved();
+            case GROUP_MEMBER_DELETED:
+                return visitor.visitGroupMemberDeleted();
             case ORGANIZATION_MEMBER_ROLE_ASSIGNED:
                 return visitor.visitOrganizationMemberRoleAssigned();
             case ORGANIZATION_DELETED:
@@ -118,6 +143,8 @@ public final class EventStreamDeliveryEventTypeEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static EventStreamDeliveryEventTypeEnum valueOf(String value) {
         switch (value) {
+            case "group.deleted":
+                return GROUP_DELETED;
             case "organization.connection.added":
                 return ORGANIZATION_CONNECTION_ADDED;
             case "user.deleted":
@@ -132,10 +159,18 @@ public final class EventStreamDeliveryEventTypeEnum {
                 return ORGANIZATION_MEMBER_DELETED;
             case "organization.updated":
                 return ORGANIZATION_UPDATED;
+            case "group.member.added":
+                return GROUP_MEMBER_ADDED;
+            case "group.created":
+                return GROUP_CREATED;
+            case "group.updated":
+                return GROUP_UPDATED;
             case "user.created":
                 return USER_CREATED;
             case "organization.connection.removed":
                 return ORGANIZATION_CONNECTION_REMOVED;
+            case "group.member.deleted":
+                return GROUP_MEMBER_DELETED;
             case "organization.member.role.assigned":
                 return ORGANIZATION_MEMBER_ROLE_ASSIGNED;
             case "organization.deleted":
@@ -176,6 +211,16 @@ public final class EventStreamDeliveryEventTypeEnum {
 
         ORGANIZATION_CONNECTION_REMOVED,
 
+        GROUP_CREATED,
+
+        GROUP_UPDATED,
+
+        GROUP_DELETED,
+
+        GROUP_MEMBER_ADDED,
+
+        GROUP_MEMBER_DELETED,
+
         UNKNOWN
     }
 
@@ -205,6 +250,16 @@ public final class EventStreamDeliveryEventTypeEnum {
         T visitOrganizationConnectionUpdated();
 
         T visitOrganizationConnectionRemoved();
+
+        T visitGroupCreated();
+
+        T visitGroupUpdated();
+
+        T visitGroupDeleted();
+
+        T visitGroupMemberAdded();
+
+        T visitGroupMemberDeleted();
 
         T visitUnknown(String unknownType);
     }

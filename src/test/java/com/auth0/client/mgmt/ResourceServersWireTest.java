@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateResourceServerRequestContent;
 import com.auth0.client.mgmt.types.CreateResourceServerResponseContent;
@@ -46,13 +47,13 @@ public class ResourceServersWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"resource_servers\":[{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\"}],\"signing_alg\":\"HS256\",\"signing_secret\":\"signing_secret\",\"allow_offline_access\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"alg\":\"RSA-OAEP-256\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true}}]}"));
+                                "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"resource_servers\":[{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\"}],\"signing_alg\":\"HS256\",\"signing_secret\":\"signing_secret\",\"allow_offline_access\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"alg\":\"RSA-OAEP-256\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true},\"client_id\":\"client_id\"}]}"));
         SyncPagingIterable<ResourceServer> response = client.resourceServers()
                 .list(ListResourceServerRequestParameters.builder()
-                        .page(1)
-                        .perPage(1)
-                        .includeTotals(true)
-                        .includeFields(true)
+                        .page(OptionalNullable.of(1))
+                        .perPage(OptionalNullable.of(1))
+                        .includeTotals(OptionalNullable.of(true))
+                        .includeFields(OptionalNullable.of(true))
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -70,7 +71,7 @@ public class ResourceServersWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\",\"description\":\"description\"}],\"signing_alg\":\"HS256\",\"signing_secret\":\"signing_secret\",\"allow_offline_access\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"name\":\"name\",\"alg\":\"RSA-OAEP-256\",\"kid\":\"kid\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"authorization_details\":[{\"key\":\"value\"}],\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true}}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\",\"description\":\"description\"}],\"signing_alg\":\"HS256\",\"signing_secret\":\"signing_secret\",\"allow_offline_access\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"name\":\"name\",\"alg\":\"RSA-OAEP-256\",\"kid\":\"kid\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"authorization_details\":[{\"key\":\"value\"}],\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true},\"subject_type_authorization\":{\"user\":{\"policy\":\"allow_all\"},\"client\":{\"policy\":\"deny_all\"}},\"client_id\":\"client_id\"}"));
         CreateResourceServerResponseContent response = client.resourceServers()
                 .create(CreateResourceServerRequestContent.builder()
                         .identifier("identifier")
@@ -149,7 +150,16 @@ public class ResourceServersWireTest {
                 + "  \"proof_of_possession\": {\n"
                 + "    \"mechanism\": \"mtls\",\n"
                 + "    \"required\": true\n"
-                + "  }\n"
+                + "  },\n"
+                + "  \"subject_type_authorization\": {\n"
+                + "    \"user\": {\n"
+                + "      \"policy\": \"allow_all\"\n"
+                + "    },\n"
+                + "    \"client\": {\n"
+                + "      \"policy\": \"deny_all\"\n"
+                + "    }\n"
+                + "  },\n"
+                + "  \"client_id\": \"client_id\"\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -188,12 +198,12 @@ public class ResourceServersWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\",\"description\":\"description\"}],\"signing_alg\":\"HS256\",\"signing_secret\":\"signing_secret\",\"allow_offline_access\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"name\":\"name\",\"alg\":\"RSA-OAEP-256\",\"kid\":\"kid\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"authorization_details\":[{\"key\":\"value\"}],\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true}}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\",\"description\":\"description\"}],\"signing_alg\":\"HS256\",\"signing_secret\":\"signing_secret\",\"allow_offline_access\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"name\":\"name\",\"alg\":\"RSA-OAEP-256\",\"kid\":\"kid\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"authorization_details\":[{\"key\":\"value\"}],\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true},\"subject_type_authorization\":{\"user\":{\"policy\":\"allow_all\"},\"client\":{\"policy\":\"deny_all\"}},\"client_id\":\"client_id\"}"));
         GetResourceServerResponseContent response = client.resourceServers()
                 .get(
                         "id",
                         GetResourceServerRequestParameters.builder()
-                                .includeFields(true)
+                                .includeFields(OptionalNullable.of(true))
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -240,7 +250,16 @@ public class ResourceServersWireTest {
                 + "  \"proof_of_possession\": {\n"
                 + "    \"mechanism\": \"mtls\",\n"
                 + "    \"required\": true\n"
-                + "  }\n"
+                + "  },\n"
+                + "  \"subject_type_authorization\": {\n"
+                + "    \"user\": {\n"
+                + "      \"policy\": \"allow_all\"\n"
+                + "    },\n"
+                + "    \"client\": {\n"
+                + "      \"policy\": \"deny_all\"\n"
+                + "    }\n"
+                + "  },\n"
+                + "  \"client_id\": \"client_id\"\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -288,7 +307,7 @@ public class ResourceServersWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\",\"description\":\"description\"}],\"signing_alg\":\"HS256\",\"signing_secret\":\"signing_secret\",\"allow_offline_access\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"name\":\"name\",\"alg\":\"RSA-OAEP-256\",\"kid\":\"kid\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"authorization_details\":[{\"key\":\"value\"}],\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true}}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\",\"description\":\"description\"}],\"signing_alg\":\"HS256\",\"signing_secret\":\"signing_secret\",\"allow_offline_access\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"name\":\"name\",\"alg\":\"RSA-OAEP-256\",\"kid\":\"kid\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"authorization_details\":[{\"key\":\"value\"}],\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true},\"subject_type_authorization\":{\"user\":{\"policy\":\"allow_all\"},\"client\":{\"policy\":\"deny_all\"}},\"client_id\":\"client_id\"}"));
         UpdateResourceServerResponseContent response = client.resourceServers()
                 .update("id", UpdateResourceServerRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -365,7 +384,16 @@ public class ResourceServersWireTest {
                 + "  \"proof_of_possession\": {\n"
                 + "    \"mechanism\": \"mtls\",\n"
                 + "    \"required\": true\n"
-                + "  }\n"
+                + "  },\n"
+                + "  \"subject_type_authorization\": {\n"
+                + "    \"user\": {\n"
+                + "      \"policy\": \"allow_all\"\n"
+                + "    },\n"
+                + "    \"client\": {\n"
+                + "      \"policy\": \"deny_all\"\n"
+                + "    }\n"
+                + "  },\n"
+                + "  \"client_id\": \"client_id\"\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -399,24 +427,29 @@ public class ResourceServersWireTest {
     }
 
     /**
-     * Compares two JsonNodes with numeric equivalence.
+     * Compares two JsonNodes with numeric equivalence and null safety.
+     * For objects, checks that all fields in 'expected' exist in 'actual' with matching values.
+     * Allows 'actual' to have extra fields (e.g., default values added during serialization).
      */
-    private boolean jsonEquals(JsonNode a, JsonNode b) {
-        if (a.equals(b)) return true;
-        if (a.isNumber() && b.isNumber()) return Math.abs(a.doubleValue() - b.doubleValue()) < 1e-10;
-        if (a.isObject() && b.isObject()) {
-            if (a.size() != b.size()) return false;
-            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = a.fields();
+    private boolean jsonEquals(JsonNode expected, JsonNode actual) {
+        if (expected == null && actual == null) return true;
+        if (expected == null || actual == null) return false;
+        if (expected.equals(actual)) return true;
+        if (expected.isNumber() && actual.isNumber())
+            return Math.abs(expected.doubleValue() - actual.doubleValue()) < 1e-10;
+        if (expected.isObject() && actual.isObject()) {
+            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = expected.fields();
             while (iter.hasNext()) {
                 java.util.Map.Entry<String, JsonNode> entry = iter.next();
-                if (!jsonEquals(entry.getValue(), b.get(entry.getKey()))) return false;
+                JsonNode actualValue = actual.get(entry.getKey());
+                if (actualValue == null || !jsonEquals(entry.getValue(), actualValue)) return false;
             }
             return true;
         }
-        if (a.isArray() && b.isArray()) {
-            if (a.size() != b.size()) return false;
-            for (int i = 0; i < a.size(); i++) {
-                if (!jsonEquals(a.get(i), b.get(i))) return false;
+        if (expected.isArray() && actual.isArray()) {
+            if (expected.size() != actual.size()) return false;
+            for (int i = 0; i < expected.size(); i++) {
+                if (!jsonEquals(expected.get(i), actual.get(i))) return false;
             }
             return true;
         }

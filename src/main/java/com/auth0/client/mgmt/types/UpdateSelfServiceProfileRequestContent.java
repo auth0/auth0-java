@@ -34,6 +34,8 @@ public final class UpdateSelfServiceProfileRequestContent {
 
     private final OptionalNullable<List<SelfServiceProfileUserAttribute>> userAttributes;
 
+    private final OptionalNullable<String> userAttributeProfileId;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateSelfServiceProfileRequestContent(
@@ -42,12 +44,14 @@ public final class UpdateSelfServiceProfileRequestContent {
             OptionalNullable<SelfServiceProfileBrandingProperties> branding,
             Optional<List<SelfServiceProfileAllowedStrategyEnum>> allowedStrategies,
             OptionalNullable<List<SelfServiceProfileUserAttribute>> userAttributes,
+            OptionalNullable<String> userAttributeProfileId,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.description = description;
         this.branding = branding;
         this.allowedStrategies = allowedStrategies;
         this.userAttributes = userAttributes;
+        this.userAttributeProfileId = userAttributeProfileId;
         this.additionalProperties = additionalProperties;
     }
 
@@ -91,6 +95,18 @@ public final class UpdateSelfServiceProfileRequestContent {
         return userAttributes;
     }
 
+    /**
+     * @return ID of the user-attribute-profile to associate with this self-service profile.
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("user_attribute_profile_id")
+    public OptionalNullable<String> getUserAttributeProfileId() {
+        if (userAttributeProfileId == null) {
+            return OptionalNullable.absent();
+        }
+        return userAttributeProfileId;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("description")
     private OptionalNullable<String> _getDescription() {
@@ -103,7 +119,13 @@ public final class UpdateSelfServiceProfileRequestContent {
         return userAttributes;
     }
 
-    @java.lang.Override
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("user_attribute_profile_id")
+    private OptionalNullable<String> _getUserAttributeProfileId() {
+        return userAttributeProfileId;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateSelfServiceProfileRequestContent
@@ -120,15 +142,22 @@ public final class UpdateSelfServiceProfileRequestContent {
                 && description.equals(other.description)
                 && branding.equals(other.branding)
                 && allowedStrategies.equals(other.allowedStrategies)
-                && userAttributes.equals(other.userAttributes);
+                && userAttributes.equals(other.userAttributes)
+                && userAttributeProfileId.equals(other.userAttributeProfileId);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
-        return Objects.hash(this.name, this.description, this.branding, this.allowedStrategies, this.userAttributes);
+        return Objects.hash(
+                this.name,
+                this.description,
+                this.branding,
+                this.allowedStrategies,
+                this.userAttributes,
+                this.userAttributeProfileId);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -149,6 +178,8 @@ public final class UpdateSelfServiceProfileRequestContent {
 
         private OptionalNullable<List<SelfServiceProfileUserAttribute>> userAttributes = OptionalNullable.absent();
 
+        private OptionalNullable<String> userAttributeProfileId = OptionalNullable.absent();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -160,6 +191,7 @@ public final class UpdateSelfServiceProfileRequestContent {
             branding(other.getBranding());
             allowedStrategies(other.getAllowedStrategies());
             userAttributes(other.getUserAttributes());
+            userAttributeProfileId(other.getUserAttributeProfileId());
             return this;
         }
 
@@ -286,9 +318,49 @@ public final class UpdateSelfServiceProfileRequestContent {
             return this;
         }
 
+        /**
+         * <p>ID of the user-attribute-profile to associate with this self-service profile.</p>
+         */
+        @JsonSetter(value = "user_attribute_profile_id", nulls = Nulls.SKIP)
+        public Builder userAttributeProfileId(@Nullable OptionalNullable<String> userAttributeProfileId) {
+            this.userAttributeProfileId = userAttributeProfileId;
+            return this;
+        }
+
+        public Builder userAttributeProfileId(String userAttributeProfileId) {
+            this.userAttributeProfileId = OptionalNullable.of(userAttributeProfileId);
+            return this;
+        }
+
+        public Builder userAttributeProfileId(Optional<String> userAttributeProfileId) {
+            if (userAttributeProfileId.isPresent()) {
+                this.userAttributeProfileId = OptionalNullable.of(userAttributeProfileId.get());
+            } else {
+                this.userAttributeProfileId = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder userAttributeProfileId(com.auth0.client.mgmt.core.Nullable<String> userAttributeProfileId) {
+            if (userAttributeProfileId.isNull()) {
+                this.userAttributeProfileId = OptionalNullable.ofNull();
+            } else if (userAttributeProfileId.isEmpty()) {
+                this.userAttributeProfileId = OptionalNullable.absent();
+            } else {
+                this.userAttributeProfileId = OptionalNullable.of(userAttributeProfileId.get());
+            }
+            return this;
+        }
+
         public UpdateSelfServiceProfileRequestContent build() {
             return new UpdateSelfServiceProfileRequestContent(
-                    name, description, branding, allowedStrategies, userAttributes, additionalProperties);
+                    name,
+                    description,
+                    branding,
+                    allowedStrategies,
+                    userAttributes,
+                    userAttributeProfileId,
+                    additionalProperties);
         }
     }
 }

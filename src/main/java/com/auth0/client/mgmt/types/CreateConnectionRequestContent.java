@@ -4,6 +4,7 @@
 package com.auth0.client.mgmt.types;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -38,7 +39,11 @@ public final class CreateConnectionRequestContent {
 
     private final Optional<List<String>> realms;
 
-    private final Optional<Map<String, Object>> metadata;
+    private final Optional<Map<String, OptionalNullable<String>>> metadata;
+
+    private final Optional<ConnectionAuthenticationPurpose> authentication;
+
+    private final Optional<ConnectionConnectedAccountsPurpose> connectedAccounts;
 
     private final Map<String, Object> additionalProperties;
 
@@ -51,7 +56,9 @@ public final class CreateConnectionRequestContent {
             Optional<Boolean> isDomainConnection,
             Optional<Boolean> showAsButton,
             Optional<List<String>> realms,
-            Optional<Map<String, Object>> metadata,
+            Optional<Map<String, OptionalNullable<String>>> metadata,
+            Optional<ConnectionAuthenticationPurpose> authentication,
+            Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.displayName = displayName;
@@ -62,6 +69,8 @@ public final class CreateConnectionRequestContent {
         this.showAsButton = showAsButton;
         this.realms = realms;
         this.metadata = metadata;
+        this.authentication = authentication;
+        this.connectedAccounts = connectedAccounts;
         this.additionalProperties = additionalProperties;
     }
 
@@ -124,11 +133,21 @@ public final class CreateConnectionRequestContent {
     }
 
     @JsonProperty("metadata")
-    public Optional<Map<String, Object>> getMetadata() {
+    public Optional<Map<String, OptionalNullable<String>>> getMetadata() {
         return metadata;
     }
 
-    @java.lang.Override
+    @JsonProperty("authentication")
+    public Optional<ConnectionAuthenticationPurpose> getAuthentication() {
+        return authentication;
+    }
+
+    @JsonProperty("connected_accounts")
+    public Optional<ConnectionConnectedAccountsPurpose> getConnectedAccounts() {
+        return connectedAccounts;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateConnectionRequestContent && equalTo((CreateConnectionRequestContent) other);
@@ -148,10 +167,12 @@ public final class CreateConnectionRequestContent {
                 && isDomainConnection.equals(other.isDomainConnection)
                 && showAsButton.equals(other.showAsButton)
                 && realms.equals(other.realms)
-                && metadata.equals(other.metadata);
+                && metadata.equals(other.metadata)
+                && authentication.equals(other.authentication)
+                && connectedAccounts.equals(other.connectedAccounts);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.name,
@@ -162,10 +183,12 @@ public final class CreateConnectionRequestContent {
                 this.isDomainConnection,
                 this.showAsButton,
                 this.realms,
-                this.metadata);
+                this.metadata,
+                this.authentication,
+                this.connectedAccounts);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -229,9 +252,17 @@ public final class CreateConnectionRequestContent {
 
         _FinalStage realms(List<String> realms);
 
-        _FinalStage metadata(Optional<Map<String, Object>> metadata);
+        _FinalStage metadata(Optional<Map<String, OptionalNullable<String>>> metadata);
 
-        _FinalStage metadata(Map<String, Object> metadata);
+        _FinalStage metadata(Map<String, OptionalNullable<String>> metadata);
+
+        _FinalStage authentication(Optional<ConnectionAuthenticationPurpose> authentication);
+
+        _FinalStage authentication(ConnectionAuthenticationPurpose authentication);
+
+        _FinalStage connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts);
+
+        _FinalStage connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -240,7 +271,11 @@ public final class CreateConnectionRequestContent {
 
         private ConnectionIdentityProviderEnum strategy;
 
-        private Optional<Map<String, Object>> metadata = Optional.empty();
+        private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
+
+        private Optional<ConnectionAuthenticationPurpose> authentication = Optional.empty();
+
+        private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
         private Optional<List<String>> realms = Optional.empty();
 
@@ -259,7 +294,7 @@ public final class CreateConnectionRequestContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(CreateConnectionRequestContent other) {
             name(other.getName());
             displayName(other.getDisplayName());
@@ -270,6 +305,8 @@ public final class CreateConnectionRequestContent {
             showAsButton(other.getShowAsButton());
             realms(other.getRealms());
             metadata(other.getMetadata());
+            authentication(other.getAuthentication());
+            connectedAccounts(other.getConnectedAccounts());
             return this;
         }
 
@@ -278,29 +315,55 @@ public final class CreateConnectionRequestContent {
          * <p>The name of the connection. Must start and end with an alphanumeric character and can only contain alphanumeric characters and '-'. Max length 128</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("name")
         public StrategyStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("strategy")
         public _FinalStage strategy(@NotNull ConnectionIdentityProviderEnum strategy) {
             this.strategy = Objects.requireNonNull(strategy, "strategy must not be null");
             return this;
         }
 
-        @java.lang.Override
-        public _FinalStage metadata(Map<String, Object> metadata) {
+        @Override
+        public _FinalStage connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts) {
+            this.connectedAccounts = Optional.ofNullable(connectedAccounts);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "connected_accounts", nulls = Nulls.SKIP)
+        public _FinalStage connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts) {
+            this.connectedAccounts = connectedAccounts;
+            return this;
+        }
+
+        @Override
+        public _FinalStage authentication(ConnectionAuthenticationPurpose authentication) {
+            this.authentication = Optional.ofNullable(authentication);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "authentication", nulls = Nulls.SKIP)
+        public _FinalStage authentication(Optional<ConnectionAuthenticationPurpose> authentication) {
+            this.authentication = authentication;
+            return this;
+        }
+
+        @Override
+        public _FinalStage metadata(Map<String, OptionalNullable<String>> metadata) {
             this.metadata = Optional.ofNullable(metadata);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
-        public _FinalStage metadata(Optional<Map<String, Object>> metadata) {
+        public _FinalStage metadata(Optional<Map<String, OptionalNullable<String>>> metadata) {
             this.metadata = metadata;
             return this;
         }
@@ -309,7 +372,7 @@ public final class CreateConnectionRequestContent {
          * <p>Defines the realms for which the connection will be used (ie: email domains). If the array is empty or the property is not specified, the connection name will be added as realm.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage realms(List<String> realms) {
             this.realms = Optional.ofNullable(realms);
             return this;
@@ -318,7 +381,7 @@ public final class CreateConnectionRequestContent {
         /**
          * <p>Defines the realms for which the connection will be used (ie: email domains). If the array is empty or the property is not specified, the connection name will be added as realm.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "realms", nulls = Nulls.SKIP)
         public _FinalStage realms(Optional<List<String>> realms) {
             this.realms = realms;
@@ -329,7 +392,7 @@ public final class CreateConnectionRequestContent {
          * <p>Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to &lt;code&gt;false&lt;/code&gt;.)</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage showAsButton(Boolean showAsButton) {
             this.showAsButton = Optional.ofNullable(showAsButton);
             return this;
@@ -338,7 +401,7 @@ public final class CreateConnectionRequestContent {
         /**
          * <p>Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to &lt;code&gt;false&lt;/code&gt;.)</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "show_as_button", nulls = Nulls.SKIP)
         public _FinalStage showAsButton(Optional<Boolean> showAsButton) {
             this.showAsButton = showAsButton;
@@ -349,7 +412,7 @@ public final class CreateConnectionRequestContent {
          * <p>&lt;code&gt;true&lt;/code&gt; promotes to a domain-level connection so that third-party applications can use it. &lt;code&gt;false&lt;/code&gt; does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to &lt;code&gt;false&lt;/code&gt;.)</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage isDomainConnection(Boolean isDomainConnection) {
             this.isDomainConnection = Optional.ofNullable(isDomainConnection);
             return this;
@@ -358,7 +421,7 @@ public final class CreateConnectionRequestContent {
         /**
          * <p>&lt;code&gt;true&lt;/code&gt; promotes to a domain-level connection so that third-party applications can use it. &lt;code&gt;false&lt;/code&gt; does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to &lt;code&gt;false&lt;/code&gt;.)</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "is_domain_connection", nulls = Nulls.SKIP)
         public _FinalStage isDomainConnection(Optional<Boolean> isDomainConnection) {
             this.isDomainConnection = isDomainConnection;
@@ -369,7 +432,7 @@ public final class CreateConnectionRequestContent {
          * <p>DEPRECATED property. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage enabledClients(List<String> enabledClients) {
             this.enabledClients = Optional.ofNullable(enabledClients);
             return this;
@@ -378,20 +441,20 @@ public final class CreateConnectionRequestContent {
         /**
          * <p>DEPRECATED property. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "enabled_clients", nulls = Nulls.SKIP)
         public _FinalStage enabledClients(Optional<List<String>> enabledClients) {
             this.enabledClients = enabledClients;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage options(ConnectionPropertiesOptions options) {
             this.options = Optional.ofNullable(options);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "options", nulls = Nulls.SKIP)
         public _FinalStage options(Optional<ConnectionPropertiesOptions> options) {
             this.options = options;
@@ -402,7 +465,7 @@ public final class CreateConnectionRequestContent {
          * <p>Connection name used in the new universal login experience</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage displayName(String displayName) {
             this.displayName = Optional.ofNullable(displayName);
             return this;
@@ -411,14 +474,14 @@ public final class CreateConnectionRequestContent {
         /**
          * <p>Connection name used in the new universal login experience</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "display_name", nulls = Nulls.SKIP)
         public _FinalStage displayName(Optional<String> displayName) {
             this.displayName = displayName;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public CreateConnectionRequestContent build() {
             return new CreateConnectionRequestContent(
                     name,
@@ -430,6 +493,8 @@ public final class CreateConnectionRequestContent {
                     showAsButton,
                     realms,
                     metadata,
+                    authentication,
+                    connectedAccounts,
                     additionalProperties);
         }
     }

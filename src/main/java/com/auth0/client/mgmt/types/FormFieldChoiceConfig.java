@@ -55,7 +55,7 @@ public final class FormFieldChoiceConfig {
         return allowOther;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldChoiceConfig && equalTo((FormFieldChoiceConfig) other);
@@ -70,12 +70,12 @@ public final class FormFieldChoiceConfig {
         return multiple.equals(other.multiple) && options.equals(other.options) && allowOther.equals(other.allowOther);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.multiple, this.options, this.allowOther);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

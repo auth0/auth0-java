@@ -93,7 +93,7 @@ public final class GetEventStreamDeliveryHistoryResponseContent {
         return event;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetEventStreamDeliveryHistoryResponseContent
@@ -114,12 +114,12 @@ public final class GetEventStreamDeliveryHistoryResponseContent {
                 && event.equals(other.event);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.id, this.eventStreamId, this.status, this.eventType, this.attempts, this.event);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -188,7 +188,7 @@ public final class GetEventStreamDeliveryHistoryResponseContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(GetEventStreamDeliveryHistoryResponseContent other) {
             id(other.getId());
             eventStreamId(other.getEventStreamId());
@@ -204,7 +204,7 @@ public final class GetEventStreamDeliveryHistoryResponseContent {
          * <p>Unique identifier for the delivery</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("id")
         public EventStreamIdStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
@@ -216,34 +216,34 @@ public final class GetEventStreamDeliveryHistoryResponseContent {
          * <p>Unique identifier for the event stream.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("event_stream_id")
         public StatusStage eventStreamId(@NotNull String eventStreamId) {
             this.eventStreamId = Objects.requireNonNull(eventStreamId, "eventStreamId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("status")
         public EventTypeStage status(@NotNull String status) {
             this.status = Objects.requireNonNull(status, "status must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("event_type")
         public _FinalStage eventType(@NotNull EventStreamDeliveryEventTypeEnum eventType) {
             this.eventType = Objects.requireNonNull(eventType, "eventType must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage event(EventStreamCloudEvent event) {
             this.event = Optional.ofNullable(event);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "event", nulls = Nulls.SKIP)
         public _FinalStage event(Optional<EventStreamCloudEvent> event) {
             this.event = event;
@@ -254,7 +254,7 @@ public final class GetEventStreamDeliveryHistoryResponseContent {
          * <p>Results of delivery attempts</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage addAllAttempts(List<EventStreamDeliveryAttempt> attempts) {
             if (attempts != null) {
                 this.attempts.addAll(attempts);
@@ -266,7 +266,7 @@ public final class GetEventStreamDeliveryHistoryResponseContent {
          * <p>Results of delivery attempts</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage addAttempts(EventStreamDeliveryAttempt attempts) {
             this.attempts.add(attempts);
             return this;
@@ -275,7 +275,7 @@ public final class GetEventStreamDeliveryHistoryResponseContent {
         /**
          * <p>Results of delivery attempts</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "attempts", nulls = Nulls.SKIP)
         public _FinalStage attempts(List<EventStreamDeliveryAttempt> attempts) {
             this.attempts.clear();
@@ -285,7 +285,7 @@ public final class GetEventStreamDeliveryHistoryResponseContent {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public GetEventStreamDeliveryHistoryResponseContent build() {
             return new GetEventStreamDeliveryHistoryResponseContent(
                     id, eventStreamId, status, eventType, attempts, event, additionalProperties);

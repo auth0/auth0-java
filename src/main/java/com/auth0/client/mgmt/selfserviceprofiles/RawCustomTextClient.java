@@ -36,14 +36,14 @@ public class RawCustomTextClient {
     /**
      * Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
-    public ManagementApiHttpResponse<Map<String, Object>> list(String id, String language, String page) {
+    public ManagementApiHttpResponse<Map<String, String>> list(String id, String language, String page) {
         return list(id, language, page, null);
     }
 
     /**
      * Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
-    public ManagementApiHttpResponse<Map<String, Object>> list(
+    public ManagementApiHttpResponse<Map<String, String>> list(
             String id, String language, String page, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -69,7 +69,7 @@ public class RawCustomTextClient {
             if (response.isSuccessful()) {
                 return new ManagementApiHttpResponse<>(
                         ObjectMappers.JSON_MAPPER.readValue(
-                                responseBodyString, new TypeReference<Map<String, Object>>() {}),
+                                responseBodyString, new TypeReference<Map<String, String>>() {}),
                         response);
             }
             try {
@@ -101,16 +101,16 @@ public class RawCustomTextClient {
     /**
      * Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
-    public ManagementApiHttpResponse<Map<String, Object>> set(
-            String id, String language, String page, Map<String, Object> request) {
+    public ManagementApiHttpResponse<Map<String, String>> set(
+            String id, String language, String page, Map<String, String> request) {
         return set(id, language, page, request, null);
     }
 
     /**
      * Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
-    public ManagementApiHttpResponse<Map<String, Object>> set(
-            String id, String language, String page, Map<String, Object> request, RequestOptions requestOptions) {
+    public ManagementApiHttpResponse<Map<String, String>> set(
+            String id, String language, String page, Map<String, String> request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("self-service-profiles")
@@ -143,7 +143,7 @@ public class RawCustomTextClient {
             if (response.isSuccessful()) {
                 return new ManagementApiHttpResponse<>(
                         ObjectMappers.JSON_MAPPER.readValue(
-                                responseBodyString, new TypeReference<Map<String, Object>>() {}),
+                                responseBodyString, new TypeReference<Map<String, String>>() {}),
                         response);
             }
             try {

@@ -14,7 +14,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,17 +24,21 @@ import org.jetbrains.annotations.Nullable;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = SelfServiceProfileSsoTicketProvisioningConfig.Builder.class)
 public final class SelfServiceProfileSsoTicketProvisioningConfig {
-    private final List<SelfServiceProfileSsoTicketProvisioningScopeEnum> scopes;
+    private final Optional<List<SelfServiceProfileSsoTicketProvisioningScopeEnum>> scopes;
+
+    private final Optional<SelfServiceProfileSsoTicketGoogleWorkspaceConfig> googleWorkspace;
 
     private final OptionalNullable<Integer> tokenLifetime;
 
     private final Map<String, Object> additionalProperties;
 
     private SelfServiceProfileSsoTicketProvisioningConfig(
-            List<SelfServiceProfileSsoTicketProvisioningScopeEnum> scopes,
+            Optional<List<SelfServiceProfileSsoTicketProvisioningScopeEnum>> scopes,
+            Optional<SelfServiceProfileSsoTicketGoogleWorkspaceConfig> googleWorkspace,
             OptionalNullable<Integer> tokenLifetime,
             Map<String, Object> additionalProperties) {
         this.scopes = scopes;
+        this.googleWorkspace = googleWorkspace;
         this.tokenLifetime = tokenLifetime;
         this.additionalProperties = additionalProperties;
     }
@@ -44,8 +47,13 @@ public final class SelfServiceProfileSsoTicketProvisioningConfig {
      * @return The scopes of the SCIM tokens generated during the self-service flow.
      */
     @JsonProperty("scopes")
-    public List<SelfServiceProfileSsoTicketProvisioningScopeEnum> getScopes() {
+    public Optional<List<SelfServiceProfileSsoTicketProvisioningScopeEnum>> getScopes() {
         return scopes;
+    }
+
+    @JsonProperty("google_workspace")
+    public Optional<SelfServiceProfileSsoTicketGoogleWorkspaceConfig> getGoogleWorkspace() {
+        return googleWorkspace;
     }
 
     /**
@@ -66,7 +74,7 @@ public final class SelfServiceProfileSsoTicketProvisioningConfig {
         return tokenLifetime;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SelfServiceProfileSsoTicketProvisioningConfig
@@ -79,15 +87,17 @@ public final class SelfServiceProfileSsoTicketProvisioningConfig {
     }
 
     private boolean equalTo(SelfServiceProfileSsoTicketProvisioningConfig other) {
-        return scopes.equals(other.scopes) && tokenLifetime.equals(other.tokenLifetime);
+        return scopes.equals(other.scopes)
+                && googleWorkspace.equals(other.googleWorkspace)
+                && tokenLifetime.equals(other.tokenLifetime);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
-        return Objects.hash(this.scopes, this.tokenLifetime);
+        return Objects.hash(this.scopes, this.googleWorkspace, this.tokenLifetime);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -98,7 +108,9 @@ public final class SelfServiceProfileSsoTicketProvisioningConfig {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private List<SelfServiceProfileSsoTicketProvisioningScopeEnum> scopes = new ArrayList<>();
+        private Optional<List<SelfServiceProfileSsoTicketProvisioningScopeEnum>> scopes = Optional.empty();
+
+        private Optional<SelfServiceProfileSsoTicketGoogleWorkspaceConfig> googleWorkspace = Optional.empty();
 
         private OptionalNullable<Integer> tokenLifetime = OptionalNullable.absent();
 
@@ -109,6 +121,7 @@ public final class SelfServiceProfileSsoTicketProvisioningConfig {
 
         public Builder from(SelfServiceProfileSsoTicketProvisioningConfig other) {
             scopes(other.getScopes());
+            googleWorkspace(other.getGoogleWorkspace());
             tokenLifetime(other.getTokenLifetime());
             return this;
         }
@@ -117,23 +130,24 @@ public final class SelfServiceProfileSsoTicketProvisioningConfig {
          * <p>The scopes of the SCIM tokens generated during the self-service flow.</p>
          */
         @JsonSetter(value = "scopes", nulls = Nulls.SKIP)
+        public Builder scopes(Optional<List<SelfServiceProfileSsoTicketProvisioningScopeEnum>> scopes) {
+            this.scopes = scopes;
+            return this;
+        }
+
         public Builder scopes(List<SelfServiceProfileSsoTicketProvisioningScopeEnum> scopes) {
-            this.scopes.clear();
-            if (scopes != null) {
-                this.scopes.addAll(scopes);
-            }
+            this.scopes = Optional.ofNullable(scopes);
             return this;
         }
 
-        public Builder addScopes(SelfServiceProfileSsoTicketProvisioningScopeEnum scopes) {
-            this.scopes.add(scopes);
+        @JsonSetter(value = "google_workspace", nulls = Nulls.SKIP)
+        public Builder googleWorkspace(Optional<SelfServiceProfileSsoTicketGoogleWorkspaceConfig> googleWorkspace) {
+            this.googleWorkspace = googleWorkspace;
             return this;
         }
 
-        public Builder addAllScopes(List<SelfServiceProfileSsoTicketProvisioningScopeEnum> scopes) {
-            if (scopes != null) {
-                this.scopes.addAll(scopes);
-            }
+        public Builder googleWorkspace(SelfServiceProfileSsoTicketGoogleWorkspaceConfig googleWorkspace) {
+            this.googleWorkspace = Optional.ofNullable(googleWorkspace);
             return this;
         }
 
@@ -172,7 +186,8 @@ public final class SelfServiceProfileSsoTicketProvisioningConfig {
         }
 
         public SelfServiceProfileSsoTicketProvisioningConfig build() {
-            return new SelfServiceProfileSsoTicketProvisioningConfig(scopes, tokenLifetime, additionalProperties);
+            return new SelfServiceProfileSsoTicketProvisioningConfig(
+                    scopes, googleWorkspace, tokenLifetime, additionalProperties);
         }
     }
 }

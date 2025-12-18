@@ -64,7 +64,7 @@ public final class SelfServiceProfileSsoTicketEnabledOrganization {
         return showAsButton;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SelfServiceProfileSsoTicketEnabledOrganization
@@ -82,12 +82,12 @@ public final class SelfServiceProfileSsoTicketEnabledOrganization {
                 && showAsButton.equals(other.showAsButton);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.organizationId, this.assignMembershipOnLogin, this.showAsButton);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -136,7 +136,7 @@ public final class SelfServiceProfileSsoTicketEnabledOrganization {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(SelfServiceProfileSsoTicketEnabledOrganization other) {
             organizationId(other.getOrganizationId());
             assignMembershipOnLogin(other.getAssignMembershipOnLogin());
@@ -149,7 +149,7 @@ public final class SelfServiceProfileSsoTicketEnabledOrganization {
          * <p>Organization identifier.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("organization_id")
         public _FinalStage organizationId(@NotNull String organizationId) {
             this.organizationId = Objects.requireNonNull(organizationId, "organizationId must not be null");
@@ -160,7 +160,7 @@ public final class SelfServiceProfileSsoTicketEnabledOrganization {
          * <p>Determines whether a connection should be displayed on this organization’s login prompt. Only applicable for enterprise connections. Default: true.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage showAsButton(Boolean showAsButton) {
             this.showAsButton = Optional.ofNullable(showAsButton);
             return this;
@@ -169,7 +169,7 @@ public final class SelfServiceProfileSsoTicketEnabledOrganization {
         /**
          * <p>Determines whether a connection should be displayed on this organization’s login prompt. Only applicable for enterprise connections. Default: true.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "show_as_button", nulls = Nulls.SKIP)
         public _FinalStage showAsButton(Optional<Boolean> showAsButton) {
             this.showAsButton = showAsButton;
@@ -180,7 +180,7 @@ public final class SelfServiceProfileSsoTicketEnabledOrganization {
          * <p>When true, all users that log in with this connection will be automatically granted membership in the organization. When false, users must be granted membership in the organization before logging in with this connection.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage assignMembershipOnLogin(Boolean assignMembershipOnLogin) {
             this.assignMembershipOnLogin = Optional.ofNullable(assignMembershipOnLogin);
             return this;
@@ -189,14 +189,14 @@ public final class SelfServiceProfileSsoTicketEnabledOrganization {
         /**
          * <p>When true, all users that log in with this connection will be automatically granted membership in the organization. When false, users must be granted membership in the organization before logging in with this connection.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "assign_membership_on_login", nulls = Nulls.SKIP)
         public _FinalStage assignMembershipOnLogin(Optional<Boolean> assignMembershipOnLogin) {
             this.assignMembershipOnLogin = assignMembershipOnLogin;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public SelfServiceProfileSsoTicketEnabledOrganization build() {
             return new SelfServiceProfileSsoTicketEnabledOrganization(
                     organizationId, assignMembershipOnLogin, showAsButton, additionalProperties);

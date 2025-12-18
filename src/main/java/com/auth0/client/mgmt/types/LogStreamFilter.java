@@ -45,7 +45,7 @@ public final class LogStreamFilter {
         return name;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof LogStreamFilter && equalTo((LogStreamFilter) other);
@@ -60,12 +60,12 @@ public final class LogStreamFilter {
         return type.equals(other.type) && name.equals(other.name);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.type, this.name);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

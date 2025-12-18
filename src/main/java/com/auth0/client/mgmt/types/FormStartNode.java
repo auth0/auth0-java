@@ -55,7 +55,7 @@ public final class FormStartNode {
         return coordinates;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormStartNode && equalTo((FormStartNode) other);
@@ -72,12 +72,12 @@ public final class FormStartNode {
                 && coordinates.equals(other.coordinates);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.hiddenFields, this.nextNode, this.coordinates);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -52,7 +52,7 @@ public final class GetFormRequestParameters {
         return hydrate;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetFormRequestParameters && equalTo((GetFormRequestParameters) other);
@@ -67,12 +67,12 @@ public final class GetFormRequestParameters {
         return hydrate.equals(other.hydrate);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.hydrate);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

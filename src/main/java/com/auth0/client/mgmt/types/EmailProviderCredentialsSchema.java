@@ -51,7 +51,7 @@ public final class EmailProviderCredentialsSchema {
         throw new IllegalStateException("Failed to visit value. This should never happen.");
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof EmailProviderCredentialsSchema && equalTo((EmailProviderCredentialsSchema) other);
@@ -61,12 +61,12 @@ public final class EmailProviderCredentialsSchema {
         return value.equals(other.value);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.value);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return this.value.toString();
     }
@@ -126,7 +126,7 @@ public final class EmailProviderCredentialsSchema {
             super(EmailProviderCredentialsSchema.class);
         }
 
-        @java.lang.Override
+        @Override
         public EmailProviderCredentialsSchema deserialize(JsonParser p, DeserializationContext context)
                 throws IOException {
             Object value = p.readValueAs(Object.class);

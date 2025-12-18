@@ -64,7 +64,7 @@ public final class ListClientsOffsetPaginatedResponseContent {
         return clients;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListClientsOffsetPaginatedResponseContent
@@ -83,12 +83,12 @@ public final class ListClientsOffsetPaginatedResponseContent {
                 && clients.equals(other.clients);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.start, this.limit, this.total, this.clients);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

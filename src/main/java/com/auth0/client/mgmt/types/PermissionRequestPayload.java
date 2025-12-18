@@ -48,7 +48,7 @@ public final class PermissionRequestPayload {
         return permissionName;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof PermissionRequestPayload && equalTo((PermissionRequestPayload) other);
@@ -64,12 +64,12 @@ public final class PermissionRequestPayload {
                 && permissionName.equals(other.permissionName);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.resourceServerIdentifier, this.permissionName);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -109,7 +109,7 @@ public final class PermissionRequestPayload {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(PermissionRequestPayload other) {
             resourceServerIdentifier(other.getResourceServerIdentifier());
             permissionName(other.getPermissionName());
@@ -121,7 +121,7 @@ public final class PermissionRequestPayload {
          * <p>Resource server (API) identifier that this permission is for.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("resource_server_identifier")
         public PermissionNameStage resourceServerIdentifier(@NotNull String resourceServerIdentifier) {
             this.resourceServerIdentifier =
@@ -134,14 +134,14 @@ public final class PermissionRequestPayload {
          * <p>Name of this permission.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("permission_name")
         public _FinalStage permissionName(@NotNull String permissionName) {
             this.permissionName = Objects.requireNonNull(permissionName, "permissionName must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public PermissionRequestPayload build() {
             return new PermissionRequestPayload(resourceServerIdentifier, permissionName, additionalProperties);
         }

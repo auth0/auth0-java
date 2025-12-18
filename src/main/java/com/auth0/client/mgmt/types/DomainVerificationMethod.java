@@ -61,7 +61,7 @@ public final class DomainVerificationMethod {
         return domain;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof DomainVerificationMethod && equalTo((DomainVerificationMethod) other);
@@ -76,12 +76,12 @@ public final class DomainVerificationMethod {
         return name.equals(other.name) && record.equals(other.record) && domain.equals(other.domain);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.name, this.record, this.domain);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -127,7 +127,7 @@ public final class DomainVerificationMethod {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(DomainVerificationMethod other) {
             name(other.getName());
             record(other.getRecord());
@@ -135,7 +135,7 @@ public final class DomainVerificationMethod {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("name")
         public RecordStage name(@NotNull DomainVerificationMethodNameEnum name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
@@ -147,7 +147,7 @@ public final class DomainVerificationMethod {
          * <p>Value used to verify the domain.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("record")
         public _FinalStage record(@NotNull String record) {
             this.record = Objects.requireNonNull(record, "record must not be null");
@@ -158,7 +158,7 @@ public final class DomainVerificationMethod {
          * <p>The name of the txt record for verification</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage domain(String domain) {
             this.domain = Optional.ofNullable(domain);
             return this;
@@ -167,14 +167,14 @@ public final class DomainVerificationMethod {
         /**
          * <p>The name of the txt record for verification</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "domain", nulls = Nulls.SKIP)
         public _FinalStage domain(Optional<String> domain) {
             this.domain = domain;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public DomainVerificationMethod build() {
             return new DomainVerificationMethod(name, record, domain, additionalProperties);
         }

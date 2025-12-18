@@ -64,7 +64,7 @@ public final class FormBlockHtml {
         return config;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormBlockHtml && equalTo((FormBlockHtml) other);
@@ -82,12 +82,12 @@ public final class FormBlockHtml {
                 && config.equals(other.config);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.id, this.category, this.type, this.config);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -133,7 +133,7 @@ public final class FormBlockHtml {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FormBlockHtml other) {
             id(other.getId());
             category(other.getCategory());
@@ -142,41 +142,41 @@ public final class FormBlockHtml {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("id")
         public CategoryStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("category")
         public TypeStage category(@NotNull String category) {
             this.category = Objects.requireNonNull(category, "category must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("type")
         public _FinalStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage config(FormBlockHtmlConfig config) {
             this.config = Optional.ofNullable(config);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "config", nulls = Nulls.SKIP)
         public _FinalStage config(Optional<FormBlockHtmlConfig> config) {
             this.config = config;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FormBlockHtml build() {
             return new FormBlockHtml(id, category, type, config, additionalProperties);
         }

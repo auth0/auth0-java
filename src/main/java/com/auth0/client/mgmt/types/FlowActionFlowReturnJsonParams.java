@@ -34,7 +34,7 @@ public final class FlowActionFlowReturnJsonParams {
         return payload;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionFlowReturnJsonParams && equalTo((FlowActionFlowReturnJsonParams) other);
@@ -49,12 +49,12 @@ public final class FlowActionFlowReturnJsonParams {
         return payload.equals(other.payload);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.payload);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -82,20 +82,20 @@ public final class FlowActionFlowReturnJsonParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionFlowReturnJsonParams other) {
             payload(other.getPayload());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("payload")
         public _FinalStage payload(@NotNull FlowActionFlowReturnJsonParamsPayload payload) {
             this.payload = Objects.requireNonNull(payload, "payload must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionFlowReturnJsonParams build() {
             return new FlowActionFlowReturnJsonParams(payload, additionalProperties);
         }

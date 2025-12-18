@@ -29,8 +29,6 @@ import com.auth0.client.mgmt.types.RotateClientSecretResponseContent;
 import com.auth0.client.mgmt.types.UpdateClientRequestContent;
 import com.auth0.client.mgmt.types.UpdateClientResponseContent;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -164,15 +162,34 @@ public class RawClientsClient {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("clients");
-        QueryStringMapper.addQueryParameter(httpUrl, "fields", request.getFields(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "include_fields", request.getIncludeFields(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "per_page", request.getPerPage(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "include_totals", request.getIncludeTotals(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "is_global", request.getIsGlobal(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "is_first_party", request.getIsFirstParty(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "app_type", request.getAppType(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "q", request.getQ(), false);
+        if (!request.getFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "fields", request.getFields().orElse(null), false);
+        }
+        if (!request.getIncludeFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "include_fields", request.getIncludeFields().orElse(null), false);
+        }
+        QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage().orElse(0), false);
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "per_page", request.getPerPage().orElse(50), false);
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
+        if (!request.getIsGlobal().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "is_global", request.getIsGlobal().orElse(null), false);
+        }
+        if (!request.getIsFirstParty().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "is_first_party", request.getIsFirstParty().orElse(null), false);
+        }
+        if (!request.getAppType().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "app_type", request.getAppType().orElse(null), false);
+        }
+        if (!request.getQ().isAbsent()) {
+            QueryStringMapper.addQueryParameter(httpUrl, "q", request.getQ().orElse(null), false);
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -187,18 +204,8 @@ public class RawClientsClient {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
-                JsonNode node = ObjectMappers.JSON_MAPPER.readTree(responseBodyString);
-                ListClientsOffsetPaginatedResponseContent parsedResponse;
-                if (node.isArray()) {
-                    List<Client> clients =
-                            ObjectMappers.JSON_MAPPER.convertValue(node, new TypeReference<List<Client>>() {});
-                    parsedResponse = ListClientsOffsetPaginatedResponseContent.builder()
-                            .clients(clients)
-                            .build();
-                } else {
-                    parsedResponse = ObjectMappers.JSON_MAPPER.convertValue(
-                            node, ListClientsOffsetPaginatedResponseContent.class);
-                }
+                ListClientsOffsetPaginatedResponseContent parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                        responseBodyString, ListClientsOffsetPaginatedResponseContent.class);
                 int newPageNumber =
                         request.getPage().map((Integer page) -> page + 1).orElse(1);
                 ListClientsRequestParameters nextRequest = ListClientsRequestParameters.builder()
@@ -448,8 +455,14 @@ public class RawClientsClient {
                 .newBuilder()
                 .addPathSegments("clients")
                 .addPathSegment(id);
-        QueryStringMapper.addQueryParameter(httpUrl, "fields", request.getFields(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "include_fields", request.getIncludeFields(), false);
+        if (!request.getFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "fields", request.getFields().orElse(null), false);
+        }
+        if (!request.getIncludeFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "include_fields", request.getIncludeFields().orElse(null), false);
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)

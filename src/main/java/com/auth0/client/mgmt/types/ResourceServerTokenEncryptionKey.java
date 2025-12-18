@@ -73,7 +73,7 @@ public final class ResourceServerTokenEncryptionKey {
         return pem;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ResourceServerTokenEncryptionKey && equalTo((ResourceServerTokenEncryptionKey) other);
@@ -88,12 +88,12 @@ public final class ResourceServerTokenEncryptionKey {
         return name.equals(other.name) && alg.equals(other.alg) && kid.equals(other.kid) && pem.equals(other.pem);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.name, this.alg, this.kid, this.pem);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -148,7 +148,7 @@ public final class ResourceServerTokenEncryptionKey {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(ResourceServerTokenEncryptionKey other) {
             name(other.getName());
             alg(other.getAlg());
@@ -157,7 +157,7 @@ public final class ResourceServerTokenEncryptionKey {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("alg")
         public PemStage alg(@NotNull ResourceServerTokenEncryptionAlgorithmEnum alg) {
             this.alg = Objects.requireNonNull(alg, "alg must not be null");
@@ -169,7 +169,7 @@ public final class ResourceServerTokenEncryptionKey {
          * <p>PEM-formatted public key. Must be JSON escaped.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("pem")
         public _FinalStage pem(@NotNull String pem) {
             this.pem = Objects.requireNonNull(pem, "pem must not be null");
@@ -180,7 +180,7 @@ public final class ResourceServerTokenEncryptionKey {
          * <p>Key ID.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage kid(String kid) {
             this.kid = Optional.ofNullable(kid);
             return this;
@@ -189,7 +189,7 @@ public final class ResourceServerTokenEncryptionKey {
         /**
          * <p>Key ID.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "kid", nulls = Nulls.SKIP)
         public _FinalStage kid(Optional<String> kid) {
             this.kid = kid;
@@ -200,7 +200,7 @@ public final class ResourceServerTokenEncryptionKey {
          * <p>Name of the encryption key.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage name(String name) {
             this.name = Optional.ofNullable(name);
             return this;
@@ -209,14 +209,14 @@ public final class ResourceServerTokenEncryptionKey {
         /**
          * <p>Name of the encryption key.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<String> name) {
             this.name = name;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public ResourceServerTokenEncryptionKey build() {
             return new ResourceServerTokenEncryptionKey(name, alg, kid, pem, additionalProperties);
         }

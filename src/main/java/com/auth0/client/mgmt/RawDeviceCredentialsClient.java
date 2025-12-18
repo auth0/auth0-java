@@ -64,14 +64,31 @@ public class RawDeviceCredentialsClient {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("device-credentials");
-        QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "per_page", request.getPerPage(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "include_totals", request.getIncludeTotals(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "fields", request.getFields(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "include_fields", request.getIncludeFields(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "user_id", request.getUserId(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "client_id", request.getClientId(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "type", request.getType(), false);
+        QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage().orElse(0), false);
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "per_page", request.getPerPage().orElse(50), false);
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
+        if (!request.getFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "fields", request.getFields().orElse(null), false);
+        }
+        if (!request.getIncludeFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "include_fields", request.getIncludeFields().orElse(null), false);
+        }
+        if (!request.getUserId().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "user_id", request.getUserId().orElse(null), false);
+        }
+        if (!request.getClientId().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "client_id", request.getClientId().orElse(null), false);
+        }
+        if (!request.getType().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "type", request.getType().orElse(null), false);
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)

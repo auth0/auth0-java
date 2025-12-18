@@ -72,7 +72,7 @@ public final class EmailProviderCredentialsSchemaSmtpHost {
         return smtpPass;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof EmailProviderCredentialsSchemaSmtpHost
@@ -91,12 +91,12 @@ public final class EmailProviderCredentialsSchemaSmtpHost {
                 && smtpPass.equals(other.smtpPass);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.smtpHost, this.smtpPort, this.smtpUser, this.smtpPass);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

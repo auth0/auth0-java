@@ -46,14 +46,14 @@ public class RawClientGrantsClient {
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/api-auth/grant/client-credentials&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
+     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<ClientGrantResponseContent>> list() {
         return list(ListClientGrantsRequestParameters.builder().build());
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/api-auth/grant/client-credentials&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
+     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<ClientGrantResponseContent>> list(
             ListClientGrantsRequestParameters request) {
@@ -61,19 +61,37 @@ public class RawClientGrantsClient {
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/api-auth/grant/client-credentials&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
+     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<ClientGrantResponseContent>> list(
             ListClientGrantsRequestParameters request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("client-grants");
-        QueryStringMapper.addQueryParameter(httpUrl, "from", request.getFrom(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "audience", request.getAudience(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "client_id", request.getClientId(), false);
-        QueryStringMapper.addQueryParameter(
-                httpUrl, "allow_any_organization", request.getAllowAnyOrganization(), false);
+        if (!request.getFrom().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "from", request.getFrom().orElse(null), false);
+        }
+        QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
+        if (!request.getAudience().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "audience", request.getAudience().orElse(null), false);
+        }
+        if (!request.getClientId().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "client_id", request.getClientId().orElse(null), false);
+        }
+        if (!request.getAllowAnyOrganization().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl,
+                    "allow_any_organization",
+                    request.getAllowAnyOrganization().orElse(null),
+                    false);
+        }
+        if (!request.getSubjectType().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "subject_type", request.getSubjectType().orElse(null), false);
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)

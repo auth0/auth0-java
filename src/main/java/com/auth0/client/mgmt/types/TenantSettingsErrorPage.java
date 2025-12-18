@@ -63,7 +63,7 @@ public final class TenantSettingsErrorPage {
         return url;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof TenantSettingsErrorPage && equalTo((TenantSettingsErrorPage) other);
@@ -78,12 +78,12 @@ public final class TenantSettingsErrorPage {
         return html.equals(other.html) && showLogLink.equals(other.showLogLink) && url.equals(other.url);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.html, this.showLogLink, this.url);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

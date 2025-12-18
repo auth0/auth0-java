@@ -163,7 +163,7 @@ public final class GetSigningKeysResponseContent {
         return revokedAt;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetSigningKeysResponseContent && equalTo((GetSigningKeysResponseContent) other);
@@ -189,7 +189,7 @@ public final class GetSigningKeysResponseContent {
                 && revokedAt.equals(other.revokedAt);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.kid,
@@ -206,7 +206,7 @@ public final class GetSigningKeysResponseContent {
                 this.revokedAt);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -327,7 +327,7 @@ public final class GetSigningKeysResponseContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(GetSigningKeysResponseContent other) {
             kid(other.getKid());
             cert(other.getCert());
@@ -349,7 +349,7 @@ public final class GetSigningKeysResponseContent {
          * <p>The key id of the signing key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("kid")
         public CertStage kid(@NotNull String kid) {
             this.kid = Objects.requireNonNull(kid, "kid must not be null");
@@ -361,7 +361,7 @@ public final class GetSigningKeysResponseContent {
          * <p>The public certificate of the signing key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("cert")
         public FingerprintStage cert(@NotNull String cert) {
             this.cert = Objects.requireNonNull(cert, "cert must not be null");
@@ -373,7 +373,7 @@ public final class GetSigningKeysResponseContent {
          * <p>The cert fingerprint</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("fingerprint")
         public ThumbprintStage fingerprint(@NotNull String fingerprint) {
             this.fingerprint = Objects.requireNonNull(fingerprint, "fingerprint must not be null");
@@ -385,20 +385,20 @@ public final class GetSigningKeysResponseContent {
          * <p>The cert thumbprint</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("thumbprint")
         public _FinalStage thumbprint(@NotNull String thumbprint) {
             this.thumbprint = Objects.requireNonNull(thumbprint, "thumbprint must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage revokedAt(SigningKeysDate revokedAt) {
             this.revokedAt = Optional.ofNullable(revokedAt);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "revoked_at", nulls = Nulls.SKIP)
         public _FinalStage revokedAt(Optional<SigningKeysDate> revokedAt) {
             this.revokedAt = revokedAt;
@@ -409,7 +409,7 @@ public final class GetSigningKeysResponseContent {
          * <p>True if the key is revoked</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage revoked(Boolean revoked) {
             this.revoked = Optional.ofNullable(revoked);
             return this;
@@ -418,33 +418,33 @@ public final class GetSigningKeysResponseContent {
         /**
          * <p>True if the key is revoked</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "revoked", nulls = Nulls.SKIP)
         public _FinalStage revoked(Optional<Boolean> revoked) {
             this.revoked = revoked;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage currentUntil(SigningKeysDate currentUntil) {
             this.currentUntil = Optional.ofNullable(currentUntil);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "current_until", nulls = Nulls.SKIP)
         public _FinalStage currentUntil(Optional<SigningKeysDate> currentUntil) {
             this.currentUntil = currentUntil;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage currentSince(SigningKeysDate currentSince) {
             this.currentSince = Optional.ofNullable(currentSince);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "current_since", nulls = Nulls.SKIP)
         public _FinalStage currentSince(Optional<SigningKeysDate> currentSince) {
             this.currentSince = currentSince;
@@ -455,7 +455,7 @@ public final class GetSigningKeysResponseContent {
          * <p>True if the key is the the previous key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage previous(Boolean previous) {
             this.previous = Optional.ofNullable(previous);
             return this;
@@ -464,7 +464,7 @@ public final class GetSigningKeysResponseContent {
         /**
          * <p>True if the key is the the previous key</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "previous", nulls = Nulls.SKIP)
         public _FinalStage previous(Optional<Boolean> previous) {
             this.previous = previous;
@@ -475,7 +475,7 @@ public final class GetSigningKeysResponseContent {
          * <p>True if the key is the the next key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage next(Boolean next) {
             this.next = Optional.ofNullable(next);
             return this;
@@ -484,7 +484,7 @@ public final class GetSigningKeysResponseContent {
         /**
          * <p>True if the key is the the next key</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "next", nulls = Nulls.SKIP)
         public _FinalStage next(Optional<Boolean> next) {
             this.next = next;
@@ -495,7 +495,7 @@ public final class GetSigningKeysResponseContent {
          * <p>True if the key is the the current key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage current(Boolean current) {
             this.current = Optional.ofNullable(current);
             return this;
@@ -504,7 +504,7 @@ public final class GetSigningKeysResponseContent {
         /**
          * <p>True if the key is the the current key</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "current", nulls = Nulls.SKIP)
         public _FinalStage current(Optional<Boolean> current) {
             this.current = current;
@@ -515,7 +515,7 @@ public final class GetSigningKeysResponseContent {
          * <p>The public certificate of the signing key in pkcs7 format</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage pkcs7(String pkcs7) {
             this.pkcs7 = Optional.ofNullable(pkcs7);
             return this;
@@ -524,14 +524,14 @@ public final class GetSigningKeysResponseContent {
         /**
          * <p>The public certificate of the signing key in pkcs7 format</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "pkcs7", nulls = Nulls.SKIP)
         public _FinalStage pkcs7(Optional<String> pkcs7) {
             this.pkcs7 = pkcs7;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public GetSigningKeysResponseContent build() {
             return new GetSigningKeysResponseContent(
                     kid,

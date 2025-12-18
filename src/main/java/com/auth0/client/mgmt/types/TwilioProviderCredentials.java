@@ -33,7 +33,7 @@ public final class TwilioProviderCredentials {
         return authToken;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof TwilioProviderCredentials && equalTo((TwilioProviderCredentials) other);
@@ -48,12 +48,12 @@ public final class TwilioProviderCredentials {
         return authToken.equals(other.authToken);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.authToken);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -81,20 +81,20 @@ public final class TwilioProviderCredentials {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(TwilioProviderCredentials other) {
             authToken(other.getAuthToken());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("auth_token")
         public _FinalStage authToken(@NotNull String authToken) {
             this.authToken = Objects.requireNonNull(authToken, "authToken must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public TwilioProviderCredentials build() {
             return new TwilioProviderCredentials(authToken, additionalProperties);
         }

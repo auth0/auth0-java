@@ -62,7 +62,7 @@ public final class EventStreamDeliveryAttempt {
         return errorMessage;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof EventStreamDeliveryAttempt && equalTo((EventStreamDeliveryAttempt) other);
@@ -79,12 +79,12 @@ public final class EventStreamDeliveryAttempt {
                 && errorMessage.equals(other.errorMessage);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.status, this.timestamp, this.errorMessage);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -130,7 +130,7 @@ public final class EventStreamDeliveryAttempt {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(EventStreamDeliveryAttempt other) {
             status(other.getStatus());
             timestamp(other.getTimestamp());
@@ -138,7 +138,7 @@ public final class EventStreamDeliveryAttempt {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("status")
         public TimestampStage status(@NotNull String status) {
             this.status = Objects.requireNonNull(status, "status must not be null");
@@ -150,7 +150,7 @@ public final class EventStreamDeliveryAttempt {
          * <p>Timestamp of delivery attempt</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("timestamp")
         public _FinalStage timestamp(@NotNull OffsetDateTime timestamp) {
             this.timestamp = Objects.requireNonNull(timestamp, "timestamp must not be null");
@@ -161,7 +161,7 @@ public final class EventStreamDeliveryAttempt {
          * <p>Delivery error message, if applicable</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage errorMessage(String errorMessage) {
             this.errorMessage = Optional.ofNullable(errorMessage);
             return this;
@@ -170,14 +170,14 @@ public final class EventStreamDeliveryAttempt {
         /**
          * <p>Delivery error message, if applicable</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "error_message", nulls = Nulls.SKIP)
         public _FinalStage errorMessage(Optional<String> errorMessage) {
             this.errorMessage = errorMessage;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public EventStreamDeliveryAttempt build() {
             return new EventStreamDeliveryAttempt(status, timestamp, errorMessage, additionalProperties);
         }

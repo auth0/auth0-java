@@ -38,7 +38,7 @@ public final class AssignRoleUsersRequestContent {
         return users;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof AssignRoleUsersRequestContent && equalTo((AssignRoleUsersRequestContent) other);
@@ -53,12 +53,12 @@ public final class AssignRoleUsersRequestContent {
         return users.equals(other.users);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.users);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

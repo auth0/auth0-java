@@ -37,7 +37,7 @@ public final class FlowActionStripeCreateCustomerParams {
 
     private final Optional<FlowActionStripeAddress> address;
 
-    private final Optional<Map<String, Object>> metadata;
+    private final Optional<Map<String, String>> metadata;
 
     private final Map<String, Object> additionalProperties;
 
@@ -50,7 +50,7 @@ public final class FlowActionStripeCreateCustomerParams {
             Optional<String> phone,
             Optional<String> taxExempt,
             Optional<FlowActionStripeAddress> address,
-            Optional<Map<String, Object>> metadata,
+            Optional<Map<String, String>> metadata,
             Map<String, Object> additionalProperties) {
         this.connectionId = connectionId;
         this.taxId = taxId;
@@ -105,11 +105,11 @@ public final class FlowActionStripeCreateCustomerParams {
     }
 
     @JsonProperty("metadata")
-    public Optional<Map<String, Object>> getMetadata() {
+    public Optional<Map<String, String>> getMetadata() {
         return metadata;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionStripeCreateCustomerParams
@@ -133,7 +133,7 @@ public final class FlowActionStripeCreateCustomerParams {
                 && metadata.equals(other.metadata);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.connectionId,
@@ -147,7 +147,7 @@ public final class FlowActionStripeCreateCustomerParams {
                 this.metadata);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -193,16 +193,16 @@ public final class FlowActionStripeCreateCustomerParams {
 
         _FinalStage address(FlowActionStripeAddress address);
 
-        _FinalStage metadata(Optional<Map<String, Object>> metadata);
+        _FinalStage metadata(Optional<Map<String, String>> metadata);
 
-        _FinalStage metadata(Map<String, Object> metadata);
+        _FinalStage metadata(Map<String, String> metadata);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements ConnectionIdStage, _FinalStage {
         private String connectionId;
 
-        private Optional<Map<String, Object>> metadata = Optional.empty();
+        private Optional<Map<String, String>> metadata = Optional.empty();
 
         private Optional<FlowActionStripeAddress> address = Optional.empty();
 
@@ -223,7 +223,7 @@ public final class FlowActionStripeCreateCustomerParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionStripeCreateCustomerParams other) {
             connectionId(other.getConnectionId());
             taxId(other.getTaxId());
@@ -237,118 +237,118 @@ public final class FlowActionStripeCreateCustomerParams {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("connection_id")
         public _FinalStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @java.lang.Override
-        public _FinalStage metadata(Map<String, Object> metadata) {
+        @Override
+        public _FinalStage metadata(Map<String, String> metadata) {
             this.metadata = Optional.ofNullable(metadata);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
-        public _FinalStage metadata(Optional<Map<String, Object>> metadata) {
+        public _FinalStage metadata(Optional<Map<String, String>> metadata) {
             this.metadata = metadata;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage address(FlowActionStripeAddress address) {
             this.address = Optional.ofNullable(address);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "address", nulls = Nulls.SKIP)
         public _FinalStage address(Optional<FlowActionStripeAddress> address) {
             this.address = address;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage taxExempt(String taxExempt) {
             this.taxExempt = Optional.ofNullable(taxExempt);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "tax_exempt", nulls = Nulls.SKIP)
         public _FinalStage taxExempt(Optional<String> taxExempt) {
             this.taxExempt = taxExempt;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage phone(String phone) {
             this.phone = Optional.ofNullable(phone);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "phone", nulls = Nulls.SKIP)
         public _FinalStage phone(Optional<String> phone) {
             this.phone = phone;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage email(String email) {
             this.email = Optional.ofNullable(email);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "email", nulls = Nulls.SKIP)
         public _FinalStage email(Optional<String> email) {
             this.email = email;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage description(String description) {
             this.description = Optional.ofNullable(description);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public _FinalStage description(Optional<String> description) {
             this.description = description;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage name(String name) {
             this.name = Optional.ofNullable(name);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<String> name) {
             this.name = name;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage taxId(FlowActionStripeTaxId taxId) {
             this.taxId = Optional.ofNullable(taxId);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "tax_id", nulls = Nulls.SKIP)
         public _FinalStage taxId(Optional<FlowActionStripeTaxId> taxId) {
             this.taxId = taxId;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionStripeCreateCustomerParams build() {
             return new FlowActionStripeCreateCustomerParams(
                     connectionId,

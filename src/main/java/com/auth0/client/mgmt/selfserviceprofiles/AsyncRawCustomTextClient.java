@@ -40,7 +40,7 @@ public class AsyncRawCustomTextClient {
     /**
      * Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
-    public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> list(
+    public CompletableFuture<ManagementApiHttpResponse<Map<String, String>>> list(
             String id, String language, String page) {
         return list(id, language, page, null);
     }
@@ -48,7 +48,7 @@ public class AsyncRawCustomTextClient {
     /**
      * Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
-    public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> list(
+    public CompletableFuture<ManagementApiHttpResponse<Map<String, String>>> list(
             String id, String language, String page, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -68,7 +68,7 @@ public class AsyncRawCustomTextClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> future = new CompletableFuture<>();
+        CompletableFuture<ManagementApiHttpResponse<Map<String, String>>> future = new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
@@ -77,7 +77,7 @@ public class AsyncRawCustomTextClient {
                     if (response.isSuccessful()) {
                         future.complete(new ManagementApiHttpResponse<>(
                                 ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBodyString, new TypeReference<Map<String, Object>>() {}),
+                                        responseBodyString, new TypeReference<Map<String, String>>() {}),
                                 response));
                         return;
                     }
@@ -127,16 +127,16 @@ public class AsyncRawCustomTextClient {
     /**
      * Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
-    public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> set(
-            String id, String language, String page, Map<String, Object> request) {
+    public CompletableFuture<ManagementApiHttpResponse<Map<String, String>>> set(
+            String id, String language, String page, Map<String, String> request) {
         return set(id, language, page, request, null);
     }
 
     /**
      * Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
-    public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> set(
-            String id, String language, String page, Map<String, Object> request, RequestOptions requestOptions) {
+    public CompletableFuture<ManagementApiHttpResponse<Map<String, String>>> set(
+            String id, String language, String page, Map<String, String> request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("self-service-profiles")
@@ -163,7 +163,7 @@ public class AsyncRawCustomTextClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> future = new CompletableFuture<>();
+        CompletableFuture<ManagementApiHttpResponse<Map<String, String>>> future = new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
@@ -172,7 +172,7 @@ public class AsyncRawCustomTextClient {
                     if (response.isSuccessful()) {
                         future.complete(new ManagementApiHttpResponse<>(
                                 ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBodyString, new TypeReference<Map<String, Object>>() {}),
+                                        responseBodyString, new TypeReference<Map<String, String>>() {}),
                                 response));
                         return;
                     }

@@ -33,7 +33,7 @@ public final class FlowActionXmlParseXmlParams {
         return xml;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionXmlParseXmlParams && equalTo((FlowActionXmlParseXmlParams) other);
@@ -48,12 +48,12 @@ public final class FlowActionXmlParseXmlParams {
         return xml.equals(other.xml);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.xml);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -81,20 +81,20 @@ public final class FlowActionXmlParseXmlParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionXmlParseXmlParams other) {
             xml(other.getXml());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("xml")
         public _FinalStage xml(@NotNull String xml) {
             this.xml = Objects.requireNonNull(xml, "xml must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionXmlParseXmlParams build() {
             return new FlowActionXmlParseXmlParams(xml, additionalProperties);
         }

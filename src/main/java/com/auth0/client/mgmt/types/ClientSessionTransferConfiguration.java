@@ -23,6 +23,8 @@ import java.util.Optional;
 public final class ClientSessionTransferConfiguration {
     private final Optional<Boolean> canCreateSessionTransferToken;
 
+    private final Optional<Boolean> enforceCascadeRevocation;
+
     private final Optional<List<ClientSessionTransferAllowedAuthenticationMethodsEnum>> allowedAuthenticationMethods;
 
     private final Optional<ClientSessionTransferDeviceBindingEnum> enforceDeviceBinding;
@@ -31,29 +33,27 @@ public final class ClientSessionTransferConfiguration {
 
     private final Optional<Boolean> enforceOnlineRefreshTokens;
 
-    private final Optional<Boolean> enforceCascadeRevocation;
-
     private final Map<String, Object> additionalProperties;
 
     private ClientSessionTransferConfiguration(
             Optional<Boolean> canCreateSessionTransferToken,
+            Optional<Boolean> enforceCascadeRevocation,
             Optional<List<ClientSessionTransferAllowedAuthenticationMethodsEnum>> allowedAuthenticationMethods,
             Optional<ClientSessionTransferDeviceBindingEnum> enforceDeviceBinding,
             Optional<Boolean> allowRefreshToken,
             Optional<Boolean> enforceOnlineRefreshTokens,
-            Optional<Boolean> enforceCascadeRevocation,
             Map<String, Object> additionalProperties) {
         this.canCreateSessionTransferToken = canCreateSessionTransferToken;
+        this.enforceCascadeRevocation = enforceCascadeRevocation;
         this.allowedAuthenticationMethods = allowedAuthenticationMethods;
         this.enforceDeviceBinding = enforceDeviceBinding;
         this.allowRefreshToken = allowRefreshToken;
         this.enforceOnlineRefreshTokens = enforceOnlineRefreshTokens;
-        this.enforceCascadeRevocation = enforceCascadeRevocation;
         this.additionalProperties = additionalProperties;
     }
 
     /**
-     * @return Indicates whether an app can issue a session_token through Token Exchange. If set to 'false', the app will not be able to issue a session_token.
+     * @return Indicates whether an app can issue a Session Transfer Token through Token Exchange. If set to 'false', the app will not be able to issue a Session Transfer Token. Usually configured in the native application.
      */
     @JsonProperty("can_create_session_transfer_token")
     public Optional<Boolean> getCanCreateSessionTransferToken() {
@@ -61,7 +61,15 @@ public final class ClientSessionTransferConfiguration {
     }
 
     /**
-     * @return Indicates whether an app can create a session from a session_token received via indicated methods.
+     * @return Indicates whether revoking the parent Refresh Token that initiated a Native to Web flow and was used to issue a Session Transfer Token should trigger a cascade revocation affecting its dependent child entities. Usually configured in the native application.
+     */
+    @JsonProperty("enforce_cascade_revocation")
+    public Optional<Boolean> getEnforceCascadeRevocation() {
+        return enforceCascadeRevocation;
+    }
+
+    /**
+     * @return Indicates whether an app can create a session from a Session Transfer Token received via indicated methods. Can include <code>cookie</code> and/or <code>query</code>. Usually configured in the web application.
      */
     @JsonProperty("allowed_authentication_methods")
     public Optional<List<ClientSessionTransferAllowedAuthenticationMethodsEnum>> getAllowedAuthenticationMethods() {
@@ -74,7 +82,7 @@ public final class ClientSessionTransferConfiguration {
     }
 
     /**
-     * @return Indicates whether Refresh Tokens are allowed to be issued when authenticating with a session_transfer_token.
+     * @return Indicates whether Refresh Tokens are allowed to be issued when authenticating with a Session Transfer Token. Usually configured in the web application.
      */
     @JsonProperty("allow_refresh_token")
     public Optional<Boolean> getAllowRefreshToken() {
@@ -82,22 +90,14 @@ public final class ClientSessionTransferConfiguration {
     }
 
     /**
-     * @return Indicates whether Refresh Tokens created during a native-to-web session are tied to that session's lifetime. This determines if such refresh tokens should be automatically revoked when their corresponding sessions are.
+     * @return Indicates whether Refresh Tokens created during a native-to-web session are tied to that session's lifetime. This determines if such refresh tokens should be automatically revoked when their corresponding sessions are. Usually configured in the web application.
      */
     @JsonProperty("enforce_online_refresh_tokens")
     public Optional<Boolean> getEnforceOnlineRefreshTokens() {
         return enforceOnlineRefreshTokens;
     }
 
-    /**
-     * @return Indicates whether revoking the parent Refresh Token that initiated a Native to Web flow and was used to issue a Session Transfer Token should trigger a cascade revocation affecting its dependent child entities.
-     */
-    @JsonProperty("enforce_cascade_revocation")
-    public Optional<Boolean> getEnforceCascadeRevocation() {
-        return enforceCascadeRevocation;
-    }
-
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientSessionTransferConfiguration
@@ -111,25 +111,25 @@ public final class ClientSessionTransferConfiguration {
 
     private boolean equalTo(ClientSessionTransferConfiguration other) {
         return canCreateSessionTransferToken.equals(other.canCreateSessionTransferToken)
+                && enforceCascadeRevocation.equals(other.enforceCascadeRevocation)
                 && allowedAuthenticationMethods.equals(other.allowedAuthenticationMethods)
                 && enforceDeviceBinding.equals(other.enforceDeviceBinding)
                 && allowRefreshToken.equals(other.allowRefreshToken)
-                && enforceOnlineRefreshTokens.equals(other.enforceOnlineRefreshTokens)
-                && enforceCascadeRevocation.equals(other.enforceCascadeRevocation);
+                && enforceOnlineRefreshTokens.equals(other.enforceOnlineRefreshTokens);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.canCreateSessionTransferToken,
+                this.enforceCascadeRevocation,
                 this.allowedAuthenticationMethods,
                 this.enforceDeviceBinding,
                 this.allowRefreshToken,
-                this.enforceOnlineRefreshTokens,
-                this.enforceCascadeRevocation);
+                this.enforceOnlineRefreshTokens);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -142,6 +142,8 @@ public final class ClientSessionTransferConfiguration {
     public static final class Builder {
         private Optional<Boolean> canCreateSessionTransferToken = Optional.empty();
 
+        private Optional<Boolean> enforceCascadeRevocation = Optional.empty();
+
         private Optional<List<ClientSessionTransferAllowedAuthenticationMethodsEnum>> allowedAuthenticationMethods =
                 Optional.empty();
 
@@ -151,8 +153,6 @@ public final class ClientSessionTransferConfiguration {
 
         private Optional<Boolean> enforceOnlineRefreshTokens = Optional.empty();
 
-        private Optional<Boolean> enforceCascadeRevocation = Optional.empty();
-
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -160,16 +160,16 @@ public final class ClientSessionTransferConfiguration {
 
         public Builder from(ClientSessionTransferConfiguration other) {
             canCreateSessionTransferToken(other.getCanCreateSessionTransferToken());
+            enforceCascadeRevocation(other.getEnforceCascadeRevocation());
             allowedAuthenticationMethods(other.getAllowedAuthenticationMethods());
             enforceDeviceBinding(other.getEnforceDeviceBinding());
             allowRefreshToken(other.getAllowRefreshToken());
             enforceOnlineRefreshTokens(other.getEnforceOnlineRefreshTokens());
-            enforceCascadeRevocation(other.getEnforceCascadeRevocation());
             return this;
         }
 
         /**
-         * <p>Indicates whether an app can issue a session_token through Token Exchange. If set to 'false', the app will not be able to issue a session_token.</p>
+         * <p>Indicates whether an app can issue a Session Transfer Token through Token Exchange. If set to 'false', the app will not be able to issue a Session Transfer Token. Usually configured in the native application.</p>
          */
         @JsonSetter(value = "can_create_session_transfer_token", nulls = Nulls.SKIP)
         public Builder canCreateSessionTransferToken(Optional<Boolean> canCreateSessionTransferToken) {
@@ -183,7 +183,21 @@ public final class ClientSessionTransferConfiguration {
         }
 
         /**
-         * <p>Indicates whether an app can create a session from a session_token received via indicated methods.</p>
+         * <p>Indicates whether revoking the parent Refresh Token that initiated a Native to Web flow and was used to issue a Session Transfer Token should trigger a cascade revocation affecting its dependent child entities. Usually configured in the native application.</p>
+         */
+        @JsonSetter(value = "enforce_cascade_revocation", nulls = Nulls.SKIP)
+        public Builder enforceCascadeRevocation(Optional<Boolean> enforceCascadeRevocation) {
+            this.enforceCascadeRevocation = enforceCascadeRevocation;
+            return this;
+        }
+
+        public Builder enforceCascadeRevocation(Boolean enforceCascadeRevocation) {
+            this.enforceCascadeRevocation = Optional.ofNullable(enforceCascadeRevocation);
+            return this;
+        }
+
+        /**
+         * <p>Indicates whether an app can create a session from a Session Transfer Token received via indicated methods. Can include <code>cookie</code> and/or <code>query</code>. Usually configured in the web application.</p>
          */
         @JsonSetter(value = "allowed_authentication_methods", nulls = Nulls.SKIP)
         public Builder allowedAuthenticationMethods(
@@ -210,7 +224,7 @@ public final class ClientSessionTransferConfiguration {
         }
 
         /**
-         * <p>Indicates whether Refresh Tokens are allowed to be issued when authenticating with a session_transfer_token.</p>
+         * <p>Indicates whether Refresh Tokens are allowed to be issued when authenticating with a Session Transfer Token. Usually configured in the web application.</p>
          */
         @JsonSetter(value = "allow_refresh_token", nulls = Nulls.SKIP)
         public Builder allowRefreshToken(Optional<Boolean> allowRefreshToken) {
@@ -224,7 +238,7 @@ public final class ClientSessionTransferConfiguration {
         }
 
         /**
-         * <p>Indicates whether Refresh Tokens created during a native-to-web session are tied to that session's lifetime. This determines if such refresh tokens should be automatically revoked when their corresponding sessions are.</p>
+         * <p>Indicates whether Refresh Tokens created during a native-to-web session are tied to that session's lifetime. This determines if such refresh tokens should be automatically revoked when their corresponding sessions are. Usually configured in the web application.</p>
          */
         @JsonSetter(value = "enforce_online_refresh_tokens", nulls = Nulls.SKIP)
         public Builder enforceOnlineRefreshTokens(Optional<Boolean> enforceOnlineRefreshTokens) {
@@ -237,28 +251,14 @@ public final class ClientSessionTransferConfiguration {
             return this;
         }
 
-        /**
-         * <p>Indicates whether revoking the parent Refresh Token that initiated a Native to Web flow and was used to issue a Session Transfer Token should trigger a cascade revocation affecting its dependent child entities.</p>
-         */
-        @JsonSetter(value = "enforce_cascade_revocation", nulls = Nulls.SKIP)
-        public Builder enforceCascadeRevocation(Optional<Boolean> enforceCascadeRevocation) {
-            this.enforceCascadeRevocation = enforceCascadeRevocation;
-            return this;
-        }
-
-        public Builder enforceCascadeRevocation(Boolean enforceCascadeRevocation) {
-            this.enforceCascadeRevocation = Optional.ofNullable(enforceCascadeRevocation);
-            return this;
-        }
-
         public ClientSessionTransferConfiguration build() {
             return new ClientSessionTransferConfiguration(
                     canCreateSessionTransferToken,
+                    enforceCascadeRevocation,
                     allowedAuthenticationMethods,
                     enforceDeviceBinding,
                     allowRefreshToken,
                     enforceOnlineRefreshTokens,
-                    enforceCascadeRevocation,
                     additionalProperties);
         }
     }

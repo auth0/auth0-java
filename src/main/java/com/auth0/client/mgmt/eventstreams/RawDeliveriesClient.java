@@ -52,12 +52,27 @@ public class RawDeliveriesClient {
                 .addPathSegments("event-streams")
                 .addPathSegment(id)
                 .addPathSegments("deliveries");
-        QueryStringMapper.addQueryParameter(httpUrl, "statuses", request.getStatuses(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "event_types", request.getEventTypes(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "date_from", request.getDateFrom(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "date_to", request.getDateTo(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "from", request.getFrom(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake(), false);
+        if (!request.getStatuses().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "statuses", request.getStatuses().orElse(null), false);
+        }
+        if (!request.getEventTypes().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "event_types", request.getEventTypes().orElse(null), false);
+        }
+        if (!request.getDateFrom().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "date_from", request.getDateFrom().orElse(null), false);
+        }
+        if (!request.getDateTo().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "date_to", request.getDateTo().orElse(null), false);
+        }
+        if (!request.getFrom().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "from", request.getFrom().orElse(null), false);
+        }
+        QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)

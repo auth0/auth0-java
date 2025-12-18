@@ -27,29 +27,29 @@ public class CustomTextClient {
     /**
      * Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
-    public Map<String, Object> list(String id, String language, String page) {
+    public Map<String, String> list(String id, String language, String page) {
         return this.rawClient.list(id, language, page).body();
     }
 
     /**
      * Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
-    public Map<String, Object> list(String id, String language, String page, RequestOptions requestOptions) {
+    public Map<String, String> list(String id, String language, String page, RequestOptions requestOptions) {
         return this.rawClient.list(id, language, page, requestOptions).body();
     }
 
     /**
      * Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
-    public Map<String, Object> set(String id, String language, String page, Map<String, Object> request) {
+    public Map<String, String> set(String id, String language, String page, Map<String, String> request) {
         return this.rawClient.set(id, language, page, request).body();
     }
 
     /**
      * Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
-    public Map<String, Object> set(
-            String id, String language, String page, Map<String, Object> request, RequestOptions requestOptions) {
+    public Map<String, String> set(
+            String id, String language, String page, Map<String, String> request, RequestOptions requestOptions) {
         return this.rawClient.set(id, language, page, request, requestOptions).body();
     }
 }

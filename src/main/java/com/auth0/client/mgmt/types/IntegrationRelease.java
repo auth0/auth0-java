@@ -83,7 +83,7 @@ public final class IntegrationRelease {
         return requiredConfiguration;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof IntegrationRelease && equalTo((IntegrationRelease) other);
@@ -102,12 +102,12 @@ public final class IntegrationRelease {
                 && requiredConfiguration.equals(other.requiredConfiguration);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.id, this.trigger, this.semver, this.requiredSecrets, this.requiredConfiguration);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

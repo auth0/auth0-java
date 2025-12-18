@@ -39,7 +39,7 @@ public final class GetScimConfigurationDefaultMappingResponseContent {
         return mapping;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetScimConfigurationDefaultMappingResponseContent
@@ -55,12 +55,12 @@ public final class GetScimConfigurationDefaultMappingResponseContent {
         return mapping.equals(other.mapping);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.mapping);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

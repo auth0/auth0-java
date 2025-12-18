@@ -28,14 +28,14 @@ public class AsyncCustomTextClient {
     /**
      * Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
-    public CompletableFuture<Map<String, Object>> list(String id, String language, String page) {
+    public CompletableFuture<Map<String, String>> list(String id, String language, String page) {
         return this.rawClient.list(id, language, page).thenApply(response -> response.body());
     }
 
     /**
      * Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
-    public CompletableFuture<Map<String, Object>> list(
+    public CompletableFuture<Map<String, String>> list(
             String id, String language, String page, RequestOptions requestOptions) {
         return this.rawClient.list(id, language, page, requestOptions).thenApply(response -> response.body());
     }
@@ -43,16 +43,16 @@ public class AsyncCustomTextClient {
     /**
      * Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
-    public CompletableFuture<Map<String, Object>> set(
-            String id, String language, String page, Map<String, Object> request) {
+    public CompletableFuture<Map<String, String>> set(
+            String id, String language, String page, Map<String, String> request) {
         return this.rawClient.set(id, language, page, request).thenApply(response -> response.body());
     }
 
     /**
      * Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
-    public CompletableFuture<Map<String, Object>> set(
-            String id, String language, String page, Map<String, Object> request, RequestOptions requestOptions) {
+    public CompletableFuture<Map<String, String>> set(
+            String id, String language, String page, Map<String, String> request, RequestOptions requestOptions) {
         return this.rawClient.set(id, language, page, request, requestOptions).thenApply(response -> response.body());
     }
 }

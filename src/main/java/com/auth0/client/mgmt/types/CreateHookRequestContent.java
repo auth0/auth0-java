@@ -27,7 +27,7 @@ public final class CreateHookRequestContent {
 
     private final Optional<Boolean> enabled;
 
-    private final Optional<Map<String, Object>> dependencies;
+    private final Optional<Map<String, String>> dependencies;
 
     private final HookTriggerIdEnum triggerId;
 
@@ -37,7 +37,7 @@ public final class CreateHookRequestContent {
             String name,
             String script,
             Optional<Boolean> enabled,
-            Optional<Map<String, Object>> dependencies,
+            Optional<Map<String, String>> dependencies,
             HookTriggerIdEnum triggerId,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -73,7 +73,7 @@ public final class CreateHookRequestContent {
     }
 
     @JsonProperty("dependencies")
-    public Optional<Map<String, Object>> getDependencies() {
+    public Optional<Map<String, String>> getDependencies() {
         return dependencies;
     }
 
@@ -82,7 +82,7 @@ public final class CreateHookRequestContent {
         return triggerId;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateHookRequestContent && equalTo((CreateHookRequestContent) other);
@@ -101,12 +101,12 @@ public final class CreateHookRequestContent {
                 && triggerId.equals(other.triggerId);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.name, this.script, this.enabled, this.dependencies, this.triggerId);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -145,9 +145,9 @@ public final class CreateHookRequestContent {
 
         _FinalStage enabled(Boolean enabled);
 
-        _FinalStage dependencies(Optional<Map<String, Object>> dependencies);
+        _FinalStage dependencies(Optional<Map<String, String>> dependencies);
 
-        _FinalStage dependencies(Map<String, Object> dependencies);
+        _FinalStage dependencies(Map<String, String> dependencies);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -158,7 +158,7 @@ public final class CreateHookRequestContent {
 
         private HookTriggerIdEnum triggerId;
 
-        private Optional<Map<String, Object>> dependencies = Optional.empty();
+        private Optional<Map<String, String>> dependencies = Optional.empty();
 
         private Optional<Boolean> enabled = Optional.empty();
 
@@ -167,7 +167,7 @@ public final class CreateHookRequestContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(CreateHookRequestContent other) {
             name(other.getName());
             script(other.getScript());
@@ -182,7 +182,7 @@ public final class CreateHookRequestContent {
          * <p>Name of this hook.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("name")
         public ScriptStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
@@ -194,29 +194,29 @@ public final class CreateHookRequestContent {
          * <p>Code to be executed when this hook runs.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("script")
         public TriggerIdStage script(@NotNull String script) {
             this.script = Objects.requireNonNull(script, "script must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("triggerId")
         public _FinalStage triggerId(@NotNull HookTriggerIdEnum triggerId) {
             this.triggerId = Objects.requireNonNull(triggerId, "triggerId must not be null");
             return this;
         }
 
-        @java.lang.Override
-        public _FinalStage dependencies(Map<String, Object> dependencies) {
+        @Override
+        public _FinalStage dependencies(Map<String, String> dependencies) {
             this.dependencies = Optional.ofNullable(dependencies);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "dependencies", nulls = Nulls.SKIP)
-        public _FinalStage dependencies(Optional<Map<String, Object>> dependencies) {
+        public _FinalStage dependencies(Optional<Map<String, String>> dependencies) {
             this.dependencies = dependencies;
             return this;
         }
@@ -225,7 +225,7 @@ public final class CreateHookRequestContent {
          * <p>Whether this hook will be executed (true) or ignored (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage enabled(Boolean enabled) {
             this.enabled = Optional.ofNullable(enabled);
             return this;
@@ -234,14 +234,14 @@ public final class CreateHookRequestContent {
         /**
          * <p>Whether this hook will be executed (true) or ignored (false).</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "enabled", nulls = Nulls.SKIP)
         public _FinalStage enabled(Optional<Boolean> enabled) {
             this.enabled = enabled;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public CreateHookRequestContent build() {
             return new CreateHookRequestContent(name, script, enabled, dependencies, triggerId, additionalProperties);
         }

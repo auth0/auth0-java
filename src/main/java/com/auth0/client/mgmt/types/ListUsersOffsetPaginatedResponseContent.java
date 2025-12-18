@@ -73,7 +73,7 @@ public final class ListUsersOffsetPaginatedResponseContent {
         return users;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListUsersOffsetPaginatedResponseContent
@@ -93,12 +93,12 @@ public final class ListUsersOffsetPaginatedResponseContent {
                 && users.equals(other.users);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.start, this.limit, this.length, this.total, this.users);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

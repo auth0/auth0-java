@@ -90,7 +90,7 @@ public final class GetBruteForceSettingsResponseContent {
         return maxAttempts;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetBruteForceSettingsResponseContent
@@ -110,12 +110,12 @@ public final class GetBruteForceSettingsResponseContent {
                 && maxAttempts.equals(other.maxAttempts);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.enabled, this.shields, this.allowlist, this.mode, this.maxAttempts);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

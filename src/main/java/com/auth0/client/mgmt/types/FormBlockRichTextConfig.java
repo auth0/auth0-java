@@ -34,7 +34,7 @@ public final class FormBlockRichTextConfig {
         return content;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormBlockRichTextConfig && equalTo((FormBlockRichTextConfig) other);
@@ -49,12 +49,12 @@ public final class FormBlockRichTextConfig {
         return content.equals(other.content);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.content);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

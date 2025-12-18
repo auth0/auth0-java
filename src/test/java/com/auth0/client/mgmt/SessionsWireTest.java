@@ -2,6 +2,8 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.types.GetSessionResponseContent;
+import com.auth0.client.mgmt.types.UpdateSessionRequestContent;
+import com.auth0.client.mgmt.types.UpdateSessionResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.mockwebserver.MockResponse;
@@ -38,7 +40,7 @@ public class SessionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"user_id\":\"user_id\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"authenticated_at\":\"2024-01-15T09:30:00Z\",\"idle_expires_at\":\"2024-01-15T09:30:00Z\",\"expires_at\":\"2024-01-15T09:30:00Z\",\"last_interacted_at\":\"2024-01-15T09:30:00Z\",\"device\":{\"initial_user_agent\":\"initial_user_agent\",\"initial_ip\":\"initial_ip\",\"initial_asn\":\"initial_asn\",\"last_user_agent\":\"last_user_agent\",\"last_ip\":\"last_ip\",\"last_asn\":\"last_asn\"},\"clients\":[{\"client_id\":\"client_id\"}],\"authentication\":{\"methods\":[{}]},\"cookie\":{\"mode\":\"non-persistent\"}}"));
+                                "{\"id\":\"id\",\"user_id\":\"user_id\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"authenticated_at\":\"2024-01-15T09:30:00Z\",\"idle_expires_at\":\"2024-01-15T09:30:00Z\",\"expires_at\":\"2024-01-15T09:30:00Z\",\"last_interacted_at\":\"2024-01-15T09:30:00Z\",\"device\":{\"initial_user_agent\":\"initial_user_agent\",\"initial_ip\":\"initial_ip\",\"initial_asn\":\"initial_asn\",\"last_user_agent\":\"last_user_agent\",\"last_ip\":\"last_ip\",\"last_asn\":\"last_asn\"},\"clients\":[{\"client_id\":\"client_id\"}],\"authentication\":{\"methods\":[{}]},\"cookie\":{\"mode\":\"non-persistent\"},\"session_metadata\":{\"key\":\"value\"}}"));
         GetSessionResponseContent response = client.sessions().get("id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -77,6 +79,9 @@ public class SessionsWireTest {
                 + "  },\n"
                 + "  \"cookie\": {\n"
                 + "    \"mode\": \"non-persistent\"\n"
+                + "  },\n"
+                + "  \"session_metadata\": {\n"
+                + "    \"key\": \"value\"\n"
                 + "  }\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
@@ -120,6 +125,117 @@ public class SessionsWireTest {
     }
 
     @Test
+    public void testUpdate() throws Exception {
+        server.enqueue(
+                new MockResponse()
+                        .setResponseCode(200)
+                        .setBody(
+                                "{\"id\":\"id\",\"user_id\":\"user_id\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"authenticated_at\":\"2024-01-15T09:30:00Z\",\"idle_expires_at\":\"2024-01-15T09:30:00Z\",\"expires_at\":\"2024-01-15T09:30:00Z\",\"last_interacted_at\":\"2024-01-15T09:30:00Z\",\"device\":{\"initial_user_agent\":\"initial_user_agent\",\"initial_ip\":\"initial_ip\",\"initial_asn\":\"initial_asn\",\"last_user_agent\":\"last_user_agent\",\"last_ip\":\"last_ip\",\"last_asn\":\"last_asn\"},\"clients\":[{\"client_id\":\"client_id\"}],\"authentication\":{\"methods\":[{}]},\"cookie\":{\"mode\":\"non-persistent\"},\"session_metadata\":{\"key\":\"value\"}}"));
+        UpdateSessionResponseContent response = client.sessions()
+                .update("id", UpdateSessionRequestContent.builder().build());
+        RecordedRequest request = server.takeRequest();
+        Assertions.assertNotNull(request);
+        Assertions.assertEquals("PATCH", request.getMethod());
+        // Validate request body
+        String actualRequestBody = request.getBody().readUtf8();
+        String expectedRequestBody = "" + "{}";
+        JsonNode actualJson = objectMapper.readTree(actualRequestBody);
+        JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
+        Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");
+        if (actualJson.has("type") || actualJson.has("_type") || actualJson.has("kind")) {
+            String discriminator = null;
+            if (actualJson.has("type")) discriminator = actualJson.get("type").asText();
+            else if (actualJson.has("_type"))
+                discriminator = actualJson.get("_type").asText();
+            else if (actualJson.has("kind"))
+                discriminator = actualJson.get("kind").asText();
+            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
+            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
+        }
+
+        if (!actualJson.isNull()) {
+            Assertions.assertTrue(
+                    actualJson.isObject() || actualJson.isArray() || actualJson.isValueNode(),
+                    "request should be a valid JSON value");
+        }
+
+        if (actualJson.isArray()) {
+            Assertions.assertTrue(actualJson.size() >= 0, "Array should have valid size");
+        }
+        if (actualJson.isObject()) {
+            Assertions.assertTrue(actualJson.size() >= 0, "Object should have valid field count");
+        }
+
+        // Validate response body
+        Assertions.assertNotNull(response, "Response should not be null");
+        String actualResponseJson = objectMapper.writeValueAsString(response);
+        String expectedResponseBody = ""
+                + "{\n"
+                + "  \"id\": \"id\",\n"
+                + "  \"user_id\": \"user_id\",\n"
+                + "  \"created_at\": \"2024-01-15T09:30:00Z\",\n"
+                + "  \"updated_at\": \"2024-01-15T09:30:00Z\",\n"
+                + "  \"authenticated_at\": \"2024-01-15T09:30:00Z\",\n"
+                + "  \"idle_expires_at\": \"2024-01-15T09:30:00Z\",\n"
+                + "  \"expires_at\": \"2024-01-15T09:30:00Z\",\n"
+                + "  \"last_interacted_at\": \"2024-01-15T09:30:00Z\",\n"
+                + "  \"device\": {\n"
+                + "    \"initial_user_agent\": \"initial_user_agent\",\n"
+                + "    \"initial_ip\": \"initial_ip\",\n"
+                + "    \"initial_asn\": \"initial_asn\",\n"
+                + "    \"last_user_agent\": \"last_user_agent\",\n"
+                + "    \"last_ip\": \"last_ip\",\n"
+                + "    \"last_asn\": \"last_asn\"\n"
+                + "  },\n"
+                + "  \"clients\": [\n"
+                + "    {\n"
+                + "      \"client_id\": \"client_id\"\n"
+                + "    }\n"
+                + "  ],\n"
+                + "  \"authentication\": {\n"
+                + "    \"methods\": [\n"
+                + "      {}\n"
+                + "    ]\n"
+                + "  },\n"
+                + "  \"cookie\": {\n"
+                + "    \"mode\": \"non-persistent\"\n"
+                + "  },\n"
+                + "  \"session_metadata\": {\n"
+                + "    \"key\": \"value\"\n"
+                + "  }\n"
+                + "}";
+        JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
+        JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
+        Assertions.assertTrue(
+                jsonEquals(expectedResponseNode, actualResponseNode),
+                "Response body structure does not match expected");
+        if (actualResponseNode.has("type") || actualResponseNode.has("_type") || actualResponseNode.has("kind")) {
+            String discriminator = null;
+            if (actualResponseNode.has("type"))
+                discriminator = actualResponseNode.get("type").asText();
+            else if (actualResponseNode.has("_type"))
+                discriminator = actualResponseNode.get("_type").asText();
+            else if (actualResponseNode.has("kind"))
+                discriminator = actualResponseNode.get("kind").asText();
+            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
+            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
+        }
+
+        if (!actualResponseNode.isNull()) {
+            Assertions.assertTrue(
+                    actualResponseNode.isObject() || actualResponseNode.isArray() || actualResponseNode.isValueNode(),
+                    "response should be a valid JSON value");
+        }
+
+        if (actualResponseNode.isArray()) {
+            Assertions.assertTrue(actualResponseNode.size() >= 0, "Array should have valid size");
+        }
+        if (actualResponseNode.isObject()) {
+            Assertions.assertTrue(actualResponseNode.size() >= 0, "Object should have valid field count");
+        }
+    }
+
+    @Test
     public void testRevoke() throws Exception {
         server.enqueue(new MockResponse().setResponseCode(200).setBody("{}"));
         client.sessions().revoke("id");
@@ -129,24 +245,29 @@ public class SessionsWireTest {
     }
 
     /**
-     * Compares two JsonNodes with numeric equivalence.
+     * Compares two JsonNodes with numeric equivalence and null safety.
+     * For objects, checks that all fields in 'expected' exist in 'actual' with matching values.
+     * Allows 'actual' to have extra fields (e.g., default values added during serialization).
      */
-    private boolean jsonEquals(JsonNode a, JsonNode b) {
-        if (a.equals(b)) return true;
-        if (a.isNumber() && b.isNumber()) return Math.abs(a.doubleValue() - b.doubleValue()) < 1e-10;
-        if (a.isObject() && b.isObject()) {
-            if (a.size() != b.size()) return false;
-            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = a.fields();
+    private boolean jsonEquals(JsonNode expected, JsonNode actual) {
+        if (expected == null && actual == null) return true;
+        if (expected == null || actual == null) return false;
+        if (expected.equals(actual)) return true;
+        if (expected.isNumber() && actual.isNumber())
+            return Math.abs(expected.doubleValue() - actual.doubleValue()) < 1e-10;
+        if (expected.isObject() && actual.isObject()) {
+            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = expected.fields();
             while (iter.hasNext()) {
                 java.util.Map.Entry<String, JsonNode> entry = iter.next();
-                if (!jsonEquals(entry.getValue(), b.get(entry.getKey()))) return false;
+                JsonNode actualValue = actual.get(entry.getKey());
+                if (actualValue == null || !jsonEquals(entry.getValue(), actualValue)) return false;
             }
             return true;
         }
-        if (a.isArray() && b.isArray()) {
-            if (a.size() != b.size()) return false;
-            for (int i = 0; i < a.size(); i++) {
-                if (!jsonEquals(a.get(i), b.get(i))) return false;
+        if (expected.isArray() && actual.isArray()) {
+            if (expected.size() != actual.size()) return false;
+            for (int i = 0; i < expected.size(); i++) {
+                if (!jsonEquals(expected.get(i), actual.get(i))) return false;
             }
             return true;
         }

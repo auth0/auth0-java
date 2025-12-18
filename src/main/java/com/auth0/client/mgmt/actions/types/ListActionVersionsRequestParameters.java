@@ -3,6 +3,7 @@
  */
 package com.auth0.client.mgmt.actions.types;
 
+import com.auth0.client.mgmt.core.Nullable;
 import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
@@ -18,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ListActionVersionsRequestParameters.Builder.class)
@@ -44,9 +44,6 @@ public final class ListActionVersionsRequestParameters {
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("page")
     public OptionalNullable<Integer> getPage() {
-        if (page == null) {
-            return OptionalNullable.absent();
-        }
         return page;
     }
 
@@ -59,13 +56,7 @@ public final class ListActionVersionsRequestParameters {
         return perPage;
     }
 
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("page")
-    private OptionalNullable<Integer> _getPage() {
-        return page;
-    }
-
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListActionVersionsRequestParameters
@@ -81,12 +72,12 @@ public final class ListActionVersionsRequestParameters {
         return page.equals(other.page) && perPage.equals(other.perPage);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.page, this.perPage);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -116,7 +107,7 @@ public final class ListActionVersionsRequestParameters {
          * <p>Use this field to request a specific page of the list results.</p>
          */
         @JsonSetter(value = "page", nulls = Nulls.SKIP)
-        public Builder page(@Nullable OptionalNullable<Integer> page) {
+        public Builder page(OptionalNullable<Integer> page) {
             this.page = page;
             return this;
         }
@@ -135,7 +126,7 @@ public final class ListActionVersionsRequestParameters {
             return this;
         }
 
-        public Builder page(com.auth0.client.mgmt.core.Nullable<Integer> page) {
+        public Builder page(Nullable<Integer> page) {
             if (page.isNull()) {
                 this.page = OptionalNullable.ofNull();
             } else if (page.isEmpty()) {
@@ -169,7 +160,7 @@ public final class ListActionVersionsRequestParameters {
             return this;
         }
 
-        public Builder perPage(com.auth0.client.mgmt.core.Nullable<Integer> perPage) {
+        public Builder perPage(Nullable<Integer> perPage) {
             if (perPage.isNull()) {
                 this.perPage = OptionalNullable.ofNull();
             } else if (perPage.isEmpty()) {

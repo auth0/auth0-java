@@ -34,7 +34,7 @@ public final class FormFieldTelConfigStrings {
         return filterPlaceholder;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldTelConfigStrings && equalTo((FormFieldTelConfigStrings) other);
@@ -49,12 +49,12 @@ public final class FormFieldTelConfigStrings {
         return filterPlaceholder.equals(other.filterPlaceholder);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.filterPlaceholder);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

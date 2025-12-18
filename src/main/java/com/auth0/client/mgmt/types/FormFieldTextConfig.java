@@ -72,7 +72,7 @@ public final class FormFieldTextConfig {
         return maxLength;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldTextConfig && equalTo((FormFieldTextConfig) other);
@@ -91,12 +91,12 @@ public final class FormFieldTextConfig {
                 && maxLength.equals(other.maxLength);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.multiline, this.defaultValue, this.placeholder, this.minLength, this.maxLength);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

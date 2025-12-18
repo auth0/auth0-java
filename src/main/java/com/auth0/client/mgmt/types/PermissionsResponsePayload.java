@@ -75,7 +75,7 @@ public final class PermissionsResponsePayload {
         return description;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof PermissionsResponsePayload && equalTo((PermissionsResponsePayload) other);
@@ -93,13 +93,13 @@ public final class PermissionsResponsePayload {
                 && description.equals(other.description);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.resourceServerIdentifier, this.permissionName, this.resourceServerName, this.description);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

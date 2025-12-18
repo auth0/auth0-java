@@ -45,7 +45,7 @@ public final class CreateEncryptionKeyPublicWrappingResponseContent {
         return algorithm;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateEncryptionKeyPublicWrappingResponseContent
@@ -61,12 +61,12 @@ public final class CreateEncryptionKeyPublicWrappingResponseContent {
         return publicKey.equals(other.publicKey) && algorithm.equals(other.algorithm);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.publicKey, this.algorithm);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -103,7 +103,7 @@ public final class CreateEncryptionKeyPublicWrappingResponseContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(CreateEncryptionKeyPublicWrappingResponseContent other) {
             publicKey(other.getPublicKey());
             algorithm(other.getAlgorithm());
@@ -115,21 +115,21 @@ public final class CreateEncryptionKeyPublicWrappingResponseContent {
          * <p>Public wrapping key in PEM format</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("public_key")
         public AlgorithmStage publicKey(@NotNull String publicKey) {
             this.publicKey = Objects.requireNonNull(publicKey, "publicKey must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("algorithm")
         public _FinalStage algorithm(@NotNull String algorithm) {
             this.algorithm = Objects.requireNonNull(algorithm, "algorithm must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public CreateEncryptionKeyPublicWrappingResponseContent build() {
             return new CreateEncryptionKeyPublicWrappingResponseContent(publicKey, algorithm, additionalProperties);
         }

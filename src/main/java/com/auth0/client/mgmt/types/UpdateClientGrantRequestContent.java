@@ -30,16 +30,20 @@ public final class UpdateClientGrantRequestContent {
 
     private final OptionalNullable<Boolean> allowAnyOrganization;
 
+    private final Optional<List<String>> authorizationDetailsTypes;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateClientGrantRequestContent(
             Optional<List<String>> scope,
             OptionalNullable<ClientGrantOrganizationNullableUsageEnum> organizationUsage,
             OptionalNullable<Boolean> allowAnyOrganization,
+            Optional<List<String>> authorizationDetailsTypes,
             Map<String, Object> additionalProperties) {
         this.scope = scope;
         this.organizationUsage = organizationUsage;
         this.allowAnyOrganization = allowAnyOrganization;
+        this.authorizationDetailsTypes = authorizationDetailsTypes;
         this.additionalProperties = additionalProperties;
     }
 
@@ -72,6 +76,14 @@ public final class UpdateClientGrantRequestContent {
         return allowAnyOrganization;
     }
 
+    /**
+     * @return Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s &lt;a href= &quot;https://www.okta.com/legal/&quot;&gt; Master Subscription Agreement.&lt;/a&gt;
+     */
+    @JsonProperty("authorization_details_types")
+    public Optional<List<String>> getAuthorizationDetailsTypes() {
+        return authorizationDetailsTypes;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("organization_usage")
     private OptionalNullable<ClientGrantOrganizationNullableUsageEnum> _getOrganizationUsage() {
@@ -84,7 +96,7 @@ public final class UpdateClientGrantRequestContent {
         return allowAnyOrganization;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateClientGrantRequestContent && equalTo((UpdateClientGrantRequestContent) other);
@@ -98,15 +110,17 @@ public final class UpdateClientGrantRequestContent {
     private boolean equalTo(UpdateClientGrantRequestContent other) {
         return scope.equals(other.scope)
                 && organizationUsage.equals(other.organizationUsage)
-                && allowAnyOrganization.equals(other.allowAnyOrganization);
+                && allowAnyOrganization.equals(other.allowAnyOrganization)
+                && authorizationDetailsTypes.equals(other.authorizationDetailsTypes);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
-        return Objects.hash(this.scope, this.organizationUsage, this.allowAnyOrganization);
+        return Objects.hash(
+                this.scope, this.organizationUsage, this.allowAnyOrganization, this.authorizationDetailsTypes);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -124,6 +138,8 @@ public final class UpdateClientGrantRequestContent {
 
         private OptionalNullable<Boolean> allowAnyOrganization = OptionalNullable.absent();
 
+        private Optional<List<String>> authorizationDetailsTypes = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -133,6 +149,7 @@ public final class UpdateClientGrantRequestContent {
             scope(other.getScope());
             organizationUsage(other.getOrganizationUsage());
             allowAnyOrganization(other.getAllowAnyOrganization());
+            authorizationDetailsTypes(other.getAuthorizationDetailsTypes());
             return this;
         }
 
@@ -217,9 +234,23 @@ public final class UpdateClientGrantRequestContent {
             return this;
         }
 
+        /**
+         * <p>Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s &lt;a href= &quot;https://www.okta.com/legal/&quot;&gt; Master Subscription Agreement.&lt;/a&gt;</p>
+         */
+        @JsonSetter(value = "authorization_details_types", nulls = Nulls.SKIP)
+        public Builder authorizationDetailsTypes(Optional<List<String>> authorizationDetailsTypes) {
+            this.authorizationDetailsTypes = authorizationDetailsTypes;
+            return this;
+        }
+
+        public Builder authorizationDetailsTypes(List<String> authorizationDetailsTypes) {
+            this.authorizationDetailsTypes = Optional.ofNullable(authorizationDetailsTypes);
+            return this;
+        }
+
         public UpdateClientGrantRequestContent build() {
             return new UpdateClientGrantRequestContent(
-                    scope, organizationUsage, allowAnyOrganization, additionalProperties);
+                    scope, organizationUsage, allowAnyOrganization, authorizationDetailsTypes, additionalProperties);
         }
     }
 }

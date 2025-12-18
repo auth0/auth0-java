@@ -49,7 +49,7 @@ public final class TestCustomDomainResponseContent {
         return message;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof TestCustomDomainResponseContent && equalTo((TestCustomDomainResponseContent) other);
@@ -64,12 +64,12 @@ public final class TestCustomDomainResponseContent {
         return success == other.success && message.equals(other.message);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.success, this.message);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -109,7 +109,7 @@ public final class TestCustomDomainResponseContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(TestCustomDomainResponseContent other) {
             success(other.getSuccess());
             message(other.getMessage());
@@ -121,7 +121,7 @@ public final class TestCustomDomainResponseContent {
          * <p>Result of the operation.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("success")
         public _FinalStage success(boolean success) {
             this.success = success;
@@ -132,7 +132,7 @@ public final class TestCustomDomainResponseContent {
          * <p>Message describing the operation status.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage message(String message) {
             this.message = Optional.ofNullable(message);
             return this;
@@ -141,14 +141,14 @@ public final class TestCustomDomainResponseContent {
         /**
          * <p>Message describing the operation status.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "message", nulls = Nulls.SKIP)
         public _FinalStage message(Optional<String> message) {
             this.message = message;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public TestCustomDomainResponseContent build() {
             return new TestCustomDomainResponseContent(success, message, additionalProperties);
         }

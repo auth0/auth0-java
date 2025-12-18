@@ -36,7 +36,7 @@ public final class DeleteUserGrantByUserIdRequestParameters {
         return userId;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof DeleteUserGrantByUserIdRequestParameters
@@ -52,12 +52,12 @@ public final class DeleteUserGrantByUserIdRequestParameters {
         return userId.equals(other.userId);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.userId);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -88,7 +88,7 @@ public final class DeleteUserGrantByUserIdRequestParameters {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(DeleteUserGrantByUserIdRequestParameters other) {
             userId(other.getUserId());
             return this;
@@ -99,14 +99,14 @@ public final class DeleteUserGrantByUserIdRequestParameters {
          * <p>user_id of the grant to delete.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("user_id")
         public _FinalStage userId(@NotNull String userId) {
             this.userId = Objects.requireNonNull(userId, "userId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public DeleteUserGrantByUserIdRequestParameters build() {
             return new DeleteUserGrantByUserIdRequestParameters(userId, additionalProperties);
         }

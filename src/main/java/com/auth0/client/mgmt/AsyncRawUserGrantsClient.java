@@ -64,12 +64,23 @@ public class AsyncRawUserGrantsClient {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("grants");
-        QueryStringMapper.addQueryParameter(httpUrl, "per_page", request.getPerPage(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "include_totals", request.getIncludeTotals(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "user_id", request.getUserId(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "client_id", request.getClientId(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "audience", request.getAudience(), false);
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "per_page", request.getPerPage().orElse(50), false);
+        QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage().orElse(0), false);
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
+        if (!request.getUserId().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "user_id", request.getUserId().orElse(null), false);
+        }
+        if (!request.getClientId().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "client_id", request.getClientId().orElse(null), false);
+        }
+        if (!request.getAudience().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "audience", request.getAudience().orElse(null), false);
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)

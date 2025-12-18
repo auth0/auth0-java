@@ -37,7 +37,7 @@ public final class GetUniversalLoginTemplate {
         return body;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetUniversalLoginTemplate && equalTo((GetUniversalLoginTemplate) other);
@@ -52,12 +52,12 @@ public final class GetUniversalLoginTemplate {
         return body.equals(other.body);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.body);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

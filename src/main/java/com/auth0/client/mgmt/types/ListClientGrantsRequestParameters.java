@@ -33,6 +33,8 @@ public final class ListClientGrantsRequestParameters {
 
     private final OptionalNullable<Boolean> allowAnyOrganization;
 
+    private final OptionalNullable<ClientGrantSubjectTypeEnum> subjectType;
+
     private final Map<String, Object> additionalProperties;
 
     private ListClientGrantsRequestParameters(
@@ -41,12 +43,14 @@ public final class ListClientGrantsRequestParameters {
             OptionalNullable<String> audience,
             OptionalNullable<String> clientId,
             OptionalNullable<Boolean> allowAnyOrganization,
+            OptionalNullable<ClientGrantSubjectTypeEnum> subjectType,
             Map<String, Object> additionalProperties) {
         this.from = from;
         this.take = take;
         this.audience = audience;
         this.clientId = clientId;
         this.allowAnyOrganization = allowAnyOrganization;
+        this.subjectType = subjectType;
         this.additionalProperties = additionalProperties;
     }
 
@@ -107,6 +111,18 @@ public final class ListClientGrantsRequestParameters {
         return allowAnyOrganization;
     }
 
+    /**
+     * @return The type of application access the client grant allows. Use of this field is subject to the applicable Free Trial terms in Okta’s &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt; Master Subscription Agreement.&lt;/a&gt;
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("subject_type")
+    public OptionalNullable<ClientGrantSubjectTypeEnum> getSubjectType() {
+        if (subjectType == null) {
+            return OptionalNullable.absent();
+        }
+        return subjectType;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("from")
     private OptionalNullable<String> _getFrom() {
@@ -131,7 +147,13 @@ public final class ListClientGrantsRequestParameters {
         return allowAnyOrganization;
     }
 
-    @java.lang.Override
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("subject_type")
+    private OptionalNullable<ClientGrantSubjectTypeEnum> _getSubjectType() {
+        return subjectType;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListClientGrantsRequestParameters && equalTo((ListClientGrantsRequestParameters) other);
@@ -147,15 +169,17 @@ public final class ListClientGrantsRequestParameters {
                 && take.equals(other.take)
                 && audience.equals(other.audience)
                 && clientId.equals(other.clientId)
-                && allowAnyOrganization.equals(other.allowAnyOrganization);
+                && allowAnyOrganization.equals(other.allowAnyOrganization)
+                && subjectType.equals(other.subjectType);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
-        return Objects.hash(this.from, this.take, this.audience, this.clientId, this.allowAnyOrganization);
+        return Objects.hash(
+                this.from, this.take, this.audience, this.clientId, this.allowAnyOrganization, this.subjectType);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -176,6 +200,8 @@ public final class ListClientGrantsRequestParameters {
 
         private OptionalNullable<Boolean> allowAnyOrganization = OptionalNullable.absent();
 
+        private OptionalNullable<ClientGrantSubjectTypeEnum> subjectType = OptionalNullable.absent();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -187,6 +213,7 @@ public final class ListClientGrantsRequestParameters {
             audience(other.getAudience());
             clientId(other.getClientId());
             allowAnyOrganization(other.getAllowAnyOrganization());
+            subjectType(other.getSubjectType());
             return this;
         }
 
@@ -360,9 +387,43 @@ public final class ListClientGrantsRequestParameters {
             return this;
         }
 
+        /**
+         * <p>The type of application access the client grant allows. Use of this field is subject to the applicable Free Trial terms in Okta’s &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt; Master Subscription Agreement.&lt;/a&gt;</p>
+         */
+        @JsonSetter(value = "subject_type", nulls = Nulls.SKIP)
+        public Builder subjectType(@Nullable OptionalNullable<ClientGrantSubjectTypeEnum> subjectType) {
+            this.subjectType = subjectType;
+            return this;
+        }
+
+        public Builder subjectType(ClientGrantSubjectTypeEnum subjectType) {
+            this.subjectType = OptionalNullable.of(subjectType);
+            return this;
+        }
+
+        public Builder subjectType(Optional<ClientGrantSubjectTypeEnum> subjectType) {
+            if (subjectType.isPresent()) {
+                this.subjectType = OptionalNullable.of(subjectType.get());
+            } else {
+                this.subjectType = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder subjectType(com.auth0.client.mgmt.core.Nullable<ClientGrantSubjectTypeEnum> subjectType) {
+            if (subjectType.isNull()) {
+                this.subjectType = OptionalNullable.ofNull();
+            } else if (subjectType.isEmpty()) {
+                this.subjectType = OptionalNullable.absent();
+            } else {
+                this.subjectType = OptionalNullable.of(subjectType.get());
+            }
+            return this;
+        }
+
         public ListClientGrantsRequestParameters build() {
             return new ListClientGrantsRequestParameters(
-                    from, take, audience, clientId, allowAnyOrganization, additionalProperties);
+                    from, take, audience, clientId, allowAnyOrganization, subjectType, additionalProperties);
         }
     }
 }

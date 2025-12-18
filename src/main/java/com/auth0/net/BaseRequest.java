@@ -138,7 +138,7 @@ public class BaseRequest<T> implements Request<T> {
      * @throws Auth0Exception if the request execution fails.
      */
     @Override
-    public com.auth0.net.Response<T> execute() throws Auth0Exception {
+    public Response<T> execute() throws Auth0Exception {
         String apiToken = null;
         if (Objects.nonNull(tokenProvider)) {
             apiToken = tokenProvider.getToken();
@@ -156,8 +156,8 @@ public class BaseRequest<T> implements Request<T> {
     }
 
     @Override
-    public CompletableFuture<com.auth0.net.Response<T>> executeAsync() {
-        final CompletableFuture<com.auth0.net.Response<T>> future = new CompletableFuture<>();
+    public CompletableFuture<Response<T>> executeAsync() {
+        final CompletableFuture<Response<T>> future = new CompletableFuture<>();
 
         if (Objects.nonNull(tokenProvider)) {
             return tokenProvider.getTokenAsync().thenCompose(token -> {

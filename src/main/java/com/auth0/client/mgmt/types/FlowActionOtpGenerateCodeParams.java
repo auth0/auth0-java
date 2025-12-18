@@ -41,7 +41,7 @@ public final class FlowActionOtpGenerateCodeParams {
         return length;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionOtpGenerateCodeParams && equalTo((FlowActionOtpGenerateCodeParams) other);
@@ -56,12 +56,12 @@ public final class FlowActionOtpGenerateCodeParams {
         return reference.equals(other.reference) && length == other.length;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.reference, this.length);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -95,28 +95,28 @@ public final class FlowActionOtpGenerateCodeParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionOtpGenerateCodeParams other) {
             reference(other.getReference());
             length(other.getLength());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("reference")
         public LengthStage reference(@NotNull String reference) {
             this.reference = Objects.requireNonNull(reference, "reference must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("length")
         public _FinalStage length(int length) {
             this.length = length;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionOtpGenerateCodeParams build() {
             return new FlowActionOtpGenerateCodeParams(reference, length, additionalProperties);
         }

@@ -33,7 +33,7 @@ public final class FormWidgetGMapsAddressConfig {
         return apiKey;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormWidgetGMapsAddressConfig && equalTo((FormWidgetGMapsAddressConfig) other);
@@ -48,12 +48,12 @@ public final class FormWidgetGMapsAddressConfig {
         return apiKey.equals(other.apiKey);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.apiKey);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -81,20 +81,20 @@ public final class FormWidgetGMapsAddressConfig {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FormWidgetGMapsAddressConfig other) {
             apiKey(other.getApiKey());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("api_key")
         public _FinalStage apiKey(@NotNull String apiKey) {
             this.apiKey = Objects.requireNonNull(apiKey, "apiKey must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FormWidgetGMapsAddressConfig build() {
             return new FormWidgetGMapsAddressConfig(apiKey, additionalProperties);
         }

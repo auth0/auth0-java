@@ -3,6 +3,7 @@
  */
 package com.auth0.client.mgmt.keys.types;
 
+import com.auth0.client.mgmt.core.Nullable;
 import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
@@ -18,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ListEncryptionKeysRequestParameters.Builder.class)
@@ -48,9 +48,6 @@ public final class ListEncryptionKeysRequestParameters {
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("page")
     public OptionalNullable<Integer> getPage() {
-        if (page == null) {
-            return OptionalNullable.absent();
-        }
         return page;
     }
 
@@ -72,13 +69,7 @@ public final class ListEncryptionKeysRequestParameters {
         return includeTotals;
     }
 
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("page")
-    private OptionalNullable<Integer> _getPage() {
-        return page;
-    }
-
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListEncryptionKeysRequestParameters
@@ -94,12 +85,12 @@ public final class ListEncryptionKeysRequestParameters {
         return page.equals(other.page) && perPage.equals(other.perPage) && includeTotals.equals(other.includeTotals);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.page, this.perPage, this.includeTotals);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -132,7 +123,7 @@ public final class ListEncryptionKeysRequestParameters {
          * <p>Page index of the results to return. First page is 0.</p>
          */
         @JsonSetter(value = "page", nulls = Nulls.SKIP)
-        public Builder page(@Nullable OptionalNullable<Integer> page) {
+        public Builder page(OptionalNullable<Integer> page) {
             this.page = page;
             return this;
         }
@@ -151,7 +142,7 @@ public final class ListEncryptionKeysRequestParameters {
             return this;
         }
 
-        public Builder page(com.auth0.client.mgmt.core.Nullable<Integer> page) {
+        public Builder page(Nullable<Integer> page) {
             if (page.isNull()) {
                 this.page = OptionalNullable.ofNull();
             } else if (page.isEmpty()) {
@@ -185,7 +176,7 @@ public final class ListEncryptionKeysRequestParameters {
             return this;
         }
 
-        public Builder perPage(com.auth0.client.mgmt.core.Nullable<Integer> perPage) {
+        public Builder perPage(Nullable<Integer> perPage) {
             if (perPage.isNull()) {
                 this.perPage = OptionalNullable.ofNull();
             } else if (perPage.isEmpty()) {
@@ -219,7 +210,7 @@ public final class ListEncryptionKeysRequestParameters {
             return this;
         }
 
-        public Builder includeTotals(com.auth0.client.mgmt.core.Nullable<Boolean> includeTotals) {
+        public Builder includeTotals(Nullable<Boolean> includeTotals) {
             if (includeTotals.isNull()) {
                 this.includeTotals = OptionalNullable.ofNull();
             } else if (includeTotals.isEmpty()) {

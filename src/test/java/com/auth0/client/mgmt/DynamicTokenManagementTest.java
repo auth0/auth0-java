@@ -50,8 +50,6 @@ public class DynamicTokenManagementTest {
         Map<String, String> headers3 = options.headers(null);
         assertEquals("Bearer token-3", headers3.get("Authorization"));
         assertEquals(3, evaluationCount.get());
-
-        System.out.println("✅ Supplier is evaluated on each request: " + evaluationCount.get() + " times");
     }
 
     @Test
@@ -68,7 +66,6 @@ public class DynamicTokenManagementTest {
                     refreshCount++;
                     token = "refreshed-token-" + refreshCount;
                     expiryTime = System.currentTimeMillis() + 1000; // 1 second expiry
-                    System.out.println("Token refreshed: " + token);
                 }
                 return token;
             }
@@ -107,8 +104,6 @@ public class DynamicTokenManagementTest {
         Map<String, String> headers3 = options.headers(null);
         assertEquals("Bearer refreshed-token-2", headers3.get("Authorization"));
         assertEquals(2, tokenStore.getRefreshCount()); // Token refreshed
-
-        System.out.println("✅ Token automatically refreshed " + tokenStore.getRefreshCount() + " times");
     }
 
     @Test
@@ -134,8 +129,6 @@ public class DynamicTokenManagementTest {
         assertEquals("static-value", headers2.get("X-Static-Header"));
         assertEquals("dynamic-2", headers2.get("X-Dynamic-Header"));
         assertEquals("another-static", headers2.get("X-Another-Static"));
-
-        System.out.println("✅ Static and dynamic headers coexist correctly");
     }
 
     @Test
@@ -178,8 +171,6 @@ public class DynamicTokenManagementTest {
         assertEquals("session-updated", headers2.get("X-Session-ID"));
         String timestamp2 = headers2.get("X-Timestamp");
         assertNotEquals(timestamp1, timestamp2);
-
-        System.out.println("✅ Multiple dynamic headers work independently");
     }
 
     @Test
@@ -212,8 +203,6 @@ public class DynamicTokenManagementTest {
 
         // Verify dynamic supplier was still called (even though overridden)
         assertEquals(2, dynamicCounter.get());
-
-        System.out.println("✅ RequestOptions correctly override dynamic headers");
     }
 
     @Test
@@ -226,7 +215,6 @@ public class DynamicTokenManagementTest {
                 .environment(Environment.custom("https://test.auth0.com/api/v2"))
                 .addHeader("Authorization", () -> {
                     int version = tokenVersion.incrementAndGet();
-                    System.out.println("Token supplier called: version " + version);
                     return "Bearer dynamic-token-v" + version;
                 })
                 .build();
@@ -245,7 +233,6 @@ public class DynamicTokenManagementTest {
         assertEquals("Bearer dynamic-token-v3", headers3.get("Authorization"));
 
         assertEquals(3, tokenVersion.get());
-        System.out.println("✅ ManagementApi correctly uses dynamic headers");
     }
 
     @Test
@@ -291,8 +278,6 @@ public class DynamicTokenManagementTest {
 
         // Verify counter was incremented correctly
         assertEquals(threadCount, globalCounter.get());
-
-        System.out.println("✅ Dynamic headers are thread-safe");
     }
 
     @Test
@@ -325,7 +310,6 @@ public class DynamicTokenManagementTest {
         assertEquals("Bearer token-3", headers3.get("Authorization"));
 
         assertEquals(3, callCount.get());
-        System.out.println("✅ Supplier exceptions are properly propagated");
     }
 
     @Test
@@ -345,7 +329,6 @@ public class DynamicTokenManagementTest {
                     tokenFetchCount++;
                     accessToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.mock-m2m-token-" + tokenFetchCount;
                     expiresAt = System.currentTimeMillis() + 86400000; // 24 hours
-                    System.out.println("Fetched new M2M token (fetch #" + tokenFetchCount + ")");
                 }
                 return accessToken;
             }
@@ -390,9 +373,6 @@ public class DynamicTokenManagementTest {
             Map<String, String> headersAfterExpiry = clientOptions.headers(null);
             assertTrue(headersAfterExpiry.get("Authorization").contains("mock-m2m-token-2"));
             assertEquals(2, tokenManager.getTokenFetchCount());
-
-            System.out.println("✅ Auth0 M2M token refresh scenario works correctly");
-
         } catch (Exception e) {
             fail("Test failed: " + e.getMessage());
         }

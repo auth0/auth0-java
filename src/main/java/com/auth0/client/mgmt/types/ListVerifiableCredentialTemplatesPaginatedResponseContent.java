@@ -49,7 +49,7 @@ public final class ListVerifiableCredentialTemplatesPaginatedResponseContent {
         return templates;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListVerifiableCredentialTemplatesPaginatedResponseContent
@@ -65,12 +65,12 @@ public final class ListVerifiableCredentialTemplatesPaginatedResponseContent {
         return next.equals(other.next) && templates.equals(other.templates);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.next, this.templates);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

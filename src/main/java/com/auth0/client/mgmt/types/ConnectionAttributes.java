@@ -54,7 +54,7 @@ public final class ConnectionAttributes {
         return username;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionAttributes && equalTo((ConnectionAttributes) other);
@@ -69,12 +69,12 @@ public final class ConnectionAttributes {
         return email.equals(other.email) && phoneNumber.equals(other.phoneNumber) && username.equals(other.username);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.email, this.phoneNumber, this.username);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

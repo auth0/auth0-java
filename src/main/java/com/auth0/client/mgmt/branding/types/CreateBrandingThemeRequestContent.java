@@ -90,7 +90,7 @@ public final class CreateBrandingThemeRequestContent {
         return widget;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateBrandingThemeRequestContent && equalTo((CreateBrandingThemeRequestContent) other);
@@ -110,12 +110,12 @@ public final class CreateBrandingThemeRequestContent {
                 && widget.equals(other.widget);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.borders, this.colors, this.displayName, this.fonts, this.pageBackground, this.widget);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -177,7 +177,7 @@ public final class CreateBrandingThemeRequestContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(CreateBrandingThemeRequestContent other) {
             borders(other.getBorders());
             colors(other.getColors());
@@ -188,35 +188,35 @@ public final class CreateBrandingThemeRequestContent {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("borders")
         public ColorsStage borders(@NotNull BrandingThemeBorders borders) {
             this.borders = Objects.requireNonNull(borders, "borders must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("colors")
         public FontsStage colors(@NotNull BrandingThemeColors colors) {
             this.colors = Objects.requireNonNull(colors, "colors must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("fonts")
         public PageBackgroundStage fonts(@NotNull BrandingThemeFonts fonts) {
             this.fonts = Objects.requireNonNull(fonts, "fonts must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("page_background")
         public WidgetStage pageBackground(@NotNull BrandingThemePageBackground pageBackground) {
             this.pageBackground = Objects.requireNonNull(pageBackground, "pageBackground must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("widget")
         public _FinalStage widget(@NotNull BrandingThemeWidget widget) {
             this.widget = Objects.requireNonNull(widget, "widget must not be null");
@@ -227,7 +227,7 @@ public final class CreateBrandingThemeRequestContent {
          * <p>Display Name</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage displayName(String displayName) {
             this.displayName = Optional.ofNullable(displayName);
             return this;
@@ -236,14 +236,14 @@ public final class CreateBrandingThemeRequestContent {
         /**
          * <p>Display Name</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "displayName", nulls = Nulls.SKIP)
         public _FinalStage displayName(Optional<String> displayName) {
             this.displayName = displayName;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public CreateBrandingThemeRequestContent build() {
             return new CreateBrandingThemeRequestContent(
                     borders, colors, displayName, fonts, pageBackground, widget, additionalProperties);

@@ -41,7 +41,7 @@ public final class EventStreamResponseContent {
         throw new IllegalStateException("Failed to visit value. This should never happen.");
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof EventStreamResponseContent && equalTo((EventStreamResponseContent) other);
@@ -51,12 +51,12 @@ public final class EventStreamResponseContent {
         return value.equals(other.value);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.value);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return this.value.toString();
     }
@@ -86,7 +86,7 @@ public final class EventStreamResponseContent {
             super(EventStreamResponseContent.class);
         }
 
-        @java.lang.Override
+        @Override
         public EventStreamResponseContent deserialize(JsonParser p, DeserializationContext context) throws IOException {
             Object value = p.readValueAs(Object.class);
             try {

@@ -3,6 +3,7 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.Nullable;
 import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
@@ -18,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ListUsersRequestParameters.Builder.class)
@@ -76,9 +76,6 @@ public final class ListUsersRequestParameters {
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("page")
     public OptionalNullable<Integer> getPage() {
-        if (page == null) {
-            return OptionalNullable.absent();
-        }
         return page;
     }
 
@@ -185,12 +182,6 @@ public final class ListUsersRequestParameters {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("page")
-    private OptionalNullable<Integer> _getPage() {
-        return page;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("sort")
     private OptionalNullable<String> _getSort() {
         return sort;
@@ -232,7 +223,7 @@ public final class ListUsersRequestParameters {
         return primaryOrder;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListUsersRequestParameters && equalTo((ListUsersRequestParameters) other);
@@ -256,7 +247,7 @@ public final class ListUsersRequestParameters {
                 && primaryOrder.equals(other.primaryOrder);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.page,
@@ -271,7 +262,7 @@ public final class ListUsersRequestParameters {
                 this.primaryOrder);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -325,7 +316,7 @@ public final class ListUsersRequestParameters {
          * <p>Page index of the results to return. First page is 0.</p>
          */
         @JsonSetter(value = "page", nulls = Nulls.SKIP)
-        public Builder page(@Nullable OptionalNullable<Integer> page) {
+        public Builder page(OptionalNullable<Integer> page) {
             this.page = page;
             return this;
         }
@@ -344,7 +335,7 @@ public final class ListUsersRequestParameters {
             return this;
         }
 
-        public Builder page(com.auth0.client.mgmt.core.Nullable<Integer> page) {
+        public Builder page(Nullable<Integer> page) {
             if (page.isNull()) {
                 this.page = OptionalNullable.ofNull();
             } else if (page.isEmpty()) {
@@ -378,7 +369,7 @@ public final class ListUsersRequestParameters {
             return this;
         }
 
-        public Builder perPage(com.auth0.client.mgmt.core.Nullable<Integer> perPage) {
+        public Builder perPage(Nullable<Integer> perPage) {
             if (perPage.isNull()) {
                 this.perPage = OptionalNullable.ofNull();
             } else if (perPage.isEmpty()) {
@@ -412,7 +403,7 @@ public final class ListUsersRequestParameters {
             return this;
         }
 
-        public Builder includeTotals(com.auth0.client.mgmt.core.Nullable<Boolean> includeTotals) {
+        public Builder includeTotals(Nullable<Boolean> includeTotals) {
             if (includeTotals.isNull()) {
                 this.includeTotals = OptionalNullable.ofNull();
             } else if (includeTotals.isEmpty()) {
@@ -427,7 +418,7 @@ public final class ListUsersRequestParameters {
          * <p>Field to sort by. Use &lt;code&gt;field:order&lt;/code&gt; where order is &lt;code&gt;1&lt;/code&gt; for ascending and &lt;code&gt;-1&lt;/code&gt; for descending. e.g. &lt;code&gt;created_at:1&lt;/code&gt;</p>
          */
         @JsonSetter(value = "sort", nulls = Nulls.SKIP)
-        public Builder sort(@Nullable OptionalNullable<String> sort) {
+        public Builder sort(@org.jetbrains.annotations.Nullable OptionalNullable<String> sort) {
             this.sort = sort;
             return this;
         }
@@ -446,7 +437,7 @@ public final class ListUsersRequestParameters {
             return this;
         }
 
-        public Builder sort(com.auth0.client.mgmt.core.Nullable<String> sort) {
+        public Builder sort(Nullable<String> sort) {
             if (sort.isNull()) {
                 this.sort = OptionalNullable.ofNull();
             } else if (sort.isEmpty()) {
@@ -461,7 +452,7 @@ public final class ListUsersRequestParameters {
          * <p>Connection filter. Only applies when using &lt;code&gt;search_engine=v1&lt;/code&gt;. To filter by connection with &lt;code&gt;search_engine=v2|v3&lt;/code&gt;, use &lt;code&gt;q=identities.connection:&quot;connection_name&quot;&lt;/code&gt;</p>
          */
         @JsonSetter(value = "connection", nulls = Nulls.SKIP)
-        public Builder connection(@Nullable OptionalNullable<String> connection) {
+        public Builder connection(@org.jetbrains.annotations.Nullable OptionalNullable<String> connection) {
             this.connection = connection;
             return this;
         }
@@ -480,7 +471,7 @@ public final class ListUsersRequestParameters {
             return this;
         }
 
-        public Builder connection(com.auth0.client.mgmt.core.Nullable<String> connection) {
+        public Builder connection(Nullable<String> connection) {
             if (connection.isNull()) {
                 this.connection = OptionalNullable.ofNull();
             } else if (connection.isEmpty()) {
@@ -495,7 +486,7 @@ public final class ListUsersRequestParameters {
          * <p>Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.</p>
          */
         @JsonSetter(value = "fields", nulls = Nulls.SKIP)
-        public Builder fields(@Nullable OptionalNullable<String> fields) {
+        public Builder fields(@org.jetbrains.annotations.Nullable OptionalNullable<String> fields) {
             this.fields = fields;
             return this;
         }
@@ -514,7 +505,7 @@ public final class ListUsersRequestParameters {
             return this;
         }
 
-        public Builder fields(com.auth0.client.mgmt.core.Nullable<String> fields) {
+        public Builder fields(Nullable<String> fields) {
             if (fields.isNull()) {
                 this.fields = OptionalNullable.ofNull();
             } else if (fields.isEmpty()) {
@@ -529,7 +520,7 @@ public final class ListUsersRequestParameters {
          * <p>Whether specified fields are to be included (true) or excluded (false).</p>
          */
         @JsonSetter(value = "include_fields", nulls = Nulls.SKIP)
-        public Builder includeFields(@Nullable OptionalNullable<Boolean> includeFields) {
+        public Builder includeFields(@org.jetbrains.annotations.Nullable OptionalNullable<Boolean> includeFields) {
             this.includeFields = includeFields;
             return this;
         }
@@ -548,7 +539,7 @@ public final class ListUsersRequestParameters {
             return this;
         }
 
-        public Builder includeFields(com.auth0.client.mgmt.core.Nullable<Boolean> includeFields) {
+        public Builder includeFields(Nullable<Boolean> includeFields) {
             if (includeFields.isNull()) {
                 this.includeFields = OptionalNullable.ofNull();
             } else if (includeFields.isEmpty()) {
@@ -563,7 +554,7 @@ public final class ListUsersRequestParameters {
          * <p>Query in &lt;a target='_new' href ='http://www.lucenetutorial.com/lucene-query-syntax.html'&gt;Lucene query string syntax&lt;/a&gt;. Some query types cannot be used on metadata fields, for details see &lt;a href='https://auth0.com/docs/users/search/v3/query-syntax#searchable-fields'&gt;Searchable Fields&lt;/a&gt;.</p>
          */
         @JsonSetter(value = "q", nulls = Nulls.SKIP)
-        public Builder q(@Nullable OptionalNullable<String> q) {
+        public Builder q(@org.jetbrains.annotations.Nullable OptionalNullable<String> q) {
             this.q = q;
             return this;
         }
@@ -582,7 +573,7 @@ public final class ListUsersRequestParameters {
             return this;
         }
 
-        public Builder q(com.auth0.client.mgmt.core.Nullable<String> q) {
+        public Builder q(Nullable<String> q) {
             if (q.isNull()) {
                 this.q = OptionalNullable.ofNull();
             } else if (q.isEmpty()) {
@@ -597,7 +588,8 @@ public final class ListUsersRequestParameters {
          * <p>The version of the search engine</p>
          */
         @JsonSetter(value = "search_engine", nulls = Nulls.SKIP)
-        public Builder searchEngine(@Nullable OptionalNullable<SearchEngineVersionsEnum> searchEngine) {
+        public Builder searchEngine(
+                @org.jetbrains.annotations.Nullable OptionalNullable<SearchEngineVersionsEnum> searchEngine) {
             this.searchEngine = searchEngine;
             return this;
         }
@@ -616,7 +608,7 @@ public final class ListUsersRequestParameters {
             return this;
         }
 
-        public Builder searchEngine(com.auth0.client.mgmt.core.Nullable<SearchEngineVersionsEnum> searchEngine) {
+        public Builder searchEngine(Nullable<SearchEngineVersionsEnum> searchEngine) {
             if (searchEngine.isNull()) {
                 this.searchEngine = OptionalNullable.ofNull();
             } else if (searchEngine.isEmpty()) {
@@ -631,7 +623,7 @@ public final class ListUsersRequestParameters {
          * <p>If true (default), results are returned in a deterministic order. If false, results may be returned in a non-deterministic order, which can enhance performance for complex queries targeting a small number of users. Set to false only when consistent ordering and pagination is not required.</p>
          */
         @JsonSetter(value = "primary_order", nulls = Nulls.SKIP)
-        public Builder primaryOrder(@Nullable OptionalNullable<Boolean> primaryOrder) {
+        public Builder primaryOrder(@org.jetbrains.annotations.Nullable OptionalNullable<Boolean> primaryOrder) {
             this.primaryOrder = primaryOrder;
             return this;
         }
@@ -650,7 +642,7 @@ public final class ListUsersRequestParameters {
             return this;
         }
 
-        public Builder primaryOrder(com.auth0.client.mgmt.core.Nullable<Boolean> primaryOrder) {
+        public Builder primaryOrder(Nullable<Boolean> primaryOrder) {
             if (primaryOrder.isNull()) {
                 this.primaryOrder = OptionalNullable.ofNull();
             } else if (primaryOrder.isEmpty()) {

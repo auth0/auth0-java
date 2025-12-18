@@ -85,7 +85,7 @@ public final class OrganizationMember {
         return roles;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof OrganizationMember && equalTo((OrganizationMember) other);
@@ -104,12 +104,12 @@ public final class OrganizationMember {
                 && roles.equals(other.roles);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.userId, this.picture, this.name, this.email, this.roles);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

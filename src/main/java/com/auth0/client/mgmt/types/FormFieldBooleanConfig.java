@@ -45,7 +45,7 @@ public final class FormFieldBooleanConfig {
         return options;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldBooleanConfig && equalTo((FormFieldBooleanConfig) other);
@@ -60,12 +60,12 @@ public final class FormFieldBooleanConfig {
         return defaultValue.equals(other.defaultValue) && options.equals(other.options);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.defaultValue, this.options);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

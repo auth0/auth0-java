@@ -13,9 +13,7 @@ import com.auth0.client.mgmt.types.CreateEventStreamTestEventRequestContent;
 import com.auth0.client.mgmt.types.CreateEventStreamTestEventResponseContent;
 import com.auth0.client.mgmt.types.EventStreamResponseContent;
 import com.auth0.client.mgmt.types.EventStreamsCreateRequest;
-import com.auth0.client.mgmt.types.EventStreamsGetStatsRequest;
 import com.auth0.client.mgmt.types.GetEventStreamResponseContent;
-import com.auth0.client.mgmt.types.GetEventStreamStatsResponseContent;
 import com.auth0.client.mgmt.types.ListEventStreamsRequestParameters;
 import com.auth0.client.mgmt.types.UpdateEventStreamRequestContent;
 import com.auth0.client.mgmt.types.UpdateEventStreamResponseContent;
@@ -93,19 +91,6 @@ public class EventStreamsClient {
     public UpdateEventStreamResponseContent update(
             String id, UpdateEventStreamRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.update(id, request, requestOptions).body();
-    }
-
-    public GetEventStreamStatsResponseContent getStats(String id) {
-        return this.rawClient.getStats(id).body();
-    }
-
-    public GetEventStreamStatsResponseContent getStats(String id, EventStreamsGetStatsRequest request) {
-        return this.rawClient.getStats(id, request).body();
-    }
-
-    public GetEventStreamStatsResponseContent getStats(
-            String id, EventStreamsGetStatsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.getStats(id, request, requestOptions).body();
     }
 
     public CreateEventStreamTestEventResponseContent test(String id, CreateEventStreamTestEventRequestContent request) {

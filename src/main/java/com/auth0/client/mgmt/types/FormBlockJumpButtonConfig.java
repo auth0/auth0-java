@@ -55,7 +55,7 @@ public final class FormBlockJumpButtonConfig {
         return style;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormBlockJumpButtonConfig && equalTo((FormBlockJumpButtonConfig) other);
@@ -70,12 +70,12 @@ public final class FormBlockJumpButtonConfig {
         return text.equals(other.text) && nextNode.equals(other.nextNode) && style.equals(other.style);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.text, this.nextNode, this.style);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -115,7 +115,7 @@ public final class FormBlockJumpButtonConfig {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FormBlockJumpButtonConfig other) {
             text(other.getText());
             nextNode(other.getNextNode());
@@ -123,34 +123,34 @@ public final class FormBlockJumpButtonConfig {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("text")
         public NextNodeStage text(@NotNull String text) {
             this.text = Objects.requireNonNull(text, "text must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("next_node")
         public _FinalStage nextNode(@NotNull FormNodePointer nextNode) {
             this.nextNode = Objects.requireNonNull(nextNode, "nextNode must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage style(FormBlockJumpButtonConfigStyle style) {
             this.style = Optional.ofNullable(style);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "style", nulls = Nulls.SKIP)
         public _FinalStage style(Optional<FormBlockJumpButtonConfigStyle> style) {
             this.style = style;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FormBlockJumpButtonConfig build() {
             return new FormBlockJumpButtonConfig(text, nextNode, style, additionalProperties);
         }

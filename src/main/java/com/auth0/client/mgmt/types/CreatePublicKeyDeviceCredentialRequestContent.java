@@ -85,7 +85,7 @@ public final class CreatePublicKeyDeviceCredentialRequestContent {
         return clientId;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreatePublicKeyDeviceCredentialRequestContent
@@ -105,12 +105,12 @@ public final class CreatePublicKeyDeviceCredentialRequestContent {
                 && clientId.equals(other.clientId);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.deviceName, this.type, this.value, this.deviceId, this.clientId);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -174,7 +174,7 @@ public final class CreatePublicKeyDeviceCredentialRequestContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(CreatePublicKeyDeviceCredentialRequestContent other) {
             deviceName(other.getDeviceName());
             type(other.getType());
@@ -189,14 +189,14 @@ public final class CreatePublicKeyDeviceCredentialRequestContent {
          * <p>Name for this device easily recognized by owner.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("device_name")
         public TypeStage deviceName(@NotNull String deviceName) {
             this.deviceName = Objects.requireNonNull(deviceName, "deviceName must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("type")
         public ValueStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
@@ -208,7 +208,7 @@ public final class CreatePublicKeyDeviceCredentialRequestContent {
          * <p>Base64 encoded string containing the credential.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("value")
         public DeviceIdStage value(@NotNull String value) {
             this.value = Objects.requireNonNull(value, "value must not be null");
@@ -220,7 +220,7 @@ public final class CreatePublicKeyDeviceCredentialRequestContent {
          * <p>Unique identifier for the device. Recommend using &lt;a href=&quot;http://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID&quot;&gt;Android_ID&lt;/a&gt; on Android and &lt;a href=&quot;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDevice_Class/index.html#//apple_ref/occ/instp/UIDevice/identifierForVendor&quot;&gt;identifierForVendor&lt;/a&gt;.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("device_id")
         public _FinalStage deviceId(@NotNull String deviceId) {
             this.deviceId = Objects.requireNonNull(deviceId, "deviceId must not be null");
@@ -231,7 +231,7 @@ public final class CreatePublicKeyDeviceCredentialRequestContent {
          * <p>client_id of the client (application) this credential is for.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage clientId(String clientId) {
             this.clientId = Optional.ofNullable(clientId);
             return this;
@@ -240,14 +240,14 @@ public final class CreatePublicKeyDeviceCredentialRequestContent {
         /**
          * <p>client_id of the client (application) this credential is for.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "client_id", nulls = Nulls.SKIP)
         public _FinalStage clientId(Optional<String> clientId) {
             this.clientId = clientId;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public CreatePublicKeyDeviceCredentialRequestContent build() {
             return new CreatePublicKeyDeviceCredentialRequestContent(
                     deviceName, type, value, deviceId, clientId, additionalProperties);

@@ -63,7 +63,7 @@ public final class FormEndingNode {
         return resumeFlow;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormEndingNode && equalTo((FormEndingNode) other);
@@ -81,12 +81,12 @@ public final class FormEndingNode {
                 && resumeFlow.equals(other.resumeFlow);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.redirection, this.afterSubmit, this.coordinates, this.resumeFlow);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

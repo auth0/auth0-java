@@ -58,7 +58,10 @@ public class RawTemplatesClient {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("branding/phone/templates");
-        QueryStringMapper.addQueryParameter(httpUrl, "disabled", request.getDisabled(), false);
+        if (!request.getDisabled().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "disabled", request.getDisabled().orElse(null), false);
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)

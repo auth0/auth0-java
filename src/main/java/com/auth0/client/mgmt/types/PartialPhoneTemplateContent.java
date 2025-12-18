@@ -46,7 +46,7 @@ public final class PartialPhoneTemplateContent {
         return body;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof PartialPhoneTemplateContent && equalTo((PartialPhoneTemplateContent) other);
@@ -61,12 +61,12 @@ public final class PartialPhoneTemplateContent {
         return from.equals(other.from) && body.equals(other.body);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.from, this.body);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

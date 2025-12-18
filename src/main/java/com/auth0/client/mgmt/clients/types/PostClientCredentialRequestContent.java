@@ -109,7 +109,7 @@ public final class PostClientCredentialRequestContent {
         return expiresAt;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof PostClientCredentialRequestContent
@@ -131,7 +131,7 @@ public final class PostClientCredentialRequestContent {
                 && expiresAt.equals(other.expiresAt);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.credentialType,
@@ -143,7 +143,7 @@ public final class PostClientCredentialRequestContent {
                 this.expiresAt);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -222,7 +222,7 @@ public final class PostClientCredentialRequestContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(PostClientCredentialRequestContent other) {
             credentialType(other.getCredentialType());
             name(other.getName());
@@ -234,7 +234,7 @@ public final class PostClientCredentialRequestContent {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("credential_type")
         public _FinalStage credentialType(@NotNull ClientCredentialTypeEnum credentialType) {
             this.credentialType = Objects.requireNonNull(credentialType, "credentialType must not be null");
@@ -245,7 +245,7 @@ public final class PostClientCredentialRequestContent {
          * <p>The ISO 8601 formatted date representing the expiration of the credential. If not specified (not recommended), the credential never expires. Applies to <code>public_key</code> credential type.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage expiresAt(OffsetDateTime expiresAt) {
             this.expiresAt = Optional.ofNullable(expiresAt);
             return this;
@@ -254,7 +254,7 @@ public final class PostClientCredentialRequestContent {
         /**
          * <p>The ISO 8601 formatted date representing the expiration of the credential. If not specified (not recommended), the credential never expires. Applies to <code>public_key</code> credential type.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "expires_at", nulls = Nulls.SKIP)
         public _FinalStage expiresAt(Optional<OffsetDateTime> expiresAt) {
             this.expiresAt = expiresAt;
@@ -265,7 +265,7 @@ public final class PostClientCredentialRequestContent {
          * <p>Parse expiry from x509 certificate. If true, attempts to parse the expiry date from the provided PEM. Applies to <code>public_key</code> credential type.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage parseExpiryFromCert(Boolean parseExpiryFromCert) {
             this.parseExpiryFromCert = Optional.ofNullable(parseExpiryFromCert);
             return this;
@@ -274,20 +274,20 @@ public final class PostClientCredentialRequestContent {
         /**
          * <p>Parse expiry from x509 certificate. If true, attempts to parse the expiry date from the provided PEM. Applies to <code>public_key</code> credential type.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "parse_expiry_from_cert", nulls = Nulls.SKIP)
         public _FinalStage parseExpiryFromCert(Optional<Boolean> parseExpiryFromCert) {
             this.parseExpiryFromCert = parseExpiryFromCert;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage alg(PublicKeyCredentialAlgorithmEnum alg) {
             this.alg = Optional.ofNullable(alg);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "alg", nulls = Nulls.SKIP)
         public _FinalStage alg(Optional<PublicKeyCredentialAlgorithmEnum> alg) {
             this.alg = alg;
@@ -298,7 +298,7 @@ public final class PostClientCredentialRequestContent {
          * <p>PEM-formatted public key (SPKI and PKCS1) or X509 certificate. Must be JSON escaped.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage pem(String pem) {
             this.pem = Optional.ofNullable(pem);
             return this;
@@ -307,7 +307,7 @@ public final class PostClientCredentialRequestContent {
         /**
          * <p>PEM-formatted public key (SPKI and PKCS1) or X509 certificate. Must be JSON escaped.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "pem", nulls = Nulls.SKIP)
         public _FinalStage pem(Optional<String> pem) {
             this.pem = pem;
@@ -318,7 +318,7 @@ public final class PostClientCredentialRequestContent {
          * <p>Subject Distinguished Name. Mutually exclusive with <code>pem</code> property. Applies to <code>cert_subject_dn</code> credential type.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage subjectDn(String subjectDn) {
             this.subjectDn = Optional.ofNullable(subjectDn);
             return this;
@@ -327,7 +327,7 @@ public final class PostClientCredentialRequestContent {
         /**
          * <p>Subject Distinguished Name. Mutually exclusive with <code>pem</code> property. Applies to <code>cert_subject_dn</code> credential type.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "subject_dn", nulls = Nulls.SKIP)
         public _FinalStage subjectDn(Optional<String> subjectDn) {
             this.subjectDn = subjectDn;
@@ -338,7 +338,7 @@ public final class PostClientCredentialRequestContent {
          * <p>Friendly name for a credential.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage name(String name) {
             this.name = Optional.ofNullable(name);
             return this;
@@ -347,14 +347,14 @@ public final class PostClientCredentialRequestContent {
         /**
          * <p>Friendly name for a credential.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<String> name) {
             this.name = name;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public PostClientCredentialRequestContent build() {
             return new PostClientCredentialRequestContent(
                     credentialType, name, subjectDn, pem, alg, parseExpiryFromCert, expiresAt, additionalProperties);

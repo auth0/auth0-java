@@ -53,7 +53,7 @@ public final class FlowActionHubspotEnrollContactParams {
         return workflowId;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionHubspotEnrollContactParams
@@ -71,12 +71,12 @@ public final class FlowActionHubspotEnrollContactParams {
                 && workflowId.equals(other.workflowId);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.email, this.workflowId);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -116,7 +116,7 @@ public final class FlowActionHubspotEnrollContactParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionHubspotEnrollContactParams other) {
             connectionId(other.getConnectionId());
             email(other.getEmail());
@@ -124,28 +124,28 @@ public final class FlowActionHubspotEnrollContactParams {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("connection_id")
         public EmailStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("email")
         public WorkflowIdStage email(@NotNull String email) {
             this.email = Objects.requireNonNull(email, "email must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("workflow_id")
         public _FinalStage workflowId(@NotNull FlowActionHubspotEnrollContactParamsWorkflowId workflowId) {
             this.workflowId = Objects.requireNonNull(workflowId, "workflowId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionHubspotEnrollContactParams build() {
             return new FlowActionHubspotEnrollContactParams(connectionId, email, workflowId, additionalProperties);
         }

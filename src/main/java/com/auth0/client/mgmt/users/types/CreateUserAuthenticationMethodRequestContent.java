@@ -117,7 +117,7 @@ public final class CreateUserAuthenticationMethodRequestContent {
     }
 
     /**
-     * @return Applies to webauthn authentication methods only. The public key.
+     * @return Applies to webauthn authentication methods only. The public key, which is encoded as base64.
      */
     @JsonProperty("public_key")
     public Optional<String> getPublicKey() {
@@ -132,7 +132,7 @@ public final class CreateUserAuthenticationMethodRequestContent {
         return relyingPartyIdentifier;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateUserAuthenticationMethodRequestContent
@@ -156,7 +156,7 @@ public final class CreateUserAuthenticationMethodRequestContent {
                 && relyingPartyIdentifier.equals(other.relyingPartyIdentifier);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.type,
@@ -170,7 +170,7 @@ public final class CreateUserAuthenticationMethodRequestContent {
                 this.relyingPartyIdentifier);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -229,7 +229,7 @@ public final class CreateUserAuthenticationMethodRequestContent {
         _FinalStage keyId(String keyId);
 
         /**
-         * <p>Applies to webauthn authentication methods only. The public key.</p>
+         * <p>Applies to webauthn authentication methods only. The public key, which is encoded as base64.</p>
          */
         _FinalStage publicKey(Optional<String> publicKey);
 
@@ -268,7 +268,7 @@ public final class CreateUserAuthenticationMethodRequestContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(CreateUserAuthenticationMethodRequestContent other) {
             type(other.getType());
             name(other.getName());
@@ -282,7 +282,7 @@ public final class CreateUserAuthenticationMethodRequestContent {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("type")
         public _FinalStage type(@NotNull CreatedUserAuthenticationMethodTypeEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
@@ -293,7 +293,7 @@ public final class CreateUserAuthenticationMethodRequestContent {
          * <p>Applies to webauthn authentication methods only. The relying party identifier.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage relyingPartyIdentifier(String relyingPartyIdentifier) {
             this.relyingPartyIdentifier = Optional.ofNullable(relyingPartyIdentifier);
             return this;
@@ -302,7 +302,7 @@ public final class CreateUserAuthenticationMethodRequestContent {
         /**
          * <p>Applies to webauthn authentication methods only. The relying party identifier.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "relying_party_identifier", nulls = Nulls.SKIP)
         public _FinalStage relyingPartyIdentifier(Optional<String> relyingPartyIdentifier) {
             this.relyingPartyIdentifier = relyingPartyIdentifier;
@@ -310,19 +310,19 @@ public final class CreateUserAuthenticationMethodRequestContent {
         }
 
         /**
-         * <p>Applies to webauthn authentication methods only. The public key.</p>
+         * <p>Applies to webauthn authentication methods only. The public key, which is encoded as base64.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage publicKey(String publicKey) {
             this.publicKey = Optional.ofNullable(publicKey);
             return this;
         }
 
         /**
-         * <p>Applies to webauthn authentication methods only. The public key.</p>
+         * <p>Applies to webauthn authentication methods only. The public key, which is encoded as base64.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "public_key", nulls = Nulls.SKIP)
         public _FinalStage publicKey(Optional<String> publicKey) {
             this.publicKey = publicKey;
@@ -333,7 +333,7 @@ public final class CreateUserAuthenticationMethodRequestContent {
          * <p>Applies to webauthn authentication methods only. The id of the credential.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage keyId(String keyId) {
             this.keyId = Optional.ofNullable(keyId);
             return this;
@@ -342,21 +342,21 @@ public final class CreateUserAuthenticationMethodRequestContent {
         /**
          * <p>Applies to webauthn authentication methods only. The id of the credential.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "key_id", nulls = Nulls.SKIP)
         public _FinalStage keyId(Optional<String> keyId) {
             this.keyId = keyId;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage preferredAuthenticationMethod(
                 PreferredAuthenticationMethodEnum preferredAuthenticationMethod) {
             this.preferredAuthenticationMethod = Optional.ofNullable(preferredAuthenticationMethod);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "preferred_authentication_method", nulls = Nulls.SKIP)
         public _FinalStage preferredAuthenticationMethod(
                 Optional<PreferredAuthenticationMethodEnum> preferredAuthenticationMethod) {
@@ -368,7 +368,7 @@ public final class CreateUserAuthenticationMethodRequestContent {
          * <p>Applies to email authentication methods only. The email address used to send verification messages.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage email(String email) {
             this.email = Optional.ofNullable(email);
             return this;
@@ -377,7 +377,7 @@ public final class CreateUserAuthenticationMethodRequestContent {
         /**
          * <p>Applies to email authentication methods only. The email address used to send verification messages.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "email", nulls = Nulls.SKIP)
         public _FinalStage email(Optional<String> email) {
             this.email = email;
@@ -388,7 +388,7 @@ public final class CreateUserAuthenticationMethodRequestContent {
          * <p>Applies to phone authentication methods only. The destination phone number used to send verification codes via text and voice.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage phoneNumber(String phoneNumber) {
             this.phoneNumber = Optional.ofNullable(phoneNumber);
             return this;
@@ -397,7 +397,7 @@ public final class CreateUserAuthenticationMethodRequestContent {
         /**
          * <p>Applies to phone authentication methods only. The destination phone number used to send verification codes via text and voice.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "phone_number", nulls = Nulls.SKIP)
         public _FinalStage phoneNumber(Optional<String> phoneNumber) {
             this.phoneNumber = phoneNumber;
@@ -408,7 +408,7 @@ public final class CreateUserAuthenticationMethodRequestContent {
          * <p>Base32 encoded secret for TOTP generation.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage totpSecret(String totpSecret) {
             this.totpSecret = Optional.ofNullable(totpSecret);
             return this;
@@ -417,7 +417,7 @@ public final class CreateUserAuthenticationMethodRequestContent {
         /**
          * <p>Base32 encoded secret for TOTP generation.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "totp_secret", nulls = Nulls.SKIP)
         public _FinalStage totpSecret(Optional<String> totpSecret) {
             this.totpSecret = totpSecret;
@@ -428,7 +428,7 @@ public final class CreateUserAuthenticationMethodRequestContent {
          * <p>A human-readable label to identify the authentication method.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage name(String name) {
             this.name = Optional.ofNullable(name);
             return this;
@@ -437,14 +437,14 @@ public final class CreateUserAuthenticationMethodRequestContent {
         /**
          * <p>A human-readable label to identify the authentication method.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<String> name) {
             this.name = name;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public CreateUserAuthenticationMethodRequestContent build() {
             return new CreateUserAuthenticationMethodRequestContent(
                     type,

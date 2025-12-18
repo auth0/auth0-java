@@ -33,7 +33,7 @@ public final class FlowActionJwtDecodeJwtParams {
         return token;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionJwtDecodeJwtParams && equalTo((FlowActionJwtDecodeJwtParams) other);
@@ -48,12 +48,12 @@ public final class FlowActionJwtDecodeJwtParams {
         return token.equals(other.token);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.token);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -81,20 +81,20 @@ public final class FlowActionJwtDecodeJwtParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionJwtDecodeJwtParams other) {
             token(other.getToken());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("token")
         public _FinalStage token(@NotNull String token) {
             this.token = Objects.requireNonNull(token, "token must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionJwtDecodeJwtParams build() {
             return new FlowActionJwtDecodeJwtParams(token, additionalProperties);
         }

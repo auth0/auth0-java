@@ -47,7 +47,7 @@ public final class ResourceServerProofOfPossession {
         return required;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ResourceServerProofOfPossession && equalTo((ResourceServerProofOfPossession) other);
@@ -62,12 +62,12 @@ public final class ResourceServerProofOfPossession {
         return mechanism.equals(other.mechanism) && required == other.required;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.mechanism, this.required);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -104,14 +104,14 @@ public final class ResourceServerProofOfPossession {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(ResourceServerProofOfPossession other) {
             mechanism(other.getMechanism());
             required(other.getRequired());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("mechanism")
         public RequiredStage mechanism(@NotNull ResourceServerProofOfPossessionMechanismEnum mechanism) {
             this.mechanism = Objects.requireNonNull(mechanism, "mechanism must not be null");
@@ -123,14 +123,14 @@ public final class ResourceServerProofOfPossession {
          * <p>Whether the use of Proof-of-Possession is required for the resource server</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("required")
         public _FinalStage required(boolean required) {
             this.required = required;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public ResourceServerProofOfPossession build() {
             return new ResourceServerProofOfPossession(mechanism, required, additionalProperties);
         }

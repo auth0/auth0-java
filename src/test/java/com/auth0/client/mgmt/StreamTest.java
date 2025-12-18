@@ -77,7 +77,7 @@ public final class StreamTest {
         assertFalse(testStream.iterator().hasNext());
     }
 
-    private static String mapToJson(Map<String, String> map) {
+    private static String mapToJson(Map map) {
         try {
             return ObjectMappers.JSON_MAPPER.writeValueAsString(map);
         } catch (Exception e) {
@@ -85,7 +85,7 @@ public final class StreamTest {
         }
     }
 
-    private static String mapToSse(Map<String, String> map) {
+    private static String mapToSse(Map map) {
         return "data: " + mapToJson(map);
     }
 

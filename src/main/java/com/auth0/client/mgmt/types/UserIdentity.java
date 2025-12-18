@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 public final class UserIdentity {
     private final String connection;
 
-    private final UserIdEnum userId;
+    private final UserId userId;
 
     private final String provider;
 
@@ -41,7 +41,7 @@ public final class UserIdentity {
 
     private UserIdentity(
             String connection,
-            UserIdEnum userId,
+            UserId userId,
             String provider,
             Optional<UserProfileData> profileData,
             Optional<Boolean> isSocial,
@@ -69,7 +69,7 @@ public final class UserIdentity {
     }
 
     @JsonProperty("user_id")
-    public UserIdEnum getUserId() {
+    public UserId getUserId() {
         return userId;
     }
 
@@ -118,7 +118,7 @@ public final class UserIdentity {
         return refreshToken;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UserIdentity && equalTo((UserIdentity) other);
@@ -140,7 +140,7 @@ public final class UserIdentity {
                 && refreshToken.equals(other.refreshToken);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.connection,
@@ -153,7 +153,7 @@ public final class UserIdentity {
                 this.refreshToken);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -172,7 +172,7 @@ public final class UserIdentity {
     }
 
     public interface UserIdStage {
-        ProviderStage userId(@NotNull UserIdEnum userId);
+        ProviderStage userId(@NotNull UserId userId);
     }
 
     public interface ProviderStage {
@@ -222,7 +222,7 @@ public final class UserIdentity {
     public static final class Builder implements ConnectionStage, UserIdStage, ProviderStage, _FinalStage {
         private String connection;
 
-        private UserIdEnum userId;
+        private UserId userId;
 
         private String provider;
 
@@ -241,7 +241,7 @@ public final class UserIdentity {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(UserIdentity other) {
             connection(other.getConnection());
             userId(other.getUserId());
@@ -259,16 +259,16 @@ public final class UserIdentity {
          * <p>Connection name of this identity.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("connection")
         public UserIdStage connection(@NotNull String connection) {
             this.connection = Objects.requireNonNull(connection, "connection must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("user_id")
-        public ProviderStage userId(@NotNull UserIdEnum userId) {
+        public ProviderStage userId(@NotNull UserId userId) {
             this.userId = Objects.requireNonNull(userId, "userId must not be null");
             return this;
         }
@@ -278,7 +278,7 @@ public final class UserIdentity {
          * <p>Type of identity provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("provider")
         public _FinalStage provider(@NotNull String provider) {
             this.provider = Objects.requireNonNull(provider, "provider must not be null");
@@ -289,7 +289,7 @@ public final class UserIdentity {
          * <p>IDP refresh token returned only if scope <code>read:user_idp_tokens</code> is defined.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage refreshToken(String refreshToken) {
             this.refreshToken = Optional.ofNullable(refreshToken);
             return this;
@@ -298,7 +298,7 @@ public final class UserIdentity {
         /**
          * <p>IDP refresh token returned only if scope <code>read:user_idp_tokens</code> is defined.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "refresh_token", nulls = Nulls.SKIP)
         public _FinalStage refreshToken(Optional<String> refreshToken) {
             this.refreshToken = refreshToken;
@@ -309,7 +309,7 @@ public final class UserIdentity {
          * <p>IDP access token secret returned only if <code>scope read:user_idp_tokens</code> is defined.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage accessTokenSecret(String accessTokenSecret) {
             this.accessTokenSecret = Optional.ofNullable(accessTokenSecret);
             return this;
@@ -318,7 +318,7 @@ public final class UserIdentity {
         /**
          * <p>IDP access token secret returned only if <code>scope read:user_idp_tokens</code> is defined.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "access_token_secret", nulls = Nulls.SKIP)
         public _FinalStage accessTokenSecret(Optional<String> accessTokenSecret) {
             this.accessTokenSecret = accessTokenSecret;
@@ -329,7 +329,7 @@ public final class UserIdentity {
          * <p>IDP access token returned if scope <code>read:user_idp_tokens</code> is defined.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage accessToken(String accessToken) {
             this.accessToken = Optional.ofNullable(accessToken);
             return this;
@@ -338,7 +338,7 @@ public final class UserIdentity {
         /**
          * <p>IDP access token returned if scope <code>read:user_idp_tokens</code> is defined.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "access_token", nulls = Nulls.SKIP)
         public _FinalStage accessToken(Optional<String> accessToken) {
             this.accessToken = accessToken;
@@ -349,7 +349,7 @@ public final class UserIdentity {
          * <p>Whether the identity provider is a social provider (true) or not (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage isSocial(Boolean isSocial) {
             this.isSocial = Optional.ofNullable(isSocial);
             return this;
@@ -358,27 +358,27 @@ public final class UserIdentity {
         /**
          * <p>Whether the identity provider is a social provider (true) or not (false).</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "isSocial", nulls = Nulls.SKIP)
         public _FinalStage isSocial(Optional<Boolean> isSocial) {
             this.isSocial = isSocial;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage profileData(UserProfileData profileData) {
             this.profileData = Optional.ofNullable(profileData);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "profileData", nulls = Nulls.SKIP)
         public _FinalStage profileData(Optional<UserProfileData> profileData) {
             this.profileData = profileData;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public UserIdentity build() {
             return new UserIdentity(
                     connection,

@@ -36,7 +36,11 @@ public final class UpdateConnectionRequestContent {
 
     private final Optional<List<String>> realms;
 
-    private final Optional<Map<String, Object>> metadata;
+    private final Optional<Map<String, OptionalNullable<String>>> metadata;
+
+    private final Optional<ConnectionAuthenticationPurpose> authentication;
+
+    private final Optional<ConnectionConnectedAccountsPurpose> connectedAccounts;
 
     private final Map<String, Object> additionalProperties;
 
@@ -47,7 +51,9 @@ public final class UpdateConnectionRequestContent {
             Optional<Boolean> isDomainConnection,
             Optional<Boolean> showAsButton,
             Optional<List<String>> realms,
-            Optional<Map<String, Object>> metadata,
+            Optional<Map<String, OptionalNullable<String>>> metadata,
+            Optional<ConnectionAuthenticationPurpose> authentication,
+            Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
             Map<String, Object> additionalProperties) {
         this.displayName = displayName;
         this.options = options;
@@ -56,6 +62,8 @@ public final class UpdateConnectionRequestContent {
         this.showAsButton = showAsButton;
         this.realms = realms;
         this.metadata = metadata;
+        this.authentication = authentication;
+        this.connectedAccounts = connectedAccounts;
         this.additionalProperties = additionalProperties;
     }
 
@@ -109,8 +117,18 @@ public final class UpdateConnectionRequestContent {
     }
 
     @JsonProperty("metadata")
-    public Optional<Map<String, Object>> getMetadata() {
+    public Optional<Map<String, OptionalNullable<String>>> getMetadata() {
         return metadata;
+    }
+
+    @JsonProperty("authentication")
+    public Optional<ConnectionAuthenticationPurpose> getAuthentication() {
+        return authentication;
+    }
+
+    @JsonProperty("connected_accounts")
+    public Optional<ConnectionConnectedAccountsPurpose> getConnectedAccounts() {
+        return connectedAccounts;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -119,7 +137,7 @@ public final class UpdateConnectionRequestContent {
         return options;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateConnectionRequestContent && equalTo((UpdateConnectionRequestContent) other);
@@ -137,10 +155,12 @@ public final class UpdateConnectionRequestContent {
                 && isDomainConnection.equals(other.isDomainConnection)
                 && showAsButton.equals(other.showAsButton)
                 && realms.equals(other.realms)
-                && metadata.equals(other.metadata);
+                && metadata.equals(other.metadata)
+                && authentication.equals(other.authentication)
+                && connectedAccounts.equals(other.connectedAccounts);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.displayName,
@@ -149,10 +169,12 @@ public final class UpdateConnectionRequestContent {
                 this.isDomainConnection,
                 this.showAsButton,
                 this.realms,
-                this.metadata);
+                this.metadata,
+                this.authentication,
+                this.connectedAccounts);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -175,7 +197,11 @@ public final class UpdateConnectionRequestContent {
 
         private Optional<List<String>> realms = Optional.empty();
 
-        private Optional<Map<String, Object>> metadata = Optional.empty();
+        private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
+
+        private Optional<ConnectionAuthenticationPurpose> authentication = Optional.empty();
+
+        private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -190,6 +216,8 @@ public final class UpdateConnectionRequestContent {
             showAsButton(other.getShowAsButton());
             realms(other.getRealms());
             metadata(other.getMetadata());
+            authentication(other.getAuthentication());
+            connectedAccounts(other.getConnectedAccounts());
             return this;
         }
 
@@ -295,13 +323,35 @@ public final class UpdateConnectionRequestContent {
         }
 
         @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
-        public Builder metadata(Optional<Map<String, Object>> metadata) {
+        public Builder metadata(Optional<Map<String, OptionalNullable<String>>> metadata) {
             this.metadata = metadata;
             return this;
         }
 
-        public Builder metadata(Map<String, Object> metadata) {
+        public Builder metadata(Map<String, OptionalNullable<String>> metadata) {
             this.metadata = Optional.ofNullable(metadata);
+            return this;
+        }
+
+        @JsonSetter(value = "authentication", nulls = Nulls.SKIP)
+        public Builder authentication(Optional<ConnectionAuthenticationPurpose> authentication) {
+            this.authentication = authentication;
+            return this;
+        }
+
+        public Builder authentication(ConnectionAuthenticationPurpose authentication) {
+            this.authentication = Optional.ofNullable(authentication);
+            return this;
+        }
+
+        @JsonSetter(value = "connected_accounts", nulls = Nulls.SKIP)
+        public Builder connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts) {
+            this.connectedAccounts = connectedAccounts;
+            return this;
+        }
+
+        public Builder connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts) {
+            this.connectedAccounts = Optional.ofNullable(connectedAccounts);
             return this;
         }
 
@@ -314,6 +364,8 @@ public final class UpdateConnectionRequestContent {
                     showAsButton,
                     realms,
                     metadata,
+                    authentication,
+                    connectedAccounts,
                     additionalProperties);
         }
     }

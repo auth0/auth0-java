@@ -45,7 +45,7 @@ public final class CreateFlowRequestContent {
         return actions;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateFlowRequestContent && equalTo((CreateFlowRequestContent) other);
@@ -60,12 +60,12 @@ public final class CreateFlowRequestContent {
         return name.equals(other.name) && actions.equals(other.actions);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.name, this.actions);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -99,34 +99,34 @@ public final class CreateFlowRequestContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(CreateFlowRequestContent other) {
             name(other.getName());
             actions(other.getActions());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("name")
         public _FinalStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage actions(List<FlowAction> actions) {
             this.actions = Optional.ofNullable(actions);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "actions", nulls = Nulls.SKIP)
         public _FinalStage actions(Optional<List<FlowAction>> actions) {
             this.actions = actions;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public CreateFlowRequestContent build() {
             return new CreateFlowRequestContent(name, actions, additionalProperties);
         }

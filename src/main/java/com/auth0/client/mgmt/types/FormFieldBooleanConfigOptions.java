@@ -43,7 +43,7 @@ public final class FormFieldBooleanConfigOptions {
         return false_;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldBooleanConfigOptions && equalTo((FormFieldBooleanConfigOptions) other);
@@ -58,12 +58,12 @@ public final class FormFieldBooleanConfigOptions {
         return true_.equals(other.true_) && false_.equals(other.false_);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.true_, this.false_);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -64,7 +64,7 @@ public final class FlowActionBigqueryInsertRowsParams {
         return data;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionBigqueryInsertRowsParams
@@ -83,12 +83,12 @@ public final class FlowActionBigqueryInsertRowsParams {
                 && data.equals(other.data);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.datasetId, this.tableId, this.data);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -134,7 +134,7 @@ public final class FlowActionBigqueryInsertRowsParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionBigqueryInsertRowsParams other) {
             connectionId(other.getConnectionId());
             datasetId(other.getDatasetId());
@@ -143,41 +143,41 @@ public final class FlowActionBigqueryInsertRowsParams {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("connection_id")
         public DatasetIdStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("dataset_id")
         public TableIdStage datasetId(@NotNull String datasetId) {
             this.datasetId = Objects.requireNonNull(datasetId, "datasetId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("table_id")
         public _FinalStage tableId(@NotNull String tableId) {
             this.tableId = Objects.requireNonNull(tableId, "tableId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage data(Map<String, Object> data) {
             this.data = Optional.ofNullable(data);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "data", nulls = Nulls.SKIP)
         public _FinalStage data(Optional<Map<String, Object>> data) {
             this.data = data;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionBigqueryInsertRowsParams build() {
             return new FlowActionBigqueryInsertRowsParams(connectionId, datasetId, tableId, data, additionalProperties);
         }

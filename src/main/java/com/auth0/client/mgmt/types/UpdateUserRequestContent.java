@@ -330,7 +330,7 @@ public final class UpdateUserRequestContent {
         return username;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateUserRequestContent && equalTo((UpdateUserRequestContent) other);
@@ -362,7 +362,7 @@ public final class UpdateUserRequestContent {
                 && username.equals(other.username);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.blocked,
@@ -385,7 +385,7 @@ public final class UpdateUserRequestContent {
                 this.username);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

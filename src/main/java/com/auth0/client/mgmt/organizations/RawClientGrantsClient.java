@@ -58,11 +58,19 @@ public class RawClientGrantsClient {
                 .addPathSegments("organizations")
                 .addPathSegment(id)
                 .addPathSegments("client-grants");
-        QueryStringMapper.addQueryParameter(httpUrl, "audience", request.getAudience(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "client_id", request.getClientId(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "per_page", request.getPerPage(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "include_totals", request.getIncludeTotals(), false);
+        if (!request.getAudience().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "audience", request.getAudience().orElse(null), false);
+        }
+        if (!request.getClientId().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "client_id", request.getClientId().orElse(null), false);
+        }
+        QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage().orElse(0), false);
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "per_page", request.getPerPage().orElse(50), false);
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
         if (request.getGrantIds().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "grant_ids", request.getGrantIds().get(), true);

@@ -97,7 +97,7 @@ public final class OrganizationClientGrant {
         return allowAnyOrganization;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof OrganizationClientGrant && equalTo((OrganizationClientGrant) other);
@@ -117,13 +117,13 @@ public final class OrganizationClientGrant {
                 && allowAnyOrganization.equals(other.allowAnyOrganization);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.id, this.clientId, this.audience, this.scope, this.organizationUsage, this.allowAnyOrganization);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

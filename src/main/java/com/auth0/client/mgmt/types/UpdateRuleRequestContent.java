@@ -75,7 +75,7 @@ public final class UpdateRuleRequestContent {
         return enabled;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateRuleRequestContent && equalTo((UpdateRuleRequestContent) other);
@@ -93,12 +93,12 @@ public final class UpdateRuleRequestContent {
                 && enabled.equals(other.enabled);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.script, this.name, this.order, this.enabled);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

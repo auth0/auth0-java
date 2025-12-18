@@ -9,6 +9,7 @@ import com.auth0.client.mgmt.types.CreateCustomDomainRequestContent;
 import com.auth0.client.mgmt.types.CreateCustomDomainResponseContent;
 import com.auth0.client.mgmt.types.CustomDomain;
 import com.auth0.client.mgmt.types.GetCustomDomainResponseContent;
+import com.auth0.client.mgmt.types.ListCustomDomainsRequestParameters;
 import com.auth0.client.mgmt.types.TestCustomDomainResponseContent;
 import com.auth0.client.mgmt.types.UpdateCustomDomainRequestContent;
 import com.auth0.client.mgmt.types.UpdateCustomDomainResponseContent;
@@ -43,8 +44,16 @@ public class AsyncCustomDomainsClient {
     /**
      * Retrieve details on &lt;a href=&quot;https://auth0.com/docs/custom-domains&quot;&gt;custom domains&lt;/a&gt;.
      */
-    public CompletableFuture<List<CustomDomain>> list(RequestOptions requestOptions) {
-        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    public CompletableFuture<List<CustomDomain>> list(ListCustomDomainsRequestParameters request) {
+        return this.rawClient.list(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve details on &lt;a href=&quot;https://auth0.com/docs/custom-domains&quot;&gt;custom domains&lt;/a&gt;.
+     */
+    public CompletableFuture<List<CustomDomain>> list(
+            ListCustomDomainsRequestParameters request, RequestOptions requestOptions) {
+        return this.rawClient.list(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**

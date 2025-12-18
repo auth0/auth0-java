@@ -3,6 +3,7 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.Nullable;
 import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
@@ -18,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ListLogsRequestParameters.Builder.class)
@@ -35,7 +35,7 @@ public final class ListLogsRequestParameters {
 
     private final OptionalNullable<Boolean> includeTotals;
 
-    private final OptionalNullable<String> q;
+    private final OptionalNullable<String> search;
 
     private final Map<String, Object> additionalProperties;
 
@@ -46,7 +46,7 @@ public final class ListLogsRequestParameters {
             OptionalNullable<String> fields,
             OptionalNullable<Boolean> includeFields,
             OptionalNullable<Boolean> includeTotals,
-            OptionalNullable<String> q,
+            OptionalNullable<String> search,
             Map<String, Object> additionalProperties) {
         this.page = page;
         this.perPage = perPage;
@@ -54,7 +54,7 @@ public final class ListLogsRequestParameters {
         this.fields = fields;
         this.includeFields = includeFields;
         this.includeTotals = includeTotals;
-        this.q = q;
+        this.search = search;
         this.additionalProperties = additionalProperties;
     }
 
@@ -64,9 +64,6 @@ public final class ListLogsRequestParameters {
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("page")
     public OptionalNullable<Integer> getPage() {
-        if (page == null) {
-            return OptionalNullable.absent();
-        }
         return page;
     }
 
@@ -125,21 +122,17 @@ public final class ListLogsRequestParameters {
     }
 
     /**
-     * @return Query in &lt;a target='_new' href ='http://www.lucenetutorial.com/lucene-query-syntax.html'&gt;Lucene query string syntax&lt;/a&gt;.
+     * @return Retrieves logs that match the specified search criteria. This parameter can be combined with all the others in the /api/logs endpoint but is specified separately for clarity.
+     * If no fields are provided a case insensitive 'starts with' search is performed on all of the following fields: client_name, connection, user_name. Otherwise, you can specify multiple fields and specify the search using the %field%:%search%, for example: application:node user:&quot;John@contoso.com&quot;.
+     * Values specified without quotes are matched using a case insensitive 'starts with' search. If quotes are used a case insensitve exact search is used. If multiple fields are used, the AND operator is used to join the clauses.
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("q")
-    public OptionalNullable<String> getQ() {
-        if (q == null) {
+    @JsonProperty("search")
+    public OptionalNullable<String> getSearch() {
+        if (search == null) {
             return OptionalNullable.absent();
         }
-        return q;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("page")
-    private OptionalNullable<Integer> _getPage() {
-        return page;
+        return search;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -161,12 +154,12 @@ public final class ListLogsRequestParameters {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("q")
-    private OptionalNullable<String> _getQ() {
-        return q;
+    @JsonProperty("search")
+    private OptionalNullable<String> _getSearch() {
+        return search;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListLogsRequestParameters && equalTo((ListLogsRequestParameters) other);
@@ -184,16 +177,16 @@ public final class ListLogsRequestParameters {
                 && fields.equals(other.fields)
                 && includeFields.equals(other.includeFields)
                 && includeTotals.equals(other.includeTotals)
-                && q.equals(other.q);
+                && search.equals(other.search);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
-                this.page, this.perPage, this.sort, this.fields, this.includeFields, this.includeTotals, this.q);
+                this.page, this.perPage, this.sort, this.fields, this.includeFields, this.includeTotals, this.search);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -216,7 +209,7 @@ public final class ListLogsRequestParameters {
 
         private OptionalNullable<Boolean> includeTotals = OptionalNullable.absent();
 
-        private OptionalNullable<String> q = OptionalNullable.absent();
+        private OptionalNullable<String> search = OptionalNullable.absent();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -230,7 +223,7 @@ public final class ListLogsRequestParameters {
             fields(other.getFields());
             includeFields(other.getIncludeFields());
             includeTotals(other.getIncludeTotals());
-            q(other.getQ());
+            search(other.getSearch());
             return this;
         }
 
@@ -238,7 +231,7 @@ public final class ListLogsRequestParameters {
          * <p>Page index of the results to return. First page is 0.</p>
          */
         @JsonSetter(value = "page", nulls = Nulls.SKIP)
-        public Builder page(@Nullable OptionalNullable<Integer> page) {
+        public Builder page(OptionalNullable<Integer> page) {
             this.page = page;
             return this;
         }
@@ -257,7 +250,7 @@ public final class ListLogsRequestParameters {
             return this;
         }
 
-        public Builder page(com.auth0.client.mgmt.core.Nullable<Integer> page) {
+        public Builder page(Nullable<Integer> page) {
             if (page.isNull()) {
                 this.page = OptionalNullable.ofNull();
             } else if (page.isEmpty()) {
@@ -291,7 +284,7 @@ public final class ListLogsRequestParameters {
             return this;
         }
 
-        public Builder perPage(com.auth0.client.mgmt.core.Nullable<Integer> perPage) {
+        public Builder perPage(Nullable<Integer> perPage) {
             if (perPage.isNull()) {
                 this.perPage = OptionalNullable.ofNull();
             } else if (perPage.isEmpty()) {
@@ -306,7 +299,7 @@ public final class ListLogsRequestParameters {
          * <p>Field to use for sorting appended with &lt;code&gt;:1&lt;/code&gt;  for ascending and &lt;code&gt;:-1&lt;/code&gt; for descending. e.g. &lt;code&gt;date:-1&lt;/code&gt;</p>
          */
         @JsonSetter(value = "sort", nulls = Nulls.SKIP)
-        public Builder sort(@Nullable OptionalNullable<String> sort) {
+        public Builder sort(@org.jetbrains.annotations.Nullable OptionalNullable<String> sort) {
             this.sort = sort;
             return this;
         }
@@ -325,7 +318,7 @@ public final class ListLogsRequestParameters {
             return this;
         }
 
-        public Builder sort(com.auth0.client.mgmt.core.Nullable<String> sort) {
+        public Builder sort(Nullable<String> sort) {
             if (sort.isNull()) {
                 this.sort = OptionalNullable.ofNull();
             } else if (sort.isEmpty()) {
@@ -340,7 +333,7 @@ public final class ListLogsRequestParameters {
          * <p>Comma-separated list of fields to include or exclude (based on value provided for &lt;code&gt;include_fields&lt;/code&gt;) in the result. Leave empty to retrieve all fields.</p>
          */
         @JsonSetter(value = "fields", nulls = Nulls.SKIP)
-        public Builder fields(@Nullable OptionalNullable<String> fields) {
+        public Builder fields(@org.jetbrains.annotations.Nullable OptionalNullable<String> fields) {
             this.fields = fields;
             return this;
         }
@@ -359,7 +352,7 @@ public final class ListLogsRequestParameters {
             return this;
         }
 
-        public Builder fields(com.auth0.client.mgmt.core.Nullable<String> fields) {
+        public Builder fields(Nullable<String> fields) {
             if (fields.isNull()) {
                 this.fields = OptionalNullable.ofNull();
             } else if (fields.isEmpty()) {
@@ -374,7 +367,7 @@ public final class ListLogsRequestParameters {
          * <p>Whether specified fields are to be included (&lt;code&gt;true&lt;/code&gt;) or excluded (&lt;code&gt;false&lt;/code&gt;)</p>
          */
         @JsonSetter(value = "include_fields", nulls = Nulls.SKIP)
-        public Builder includeFields(@Nullable OptionalNullable<Boolean> includeFields) {
+        public Builder includeFields(@org.jetbrains.annotations.Nullable OptionalNullable<Boolean> includeFields) {
             this.includeFields = includeFields;
             return this;
         }
@@ -393,7 +386,7 @@ public final class ListLogsRequestParameters {
             return this;
         }
 
-        public Builder includeFields(com.auth0.client.mgmt.core.Nullable<Boolean> includeFields) {
+        public Builder includeFields(Nullable<Boolean> includeFields) {
             if (includeFields.isNull()) {
                 this.includeFields = OptionalNullable.ofNull();
             } else if (includeFields.isEmpty()) {
@@ -427,7 +420,7 @@ public final class ListLogsRequestParameters {
             return this;
         }
 
-        public Builder includeTotals(com.auth0.client.mgmt.core.Nullable<Boolean> includeTotals) {
+        public Builder includeTotals(Nullable<Boolean> includeTotals) {
             if (includeTotals.isNull()) {
                 this.includeTotals = OptionalNullable.ofNull();
             } else if (includeTotals.isEmpty()) {
@@ -439,42 +432,44 @@ public final class ListLogsRequestParameters {
         }
 
         /**
-         * <p>Query in &lt;a target='_new' href ='http://www.lucenetutorial.com/lucene-query-syntax.html'&gt;Lucene query string syntax&lt;/a&gt;.</p>
+         * <p>Retrieves logs that match the specified search criteria. This parameter can be combined with all the others in the /api/logs endpoint but is specified separately for clarity.
+         * If no fields are provided a case insensitive 'starts with' search is performed on all of the following fields: client_name, connection, user_name. Otherwise, you can specify multiple fields and specify the search using the %field%:%search%, for example: application:node user:&quot;John@contoso.com&quot;.
+         * Values specified without quotes are matched using a case insensitive 'starts with' search. If quotes are used a case insensitve exact search is used. If multiple fields are used, the AND operator is used to join the clauses.</p>
          */
-        @JsonSetter(value = "q", nulls = Nulls.SKIP)
-        public Builder q(@Nullable OptionalNullable<String> q) {
-            this.q = q;
+        @JsonSetter(value = "search", nulls = Nulls.SKIP)
+        public Builder search(@org.jetbrains.annotations.Nullable OptionalNullable<String> search) {
+            this.search = search;
             return this;
         }
 
-        public Builder q(String q) {
-            this.q = OptionalNullable.of(q);
+        public Builder search(String search) {
+            this.search = OptionalNullable.of(search);
             return this;
         }
 
-        public Builder q(Optional<String> q) {
-            if (q.isPresent()) {
-                this.q = OptionalNullable.of(q.get());
+        public Builder search(Optional<String> search) {
+            if (search.isPresent()) {
+                this.search = OptionalNullable.of(search.get());
             } else {
-                this.q = OptionalNullable.absent();
+                this.search = OptionalNullable.absent();
             }
             return this;
         }
 
-        public Builder q(com.auth0.client.mgmt.core.Nullable<String> q) {
-            if (q.isNull()) {
-                this.q = OptionalNullable.ofNull();
-            } else if (q.isEmpty()) {
-                this.q = OptionalNullable.absent();
+        public Builder search(Nullable<String> search) {
+            if (search.isNull()) {
+                this.search = OptionalNullable.ofNull();
+            } else if (search.isEmpty()) {
+                this.search = OptionalNullable.absent();
             } else {
-                this.q = OptionalNullable.of(q.get());
+                this.search = OptionalNullable.of(search.get());
             }
             return this;
         }
 
         public ListLogsRequestParameters build() {
             return new ListLogsRequestParameters(
-                    page, perPage, sort, fields, includeFields, includeTotals, q, additionalProperties);
+                    page, perPage, sort, fields, includeFields, includeTotals, search, additionalProperties);
         }
     }
 }

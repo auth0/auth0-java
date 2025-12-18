@@ -63,7 +63,7 @@ public final class CreateRoleResponseContent {
         return description;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateRoleResponseContent && equalTo((CreateRoleResponseContent) other);
@@ -78,12 +78,12 @@ public final class CreateRoleResponseContent {
         return id.equals(other.id) && name.equals(other.name) && description.equals(other.description);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.id, this.name, this.description);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

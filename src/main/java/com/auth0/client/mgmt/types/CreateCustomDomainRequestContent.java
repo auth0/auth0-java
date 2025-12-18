@@ -34,6 +34,8 @@ public final class CreateCustomDomainRequestContent {
 
     private final OptionalNullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader;
 
+    private final Optional<Map<String, OptionalNullable<String>>> domainMetadata;
+
     private final Map<String, Object> additionalProperties;
 
     private CreateCustomDomainRequestContent(
@@ -42,12 +44,14 @@ public final class CreateCustomDomainRequestContent {
             Optional<String> verificationMethod,
             Optional<String> tlsPolicy,
             OptionalNullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader,
+            Optional<Map<String, OptionalNullable<String>>> domainMetadata,
             Map<String, Object> additionalProperties) {
         this.domain = domain;
         this.type = type;
         this.verificationMethod = verificationMethod;
         this.tlsPolicy = tlsPolicy;
         this.customClientIpHeader = customClientIpHeader;
+        this.domainMetadata = domainMetadata;
         this.additionalProperties = additionalProperties;
     }
 
@@ -80,7 +84,12 @@ public final class CreateCustomDomainRequestContent {
         return customClientIpHeader;
     }
 
-    @java.lang.Override
+    @JsonProperty("domain_metadata")
+    public Optional<Map<String, OptionalNullable<String>>> getDomainMetadata() {
+        return domainMetadata;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateCustomDomainRequestContent && equalTo((CreateCustomDomainRequestContent) other);
@@ -96,15 +105,22 @@ public final class CreateCustomDomainRequestContent {
                 && type.equals(other.type)
                 && verificationMethod.equals(other.verificationMethod)
                 && tlsPolicy.equals(other.tlsPolicy)
-                && customClientIpHeader.equals(other.customClientIpHeader);
+                && customClientIpHeader.equals(other.customClientIpHeader)
+                && domainMetadata.equals(other.domainMetadata);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
-        return Objects.hash(this.domain, this.type, this.verificationMethod, this.tlsPolicy, this.customClientIpHeader);
+        return Objects.hash(
+                this.domain,
+                this.type,
+                this.verificationMethod,
+                this.tlsPolicy,
+                this.customClientIpHeader,
+                this.domainMetadata);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -144,6 +160,10 @@ public final class CreateCustomDomainRequestContent {
         _FinalStage customClientIpHeader(Optional<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader);
 
         _FinalStage customClientIpHeader(Nullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader);
+
+        _FinalStage domainMetadata(Optional<Map<String, OptionalNullable<String>>> domainMetadata);
+
+        _FinalStage domainMetadata(Map<String, OptionalNullable<String>> domainMetadata);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -151,6 +171,8 @@ public final class CreateCustomDomainRequestContent {
         private String domain;
 
         private CustomDomainProvisioningTypeEnum type;
+
+        private Optional<Map<String, OptionalNullable<String>>> domainMetadata = Optional.empty();
 
         private OptionalNullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader = OptionalNullable.absent();
 
@@ -163,13 +185,14 @@ public final class CreateCustomDomainRequestContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(CreateCustomDomainRequestContent other) {
             domain(other.getDomain());
             type(other.getType());
             verificationMethod(other.getVerificationMethod());
             tlsPolicy(other.getTlsPolicy());
             customClientIpHeader(other.getCustomClientIpHeader());
+            domainMetadata(other.getDomainMetadata());
             return this;
         }
 
@@ -178,21 +201,34 @@ public final class CreateCustomDomainRequestContent {
          * <p>Domain name.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("domain")
         public TypeStage domain(@NotNull String domain) {
             this.domain = Objects.requireNonNull(domain, "domain must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("type")
         public _FinalStage type(@NotNull CustomDomainProvisioningTypeEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
+        public _FinalStage domainMetadata(Map<String, OptionalNullable<String>> domainMetadata) {
+            this.domainMetadata = Optional.ofNullable(domainMetadata);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "domain_metadata", nulls = Nulls.SKIP)
+        public _FinalStage domainMetadata(Optional<Map<String, OptionalNullable<String>>> domainMetadata) {
+            this.domainMetadata = domainMetadata;
+            return this;
+        }
+
+        @Override
         public _FinalStage customClientIpHeader(Nullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader) {
             if (customClientIpHeader.isNull()) {
                 this.customClientIpHeader = OptionalNullable.ofNull();
@@ -204,7 +240,7 @@ public final class CreateCustomDomainRequestContent {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage customClientIpHeader(Optional<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader) {
             if (customClientIpHeader.isPresent()) {
                 this.customClientIpHeader = OptionalNullable.of(customClientIpHeader.get());
@@ -214,13 +250,13 @@ public final class CreateCustomDomainRequestContent {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage customClientIpHeader(CustomDomainCustomClientIpHeaderEnum customClientIpHeader) {
             this.customClientIpHeader = OptionalNullable.of(customClientIpHeader);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "custom_client_ip_header", nulls = Nulls.SKIP)
         public _FinalStage customClientIpHeader(
                 OptionalNullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader) {
@@ -228,36 +264,42 @@ public final class CreateCustomDomainRequestContent {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage tlsPolicy(String tlsPolicy) {
             this.tlsPolicy = Optional.ofNullable(tlsPolicy);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "tls_policy", nulls = Nulls.SKIP)
         public _FinalStage tlsPolicy(Optional<String> tlsPolicy) {
             this.tlsPolicy = tlsPolicy;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage verificationMethod(String verificationMethod) {
             this.verificationMethod = Optional.ofNullable(verificationMethod);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "verification_method", nulls = Nulls.SKIP)
         public _FinalStage verificationMethod(Optional<String> verificationMethod) {
             this.verificationMethod = verificationMethod;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public CreateCustomDomainRequestContent build() {
             return new CreateCustomDomainRequestContent(
-                    domain, type, verificationMethod, tlsPolicy, customClientIpHeader, additionalProperties);
+                    domain,
+                    type,
+                    verificationMethod,
+                    tlsPolicy,
+                    customClientIpHeader,
+                    domainMetadata,
+                    additionalProperties);
         }
     }
 }

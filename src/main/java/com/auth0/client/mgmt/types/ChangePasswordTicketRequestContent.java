@@ -38,6 +38,8 @@ public final class ChangePasswordTicketRequestContent {
 
     private final Optional<Boolean> includeEmailInRedirect;
 
+    private final Optional<ChangePasswordTicketIdentity> identity;
+
     private final Map<String, Object> additionalProperties;
 
     private ChangePasswordTicketRequestContent(
@@ -50,6 +52,7 @@ public final class ChangePasswordTicketRequestContent {
             Optional<Integer> ttlSec,
             Optional<Boolean> markEmailAsVerified,
             Optional<Boolean> includeEmailInRedirect,
+            Optional<ChangePasswordTicketIdentity> identity,
             Map<String, Object> additionalProperties) {
         this.resultUrl = resultUrl;
         this.userId = userId;
@@ -60,6 +63,7 @@ public final class ChangePasswordTicketRequestContent {
         this.ttlSec = ttlSec;
         this.markEmailAsVerified = markEmailAsVerified;
         this.includeEmailInRedirect = includeEmailInRedirect;
+        this.identity = identity;
         this.additionalProperties = additionalProperties;
     }
 
@@ -135,7 +139,12 @@ public final class ChangePasswordTicketRequestContent {
         return includeEmailInRedirect;
     }
 
-    @java.lang.Override
+    @JsonProperty("identity")
+    public Optional<ChangePasswordTicketIdentity> getIdentity() {
+        return identity;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ChangePasswordTicketRequestContent
@@ -156,10 +165,11 @@ public final class ChangePasswordTicketRequestContent {
                 && email.equals(other.email)
                 && ttlSec.equals(other.ttlSec)
                 && markEmailAsVerified.equals(other.markEmailAsVerified)
-                && includeEmailInRedirect.equals(other.includeEmailInRedirect);
+                && includeEmailInRedirect.equals(other.includeEmailInRedirect)
+                && identity.equals(other.identity);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.resultUrl,
@@ -170,10 +180,11 @@ public final class ChangePasswordTicketRequestContent {
                 this.email,
                 this.ttlSec,
                 this.markEmailAsVerified,
-                this.includeEmailInRedirect);
+                this.includeEmailInRedirect,
+                this.identity);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -202,6 +213,8 @@ public final class ChangePasswordTicketRequestContent {
 
         private Optional<Boolean> includeEmailInRedirect = Optional.empty();
 
+        private Optional<ChangePasswordTicketIdentity> identity = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -217,6 +230,7 @@ public final class ChangePasswordTicketRequestContent {
             ttlSec(other.getTtlSec());
             markEmailAsVerified(other.getMarkEmailAsVerified());
             includeEmailInRedirect(other.getIncludeEmailInRedirect());
+            identity(other.getIdentity());
             return this;
         }
 
@@ -346,6 +360,17 @@ public final class ChangePasswordTicketRequestContent {
             return this;
         }
 
+        @JsonSetter(value = "identity", nulls = Nulls.SKIP)
+        public Builder identity(Optional<ChangePasswordTicketIdentity> identity) {
+            this.identity = identity;
+            return this;
+        }
+
+        public Builder identity(ChangePasswordTicketIdentity identity) {
+            this.identity = Optional.ofNullable(identity);
+            return this;
+        }
+
         public ChangePasswordTicketRequestContent build() {
             return new ChangePasswordTicketRequestContent(
                     resultUrl,
@@ -357,6 +382,7 @@ public final class ChangePasswordTicketRequestContent {
                     ttlSec,
                     markEmailAsVerified,
                     includeEmailInRedirect,
+                    identity,
                     additionalProperties);
         }
     }

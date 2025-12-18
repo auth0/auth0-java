@@ -112,7 +112,7 @@ public final class LogStreamEventBridgeResponseSchema {
         return sink;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof LogStreamEventBridgeResponseSchema
@@ -135,13 +135,13 @@ public final class LogStreamEventBridgeResponseSchema {
                 && sink.equals(other.sink);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.id, this.name, this.status, this.type, this.isPriority, this.filters, this.piiConfig, this.sink);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

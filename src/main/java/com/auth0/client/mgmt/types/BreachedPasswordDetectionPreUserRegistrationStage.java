@@ -41,7 +41,7 @@ public final class BreachedPasswordDetectionPreUserRegistrationStage {
         return shields;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof BreachedPasswordDetectionPreUserRegistrationStage
@@ -57,12 +57,12 @@ public final class BreachedPasswordDetectionPreUserRegistrationStage {
         return shields.equals(other.shields);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.shields);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

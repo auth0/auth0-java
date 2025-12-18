@@ -33,6 +33,7 @@ public class AsyncTokenExchangeProfilesClient {
 
     /**
      * Retrieve a list of all Token Exchange Profiles available in your tenant.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta’s Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user’s subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      * <p>This endpoint supports Checkpoint pagination. To search by checkpoint, use the following parameters:</p>
      * <p>&lt;ul&gt;
      * &lt;li&gt;&lt;code&gt;from&lt;/code&gt;: Optional id from which to start selection.&lt;/li&gt;
@@ -46,6 +47,7 @@ public class AsyncTokenExchangeProfilesClient {
 
     /**
      * Retrieve a list of all Token Exchange Profiles available in your tenant.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta’s Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user’s subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      * <p>This endpoint supports Checkpoint pagination. To search by checkpoint, use the following parameters:</p>
      * <p>&lt;ul&gt;
      * &lt;li&gt;&lt;code&gt;from&lt;/code&gt;: Optional id from which to start selection.&lt;/li&gt;
@@ -60,6 +62,7 @@ public class AsyncTokenExchangeProfilesClient {
 
     /**
      * Retrieve a list of all Token Exchange Profiles available in your tenant.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta’s Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user’s subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      * <p>This endpoint supports Checkpoint pagination. To search by checkpoint, use the following parameters:</p>
      * <p>&lt;ul&gt;
      * &lt;li&gt;&lt;code&gt;from&lt;/code&gt;: Optional id from which to start selection.&lt;/li&gt;
@@ -74,6 +77,7 @@ public class AsyncTokenExchangeProfilesClient {
 
     /**
      * Create a new Token Exchange Profile within your tenant.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta’s Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user’s subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      */
     public CompletableFuture<CreateTokenExchangeProfileResponseContent> create(
             CreateTokenExchangeProfileRequestContent request) {
@@ -82,6 +86,7 @@ public class AsyncTokenExchangeProfilesClient {
 
     /**
      * Create a new Token Exchange Profile within your tenant.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta’s Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user’s subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      */
     public CompletableFuture<CreateTokenExchangeProfileResponseContent> create(
             CreateTokenExchangeProfileRequestContent request, RequestOptions requestOptions) {
@@ -90,6 +95,7 @@ public class AsyncTokenExchangeProfilesClient {
 
     /**
      * Retrieve details about a single Token Exchange Profile specified by ID.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta’s Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user’s subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      */
     public CompletableFuture<GetTokenExchangeProfileResponseContent> get(String id) {
         return this.rawClient.get(id).thenApply(response -> response.body());
@@ -97,6 +103,7 @@ public class AsyncTokenExchangeProfilesClient {
 
     /**
      * Retrieve details about a single Token Exchange Profile specified by ID.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta’s Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user’s subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      */
     public CompletableFuture<GetTokenExchangeProfileResponseContent> get(String id, RequestOptions requestOptions) {
         return this.rawClient.get(id, requestOptions).thenApply(response -> response.body());
@@ -104,6 +111,7 @@ public class AsyncTokenExchangeProfilesClient {
 
     /**
      * Delete a Token Exchange Profile within your tenant.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta's Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user's subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      */
     public CompletableFuture<Void> delete(String id) {
         return this.rawClient.delete(id).thenApply(response -> response.body());
@@ -111,6 +119,7 @@ public class AsyncTokenExchangeProfilesClient {
 
     /**
      * Delete a Token Exchange Profile within your tenant.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta's Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user's subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      */
     public CompletableFuture<Void> delete(String id, RequestOptions requestOptions) {
         return this.rawClient.delete(id, requestOptions).thenApply(response -> response.body());
@@ -118,6 +127,7 @@ public class AsyncTokenExchangeProfilesClient {
 
     /**
      * Update a Token Exchange Profile within your tenant.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta's Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user's subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      */
     public CompletableFuture<Void> update(String id) {
         return this.rawClient.update(id).thenApply(response -> response.body());
@@ -125,6 +135,7 @@ public class AsyncTokenExchangeProfilesClient {
 
     /**
      * Update a Token Exchange Profile within your tenant.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta's Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user's subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      */
     public CompletableFuture<Void> update(String id, UpdateTokenExchangeProfileRequestContent request) {
         return this.rawClient.update(id, request).thenApply(response -> response.body());
@@ -132,6 +143,7 @@ public class AsyncTokenExchangeProfilesClient {
 
     /**
      * Update a Token Exchange Profile within your tenant.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta's Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user's subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      */
     public CompletableFuture<Void> update(
             String id, UpdateTokenExchangeProfileRequestContent request, RequestOptions requestOptions) {

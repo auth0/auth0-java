@@ -6,6 +6,7 @@ package com.auth0.client.mgmt.prompts.types;
 import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
+import com.auth0.client.mgmt.types.AculContextConfigurationItem;
 import com.auth0.client.mgmt.types.AculFilters;
 import com.auth0.client.mgmt.types.AculHeadTag;
 import com.auth0.client.mgmt.types.AculRenderingModeEnum;
@@ -29,32 +30,32 @@ import org.jetbrains.annotations.Nullable;
 public final class UpdateAculRequestContent {
     private final Optional<AculRenderingModeEnum> renderingMode;
 
-    private final Optional<List<String>> contextConfiguration;
+    private final Optional<List<AculContextConfigurationItem>> contextConfiguration;
 
     private final OptionalNullable<Boolean> defaultHeadTagsDisabled;
+
+    private final OptionalNullable<Boolean> usePageTemplate;
 
     private final Optional<List<AculHeadTag>> headTags;
 
     private final OptionalNullable<AculFilters> filters;
 
-    private final OptionalNullable<Boolean> usePageTemplate;
-
     private final Map<String, Object> additionalProperties;
 
     private UpdateAculRequestContent(
             Optional<AculRenderingModeEnum> renderingMode,
-            Optional<List<String>> contextConfiguration,
+            Optional<List<AculContextConfigurationItem>> contextConfiguration,
             OptionalNullable<Boolean> defaultHeadTagsDisabled,
+            OptionalNullable<Boolean> usePageTemplate,
             Optional<List<AculHeadTag>> headTags,
             OptionalNullable<AculFilters> filters,
-            OptionalNullable<Boolean> usePageTemplate,
             Map<String, Object> additionalProperties) {
         this.renderingMode = renderingMode;
         this.contextConfiguration = contextConfiguration;
         this.defaultHeadTagsDisabled = defaultHeadTagsDisabled;
+        this.usePageTemplate = usePageTemplate;
         this.headTags = headTags;
         this.filters = filters;
-        this.usePageTemplate = usePageTemplate;
         this.additionalProperties = additionalProperties;
     }
 
@@ -63,11 +64,8 @@ public final class UpdateAculRequestContent {
         return renderingMode;
     }
 
-    /**
-     * @return Context values to make available
-     */
     @JsonProperty("context_configuration")
-    public Optional<List<String>> getContextConfiguration() {
+    public Optional<List<AculContextConfigurationItem>> getContextConfiguration() {
         return contextConfiguration;
     }
 
@@ -81,6 +79,18 @@ public final class UpdateAculRequestContent {
             return OptionalNullable.absent();
         }
         return defaultHeadTagsDisabled;
+    }
+
+    /**
+     * @return Use page template with ACUL
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("use_page_template")
+    public OptionalNullable<Boolean> getUsePageTemplate() {
+        if (usePageTemplate == null) {
+            return OptionalNullable.absent();
+        }
+        return usePageTemplate;
     }
 
     /**
@@ -100,28 +110,10 @@ public final class UpdateAculRequestContent {
         return filters;
     }
 
-    /**
-     * @return Use page template with ACUL
-     */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("use_page_template")
-    public OptionalNullable<Boolean> getUsePageTemplate() {
-        if (usePageTemplate == null) {
-            return OptionalNullable.absent();
-        }
-        return usePageTemplate;
-    }
-
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("default_head_tags_disabled")
     private OptionalNullable<Boolean> _getDefaultHeadTagsDisabled() {
         return defaultHeadTagsDisabled;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("filters")
-    private OptionalNullable<AculFilters> _getFilters() {
-        return filters;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -130,7 +122,13 @@ public final class UpdateAculRequestContent {
         return usePageTemplate;
     }
 
-    @java.lang.Override
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("filters")
+    private OptionalNullable<AculFilters> _getFilters() {
+        return filters;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateAculRequestContent && equalTo((UpdateAculRequestContent) other);
@@ -145,23 +143,23 @@ public final class UpdateAculRequestContent {
         return renderingMode.equals(other.renderingMode)
                 && contextConfiguration.equals(other.contextConfiguration)
                 && defaultHeadTagsDisabled.equals(other.defaultHeadTagsDisabled)
+                && usePageTemplate.equals(other.usePageTemplate)
                 && headTags.equals(other.headTags)
-                && filters.equals(other.filters)
-                && usePageTemplate.equals(other.usePageTemplate);
+                && filters.equals(other.filters);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.renderingMode,
                 this.contextConfiguration,
                 this.defaultHeadTagsDisabled,
+                this.usePageTemplate,
                 this.headTags,
-                this.filters,
-                this.usePageTemplate);
+                this.filters);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -174,15 +172,15 @@ public final class UpdateAculRequestContent {
     public static final class Builder {
         private Optional<AculRenderingModeEnum> renderingMode = Optional.empty();
 
-        private Optional<List<String>> contextConfiguration = Optional.empty();
+        private Optional<List<AculContextConfigurationItem>> contextConfiguration = Optional.empty();
 
         private OptionalNullable<Boolean> defaultHeadTagsDisabled = OptionalNullable.absent();
+
+        private OptionalNullable<Boolean> usePageTemplate = OptionalNullable.absent();
 
         private Optional<List<AculHeadTag>> headTags = Optional.empty();
 
         private OptionalNullable<AculFilters> filters = OptionalNullable.absent();
-
-        private OptionalNullable<Boolean> usePageTemplate = OptionalNullable.absent();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -193,9 +191,9 @@ public final class UpdateAculRequestContent {
             renderingMode(other.getRenderingMode());
             contextConfiguration(other.getContextConfiguration());
             defaultHeadTagsDisabled(other.getDefaultHeadTagsDisabled());
+            usePageTemplate(other.getUsePageTemplate());
             headTags(other.getHeadTags());
             filters(other.getFilters());
-            usePageTemplate(other.getUsePageTemplate());
             return this;
         }
 
@@ -210,16 +208,13 @@ public final class UpdateAculRequestContent {
             return this;
         }
 
-        /**
-         * <p>Context values to make available</p>
-         */
         @JsonSetter(value = "context_configuration", nulls = Nulls.SKIP)
-        public Builder contextConfiguration(Optional<List<String>> contextConfiguration) {
+        public Builder contextConfiguration(Optional<List<AculContextConfigurationItem>> contextConfiguration) {
             this.contextConfiguration = contextConfiguration;
             return this;
         }
 
-        public Builder contextConfiguration(List<String> contextConfiguration) {
+        public Builder contextConfiguration(List<AculContextConfigurationItem> contextConfiguration) {
             this.contextConfiguration = Optional.ofNullable(contextConfiguration);
             return this;
         }
@@ -254,6 +249,40 @@ public final class UpdateAculRequestContent {
                 this.defaultHeadTagsDisabled = OptionalNullable.absent();
             } else {
                 this.defaultHeadTagsDisabled = OptionalNullable.of(defaultHeadTagsDisabled.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>Use page template with ACUL</p>
+         */
+        @JsonSetter(value = "use_page_template", nulls = Nulls.SKIP)
+        public Builder usePageTemplate(@Nullable OptionalNullable<Boolean> usePageTemplate) {
+            this.usePageTemplate = usePageTemplate;
+            return this;
+        }
+
+        public Builder usePageTemplate(Boolean usePageTemplate) {
+            this.usePageTemplate = OptionalNullable.of(usePageTemplate);
+            return this;
+        }
+
+        public Builder usePageTemplate(Optional<Boolean> usePageTemplate) {
+            if (usePageTemplate.isPresent()) {
+                this.usePageTemplate = OptionalNullable.of(usePageTemplate.get());
+            } else {
+                this.usePageTemplate = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder usePageTemplate(com.auth0.client.mgmt.core.Nullable<Boolean> usePageTemplate) {
+            if (usePageTemplate.isNull()) {
+                this.usePageTemplate = OptionalNullable.ofNull();
+            } else if (usePageTemplate.isEmpty()) {
+                this.usePageTemplate = OptionalNullable.absent();
+            } else {
+                this.usePageTemplate = OptionalNullable.of(usePageTemplate.get());
             }
             return this;
         }
@@ -303,48 +332,14 @@ public final class UpdateAculRequestContent {
             return this;
         }
 
-        /**
-         * <p>Use page template with ACUL</p>
-         */
-        @JsonSetter(value = "use_page_template", nulls = Nulls.SKIP)
-        public Builder usePageTemplate(@Nullable OptionalNullable<Boolean> usePageTemplate) {
-            this.usePageTemplate = usePageTemplate;
-            return this;
-        }
-
-        public Builder usePageTemplate(Boolean usePageTemplate) {
-            this.usePageTemplate = OptionalNullable.of(usePageTemplate);
-            return this;
-        }
-
-        public Builder usePageTemplate(Optional<Boolean> usePageTemplate) {
-            if (usePageTemplate.isPresent()) {
-                this.usePageTemplate = OptionalNullable.of(usePageTemplate.get());
-            } else {
-                this.usePageTemplate = OptionalNullable.absent();
-            }
-            return this;
-        }
-
-        public Builder usePageTemplate(com.auth0.client.mgmt.core.Nullable<Boolean> usePageTemplate) {
-            if (usePageTemplate.isNull()) {
-                this.usePageTemplate = OptionalNullable.ofNull();
-            } else if (usePageTemplate.isEmpty()) {
-                this.usePageTemplate = OptionalNullable.absent();
-            } else {
-                this.usePageTemplate = OptionalNullable.of(usePageTemplate.get());
-            }
-            return this;
-        }
-
         public UpdateAculRequestContent build() {
             return new UpdateAculRequestContent(
                     renderingMode,
                     contextConfiguration,
                     defaultHeadTagsDisabled,
+                    usePageTemplate,
                     headTags,
                     filters,
-                    usePageTemplate,
                     additionalProperties);
         }
     }

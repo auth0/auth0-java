@@ -1,8 +1,10 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.ClientGrantResponseContent;
+import com.auth0.client.mgmt.types.ClientGrantSubjectTypeEnum;
 import com.auth0.client.mgmt.types.CreateClientGrantRequestContent;
 import com.auth0.client.mgmt.types.CreateClientGrantResponseContent;
 import com.auth0.client.mgmt.types.ListClientGrantsRequestParameters;
@@ -10,7 +12,6 @@ import com.auth0.client.mgmt.types.UpdateClientGrantRequestContent;
 import com.auth0.client.mgmt.types.UpdateClientGrantResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.Arrays;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -45,14 +46,15 @@ public class ClientGrantsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"next\":\"next\",\"client_grants\":[{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"is_system\":true}]}"));
+                                "{\"next\":\"next\",\"client_grants\":[{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"is_system\":true,\"subject_type\":\"client\",\"authorization_details_types\":[\"authorization_details_types\"]}]}"));
         SyncPagingIterable<ClientGrantResponseContent> response = client.clientGrants()
                 .list(ListClientGrantsRequestParameters.builder()
-                        .from("from")
-                        .take(1)
-                        .audience("audience")
-                        .clientId("client_id")
-                        .allowAnyOrganization(true)
+                        .from(OptionalNullable.of("from"))
+                        .take(OptionalNullable.of(1))
+                        .audience(OptionalNullable.of("audience"))
+                        .clientId(OptionalNullable.of("client_id"))
+                        .allowAnyOrganization(OptionalNullable.of(true))
+                        .subjectType(OptionalNullable.of(ClientGrantSubjectTypeEnum.CLIENT))
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -70,26 +72,19 @@ public class ClientGrantsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"is_system\":true}"));
+                                "{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"is_system\":true,\"subject_type\":\"client\",\"authorization_details_types\":[\"authorization_details_types\"]}"));
         CreateClientGrantResponseContent response = client.clientGrants()
                 .create(CreateClientGrantRequestContent.builder()
                         .clientId("client_id")
                         .audience("audience")
-                        .scope(Arrays.asList("scope"))
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("POST", request.getMethod());
         // Validate request body
         String actualRequestBody = request.getBody().readUtf8();
-        String expectedRequestBody = ""
-                + "{\n"
-                + "  \"client_id\": \"client_id\",\n"
-                + "  \"audience\": \"audience\",\n"
-                + "  \"scope\": [\n"
-                + "    \"scope\"\n"
-                + "  ]\n"
-                + "}";
+        String expectedRequestBody =
+                "" + "{\n" + "  \"client_id\": \"client_id\",\n" + "  \"audience\": \"audience\"\n" + "}";
         JsonNode actualJson = objectMapper.readTree(actualRequestBody);
         JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
         Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");
@@ -130,7 +125,11 @@ public class ClientGrantsWireTest {
                 + "  ],\n"
                 + "  \"organization_usage\": \"deny\",\n"
                 + "  \"allow_any_organization\": true,\n"
-                + "  \"is_system\": true\n"
+                + "  \"is_system\": true,\n"
+                + "  \"subject_type\": \"client\",\n"
+                + "  \"authorization_details_types\": [\n"
+                + "    \"authorization_details_types\"\n"
+                + "  ]\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -178,7 +177,7 @@ public class ClientGrantsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"is_system\":true}"));
+                                "{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"is_system\":true,\"subject_type\":\"client\",\"authorization_details_types\":[\"authorization_details_types\"]}"));
         UpdateClientGrantResponseContent response = client.clientGrants()
                 .update("id", UpdateClientGrantRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -227,7 +226,11 @@ public class ClientGrantsWireTest {
                 + "  ],\n"
                 + "  \"organization_usage\": \"deny\",\n"
                 + "  \"allow_any_organization\": true,\n"
-                + "  \"is_system\": true\n"
+                + "  \"is_system\": true,\n"
+                + "  \"subject_type\": \"client\",\n"
+                + "  \"authorization_details_types\": [\n"
+                + "    \"authorization_details_types\"\n"
+                + "  ]\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -261,24 +264,29 @@ public class ClientGrantsWireTest {
     }
 
     /**
-     * Compares two JsonNodes with numeric equivalence.
+     * Compares two JsonNodes with numeric equivalence and null safety.
+     * For objects, checks that all fields in 'expected' exist in 'actual' with matching values.
+     * Allows 'actual' to have extra fields (e.g., default values added during serialization).
      */
-    private boolean jsonEquals(JsonNode a, JsonNode b) {
-        if (a.equals(b)) return true;
-        if (a.isNumber() && b.isNumber()) return Math.abs(a.doubleValue() - b.doubleValue()) < 1e-10;
-        if (a.isObject() && b.isObject()) {
-            if (a.size() != b.size()) return false;
-            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = a.fields();
+    private boolean jsonEquals(JsonNode expected, JsonNode actual) {
+        if (expected == null && actual == null) return true;
+        if (expected == null || actual == null) return false;
+        if (expected.equals(actual)) return true;
+        if (expected.isNumber() && actual.isNumber())
+            return Math.abs(expected.doubleValue() - actual.doubleValue()) < 1e-10;
+        if (expected.isObject() && actual.isObject()) {
+            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = expected.fields();
             while (iter.hasNext()) {
                 java.util.Map.Entry<String, JsonNode> entry = iter.next();
-                if (!jsonEquals(entry.getValue(), b.get(entry.getKey()))) return false;
+                JsonNode actualValue = actual.get(entry.getKey());
+                if (actualValue == null || !jsonEquals(entry.getValue(), actualValue)) return false;
             }
             return true;
         }
-        if (a.isArray() && b.isArray()) {
-            if (a.size() != b.size()) return false;
-            for (int i = 0; i < a.size(); i++) {
-                if (!jsonEquals(a.get(i), b.get(i))) return false;
+        if (expected.isArray() && actual.isArray()) {
+            if (expected.size() != actual.size()) return false;
+            for (int i = 0; i < expected.size(); i++) {
+                if (!jsonEquals(expected.get(i), actual.get(i))) return false;
             }
             return true;
         }

@@ -279,7 +279,7 @@ public final class MdlPresentationProperties {
         return givenNameNationalCharacter;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof MdlPresentationProperties && equalTo((MdlPresentationProperties) other);
@@ -314,7 +314,7 @@ public final class MdlPresentationProperties {
                 && givenNameNationalCharacter.equals(other.givenNameNationalCharacter);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.familyName,
@@ -340,7 +340,7 @@ public final class MdlPresentationProperties {
                 this.givenNameNationalCharacter);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

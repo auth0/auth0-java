@@ -32,8 +32,8 @@ public class DefaultHttpClient implements Auth0HttpClient {
 
     private final okhttp3.OkHttpClient client;
 
-    public static DefaultHttpClient.Builder newBuilder() {
-        return new DefaultHttpClient.Builder();
+    public static Builder newBuilder() {
+        return new Builder();
     }
 
     /**

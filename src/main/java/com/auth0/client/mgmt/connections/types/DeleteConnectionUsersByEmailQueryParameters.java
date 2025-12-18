@@ -36,7 +36,7 @@ public final class DeleteConnectionUsersByEmailQueryParameters {
         return email;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof DeleteConnectionUsersByEmailQueryParameters
@@ -52,12 +52,12 @@ public final class DeleteConnectionUsersByEmailQueryParameters {
         return email.equals(other.email);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.email);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -88,7 +88,7 @@ public final class DeleteConnectionUsersByEmailQueryParameters {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(DeleteConnectionUsersByEmailQueryParameters other) {
             email(other.getEmail());
             return this;
@@ -99,14 +99,14 @@ public final class DeleteConnectionUsersByEmailQueryParameters {
          * <p>The email of the user to delete</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("email")
         public _FinalStage email(@NotNull String email) {
             this.email = Objects.requireNonNull(email, "email must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public DeleteConnectionUsersByEmailQueryParameters build() {
             return new DeleteConnectionUsersByEmailQueryParameters(email, additionalProperties);
         }

@@ -34,7 +34,7 @@ public final class CreateEncryptionKeyRequestContent {
         return type;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateEncryptionKeyRequestContent && equalTo((CreateEncryptionKeyRequestContent) other);
@@ -49,12 +49,12 @@ public final class CreateEncryptionKeyRequestContent {
         return type.equals(other.type);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.type);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -82,20 +82,20 @@ public final class CreateEncryptionKeyRequestContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(CreateEncryptionKeyRequestContent other) {
             type(other.getType());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("type")
         public _FinalStage type(@NotNull CreateEncryptionKeyType type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public CreateEncryptionKeyRequestContent build() {
             return new CreateEncryptionKeyRequestContent(type, additionalProperties);
         }

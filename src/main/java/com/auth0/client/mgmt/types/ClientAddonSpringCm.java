@@ -37,7 +37,7 @@ public final class ClientAddonSpringCm {
         return acsurl;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientAddonSpringCm && equalTo((ClientAddonSpringCm) other);
@@ -52,12 +52,12 @@ public final class ClientAddonSpringCm {
         return acsurl.equals(other.acsurl);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.acsurl);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

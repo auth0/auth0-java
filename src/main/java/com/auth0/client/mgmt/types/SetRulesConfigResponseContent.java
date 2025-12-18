@@ -47,7 +47,7 @@ public final class SetRulesConfigResponseContent {
         return value;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SetRulesConfigResponseContent && equalTo((SetRulesConfigResponseContent) other);
@@ -62,12 +62,12 @@ public final class SetRulesConfigResponseContent {
         return key.equals(other.key) && value.equals(other.value);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.key, this.value);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -107,7 +107,7 @@ public final class SetRulesConfigResponseContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(SetRulesConfigResponseContent other) {
             key(other.getKey());
             value(other.getValue());
@@ -119,7 +119,7 @@ public final class SetRulesConfigResponseContent {
          * <p>Key for a rules config variable.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("key")
         public ValueStage key(@NotNull String key) {
             this.key = Objects.requireNonNull(key, "key must not be null");
@@ -131,14 +131,14 @@ public final class SetRulesConfigResponseContent {
          * <p>Value for a rules config variable.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("value")
         public _FinalStage value(@NotNull String value) {
             this.value = Objects.requireNonNull(value, "value must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public SetRulesConfigResponseContent build() {
             return new SetRulesConfigResponseContent(key, value, additionalProperties);
         }

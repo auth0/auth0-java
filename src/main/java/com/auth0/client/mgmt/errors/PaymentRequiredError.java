@@ -25,7 +25,7 @@ public final class PaymentRequiredError extends ManagementApiException {
     /**
      * @return the body
      */
-    @java.lang.Override
+    @Override
     public Object body() {
         return this.body;
     }

@@ -34,7 +34,7 @@ public final class CreatePhoneTemplateTestNotificationResponseContent {
         return message;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreatePhoneTemplateTestNotificationResponseContent
@@ -50,12 +50,12 @@ public final class CreatePhoneTemplateTestNotificationResponseContent {
         return message.equals(other.message);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.message);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -83,20 +83,20 @@ public final class CreatePhoneTemplateTestNotificationResponseContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(CreatePhoneTemplateTestNotificationResponseContent other) {
             message(other.getMessage());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("message")
         public _FinalStage message(@NotNull String message) {
             this.message = Objects.requireNonNull(message, "message must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public CreatePhoneTemplateTestNotificationResponseContent build() {
             return new CreatePhoneTemplateTestNotificationResponseContent(message, additionalProperties);
         }

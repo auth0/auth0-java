@@ -30,7 +30,7 @@ public final class UpdateFormRequestContent {
 
     private final OptionalNullable<FormLanguages> languages;
 
-    private final OptionalNullable<Map<String, Object>> translations;
+    private final OptionalNullable<Map<String, Map<String, Object>>> translations;
 
     private final OptionalNullable<List<FormNode>> nodes;
 
@@ -46,7 +46,7 @@ public final class UpdateFormRequestContent {
             Optional<String> name,
             OptionalNullable<FormMessages> messages,
             OptionalNullable<FormLanguages> languages,
-            OptionalNullable<Map<String, Object>> translations,
+            OptionalNullable<Map<String, Map<String, Object>>> translations,
             OptionalNullable<List<FormNode>> nodes,
             OptionalNullable<FormStartNode> start,
             OptionalNullable<FormEndingNode> ending,
@@ -82,7 +82,7 @@ public final class UpdateFormRequestContent {
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("translations")
-    public OptionalNullable<Map<String, Object>> getTranslations() {
+    public OptionalNullable<Map<String, Map<String, Object>>> getTranslations() {
         return translations;
     }
 
@@ -110,7 +110,7 @@ public final class UpdateFormRequestContent {
         return style;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateFormRequestContent && equalTo((UpdateFormRequestContent) other);
@@ -132,7 +132,7 @@ public final class UpdateFormRequestContent {
                 && style.equals(other.style);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.name,
@@ -145,7 +145,7 @@ public final class UpdateFormRequestContent {
                 this.style);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -162,7 +162,7 @@ public final class UpdateFormRequestContent {
 
         private OptionalNullable<FormLanguages> languages = OptionalNullable.absent();
 
-        private OptionalNullable<Map<String, Object>> translations = OptionalNullable.absent();
+        private OptionalNullable<Map<String, Map<String, Object>>> translations = OptionalNullable.absent();
 
         private OptionalNullable<List<FormNode>> nodes = OptionalNullable.absent();
 
@@ -263,17 +263,17 @@ public final class UpdateFormRequestContent {
         }
 
         @JsonSetter(value = "translations", nulls = Nulls.SKIP)
-        public Builder translations(OptionalNullable<Map<String, Object>> translations) {
+        public Builder translations(OptionalNullable<Map<String, Map<String, Object>>> translations) {
             this.translations = translations;
             return this;
         }
 
-        public Builder translations(Map<String, Object> translations) {
+        public Builder translations(Map<String, Map<String, Object>> translations) {
             this.translations = OptionalNullable.of(translations);
             return this;
         }
 
-        public Builder translations(Optional<Map<String, Object>> translations) {
+        public Builder translations(Optional<Map<String, Map<String, Object>>> translations) {
             if (translations.isPresent()) {
                 this.translations = OptionalNullable.of(translations.get());
             } else {
@@ -282,7 +282,7 @@ public final class UpdateFormRequestContent {
             return this;
         }
 
-        public Builder translations(Nullable<Map<String, Object>> translations) {
+        public Builder translations(Nullable<Map<String, Map<String, Object>>> translations) {
             if (translations.isNull()) {
                 this.translations = OptionalNullable.ofNull();
             } else if (translations.isEmpty()) {

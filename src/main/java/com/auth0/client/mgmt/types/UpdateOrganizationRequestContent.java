@@ -29,7 +29,7 @@ public final class UpdateOrganizationRequestContent {
 
     private final Optional<OrganizationBranding> branding;
 
-    private final Optional<Map<String, Object>> metadata;
+    private final Optional<Map<String, OptionalNullable<String>>> metadata;
 
     private final OptionalNullable<UpdateTokenQuota> tokenQuota;
 
@@ -39,7 +39,7 @@ public final class UpdateOrganizationRequestContent {
             Optional<String> displayName,
             Optional<String> name,
             Optional<OrganizationBranding> branding,
-            Optional<Map<String, Object>> metadata,
+            Optional<Map<String, OptionalNullable<String>>> metadata,
             OptionalNullable<UpdateTokenQuota> tokenQuota,
             Map<String, Object> additionalProperties) {
         this.displayName = displayName;
@@ -72,7 +72,7 @@ public final class UpdateOrganizationRequestContent {
     }
 
     @JsonProperty("metadata")
-    public Optional<Map<String, Object>> getMetadata() {
+    public Optional<Map<String, OptionalNullable<String>>> getMetadata() {
         return metadata;
     }
 
@@ -91,7 +91,7 @@ public final class UpdateOrganizationRequestContent {
         return tokenQuota;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateOrganizationRequestContent && equalTo((UpdateOrganizationRequestContent) other);
@@ -110,12 +110,12 @@ public final class UpdateOrganizationRequestContent {
                 && tokenQuota.equals(other.tokenQuota);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.displayName, this.name, this.branding, this.metadata, this.tokenQuota);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -132,7 +132,7 @@ public final class UpdateOrganizationRequestContent {
 
         private Optional<OrganizationBranding> branding = Optional.empty();
 
-        private Optional<Map<String, Object>> metadata = Optional.empty();
+        private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
         private OptionalNullable<UpdateTokenQuota> tokenQuota = OptionalNullable.absent();
 
@@ -190,12 +190,12 @@ public final class UpdateOrganizationRequestContent {
         }
 
         @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
-        public Builder metadata(Optional<Map<String, Object>> metadata) {
+        public Builder metadata(Optional<Map<String, OptionalNullable<String>>> metadata) {
             this.metadata = metadata;
             return this;
         }
 
-        public Builder metadata(Map<String, Object> metadata) {
+        public Builder metadata(Map<String, OptionalNullable<String>> metadata) {
             this.metadata = Optional.ofNullable(metadata);
             return this;
         }

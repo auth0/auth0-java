@@ -47,7 +47,7 @@ public final class RotateSigningKeysResponseContent {
         return kid;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof RotateSigningKeysResponseContent && equalTo((RotateSigningKeysResponseContent) other);
@@ -62,12 +62,12 @@ public final class RotateSigningKeysResponseContent {
         return cert.equals(other.cert) && kid.equals(other.kid);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.cert, this.kid);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -107,7 +107,7 @@ public final class RotateSigningKeysResponseContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(RotateSigningKeysResponseContent other) {
             cert(other.getCert());
             kid(other.getKid());
@@ -119,7 +119,7 @@ public final class RotateSigningKeysResponseContent {
          * <p>Next key certificate</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("cert")
         public KidStage cert(@NotNull String cert) {
             this.cert = Objects.requireNonNull(cert, "cert must not be null");
@@ -131,14 +131,14 @@ public final class RotateSigningKeysResponseContent {
          * <p>Next key id</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("kid")
         public _FinalStage kid(@NotNull String kid) {
             this.kid = Objects.requireNonNull(kid, "kid must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public RotateSigningKeysResponseContent build() {
             return new RotateSigningKeysResponseContent(cert, kid, additionalProperties);
         }

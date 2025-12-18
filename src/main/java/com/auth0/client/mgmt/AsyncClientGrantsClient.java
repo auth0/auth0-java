@@ -38,14 +38,14 @@ public class AsyncClientGrantsClient {
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/api-auth/grant/client-credentials&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
+     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
      */
     public CompletableFuture<SyncPagingIterable<ClientGrantResponseContent>> list() {
         return this.rawClient.list().thenApply(response -> response.body());
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/api-auth/grant/client-credentials&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
+     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
      */
     public CompletableFuture<SyncPagingIterable<ClientGrantResponseContent>> list(
             ListClientGrantsRequestParameters request) {
@@ -53,7 +53,7 @@ public class AsyncClientGrantsClient {
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/api-auth/grant/client-credentials&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
+     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
      */
     public CompletableFuture<SyncPagingIterable<ClientGrantResponseContent>> list(
             ListClientGrantsRequestParameters request, RequestOptions requestOptions) {

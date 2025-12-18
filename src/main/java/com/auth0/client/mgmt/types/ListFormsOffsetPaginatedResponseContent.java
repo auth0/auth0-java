@@ -64,7 +64,7 @@ public final class ListFormsOffsetPaginatedResponseContent {
         return forms;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListFormsOffsetPaginatedResponseContent
@@ -83,12 +83,12 @@ public final class ListFormsOffsetPaginatedResponseContent {
                 && forms.equals(other.forms);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.start, this.limit, this.total, this.forms);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

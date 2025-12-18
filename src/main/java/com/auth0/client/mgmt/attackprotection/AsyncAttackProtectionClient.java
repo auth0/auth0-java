@@ -10,19 +10,29 @@ import java.util.function.Supplier;
 public class AsyncAttackProtectionClient {
     protected final ClientOptions clientOptions;
 
+    protected final Supplier<AsyncBotDetectionClient> botDetectionClient;
+
     protected final Supplier<AsyncBreachedPasswordDetectionClient> breachedPasswordDetectionClient;
 
     protected final Supplier<AsyncBruteForceProtectionClient> bruteForceProtectionClient;
+
+    protected final Supplier<AsyncCaptchaClient> captchaClient;
 
     protected final Supplier<AsyncSuspiciousIpThrottlingClient> suspiciousIpThrottlingClient;
 
     public AsyncAttackProtectionClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.botDetectionClient = Suppliers.memoize(() -> new AsyncBotDetectionClient(clientOptions));
         this.breachedPasswordDetectionClient =
                 Suppliers.memoize(() -> new AsyncBreachedPasswordDetectionClient(clientOptions));
         this.bruteForceProtectionClient = Suppliers.memoize(() -> new AsyncBruteForceProtectionClient(clientOptions));
+        this.captchaClient = Suppliers.memoize(() -> new AsyncCaptchaClient(clientOptions));
         this.suspiciousIpThrottlingClient =
                 Suppliers.memoize(() -> new AsyncSuspiciousIpThrottlingClient(clientOptions));
+    }
+
+    public AsyncBotDetectionClient botDetection() {
+        return this.botDetectionClient.get();
     }
 
     public AsyncBreachedPasswordDetectionClient breachedPasswordDetection() {
@@ -31,6 +41,10 @@ public class AsyncAttackProtectionClient {
 
     public AsyncBruteForceProtectionClient bruteForceProtection() {
         return this.bruteForceProtectionClient.get();
+    }
+
+    public AsyncCaptchaClient captcha() {
+        return this.captchaClient.get();
     }
 
     public AsyncSuspiciousIpThrottlingClient suspiciousIpThrottling() {

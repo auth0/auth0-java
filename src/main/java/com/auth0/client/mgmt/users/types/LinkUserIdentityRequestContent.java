@@ -4,7 +4,7 @@
 package com.auth0.client.mgmt.users.types;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.types.UserIdEnum;
+import com.auth0.client.mgmt.types.UserId;
 import com.auth0.client.mgmt.types.UserIdentityProviderEnum;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -26,7 +26,7 @@ public final class LinkUserIdentityRequestContent {
 
     private final Optional<String> connectionId;
 
-    private final Optional<UserIdEnum> userId;
+    private final Optional<UserId> userId;
 
     private final Optional<String> linkWith;
 
@@ -35,7 +35,7 @@ public final class LinkUserIdentityRequestContent {
     private LinkUserIdentityRequestContent(
             Optional<UserIdentityProviderEnum> provider,
             Optional<String> connectionId,
-            Optional<UserIdEnum> userId,
+            Optional<UserId> userId,
             Optional<String> linkWith,
             Map<String, Object> additionalProperties) {
         this.provider = provider;
@@ -59,7 +59,7 @@ public final class LinkUserIdentityRequestContent {
     }
 
     @JsonProperty("user_id")
-    public Optional<UserIdEnum> getUserId() {
+    public Optional<UserId> getUserId() {
         return userId;
     }
 
@@ -71,7 +71,7 @@ public final class LinkUserIdentityRequestContent {
         return linkWith;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof LinkUserIdentityRequestContent && equalTo((LinkUserIdentityRequestContent) other);
@@ -89,12 +89,12 @@ public final class LinkUserIdentityRequestContent {
                 && linkWith.equals(other.linkWith);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.provider, this.connectionId, this.userId, this.linkWith);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -109,7 +109,7 @@ public final class LinkUserIdentityRequestContent {
 
         private Optional<String> connectionId = Optional.empty();
 
-        private Optional<UserIdEnum> userId = Optional.empty();
+        private Optional<UserId> userId = Optional.empty();
 
         private Optional<String> linkWith = Optional.empty();
 
@@ -152,12 +152,12 @@ public final class LinkUserIdentityRequestContent {
         }
 
         @JsonSetter(value = "user_id", nulls = Nulls.SKIP)
-        public Builder userId(Optional<UserIdEnum> userId) {
+        public Builder userId(Optional<UserId> userId) {
             this.userId = userId;
             return this;
         }
 
-        public Builder userId(UserIdEnum userId) {
+        public Builder userId(UserId userId) {
             this.userId = Optional.ofNullable(userId);
             return this;
         }

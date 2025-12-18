@@ -9,6 +9,7 @@ import com.auth0.client.mgmt.core.ManagementApiHttpResponse;
 import com.auth0.client.mgmt.core.ManagementException;
 import com.auth0.client.mgmt.core.MediaTypes;
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.QueryStringMapper;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.errors.BadRequestError;
 import com.auth0.client.mgmt.errors.ConflictError;
@@ -20,6 +21,7 @@ import com.auth0.client.mgmt.types.CreateCustomDomainRequestContent;
 import com.auth0.client.mgmt.types.CreateCustomDomainResponseContent;
 import com.auth0.client.mgmt.types.CustomDomain;
 import com.auth0.client.mgmt.types.GetCustomDomainResponseContent;
+import com.auth0.client.mgmt.types.ListCustomDomainsRequestParameters;
 import com.auth0.client.mgmt.types.TestCustomDomainResponseContent;
 import com.auth0.client.mgmt.types.UpdateCustomDomainRequestContent;
 import com.auth0.client.mgmt.types.UpdateCustomDomainResponseContent;
@@ -47,23 +49,50 @@ public class RawCustomDomainsClient {
      * Retrieve details on &lt;a href=&quot;https://auth0.com/docs/custom-domains&quot;&gt;custom domains&lt;/a&gt;.
      */
     public ManagementApiHttpResponse<List<CustomDomain>> list() {
-        return list(null);
+        return list(ListCustomDomainsRequestParameters.builder().build());
     }
 
     /**
      * Retrieve details on &lt;a href=&quot;https://auth0.com/docs/custom-domains&quot;&gt;custom domains&lt;/a&gt;.
      */
-    public ManagementApiHttpResponse<List<CustomDomain>> list(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+    public ManagementApiHttpResponse<List<CustomDomain>> list(ListCustomDomainsRequestParameters request) {
+        return list(request, null);
+    }
+
+    /**
+     * Retrieve details on &lt;a href=&quot;https://auth0.com/docs/custom-domains&quot;&gt;custom domains&lt;/a&gt;.
+     */
+    public ManagementApiHttpResponse<List<CustomDomain>> list(
+            ListCustomDomainsRequestParameters request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("custom-domains")
-                .build();
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .addPathSegments("custom-domains");
+        QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
+        if (!request.getFrom().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "from", request.getFrom().orElse(null), false);
+        }
+        if (!request.getQ().isAbsent()) {
+            QueryStringMapper.addQueryParameter(httpUrl, "q", request.getQ().orElse(null), false);
+        }
+        if (!request.getFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "fields", request.getFields().orElse(null), false);
+        }
+        if (!request.getIncludeFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "include_fields", request.getIncludeFields().orElse(null), false);
+        }
+        if (!request.getSort().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "sort", request.getSort().orElse(null), false);
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Accept", "application/json")
-                .build();
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
         OkHttpClient client = clientOptions.httpClient();
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);

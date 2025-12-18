@@ -55,7 +55,7 @@ public final class FlowActionMailchimpUpsertMemberParamsMember {
         return mergeFields;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionMailchimpUpsertMemberParamsMember
@@ -73,12 +73,12 @@ public final class FlowActionMailchimpUpsertMemberParamsMember {
                 && mergeFields.equals(other.mergeFields);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.emailAddress, this.statusIfNew, this.mergeFields);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -118,7 +118,7 @@ public final class FlowActionMailchimpUpsertMemberParamsMember {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionMailchimpUpsertMemberParamsMember other) {
             emailAddress(other.getEmailAddress());
             statusIfNew(other.getStatusIfNew());
@@ -126,34 +126,34 @@ public final class FlowActionMailchimpUpsertMemberParamsMember {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("email_address")
         public StatusIfNewStage emailAddress(@NotNull String emailAddress) {
             this.emailAddress = Objects.requireNonNull(emailAddress, "emailAddress must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("status_if_new")
         public _FinalStage statusIfNew(@NotNull String statusIfNew) {
             this.statusIfNew = Objects.requireNonNull(statusIfNew, "statusIfNew must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage mergeFields(Map<String, Object> mergeFields) {
             this.mergeFields = Optional.ofNullable(mergeFields);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "merge_fields", nulls = Nulls.SKIP)
         public _FinalStage mergeFields(Optional<Map<String, Object>> mergeFields) {
             this.mergeFields = mergeFields;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionMailchimpUpsertMemberParamsMember build() {
             return new FlowActionMailchimpUpsertMemberParamsMember(
                     emailAddress, statusIfNew, mergeFields, additionalProperties);

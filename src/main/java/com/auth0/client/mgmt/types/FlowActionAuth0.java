@@ -39,11 +39,13 @@ public final class FlowActionAuth0 {
             return visitor.visit((FlowActionAuth0UpdateUser) this.value);
         } else if (this.type == 3) {
             return visitor.visit((FlowActionAuth0SendRequest) this.value);
+        } else if (this.type == 4) {
+            return visitor.visit((FlowActionAuth0SendEmail) this.value);
         }
         throw new IllegalStateException("Failed to visit value. This should never happen.");
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionAuth0 && equalTo((FlowActionAuth0) other);
@@ -53,12 +55,12 @@ public final class FlowActionAuth0 {
         return value.equals(other.value);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.value);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return this.value.toString();
     }
@@ -79,6 +81,10 @@ public final class FlowActionAuth0 {
         return new FlowActionAuth0(value, 3);
     }
 
+    public static FlowActionAuth0 of(FlowActionAuth0SendEmail value) {
+        return new FlowActionAuth0(value, 4);
+    }
+
     public interface Visitor<T> {
         T visit(FlowActionAuth0CreateUser value);
 
@@ -87,6 +93,8 @@ public final class FlowActionAuth0 {
         T visit(FlowActionAuth0UpdateUser value);
 
         T visit(FlowActionAuth0SendRequest value);
+
+        T visit(FlowActionAuth0SendEmail value);
     }
 
     static final class Deserializer extends StdDeserializer<FlowActionAuth0> {
@@ -94,7 +102,7 @@ public final class FlowActionAuth0 {
             super(FlowActionAuth0.class);
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionAuth0 deserialize(JsonParser p, DeserializationContext context) throws IOException {
             Object value = p.readValueAs(Object.class);
             try {
@@ -111,6 +119,10 @@ public final class FlowActionAuth0 {
             }
             try {
                 return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionAuth0SendRequest.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionAuth0SendEmail.class));
             } catch (RuntimeException e) {
             }
             throw new JsonParseException(p, "Failed to deserialize");

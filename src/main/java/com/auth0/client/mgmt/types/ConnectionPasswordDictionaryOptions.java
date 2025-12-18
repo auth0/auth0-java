@@ -47,7 +47,7 @@ public final class ConnectionPasswordDictionaryOptions {
         return dictionary;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionPasswordDictionaryOptions
@@ -63,12 +63,12 @@ public final class ConnectionPasswordDictionaryOptions {
         return enable == other.enable && dictionary.equals(other.dictionary);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.enable, this.dictionary);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -105,14 +105,14 @@ public final class ConnectionPasswordDictionaryOptions {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(ConnectionPasswordDictionaryOptions other) {
             enable(other.getEnable());
             dictionary(other.getDictionary());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("enable")
         public _FinalStage enable(boolean enable) {
             this.enable = enable;
@@ -123,7 +123,7 @@ public final class ConnectionPasswordDictionaryOptions {
          * <p>Custom Password Dictionary. An array of up to 200 entries.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage dictionary(List<String> dictionary) {
             this.dictionary = Optional.ofNullable(dictionary);
             return this;
@@ -132,14 +132,14 @@ public final class ConnectionPasswordDictionaryOptions {
         /**
          * <p>Custom Password Dictionary. An array of up to 200 entries.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "dictionary", nulls = Nulls.SKIP)
         public _FinalStage dictionary(Optional<List<String>> dictionary) {
             this.dictionary = dictionary;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public ConnectionPasswordDictionaryOptions build() {
             return new ConnectionPasswordDictionaryOptions(enable, dictionary, additionalProperties);
         }

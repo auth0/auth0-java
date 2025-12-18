@@ -72,7 +72,7 @@ public final class GetDailyStatsRequestParameters {
         return to;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetDailyStatsRequestParameters && equalTo((GetDailyStatsRequestParameters) other);
@@ -87,12 +87,12 @@ public final class GetDailyStatsRequestParameters {
         return from.equals(other.from) && to.equals(other.to);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.from, this.to);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

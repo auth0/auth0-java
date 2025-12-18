@@ -55,7 +55,7 @@ public final class FlowActionSalesforceUpdateLeadParams {
         return payload;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionSalesforceUpdateLeadParams
@@ -71,12 +71,12 @@ public final class FlowActionSalesforceUpdateLeadParams {
         return connectionId.equals(other.connectionId) && leadId.equals(other.leadId) && payload.equals(other.payload);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.leadId, this.payload);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -116,7 +116,7 @@ public final class FlowActionSalesforceUpdateLeadParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionSalesforceUpdateLeadParams other) {
             connectionId(other.getConnectionId());
             leadId(other.getLeadId());
@@ -124,34 +124,34 @@ public final class FlowActionSalesforceUpdateLeadParams {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("connection_id")
         public LeadIdStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("lead_id")
         public _FinalStage leadId(@NotNull String leadId) {
             this.leadId = Objects.requireNonNull(leadId, "leadId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage payload(Map<String, Object> payload) {
             this.payload = Optional.ofNullable(payload);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "payload", nulls = Nulls.SKIP)
         public _FinalStage payload(Optional<Map<String, Object>> payload) {
             this.payload = payload;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionSalesforceUpdateLeadParams build() {
             return new FlowActionSalesforceUpdateLeadParams(connectionId, leadId, payload, additionalProperties);
         }

@@ -56,7 +56,7 @@ public final class SetGuardianFactorsProviderPushNotificationApnsResponseContent
         return bundleId;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SetGuardianFactorsProviderPushNotificationApnsResponseContent
@@ -72,12 +72,12 @@ public final class SetGuardianFactorsProviderPushNotificationApnsResponseContent
         return sandbox.equals(other.sandbox) && bundleId.equals(other.bundleId);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.sandbox, this.bundleId);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

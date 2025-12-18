@@ -52,6 +52,7 @@ public class AsyncRawTokenExchangeProfilesClient {
 
     /**
      * Retrieve a list of all Token Exchange Profiles available in your tenant.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta’s Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user’s subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      * <p>This endpoint supports Checkpoint pagination. To search by checkpoint, use the following parameters:</p>
      * <p>&lt;ul&gt;
      * &lt;li&gt;&lt;code&gt;from&lt;/code&gt;: Optional id from which to start selection.&lt;/li&gt;
@@ -66,6 +67,7 @@ public class AsyncRawTokenExchangeProfilesClient {
 
     /**
      * Retrieve a list of all Token Exchange Profiles available in your tenant.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta’s Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user’s subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      * <p>This endpoint supports Checkpoint pagination. To search by checkpoint, use the following parameters:</p>
      * <p>&lt;ul&gt;
      * &lt;li&gt;&lt;code&gt;from&lt;/code&gt;: Optional id from which to start selection.&lt;/li&gt;
@@ -80,6 +82,7 @@ public class AsyncRawTokenExchangeProfilesClient {
 
     /**
      * Retrieve a list of all Token Exchange Profiles available in your tenant.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta’s Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user’s subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      * <p>This endpoint supports Checkpoint pagination. To search by checkpoint, use the following parameters:</p>
      * <p>&lt;ul&gt;
      * &lt;li&gt;&lt;code&gt;from&lt;/code&gt;: Optional id from which to start selection.&lt;/li&gt;
@@ -92,8 +95,11 @@ public class AsyncRawTokenExchangeProfilesClient {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("token-exchange-profiles");
-        QueryStringMapper.addQueryParameter(httpUrl, "from", request.getFrom(), false);
-        QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake(), false);
+        if (!request.getFrom().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "from", request.getFrom().orElse(null), false);
+        }
+        QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -180,6 +186,7 @@ public class AsyncRawTokenExchangeProfilesClient {
 
     /**
      * Create a new Token Exchange Profile within your tenant.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta’s Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user’s subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateTokenExchangeProfileResponseContent>> create(
             CreateTokenExchangeProfileRequestContent request) {
@@ -188,6 +195,7 @@ public class AsyncRawTokenExchangeProfilesClient {
 
     /**
      * Create a new Token Exchange Profile within your tenant.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta’s Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user’s subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateTokenExchangeProfileResponseContent>> create(
             CreateTokenExchangeProfileRequestContent request, RequestOptions requestOptions) {
@@ -277,6 +285,7 @@ public class AsyncRawTokenExchangeProfilesClient {
 
     /**
      * Retrieve details about a single Token Exchange Profile specified by ID.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta’s Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user’s subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<GetTokenExchangeProfileResponseContent>> get(String id) {
         return get(id, null);
@@ -284,6 +293,7 @@ public class AsyncRawTokenExchangeProfilesClient {
 
     /**
      * Retrieve details about a single Token Exchange Profile specified by ID.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta’s Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user’s subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<GetTokenExchangeProfileResponseContent>> get(
             String id, RequestOptions requestOptions) {
@@ -366,6 +376,7 @@ public class AsyncRawTokenExchangeProfilesClient {
 
     /**
      * Delete a Token Exchange Profile within your tenant.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta's Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user's subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id) {
         return delete(id, null);
@@ -373,6 +384,7 @@ public class AsyncRawTokenExchangeProfilesClient {
 
     /**
      * Delete a Token Exchange Profile within your tenant.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta's Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user's subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
@@ -440,6 +452,7 @@ public class AsyncRawTokenExchangeProfilesClient {
 
     /**
      * Update a Token Exchange Profile within your tenant.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta's Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user's subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> update(String id) {
         return update(id, UpdateTokenExchangeProfileRequestContent.builder().build());
@@ -447,6 +460,7 @@ public class AsyncRawTokenExchangeProfilesClient {
 
     /**
      * Update a Token Exchange Profile within your tenant.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta's Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user's subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> update(
             String id, UpdateTokenExchangeProfileRequestContent request) {
@@ -455,6 +469,7 @@ public class AsyncRawTokenExchangeProfilesClient {
 
     /**
      * Update a Token Exchange Profile within your tenant.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta's Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user's subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> update(
             String id, UpdateTokenExchangeProfileRequestContent request, RequestOptions requestOptions) {

@@ -29,20 +29,20 @@ public final class BreachedPasswordDetectionShieldsEnum {
         return value;
     }
 
-    @java.lang.Override
+    @Override
     @JsonValue
     public String toString() {
         return this.string;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         return (this == other)
                 || (other instanceof BreachedPasswordDetectionShieldsEnum
                         && this.string.equals(((BreachedPasswordDetectionShieldsEnum) other).string));
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return this.string.hashCode();
     }

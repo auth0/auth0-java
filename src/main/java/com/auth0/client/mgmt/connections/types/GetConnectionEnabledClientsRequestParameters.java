@@ -63,7 +63,7 @@ public final class GetConnectionEnabledClientsRequestParameters {
         return from;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetConnectionEnabledClientsRequestParameters
@@ -79,12 +79,12 @@ public final class GetConnectionEnabledClientsRequestParameters {
         return take.equals(other.take) && from.equals(other.from);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.take, this.from);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

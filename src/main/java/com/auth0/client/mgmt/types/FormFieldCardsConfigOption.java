@@ -50,7 +50,7 @@ public final class FormFieldCardsConfigOption {
         return imageUrl;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldCardsConfigOption && equalTo((FormFieldCardsConfigOption) other);
@@ -65,12 +65,12 @@ public final class FormFieldCardsConfigOption {
         return value.equals(other.value) && label.equals(other.label) && imageUrl.equals(other.imageUrl);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.value, this.label, this.imageUrl);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -110,7 +110,7 @@ public final class FormFieldCardsConfigOption {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FormFieldCardsConfigOption other) {
             value(other.getValue());
             label(other.getLabel());
@@ -118,28 +118,28 @@ public final class FormFieldCardsConfigOption {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("value")
         public LabelStage value(@NotNull String value) {
             this.value = Objects.requireNonNull(value, "value must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("label")
         public ImageUrlStage label(@NotNull String label) {
             this.label = Objects.requireNonNull(label, "label must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("image_url")
         public _FinalStage imageUrl(@NotNull String imageUrl) {
             this.imageUrl = Objects.requireNonNull(imageUrl, "imageUrl must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FormFieldCardsConfigOption build() {
             return new FormFieldCardsConfigOption(value, label, imageUrl, additionalProperties);
         }

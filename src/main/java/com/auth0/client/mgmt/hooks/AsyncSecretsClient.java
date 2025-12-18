@@ -29,28 +29,28 @@ public class AsyncSecretsClient {
     /**
      * Retrieve a hook's secrets by the ID of the hook.
      */
-    public CompletableFuture<Map<String, Object>> get(String id) {
+    public CompletableFuture<Map<String, String>> get(String id) {
         return this.rawClient.get(id).thenApply(response -> response.body());
     }
 
     /**
      * Retrieve a hook's secrets by the ID of the hook.
      */
-    public CompletableFuture<Map<String, Object>> get(String id, RequestOptions requestOptions) {
+    public CompletableFuture<Map<String, String>> get(String id, RequestOptions requestOptions) {
         return this.rawClient.get(id, requestOptions).thenApply(response -> response.body());
     }
 
     /**
      * Add one or more secrets to an existing hook. Accepts an object of key-value pairs, where the key is the name of the secret. A hook can have a maximum of 20 secrets.
      */
-    public CompletableFuture<Void> create(String id, Map<String, Object> request) {
+    public CompletableFuture<Void> create(String id, Map<String, String> request) {
         return this.rawClient.create(id, request).thenApply(response -> response.body());
     }
 
     /**
      * Add one or more secrets to an existing hook. Accepts an object of key-value pairs, where the key is the name of the secret. A hook can have a maximum of 20 secrets.
      */
-    public CompletableFuture<Void> create(String id, Map<String, Object> request, RequestOptions requestOptions) {
+    public CompletableFuture<Void> create(String id, Map<String, String> request, RequestOptions requestOptions) {
         return this.rawClient.create(id, request, requestOptions).thenApply(response -> response.body());
     }
 
@@ -71,14 +71,14 @@ public class AsyncSecretsClient {
     /**
      * Update one or more existing secrets for an existing hook. Accepts an object of key-value pairs, where the key is the name of the existing secret.
      */
-    public CompletableFuture<Void> update(String id, Map<String, Object> request) {
+    public CompletableFuture<Void> update(String id, Map<String, String> request) {
         return this.rawClient.update(id, request).thenApply(response -> response.body());
     }
 
     /**
      * Update one or more existing secrets for an existing hook. Accepts an object of key-value pairs, where the key is the name of the existing secret.
      */
-    public CompletableFuture<Void> update(String id, Map<String, Object> request, RequestOptions requestOptions) {
+    public CompletableFuture<Void> update(String id, Map<String, String> request, RequestOptions requestOptions) {
         return this.rawClient.update(id, request, requestOptions).thenApply(response -> response.body());
     }
 }

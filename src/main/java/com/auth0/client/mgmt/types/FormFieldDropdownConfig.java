@@ -55,7 +55,7 @@ public final class FormFieldDropdownConfig {
         return placeholder;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldDropdownConfig && equalTo((FormFieldDropdownConfig) other);
@@ -72,12 +72,12 @@ public final class FormFieldDropdownConfig {
                 && placeholder.equals(other.placeholder);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.multiple, this.options, this.placeholder);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

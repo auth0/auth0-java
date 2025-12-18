@@ -145,7 +145,7 @@ public final class GetJobResponseContent {
         return statusDetails;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetJobResponseContent && equalTo((GetJobResponseContent) other);
@@ -169,7 +169,7 @@ public final class GetJobResponseContent {
                 && statusDetails.equals(other.statusDetails);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.status,
@@ -184,7 +184,7 @@ public final class GetJobResponseContent {
                 this.statusDetails);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -293,7 +293,7 @@ public final class GetJobResponseContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(GetJobResponseContent other) {
             status(other.getStatus());
             type(other.getType());
@@ -313,7 +313,7 @@ public final class GetJobResponseContent {
          * <p>Status of this job.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("status")
         public TypeStage status(@NotNull String status) {
             this.status = Objects.requireNonNull(status, "status must not be null");
@@ -325,7 +325,7 @@ public final class GetJobResponseContent {
          * <p>Type of job this is.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("type")
         public IdStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
@@ -337,7 +337,7 @@ public final class GetJobResponseContent {
          * <p>ID of this job.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         @JsonSetter("id")
         public _FinalStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
@@ -348,7 +348,7 @@ public final class GetJobResponseContent {
          * <p>Status details.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage statusDetails(String statusDetails) {
             this.statusDetails = Optional.ofNullable(statusDetails);
             return this;
@@ -357,20 +357,20 @@ public final class GetJobResponseContent {
         /**
          * <p>Status details.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "status_details", nulls = Nulls.SKIP)
         public _FinalStage statusDetails(Optional<String> statusDetails) {
             this.statusDetails = statusDetails;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage format(JobFileFormatEnum format) {
             this.format = Optional.ofNullable(format);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "format", nulls = Nulls.SKIP)
         public _FinalStage format(Optional<JobFileFormatEnum> format) {
             this.format = format;
@@ -381,7 +381,7 @@ public final class GetJobResponseContent {
          * <p>Estimated time remaining before job completes.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage timeLeftSeconds(Integer timeLeftSeconds) {
             this.timeLeftSeconds = Optional.ofNullable(timeLeftSeconds);
             return this;
@@ -390,7 +390,7 @@ public final class GetJobResponseContent {
         /**
          * <p>Estimated time remaining before job completes.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "time_left_seconds", nulls = Nulls.SKIP)
         public _FinalStage timeLeftSeconds(Optional<Integer> timeLeftSeconds) {
             this.timeLeftSeconds = timeLeftSeconds;
@@ -401,7 +401,7 @@ public final class GetJobResponseContent {
          * <p>Completion percentage of this job.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage percentageDone(Integer percentageDone) {
             this.percentageDone = Optional.ofNullable(percentageDone);
             return this;
@@ -410,7 +410,7 @@ public final class GetJobResponseContent {
         /**
          * <p>Completion percentage of this job.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "percentage_done", nulls = Nulls.SKIP)
         public _FinalStage percentageDone(Optional<Integer> percentageDone) {
             this.percentageDone = percentageDone;
@@ -421,7 +421,7 @@ public final class GetJobResponseContent {
          * <p>URL to download the result of this job.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage location(String location) {
             this.location = Optional.ofNullable(location);
             return this;
@@ -430,7 +430,7 @@ public final class GetJobResponseContent {
         /**
          * <p>URL to download the result of this job.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "location", nulls = Nulls.SKIP)
         public _FinalStage location(Optional<String> location) {
             this.location = location;
@@ -441,7 +441,7 @@ public final class GetJobResponseContent {
          * <p>connection_id of the connection this job uses.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage connectionId(String connectionId) {
             this.connectionId = Optional.ofNullable(connectionId);
             return this;
@@ -450,7 +450,7 @@ public final class GetJobResponseContent {
         /**
          * <p>connection_id of the connection this job uses.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "connection_id", nulls = Nulls.SKIP)
         public _FinalStage connectionId(Optional<String> connectionId) {
             this.connectionId = connectionId;
@@ -461,7 +461,7 @@ public final class GetJobResponseContent {
          * <p>When this job was created.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage createdAt(String createdAt) {
             this.createdAt = Optional.ofNullable(createdAt);
             return this;
@@ -470,14 +470,14 @@ public final class GetJobResponseContent {
         /**
          * <p>When this job was created.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public GetJobResponseContent build() {
             return new GetJobResponseContent(
                     status,

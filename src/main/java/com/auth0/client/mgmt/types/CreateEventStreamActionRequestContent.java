@@ -71,7 +71,7 @@ public final class CreateEventStreamActionRequestContent {
         return status;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateEventStreamActionRequestContent
@@ -90,12 +90,12 @@ public final class CreateEventStreamActionRequestContent {
                 && status.equals(other.status);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.name, this.subscriptions, this.destination, this.status);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -147,7 +147,7 @@ public final class CreateEventStreamActionRequestContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(CreateEventStreamActionRequestContent other) {
             name(other.getName());
             subscriptions(other.getSubscriptions());
@@ -156,20 +156,20 @@ public final class CreateEventStreamActionRequestContent {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("destination")
         public _FinalStage destination(@NotNull EventStreamActionDestination destination) {
             this.destination = Objects.requireNonNull(destination, "destination must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage status(EventStreamStatusEnum status) {
             this.status = Optional.ofNullable(status);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public _FinalStage status(Optional<EventStreamStatusEnum> status) {
             this.status = status;
@@ -180,7 +180,7 @@ public final class CreateEventStreamActionRequestContent {
          * <p>List of event types subscribed to in this stream.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage subscriptions(List<EventStreamSubscription> subscriptions) {
             this.subscriptions = Optional.ofNullable(subscriptions);
             return this;
@@ -189,7 +189,7 @@ public final class CreateEventStreamActionRequestContent {
         /**
          * <p>List of event types subscribed to in this stream.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "subscriptions", nulls = Nulls.SKIP)
         public _FinalStage subscriptions(Optional<List<EventStreamSubscription>> subscriptions) {
             this.subscriptions = subscriptions;
@@ -200,7 +200,7 @@ public final class CreateEventStreamActionRequestContent {
          * <p>Name of the event stream.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
+        @Override
         public _FinalStage name(String name) {
             this.name = Optional.ofNullable(name);
             return this;
@@ -209,14 +209,14 @@ public final class CreateEventStreamActionRequestContent {
         /**
          * <p>Name of the event stream.</p>
          */
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<String> name) {
             this.name = name;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public CreateEventStreamActionRequestContent build() {
             return new CreateEventStreamActionRequestContent(
                     name, subscriptions, destination, status, additionalProperties);

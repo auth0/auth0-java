@@ -49,7 +49,7 @@ public final class ClientAddonOffice365 {
         return connection;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientAddonOffice365 && equalTo((ClientAddonOffice365) other);
@@ -64,12 +64,12 @@ public final class ClientAddonOffice365 {
         return domain.equals(other.domain) && connection.equals(other.connection);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.domain, this.connection);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

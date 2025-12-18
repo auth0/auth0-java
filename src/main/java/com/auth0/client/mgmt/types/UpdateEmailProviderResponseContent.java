@@ -81,7 +81,7 @@ public final class UpdateEmailProviderResponseContent {
         return settings;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateEmailProviderResponseContent
@@ -101,12 +101,12 @@ public final class UpdateEmailProviderResponseContent {
                 && settings.equals(other.settings);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.name, this.enabled, this.defaultFromAddress, this.credentials, this.settings);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

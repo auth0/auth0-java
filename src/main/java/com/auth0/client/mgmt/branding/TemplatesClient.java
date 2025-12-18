@@ -35,27 +35,26 @@ public class TemplatesClient {
 
     /**
      * Update the Universal Login branding template.
-     * <p>&lt;p&gt;When &lt;code&gt;content-type&lt;/code&gt; header is set to &lt;code&gt;application/json&lt;/code&gt;, the expected body must be JSON:&lt;/p&gt;
+     * <p>&lt;p&gt;When &lt;code&gt;content-type&lt;/code&gt; header is set to &lt;code&gt;application/json&lt;/code&gt;:&lt;/p&gt;
      * &lt;pre&gt;
      * {
-     *   &quot;template&quot;: &quot;&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;{%- auth0:head -%}&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;{%- auth0:widget -%}&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&quot;
+     *   &quot;template&quot;: &quot;&amp;lt;!DOCTYPE html&amp;gt;{% assign resolved_dir = dir | default: &quot;auto&quot; %}&amp;lt;html lang=&quot;{{locale}}&quot; dir=&quot;{{resolved_dir}}&quot;&amp;gt;&amp;lt;head&amp;gt;{%- auth0:head -%}&amp;lt;/head&amp;gt;&amp;lt;body class=&quot;_widget-auto-layout&quot;&amp;gt;{%- auth0:widget -%}&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&quot;
      * }
      * &lt;/pre&gt;</p>
      * <p>&lt;p&gt;
-     *   When &lt;code&gt;content-type&lt;/code&gt; header is set to &lt;code&gt;text/html&lt;/code&gt;, the expected body must be the HTML template:
+     *   When &lt;code&gt;content-type&lt;/code&gt; header is set to &lt;code&gt;text/html&lt;/code&gt;:
      * &lt;/p&gt;
      * &lt;pre&gt;
      * &amp;lt!DOCTYPE html&amp;gt;
-     * &amp;lt;code&amp;gt;
-     *   &amp;lt;html&amp;gt;
-     *     &amp;lt;head&amp;gt;
-     *      {%- auth0:head -%}
-     *     &amp;lt;/head&amp;gt;
-     *     &amp;lt;body&amp;gt;
-     *       {%- auth0:widget -%}
-     *     &amp;lt;/body&amp;gt;
-     *   &amp;lt;/html&amp;gt;
-     * &amp;lt;/code&amp;gt;
+     * {% assign resolved_dir = dir | default: &quot;auto&quot; %}
+     * &amp;lt;html lang=&quot;{{locale}}&quot; dir=&quot;{{resolved_dir}}&quot;&amp;gt;
+     *   &amp;lt;head&amp;gt;
+     *     {%- auth0:head -%}
+     *   &amp;lt;/head&amp;gt;
+     *   &amp;lt;body class=&quot;_widget-auto-layout&quot;&amp;gt;
+     *     {%- auth0:widget -%}
+     *   &amp;lt;/body&amp;gt;
+     * &amp;lt;/html&amp;gt;
      * &lt;/pre&gt;</p>
      */
     public void updateUniversalLogin(UpdateUniversalLoginTemplateRequestContent request) {
@@ -64,27 +63,26 @@ public class TemplatesClient {
 
     /**
      * Update the Universal Login branding template.
-     * <p>&lt;p&gt;When &lt;code&gt;content-type&lt;/code&gt; header is set to &lt;code&gt;application/json&lt;/code&gt;, the expected body must be JSON:&lt;/p&gt;
+     * <p>&lt;p&gt;When &lt;code&gt;content-type&lt;/code&gt; header is set to &lt;code&gt;application/json&lt;/code&gt;:&lt;/p&gt;
      * &lt;pre&gt;
      * {
-     *   &quot;template&quot;: &quot;&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;{%- auth0:head -%}&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;{%- auth0:widget -%}&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&quot;
+     *   &quot;template&quot;: &quot;&amp;lt;!DOCTYPE html&amp;gt;{% assign resolved_dir = dir | default: &quot;auto&quot; %}&amp;lt;html lang=&quot;{{locale}}&quot; dir=&quot;{{resolved_dir}}&quot;&amp;gt;&amp;lt;head&amp;gt;{%- auth0:head -%}&amp;lt;/head&amp;gt;&amp;lt;body class=&quot;_widget-auto-layout&quot;&amp;gt;{%- auth0:widget -%}&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&quot;
      * }
      * &lt;/pre&gt;</p>
      * <p>&lt;p&gt;
-     *   When &lt;code&gt;content-type&lt;/code&gt; header is set to &lt;code&gt;text/html&lt;/code&gt;, the expected body must be the HTML template:
+     *   When &lt;code&gt;content-type&lt;/code&gt; header is set to &lt;code&gt;text/html&lt;/code&gt;:
      * &lt;/p&gt;
      * &lt;pre&gt;
      * &amp;lt!DOCTYPE html&amp;gt;
-     * &amp;lt;code&amp;gt;
-     *   &amp;lt;html&amp;gt;
-     *     &amp;lt;head&amp;gt;
-     *      {%- auth0:head -%}
-     *     &amp;lt;/head&amp;gt;
-     *     &amp;lt;body&amp;gt;
-     *       {%- auth0:widget -%}
-     *     &amp;lt;/body&amp;gt;
-     *   &amp;lt;/html&amp;gt;
-     * &amp;lt;/code&amp;gt;
+     * {% assign resolved_dir = dir | default: &quot;auto&quot; %}
+     * &amp;lt;html lang=&quot;{{locale}}&quot; dir=&quot;{{resolved_dir}}&quot;&amp;gt;
+     *   &amp;lt;head&amp;gt;
+     *     {%- auth0:head -%}
+     *   &amp;lt;/head&amp;gt;
+     *   &amp;lt;body class=&quot;_widget-auto-layout&quot;&amp;gt;
+     *     {%- auth0:widget -%}
+     *   &amp;lt;/body&amp;gt;
+     * &amp;lt;/html&amp;gt;
      * &lt;/pre&gt;</p>
      */
     public void updateUniversalLogin(

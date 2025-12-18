@@ -125,7 +125,7 @@ public final class UpdateGuardianFactorsProviderPushNotificationSnsRequestConten
         return snsGcmPlatformApplicationArn;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateGuardianFactorsProviderPushNotificationSnsRequestContent
@@ -145,7 +145,7 @@ public final class UpdateGuardianFactorsProviderPushNotificationSnsRequestConten
                 && snsGcmPlatformApplicationArn.equals(other.snsGcmPlatformApplicationArn);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.awsAccessKeyId,
@@ -155,7 +155,7 @@ public final class UpdateGuardianFactorsProviderPushNotificationSnsRequestConten
                 this.snsGcmPlatformApplicationArn);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

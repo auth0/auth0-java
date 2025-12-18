@@ -28,7 +28,7 @@ public final class CreateFormRequestContent {
 
     private final Optional<FormLanguages> languages;
 
-    private final Optional<Map<String, Object>> translations;
+    private final Optional<Map<String, Map<String, Object>>> translations;
 
     private final Optional<List<FormNode>> nodes;
 
@@ -44,7 +44,7 @@ public final class CreateFormRequestContent {
             String name,
             Optional<FormMessages> messages,
             Optional<FormLanguages> languages,
-            Optional<Map<String, Object>> translations,
+            Optional<Map<String, Map<String, Object>>> translations,
             Optional<List<FormNode>> nodes,
             Optional<FormStartNode> start,
             Optional<FormEndingNode> ending,
@@ -77,7 +77,7 @@ public final class CreateFormRequestContent {
     }
 
     @JsonProperty("translations")
-    public Optional<Map<String, Object>> getTranslations() {
+    public Optional<Map<String, Map<String, Object>>> getTranslations() {
         return translations;
     }
 
@@ -101,7 +101,7 @@ public final class CreateFormRequestContent {
         return style;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateFormRequestContent && equalTo((CreateFormRequestContent) other);
@@ -123,7 +123,7 @@ public final class CreateFormRequestContent {
                 && style.equals(other.style);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.name,
@@ -136,7 +136,7 @@ public final class CreateFormRequestContent {
                 this.style);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -162,9 +162,9 @@ public final class CreateFormRequestContent {
 
         _FinalStage languages(FormLanguages languages);
 
-        _FinalStage translations(Optional<Map<String, Object>> translations);
+        _FinalStage translations(Optional<Map<String, Map<String, Object>>> translations);
 
-        _FinalStage translations(Map<String, Object> translations);
+        _FinalStage translations(Map<String, Map<String, Object>> translations);
 
         _FinalStage nodes(Optional<List<FormNode>> nodes);
 
@@ -195,7 +195,7 @@ public final class CreateFormRequestContent {
 
         private Optional<List<FormNode>> nodes = Optional.empty();
 
-        private Optional<Map<String, Object>> translations = Optional.empty();
+        private Optional<Map<String, Map<String, Object>>> translations = Optional.empty();
 
         private Optional<FormLanguages> languages = Optional.empty();
 
@@ -206,7 +206,7 @@ public final class CreateFormRequestContent {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(CreateFormRequestContent other) {
             name(other.getName());
             messages(other.getMessages());
@@ -219,105 +219,105 @@ public final class CreateFormRequestContent {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("name")
         public _FinalStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage style(FormStyle style) {
             this.style = Optional.ofNullable(style);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "style", nulls = Nulls.SKIP)
         public _FinalStage style(Optional<FormStyle> style) {
             this.style = style;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage ending(FormEndingNode ending) {
             this.ending = Optional.ofNullable(ending);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "ending", nulls = Nulls.SKIP)
         public _FinalStage ending(Optional<FormEndingNode> ending) {
             this.ending = ending;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage start(FormStartNode start) {
             this.start = Optional.ofNullable(start);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "start", nulls = Nulls.SKIP)
         public _FinalStage start(Optional<FormStartNode> start) {
             this.start = start;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage nodes(List<FormNode> nodes) {
             this.nodes = Optional.ofNullable(nodes);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "nodes", nulls = Nulls.SKIP)
         public _FinalStage nodes(Optional<List<FormNode>> nodes) {
             this.nodes = nodes;
             return this;
         }
 
-        @java.lang.Override
-        public _FinalStage translations(Map<String, Object> translations) {
+        @Override
+        public _FinalStage translations(Map<String, Map<String, Object>> translations) {
             this.translations = Optional.ofNullable(translations);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "translations", nulls = Nulls.SKIP)
-        public _FinalStage translations(Optional<Map<String, Object>> translations) {
+        public _FinalStage translations(Optional<Map<String, Map<String, Object>>> translations) {
             this.translations = translations;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage languages(FormLanguages languages) {
             this.languages = Optional.ofNullable(languages);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "languages", nulls = Nulls.SKIP)
         public _FinalStage languages(Optional<FormLanguages> languages) {
             this.languages = languages;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage messages(FormMessages messages) {
             this.messages = Optional.ofNullable(messages);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "messages", nulls = Nulls.SKIP)
         public _FinalStage messages(Optional<FormMessages> messages) {
             this.messages = messages;
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public CreateFormRequestContent build() {
             return new CreateFormRequestContent(
                     name, messages, languages, translations, nodes, start, ending, style, additionalProperties);

@@ -75,7 +75,7 @@ public final class NetworkAclAction {
         return redirectUri;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof NetworkAclAction && equalTo((NetworkAclAction) other);
@@ -94,12 +94,12 @@ public final class NetworkAclAction {
                 && redirectUri.equals(other.redirectUri);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.block, this.allow, this.log, this.redirect, this.redirectUri);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

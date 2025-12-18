@@ -72,7 +72,7 @@ public final class SelfServiceProfileSsoTicketIdpInitiatedOptions {
         return clientAuthorizequery;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SelfServiceProfileSsoTicketIdpInitiatedOptions
@@ -91,12 +91,12 @@ public final class SelfServiceProfileSsoTicketIdpInitiatedOptions {
                 && clientAuthorizequery.equals(other.clientAuthorizequery);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.enabled, this.clientId, this.clientProtocol, this.clientAuthorizequery);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -31,20 +31,20 @@ public final class ConnectionPasswordPolicyEnum {
         return value;
     }
 
-    @java.lang.Override
+    @Override
     @JsonValue
     public String toString() {
         return this.string;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         return (this == other)
                 || (other instanceof ConnectionPasswordPolicyEnum
                         && this.string.equals(((ConnectionPasswordPolicyEnum) other).string));
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return this.string.hashCode();
     }

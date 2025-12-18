@@ -48,7 +48,7 @@ public final class SetGuardianFactorsProviderPushNotificationFcmv1RequestContent
         return serverCredentials;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SetGuardianFactorsProviderPushNotificationFcmv1RequestContent
@@ -64,12 +64,12 @@ public final class SetGuardianFactorsProviderPushNotificationFcmv1RequestContent
         return serverCredentials.equals(other.serverCredentials);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.serverCredentials);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

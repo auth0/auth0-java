@@ -44,7 +44,7 @@ public final class FlowActionAuth0CreateUserParams {
         return payload;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionAuth0CreateUserParams && equalTo((FlowActionAuth0CreateUserParams) other);
@@ -59,12 +59,12 @@ public final class FlowActionAuth0CreateUserParams {
         return connectionId.equals(other.connectionId) && payload.equals(other.payload);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.payload);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -100,27 +100,27 @@ public final class FlowActionAuth0CreateUserParams {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FlowActionAuth0CreateUserParams other) {
             connectionId(other.getConnectionId());
             payload(other.getPayload());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("connection_id")
         public _FinalStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage payload(String key, Object value) {
             this.payload.put(key, value);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public _FinalStage putAllPayload(Map<String, Object> payload) {
             if (payload != null) {
                 this.payload.putAll(payload);
@@ -128,7 +128,7 @@ public final class FlowActionAuth0CreateUserParams {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter(value = "payload", nulls = Nulls.SKIP)
         public _FinalStage payload(Map<String, Object> payload) {
             this.payload.clear();
@@ -138,7 +138,7 @@ public final class FlowActionAuth0CreateUserParams {
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FlowActionAuth0CreateUserParams build() {
             return new FlowActionAuth0CreateUserParams(connectionId, payload, additionalProperties);
         }

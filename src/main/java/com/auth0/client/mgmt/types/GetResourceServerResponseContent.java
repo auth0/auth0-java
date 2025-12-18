@@ -58,6 +58,10 @@ public final class GetResourceServerResponseContent {
 
     private final OptionalNullable<ResourceServerProofOfPossession> proofOfPossession;
 
+    private final Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization;
+
+    private final Optional<String> clientId;
+
     private final Map<String, Object> additionalProperties;
 
     private GetResourceServerResponseContent(
@@ -78,6 +82,8 @@ public final class GetResourceServerResponseContent {
             OptionalNullable<String> consentPolicy,
             Optional<List<Object>> authorizationDetails,
             OptionalNullable<ResourceServerProofOfPossession> proofOfPossession,
+            Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization,
+            Optional<String> clientId,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.name = name;
@@ -96,6 +102,8 @@ public final class GetResourceServerResponseContent {
         this.consentPolicy = consentPolicy;
         this.authorizationDetails = authorizationDetails;
         this.proofOfPossession = proofOfPossession;
+        this.subjectTypeAuthorization = subjectTypeAuthorization;
+        this.clientId = clientId;
         this.additionalProperties = additionalProperties;
     }
 
@@ -229,6 +237,19 @@ public final class GetResourceServerResponseContent {
         return proofOfPossession;
     }
 
+    @JsonProperty("subject_type_authorization")
+    public Optional<ResourceServerSubjectTypeAuthorization> getSubjectTypeAuthorization() {
+        return subjectTypeAuthorization;
+    }
+
+    /**
+     * @return The client ID of the client that this resource server is linked to
+     */
+    @JsonProperty("client_id")
+    public Optional<String> getClientId() {
+        return clientId;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("token_encryption")
     private OptionalNullable<ResourceServerTokenEncryption> _getTokenEncryption() {
@@ -247,7 +268,7 @@ public final class GetResourceServerResponseContent {
         return proofOfPossession;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetResourceServerResponseContent && equalTo((GetResourceServerResponseContent) other);
@@ -275,10 +296,12 @@ public final class GetResourceServerResponseContent {
                 && tokenEncryption.equals(other.tokenEncryption)
                 && consentPolicy.equals(other.consentPolicy)
                 && authorizationDetails.equals(other.authorizationDetails)
-                && proofOfPossession.equals(other.proofOfPossession);
+                && proofOfPossession.equals(other.proofOfPossession)
+                && subjectTypeAuthorization.equals(other.subjectTypeAuthorization)
+                && clientId.equals(other.clientId);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -297,10 +320,12 @@ public final class GetResourceServerResponseContent {
                 this.tokenEncryption,
                 this.consentPolicy,
                 this.authorizationDetails,
-                this.proofOfPossession);
+                this.proofOfPossession,
+                this.subjectTypeAuthorization,
+                this.clientId);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -345,6 +370,10 @@ public final class GetResourceServerResponseContent {
 
         private OptionalNullable<ResourceServerProofOfPossession> proofOfPossession = OptionalNullable.absent();
 
+        private Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization = Optional.empty();
+
+        private Optional<String> clientId = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -368,6 +397,8 @@ public final class GetResourceServerResponseContent {
             consentPolicy(other.getConsentPolicy());
             authorizationDetails(other.getAuthorizationDetails());
             proofOfPossession(other.getProofOfPossession());
+            subjectTypeAuthorization(other.getSubjectTypeAuthorization());
+            clientId(other.getClientId());
             return this;
         }
 
@@ -656,6 +687,32 @@ public final class GetResourceServerResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "subject_type_authorization", nulls = Nulls.SKIP)
+        public Builder subjectTypeAuthorization(
+                Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization) {
+            this.subjectTypeAuthorization = subjectTypeAuthorization;
+            return this;
+        }
+
+        public Builder subjectTypeAuthorization(ResourceServerSubjectTypeAuthorization subjectTypeAuthorization) {
+            this.subjectTypeAuthorization = Optional.ofNullable(subjectTypeAuthorization);
+            return this;
+        }
+
+        /**
+         * <p>The client ID of the client that this resource server is linked to</p>
+         */
+        @JsonSetter(value = "client_id", nulls = Nulls.SKIP)
+        public Builder clientId(Optional<String> clientId) {
+            this.clientId = clientId;
+            return this;
+        }
+
+        public Builder clientId(String clientId) {
+            this.clientId = Optional.ofNullable(clientId);
+            return this;
+        }
+
         public GetResourceServerResponseContent build() {
             return new GetResourceServerResponseContent(
                     id,
@@ -675,6 +732,8 @@ public final class GetResourceServerResponseContent {
                     consentPolicy,
                     authorizationDetails,
                     proofOfPossession,
+                    subjectTypeAuthorization,
+                    clientId,
                     additionalProperties);
         }
     }

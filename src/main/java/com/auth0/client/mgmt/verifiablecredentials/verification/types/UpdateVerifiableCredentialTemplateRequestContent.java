@@ -82,7 +82,7 @@ public final class UpdateVerifiableCredentialTemplateRequestContent {
         return version;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateVerifiableCredentialTemplateRequestContent
@@ -103,13 +103,13 @@ public final class UpdateVerifiableCredentialTemplateRequestContent {
                 && version.equals(other.version);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.name, this.type, this.dialect, this.presentation, this.wellKnownTrustedIssuers, this.version);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

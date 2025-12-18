@@ -33,7 +33,7 @@ public final class FormBlockPreviousButtonConfig {
         return text;
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormBlockPreviousButtonConfig && equalTo((FormBlockPreviousButtonConfig) other);
@@ -48,12 +48,12 @@ public final class FormBlockPreviousButtonConfig {
         return text.equals(other.text);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         return Objects.hash(this.text);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -81,20 +81,20 @@ public final class FormBlockPreviousButtonConfig {
 
         private Builder() {}
 
-        @java.lang.Override
+        @Override
         public Builder from(FormBlockPreviousButtonConfig other) {
             text(other.getText());
             return this;
         }
 
-        @java.lang.Override
+        @Override
         @JsonSetter("text")
         public _FinalStage text(@NotNull String text) {
             this.text = Objects.requireNonNull(text, "text must not be null");
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public FormBlockPreviousButtonConfig build() {
             return new FormBlockPreviousButtonConfig(text, additionalProperties);
         }
