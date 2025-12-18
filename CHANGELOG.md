@@ -1,5 +1,14 @@
 # Change Log
 
+## [2.27.0](https://github.com/auth0/auth0-java/tree/2.27.0) (2025-12-18)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.26.0...2.27.0)
+
+**Added**
+- Feat: Add Google WorkSpace Provisioning Config Support [\#795](https://github.com/auth0/auth0-java/pull/795) ([tanya732](https://github.com/tanya732))
+
+**Fixed**
+- Fix: updated token_lifetime to Integer [\#797](https://github.com/auth0/auth0-java/pull/797) ([tanya732](https://github.com/tanya732))
+
 ## [2.26.0](https://github.com/auth0/auth0-java/tree/2.26.0) (2025-10-24)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.25.0...2.26.0)
 
