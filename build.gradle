@@ -12,8 +12,12 @@ repositories {
   }
 }
 
+apply from: rootProject.file('gradle/versioning.gradle')
+
+version = getVersionFromFile()
 group = GROUP
 
+logger.lifecycle("Using version ${version} for ${name} group $group")
 
 dependencies {
   // Core dependencies
