@@ -1,154 +1,369 @@
-# Migration Guide
+# V3 Migration Guide
 
-## Migrating from v1 to v2
+A guide to migrating the Auth0 Java SDK from `v2` to `v3`.
 
-The version 2 release includes several notable improvements, including:
+- [Overall changes](#overall-changes)
+    - [Java versions](#java-versions)
+    - [Authentication API](#authentication-api)
+    - [Management API](#management-api)
+- [Specific changes to the Management API](#specific-changes-to-the-management-api)
+    - [Client initialization](#client-initialization)
+    - [Sub-client organization](#sub-client-organization)
+    - [Request and response patterns](#request-and-response-patterns)
+    - [Pagination](#pagination)
+    - [Exception handling](#exception-handling)
+    - [Accessing raw HTTP responses](#accessing-raw-http-responses)
+    - [Request-level configuration](#request-level-configuration)
+    - [Type changes](#type-changes)
 
-* Requests can now be configured with additional parameters and headers, without needing to downcast to `CustomRequest`.
-* Responses are now wrapped in a new `com.auth0.net.Response` type, which provides information about the HTTP response such as headers and status code.
-* The `AuthAPI` and `ManagementAPI` clients can now share the same HTTP client.
-* The `AuthAPI` client no longer requires a client secret, enabling support for APIs and scenarios where a secret is not required.
+## Overall changes
 
-Version 2 includes breaking changes. Please read this guide to learn how to update your application for v2.
+### Java versions
 
-### Configuring `auth0-java` v2
+Both v2 and v3 require Java 8 or above.
 
-To create the API clients, use the new builders, and specify any HTTP-related configurations with the new `DefaultHttpClient`:
+### Authentication API
 
-```java
-Auth0HttpClient http = DefaultHttpClient.newBuilder()
-        .withConnectTimeout(10)
-        .withReadTimeout(10)
-        // additional configurations as needed
-        .build();
-
-AuthAPI auth = AuthAPI.newBuilder("{DOMAIN}", "{CLIENT-ID}", "{OPTIONAL-CLIENT-SECRET}")
-        .withHttpClient(http)
-        .build();
-
-ManagementAPI mgmt = ManagementAPI.newBuilder("{DOMAIN}", "{API-TOKEN}")
-        .withHttpClient(http)
-        .build();
-```
-
-### Response information
-
-Version 2 returns HTTP response information such as status code and headers in a new `com.auth0.net.Response` type.
-Instead of simply returning the parsed JSON response body from requests, all API methods now return a `Response<T>`.
-If you have no need for the response information, replace any calls to `execute()` with `execute().getBody()` to get the returned response body as before:
+This major version change does not affect the Authentication API. The `AuthAPI` class has been ported directly from v2 to v3. Any code written for the Authentication API in the v2 version should work in the v3 version.
 
 ```java
-// Get response info
-Response<User> userResponse = api.users().get("{USER-ID}", null);
-int code = userResponse.getStatusCode();
-Map<String, String> headers = userResponse.getHeaders();
-
-// Just get the response body
-User user = api.users().get("{USER-ID}", null).execute().getBody();
+// Works in both v2 and v3
+AuthAPI auth = AuthAPI.newBuilder("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}").build();
 ```
 
-### Request configuration
+### Management API
 
-Previously, only requests that returned a `CustomizableRequest` (or its implementation, `CustomRequest`) allowed for a request to be configured with additional parameters or headers.
-In v2, the `com.auth0.net.Request` interface defines the new methods:
+V3 introduces significant improvements to the Management API SDK by migrating to [Fern](https://github.com/fern-api/fern) as the code generation tool. This provides:
 
-- `Request<T> addHeader(String name, String value)`
-- `Request<T> addParameter(String name, Object value)`
-- `Request<T> setBody(Object body)`
+- Better resource grouping with sub-client organization
+- Type-safe request and response objects using builder patterns
+- Automatic pagination with `SyncPagingIterable<T>`
+- Simplified access to HTTP response metadata via `withRawResponse()`
+- Consistent method naming (`list`, `create`, `get`, `update`, `delete`)
 
-This enables all requests to be configured, without the need to downcast to `CustomizableRequest` or `CustomRequest`.
-If you were down-casting to these types, you will need to remove the cast and instead configure the request directly:
+## Specific changes to the Management API
+
+### Client initialization
+
+The Management API client initialization has changed from `ManagementAPI` to `ManagementApi`, and uses a different builder pattern.
+
+**v2:**
+```java
+import com.auth0.client.mgmt.ManagementAPI;
+
+// Using domain and token
+ManagementAPI mgmt = ManagementAPI.newBuilder("{YOUR_DOMAIN}", "{YOUR_API_TOKEN}").build();
+
+// Using TokenProvider
+TokenProvider tokenProvider = SimpleTokenProvider.create("{YOUR_API_TOKEN}");
+ManagementAPI mgmt = ManagementAPI.newBuilder("{YOUR_DOMAIN}", tokenProvider).build();
+```
+
+**v3:**
+1st Approach : Standard Token-Based
+```java
+import com.auth0.client.mgmt.ManagementApi;
+
+ManagementApi client = ManagementApi
+    .builder()
+    .url("https://{YOUR_DOMAIN}/api/v2")
+    .token("{YOUR_API_TOKEN}")
+    .build();
+```
+
+or
+
+2nd Approach : OAuth client credentials flow
 
 ```java
-Request<User> userRequest = api.users().get("{USER-ID}", null);
-userRequest.addHeader("some-header", "some-value");
-Response<User> userResponse = userRequest.execute();
+OAuthTokenSupplier tokenSupplier = new OAuthTokenSupplier(
+"{CLIENT_ID}",
+"{CLIENT_SECRET}",
+"https://{YOUR_DOMAIN}",
+"{YOUR_AUDIENCE}"
+);
+
+ClientOptions clientOptions = ClientOptions.builder()
+.environment(Environment.custom("https://{YOUR_AUDIENCE}"))
+.addHeader("Authorization", () -> "Bearer " + tokenSupplier.get())
+.build();
+
+ManagementApi client = new ManagementApi(clientOptions);
+
 ```
 
-### Detailed changes
+#### Builder options comparison
 
-The following summarizes details of the changes in version 2, including types and methods removed, added, or deprecated.
+| Option | v2 | v3 |
+|--------|----|----|
+| Domain/URL | `newBuilder(domain, token)` | `.url("https://domain/api/v2")` |
+| Token | Constructor parameter | `.token(token)` |
+| Timeout | Via `HttpOptions` | `.timeout(seconds)` |
+| Max retries | Via `HttpOptions` | `.maxRetries(count)` |
+| Custom HTTP client | `.withHttpClient(Auth0HttpClient)` | `.httpClient(OkHttpClient)` |
+| Custom headers | Not directly supported | `.addHeader(name, value)` |
 
-#### Removed classes
+### Sub-client organization
 
-- `AuthRequest` has been removed. Use `TokenRequest` instead.
-- `CustomizableRequest` and `CustomRequest` have been removed. The `Request` interface now supports request customization directly without the need to downcast.
-- `FormDataRequest` has been removed. Use `MultipartRequest` instead.
-- `CreateUserRequest` has been removed. Use `SignUpRequest` instead.
+V3 introduces a hierarchical sub-client structure. Operations on related resources are now accessed through nested clients instead of methods on a flat entity class.
 
-#### Moved classes
+**v2:**
+```java
+// All user operations on UsersEntity
+Request<User> userRequest = mgmt.users().get("user_id", new UserFilter());
+Request<List<Permission>> permissionsRequest = mgmt.users().getPermissions("user_id", new PermissionsFilter());
+Request<List<Role>> rolesRequest = mgmt.users().getRoles("user_id", new RolesFilter());
+Request<LogEventsPage> logsRequest = mgmt.users().getLogEvents("user_id", new LogEventFilter());
+```
 
-- `com.auth0.json.mgmt.Token` moved to `com.auth0.json.mgmt.blacklists.Token`
-- `com.auth0.json.mgmt.ClientGrant` moved to `com.auth0.json.mgmt.clientgrants.ClientGrant`
-- `com.auth0.json.mgmt.ClientGrantsPage` moved to `com.auth0.json.mgmt.clientgrants.ClientGrantsPage`
-- `com.auth0.json.mgmt.Connection` moved to `com.auth0.json.mgmt.connections.Connection`
-- `com.auth0.json.mgmt.ConnectionsPage` moved to `com.auth0.json.mgmt.connections.ConnectionsPage`
-- `com.auth0.json.mgmt.DeviceCredentials` moved to `com.auth0.json.mgmt.devicecredentials.DeviceCredentials`
-- `com.auth0.json.mgmt.EmailTemplate` moved to `com.auth0.json.mgmt.emailtemplates.EmailTemplate`
-- `com.auth0.json.mgmt.Grant` moved to `com.auth0.json.mgmt.grants.Grant`
-- `com.auth0.json.mgmt.GrantsPage` moved to `com.auth0.json.mgmt.grants.GrantsPage`
-- `com.auth0.json.mgmt.EmailVerificationIdentity` moved to `com.auth0.json.mgmt.tickets.EmailVerificationIdentity`
-- `com.auth0.json.mgmt.Key;` moved to `com.auth0.json.mgmt.keys.Key`
-- `com.auth0.json.mgmt.RolesPage` moved to `com.auth0.json.mgmt.roles.RolesPage`
-- `com.auth0.json.mgmt.ResourceServer` moved to `com.auth0.json.mgmt.resourceserver.ResourceServer`
-- `com.auth0.json.mgmt.ResourceServersPage` moved to `com.auth0.json.mgmt.resourceserver.ResourceServersPage`
-- `com.auth0.json.mgmt.Permission` moved to `com.auth0.json.mgmt.permissions.Permission`
-- `com.auth0.json.mgmt.PermissionsPage` moved to `com.auth0.json.mgmt.permissions.PermissionsPage`
-- `com.auth0.json.mgmt.Role` moved to `com.auth0.json.mgmt.roles.Role`
-- `com.auth0.json.mgmt.RolesPage` moved to `com.auth0.json.mgmt.roles.RolesPage`
-- `com.auth0.json.mgmt.RulesConfig` moved to `com.auth0.json.mgmt.rules.RulesConfig`
-- `com.auth0.json.mgmt.Rule` moved to `com.auth0.json.mgmt.rules.Rule`
-- `com.auth0.json.mgmt.RulesPage` moved to `com.auth0.json.mgmt.rules.RulesPage`
-- `com.auth0.json.mgmt.DailyStats` moved to `com.auth0.json.mgmt.stats.DailyStats`
-- `com.auth0.json.mgmt.Permission` moved to `com.auth0.json.mgmt.permissions.Permission`
-- `com.auth0.json.mgmt.PermissionsPage` moved to `com.auth0.json.mgmt.permissions.PermissionsPage`
-- `com.auth0.json.mgmt.RolesPage` moved to `com.auth0.json.mgmt.roles.RolesPage`
+**v3:**
+```java
+// Operations organized into sub-clients
+GetUserResponseContent user = client.users().get("user_id");
+SyncPagingIterable<Permission> permissions = client.users().permissions().list("user_id");
+SyncPagingIterable<Role> roles = client.users().roles().list("user_id");
+SyncPagingIterable<LogEvent> logs = client.users().logs().list("user_id");
+```
 
-#### Removed methods
+#### Common sub-client mappings
 
-- `void com.auth0.client.mgmt.ManagementAPI#doNotSendTelemetry()` has been removed. Telemetry configuration can be done using the `DefaultHttpClient#Builder`
-- `void com.auth0.client.auth.AuthAPI#doNotSendTelemetry()` has been removed. Telemetry configuration can be done using the `DefaultHttpClient#Builder`
-- `void com.auth0.client.mgmt.ManagementAPI#setTelemetry(Telemetry telemetry)` has been removed. Telemetry configuration can be done using the `DefaultHttpClient#Builder`
-- `void com.auth0.client.auth.AuthAP#setTelemetry(Telemetry telemetry)` has been removed. Telemetry configuration can be done using the `DefaultHttpClient#Builder`
-- Deprecated `void com.auth0.client.mgmt.ManagementAPI#setLoggingEnabled(boolean enabled)`  has been removed. Telemetry configuration can be done using the `DefaultHttpClient#Builder`
-- Deprecated `void com.auth0.client.auth.AuthAPI#setLoggingEnabled(boolean enabled)`  has been removed. Telemetry configuration can be done using the `DefaultHttpClient#Builder`
-- Deprecated `Request<List<ClientGrant>> com.auth0.client.mgmt.ClientGrantsEntity#list()` has been removed. Use `Request<ClientGrantsPage> list(ClientGrantsFilter filter) com.auth0.client.mgmt.ClientGrantsEntity#list(ClientGrantsFilter filter)` instead.
-- Deprecated `Request<List<Client>> com.auth0.client.mgmt.ClientsEntity#list()` has been removed. Use `Request<ClientsPage> com.auth0.client.mgmt.ClientsEntity#list(ClientFilter filter)` instead.
-- Deprecated `Request<List<Connection>> com.auth0.client.mgmt.ClientsEntity#list(ConnectionFilter filter)` has been removed. Use `Request<ConnectionsPage> com.auth0.client.mgmt.ClientsEntity#listAll(ConnectionFilter filter)` instead.
-- Deprecated `Request<List<Grant>> com.auth0.client.mgmt.GrantsEntity#list(String userId)` has been removed. Use `Request<GrantsPage> com.auth0.client.mgmt.GrantsEntity#list(String userId, GrantsFilter filter)` instead.
-- Deprecated `Request<List<ResourceServer>> com.auth0.client.mgmt.ResourceServerEntity#list()` has been removed. Use `Request<ResourceServersPage> com.auth0.client.mgmt.ResourceServersEntity#list(ResourceServersFilter)` instead.
-- Deprecated `Request<List<Rule>> com.auth0.client.mgmt.RulesEntity#list(RulesFilter filter)` has been removed. Use `Request<RulesPage> com.auth0.client.mgmt.RulesEntity#listAll(RulesFilter filter)` instead.
-- Deprecated `void com.auth0.json.mgmt.guardian.EnrollmentTicket#setUserId(String id)` has been removed. Use the constructor instead.
-- Deprecated `com.auth0.json.mgmt.guardian.SNSFactorProvider` no-arg constructor has been removed. Use the full constructor instead.
-- Deprecated `void com.auth0.json.mgmt.guardian.SNSFactorProvider#setAWSAccessKeyId(String awsAccessKeyId)` has been removed. Use the constructor instead.
-- Deprecated `void com.auth0.json.mgmt.guardian.SNSFactorProvider#setAWSSecretAccessKey(String awsSecretAccessKey)` has been removed. Use the constructor instead.
-- Deprecated `void com.auth0.json.mgmt.guardian.SNSFactorProvider#setAWSRegion(String awsRegion)` has been removed. Use the constructor instead.
-- Deprecated `void com.auth0.json.mgmt.guardian.SNSFactorProvider#setSNSAPNSPlatformApplicationARN(String apnARN)` has been removed. Use the constructor instead.
-- Deprecated `void com.auth0.json.mgmt.guardian.SNSFactorProvider#setSNSGCMPlatformApplicationARN(String gcmARN)` has been removed. Use the constructor instead.
-- Deprecated `com.auth0.json.mgmt.guardian.TwilioFactorProvider` no-arg constructor has been removed. Use the full constructor instead.
-- Deprecated `void com.auth0.json.mgmt.guardian.TwilioFactorProvider#setFrom(String from)` has been removed. Use the constructor instead.
-- Deprecated `void com.auth0.json.mgmt.guardian.TwilioFactorProvider#setMessagingServiceSID(String messagingServiceSID)` has been removed. Use the constructor instead.
-- Deprecated `void com.auth0.json.mgmt.guardian.TwilioFactorProvider#setAuthToken(String authToken)` has been removed. Use the constructor instead.
-- Deprecated `void com.auth0.json.mgmt.guardian.TwilioFactorProvider#setSID(String SID)` has been removed. Use the constructor instead.
-- The default implementation of `com.auth0.net.Request#executeAsync()` has been removed; implementations must provide an implementation of `executeAsync`.
+| v2 Method | v3 Sub-client |
+|-----------|---------------|
+| `mgmt.users().getPermissions()` | `client.users().permissions().list()` |
+| `mgmt.users().getRoles()` | `client.users().roles().list()` |
+| `mgmt.users().getLogEvents()` | `client.users().logs().list()` |
+| `mgmt.users().getOrganizations()` | `client.users().organizations().list()` |
+| `mgmt.users().link()` | `client.users().identities().link()` |
+| `mgmt.users().unlink()` | `client.users().identities().delete()` |
+| `mgmt.users().deleteMultifactorProvider()` | `client.users().multifactor().deleteProvider()` |
+| `mgmt.organizations().getMembers()` | `client.organizations().members().list()` |
+| `mgmt.organizations().getInvitations()` | `client.organizations().invitations().list()` |
+| `mgmt.organizations().getEnabledConnections()` | `client.organizations().enabledConnections().list()` |
+| `mgmt.actions().getVersions()` | `client.actions().versions().list()` |
+| `mgmt.actions().getTriggerBindings()` | `client.actions().triggers().bindings().list()` |
+| `mgmt.guardian().getFactors()` | `client.guardian().factors().list()` |
+| `mgmt.branding().getUniversalLoginTemplate()` | `client.branding().templates().getUniversalLogin()` |
+| `mgmt.connections().getScimConfiguration()` | `client.connections().scimConfiguration().get()` |
 
-### New classes and methods
+### Request and response patterns
 
-#### Refactored HTTP layer types
+V3 uses type-safe request content objects with builders instead of domain objects or filter parameters.
 
-Version 2 introduces a new abstraction, `com.auth0.net.client.Auth0HttpClient`, to handle the core HTTP responsibilities of sending HTTP requests.
-An implementation is provided in `DefaultHttpClient`, which supports all the configurations available in the now-deprecated `HttpOptions`.
-In addition to these configurations, it is also possible to implement the `Auth0HttpClient` for advanced use-cases where the default implementation or its configurations are not sufficient.
-Several new types have been added to support this:
+**v2:**
+```java
+import com.auth0.json.mgmt.users.User;
+import com.auth0.net.Request;
 
-- `com.auth0.net.client.Auth0HttpClient` has been added to define the HTTP client interface.
-- `com.auth0.net.client.DefaultHttpClient` is the default HTTP implementation that should be used in the majority of cases. It supports the same configurations as `HttpOptions`, but can be reused across API clients. It uses `OkHttp` as the networking client internally.
-- `com.auth0.net.client.Auth0HttpRequest` is a lightweight representation of an HTTP request to execute. Internal API implementations will form the request.
-- `com.auth0.net.client.Auth0HttpResponse` is a lightweight representation of an HTTP response. Internal API implementations will parse the response.
-- `com.auth0.net.client.HttpMethod` is an `enum` representing the HTTP methods.
+// Creating a user
+User user = new User("Username-Password-Authentication");
+user.setEmail("test@example.com");
+user.setPassword("password123".toCharArray());
 
-### New deprecations
+Request<User> request = mgmt.users().create(user);
+User createdUser = request.execute().getBody();
+```
 
-- `com.auth0.client.HttpOptions` has been deprecated, in favor of configuring the `DefaultHttpClient` directly.
-- `com.auth0.client.mgmt.ManagementAPI` constructors have been deprecated in favor of `ManagementAPI#newBuilder(String domain, String apiToken)`.
-- `com.auth0.client.auth.AuthAPI` constructors have been deprecated in favor of `AuthAPI.newBuilder(String domain, String clientId)` and `AuthAPI.newBuilder(String domain, String clientId, String clientSecret)`.
+**v3:**
+```java
+import com.auth0.client.mgmt.types.CreateUserRequestContent;
+import com.auth0.client.mgmt.types.CreateUserResponseContent;
+
+// Creating a user
+CreateUserResponseContent user = client.users().create(
+    CreateUserRequestContent
+        .builder()
+        .connection("Username-Password-Authentication")
+        .email("test@example.com")
+        .password("password123")
+        .build()
+);
+```
+
+#### Key differences
+
+| Aspect | v2 | v3 |
+|--------|----|----|
+| Request building | Domain objects with setters | Builder pattern with `*RequestContent` types |
+| Response type | `Request<T>` requiring `.execute().getBody()` | Direct return of response object |
+| Filtering | Filter classes (e.g., `UserFilter`) | `*RequestParameters` builder classes |
+| Execution | Explicit `.execute()` call | Implicit execution on method call |
+
+### Pagination
+
+V3 introduces `SyncPagingIterable<T>` for automatic pagination, replacing the manual `Request<Page>` pattern.
+
+**v2:**
+```java
+import com.auth0.json.mgmt.users.UsersPage;
+import com.auth0.client.mgmt.filter.UserFilter;
+
+Request<UsersPage> request = mgmt.users().list(new UserFilter().withPage(0, 50));
+UsersPage page = request.execute().getBody();
+
+for (User user : page.getItems()) {
+    System.out.println(user.getEmail());
+}
+
+// Manual pagination
+while (page.getNext() != null) {
+    request = mgmt.users().list(new UserFilter().withPage(page.getNext(), 50));
+    page = request.execute().getBody();
+    for (User user : page.getItems()) {
+        System.out.println(user.getEmail());
+    }
+}
+```
+
+**v3:**
+```java
+import com.auth0.client.mgmt.core.SyncPagingIterable;
+import com.auth0.client.mgmt.types.UserResponseSchema;
+import com.auth0.client.mgmt.types.ListUsersRequestParameters;
+
+// Automatic iteration through all pages
+SyncPagingIterable<UserResponseSchema> users = client.users().list(
+    ListUsersRequestParameters
+        .builder()
+        .perPage(50)
+        .build()
+);
+
+for (UserResponseSchema user : users) {
+    System.out.println(user.getEmail());
+}
+
+// Or manual page control
+List<UserResponseSchema> pageItems = users.getItems();
+while (users.hasNext()) {
+    pageItems = users.nextPage().getItems();
+    // process page
+}
+```
+
+### Exception handling
+
+V3 uses a unified `ManagementApiException` class instead of the v2 exception hierarchy.
+
+**v2:**
+```java
+import com.auth0.exception.Auth0Exception;
+import com.auth0.exception.APIException;
+import com.auth0.exception.RateLimitException;
+
+try {
+    User user = mgmt.users().get("user_id", null).execute().getBody();
+} catch (RateLimitException e) {
+    // Rate limited
+    long retryAfter = e.getLimit();
+} catch (APIException e) {
+    int statusCode = e.getStatusCode();
+    String error = e.getError();
+    String description = e.getDescription();
+} catch (Auth0Exception e) {
+    // Network or other errors
+}
+```
+
+**v3:**
+```java
+import com.auth0.client.mgmt.core.ManagementApiException;
+
+try {
+    GetUserResponseContent user = client.users().get("user_id");
+} catch (ManagementApiException e) {
+    int statusCode = e.statusCode();
+    Object body = e.body();
+    Map<String, List<String>> headers = e.headers();
+    String message = e.getMessage();
+}
+```
+
+### Accessing raw HTTP responses
+
+V3 provides access to full HTTP response metadata via `withRawResponse()`.
+
+**v2:**
+```java
+// Response wrapper provided status code
+Response<User> response = mgmt.users().get("user_id", null).execute();
+int statusCode = response.getStatusCode();
+User user = response.getBody();
+```
+
+**v3:**
+```java
+import com.auth0.client.mgmt.core.ManagementApiHttpResponse;
+
+// Use withRawResponse() to access headers and metadata
+ManagementApiHttpResponse<GetUserResponseContent> response = client.users()
+    .withRawResponse()
+    .get("user_id");
+
+GetUserResponseContent user = response.body();
+Map<String, List<String>> headers = response.headers();
+```
+
+### Request-level configuration
+
+V3 allows per-request configuration through `RequestOptions`.
+
+**v2:**
+```java
+// Most configuration was at client level only
+// Request-level headers required creating a new request manually
+Request<User> request = mgmt.users().get("user_id", null);
+request.addHeader("X-Custom-Header", "value");
+User user = request.execute().getBody();
+```
+
+**v3:**
+```java
+import com.auth0.client.mgmt.core.RequestOptions;
+
+GetUserResponseContent user = client.users().get(
+    "user_id",
+    GetUserRequestParameters.builder().build(),
+    RequestOptions.builder()
+        .timeout(10)
+        .maxRetries(1)
+        .addHeader("X-Custom-Header", "value")
+        .build()
+);
+```
+
+### Type changes
+
+V3 uses generated type classes located in `com.auth0.client.mgmt.types` instead of the hand-written POJOs in `com.auth0.json.mgmt`.
+
+**v2:**
+```java
+import com.auth0.json.mgmt.users.User;
+import com.auth0.json.mgmt.roles.Role;
+import com.auth0.json.mgmt.organizations.Organization;
+```
+
+**v3:**
+```java
+import com.auth0.client.mgmt.types.UserResponseSchema;
+import com.auth0.client.mgmt.types.CreateUserRequestContent;
+import com.auth0.client.mgmt.types.CreateUserResponseContent;
+import com.auth0.client.mgmt.types.Role;
+import com.auth0.client.mgmt.types.Organization;
+```
+
+Type naming conventions in v3:
+- Request body types: `*RequestContent` (e.g., `CreateUserRequestContent`)
+- Response types: `*ResponseContent` or `*ResponseSchema` (e.g., `GetUserResponseContent`, `UserResponseSchema`)
+- Query parameters: `*RequestParameters` (e.g., `ListUsersRequestParameters`)
+
+All types use immutable builders:
+
+```java
+// v3 type construction
+CreateUserRequestContent request = CreateUserRequestContent
+    .builder()
+    .email("test@example.com")
+    .connection("Username-Password-Authentication")
+    .password("secure-password")
+    .build();
+```

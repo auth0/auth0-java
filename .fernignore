@@ -6,6 +6,9 @@ README.md
 # Examples and Migration Guide from auth0-real
 EXAMPLES.md
 v3_MIGRATION_GUIDE.md
+MIGRATION_GUIDE.md
+LICENSE
+CHANGELOG.md
 
 # Legacy management API from auth0-real
 src/main/java/com/auth0/client/legacy/
@@ -71,6 +74,7 @@ src/test/java/com/auth0/client/mgmt/ManagementApiBuilderTest.java
 .snyk
 .version
 opslevel.yml
+.fern/
 
 # GitHub workflows
 .github/
@@ -83,6 +87,4 @@ gradle.properties
 settings.gradle
 build.gradle
 sample-app/
-MIGRATION_GUIDE.md
-LICENSE
-CHANGELOG.md
+
