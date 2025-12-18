@@ -1,6 +1,0 @@
-{
-  "access_token": "eyJhbGciOiJkaXIi.....",
-  "id_token": "eyJhbGciOiJSUzI1NiIs.....",
-  "expires_in": 86400,
-  "scope": "openid"
-}

@@ -1,11 +1,10 @@
 package com.auth0.client.auth;
 
-import okhttp3.HttpUrl;
+import static com.auth0.utils.Asserts.assertNotNull;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.auth0.utils.Asserts.assertNotNull;
+import okhttp3.HttpUrl;
 
 /**
  * Class that provides the methods to generate a valid Auth0 Authorize Url. It's based on the https://auth0.com/docs/api/authentication#social docs.

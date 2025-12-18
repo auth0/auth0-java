@@ -1,7 +1,6 @@
 package com.auth0.utils.tokens;
 
 import com.auth0.exception.PublicKeyProviderException;
-
 import java.security.interfaces.RSAPublicKey;
 
 /**

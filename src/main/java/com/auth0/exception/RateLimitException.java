@@ -1,7 +1,6 @@
 package com.auth0.exception;
 
 import com.auth0.net.TokenQuotaBucket;
-
 import java.util.Map;
 
 /**
@@ -166,8 +165,8 @@ public class RateLimitException extends APIException {
 
         public RateLimitException build() {
             RateLimitException exception = (this.values != null)
-                ? new RateLimitException(this.limit, this.remaining, this.reset, this.values)
-                : new RateLimitException(this.limit, this.remaining, this.reset);
+                    ? new RateLimitException(this.limit, this.remaining, this.reset, this.values)
+                    : new RateLimitException(this.limit, this.remaining, this.reset);
 
             exception.clientQuotaLimit = this.clientQuotaLimit;
             exception.organizationQuotaLimit = this.organizationQuotaLimit;
@@ -176,5 +175,4 @@ public class RateLimitException extends APIException {
             return exception;
         }
     }
-
 }

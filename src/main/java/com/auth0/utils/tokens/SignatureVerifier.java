@@ -54,9 +54,7 @@ public abstract class SignatureVerifier {
     SignatureVerifier(Algorithm algorithm) {
         Asserts.assertNotNull(algorithm, "algorithm");
         this.algorithm = algorithm;
-        this.verifier = JWT.require(algorithm)
-                .ignoreIssuedAt()
-                .build();
+        this.verifier = JWT.require(algorithm).ignoreIssuedAt().build();
     }
 
     /**
@@ -72,7 +70,8 @@ public abstract class SignatureVerifier {
         try {
             this.verifier.verify(decoded);
         } catch (AlgorithmMismatchException algorithmMismatchException) {
-            String message = String.format("Signature algorithm of \"%s\" is not supported. Expected the ID token to be signed with \"%s\"",
+            String message = String.format(
+                    "Signature algorithm of \"%s\" is not supported. Expected the ID token to be signed with \"%s\"",
                     decoded.getAlgorithm(), this.algorithm.getName());
             throw new IdTokenValidationException(message, algorithmMismatchException);
         } catch (SignatureVerificationException signatureVerificationException) {

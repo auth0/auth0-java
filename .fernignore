@@ -1,0 +1,90 @@
+# Specify files that shouldn't be modified by Fern
+
+# README should not be overwritten as it combines both SDKs
+README.md
+
+# Examples and Migration Guide from auth0-real
+EXAMPLES.md
+v3_MIGRATION_GUIDE.md
+MIGRATION_GUIDE.md
+LICENSE
+CHANGELOG.md
+
+# Legacy management API from auth0-real
+src/main/java/com/auth0/client/legacy/
+
+# Authentication API (manually maintained from auth0-real)
+src/main/java/com/auth0/client/auth/
+src/test/java/com/auth0/client/auth/
+
+# Supporting packages from auth0-real
+src/main/java/com/auth0/net/
+src/main/java/com/auth0/exception/
+src/main/java/com/auth0/utils/
+src/main/java/com/auth0/json/auth/
+src/main/java/com/auth0/json/mgmt/
+src/main/java/com/auth0/json/ObjectMapperProvider.java
+
+# Client options from auth0-real
+src/main/java/com/auth0/client/HttpOptions.java
+src/main/java/com/auth0/client/ProxyOptions.java
+src/main/java/com/auth0/client/LoggingOptions.java
+
+# TokenProvider interface (shared between Fern-generated Management API and auth0-provided Authentication API)
+src/main/java/com/auth0/client/mgmt/TokenProvider.java
+
+# Test infrastructure from auth0-real
+src/test/java/com/auth0/net/
+src/test/java/com/auth0/exception/
+src/test/java/com/auth0/utils/
+src/test/java/com/auth0/json/
+src/test/resources/
+src/test/resources/auth/
+src/test/resources/keys/
+src/test/resources/mgmt/
+src/test/resources/mockito-extensions/
+src/test/java/com/auth0/client/legacy/
+
+# Custom client builder and examples
+src/main/java/com/auth0/client/Auth0ClientBuilder.java
+src/main/java/com/auth0/client/ClientCredentialsTokenProvider.java
+src/main/java/com/auth0/client/ManagementApiWithTokenProvider.java
+src/main/java/com/auth0/client/TokenProvider.java
+src/main/java/com/auth0/client/interceptors/
+
+# Custom OAuth client credentials support
+src/main/java/com/auth0/client/mgmt/core/RequestOptions.java
+src/main/java/com/auth0/client/mgmt/core/ClientOptions.java
+src/main/java/com/auth0/client/mgmt/core/OAuthTokenSupplier.java
+src/main/java/com/auth0/client/mgmt/core/OAuthTokenException.java
+
+# Custom builder with domain-based initialization
+src/main/java/com/auth0/client/mgmt/ManagementApiBuilder.java
+
+# Custom tests
+src/test/java/com/auth0/client/mgmt/DynamicTokenManagementTest.java
+src/test/java/com/auth0/client/mgmt/OAuthTokenSupplierTest.java
+src/test/java/com/auth0/client/mgmt/ManagementApiBuilderTest.java
+
+# Configuration files from auth0-real
+.codecov.yml
+.editorconfig
+.semgrepignore
+.shiprc
+.snyk
+.version
+opslevel.yml
+.fern/
+
+# GitHub workflows
+.github/
+
+# Build files and configs
+gradle/
+gradlew
+gradlew.bat
+gradle.properties
+settings.gradle
+build.gradle
+sample-app/
+

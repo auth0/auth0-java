@@ -1,7 +1,6 @@
 package com.auth0.json.auth;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
 import java.util.Date;
 
 /**
@@ -23,7 +22,14 @@ public class TokenHolder {
     @SuppressWarnings("unused")
     public TokenHolder() {}
 
-    public TokenHolder(String accessToken, String idToken, String refreshToken, String tokenType, long expiresIn, String scope, Date expiresAt) {
+    public TokenHolder(
+            String accessToken,
+            String idToken,
+            String refreshToken,
+            String tokenType,
+            long expiresIn,
+            String scope,
+            Date expiresAt) {
         this.accessToken = accessToken;
         this.idToken = idToken;
         this.refreshToken = refreshToken;
@@ -97,5 +103,4 @@ public class TokenHolder {
     public String getScope() {
         return scope;
     }
-
 }

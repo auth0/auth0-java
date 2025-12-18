@@ -1,7 +1,7 @@
 package com.auth0.client.auth;
 
-import com.auth0.client.mgmt.ManagementAPI;
-import com.auth0.json.ObjectMapperProvider;
+import static com.auth0.json.ObjectMapperProvider.getMapper;
+
 import com.auth0.json.auth.*;
 import com.auth0.net.*;
 import com.auth0.net.client.Auth0HttpClient;
@@ -10,16 +10,13 @@ import com.auth0.net.client.HttpMethod;
 import com.auth0.utils.Asserts;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import org.jetbrains.annotations.TestOnly;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
-import static com.auth0.json.ObjectMapperProvider.getMapper;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import org.jetbrains.annotations.TestOnly;
 
 /**
  * Class that provides an implementation of of the Authentication and Authorization API methods defined by the
@@ -118,8 +115,8 @@ public class AuthAPI {
      * @param clientSecret the applications client secret.
      * @return a Builder for further configuration.
      */
-    public static AuthAPI.Builder newBuilder(String domain, String clientId, String clientSecret) {
-        return new AuthAPI.Builder(domain, clientId).withClientSecret(clientSecret);
+    public static Builder newBuilder(String domain, String clientId, String clientSecret) {
+        return new Builder(domain, clientId).withClientSecret(clientSecret);
     }
 
     /**
@@ -131,8 +128,8 @@ public class AuthAPI {
      * @param clientAssertionSigner the {@code ClientAssertionSigner} used to create the signed client assertion.
      * @return a Builder for further configuration.
      */
-    public static AuthAPI.Builder newBuilder(String domain, String clientId, ClientAssertionSigner clientAssertionSigner) {
-        return new AuthAPI.Builder(domain, clientId).withClientAssertionSigner(clientAssertionSigner);
+    public static Builder newBuilder(String domain, String clientId, ClientAssertionSigner clientAssertionSigner) {
+        return new Builder(domain, clientId).withClientAssertionSigner(clientAssertionSigner);
     }
 
     /**
@@ -142,11 +139,16 @@ public class AuthAPI {
      * @param clientId the application's client ID.
      * @return a Builder for further configuration.
      */
-    public static AuthAPI.Builder newBuilder(String domain, String clientId) {
-        return new AuthAPI.Builder(domain, clientId);
+    public static Builder newBuilder(String domain, String clientId) {
+        return new Builder(domain, clientId);
     }
 
-    private AuthAPI(String domain, String clientId, String clientSecret, ClientAssertionSigner clientAssertionSigner, Auth0HttpClient httpClient) {
+    private AuthAPI(
+            String domain,
+            String clientId,
+            String clientSecret,
+            ClientAssertionSigner clientAssertionSigner,
+            Auth0HttpClient httpClient) {
         Asserts.assertNotNull(domain, "domain");
         Asserts.assertNotNull(clientId, "client id");
         Asserts.assertNotNull(httpClient, "Http client");
@@ -161,7 +163,6 @@ public class AuthAPI {
         this.client = httpClient;
     }
 
-
     /**
      * Given a set of options, it creates a new instance of the {@link OkHttpClient}
      * configuring them according to their availability.
@@ -173,14 +174,14 @@ public class AuthAPI {
     private static Auth0HttpClient buildNetworkingClient(com.auth0.client.HttpOptions options) {
         Asserts.assertNotNull(options, "Http options");
         return DefaultHttpClient.newBuilder()
-            .withLogging(options.getLoggingOptions())
-            .withMaxRetries(options.getManagementAPIMaxRetries())
-            .withMaxRequests(options.getMaxRequests())
-            .withMaxRequestsPerHost(options.getMaxRequestsPerHost())
-            .withProxy(options.getProxyOptions())
-            .withConnectTimeout(options.getConnectTimeout())
-            .withReadTimeout(options.getReadTimeout())
-            .build();
+                .withLogging(options.getLoggingOptions())
+                .withMaxRetries(options.getManagementAPIMaxRetries())
+                .withMaxRequests(options.getMaxRequests())
+                .withMaxRequestsPerHost(options.getMaxRequestsPerHost())
+                .withProxy(options.getProxyOptions())
+                .withConnectTimeout(options.getConnectTimeout())
+                .withReadTimeout(options.getReadTimeout())
+                .build();
     }
 
     @TestOnly
@@ -225,40 +226,42 @@ public class AuthAPI {
         return AuthorizeUrlBuilder.newInstance(baseUrl, clientId, redirectUri);
     }
 
-    public Request<BackChannelAuthorizeResponse> authorizeBackChannel(String scope, String bindingMessage, Map<String, Object> loginHint) {
+    public Request<BackChannelAuthorizeResponse> authorizeBackChannel(
+            String scope, String bindingMessage, Map<String, Object> loginHint) {
         return authorizeBackChannel(scope, bindingMessage, loginHint, null, null);
     }
 
-    public Request<BackChannelAuthorizeResponse> authorizeBackChannel(String scope, String bindingMessage, Map<String, Object> loginHint, String audience, Integer requestExpiry) {
+    public Request<BackChannelAuthorizeResponse> authorizeBackChannel(
+            String scope,
+            String bindingMessage,
+            Map<String, Object> loginHint,
+            String audience,
+            Integer requestExpiry) {
         Asserts.assertNotNull(scope, "scope");
         Asserts.assertNotNull(bindingMessage, "binding message");
         Asserts.assertNotNull(loginHint, "login hint");
 
-        String url = baseUrl
-            .newBuilder()
-            .addPathSegment("bc-authorize")
-            .build()
-            .toString();
+        String url = baseUrl.newBuilder().addPathSegment("bc-authorize").build().toString();
 
-        FormBodyRequest<BackChannelAuthorizeResponse> request = new FormBodyRequest<>(client, null, url, HttpMethod.POST, new TypeReference<BackChannelAuthorizeResponse>() {});
+        FormBodyRequest<BackChannelAuthorizeResponse> request = new FormBodyRequest<>(
+                client, null, url, HttpMethod.POST, new TypeReference<BackChannelAuthorizeResponse>() {});
 
         request.addParameter(KEY_CLIENT_ID, clientId);
         addClientAuthentication(request, false);
         request.addParameter("scope", scope);
         request.addParameter("binding_message", bindingMessage);
 
-        if(Objects.nonNull(audience)){
+        if (Objects.nonNull(audience)) {
             request.addParameter(KEY_AUDIENCE, audience);
         }
-        if(Objects.nonNull(requestExpiry)){
+        if (Objects.nonNull(requestExpiry)) {
             request.addParameter("requested_expiry", requestExpiry);
         }
 
         try {
             String loginHintJson = getMapper().writeValueAsString(loginHint);
             request.addParameter("login_hint", loginHintJson);
-        }
-        catch (JsonProcessingException e) {
+        } catch (JsonProcessingException e) {
             throw new IllegalArgumentException("'loginHint' must be a map that can be serialized to JSON", e);
         }
         return request;
@@ -270,7 +273,8 @@ public class AuthAPI {
 
         String url = getTokenUrl();
 
-        FormBodyRequest<BackChannelTokenResponse> request = new FormBodyRequest<>(client, null, url, HttpMethod.POST, new TypeReference<BackChannelTokenResponse>() {});
+        FormBodyRequest<BackChannelTokenResponse> request = new FormBodyRequest<>(
+                client, null, url, HttpMethod.POST, new TypeReference<BackChannelTokenResponse>() {});
 
         request.addParameter(KEY_CLIENT_ID, clientId);
         addClientAuthentication(request, false);
@@ -289,13 +293,12 @@ public class AuthAPI {
      */
     public String authorizeUrlWithPAR(String requestUri) {
         Asserts.assertNotNull(requestUri, "request uri");
-        return baseUrl
-            .newBuilder()
-            .addPathSegment("authorize")
-            .addQueryParameter("client_id", clientId)
-            .addQueryParameter("request_uri", requestUri)
-            .build()
-            .toString();
+        return baseUrl.newBuilder()
+                .addPathSegment("authorize")
+                .addQueryParameter("client_id", clientId)
+                .addQueryParameter("request_uri", requestUri)
+                .build()
+                .toString();
     }
 
     /**
@@ -308,13 +311,12 @@ public class AuthAPI {
      */
     public String authorizeUrlWithJAR(String request) {
         Asserts.assertNotNull(request, "request");
-        return baseUrl
-            .newBuilder()
-            .addPathSegment("authorize")
-            .addQueryParameter("client_id", clientId)
-            .addQueryParameter("request", request)
-            .build()
-            .toString();
+        return baseUrl.newBuilder()
+                .addPathSegment("authorize")
+                .addQueryParameter("client_id", clientId)
+                .addQueryParameter("request", request)
+                .build()
+                .toString();
     }
 
     /**
@@ -326,7 +328,8 @@ public class AuthAPI {
      * @see <a href="https://www.rfc-editor.org/rfc/rfc9126.html">RFC 9126</a>
      * @return a request to execute.
      */
-    public Request<PushedAuthorizationResponse> pushedAuthorizationRequest(String redirectUri, String responseType, Map<String, String> params) {
+    public Request<PushedAuthorizationResponse> pushedAuthorizationRequest(
+            String redirectUri, String responseType, Map<String, String> params) {
         return pushedAuthorizationRequest(redirectUri, responseType, params, null);
     }
 
@@ -343,17 +346,18 @@ public class AuthAPI {
      * @see <a href="https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow/authorization-code-flow-with-rar">Authorization Code Flow with Rich Authorization Requests (RAR)</a>
      * @return a request to execute.
      */
-    public Request<PushedAuthorizationResponse> pushedAuthorizationRequest(String redirectUri, String responseType, Map<String, String> params, List<Map<String, Object>> authorizationDetails) {
+    public Request<PushedAuthorizationResponse> pushedAuthorizationRequest(
+            String redirectUri,
+            String responseType,
+            Map<String, String> params,
+            List<Map<String, Object>> authorizationDetails) {
         Asserts.assertValidUrl(redirectUri, "redirect uri");
         Asserts.assertNotNull(responseType, "response type");
 
-        String url = baseUrl
-            .newBuilder()
-            .addPathSegments("oauth/par")
-            .build()
-            .toString();
+        String url = baseUrl.newBuilder().addPathSegments("oauth/par").build().toString();
 
-        FormBodyRequest<PushedAuthorizationResponse> request = new FormBodyRequest<>(client, null, url, HttpMethod.POST, new TypeReference<PushedAuthorizationResponse>() {});
+        FormBodyRequest<PushedAuthorizationResponse> request = new FormBodyRequest<>(
+                client, null, url, HttpMethod.POST, new TypeReference<PushedAuthorizationResponse>() {});
         request.addParameter("client_id", clientId);
         request.addParameter("redirect_uri", redirectUri);
         request.addParameter("response_type", responseType);
@@ -369,7 +373,8 @@ public class AuthAPI {
                 request.addParameter("authorization_details", authDetailsJson);
             }
         } catch (JsonProcessingException e) {
-            throw new IllegalArgumentException("'authorizationDetails' must be a list that can be serialized to JSON", e);
+            throw new IllegalArgumentException(
+                    "'authorizationDetails' must be a list that can be serialized to JSON", e);
         }
         return request;
     }
@@ -391,7 +396,7 @@ public class AuthAPI {
      * Builds a request to make a Pushed Authorization Request (PAR) with JWT-Secured Authorization Requests (JAR), to receive a {@code request_uri} to send to the {@code /authorize} endpoint.
      * @param request The signed JWT containing the authorization parameters as claims.
      * @param authorizationDetails A list of maps representing the value of the (optional) {@code authorization_details} parameter, used to perform Rich Authorization Requests. The list will be serialized to JSON and sent on the request.
-     * @see #pushedAuthorizationRequestWithJAR(String)                              
+     * @see #pushedAuthorizationRequestWithJAR(String)
      * @see <a href="https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow/authorization-code-flow-with-par-and-jar">Authorization Code Flow with PAR and JAR</a>
      * @see <a href="https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow/authorization-code-flow-with-rar">Authorization Code Flow with Rich Authorization Requests (RAR)</a>
      * @see <a href="https://datatracker.ietf.org/doc/html/rfc9101">RFC 9101</a>
@@ -399,16 +404,14 @@ public class AuthAPI {
      * @see <a href="https://datatracker.ietf.org/doc/html/rfc9396">RFC 9396</a>
      * @return a request to execute.
      */
-    public Request<PushedAuthorizationResponse> pushedAuthorizationRequestWithJAR(String request, List<Map<String, Object>> authorizationDetails) {
+    public Request<PushedAuthorizationResponse> pushedAuthorizationRequestWithJAR(
+            String request, List<Map<String, Object>> authorizationDetails) {
         Asserts.assertNotNull(request, "request");
 
-        String url = baseUrl
-            .newBuilder()
-            .addPathSegments("oauth/par")
-            .build()
-            .toString();
+        String url = baseUrl.newBuilder().addPathSegments("oauth/par").build().toString();
 
-        FormBodyRequest<PushedAuthorizationResponse> req = new FormBodyRequest<>(client, null, url, HttpMethod.POST, new TypeReference<PushedAuthorizationResponse>() {});
+        FormBodyRequest<PushedAuthorizationResponse> req = new FormBodyRequest<>(
+                client, null, url, HttpMethod.POST, new TypeReference<PushedAuthorizationResponse>() {});
         req.addParameter("client_id", clientId);
         req.addParameter("request", request);
         if (Objects.nonNull(this.clientSecret)) {
@@ -421,7 +424,8 @@ public class AuthAPI {
                 req.addParameter("authorization_details", authDetailsJson);
             }
         } catch (JsonProcessingException e) {
-            throw new IllegalArgumentException("'authorizationDetails' must be a list that can be serialized to JSON", e);
+            throw new IllegalArgumentException(
+                    "'authorizationDetails' must be a list that can be serialized to JSON", e);
         }
         return req;
     }
@@ -449,7 +453,6 @@ public class AuthAPI {
         return LogoutUrlBuilder.newInstance(baseUrl, clientId, returnToUrl, setClientId);
     }
 
-
     /**
      * Request the user information related to the access token.
      * i.e.:
@@ -470,13 +473,9 @@ public class AuthAPI {
     public Request<UserInfo> userInfo(String accessToken) {
         Asserts.assertNotNull(accessToken, "access token");
 
-        String url = baseUrl
-                .newBuilder()
-                .addPathSegment("userinfo")
-                .build()
-                .toString();
-        BaseRequest<UserInfo> request = new BaseRequest<>(client, null, url, HttpMethod.GET, new TypeReference<UserInfo>() {
-        });
+        String url = baseUrl.newBuilder().addPathSegment("userinfo").build().toString();
+        BaseRequest<UserInfo> request =
+                new BaseRequest<>(client, null, url, HttpMethod.GET, new TypeReference<UserInfo>() {});
         request.addHeader("Authorization", "Bearer " + accessToken);
         return request;
     }
@@ -553,12 +552,11 @@ public class AuthAPI {
         Asserts.assertNotNull(email, "email");
         Asserts.assertNotNull(connection, "connection");
 
-        String url = baseUrl
-            .newBuilder()
-            .addPathSegment(PATH_DBCONNECTIONS)
-            .addPathSegment("change_password")
-            .build()
-            .toString();
+        String url = baseUrl.newBuilder()
+                .addPathSegment(PATH_DBCONNECTIONS)
+                .addPathSegment("change_password")
+                .build()
+                .toString();
         VoidRequest request = new VoidRequest(client, null, url, HttpMethod.POST);
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_EMAIL, email);
@@ -724,8 +722,7 @@ public class AuthAPI {
         Asserts.assertNotNull(password, "password");
         Asserts.assertNotNull(connection, "connection");
 
-        String url = baseUrl
-                .newBuilder()
+        String url = baseUrl.newBuilder()
                 .addPathSegment(PATH_DBCONNECTIONS)
                 .addPathSegment("signup")
                 .build()
@@ -893,8 +890,8 @@ public class AuthAPI {
      *
      * @see <a href="https://auth0.com/docs/connections/passwordless/reference/relevant-api-endpoints">Using Passwordless APIs</a>
      * @see <a href="https://auth0.com/docs/api/authentication#authenticate-user">Passwordless Authenticate User API docs</a>
-     * @see com.auth0.client.auth.AuthAPI#startPasswordlessEmailFlow(String, PasswordlessEmailType)
-     * @see com.auth0.client.auth.AuthAPI#startPasswordlessSmsFlow(String)
+     * @see AuthAPI#startPasswordlessEmailFlow(String, PasswordlessEmailType)
+     * @see AuthAPI#startPasswordlessSmsFlow(String)
      */
     public TokenRequest exchangePasswordlessOtp(String emailOrPhone, String realm, char[] otp) {
         Asserts.assertNotNull(emailOrPhone, "emailOrPhone");
@@ -992,8 +989,7 @@ public class AuthAPI {
     public Request<Void> revokeToken(String refreshToken) {
         Asserts.assertNotNull(refreshToken, "refresh token");
 
-        String url = baseUrl
-                .newBuilder()
+        String url = baseUrl.newBuilder()
                 .addPathSegment(PATH_OAUTH)
                 .addPathSegment(PATH_REVOKE)
                 .build()
@@ -1004,7 +1000,6 @@ public class AuthAPI {
         addClientAuthentication(request, false);
         return request;
     }
-
 
     /**
      * Creates a request to renew the authentication and get fresh new credentials using a valid Refresh Token and the
@@ -1141,15 +1136,14 @@ public class AuthAPI {
         Asserts.assertNotNull(email, "email");
         Asserts.assertNotNull(type, "type");
 
-        String url = baseUrl
-                .newBuilder()
+        String url = baseUrl.newBuilder()
                 .addPathSegment(PATH_PASSWORDLESS)
                 .addPathSegment(PATH_START)
                 .build()
                 .toString();
 
-        BaseRequest<PasswordlessEmailResponse> request = new BaseRequest<>(client, null, url, HttpMethod.POST, new TypeReference<PasswordlessEmailResponse>() {
-        });
+        BaseRequest<PasswordlessEmailResponse> request = new BaseRequest<>(
+                client, null, url, HttpMethod.POST, new TypeReference<PasswordlessEmailResponse>() {});
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_CONNECTION, "email");
         request.addParameter(KEY_EMAIL, email);
@@ -1183,15 +1177,14 @@ public class AuthAPI {
     public BaseRequest<PasswordlessSmsResponse> startPasswordlessSmsFlow(String phoneNumber) {
         Asserts.assertNotNull(phoneNumber, "phoneNumber");
 
-        String url = baseUrl
-                .newBuilder()
+        String url = baseUrl.newBuilder()
                 .addPathSegment(PATH_PASSWORDLESS)
                 .addPathSegment(PATH_START)
                 .build()
                 .toString();
 
-        BaseRequest<PasswordlessSmsResponse> request = new BaseRequest<>(client, null, url, HttpMethod.POST, new TypeReference<PasswordlessSmsResponse>() {
-        });
+        BaseRequest<PasswordlessSmsResponse> request =
+                new BaseRequest<>(client, null, url, HttpMethod.POST, new TypeReference<PasswordlessSmsResponse>() {});
         request.addParameter(KEY_CLIENT_ID, clientId);
         request.addParameter(KEY_CONNECTION, "sms");
         request.addParameter("phone_number", phoneNumber);
@@ -1331,18 +1324,18 @@ public class AuthAPI {
      * @return a Request to execute.
      * @see <a href="https://auth0.com/docs/api/authentication#challenge-request">Challenge Request API documentation</a>
      */
-    public Request<MfaChallengeResponse> mfaChallengeRequest(String mfaToken, String challengeType, String authenticatorId) {
+    public Request<MfaChallengeResponse> mfaChallengeRequest(
+            String mfaToken, String challengeType, String authenticatorId) {
         Asserts.assertNotNull(mfaToken, "mfa token");
 
-        String url = baseUrl
-            .newBuilder()
-            .addPathSegment("mfa")
-            .addPathSegment("challenge")
-            .build()
-            .toString();
+        String url = baseUrl.newBuilder()
+                .addPathSegment("mfa")
+                .addPathSegment("challenge")
+                .build()
+                .toString();
 
-        BaseRequest<MfaChallengeResponse> request = new BaseRequest<>(client, null, url, HttpMethod.POST, new TypeReference<MfaChallengeResponse>() {
-        });
+        BaseRequest<MfaChallengeResponse> request =
+                new BaseRequest<>(client, null, url, HttpMethod.POST, new TypeReference<MfaChallengeResponse>() {});
 
         request.addParameter(KEY_MFA_TOKEN, mfaToken);
         request.addParameter(KEY_CLIENT_ID, clientId);
@@ -1378,15 +1371,14 @@ public class AuthAPI {
     public Request<CreatedOtpResponse> addOtpAuthenticator(String mfaToken) {
         Asserts.assertNotNull(mfaToken, "mfa token");
 
-        String url = baseUrl
-            .newBuilder()
-            .addPathSegment("mfa")
-            .addPathSegment("associate")
-            .build()
-            .toString();
+        String url = baseUrl.newBuilder()
+                .addPathSegment("mfa")
+                .addPathSegment("associate")
+                .build()
+                .toString();
 
-        BaseRequest<CreatedOtpResponse> request = new BaseRequest<>(client, null,  url, HttpMethod.POST, new TypeReference<CreatedOtpResponse>() {
-        });
+        BaseRequest<CreatedOtpResponse> request =
+                new BaseRequest<>(client, null, url, HttpMethod.POST, new TypeReference<CreatedOtpResponse>() {});
 
         request.addParameter("authenticator_types", Collections.singletonList("otp"));
         request.addParameter(KEY_CLIENT_ID, clientId);
@@ -1395,17 +1387,15 @@ public class AuthAPI {
         return request;
     }
 
-
     private BaseRequest<CreatedOobResponse> createBaseOobRequest(String mfaToken, List<String> oobChannels) {
-        String url = baseUrl
-            .newBuilder()
-            .addPathSegment("mfa")
-            .addPathSegment("associate")
-            .build()
-            .toString();
+        String url = baseUrl.newBuilder()
+                .addPathSegment("mfa")
+                .addPathSegment("associate")
+                .build()
+                .toString();
 
-        BaseRequest<CreatedOobResponse> request = new BaseRequest<>(client, null, url, HttpMethod.POST, new TypeReference<CreatedOobResponse>() {
-        });
+        BaseRequest<CreatedOobResponse> request =
+                new BaseRequest<>(client, null, url, HttpMethod.POST, new TypeReference<CreatedOobResponse>() {});
 
         request.addParameter("authenticator_types", Collections.singletonList("oob"));
         request.addParameter("oob_channels", oobChannels);
@@ -1439,7 +1429,8 @@ public class AuthAPI {
      * @deprecated Use {@linkplain #addOobAuthenticator(String, List, String, String)} instead.
      */
     @Deprecated
-    public Request<CreatedOobResponse> addOobAuthenticator(String mfaToken, List<String> oobChannels, String phoneNumber) {
+    public Request<CreatedOobResponse> addOobAuthenticator(
+            String mfaToken, List<String> oobChannels, String phoneNumber) {
         Asserts.assertNotNull(mfaToken, "mfa token");
         Asserts.assertNotNull(oobChannels, "OOB channels");
         if (oobChannels.contains("sms") || oobChannels.contains("voice")) {
@@ -1477,7 +1468,8 @@ public class AuthAPI {
      * @return a Request to execute.
      * @see <a href="https://auth0.com/docs/secure/multi-factor-authentication/authenticate-using-ropg-flow-with-mfa/enroll-challenge-sms-voice-authenticators#enroll-with-sms-or-voice">Enroll with SMS or voice</a>
      */
-    public Request<CreatedOobResponse> addOobAuthenticator(String mfaToken, List<String> oobChannels, String phoneNumber, String emailAddress) {
+    public Request<CreatedOobResponse> addOobAuthenticator(
+            String mfaToken, List<String> oobChannels, String phoneNumber, String emailAddress) {
         Asserts.assertNotNull(mfaToken, "mfa token");
         Asserts.assertNotNull(oobChannels, "OOB channels");
         if (oobChannels.contains("sms") || oobChannels.contains("voice")) {
@@ -1520,15 +1512,14 @@ public class AuthAPI {
     public Request<List<MfaAuthenticator>> listAuthenticators(String accessToken) {
         Asserts.assertNotNull(accessToken, "access token");
 
-        String url = baseUrl
-            .newBuilder()
-            .addPathSegment("mfa")
-            .addPathSegment("authenticators")
-            .build()
-            .toString();
+        String url = baseUrl.newBuilder()
+                .addPathSegment("mfa")
+                .addPathSegment("authenticators")
+                .build()
+                .toString();
 
-        BaseRequest<List<MfaAuthenticator>> request = new BaseRequest<>(client, null, url, HttpMethod.GET, new TypeReference<List<MfaAuthenticator>>() {
-        });
+        BaseRequest<List<MfaAuthenticator>> request =
+                new BaseRequest<>(client, null, url, HttpMethod.GET, new TypeReference<List<MfaAuthenticator>>() {});
 
         request.addHeader("Authorization", "Bearer " + accessToken);
         return request;
@@ -1559,13 +1550,12 @@ public class AuthAPI {
         Asserts.assertNotNull(accessToken, "access token");
         Asserts.assertNotNull(authenticatorId, "authenticator id");
 
-        String url = baseUrl
-            .newBuilder()
-            .addPathSegment("mfa")
-            .addPathSegment("authenticators")
-            .addPathSegment(authenticatorId)
-            .build()
-            .toString();
+        String url = baseUrl.newBuilder()
+                .addPathSegment("mfa")
+                .addPathSegment("authenticators")
+                .addPathSegment(authenticatorId)
+                .build()
+                .toString();
 
         VoidRequest request = new VoidRequest(client, null, url, HttpMethod.DELETE);
         request.addHeader("Authorization", "Bearer " + accessToken);
@@ -1586,27 +1576,28 @@ public class AuthAPI {
     }
 
     private String getTokenUrl() {
-        return baseUrl
-            .newBuilder()
-            .addPathSegment(PATH_OAUTH)
-            .addPathSegment(PATH_TOKEN)
-            .build()
-            .toString();
+        return baseUrl.newBuilder()
+                .addPathSegment(PATH_OAUTH)
+                .addPathSegment(PATH_TOKEN)
+                .build()
+                .toString();
     }
 
     private void addClientAuthentication(BaseRequest<?> request, boolean required) {
         if (required && (this.clientSecret == null && this.clientAssertionSigner == null)) {
-            throw new IllegalStateException("A client secret or client assertion signing key is required for this operation");
+            throw new IllegalStateException(
+                    "A client secret or client assertion signing key is required for this operation");
         }
 
         if (Objects.nonNull(this.clientAssertionSigner)) {
-            request.addParameter(KEY_CLIENT_ASSERTION, this.clientAssertionSigner.createSignedClientAssertion(clientId, baseUrl.toString(), clientId));
+            request.addParameter(
+                    KEY_CLIENT_ASSERTION,
+                    this.clientAssertionSigner.createSignedClientAssertion(clientId, baseUrl.toString(), clientId));
             request.addParameter(KEY_CLIENT_ASSERTION_TYPE, "urn:ietf:params:oauth:client-assertion-type:jwt-bearer");
         } else if (Objects.nonNull(this.clientSecret)) {
             request.addParameter(KEY_CLIENT_SECRET, clientSecret);
         }
     }
-
 
     /**
      * Builder for {@link AuthAPI} API client instances.
@@ -1660,8 +1651,14 @@ public class AuthAPI {
          * @return the configured {@code AuthAPI} instance.
          */
         public AuthAPI build() {
-            return new AuthAPI(domain, clientId, clientSecret, clientAssertionSigner,
-                Objects.nonNull(httpClient) ? httpClient : DefaultHttpClient.newBuilder().build());
+            return new AuthAPI(
+                    domain,
+                    clientId,
+                    clientSecret,
+                    clientAssertionSigner,
+                    Objects.nonNull(httpClient)
+                            ? httpClient
+                            : DefaultHttpClient.newBuilder().build());
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.auth0.exception;
 
-
 /**
  * Represents an error when attempting to retrieve a public key.
  * @see com.auth0.utils.tokens.PublicKeyProvider
@@ -26,5 +25,4 @@ public class PublicKeyProviderException extends Exception {
     public PublicKeyProviderException(String message, Throwable cause) {
         super(message, cause);
     }
-
 }

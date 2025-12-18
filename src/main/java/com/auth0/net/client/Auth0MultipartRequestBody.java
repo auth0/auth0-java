@@ -1,7 +1,6 @@
 package com.auth0.net.client;
 
 import com.auth0.utils.Asserts;
-
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +27,7 @@ public class Auth0MultipartRequestBody {
         return this.parts;
     }
 
-    static public class FilePart {
+    public static class FilePart {
         private final String partName;
         private final File file;
         private final String mediaType;
@@ -54,7 +53,6 @@ public class Auth0MultipartRequestBody {
         public String getMediaType() {
             return mediaType;
         }
-
     }
 
     public static class Builder {

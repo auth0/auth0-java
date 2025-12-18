@@ -4,4 +4,6 @@ pluginManagement {
     }
 }
 
+include 'sample-app'
+
 rootProject.name = 'auth0'

@@ -2,6 +2,8 @@ package com.auth0.net;
 
 import com.auth0.exception.Auth0Exception;
 import com.auth0.net.client.DefaultHttpClient;
+import java.io.IOException;
+import java.time.temporal.ChronoUnit;
 import net.jodah.failsafe.Failsafe;
 import net.jodah.failsafe.FailsafeException;
 import net.jodah.failsafe.RetryPolicy;
@@ -10,9 +12,6 @@ import net.jodah.failsafe.function.CheckedConsumer;
 import okhttp3.Interceptor;
 import okhttp3.Response;
 import org.jetbrains.annotations.NotNull;
-
-import java.io.IOException;
-import java.time.temporal.ChronoUnit;
 
 /**
  * An OkHttp {@linkplain Interceptor} responsible for retrying rate-limit errors (429) using a configurable maximum
@@ -64,10 +63,10 @@ public class RateLimitInterceptor implements Interceptor {
         }
 
         RetryPolicy<Response> retryPolicy = new RetryPolicy<Response>()
-            .withMaxRetries(maxRetries)
-            .withBackoff(INITIAL_INTERVAL, MAX_INTERVAL, ChronoUnit.MILLIS)
-            .withJitter(JITTER)
-            .handleResultIf(response -> response.code() == 429);
+                .withMaxRetries(maxRetries)
+                .withBackoff(INITIAL_INTERVAL, MAX_INTERVAL, ChronoUnit.MILLIS)
+                .withJitter(JITTER)
+                .handleResultIf(response -> response.code() == 429);
 
         // For testing purposes only, allow test to hook into retry listener to enable verification of retry backoff
         if (retryListener != null) {
@@ -78,7 +77,8 @@ public class RateLimitInterceptor implements Interceptor {
             return Failsafe.with(retryPolicy).get((context) -> {
                 // ensure response of last recorded response prior to retry is closed
                 if (context.getLastResult() != null) {
-                    context.getLastResult().close();;
+                    context.getLastResult().close();
+                    ;
                 }
                 return chain.proceed(chain.request());
             });

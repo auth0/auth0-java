@@ -1,16 +1,15 @@
 package com.auth0.net;
 
+import static com.auth0.utils.Asserts.assertNotNull;
+
 import com.auth0.client.mgmt.TokenProvider;
 import com.auth0.json.ObjectMapperProvider;
 import com.auth0.net.client.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-
-import static com.auth0.utils.Asserts.assertNotNull;
 
 /**
  * Request class that accepts parts to be sent encoded in a form.
@@ -32,7 +31,13 @@ public class MultipartRequest<T> extends BaseRequest<T> {
     private final ObjectMapper mapper;
     private int partsCount;
 
-    MultipartRequest(Auth0HttpClient client, TokenProvider tokenProvider, String url, HttpMethod method, ObjectMapper mapper, TypeReference<T> tType) {
+    MultipartRequest(
+            Auth0HttpClient client,
+            TokenProvider tokenProvider,
+            String url,
+            HttpMethod method,
+            ObjectMapper mapper,
+            TypeReference<T> tType) {
         super(client, tokenProvider, url, method, mapper, tType);
         if (HttpMethod.GET.equals(method)) {
             throw new IllegalArgumentException("Multipart/form-data requests do not support the GET method.");
@@ -42,7 +47,12 @@ public class MultipartRequest<T> extends BaseRequest<T> {
         this.bodyBuilder = Auth0MultipartRequestBody.newBuilder();
     }
 
-    public MultipartRequest(Auth0HttpClient client, TokenProvider tokenProvider, String url, HttpMethod method, TypeReference<T> tType) {
+    public MultipartRequest(
+            Auth0HttpClient client,
+            TokenProvider tokenProvider,
+            String url,
+            HttpMethod method,
+            TypeReference<T> tType) {
         this(client, tokenProvider, url, method, ObjectMapperProvider.getMapper(), tType);
     }
 
@@ -67,7 +77,7 @@ public class MultipartRequest<T> extends BaseRequest<T> {
 
     @Override
     public MultipartRequest<T> addHeader(String name, String value) {
-        //This is to avoid returning a different type
+        // This is to avoid returning a different type
         super.addHeader(name, value);
         return this;
     }
