@@ -37,7 +37,7 @@ public final class ConnectionPasskeyAuthenticationMethod {
         return enabled;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionPasskeyAuthenticationMethod
@@ -53,12 +53,12 @@ public final class ConnectionPasskeyAuthenticationMethod {
         return enabled.equals(other.enabled);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.enabled);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

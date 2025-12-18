@@ -43,7 +43,7 @@ public final class FormLanguages {
         return default_;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormLanguages && equalTo((FormLanguages) other);
@@ -58,12 +58,12 @@ public final class FormLanguages {
         return primary.equals(other.primary) && default_.equals(other.default_);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.primary, this.default_);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

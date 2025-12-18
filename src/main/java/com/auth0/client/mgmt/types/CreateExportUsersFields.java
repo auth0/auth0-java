@@ -49,7 +49,7 @@ public final class CreateExportUsersFields {
         return exportAs;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateExportUsersFields && equalTo((CreateExportUsersFields) other);
@@ -64,12 +64,12 @@ public final class CreateExportUsersFields {
         return name.equals(other.name) && exportAs.equals(other.exportAs);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.exportAs);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -109,7 +109,7 @@ public final class CreateExportUsersFields {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateExportUsersFields other) {
             name(other.getName());
             exportAs(other.getExportAs());
@@ -121,7 +121,7 @@ public final class CreateExportUsersFields {
          * <p>Name of the field in the profile.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("name")
         public _FinalStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
@@ -132,7 +132,7 @@ public final class CreateExportUsersFields {
          * <p>Title of the column in the exported CSV.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage exportAs(String exportAs) {
             this.exportAs = Optional.ofNullable(exportAs);
             return this;
@@ -141,14 +141,14 @@ public final class CreateExportUsersFields {
         /**
          * <p>Title of the column in the exported CSV.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "export_as", nulls = Nulls.SKIP)
         public _FinalStage exportAs(Optional<String> exportAs) {
             this.exportAs = exportAs;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateExportUsersFields build() {
             return new CreateExportUsersFields(name, exportAs, additionalProperties);
         }

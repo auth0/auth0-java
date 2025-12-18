@@ -84,7 +84,7 @@ public final class SelfServiceProfileSsoTicketConnectionOptions {
         return idpinitiated;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SelfServiceProfileSsoTicketConnectionOptions
@@ -102,12 +102,12 @@ public final class SelfServiceProfileSsoTicketConnectionOptions {
                 && idpinitiated.equals(other.idpinitiated);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.iconUrl, this.domainAliases, this.idpinitiated);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

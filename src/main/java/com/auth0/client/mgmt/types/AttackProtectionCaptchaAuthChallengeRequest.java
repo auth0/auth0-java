@@ -35,7 +35,7 @@ public final class AttackProtectionCaptchaAuthChallengeRequest {
         return failOpen;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof AttackProtectionCaptchaAuthChallengeRequest
@@ -51,12 +51,12 @@ public final class AttackProtectionCaptchaAuthChallengeRequest {
         return failOpen == other.failOpen;
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.failOpen);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -87,7 +87,7 @@ public final class AttackProtectionCaptchaAuthChallengeRequest {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(AttackProtectionCaptchaAuthChallengeRequest other) {
             failOpen(other.getFailOpen());
             return this;
@@ -98,14 +98,14 @@ public final class AttackProtectionCaptchaAuthChallengeRequest {
          * <p>Whether the auth challenge should fail open.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("fail_open")
         public _FinalStage failOpen(boolean failOpen) {
             this.failOpen = failOpen;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public AttackProtectionCaptchaAuthChallengeRequest build() {
             return new AttackProtectionCaptchaAuthChallengeRequest(failOpen, additionalProperties);
         }

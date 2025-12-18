@@ -33,7 +33,7 @@ public final class FlowActionMailjetSendEmailParamsContent {
         return content;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionMailjetSendEmailParamsContent
@@ -49,12 +49,12 @@ public final class FlowActionMailjetSendEmailParamsContent {
         return content.equals(other.content);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.content);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -82,20 +82,20 @@ public final class FlowActionMailjetSendEmailParamsContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionMailjetSendEmailParamsContent other) {
             content(other.getContent());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("content")
         public _FinalStage content(@NotNull String content) {
             this.content = Objects.requireNonNull(content, "content must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionMailjetSendEmailParamsContent build() {
             return new FlowActionMailjetSendEmailParamsContent(content, additionalProperties);
         }

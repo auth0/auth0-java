@@ -83,7 +83,7 @@ public final class FlowActionAuth0SendRequestParams {
         return payload;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionAuth0SendRequestParams && equalTo((FlowActionAuth0SendRequestParams) other);
@@ -103,12 +103,12 @@ public final class FlowActionAuth0SendRequestParams {
                 && payload.equals(other.payload);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.pathname, this.method, this.headers, this.params, this.payload);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -168,7 +168,7 @@ public final class FlowActionAuth0SendRequestParams {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionAuth0SendRequestParams other) {
             connectionId(other.getConnectionId());
             pathname(other.getPathname());
@@ -179,41 +179,41 @@ public final class FlowActionAuth0SendRequestParams {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_id")
         public PathnameStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("pathname")
         public _FinalStage pathname(@NotNull String pathname) {
             this.pathname = Objects.requireNonNull(pathname, "pathname must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage payload(FlowActionAuth0SendRequestParamsPayload payload) {
             this.payload = Optional.ofNullable(payload);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "payload", nulls = Nulls.SKIP)
         public _FinalStage payload(Optional<FlowActionAuth0SendRequestParamsPayload> payload) {
             this.payload = payload;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage params(
                 Map<String, OptionalNullable<FlowActionAuth0SendRequestParamsQueryParamsValue>> params) {
             this.params = Optional.ofNullable(params);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "params", nulls = Nulls.SKIP)
         public _FinalStage params(
                 Optional<Map<String, OptionalNullable<FlowActionAuth0SendRequestParamsQueryParamsValue>>> params) {
@@ -221,33 +221,33 @@ public final class FlowActionAuth0SendRequestParams {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage headers(Map<String, Object> headers) {
             this.headers = Optional.ofNullable(headers);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "headers", nulls = Nulls.SKIP)
         public _FinalStage headers(Optional<Map<String, Object>> headers) {
             this.headers = headers;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage method(FlowActionAuth0SendRequestParamsMethod method) {
             this.method = Optional.ofNullable(method);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "method", nulls = Nulls.SKIP)
         public _FinalStage method(Optional<FlowActionAuth0SendRequestParamsMethod> method) {
             this.method = method;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionAuth0SendRequestParams build() {
             return new FlowActionAuth0SendRequestParams(
                     connectionId, pathname, method, headers, params, payload, additionalProperties);

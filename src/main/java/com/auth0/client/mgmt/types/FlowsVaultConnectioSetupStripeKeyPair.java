@@ -50,7 +50,7 @@ public final class FlowsVaultConnectioSetupStripeKeyPair {
         return publicKey;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowsVaultConnectioSetupStripeKeyPair
@@ -66,12 +66,12 @@ public final class FlowsVaultConnectioSetupStripeKeyPair {
         return type.equals(other.type) && privateKey.equals(other.privateKey) && publicKey.equals(other.publicKey);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.type, this.privateKey, this.publicKey);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -111,7 +111,7 @@ public final class FlowsVaultConnectioSetupStripeKeyPair {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowsVaultConnectioSetupStripeKeyPair other) {
             type(other.getType());
             privateKey(other.getPrivateKey());
@@ -119,28 +119,28 @@ public final class FlowsVaultConnectioSetupStripeKeyPair {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public PrivateKeyStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("private_key")
         public PublicKeyStage privateKey(@NotNull String privateKey) {
             this.privateKey = Objects.requireNonNull(privateKey, "privateKey must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("public_key")
         public _FinalStage publicKey(@NotNull String publicKey) {
             this.publicKey = Objects.requireNonNull(publicKey, "publicKey must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowsVaultConnectioSetupStripeKeyPair build() {
             return new FlowsVaultConnectioSetupStripeKeyPair(type, privateKey, publicKey, additionalProperties);
         }

@@ -37,7 +37,7 @@ public interface IConnectionOptionsCommonOidc {
 
     Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes();
 
-    OptionalNullable<String> getTenantDomain();
+    Optional<String> getTenantDomain();
 
     Optional<String> getTokenEndpoint();
 

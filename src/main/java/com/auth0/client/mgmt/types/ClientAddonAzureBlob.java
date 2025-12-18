@@ -183,7 +183,7 @@ public final class ClientAddonAzureBlob {
         return containerList;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientAddonAzureBlob && equalTo((ClientAddonAzureBlob) other);
@@ -210,7 +210,7 @@ public final class ClientAddonAzureBlob {
                 && containerList.equals(other.containerList);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.accountName,
@@ -228,7 +228,7 @@ public final class ClientAddonAzureBlob {
                 this.containerList);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

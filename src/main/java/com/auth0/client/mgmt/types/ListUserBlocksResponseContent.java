@@ -39,7 +39,7 @@ public final class ListUserBlocksResponseContent {
         return blockedFor;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListUserBlocksResponseContent && equalTo((ListUserBlocksResponseContent) other);
@@ -54,12 +54,12 @@ public final class ListUserBlocksResponseContent {
         return blockedFor.equals(other.blockedFor);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.blockedFor);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

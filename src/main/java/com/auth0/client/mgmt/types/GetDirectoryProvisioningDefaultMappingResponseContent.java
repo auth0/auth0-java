@@ -39,7 +39,7 @@ public final class GetDirectoryProvisioningDefaultMappingResponseContent {
         return mapping;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetDirectoryProvisioningDefaultMappingResponseContent
@@ -55,12 +55,12 @@ public final class GetDirectoryProvisioningDefaultMappingResponseContent {
         return mapping.equals(other.mapping);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.mapping);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

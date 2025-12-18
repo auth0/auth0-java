@@ -54,6 +54,8 @@ public final class GetActionResponseContent {
 
     private final Optional<Boolean> deploy;
 
+    private final Optional<List<ActionModuleReference>> modules;
+
     private final Map<String, Object> additionalProperties;
 
     private GetActionResponseContent(
@@ -73,6 +75,7 @@ public final class GetActionResponseContent {
             Optional<ActionBuildStatusEnum> status,
             Optional<OffsetDateTime> builtAt,
             Optional<Boolean> deploy,
+            Optional<List<ActionModuleReference>> modules,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.name = name;
@@ -90,6 +93,7 @@ public final class GetActionResponseContent {
         this.status = status;
         this.builtAt = builtAt;
         this.deploy = deploy;
+        this.modules = modules;
         this.additionalProperties = additionalProperties;
     }
 
@@ -212,7 +216,15 @@ public final class GetActionResponseContent {
         return deploy;
     }
 
-    @Override
+    /**
+     * @return The list of action modules and their versions used by this action.
+     */
+    @JsonProperty("modules")
+    public Optional<List<ActionModuleReference>> getModules() {
+        return modules;
+    }
+
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetActionResponseContent && equalTo((GetActionResponseContent) other);
@@ -239,10 +251,11 @@ public final class GetActionResponseContent {
                 && integration.equals(other.integration)
                 && status.equals(other.status)
                 && builtAt.equals(other.builtAt)
-                && deploy.equals(other.deploy);
+                && deploy.equals(other.deploy)
+                && modules.equals(other.modules);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -260,10 +273,11 @@ public final class GetActionResponseContent {
                 this.integration,
                 this.status,
                 this.builtAt,
-                this.deploy);
+                this.deploy,
+                this.modules);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -306,6 +320,8 @@ public final class GetActionResponseContent {
 
         private Optional<Boolean> deploy = Optional.empty();
 
+        private Optional<List<ActionModuleReference>> modules = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -328,6 +344,7 @@ public final class GetActionResponseContent {
             status(other.getStatus());
             builtAt(other.getBuiltAt());
             deploy(other.getDeploy());
+            modules(other.getModules());
             return this;
         }
 
@@ -546,6 +563,20 @@ public final class GetActionResponseContent {
             return this;
         }
 
+        /**
+         * <p>The list of action modules and their versions used by this action.</p>
+         */
+        @JsonSetter(value = "modules", nulls = Nulls.SKIP)
+        public Builder modules(Optional<List<ActionModuleReference>> modules) {
+            this.modules = modules;
+            return this;
+        }
+
+        public Builder modules(List<ActionModuleReference> modules) {
+            this.modules = Optional.ofNullable(modules);
+            return this;
+        }
+
         public GetActionResponseContent build() {
             return new GetActionResponseContent(
                     id,
@@ -564,6 +595,7 @@ public final class GetActionResponseContent {
                     status,
                     builtAt,
                     deploy,
+                    modules,
                     additionalProperties);
         }
     }

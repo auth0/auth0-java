@@ -43,7 +43,7 @@ public class ActionsVersionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"total\":1.1,\"page\":1.1,\"per_page\":1.1,\"versions\":[{\"id\":\"id\",\"action_id\":\"action_id\",\"code\":\"code\",\"dependencies\":[{}],\"deployed\":true,\"runtime\":\"runtime\",\"secrets\":[{}],\"status\":\"pending\",\"number\":1.1,\"errors\":[{}],\"built_at\":\"2024-01-15T09:30:00Z\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"supported_triggers\":[{\"id\":\"id\"}]}]}"));
+                                "{\"total\":1.1,\"page\":1.1,\"per_page\":1.1,\"versions\":[{\"id\":\"id\",\"action_id\":\"action_id\",\"code\":\"code\",\"dependencies\":[{}],\"deployed\":true,\"runtime\":\"runtime\",\"secrets\":[{}],\"status\":\"pending\",\"number\":1.1,\"errors\":[{}],\"built_at\":\"2024-01-15T09:30:00Z\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"supported_triggers\":[{\"id\":\"id\"}],\"modules\":[{}]}]}"));
         SyncPagingIterable<ActionVersion> response = client.actions()
                 .versions()
                 .list(
@@ -68,7 +68,7 @@ public class ActionsVersionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"action_id\":\"action_id\",\"code\":\"code\",\"dependencies\":[{\"name\":\"name\",\"version\":\"version\",\"registry_url\":\"registry_url\"}],\"deployed\":true,\"runtime\":\"runtime\",\"secrets\":[{\"name\":\"name\",\"updated_at\":\"2024-01-15T09:30:00Z\"}],\"status\":\"pending\",\"number\":1.1,\"errors\":[{\"id\":\"id\",\"msg\":\"msg\",\"url\":\"url\"}],\"action\":{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"id\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"},\"built_at\":\"2024-01-15T09:30:00Z\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"supported_triggers\":[{\"id\":\"id\",\"version\":\"version\",\"status\":\"status\",\"runtimes\":[\"runtimes\"],\"default_runtime\":\"default_runtime\",\"compatible_triggers\":[{\"id\":\"id\",\"version\":\"version\"}],\"binding_policy\":\"trigger-bound\"}]}"));
+                                "{\"id\":\"id\",\"action_id\":\"action_id\",\"code\":\"code\",\"dependencies\":[{\"name\":\"name\",\"version\":\"version\",\"registry_url\":\"registry_url\"}],\"deployed\":true,\"runtime\":\"runtime\",\"secrets\":[{\"name\":\"name\",\"updated_at\":\"2024-01-15T09:30:00Z\"}],\"status\":\"pending\",\"number\":1.1,\"errors\":[{\"id\":\"id\",\"msg\":\"msg\",\"url\":\"url\"}],\"action\":{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"id\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"},\"built_at\":\"2024-01-15T09:30:00Z\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"supported_triggers\":[{\"id\":\"id\",\"version\":\"version\",\"status\":\"status\",\"runtimes\":[\"runtimes\"],\"default_runtime\":\"default_runtime\",\"compatible_triggers\":[{\"id\":\"id\",\"version\":\"version\"}],\"binding_policy\":\"trigger-bound\"}],\"modules\":[{\"module_id\":\"module_id\",\"module_name\":\"module_name\",\"module_version_id\":\"module_version_id\",\"module_version_number\":1}]}"));
         GetActionVersionResponseContent response = client.actions().versions().get("actionId", "id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -138,6 +138,14 @@ public class ActionsVersionsWireTest {
                 + "      ],\n"
                 + "      \"binding_policy\": \"trigger-bound\"\n"
                 + "    }\n"
+                + "  ],\n"
+                + "  \"modules\": [\n"
+                + "    {\n"
+                + "      \"module_id\": \"module_id\",\n"
+                + "      \"module_name\": \"module_name\",\n"
+                + "      \"module_version_id\": \"module_version_id\",\n"
+                + "      \"module_version_number\": 1\n"
+                + "    }\n"
                 + "  ]\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
@@ -177,7 +185,7 @@ public class ActionsVersionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"action_id\":\"action_id\",\"code\":\"code\",\"dependencies\":[{\"name\":\"name\",\"version\":\"version\",\"registry_url\":\"registry_url\"}],\"deployed\":true,\"runtime\":\"runtime\",\"secrets\":[{\"name\":\"name\",\"updated_at\":\"2024-01-15T09:30:00Z\"}],\"status\":\"pending\",\"number\":1.1,\"errors\":[{\"id\":\"id\",\"msg\":\"msg\",\"url\":\"url\"}],\"action\":{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"id\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"},\"built_at\":\"2024-01-15T09:30:00Z\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"supported_triggers\":[{\"id\":\"id\",\"version\":\"version\",\"status\":\"status\",\"runtimes\":[\"runtimes\"],\"default_runtime\":\"default_runtime\",\"compatible_triggers\":[{\"id\":\"id\",\"version\":\"version\"}],\"binding_policy\":\"trigger-bound\"}]}"));
+                                "{\"id\":\"id\",\"action_id\":\"action_id\",\"code\":\"code\",\"dependencies\":[{\"name\":\"name\",\"version\":\"version\",\"registry_url\":\"registry_url\"}],\"deployed\":true,\"runtime\":\"runtime\",\"secrets\":[{\"name\":\"name\",\"updated_at\":\"2024-01-15T09:30:00Z\"}],\"status\":\"pending\",\"number\":1.1,\"errors\":[{\"id\":\"id\",\"msg\":\"msg\",\"url\":\"url\"}],\"action\":{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"id\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"},\"built_at\":\"2024-01-15T09:30:00Z\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"supported_triggers\":[{\"id\":\"id\",\"version\":\"version\",\"status\":\"status\",\"runtimes\":[\"runtimes\"],\"default_runtime\":\"default_runtime\",\"compatible_triggers\":[{\"id\":\"id\",\"version\":\"version\"}],\"binding_policy\":\"trigger-bound\"}],\"modules\":[{\"module_id\":\"module_id\",\"module_name\":\"module_name\",\"module_version_id\":\"module_version_id\",\"module_version_number\":1}]}"));
         DeployActionVersionResponseContent response =
                 client.actions().versions().deploy("actionId", "id", OptionalNullable.absent());
         RecordedRequest request = server.takeRequest();
@@ -247,6 +255,14 @@ public class ActionsVersionsWireTest {
                 + "        }\n"
                 + "      ],\n"
                 + "      \"binding_policy\": \"trigger-bound\"\n"
+                + "    }\n"
+                + "  ],\n"
+                + "  \"modules\": [\n"
+                + "    {\n"
+                + "      \"module_id\": \"module_id\",\n"
+                + "      \"module_name\": \"module_name\",\n"
+                + "      \"module_version_id\": \"module_version_id\",\n"
+                + "      \"module_version_number\": 1\n"
                 + "    }\n"
                 + "  ]\n"
                 + "}";

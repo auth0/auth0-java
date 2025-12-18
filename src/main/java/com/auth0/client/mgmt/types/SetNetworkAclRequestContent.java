@@ -68,7 +68,7 @@ public final class SetNetworkAclRequestContent {
         return rule;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SetNetworkAclRequestContent && equalTo((SetNetworkAclRequestContent) other);
@@ -86,12 +86,12 @@ public final class SetNetworkAclRequestContent {
                 && rule.equals(other.rule);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.description, this.active, this.priority, this.rule);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -143,7 +143,7 @@ public final class SetNetworkAclRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(SetNetworkAclRequestContent other) {
             description(other.getDescription());
             active(other.getActive());
@@ -152,7 +152,7 @@ public final class SetNetworkAclRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("description")
         public ActiveStage description(@NotNull String description) {
             this.description = Objects.requireNonNull(description, "description must not be null");
@@ -164,7 +164,7 @@ public final class SetNetworkAclRequestContent {
          * <p>Indicates whether or not this access control list is actively being used</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("active")
         public PriorityStage active(boolean active) {
             this.active = active;
@@ -176,21 +176,21 @@ public final class SetNetworkAclRequestContent {
          * <p>Indicates the order in which the ACL will be evaluated relative to other ACL rules.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("priority")
         public RuleStage priority(double priority) {
             this.priority = priority;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("rule")
         public _FinalStage rule(@NotNull NetworkAclRule rule) {
             this.rule = Objects.requireNonNull(rule, "rule must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public SetNetworkAclRequestContent build() {
             return new SetNetworkAclRequestContent(description, active, priority, rule, additionalProperties);
         }

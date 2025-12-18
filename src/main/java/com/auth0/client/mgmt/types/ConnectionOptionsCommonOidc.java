@@ -53,7 +53,7 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
 
     private final Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes;
 
-    private final OptionalNullable<String> tenantDomain;
+    private final Optional<String> tenantDomain;
 
     private final Optional<String> tokenEndpoint;
 
@@ -83,7 +83,7 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
             Optional<String> scope,
             Optional<Boolean> sendBackChannelNonce,
             Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes,
-            OptionalNullable<String> tenantDomain,
+            Optional<String> tenantDomain,
             Optional<String> tokenEndpoint,
             OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod,
             OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg,
@@ -114,32 +114,32 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
     }
 
     @JsonProperty("authorization_endpoint")
-    @Override
+    @java.lang.Override
     public Optional<String> getAuthorizationEndpoint() {
         return authorizationEndpoint;
     }
 
     @JsonProperty("client_id")
-    @Override
+    @java.lang.Override
     public String getClientId() {
         return clientId;
     }
 
     @JsonProperty("client_secret")
-    @Override
+    @java.lang.Override
     public Optional<String> getClientSecret() {
         return clientSecret;
     }
 
     @JsonProperty("connection_settings")
-    @Override
+    @java.lang.Override
     public Optional<ConnectionConnectionSettings> getConnectionSettings() {
         return connectionSettings;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("federated_connections_access_tokens")
-    @Override
+    @java.lang.Override
     public OptionalNullable<ConnectionFederatedConnectionsAccessTokens> getFederatedConnectionsAccessTokens() {
         if (federatedConnectionsAccessTokens == null) {
             return OptionalNullable.absent();
@@ -148,20 +148,20 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
     }
 
     @JsonProperty("domain_aliases")
-    @Override
+    @java.lang.Override
     public Optional<List<String>> getDomainAliases() {
         return domainAliases;
     }
 
     @JsonProperty("icon_url")
-    @Override
+    @java.lang.Override
     public Optional<String> getIconUrl() {
         return iconUrl;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("id_token_signed_response_algs")
-    @Override
+    @java.lang.Override
     public OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> getIdTokenSignedResponseAlgs() {
         if (idTokenSignedResponseAlgs == null) {
             return OptionalNullable.absent();
@@ -170,60 +170,56 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
     }
 
     @JsonProperty("issuer")
-    @Override
+    @java.lang.Override
     public Optional<String> getIssuer() {
         return issuer;
     }
 
     @JsonProperty("jwks_uri")
-    @Override
+    @java.lang.Override
     public Optional<String> getJwksUri() {
         return jwksUri;
     }
 
     @JsonProperty("oidc_metadata")
-    @Override
+    @java.lang.Override
     public Optional<ConnectionOptionsOidcMetadata> getOidcMetadata() {
         return oidcMetadata;
     }
 
     @JsonProperty("scope")
-    @Override
+    @java.lang.Override
     public Optional<String> getScope() {
         return scope;
     }
 
     @JsonProperty("send_back_channel_nonce")
-    @Override
+    @java.lang.Override
     public Optional<Boolean> getSendBackChannelNonce() {
         return sendBackChannelNonce;
     }
 
     @JsonProperty("set_user_root_attributes")
-    @Override
+    @java.lang.Override
     public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
         return setUserRootAttributes;
     }
 
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("tenant_domain")
-    @Override
-    public OptionalNullable<String> getTenantDomain() {
-        if (tenantDomain == null) {
-            return OptionalNullable.absent();
-        }
+    @java.lang.Override
+    public Optional<String> getTenantDomain() {
         return tenantDomain;
     }
 
     @JsonProperty("token_endpoint")
-    @Override
+    @java.lang.Override
     public Optional<String> getTokenEndpoint() {
         return tokenEndpoint;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("token_endpoint_auth_method")
-    @Override
+    @java.lang.Override
     public OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> getTokenEndpointAuthMethod() {
         if (tokenEndpointAuthMethod == null) {
             return OptionalNullable.absent();
@@ -233,7 +229,7 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("token_endpoint_auth_signing_alg")
-    @Override
+    @java.lang.Override
     public OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> getTokenEndpointAuthSigningAlg() {
         if (tokenEndpointAuthSigningAlg == null) {
             return OptionalNullable.absent();
@@ -243,13 +239,16 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("upstream_params")
-    @Override
+    @java.lang.Override
     public OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams() {
+        if (upstreamParams == null) {
+            return OptionalNullable.absent();
+        }
         return upstreamParams;
     }
 
     @JsonProperty("userinfo_endpoint")
-    @Override
+    @java.lang.Override
     public Optional<String> getUserinfoEndpoint() {
         return userinfoEndpoint;
     }
@@ -267,12 +266,6 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("tenant_domain")
-    private OptionalNullable<String> _getTenantDomain() {
-        return tenantDomain;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("token_endpoint_auth_method")
     private OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> _getTokenEndpointAuthMethod() {
         return tokenEndpointAuthMethod;
@@ -284,7 +277,14 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
         return tokenEndpointAuthSigningAlg;
     }
 
-    @Override
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("upstream_params")
+    private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+            _getUpstreamParams() {
+        return upstreamParams;
+    }
+
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionOptionsCommonOidc && equalTo((ConnectionOptionsCommonOidc) other);
@@ -318,7 +318,7 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
                 && userinfoEndpoint.equals(other.userinfoEndpoint);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.authorizationEndpoint,
@@ -343,7 +343,7 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
                 this.userinfoEndpoint);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -431,13 +431,9 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
 
         _FinalStage setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes);
 
-        _FinalStage tenantDomain(@Nullable OptionalNullable<String> tenantDomain);
-
-        _FinalStage tenantDomain(String tenantDomain);
-
         _FinalStage tenantDomain(Optional<String> tenantDomain);
 
-        _FinalStage tenantDomain(com.auth0.client.mgmt.core.Nullable<String> tenantDomain);
+        _FinalStage tenantDomain(String tenantDomain);
 
         _FinalStage tokenEndpoint(Optional<String> tokenEndpoint);
 
@@ -466,7 +462,9 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
                         tokenEndpointAuthSigningAlg);
 
         _FinalStage upstreamParams(
-                OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams);
+                @Nullable
+                        OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+                                upstreamParams);
 
         _FinalStage upstreamParams(
                 Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>> upstreamParams);
@@ -501,7 +499,7 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
 
         private Optional<String> tokenEndpoint = Optional.empty();
 
-        private OptionalNullable<String> tenantDomain = OptionalNullable.absent();
+        private Optional<String> tenantDomain = Optional.empty();
 
         private Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes = Optional.empty();
 
@@ -536,7 +534,7 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(ConnectionOptionsCommonOidc other) {
             authorizationEndpoint(other.getAuthorizationEndpoint());
             clientId(other.getClientId());
@@ -561,27 +559,27 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("client_id")
         public _FinalStage clientId(@NotNull String clientId) {
             this.clientId = Objects.requireNonNull(clientId, "clientId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage userinfoEndpoint(String userinfoEndpoint) {
             this.userinfoEndpoint = Optional.ofNullable(userinfoEndpoint);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "userinfo_endpoint", nulls = Nulls.SKIP)
         public _FinalStage userinfoEndpoint(Optional<String> userinfoEndpoint) {
             this.userinfoEndpoint = userinfoEndpoint;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage upstreamParams(
                 com.auth0.client.mgmt.core.Nullable<
                                 Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
@@ -596,7 +594,7 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage upstreamParams(
                 Optional<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams) {
             if (upstreamParams.isPresent()) {
@@ -607,23 +605,24 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage upstreamParams(
                 Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>> upstreamParams) {
             this.upstreamParams = OptionalNullable.of(upstreamParams);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "upstream_params", nulls = Nulls.SKIP)
         public _FinalStage upstreamParams(
-                OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
-                        upstreamParams) {
+                @Nullable
+                        OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+                                upstreamParams) {
             this.upstreamParams = upstreamParams;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage tokenEndpointAuthSigningAlg(
                 com.auth0.client.mgmt.core.Nullable<ConnectionTokenEndpointAuthSigningAlgEnum>
                         tokenEndpointAuthSigningAlg) {
@@ -637,7 +636,7 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage tokenEndpointAuthSigningAlg(
                 Optional<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg) {
             if (tokenEndpointAuthSigningAlg.isPresent()) {
@@ -648,14 +647,14 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage tokenEndpointAuthSigningAlg(
                 ConnectionTokenEndpointAuthSigningAlgEnum tokenEndpointAuthSigningAlg) {
             this.tokenEndpointAuthSigningAlg = OptionalNullable.of(tokenEndpointAuthSigningAlg);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "token_endpoint_auth_signing_alg", nulls = Nulls.SKIP)
         public _FinalStage tokenEndpointAuthSigningAlg(
                 @Nullable OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg) {
@@ -663,7 +662,7 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage tokenEndpointAuthMethod(
                 com.auth0.client.mgmt.core.Nullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod) {
             if (tokenEndpointAuthMethod.isNull()) {
@@ -676,7 +675,7 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage tokenEndpointAuthMethod(
                 Optional<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod) {
             if (tokenEndpointAuthMethod.isPresent()) {
@@ -687,13 +686,13 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage tokenEndpointAuthMethod(ConnectionTokenEndpointAuthMethodEnum tokenEndpointAuthMethod) {
             this.tokenEndpointAuthMethod = OptionalNullable.of(tokenEndpointAuthMethod);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "token_endpoint_auth_method", nulls = Nulls.SKIP)
         public _FinalStage tokenEndpointAuthMethod(
                 @Nullable OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod) {
@@ -701,133 +700,111 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage tokenEndpoint(String tokenEndpoint) {
             this.tokenEndpoint = Optional.ofNullable(tokenEndpoint);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "token_endpoint", nulls = Nulls.SKIP)
         public _FinalStage tokenEndpoint(Optional<String> tokenEndpoint) {
             this.tokenEndpoint = tokenEndpoint;
             return this;
         }
 
-        @Override
-        public _FinalStage tenantDomain(com.auth0.client.mgmt.core.Nullable<String> tenantDomain) {
-            if (tenantDomain.isNull()) {
-                this.tenantDomain = OptionalNullable.ofNull();
-            } else if (tenantDomain.isEmpty()) {
-                this.tenantDomain = OptionalNullable.absent();
-            } else {
-                this.tenantDomain = OptionalNullable.of(tenantDomain.get());
-            }
-            return this;
-        }
-
-        @Override
-        public _FinalStage tenantDomain(Optional<String> tenantDomain) {
-            if (tenantDomain.isPresent()) {
-                this.tenantDomain = OptionalNullable.of(tenantDomain.get());
-            } else {
-                this.tenantDomain = OptionalNullable.absent();
-            }
-            return this;
-        }
-
-        @Override
+        @java.lang.Override
         public _FinalStage tenantDomain(String tenantDomain) {
-            this.tenantDomain = OptionalNullable.of(tenantDomain);
+            this.tenantDomain = Optional.ofNullable(tenantDomain);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "tenant_domain", nulls = Nulls.SKIP)
-        public _FinalStage tenantDomain(@Nullable OptionalNullable<String> tenantDomain) {
+        public _FinalStage tenantDomain(Optional<String> tenantDomain) {
             this.tenantDomain = tenantDomain;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes) {
             this.setUserRootAttributes = Optional.ofNullable(setUserRootAttributes);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "set_user_root_attributes", nulls = Nulls.SKIP)
         public _FinalStage setUserRootAttributes(Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes) {
             this.setUserRootAttributes = setUserRootAttributes;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage sendBackChannelNonce(Boolean sendBackChannelNonce) {
             this.sendBackChannelNonce = Optional.ofNullable(sendBackChannelNonce);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "send_back_channel_nonce", nulls = Nulls.SKIP)
         public _FinalStage sendBackChannelNonce(Optional<Boolean> sendBackChannelNonce) {
             this.sendBackChannelNonce = sendBackChannelNonce;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage scope(String scope) {
             this.scope = Optional.ofNullable(scope);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "scope", nulls = Nulls.SKIP)
         public _FinalStage scope(Optional<String> scope) {
             this.scope = scope;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage oidcMetadata(ConnectionOptionsOidcMetadata oidcMetadata) {
             this.oidcMetadata = Optional.ofNullable(oidcMetadata);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "oidc_metadata", nulls = Nulls.SKIP)
         public _FinalStage oidcMetadata(Optional<ConnectionOptionsOidcMetadata> oidcMetadata) {
             this.oidcMetadata = oidcMetadata;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage jwksUri(String jwksUri) {
             this.jwksUri = Optional.ofNullable(jwksUri);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "jwks_uri", nulls = Nulls.SKIP)
         public _FinalStage jwksUri(Optional<String> jwksUri) {
             this.jwksUri = jwksUri;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage issuer(String issuer) {
             this.issuer = Optional.ofNullable(issuer);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "issuer", nulls = Nulls.SKIP)
         public _FinalStage issuer(Optional<String> issuer) {
             this.issuer = issuer;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage idTokenSignedResponseAlgs(
                 com.auth0.client.mgmt.core.Nullable<List<ConnectionIdTokenSignedResponseAlgEnum>>
                         idTokenSignedResponseAlgs) {
@@ -841,7 +818,7 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage idTokenSignedResponseAlgs(
                 Optional<List<ConnectionIdTokenSignedResponseAlgEnum>> idTokenSignedResponseAlgs) {
             if (idTokenSignedResponseAlgs.isPresent()) {
@@ -852,14 +829,14 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage idTokenSignedResponseAlgs(
                 List<ConnectionIdTokenSignedResponseAlgEnum> idTokenSignedResponseAlgs) {
             this.idTokenSignedResponseAlgs = OptionalNullable.of(idTokenSignedResponseAlgs);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "id_token_signed_response_algs", nulls = Nulls.SKIP)
         public _FinalStage idTokenSignedResponseAlgs(
                 @Nullable OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> idTokenSignedResponseAlgs) {
@@ -867,33 +844,33 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage iconUrl(String iconUrl) {
             this.iconUrl = Optional.ofNullable(iconUrl);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "icon_url", nulls = Nulls.SKIP)
         public _FinalStage iconUrl(Optional<String> iconUrl) {
             this.iconUrl = iconUrl;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage domainAliases(List<String> domainAliases) {
             this.domainAliases = Optional.ofNullable(domainAliases);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "domain_aliases", nulls = Nulls.SKIP)
         public _FinalStage domainAliases(Optional<List<String>> domainAliases) {
             this.domainAliases = domainAliases;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage federatedConnectionsAccessTokens(
                 com.auth0.client.mgmt.core.Nullable<ConnectionFederatedConnectionsAccessTokens>
                         federatedConnectionsAccessTokens) {
@@ -907,7 +884,7 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage federatedConnectionsAccessTokens(
                 Optional<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens) {
             if (federatedConnectionsAccessTokens.isPresent()) {
@@ -918,14 +895,14 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage federatedConnectionsAccessTokens(
                 ConnectionFederatedConnectionsAccessTokens federatedConnectionsAccessTokens) {
             this.federatedConnectionsAccessTokens = OptionalNullable.of(federatedConnectionsAccessTokens);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "federated_connections_access_tokens", nulls = Nulls.SKIP)
         public _FinalStage federatedConnectionsAccessTokens(
                 @Nullable
@@ -934,46 +911,46 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage connectionSettings(ConnectionConnectionSettings connectionSettings) {
             this.connectionSettings = Optional.ofNullable(connectionSettings);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "connection_settings", nulls = Nulls.SKIP)
         public _FinalStage connectionSettings(Optional<ConnectionConnectionSettings> connectionSettings) {
             this.connectionSettings = connectionSettings;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage clientSecret(String clientSecret) {
             this.clientSecret = Optional.ofNullable(clientSecret);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "client_secret", nulls = Nulls.SKIP)
         public _FinalStage clientSecret(Optional<String> clientSecret) {
             this.clientSecret = clientSecret;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage authorizationEndpoint(String authorizationEndpoint) {
             this.authorizationEndpoint = Optional.ofNullable(authorizationEndpoint);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "authorization_endpoint", nulls = Nulls.SKIP)
         public _FinalStage authorizationEndpoint(Optional<String> authorizationEndpoint) {
             this.authorizationEndpoint = authorizationEndpoint;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public ConnectionOptionsCommonOidc build() {
             return new ConnectionOptionsCommonOidc(
                     authorizationEndpoint,

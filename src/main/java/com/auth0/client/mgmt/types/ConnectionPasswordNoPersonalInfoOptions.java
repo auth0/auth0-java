@@ -32,7 +32,7 @@ public final class ConnectionPasswordNoPersonalInfoOptions {
         return enable;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionPasswordNoPersonalInfoOptions
@@ -48,12 +48,12 @@ public final class ConnectionPasswordNoPersonalInfoOptions {
         return enable == other.enable;
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.enable);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -81,20 +81,20 @@ public final class ConnectionPasswordNoPersonalInfoOptions {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(ConnectionPasswordNoPersonalInfoOptions other) {
             enable(other.getEnable());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("enable")
         public _FinalStage enable(boolean enable) {
             this.enable = enable;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public ConnectionPasswordNoPersonalInfoOptions build() {
             return new ConnectionPasswordNoPersonalInfoOptions(enable, additionalProperties);
         }

@@ -36,7 +36,7 @@ public final class SelfServiceProfileSsoTicketGoogleWorkspaceConfig {
         return syncUsers;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SelfServiceProfileSsoTicketGoogleWorkspaceConfig
@@ -52,12 +52,12 @@ public final class SelfServiceProfileSsoTicketGoogleWorkspaceConfig {
         return syncUsers == other.syncUsers;
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.syncUsers);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -88,7 +88,7 @@ public final class SelfServiceProfileSsoTicketGoogleWorkspaceConfig {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(SelfServiceProfileSsoTicketGoogleWorkspaceConfig other) {
             syncUsers(other.getSyncUsers());
             return this;
@@ -99,14 +99,14 @@ public final class SelfServiceProfileSsoTicketGoogleWorkspaceConfig {
          * <p>Whether to enable Google Workspace Directory Sync for users during the self-service flow.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("sync_users")
         public _FinalStage syncUsers(boolean syncUsers) {
             this.syncUsers = syncUsers;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public SelfServiceProfileSsoTicketGoogleWorkspaceConfig build() {
             return new SelfServiceProfileSsoTicketGoogleWorkspaceConfig(syncUsers, additionalProperties);
         }

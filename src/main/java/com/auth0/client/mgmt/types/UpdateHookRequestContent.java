@@ -72,7 +72,7 @@ public final class UpdateHookRequestContent {
         return dependencies;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateHookRequestContent && equalTo((UpdateHookRequestContent) other);
@@ -90,12 +90,12 @@ public final class UpdateHookRequestContent {
                 && dependencies.equals(other.dependencies);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.script, this.enabled, this.dependencies);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -82,7 +82,7 @@ public final class FederatedConnectionTokenSet {
         return lastUsedAt;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FederatedConnectionTokenSet && equalTo((FederatedConnectionTokenSet) other);
@@ -102,12 +102,12 @@ public final class FederatedConnectionTokenSet {
                 && lastUsedAt.equals(other.lastUsedAt);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.id, this.connection, this.scope, this.expiresAt, this.issuedAt, this.lastUsedAt);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

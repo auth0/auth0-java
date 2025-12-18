@@ -56,7 +56,7 @@ public final class CreateFlowsVaultConnectionSalesforceOauthCode {
         return setup;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateFlowsVaultConnectionSalesforceOauthCode
@@ -72,12 +72,12 @@ public final class CreateFlowsVaultConnectionSalesforceOauthCode {
         return name.equals(other.name) && appId.equals(other.appId) && setup.equals(other.setup);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.appId, this.setup);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -120,7 +120,7 @@ public final class CreateFlowsVaultConnectionSalesforceOauthCode {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateFlowsVaultConnectionSalesforceOauthCode other) {
             name(other.getName());
             appId(other.getAppId());
@@ -133,28 +133,28 @@ public final class CreateFlowsVaultConnectionSalesforceOauthCode {
          * <p>Flows Vault Connection name.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("name")
         public AppIdStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("app_id")
         public SetupStage appId(@NotNull String appId) {
             this.appId = Objects.requireNonNull(appId, "appId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("setup")
         public _FinalStage setup(@NotNull FlowsVaultConnectioSetupOauthCode setup) {
             this.setup = Objects.requireNonNull(setup, "setup must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateFlowsVaultConnectionSalesforceOauthCode build() {
             return new CreateFlowsVaultConnectionSalesforceOauthCode(name, appId, setup, additionalProperties);
         }

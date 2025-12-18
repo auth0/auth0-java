@@ -96,7 +96,7 @@ public final class CreateHookResponseContent {
         return dependencies;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateHookResponseContent && equalTo((CreateHookResponseContent) other);
@@ -116,12 +116,12 @@ public final class CreateHookResponseContent {
                 && dependencies.equals(other.dependencies);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.triggerId, this.id, this.name, this.enabled, this.script, this.dependencies);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

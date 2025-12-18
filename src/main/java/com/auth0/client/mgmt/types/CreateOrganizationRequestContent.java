@@ -93,7 +93,7 @@ public final class CreateOrganizationRequestContent {
         return tokenQuota;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateOrganizationRequestContent && equalTo((CreateOrganizationRequestContent) other);
@@ -113,13 +113,13 @@ public final class CreateOrganizationRequestContent {
                 && tokenQuota.equals(other.tokenQuota);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.name, this.displayName, this.branding, this.metadata, this.enabledConnections, this.tokenQuota);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -186,7 +186,7 @@ public final class CreateOrganizationRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateOrganizationRequestContent other) {
             name(other.getName());
             displayName(other.getDisplayName());
@@ -202,20 +202,20 @@ public final class CreateOrganizationRequestContent {
          * <p>The name of this organization.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("name")
         public _FinalStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage tokenQuota(CreateTokenQuota tokenQuota) {
             this.tokenQuota = Optional.ofNullable(tokenQuota);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "token_quota", nulls = Nulls.SKIP)
         public _FinalStage tokenQuota(Optional<CreateTokenQuota> tokenQuota) {
             this.tokenQuota = tokenQuota;
@@ -226,7 +226,7 @@ public final class CreateOrganizationRequestContent {
          * <p>Connections that will be enabled for this organization. See POST enabled_connections endpoint for the object format. (Max of 10 connections allowed)</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage enabledConnections(List<ConnectionForOrganization> enabledConnections) {
             this.enabledConnections = Optional.ofNullable(enabledConnections);
             return this;
@@ -235,33 +235,33 @@ public final class CreateOrganizationRequestContent {
         /**
          * <p>Connections that will be enabled for this organization. See POST enabled_connections endpoint for the object format. (Max of 10 connections allowed)</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "enabled_connections", nulls = Nulls.SKIP)
         public _FinalStage enabledConnections(Optional<List<ConnectionForOrganization>> enabledConnections) {
             this.enabledConnections = enabledConnections;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage metadata(Map<String, OptionalNullable<String>> metadata) {
             this.metadata = Optional.ofNullable(metadata);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
         public _FinalStage metadata(Optional<Map<String, OptionalNullable<String>>> metadata) {
             this.metadata = metadata;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage branding(OrganizationBranding branding) {
             this.branding = Optional.ofNullable(branding);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "branding", nulls = Nulls.SKIP)
         public _FinalStage branding(Optional<OrganizationBranding> branding) {
             this.branding = branding;
@@ -272,7 +272,7 @@ public final class CreateOrganizationRequestContent {
          * <p>Friendly name of this organization.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage displayName(String displayName) {
             this.displayName = Optional.ofNullable(displayName);
             return this;
@@ -281,14 +281,14 @@ public final class CreateOrganizationRequestContent {
         /**
          * <p>Friendly name of this organization.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "display_name", nulls = Nulls.SKIP)
         public _FinalStage displayName(Optional<String> displayName) {
             this.displayName = displayName;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateOrganizationRequestContent build() {
             return new CreateOrganizationRequestContent(
                     name, displayName, branding, metadata, enabledConnections, tokenQuota, additionalProperties);

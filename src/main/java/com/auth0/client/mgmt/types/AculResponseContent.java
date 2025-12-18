@@ -127,7 +127,7 @@ public final class AculResponseContent {
         return filters;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof AculResponseContent && equalTo((AculResponseContent) other);
@@ -147,7 +147,7 @@ public final class AculResponseContent {
                 && filters.equals(other.filters);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.renderingMode,
@@ -158,7 +158,7 @@ public final class AculResponseContent {
                 this.filters);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

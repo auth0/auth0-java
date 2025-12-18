@@ -46,7 +46,7 @@ public final class FlowActionFlowDelayFlowParams {
         return units;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionFlowDelayFlowParams && equalTo((FlowActionFlowDelayFlowParams) other);
@@ -61,12 +61,12 @@ public final class FlowActionFlowDelayFlowParams {
         return number.equals(other.number) && units.equals(other.units);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.number, this.units);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -100,34 +100,34 @@ public final class FlowActionFlowDelayFlowParams {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionFlowDelayFlowParams other) {
             number(other.getNumber());
             units(other.getUnits());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("number")
         public _FinalStage number(@NotNull FlowActionFlowDelayFlowParamsNumber number) {
             this.number = Objects.requireNonNull(number, "number must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage units(FlowActionFlowDelayFlowParamsUnits units) {
             this.units = Optional.ofNullable(units);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "units", nulls = Nulls.SKIP)
         public _FinalStage units(Optional<FlowActionFlowDelayFlowParamsUnits> units) {
             this.units = units;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionFlowDelayFlowParams build() {
             return new FlowActionFlowDelayFlowParams(number, units, additionalProperties);
         }

@@ -135,7 +135,7 @@ public final class ListUserGrantsRequestParameters {
         return audience;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListUserGrantsRequestParameters && equalTo((ListUserGrantsRequestParameters) other);
@@ -155,12 +155,12 @@ public final class ListUserGrantsRequestParameters {
                 && audience.equals(other.audience);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.perPage, this.page, this.includeTotals, this.userId, this.clientId, this.audience);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

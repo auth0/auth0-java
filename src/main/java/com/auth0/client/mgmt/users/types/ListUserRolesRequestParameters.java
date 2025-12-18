@@ -69,7 +69,7 @@ public final class ListUserRolesRequestParameters {
         return includeTotals;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListUserRolesRequestParameters && equalTo((ListUserRolesRequestParameters) other);
@@ -84,12 +84,12 @@ public final class ListUserRolesRequestParameters {
         return perPage.equals(other.perPage) && page.equals(other.page) && includeTotals.equals(other.includeTotals);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.perPage, this.page, this.includeTotals);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

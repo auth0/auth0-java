@@ -34,7 +34,7 @@ public final class SignupVerification {
         return active;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SignupVerification && equalTo((SignupVerification) other);
@@ -49,12 +49,12 @@ public final class SignupVerification {
         return active.equals(other.active);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.active);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

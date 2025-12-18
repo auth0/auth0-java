@@ -91,7 +91,7 @@ public final class ListUserLogsRequestParameters {
         return sort;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListUserLogsRequestParameters && equalTo((ListUserLogsRequestParameters) other);
@@ -109,12 +109,12 @@ public final class ListUserLogsRequestParameters {
                 && includeTotals.equals(other.includeTotals);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.page, this.perPage, this.sort, this.includeTotals);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

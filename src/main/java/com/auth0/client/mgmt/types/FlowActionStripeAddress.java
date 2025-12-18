@@ -81,7 +81,7 @@ public final class FlowActionStripeAddress {
         return country;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionStripeAddress && equalTo((FlowActionStripeAddress) other);
@@ -101,12 +101,12 @@ public final class FlowActionStripeAddress {
                 && country.equals(other.country);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.line1, this.line2, this.postalCode, this.city, this.state, this.country);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

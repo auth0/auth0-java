@@ -159,7 +159,7 @@ public final class ListLogsRequestParameters {
         return search;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListLogsRequestParameters && equalTo((ListLogsRequestParameters) other);
@@ -180,13 +180,13 @@ public final class ListLogsRequestParameters {
                 && search.equals(other.search);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.page, this.perPage, this.sort, this.fields, this.includeFields, this.includeTotals, this.search);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

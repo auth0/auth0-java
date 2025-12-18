@@ -60,7 +60,7 @@ public final class SessionAuthenticationSignal {
         return type;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SessionAuthenticationSignal && equalTo((SessionAuthenticationSignal) other);
@@ -75,12 +75,12 @@ public final class SessionAuthenticationSignal {
         return name.equals(other.name) && timestamp.equals(other.timestamp) && type.equals(other.type);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.timestamp, this.type);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

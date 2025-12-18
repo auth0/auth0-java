@@ -73,7 +73,7 @@ public final class FlowsVaultConnectioSetupOauthApp {
         return audience;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowsVaultConnectioSetupOauthApp && equalTo((FlowsVaultConnectioSetupOauthApp) other);
@@ -92,12 +92,12 @@ public final class FlowsVaultConnectioSetupOauthApp {
                 && audience.equals(other.audience);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.type, this.clientId, this.clientSecret, this.domain, this.audience);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -149,7 +149,7 @@ public final class FlowsVaultConnectioSetupOauthApp {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowsVaultConnectioSetupOauthApp other) {
             type(other.getType());
             clientId(other.getClientId());
@@ -159,48 +159,48 @@ public final class FlowsVaultConnectioSetupOauthApp {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public ClientIdStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("client_id")
         public ClientSecretStage clientId(@NotNull String clientId) {
             this.clientId = Objects.requireNonNull(clientId, "clientId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("client_secret")
         public DomainStage clientSecret(@NotNull String clientSecret) {
             this.clientSecret = Objects.requireNonNull(clientSecret, "clientSecret must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("domain")
         public _FinalStage domain(@NotNull String domain) {
             this.domain = Objects.requireNonNull(domain, "domain must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage audience(String audience) {
             this.audience = Optional.ofNullable(audience);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "audience", nulls = Nulls.SKIP)
         public _FinalStage audience(Optional<String> audience) {
             this.audience = audience;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowsVaultConnectioSetupOauthApp build() {
             return new FlowsVaultConnectioSetupOauthApp(
                     type, clientId, clientSecret, domain, audience, additionalProperties);

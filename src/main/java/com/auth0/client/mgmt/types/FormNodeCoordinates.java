@@ -40,7 +40,7 @@ public final class FormNodeCoordinates {
         return y;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormNodeCoordinates && equalTo((FormNodeCoordinates) other);
@@ -55,12 +55,12 @@ public final class FormNodeCoordinates {
         return x == other.x && y == other.y;
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.x, this.y);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -94,28 +94,28 @@ public final class FormNodeCoordinates {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FormNodeCoordinates other) {
             x(other.getX());
             y(other.getY());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("x")
         public YStage x(int x) {
             this.x = x;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("y")
         public _FinalStage y(int y) {
             this.y = y;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FormNodeCoordinates build() {
             return new FormNodeCoordinates(x, y, additionalProperties);
         }

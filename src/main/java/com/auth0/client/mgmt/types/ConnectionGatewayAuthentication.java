@@ -88,7 +88,7 @@ public final class ConnectionGatewayAuthentication {
         return secretBase64Encoded;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionGatewayAuthentication && equalTo((ConnectionGatewayAuthentication) other);
@@ -107,12 +107,12 @@ public final class ConnectionGatewayAuthentication {
                 && secretBase64Encoded.equals(other.secretBase64Encoded);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.method, this.subject, this.audience, this.secret, this.secretBase64Encoded);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -179,7 +179,7 @@ public final class ConnectionGatewayAuthentication {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(ConnectionGatewayAuthentication other) {
             method(other.getMethod());
             subject(other.getSubject());
@@ -194,7 +194,7 @@ public final class ConnectionGatewayAuthentication {
          * <p>The Authorization header type.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("method")
         public AudienceStage method(@NotNull String method) {
             this.method = Objects.requireNonNull(method, "method must not be null");
@@ -206,7 +206,7 @@ public final class ConnectionGatewayAuthentication {
          * <p>The audience to be added to the JWT payload.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("audience")
         public SecretStage audience(@NotNull String audience) {
             this.audience = Objects.requireNonNull(audience, "audience must not be null");
@@ -218,7 +218,7 @@ public final class ConnectionGatewayAuthentication {
          * <p>The secret to be used for signing tokens.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("secret")
         public _FinalStage secret(@NotNull String secret) {
             this.secret = Objects.requireNonNull(secret, "secret must not be null");
@@ -229,7 +229,7 @@ public final class ConnectionGatewayAuthentication {
          * <p>Set to true if the provided secret is base64 encoded.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage secretBase64Encoded(Boolean secretBase64Encoded) {
             this.secretBase64Encoded = Optional.ofNullable(secretBase64Encoded);
             return this;
@@ -238,7 +238,7 @@ public final class ConnectionGatewayAuthentication {
         /**
          * <p>Set to true if the provided secret is base64 encoded.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "secret_base64_encoded", nulls = Nulls.SKIP)
         public _FinalStage secretBase64Encoded(Optional<Boolean> secretBase64Encoded) {
             this.secretBase64Encoded = secretBase64Encoded;
@@ -249,7 +249,7 @@ public final class ConnectionGatewayAuthentication {
          * <p>The subject to be added to the JWT payload.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage subject(String subject) {
             this.subject = Optional.ofNullable(subject);
             return this;
@@ -258,14 +258,14 @@ public final class ConnectionGatewayAuthentication {
         /**
          * <p>The subject to be added to the JWT payload.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "subject", nulls = Nulls.SKIP)
         public _FinalStage subject(Optional<String> subject) {
             this.subject = subject;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public ConnectionGatewayAuthentication build() {
             return new ConnectionGatewayAuthentication(
                     method, subject, audience, secret, secretBase64Encoded, additionalProperties);

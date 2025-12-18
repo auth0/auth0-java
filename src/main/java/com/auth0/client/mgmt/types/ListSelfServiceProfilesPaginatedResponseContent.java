@@ -64,7 +64,7 @@ public final class ListSelfServiceProfilesPaginatedResponseContent {
         return selfServiceProfiles;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListSelfServiceProfilesPaginatedResponseContent
@@ -83,12 +83,12 @@ public final class ListSelfServiceProfilesPaginatedResponseContent {
                 && selfServiceProfiles.equals(other.selfServiceProfiles);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.start, this.limit, this.total, this.selfServiceProfiles);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

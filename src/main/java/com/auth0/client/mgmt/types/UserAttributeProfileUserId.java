@@ -67,7 +67,7 @@ public final class UserAttributeProfileUserId {
         return strategyOverrides;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UserAttributeProfileUserId && equalTo((UserAttributeProfileUserId) other);
@@ -85,12 +85,12 @@ public final class UserAttributeProfileUserId {
                 && strategyOverrides.equals(other.strategyOverrides);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.oidcMapping, this.samlMapping, this.scimMapping, this.strategyOverrides);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

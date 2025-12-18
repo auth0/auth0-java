@@ -38,7 +38,7 @@ public final class AttackProtectionCaptchaRecaptchaV2ResponseContent {
         return siteKey;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof AttackProtectionCaptchaRecaptchaV2ResponseContent
@@ -54,12 +54,12 @@ public final class AttackProtectionCaptchaRecaptchaV2ResponseContent {
         return siteKey.equals(other.siteKey);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.siteKey);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -76,7 +76,7 @@ public final class CreateImportUsersRequestContent {
         return sendCompletionEmail;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateImportUsersRequestContent && equalTo((CreateImportUsersRequestContent) other);
@@ -94,12 +94,12 @@ public final class CreateImportUsersRequestContent {
                 && sendCompletionEmail.equals(other.sendCompletionEmail);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.upsert, this.externalId, this.sendCompletionEmail);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -157,7 +157,7 @@ public final class CreateImportUsersRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateImportUsersRequestContent other) {
             connectionId(other.getConnectionId());
             upsert(other.getUpsert());
@@ -171,7 +171,7 @@ public final class CreateImportUsersRequestContent {
          * <p>connection_id of the connection to which users will be imported.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_id")
         public _FinalStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
@@ -182,7 +182,7 @@ public final class CreateImportUsersRequestContent {
          * <p>Whether to send a completion email to all tenant owners when the job is finished (true) or not (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage sendCompletionEmail(Boolean sendCompletionEmail) {
             this.sendCompletionEmail = Optional.ofNullable(sendCompletionEmail);
             return this;
@@ -191,7 +191,7 @@ public final class CreateImportUsersRequestContent {
         /**
          * <p>Whether to send a completion email to all tenant owners when the job is finished (true) or not (false).</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "send_completion_email", nulls = Nulls.SKIP)
         public _FinalStage sendCompletionEmail(Optional<Boolean> sendCompletionEmail) {
             this.sendCompletionEmail = sendCompletionEmail;
@@ -202,7 +202,7 @@ public final class CreateImportUsersRequestContent {
          * <p>Customer-defined ID.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage externalId(String externalId) {
             this.externalId = Optional.ofNullable(externalId);
             return this;
@@ -211,7 +211,7 @@ public final class CreateImportUsersRequestContent {
         /**
          * <p>Customer-defined ID.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "external_id", nulls = Nulls.SKIP)
         public _FinalStage externalId(Optional<String> externalId) {
             this.externalId = externalId;
@@ -222,7 +222,7 @@ public final class CreateImportUsersRequestContent {
          * <p>Whether to update users if they already exist (true) or to ignore them (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage upsert(Boolean upsert) {
             this.upsert = Optional.ofNullable(upsert);
             return this;
@@ -231,14 +231,14 @@ public final class CreateImportUsersRequestContent {
         /**
          * <p>Whether to update users if they already exist (true) or to ignore them (false).</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "upsert", nulls = Nulls.SKIP)
         public _FinalStage upsert(Optional<Boolean> upsert) {
             this.upsert = upsert;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateImportUsersRequestContent build() {
             return new CreateImportUsersRequestContent(
                     connectionId, upsert, externalId, sendCompletionEmail, additionalProperties);

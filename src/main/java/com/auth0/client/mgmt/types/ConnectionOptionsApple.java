@@ -77,7 +77,7 @@ public final class ConnectionOptionsApple implements IConnectionOptionsCommon {
     }
 
     @JsonProperty("non_persistent_attrs")
-    @Override
+    @java.lang.Override
     public Optional<List<String>> getNonPersistentAttrs() {
         return nonPersistentAttrs;
     }
@@ -207,7 +207,7 @@ public final class ConnectionOptionsApple implements IConnectionOptionsCommon {
         return upstreamParams;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionOptionsApple && equalTo((ConnectionOptionsApple) other);
@@ -232,7 +232,7 @@ public final class ConnectionOptionsApple implements IConnectionOptionsCommon {
                 && upstreamParams.equals(other.upstreamParams);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.nonPersistentAttrs,
@@ -248,7 +248,7 @@ public final class ConnectionOptionsApple implements IConnectionOptionsCommon {
                 this.upstreamParams);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

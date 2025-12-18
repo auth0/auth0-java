@@ -98,7 +98,7 @@ public final class CreateGuardianEnrollmentTicketRequestContent {
         return allowMultipleEnrollments;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateGuardianEnrollmentTicketRequestContent
@@ -119,13 +119,13 @@ public final class CreateGuardianEnrollmentTicketRequestContent {
                 && allowMultipleEnrollments.equals(other.allowMultipleEnrollments);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.userId, this.email, this.sendMail, this.emailLocale, this.factor, this.allowMultipleEnrollments);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -198,7 +198,7 @@ public final class CreateGuardianEnrollmentTicketRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateGuardianEnrollmentTicketRequestContent other) {
             userId(other.getUserId());
             email(other.getEmail());
@@ -214,7 +214,7 @@ public final class CreateGuardianEnrollmentTicketRequestContent {
          * <p>user_id for the enrollment ticket</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("user_id")
         public _FinalStage userId(@NotNull String userId) {
             this.userId = Objects.requireNonNull(userId, "userId must not be null");
@@ -225,7 +225,7 @@ public final class CreateGuardianEnrollmentTicketRequestContent {
          * <p>Optional. Allows a user who has previously enrolled in MFA to enroll with additional factors.&lt;br /&gt;Note: Parameter can only be used with Universal Login; it cannot be used with Classic Login or custom MFA pages.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage allowMultipleEnrollments(Boolean allowMultipleEnrollments) {
             this.allowMultipleEnrollments = Optional.ofNullable(allowMultipleEnrollments);
             return this;
@@ -234,20 +234,20 @@ public final class CreateGuardianEnrollmentTicketRequestContent {
         /**
          * <p>Optional. Allows a user who has previously enrolled in MFA to enroll with additional factors.&lt;br /&gt;Note: Parameter can only be used with Universal Login; it cannot be used with Classic Login or custom MFA pages.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "allow_multiple_enrollments", nulls = Nulls.SKIP)
         public _FinalStage allowMultipleEnrollments(Optional<Boolean> allowMultipleEnrollments) {
             this.allowMultipleEnrollments = allowMultipleEnrollments;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage factor(GuardianEnrollmentFactorEnum factor) {
             this.factor = Optional.ofNullable(factor);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "factor", nulls = Nulls.SKIP)
         public _FinalStage factor(Optional<GuardianEnrollmentFactorEnum> factor) {
             this.factor = factor;
@@ -258,7 +258,7 @@ public final class CreateGuardianEnrollmentTicketRequestContent {
          * <p>Optional. Specify the locale of the enrollment email. Used with send_email.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage emailLocale(String emailLocale) {
             this.emailLocale = Optional.ofNullable(emailLocale);
             return this;
@@ -267,7 +267,7 @@ public final class CreateGuardianEnrollmentTicketRequestContent {
         /**
          * <p>Optional. Specify the locale of the enrollment email. Used with send_email.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "email_locale", nulls = Nulls.SKIP)
         public _FinalStage emailLocale(Optional<String> emailLocale) {
             this.emailLocale = emailLocale;
@@ -278,7 +278,7 @@ public final class CreateGuardianEnrollmentTicketRequestContent {
          * <p>Send an email to the user to start the enrollment</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage sendMail(Boolean sendMail) {
             this.sendMail = Optional.ofNullable(sendMail);
             return this;
@@ -287,7 +287,7 @@ public final class CreateGuardianEnrollmentTicketRequestContent {
         /**
          * <p>Send an email to the user to start the enrollment</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "send_mail", nulls = Nulls.SKIP)
         public _FinalStage sendMail(Optional<Boolean> sendMail) {
             this.sendMail = sendMail;
@@ -298,7 +298,7 @@ public final class CreateGuardianEnrollmentTicketRequestContent {
          * <p>alternate email to which the enrollment email will be sent. Optional - by default, the email will be sent to the user's default address</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage email(String email) {
             this.email = Optional.ofNullable(email);
             return this;
@@ -307,14 +307,14 @@ public final class CreateGuardianEnrollmentTicketRequestContent {
         /**
          * <p>alternate email to which the enrollment email will be sent. Optional - by default, the email will be sent to the user's default address</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "email", nulls = Nulls.SKIP)
         public _FinalStage email(Optional<String> email) {
             this.email = email;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateGuardianEnrollmentTicketRequestContent build() {
             return new CreateGuardianEnrollmentTicketRequestContent(
                     userId, email, sendMail, emailLocale, factor, allowMultipleEnrollments, additionalProperties);

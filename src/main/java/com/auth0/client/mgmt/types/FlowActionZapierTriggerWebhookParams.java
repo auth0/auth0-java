@@ -46,7 +46,7 @@ public final class FlowActionZapierTriggerWebhookParams {
         return method;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionZapierTriggerWebhookParams
@@ -62,12 +62,12 @@ public final class FlowActionZapierTriggerWebhookParams {
         return connectionId.equals(other.connectionId) && method.equals(other.method);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.method);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -101,34 +101,34 @@ public final class FlowActionZapierTriggerWebhookParams {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionZapierTriggerWebhookParams other) {
             connectionId(other.getConnectionId());
             method(other.getMethod());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_id")
         public _FinalStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage method(FlowActionZapierTriggerWebhookParamsMethod method) {
             this.method = Optional.ofNullable(method);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "method", nulls = Nulls.SKIP)
         public _FinalStage method(Optional<FlowActionZapierTriggerWebhookParamsMethod> method) {
             this.method = method;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionZapierTriggerWebhookParams build() {
             return new FlowActionZapierTriggerWebhookParams(connectionId, method, additionalProperties);
         }

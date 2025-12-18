@@ -34,7 +34,7 @@ public final class FormFieldFileConfigStorage {
         return type;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldFileConfigStorage && equalTo((FormFieldFileConfigStorage) other);
@@ -49,12 +49,12 @@ public final class FormFieldFileConfigStorage {
         return type.equals(other.type);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.type);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -82,20 +82,20 @@ public final class FormFieldFileConfigStorage {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FormFieldFileConfigStorage other) {
             type(other.getType());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public _FinalStage type(@NotNull FormFieldFileConfigStorageTypeEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FormFieldFileConfigStorage build() {
             return new FormFieldFileConfigStorage(type, additionalProperties);
         }

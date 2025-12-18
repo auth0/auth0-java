@@ -54,7 +54,7 @@ public final class UserAttributeProfileTemplate {
         return userAttributes;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UserAttributeProfileTemplate && equalTo((UserAttributeProfileTemplate) other);
@@ -69,12 +69,12 @@ public final class UserAttributeProfileTemplate {
         return name.equals(other.name) && userId.equals(other.userId) && userAttributes.equals(other.userAttributes);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.userId, this.userAttributes);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -91,7 +91,7 @@ public final class ListRolesRequestParameters {
         return nameFilter;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListRolesRequestParameters && equalTo((ListRolesRequestParameters) other);
@@ -109,12 +109,12 @@ public final class ListRolesRequestParameters {
                 && nameFilter.equals(other.nameFilter);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.perPage, this.page, this.includeTotals, this.nameFilter);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

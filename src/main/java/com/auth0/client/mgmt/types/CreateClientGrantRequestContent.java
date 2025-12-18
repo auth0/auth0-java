@@ -107,7 +107,7 @@ public final class CreateClientGrantRequestContent {
         return authorizationDetailsTypes;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateClientGrantRequestContent && equalTo((CreateClientGrantRequestContent) other);
@@ -128,7 +128,7 @@ public final class CreateClientGrantRequestContent {
                 && authorizationDetailsTypes.equals(other.authorizationDetailsTypes);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.clientId,
@@ -140,7 +140,7 @@ public final class CreateClientGrantRequestContent {
                 this.authorizationDetailsTypes);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -219,7 +219,7 @@ public final class CreateClientGrantRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateClientGrantRequestContent other) {
             clientId(other.getClientId());
             audience(other.getAudience());
@@ -236,7 +236,7 @@ public final class CreateClientGrantRequestContent {
          * <p>ID of the client.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("client_id")
         public AudienceStage clientId(@NotNull String clientId) {
             this.clientId = Objects.requireNonNull(clientId, "clientId must not be null");
@@ -248,7 +248,7 @@ public final class CreateClientGrantRequestContent {
          * <p>The audience (API identifier) of this client grant</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("audience")
         public _FinalStage audience(@NotNull String audience) {
             this.audience = Objects.requireNonNull(audience, "audience must not be null");
@@ -259,7 +259,7 @@ public final class CreateClientGrantRequestContent {
          * <p>Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s &lt;a href= &quot;https://www.okta.com/legal/&quot;&gt; Master Subscription Agreement.&lt;/a&gt;</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage authorizationDetailsTypes(List<String> authorizationDetailsTypes) {
             this.authorizationDetailsTypes = Optional.ofNullable(authorizationDetailsTypes);
             return this;
@@ -268,20 +268,20 @@ public final class CreateClientGrantRequestContent {
         /**
          * <p>Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s &lt;a href= &quot;https://www.okta.com/legal/&quot;&gt; Master Subscription Agreement.&lt;/a&gt;</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "authorization_details_types", nulls = Nulls.SKIP)
         public _FinalStage authorizationDetailsTypes(Optional<List<String>> authorizationDetailsTypes) {
             this.authorizationDetailsTypes = authorizationDetailsTypes;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage subjectType(ClientGrantSubjectTypeEnum subjectType) {
             this.subjectType = Optional.ofNullable(subjectType);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "subject_type", nulls = Nulls.SKIP)
         public _FinalStage subjectType(Optional<ClientGrantSubjectTypeEnum> subjectType) {
             this.subjectType = subjectType;
@@ -292,7 +292,7 @@ public final class CreateClientGrantRequestContent {
          * <p>Scopes allowed for this client grant.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage scope(List<String> scope) {
             this.scope = Optional.ofNullable(scope);
             return this;
@@ -301,7 +301,7 @@ public final class CreateClientGrantRequestContent {
         /**
          * <p>Scopes allowed for this client grant.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "scope", nulls = Nulls.SKIP)
         public _FinalStage scope(Optional<List<String>> scope) {
             this.scope = scope;
@@ -312,7 +312,7 @@ public final class CreateClientGrantRequestContent {
          * <p>If enabled, any organization can be used with this grant. If disabled (default), the grant must be explicitly assigned to the desired organizations.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage allowAnyOrganization(Boolean allowAnyOrganization) {
             this.allowAnyOrganization = Optional.ofNullable(allowAnyOrganization);
             return this;
@@ -321,27 +321,27 @@ public final class CreateClientGrantRequestContent {
         /**
          * <p>If enabled, any organization can be used with this grant. If disabled (default), the grant must be explicitly assigned to the desired organizations.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "allow_any_organization", nulls = Nulls.SKIP)
         public _FinalStage allowAnyOrganization(Optional<Boolean> allowAnyOrganization) {
             this.allowAnyOrganization = allowAnyOrganization;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage organizationUsage(ClientGrantOrganizationUsageEnum organizationUsage) {
             this.organizationUsage = Optional.ofNullable(organizationUsage);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "organization_usage", nulls = Nulls.SKIP)
         public _FinalStage organizationUsage(Optional<ClientGrantOrganizationUsageEnum> organizationUsage) {
             this.organizationUsage = organizationUsage;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateClientGrantRequestContent build() {
             return new CreateClientGrantRequestContent(
                     clientId,

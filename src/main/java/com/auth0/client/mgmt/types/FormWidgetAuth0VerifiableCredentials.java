@@ -100,7 +100,7 @@ public final class FormWidgetAuth0VerifiableCredentials {
         return sensitive;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormWidgetAuth0VerifiableCredentials
@@ -123,13 +123,13 @@ public final class FormWidgetAuth0VerifiableCredentials {
                 && sensitive.equals(other.sensitive);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id, this.category, this.type, this.config, this.label, this.hint, this.required, this.sensitive);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -199,7 +199,7 @@ public final class FormWidgetAuth0VerifiableCredentials {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FormWidgetAuth0VerifiableCredentials other) {
             id(other.getId());
             category(other.getCategory());
@@ -212,87 +212,87 @@ public final class FormWidgetAuth0VerifiableCredentials {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("id")
         public CategoryStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("category")
         public TypeStage category(@NotNull String category) {
             this.category = Objects.requireNonNull(category, "category must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public ConfigStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("config")
         public _FinalStage config(@NotNull FormWidgetAuth0VerifiableCredentialsConfig config) {
             this.config = Objects.requireNonNull(config, "config must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage sensitive(Boolean sensitive) {
             this.sensitive = Optional.ofNullable(sensitive);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "sensitive", nulls = Nulls.SKIP)
         public _FinalStage sensitive(Optional<Boolean> sensitive) {
             this.sensitive = sensitive;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage required(Boolean required) {
             this.required = Optional.ofNullable(required);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "required", nulls = Nulls.SKIP)
         public _FinalStage required(Optional<Boolean> required) {
             this.required = required;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage hint(String hint) {
             this.hint = Optional.ofNullable(hint);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "hint", nulls = Nulls.SKIP)
         public _FinalStage hint(Optional<String> hint) {
             this.hint = hint;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage label(String label) {
             this.label = Optional.ofNullable(label);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "label", nulls = Nulls.SKIP)
         public _FinalStage label(Optional<String> label) {
             this.label = label;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FormWidgetAuth0VerifiableCredentials build() {
             return new FormWidgetAuth0VerifiableCredentials(
                     id, category, type, config, label, hint, required, sensitive, additionalProperties);

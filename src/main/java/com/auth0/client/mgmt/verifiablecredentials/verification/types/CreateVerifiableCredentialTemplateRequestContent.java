@@ -83,7 +83,7 @@ public final class CreateVerifiableCredentialTemplateRequestContent {
         return wellKnownTrustedIssuers;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateVerifiableCredentialTemplateRequestContent
@@ -104,7 +104,7 @@ public final class CreateVerifiableCredentialTemplateRequestContent {
                 && wellKnownTrustedIssuers.equals(other.wellKnownTrustedIssuers);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.name,
@@ -115,7 +115,7 @@ public final class CreateVerifiableCredentialTemplateRequestContent {
                 this.wellKnownTrustedIssuers);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -179,7 +179,7 @@ public final class CreateVerifiableCredentialTemplateRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateVerifiableCredentialTemplateRequestContent other) {
             name(other.getName());
             type(other.getType());
@@ -190,35 +190,35 @@ public final class CreateVerifiableCredentialTemplateRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("name")
         public TypeStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public DialectStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("dialect")
         public PresentationStage dialect(@NotNull String dialect) {
             this.dialect = Objects.requireNonNull(dialect, "dialect must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("presentation")
         public WellKnownTrustedIssuersStage presentation(@NotNull MdlPresentationRequest presentation) {
             this.presentation = Objects.requireNonNull(presentation, "presentation must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("well_known_trusted_issuers")
         public _FinalStage wellKnownTrustedIssuers(@NotNull String wellKnownTrustedIssuers) {
             this.wellKnownTrustedIssuers =
@@ -226,20 +226,20 @@ public final class CreateVerifiableCredentialTemplateRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage customCertificateAuthority(String customCertificateAuthority) {
             this.customCertificateAuthority = Optional.ofNullable(customCertificateAuthority);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "custom_certificate_authority", nulls = Nulls.SKIP)
         public _FinalStage customCertificateAuthority(Optional<String> customCertificateAuthority) {
             this.customCertificateAuthority = customCertificateAuthority;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateVerifiableCredentialTemplateRequestContent build() {
             return new CreateVerifiableCredentialTemplateRequestContent(
                     name,

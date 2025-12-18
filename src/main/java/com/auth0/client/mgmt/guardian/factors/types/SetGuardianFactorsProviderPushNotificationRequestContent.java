@@ -36,7 +36,7 @@ public final class SetGuardianFactorsProviderPushNotificationRequestContent {
         return provider;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SetGuardianFactorsProviderPushNotificationRequestContent
@@ -52,12 +52,12 @@ public final class SetGuardianFactorsProviderPushNotificationRequestContent {
         return provider.equals(other.provider);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.provider);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -85,20 +85,20 @@ public final class SetGuardianFactorsProviderPushNotificationRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(SetGuardianFactorsProviderPushNotificationRequestContent other) {
             provider(other.getProvider());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("provider")
         public _FinalStage provider(@NotNull GuardianFactorsProviderPushNotificationProviderDataEnum provider) {
             this.provider = Objects.requireNonNull(provider, "provider must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public SetGuardianFactorsProviderPushNotificationRequestContent build() {
             return new SetGuardianFactorsProviderPushNotificationRequestContent(provider, additionalProperties);
         }

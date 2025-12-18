@@ -55,7 +55,7 @@ public final class FormFieldCardsConfig {
         return options;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldCardsConfig && equalTo((FormFieldCardsConfig) other);
@@ -70,12 +70,12 @@ public final class FormFieldCardsConfig {
         return hideLabels.equals(other.hideLabels) && multiple.equals(other.multiple) && options.equals(other.options);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.hideLabels, this.multiple, this.options);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

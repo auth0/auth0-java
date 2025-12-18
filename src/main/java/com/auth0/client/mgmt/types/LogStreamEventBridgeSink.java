@@ -61,7 +61,7 @@ public final class LogStreamEventBridgeSink {
         return awsPartnerEventSource;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof LogStreamEventBridgeSink && equalTo((LogStreamEventBridgeSink) other);
@@ -78,12 +78,12 @@ public final class LogStreamEventBridgeSink {
                 && awsPartnerEventSource.equals(other.awsPartnerEventSource);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.awsAccountId, this.awsRegion, this.awsPartnerEventSource);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -129,7 +129,7 @@ public final class LogStreamEventBridgeSink {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(LogStreamEventBridgeSink other) {
             awsAccountId(other.getAwsAccountId());
             awsRegion(other.getAwsRegion());
@@ -142,14 +142,14 @@ public final class LogStreamEventBridgeSink {
          * <p>AWS account ID</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("awsAccountId")
         public AwsRegionStage awsAccountId(@NotNull String awsAccountId) {
             this.awsAccountId = Objects.requireNonNull(awsAccountId, "awsAccountId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("awsRegion")
         public _FinalStage awsRegion(@NotNull LogStreamEventBridgeSinkRegionEnum awsRegion) {
             this.awsRegion = Objects.requireNonNull(awsRegion, "awsRegion must not be null");
@@ -160,7 +160,7 @@ public final class LogStreamEventBridgeSink {
          * <p>AWS EventBridge partner event source</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage awsPartnerEventSource(String awsPartnerEventSource) {
             this.awsPartnerEventSource = Optional.ofNullable(awsPartnerEventSource);
             return this;
@@ -169,14 +169,14 @@ public final class LogStreamEventBridgeSink {
         /**
          * <p>AWS EventBridge partner event source</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "awsPartnerEventSource", nulls = Nulls.SKIP)
         public _FinalStage awsPartnerEventSource(Optional<String> awsPartnerEventSource) {
             this.awsPartnerEventSource = awsPartnerEventSource;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public LogStreamEventBridgeSink build() {
             return new LogStreamEventBridgeSink(awsAccountId, awsRegion, awsPartnerEventSource, additionalProperties);
         }

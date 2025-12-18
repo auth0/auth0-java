@@ -96,7 +96,7 @@ public final class GetNetworkAclsResponseContent {
         return updatedAt;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetNetworkAclsResponseContent && equalTo((GetNetworkAclsResponseContent) other);
@@ -117,13 +117,13 @@ public final class GetNetworkAclsResponseContent {
                 && updatedAt.equals(other.updatedAt);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id, this.description, this.active, this.priority, this.rule, this.createdAt, this.updatedAt);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

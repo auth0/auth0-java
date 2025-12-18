@@ -146,7 +146,7 @@ public final class GetFlowsVaultConnectionResponseContent {
         return fingerprint;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetFlowsVaultConnectionResponseContent
@@ -171,7 +171,7 @@ public final class GetFlowsVaultConnectionResponseContent {
                 && fingerprint.equals(other.fingerprint);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -186,7 +186,7 @@ public final class GetFlowsVaultConnectionResponseContent {
                 this.fingerprint);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -303,7 +303,7 @@ public final class GetFlowsVaultConnectionResponseContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(GetFlowsVaultConnectionResponseContent other) {
             id(other.getId());
             appId(other.getAppId());
@@ -323,7 +323,7 @@ public final class GetFlowsVaultConnectionResponseContent {
          * <p>Flows Vault Connection identifier.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("id")
         public AppIdStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
@@ -335,7 +335,7 @@ public final class GetFlowsVaultConnectionResponseContent {
          * <p>Flows Vault Connection app identifier.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("app_id")
         public NameStage appId(@NotNull String appId) {
             this.appId = Objects.requireNonNull(appId, "appId must not be null");
@@ -347,7 +347,7 @@ public final class GetFlowsVaultConnectionResponseContent {
          * <p>Flows Vault Connection name.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("name")
         public ReadyStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
@@ -359,7 +359,7 @@ public final class GetFlowsVaultConnectionResponseContent {
          * <p>Whether the Flows Vault Connection is configured.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("ready")
         public CreatedAtStage ready(boolean ready) {
             this.ready = ready;
@@ -371,7 +371,7 @@ public final class GetFlowsVaultConnectionResponseContent {
          * <p>The ISO 8601 formatted date when this Flows Vault Connection was created.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("created_at")
         public UpdatedAtStage createdAt(@NotNull OffsetDateTime createdAt) {
             this.createdAt = Objects.requireNonNull(createdAt, "createdAt must not be null");
@@ -383,14 +383,14 @@ public final class GetFlowsVaultConnectionResponseContent {
          * <p>The ISO 8601 formatted date when this Flows Vault Connection was updated.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("updated_at")
         public FingerprintStage updatedAt(@NotNull OffsetDateTime updatedAt) {
             this.updatedAt = Objects.requireNonNull(updatedAt, "updatedAt must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("fingerprint")
         public _FinalStage fingerprint(@NotNull String fingerprint) {
             this.fingerprint = Objects.requireNonNull(fingerprint, "fingerprint must not be null");
@@ -401,7 +401,7 @@ public final class GetFlowsVaultConnectionResponseContent {
          * <p>The ISO 8601 formatted date when this Flows Vault Connection was refreshed.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage refreshedAt(OffsetDateTime refreshedAt) {
             this.refreshedAt = Optional.ofNullable(refreshedAt);
             return this;
@@ -410,7 +410,7 @@ public final class GetFlowsVaultConnectionResponseContent {
         /**
          * <p>The ISO 8601 formatted date when this Flows Vault Connection was refreshed.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "refreshed_at", nulls = Nulls.SKIP)
         public _FinalStage refreshedAt(Optional<OffsetDateTime> refreshedAt) {
             this.refreshedAt = refreshedAt;
@@ -421,7 +421,7 @@ public final class GetFlowsVaultConnectionResponseContent {
          * <p>Flows Vault Connection custom account name.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage accountName(String accountName) {
             this.accountName = Optional.ofNullable(accountName);
             return this;
@@ -430,7 +430,7 @@ public final class GetFlowsVaultConnectionResponseContent {
         /**
          * <p>Flows Vault Connection custom account name.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "account_name", nulls = Nulls.SKIP)
         public _FinalStage accountName(Optional<String> accountName) {
             this.accountName = accountName;
@@ -441,7 +441,7 @@ public final class GetFlowsVaultConnectionResponseContent {
          * <p>Flows Vault Connection environment.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage environment(String environment) {
             this.environment = Optional.ofNullable(environment);
             return this;
@@ -450,14 +450,14 @@ public final class GetFlowsVaultConnectionResponseContent {
         /**
          * <p>Flows Vault Connection environment.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "environment", nulls = Nulls.SKIP)
         public _FinalStage environment(Optional<String> environment) {
             this.environment = environment;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public GetFlowsVaultConnectionResponseContent build() {
             return new GetFlowsVaultConnectionResponseContent(
                     id,

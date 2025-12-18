@@ -34,7 +34,7 @@ public final class FormBlockDividerConfig {
         return text;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormBlockDividerConfig && equalTo((FormBlockDividerConfig) other);
@@ -49,12 +49,12 @@ public final class FormBlockDividerConfig {
         return text.equals(other.text);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.text);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

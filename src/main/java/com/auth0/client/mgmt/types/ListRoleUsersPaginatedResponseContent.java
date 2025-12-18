@@ -44,7 +44,7 @@ public final class ListRoleUsersPaginatedResponseContent {
         return users;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListRoleUsersPaginatedResponseContent
@@ -60,12 +60,12 @@ public final class ListRoleUsersPaginatedResponseContent {
         return next.equals(other.next) && users.equals(other.users);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.next, this.users);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

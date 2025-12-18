@@ -36,7 +36,7 @@ public final class AculClientFilterById {
         return id;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof AculClientFilterById && equalTo((AculClientFilterById) other);
@@ -51,12 +51,12 @@ public final class AculClientFilterById {
         return id.equals(other.id);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.id);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -87,7 +87,7 @@ public final class AculClientFilterById {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(AculClientFilterById other) {
             id(other.getId());
             return this;
@@ -98,14 +98,14 @@ public final class AculClientFilterById {
          * <p>Client ID</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("id")
         public _FinalStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public AculClientFilterById build() {
             return new AculClientFilterById(id, additionalProperties);
         }

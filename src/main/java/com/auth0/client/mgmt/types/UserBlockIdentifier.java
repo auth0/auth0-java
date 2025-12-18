@@ -63,7 +63,7 @@ public final class UserBlockIdentifier {
         return connection;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UserBlockIdentifier && equalTo((UserBlockIdentifier) other);
@@ -78,12 +78,12 @@ public final class UserBlockIdentifier {
         return identifier.equals(other.identifier) && ip.equals(other.ip) && connection.equals(other.connection);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.identifier, this.ip, this.connection);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

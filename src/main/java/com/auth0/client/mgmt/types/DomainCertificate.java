@@ -69,7 +69,7 @@ public final class DomainCertificate {
         return renewsBefore;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof DomainCertificate && equalTo((DomainCertificate) other);
@@ -87,12 +87,12 @@ public final class DomainCertificate {
                 && renewsBefore.equals(other.renewsBefore);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.status, this.errorMsg, this.certificateAuthority, this.renewsBefore);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

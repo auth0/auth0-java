@@ -96,7 +96,7 @@ public final class DeviceCredential {
         return clientId;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof DeviceCredential && equalTo((DeviceCredential) other);
@@ -116,12 +116,12 @@ public final class DeviceCredential {
                 && clientId.equals(other.clientId);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.id, this.deviceName, this.deviceId, this.type, this.userId, this.clientId);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

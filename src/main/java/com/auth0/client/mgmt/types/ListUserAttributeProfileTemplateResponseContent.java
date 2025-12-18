@@ -37,7 +37,7 @@ public final class ListUserAttributeProfileTemplateResponseContent {
         return userAttributeProfileTemplates;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListUserAttributeProfileTemplateResponseContent
@@ -53,12 +53,12 @@ public final class ListUserAttributeProfileTemplateResponseContent {
         return userAttributeProfileTemplates.equals(other.userAttributeProfileTemplates);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.userAttributeProfileTemplates);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

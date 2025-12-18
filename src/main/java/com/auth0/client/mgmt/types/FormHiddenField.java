@@ -43,7 +43,7 @@ public final class FormHiddenField {
         return value;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormHiddenField && equalTo((FormHiddenField) other);
@@ -58,12 +58,12 @@ public final class FormHiddenField {
         return key.equals(other.key) && value.equals(other.value);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.key, this.value);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -97,34 +97,34 @@ public final class FormHiddenField {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FormHiddenField other) {
             key(other.getKey());
             value(other.getValue());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("key")
         public _FinalStage key(@NotNull String key) {
             this.key = Objects.requireNonNull(key, "key must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage value(String value) {
             this.value = Optional.ofNullable(value);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "value", nulls = Nulls.SKIP)
         public _FinalStage value(Optional<String> value) {
             this.value = value;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FormHiddenField build() {
             return new FormHiddenField(key, value, additionalProperties);
         }

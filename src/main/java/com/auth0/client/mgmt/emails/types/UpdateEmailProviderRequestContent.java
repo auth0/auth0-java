@@ -93,7 +93,7 @@ public final class UpdateEmailProviderRequestContent {
         return settings;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateEmailProviderRequestContent && equalTo((UpdateEmailProviderRequestContent) other);
@@ -112,12 +112,12 @@ public final class UpdateEmailProviderRequestContent {
                 && settings.equals(other.settings);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.enabled, this.defaultFromAddress, this.credentials, this.settings);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

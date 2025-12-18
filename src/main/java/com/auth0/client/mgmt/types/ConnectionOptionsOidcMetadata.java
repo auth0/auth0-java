@@ -367,7 +367,7 @@ public final class ConnectionOptionsOidcMetadata {
         return scopesSupported;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionOptionsOidcMetadata && equalTo((ConnectionOptionsOidcMetadata) other);
@@ -417,7 +417,7 @@ public final class ConnectionOptionsOidcMetadata {
                 && userinfoSigningAlgValuesSupported.equals(other.userinfoSigningAlgValuesSupported);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.acrValuesSupported,
@@ -458,7 +458,7 @@ public final class ConnectionOptionsOidcMetadata {
                 this.userinfoSigningAlgValuesSupported);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -706,7 +706,7 @@ public final class ConnectionOptionsOidcMetadata {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(ConnectionOptionsOidcMetadata other) {
             acrValuesSupported(other.getAcrValuesSupported());
             authorizationEndpoint(other.getAuthorizationEndpoint());
@@ -747,7 +747,7 @@ public final class ConnectionOptionsOidcMetadata {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("authorization_endpoint")
         public IssuerStage authorizationEndpoint(@NotNull String authorizationEndpoint) {
             this.authorizationEndpoint =
@@ -755,53 +755,53 @@ public final class ConnectionOptionsOidcMetadata {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("issuer")
         public JwksUriStage issuer(@NotNull String issuer) {
             this.issuer = Objects.requireNonNull(issuer, "issuer must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("jwks_uri")
         public _FinalStage jwksUri(@NotNull String jwksUri) {
             this.jwksUri = Objects.requireNonNull(jwksUri, "jwksUri must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage userinfoSigningAlgValuesSupported(List<String> userinfoSigningAlgValuesSupported) {
             this.userinfoSigningAlgValuesSupported = Optional.ofNullable(userinfoSigningAlgValuesSupported);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "userinfo_signing_alg_values_supported", nulls = Nulls.SKIP)
         public _FinalStage userinfoSigningAlgValuesSupported(Optional<List<String>> userinfoSigningAlgValuesSupported) {
             this.userinfoSigningAlgValuesSupported = userinfoSigningAlgValuesSupported;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage userinfoEndpoint(String userinfoEndpoint) {
             this.userinfoEndpoint = Optional.ofNullable(userinfoEndpoint);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "userinfo_endpoint", nulls = Nulls.SKIP)
         public _FinalStage userinfoEndpoint(Optional<String> userinfoEndpoint) {
             this.userinfoEndpoint = userinfoEndpoint;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage userinfoEncryptionEncValuesSupported(List<String> userinfoEncryptionEncValuesSupported) {
             this.userinfoEncryptionEncValuesSupported = Optional.ofNullable(userinfoEncryptionEncValuesSupported);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "userinfo_encryption_enc_values_supported", nulls = Nulls.SKIP)
         public _FinalStage userinfoEncryptionEncValuesSupported(
                 Optional<List<String>> userinfoEncryptionEncValuesSupported) {
@@ -809,13 +809,13 @@ public final class ConnectionOptionsOidcMetadata {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage userinfoEncryptionAlgValuesSupported(List<String> userinfoEncryptionAlgValuesSupported) {
             this.userinfoEncryptionAlgValuesSupported = Optional.ofNullable(userinfoEncryptionAlgValuesSupported);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "userinfo_encryption_alg_values_supported", nulls = Nulls.SKIP)
         public _FinalStage userinfoEncryptionAlgValuesSupported(
                 Optional<List<String>> userinfoEncryptionAlgValuesSupported) {
@@ -823,20 +823,20 @@ public final class ConnectionOptionsOidcMetadata {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage uiLocalesSupported(List<String> uiLocalesSupported) {
             this.uiLocalesSupported = Optional.ofNullable(uiLocalesSupported);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "ui_locales_supported", nulls = Nulls.SKIP)
         public _FinalStage uiLocalesSupported(Optional<List<String>> uiLocalesSupported) {
             this.uiLocalesSupported = uiLocalesSupported;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage tokenEndpointAuthSigningAlgValuesSupported(
                 List<String> tokenEndpointAuthSigningAlgValuesSupported) {
             this.tokenEndpointAuthSigningAlgValuesSupported =
@@ -844,7 +844,7 @@ public final class ConnectionOptionsOidcMetadata {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "token_endpoint_auth_signing_alg_values_supported", nulls = Nulls.SKIP)
         public _FinalStage tokenEndpointAuthSigningAlgValuesSupported(
                 Optional<List<String>> tokenEndpointAuthSigningAlgValuesSupported) {
@@ -852,59 +852,59 @@ public final class ConnectionOptionsOidcMetadata {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage tokenEndpointAuthMethodsSupported(List<String> tokenEndpointAuthMethodsSupported) {
             this.tokenEndpointAuthMethodsSupported = Optional.ofNullable(tokenEndpointAuthMethodsSupported);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "token_endpoint_auth_methods_supported", nulls = Nulls.SKIP)
         public _FinalStage tokenEndpointAuthMethodsSupported(Optional<List<String>> tokenEndpointAuthMethodsSupported) {
             this.tokenEndpointAuthMethodsSupported = tokenEndpointAuthMethodsSupported;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage tokenEndpoint(String tokenEndpoint) {
             this.tokenEndpoint = Optional.ofNullable(tokenEndpoint);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "token_endpoint", nulls = Nulls.SKIP)
         public _FinalStage tokenEndpoint(Optional<String> tokenEndpoint) {
             this.tokenEndpoint = tokenEndpoint;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage subjectTypesSupported(List<String> subjectTypesSupported) {
             this.subjectTypesSupported = Optional.ofNullable(subjectTypesSupported);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "subject_types_supported", nulls = Nulls.SKIP)
         public _FinalStage subjectTypesSupported(Optional<List<String>> subjectTypesSupported) {
             this.subjectTypesSupported = subjectTypesSupported;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage serviceDocumentation(String serviceDocumentation) {
             this.serviceDocumentation = Optional.ofNullable(serviceDocumentation);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "service_documentation", nulls = Nulls.SKIP)
         public _FinalStage serviceDocumentation(Optional<String> serviceDocumentation) {
             this.serviceDocumentation = serviceDocumentation;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage scopesSupported(com.auth0.client.mgmt.core.Nullable<List<String>> scopesSupported) {
             if (scopesSupported.isNull()) {
                 this.scopesSupported = OptionalNullable.ofNull();
@@ -916,7 +916,7 @@ public final class ConnectionOptionsOidcMetadata {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage scopesSupported(Optional<List<String>> scopesSupported) {
             if (scopesSupported.isPresent()) {
                 this.scopesSupported = OptionalNullable.of(scopesSupported.get());
@@ -926,91 +926,91 @@ public final class ConnectionOptionsOidcMetadata {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage scopesSupported(List<String> scopesSupported) {
             this.scopesSupported = OptionalNullable.of(scopesSupported);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "scopes_supported", nulls = Nulls.SKIP)
         public _FinalStage scopesSupported(@Nullable OptionalNullable<List<String>> scopesSupported) {
             this.scopesSupported = scopesSupported;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage responseTypesSupported(List<String> responseTypesSupported) {
             this.responseTypesSupported = Optional.ofNullable(responseTypesSupported);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "response_types_supported", nulls = Nulls.SKIP)
         public _FinalStage responseTypesSupported(Optional<List<String>> responseTypesSupported) {
             this.responseTypesSupported = responseTypesSupported;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage responseModesSupported(List<String> responseModesSupported) {
             this.responseModesSupported = Optional.ofNullable(responseModesSupported);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "response_modes_supported", nulls = Nulls.SKIP)
         public _FinalStage responseModesSupported(Optional<List<String>> responseModesSupported) {
             this.responseModesSupported = responseModesSupported;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage requireRequestUriRegistration(Boolean requireRequestUriRegistration) {
             this.requireRequestUriRegistration = Optional.ofNullable(requireRequestUriRegistration);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "require_request_uri_registration", nulls = Nulls.SKIP)
         public _FinalStage requireRequestUriRegistration(Optional<Boolean> requireRequestUriRegistration) {
             this.requireRequestUriRegistration = requireRequestUriRegistration;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage requestUriParameterSupported(Boolean requestUriParameterSupported) {
             this.requestUriParameterSupported = Optional.ofNullable(requestUriParameterSupported);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "request_uri_parameter_supported", nulls = Nulls.SKIP)
         public _FinalStage requestUriParameterSupported(Optional<Boolean> requestUriParameterSupported) {
             this.requestUriParameterSupported = requestUriParameterSupported;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage requestParameterSupported(Boolean requestParameterSupported) {
             this.requestParameterSupported = Optional.ofNullable(requestParameterSupported);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "request_parameter_supported", nulls = Nulls.SKIP)
         public _FinalStage requestParameterSupported(Optional<Boolean> requestParameterSupported) {
             this.requestParameterSupported = requestParameterSupported;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage requestObjectSigningAlgValuesSupported(List<String> requestObjectSigningAlgValuesSupported) {
             this.requestObjectSigningAlgValuesSupported = Optional.ofNullable(requestObjectSigningAlgValuesSupported);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "request_object_signing_alg_values_supported", nulls = Nulls.SKIP)
         public _FinalStage requestObjectSigningAlgValuesSupported(
                 Optional<List<String>> requestObjectSigningAlgValuesSupported) {
@@ -1018,7 +1018,7 @@ public final class ConnectionOptionsOidcMetadata {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage requestObjectEncryptionEncValuesSupported(
                 List<String> requestObjectEncryptionEncValuesSupported) {
             this.requestObjectEncryptionEncValuesSupported =
@@ -1026,7 +1026,7 @@ public final class ConnectionOptionsOidcMetadata {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "request_object_encryption_enc_values_supported", nulls = Nulls.SKIP)
         public _FinalStage requestObjectEncryptionEncValuesSupported(
                 Optional<List<String>> requestObjectEncryptionEncValuesSupported) {
@@ -1034,7 +1034,7 @@ public final class ConnectionOptionsOidcMetadata {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage requestObjectEncryptionAlgValuesSupported(
                 List<String> requestObjectEncryptionAlgValuesSupported) {
             this.requestObjectEncryptionAlgValuesSupported =
@@ -1042,7 +1042,7 @@ public final class ConnectionOptionsOidcMetadata {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "request_object_encryption_alg_values_supported", nulls = Nulls.SKIP)
         public _FinalStage requestObjectEncryptionAlgValuesSupported(
                 Optional<List<String>> requestObjectEncryptionAlgValuesSupported) {
@@ -1050,46 +1050,46 @@ public final class ConnectionOptionsOidcMetadata {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage registrationEndpoint(String registrationEndpoint) {
             this.registrationEndpoint = Optional.ofNullable(registrationEndpoint);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "registration_endpoint", nulls = Nulls.SKIP)
         public _FinalStage registrationEndpoint(Optional<String> registrationEndpoint) {
             this.registrationEndpoint = registrationEndpoint;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage opTosUri(String opTosUri) {
             this.opTosUri = Optional.ofNullable(opTosUri);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "op_tos_uri", nulls = Nulls.SKIP)
         public _FinalStage opTosUri(Optional<String> opTosUri) {
             this.opTosUri = opTosUri;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage opPolicyUri(String opPolicyUri) {
             this.opPolicyUri = Optional.ofNullable(opPolicyUri);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "op_policy_uri", nulls = Nulls.SKIP)
         public _FinalStage opPolicyUri(Optional<String> opPolicyUri) {
             this.opPolicyUri = opPolicyUri;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage addAllIdTokenSigningAlgValuesSupported(List<String> idTokenSigningAlgValuesSupported) {
             if (idTokenSigningAlgValuesSupported != null) {
                 this.idTokenSigningAlgValuesSupported.addAll(idTokenSigningAlgValuesSupported);
@@ -1097,13 +1097,13 @@ public final class ConnectionOptionsOidcMetadata {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage addIdTokenSigningAlgValuesSupported(String idTokenSigningAlgValuesSupported) {
             this.idTokenSigningAlgValuesSupported.add(idTokenSigningAlgValuesSupported);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "id_token_signing_alg_values_supported", nulls = Nulls.SKIP)
         public _FinalStage idTokenSigningAlgValuesSupported(List<String> idTokenSigningAlgValuesSupported) {
             this.idTokenSigningAlgValuesSupported.clear();
@@ -1113,13 +1113,13 @@ public final class ConnectionOptionsOidcMetadata {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage idTokenEncryptionEncValuesSupported(List<String> idTokenEncryptionEncValuesSupported) {
             this.idTokenEncryptionEncValuesSupported = Optional.ofNullable(idTokenEncryptionEncValuesSupported);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "id_token_encryption_enc_values_supported", nulls = Nulls.SKIP)
         public _FinalStage idTokenEncryptionEncValuesSupported(
                 Optional<List<String>> idTokenEncryptionEncValuesSupported) {
@@ -1127,13 +1127,13 @@ public final class ConnectionOptionsOidcMetadata {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage idTokenEncryptionAlgValuesSupported(List<String> idTokenEncryptionAlgValuesSupported) {
             this.idTokenEncryptionAlgValuesSupported = Optional.ofNullable(idTokenEncryptionAlgValuesSupported);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "id_token_encryption_alg_values_supported", nulls = Nulls.SKIP)
         public _FinalStage idTokenEncryptionAlgValuesSupported(
                 Optional<List<String>> idTokenEncryptionAlgValuesSupported) {
@@ -1141,111 +1141,111 @@ public final class ConnectionOptionsOidcMetadata {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage grantTypesSupported(List<String> grantTypesSupported) {
             this.grantTypesSupported = Optional.ofNullable(grantTypesSupported);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "grant_types_supported", nulls = Nulls.SKIP)
         public _FinalStage grantTypesSupported(Optional<List<String>> grantTypesSupported) {
             this.grantTypesSupported = grantTypesSupported;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage endSessionEndpoint(String endSessionEndpoint) {
             this.endSessionEndpoint = Optional.ofNullable(endSessionEndpoint);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "end_session_endpoint", nulls = Nulls.SKIP)
         public _FinalStage endSessionEndpoint(Optional<String> endSessionEndpoint) {
             this.endSessionEndpoint = endSessionEndpoint;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage displayValuesSupported(List<String> displayValuesSupported) {
             this.displayValuesSupported = Optional.ofNullable(displayValuesSupported);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "display_values_supported", nulls = Nulls.SKIP)
         public _FinalStage displayValuesSupported(Optional<List<String>> displayValuesSupported) {
             this.displayValuesSupported = displayValuesSupported;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage claimsSupported(List<String> claimsSupported) {
             this.claimsSupported = Optional.ofNullable(claimsSupported);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "claims_supported", nulls = Nulls.SKIP)
         public _FinalStage claimsSupported(Optional<List<String>> claimsSupported) {
             this.claimsSupported = claimsSupported;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage claimsParameterSupported(Boolean claimsParameterSupported) {
             this.claimsParameterSupported = Optional.ofNullable(claimsParameterSupported);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "claims_parameter_supported", nulls = Nulls.SKIP)
         public _FinalStage claimsParameterSupported(Optional<Boolean> claimsParameterSupported) {
             this.claimsParameterSupported = claimsParameterSupported;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage claimsLocalesSupported(List<String> claimsLocalesSupported) {
             this.claimsLocalesSupported = Optional.ofNullable(claimsLocalesSupported);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "claims_locales_supported", nulls = Nulls.SKIP)
         public _FinalStage claimsLocalesSupported(Optional<List<String>> claimsLocalesSupported) {
             this.claimsLocalesSupported = claimsLocalesSupported;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage claimTypesSupported(List<String> claimTypesSupported) {
             this.claimTypesSupported = Optional.ofNullable(claimTypesSupported);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "claim_types_supported", nulls = Nulls.SKIP)
         public _FinalStage claimTypesSupported(Optional<List<String>> claimTypesSupported) {
             this.claimTypesSupported = claimTypesSupported;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage acrValuesSupported(List<String> acrValuesSupported) {
             this.acrValuesSupported = Optional.ofNullable(acrValuesSupported);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "acr_values_supported", nulls = Nulls.SKIP)
         public _FinalStage acrValuesSupported(Optional<List<String>> acrValuesSupported) {
             this.acrValuesSupported = acrValuesSupported;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public ConnectionOptionsOidcMetadata build() {
             return new ConnectionOptionsOidcMetadata(
                     acrValuesSupported,

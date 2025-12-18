@@ -38,7 +38,7 @@ public final class TenantSettingsSessions {
         return oidcLogoutPromptEnabled;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof TenantSettingsSessions && equalTo((TenantSettingsSessions) other);
@@ -53,12 +53,12 @@ public final class TenantSettingsSessions {
         return oidcLogoutPromptEnabled.equals(other.oidcLogoutPromptEnabled);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.oidcLogoutPromptEnabled);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

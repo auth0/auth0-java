@@ -123,7 +123,7 @@ public final class LogLocationInfo {
         return continentCode;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof LogLocationInfo && equalTo((LogLocationInfo) other);
@@ -145,7 +145,7 @@ public final class LogLocationInfo {
                 && continentCode.equals(other.continentCode);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.countryCode,
@@ -158,7 +158,7 @@ public final class LogLocationInfo {
                 this.continentCode);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -49,7 +49,7 @@ public final class ListFlowExecutionsPaginatedResponseContent {
         return executions;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListFlowExecutionsPaginatedResponseContent
@@ -65,12 +65,12 @@ public final class ListFlowExecutionsPaginatedResponseContent {
         return next.equals(other.next) && executions.equals(other.executions);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.next, this.executions);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

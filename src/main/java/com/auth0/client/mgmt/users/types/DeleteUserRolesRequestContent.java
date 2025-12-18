@@ -38,7 +38,7 @@ public final class DeleteUserRolesRequestContent {
         return roles;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof DeleteUserRolesRequestContent && equalTo((DeleteUserRolesRequestContent) other);
@@ -53,12 +53,12 @@ public final class DeleteUserRolesRequestContent {
         return roles.equals(other.roles);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.roles);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

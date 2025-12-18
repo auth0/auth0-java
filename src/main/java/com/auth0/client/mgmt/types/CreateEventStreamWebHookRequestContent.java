@@ -71,7 +71,7 @@ public final class CreateEventStreamWebHookRequestContent {
         return status;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateEventStreamWebHookRequestContent
@@ -90,12 +90,12 @@ public final class CreateEventStreamWebHookRequestContent {
                 && status.equals(other.status);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.subscriptions, this.destination, this.status);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -147,7 +147,7 @@ public final class CreateEventStreamWebHookRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateEventStreamWebHookRequestContent other) {
             name(other.getName());
             subscriptions(other.getSubscriptions());
@@ -156,20 +156,20 @@ public final class CreateEventStreamWebHookRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("destination")
         public _FinalStage destination(@NotNull EventStreamWebhookDestination destination) {
             this.destination = Objects.requireNonNull(destination, "destination must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage status(EventStreamStatusEnum status) {
             this.status = Optional.ofNullable(status);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public _FinalStage status(Optional<EventStreamStatusEnum> status) {
             this.status = status;
@@ -180,7 +180,7 @@ public final class CreateEventStreamWebHookRequestContent {
          * <p>List of event types subscribed to in this stream.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage subscriptions(List<EventStreamSubscription> subscriptions) {
             this.subscriptions = Optional.ofNullable(subscriptions);
             return this;
@@ -189,7 +189,7 @@ public final class CreateEventStreamWebHookRequestContent {
         /**
          * <p>List of event types subscribed to in this stream.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "subscriptions", nulls = Nulls.SKIP)
         public _FinalStage subscriptions(Optional<List<EventStreamSubscription>> subscriptions) {
             this.subscriptions = subscriptions;
@@ -200,7 +200,7 @@ public final class CreateEventStreamWebHookRequestContent {
          * <p>Name of the event stream.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage name(String name) {
             this.name = Optional.ofNullable(name);
             return this;
@@ -209,14 +209,14 @@ public final class CreateEventStreamWebHookRequestContent {
         /**
          * <p>Name of the event stream.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<String> name) {
             this.name = name;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateEventStreamWebHookRequestContent build() {
             return new CreateEventStreamWebHookRequestContent(
                     name, subscriptions, destination, status, additionalProperties);

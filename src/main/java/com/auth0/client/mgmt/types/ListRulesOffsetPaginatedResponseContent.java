@@ -64,7 +64,7 @@ public final class ListRulesOffsetPaginatedResponseContent {
         return rules;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListRulesOffsetPaginatedResponseContent
@@ -83,12 +83,12 @@ public final class ListRulesOffsetPaginatedResponseContent {
                 && rules.equals(other.rules);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.start, this.limit, this.total, this.rules);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

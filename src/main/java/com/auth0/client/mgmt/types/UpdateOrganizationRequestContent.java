@@ -91,7 +91,7 @@ public final class UpdateOrganizationRequestContent {
         return tokenQuota;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateOrganizationRequestContent && equalTo((UpdateOrganizationRequestContent) other);
@@ -110,12 +110,12 @@ public final class UpdateOrganizationRequestContent {
                 && tokenQuota.equals(other.tokenQuota);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.displayName, this.name, this.branding, this.metadata, this.tokenQuota);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

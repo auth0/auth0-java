@@ -25,7 +25,7 @@ public final class NotFoundError extends ManagementApiException {
     /**
      * @return the body
      */
-    @Override
+    @java.lang.Override
     public Object body() {
         return this.body;
     }

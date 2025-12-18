@@ -33,7 +33,7 @@ public final class EventStreamWebhookBearerAuth {
         return method;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof EventStreamWebhookBearerAuth && equalTo((EventStreamWebhookBearerAuth) other);
@@ -48,12 +48,12 @@ public final class EventStreamWebhookBearerAuth {
         return method.equals(other.method);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.method);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -81,20 +81,20 @@ public final class EventStreamWebhookBearerAuth {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(EventStreamWebhookBearerAuth other) {
             method(other.getMethod());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("method")
         public _FinalStage method(@NotNull String method) {
             this.method = Objects.requireNonNull(method, "method must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public EventStreamWebhookBearerAuth build() {
             return new EventStreamWebhookBearerAuth(method, additionalProperties);
         }

@@ -11,13 +11,12 @@ import com.auth0.client.mgmt.eventstreams.AsyncRedeliveriesClient;
 import com.auth0.client.mgmt.types.CreateEventStreamResponseContent;
 import com.auth0.client.mgmt.types.CreateEventStreamTestEventRequestContent;
 import com.auth0.client.mgmt.types.CreateEventStreamTestEventResponseContent;
-import com.auth0.client.mgmt.types.EventStreamResponseContent;
 import com.auth0.client.mgmt.types.EventStreamsCreateRequest;
 import com.auth0.client.mgmt.types.GetEventStreamResponseContent;
 import com.auth0.client.mgmt.types.ListEventStreamsRequestParameters;
+import com.auth0.client.mgmt.types.ListEventStreamsResponseContent;
 import com.auth0.client.mgmt.types.UpdateEventStreamRequestContent;
 import com.auth0.client.mgmt.types.UpdateEventStreamResponseContent;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
@@ -44,15 +43,15 @@ public class AsyncEventStreamsClient {
         return this.rawClient;
     }
 
-    public CompletableFuture<List<EventStreamResponseContent>> list() {
+    public CompletableFuture<ListEventStreamsResponseContent> list() {
         return this.rawClient.list().thenApply(response -> response.body());
     }
 
-    public CompletableFuture<List<EventStreamResponseContent>> list(ListEventStreamsRequestParameters request) {
+    public CompletableFuture<ListEventStreamsResponseContent> list(ListEventStreamsRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
 
-    public CompletableFuture<List<EventStreamResponseContent>> list(
+    public CompletableFuture<ListEventStreamsResponseContent> list(
             ListEventStreamsRequestParameters request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).thenApply(response -> response.body());
     }

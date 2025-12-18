@@ -63,7 +63,7 @@ public final class GetJobImportUserError {
         return path;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetJobImportUserError && equalTo((GetJobImportUserError) other);
@@ -78,12 +78,12 @@ public final class GetJobImportUserError {
         return code.equals(other.code) && message.equals(other.message) && path.equals(other.path);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.code, this.message, this.path);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

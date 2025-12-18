@@ -69,7 +69,7 @@ public final class UpdateBrandingResponseContent {
         return font;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateBrandingResponseContent && equalTo((UpdateBrandingResponseContent) other);
@@ -87,12 +87,12 @@ public final class UpdateBrandingResponseContent {
                 && font.equals(other.font);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.colors, this.faviconUrl, this.logoUrl, this.font);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

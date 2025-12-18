@@ -11,13 +11,12 @@ import com.auth0.client.mgmt.eventstreams.RedeliveriesClient;
 import com.auth0.client.mgmt.types.CreateEventStreamResponseContent;
 import com.auth0.client.mgmt.types.CreateEventStreamTestEventRequestContent;
 import com.auth0.client.mgmt.types.CreateEventStreamTestEventResponseContent;
-import com.auth0.client.mgmt.types.EventStreamResponseContent;
 import com.auth0.client.mgmt.types.EventStreamsCreateRequest;
 import com.auth0.client.mgmt.types.GetEventStreamResponseContent;
 import com.auth0.client.mgmt.types.ListEventStreamsRequestParameters;
+import com.auth0.client.mgmt.types.ListEventStreamsResponseContent;
 import com.auth0.client.mgmt.types.UpdateEventStreamRequestContent;
 import com.auth0.client.mgmt.types.UpdateEventStreamResponseContent;
-import java.util.List;
 import java.util.function.Supplier;
 
 public class EventStreamsClient {
@@ -43,15 +42,15 @@ public class EventStreamsClient {
         return this.rawClient;
     }
 
-    public List<EventStreamResponseContent> list() {
+    public ListEventStreamsResponseContent list() {
         return this.rawClient.list().body();
     }
 
-    public List<EventStreamResponseContent> list(ListEventStreamsRequestParameters request) {
+    public ListEventStreamsResponseContent list(ListEventStreamsRequestParameters request) {
         return this.rawClient.list(request).body();
     }
 
-    public List<EventStreamResponseContent> list(
+    public ListEventStreamsResponseContent list(
             ListEventStreamsRequestParameters request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).body();
     }

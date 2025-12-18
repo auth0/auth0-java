@@ -153,7 +153,7 @@ public final class ListClientGrantsRequestParameters {
         return subjectType;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListClientGrantsRequestParameters && equalTo((ListClientGrantsRequestParameters) other);
@@ -173,13 +173,13 @@ public final class ListClientGrantsRequestParameters {
                 && subjectType.equals(other.subjectType);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.from, this.take, this.audience, this.clientId, this.allowAnyOrganization, this.subjectType);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

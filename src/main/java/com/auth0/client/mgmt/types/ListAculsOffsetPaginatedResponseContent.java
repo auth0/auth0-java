@@ -73,7 +73,7 @@ public final class ListAculsOffsetPaginatedResponseContent {
         return total;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListAculsOffsetPaginatedResponseContent
@@ -92,12 +92,12 @@ public final class ListAculsOffsetPaginatedResponseContent {
                 && total.equals(other.total);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.configs, this.start, this.limit, this.total);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

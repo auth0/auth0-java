@@ -82,7 +82,7 @@ public final class UpdateBotDetectionSettingsResponseContent {
         return monitoringModeEnabled;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateBotDetectionSettingsResponseContent
@@ -103,7 +103,7 @@ public final class UpdateBotDetectionSettingsResponseContent {
                 && monitoringModeEnabled.equals(other.monitoringModeEnabled);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.botDetectionLevel,
@@ -114,7 +114,7 @@ public final class UpdateBotDetectionSettingsResponseContent {
                 this.monitoringModeEnabled);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -37,7 +37,7 @@ public final class BrandingFont {
         return url;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof BrandingFont && equalTo((BrandingFont) other);
@@ -52,12 +52,12 @@ public final class BrandingFont {
         return url.equals(other.url);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.url);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

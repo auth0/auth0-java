@@ -223,7 +223,7 @@ public final class ListUsersRequestParameters {
         return primaryOrder;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListUsersRequestParameters && equalTo((ListUsersRequestParameters) other);
@@ -247,7 +247,7 @@ public final class ListUsersRequestParameters {
                 && primaryOrder.equals(other.primaryOrder);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.page,
@@ -262,7 +262,7 @@ public final class ListUsersRequestParameters {
                 this.primaryOrder);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

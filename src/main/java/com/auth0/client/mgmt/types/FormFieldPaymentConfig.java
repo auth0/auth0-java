@@ -73,7 +73,7 @@ public final class FormFieldPaymentConfig {
         return fields;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldPaymentConfig && equalTo((FormFieldPaymentConfig) other);
@@ -92,12 +92,12 @@ public final class FormFieldPaymentConfig {
                 && fields.equals(other.fields);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.provider, this.charge, this.credentials, this.customer, this.fields);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -149,7 +149,7 @@ public final class FormFieldPaymentConfig {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FormFieldPaymentConfig other) {
             provider(other.getProvider());
             charge(other.getCharge());
@@ -159,60 +159,60 @@ public final class FormFieldPaymentConfig {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("charge")
         public CredentialsStage charge(@NotNull FormFieldPaymentConfigCharge charge) {
             this.charge = Objects.requireNonNull(charge, "charge must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("credentials")
         public _FinalStage credentials(@NotNull FormFieldPaymentConfigCredentials credentials) {
             this.credentials = Objects.requireNonNull(credentials, "credentials must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage fields(FormFieldPaymentConfigFields fields) {
             this.fields = Optional.ofNullable(fields);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "fields", nulls = Nulls.SKIP)
         public _FinalStage fields(Optional<FormFieldPaymentConfigFields> fields) {
             this.fields = fields;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage customer(Map<String, Object> customer) {
             this.customer = Optional.ofNullable(customer);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "customer", nulls = Nulls.SKIP)
         public _FinalStage customer(Optional<Map<String, Object>> customer) {
             this.customer = customer;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage provider(String provider) {
             this.provider = Optional.ofNullable(provider);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "provider", nulls = Nulls.SKIP)
         public _FinalStage provider(Optional<String> provider) {
             this.provider = provider;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FormFieldPaymentConfig build() {
             return new FormFieldPaymentConfig(provider, charge, credentials, customer, fields, additionalProperties);
         }

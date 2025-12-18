@@ -142,7 +142,7 @@ public final class ClientCredential {
         return expiresAt;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientCredential && equalTo((ClientCredential) other);
@@ -166,7 +166,7 @@ public final class ClientCredential {
                 && expiresAt.equals(other.expiresAt);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -181,7 +181,7 @@ public final class ClientCredential {
                 this.expiresAt);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

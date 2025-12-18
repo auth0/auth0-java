@@ -147,7 +147,7 @@ public final class CreateFormResponseContent {
         return submittedAt;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateFormResponseContent && equalTo((CreateFormResponseContent) other);
@@ -174,7 +174,7 @@ public final class CreateFormResponseContent {
                 && submittedAt.equals(other.submittedAt);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -192,7 +192,7 @@ public final class CreateFormResponseContent {
                 this.submittedAt);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -292,7 +292,7 @@ public final class CreateFormResponseContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateFormResponseContent other) {
             id(other.getId());
             name(other.getName());
@@ -310,152 +310,152 @@ public final class CreateFormResponseContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("id")
         public NameStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("name")
         public CreatedAtStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("created_at")
         public UpdatedAtStage createdAt(@NotNull OffsetDateTime createdAt) {
             this.createdAt = Objects.requireNonNull(createdAt, "createdAt must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("updated_at")
         public _FinalStage updatedAt(@NotNull OffsetDateTime updatedAt) {
             this.updatedAt = Objects.requireNonNull(updatedAt, "updatedAt must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage submittedAt(String submittedAt) {
             this.submittedAt = Optional.ofNullable(submittedAt);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "submitted_at", nulls = Nulls.SKIP)
         public _FinalStage submittedAt(Optional<String> submittedAt) {
             this.submittedAt = submittedAt;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage embeddedAt(String embeddedAt) {
             this.embeddedAt = Optional.ofNullable(embeddedAt);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "embedded_at", nulls = Nulls.SKIP)
         public _FinalStage embeddedAt(Optional<String> embeddedAt) {
             this.embeddedAt = embeddedAt;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage style(FormStyle style) {
             this.style = Optional.ofNullable(style);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "style", nulls = Nulls.SKIP)
         public _FinalStage style(Optional<FormStyle> style) {
             this.style = style;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage ending(FormEndingNode ending) {
             this.ending = Optional.ofNullable(ending);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "ending", nulls = Nulls.SKIP)
         public _FinalStage ending(Optional<FormEndingNode> ending) {
             this.ending = ending;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage start(FormStartNode start) {
             this.start = Optional.ofNullable(start);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "start", nulls = Nulls.SKIP)
         public _FinalStage start(Optional<FormStartNode> start) {
             this.start = start;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage nodes(List<FormNode> nodes) {
             this.nodes = Optional.ofNullable(nodes);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "nodes", nulls = Nulls.SKIP)
         public _FinalStage nodes(Optional<List<FormNode>> nodes) {
             this.nodes = nodes;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage translations(Map<String, Map<String, Object>> translations) {
             this.translations = Optional.ofNullable(translations);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "translations", nulls = Nulls.SKIP)
         public _FinalStage translations(Optional<Map<String, Map<String, Object>>> translations) {
             this.translations = translations;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage languages(FormLanguages languages) {
             this.languages = Optional.ofNullable(languages);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "languages", nulls = Nulls.SKIP)
         public _FinalStage languages(Optional<FormLanguages> languages) {
             this.languages = languages;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage messages(FormMessages messages) {
             this.messages = Optional.ofNullable(messages);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "messages", nulls = Nulls.SKIP)
         public _FinalStage messages(Optional<FormMessages> messages) {
             this.messages = messages;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateFormResponseContent build() {
             return new CreateFormResponseContent(
                     id,

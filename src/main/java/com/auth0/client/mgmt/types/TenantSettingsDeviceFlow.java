@@ -48,7 +48,7 @@ public final class TenantSettingsDeviceFlow {
         return mask;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof TenantSettingsDeviceFlow && equalTo((TenantSettingsDeviceFlow) other);
@@ -63,12 +63,12 @@ public final class TenantSettingsDeviceFlow {
         return charset.equals(other.charset) && mask.equals(other.mask);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.charset, this.mask);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

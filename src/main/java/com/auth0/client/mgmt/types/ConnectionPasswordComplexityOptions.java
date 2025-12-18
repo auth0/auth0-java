@@ -37,7 +37,7 @@ public final class ConnectionPasswordComplexityOptions {
         return minLength;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionPasswordComplexityOptions
@@ -53,12 +53,12 @@ public final class ConnectionPasswordComplexityOptions {
         return minLength.equals(other.minLength);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.minLength);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

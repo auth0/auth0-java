@@ -280,7 +280,7 @@ public final class Log {
         return description;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof Log && equalTo((Log) other);
@@ -315,7 +315,7 @@ public final class Log {
                 && locationInfo.equals(other.locationInfo);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.date,
@@ -341,7 +341,7 @@ public final class Log {
                 this.locationInfo);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

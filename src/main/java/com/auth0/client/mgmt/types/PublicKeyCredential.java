@@ -95,7 +95,7 @@ public final class PublicKeyCredential {
         return expiresAt;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof PublicKeyCredential && equalTo((PublicKeyCredential) other);
@@ -115,13 +115,13 @@ public final class PublicKeyCredential {
                 && expiresAt.equals(other.expiresAt);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.credentialType, this.name, this.pem, this.alg, this.parseExpiryFromCert, this.expiresAt);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -191,7 +191,7 @@ public final class PublicKeyCredential {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(PublicKeyCredential other) {
             credentialType(other.getCredentialType());
             name(other.getName());
@@ -202,7 +202,7 @@ public final class PublicKeyCredential {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("credential_type")
         public PemStage credentialType(@NotNull String credentialType) {
             this.credentialType = Objects.requireNonNull(credentialType, "credentialType must not be null");
@@ -214,7 +214,7 @@ public final class PublicKeyCredential {
          * <p>PEM-formatted public key (SPKI and PKCS1) or X509 certificate. Must be JSON escaped.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("pem")
         public _FinalStage pem(@NotNull String pem) {
             this.pem = Objects.requireNonNull(pem, "pem must not be null");
@@ -225,7 +225,7 @@ public final class PublicKeyCredential {
          * <p>The ISO 8601 formatted date representing the expiration of the credential. If not specified (not recommended), the credential never expires. Applies to <code>public_key</code> credential type.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage expiresAt(OffsetDateTime expiresAt) {
             this.expiresAt = Optional.ofNullable(expiresAt);
             return this;
@@ -234,7 +234,7 @@ public final class PublicKeyCredential {
         /**
          * <p>The ISO 8601 formatted date representing the expiration of the credential. If not specified (not recommended), the credential never expires. Applies to <code>public_key</code> credential type.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "expires_at", nulls = Nulls.SKIP)
         public _FinalStage expiresAt(Optional<OffsetDateTime> expiresAt) {
             this.expiresAt = expiresAt;
@@ -245,7 +245,7 @@ public final class PublicKeyCredential {
          * <p>Parse expiry from x509 certificate. If true, attempts to parse the expiry date from the provided PEM. Applies to <code>public_key</code> credential type.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage parseExpiryFromCert(Boolean parseExpiryFromCert) {
             this.parseExpiryFromCert = Optional.ofNullable(parseExpiryFromCert);
             return this;
@@ -254,20 +254,20 @@ public final class PublicKeyCredential {
         /**
          * <p>Parse expiry from x509 certificate. If true, attempts to parse the expiry date from the provided PEM. Applies to <code>public_key</code> credential type.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "parse_expiry_from_cert", nulls = Nulls.SKIP)
         public _FinalStage parseExpiryFromCert(Optional<Boolean> parseExpiryFromCert) {
             this.parseExpiryFromCert = parseExpiryFromCert;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage alg(PublicKeyCredentialAlgorithmEnum alg) {
             this.alg = Optional.ofNullable(alg);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "alg", nulls = Nulls.SKIP)
         public _FinalStage alg(Optional<PublicKeyCredentialAlgorithmEnum> alg) {
             this.alg = alg;
@@ -278,7 +278,7 @@ public final class PublicKeyCredential {
          * <p>Friendly name for a credential.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage name(String name) {
             this.name = Optional.ofNullable(name);
             return this;
@@ -287,14 +287,14 @@ public final class PublicKeyCredential {
         /**
          * <p>Friendly name for a credential.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<String> name) {
             this.name = name;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public PublicKeyCredential build() {
             return new PublicKeyCredential(
                     credentialType, name, pem, alg, parseExpiryFromCert, expiresAt, additionalProperties);

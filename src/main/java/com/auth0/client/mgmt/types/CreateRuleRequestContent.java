@@ -76,7 +76,7 @@ public final class CreateRuleRequestContent {
         return enabled;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateRuleRequestContent && equalTo((CreateRuleRequestContent) other);
@@ -94,12 +94,12 @@ public final class CreateRuleRequestContent {
                 && enabled.equals(other.enabled);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.script, this.order, this.enabled);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -157,7 +157,7 @@ public final class CreateRuleRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateRuleRequestContent other) {
             name(other.getName());
             script(other.getScript());
@@ -171,7 +171,7 @@ public final class CreateRuleRequestContent {
          * <p>Name of this rule.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("name")
         public ScriptStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
@@ -183,7 +183,7 @@ public final class CreateRuleRequestContent {
          * <p>Code to be executed when this rule runs.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("script")
         public _FinalStage script(@NotNull String script) {
             this.script = Objects.requireNonNull(script, "script must not be null");
@@ -194,7 +194,7 @@ public final class CreateRuleRequestContent {
          * <p>Whether the rule is enabled (true), or disabled (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage enabled(Boolean enabled) {
             this.enabled = Optional.ofNullable(enabled);
             return this;
@@ -203,7 +203,7 @@ public final class CreateRuleRequestContent {
         /**
          * <p>Whether the rule is enabled (true), or disabled (false).</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "enabled", nulls = Nulls.SKIP)
         public _FinalStage enabled(Optional<Boolean> enabled) {
             this.enabled = enabled;
@@ -214,7 +214,7 @@ public final class CreateRuleRequestContent {
          * <p>Order that this rule should execute in relative to other rules. Lower-valued rules execute first.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage order(Double order) {
             this.order = Optional.ofNullable(order);
             return this;
@@ -223,14 +223,14 @@ public final class CreateRuleRequestContent {
         /**
          * <p>Order that this rule should execute in relative to other rules. Lower-valued rules execute first.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "order", nulls = Nulls.SKIP)
         public _FinalStage order(Optional<Double> order) {
             this.order = order;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateRuleRequestContent build() {
             return new CreateRuleRequestContent(name, script, order, enabled, additionalProperties);
         }

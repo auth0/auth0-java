@@ -21,24 +21,18 @@ import java.util.Optional;
 import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = SetGuardianFactorsProviderPushNotificationApnsRequestContent.Builder.class)
-public final class SetGuardianFactorsProviderPushNotificationApnsRequestContent {
+@JsonDeserialize(builder = UpdateGuardianFactorsProviderPushNotificationApnsResponseContent.Builder.class)
+public final class UpdateGuardianFactorsProviderPushNotificationApnsResponseContent {
     private final Optional<Boolean> sandbox;
 
     private final OptionalNullable<String> bundleId;
 
-    private final OptionalNullable<String> p12;
-
     private final Map<String, Object> additionalProperties;
 
-    private SetGuardianFactorsProviderPushNotificationApnsRequestContent(
-            Optional<Boolean> sandbox,
-            OptionalNullable<String> bundleId,
-            OptionalNullable<String> p12,
-            Map<String, Object> additionalProperties) {
+    private UpdateGuardianFactorsProviderPushNotificationApnsResponseContent(
+            Optional<Boolean> sandbox, OptionalNullable<String> bundleId, Map<String, Object> additionalProperties) {
         this.sandbox = sandbox;
         this.bundleId = bundleId;
-        this.p12 = p12;
         this.additionalProperties = additionalProperties;
     }
 
@@ -57,31 +51,16 @@ public final class SetGuardianFactorsProviderPushNotificationApnsRequestContent 
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("p12")
-    public OptionalNullable<String> getP12() {
-        if (p12 == null) {
-            return OptionalNullable.absent();
-        }
-        return p12;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("bundle_id")
     private OptionalNullable<String> _getBundleId() {
         return bundleId;
     }
 
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("p12")
-    private OptionalNullable<String> _getP12() {
-        return p12;
-    }
-
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof SetGuardianFactorsProviderPushNotificationApnsRequestContent
-                && equalTo((SetGuardianFactorsProviderPushNotificationApnsRequestContent) other);
+        return other instanceof UpdateGuardianFactorsProviderPushNotificationApnsResponseContent
+                && equalTo((UpdateGuardianFactorsProviderPushNotificationApnsResponseContent) other);
     }
 
     @JsonAnyGetter
@@ -89,16 +68,16 @@ public final class SetGuardianFactorsProviderPushNotificationApnsRequestContent 
         return this.additionalProperties;
     }
 
-    private boolean equalTo(SetGuardianFactorsProviderPushNotificationApnsRequestContent other) {
-        return sandbox.equals(other.sandbox) && bundleId.equals(other.bundleId) && p12.equals(other.p12);
+    private boolean equalTo(UpdateGuardianFactorsProviderPushNotificationApnsResponseContent other) {
+        return sandbox.equals(other.sandbox) && bundleId.equals(other.bundleId);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.sandbox, this.bundleId, this.p12);
+        return Objects.hash(this.sandbox, this.bundleId);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -113,17 +92,14 @@ public final class SetGuardianFactorsProviderPushNotificationApnsRequestContent 
 
         private OptionalNullable<String> bundleId = OptionalNullable.absent();
 
-        private OptionalNullable<String> p12 = OptionalNullable.absent();
-
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
-        public Builder from(SetGuardianFactorsProviderPushNotificationApnsRequestContent other) {
+        public Builder from(UpdateGuardianFactorsProviderPushNotificationApnsResponseContent other) {
             sandbox(other.getSandbox());
             bundleId(other.getBundleId());
-            p12(other.getP12());
             return this;
         }
 
@@ -169,40 +145,9 @@ public final class SetGuardianFactorsProviderPushNotificationApnsRequestContent 
             return this;
         }
 
-        @JsonSetter(value = "p12", nulls = Nulls.SKIP)
-        public Builder p12(@Nullable OptionalNullable<String> p12) {
-            this.p12 = p12;
-            return this;
-        }
-
-        public Builder p12(String p12) {
-            this.p12 = OptionalNullable.of(p12);
-            return this;
-        }
-
-        public Builder p12(Optional<String> p12) {
-            if (p12.isPresent()) {
-                this.p12 = OptionalNullable.of(p12.get());
-            } else {
-                this.p12 = OptionalNullable.absent();
-            }
-            return this;
-        }
-
-        public Builder p12(com.auth0.client.mgmt.core.Nullable<String> p12) {
-            if (p12.isNull()) {
-                this.p12 = OptionalNullable.ofNull();
-            } else if (p12.isEmpty()) {
-                this.p12 = OptionalNullable.absent();
-            } else {
-                this.p12 = OptionalNullable.of(p12.get());
-            }
-            return this;
-        }
-
-        public SetGuardianFactorsProviderPushNotificationApnsRequestContent build() {
-            return new SetGuardianFactorsProviderPushNotificationApnsRequestContent(
-                    sandbox, bundleId, p12, additionalProperties);
+        public UpdateGuardianFactorsProviderPushNotificationApnsResponseContent build() {
+            return new UpdateGuardianFactorsProviderPushNotificationApnsResponseContent(
+                    sandbox, bundleId, additionalProperties);
         }
     }
 }

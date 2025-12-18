@@ -50,7 +50,7 @@ public final class CreatePhoneTemplateTestNotificationRequestContent {
         return deliveryMethod;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreatePhoneTemplateTestNotificationRequestContent
@@ -66,12 +66,12 @@ public final class CreatePhoneTemplateTestNotificationRequestContent {
         return to.equals(other.to) && deliveryMethod.equals(other.deliveryMethod);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.to, this.deliveryMethod);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -108,7 +108,7 @@ public final class CreatePhoneTemplateTestNotificationRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreatePhoneTemplateTestNotificationRequestContent other) {
             to(other.getTo());
             deliveryMethod(other.getDeliveryMethod());
@@ -120,27 +120,27 @@ public final class CreatePhoneTemplateTestNotificationRequestContent {
          * <p>Destination of the testing phone notification</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("to")
         public _FinalStage to(@NotNull String to) {
             this.to = Objects.requireNonNull(to, "to must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage deliveryMethod(PhoneProviderDeliveryMethodEnum deliveryMethod) {
             this.deliveryMethod = Optional.ofNullable(deliveryMethod);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "delivery_method", nulls = Nulls.SKIP)
         public _FinalStage deliveryMethod(Optional<PhoneProviderDeliveryMethodEnum> deliveryMethod) {
             this.deliveryMethod = deliveryMethod;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreatePhoneTemplateTestNotificationRequestContent build() {
             return new CreatePhoneTemplateTestNotificationRequestContent(to, deliveryMethod, additionalProperties);
         }

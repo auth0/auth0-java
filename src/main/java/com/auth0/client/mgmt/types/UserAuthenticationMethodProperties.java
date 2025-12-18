@@ -45,7 +45,7 @@ public final class UserAuthenticationMethodProperties {
         return id;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UserAuthenticationMethodProperties
@@ -61,12 +61,12 @@ public final class UserAuthenticationMethodProperties {
         return type.equals(other.type) && id.equals(other.id);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.type, this.id);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

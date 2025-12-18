@@ -118,7 +118,7 @@ public final class SetGuardianFactorsProviderSmsTwilioResponseContent {
         return sid;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SetGuardianFactorsProviderSmsTwilioResponseContent
@@ -137,12 +137,12 @@ public final class SetGuardianFactorsProviderSmsTwilioResponseContent {
                 && sid.equals(other.sid);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.from, this.messagingServiceSid, this.authToken, this.sid);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

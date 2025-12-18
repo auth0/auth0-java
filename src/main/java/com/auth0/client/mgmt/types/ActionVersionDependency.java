@@ -63,7 +63,7 @@ public final class ActionVersionDependency {
         return registryUrl;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ActionVersionDependency && equalTo((ActionVersionDependency) other);
@@ -78,12 +78,12 @@ public final class ActionVersionDependency {
         return name.equals(other.name) && version.equals(other.version) && registryUrl.equals(other.registryUrl);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.version, this.registryUrl);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

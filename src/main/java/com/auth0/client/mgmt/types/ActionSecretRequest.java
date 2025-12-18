@@ -49,7 +49,7 @@ public final class ActionSecretRequest {
         return value;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ActionSecretRequest && equalTo((ActionSecretRequest) other);
@@ -64,12 +64,12 @@ public final class ActionSecretRequest {
         return name.equals(other.name) && value.equals(other.value);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.value);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

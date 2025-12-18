@@ -46,7 +46,7 @@ public final class FormStepConfig {
         return nextNode;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormStepConfig && equalTo((FormStepConfig) other);
@@ -61,12 +61,12 @@ public final class FormStepConfig {
         return components.equals(other.components) && nextNode.equals(other.nextNode);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.components, this.nextNode);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

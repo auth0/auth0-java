@@ -94,7 +94,7 @@ public final class SetUserAuthenticationMethods {
         return totpSecret;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SetUserAuthenticationMethods && equalTo((SetUserAuthenticationMethods) other);
@@ -114,7 +114,7 @@ public final class SetUserAuthenticationMethods {
                 && totpSecret.equals(other.totpSecret);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.type,
@@ -125,7 +125,7 @@ public final class SetUserAuthenticationMethods {
                 this.totpSecret);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -196,7 +196,7 @@ public final class SetUserAuthenticationMethods {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(SetUserAuthenticationMethods other) {
             type(other.getType());
             preferredAuthenticationMethod(other.getPreferredAuthenticationMethod());
@@ -207,7 +207,7 @@ public final class SetUserAuthenticationMethods {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public _FinalStage type(@NotNull AuthenticationTypeEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
@@ -218,7 +218,7 @@ public final class SetUserAuthenticationMethods {
          * <p>Applies to totp authentication methods only. The base32 encoded secret for TOTP generation.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage totpSecret(String totpSecret) {
             this.totpSecret = Optional.ofNullable(totpSecret);
             return this;
@@ -227,7 +227,7 @@ public final class SetUserAuthenticationMethods {
         /**
          * <p>Applies to totp authentication methods only. The base32 encoded secret for TOTP generation.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "totp_secret", nulls = Nulls.SKIP)
         public _FinalStage totpSecret(Optional<String> totpSecret) {
             this.totpSecret = totpSecret;
@@ -238,7 +238,7 @@ public final class SetUserAuthenticationMethods {
          * <p>Applies to email authentication methods only. The email address used to send verification messages.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage email(String email) {
             this.email = Optional.ofNullable(email);
             return this;
@@ -247,7 +247,7 @@ public final class SetUserAuthenticationMethods {
         /**
          * <p>Applies to email authentication methods only. The email address used to send verification messages.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "email", nulls = Nulls.SKIP)
         public _FinalStage email(Optional<String> email) {
             this.email = email;
@@ -258,7 +258,7 @@ public final class SetUserAuthenticationMethods {
          * <p>Applies to phone authentication methods only. The destination phone number used to send verification codes via text and voice.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage phoneNumber(String phoneNumber) {
             this.phoneNumber = Optional.ofNullable(phoneNumber);
             return this;
@@ -267,7 +267,7 @@ public final class SetUserAuthenticationMethods {
         /**
          * <p>Applies to phone authentication methods only. The destination phone number used to send verification codes via text and voice.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "phone_number", nulls = Nulls.SKIP)
         public _FinalStage phoneNumber(Optional<String> phoneNumber) {
             this.phoneNumber = phoneNumber;
@@ -278,7 +278,7 @@ public final class SetUserAuthenticationMethods {
          * <p>AA human-readable label to identify the authentication method.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage name(String name) {
             this.name = Optional.ofNullable(name);
             return this;
@@ -287,21 +287,21 @@ public final class SetUserAuthenticationMethods {
         /**
          * <p>AA human-readable label to identify the authentication method.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<String> name) {
             this.name = name;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage preferredAuthenticationMethod(
                 PreferredAuthenticationMethodEnum preferredAuthenticationMethod) {
             this.preferredAuthenticationMethod = Optional.ofNullable(preferredAuthenticationMethod);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "preferred_authentication_method", nulls = Nulls.SKIP)
         public _FinalStage preferredAuthenticationMethod(
                 Optional<PreferredAuthenticationMethodEnum> preferredAuthenticationMethod) {
@@ -309,7 +309,7 @@ public final class SetUserAuthenticationMethods {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public SetUserAuthenticationMethods build() {
             return new SetUserAuthenticationMethods(
                     type, preferredAuthenticationMethod, name, phoneNumber, email, totpSecret, additionalProperties);

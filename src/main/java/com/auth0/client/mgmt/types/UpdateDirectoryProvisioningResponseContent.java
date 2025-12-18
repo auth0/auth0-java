@@ -151,7 +151,7 @@ public final class UpdateDirectoryProvisioningResponseContent {
         return lastSynchronizationError;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateDirectoryProvisioningResponseContent
@@ -176,7 +176,7 @@ public final class UpdateDirectoryProvisioningResponseContent {
                 && lastSynchronizationError.equals(other.lastSynchronizationError);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.connectionId,
@@ -191,7 +191,7 @@ public final class UpdateDirectoryProvisioningResponseContent {
                 this.lastSynchronizationError);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -312,7 +312,7 @@ public final class UpdateDirectoryProvisioningResponseContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(UpdateDirectoryProvisioningResponseContent other) {
             connectionId(other.getConnectionId());
             connectionName(other.getConnectionName());
@@ -332,7 +332,7 @@ public final class UpdateDirectoryProvisioningResponseContent {
          * <p>The connection's identifier</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_id")
         public ConnectionNameStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
@@ -344,7 +344,7 @@ public final class UpdateDirectoryProvisioningResponseContent {
          * <p>The connection's name</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_name")
         public StrategyStage connectionName(@NotNull String connectionName) {
             this.connectionName = Objects.requireNonNull(connectionName, "connectionName must not be null");
@@ -356,7 +356,7 @@ public final class UpdateDirectoryProvisioningResponseContent {
          * <p>The connection's strategy</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("strategy")
         public SynchronizeAutomaticallyStage strategy(@NotNull String strategy) {
             this.strategy = Objects.requireNonNull(strategy, "strategy must not be null");
@@ -368,7 +368,7 @@ public final class UpdateDirectoryProvisioningResponseContent {
          * <p>Whether periodic automatic synchronization is enabled</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("synchronize_automatically")
         public CreatedAtStage synchronizeAutomatically(boolean synchronizeAutomatically) {
             this.synchronizeAutomatically = synchronizeAutomatically;
@@ -380,7 +380,7 @@ public final class UpdateDirectoryProvisioningResponseContent {
          * <p>The timestamp at which the directory provisioning configuration was created</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("created_at")
         public UpdatedAtStage createdAt(@NotNull OffsetDateTime createdAt) {
             this.createdAt = Objects.requireNonNull(createdAt, "createdAt must not be null");
@@ -392,7 +392,7 @@ public final class UpdateDirectoryProvisioningResponseContent {
          * <p>The timestamp at which the directory provisioning configuration was last updated</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("updated_at")
         public _FinalStage updatedAt(@NotNull OffsetDateTime updatedAt) {
             this.updatedAt = Objects.requireNonNull(updatedAt, "updatedAt must not be null");
@@ -403,7 +403,7 @@ public final class UpdateDirectoryProvisioningResponseContent {
          * <p>The error message of the last synchronization, if any</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage lastSynchronizationError(String lastSynchronizationError) {
             this.lastSynchronizationError = Optional.ofNullable(lastSynchronizationError);
             return this;
@@ -412,7 +412,7 @@ public final class UpdateDirectoryProvisioningResponseContent {
         /**
          * <p>The error message of the last synchronization, if any</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "last_synchronization_error", nulls = Nulls.SKIP)
         public _FinalStage lastSynchronizationError(Optional<String> lastSynchronizationError) {
             this.lastSynchronizationError = lastSynchronizationError;
@@ -423,7 +423,7 @@ public final class UpdateDirectoryProvisioningResponseContent {
          * <p>The status of the last synchronization</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage lastSynchronizationStatus(String lastSynchronizationStatus) {
             this.lastSynchronizationStatus = Optional.ofNullable(lastSynchronizationStatus);
             return this;
@@ -432,7 +432,7 @@ public final class UpdateDirectoryProvisioningResponseContent {
         /**
          * <p>The status of the last synchronization</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "last_synchronization_status", nulls = Nulls.SKIP)
         public _FinalStage lastSynchronizationStatus(Optional<String> lastSynchronizationStatus) {
             this.lastSynchronizationStatus = lastSynchronizationStatus;
@@ -443,7 +443,7 @@ public final class UpdateDirectoryProvisioningResponseContent {
          * <p>The timestamp at which the connection was last synchronized</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage lastSynchronizationAt(OffsetDateTime lastSynchronizationAt) {
             this.lastSynchronizationAt = Optional.ofNullable(lastSynchronizationAt);
             return this;
@@ -452,7 +452,7 @@ public final class UpdateDirectoryProvisioningResponseContent {
         /**
          * <p>The timestamp at which the connection was last synchronized</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "last_synchronization_at", nulls = Nulls.SKIP)
         public _FinalStage lastSynchronizationAt(Optional<OffsetDateTime> lastSynchronizationAt) {
             this.lastSynchronizationAt = lastSynchronizationAt;
@@ -463,7 +463,7 @@ public final class UpdateDirectoryProvisioningResponseContent {
          * <p>The mapping between Auth0 and IDP user attributes</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage addAllMapping(List<DirectoryProvisioningMappingItem> mapping) {
             if (mapping != null) {
                 this.mapping.addAll(mapping);
@@ -475,7 +475,7 @@ public final class UpdateDirectoryProvisioningResponseContent {
          * <p>The mapping between Auth0 and IDP user attributes</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage addMapping(DirectoryProvisioningMappingItem mapping) {
             this.mapping.add(mapping);
             return this;
@@ -484,7 +484,7 @@ public final class UpdateDirectoryProvisioningResponseContent {
         /**
          * <p>The mapping between Auth0 and IDP user attributes</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "mapping", nulls = Nulls.SKIP)
         public _FinalStage mapping(List<DirectoryProvisioningMappingItem> mapping) {
             this.mapping.clear();
@@ -494,7 +494,7 @@ public final class UpdateDirectoryProvisioningResponseContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public UpdateDirectoryProvisioningResponseContent build() {
             return new UpdateDirectoryProvisioningResponseContent(
                     connectionId,

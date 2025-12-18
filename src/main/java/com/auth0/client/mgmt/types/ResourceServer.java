@@ -268,7 +268,7 @@ public final class ResourceServer {
         return proofOfPossession;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ResourceServer && equalTo((ResourceServer) other);
@@ -301,7 +301,7 @@ public final class ResourceServer {
                 && clientId.equals(other.clientId);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -325,7 +325,7 @@ public final class ResourceServer {
                 this.clientId);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -46,7 +46,7 @@ public final class ConnectionProfileStrategyOverride {
         return connectionConfig;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionProfileStrategyOverride && equalTo((ConnectionProfileStrategyOverride) other);
@@ -61,12 +61,12 @@ public final class ConnectionProfileStrategyOverride {
         return enabledFeatures.equals(other.enabledFeatures) && connectionConfig.equals(other.connectionConfig);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.enabledFeatures, this.connectionConfig);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

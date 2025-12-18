@@ -113,7 +113,7 @@ public final class GetBrandingPhoneProviderResponseContent {
         return updatedAt;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetBrandingPhoneProviderResponseContent
@@ -136,7 +136,7 @@ public final class GetBrandingPhoneProviderResponseContent {
                 && updatedAt.equals(other.updatedAt);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -149,7 +149,7 @@ public final class GetBrandingPhoneProviderResponseContent {
                 this.updatedAt);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -231,7 +231,7 @@ public final class GetBrandingPhoneProviderResponseContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(GetBrandingPhoneProviderResponseContent other) {
             id(other.getId());
             tenant(other.getTenant());
@@ -244,7 +244,7 @@ public final class GetBrandingPhoneProviderResponseContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("name")
         public _FinalStage name(@NotNull PhoneProviderNameEnum name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
@@ -255,7 +255,7 @@ public final class GetBrandingPhoneProviderResponseContent {
          * <p>The date and time of the last update to the provider in ISO 8601 format</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage updatedAt(OffsetDateTime updatedAt) {
             this.updatedAt = Optional.ofNullable(updatedAt);
             return this;
@@ -264,7 +264,7 @@ public final class GetBrandingPhoneProviderResponseContent {
         /**
          * <p>The date and time of the last update to the provider in ISO 8601 format</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public _FinalStage updatedAt(Optional<OffsetDateTime> updatedAt) {
             this.updatedAt = updatedAt;
@@ -275,7 +275,7 @@ public final class GetBrandingPhoneProviderResponseContent {
          * <p>The provider's creation date and time in ISO 8601 format</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage createdAt(OffsetDateTime createdAt) {
             this.createdAt = Optional.ofNullable(createdAt);
             return this;
@@ -284,20 +284,20 @@ public final class GetBrandingPhoneProviderResponseContent {
         /**
          * <p>The provider's creation date and time in ISO 8601 format</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<OffsetDateTime> createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage configuration(PhoneProviderConfiguration configuration) {
             this.configuration = Optional.ofNullable(configuration);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "configuration", nulls = Nulls.SKIP)
         public _FinalStage configuration(Optional<PhoneProviderConfiguration> configuration) {
             this.configuration = configuration;
@@ -308,7 +308,7 @@ public final class GetBrandingPhoneProviderResponseContent {
          * <p>Whether the provider is enabled (false) or disabled (true).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage disabled(Boolean disabled) {
             this.disabled = Optional.ofNullable(disabled);
             return this;
@@ -317,20 +317,20 @@ public final class GetBrandingPhoneProviderResponseContent {
         /**
          * <p>Whether the provider is enabled (false) or disabled (true).</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "disabled", nulls = Nulls.SKIP)
         public _FinalStage disabled(Optional<Boolean> disabled) {
             this.disabled = disabled;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage channel(String channel) {
             this.channel = Optional.ofNullable(channel);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "channel", nulls = Nulls.SKIP)
         public _FinalStage channel(Optional<String> channel) {
             this.channel = channel;
@@ -341,7 +341,7 @@ public final class GetBrandingPhoneProviderResponseContent {
          * <p>The name of the tenant</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage tenant(String tenant) {
             this.tenant = Optional.ofNullable(tenant);
             return this;
@@ -350,27 +350,27 @@ public final class GetBrandingPhoneProviderResponseContent {
         /**
          * <p>The name of the tenant</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "tenant", nulls = Nulls.SKIP)
         public _FinalStage tenant(Optional<String> tenant) {
             this.tenant = tenant;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage id(String id) {
             this.id = Optional.ofNullable(id);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {
             this.id = id;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public GetBrandingPhoneProviderResponseContent build() {
             return new GetBrandingPhoneProviderResponseContent(
                     id, tenant, name, channel, disabled, configuration, createdAt, updatedAt, additionalProperties);

@@ -97,7 +97,7 @@ public final class AssociateOrganizationClientGrantResponseContent {
         return allowAnyOrganization;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof AssociateOrganizationClientGrantResponseContent
@@ -118,13 +118,13 @@ public final class AssociateOrganizationClientGrantResponseContent {
                 && allowAnyOrganization.equals(other.allowAnyOrganization);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id, this.clientId, this.audience, this.scope, this.organizationUsage, this.allowAnyOrganization);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

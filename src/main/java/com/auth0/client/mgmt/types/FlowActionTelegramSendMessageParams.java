@@ -50,7 +50,7 @@ public final class FlowActionTelegramSendMessageParams {
         return text;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionTelegramSendMessageParams
@@ -66,12 +66,12 @@ public final class FlowActionTelegramSendMessageParams {
         return connectionId.equals(other.connectionId) && chatId.equals(other.chatId) && text.equals(other.text);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.chatId, this.text);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -111,7 +111,7 @@ public final class FlowActionTelegramSendMessageParams {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionTelegramSendMessageParams other) {
             connectionId(other.getConnectionId());
             chatId(other.getChatId());
@@ -119,28 +119,28 @@ public final class FlowActionTelegramSendMessageParams {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_id")
         public ChatIdStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("chat_id")
         public TextStage chatId(@NotNull String chatId) {
             this.chatId = Objects.requireNonNull(chatId, "chatId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("text")
         public _FinalStage text(@NotNull String text) {
             this.text = Objects.requireNonNull(text, "text must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionTelegramSendMessageParams build() {
             return new FlowActionTelegramSendMessageParams(connectionId, chatId, text, additionalProperties);
         }

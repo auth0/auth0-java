@@ -35,7 +35,7 @@ public final class SelfServiceProfileSsoTicketDomainAliasesConfig {
         return domainVerification;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SelfServiceProfileSsoTicketDomainAliasesConfig
@@ -51,12 +51,12 @@ public final class SelfServiceProfileSsoTicketDomainAliasesConfig {
         return domainVerification.equals(other.domainVerification);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.domainVerification);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -84,13 +84,13 @@ public final class SelfServiceProfileSsoTicketDomainAliasesConfig {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(SelfServiceProfileSsoTicketDomainAliasesConfig other) {
             domainVerification(other.getDomainVerification());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("domain_verification")
         public _FinalStage domainVerification(
                 @NotNull SelfServiceProfileSsoTicketDomainVerificationEnum domainVerification) {
@@ -98,7 +98,7 @@ public final class SelfServiceProfileSsoTicketDomainAliasesConfig {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public SelfServiceProfileSsoTicketDomainAliasesConfig build() {
             return new SelfServiceProfileSsoTicketDomainAliasesConfig(domainVerification, additionalProperties);
         }

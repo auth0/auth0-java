@@ -43,7 +43,7 @@ public final class ConnectionConnectedAccountsPurpose {
         return crossAppAccess;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionConnectedAccountsPurpose
@@ -59,12 +59,12 @@ public final class ConnectionConnectedAccountsPurpose {
         return active == other.active && crossAppAccess.equals(other.crossAppAccess);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.active, this.crossAppAccess);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -98,34 +98,34 @@ public final class ConnectionConnectedAccountsPurpose {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(ConnectionConnectedAccountsPurpose other) {
             active(other.getActive());
             crossAppAccess(other.getCrossAppAccess());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("active")
         public _FinalStage active(boolean active) {
             this.active = active;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage crossAppAccess(Boolean crossAppAccess) {
             this.crossAppAccess = Optional.ofNullable(crossAppAccess);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "cross_app_access", nulls = Nulls.SKIP)
         public _FinalStage crossAppAccess(Optional<Boolean> crossAppAccess) {
             this.crossAppAccess = crossAppAccess;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public ConnectionConnectedAccountsPurpose build() {
             return new ConnectionConnectedAccountsPurpose(active, crossAppAccess, additionalProperties);
         }

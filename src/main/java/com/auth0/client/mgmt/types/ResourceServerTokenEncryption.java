@@ -42,7 +42,7 @@ public final class ResourceServerTokenEncryption {
         return encryptionKey;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ResourceServerTokenEncryption && equalTo((ResourceServerTokenEncryption) other);
@@ -57,12 +57,12 @@ public final class ResourceServerTokenEncryption {
         return format.equals(other.format) && encryptionKey.equals(other.encryptionKey);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.format, this.encryptionKey);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -96,28 +96,28 @@ public final class ResourceServerTokenEncryption {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(ResourceServerTokenEncryption other) {
             format(other.getFormat());
             encryptionKey(other.getEncryptionKey());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("format")
         public EncryptionKeyStage format(@NotNull String format) {
             this.format = Objects.requireNonNull(format, "format must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("encryption_key")
         public _FinalStage encryptionKey(@NotNull ResourceServerTokenEncryptionKey encryptionKey) {
             this.encryptionKey = Objects.requireNonNull(encryptionKey, "encryptionKey must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public ResourceServerTokenEncryption build() {
             return new ResourceServerTokenEncryption(format, encryptionKey, additionalProperties);
         }

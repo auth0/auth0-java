@@ -144,7 +144,7 @@ public final class ListActionsRequestParameters {
         return installed;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListActionsRequestParameters && equalTo((ListActionsRequestParameters) other);
@@ -164,12 +164,12 @@ public final class ListActionsRequestParameters {
                 && installed.equals(other.installed);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.triggerId, this.actionName, this.deployed, this.page, this.perPage, this.installed);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

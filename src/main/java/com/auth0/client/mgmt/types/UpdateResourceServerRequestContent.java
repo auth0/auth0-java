@@ -208,7 +208,7 @@ public final class UpdateResourceServerRequestContent {
         return proofOfPossession;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateResourceServerRequestContent
@@ -237,7 +237,7 @@ public final class UpdateResourceServerRequestContent {
                 && subjectTypeAuthorization.equals(other.subjectTypeAuthorization);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.name,
@@ -256,7 +256,7 @@ public final class UpdateResourceServerRequestContent {
                 this.subjectTypeAuthorization);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

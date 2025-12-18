@@ -37,7 +37,7 @@ public final class SessionClientMetadata {
         return clientId;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SessionClientMetadata && equalTo((SessionClientMetadata) other);
@@ -52,12 +52,12 @@ public final class SessionClientMetadata {
         return clientId.equals(other.clientId);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.clientId);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

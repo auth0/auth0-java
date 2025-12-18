@@ -211,9 +211,9 @@ public class HooksSecretsWireTest {
         if (expected.isNumber() && actual.isNumber())
             return Math.abs(expected.doubleValue() - actual.doubleValue()) < 1e-10;
         if (expected.isObject() && actual.isObject()) {
-            java.util.Iterator<Map.Entry<String, JsonNode>> iter = expected.fields();
+            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = expected.fields();
             while (iter.hasNext()) {
-                Map.Entry<String, JsonNode> entry = iter.next();
+                java.util.Map.Entry<String, JsonNode> entry = iter.next();
                 JsonNode actualValue = actual.get(entry.getKey());
                 if (actualValue == null || !jsonEquals(entry.getValue(), actualValue)) return false;
             }

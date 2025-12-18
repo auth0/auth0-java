@@ -22,6 +22,7 @@ import com.auth0.client.mgmt.organizations.types.CreateOrganizationDiscoveryDoma
 import com.auth0.client.mgmt.organizations.types.ListOrganizationDiscoveryDomainsRequestParameters;
 import com.auth0.client.mgmt.organizations.types.UpdateOrganizationDiscoveryDomainRequestContent;
 import com.auth0.client.mgmt.types.CreateOrganizationDiscoveryDomainResponseContent;
+import com.auth0.client.mgmt.types.GetOrganizationDiscoveryDomainByNameResponseContent;
 import com.auth0.client.mgmt.types.GetOrganizationDiscoveryDomainResponseContent;
 import com.auth0.client.mgmt.types.ListOrganizationDiscoveryDomainsResponseContent;
 import com.auth0.client.mgmt.types.OrganizationDiscoveryDomain;
@@ -136,7 +137,7 @@ public class RawDiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;.
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
      */
     public ManagementApiHttpResponse<CreateOrganizationDiscoveryDomainResponseContent> create(
             String id, CreateOrganizationDiscoveryDomainRequestContent request) {
@@ -144,7 +145,7 @@ public class RawDiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;.
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
      */
     public ManagementApiHttpResponse<CreateOrganizationDiscoveryDomainResponseContent> create(
             String id, CreateOrganizationDiscoveryDomainRequestContent request, RequestOptions requestOptions) {
@@ -197,6 +198,74 @@ public class RawDiscoveryDomainsClient {
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                     case 409:
                         throw new ConflictError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 429:
+                        throw new TooManyRequestsError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                }
+            } catch (JsonProcessingException ignored) {
+                // unable to map error response, throwing generic error
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new ManagementApiException(
+                    "Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (IOException e) {
+            throw new ManagementException("Network error executing HTTP request", e);
+        }
+    }
+
+    /**
+     * Retrieve details about a single organization discovery domain specified by domain name.
+     */
+    public ManagementApiHttpResponse<GetOrganizationDiscoveryDomainByNameResponseContent> getByName(
+            String id, String discoveryDomain) {
+        return getByName(id, discoveryDomain, null);
+    }
+
+    /**
+     * Retrieve details about a single organization discovery domain specified by domain name.
+     */
+    public ManagementApiHttpResponse<GetOrganizationDiscoveryDomainByNameResponseContent> getByName(
+            String id, String discoveryDomain, RequestOptions requestOptions) {
+        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("organizations")
+                .addPathSegment(id)
+                .addPathSegments("discovery-domains/name")
+                .addPathSegment(discoveryDomain)
+                .build();
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl)
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new ManagementApiHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(
+                                responseBodyString, GetOrganizationDiscoveryDomainByNameResponseContent.class),
+                        response);
+            }
+            try {
+                switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 401:
+                        throw new UnauthorizedError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 403:
+                        throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 404:
+                        throw new NotFoundError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                     case 429:
                         throw new TooManyRequestsError(
@@ -342,7 +411,7 @@ public class RawDiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;.
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
      */
     public ManagementApiHttpResponse<UpdateOrganizationDiscoveryDomainResponseContent> update(
             String id, String discoveryDomainId) {
@@ -353,7 +422,7 @@ public class RawDiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;.
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
      */
     public ManagementApiHttpResponse<UpdateOrganizationDiscoveryDomainResponseContent> update(
             String id, String discoveryDomainId, UpdateOrganizationDiscoveryDomainRequestContent request) {
@@ -361,7 +430,7 @@ public class RawDiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;.
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
      */
     public ManagementApiHttpResponse<UpdateOrganizationDiscoveryDomainResponseContent> update(
             String id,

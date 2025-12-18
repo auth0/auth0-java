@@ -71,7 +71,7 @@ public final class LinkUserIdentityRequestContent {
         return linkWith;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof LinkUserIdentityRequestContent && equalTo((LinkUserIdentityRequestContent) other);
@@ -89,12 +89,12 @@ public final class LinkUserIdentityRequestContent {
                 && linkWith.equals(other.linkWith);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.provider, this.connectionId, this.userId, this.linkWith);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

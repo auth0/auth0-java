@@ -34,7 +34,7 @@ public final class TokenQuotaConfiguration {
         return clientCredentials;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof TokenQuotaConfiguration && equalTo((TokenQuotaConfiguration) other);
@@ -49,12 +49,12 @@ public final class TokenQuotaConfiguration {
         return clientCredentials.equals(other.clientCredentials);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.clientCredentials);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -82,20 +82,20 @@ public final class TokenQuotaConfiguration {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(TokenQuotaConfiguration other) {
             clientCredentials(other.getClientCredentials());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("client_credentials")
         public _FinalStage clientCredentials(@NotNull TokenQuotaClientCredentials clientCredentials) {
             this.clientCredentials = Objects.requireNonNull(clientCredentials, "clientCredentials must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public TokenQuotaConfiguration build() {
             return new TokenQuotaConfiguration(clientCredentials, additionalProperties);
         }

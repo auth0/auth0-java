@@ -94,7 +94,7 @@ public final class PhoneTemplate {
         return disabled;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof PhoneTemplate && equalTo((PhoneTemplate) other);
@@ -115,13 +115,13 @@ public final class PhoneTemplate {
                 && disabled == other.disabled;
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id, this.channel, this.customizable, this.tenant, this.content, this.type, this.disabled);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -188,7 +188,7 @@ public final class PhoneTemplate {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(PhoneTemplate other) {
             id(other.getId());
             channel(other.getChannel());
@@ -200,21 +200,21 @@ public final class PhoneTemplate {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("id")
         public ContentStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("content")
         public TypeStage content(@NotNull PhoneTemplateContent content) {
             this.content = Objects.requireNonNull(content, "content must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public DisabledStage type(@NotNull PhoneTemplateNotificationTypeEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
@@ -226,53 +226,53 @@ public final class PhoneTemplate {
          * <p>Whether the template is enabled (false) or disabled (true).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("disabled")
         public _FinalStage disabled(boolean disabled) {
             this.disabled = disabled;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage tenant(String tenant) {
             this.tenant = Optional.ofNullable(tenant);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "tenant", nulls = Nulls.SKIP)
         public _FinalStage tenant(Optional<String> tenant) {
             this.tenant = tenant;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage customizable(Boolean customizable) {
             this.customizable = Optional.ofNullable(customizable);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "customizable", nulls = Nulls.SKIP)
         public _FinalStage customizable(Optional<Boolean> customizable) {
             this.customizable = customizable;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage channel(String channel) {
             this.channel = Optional.ofNullable(channel);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "channel", nulls = Nulls.SKIP)
         public _FinalStage channel(Optional<String> channel) {
             this.channel = channel;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public PhoneTemplate build() {
             return new PhoneTemplate(id, channel, customizable, tenant, content, type, disabled, additionalProperties);
         }

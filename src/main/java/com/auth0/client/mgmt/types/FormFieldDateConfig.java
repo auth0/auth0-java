@@ -45,7 +45,7 @@ public final class FormFieldDateConfig {
         return defaultValue;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldDateConfig && equalTo((FormFieldDateConfig) other);
@@ -60,12 +60,12 @@ public final class FormFieldDateConfig {
         return format.equals(other.format) && defaultValue.equals(other.defaultValue);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.format, this.defaultValue);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

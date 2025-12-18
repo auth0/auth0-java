@@ -128,7 +128,7 @@ public final class BrandingThemeBorders {
         return widgetCornerRadius;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof BrandingThemeBorders && equalTo((BrandingThemeBorders) other);
@@ -151,7 +151,7 @@ public final class BrandingThemeBorders {
                 && widgetCornerRadius == other.widgetCornerRadius;
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.buttonBorderRadius,
@@ -165,7 +165,7 @@ public final class BrandingThemeBorders {
                 this.widgetCornerRadius);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -272,7 +272,7 @@ public final class BrandingThemeBorders {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(BrandingThemeBorders other) {
             buttonBorderRadius(other.getButtonBorderRadius());
             buttonBorderWeight(other.getButtonBorderWeight());
@@ -291,7 +291,7 @@ public final class BrandingThemeBorders {
          * <p>Button border radius</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("button_border_radius")
         public ButtonBorderWeightStage buttonBorderRadius(double buttonBorderRadius) {
             this.buttonBorderRadius = buttonBorderRadius;
@@ -303,14 +303,14 @@ public final class BrandingThemeBorders {
          * <p>Button border weight</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("button_border_weight")
         public ButtonsStyleStage buttonBorderWeight(double buttonBorderWeight) {
             this.buttonBorderWeight = buttonBorderWeight;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("buttons_style")
         public InputBorderRadiusStage buttonsStyle(@NotNull BrandingThemeBordersButtonsStyleEnum buttonsStyle) {
             this.buttonsStyle = Objects.requireNonNull(buttonsStyle, "buttonsStyle must not be null");
@@ -322,7 +322,7 @@ public final class BrandingThemeBorders {
          * <p>Input border radius</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("input_border_radius")
         public InputBorderWeightStage inputBorderRadius(double inputBorderRadius) {
             this.inputBorderRadius = inputBorderRadius;
@@ -334,14 +334,14 @@ public final class BrandingThemeBorders {
          * <p>Input border weight</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("input_border_weight")
         public InputsStyleStage inputBorderWeight(double inputBorderWeight) {
             this.inputBorderWeight = inputBorderWeight;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("inputs_style")
         public ShowWidgetShadowStage inputsStyle(@NotNull BrandingThemeBordersInputsStyleEnum inputsStyle) {
             this.inputsStyle = Objects.requireNonNull(inputsStyle, "inputsStyle must not be null");
@@ -353,7 +353,7 @@ public final class BrandingThemeBorders {
          * <p>Show widget shadow</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("show_widget_shadow")
         public WidgetBorderWeightStage showWidgetShadow(boolean showWidgetShadow) {
             this.showWidgetShadow = showWidgetShadow;
@@ -365,7 +365,7 @@ public final class BrandingThemeBorders {
          * <p>Widget border weight</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("widget_border_weight")
         public WidgetCornerRadiusStage widgetBorderWeight(double widgetBorderWeight) {
             this.widgetBorderWeight = widgetBorderWeight;
@@ -377,14 +377,14 @@ public final class BrandingThemeBorders {
          * <p>Widget corner radius</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("widget_corner_radius")
         public _FinalStage widgetCornerRadius(double widgetCornerRadius) {
             this.widgetCornerRadius = widgetCornerRadius;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public BrandingThemeBorders build() {
             return new BrandingThemeBorders(
                     buttonBorderRadius,

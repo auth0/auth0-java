@@ -107,7 +107,7 @@ public final class ActionTrigger {
         return bindingPolicy;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ActionTrigger && equalTo((ActionTrigger) other);
@@ -128,7 +128,7 @@ public final class ActionTrigger {
                 && bindingPolicy.equals(other.bindingPolicy);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -140,7 +140,7 @@ public final class ActionTrigger {
                 this.bindingPolicy);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -219,7 +219,7 @@ public final class ActionTrigger {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(ActionTrigger other) {
             id(other.getId());
             version(other.getVersion());
@@ -231,20 +231,20 @@ public final class ActionTrigger {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("id")
         public _FinalStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage bindingPolicy(ActionBindingTypeEnum bindingPolicy) {
             this.bindingPolicy = Optional.ofNullable(bindingPolicy);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "binding_policy", nulls = Nulls.SKIP)
         public _FinalStage bindingPolicy(Optional<ActionBindingTypeEnum> bindingPolicy) {
             this.bindingPolicy = bindingPolicy;
@@ -255,7 +255,7 @@ public final class ActionTrigger {
          * <p>compatible_triggers informs which other trigger supports the same event and api.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage compatibleTriggers(List<ActionTriggerCompatibleTrigger> compatibleTriggers) {
             this.compatibleTriggers = Optional.ofNullable(compatibleTriggers);
             return this;
@@ -264,7 +264,7 @@ public final class ActionTrigger {
         /**
          * <p>compatible_triggers informs which other trigger supports the same event and api.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "compatible_triggers", nulls = Nulls.SKIP)
         public _FinalStage compatibleTriggers(Optional<List<ActionTriggerCompatibleTrigger>> compatibleTriggers) {
             this.compatibleTriggers = compatibleTriggers;
@@ -275,7 +275,7 @@ public final class ActionTrigger {
          * <p>Runtime that will be used when none is specified when creating an action.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage defaultRuntime(String defaultRuntime) {
             this.defaultRuntime = Optional.ofNullable(defaultRuntime);
             return this;
@@ -284,7 +284,7 @@ public final class ActionTrigger {
         /**
          * <p>Runtime that will be used when none is specified when creating an action.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "default_runtime", nulls = Nulls.SKIP)
         public _FinalStage defaultRuntime(Optional<String> defaultRuntime) {
             this.defaultRuntime = defaultRuntime;
@@ -295,7 +295,7 @@ public final class ActionTrigger {
          * <p>runtimes supported by this trigger.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage runtimes(List<String> runtimes) {
             this.runtimes = Optional.ofNullable(runtimes);
             return this;
@@ -304,7 +304,7 @@ public final class ActionTrigger {
         /**
          * <p>runtimes supported by this trigger.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "runtimes", nulls = Nulls.SKIP)
         public _FinalStage runtimes(Optional<List<String>> runtimes) {
             this.runtimes = runtimes;
@@ -315,7 +315,7 @@ public final class ActionTrigger {
          * <p>status points to the trigger status.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage status(String status) {
             this.status = Optional.ofNullable(status);
             return this;
@@ -324,7 +324,7 @@ public final class ActionTrigger {
         /**
          * <p>status points to the trigger status.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public _FinalStage status(Optional<String> status) {
             this.status = status;
@@ -335,7 +335,7 @@ public final class ActionTrigger {
          * <p>The version of a trigger. v1, v2, etc.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage version(String version) {
             this.version = Optional.ofNullable(version);
             return this;
@@ -344,14 +344,14 @@ public final class ActionTrigger {
         /**
          * <p>The version of a trigger. v1, v2, etc.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public _FinalStage version(Optional<String> version) {
             this.version = version;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public ActionTrigger build() {
             return new ActionTrigger(
                     id,

@@ -49,7 +49,7 @@ public final class UpdateFlowsVaultConnectionRequestContent {
         return setup;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateFlowsVaultConnectionRequestContent
@@ -65,12 +65,12 @@ public final class UpdateFlowsVaultConnectionRequestContent {
         return name.equals(other.name) && setup.equals(other.setup);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.setup);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

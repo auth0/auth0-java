@@ -83,7 +83,7 @@ public final class GetBotDetectionSettingsResponseContent {
         return monitoringModeEnabled;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetBotDetectionSettingsResponseContent
@@ -104,7 +104,7 @@ public final class GetBotDetectionSettingsResponseContent {
                 && monitoringModeEnabled == other.monitoringModeEnabled;
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.botDetectionLevel,
@@ -115,7 +115,7 @@ public final class GetBotDetectionSettingsResponseContent {
                 this.monitoringModeEnabled);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -184,7 +184,7 @@ public final class GetBotDetectionSettingsResponseContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(GetBotDetectionSettingsResponseContent other) {
             botDetectionLevel(other.getBotDetectionLevel());
             challengePasswordPolicy(other.getChallengePasswordPolicy());
@@ -195,14 +195,14 @@ public final class GetBotDetectionSettingsResponseContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("bot_detection_level")
         public ChallengePasswordPolicyStage botDetectionLevel(@NotNull BotDetectionLevelEnum botDetectionLevel) {
             this.botDetectionLevel = Objects.requireNonNull(botDetectionLevel, "botDetectionLevel must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("challenge_password_policy")
         public ChallengePasswordlessPolicyStage challengePasswordPolicy(
                 @NotNull BotDetectionChallengePolicyPasswordFlowEnum challengePasswordPolicy) {
@@ -211,7 +211,7 @@ public final class GetBotDetectionSettingsResponseContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("challenge_passwordless_policy")
         public ChallengePasswordResetPolicyStage challengePasswordlessPolicy(
                 @NotNull BotDetectionChallengePolicyPasswordlessFlowEnum challengePasswordlessPolicy) {
@@ -220,7 +220,7 @@ public final class GetBotDetectionSettingsResponseContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("challenge_password_reset_policy")
         public MonitoringModeEnabledStage challengePasswordResetPolicy(
                 @NotNull BotDetectionChallengePolicyPasswordResetFlowEnum challengePasswordResetPolicy) {
@@ -229,14 +229,14 @@ public final class GetBotDetectionSettingsResponseContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("monitoring_mode_enabled")
         public _FinalStage monitoringModeEnabled(boolean monitoringModeEnabled) {
             this.monitoringModeEnabled = monitoringModeEnabled;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage addAllAllowlist(List<String> allowlist) {
             if (allowlist != null) {
                 this.allowlist.addAll(allowlist);
@@ -244,13 +244,13 @@ public final class GetBotDetectionSettingsResponseContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage addAllowlist(String allowlist) {
             this.allowlist.add(allowlist);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "allowlist", nulls = Nulls.SKIP)
         public _FinalStage allowlist(List<String> allowlist) {
             this.allowlist.clear();
@@ -260,7 +260,7 @@ public final class GetBotDetectionSettingsResponseContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public GetBotDetectionSettingsResponseContent build() {
             return new GetBotDetectionSettingsResponseContent(
                     botDetectionLevel,

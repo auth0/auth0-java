@@ -64,7 +64,7 @@ public final class ListFlowsOffsetPaginatedResponseContent {
         return flows;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListFlowsOffsetPaginatedResponseContent
@@ -83,12 +83,12 @@ public final class ListFlowsOffsetPaginatedResponseContent {
                 && flows.equals(other.flows);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.start, this.limit, this.total, this.flows);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

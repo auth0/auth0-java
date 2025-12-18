@@ -64,7 +64,7 @@ public final class FlowActionPipedriveAddOrganizationParams {
         return fields;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionPipedriveAddOrganizationParams
@@ -83,12 +83,12 @@ public final class FlowActionPipedriveAddOrganizationParams {
                 && fields.equals(other.fields);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.name, this.ownerId, this.fields);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -134,7 +134,7 @@ public final class FlowActionPipedriveAddOrganizationParams {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionPipedriveAddOrganizationParams other) {
             connectionId(other.getConnectionId());
             name(other.getName());
@@ -143,47 +143,47 @@ public final class FlowActionPipedriveAddOrganizationParams {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_id")
         public NameStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("name")
         public _FinalStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage fields(Map<String, Object> fields) {
             this.fields = Optional.ofNullable(fields);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "fields", nulls = Nulls.SKIP)
         public _FinalStage fields(Optional<Map<String, Object>> fields) {
             this.fields = fields;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage ownerId(FlowActionPipedriveAddOrganizationParamsOwnerId ownerId) {
             this.ownerId = Optional.ofNullable(ownerId);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "owner_id", nulls = Nulls.SKIP)
         public _FinalStage ownerId(Optional<FlowActionPipedriveAddOrganizationParamsOwnerId> ownerId) {
             this.ownerId = ownerId;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionPipedriveAddOrganizationParams build() {
             return new FlowActionPipedriveAddOrganizationParams(
                     connectionId, name, ownerId, fields, additionalProperties);

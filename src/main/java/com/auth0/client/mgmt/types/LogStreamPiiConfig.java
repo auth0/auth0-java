@@ -56,7 +56,7 @@ public final class LogStreamPiiConfig {
         return algorithm;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof LogStreamPiiConfig && equalTo((LogStreamPiiConfig) other);
@@ -71,12 +71,12 @@ public final class LogStreamPiiConfig {
         return logFields.equals(other.logFields) && method.equals(other.method) && algorithm.equals(other.algorithm);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.logFields, this.method, this.algorithm);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

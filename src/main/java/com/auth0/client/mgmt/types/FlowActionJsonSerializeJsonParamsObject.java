@@ -41,7 +41,7 @@ public final class FlowActionJsonSerializeJsonParamsObject {
         throw new IllegalStateException("Failed to visit value. This should never happen.");
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionJsonSerializeJsonParamsObject
@@ -52,12 +52,12 @@ public final class FlowActionJsonSerializeJsonParamsObject {
         return value.equals(other.value);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.value);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return this.value.toString();
     }
@@ -81,7 +81,7 @@ public final class FlowActionJsonSerializeJsonParamsObject {
             super(FlowActionJsonSerializeJsonParamsObject.class);
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionJsonSerializeJsonParamsObject deserialize(JsonParser p, DeserializationContext context)
                 throws IOException {
             Object value = p.readValueAs(Object.class);

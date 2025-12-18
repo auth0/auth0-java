@@ -20,16 +20,14 @@ import com.auth0.client.mgmt.errors.UnauthorizedError;
 import com.auth0.client.mgmt.types.CreateEventStreamResponseContent;
 import com.auth0.client.mgmt.types.CreateEventStreamTestEventRequestContent;
 import com.auth0.client.mgmt.types.CreateEventStreamTestEventResponseContent;
-import com.auth0.client.mgmt.types.EventStreamResponseContent;
 import com.auth0.client.mgmt.types.EventStreamsCreateRequest;
 import com.auth0.client.mgmt.types.GetEventStreamResponseContent;
 import com.auth0.client.mgmt.types.ListEventStreamsRequestParameters;
+import com.auth0.client.mgmt.types.ListEventStreamsResponseContent;
 import com.auth0.client.mgmt.types.UpdateEventStreamRequestContent;
 import com.auth0.client.mgmt.types.UpdateEventStreamResponseContent;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.IOException;
-import java.util.List;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -45,15 +43,15 @@ public class RawEventStreamsClient {
         this.clientOptions = clientOptions;
     }
 
-    public ManagementApiHttpResponse<List<EventStreamResponseContent>> list() {
+    public ManagementApiHttpResponse<ListEventStreamsResponseContent> list() {
         return list(ListEventStreamsRequestParameters.builder().build());
     }
 
-    public ManagementApiHttpResponse<List<EventStreamResponseContent>> list(ListEventStreamsRequestParameters request) {
+    public ManagementApiHttpResponse<ListEventStreamsResponseContent> list(ListEventStreamsRequestParameters request) {
         return list(request, null);
     }
 
-    public ManagementApiHttpResponse<List<EventStreamResponseContent>> list(
+    public ManagementApiHttpResponse<ListEventStreamsResponseContent> list(
             ListEventStreamsRequestParameters request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -78,8 +76,7 @@ public class RawEventStreamsClient {
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
                 return new ManagementApiHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(
-                                responseBodyString, new TypeReference<List<EventStreamResponseContent>>() {}),
+                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ListEventStreamsResponseContent.class),
                         response);
             }
             try {

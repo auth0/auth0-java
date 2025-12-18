@@ -69,7 +69,7 @@ public final class UpdateNetworkAclRequestContent {
         return rule;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateNetworkAclRequestContent && equalTo((UpdateNetworkAclRequestContent) other);
@@ -87,12 +87,12 @@ public final class UpdateNetworkAclRequestContent {
                 && rule.equals(other.rule);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.description, this.active, this.priority, this.rule);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

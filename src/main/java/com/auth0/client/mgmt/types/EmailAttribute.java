@@ -78,7 +78,7 @@ public final class EmailAttribute {
         return signup;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof EmailAttribute && equalTo((EmailAttribute) other);
@@ -97,12 +97,12 @@ public final class EmailAttribute {
                 && signup.equals(other.signup);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.identifier, this.unique, this.profileRequired, this.verificationMethod, this.signup);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

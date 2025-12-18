@@ -83,7 +83,7 @@ public final class FlowActionMailchimpUpsertMember {
         return params;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionMailchimpUpsertMember && equalTo((FlowActionMailchimpUpsertMember) other);
@@ -102,12 +102,12 @@ public final class FlowActionMailchimpUpsertMember {
                 && params.equals(other.params);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.id, this.alias, this.allowFailure, this.maskOutput, this.params);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -159,7 +159,7 @@ public final class FlowActionMailchimpUpsertMember {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionMailchimpUpsertMember other) {
             id(other.getId());
             alias(other.getAlias());
@@ -169,60 +169,60 @@ public final class FlowActionMailchimpUpsertMember {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("id")
         public ParamsStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("params")
         public _FinalStage params(@NotNull FlowActionMailchimpUpsertMemberParams params) {
             this.params = Objects.requireNonNull(params, "params must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage maskOutput(Boolean maskOutput) {
             this.maskOutput = Optional.ofNullable(maskOutput);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "mask_output", nulls = Nulls.SKIP)
         public _FinalStage maskOutput(Optional<Boolean> maskOutput) {
             this.maskOutput = maskOutput;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage allowFailure(Boolean allowFailure) {
             this.allowFailure = Optional.ofNullable(allowFailure);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "allow_failure", nulls = Nulls.SKIP)
         public _FinalStage allowFailure(Optional<Boolean> allowFailure) {
             this.allowFailure = allowFailure;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage alias(String alias) {
             this.alias = Optional.ofNullable(alias);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "alias", nulls = Nulls.SKIP)
         public _FinalStage alias(Optional<String> alias) {
             this.alias = alias;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionMailchimpUpsertMember build() {
             return new FlowActionMailchimpUpsertMember(
                     id, alias, allowFailure, maskOutput, params, additionalProperties);

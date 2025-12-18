@@ -34,7 +34,7 @@ public final class TestActionResponseContent {
         return payload;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof TestActionResponseContent && equalTo((TestActionResponseContent) other);
@@ -49,12 +49,12 @@ public final class TestActionResponseContent {
         return payload.equals(other.payload);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.payload);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

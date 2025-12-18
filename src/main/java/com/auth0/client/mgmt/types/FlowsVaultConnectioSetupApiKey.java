@@ -41,7 +41,7 @@ public final class FlowsVaultConnectioSetupApiKey {
         return apiKey;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowsVaultConnectioSetupApiKey && equalTo((FlowsVaultConnectioSetupApiKey) other);
@@ -56,12 +56,12 @@ public final class FlowsVaultConnectioSetupApiKey {
         return type.equals(other.type) && apiKey.equals(other.apiKey);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.type, this.apiKey);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -95,28 +95,28 @@ public final class FlowsVaultConnectioSetupApiKey {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowsVaultConnectioSetupApiKey other) {
             type(other.getType());
             apiKey(other.getApiKey());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public ApiKeyStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("api_key")
         public _FinalStage apiKey(@NotNull String apiKey) {
             this.apiKey = Objects.requireNonNull(apiKey, "apiKey must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowsVaultConnectioSetupApiKey build() {
             return new FlowsVaultConnectioSetupApiKey(type, apiKey, additionalProperties);
         }

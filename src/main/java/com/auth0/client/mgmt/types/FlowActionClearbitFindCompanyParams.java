@@ -42,7 +42,7 @@ public final class FlowActionClearbitFindCompanyParams {
         return domain;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionClearbitFindCompanyParams
@@ -58,12 +58,12 @@ public final class FlowActionClearbitFindCompanyParams {
         return connectionId.equals(other.connectionId) && domain.equals(other.domain);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.domain);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -97,28 +97,28 @@ public final class FlowActionClearbitFindCompanyParams {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionClearbitFindCompanyParams other) {
             connectionId(other.getConnectionId());
             domain(other.getDomain());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_id")
         public DomainStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("domain")
         public _FinalStage domain(@NotNull String domain) {
             this.domain = Objects.requireNonNull(domain, "domain must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionClearbitFindCompanyParams build() {
             return new FlowActionClearbitFindCompanyParams(connectionId, domain, additionalProperties);
         }

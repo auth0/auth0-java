@@ -43,7 +43,7 @@ public final class FlowsVaultConnectioSetupOauthCode {
         return code;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowsVaultConnectioSetupOauthCode && equalTo((FlowsVaultConnectioSetupOauthCode) other);
@@ -58,12 +58,12 @@ public final class FlowsVaultConnectioSetupOauthCode {
         return type.equals(other.type) && code.equals(other.code);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.type, this.code);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

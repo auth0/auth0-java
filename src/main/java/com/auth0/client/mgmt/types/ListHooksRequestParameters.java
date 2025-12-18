@@ -135,7 +135,7 @@ public final class ListHooksRequestParameters {
         return triggerId;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListHooksRequestParameters && equalTo((ListHooksRequestParameters) other);
@@ -155,12 +155,12 @@ public final class ListHooksRequestParameters {
                 && triggerId.equals(other.triggerId);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.page, this.perPage, this.includeTotals, this.enabled, this.fields, this.triggerId);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

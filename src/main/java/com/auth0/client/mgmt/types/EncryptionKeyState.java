@@ -29,19 +29,19 @@ public final class EncryptionKeyState {
         return value;
     }
 
-    @Override
+    @java.lang.Override
     @JsonValue
     public String toString() {
         return this.string;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
                 || (other instanceof EncryptionKeyState && this.string.equals(((EncryptionKeyState) other).string));
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return this.string.hashCode();
     }

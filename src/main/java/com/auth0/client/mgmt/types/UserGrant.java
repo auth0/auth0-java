@@ -88,7 +88,7 @@ public final class UserGrant {
         return scope;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UserGrant && equalTo((UserGrant) other);
@@ -107,12 +107,12 @@ public final class UserGrant {
                 && scope.equals(other.scope);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.id, this.clientId, this.userId, this.audience, this.scope);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

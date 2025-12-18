@@ -410,7 +410,7 @@ public final class UpdateConnectionOptions {
         return federatedConnectionsAccessTokens;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateConnectionOptions && equalTo((UpdateConnectionOptions) other);
@@ -452,7 +452,7 @@ public final class UpdateConnectionOptions {
                 && federatedConnectionsAccessTokens.equals(other.federatedConnectionsAccessTokens);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.validation,
@@ -485,7 +485,7 @@ public final class UpdateConnectionOptions {
                 this.federatedConnectionsAccessTokens);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

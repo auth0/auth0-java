@@ -47,7 +47,7 @@ public final class EventStreamWebhookConfiguration {
         return webhookAuthorization;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof EventStreamWebhookConfiguration && equalTo((EventStreamWebhookConfiguration) other);
@@ -62,12 +62,12 @@ public final class EventStreamWebhookConfiguration {
         return webhookEndpoint.equals(other.webhookEndpoint) && webhookAuthorization.equals(other.webhookAuthorization);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.webhookEndpoint, this.webhookAuthorization);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -104,7 +104,7 @@ public final class EventStreamWebhookConfiguration {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(EventStreamWebhookConfiguration other) {
             webhookEndpoint(other.getWebhookEndpoint());
             webhookAuthorization(other.getWebhookAuthorization());
@@ -116,14 +116,14 @@ public final class EventStreamWebhookConfiguration {
          * <p>Target HTTP endpoint URL.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("webhook_endpoint")
         public WebhookAuthorizationStage webhookEndpoint(@NotNull String webhookEndpoint) {
             this.webhookEndpoint = Objects.requireNonNull(webhookEndpoint, "webhookEndpoint must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("webhook_authorization")
         public _FinalStage webhookAuthorization(@NotNull EventStreamWebhookAuthorizationResponse webhookAuthorization) {
             this.webhookAuthorization =
@@ -131,7 +131,7 @@ public final class EventStreamWebhookConfiguration {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public EventStreamWebhookConfiguration build() {
             return new EventStreamWebhookConfiguration(webhookEndpoint, webhookAuthorization, additionalProperties);
         }

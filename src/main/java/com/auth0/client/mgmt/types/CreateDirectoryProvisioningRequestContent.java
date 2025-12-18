@@ -52,7 +52,7 @@ public final class CreateDirectoryProvisioningRequestContent {
         return synchronizeAutomatically;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateDirectoryProvisioningRequestContent
@@ -68,12 +68,12 @@ public final class CreateDirectoryProvisioningRequestContent {
         return mapping.equals(other.mapping) && synchronizeAutomatically.equals(other.synchronizeAutomatically);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.mapping, this.synchronizeAutomatically);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -37,7 +37,7 @@ public final class ClientAddonZendesk {
         return accountName;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientAddonZendesk && equalTo((ClientAddonZendesk) other);
@@ -52,12 +52,12 @@ public final class ClientAddonZendesk {
         return accountName.equals(other.accountName);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.accountName);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

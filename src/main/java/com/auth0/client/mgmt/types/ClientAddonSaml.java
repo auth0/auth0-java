@@ -172,7 +172,7 @@ public final class ClientAddonSaml {
         return authnContextClassRef;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientAddonSaml && equalTo((ClientAddonSaml) other);
@@ -202,7 +202,7 @@ public final class ClientAddonSaml {
                 && authnContextClassRef.equals(other.authnContextClassRef);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.mappings,
@@ -223,7 +223,7 @@ public final class ClientAddonSaml {
                 this.authnContextClassRef);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

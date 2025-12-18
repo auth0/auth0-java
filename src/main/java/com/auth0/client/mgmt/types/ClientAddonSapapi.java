@@ -99,7 +99,7 @@ public final class ClientAddonSapapi {
         return nameIdentifierFormat;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientAddonSapapi && equalTo((ClientAddonSapapi) other);
@@ -119,7 +119,7 @@ public final class ClientAddonSapapi {
                 && nameIdentifierFormat.equals(other.nameIdentifierFormat);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.clientid,
@@ -130,7 +130,7 @@ public final class ClientAddonSapapi {
                 this.nameIdentifierFormat);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

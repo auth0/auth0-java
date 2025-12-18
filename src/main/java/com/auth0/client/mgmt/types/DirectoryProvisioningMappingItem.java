@@ -47,7 +47,7 @@ public final class DirectoryProvisioningMappingItem {
         return idp;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof DirectoryProvisioningMappingItem && equalTo((DirectoryProvisioningMappingItem) other);
@@ -62,12 +62,12 @@ public final class DirectoryProvisioningMappingItem {
         return auth0.equals(other.auth0) && idp.equals(other.idp);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.auth0, this.idp);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -107,7 +107,7 @@ public final class DirectoryProvisioningMappingItem {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(DirectoryProvisioningMappingItem other) {
             auth0(other.getAuth0());
             idp(other.getIdp());
@@ -119,7 +119,7 @@ public final class DirectoryProvisioningMappingItem {
          * <p>The field location in the Auth0 schema</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("auth0")
         public IdpStage auth0(@NotNull String auth0) {
             this.auth0 = Objects.requireNonNull(auth0, "auth0 must not be null");
@@ -131,14 +131,14 @@ public final class DirectoryProvisioningMappingItem {
          * <p>The field location in the IDP schema</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("idp")
         public _FinalStage idp(@NotNull String idp) {
             this.idp = Objects.requireNonNull(idp, "idp must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public DirectoryProvisioningMappingItem build() {
             return new DirectoryProvisioningMappingItem(auth0, idp, additionalProperties);
         }

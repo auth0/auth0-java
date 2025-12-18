@@ -26,19 +26,19 @@ public final class LogStreamStatusEnum {
         return value;
     }
 
-    @Override
+    @java.lang.Override
     @JsonValue
     public String toString() {
         return this.string;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
                 || (other instanceof LogStreamStatusEnum && this.string.equals(((LogStreamStatusEnum) other).string));
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return this.string.hashCode();
     }

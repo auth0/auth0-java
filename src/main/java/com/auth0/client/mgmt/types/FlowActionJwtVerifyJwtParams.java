@@ -64,7 +64,7 @@ public final class FlowActionJwtVerifyJwtParams {
         return issuer;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionJwtVerifyJwtParams && equalTo((FlowActionJwtVerifyJwtParams) other);
@@ -82,12 +82,12 @@ public final class FlowActionJwtVerifyJwtParams {
                 && issuer.equals(other.issuer);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.token, this.audience, this.issuer);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -133,7 +133,7 @@ public final class FlowActionJwtVerifyJwtParams {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionJwtVerifyJwtParams other) {
             connectionId(other.getConnectionId());
             token(other.getToken());
@@ -142,47 +142,47 @@ public final class FlowActionJwtVerifyJwtParams {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_id")
         public TokenStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("token")
         public _FinalStage token(@NotNull String token) {
             this.token = Objects.requireNonNull(token, "token must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage issuer(String issuer) {
             this.issuer = Optional.ofNullable(issuer);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "issuer", nulls = Nulls.SKIP)
         public _FinalStage issuer(Optional<String> issuer) {
             this.issuer = issuer;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage audience(String audience) {
             this.audience = Optional.ofNullable(audience);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "audience", nulls = Nulls.SKIP)
         public _FinalStage audience(Optional<String> audience) {
             this.audience = audience;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionJwtVerifyJwtParams build() {
             return new FlowActionJwtVerifyJwtParams(connectionId, token, audience, issuer, additionalProperties);
         }

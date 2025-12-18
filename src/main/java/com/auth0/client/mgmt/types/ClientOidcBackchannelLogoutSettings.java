@@ -71,7 +71,7 @@ public final class ClientOidcBackchannelLogoutSettings {
         return backchannelLogoutSessionMetadata;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientOidcBackchannelLogoutSettings
@@ -89,13 +89,13 @@ public final class ClientOidcBackchannelLogoutSettings {
                 && backchannelLogoutSessionMetadata.equals(other.backchannelLogoutSessionMetadata);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.backchannelLogoutUrls, this.backchannelLogoutInitiators, this.backchannelLogoutSessionMetadata);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

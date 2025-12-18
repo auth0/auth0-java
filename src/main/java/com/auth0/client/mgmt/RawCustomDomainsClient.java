@@ -67,11 +67,6 @@ public class RawCustomDomainsClient {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("custom-domains");
-        QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
-        if (!request.getFrom().isAbsent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "from", request.getFrom().orElse(null), false);
-        }
         if (!request.getQ().isAbsent()) {
             QueryStringMapper.addQueryParameter(httpUrl, "q", request.getQ().orElse(null), false);
         }

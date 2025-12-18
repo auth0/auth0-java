@@ -52,8 +52,6 @@ public class CustomDomainsWireTest {
                                 "[{\"custom_domain_id\":\"custom_domain_id\",\"domain\":\"domain\",\"primary\":true,\"status\":\"pending_verification\",\"type\":\"auth0_managed_certs\",\"origin_domain_name\":\"origin_domain_name\",\"verification\":{\"methods\":[{\"name\":\"cname\",\"record\":\"record\"}],\"status\":\"verified\",\"error_msg\":\"error_msg\",\"last_verified_at\":\"last_verified_at\"},\"custom_client_ip_header\":\"custom_client_ip_header\",\"tls_policy\":\"tls_policy\",\"domain_metadata\":{\"key\":\"value\"},\"certificate\":{\"status\":\"provisioning\",\"error_msg\":\"error_msg\",\"certificate_authority\":\"letsencrypt\",\"renews_before\":\"renews_before\"}}]"));
         List<CustomDomain> response = client.customDomains()
                 .list(ListCustomDomainsRequestParameters.builder()
-                        .take(OptionalNullable.of(1))
-                        .from(OptionalNullable.of("from"))
                         .q(OptionalNullable.of("q"))
                         .fields(OptionalNullable.of("fields"))
                         .includeFields(OptionalNullable.of(true))

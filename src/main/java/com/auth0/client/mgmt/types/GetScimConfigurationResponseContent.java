@@ -124,7 +124,7 @@ public final class GetScimConfigurationResponseContent {
         return updatedOn;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetScimConfigurationResponseContent
@@ -147,7 +147,7 @@ public final class GetScimConfigurationResponseContent {
                 && updatedOn.equals(other.updatedOn);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.connectionId,
@@ -160,7 +160,7 @@ public final class GetScimConfigurationResponseContent {
                 this.updatedOn);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

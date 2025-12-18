@@ -32,7 +32,7 @@ public final class ConnectionAuthenticationPurpose {
         return active;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionAuthenticationPurpose && equalTo((ConnectionAuthenticationPurpose) other);
@@ -47,12 +47,12 @@ public final class ConnectionAuthenticationPurpose {
         return active == other.active;
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.active);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -80,20 +80,20 @@ public final class ConnectionAuthenticationPurpose {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(ConnectionAuthenticationPurpose other) {
             active(other.getActive());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("active")
         public _FinalStage active(boolean active) {
             this.active = active;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public ConnectionAuthenticationPurpose build() {
             return new ConnectionAuthenticationPurpose(active, additionalProperties);
         }

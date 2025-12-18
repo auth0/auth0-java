@@ -714,7 +714,7 @@ public final class UpdateClientRequestContent {
         return expressConfiguration;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateClientRequestContent && equalTo((UpdateClientRequestContent) other);
@@ -779,7 +779,7 @@ public final class UpdateClientRequestContent {
                 && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.name,
@@ -834,7 +834,7 @@ public final class UpdateClientRequestContent {
                 this.asyncApprovalNotificationChannels);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

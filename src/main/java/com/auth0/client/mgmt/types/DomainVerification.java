@@ -73,7 +73,7 @@ public final class DomainVerification {
         return lastVerifiedAt;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof DomainVerification && equalTo((DomainVerification) other);
@@ -91,12 +91,12 @@ public final class DomainVerification {
                 && lastVerifiedAt.equals(other.lastVerifiedAt);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.methods, this.status, this.errorMsg, this.lastVerifiedAt);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

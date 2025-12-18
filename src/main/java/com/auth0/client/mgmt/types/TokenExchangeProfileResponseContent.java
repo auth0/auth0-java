@@ -109,7 +109,7 @@ public final class TokenExchangeProfileResponseContent {
         return updatedAt;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof TokenExchangeProfileResponseContent
@@ -131,13 +131,13 @@ public final class TokenExchangeProfileResponseContent {
                 && updatedAt.equals(other.updatedAt);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id, this.name, this.subjectTokenType, this.actionId, this.type, this.createdAt, this.updatedAt);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -29,20 +29,20 @@ public final class ConnectionPasskeyChallengeUiEnum {
         return value;
     }
 
-    @Override
+    @java.lang.Override
     @JsonValue
     public String toString() {
         return this.string;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
                 || (other instanceof ConnectionPasskeyChallengeUiEnum
                         && this.string.equals(((ConnectionPasskeyChallengeUiEnum) other).string));
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return this.string.hashCode();
     }

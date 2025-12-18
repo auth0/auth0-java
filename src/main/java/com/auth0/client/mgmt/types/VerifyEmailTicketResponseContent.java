@@ -36,7 +36,7 @@ public final class VerifyEmailTicketResponseContent {
         return ticket;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof VerifyEmailTicketResponseContent && equalTo((VerifyEmailTicketResponseContent) other);
@@ -51,12 +51,12 @@ public final class VerifyEmailTicketResponseContent {
         return ticket.equals(other.ticket);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.ticket);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -87,7 +87,7 @@ public final class VerifyEmailTicketResponseContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(VerifyEmailTicketResponseContent other) {
             ticket(other.getTicket());
             return this;
@@ -98,14 +98,14 @@ public final class VerifyEmailTicketResponseContent {
          * <p>URL representing the ticket.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("ticket")
         public _FinalStage ticket(@NotNull String ticket) {
             this.ticket = Objects.requireNonNull(ticket, "ticket must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public VerifyEmailTicketResponseContent build() {
             return new VerifyEmailTicketResponseContent(ticket, additionalProperties);
         }

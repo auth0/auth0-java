@@ -35,7 +35,7 @@ public final class PrivateKeyJwt {
         return credentials;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof PrivateKeyJwt && equalTo((PrivateKeyJwt) other);
@@ -50,12 +50,12 @@ public final class PrivateKeyJwt {
         return credentials.equals(other.credentials);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.credentials);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

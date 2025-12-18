@@ -45,7 +45,7 @@ public final class CreateFlowsVaultConnectionAirtableUninitialized {
         return appId;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateFlowsVaultConnectionAirtableUninitialized
@@ -61,12 +61,12 @@ public final class CreateFlowsVaultConnectionAirtableUninitialized {
         return name.equals(other.name) && appId.equals(other.appId);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.appId);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -103,7 +103,7 @@ public final class CreateFlowsVaultConnectionAirtableUninitialized {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateFlowsVaultConnectionAirtableUninitialized other) {
             name(other.getName());
             appId(other.getAppId());
@@ -115,21 +115,21 @@ public final class CreateFlowsVaultConnectionAirtableUninitialized {
          * <p>Flows Vault Connection name.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("name")
         public AppIdStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("app_id")
         public _FinalStage appId(@NotNull String appId) {
             this.appId = Objects.requireNonNull(appId, "appId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateFlowsVaultConnectionAirtableUninitialized build() {
             return new CreateFlowsVaultConnectionAirtableUninitialized(name, appId, additionalProperties);
         }

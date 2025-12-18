@@ -98,7 +98,7 @@ public final class CreateSelfServiceProfileRequestContent {
         return userAttributeProfileId;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateSelfServiceProfileRequestContent
@@ -119,7 +119,7 @@ public final class CreateSelfServiceProfileRequestContent {
                 && userAttributeProfileId.equals(other.userAttributeProfileId);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.name,
@@ -130,7 +130,7 @@ public final class CreateSelfServiceProfileRequestContent {
                 this.userAttributeProfileId);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -203,7 +203,7 @@ public final class CreateSelfServiceProfileRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateSelfServiceProfileRequestContent other) {
             name(other.getName());
             description(other.getDescription());
@@ -219,7 +219,7 @@ public final class CreateSelfServiceProfileRequestContent {
          * <p>The name of the self-service Profile.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("name")
         public _FinalStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
@@ -230,7 +230,7 @@ public final class CreateSelfServiceProfileRequestContent {
          * <p>ID of the user-attribute-profile to associate with this self-service profile.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage userAttributeProfileId(String userAttributeProfileId) {
             this.userAttributeProfileId = Optional.ofNullable(userAttributeProfileId);
             return this;
@@ -239,7 +239,7 @@ public final class CreateSelfServiceProfileRequestContent {
         /**
          * <p>ID of the user-attribute-profile to associate with this self-service profile.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "user_attribute_profile_id", nulls = Nulls.SKIP)
         public _FinalStage userAttributeProfileId(Optional<String> userAttributeProfileId) {
             this.userAttributeProfileId = userAttributeProfileId;
@@ -250,7 +250,7 @@ public final class CreateSelfServiceProfileRequestContent {
          * <p>List of attributes to be mapped that will be shown to the user during the SS-SSO flow.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage userAttributes(List<SelfServiceProfileUserAttribute> userAttributes) {
             this.userAttributes = Optional.ofNullable(userAttributes);
             return this;
@@ -259,7 +259,7 @@ public final class CreateSelfServiceProfileRequestContent {
         /**
          * <p>List of attributes to be mapped that will be shown to the user during the SS-SSO flow.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "user_attributes", nulls = Nulls.SKIP)
         public _FinalStage userAttributes(Optional<List<SelfServiceProfileUserAttribute>> userAttributes) {
             this.userAttributes = userAttributes;
@@ -270,7 +270,7 @@ public final class CreateSelfServiceProfileRequestContent {
          * <p>List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [<code>oidc</code>, <code>samlp</code>, <code>waad</code>, <code>google-apps</code>, <code>adfs</code>, <code>okta</code>, <code>keycloak-samlp</code>, <code>pingfederate</code>]</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage allowedStrategies(List<SelfServiceProfileAllowedStrategyEnum> allowedStrategies) {
             this.allowedStrategies = Optional.ofNullable(allowedStrategies);
             return this;
@@ -279,20 +279,20 @@ public final class CreateSelfServiceProfileRequestContent {
         /**
          * <p>List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [<code>oidc</code>, <code>samlp</code>, <code>waad</code>, <code>google-apps</code>, <code>adfs</code>, <code>okta</code>, <code>keycloak-samlp</code>, <code>pingfederate</code>]</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "allowed_strategies", nulls = Nulls.SKIP)
         public _FinalStage allowedStrategies(Optional<List<SelfServiceProfileAllowedStrategyEnum>> allowedStrategies) {
             this.allowedStrategies = allowedStrategies;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage branding(SelfServiceProfileBrandingProperties branding) {
             this.branding = Optional.ofNullable(branding);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "branding", nulls = Nulls.SKIP)
         public _FinalStage branding(Optional<SelfServiceProfileBrandingProperties> branding) {
             this.branding = branding;
@@ -303,7 +303,7 @@ public final class CreateSelfServiceProfileRequestContent {
          * <p>The description of the self-service Profile.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage description(String description) {
             this.description = Optional.ofNullable(description);
             return this;
@@ -312,14 +312,14 @@ public final class CreateSelfServiceProfileRequestContent {
         /**
          * <p>The description of the self-service Profile.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public _FinalStage description(Optional<String> description) {
             this.description = description;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateSelfServiceProfileRequestContent build() {
             return new CreateSelfServiceProfileRequestContent(
                     name,

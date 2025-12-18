@@ -116,7 +116,7 @@ public final class UserAttributeProfileUserAttributeAdditionalProperties {
         return strategyOverrides;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UserAttributeProfileUserAttributeAdditionalProperties
@@ -139,7 +139,7 @@ public final class UserAttributeProfileUserAttributeAdditionalProperties {
                 && strategyOverrides.equals(other.strategyOverrides);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.description,
@@ -152,7 +152,7 @@ public final class UserAttributeProfileUserAttributeAdditionalProperties {
                 this.strategyOverrides);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -238,7 +238,7 @@ public final class UserAttributeProfileUserAttributeAdditionalProperties {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(UserAttributeProfileUserAttributeAdditionalProperties other) {
             description(other.getDescription());
             label(other.getLabel());
@@ -256,7 +256,7 @@ public final class UserAttributeProfileUserAttributeAdditionalProperties {
          * <p>Description of this attribute</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("description")
         public LabelStage description(@NotNull String description) {
             this.description = Objects.requireNonNull(description, "description must not be null");
@@ -268,7 +268,7 @@ public final class UserAttributeProfileUserAttributeAdditionalProperties {
          * <p>Display label for this attribute</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("label")
         public ProfileRequiredStage label(@NotNull String label) {
             this.label = Objects.requireNonNull(label, "label must not be null");
@@ -280,7 +280,7 @@ public final class UserAttributeProfileUserAttributeAdditionalProperties {
          * <p>Whether this attribute is required in the profile</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("profile_required")
         public Auth0MappingStage profileRequired(boolean profileRequired) {
             this.profileRequired = profileRequired;
@@ -292,20 +292,20 @@ public final class UserAttributeProfileUserAttributeAdditionalProperties {
          * <p>Auth0 mapping for this attribute</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("auth0_mapping")
         public _FinalStage auth0Mapping(@NotNull String auth0Mapping) {
             this.auth0Mapping = Objects.requireNonNull(auth0Mapping, "auth0Mapping must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage strategyOverrides(UserAttributeProfileStrategyOverrides strategyOverrides) {
             this.strategyOverrides = Optional.ofNullable(strategyOverrides);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "strategy_overrides", nulls = Nulls.SKIP)
         public _FinalStage strategyOverrides(Optional<UserAttributeProfileStrategyOverrides> strategyOverrides) {
             this.strategyOverrides = strategyOverrides;
@@ -316,7 +316,7 @@ public final class UserAttributeProfileUserAttributeAdditionalProperties {
          * <p>SCIM mapping for this attribute</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage scimMapping(String scimMapping) {
             this.scimMapping = Optional.ofNullable(scimMapping);
             return this;
@@ -325,40 +325,40 @@ public final class UserAttributeProfileUserAttributeAdditionalProperties {
         /**
          * <p>SCIM mapping for this attribute</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "scim_mapping", nulls = Nulls.SKIP)
         public _FinalStage scimMapping(Optional<String> scimMapping) {
             this.scimMapping = scimMapping;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage samlMapping(List<String> samlMapping) {
             this.samlMapping = Optional.ofNullable(samlMapping);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "saml_mapping", nulls = Nulls.SKIP)
         public _FinalStage samlMapping(Optional<List<String>> samlMapping) {
             this.samlMapping = samlMapping;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage oidcMapping(UserAttributeProfileOidcMapping oidcMapping) {
             this.oidcMapping = Optional.ofNullable(oidcMapping);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "oidc_mapping", nulls = Nulls.SKIP)
         public _FinalStage oidcMapping(Optional<UserAttributeProfileOidcMapping> oidcMapping) {
             this.oidcMapping = oidcMapping;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public UserAttributeProfileUserAttributeAdditionalProperties build() {
             return new UserAttributeProfileUserAttributeAdditionalProperties(
                     description,

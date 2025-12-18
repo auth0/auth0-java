@@ -94,7 +94,7 @@ public final class CreateEmailProviderRequestContent {
         return settings;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateEmailProviderRequestContent && equalTo((CreateEmailProviderRequestContent) other);
@@ -113,12 +113,12 @@ public final class CreateEmailProviderRequestContent {
                 && settings.equals(other.settings);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.enabled, this.defaultFromAddress, this.credentials, this.settings);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -180,7 +180,7 @@ public final class CreateEmailProviderRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateEmailProviderRequestContent other) {
             name(other.getName());
             enabled(other.getEnabled());
@@ -190,21 +190,21 @@ public final class CreateEmailProviderRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("name")
         public CredentialsStage name(@NotNull EmailProviderNameEnum name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("credentials")
         public _FinalStage credentials(@NotNull EmailProviderCredentialsSchema credentials) {
             this.credentials = Objects.requireNonNull(credentials, "credentials must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage settings(com.auth0.client.mgmt.core.Nullable<Map<String, Object>> settings) {
             if (settings.isNull()) {
                 this.settings = OptionalNullable.ofNull();
@@ -216,7 +216,7 @@ public final class CreateEmailProviderRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage settings(Optional<Map<String, Object>> settings) {
             if (settings.isPresent()) {
                 this.settings = OptionalNullable.of(settings.get());
@@ -226,13 +226,13 @@ public final class CreateEmailProviderRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage settings(Map<String, Object> settings) {
             this.settings = OptionalNullable.of(settings);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "settings", nulls = Nulls.SKIP)
         public _FinalStage settings(@Nullable OptionalNullable<Map<String, Object>> settings) {
             this.settings = settings;
@@ -243,7 +243,7 @@ public final class CreateEmailProviderRequestContent {
          * <p>Email address to use as &quot;from&quot; when no other address specified.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage defaultFromAddress(String defaultFromAddress) {
             this.defaultFromAddress = Optional.ofNullable(defaultFromAddress);
             return this;
@@ -252,7 +252,7 @@ public final class CreateEmailProviderRequestContent {
         /**
          * <p>Email address to use as &quot;from&quot; when no other address specified.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "default_from_address", nulls = Nulls.SKIP)
         public _FinalStage defaultFromAddress(Optional<String> defaultFromAddress) {
             this.defaultFromAddress = defaultFromAddress;
@@ -263,7 +263,7 @@ public final class CreateEmailProviderRequestContent {
          * <p>Whether the provider is enabled (true) or disabled (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage enabled(Boolean enabled) {
             this.enabled = Optional.ofNullable(enabled);
             return this;
@@ -272,14 +272,14 @@ public final class CreateEmailProviderRequestContent {
         /**
          * <p>Whether the provider is enabled (true) or disabled (false).</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "enabled", nulls = Nulls.SKIP)
         public _FinalStage enabled(Optional<Boolean> enabled) {
             this.enabled = enabled;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateEmailProviderRequestContent build() {
             return new CreateEmailProviderRequestContent(
                     name, enabled, defaultFromAddress, credentials, settings, additionalProperties);

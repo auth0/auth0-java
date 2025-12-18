@@ -134,7 +134,7 @@ public final class GetFlowExecutionResponseContent {
         return endedAt;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetFlowExecutionResponseContent && equalTo((GetFlowExecutionResponseContent) other);
@@ -157,7 +157,7 @@ public final class GetFlowExecutionResponseContent {
                 && endedAt.equals(other.endedAt);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -171,7 +171,7 @@ public final class GetFlowExecutionResponseContent {
                 this.endedAt);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -272,7 +272,7 @@ public final class GetFlowExecutionResponseContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(GetFlowExecutionResponseContent other) {
             id(other.getId());
             traceId(other.getTraceId());
@@ -291,7 +291,7 @@ public final class GetFlowExecutionResponseContent {
          * <p>Flow execution identifier</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("id")
         public TraceIdStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
@@ -303,7 +303,7 @@ public final class GetFlowExecutionResponseContent {
          * <p>Trace id</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("trace_id")
         public StatusStage traceId(@NotNull String traceId) {
             this.traceId = Objects.requireNonNull(traceId, "traceId must not be null");
@@ -315,7 +315,7 @@ public final class GetFlowExecutionResponseContent {
          * <p>Execution status</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("status")
         public CreatedAtStage status(@NotNull String status) {
             this.status = Objects.requireNonNull(status, "status must not be null");
@@ -327,7 +327,7 @@ public final class GetFlowExecutionResponseContent {
          * <p>The ISO 8601 formatted date when this flow execution was created.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("created_at")
         public UpdatedAtStage createdAt(@NotNull OffsetDateTime createdAt) {
             this.createdAt = Objects.requireNonNull(createdAt, "createdAt must not be null");
@@ -339,7 +339,7 @@ public final class GetFlowExecutionResponseContent {
          * <p>The ISO 8601 formatted date when this flow execution was updated.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("updated_at")
         public _FinalStage updatedAt(@NotNull OffsetDateTime updatedAt) {
             this.updatedAt = Objects.requireNonNull(updatedAt, "updatedAt must not be null");
@@ -350,7 +350,7 @@ public final class GetFlowExecutionResponseContent {
          * <p>The ISO 8601 formatted date when this flow execution ended.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage endedAt(OffsetDateTime endedAt) {
             this.endedAt = Optional.ofNullable(endedAt);
             return this;
@@ -359,7 +359,7 @@ public final class GetFlowExecutionResponseContent {
         /**
          * <p>The ISO 8601 formatted date when this flow execution ended.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "ended_at", nulls = Nulls.SKIP)
         public _FinalStage endedAt(Optional<OffsetDateTime> endedAt) {
             this.endedAt = endedAt;
@@ -370,7 +370,7 @@ public final class GetFlowExecutionResponseContent {
          * <p>The ISO 8601 formatted date when this flow execution started.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage startedAt(OffsetDateTime startedAt) {
             this.startedAt = Optional.ofNullable(startedAt);
             return this;
@@ -379,20 +379,20 @@ public final class GetFlowExecutionResponseContent {
         /**
          * <p>The ISO 8601 formatted date when this flow execution started.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "started_at", nulls = Nulls.SKIP)
         public _FinalStage startedAt(Optional<OffsetDateTime> startedAt) {
             this.startedAt = startedAt;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage debug(Map<String, Object> debug) {
             this.debug = Optional.ofNullable(debug);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "debug", nulls = Nulls.SKIP)
         public _FinalStage debug(Optional<Map<String, Object>> debug) {
             this.debug = debug;
@@ -403,7 +403,7 @@ public final class GetFlowExecutionResponseContent {
          * <p>Journey id</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage journeyId(String journeyId) {
             this.journeyId = Optional.ofNullable(journeyId);
             return this;
@@ -412,14 +412,14 @@ public final class GetFlowExecutionResponseContent {
         /**
          * <p>Journey id</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "journey_id", nulls = Nulls.SKIP)
         public _FinalStage journeyId(Optional<String> journeyId) {
             this.journeyId = journeyId;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public GetFlowExecutionResponseContent build() {
             return new GetFlowExecutionResponseContent(
                     id,

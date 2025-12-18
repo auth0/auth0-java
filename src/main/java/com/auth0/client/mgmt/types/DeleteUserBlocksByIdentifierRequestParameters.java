@@ -36,7 +36,7 @@ public final class DeleteUserBlocksByIdentifierRequestParameters {
         return identifier;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof DeleteUserBlocksByIdentifierRequestParameters
@@ -52,12 +52,12 @@ public final class DeleteUserBlocksByIdentifierRequestParameters {
         return identifier.equals(other.identifier);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.identifier);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -88,7 +88,7 @@ public final class DeleteUserBlocksByIdentifierRequestParameters {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(DeleteUserBlocksByIdentifierRequestParameters other) {
             identifier(other.getIdentifier());
             return this;
@@ -99,14 +99,14 @@ public final class DeleteUserBlocksByIdentifierRequestParameters {
          * <p>Should be any of a username, phone number, or email.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("identifier")
         public _FinalStage identifier(@NotNull String identifier) {
             this.identifier = Objects.requireNonNull(identifier, "identifier must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public DeleteUserBlocksByIdentifierRequestParameters build() {
             return new DeleteUserBlocksByIdentifierRequestParameters(identifier, additionalProperties);
         }

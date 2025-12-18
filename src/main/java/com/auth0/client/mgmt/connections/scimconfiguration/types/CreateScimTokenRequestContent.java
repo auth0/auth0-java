@@ -65,7 +65,7 @@ public final class CreateScimTokenRequestContent {
         return tokenLifetime;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateScimTokenRequestContent && equalTo((CreateScimTokenRequestContent) other);
@@ -80,12 +80,12 @@ public final class CreateScimTokenRequestContent {
         return scopes.equals(other.scopes) && tokenLifetime.equals(other.tokenLifetime);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.scopes, this.tokenLifetime);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

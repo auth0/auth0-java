@@ -74,7 +74,7 @@ public final class CreateVerificationEmailRequestContent {
         return organizationId;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateVerificationEmailRequestContent
@@ -93,12 +93,12 @@ public final class CreateVerificationEmailRequestContent {
                 && organizationId.equals(other.organizationId);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.userId, this.clientId, this.identity, this.organizationId);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -153,7 +153,7 @@ public final class CreateVerificationEmailRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateVerificationEmailRequestContent other) {
             userId(other.getUserId());
             clientId(other.getClientId());
@@ -167,7 +167,7 @@ public final class CreateVerificationEmailRequestContent {
          * <p>user_id of the user to send the verification email to.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("user_id")
         public _FinalStage userId(@NotNull String userId) {
             this.userId = Objects.requireNonNull(userId, "userId must not be null");
@@ -178,7 +178,7 @@ public final class CreateVerificationEmailRequestContent {
          * <p>(Optional) Organization ID – the ID of the Organization. If provided, organization parameters will be made available to the email template and organization branding will be applied to the prompt. In addition, the redirect link in the prompt will include organization_id and organization_name query string parameters.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage organizationId(String organizationId) {
             this.organizationId = Optional.ofNullable(organizationId);
             return this;
@@ -187,20 +187,20 @@ public final class CreateVerificationEmailRequestContent {
         /**
          * <p>(Optional) Organization ID – the ID of the Organization. If provided, organization parameters will be made available to the email template and organization branding will be applied to the prompt. In addition, the redirect link in the prompt will include organization_id and organization_name query string parameters.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "organization_id", nulls = Nulls.SKIP)
         public _FinalStage organizationId(Optional<String> organizationId) {
             this.organizationId = organizationId;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage identity(Identity identity) {
             this.identity = Optional.ofNullable(identity);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "identity", nulls = Nulls.SKIP)
         public _FinalStage identity(Optional<Identity> identity) {
             this.identity = identity;
@@ -211,7 +211,7 @@ public final class CreateVerificationEmailRequestContent {
          * <p>client_id of the client (application). If no value provided, the global Client ID will be used.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage clientId(String clientId) {
             this.clientId = Optional.ofNullable(clientId);
             return this;
@@ -220,14 +220,14 @@ public final class CreateVerificationEmailRequestContent {
         /**
          * <p>client_id of the client (application). If no value provided, the global Client ID will be used.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "client_id", nulls = Nulls.SKIP)
         public _FinalStage clientId(Optional<String> clientId) {
             this.clientId = clientId;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateVerificationEmailRequestContent build() {
             return new CreateVerificationEmailRequestContent(
                     userId, clientId, identity, organizationId, additionalProperties);

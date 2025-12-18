@@ -22,6 +22,7 @@ import com.auth0.client.mgmt.organizations.types.CreateOrganizationDiscoveryDoma
 import com.auth0.client.mgmt.organizations.types.ListOrganizationDiscoveryDomainsRequestParameters;
 import com.auth0.client.mgmt.organizations.types.UpdateOrganizationDiscoveryDomainRequestContent;
 import com.auth0.client.mgmt.types.CreateOrganizationDiscoveryDomainResponseContent;
+import com.auth0.client.mgmt.types.GetOrganizationDiscoveryDomainByNameResponseContent;
 import com.auth0.client.mgmt.types.GetOrganizationDiscoveryDomainResponseContent;
 import com.auth0.client.mgmt.types.ListOrganizationDiscoveryDomainsResponseContent;
 import com.auth0.client.mgmt.types.OrganizationDiscoveryDomain;
@@ -173,7 +174,7 @@ public class AsyncRawDiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;.
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateOrganizationDiscoveryDomainResponseContent>> create(
             String id, CreateOrganizationDiscoveryDomainRequestContent request) {
@@ -181,7 +182,7 @@ public class AsyncRawDiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;.
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateOrganizationDiscoveryDomainResponseContent>> create(
             String id, CreateOrganizationDiscoveryDomainRequestContent request, RequestOptions requestOptions) {
@@ -247,6 +248,98 @@ public class AsyncRawDiscoveryDomainsClient {
                                 return;
                             case 409:
                                 future.completeExceptionally(new ConflictError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 429:
+                                future.completeExceptionally(new TooManyRequestsError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+                    future.completeExceptionally(new ManagementApiException(
+                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                    return;
+                } catch (IOException e) {
+                    future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
+    }
+
+    /**
+     * Retrieve details about a single organization discovery domain specified by domain name.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<GetOrganizationDiscoveryDomainByNameResponseContent>> getByName(
+            String id, String discoveryDomain) {
+        return getByName(id, discoveryDomain, null);
+    }
+
+    /**
+     * Retrieve details about a single organization discovery domain specified by domain name.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<GetOrganizationDiscoveryDomainByNameResponseContent>> getByName(
+            String id, String discoveryDomain, RequestOptions requestOptions) {
+        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("organizations")
+                .addPathSegment(id)
+                .addPathSegments("discovery-domains/name")
+                .addPathSegment(discoveryDomain)
+                .build();
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl)
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        CompletableFuture<ManagementApiHttpResponse<GetOrganizationDiscoveryDomainByNameResponseContent>> future =
+                new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    if (response.isSuccessful()) {
+                        future.complete(new ManagementApiHttpResponse<>(
+                                ObjectMappers.JSON_MAPPER.readValue(
+                                        responseBodyString, GetOrganizationDiscoveryDomainByNameResponseContent.class),
+                                response));
+                        return;
+                    }
+                    try {
+                        switch (response.code()) {
+                            case 400:
+                                future.completeExceptionally(new BadRequestError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 401:
+                                future.completeExceptionally(new UnauthorizedError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 403:
+                                future.completeExceptionally(new ForbiddenError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 404:
+                                future.completeExceptionally(new NotFoundError(
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
                                         response));
                                 return;
@@ -451,7 +544,7 @@ public class AsyncRawDiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;.
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateOrganizationDiscoveryDomainResponseContent>> update(
             String id, String discoveryDomainId) {
@@ -462,7 +555,7 @@ public class AsyncRawDiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;.
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateOrganizationDiscoveryDomainResponseContent>> update(
             String id, String discoveryDomainId, UpdateOrganizationDiscoveryDomainRequestContent request) {
@@ -470,7 +563,7 @@ public class AsyncRawDiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;.
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateOrganizationDiscoveryDomainResponseContent>> update(
             String id,

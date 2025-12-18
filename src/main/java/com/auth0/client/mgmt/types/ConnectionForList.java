@@ -149,7 +149,7 @@ public final class ConnectionForList {
         return connectedAccounts;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionForList && equalTo((ConnectionForList) other);
@@ -174,7 +174,7 @@ public final class ConnectionForList {
                 && connectedAccounts.equals(other.connectedAccounts);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.name,
@@ -190,7 +190,7 @@ public final class ConnectionForList {
                 this.connectedAccounts);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

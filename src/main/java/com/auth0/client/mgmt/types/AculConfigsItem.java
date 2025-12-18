@@ -134,7 +134,7 @@ public final class AculConfigsItem {
         return filters;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof AculConfigsItem && equalTo((AculConfigsItem) other);
@@ -156,7 +156,7 @@ public final class AculConfigsItem {
                 && filters.equals(other.filters);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.prompt,
@@ -169,7 +169,7 @@ public final class AculConfigsItem {
                 this.filters);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -251,7 +251,7 @@ public final class AculConfigsItem {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(AculConfigsItem other) {
             prompt(other.getPrompt());
             screen(other.getScreen());
@@ -264,21 +264,21 @@ public final class AculConfigsItem {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("prompt")
         public ScreenStage prompt(@NotNull PromptGroupNameEnum prompt) {
             this.prompt = Objects.requireNonNull(prompt, "prompt must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("screen")
         public _FinalStage screen(@NotNull ScreenGroupNameEnum screen) {
             this.screen = Objects.requireNonNull(screen, "screen must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage filters(com.auth0.client.mgmt.core.Nullable<AculFilters> filters) {
             if (filters.isNull()) {
                 this.filters = OptionalNullable.ofNull();
@@ -290,7 +290,7 @@ public final class AculConfigsItem {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage filters(Optional<AculFilters> filters) {
             if (filters.isPresent()) {
                 this.filters = OptionalNullable.of(filters.get());
@@ -300,33 +300,33 @@ public final class AculConfigsItem {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage filters(AculFilters filters) {
             this.filters = OptionalNullable.of(filters);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "filters", nulls = Nulls.SKIP)
         public _FinalStage filters(@Nullable OptionalNullable<AculFilters> filters) {
             this.filters = filters;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage headTags(List<AculHeadTag> headTags) {
             this.headTags = Optional.ofNullable(headTags);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "head_tags", nulls = Nulls.SKIP)
         public _FinalStage headTags(Optional<List<AculHeadTag>> headTags) {
             this.headTags = headTags;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage usePageTemplate(com.auth0.client.mgmt.core.Nullable<Boolean> usePageTemplate) {
             if (usePageTemplate.isNull()) {
                 this.usePageTemplate = OptionalNullable.ofNull();
@@ -338,7 +338,7 @@ public final class AculConfigsItem {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage usePageTemplate(Optional<Boolean> usePageTemplate) {
             if (usePageTemplate.isPresent()) {
                 this.usePageTemplate = OptionalNullable.of(usePageTemplate.get());
@@ -348,20 +348,20 @@ public final class AculConfigsItem {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage usePageTemplate(Boolean usePageTemplate) {
             this.usePageTemplate = OptionalNullable.of(usePageTemplate);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "use_page_template", nulls = Nulls.SKIP)
         public _FinalStage usePageTemplate(@Nullable OptionalNullable<Boolean> usePageTemplate) {
             this.usePageTemplate = usePageTemplate;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage defaultHeadTagsDisabled(
                 com.auth0.client.mgmt.core.Nullable<Boolean> defaultHeadTagsDisabled) {
             if (defaultHeadTagsDisabled.isNull()) {
@@ -374,7 +374,7 @@ public final class AculConfigsItem {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage defaultHeadTagsDisabled(Optional<Boolean> defaultHeadTagsDisabled) {
             if (defaultHeadTagsDisabled.isPresent()) {
                 this.defaultHeadTagsDisabled = OptionalNullable.of(defaultHeadTagsDisabled.get());
@@ -384,46 +384,46 @@ public final class AculConfigsItem {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage defaultHeadTagsDisabled(Boolean defaultHeadTagsDisabled) {
             this.defaultHeadTagsDisabled = OptionalNullable.of(defaultHeadTagsDisabled);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "default_head_tags_disabled", nulls = Nulls.SKIP)
         public _FinalStage defaultHeadTagsDisabled(@Nullable OptionalNullable<Boolean> defaultHeadTagsDisabled) {
             this.defaultHeadTagsDisabled = defaultHeadTagsDisabled;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage contextConfiguration(List<AculContextConfigurationItem> contextConfiguration) {
             this.contextConfiguration = Optional.ofNullable(contextConfiguration);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "context_configuration", nulls = Nulls.SKIP)
         public _FinalStage contextConfiguration(Optional<List<AculContextConfigurationItem>> contextConfiguration) {
             this.contextConfiguration = contextConfiguration;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage renderingMode(AculRenderingModeEnum renderingMode) {
             this.renderingMode = Optional.ofNullable(renderingMode);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "rendering_mode", nulls = Nulls.SKIP)
         public _FinalStage renderingMode(Optional<AculRenderingModeEnum> renderingMode) {
             this.renderingMode = renderingMode;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public AculConfigsItem build() {
             return new AculConfigsItem(
                     prompt,

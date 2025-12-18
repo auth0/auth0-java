@@ -42,7 +42,7 @@ public final class FlowsVaultConnectioSetupJwt {
         return algorithm;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowsVaultConnectioSetupJwt && equalTo((FlowsVaultConnectioSetupJwt) other);
@@ -57,12 +57,12 @@ public final class FlowsVaultConnectioSetupJwt {
         return type.equals(other.type) && algorithm.equals(other.algorithm);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.type, this.algorithm);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -96,28 +96,28 @@ public final class FlowsVaultConnectioSetupJwt {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowsVaultConnectioSetupJwt other) {
             type(other.getType());
             algorithm(other.getAlgorithm());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public AlgorithmStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("algorithm")
         public _FinalStage algorithm(@NotNull FlowsVaultConnectioSetupJwtAlgorithmEnum algorithm) {
             this.algorithm = Objects.requireNonNull(algorithm, "algorithm must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowsVaultConnectioSetupJwt build() {
             return new FlowsVaultConnectioSetupJwt(type, algorithm, additionalProperties);
         }

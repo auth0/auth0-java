@@ -42,7 +42,7 @@ public final class FormFieldPaymentConfigChargeOneOff {
         return oneOff;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldPaymentConfigChargeOneOff
@@ -58,12 +58,12 @@ public final class FormFieldPaymentConfigChargeOneOff {
         return type.equals(other.type) && oneOff.equals(other.oneOff);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.type, this.oneOff);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -97,28 +97,28 @@ public final class FormFieldPaymentConfigChargeOneOff {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FormFieldPaymentConfigChargeOneOff other) {
             type(other.getType());
             oneOff(other.getOneOff());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public OneOffStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("one_off")
         public _FinalStage oneOff(@NotNull FormFieldPaymentConfigChargeOneOffOneOff oneOff) {
             this.oneOff = Objects.requireNonNull(oneOff, "oneOff must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FormFieldPaymentConfigChargeOneOff build() {
             return new FormFieldPaymentConfigChargeOneOff(type, oneOff, additionalProperties);
         }

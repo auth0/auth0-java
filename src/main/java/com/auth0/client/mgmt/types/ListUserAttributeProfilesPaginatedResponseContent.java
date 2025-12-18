@@ -49,7 +49,7 @@ public final class ListUserAttributeProfilesPaginatedResponseContent {
         return userAttributeProfiles;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListUserAttributeProfilesPaginatedResponseContent
@@ -65,12 +65,12 @@ public final class ListUserAttributeProfilesPaginatedResponseContent {
         return next.equals(other.next) && userAttributeProfiles.equals(other.userAttributeProfiles);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.next, this.userAttributeProfiles);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

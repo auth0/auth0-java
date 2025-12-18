@@ -35,7 +35,7 @@ public final class UpdateSupplementalSignalsRequestContent {
         return akamaiEnabled;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateSupplementalSignalsRequestContent
@@ -51,12 +51,12 @@ public final class UpdateSupplementalSignalsRequestContent {
         return akamaiEnabled == other.akamaiEnabled;
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.akamaiEnabled);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -87,7 +87,7 @@ public final class UpdateSupplementalSignalsRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(UpdateSupplementalSignalsRequestContent other) {
             akamaiEnabled(other.getAkamaiEnabled());
             return this;
@@ -98,14 +98,14 @@ public final class UpdateSupplementalSignalsRequestContent {
          * <p>Indicates if incoming Akamai Headers should be processed</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("akamai_enabled")
         public _FinalStage akamaiEnabled(boolean akamaiEnabled) {
             this.akamaiEnabled = akamaiEnabled;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public UpdateSupplementalSignalsRequestContent build() {
             return new UpdateSupplementalSignalsRequestContent(akamaiEnabled, additionalProperties);
         }

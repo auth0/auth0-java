@@ -43,7 +43,7 @@ public final class UsernameAllowedTypes {
         return phoneNumber;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UsernameAllowedTypes && equalTo((UsernameAllowedTypes) other);
@@ -58,12 +58,12 @@ public final class UsernameAllowedTypes {
         return email.equals(other.email) && phoneNumber.equals(other.phoneNumber);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.email, this.phoneNumber);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

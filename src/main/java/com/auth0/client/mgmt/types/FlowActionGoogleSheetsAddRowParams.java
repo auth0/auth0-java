@@ -66,7 +66,7 @@ public final class FlowActionGoogleSheetsAddRowParams {
         return values;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionGoogleSheetsAddRowParams
@@ -85,12 +85,12 @@ public final class FlowActionGoogleSheetsAddRowParams {
                 && values.equals(other.values);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.spreadsheetId, this.sheetId, this.values);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -136,7 +136,7 @@ public final class FlowActionGoogleSheetsAddRowParams {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionGoogleSheetsAddRowParams other) {
             connectionId(other.getConnectionId());
             spreadsheetId(other.getSpreadsheetId());
@@ -145,47 +145,47 @@ public final class FlowActionGoogleSheetsAddRowParams {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_id")
         public SpreadsheetIdStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("spreadsheet_id")
         public _FinalStage spreadsheetId(@NotNull String spreadsheetId) {
             this.spreadsheetId = Objects.requireNonNull(spreadsheetId, "spreadsheetId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage values(List<OptionalNullable<String>> values) {
             this.values = Optional.ofNullable(values);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "values", nulls = Nulls.SKIP)
         public _FinalStage values(Optional<List<OptionalNullable<String>>> values) {
             this.values = values;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage sheetId(FlowActionGoogleSheetsAddRowParamsSheetId sheetId) {
             this.sheetId = Optional.ofNullable(sheetId);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "sheet_id", nulls = Nulls.SKIP)
         public _FinalStage sheetId(Optional<FlowActionGoogleSheetsAddRowParamsSheetId> sheetId) {
             this.sheetId = sheetId;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionGoogleSheetsAddRowParams build() {
             return new FlowActionGoogleSheetsAddRowParams(
                     connectionId, spreadsheetId, sheetId, values, additionalProperties);

@@ -36,7 +36,7 @@ public final class CustomProviderConfiguration {
         return deliveryMethods;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CustomProviderConfiguration && equalTo((CustomProviderConfiguration) other);
@@ -51,12 +51,12 @@ public final class CustomProviderConfiguration {
         return deliveryMethods.equals(other.deliveryMethods);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.deliveryMethods);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

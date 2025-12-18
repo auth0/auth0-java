@@ -84,7 +84,7 @@ public final class UpdateOrganizationConnectionResponseContent {
         return connection;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateOrganizationConnectionResponseContent
@@ -104,7 +104,7 @@ public final class UpdateOrganizationConnectionResponseContent {
                 && connection.equals(other.connection);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.connectionId,
@@ -114,7 +114,7 @@ public final class UpdateOrganizationConnectionResponseContent {
                 this.connection);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

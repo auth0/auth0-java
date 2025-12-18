@@ -48,7 +48,7 @@ public final class AttackProtectionUpdateCaptchaRecaptchaV2 {
         return secret;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof AttackProtectionUpdateCaptchaRecaptchaV2
@@ -64,12 +64,12 @@ public final class AttackProtectionUpdateCaptchaRecaptchaV2 {
         return siteKey.equals(other.siteKey) && secret.equals(other.secret);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.siteKey, this.secret);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -109,7 +109,7 @@ public final class AttackProtectionUpdateCaptchaRecaptchaV2 {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(AttackProtectionUpdateCaptchaRecaptchaV2 other) {
             siteKey(other.getSiteKey());
             secret(other.getSecret());
@@ -121,7 +121,7 @@ public final class AttackProtectionUpdateCaptchaRecaptchaV2 {
          * <p>The site key for the reCAPTCHA v2 provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("site_key")
         public SecretStage siteKey(@NotNull String siteKey) {
             this.siteKey = Objects.requireNonNull(siteKey, "siteKey must not be null");
@@ -133,14 +133,14 @@ public final class AttackProtectionUpdateCaptchaRecaptchaV2 {
          * <p>The secret key for the reCAPTCHA v2 provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("secret")
         public _FinalStage secret(@NotNull String secret) {
             this.secret = Objects.requireNonNull(secret, "secret must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public AttackProtectionUpdateCaptchaRecaptchaV2 build() {
             return new AttackProtectionUpdateCaptchaRecaptchaV2(siteKey, secret, additionalProperties);
         }

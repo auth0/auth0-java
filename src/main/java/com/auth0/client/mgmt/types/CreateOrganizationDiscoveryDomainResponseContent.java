@@ -10,10 +10,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
@@ -25,6 +27,8 @@ public final class CreateOrganizationDiscoveryDomainResponseContent {
 
     private final OrganizationDiscoveryDomainStatus status;
 
+    private final Optional<Boolean> useForOrganizationDiscovery;
+
     private final String verificationTxt;
 
     private final String verificationHost;
@@ -35,12 +39,14 @@ public final class CreateOrganizationDiscoveryDomainResponseContent {
             String id,
             String domain,
             OrganizationDiscoveryDomainStatus status,
+            Optional<Boolean> useForOrganizationDiscovery,
             String verificationTxt,
             String verificationHost,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.domain = domain;
         this.status = status;
+        this.useForOrganizationDiscovery = useForOrganizationDiscovery;
         this.verificationTxt = verificationTxt;
         this.verificationHost = verificationHost;
         this.additionalProperties = additionalProperties;
@@ -68,6 +74,14 @@ public final class CreateOrganizationDiscoveryDomainResponseContent {
     }
 
     /**
+     * @return Indicates whether this domain should be used for organization discovery. Note: This field is only returned when the ss_org_dove_enabled feature flag is enabled for the tenant.
+     */
+    @JsonProperty("use_for_organization_discovery")
+    public Optional<Boolean> getUseForOrganizationDiscovery() {
+        return useForOrganizationDiscovery;
+    }
+
+    /**
      * @return A unique token generated for the discovery domain. This must be placed in a DNS TXT record at the location specified by the verification_host field to prove domain ownership.
      */
     @JsonProperty("verification_txt")
@@ -83,7 +97,7 @@ public final class CreateOrganizationDiscoveryDomainResponseContent {
         return verificationHost;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateOrganizationDiscoveryDomainResponseContent
@@ -99,16 +113,23 @@ public final class CreateOrganizationDiscoveryDomainResponseContent {
         return id.equals(other.id)
                 && domain.equals(other.domain)
                 && status.equals(other.status)
+                && useForOrganizationDiscovery.equals(other.useForOrganizationDiscovery)
                 && verificationTxt.equals(other.verificationTxt)
                 && verificationHost.equals(other.verificationHost);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.id, this.domain, this.status, this.verificationTxt, this.verificationHost);
+        return Objects.hash(
+                this.id,
+                this.domain,
+                this.status,
+                this.useForOrganizationDiscovery,
+                this.verificationTxt,
+                this.verificationHost);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -153,6 +174,13 @@ public final class CreateOrganizationDiscoveryDomainResponseContent {
 
     public interface _FinalStage {
         CreateOrganizationDiscoveryDomainResponseContent build();
+
+        /**
+         * <p>Indicates whether this domain should be used for organization discovery. Note: This field is only returned when the ss_org_dove_enabled feature flag is enabled for the tenant.</p>
+         */
+        _FinalStage useForOrganizationDiscovery(Optional<Boolean> useForOrganizationDiscovery);
+
+        _FinalStage useForOrganizationDiscovery(Boolean useForOrganizationDiscovery);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -168,16 +196,19 @@ public final class CreateOrganizationDiscoveryDomainResponseContent {
 
         private String verificationHost;
 
+        private Optional<Boolean> useForOrganizationDiscovery = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateOrganizationDiscoveryDomainResponseContent other) {
             id(other.getId());
             domain(other.getDomain());
             status(other.getStatus());
+            useForOrganizationDiscovery(other.getUseForOrganizationDiscovery());
             verificationTxt(other.getVerificationTxt());
             verificationHost(other.getVerificationHost());
             return this;
@@ -188,7 +219,7 @@ public final class CreateOrganizationDiscoveryDomainResponseContent {
          * <p>Organization discovery domain identifier.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("id")
         public DomainStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
@@ -200,14 +231,14 @@ public final class CreateOrganizationDiscoveryDomainResponseContent {
          * <p>The domain name to associate with the organization e.g. acme.com.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("domain")
         public StatusStage domain(@NotNull String domain) {
             this.domain = Objects.requireNonNull(domain, "domain must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("status")
         public VerificationTxtStage status(@NotNull OrganizationDiscoveryDomainStatus status) {
             this.status = Objects.requireNonNull(status, "status must not be null");
@@ -219,7 +250,7 @@ public final class CreateOrganizationDiscoveryDomainResponseContent {
          * <p>A unique token generated for the discovery domain. This must be placed in a DNS TXT record at the location specified by the verification_host field to prove domain ownership.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("verification_txt")
         public VerificationHostStage verificationTxt(@NotNull String verificationTxt) {
             this.verificationTxt = Objects.requireNonNull(verificationTxt, "verificationTxt must not be null");
@@ -231,17 +262,43 @@ public final class CreateOrganizationDiscoveryDomainResponseContent {
          * <p>The full domain where the TXT record should be added.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("verification_host")
         public _FinalStage verificationHost(@NotNull String verificationHost) {
             this.verificationHost = Objects.requireNonNull(verificationHost, "verificationHost must not be null");
             return this;
         }
 
-        @Override
+        /**
+         * <p>Indicates whether this domain should be used for organization discovery. Note: This field is only returned when the ss_org_dove_enabled feature flag is enabled for the tenant.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage useForOrganizationDiscovery(Boolean useForOrganizationDiscovery) {
+            this.useForOrganizationDiscovery = Optional.ofNullable(useForOrganizationDiscovery);
+            return this;
+        }
+
+        /**
+         * <p>Indicates whether this domain should be used for organization discovery. Note: This field is only returned when the ss_org_dove_enabled feature flag is enabled for the tenant.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "use_for_organization_discovery", nulls = Nulls.SKIP)
+        public _FinalStage useForOrganizationDiscovery(Optional<Boolean> useForOrganizationDiscovery) {
+            this.useForOrganizationDiscovery = useForOrganizationDiscovery;
+            return this;
+        }
+
+        @java.lang.Override
         public CreateOrganizationDiscoveryDomainResponseContent build() {
             return new CreateOrganizationDiscoveryDomainResponseContent(
-                    id, domain, status, verificationTxt, verificationHost, additionalProperties);
+                    id,
+                    domain,
+                    status,
+                    useForOrganizationDiscovery,
+                    verificationTxt,
+                    verificationHost,
+                    additionalProperties);
         }
     }
 }

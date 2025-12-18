@@ -63,7 +63,7 @@ public final class FormFieldNumberConfig {
         return maxValue;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldNumberConfig && equalTo((FormFieldNumberConfig) other);
@@ -81,12 +81,12 @@ public final class FormFieldNumberConfig {
                 && maxValue.equals(other.maxValue);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.defaultValue, this.placeholder, this.minValue, this.maxValue);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

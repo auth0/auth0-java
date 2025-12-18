@@ -53,7 +53,7 @@ public class ActionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"total\":1.1,\"page\":1.1,\"per_page\":1.1,\"actions\":[{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"id\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"code\":\"code\",\"dependencies\":[{}],\"runtime\":\"runtime\",\"secrets\":[{}],\"installed_integration_id\":\"installed_integration_id\",\"status\":\"pending\",\"built_at\":\"2024-01-15T09:30:00Z\",\"deploy\":true}]}"));
+                                "{\"total\":1.1,\"page\":1.1,\"per_page\":1.1,\"actions\":[{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"id\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"code\":\"code\",\"dependencies\":[{}],\"runtime\":\"runtime\",\"secrets\":[{}],\"installed_integration_id\":\"installed_integration_id\",\"status\":\"pending\",\"built_at\":\"2024-01-15T09:30:00Z\",\"deploy\":true,\"modules\":[{}]}]}"));
         SyncPagingIterable<Action> response = client.actions()
                 .list(ListActionsRequestParameters.builder()
                         .triggerId(OptionalNullable.of("triggerId"))
@@ -79,7 +79,7 @@ public class ActionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"id\",\"version\":\"version\",\"status\":\"status\",\"runtimes\":[\"runtimes\"],\"default_runtime\":\"default_runtime\",\"compatible_triggers\":[{\"id\":\"id\",\"version\":\"version\"}],\"binding_policy\":\"trigger-bound\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"code\":\"code\",\"dependencies\":[{\"name\":\"name\",\"version\":\"version\",\"registry_url\":\"registry_url\"}],\"runtime\":\"runtime\",\"secrets\":[{\"name\":\"name\",\"updated_at\":\"2024-01-15T09:30:00Z\"}],\"deployed_version\":{\"id\":\"id\",\"action_id\":\"action_id\",\"code\":\"code\",\"dependencies\":[{}],\"deployed\":true,\"runtime\":\"runtime\",\"secrets\":[{}],\"status\":\"pending\",\"number\":1.1,\"errors\":[{}],\"action\":{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"id\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"},\"built_at\":\"2024-01-15T09:30:00Z\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"supported_triggers\":[{\"id\":\"id\"}]},\"installed_integration_id\":\"installed_integration_id\",\"integration\":{\"id\":\"id\",\"catalog_id\":\"catalog_id\",\"url_slug\":\"url_slug\",\"partner_id\":\"partner_id\",\"name\":\"name\",\"description\":\"description\",\"short_description\":\"short_description\",\"logo\":\"logo\",\"feature_type\":\"unspecified\",\"terms_of_use_url\":\"terms_of_use_url\",\"privacy_policy_url\":\"privacy_policy_url\",\"public_support_link\":\"public_support_link\",\"current_release\":{\"id\":\"id\",\"trigger\":{\"id\":\"id\"},\"required_secrets\":[{}],\"required_configuration\":[{}]},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"},\"status\":\"pending\",\"built_at\":\"2024-01-15T09:30:00Z\",\"deploy\":true}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"id\",\"version\":\"version\",\"status\":\"status\",\"runtimes\":[\"runtimes\"],\"default_runtime\":\"default_runtime\",\"compatible_triggers\":[{\"id\":\"id\",\"version\":\"version\"}],\"binding_policy\":\"trigger-bound\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"code\":\"code\",\"dependencies\":[{\"name\":\"name\",\"version\":\"version\",\"registry_url\":\"registry_url\"}],\"runtime\":\"runtime\",\"secrets\":[{\"name\":\"name\",\"updated_at\":\"2024-01-15T09:30:00Z\"}],\"deployed_version\":{\"id\":\"id\",\"action_id\":\"action_id\",\"code\":\"code\",\"dependencies\":[{}],\"deployed\":true,\"runtime\":\"runtime\",\"secrets\":[{}],\"status\":\"pending\",\"number\":1.1,\"errors\":[{}],\"action\":{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"id\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"},\"built_at\":\"2024-01-15T09:30:00Z\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"supported_triggers\":[{\"id\":\"id\"}],\"modules\":[{}]},\"installed_integration_id\":\"installed_integration_id\",\"integration\":{\"id\":\"id\",\"catalog_id\":\"catalog_id\",\"url_slug\":\"url_slug\",\"partner_id\":\"partner_id\",\"name\":\"name\",\"description\":\"description\",\"short_description\":\"short_description\",\"logo\":\"logo\",\"feature_type\":\"unspecified\",\"terms_of_use_url\":\"terms_of_use_url\",\"privacy_policy_url\":\"privacy_policy_url\",\"public_support_link\":\"public_support_link\",\"current_release\":{\"id\":\"id\",\"trigger\":{\"id\":\"id\"},\"required_secrets\":[{}],\"required_configuration\":[{}]},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"},\"status\":\"pending\",\"built_at\":\"2024-01-15T09:30:00Z\",\"deploy\":true,\"modules\":[{\"module_id\":\"module_id\",\"module_name\":\"module_name\",\"module_version_id\":\"module_version_id\",\"module_version_number\":1}]}"));
         CreateActionResponseContent response = client.actions()
                 .create(CreateActionRequestContent.builder()
                         .name("name")
@@ -206,6 +206,9 @@ public class ActionsWireTest {
                 + "      {\n"
                 + "        \"id\": \"id\"\n"
                 + "      }\n"
+                + "    ],\n"
+                + "    \"modules\": [\n"
+                + "      {}\n"
                 + "    ]\n"
                 + "  },\n"
                 + "  \"installed_integration_id\": \"installed_integration_id\",\n"
@@ -239,7 +242,15 @@ public class ActionsWireTest {
                 + "  },\n"
                 + "  \"status\": \"pending\",\n"
                 + "  \"built_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "  \"deploy\": true\n"
+                + "  \"deploy\": true,\n"
+                + "  \"modules\": [\n"
+                + "    {\n"
+                + "      \"module_id\": \"module_id\",\n"
+                + "      \"module_name\": \"module_name\",\n"
+                + "      \"module_version_id\": \"module_version_id\",\n"
+                + "      \"module_version_number\": 1\n"
+                + "    }\n"
+                + "  ]\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -278,7 +289,7 @@ public class ActionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"id\",\"version\":\"version\",\"status\":\"status\",\"runtimes\":[\"runtimes\"],\"default_runtime\":\"default_runtime\",\"compatible_triggers\":[{\"id\":\"id\",\"version\":\"version\"}],\"binding_policy\":\"trigger-bound\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"code\":\"code\",\"dependencies\":[{\"name\":\"name\",\"version\":\"version\",\"registry_url\":\"registry_url\"}],\"runtime\":\"runtime\",\"secrets\":[{\"name\":\"name\",\"updated_at\":\"2024-01-15T09:30:00Z\"}],\"deployed_version\":{\"id\":\"id\",\"action_id\":\"action_id\",\"code\":\"code\",\"dependencies\":[{}],\"deployed\":true,\"runtime\":\"runtime\",\"secrets\":[{}],\"status\":\"pending\",\"number\":1.1,\"errors\":[{}],\"action\":{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"id\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"},\"built_at\":\"2024-01-15T09:30:00Z\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"supported_triggers\":[{\"id\":\"id\"}]},\"installed_integration_id\":\"installed_integration_id\",\"integration\":{\"id\":\"id\",\"catalog_id\":\"catalog_id\",\"url_slug\":\"url_slug\",\"partner_id\":\"partner_id\",\"name\":\"name\",\"description\":\"description\",\"short_description\":\"short_description\",\"logo\":\"logo\",\"feature_type\":\"unspecified\",\"terms_of_use_url\":\"terms_of_use_url\",\"privacy_policy_url\":\"privacy_policy_url\",\"public_support_link\":\"public_support_link\",\"current_release\":{\"id\":\"id\",\"trigger\":{\"id\":\"id\"},\"required_secrets\":[{}],\"required_configuration\":[{}]},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"},\"status\":\"pending\",\"built_at\":\"2024-01-15T09:30:00Z\",\"deploy\":true}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"id\",\"version\":\"version\",\"status\":\"status\",\"runtimes\":[\"runtimes\"],\"default_runtime\":\"default_runtime\",\"compatible_triggers\":[{\"id\":\"id\",\"version\":\"version\"}],\"binding_policy\":\"trigger-bound\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"code\":\"code\",\"dependencies\":[{\"name\":\"name\",\"version\":\"version\",\"registry_url\":\"registry_url\"}],\"runtime\":\"runtime\",\"secrets\":[{\"name\":\"name\",\"updated_at\":\"2024-01-15T09:30:00Z\"}],\"deployed_version\":{\"id\":\"id\",\"action_id\":\"action_id\",\"code\":\"code\",\"dependencies\":[{}],\"deployed\":true,\"runtime\":\"runtime\",\"secrets\":[{}],\"status\":\"pending\",\"number\":1.1,\"errors\":[{}],\"action\":{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"id\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"},\"built_at\":\"2024-01-15T09:30:00Z\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"supported_triggers\":[{\"id\":\"id\"}],\"modules\":[{}]},\"installed_integration_id\":\"installed_integration_id\",\"integration\":{\"id\":\"id\",\"catalog_id\":\"catalog_id\",\"url_slug\":\"url_slug\",\"partner_id\":\"partner_id\",\"name\":\"name\",\"description\":\"description\",\"short_description\":\"short_description\",\"logo\":\"logo\",\"feature_type\":\"unspecified\",\"terms_of_use_url\":\"terms_of_use_url\",\"privacy_policy_url\":\"privacy_policy_url\",\"public_support_link\":\"public_support_link\",\"current_release\":{\"id\":\"id\",\"trigger\":{\"id\":\"id\"},\"required_secrets\":[{}],\"required_configuration\":[{}]},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"},\"status\":\"pending\",\"built_at\":\"2024-01-15T09:30:00Z\",\"deploy\":true,\"modules\":[{\"module_id\":\"module_id\",\"module_name\":\"module_name\",\"module_version_id\":\"module_version_id\",\"module_version_number\":1}]}"));
         GetActionResponseContent response = client.actions().get("id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -363,6 +374,9 @@ public class ActionsWireTest {
                 + "      {\n"
                 + "        \"id\": \"id\"\n"
                 + "      }\n"
+                + "    ],\n"
+                + "    \"modules\": [\n"
+                + "      {}\n"
                 + "    ]\n"
                 + "  },\n"
                 + "  \"installed_integration_id\": \"installed_integration_id\",\n"
@@ -396,7 +410,15 @@ public class ActionsWireTest {
                 + "  },\n"
                 + "  \"status\": \"pending\",\n"
                 + "  \"built_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "  \"deploy\": true\n"
+                + "  \"deploy\": true,\n"
+                + "  \"modules\": [\n"
+                + "    {\n"
+                + "      \"module_id\": \"module_id\",\n"
+                + "      \"module_name\": \"module_name\",\n"
+                + "      \"module_version_id\": \"module_version_id\",\n"
+                + "      \"module_version_number\": 1\n"
+                + "    }\n"
+                + "  ]\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -449,7 +471,7 @@ public class ActionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"id\",\"version\":\"version\",\"status\":\"status\",\"runtimes\":[\"runtimes\"],\"default_runtime\":\"default_runtime\",\"compatible_triggers\":[{\"id\":\"id\",\"version\":\"version\"}],\"binding_policy\":\"trigger-bound\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"code\":\"code\",\"dependencies\":[{\"name\":\"name\",\"version\":\"version\",\"registry_url\":\"registry_url\"}],\"runtime\":\"runtime\",\"secrets\":[{\"name\":\"name\",\"updated_at\":\"2024-01-15T09:30:00Z\"}],\"deployed_version\":{\"id\":\"id\",\"action_id\":\"action_id\",\"code\":\"code\",\"dependencies\":[{}],\"deployed\":true,\"runtime\":\"runtime\",\"secrets\":[{}],\"status\":\"pending\",\"number\":1.1,\"errors\":[{}],\"action\":{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"id\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"},\"built_at\":\"2024-01-15T09:30:00Z\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"supported_triggers\":[{\"id\":\"id\"}]},\"installed_integration_id\":\"installed_integration_id\",\"integration\":{\"id\":\"id\",\"catalog_id\":\"catalog_id\",\"url_slug\":\"url_slug\",\"partner_id\":\"partner_id\",\"name\":\"name\",\"description\":\"description\",\"short_description\":\"short_description\",\"logo\":\"logo\",\"feature_type\":\"unspecified\",\"terms_of_use_url\":\"terms_of_use_url\",\"privacy_policy_url\":\"privacy_policy_url\",\"public_support_link\":\"public_support_link\",\"current_release\":{\"id\":\"id\",\"trigger\":{\"id\":\"id\"},\"required_secrets\":[{}],\"required_configuration\":[{}]},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"},\"status\":\"pending\",\"built_at\":\"2024-01-15T09:30:00Z\",\"deploy\":true}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"id\",\"version\":\"version\",\"status\":\"status\",\"runtimes\":[\"runtimes\"],\"default_runtime\":\"default_runtime\",\"compatible_triggers\":[{\"id\":\"id\",\"version\":\"version\"}],\"binding_policy\":\"trigger-bound\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"code\":\"code\",\"dependencies\":[{\"name\":\"name\",\"version\":\"version\",\"registry_url\":\"registry_url\"}],\"runtime\":\"runtime\",\"secrets\":[{\"name\":\"name\",\"updated_at\":\"2024-01-15T09:30:00Z\"}],\"deployed_version\":{\"id\":\"id\",\"action_id\":\"action_id\",\"code\":\"code\",\"dependencies\":[{}],\"deployed\":true,\"runtime\":\"runtime\",\"secrets\":[{}],\"status\":\"pending\",\"number\":1.1,\"errors\":[{}],\"action\":{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"id\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"},\"built_at\":\"2024-01-15T09:30:00Z\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"supported_triggers\":[{\"id\":\"id\"}],\"modules\":[{}]},\"installed_integration_id\":\"installed_integration_id\",\"integration\":{\"id\":\"id\",\"catalog_id\":\"catalog_id\",\"url_slug\":\"url_slug\",\"partner_id\":\"partner_id\",\"name\":\"name\",\"description\":\"description\",\"short_description\":\"short_description\",\"logo\":\"logo\",\"feature_type\":\"unspecified\",\"terms_of_use_url\":\"terms_of_use_url\",\"privacy_policy_url\":\"privacy_policy_url\",\"public_support_link\":\"public_support_link\",\"current_release\":{\"id\":\"id\",\"trigger\":{\"id\":\"id\"},\"required_secrets\":[{}],\"required_configuration\":[{}]},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"},\"status\":\"pending\",\"built_at\":\"2024-01-15T09:30:00Z\",\"deploy\":true,\"modules\":[{\"module_id\":\"module_id\",\"module_name\":\"module_name\",\"module_version_id\":\"module_version_id\",\"module_version_number\":1}]}"));
         UpdateActionResponseContent response = client.actions()
                 .update("id", UpdateActionRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -564,6 +586,9 @@ public class ActionsWireTest {
                 + "      {\n"
                 + "        \"id\": \"id\"\n"
                 + "      }\n"
+                + "    ],\n"
+                + "    \"modules\": [\n"
+                + "      {}\n"
                 + "    ]\n"
                 + "  },\n"
                 + "  \"installed_integration_id\": \"installed_integration_id\",\n"
@@ -597,7 +622,15 @@ public class ActionsWireTest {
                 + "  },\n"
                 + "  \"status\": \"pending\",\n"
                 + "  \"built_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "  \"deploy\": true\n"
+                + "  \"deploy\": true,\n"
+                + "  \"modules\": [\n"
+                + "    {\n"
+                + "      \"module_id\": \"module_id\",\n"
+                + "      \"module_name\": \"module_name\",\n"
+                + "      \"module_version_id\": \"module_version_id\",\n"
+                + "      \"module_version_number\": 1\n"
+                + "    }\n"
+                + "  ]\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -636,7 +669,7 @@ public class ActionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"action_id\":\"action_id\",\"code\":\"code\",\"dependencies\":[{\"name\":\"name\",\"version\":\"version\",\"registry_url\":\"registry_url\"}],\"deployed\":true,\"runtime\":\"runtime\",\"secrets\":[{\"name\":\"name\",\"updated_at\":\"2024-01-15T09:30:00Z\"}],\"status\":\"pending\",\"number\":1.1,\"errors\":[{\"id\":\"id\",\"msg\":\"msg\",\"url\":\"url\"}],\"action\":{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"id\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"},\"built_at\":\"2024-01-15T09:30:00Z\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"supported_triggers\":[{\"id\":\"id\",\"version\":\"version\",\"status\":\"status\",\"runtimes\":[\"runtimes\"],\"default_runtime\":\"default_runtime\",\"compatible_triggers\":[{\"id\":\"id\",\"version\":\"version\"}],\"binding_policy\":\"trigger-bound\"}]}"));
+                                "{\"id\":\"id\",\"action_id\":\"action_id\",\"code\":\"code\",\"dependencies\":[{\"name\":\"name\",\"version\":\"version\",\"registry_url\":\"registry_url\"}],\"deployed\":true,\"runtime\":\"runtime\",\"secrets\":[{\"name\":\"name\",\"updated_at\":\"2024-01-15T09:30:00Z\"}],\"status\":\"pending\",\"number\":1.1,\"errors\":[{\"id\":\"id\",\"msg\":\"msg\",\"url\":\"url\"}],\"action\":{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"id\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"},\"built_at\":\"2024-01-15T09:30:00Z\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"supported_triggers\":[{\"id\":\"id\",\"version\":\"version\",\"status\":\"status\",\"runtimes\":[\"runtimes\"],\"default_runtime\":\"default_runtime\",\"compatible_triggers\":[{\"id\":\"id\",\"version\":\"version\"}],\"binding_policy\":\"trigger-bound\"}],\"modules\":[{\"module_id\":\"module_id\",\"module_name\":\"module_name\",\"module_version_id\":\"module_version_id\",\"module_version_number\":1}]}"));
         DeployActionResponseContent response = client.actions().deploy("id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -705,6 +738,14 @@ public class ActionsWireTest {
                 + "        }\n"
                 + "      ],\n"
                 + "      \"binding_policy\": \"trigger-bound\"\n"
+                + "    }\n"
+                + "  ],\n"
+                + "  \"modules\": [\n"
+                + "    {\n"
+                + "      \"module_id\": \"module_id\",\n"
+                + "      \"module_name\": \"module_name\",\n"
+                + "      \"module_version_id\": \"module_version_id\",\n"
+                + "      \"module_version_number\": 1\n"
                 + "    }\n"
                 + "  ]\n"
                 + "}";

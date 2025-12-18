@@ -268,7 +268,7 @@ public final class UpdateResourceServerResponseContent {
         return proofOfPossession;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateResourceServerResponseContent
@@ -302,7 +302,7 @@ public final class UpdateResourceServerResponseContent {
                 && clientId.equals(other.clientId);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -326,7 +326,7 @@ public final class UpdateResourceServerResponseContent {
                 this.clientId);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

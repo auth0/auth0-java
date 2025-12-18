@@ -113,7 +113,7 @@ public final class BrandingThemeFonts {
         return title;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof BrandingThemeFonts && equalTo((BrandingThemeFonts) other);
@@ -136,7 +136,7 @@ public final class BrandingThemeFonts {
                 && title.equals(other.title);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.bodyText,
@@ -150,7 +150,7 @@ public final class BrandingThemeFonts {
                 this.title);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -242,7 +242,7 @@ public final class BrandingThemeFonts {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(BrandingThemeFonts other) {
             bodyText(other.getBodyText());
             buttonsText(other.getButtonsText());
@@ -256,14 +256,14 @@ public final class BrandingThemeFonts {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("body_text")
         public ButtonsTextStage bodyText(@NotNull BrandingThemeFontBodyText bodyText) {
             this.bodyText = Objects.requireNonNull(bodyText, "bodyText must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("buttons_text")
         public FontUrlStage buttonsText(@NotNull BrandingThemeFontButtonsText buttonsText) {
             this.buttonsText = Objects.requireNonNull(buttonsText, "buttonsText must not be null");
@@ -275,28 +275,28 @@ public final class BrandingThemeFonts {
          * <p>Font URL</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("font_url")
         public InputLabelsStage fontUrl(@NotNull String fontUrl) {
             this.fontUrl = Objects.requireNonNull(fontUrl, "fontUrl must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("input_labels")
         public LinksStage inputLabels(@NotNull BrandingThemeFontInputLabels inputLabels) {
             this.inputLabels = Objects.requireNonNull(inputLabels, "inputLabels must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("links")
         public LinksStyleStage links(@NotNull BrandingThemeFontLinks links) {
             this.links = Objects.requireNonNull(links, "links must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("links_style")
         public ReferenceTextSizeStage linksStyle(@NotNull BrandingThemeFontLinksStyleEnum linksStyle) {
             this.linksStyle = Objects.requireNonNull(linksStyle, "linksStyle must not be null");
@@ -308,28 +308,28 @@ public final class BrandingThemeFonts {
          * <p>Reference text size</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("reference_text_size")
         public SubtitleStage referenceTextSize(double referenceTextSize) {
             this.referenceTextSize = referenceTextSize;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("subtitle")
         public TitleStage subtitle(@NotNull BrandingThemeFontSubtitle subtitle) {
             this.subtitle = Objects.requireNonNull(subtitle, "subtitle must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("title")
         public _FinalStage title(@NotNull BrandingThemeFontTitle title) {
             this.title = Objects.requireNonNull(title, "title must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public BrandingThemeFonts build() {
             return new BrandingThemeFonts(
                     bodyText,

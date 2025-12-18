@@ -40,7 +40,7 @@ public final class UpdateActionBindingsRequestContent {
         return bindings;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateActionBindingsRequestContent
@@ -56,12 +56,12 @@ public final class UpdateActionBindingsRequestContent {
         return bindings.equals(other.bindings);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.bindings);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

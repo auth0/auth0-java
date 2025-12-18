@@ -142,7 +142,7 @@ public final class PostClientCredentialResponseContent {
         return expiresAt;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof PostClientCredentialResponseContent
@@ -167,7 +167,7 @@ public final class PostClientCredentialResponseContent {
                 && expiresAt.equals(other.expiresAt);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -182,7 +182,7 @@ public final class PostClientCredentialResponseContent {
                 this.expiresAt);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

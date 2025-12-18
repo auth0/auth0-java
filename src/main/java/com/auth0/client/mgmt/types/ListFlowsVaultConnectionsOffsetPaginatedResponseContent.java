@@ -64,7 +64,7 @@ public final class ListFlowsVaultConnectionsOffsetPaginatedResponseContent {
         return connections;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListFlowsVaultConnectionsOffsetPaginatedResponseContent
@@ -83,12 +83,12 @@ public final class ListFlowsVaultConnectionsOffsetPaginatedResponseContent {
                 && connections.equals(other.connections);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.start, this.limit, this.total, this.connections);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

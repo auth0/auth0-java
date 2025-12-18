@@ -5,18 +5,22 @@ package com.auth0.client.mgmt.guardian.factors;
 
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
+import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorsProviderPushNotificationApnsRequestContent;
+import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorsProviderPushNotificationFcmRequestContent;
+import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorsProviderPushNotificationFcmv1RequestContent;
 import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorsProviderPushNotificationRequestContent;
 import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorsProviderPushNotificationSnsRequestContent;
+import com.auth0.client.mgmt.guardian.factors.types.UpdateGuardianFactorsProviderPushNotificationApnsRequestContent;
+import com.auth0.client.mgmt.guardian.factors.types.UpdateGuardianFactorsProviderPushNotificationFcmRequestContent;
+import com.auth0.client.mgmt.guardian.factors.types.UpdateGuardianFactorsProviderPushNotificationFcmv1RequestContent;
 import com.auth0.client.mgmt.guardian.factors.types.UpdateGuardianFactorsProviderPushNotificationSnsRequestContent;
 import com.auth0.client.mgmt.types.GetGuardianFactorsProviderApnsResponseContent;
 import com.auth0.client.mgmt.types.GetGuardianFactorsProviderPushNotificationResponseContent;
 import com.auth0.client.mgmt.types.GetGuardianFactorsProviderSnsResponseContent;
-import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationApnsRequestContent;
 import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationApnsResponseContent;
-import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationFcmRequestContent;
-import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationFcmv1RequestContent;
 import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationResponseContent;
 import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationSnsResponseContent;
+import com.auth0.client.mgmt.types.UpdateGuardianFactorsProviderPushNotificationApnsResponseContent;
 import com.auth0.client.mgmt.types.UpdateGuardianFactorsProviderPushNotificationSnsResponseContent;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -54,14 +58,14 @@ public class AsyncPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication APNS provider associated with your tenant.
      */
     public CompletableFuture<SetGuardianFactorsProviderPushNotificationApnsResponseContent> setApnsProvider() {
         return this.rawClient.setApnsProvider().thenApply(response -> response.body());
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication APNS provider associated with your tenant.
      */
     public CompletableFuture<SetGuardianFactorsProviderPushNotificationApnsResponseContent> setApnsProvider(
             SetGuardianFactorsProviderPushNotificationApnsRequestContent request) {
@@ -69,7 +73,7 @@ public class AsyncPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication APNS provider associated with your tenant.
      */
     public CompletableFuture<SetGuardianFactorsProviderPushNotificationApnsResponseContent> setApnsProvider(
             SetGuardianFactorsProviderPushNotificationApnsRequestContent request, RequestOptions requestOptions) {
@@ -77,14 +81,37 @@ public class AsyncPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+     * Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+     */
+    public CompletableFuture<UpdateGuardianFactorsProviderPushNotificationApnsResponseContent> updateApnsProvider() {
+        return this.rawClient.updateApnsProvider().thenApply(response -> response.body());
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+     */
+    public CompletableFuture<UpdateGuardianFactorsProviderPushNotificationApnsResponseContent> updateApnsProvider(
+            UpdateGuardianFactorsProviderPushNotificationApnsRequestContent request) {
+        return this.rawClient.updateApnsProvider(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+     */
+    public CompletableFuture<UpdateGuardianFactorsProviderPushNotificationApnsResponseContent> updateApnsProvider(
+            UpdateGuardianFactorsProviderPushNotificationApnsRequestContent request, RequestOptions requestOptions) {
+        return this.rawClient.updateApnsProvider(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Overwrite all configuration details of the multi-factor authentication FCM provider associated with your tenant.
      */
     public CompletableFuture<Map<String, Object>> setFcmProvider() {
         return this.rawClient.setFcmProvider().thenApply(response -> response.body());
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication FCM provider associated with your tenant.
      */
     public CompletableFuture<Map<String, Object>> setFcmProvider(
             SetGuardianFactorsProviderPushNotificationFcmRequestContent request) {
@@ -92,7 +119,7 @@ public class AsyncPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication FCM provider associated with your tenant.
      */
     public CompletableFuture<Map<String, Object>> setFcmProvider(
             SetGuardianFactorsProviderPushNotificationFcmRequestContent request, RequestOptions requestOptions) {
@@ -100,14 +127,37 @@ public class AsyncPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+     * Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+     */
+    public CompletableFuture<Map<String, Object>> updateFcmProvider() {
+        return this.rawClient.updateFcmProvider().thenApply(response -> response.body());
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+     */
+    public CompletableFuture<Map<String, Object>> updateFcmProvider(
+            UpdateGuardianFactorsProviderPushNotificationFcmRequestContent request) {
+        return this.rawClient.updateFcmProvider(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+     */
+    public CompletableFuture<Map<String, Object>> updateFcmProvider(
+            UpdateGuardianFactorsProviderPushNotificationFcmRequestContent request, RequestOptions requestOptions) {
+        return this.rawClient.updateFcmProvider(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Overwrite all configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
      */
     public CompletableFuture<Map<String, Object>> setFcmv1Provider() {
         return this.rawClient.setFcmv1Provider().thenApply(response -> response.body());
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
      */
     public CompletableFuture<Map<String, Object>> setFcmv1Provider(
             SetGuardianFactorsProviderPushNotificationFcmv1RequestContent request) {
@@ -115,11 +165,34 @@ public class AsyncPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
      */
     public CompletableFuture<Map<String, Object>> setFcmv1Provider(
             SetGuardianFactorsProviderPushNotificationFcmv1RequestContent request, RequestOptions requestOptions) {
         return this.rawClient.setFcmv1Provider(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+     */
+    public CompletableFuture<Map<String, Object>> updateFcmv1Provider() {
+        return this.rawClient.updateFcmv1Provider().thenApply(response -> response.body());
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+     */
+    public CompletableFuture<Map<String, Object>> updateFcmv1Provider(
+            UpdateGuardianFactorsProviderPushNotificationFcmv1RequestContent request) {
+        return this.rawClient.updateFcmv1Provider(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+     */
+    public CompletableFuture<Map<String, Object>> updateFcmv1Provider(
+            UpdateGuardianFactorsProviderPushNotificationFcmv1RequestContent request, RequestOptions requestOptions) {
+        return this.rawClient.updateFcmv1Provider(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**

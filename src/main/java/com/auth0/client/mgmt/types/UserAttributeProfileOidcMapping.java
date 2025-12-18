@@ -50,7 +50,7 @@ public final class UserAttributeProfileOidcMapping {
         return displayName;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UserAttributeProfileOidcMapping && equalTo((UserAttributeProfileOidcMapping) other);
@@ -65,12 +65,12 @@ public final class UserAttributeProfileOidcMapping {
         return mapping.equals(other.mapping) && displayName.equals(other.displayName);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.mapping, this.displayName);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -110,7 +110,7 @@ public final class UserAttributeProfileOidcMapping {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(UserAttributeProfileOidcMapping other) {
             mapping(other.getMapping());
             displayName(other.getDisplayName());
@@ -122,7 +122,7 @@ public final class UserAttributeProfileOidcMapping {
          * <p>OIDC mapping field</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("mapping")
         public _FinalStage mapping(@NotNull String mapping) {
             this.mapping = Objects.requireNonNull(mapping, "mapping must not be null");
@@ -133,7 +133,7 @@ public final class UserAttributeProfileOidcMapping {
          * <p>Display name for the OIDC mapping</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage displayName(String displayName) {
             this.displayName = Optional.ofNullable(displayName);
             return this;
@@ -142,14 +142,14 @@ public final class UserAttributeProfileOidcMapping {
         /**
          * <p>Display name for the OIDC mapping</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "display_name", nulls = Nulls.SKIP)
         public _FinalStage displayName(Optional<String> displayName) {
             this.displayName = displayName;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public UserAttributeProfileOidcMapping build() {
             return new UserAttributeProfileOidcMapping(mapping, displayName, additionalProperties);
         }

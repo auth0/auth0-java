@@ -82,7 +82,7 @@ public final class CreateHookRequestContent {
         return triggerId;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateHookRequestContent && equalTo((CreateHookRequestContent) other);
@@ -101,12 +101,12 @@ public final class CreateHookRequestContent {
                 && triggerId.equals(other.triggerId);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.script, this.enabled, this.dependencies, this.triggerId);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -167,7 +167,7 @@ public final class CreateHookRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateHookRequestContent other) {
             name(other.getName());
             script(other.getScript());
@@ -182,7 +182,7 @@ public final class CreateHookRequestContent {
          * <p>Name of this hook.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("name")
         public ScriptStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
@@ -194,27 +194,27 @@ public final class CreateHookRequestContent {
          * <p>Code to be executed when this hook runs.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("script")
         public TriggerIdStage script(@NotNull String script) {
             this.script = Objects.requireNonNull(script, "script must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("triggerId")
         public _FinalStage triggerId(@NotNull HookTriggerIdEnum triggerId) {
             this.triggerId = Objects.requireNonNull(triggerId, "triggerId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage dependencies(Map<String, String> dependencies) {
             this.dependencies = Optional.ofNullable(dependencies);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "dependencies", nulls = Nulls.SKIP)
         public _FinalStage dependencies(Optional<Map<String, String>> dependencies) {
             this.dependencies = dependencies;
@@ -225,7 +225,7 @@ public final class CreateHookRequestContent {
          * <p>Whether this hook will be executed (true) or ignored (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage enabled(Boolean enabled) {
             this.enabled = Optional.ofNullable(enabled);
             return this;
@@ -234,14 +234,14 @@ public final class CreateHookRequestContent {
         /**
          * <p>Whether this hook will be executed (true) or ignored (false).</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "enabled", nulls = Nulls.SKIP)
         public _FinalStage enabled(Optional<Boolean> enabled) {
             this.enabled = enabled;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateHookRequestContent build() {
             return new CreateHookRequestContent(name, script, enabled, dependencies, triggerId, additionalProperties);
         }

@@ -43,7 +43,7 @@ public final class FlowActionHttpSendRequestParamsBasicAuth {
         return password;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionHttpSendRequestParamsBasicAuth
@@ -59,12 +59,12 @@ public final class FlowActionHttpSendRequestParamsBasicAuth {
         return username.equals(other.username) && password.equals(other.password);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.username, this.password);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

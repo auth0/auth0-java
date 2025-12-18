@@ -43,7 +43,7 @@ public final class ErrorsGetResponse {
         throw new IllegalStateException("Failed to visit value. This should never happen.");
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ErrorsGetResponse && equalTo((ErrorsGetResponse) other);
@@ -53,12 +53,12 @@ public final class ErrorsGetResponse {
         return value.equals(other.value);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.value);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return this.value.toString();
     }
@@ -82,7 +82,7 @@ public final class ErrorsGetResponse {
             super(ErrorsGetResponse.class);
         }
 
-        @Override
+        @java.lang.Override
         public ErrorsGetResponse deserialize(JsonParser p, DeserializationContext context) throws IOException {
             Object value = p.readValueAs(Object.class);
             try {

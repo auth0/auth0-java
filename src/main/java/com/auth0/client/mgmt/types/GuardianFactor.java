@@ -60,7 +60,7 @@ public final class GuardianFactor {
         return name;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GuardianFactor && equalTo((GuardianFactor) other);
@@ -75,12 +75,12 @@ public final class GuardianFactor {
         return enabled == other.enabled && trialExpired.equals(other.trialExpired) && name.equals(other.name);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.enabled, this.trialExpired, this.name);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -126,7 +126,7 @@ public final class GuardianFactor {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(GuardianFactor other) {
             enabled(other.getEnabled());
             trialExpired(other.getTrialExpired());
@@ -139,20 +139,20 @@ public final class GuardianFactor {
          * <p>Whether this factor is enabled (true) or disabled (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("enabled")
         public _FinalStage enabled(boolean enabled) {
             this.enabled = enabled;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage name(GuardianFactorNameEnum name) {
             this.name = Optional.ofNullable(name);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<GuardianFactorNameEnum> name) {
             this.name = name;
@@ -163,7 +163,7 @@ public final class GuardianFactor {
          * <p>Whether trial limits have been exceeded.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage trialExpired(Boolean trialExpired) {
             this.trialExpired = Optional.ofNullable(trialExpired);
             return this;
@@ -172,14 +172,14 @@ public final class GuardianFactor {
         /**
          * <p>Whether trial limits have been exceeded.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "trial_expired", nulls = Nulls.SKIP)
         public _FinalStage trialExpired(Optional<Boolean> trialExpired) {
             this.trialExpired = trialExpired;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public GuardianFactor build() {
             return new GuardianFactor(enabled, trialExpired, name, additionalProperties);
         }

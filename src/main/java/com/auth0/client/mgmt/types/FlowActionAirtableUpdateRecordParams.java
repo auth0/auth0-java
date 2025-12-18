@@ -73,7 +73,7 @@ public final class FlowActionAirtableUpdateRecordParams {
         return fields;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionAirtableUpdateRecordParams
@@ -93,12 +93,12 @@ public final class FlowActionAirtableUpdateRecordParams {
                 && fields.equals(other.fields);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.baseId, this.tableName, this.recordId, this.fields);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -151,7 +151,7 @@ public final class FlowActionAirtableUpdateRecordParams {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionAirtableUpdateRecordParams other) {
             connectionId(other.getConnectionId());
             baseId(other.getBaseId());
@@ -161,48 +161,48 @@ public final class FlowActionAirtableUpdateRecordParams {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_id")
         public BaseIdStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("base_id")
         public TableNameStage baseId(@NotNull String baseId) {
             this.baseId = Objects.requireNonNull(baseId, "baseId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("table_name")
         public RecordIdStage tableName(@NotNull String tableName) {
             this.tableName = Objects.requireNonNull(tableName, "tableName must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("record_id")
         public _FinalStage recordId(@NotNull String recordId) {
             this.recordId = Objects.requireNonNull(recordId, "recordId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage fields(Map<String, Object> fields) {
             this.fields = Optional.ofNullable(fields);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "fields", nulls = Nulls.SKIP)
         public _FinalStage fields(Optional<Map<String, Object>> fields) {
             this.fields = fields;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionAirtableUpdateRecordParams build() {
             return new FlowActionAirtableUpdateRecordParams(
                     connectionId, baseId, tableName, recordId, fields, additionalProperties);

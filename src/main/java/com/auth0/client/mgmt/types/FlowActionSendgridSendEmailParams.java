@@ -56,7 +56,7 @@ public final class FlowActionSendgridSendEmailParams {
         return personalizations;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionSendgridSendEmailParams && equalTo((FlowActionSendgridSendEmailParams) other);
@@ -73,12 +73,12 @@ public final class FlowActionSendgridSendEmailParams {
                 && personalizations.equals(other.personalizations);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.from, this.personalizations);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -120,7 +120,7 @@ public final class FlowActionSendgridSendEmailParams {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionSendgridSendEmailParams other) {
             connectionId(other.getConnectionId());
             from(other.getFrom());
@@ -128,21 +128,21 @@ public final class FlowActionSendgridSendEmailParams {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_id")
         public FromStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("from")
         public _FinalStage from(@NotNull FlowActionSendgridSendEmailParamsPerson from) {
             this.from = Objects.requireNonNull(from, "from must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage addAllPersonalizations(List<Object> personalizations) {
             if (personalizations != null) {
                 this.personalizations.addAll(personalizations);
@@ -150,13 +150,13 @@ public final class FlowActionSendgridSendEmailParams {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage addPersonalizations(Object personalizations) {
             this.personalizations.add(personalizations);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "personalizations", nulls = Nulls.SKIP)
         public _FinalStage personalizations(List<Object> personalizations) {
             this.personalizations.clear();
@@ -166,7 +166,7 @@ public final class FlowActionSendgridSendEmailParams {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionSendgridSendEmailParams build() {
             return new FlowActionSendgridSendEmailParams(connectionId, from, personalizations, additionalProperties);
         }

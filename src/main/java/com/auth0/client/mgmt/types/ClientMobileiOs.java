@@ -49,7 +49,7 @@ public final class ClientMobileiOs {
         return appBundleIdentifier;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientMobileiOs && equalTo((ClientMobileiOs) other);
@@ -64,12 +64,12 @@ public final class ClientMobileiOs {
         return teamId.equals(other.teamId) && appBundleIdentifier.equals(other.appBundleIdentifier);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.teamId, this.appBundleIdentifier);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

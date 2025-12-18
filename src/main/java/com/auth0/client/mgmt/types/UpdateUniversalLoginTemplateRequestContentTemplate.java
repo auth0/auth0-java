@@ -34,7 +34,7 @@ public final class UpdateUniversalLoginTemplateRequestContentTemplate {
         return template;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateUniversalLoginTemplateRequestContentTemplate
@@ -50,12 +50,12 @@ public final class UpdateUniversalLoginTemplateRequestContentTemplate {
         return template.equals(other.template);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.template);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -83,20 +83,20 @@ public final class UpdateUniversalLoginTemplateRequestContentTemplate {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(UpdateUniversalLoginTemplateRequestContentTemplate other) {
             template(other.getTemplate());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("template")
         public _FinalStage template(@NotNull String template) {
             this.template = Objects.requireNonNull(template, "template must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public UpdateUniversalLoginTemplateRequestContentTemplate build() {
             return new UpdateUniversalLoginTemplateRequestContentTemplate(template, additionalProperties);
         }

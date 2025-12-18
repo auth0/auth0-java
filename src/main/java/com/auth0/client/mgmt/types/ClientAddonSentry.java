@@ -49,7 +49,7 @@ public final class ClientAddonSentry {
         return baseUrl;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientAddonSentry && equalTo((ClientAddonSentry) other);
@@ -64,12 +64,12 @@ public final class ClientAddonSentry {
         return orgSlug.equals(other.orgSlug) && baseUrl.equals(other.baseUrl);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.orgSlug, this.baseUrl);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

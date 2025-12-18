@@ -137,7 +137,7 @@ public final class ListOrganizationClientGrantsRequestParameters {
         return clientId;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListOrganizationClientGrantsRequestParameters
@@ -158,12 +158,12 @@ public final class ListOrganizationClientGrantsRequestParameters {
                 && includeTotals.equals(other.includeTotals);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.grantIds, this.audience, this.clientId, this.page, this.perPage, this.includeTotals);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

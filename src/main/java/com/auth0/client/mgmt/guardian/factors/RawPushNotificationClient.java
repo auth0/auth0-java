@@ -13,18 +13,22 @@ import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.errors.BadRequestError;
 import com.auth0.client.mgmt.errors.ForbiddenError;
 import com.auth0.client.mgmt.errors.UnauthorizedError;
+import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorsProviderPushNotificationApnsRequestContent;
+import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorsProviderPushNotificationFcmRequestContent;
+import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorsProviderPushNotificationFcmv1RequestContent;
 import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorsProviderPushNotificationRequestContent;
 import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorsProviderPushNotificationSnsRequestContent;
+import com.auth0.client.mgmt.guardian.factors.types.UpdateGuardianFactorsProviderPushNotificationApnsRequestContent;
+import com.auth0.client.mgmt.guardian.factors.types.UpdateGuardianFactorsProviderPushNotificationFcmRequestContent;
+import com.auth0.client.mgmt.guardian.factors.types.UpdateGuardianFactorsProviderPushNotificationFcmv1RequestContent;
 import com.auth0.client.mgmt.guardian.factors.types.UpdateGuardianFactorsProviderPushNotificationSnsRequestContent;
 import com.auth0.client.mgmt.types.GetGuardianFactorsProviderApnsResponseContent;
 import com.auth0.client.mgmt.types.GetGuardianFactorsProviderPushNotificationResponseContent;
 import com.auth0.client.mgmt.types.GetGuardianFactorsProviderSnsResponseContent;
-import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationApnsRequestContent;
 import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationApnsResponseContent;
-import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationFcmRequestContent;
-import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationFcmv1RequestContent;
 import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationResponseContent;
 import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationSnsResponseContent;
+import com.auth0.client.mgmt.types.UpdateGuardianFactorsProviderPushNotificationApnsResponseContent;
 import com.auth0.client.mgmt.types.UpdateGuardianFactorsProviderPushNotificationSnsResponseContent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -104,7 +108,7 @@ public class RawPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication APNS provider associated with your tenant.
      */
     public ManagementApiHttpResponse<SetGuardianFactorsProviderPushNotificationApnsResponseContent> setApnsProvider() {
         return setApnsProvider(SetGuardianFactorsProviderPushNotificationApnsRequestContent.builder()
@@ -112,7 +116,7 @@ public class RawPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication APNS provider associated with your tenant.
      */
     public ManagementApiHttpResponse<SetGuardianFactorsProviderPushNotificationApnsResponseContent> setApnsProvider(
             SetGuardianFactorsProviderPushNotificationApnsRequestContent request) {
@@ -120,7 +124,7 @@ public class RawPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication APNS provider associated with your tenant.
      */
     public ManagementApiHttpResponse<SetGuardianFactorsProviderPushNotificationApnsResponseContent> setApnsProvider(
             SetGuardianFactorsProviderPushNotificationApnsRequestContent request, RequestOptions requestOptions) {
@@ -137,7 +141,7 @@ public class RawPushNotificationClient {
         }
         Request okhttpRequest = new Request.Builder()
                 .url(httpUrl)
-                .method("PATCH", body)
+                .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "application/json")
@@ -180,7 +184,86 @@ public class RawPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+     * Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+     */
+    public ManagementApiHttpResponse<UpdateGuardianFactorsProviderPushNotificationApnsResponseContent>
+            updateApnsProvider() {
+        return updateApnsProvider(UpdateGuardianFactorsProviderPushNotificationApnsRequestContent.builder()
+                .build());
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+     */
+    public ManagementApiHttpResponse<UpdateGuardianFactorsProviderPushNotificationApnsResponseContent>
+            updateApnsProvider(UpdateGuardianFactorsProviderPushNotificationApnsRequestContent request) {
+        return updateApnsProvider(request, null);
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+     */
+    public ManagementApiHttpResponse<UpdateGuardianFactorsProviderPushNotificationApnsResponseContent>
+            updateApnsProvider(
+                    UpdateGuardianFactorsProviderPushNotificationApnsRequestContent request,
+                    RequestOptions requestOptions) {
+        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("guardian/factors/push-notification/providers/apns")
+                .build();
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new ManagementException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl)
+                .method("PATCH", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new ManagementApiHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(
+                                responseBodyString,
+                                UpdateGuardianFactorsProviderPushNotificationApnsResponseContent.class),
+                        response);
+            }
+            try {
+                switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 401:
+                        throw new UnauthorizedError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 403:
+                        throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                }
+            } catch (JsonProcessingException ignored) {
+                // unable to map error response, throwing generic error
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new ManagementApiException(
+                    "Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (IOException e) {
+            throw new ManagementException("Network error executing HTTP request", e);
+        }
+    }
+
+    /**
+     * Overwrite all configuration details of the multi-factor authentication FCM provider associated with your tenant.
      */
     public ManagementApiHttpResponse<Map<String, Object>> setFcmProvider() {
         return setFcmProvider(SetGuardianFactorsProviderPushNotificationFcmRequestContent.builder()
@@ -188,7 +271,7 @@ public class RawPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication FCM provider associated with your tenant.
      */
     public ManagementApiHttpResponse<Map<String, Object>> setFcmProvider(
             SetGuardianFactorsProviderPushNotificationFcmRequestContent request) {
@@ -196,10 +279,85 @@ public class RawPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication FCM provider associated with your tenant.
      */
     public ManagementApiHttpResponse<Map<String, Object>> setFcmProvider(
             SetGuardianFactorsProviderPushNotificationFcmRequestContent request, RequestOptions requestOptions) {
+        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("guardian/factors/push-notification/providers/fcm")
+                .build();
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new ManagementException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl)
+                .method("PUT", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new ManagementApiHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(
+                                responseBodyString, new TypeReference<Map<String, Object>>() {}),
+                        response);
+            }
+            try {
+                switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 401:
+                        throw new UnauthorizedError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 403:
+                        throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                }
+            } catch (JsonProcessingException ignored) {
+                // unable to map error response, throwing generic error
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new ManagementApiException(
+                    "Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (IOException e) {
+            throw new ManagementException("Network error executing HTTP request", e);
+        }
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+     */
+    public ManagementApiHttpResponse<Map<String, Object>> updateFcmProvider() {
+        return updateFcmProvider(UpdateGuardianFactorsProviderPushNotificationFcmRequestContent.builder()
+                .build());
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+     */
+    public ManagementApiHttpResponse<Map<String, Object>> updateFcmProvider(
+            UpdateGuardianFactorsProviderPushNotificationFcmRequestContent request) {
+        return updateFcmProvider(request, null);
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+     */
+    public ManagementApiHttpResponse<Map<String, Object>> updateFcmProvider(
+            UpdateGuardianFactorsProviderPushNotificationFcmRequestContent request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("guardian/factors/push-notification/providers/fcm")
@@ -255,7 +413,7 @@ public class RawPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
      */
     public ManagementApiHttpResponse<Map<String, Object>> setFcmv1Provider() {
         return setFcmv1Provider(SetGuardianFactorsProviderPushNotificationFcmv1RequestContent.builder()
@@ -263,7 +421,7 @@ public class RawPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
      */
     public ManagementApiHttpResponse<Map<String, Object>> setFcmv1Provider(
             SetGuardianFactorsProviderPushNotificationFcmv1RequestContent request) {
@@ -271,10 +429,85 @@ public class RawPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
      */
     public ManagementApiHttpResponse<Map<String, Object>> setFcmv1Provider(
             SetGuardianFactorsProviderPushNotificationFcmv1RequestContent request, RequestOptions requestOptions) {
+        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("guardian/factors/push-notification/providers/fcmv1")
+                .build();
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new ManagementException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl)
+                .method("PUT", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new ManagementApiHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(
+                                responseBodyString, new TypeReference<Map<String, Object>>() {}),
+                        response);
+            }
+            try {
+                switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 401:
+                        throw new UnauthorizedError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 403:
+                        throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                }
+            } catch (JsonProcessingException ignored) {
+                // unable to map error response, throwing generic error
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new ManagementApiException(
+                    "Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (IOException e) {
+            throw new ManagementException("Network error executing HTTP request", e);
+        }
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+     */
+    public ManagementApiHttpResponse<Map<String, Object>> updateFcmv1Provider() {
+        return updateFcmv1Provider(UpdateGuardianFactorsProviderPushNotificationFcmv1RequestContent.builder()
+                .build());
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+     */
+    public ManagementApiHttpResponse<Map<String, Object>> updateFcmv1Provider(
+            UpdateGuardianFactorsProviderPushNotificationFcmv1RequestContent request) {
+        return updateFcmv1Provider(request, null);
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+     */
+    public ManagementApiHttpResponse<Map<String, Object>> updateFcmv1Provider(
+            UpdateGuardianFactorsProviderPushNotificationFcmv1RequestContent request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("guardian/factors/push-notification/providers/fcmv1")

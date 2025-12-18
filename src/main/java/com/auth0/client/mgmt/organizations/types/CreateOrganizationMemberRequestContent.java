@@ -38,7 +38,7 @@ public final class CreateOrganizationMemberRequestContent {
         return members;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateOrganizationMemberRequestContent
@@ -54,12 +54,12 @@ public final class CreateOrganizationMemberRequestContent {
         return members.equals(other.members);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.members);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

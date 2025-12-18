@@ -104,6 +104,9 @@ public final class OauthScope {
     public static final OauthScope CREATE_SELF_SERVICE_PROFILES =
             new OauthScope(Value.CREATE_SELF_SERVICE_PROFILES, "create:self_service_profiles");
 
+    public static final OauthScope UPDATE_REFRESH_TOKENS =
+            new OauthScope(Value.UPDATE_REFRESH_TOKENS, "update:refresh_tokens");
+
     public static final OauthScope READ_USER_IDP_TOKENS =
             new OauthScope(Value.READ_USER_IDP_TOKENS, "read:user_idp_tokens");
 
@@ -682,18 +685,18 @@ public final class OauthScope {
         return value;
     }
 
-    @Override
+    @java.lang.Override
     @JsonValue
     public String toString() {
         return this.string;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         return (this == other) || (other instanceof OauthScope && this.string.equals(((OauthScope) other).string));
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return this.string.hashCode();
     }
@@ -774,6 +777,8 @@ public final class OauthScope {
                 return visitor.visitReadRulesConfigs();
             case CREATE_SELF_SERVICE_PROFILES:
                 return visitor.visitCreateSelfServiceProfiles();
+            case UPDATE_REFRESH_TOKENS:
+                return visitor.visitUpdateRefreshTokens();
             case READ_USER_IDP_TOKENS:
                 return visitor.visitReadUserIdpTokens();
             case READ_HOOKS:
@@ -1283,6 +1288,8 @@ public final class OauthScope {
                 return READ_RULES_CONFIGS;
             case "create:self_service_profiles":
                 return CREATE_SELF_SERVICE_PROFILES;
+            case "update:refresh_tokens":
+                return UPDATE_REFRESH_TOKENS;
             case "read:user_idp_tokens":
                 return READ_USER_IDP_TOKENS;
             case "read:hooks":
@@ -2073,6 +2080,8 @@ public final class OauthScope {
 
         READ_REFRESH_TOKENS,
 
+        UPDATE_REFRESH_TOKENS,
+
         DELETE_REFRESH_TOKENS,
 
         CREATE_RESOURCE_SERVERS,
@@ -2576,6 +2585,8 @@ public final class OauthScope {
         T visitUpdateResourceServers();
 
         T visitReadRefreshTokens();
+
+        T visitUpdateRefreshTokens();
 
         T visitDeleteRefreshTokens();
 

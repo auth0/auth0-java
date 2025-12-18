@@ -42,7 +42,7 @@ public final class FlowActionOtpVerifyCodeParams {
         return code;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionOtpVerifyCodeParams && equalTo((FlowActionOtpVerifyCodeParams) other);
@@ -57,12 +57,12 @@ public final class FlowActionOtpVerifyCodeParams {
         return reference.equals(other.reference) && code.equals(other.code);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.reference, this.code);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -96,28 +96,28 @@ public final class FlowActionOtpVerifyCodeParams {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionOtpVerifyCodeParams other) {
             reference(other.getReference());
             code(other.getCode());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("reference")
         public CodeStage reference(@NotNull String reference) {
             this.reference = Objects.requireNonNull(reference, "reference must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("code")
         public _FinalStage code(@NotNull FlowActionOtpVerifyCodeParamsCode code) {
             this.code = Objects.requireNonNull(code, "code must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionOtpVerifyCodeParams build() {
             return new FlowActionOtpVerifyCodeParams(reference, code, additionalProperties);
         }

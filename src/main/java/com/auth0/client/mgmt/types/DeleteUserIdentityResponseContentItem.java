@@ -121,7 +121,7 @@ public final class DeleteUserIdentityResponseContentItem {
         return profileData;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof DeleteUserIdentityResponseContentItem
@@ -144,7 +144,7 @@ public final class DeleteUserIdentityResponseContentItem {
                 && profileData.equals(other.profileData);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.connection,
@@ -157,7 +157,7 @@ public final class DeleteUserIdentityResponseContentItem {
                 this.profileData);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -248,7 +248,7 @@ public final class DeleteUserIdentityResponseContentItem {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(DeleteUserIdentityResponseContentItem other) {
             connection(other.getConnection());
             userId(other.getUserId());
@@ -266,7 +266,7 @@ public final class DeleteUserIdentityResponseContentItem {
          * <p>The name of the connection for the identity.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("connection")
         public UserIdStage connection(@NotNull String connection) {
             this.connection = Objects.requireNonNull(connection, "connection must not be null");
@@ -278,7 +278,7 @@ public final class DeleteUserIdentityResponseContentItem {
          * <p>The unique identifier for the user for the identity.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("user_id")
         public ProviderStage userId(@NotNull String userId) {
             this.userId = Objects.requireNonNull(userId, "userId must not be null");
@@ -290,20 +290,20 @@ public final class DeleteUserIdentityResponseContentItem {
          * <p>The type of identity provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("provider")
         public _FinalStage provider(@NotNull String provider) {
             this.provider = Objects.requireNonNull(provider, "provider must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage profileData(UserProfileData profileData) {
             this.profileData = Optional.ofNullable(profileData);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "profileData", nulls = Nulls.SKIP)
         public _FinalStage profileData(Optional<UserProfileData> profileData) {
             this.profileData = profileData;
@@ -314,7 +314,7 @@ public final class DeleteUserIdentityResponseContentItem {
          * <p>IDP refresh token returned only if scope read:user_idp_tokens is defined.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage refreshToken(String refreshToken) {
             this.refreshToken = Optional.ofNullable(refreshToken);
             return this;
@@ -323,7 +323,7 @@ public final class DeleteUserIdentityResponseContentItem {
         /**
          * <p>IDP refresh token returned only if scope read:user_idp_tokens is defined.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "refresh_token", nulls = Nulls.SKIP)
         public _FinalStage refreshToken(Optional<String> refreshToken) {
             this.refreshToken = refreshToken;
@@ -334,7 +334,7 @@ public final class DeleteUserIdentityResponseContentItem {
          * <p>IDP access token secret returned only if scope read:user_idp_tokens is defined.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage accessTokenSecret(String accessTokenSecret) {
             this.accessTokenSecret = Optional.ofNullable(accessTokenSecret);
             return this;
@@ -343,7 +343,7 @@ public final class DeleteUserIdentityResponseContentItem {
         /**
          * <p>IDP access token secret returned only if scope read:user_idp_tokens is defined.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "access_token_secret", nulls = Nulls.SKIP)
         public _FinalStage accessTokenSecret(Optional<String> accessTokenSecret) {
             this.accessTokenSecret = accessTokenSecret;
@@ -354,7 +354,7 @@ public final class DeleteUserIdentityResponseContentItem {
          * <p>IDP access token returned only if scope read:user_idp_tokens is defined</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage accessToken(String accessToken) {
             this.accessToken = Optional.ofNullable(accessToken);
             return this;
@@ -363,7 +363,7 @@ public final class DeleteUserIdentityResponseContentItem {
         /**
          * <p>IDP access token returned only if scope read:user_idp_tokens is defined</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "access_token", nulls = Nulls.SKIP)
         public _FinalStage accessToken(Optional<String> accessToken) {
             this.accessToken = accessToken;
@@ -374,7 +374,7 @@ public final class DeleteUserIdentityResponseContentItem {
          * <p>&lt;code&gt;true&lt;/code&gt; if the identity provider is a social provider, &lt;code&gt;false&lt;/code&gt;s otherwise</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage isSocial(Boolean isSocial) {
             this.isSocial = Optional.ofNullable(isSocial);
             return this;
@@ -383,14 +383,14 @@ public final class DeleteUserIdentityResponseContentItem {
         /**
          * <p>&lt;code&gt;true&lt;/code&gt; if the identity provider is a social provider, &lt;code&gt;false&lt;/code&gt;s otherwise</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "isSocial", nulls = Nulls.SKIP)
         public _FinalStage isSocial(Optional<Boolean> isSocial) {
             this.isSocial = isSocial;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public DeleteUserIdentityResponseContentItem build() {
             return new DeleteUserIdentityResponseContentItem(
                     connection,

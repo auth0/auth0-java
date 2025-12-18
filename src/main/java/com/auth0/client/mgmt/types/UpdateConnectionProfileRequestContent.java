@@ -82,7 +82,7 @@ public final class UpdateConnectionProfileRequestContent {
         return strategyOverrides;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateConnectionProfileRequestContent
@@ -103,7 +103,7 @@ public final class UpdateConnectionProfileRequestContent {
                 && strategyOverrides.equals(other.strategyOverrides);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.name,
@@ -114,7 +114,7 @@ public final class UpdateConnectionProfileRequestContent {
                 this.strategyOverrides);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

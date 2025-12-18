@@ -41,7 +41,7 @@ public final class FormWidgetRecaptchaConfig {
         return secretKey;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormWidgetRecaptchaConfig && equalTo((FormWidgetRecaptchaConfig) other);
@@ -56,12 +56,12 @@ public final class FormWidgetRecaptchaConfig {
         return siteKey.equals(other.siteKey) && secretKey.equals(other.secretKey);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.siteKey, this.secretKey);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -95,28 +95,28 @@ public final class FormWidgetRecaptchaConfig {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FormWidgetRecaptchaConfig other) {
             siteKey(other.getSiteKey());
             secretKey(other.getSecretKey());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("site_key")
         public SecretKeyStage siteKey(@NotNull String siteKey) {
             this.siteKey = Objects.requireNonNull(siteKey, "siteKey must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("secret_key")
         public _FinalStage secretKey(@NotNull String secretKey) {
             this.secretKey = Objects.requireNonNull(secretKey, "secretKey must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FormWidgetRecaptchaConfig build() {
             return new FormWidgetRecaptchaConfig(siteKey, secretKey, additionalProperties);
         }

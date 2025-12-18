@@ -59,7 +59,7 @@ public final class CreateDirectorySynchronizationResponseContent {
         return status;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateDirectorySynchronizationResponseContent
@@ -77,12 +77,12 @@ public final class CreateDirectorySynchronizationResponseContent {
                 && status.equals(other.status);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.synchronizationId, this.status);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -131,7 +131,7 @@ public final class CreateDirectorySynchronizationResponseContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateDirectorySynchronizationResponseContent other) {
             connectionId(other.getConnectionId());
             synchronizationId(other.getSynchronizationId());
@@ -144,7 +144,7 @@ public final class CreateDirectorySynchronizationResponseContent {
          * <p>The connection's identifier</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_id")
         public SynchronizationIdStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
@@ -156,7 +156,7 @@ public final class CreateDirectorySynchronizationResponseContent {
          * <p>The synchronization's identifier</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("synchronization_id")
         public StatusStage synchronizationId(@NotNull String synchronizationId) {
             this.synchronizationId = Objects.requireNonNull(synchronizationId, "synchronizationId must not be null");
@@ -168,14 +168,14 @@ public final class CreateDirectorySynchronizationResponseContent {
          * <p>The synchronization status</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("status")
         public _FinalStage status(@NotNull String status) {
             this.status = Objects.requireNonNull(status, "status must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateDirectorySynchronizationResponseContent build() {
             return new CreateDirectorySynchronizationResponseContent(
                     connectionId, synchronizationId, status, additionalProperties);

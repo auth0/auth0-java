@@ -153,7 +153,7 @@ public final class ListEventStreamDeliveriesRequestParameters {
         return from;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListEventStreamDeliveriesRequestParameters
@@ -174,12 +174,12 @@ public final class ListEventStreamDeliveriesRequestParameters {
                 && take.equals(other.take);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.statuses, this.eventTypes, this.dateFrom, this.dateTo, this.from, this.take);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

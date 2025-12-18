@@ -34,7 +34,7 @@ public final class MdlPresentationRequest {
         return orgIso1801351MDl;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof MdlPresentationRequest && equalTo((MdlPresentationRequest) other);
@@ -49,12 +49,12 @@ public final class MdlPresentationRequest {
         return orgIso1801351MDl.equals(other.orgIso1801351MDl);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.orgIso1801351MDl);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -82,20 +82,20 @@ public final class MdlPresentationRequest {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(MdlPresentationRequest other) {
             orgIso1801351MDl(other.getOrgIso1801351MDl());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("org.iso.18013.5.1.mDL")
         public _FinalStage orgIso1801351MDl(@NotNull MdlPresentationRequestProperties orgIso1801351MDl) {
             this.orgIso1801351MDl = Objects.requireNonNull(orgIso1801351MDl, "orgIso1801351MDl must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public MdlPresentationRequest build() {
             return new MdlPresentationRequest(orgIso1801351MDl, additionalProperties);
         }

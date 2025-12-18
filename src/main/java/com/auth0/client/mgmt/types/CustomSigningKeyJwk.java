@@ -185,7 +185,7 @@ public final class CustomSigningKeyJwk {
         return x5TS256;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CustomSigningKeyJwk && equalTo((CustomSigningKeyJwk) other);
@@ -213,7 +213,7 @@ public final class CustomSigningKeyJwk {
                 && x5TS256.equals(other.x5TS256);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.kty,
@@ -232,7 +232,7 @@ public final class CustomSigningKeyJwk {
                 this.x5TS256);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -368,7 +368,7 @@ public final class CustomSigningKeyJwk {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CustomSigningKeyJwk other) {
             kty(other.getKty());
             kid(other.getKid());
@@ -387,7 +387,7 @@ public final class CustomSigningKeyJwk {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("kty")
         public _FinalStage kty(@NotNull CustomSigningKeyTypeEnum kty) {
             this.kty = Objects.requireNonNull(kty, "kty must not be null");
@@ -398,7 +398,7 @@ public final class CustomSigningKeyJwk {
          * <p>X.509 certificate SHA-256 thumbprint</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage x5TS256(String x5TS256) {
             this.x5TS256 = Optional.ofNullable(x5TS256);
             return this;
@@ -407,7 +407,7 @@ public final class CustomSigningKeyJwk {
         /**
          * <p>X.509 certificate SHA-256 thumbprint</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "x5t#S256", nulls = Nulls.SKIP)
         public _FinalStage x5TS256(Optional<String> x5TS256) {
             this.x5TS256 = x5TS256;
@@ -418,7 +418,7 @@ public final class CustomSigningKeyJwk {
          * <p>X.509 certificate SHA-1 thumbprint</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage x5T(String x5T) {
             this.x5T = Optional.ofNullable(x5T);
             return this;
@@ -427,7 +427,7 @@ public final class CustomSigningKeyJwk {
         /**
          * <p>X.509 certificate SHA-1 thumbprint</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "x5t", nulls = Nulls.SKIP)
         public _FinalStage x5T(Optional<String> x5T) {
             this.x5T = x5T;
@@ -438,7 +438,7 @@ public final class CustomSigningKeyJwk {
          * <p>X.509 certificate chain</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage x5C(List<String> x5C) {
             this.x5C = Optional.ofNullable(x5C);
             return this;
@@ -447,7 +447,7 @@ public final class CustomSigningKeyJwk {
         /**
          * <p>X.509 certificate chain</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "x5c", nulls = Nulls.SKIP)
         public _FinalStage x5C(Optional<List<String>> x5C) {
             this.x5C = x5C;
@@ -458,7 +458,7 @@ public final class CustomSigningKeyJwk {
          * <p>X.509 URL</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage x5U(String x5U) {
             this.x5U = Optional.ofNullable(x5U);
             return this;
@@ -467,7 +467,7 @@ public final class CustomSigningKeyJwk {
         /**
          * <p>X.509 URL</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "x5u", nulls = Nulls.SKIP)
         public _FinalStage x5U(Optional<String> x5U) {
             this.x5U = x5U;
@@ -478,7 +478,7 @@ public final class CustomSigningKeyJwk {
          * <p>Y coordinate</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage y(String y) {
             this.y = Optional.ofNullable(y);
             return this;
@@ -487,7 +487,7 @@ public final class CustomSigningKeyJwk {
         /**
          * <p>Y coordinate</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "y", nulls = Nulls.SKIP)
         public _FinalStage y(Optional<String> y) {
             this.y = y;
@@ -498,7 +498,7 @@ public final class CustomSigningKeyJwk {
          * <p>X coordinate</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage x(String x) {
             this.x = Optional.ofNullable(x);
             return this;
@@ -507,20 +507,20 @@ public final class CustomSigningKeyJwk {
         /**
          * <p>X coordinate</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "x", nulls = Nulls.SKIP)
         public _FinalStage x(Optional<String> x) {
             this.x = x;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage crv(CustomSigningKeyCurveEnum crv) {
             this.crv = Optional.ofNullable(crv);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "crv", nulls = Nulls.SKIP)
         public _FinalStage crv(Optional<CustomSigningKeyCurveEnum> crv) {
             this.crv = crv;
@@ -531,7 +531,7 @@ public final class CustomSigningKeyJwk {
          * <p>Key exponent</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage e(String e) {
             this.e = Optional.ofNullable(e);
             return this;
@@ -540,7 +540,7 @@ public final class CustomSigningKeyJwk {
         /**
          * <p>Key exponent</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "e", nulls = Nulls.SKIP)
         public _FinalStage e(Optional<String> e) {
             this.e = e;
@@ -551,7 +551,7 @@ public final class CustomSigningKeyJwk {
          * <p>Key modulus</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage n(String n) {
             this.n = Optional.ofNullable(n);
             return this;
@@ -560,20 +560,20 @@ public final class CustomSigningKeyJwk {
         /**
          * <p>Key modulus</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "n", nulls = Nulls.SKIP)
         public _FinalStage n(Optional<String> n) {
             this.n = n;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage alg(CustomSigningKeyAlgorithmEnum alg) {
             this.alg = Optional.ofNullable(alg);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "alg", nulls = Nulls.SKIP)
         public _FinalStage alg(Optional<CustomSigningKeyAlgorithmEnum> alg) {
             this.alg = alg;
@@ -584,7 +584,7 @@ public final class CustomSigningKeyJwk {
          * <p>Key operations</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage keyOps(List<String> keyOps) {
             this.keyOps = Optional.ofNullable(keyOps);
             return this;
@@ -593,20 +593,20 @@ public final class CustomSigningKeyJwk {
         /**
          * <p>Key operations</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "key_ops", nulls = Nulls.SKIP)
         public _FinalStage keyOps(Optional<List<String>> keyOps) {
             this.keyOps = keyOps;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage use(String use) {
             this.use = Optional.ofNullable(use);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "use", nulls = Nulls.SKIP)
         public _FinalStage use(Optional<String> use) {
             this.use = use;
@@ -617,7 +617,7 @@ public final class CustomSigningKeyJwk {
          * <p>Key identifier</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage kid(String kid) {
             this.kid = Optional.ofNullable(kid);
             return this;
@@ -626,14 +626,14 @@ public final class CustomSigningKeyJwk {
         /**
          * <p>Key identifier</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "kid", nulls = Nulls.SKIP)
         public _FinalStage kid(Optional<String> kid) {
             this.kid = kid;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CustomSigningKeyJwk build() {
             return new CustomSigningKeyJwk(
                     kty, kid, use, keyOps, alg, n, e, crv, x, y, x5U, x5C, x5T, x5TS256, additionalProperties);

@@ -59,7 +59,7 @@ public final class BrandingThemePageBackground {
         return pageLayout;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof BrandingThemePageBackground && equalTo((BrandingThemePageBackground) other);
@@ -76,12 +76,12 @@ public final class BrandingThemePageBackground {
                 && pageLayout.equals(other.pageLayout);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.backgroundColor, this.backgroundImageUrl, this.pageLayout);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -128,7 +128,7 @@ public final class BrandingThemePageBackground {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(BrandingThemePageBackground other) {
             backgroundColor(other.getBackgroundColor());
             backgroundImageUrl(other.getBackgroundImageUrl());
@@ -141,7 +141,7 @@ public final class BrandingThemePageBackground {
          * <p>Background color</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("background_color")
         public BackgroundImageUrlStage backgroundColor(@NotNull String backgroundColor) {
             this.backgroundColor = Objects.requireNonNull(backgroundColor, "backgroundColor must not be null");
@@ -153,21 +153,21 @@ public final class BrandingThemePageBackground {
          * <p>Background image url</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("background_image_url")
         public PageLayoutStage backgroundImageUrl(@NotNull String backgroundImageUrl) {
             this.backgroundImageUrl = Objects.requireNonNull(backgroundImageUrl, "backgroundImageUrl must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("page_layout")
         public _FinalStage pageLayout(@NotNull BrandingThemePageBackgroundPageLayoutEnum pageLayout) {
             this.pageLayout = Objects.requireNonNull(pageLayout, "pageLayout must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public BrandingThemePageBackground build() {
             return new BrandingThemePageBackground(
                     backgroundColor, backgroundImageUrl, pageLayout, additionalProperties);

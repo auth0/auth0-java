@@ -36,7 +36,7 @@ public final class SetGuardianFactorsProviderPushNotificationResponseContent {
         return provider;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SetGuardianFactorsProviderPushNotificationResponseContent
@@ -52,12 +52,12 @@ public final class SetGuardianFactorsProviderPushNotificationResponseContent {
         return provider.equals(other.provider);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.provider);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

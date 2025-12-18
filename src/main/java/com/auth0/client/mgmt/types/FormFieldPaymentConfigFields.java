@@ -63,7 +63,7 @@ public final class FormFieldPaymentConfigFields {
         return trustmarks;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldPaymentConfigFields && equalTo((FormFieldPaymentConfigFields) other);
@@ -81,12 +81,12 @@ public final class FormFieldPaymentConfigFields {
                 && trustmarks.equals(other.trustmarks);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.cardNumber, this.expirationDate, this.securityCode, this.trustmarks);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

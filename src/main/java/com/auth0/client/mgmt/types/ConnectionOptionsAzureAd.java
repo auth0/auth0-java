@@ -305,7 +305,7 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
     }
 
     @JsonProperty("non_persistent_attrs")
-    @Override
+    @java.lang.Override
     public Optional<List<String>> getNonPersistentAttrs() {
         return nonPersistentAttrs;
     }
@@ -753,6 +753,9 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("upstream_params")
     public OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams() {
+        if (upstreamParams == null) {
+            return OptionalNullable.absent();
+        }
         return upstreamParams;
     }
 
@@ -785,7 +788,14 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
         return federatedConnectionsAccessTokens;
     }
 
-    @Override
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("upstream_params")
+    private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+            _getUpstreamParams() {
+        return upstreamParams;
+    }
+
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionOptionsAzureAd && equalTo((ConnectionOptionsAzureAd) other);
@@ -867,7 +877,7 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
                 && waadProtocol.equals(other.waadProtocol);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.nonPersistentAttrs,
@@ -940,7 +950,7 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
                 this.waadProtocol);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -2016,8 +2026,9 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
 
         @JsonSetter(value = "upstream_params", nulls = Nulls.SKIP)
         public Builder upstreamParams(
-                OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
-                        upstreamParams) {
+                @Nullable
+                        OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+                                upstreamParams) {
             this.upstreamParams = upstreamParams;
             return this;
         }

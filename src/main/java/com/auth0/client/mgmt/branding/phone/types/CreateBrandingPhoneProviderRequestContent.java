@@ -70,7 +70,7 @@ public final class CreateBrandingPhoneProviderRequestContent {
         return credentials;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateBrandingPhoneProviderRequestContent
@@ -89,12 +89,12 @@ public final class CreateBrandingPhoneProviderRequestContent {
                 && credentials.equals(other.credentials);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.disabled, this.configuration, this.credentials);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -143,7 +143,7 @@ public final class CreateBrandingPhoneProviderRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateBrandingPhoneProviderRequestContent other) {
             name(other.getName());
             disabled(other.getDisabled());
@@ -152,27 +152,27 @@ public final class CreateBrandingPhoneProviderRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("name")
         public CredentialsStage name(@NotNull PhoneProviderNameEnum name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("credentials")
         public _FinalStage credentials(@NotNull PhoneProviderCredentials credentials) {
             this.credentials = Objects.requireNonNull(credentials, "credentials must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage configuration(PhoneProviderConfiguration configuration) {
             this.configuration = Optional.ofNullable(configuration);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "configuration", nulls = Nulls.SKIP)
         public _FinalStage configuration(Optional<PhoneProviderConfiguration> configuration) {
             this.configuration = configuration;
@@ -183,7 +183,7 @@ public final class CreateBrandingPhoneProviderRequestContent {
          * <p>Whether the provider is enabled (false) or disabled (true).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage disabled(Boolean disabled) {
             this.disabled = Optional.ofNullable(disabled);
             return this;
@@ -192,14 +192,14 @@ public final class CreateBrandingPhoneProviderRequestContent {
         /**
          * <p>Whether the provider is enabled (false) or disabled (true).</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "disabled", nulls = Nulls.SKIP)
         public _FinalStage disabled(Optional<Boolean> disabled) {
             this.disabled = disabled;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateBrandingPhoneProviderRequestContent build() {
             return new CreateBrandingPhoneProviderRequestContent(
                     name, disabled, configuration, credentials, additionalProperties);

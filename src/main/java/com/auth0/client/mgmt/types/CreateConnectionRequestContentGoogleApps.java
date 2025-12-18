@@ -40,7 +40,7 @@ public final class CreateConnectionRequestContentGoogleApps implements ICreateCo
 
     private final Optional<Boolean> showAsButton;
 
-    private final Optional<Map<String, Object>> options;
+    private final Optional<ConnectionOptionsGoogleApps> options;
 
     private final Map<String, Object> additionalProperties;
 
@@ -54,7 +54,7 @@ public final class CreateConnectionRequestContentGoogleApps implements ICreateCo
             Optional<Map<String, OptionalNullable<String>>> metadata,
             Optional<List<String>> realms,
             Optional<Boolean> showAsButton,
-            Optional<Map<String, Object>> options,
+            Optional<ConnectionOptionsGoogleApps> options,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.authentication = authentication;
@@ -70,55 +70,55 @@ public final class CreateConnectionRequestContentGoogleApps implements ICreateCo
     }
 
     @JsonProperty("name")
-    @Override
+    @java.lang.Override
     public Optional<String> getName() {
         return name;
     }
 
     @JsonProperty("authentication")
-    @Override
+    @java.lang.Override
     public Optional<ConnectionAuthenticationPurpose> getAuthentication() {
         return authentication;
     }
 
     @JsonProperty("connected_accounts")
-    @Override
+    @java.lang.Override
     public Optional<ConnectionConnectedAccountsPurpose> getConnectedAccounts() {
         return connectedAccounts;
     }
 
     @JsonProperty("display_name")
-    @Override
+    @java.lang.Override
     public Optional<String> getDisplayName() {
         return displayName;
     }
 
     @JsonProperty("enabled_clients")
-    @Override
+    @java.lang.Override
     public Optional<List<String>> getEnabledClients() {
         return enabledClients;
     }
 
     @JsonProperty("is_domain_connection")
-    @Override
+    @java.lang.Override
     public Optional<Boolean> getIsDomainConnection() {
         return isDomainConnection;
     }
 
     @JsonProperty("metadata")
-    @Override
+    @java.lang.Override
     public Optional<Map<String, OptionalNullable<String>>> getMetadata() {
         return metadata;
     }
 
     @JsonProperty("realms")
-    @Override
+    @java.lang.Override
     public Optional<List<String>> getRealms() {
         return realms;
     }
 
     @JsonProperty("show_as_button")
-    @Override
+    @java.lang.Override
     public Optional<Boolean> getShowAsButton() {
         return showAsButton;
     }
@@ -129,11 +129,11 @@ public final class CreateConnectionRequestContentGoogleApps implements ICreateCo
     }
 
     @JsonProperty("options")
-    public Optional<Map<String, Object>> getOptions() {
+    public Optional<ConnectionOptionsGoogleApps> getOptions() {
         return options;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateConnectionRequestContentGoogleApps
@@ -158,7 +158,7 @@ public final class CreateConnectionRequestContentGoogleApps implements ICreateCo
                 && options.equals(other.options);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.name,
@@ -173,7 +173,7 @@ public final class CreateConnectionRequestContentGoogleApps implements ICreateCo
                 this.options);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -202,7 +202,7 @@ public final class CreateConnectionRequestContentGoogleApps implements ICreateCo
 
         private Optional<Boolean> showAsButton = Optional.empty();
 
-        private Optional<Map<String, Object>> options = Optional.empty();
+        private Optional<ConnectionOptionsGoogleApps> options = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -323,12 +323,12 @@ public final class CreateConnectionRequestContentGoogleApps implements ICreateCo
         }
 
         @JsonSetter(value = "options", nulls = Nulls.SKIP)
-        public Builder options(Optional<Map<String, Object>> options) {
+        public Builder options(Optional<ConnectionOptionsGoogleApps> options) {
             this.options = options;
             return this;
         }
 
-        public Builder options(Map<String, Object> options) {
+        public Builder options(ConnectionOptionsGoogleApps options) {
             this.options = Optional.ofNullable(options);
             return this;
         }

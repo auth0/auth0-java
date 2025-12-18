@@ -74,7 +74,7 @@ public final class SelfServiceProfileSsoTicketProvisioningConfig {
         return tokenLifetime;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SelfServiceProfileSsoTicketProvisioningConfig
@@ -92,12 +92,12 @@ public final class SelfServiceProfileSsoTicketProvisioningConfig {
                 && tokenLifetime.equals(other.tokenLifetime);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.scopes, this.googleWorkspace, this.tokenLifetime);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

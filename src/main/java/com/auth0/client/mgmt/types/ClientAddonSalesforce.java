@@ -37,7 +37,7 @@ public final class ClientAddonSalesforce {
         return entityId;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientAddonSalesforce && equalTo((ClientAddonSalesforce) other);
@@ -52,12 +52,12 @@ public final class ClientAddonSalesforce {
         return entityId.equals(other.entityId);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.entityId);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

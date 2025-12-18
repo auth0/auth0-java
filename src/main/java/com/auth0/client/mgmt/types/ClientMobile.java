@@ -45,7 +45,7 @@ public final class ClientMobile {
         return ios;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientMobile && equalTo((ClientMobile) other);
@@ -60,12 +60,12 @@ public final class ClientMobile {
         return android.equals(other.android) && ios.equals(other.ios);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.android, this.ios);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

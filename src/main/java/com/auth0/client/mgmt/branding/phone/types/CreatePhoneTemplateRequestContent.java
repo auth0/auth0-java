@@ -59,7 +59,7 @@ public final class CreatePhoneTemplateRequestContent {
         return content;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreatePhoneTemplateRequestContent && equalTo((CreatePhoneTemplateRequestContent) other);
@@ -74,12 +74,12 @@ public final class CreatePhoneTemplateRequestContent {
         return type.equals(other.type) && disabled.equals(other.disabled) && content.equals(other.content);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.type, this.disabled, this.content);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

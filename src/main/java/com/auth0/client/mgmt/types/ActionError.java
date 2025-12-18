@@ -51,7 +51,7 @@ public final class ActionError {
         return url;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ActionError && equalTo((ActionError) other);
@@ -66,12 +66,12 @@ public final class ActionError {
         return id.equals(other.id) && msg.equals(other.msg) && url.equals(other.url);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.id, this.msg, this.url);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

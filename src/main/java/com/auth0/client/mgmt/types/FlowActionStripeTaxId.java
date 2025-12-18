@@ -41,7 +41,7 @@ public final class FlowActionStripeTaxId {
         return value;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionStripeTaxId && equalTo((FlowActionStripeTaxId) other);
@@ -56,12 +56,12 @@ public final class FlowActionStripeTaxId {
         return type.equals(other.type) && value.equals(other.value);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.type, this.value);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -95,28 +95,28 @@ public final class FlowActionStripeTaxId {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionStripeTaxId other) {
             type(other.getType());
             value(other.getValue());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public ValueStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("value")
         public _FinalStage value(@NotNull String value) {
             this.value = Objects.requireNonNull(value, "value must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionStripeTaxId build() {
             return new FlowActionStripeTaxId(type, value, additionalProperties);
         }

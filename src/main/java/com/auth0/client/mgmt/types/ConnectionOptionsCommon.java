@@ -32,12 +32,12 @@ public final class ConnectionOptionsCommon implements IConnectionOptionsCommon {
     }
 
     @JsonProperty("non_persistent_attrs")
-    @Override
+    @java.lang.Override
     public Optional<List<String>> getNonPersistentAttrs() {
         return nonPersistentAttrs;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionOptionsCommon && equalTo((ConnectionOptionsCommon) other);
@@ -52,12 +52,12 @@ public final class ConnectionOptionsCommon implements IConnectionOptionsCommon {
         return nonPersistentAttrs.equals(other.nonPersistentAttrs);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.nonPersistentAttrs);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -71,7 +71,7 @@ public final class FlowActionWhatsappSendMessageParams {
         return payload;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionWhatsappSendMessageParams
@@ -91,12 +91,12 @@ public final class FlowActionWhatsappSendMessageParams {
                 && payload.equals(other.payload);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.senderId, this.recipientNumber, this.type, this.payload);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -149,7 +149,7 @@ public final class FlowActionWhatsappSendMessageParams {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionWhatsappSendMessageParams other) {
             connectionId(other.getConnectionId());
             senderId(other.getSenderId());
@@ -159,42 +159,42 @@ public final class FlowActionWhatsappSendMessageParams {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_id")
         public SenderIdStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("sender_id")
         public RecipientNumberStage senderId(@NotNull String senderId) {
             this.senderId = Objects.requireNonNull(senderId, "senderId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("recipient_number")
         public TypeStage recipientNumber(@NotNull String recipientNumber) {
             this.recipientNumber = Objects.requireNonNull(recipientNumber, "recipientNumber must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public PayloadStage type(@NotNull FlowActionWhatsappSendMessageParamsType type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("payload")
         public _FinalStage payload(@NotNull FlowActionWhatsappSendMessageParamsPayload payload) {
             this.payload = Objects.requireNonNull(payload, "payload must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionWhatsappSendMessageParams build() {
             return new FlowActionWhatsappSendMessageParams(
                     connectionId, senderId, recipientNumber, type, payload, additionalProperties);

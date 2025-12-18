@@ -49,7 +49,7 @@ public final class OrganizationConnectionInformation {
         return strategy;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof OrganizationConnectionInformation && equalTo((OrganizationConnectionInformation) other);
@@ -64,12 +64,12 @@ public final class OrganizationConnectionInformation {
         return name.equals(other.name) && strategy.equals(other.strategy);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.strategy);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

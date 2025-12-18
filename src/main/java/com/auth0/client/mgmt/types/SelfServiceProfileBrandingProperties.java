@@ -45,7 +45,7 @@ public final class SelfServiceProfileBrandingProperties {
         return colors;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SelfServiceProfileBrandingProperties
@@ -61,12 +61,12 @@ public final class SelfServiceProfileBrandingProperties {
         return logoUrl.equals(other.logoUrl) && colors.equals(other.colors);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.logoUrl, this.colors);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

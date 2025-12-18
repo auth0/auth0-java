@@ -45,7 +45,7 @@ public final class ResourceServerSubjectTypeAuthorization {
         return client;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ResourceServerSubjectTypeAuthorization
@@ -61,12 +61,12 @@ public final class ResourceServerSubjectTypeAuthorization {
         return user.equals(other.user) && client.equals(other.client);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.user, this.client);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

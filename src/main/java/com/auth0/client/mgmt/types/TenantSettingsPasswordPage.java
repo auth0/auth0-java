@@ -49,7 +49,7 @@ public final class TenantSettingsPasswordPage {
         return html;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof TenantSettingsPasswordPage && equalTo((TenantSettingsPasswordPage) other);
@@ -64,12 +64,12 @@ public final class TenantSettingsPasswordPage {
         return enabled.equals(other.enabled) && html.equals(other.html);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.enabled, this.html);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

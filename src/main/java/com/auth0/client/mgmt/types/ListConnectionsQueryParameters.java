@@ -155,7 +155,7 @@ public final class ListConnectionsQueryParameters {
         return includeFields;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListConnectionsQueryParameters && equalTo((ListConnectionsQueryParameters) other);
@@ -175,12 +175,12 @@ public final class ListConnectionsQueryParameters {
                 && includeFields.equals(other.includeFields);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.strategy, this.from, this.take, this.name, this.fields, this.includeFields);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

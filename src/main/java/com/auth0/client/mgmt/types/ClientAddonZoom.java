@@ -37,7 +37,7 @@ public final class ClientAddonZoom {
         return account;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientAddonZoom && equalTo((ClientAddonZoom) other);
@@ -52,12 +52,12 @@ public final class ClientAddonZoom {
         return account.equals(other.account);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.account);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

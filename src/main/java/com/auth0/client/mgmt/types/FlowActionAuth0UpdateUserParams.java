@@ -52,7 +52,7 @@ public final class FlowActionAuth0UpdateUserParams {
         return changes;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionAuth0UpdateUserParams && equalTo((FlowActionAuth0UpdateUserParams) other);
@@ -67,12 +67,12 @@ public final class FlowActionAuth0UpdateUserParams {
         return connectionId.equals(other.connectionId) && userId.equals(other.userId) && changes.equals(other.changes);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.userId, this.changes);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -114,7 +114,7 @@ public final class FlowActionAuth0UpdateUserParams {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionAuth0UpdateUserParams other) {
             connectionId(other.getConnectionId());
             userId(other.getUserId());
@@ -122,27 +122,27 @@ public final class FlowActionAuth0UpdateUserParams {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_id")
         public UserIdStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("user_id")
         public _FinalStage userId(@NotNull String userId) {
             this.userId = Objects.requireNonNull(userId, "userId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage changes(String key, Object value) {
             this.changes.put(key, value);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage putAllChanges(Map<String, Object> changes) {
             if (changes != null) {
                 this.changes.putAll(changes);
@@ -150,7 +150,7 @@ public final class FlowActionAuth0UpdateUserParams {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "changes", nulls = Nulls.SKIP)
         public _FinalStage changes(Map<String, Object> changes) {
             this.changes.clear();
@@ -160,7 +160,7 @@ public final class FlowActionAuth0UpdateUserParams {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionAuth0UpdateUserParams build() {
             return new FlowActionAuth0UpdateUserParams(connectionId, userId, changes, additionalProperties);
         }

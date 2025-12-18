@@ -13,18 +13,22 @@ import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.errors.BadRequestError;
 import com.auth0.client.mgmt.errors.ForbiddenError;
 import com.auth0.client.mgmt.errors.UnauthorizedError;
+import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorsProviderPushNotificationApnsRequestContent;
+import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorsProviderPushNotificationFcmRequestContent;
+import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorsProviderPushNotificationFcmv1RequestContent;
 import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorsProviderPushNotificationRequestContent;
 import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorsProviderPushNotificationSnsRequestContent;
+import com.auth0.client.mgmt.guardian.factors.types.UpdateGuardianFactorsProviderPushNotificationApnsRequestContent;
+import com.auth0.client.mgmt.guardian.factors.types.UpdateGuardianFactorsProviderPushNotificationFcmRequestContent;
+import com.auth0.client.mgmt.guardian.factors.types.UpdateGuardianFactorsProviderPushNotificationFcmv1RequestContent;
 import com.auth0.client.mgmt.guardian.factors.types.UpdateGuardianFactorsProviderPushNotificationSnsRequestContent;
 import com.auth0.client.mgmt.types.GetGuardianFactorsProviderApnsResponseContent;
 import com.auth0.client.mgmt.types.GetGuardianFactorsProviderPushNotificationResponseContent;
 import com.auth0.client.mgmt.types.GetGuardianFactorsProviderSnsResponseContent;
-import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationApnsRequestContent;
 import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationApnsResponseContent;
-import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationFcmRequestContent;
-import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationFcmv1RequestContent;
 import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationResponseContent;
 import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationSnsResponseContent;
+import com.auth0.client.mgmt.types.UpdateGuardianFactorsProviderPushNotificationApnsResponseContent;
 import com.auth0.client.mgmt.types.UpdateGuardianFactorsProviderPushNotificationSnsResponseContent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -129,7 +133,7 @@ public class AsyncRawPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication APNS provider associated with your tenant.
      */
     public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorsProviderPushNotificationApnsResponseContent>>
             setApnsProvider() {
@@ -138,7 +142,7 @@ public class AsyncRawPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication APNS provider associated with your tenant.
      */
     public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorsProviderPushNotificationApnsResponseContent>>
             setApnsProvider(SetGuardianFactorsProviderPushNotificationApnsRequestContent request) {
@@ -146,7 +150,7 @@ public class AsyncRawPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication APNS provider associated with your tenant.
      */
     public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorsProviderPushNotificationApnsResponseContent>>
             setApnsProvider(
@@ -165,7 +169,7 @@ public class AsyncRawPushNotificationClient {
         }
         Request okhttpRequest = new Request.Builder()
                 .url(httpUrl)
-                .method("PATCH", body)
+                .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "application/json")
@@ -228,7 +232,109 @@ public class AsyncRawPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+     * Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+     */
+    public CompletableFuture<
+                    ManagementApiHttpResponse<UpdateGuardianFactorsProviderPushNotificationApnsResponseContent>>
+            updateApnsProvider() {
+        return updateApnsProvider(UpdateGuardianFactorsProviderPushNotificationApnsRequestContent.builder()
+                .build());
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+     */
+    public CompletableFuture<
+                    ManagementApiHttpResponse<UpdateGuardianFactorsProviderPushNotificationApnsResponseContent>>
+            updateApnsProvider(UpdateGuardianFactorsProviderPushNotificationApnsRequestContent request) {
+        return updateApnsProvider(request, null);
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+     */
+    public CompletableFuture<
+                    ManagementApiHttpResponse<UpdateGuardianFactorsProviderPushNotificationApnsResponseContent>>
+            updateApnsProvider(
+                    UpdateGuardianFactorsProviderPushNotificationApnsRequestContent request,
+                    RequestOptions requestOptions) {
+        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("guardian/factors/push-notification/providers/apns")
+                .build();
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new ManagementException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl)
+                .method("PATCH", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        CompletableFuture<ManagementApiHttpResponse<UpdateGuardianFactorsProviderPushNotificationApnsResponseContent>>
+                future = new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    if (response.isSuccessful()) {
+                        future.complete(new ManagementApiHttpResponse<>(
+                                ObjectMappers.JSON_MAPPER.readValue(
+                                        responseBodyString,
+                                        UpdateGuardianFactorsProviderPushNotificationApnsResponseContent.class),
+                                response));
+                        return;
+                    }
+                    try {
+                        switch (response.code()) {
+                            case 400:
+                                future.completeExceptionally(new BadRequestError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 401:
+                                future.completeExceptionally(new UnauthorizedError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 403:
+                                future.completeExceptionally(new ForbiddenError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+                    future.completeExceptionally(new ManagementApiException(
+                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                    return;
+                } catch (IOException e) {
+                    future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
+    }
+
+    /**
+     * Overwrite all configuration details of the multi-factor authentication FCM provider associated with your tenant.
      */
     public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> setFcmProvider() {
         return setFcmProvider(SetGuardianFactorsProviderPushNotificationFcmRequestContent.builder()
@@ -236,7 +342,7 @@ public class AsyncRawPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication FCM provider associated with your tenant.
      */
     public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> setFcmProvider(
             SetGuardianFactorsProviderPushNotificationFcmRequestContent request) {
@@ -244,10 +350,104 @@ public class AsyncRawPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication FCM provider associated with your tenant.
      */
     public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> setFcmProvider(
             SetGuardianFactorsProviderPushNotificationFcmRequestContent request, RequestOptions requestOptions) {
+        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("guardian/factors/push-notification/providers/fcm")
+                .build();
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new ManagementException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl)
+                .method("PUT", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> future = new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    if (response.isSuccessful()) {
+                        future.complete(new ManagementApiHttpResponse<>(
+                                ObjectMappers.JSON_MAPPER.readValue(
+                                        responseBodyString, new TypeReference<Map<String, Object>>() {}),
+                                response));
+                        return;
+                    }
+                    try {
+                        switch (response.code()) {
+                            case 400:
+                                future.completeExceptionally(new BadRequestError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 401:
+                                future.completeExceptionally(new UnauthorizedError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 403:
+                                future.completeExceptionally(new ForbiddenError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+                    future.completeExceptionally(new ManagementApiException(
+                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                    return;
+                } catch (IOException e) {
+                    future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> updateFcmProvider() {
+        return updateFcmProvider(UpdateGuardianFactorsProviderPushNotificationFcmRequestContent.builder()
+                .build());
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> updateFcmProvider(
+            UpdateGuardianFactorsProviderPushNotificationFcmRequestContent request) {
+        return updateFcmProvider(request, null);
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> updateFcmProvider(
+            UpdateGuardianFactorsProviderPushNotificationFcmRequestContent request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("guardian/factors/push-notification/providers/fcm")
@@ -322,7 +522,7 @@ public class AsyncRawPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
      */
     public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> setFcmv1Provider() {
         return setFcmv1Provider(SetGuardianFactorsProviderPushNotificationFcmv1RequestContent.builder()
@@ -330,7 +530,7 @@ public class AsyncRawPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
      */
     public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> setFcmv1Provider(
             SetGuardianFactorsProviderPushNotificationFcmv1RequestContent request) {
@@ -338,10 +538,104 @@ public class AsyncRawPushNotificationClient {
     }
 
     /**
-     * Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+     * Overwrite all configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
      */
     public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> setFcmv1Provider(
             SetGuardianFactorsProviderPushNotificationFcmv1RequestContent request, RequestOptions requestOptions) {
+        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("guardian/factors/push-notification/providers/fcmv1")
+                .build();
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new ManagementException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl)
+                .method("PUT", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> future = new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    if (response.isSuccessful()) {
+                        future.complete(new ManagementApiHttpResponse<>(
+                                ObjectMappers.JSON_MAPPER.readValue(
+                                        responseBodyString, new TypeReference<Map<String, Object>>() {}),
+                                response));
+                        return;
+                    }
+                    try {
+                        switch (response.code()) {
+                            case 400:
+                                future.completeExceptionally(new BadRequestError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 401:
+                                future.completeExceptionally(new UnauthorizedError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 403:
+                                future.completeExceptionally(new ForbiddenError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+                    future.completeExceptionally(new ManagementApiException(
+                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                    return;
+                } catch (IOException e) {
+                    future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> updateFcmv1Provider() {
+        return updateFcmv1Provider(UpdateGuardianFactorsProviderPushNotificationFcmv1RequestContent.builder()
+                .build());
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> updateFcmv1Provider(
+            UpdateGuardianFactorsProviderPushNotificationFcmv1RequestContent request) {
+        return updateFcmv1Provider(request, null);
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> updateFcmv1Provider(
+            UpdateGuardianFactorsProviderPushNotificationFcmv1RequestContent request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("guardian/factors/push-notification/providers/fcmv1")

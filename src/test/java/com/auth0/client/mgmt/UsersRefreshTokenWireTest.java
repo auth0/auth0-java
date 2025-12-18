@@ -41,7 +41,7 @@ public class UsersRefreshTokenWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"tokens\":[{\"id\":\"id\",\"user_id\":\"user_id\",\"created_at\":\"2024-01-15T09:30:00Z\",\"idle_expires_at\":\"2024-01-15T09:30:00Z\",\"expires_at\":\"2024-01-15T09:30:00Z\",\"client_id\":\"client_id\",\"session_id\":\"session_id\",\"rotating\":true,\"resource_servers\":[{}],\"last_exchanged_at\":\"2024-01-15T09:30:00Z\"}],\"next\":\"next\"}"));
+                                "{\"tokens\":[{\"id\":\"id\",\"user_id\":\"user_id\",\"created_at\":\"2024-01-15T09:30:00Z\",\"idle_expires_at\":\"2024-01-15T09:30:00Z\",\"expires_at\":\"2024-01-15T09:30:00Z\",\"client_id\":\"client_id\",\"session_id\":\"session_id\",\"rotating\":true,\"resource_servers\":[{}],\"refresh_token_metadata\":{\"key\":\"value\"},\"last_exchanged_at\":\"2024-01-15T09:30:00Z\"}],\"next\":\"next\"}"));
         SyncPagingIterable<RefreshTokenResponseContent> response = client.users()
                 .refreshToken()
                 .list(

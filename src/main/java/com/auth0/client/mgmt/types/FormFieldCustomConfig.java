@@ -65,7 +65,7 @@ public final class FormFieldCustomConfig {
         return params;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldCustomConfig && equalTo((FormFieldCustomConfig) other);
@@ -83,12 +83,12 @@ public final class FormFieldCustomConfig {
                 && params.equals(other.params);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.schema, this.code, this.css, this.params);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -136,7 +136,7 @@ public final class FormFieldCustomConfig {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FormFieldCustomConfig other) {
             schema(other.getSchema());
             code(other.getCode());
@@ -145,46 +145,46 @@ public final class FormFieldCustomConfig {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("code")
         public _FinalStage code(@NotNull String code) {
             this.code = Objects.requireNonNull(code, "code must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage params(Map<String, String> params) {
             this.params = Optional.ofNullable(params);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "params", nulls = Nulls.SKIP)
         public _FinalStage params(Optional<Map<String, String>> params) {
             this.params = params;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage css(String css) {
             this.css = Optional.ofNullable(css);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "css", nulls = Nulls.SKIP)
         public _FinalStage css(Optional<String> css) {
             this.css = css;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage schema(String key, Object value) {
             this.schema.put(key, value);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage putAllSchema(Map<String, Object> schema) {
             if (schema != null) {
                 this.schema.putAll(schema);
@@ -192,7 +192,7 @@ public final class FormFieldCustomConfig {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "schema", nulls = Nulls.SKIP)
         public _FinalStage schema(Map<String, Object> schema) {
             this.schema.clear();
@@ -202,7 +202,7 @@ public final class FormFieldCustomConfig {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FormFieldCustomConfig build() {
             return new FormFieldCustomConfig(schema, code, css, params, additionalProperties);
         }

@@ -49,7 +49,7 @@ public final class CreatePhoneProviderSendTestResponseContent {
         return message;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreatePhoneProviderSendTestResponseContent
@@ -65,12 +65,12 @@ public final class CreatePhoneProviderSendTestResponseContent {
         return code.equals(other.code) && message.equals(other.message);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.code, this.message);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

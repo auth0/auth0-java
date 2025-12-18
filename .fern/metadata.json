@@ -1,0 +1,16 @@
+{
+  "cliVersion": "3.24.3",
+  "generatorName": "fernapi/fern-java-sdk",
+  "generatorVersion": "3.27.0",
+  "generatorConfig": {
+    "client-class-name": "ManagementApi",
+    "base-api-exception-class-name": "ManagementApiException",
+    "base-exception-class-name": "ManagementException",
+    "package-prefix": "com.auth0.client.mgmt",
+    "package-layout": "flat",
+    "use-default-request-parameter-values": true,
+    "enable-wire-tests": true,
+    "collapse-optional-nullable": true,
+    "use-nullable-annotation": true
+  }
+}

@@ -66,7 +66,7 @@ public final class TwilioProviderConfiguration {
         return deliveryMethods;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof TwilioProviderConfiguration && equalTo((TwilioProviderConfiguration) other);
@@ -84,12 +84,12 @@ public final class TwilioProviderConfiguration {
                 && deliveryMethods.equals(other.deliveryMethods);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.defaultFrom, this.mssid, this.sid, this.deliveryMethods);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -137,7 +137,7 @@ public final class TwilioProviderConfiguration {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(TwilioProviderConfiguration other) {
             defaultFrom(other.getDefaultFrom());
             mssid(other.getMssid());
@@ -146,14 +146,14 @@ public final class TwilioProviderConfiguration {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("sid")
         public _FinalStage sid(@NotNull String sid) {
             this.sid = Objects.requireNonNull(sid, "sid must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage addAllDeliveryMethods(List<TwilioProviderDeliveryMethodEnum> deliveryMethods) {
             if (deliveryMethods != null) {
                 this.deliveryMethods.addAll(deliveryMethods);
@@ -161,13 +161,13 @@ public final class TwilioProviderConfiguration {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage addDeliveryMethods(TwilioProviderDeliveryMethodEnum deliveryMethods) {
             this.deliveryMethods.add(deliveryMethods);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "delivery_methods", nulls = Nulls.SKIP)
         public _FinalStage deliveryMethods(List<TwilioProviderDeliveryMethodEnum> deliveryMethods) {
             this.deliveryMethods.clear();
@@ -177,33 +177,33 @@ public final class TwilioProviderConfiguration {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage mssid(String mssid) {
             this.mssid = Optional.ofNullable(mssid);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "mssid", nulls = Nulls.SKIP)
         public _FinalStage mssid(Optional<String> mssid) {
             this.mssid = mssid;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage defaultFrom(String defaultFrom) {
             this.defaultFrom = Optional.ofNullable(defaultFrom);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "default_from", nulls = Nulls.SKIP)
         public _FinalStage defaultFrom(Optional<String> defaultFrom) {
             this.defaultFrom = defaultFrom;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public TwilioProviderConfiguration build() {
             return new TwilioProviderConfiguration(defaultFrom, mssid, sid, deliveryMethods, additionalProperties);
         }

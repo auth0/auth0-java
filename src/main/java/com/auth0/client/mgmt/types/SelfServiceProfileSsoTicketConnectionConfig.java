@@ -107,7 +107,7 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
         return options;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SelfServiceProfileSsoTicketConnectionConfig
@@ -128,13 +128,13 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
                 && options.equals(other.options);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.name, this.displayName, this.isDomainConnection, this.showAsButton, this.metadata, this.options);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -208,7 +208,7 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(SelfServiceProfileSsoTicketConnectionConfig other) {
             name(other.getName());
             displayName(other.getDisplayName());
@@ -224,14 +224,14 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
          * <p>The name of the connection that will be created as a part of the SSO flow.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("name")
         public _FinalStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage options(
                 com.auth0.client.mgmt.core.Nullable<SelfServiceProfileSsoTicketConnectionOptions> options) {
             if (options.isNull()) {
@@ -244,7 +244,7 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage options(Optional<SelfServiceProfileSsoTicketConnectionOptions> options) {
             if (options.isPresent()) {
                 this.options = OptionalNullable.of(options.get());
@@ -254,26 +254,26 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage options(SelfServiceProfileSsoTicketConnectionOptions options) {
             this.options = OptionalNullable.of(options);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "options", nulls = Nulls.SKIP)
         public _FinalStage options(@Nullable OptionalNullable<SelfServiceProfileSsoTicketConnectionOptions> options) {
             this.options = options;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage metadata(Map<String, OptionalNullable<String>> metadata) {
             this.metadata = Optional.ofNullable(metadata);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
         public _FinalStage metadata(Optional<Map<String, OptionalNullable<String>>> metadata) {
             this.metadata = metadata;
@@ -284,7 +284,7 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
          * <p>Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to &lt;code&gt;false&lt;/code&gt;.)</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage showAsButton(Boolean showAsButton) {
             this.showAsButton = Optional.ofNullable(showAsButton);
             return this;
@@ -293,7 +293,7 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
         /**
          * <p>Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to &lt;code&gt;false&lt;/code&gt;.)</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "show_as_button", nulls = Nulls.SKIP)
         public _FinalStage showAsButton(Optional<Boolean> showAsButton) {
             this.showAsButton = showAsButton;
@@ -304,7 +304,7 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
          * <p>&lt;code&gt;true&lt;/code&gt; promotes to a domain-level connection so that third-party applications can use it. &lt;code&gt;false&lt;/code&gt; does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to &lt;code&gt;false&lt;/code&gt;.)</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage isDomainConnection(Boolean isDomainConnection) {
             this.isDomainConnection = Optional.ofNullable(isDomainConnection);
             return this;
@@ -313,7 +313,7 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
         /**
          * <p>&lt;code&gt;true&lt;/code&gt; promotes to a domain-level connection so that third-party applications can use it. &lt;code&gt;false&lt;/code&gt; does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to &lt;code&gt;false&lt;/code&gt;.)</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "is_domain_connection", nulls = Nulls.SKIP)
         public _FinalStage isDomainConnection(Optional<Boolean> isDomainConnection) {
             this.isDomainConnection = isDomainConnection;
@@ -324,7 +324,7 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
          * <p>Connection name used in the new universal login experience</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage displayName(String displayName) {
             this.displayName = Optional.ofNullable(displayName);
             return this;
@@ -333,14 +333,14 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
         /**
          * <p>Connection name used in the new universal login experience</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "display_name", nulls = Nulls.SKIP)
         public _FinalStage displayName(Optional<String> displayName) {
             this.displayName = displayName;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public SelfServiceProfileSsoTicketConnectionConfig build() {
             return new SelfServiceProfileSsoTicketConnectionConfig(
                     name, displayName, isDomainConnection, showAsButton, metadata, options, additionalProperties);

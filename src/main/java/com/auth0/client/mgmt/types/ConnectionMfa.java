@@ -51,7 +51,7 @@ public final class ConnectionMfa {
         return returnEnrollSettings;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionMfa && equalTo((ConnectionMfa) other);
@@ -66,12 +66,12 @@ public final class ConnectionMfa {
         return active.equals(other.active) && returnEnrollSettings.equals(other.returnEnrollSettings);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.active, this.returnEnrollSettings);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

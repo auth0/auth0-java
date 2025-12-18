@@ -33,7 +33,7 @@ public final class SelfServiceProfileBrandingColors {
         return primary;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SelfServiceProfileBrandingColors && equalTo((SelfServiceProfileBrandingColors) other);
@@ -48,12 +48,12 @@ public final class SelfServiceProfileBrandingColors {
         return primary.equals(other.primary);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.primary);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -81,20 +81,20 @@ public final class SelfServiceProfileBrandingColors {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(SelfServiceProfileBrandingColors other) {
             primary(other.getPrimary());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("primary")
         public _FinalStage primary(@NotNull String primary) {
             this.primary = Objects.requireNonNull(primary, "primary must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public SelfServiceProfileBrandingColors build() {
             return new SelfServiceProfileBrandingColors(primary, additionalProperties);
         }

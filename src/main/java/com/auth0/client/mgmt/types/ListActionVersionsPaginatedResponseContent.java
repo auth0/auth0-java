@@ -73,7 +73,7 @@ public final class ListActionVersionsPaginatedResponseContent {
         return versions;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListActionVersionsPaginatedResponseContent
@@ -92,12 +92,12 @@ public final class ListActionVersionsPaginatedResponseContent {
                 && versions.equals(other.versions);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.total, this.page, this.perPage, this.versions);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

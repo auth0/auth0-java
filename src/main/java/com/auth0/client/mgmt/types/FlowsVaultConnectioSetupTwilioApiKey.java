@@ -50,7 +50,7 @@ public final class FlowsVaultConnectioSetupTwilioApiKey {
         return apiKey;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowsVaultConnectioSetupTwilioApiKey
@@ -66,12 +66,12 @@ public final class FlowsVaultConnectioSetupTwilioApiKey {
         return type.equals(other.type) && accountId.equals(other.accountId) && apiKey.equals(other.apiKey);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.type, this.accountId, this.apiKey);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -111,7 +111,7 @@ public final class FlowsVaultConnectioSetupTwilioApiKey {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowsVaultConnectioSetupTwilioApiKey other) {
             type(other.getType());
             accountId(other.getAccountId());
@@ -119,28 +119,28 @@ public final class FlowsVaultConnectioSetupTwilioApiKey {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public AccountIdStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("account_id")
         public ApiKeyStage accountId(@NotNull String accountId) {
             this.accountId = Objects.requireNonNull(accountId, "accountId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("api_key")
         public _FinalStage apiKey(@NotNull String apiKey) {
             this.apiKey = Objects.requireNonNull(apiKey, "apiKey must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowsVaultConnectioSetupTwilioApiKey build() {
             return new FlowsVaultConnectioSetupTwilioApiKey(type, accountId, apiKey, additionalProperties);
         }

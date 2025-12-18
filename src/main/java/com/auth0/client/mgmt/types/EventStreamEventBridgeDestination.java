@@ -42,7 +42,7 @@ public final class EventStreamEventBridgeDestination {
         return configuration;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof EventStreamEventBridgeDestination && equalTo((EventStreamEventBridgeDestination) other);
@@ -57,12 +57,12 @@ public final class EventStreamEventBridgeDestination {
         return type.equals(other.type) && configuration.equals(other.configuration);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.type, this.configuration);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -96,28 +96,28 @@ public final class EventStreamEventBridgeDestination {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(EventStreamEventBridgeDestination other) {
             type(other.getType());
             configuration(other.getConfiguration());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public ConfigurationStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("configuration")
         public _FinalStage configuration(@NotNull EventStreamEventBridgeConfiguration configuration) {
             this.configuration = Objects.requireNonNull(configuration, "configuration must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public EventStreamEventBridgeDestination build() {
             return new EventStreamEventBridgeDestination(type, configuration, additionalProperties);
         }

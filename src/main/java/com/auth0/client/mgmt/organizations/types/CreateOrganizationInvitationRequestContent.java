@@ -127,7 +127,7 @@ public final class CreateOrganizationInvitationRequestContent {
         return sendInvitationEmail;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateOrganizationInvitationRequestContent
@@ -151,7 +151,7 @@ public final class CreateOrganizationInvitationRequestContent {
                 && sendInvitationEmail.equals(other.sendInvitationEmail);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.inviter,
@@ -165,7 +165,7 @@ public final class CreateOrganizationInvitationRequestContent {
                 this.sendInvitationEmail);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -256,7 +256,7 @@ public final class CreateOrganizationInvitationRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateOrganizationInvitationRequestContent other) {
             inviter(other.getInviter());
             invitee(other.getInvitee());
@@ -270,14 +270,14 @@ public final class CreateOrganizationInvitationRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("inviter")
         public InviteeStage inviter(@NotNull OrganizationInvitationInviter inviter) {
             this.inviter = Objects.requireNonNull(inviter, "inviter must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("invitee")
         public ClientIdStage invitee(@NotNull OrganizationInvitationInvitee invitee) {
             this.invitee = Objects.requireNonNull(invitee, "invitee must not be null");
@@ -289,7 +289,7 @@ public final class CreateOrganizationInvitationRequestContent {
          * <p>Auth0 client ID. Used to resolve the application's login initiation endpoint.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("client_id")
         public _FinalStage clientId(@NotNull String clientId) {
             this.clientId = Objects.requireNonNull(clientId, "clientId must not be null");
@@ -300,7 +300,7 @@ public final class CreateOrganizationInvitationRequestContent {
          * <p>Whether the user will receive an invitation email (true) or no email (false), true by default</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage sendInvitationEmail(Boolean sendInvitationEmail) {
             this.sendInvitationEmail = Optional.ofNullable(sendInvitationEmail);
             return this;
@@ -309,7 +309,7 @@ public final class CreateOrganizationInvitationRequestContent {
         /**
          * <p>Whether the user will receive an invitation email (true) or no email (false), true by default</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "send_invitation_email", nulls = Nulls.SKIP)
         public _FinalStage sendInvitationEmail(Optional<Boolean> sendInvitationEmail) {
             this.sendInvitationEmail = sendInvitationEmail;
@@ -320,7 +320,7 @@ public final class CreateOrganizationInvitationRequestContent {
          * <p>List of roles IDs to associated with the user.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage roles(List<String> roles) {
             this.roles = Optional.ofNullable(roles);
             return this;
@@ -329,7 +329,7 @@ public final class CreateOrganizationInvitationRequestContent {
         /**
          * <p>List of roles IDs to associated with the user.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "roles", nulls = Nulls.SKIP)
         public _FinalStage roles(Optional<List<String>> roles) {
             this.roles = roles;
@@ -340,7 +340,7 @@ public final class CreateOrganizationInvitationRequestContent {
          * <p>Number of seconds for which the invitation is valid before expiration. If unspecified or set to 0, this value defaults to 604800 seconds (7 days). Max value: 2592000 seconds (30 days).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage ttlSec(Integer ttlSec) {
             this.ttlSec = Optional.ofNullable(ttlSec);
             return this;
@@ -349,33 +349,33 @@ public final class CreateOrganizationInvitationRequestContent {
         /**
          * <p>Number of seconds for which the invitation is valid before expiration. If unspecified or set to 0, this value defaults to 604800 seconds (7 days). Max value: 2592000 seconds (30 days).</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "ttl_sec", nulls = Nulls.SKIP)
         public _FinalStage ttlSec(Optional<Integer> ttlSec) {
             this.ttlSec = ttlSec;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage userMetadata(Map<String, Object> userMetadata) {
             this.userMetadata = Optional.ofNullable(userMetadata);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "user_metadata", nulls = Nulls.SKIP)
         public _FinalStage userMetadata(Optional<Map<String, Object>> userMetadata) {
             this.userMetadata = userMetadata;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage appMetadata(Map<String, Object> appMetadata) {
             this.appMetadata = Optional.ofNullable(appMetadata);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "app_metadata", nulls = Nulls.SKIP)
         public _FinalStage appMetadata(Optional<Map<String, Object>> appMetadata) {
             this.appMetadata = appMetadata;
@@ -386,7 +386,7 @@ public final class CreateOrganizationInvitationRequestContent {
          * <p>The id of the connection to force invitee to authenticate with.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage connectionId(String connectionId) {
             this.connectionId = Optional.ofNullable(connectionId);
             return this;
@@ -395,14 +395,14 @@ public final class CreateOrganizationInvitationRequestContent {
         /**
          * <p>The id of the connection to force invitee to authenticate with.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "connection_id", nulls = Nulls.SKIP)
         public _FinalStage connectionId(Optional<String> connectionId) {
             this.connectionId = connectionId;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateOrganizationInvitationRequestContent build() {
             return new CreateOrganizationInvitationRequestContent(
                     inviter,

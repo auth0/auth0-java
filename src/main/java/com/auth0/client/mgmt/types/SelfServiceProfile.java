@@ -134,7 +134,7 @@ public final class SelfServiceProfile {
         return userAttributeProfileId;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SelfServiceProfile && equalTo((SelfServiceProfile) other);
@@ -157,7 +157,7 @@ public final class SelfServiceProfile {
                 && userAttributeProfileId.equals(other.userAttributeProfileId);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -171,7 +171,7 @@ public final class SelfServiceProfile {
                 this.userAttributeProfileId);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

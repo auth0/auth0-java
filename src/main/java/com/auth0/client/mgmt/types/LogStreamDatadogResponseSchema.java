@@ -112,7 +112,7 @@ public final class LogStreamDatadogResponseSchema {
         return sink;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof LogStreamDatadogResponseSchema && equalTo((LogStreamDatadogResponseSchema) other);
@@ -134,13 +134,13 @@ public final class LogStreamDatadogResponseSchema {
                 && sink.equals(other.sink);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id, this.name, this.status, this.type, this.isPriority, this.filters, this.piiConfig, this.sink);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -58,7 +58,7 @@ public final class UpdateCustomDomainRequestContent {
         return domainMetadata;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateCustomDomainRequestContent && equalTo((UpdateCustomDomainRequestContent) other);
@@ -75,12 +75,12 @@ public final class UpdateCustomDomainRequestContent {
                 && domainMetadata.equals(other.domainMetadata);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.tlsPolicy, this.customClientIpHeader, this.domainMetadata);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

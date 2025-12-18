@@ -75,7 +75,7 @@ public final class AttackProtectionCaptchaArkoseResponseContent {
         return verifySubdomain;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof AttackProtectionCaptchaArkoseResponseContent
@@ -94,12 +94,12 @@ public final class AttackProtectionCaptchaArkoseResponseContent {
                 && verifySubdomain.equals(other.verifySubdomain);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.siteKey, this.failOpen, this.clientSubdomain, this.verifySubdomain);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

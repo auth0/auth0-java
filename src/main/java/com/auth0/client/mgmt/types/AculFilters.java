@@ -73,7 +73,7 @@ public final class AculFilters {
         return domains;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof AculFilters && equalTo((AculFilters) other);
@@ -91,12 +91,12 @@ public final class AculFilters {
                 && domains.equals(other.domains);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.matchType, this.clients, this.organizations, this.domains);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -34,7 +34,7 @@ public final class FormBlockJumpButtonConfigStyle {
         return backgroundColor;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormBlockJumpButtonConfigStyle && equalTo((FormBlockJumpButtonConfigStyle) other);
@@ -49,12 +49,12 @@ public final class FormBlockJumpButtonConfigStyle {
         return backgroundColor.equals(other.backgroundColor);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.backgroundColor);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

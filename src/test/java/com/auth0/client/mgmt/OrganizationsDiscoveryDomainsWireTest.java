@@ -7,6 +7,7 @@ import com.auth0.client.mgmt.organizations.types.CreateOrganizationDiscoveryDoma
 import com.auth0.client.mgmt.organizations.types.ListOrganizationDiscoveryDomainsRequestParameters;
 import com.auth0.client.mgmt.organizations.types.UpdateOrganizationDiscoveryDomainRequestContent;
 import com.auth0.client.mgmt.types.CreateOrganizationDiscoveryDomainResponseContent;
+import com.auth0.client.mgmt.types.GetOrganizationDiscoveryDomainByNameResponseContent;
 import com.auth0.client.mgmt.types.GetOrganizationDiscoveryDomainResponseContent;
 import com.auth0.client.mgmt.types.OrganizationDiscoveryDomain;
 import com.auth0.client.mgmt.types.UpdateOrganizationDiscoveryDomainResponseContent;
@@ -46,7 +47,7 @@ public class OrganizationsDiscoveryDomainsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"next\":\"next\",\"domains\":[{\"id\":\"id\",\"domain\":\"domain\",\"status\":\"pending\",\"verification_txt\":\"verification_txt\",\"verification_host\":\"verification_host\"}]}"));
+                                "{\"next\":\"next\",\"domains\":[{\"id\":\"id\",\"domain\":\"domain\",\"status\":\"pending\",\"use_for_organization_discovery\":true,\"verification_txt\":\"verification_txt\",\"verification_host\":\"verification_host\"}]}"));
         SyncPagingIterable<OrganizationDiscoveryDomain> response = client.organizations()
                 .discoveryDomains()
                 .list(
@@ -71,7 +72,7 @@ public class OrganizationsDiscoveryDomainsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"domain\":\"domain\",\"status\":\"pending\",\"verification_txt\":\"verification_txt\",\"verification_host\":\"verification_host\"}"));
+                                "{\"id\":\"id\",\"domain\":\"domain\",\"status\":\"pending\",\"use_for_organization_discovery\":true,\"verification_txt\":\"verification_txt\",\"verification_host\":\"verification_host\"}"));
         CreateOrganizationDiscoveryDomainResponseContent response = client.organizations()
                 .discoveryDomains()
                 .create(
@@ -120,6 +121,63 @@ public class OrganizationsDiscoveryDomainsWireTest {
                 + "  \"id\": \"id\",\n"
                 + "  \"domain\": \"domain\",\n"
                 + "  \"status\": \"pending\",\n"
+                + "  \"use_for_organization_discovery\": true,\n"
+                + "  \"verification_txt\": \"verification_txt\",\n"
+                + "  \"verification_host\": \"verification_host\"\n"
+                + "}";
+        JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
+        JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
+        Assertions.assertTrue(
+                jsonEquals(expectedResponseNode, actualResponseNode),
+                "Response body structure does not match expected");
+        if (actualResponseNode.has("type") || actualResponseNode.has("_type") || actualResponseNode.has("kind")) {
+            String discriminator = null;
+            if (actualResponseNode.has("type"))
+                discriminator = actualResponseNode.get("type").asText();
+            else if (actualResponseNode.has("_type"))
+                discriminator = actualResponseNode.get("_type").asText();
+            else if (actualResponseNode.has("kind"))
+                discriminator = actualResponseNode.get("kind").asText();
+            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
+            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
+        }
+
+        if (!actualResponseNode.isNull()) {
+            Assertions.assertTrue(
+                    actualResponseNode.isObject() || actualResponseNode.isArray() || actualResponseNode.isValueNode(),
+                    "response should be a valid JSON value");
+        }
+
+        if (actualResponseNode.isArray()) {
+            Assertions.assertTrue(actualResponseNode.size() >= 0, "Array should have valid size");
+        }
+        if (actualResponseNode.isObject()) {
+            Assertions.assertTrue(actualResponseNode.size() >= 0, "Object should have valid field count");
+        }
+    }
+
+    @Test
+    public void testGetByName() throws Exception {
+        server.enqueue(
+                new MockResponse()
+                        .setResponseCode(200)
+                        .setBody(
+                                "{\"id\":\"id\",\"domain\":\"domain\",\"status\":\"pending\",\"use_for_organization_discovery\":true,\"verification_txt\":\"verification_txt\",\"verification_host\":\"verification_host\"}"));
+        GetOrganizationDiscoveryDomainByNameResponseContent response =
+                client.organizations().discoveryDomains().getByName("id", "discovery_domain");
+        RecordedRequest request = server.takeRequest();
+        Assertions.assertNotNull(request);
+        Assertions.assertEquals("GET", request.getMethod());
+
+        // Validate response body
+        Assertions.assertNotNull(response, "Response should not be null");
+        String actualResponseJson = objectMapper.writeValueAsString(response);
+        String expectedResponseBody = ""
+                + "{\n"
+                + "  \"id\": \"id\",\n"
+                + "  \"domain\": \"domain\",\n"
+                + "  \"status\": \"pending\",\n"
+                + "  \"use_for_organization_discovery\": true,\n"
                 + "  \"verification_txt\": \"verification_txt\",\n"
                 + "  \"verification_host\": \"verification_host\"\n"
                 + "}";
@@ -160,7 +218,7 @@ public class OrganizationsDiscoveryDomainsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"domain\":\"domain\",\"status\":\"pending\",\"verification_txt\":\"verification_txt\",\"verification_host\":\"verification_host\"}"));
+                                "{\"id\":\"id\",\"domain\":\"domain\",\"status\":\"pending\",\"use_for_organization_discovery\":true,\"verification_txt\":\"verification_txt\",\"verification_host\":\"verification_host\"}"));
         GetOrganizationDiscoveryDomainResponseContent response =
                 client.organizations().discoveryDomains().get("id", "discovery_domain_id");
         RecordedRequest request = server.takeRequest();
@@ -175,6 +233,7 @@ public class OrganizationsDiscoveryDomainsWireTest {
                 + "  \"id\": \"id\",\n"
                 + "  \"domain\": \"domain\",\n"
                 + "  \"status\": \"pending\",\n"
+                + "  \"use_for_organization_discovery\": true,\n"
                 + "  \"verification_txt\": \"verification_txt\",\n"
                 + "  \"verification_host\": \"verification_host\"\n"
                 + "}";
@@ -224,7 +283,7 @@ public class OrganizationsDiscoveryDomainsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"domain\":\"domain\",\"status\":\"pending\",\"verification_txt\":\"verification_txt\",\"verification_host\":\"verification_host\"}"));
+                                "{\"id\":\"id\",\"domain\":\"domain\",\"status\":\"pending\",\"use_for_organization_discovery\":true,\"verification_txt\":\"verification_txt\",\"verification_host\":\"verification_host\"}"));
         UpdateOrganizationDiscoveryDomainResponseContent response = client.organizations()
                 .discoveryDomains()
                 .update(
@@ -273,6 +332,7 @@ public class OrganizationsDiscoveryDomainsWireTest {
                 + "  \"id\": \"id\",\n"
                 + "  \"domain\": \"domain\",\n"
                 + "  \"status\": \"pending\",\n"
+                + "  \"use_for_organization_discovery\": true,\n"
                 + "  \"verification_txt\": \"verification_txt\",\n"
                 + "  \"verification_host\": \"verification_host\"\n"
                 + "}";

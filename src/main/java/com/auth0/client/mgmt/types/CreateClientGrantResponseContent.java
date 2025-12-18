@@ -130,7 +130,7 @@ public final class CreateClientGrantResponseContent {
         return authorizationDetailsTypes;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateClientGrantResponseContent && equalTo((CreateClientGrantResponseContent) other);
@@ -153,7 +153,7 @@ public final class CreateClientGrantResponseContent {
                 && authorizationDetailsTypes.equals(other.authorizationDetailsTypes);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -167,7 +167,7 @@ public final class CreateClientGrantResponseContent {
                 this.authorizationDetailsTypes);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -73,7 +73,7 @@ public final class FormRouter {
         return config;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormRouter && equalTo((FormRouter) other);
@@ -92,12 +92,12 @@ public final class FormRouter {
                 && config.equals(other.config);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.id, this.type, this.coordinates, this.alias, this.config);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -149,7 +149,7 @@ public final class FormRouter {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FormRouter other) {
             id(other.getId());
             type(other.getType());
@@ -159,60 +159,60 @@ public final class FormRouter {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("id")
         public TypeStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public _FinalStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage config(FormRouterConfig config) {
             this.config = Optional.ofNullable(config);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "config", nulls = Nulls.SKIP)
         public _FinalStage config(Optional<FormRouterConfig> config) {
             this.config = config;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage alias(String alias) {
             this.alias = Optional.ofNullable(alias);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "alias", nulls = Nulls.SKIP)
         public _FinalStage alias(Optional<String> alias) {
             this.alias = alias;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage coordinates(FormNodeCoordinates coordinates) {
             this.coordinates = Optional.ofNullable(coordinates);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "coordinates", nulls = Nulls.SKIP)
         public _FinalStage coordinates(Optional<FormNodeCoordinates> coordinates) {
             this.coordinates = coordinates;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FormRouter build() {
             return new FormRouter(id, type, coordinates, alias, config, additionalProperties);
         }

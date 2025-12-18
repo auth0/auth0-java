@@ -6,6 +6,8 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.types.GetRefreshTokenResponseContent;
+import com.auth0.client.mgmt.types.UpdateRefreshTokenRequestContent;
+import com.auth0.client.mgmt.types.UpdateRefreshTokenResponseContent;
 
 public class RefreshTokensClient {
     protected final ClientOptions clientOptions;
@@ -50,5 +52,27 @@ public class RefreshTokensClient {
      */
     public void delete(String id, RequestOptions requestOptions) {
         this.rawClient.delete(id, requestOptions).body();
+    }
+
+    /**
+     * Update a refresh token by its ID.
+     */
+    public UpdateRefreshTokenResponseContent update(String id) {
+        return this.rawClient.update(id).body();
+    }
+
+    /**
+     * Update a refresh token by its ID.
+     */
+    public UpdateRefreshTokenResponseContent update(String id, UpdateRefreshTokenRequestContent request) {
+        return this.rawClient.update(id, request).body();
+    }
+
+    /**
+     * Update a refresh token by its ID.
+     */
+    public UpdateRefreshTokenResponseContent update(
+            String id, UpdateRefreshTokenRequestContent request, RequestOptions requestOptions) {
+        return this.rawClient.update(id, request, requestOptions).body();
     }
 }

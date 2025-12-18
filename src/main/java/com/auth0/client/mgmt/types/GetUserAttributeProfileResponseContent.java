@@ -63,7 +63,7 @@ public final class GetUserAttributeProfileResponseContent {
         return userAttributes;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetUserAttributeProfileResponseContent
@@ -82,12 +82,12 @@ public final class GetUserAttributeProfileResponseContent {
                 && userAttributes.equals(other.userAttributes);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.id, this.name, this.userId, this.userAttributes);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

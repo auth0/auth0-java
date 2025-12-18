@@ -49,7 +49,7 @@ public final class IntegrationSemVer {
         return minor;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof IntegrationSemVer && equalTo((IntegrationSemVer) other);
@@ -64,12 +64,12 @@ public final class IntegrationSemVer {
         return major.equals(other.major) && minor.equals(other.minor);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.major, this.minor);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

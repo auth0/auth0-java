@@ -21,7 +21,7 @@ public final class CustomProviderCredentials {
         this.additionalProperties = additionalProperties;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CustomProviderCredentials;
@@ -32,7 +32,7 @@ public final class CustomProviderCredentials {
         return this.additionalProperties;
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -91,7 +91,7 @@ public final class FlowActionSalesforceCreateLeadParams {
         return payload;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionSalesforceCreateLeadParams
@@ -113,13 +113,13 @@ public final class FlowActionSalesforceCreateLeadParams {
                 && payload.equals(other.payload);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.connectionId, this.firstName, this.lastName, this.company, this.email, this.phone, this.payload);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -183,7 +183,7 @@ public final class FlowActionSalesforceCreateLeadParams {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionSalesforceCreateLeadParams other) {
             connectionId(other.getConnectionId());
             firstName(other.getFirstName());
@@ -195,80 +195,80 @@ public final class FlowActionSalesforceCreateLeadParams {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_id")
         public LastNameStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("last_name")
         public CompanyStage lastName(@NotNull String lastName) {
             this.lastName = Objects.requireNonNull(lastName, "lastName must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("company")
         public _FinalStage company(@NotNull String company) {
             this.company = Objects.requireNonNull(company, "company must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage payload(Map<String, Object> payload) {
             this.payload = Optional.ofNullable(payload);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "payload", nulls = Nulls.SKIP)
         public _FinalStage payload(Optional<Map<String, Object>> payload) {
             this.payload = payload;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage phone(String phone) {
             this.phone = Optional.ofNullable(phone);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "phone", nulls = Nulls.SKIP)
         public _FinalStage phone(Optional<String> phone) {
             this.phone = phone;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage email(String email) {
             this.email = Optional.ofNullable(email);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "email", nulls = Nulls.SKIP)
         public _FinalStage email(Optional<String> email) {
             this.email = email;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage firstName(String firstName) {
             this.firstName = Optional.ofNullable(firstName);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "first_name", nulls = Nulls.SKIP)
         public _FinalStage firstName(Optional<String> firstName) {
             this.firstName = firstName;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionSalesforceCreateLeadParams build() {
             return new FlowActionSalesforceCreateLeadParams(
                     connectionId, firstName, lastName, company, email, phone, payload, additionalProperties);

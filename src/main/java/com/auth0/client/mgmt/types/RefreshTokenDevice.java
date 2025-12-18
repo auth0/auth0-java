@@ -99,7 +99,7 @@ public final class RefreshTokenDevice {
         return lastUserAgent;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof RefreshTokenDevice && equalTo((RefreshTokenDevice) other);
@@ -119,13 +119,13 @@ public final class RefreshTokenDevice {
                 && lastUserAgent.equals(other.lastUserAgent);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.initialIp, this.initialAsn, this.initialUserAgent, this.lastIp, this.lastAsn, this.lastUserAgent);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

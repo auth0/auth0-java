@@ -53,7 +53,7 @@ public final class FlowActionMailchimpUpsertMemberParams {
         return member;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionMailchimpUpsertMemberParams
@@ -69,12 +69,12 @@ public final class FlowActionMailchimpUpsertMemberParams {
         return connectionId.equals(other.connectionId) && listId.equals(other.listId) && member.equals(other.member);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.listId, this.member);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -114,7 +114,7 @@ public final class FlowActionMailchimpUpsertMemberParams {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionMailchimpUpsertMemberParams other) {
             connectionId(other.getConnectionId());
             listId(other.getListId());
@@ -122,28 +122,28 @@ public final class FlowActionMailchimpUpsertMemberParams {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_id")
         public ListIdStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("list_id")
         public MemberStage listId(@NotNull String listId) {
             this.listId = Objects.requireNonNull(listId, "listId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("member")
         public _FinalStage member(@NotNull FlowActionMailchimpUpsertMemberParamsMember member) {
             this.member = Objects.requireNonNull(member, "member must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionMailchimpUpsertMemberParams build() {
             return new FlowActionMailchimpUpsertMemberParams(connectionId, listId, member, additionalProperties);
         }

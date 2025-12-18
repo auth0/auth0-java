@@ -49,7 +49,7 @@ public final class CreateGuardianEnrollmentTicketResponseContent {
         return ticketUrl;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateGuardianEnrollmentTicketResponseContent
@@ -65,12 +65,12 @@ public final class CreateGuardianEnrollmentTicketResponseContent {
         return ticketId.equals(other.ticketId) && ticketUrl.equals(other.ticketUrl);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.ticketId, this.ticketUrl);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

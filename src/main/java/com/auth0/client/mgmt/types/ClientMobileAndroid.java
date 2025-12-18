@@ -52,7 +52,7 @@ public final class ClientMobileAndroid {
         return sha256CertFingerprints;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientMobileAndroid && equalTo((ClientMobileAndroid) other);
@@ -68,12 +68,12 @@ public final class ClientMobileAndroid {
                 && sha256CertFingerprints.equals(other.sha256CertFingerprints);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.appPackageName, this.sha256CertFingerprints);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

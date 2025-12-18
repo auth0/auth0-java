@@ -56,7 +56,7 @@ public final class CreateUserAttributeProfileRequestContent {
         return userAttributes;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateUserAttributeProfileRequestContent
@@ -72,12 +72,12 @@ public final class CreateUserAttributeProfileRequestContent {
         return name.equals(other.name) && userId.equals(other.userId) && userAttributes.equals(other.userAttributes);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.userId, this.userAttributes);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -121,7 +121,7 @@ public final class CreateUserAttributeProfileRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateUserAttributeProfileRequestContent other) {
             name(other.getName());
             userId(other.getUserId());
@@ -129,20 +129,20 @@ public final class CreateUserAttributeProfileRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("name")
         public _FinalStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage userAttributes(String key, UserAttributeProfileUserAttributeAdditionalProperties value) {
             this.userAttributes.put(key, value);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage putAllUserAttributes(
                 Map<String, UserAttributeProfileUserAttributeAdditionalProperties> userAttributes) {
             if (userAttributes != null) {
@@ -151,7 +151,7 @@ public final class CreateUserAttributeProfileRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "user_attributes", nulls = Nulls.SKIP)
         public _FinalStage userAttributes(
                 Map<String, UserAttributeProfileUserAttributeAdditionalProperties> userAttributes) {
@@ -162,20 +162,20 @@ public final class CreateUserAttributeProfileRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage userId(UserAttributeProfileUserId userId) {
             this.userId = Optional.ofNullable(userId);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "user_id", nulls = Nulls.SKIP)
         public _FinalStage userId(Optional<UserAttributeProfileUserId> userId) {
             this.userId = userId;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateUserAttributeProfileRequestContent build() {
             return new CreateUserAttributeProfileRequestContent(name, userId, userAttributes, additionalProperties);
         }

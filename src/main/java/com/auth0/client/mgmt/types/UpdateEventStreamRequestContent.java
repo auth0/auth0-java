@@ -70,7 +70,7 @@ public final class UpdateEventStreamRequestContent {
         return status;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateEventStreamRequestContent && equalTo((UpdateEventStreamRequestContent) other);
@@ -88,12 +88,12 @@ public final class UpdateEventStreamRequestContent {
                 && status.equals(other.status);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.subscriptions, this.destination, this.status);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

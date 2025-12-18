@@ -91,7 +91,7 @@ public final class FormBlockResendButtonConfig {
         return waitingTime;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormBlockResendButtonConfig && equalTo((FormBlockResendButtonConfig) other);
@@ -112,7 +112,7 @@ public final class FormBlockResendButtonConfig {
                 && waitingTime.equals(other.waitingTime);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.activeText,
@@ -124,7 +124,7 @@ public final class FormBlockResendButtonConfig {
                 this.waitingTime);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -189,7 +189,7 @@ public final class FormBlockResendButtonConfig {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FormBlockResendButtonConfig other) {
             activeText(other.getActiveText());
             buttonText(other.getButtonText());
@@ -201,74 +201,74 @@ public final class FormBlockResendButtonConfig {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("active_text")
         public ButtonTextStage activeText(@NotNull String activeText) {
             this.activeText = Objects.requireNonNull(activeText, "activeText must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("button_text")
         public WaitingTextStage buttonText(@NotNull String buttonText) {
             this.buttonText = Objects.requireNonNull(buttonText, "buttonText must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("waiting_text")
         public FlowIdStage waitingText(@NotNull String waitingText) {
             this.waitingText = Objects.requireNonNull(waitingText, "waitingText must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("flow_id")
         public _FinalStage flowId(@NotNull String flowId) {
             this.flowId = Objects.requireNonNull(flowId, "flowId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage waitingTime(Double waitingTime) {
             this.waitingTime = Optional.ofNullable(waitingTime);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "waiting_time", nulls = Nulls.SKIP)
         public _FinalStage waitingTime(Optional<Double> waitingTime) {
             this.waitingTime = waitingTime;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage maxAttempts(Double maxAttempts) {
             this.maxAttempts = Optional.ofNullable(maxAttempts);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "max_attempts", nulls = Nulls.SKIP)
         public _FinalStage maxAttempts(Optional<Double> maxAttempts) {
             this.maxAttempts = maxAttempts;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage textAlignment(FormBlockResendButtonConfigTextAlignmentEnum textAlignment) {
             this.textAlignment = Optional.ofNullable(textAlignment);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "text_alignment", nulls = Nulls.SKIP)
         public _FinalStage textAlignment(Optional<FormBlockResendButtonConfigTextAlignmentEnum> textAlignment) {
             this.textAlignment = textAlignment;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FormBlockResendButtonConfig build() {
             return new FormBlockResendButtonConfig(
                     activeText,

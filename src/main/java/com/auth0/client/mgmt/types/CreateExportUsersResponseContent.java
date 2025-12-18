@@ -122,7 +122,7 @@ public final class CreateExportUsersResponseContent {
         return fields;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateExportUsersResponseContent && equalTo((CreateExportUsersResponseContent) other);
@@ -144,7 +144,7 @@ public final class CreateExportUsersResponseContent {
                 && fields.equals(other.fields);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.status,
@@ -157,7 +157,7 @@ public final class CreateExportUsersResponseContent {
                 this.fields);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -248,7 +248,7 @@ public final class CreateExportUsersResponseContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateExportUsersResponseContent other) {
             status(other.getStatus());
             type(other.getType());
@@ -266,7 +266,7 @@ public final class CreateExportUsersResponseContent {
          * <p>Status of this job.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("status")
         public TypeStage status(@NotNull String status) {
             this.status = Objects.requireNonNull(status, "status must not be null");
@@ -278,7 +278,7 @@ public final class CreateExportUsersResponseContent {
          * <p>Type of job this is.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public IdStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
@@ -290,7 +290,7 @@ public final class CreateExportUsersResponseContent {
          * <p>ID of this job.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("id")
         public _FinalStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
@@ -301,7 +301,7 @@ public final class CreateExportUsersResponseContent {
          * <p>List of fields to be included in the CSV. Defaults to a predefined set of fields.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage fields(List<CreateExportUsersFields> fields) {
             this.fields = Optional.ofNullable(fields);
             return this;
@@ -310,7 +310,7 @@ public final class CreateExportUsersResponseContent {
         /**
          * <p>List of fields to be included in the CSV. Defaults to a predefined set of fields.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "fields", nulls = Nulls.SKIP)
         public _FinalStage fields(Optional<List<CreateExportUsersFields>> fields) {
             this.fields = fields;
@@ -321,7 +321,7 @@ public final class CreateExportUsersResponseContent {
          * <p>Limit the number of records.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage limit(Integer limit) {
             this.limit = Optional.ofNullable(limit);
             return this;
@@ -330,20 +330,20 @@ public final class CreateExportUsersResponseContent {
         /**
          * <p>Limit the number of records.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public _FinalStage limit(Optional<Integer> limit) {
             this.limit = limit;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage format(JobFileFormatEnum format) {
             this.format = Optional.ofNullable(format);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "format", nulls = Nulls.SKIP)
         public _FinalStage format(Optional<JobFileFormatEnum> format) {
             this.format = format;
@@ -354,7 +354,7 @@ public final class CreateExportUsersResponseContent {
          * <p>connection_id of the connection from which users will be exported.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage connectionId(String connectionId) {
             this.connectionId = Optional.ofNullable(connectionId);
             return this;
@@ -363,7 +363,7 @@ public final class CreateExportUsersResponseContent {
         /**
          * <p>connection_id of the connection from which users will be exported.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "connection_id", nulls = Nulls.SKIP)
         public _FinalStage connectionId(Optional<String> connectionId) {
             this.connectionId = connectionId;
@@ -374,7 +374,7 @@ public final class CreateExportUsersResponseContent {
          * <p>When this job was created.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage createdAt(String createdAt) {
             this.createdAt = Optional.ofNullable(createdAt);
             return this;
@@ -383,14 +383,14 @@ public final class CreateExportUsersResponseContent {
         /**
          * <p>When this job was created.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateExportUsersResponseContent build() {
             return new CreateExportUsersResponseContent(
                     status, type, createdAt, id, connectionId, format, limit, fields, additionalProperties);

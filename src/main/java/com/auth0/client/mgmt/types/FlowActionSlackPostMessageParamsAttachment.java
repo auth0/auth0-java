@@ -64,7 +64,7 @@ public final class FlowActionSlackPostMessageParamsAttachment {
         return fields;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionSlackPostMessageParamsAttachment
@@ -83,12 +83,12 @@ public final class FlowActionSlackPostMessageParamsAttachment {
                 && fields.equals(other.fields);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.color, this.pretext, this.text, this.fields);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

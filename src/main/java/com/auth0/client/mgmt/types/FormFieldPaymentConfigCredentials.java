@@ -42,7 +42,7 @@ public final class FormFieldPaymentConfigCredentials {
         return privateKey;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldPaymentConfigCredentials && equalTo((FormFieldPaymentConfigCredentials) other);
@@ -57,12 +57,12 @@ public final class FormFieldPaymentConfigCredentials {
         return publicKey.equals(other.publicKey) && privateKey.equals(other.privateKey);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.publicKey, this.privateKey);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -96,28 +96,28 @@ public final class FormFieldPaymentConfigCredentials {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FormFieldPaymentConfigCredentials other) {
             publicKey(other.getPublicKey());
             privateKey(other.getPrivateKey());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("public_key")
         public PrivateKeyStage publicKey(@NotNull String publicKey) {
             this.publicKey = Objects.requireNonNull(publicKey, "publicKey must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("private_key")
         public _FinalStage privateKey(@NotNull String privateKey) {
             this.privateKey = Objects.requireNonNull(privateKey, "privateKey must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FormFieldPaymentConfigCredentials build() {
             return new FormFieldPaymentConfigCredentials(publicKey, privateKey, additionalProperties);
         }

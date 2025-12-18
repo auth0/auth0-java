@@ -77,7 +77,7 @@ public final class CreateEventStreamRedeliveryResponseContent {
         return eventTypes;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateEventStreamRedeliveryResponseContent
@@ -96,12 +96,12 @@ public final class CreateEventStreamRedeliveryResponseContent {
                 && eventTypes.equals(other.eventTypes);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.dateFrom, this.dateTo, this.statuses, this.eventTypes);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

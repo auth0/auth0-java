@@ -51,7 +51,7 @@ public final class ConnectionScriptsOAuth2 {
         return getLogoutUrl;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionScriptsOAuth2 && equalTo((ConnectionScriptsOAuth2) other);
@@ -66,12 +66,12 @@ public final class ConnectionScriptsOAuth2 {
         return fetchUserProfile.equals(other.fetchUserProfile) && getLogoutUrl.equals(other.getLogoutUrl);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.fetchUserProfile, this.getLogoutUrl);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

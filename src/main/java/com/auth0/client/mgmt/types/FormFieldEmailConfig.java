@@ -43,7 +43,7 @@ public final class FormFieldEmailConfig {
         return placeholder;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldEmailConfig && equalTo((FormFieldEmailConfig) other);
@@ -58,12 +58,12 @@ public final class FormFieldEmailConfig {
         return defaultValue.equals(other.defaultValue) && placeholder.equals(other.placeholder);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.defaultValue, this.placeholder);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

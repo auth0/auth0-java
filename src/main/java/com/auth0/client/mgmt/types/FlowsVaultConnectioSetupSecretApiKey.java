@@ -42,7 +42,7 @@ public final class FlowsVaultConnectioSetupSecretApiKey {
         return secretKey;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowsVaultConnectioSetupSecretApiKey
@@ -58,12 +58,12 @@ public final class FlowsVaultConnectioSetupSecretApiKey {
         return type.equals(other.type) && secretKey.equals(other.secretKey);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.type, this.secretKey);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -97,28 +97,28 @@ public final class FlowsVaultConnectioSetupSecretApiKey {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowsVaultConnectioSetupSecretApiKey other) {
             type(other.getType());
             secretKey(other.getSecretKey());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public SecretKeyStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("secret_key")
         public _FinalStage secretKey(@NotNull String secretKey) {
             this.secretKey = Objects.requireNonNull(secretKey, "secretKey must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowsVaultConnectioSetupSecretApiKey build() {
             return new FlowsVaultConnectioSetupSecretApiKey(type, secretKey, additionalProperties);
         }

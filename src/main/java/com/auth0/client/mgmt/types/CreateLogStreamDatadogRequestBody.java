@@ -104,7 +104,7 @@ public final class CreateLogStreamDatadogRequestBody {
         return startFrom;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateLogStreamDatadogRequestBody && equalTo((CreateLogStreamDatadogRequestBody) other);
@@ -125,13 +125,13 @@ public final class CreateLogStreamDatadogRequestBody {
                 && startFrom.equals(other.startFrom);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.name, this.type, this.isPriority, this.filters, this.piiConfig, this.sink, this.startFrom);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -207,7 +207,7 @@ public final class CreateLogStreamDatadogRequestBody {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateLogStreamDatadogRequestBody other) {
             name(other.getName());
             type(other.getType());
@@ -219,14 +219,14 @@ public final class CreateLogStreamDatadogRequestBody {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public SinkStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("sink")
         public _FinalStage sink(@NotNull LogStreamDatadogSink sink) {
             this.sink = Objects.requireNonNull(sink, "sink must not be null");
@@ -237,7 +237,7 @@ public final class CreateLogStreamDatadogRequestBody {
          * <p>The optional datetime (ISO 8601) to start streaming logs from</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage startFrom(String startFrom) {
             this.startFrom = Optional.ofNullable(startFrom);
             return this;
@@ -246,20 +246,20 @@ public final class CreateLogStreamDatadogRequestBody {
         /**
          * <p>The optional datetime (ISO 8601) to start streaming logs from</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "startFrom", nulls = Nulls.SKIP)
         public _FinalStage startFrom(Optional<String> startFrom) {
             this.startFrom = startFrom;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage piiConfig(LogStreamPiiConfig piiConfig) {
             this.piiConfig = Optional.ofNullable(piiConfig);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "pii_config", nulls = Nulls.SKIP)
         public _FinalStage piiConfig(Optional<LogStreamPiiConfig> piiConfig) {
             this.piiConfig = piiConfig;
@@ -270,7 +270,7 @@ public final class CreateLogStreamDatadogRequestBody {
          * <p>Only logs events matching these filters will be delivered by the stream. If omitted or empty, all events will be delivered.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage filters(List<LogStreamFilter> filters) {
             this.filters = Optional.ofNullable(filters);
             return this;
@@ -279,7 +279,7 @@ public final class CreateLogStreamDatadogRequestBody {
         /**
          * <p>Only logs events matching these filters will be delivered by the stream. If omitted or empty, all events will be delivered.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "filters", nulls = Nulls.SKIP)
         public _FinalStage filters(Optional<List<LogStreamFilter>> filters) {
             this.filters = filters;
@@ -290,7 +290,7 @@ public final class CreateLogStreamDatadogRequestBody {
          * <p>True for priority log streams, false for non-priority</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage isPriority(Boolean isPriority) {
             this.isPriority = Optional.ofNullable(isPriority);
             return this;
@@ -299,7 +299,7 @@ public final class CreateLogStreamDatadogRequestBody {
         /**
          * <p>True for priority log streams, false for non-priority</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "isPriority", nulls = Nulls.SKIP)
         public _FinalStage isPriority(Optional<Boolean> isPriority) {
             this.isPriority = isPriority;
@@ -310,7 +310,7 @@ public final class CreateLogStreamDatadogRequestBody {
          * <p>log stream name</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage name(String name) {
             this.name = Optional.ofNullable(name);
             return this;
@@ -319,14 +319,14 @@ public final class CreateLogStreamDatadogRequestBody {
         /**
          * <p>log stream name</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<String> name) {
             this.name = name;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateLogStreamDatadogRequestBody build() {
             return new CreateLogStreamDatadogRequestBody(
                     name, type, isPriority, filters, piiConfig, sink, startFrom, additionalProperties);

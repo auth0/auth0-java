@@ -63,7 +63,7 @@ public final class UpdateOrganizationConnectionRequestContent {
         return showAsButton;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateOrganizationConnectionRequestContent
@@ -81,12 +81,12 @@ public final class UpdateOrganizationConnectionRequestContent {
                 && showAsButton.equals(other.showAsButton);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.assignMembershipOnLogin, this.isSignupEnabled, this.showAsButton);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -3,7 +3,6 @@
  */
 package com.auth0.client.mgmt.types;
 
-import com.auth0.client.mgmt.core.Nullable;
 import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
@@ -19,14 +18,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ListCustomDomainsRequestParameters.Builder.class)
 public final class ListCustomDomainsRequestParameters {
-    private final OptionalNullable<Integer> take;
-
-    private final OptionalNullable<String> from;
-
     private final OptionalNullable<String> q;
 
     private final OptionalNullable<String> fields;
@@ -38,41 +34,16 @@ public final class ListCustomDomainsRequestParameters {
     private final Map<String, Object> additionalProperties;
 
     private ListCustomDomainsRequestParameters(
-            OptionalNullable<Integer> take,
-            OptionalNullable<String> from,
             OptionalNullable<String> q,
             OptionalNullable<String> fields,
             OptionalNullable<Boolean> includeFields,
             OptionalNullable<String> sort,
             Map<String, Object> additionalProperties) {
-        this.take = take;
-        this.from = from;
         this.q = q;
         this.fields = fields;
         this.includeFields = includeFields;
         this.sort = sort;
         this.additionalProperties = additionalProperties;
-    }
-
-    /**
-     * @return Number of results per page. Defaults to 50.
-     */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("take")
-    public OptionalNullable<Integer> getTake() {
-        return take;
-    }
-
-    /**
-     * @return Optional Id from which to start selection.
-     */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("from")
-    public OptionalNullable<String> getFrom() {
-        if (from == null) {
-            return OptionalNullable.absent();
-        }
-        return from;
     }
 
     /**
@@ -124,12 +95,6 @@ public final class ListCustomDomainsRequestParameters {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("from")
-    private OptionalNullable<String> _getFrom() {
-        return from;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("q")
     private OptionalNullable<String> _getQ() {
         return q;
@@ -153,7 +118,7 @@ public final class ListCustomDomainsRequestParameters {
         return sort;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListCustomDomainsRequestParameters
@@ -166,20 +131,18 @@ public final class ListCustomDomainsRequestParameters {
     }
 
     private boolean equalTo(ListCustomDomainsRequestParameters other) {
-        return take.equals(other.take)
-                && from.equals(other.from)
-                && q.equals(other.q)
+        return q.equals(other.q)
                 && fields.equals(other.fields)
                 && includeFields.equals(other.includeFields)
                 && sort.equals(other.sort);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.take, this.from, this.q, this.fields, this.includeFields, this.sort);
+        return Objects.hash(this.q, this.fields, this.includeFields, this.sort);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -190,10 +153,6 @@ public final class ListCustomDomainsRequestParameters {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private OptionalNullable<Integer> take = OptionalNullable.absent();
-
-        private OptionalNullable<String> from = OptionalNullable.absent();
-
         private OptionalNullable<String> q = OptionalNullable.absent();
 
         private OptionalNullable<String> fields = OptionalNullable.absent();
@@ -208,8 +167,6 @@ public final class ListCustomDomainsRequestParameters {
         private Builder() {}
 
         public Builder from(ListCustomDomainsRequestParameters other) {
-            take(other.getTake());
-            from(other.getFrom());
             q(other.getQ());
             fields(other.getFields());
             includeFields(other.getIncludeFields());
@@ -218,78 +175,10 @@ public final class ListCustomDomainsRequestParameters {
         }
 
         /**
-         * <p>Number of results per page. Defaults to 50.</p>
-         */
-        @JsonSetter(value = "take", nulls = Nulls.SKIP)
-        public Builder take(OptionalNullable<Integer> take) {
-            this.take = take;
-            return this;
-        }
-
-        public Builder take(Integer take) {
-            this.take = OptionalNullable.of(take);
-            return this;
-        }
-
-        public Builder take(Optional<Integer> take) {
-            if (take.isPresent()) {
-                this.take = OptionalNullable.of(take.get());
-            } else {
-                this.take = OptionalNullable.absent();
-            }
-            return this;
-        }
-
-        public Builder take(Nullable<Integer> take) {
-            if (take.isNull()) {
-                this.take = OptionalNullable.ofNull();
-            } else if (take.isEmpty()) {
-                this.take = OptionalNullable.absent();
-            } else {
-                this.take = OptionalNullable.of(take.get());
-            }
-            return this;
-        }
-
-        /**
-         * <p>Optional Id from which to start selection.</p>
-         */
-        @JsonSetter(value = "from", nulls = Nulls.SKIP)
-        public Builder from(@org.jetbrains.annotations.Nullable OptionalNullable<String> from) {
-            this.from = from;
-            return this;
-        }
-
-        public Builder from(String from) {
-            this.from = OptionalNullable.of(from);
-            return this;
-        }
-
-        public Builder from(Optional<String> from) {
-            if (from.isPresent()) {
-                this.from = OptionalNullable.of(from.get());
-            } else {
-                this.from = OptionalNullable.absent();
-            }
-            return this;
-        }
-
-        public Builder from(Nullable<String> from) {
-            if (from.isNull()) {
-                this.from = OptionalNullable.ofNull();
-            } else if (from.isEmpty()) {
-                this.from = OptionalNullable.absent();
-            } else {
-                this.from = OptionalNullable.of(from.get());
-            }
-            return this;
-        }
-
-        /**
          * <p>Query in &lt;a href =&quot;http://www.lucenetutorial.com/lucene-query-syntax.html&quot;&gt;Lucene query string syntax&lt;/a&gt;.</p>
          */
         @JsonSetter(value = "q", nulls = Nulls.SKIP)
-        public Builder q(@org.jetbrains.annotations.Nullable OptionalNullable<String> q) {
+        public Builder q(@Nullable OptionalNullable<String> q) {
             this.q = q;
             return this;
         }
@@ -308,7 +197,7 @@ public final class ListCustomDomainsRequestParameters {
             return this;
         }
 
-        public Builder q(Nullable<String> q) {
+        public Builder q(com.auth0.client.mgmt.core.Nullable<String> q) {
             if (q.isNull()) {
                 this.q = OptionalNullable.ofNull();
             } else if (q.isEmpty()) {
@@ -323,7 +212,7 @@ public final class ListCustomDomainsRequestParameters {
          * <p>Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.</p>
          */
         @JsonSetter(value = "fields", nulls = Nulls.SKIP)
-        public Builder fields(@org.jetbrains.annotations.Nullable OptionalNullable<String> fields) {
+        public Builder fields(@Nullable OptionalNullable<String> fields) {
             this.fields = fields;
             return this;
         }
@@ -342,7 +231,7 @@ public final class ListCustomDomainsRequestParameters {
             return this;
         }
 
-        public Builder fields(Nullable<String> fields) {
+        public Builder fields(com.auth0.client.mgmt.core.Nullable<String> fields) {
             if (fields.isNull()) {
                 this.fields = OptionalNullable.ofNull();
             } else if (fields.isEmpty()) {
@@ -357,7 +246,7 @@ public final class ListCustomDomainsRequestParameters {
          * <p>Whether specified fields are to be included (true) or excluded (false).</p>
          */
         @JsonSetter(value = "include_fields", nulls = Nulls.SKIP)
-        public Builder includeFields(@org.jetbrains.annotations.Nullable OptionalNullable<Boolean> includeFields) {
+        public Builder includeFields(@Nullable OptionalNullable<Boolean> includeFields) {
             this.includeFields = includeFields;
             return this;
         }
@@ -376,7 +265,7 @@ public final class ListCustomDomainsRequestParameters {
             return this;
         }
 
-        public Builder includeFields(Nullable<Boolean> includeFields) {
+        public Builder includeFields(com.auth0.client.mgmt.core.Nullable<Boolean> includeFields) {
             if (includeFields.isNull()) {
                 this.includeFields = OptionalNullable.ofNull();
             } else if (includeFields.isEmpty()) {
@@ -391,7 +280,7 @@ public final class ListCustomDomainsRequestParameters {
          * <p>Field to sort by. Only &lt;code&gt;domain:1&lt;/code&gt; (ascending order by domain) is supported at this time.</p>
          */
         @JsonSetter(value = "sort", nulls = Nulls.SKIP)
-        public Builder sort(@org.jetbrains.annotations.Nullable OptionalNullable<String> sort) {
+        public Builder sort(@Nullable OptionalNullable<String> sort) {
             this.sort = sort;
             return this;
         }
@@ -410,7 +299,7 @@ public final class ListCustomDomainsRequestParameters {
             return this;
         }
 
-        public Builder sort(Nullable<String> sort) {
+        public Builder sort(com.auth0.client.mgmt.core.Nullable<String> sort) {
             if (sort.isNull()) {
                 this.sort = OptionalNullable.ofNull();
             } else if (sort.isEmpty()) {
@@ -422,8 +311,7 @@ public final class ListCustomDomainsRequestParameters {
         }
 
         public ListCustomDomainsRequestParameters build() {
-            return new ListCustomDomainsRequestParameters(
-                    take, from, q, fields, includeFields, sort, additionalProperties);
+            return new ListCustomDomainsRequestParameters(q, fields, includeFields, sort, additionalProperties);
         }
     }
 }

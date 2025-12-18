@@ -51,7 +51,7 @@ public final class GetConnectionEnabledClientsResponseContent {
         return next;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetConnectionEnabledClientsResponseContent
@@ -67,12 +67,12 @@ public final class GetConnectionEnabledClientsResponseContent {
         return clients.equals(other.clients) && next.equals(other.next);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.clients, this.next);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

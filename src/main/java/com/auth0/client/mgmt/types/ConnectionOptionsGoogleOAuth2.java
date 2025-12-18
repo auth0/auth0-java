@@ -329,7 +329,7 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
     }
 
     @JsonProperty("non_persistent_attrs")
-    @Override
+    @java.lang.Override
     public Optional<List<String>> getNonPersistentAttrs() {
         return nonPersistentAttrs;
     }
@@ -925,7 +925,7 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
         return upstreamParams;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionOptionsGoogleOAuth2 && equalTo((ConnectionOptionsGoogleOAuth2) other);
@@ -1013,7 +1013,7 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
                 && youtubepartner.equals(other.youtubepartner);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.nonPersistentAttrs,
@@ -1092,7 +1092,7 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
                 this.youtubepartner);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -45,7 +45,7 @@ public final class LogStreamDatadogSink {
         return datadogRegion;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof LogStreamDatadogSink && equalTo((LogStreamDatadogSink) other);
@@ -60,12 +60,12 @@ public final class LogStreamDatadogSink {
         return datadogApiKey.equals(other.datadogApiKey) && datadogRegion.equals(other.datadogRegion);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.datadogApiKey, this.datadogRegion);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -102,7 +102,7 @@ public final class LogStreamDatadogSink {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(LogStreamDatadogSink other) {
             datadogApiKey(other.getDatadogApiKey());
             datadogRegion(other.getDatadogRegion());
@@ -114,21 +114,21 @@ public final class LogStreamDatadogSink {
          * <p>Datadog API Key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("datadogApiKey")
         public DatadogRegionStage datadogApiKey(@NotNull String datadogApiKey) {
             this.datadogApiKey = Objects.requireNonNull(datadogApiKey, "datadogApiKey must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("datadogRegion")
         public _FinalStage datadogRegion(@NotNull LogStreamDatadogRegionEnum datadogRegion) {
             this.datadogRegion = Objects.requireNonNull(datadogRegion, "datadogRegion must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public LogStreamDatadogSink build() {
             return new LogStreamDatadogSink(datadogApiKey, datadogRegion, additionalProperties);
         }

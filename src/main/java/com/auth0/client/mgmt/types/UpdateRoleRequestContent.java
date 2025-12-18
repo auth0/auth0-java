@@ -49,7 +49,7 @@ public final class UpdateRoleRequestContent {
         return description;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateRoleRequestContent && equalTo((UpdateRoleRequestContent) other);
@@ -64,12 +64,12 @@ public final class UpdateRoleRequestContent {
         return name.equals(other.name) && description.equals(other.description);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.description);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

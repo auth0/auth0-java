@@ -6,7 +6,6 @@ import com.auth0.client.mgmt.types.CreateEventStreamResponseContent;
 import com.auth0.client.mgmt.types.CreateEventStreamTestEventRequestContent;
 import com.auth0.client.mgmt.types.CreateEventStreamTestEventResponseContent;
 import com.auth0.client.mgmt.types.CreateEventStreamWebHookRequestContent;
-import com.auth0.client.mgmt.types.EventStreamResponseContent;
 import com.auth0.client.mgmt.types.EventStreamTestEventTypeEnum;
 import com.auth0.client.mgmt.types.EventStreamWebhookAuthorizationResponse;
 import com.auth0.client.mgmt.types.EventStreamWebhookBasicAuth;
@@ -15,11 +14,11 @@ import com.auth0.client.mgmt.types.EventStreamWebhookDestination;
 import com.auth0.client.mgmt.types.EventStreamsCreateRequest;
 import com.auth0.client.mgmt.types.GetEventStreamResponseContent;
 import com.auth0.client.mgmt.types.ListEventStreamsRequestParameters;
+import com.auth0.client.mgmt.types.ListEventStreamsResponseContent;
 import com.auth0.client.mgmt.types.UpdateEventStreamRequestContent;
 import com.auth0.client.mgmt.types.UpdateEventStreamResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.List;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -54,8 +53,8 @@ public class EventStreamsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "[{\"id\":\"id\",\"name\":\"name\",\"subscriptions\":[{}],\"destination\":{\"type\":\"webhook\",\"configuration\":{\"webhook_endpoint\":\"webhook_endpoint\",\"webhook_authorization\":{\"method\":\"basic\",\"username\":\"username\"}}},\"status\":\"enabled\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}]"));
-        List<EventStreamResponseContent> response = client.eventStreams()
+                                "{\"eventStreams\":[{\"id\":\"id\",\"name\":\"name\",\"subscriptions\":[{}],\"destination\":{\"type\":\"webhook\",\"configuration\":{\"webhook_endpoint\":\"webhook_endpoint\",\"webhook_authorization\":{\"method\":\"basic\",\"username\":\"username\"}}},\"status\":\"enabled\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}]}"));
+        ListEventStreamsResponseContent response = client.eventStreams()
                 .list(ListEventStreamsRequestParameters.builder()
                         .from(OptionalNullable.of("from"))
                         .take(OptionalNullable.of(1))
@@ -68,28 +67,30 @@ public class EventStreamsWireTest {
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
         String expectedResponseBody = ""
-                + "[\n"
-                + "  {\n"
-                + "    \"id\": \"id\",\n"
-                + "    \"name\": \"name\",\n"
-                + "    \"subscriptions\": [\n"
-                + "      {}\n"
-                + "    ],\n"
-                + "    \"destination\": {\n"
-                + "      \"type\": \"webhook\",\n"
-                + "      \"configuration\": {\n"
-                + "        \"webhook_endpoint\": \"webhook_endpoint\",\n"
-                + "        \"webhook_authorization\": {\n"
-                + "          \"method\": \"basic\",\n"
-                + "          \"username\": \"username\"\n"
+                + "{\n"
+                + "  \"eventStreams\": [\n"
+                + "    {\n"
+                + "      \"id\": \"id\",\n"
+                + "      \"name\": \"name\",\n"
+                + "      \"subscriptions\": [\n"
+                + "        {}\n"
+                + "      ],\n"
+                + "      \"destination\": {\n"
+                + "        \"type\": \"webhook\",\n"
+                + "        \"configuration\": {\n"
+                + "          \"webhook_endpoint\": \"webhook_endpoint\",\n"
+                + "          \"webhook_authorization\": {\n"
+                + "            \"method\": \"basic\",\n"
+                + "            \"username\": \"username\"\n"
+                + "          }\n"
                 + "        }\n"
-                + "      }\n"
-                + "    },\n"
-                + "    \"status\": \"enabled\",\n"
-                + "    \"created_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "    \"updated_at\": \"2024-01-15T09:30:00Z\"\n"
-                + "  }\n"
-                + "]";
+                + "      },\n"
+                + "      \"status\": \"enabled\",\n"
+                + "      \"created_at\": \"2024-01-15T09:30:00Z\",\n"
+                + "      \"updated_at\": \"2024-01-15T09:30:00Z\"\n"
+                + "    }\n"
+                + "  ]\n"
+                + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(

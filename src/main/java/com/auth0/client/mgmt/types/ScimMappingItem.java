@@ -48,7 +48,7 @@ public final class ScimMappingItem {
         return scim;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ScimMappingItem && equalTo((ScimMappingItem) other);
@@ -63,12 +63,12 @@ public final class ScimMappingItem {
         return auth0.equals(other.auth0) && scim.equals(other.scim);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.auth0, this.scim);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

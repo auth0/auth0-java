@@ -87,61 +87,61 @@ public final class ConnectionResponseContentAzureAd
     }
 
     @JsonProperty("id")
-    @Override
+    @java.lang.Override
     public Optional<String> getId() {
         return id;
     }
 
     @JsonProperty("name")
-    @Override
+    @java.lang.Override
     public Optional<String> getName() {
         return name;
     }
 
     @JsonProperty("authentication")
-    @Override
+    @java.lang.Override
     public Optional<ConnectionAuthenticationPurpose> getAuthentication() {
         return authentication;
     }
 
     @JsonProperty("connected_accounts")
-    @Override
+    @java.lang.Override
     public Optional<ConnectionConnectedAccountsPurpose> getConnectedAccounts() {
         return connectedAccounts;
     }
 
     @JsonProperty("display_name")
-    @Override
+    @java.lang.Override
     public Optional<String> getDisplayName() {
         return displayName;
     }
 
     @JsonProperty("enabled_clients")
-    @Override
+    @java.lang.Override
     public Optional<List<String>> getEnabledClients() {
         return enabledClients;
     }
 
     @JsonProperty("is_domain_connection")
-    @Override
+    @java.lang.Override
     public Optional<Boolean> getIsDomainConnection() {
         return isDomainConnection;
     }
 
     @JsonProperty("metadata")
-    @Override
+    @java.lang.Override
     public Optional<Map<String, OptionalNullable<String>>> getMetadata() {
         return metadata;
     }
 
     @JsonProperty("realms")
-    @Override
+    @java.lang.Override
     public Optional<List<String>> getRealms() {
         return realms;
     }
 
     @JsonProperty("show_as_button")
-    @Override
+    @java.lang.Override
     public Optional<Boolean> getShowAsButton() {
         return showAsButton;
     }
@@ -171,7 +171,7 @@ public final class ConnectionResponseContentAzureAd
         return strategyVersion;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionResponseContentAzureAd && equalTo((ConnectionResponseContentAzureAd) other);
@@ -199,7 +199,7 @@ public final class ConnectionResponseContentAzureAd
                 && strategyVersion.equals(other.strategyVersion);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -218,7 +218,7 @@ public final class ConnectionResponseContentAzureAd
                 this.strategyVersion);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

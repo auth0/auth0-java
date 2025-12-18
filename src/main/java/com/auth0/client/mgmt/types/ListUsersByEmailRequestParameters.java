@@ -87,7 +87,7 @@ public final class ListUsersByEmailRequestParameters {
         return includeFields;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListUsersByEmailRequestParameters && equalTo((ListUsersByEmailRequestParameters) other);
@@ -102,12 +102,12 @@ public final class ListUsersByEmailRequestParameters {
         return fields.equals(other.fields) && includeFields.equals(other.includeFields) && email.equals(other.email);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.fields, this.includeFields, this.email);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -164,7 +164,7 @@ public final class ListUsersByEmailRequestParameters {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(ListUsersByEmailRequestParameters other) {
             fields(other.getFields());
             includeFields(other.getIncludeFields());
@@ -177,7 +177,7 @@ public final class ListUsersByEmailRequestParameters {
          * <p>Email address to search for (case-sensitive).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("email")
         public _FinalStage email(@NotNull String email) {
             this.email = Objects.requireNonNull(email, "email must not be null");
@@ -188,7 +188,7 @@ public final class ListUsersByEmailRequestParameters {
          * <p>Whether specified fields are to be included (true) or excluded (false). Defaults to true.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage includeFields(com.auth0.client.mgmt.core.Nullable<Boolean> includeFields) {
             if (includeFields.isNull()) {
                 this.includeFields = OptionalNullable.ofNull();
@@ -204,7 +204,7 @@ public final class ListUsersByEmailRequestParameters {
          * <p>Whether specified fields are to be included (true) or excluded (false). Defaults to true.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage includeFields(Optional<Boolean> includeFields) {
             if (includeFields.isPresent()) {
                 this.includeFields = OptionalNullable.of(includeFields.get());
@@ -218,7 +218,7 @@ public final class ListUsersByEmailRequestParameters {
          * <p>Whether specified fields are to be included (true) or excluded (false). Defaults to true.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage includeFields(Boolean includeFields) {
             this.includeFields = OptionalNullable.of(includeFields);
             return this;
@@ -227,7 +227,7 @@ public final class ListUsersByEmailRequestParameters {
         /**
          * <p>Whether specified fields are to be included (true) or excluded (false). Defaults to true.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "include_fields", nulls = Nulls.SKIP)
         public _FinalStage includeFields(@Nullable OptionalNullable<Boolean> includeFields) {
             this.includeFields = includeFields;
@@ -238,7 +238,7 @@ public final class ListUsersByEmailRequestParameters {
          * <p>Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage fields(com.auth0.client.mgmt.core.Nullable<String> fields) {
             if (fields.isNull()) {
                 this.fields = OptionalNullable.ofNull();
@@ -254,7 +254,7 @@ public final class ListUsersByEmailRequestParameters {
          * <p>Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage fields(Optional<String> fields) {
             if (fields.isPresent()) {
                 this.fields = OptionalNullable.of(fields.get());
@@ -268,7 +268,7 @@ public final class ListUsersByEmailRequestParameters {
          * <p>Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage fields(String fields) {
             this.fields = OptionalNullable.of(fields);
             return this;
@@ -277,14 +277,14 @@ public final class ListUsersByEmailRequestParameters {
         /**
          * <p>Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "fields", nulls = Nulls.SKIP)
         public _FinalStage fields(@Nullable OptionalNullable<String> fields) {
             this.fields = fields;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public ListUsersByEmailRequestParameters build() {
             return new ListUsersByEmailRequestParameters(fields, includeFields, email, additionalProperties);
         }

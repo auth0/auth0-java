@@ -48,7 +48,7 @@ public final class UpdateEnabledClientConnectionsRequestContentItem {
         return status;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateEnabledClientConnectionsRequestContentItem
@@ -64,12 +64,12 @@ public final class UpdateEnabledClientConnectionsRequestContentItem {
         return clientId.equals(other.clientId) && status == other.status;
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.clientId, this.status);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -109,7 +109,7 @@ public final class UpdateEnabledClientConnectionsRequestContentItem {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(UpdateEnabledClientConnectionsRequestContentItem other) {
             clientId(other.getClientId());
             status(other.getStatus());
@@ -121,7 +121,7 @@ public final class UpdateEnabledClientConnectionsRequestContentItem {
          * <p>The client_id of the client to be the subject to change status</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("client_id")
         public StatusStage clientId(@NotNull String clientId) {
             this.clientId = Objects.requireNonNull(clientId, "clientId must not be null");
@@ -133,14 +133,14 @@ public final class UpdateEnabledClientConnectionsRequestContentItem {
          * <p>Whether the connection is enabled or not for this client_id</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("status")
         public _FinalStage status(boolean status) {
             this.status = status;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public UpdateEnabledClientConnectionsRequestContentItem build() {
             return new UpdateEnabledClientConnectionsRequestContentItem(clientId, status, additionalProperties);
         }

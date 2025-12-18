@@ -57,7 +57,7 @@ public final class PhoneAttribute {
         return signup;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof PhoneAttribute && equalTo((PhoneAttribute) other);
@@ -74,12 +74,12 @@ public final class PhoneAttribute {
                 && signup.equals(other.signup);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.identifier, this.profileRequired, this.signup);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

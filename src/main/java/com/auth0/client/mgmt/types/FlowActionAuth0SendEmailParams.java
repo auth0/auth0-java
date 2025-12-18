@@ -73,7 +73,7 @@ public final class FlowActionAuth0SendEmailParams {
         return customVars;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionAuth0SendEmailParams && equalTo((FlowActionAuth0SendEmailParams) other);
@@ -92,12 +92,12 @@ public final class FlowActionAuth0SendEmailParams {
                 && customVars.equals(other.customVars);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.from, this.to, this.subject, this.body, this.customVars);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -149,7 +149,7 @@ public final class FlowActionAuth0SendEmailParams {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionAuth0SendEmailParams other) {
             from(other.getFrom());
             to(other.getTo());
@@ -159,54 +159,54 @@ public final class FlowActionAuth0SendEmailParams {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("to")
         public SubjectStage to(@NotNull String to) {
             this.to = Objects.requireNonNull(to, "to must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("subject")
         public BodyStage subject(@NotNull String subject) {
             this.subject = Objects.requireNonNull(subject, "subject must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("body")
         public _FinalStage body(@NotNull String body) {
             this.body = Objects.requireNonNull(body, "body must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage customVars(Map<String, Object> customVars) {
             this.customVars = Optional.ofNullable(customVars);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "custom_vars", nulls = Nulls.SKIP)
         public _FinalStage customVars(Optional<Map<String, Object>> customVars) {
             this.customVars = customVars;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage from(FlowActionAuth0SendEmailParamsFrom from) {
             this.from = Optional.ofNullable(from);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "from", nulls = Nulls.SKIP)
         public _FinalStage from(Optional<FlowActionAuth0SendEmailParamsFrom> from) {
             this.from = from;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionAuth0SendEmailParams build() {
             return new FlowActionAuth0SendEmailParams(from, to, subject, body, customVars, additionalProperties);
         }

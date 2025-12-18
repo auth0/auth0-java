@@ -51,7 +51,7 @@ public final class ClientDefaultOrganization {
         return flows;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientDefaultOrganization && equalTo((ClientDefaultOrganization) other);
@@ -66,12 +66,12 @@ public final class ClientDefaultOrganization {
         return organizationId.equals(other.organizationId) && flows.equals(other.flows);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.organizationId, this.flows);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -113,7 +113,7 @@ public final class ClientDefaultOrganization {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(ClientDefaultOrganization other) {
             organizationId(other.getOrganizationId());
             flows(other.getFlows());
@@ -125,7 +125,7 @@ public final class ClientDefaultOrganization {
          * <p>The default Organization ID to be used</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("organization_id")
         public _FinalStage organizationId(@NotNull String organizationId) {
             this.organizationId = Objects.requireNonNull(organizationId, "organizationId must not be null");
@@ -136,7 +136,7 @@ public final class ClientDefaultOrganization {
          * <p>The default Organization usage</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage addAllFlows(List<String> flows) {
             if (flows != null) {
                 this.flows.addAll(flows);
@@ -148,7 +148,7 @@ public final class ClientDefaultOrganization {
          * <p>The default Organization usage</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage addFlows(String flows) {
             this.flows.add(flows);
             return this;
@@ -157,7 +157,7 @@ public final class ClientDefaultOrganization {
         /**
          * <p>The default Organization usage</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "flows", nulls = Nulls.SKIP)
         public _FinalStage flows(List<String> flows) {
             this.flows.clear();
@@ -167,7 +167,7 @@ public final class ClientDefaultOrganization {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public ClientDefaultOrganization build() {
             return new ClientDefaultOrganization(organizationId, flows, additionalProperties);
         }

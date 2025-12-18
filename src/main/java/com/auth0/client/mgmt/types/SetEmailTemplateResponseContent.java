@@ -206,7 +206,7 @@ public final class SetEmailTemplateResponseContent {
         return enabled;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SetEmailTemplateResponseContent && equalTo((SetEmailTemplateResponseContent) other);
@@ -229,7 +229,7 @@ public final class SetEmailTemplateResponseContent {
                 && enabled.equals(other.enabled);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.template,
@@ -243,7 +243,7 @@ public final class SetEmailTemplateResponseContent {
                 this.enabled);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -371,7 +371,7 @@ public final class SetEmailTemplateResponseContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(SetEmailTemplateResponseContent other) {
             template(other.getTemplate());
             body(other.getBody());
@@ -385,7 +385,7 @@ public final class SetEmailTemplateResponseContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("template")
         public _FinalStage template(@NotNull EmailTemplateNameEnum template) {
             this.template = Objects.requireNonNull(template, "template must not be null");
@@ -396,7 +396,7 @@ public final class SetEmailTemplateResponseContent {
          * <p>Whether the template is enabled (true) or disabled (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage enabled(com.auth0.client.mgmt.core.Nullable<Boolean> enabled) {
             if (enabled.isNull()) {
                 this.enabled = OptionalNullable.ofNull();
@@ -412,7 +412,7 @@ public final class SetEmailTemplateResponseContent {
          * <p>Whether the template is enabled (true) or disabled (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage enabled(Optional<Boolean> enabled) {
             if (enabled.isPresent()) {
                 this.enabled = OptionalNullable.of(enabled.get());
@@ -426,7 +426,7 @@ public final class SetEmailTemplateResponseContent {
          * <p>Whether the template is enabled (true) or disabled (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage enabled(Boolean enabled) {
             this.enabled = OptionalNullable.of(enabled);
             return this;
@@ -435,7 +435,7 @@ public final class SetEmailTemplateResponseContent {
         /**
          * <p>Whether the template is enabled (true) or disabled (false).</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "enabled", nulls = Nulls.SKIP)
         public _FinalStage enabled(@Nullable OptionalNullable<Boolean> enabled) {
             this.enabled = enabled;
@@ -446,7 +446,7 @@ public final class SetEmailTemplateResponseContent {
          * <p>Whether the <code>reset_email</code> and <code>verify_email</code> templates should include the user's email address as the <code>email</code> parameter in the returnUrl (true) or whether no email address should be included in the redirect (false). Defaults to true.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage includeEmailInRedirect(Boolean includeEmailInRedirect) {
             this.includeEmailInRedirect = Optional.ofNullable(includeEmailInRedirect);
             return this;
@@ -455,7 +455,7 @@ public final class SetEmailTemplateResponseContent {
         /**
          * <p>Whether the <code>reset_email</code> and <code>verify_email</code> templates should include the user's email address as the <code>email</code> parameter in the returnUrl (true) or whether no email address should be included in the redirect (false). Defaults to true.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "includeEmailInRedirect", nulls = Nulls.SKIP)
         public _FinalStage includeEmailInRedirect(Optional<Boolean> includeEmailInRedirect) {
             this.includeEmailInRedirect = includeEmailInRedirect;
@@ -466,7 +466,7 @@ public final class SetEmailTemplateResponseContent {
          * <p>Lifetime in seconds that the link within the email will be valid for.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage urlLifetimeInSeconds(com.auth0.client.mgmt.core.Nullable<Double> urlLifetimeInSeconds) {
             if (urlLifetimeInSeconds.isNull()) {
                 this.urlLifetimeInSeconds = OptionalNullable.ofNull();
@@ -482,7 +482,7 @@ public final class SetEmailTemplateResponseContent {
          * <p>Lifetime in seconds that the link within the email will be valid for.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage urlLifetimeInSeconds(Optional<Double> urlLifetimeInSeconds) {
             if (urlLifetimeInSeconds.isPresent()) {
                 this.urlLifetimeInSeconds = OptionalNullable.of(urlLifetimeInSeconds.get());
@@ -496,7 +496,7 @@ public final class SetEmailTemplateResponseContent {
          * <p>Lifetime in seconds that the link within the email will be valid for.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage urlLifetimeInSeconds(Double urlLifetimeInSeconds) {
             this.urlLifetimeInSeconds = OptionalNullable.of(urlLifetimeInSeconds);
             return this;
@@ -505,7 +505,7 @@ public final class SetEmailTemplateResponseContent {
         /**
          * <p>Lifetime in seconds that the link within the email will be valid for.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "urlLifetimeInSeconds", nulls = Nulls.SKIP)
         public _FinalStage urlLifetimeInSeconds(@Nullable OptionalNullable<Double> urlLifetimeInSeconds) {
             this.urlLifetimeInSeconds = urlLifetimeInSeconds;
@@ -516,7 +516,7 @@ public final class SetEmailTemplateResponseContent {
          * <p>Syntax of the template body.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage syntax(com.auth0.client.mgmt.core.Nullable<String> syntax) {
             if (syntax.isNull()) {
                 this.syntax = OptionalNullable.ofNull();
@@ -532,7 +532,7 @@ public final class SetEmailTemplateResponseContent {
          * <p>Syntax of the template body.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage syntax(Optional<String> syntax) {
             if (syntax.isPresent()) {
                 this.syntax = OptionalNullable.of(syntax.get());
@@ -546,7 +546,7 @@ public final class SetEmailTemplateResponseContent {
          * <p>Syntax of the template body.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage syntax(String syntax) {
             this.syntax = OptionalNullable.of(syntax);
             return this;
@@ -555,7 +555,7 @@ public final class SetEmailTemplateResponseContent {
         /**
          * <p>Syntax of the template body.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "syntax", nulls = Nulls.SKIP)
         public _FinalStage syntax(@Nullable OptionalNullable<String> syntax) {
             this.syntax = syntax;
@@ -566,7 +566,7 @@ public final class SetEmailTemplateResponseContent {
          * <p>Subject line of the email.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage subject(com.auth0.client.mgmt.core.Nullable<String> subject) {
             if (subject.isNull()) {
                 this.subject = OptionalNullable.ofNull();
@@ -582,7 +582,7 @@ public final class SetEmailTemplateResponseContent {
          * <p>Subject line of the email.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage subject(Optional<String> subject) {
             if (subject.isPresent()) {
                 this.subject = OptionalNullable.of(subject.get());
@@ -596,7 +596,7 @@ public final class SetEmailTemplateResponseContent {
          * <p>Subject line of the email.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage subject(String subject) {
             this.subject = OptionalNullable.of(subject);
             return this;
@@ -605,7 +605,7 @@ public final class SetEmailTemplateResponseContent {
         /**
          * <p>Subject line of the email.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "subject", nulls = Nulls.SKIP)
         public _FinalStage subject(@Nullable OptionalNullable<String> subject) {
             this.subject = subject;
@@ -616,7 +616,7 @@ public final class SetEmailTemplateResponseContent {
          * <p>URL to redirect the user to after a successful action.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage resultUrl(com.auth0.client.mgmt.core.Nullable<String> resultUrl) {
             if (resultUrl.isNull()) {
                 this.resultUrl = OptionalNullable.ofNull();
@@ -632,7 +632,7 @@ public final class SetEmailTemplateResponseContent {
          * <p>URL to redirect the user to after a successful action.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage resultUrl(Optional<String> resultUrl) {
             if (resultUrl.isPresent()) {
                 this.resultUrl = OptionalNullable.of(resultUrl.get());
@@ -646,7 +646,7 @@ public final class SetEmailTemplateResponseContent {
          * <p>URL to redirect the user to after a successful action.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage resultUrl(String resultUrl) {
             this.resultUrl = OptionalNullable.of(resultUrl);
             return this;
@@ -655,7 +655,7 @@ public final class SetEmailTemplateResponseContent {
         /**
          * <p>URL to redirect the user to after a successful action.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "resultUrl", nulls = Nulls.SKIP)
         public _FinalStage resultUrl(@Nullable OptionalNullable<String> resultUrl) {
             this.resultUrl = resultUrl;
@@ -666,7 +666,7 @@ public final class SetEmailTemplateResponseContent {
          * <p>Senders <code>from</code> email address.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage from(com.auth0.client.mgmt.core.Nullable<String> from) {
             if (from.isNull()) {
                 this.from = OptionalNullable.ofNull();
@@ -682,7 +682,7 @@ public final class SetEmailTemplateResponseContent {
          * <p>Senders <code>from</code> email address.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage from(Optional<String> from) {
             if (from.isPresent()) {
                 this.from = OptionalNullable.of(from.get());
@@ -696,7 +696,7 @@ public final class SetEmailTemplateResponseContent {
          * <p>Senders <code>from</code> email address.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage from(String from) {
             this.from = OptionalNullable.of(from);
             return this;
@@ -705,7 +705,7 @@ public final class SetEmailTemplateResponseContent {
         /**
          * <p>Senders <code>from</code> email address.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "from", nulls = Nulls.SKIP)
         public _FinalStage from(@Nullable OptionalNullable<String> from) {
             this.from = from;
@@ -716,7 +716,7 @@ public final class SetEmailTemplateResponseContent {
          * <p>Body of the email template.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage body(com.auth0.client.mgmt.core.Nullable<String> body) {
             if (body.isNull()) {
                 this.body = OptionalNullable.ofNull();
@@ -732,7 +732,7 @@ public final class SetEmailTemplateResponseContent {
          * <p>Body of the email template.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage body(Optional<String> body) {
             if (body.isPresent()) {
                 this.body = OptionalNullable.of(body.get());
@@ -746,7 +746,7 @@ public final class SetEmailTemplateResponseContent {
          * <p>Body of the email template.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage body(String body) {
             this.body = OptionalNullable.of(body);
             return this;
@@ -755,14 +755,14 @@ public final class SetEmailTemplateResponseContent {
         /**
          * <p>Body of the email template.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "body", nulls = Nulls.SKIP)
         public _FinalStage body(@Nullable OptionalNullable<String> body) {
             this.body = body;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public SetEmailTemplateResponseContent build() {
             return new SetEmailTemplateResponseContent(
                     template,

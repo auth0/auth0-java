@@ -63,7 +63,7 @@ public final class FlowsVaultConnectioSetupBigqueryOauthJwt {
         return clientEmail;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowsVaultConnectioSetupBigqueryOauthJwt
@@ -82,12 +82,12 @@ public final class FlowsVaultConnectioSetupBigqueryOauthJwt {
                 && clientEmail.equals(other.clientEmail);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.type, this.projectId, this.privateKey, this.clientEmail);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -130,7 +130,7 @@ public final class RotateConnectionsKeysResponseContent {
         return subjectDn;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof RotateConnectionsKeysResponseContent
@@ -154,7 +154,7 @@ public final class RotateConnectionsKeysResponseContent {
                 && subjectDn.equals(other.subjectDn);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.kid,
@@ -168,7 +168,7 @@ public final class RotateConnectionsKeysResponseContent {
                 this.subjectDn);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -265,7 +265,7 @@ public final class RotateConnectionsKeysResponseContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(RotateConnectionsKeysResponseContent other) {
             kid(other.getKid());
             cert(other.getCert());
@@ -284,7 +284,7 @@ public final class RotateConnectionsKeysResponseContent {
          * <p>The key id of the signing key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("kid")
         public CertStage kid(@NotNull String kid) {
             this.kid = Objects.requireNonNull(kid, "kid must not be null");
@@ -296,7 +296,7 @@ public final class RotateConnectionsKeysResponseContent {
          * <p>The public certificate of the signing key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("cert")
         public FingerprintStage cert(@NotNull String cert) {
             this.cert = Objects.requireNonNull(cert, "cert must not be null");
@@ -308,7 +308,7 @@ public final class RotateConnectionsKeysResponseContent {
          * <p>The cert fingerprint</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("fingerprint")
         public ThumbprintStage fingerprint(@NotNull String fingerprint) {
             this.fingerprint = Objects.requireNonNull(fingerprint, "fingerprint must not be null");
@@ -320,33 +320,33 @@ public final class RotateConnectionsKeysResponseContent {
          * <p>The cert thumbprint</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("thumbprint")
         public _FinalStage thumbprint(@NotNull String thumbprint) {
             this.thumbprint = Objects.requireNonNull(thumbprint, "thumbprint must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage subjectDn(String subjectDn) {
             this.subjectDn = Optional.ofNullable(subjectDn);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "subject_dn", nulls = Nulls.SKIP)
         public _FinalStage subjectDn(Optional<String> subjectDn) {
             this.subjectDn = subjectDn;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage keyUse(ConnectionKeyUseEnum keyUse) {
             this.keyUse = Optional.ofNullable(keyUse);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "key_use", nulls = Nulls.SKIP)
         public _FinalStage keyUse(Optional<ConnectionKeyUseEnum> keyUse) {
             this.keyUse = keyUse;
@@ -357,7 +357,7 @@ public final class RotateConnectionsKeysResponseContent {
          * <p>Signing key algorithm</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage algorithm(String algorithm) {
             this.algorithm = Optional.ofNullable(algorithm);
             return this;
@@ -366,7 +366,7 @@ public final class RotateConnectionsKeysResponseContent {
         /**
          * <p>Signing key algorithm</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "algorithm", nulls = Nulls.SKIP)
         public _FinalStage algorithm(Optional<String> algorithm) {
             this.algorithm = algorithm;
@@ -377,7 +377,7 @@ public final class RotateConnectionsKeysResponseContent {
          * <p>True if the key is the the next key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage next(Boolean next) {
             this.next = Optional.ofNullable(next);
             return this;
@@ -386,7 +386,7 @@ public final class RotateConnectionsKeysResponseContent {
         /**
          * <p>True if the key is the the next key</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "next", nulls = Nulls.SKIP)
         public _FinalStage next(Optional<Boolean> next) {
             this.next = next;
@@ -397,7 +397,7 @@ public final class RotateConnectionsKeysResponseContent {
          * <p>The public certificate of the signing key in pkcs7 format</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage pkcs(String pkcs) {
             this.pkcs = Optional.ofNullable(pkcs);
             return this;
@@ -406,14 +406,14 @@ public final class RotateConnectionsKeysResponseContent {
         /**
          * <p>The public certificate of the signing key in pkcs7 format</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "pkcs", nulls = Nulls.SKIP)
         public _FinalStage pkcs(Optional<String> pkcs) {
             this.pkcs = pkcs;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public RotateConnectionsKeysResponseContent build() {
             return new RotateConnectionsKeysResponseContent(
                     kid, cert, pkcs, next, fingerprint, thumbprint, algorithm, keyUse, subjectDn, additionalProperties);

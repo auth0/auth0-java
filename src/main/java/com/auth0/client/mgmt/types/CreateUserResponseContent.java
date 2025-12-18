@@ -265,7 +265,7 @@ public final class CreateUserResponseContent {
         return familyName;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateUserResponseContent && equalTo((CreateUserResponseContent) other);
@@ -300,7 +300,7 @@ public final class CreateUserResponseContent {
                 && familyName.equals(other.familyName);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.userId,
@@ -326,7 +326,7 @@ public final class CreateUserResponseContent {
                 this.familyName);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

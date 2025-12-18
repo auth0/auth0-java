@@ -69,7 +69,7 @@ public final class UpdateBrandingPhoneProviderRequestContent {
         return configuration;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateBrandingPhoneProviderRequestContent
@@ -88,12 +88,12 @@ public final class UpdateBrandingPhoneProviderRequestContent {
                 && configuration.equals(other.configuration);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.disabled, this.credentials, this.configuration);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

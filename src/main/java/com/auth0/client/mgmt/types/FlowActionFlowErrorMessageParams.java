@@ -33,7 +33,7 @@ public final class FlowActionFlowErrorMessageParams {
         return message;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionFlowErrorMessageParams && equalTo((FlowActionFlowErrorMessageParams) other);
@@ -48,12 +48,12 @@ public final class FlowActionFlowErrorMessageParams {
         return message.equals(other.message);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.message);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -81,20 +81,20 @@ public final class FlowActionFlowErrorMessageParams {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionFlowErrorMessageParams other) {
             message(other.getMessage());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("message")
         public _FinalStage message(@NotNull String message) {
             this.message = Objects.requireNonNull(message, "message must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionFlowErrorMessageParams build() {
             return new FlowActionFlowErrorMessageParams(message, additionalProperties);
         }

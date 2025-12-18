@@ -265,7 +265,7 @@ public final class BrandingThemeColors {
         return widgetBorder;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof BrandingThemeColors && equalTo((BrandingThemeColors) other);
@@ -299,7 +299,7 @@ public final class BrandingThemeColors {
                 && widgetBorder.equals(other.widgetBorder);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.baseFocusColor,
@@ -324,7 +324,7 @@ public final class BrandingThemeColors {
                 this.widgetBorder);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -540,7 +540,7 @@ public final class BrandingThemeColors {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(BrandingThemeColors other) {
             baseFocusColor(other.getBaseFocusColor());
             baseHoverColor(other.getBaseHoverColor());
@@ -570,7 +570,7 @@ public final class BrandingThemeColors {
          * <p>Body text</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("body_text")
         public ErrorStage bodyText(@NotNull String bodyText) {
             this.bodyText = Objects.requireNonNull(bodyText, "bodyText must not be null");
@@ -582,7 +582,7 @@ public final class BrandingThemeColors {
          * <p>Error</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("error")
         public HeaderStage error(@NotNull String error) {
             this.error = Objects.requireNonNull(error, "error must not be null");
@@ -594,7 +594,7 @@ public final class BrandingThemeColors {
          * <p>Header</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("header")
         public IconsStage header(@NotNull String header) {
             this.header = Objects.requireNonNull(header, "header must not be null");
@@ -606,7 +606,7 @@ public final class BrandingThemeColors {
          * <p>Icons</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("icons")
         public InputBackgroundStage icons(@NotNull String icons) {
             this.icons = Objects.requireNonNull(icons, "icons must not be null");
@@ -618,7 +618,7 @@ public final class BrandingThemeColors {
          * <p>Input background</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("input_background")
         public InputBorderStage inputBackground(@NotNull String inputBackground) {
             this.inputBackground = Objects.requireNonNull(inputBackground, "inputBackground must not be null");
@@ -630,7 +630,7 @@ public final class BrandingThemeColors {
          * <p>Input border</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("input_border")
         public InputFilledTextStage inputBorder(@NotNull String inputBorder) {
             this.inputBorder = Objects.requireNonNull(inputBorder, "inputBorder must not be null");
@@ -642,7 +642,7 @@ public final class BrandingThemeColors {
          * <p>Input filled text</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("input_filled_text")
         public InputLabelsPlaceholdersStage inputFilledText(@NotNull String inputFilledText) {
             this.inputFilledText = Objects.requireNonNull(inputFilledText, "inputFilledText must not be null");
@@ -654,7 +654,7 @@ public final class BrandingThemeColors {
          * <p>Input labels &amp; placeholders</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("input_labels_placeholders")
         public LinksFocusedComponentsStage inputLabelsPlaceholders(@NotNull String inputLabelsPlaceholders) {
             this.inputLabelsPlaceholders =
@@ -667,7 +667,7 @@ public final class BrandingThemeColors {
          * <p>Links &amp; focused components</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("links_focused_components")
         public PrimaryButtonStage linksFocusedComponents(@NotNull String linksFocusedComponents) {
             this.linksFocusedComponents =
@@ -680,7 +680,7 @@ public final class BrandingThemeColors {
          * <p>Primary button</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("primary_button")
         public PrimaryButtonLabelStage primaryButton(@NotNull String primaryButton) {
             this.primaryButton = Objects.requireNonNull(primaryButton, "primaryButton must not be null");
@@ -692,7 +692,7 @@ public final class BrandingThemeColors {
          * <p>Primary button label</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("primary_button_label")
         public SecondaryButtonBorderStage primaryButtonLabel(@NotNull String primaryButtonLabel) {
             this.primaryButtonLabel = Objects.requireNonNull(primaryButtonLabel, "primaryButtonLabel must not be null");
@@ -704,7 +704,7 @@ public final class BrandingThemeColors {
          * <p>Secondary button border</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("secondary_button_border")
         public SecondaryButtonLabelStage secondaryButtonBorder(@NotNull String secondaryButtonBorder) {
             this.secondaryButtonBorder =
@@ -717,7 +717,7 @@ public final class BrandingThemeColors {
          * <p>Secondary button label</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("secondary_button_label")
         public SuccessStage secondaryButtonLabel(@NotNull String secondaryButtonLabel) {
             this.secondaryButtonLabel =
@@ -730,7 +730,7 @@ public final class BrandingThemeColors {
          * <p>Success</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("success")
         public WidgetBackgroundStage success(@NotNull String success) {
             this.success = Objects.requireNonNull(success, "success must not be null");
@@ -742,7 +742,7 @@ public final class BrandingThemeColors {
          * <p>Widget background</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("widget_background")
         public WidgetBorderStage widgetBackground(@NotNull String widgetBackground) {
             this.widgetBackground = Objects.requireNonNull(widgetBackground, "widgetBackground must not be null");
@@ -754,7 +754,7 @@ public final class BrandingThemeColors {
          * <p>Widget border</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("widget_border")
         public _FinalStage widgetBorder(@NotNull String widgetBorder) {
             this.widgetBorder = Objects.requireNonNull(widgetBorder, "widgetBorder must not be null");
@@ -765,7 +765,7 @@ public final class BrandingThemeColors {
          * <p>Read only background</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage readOnlyBackground(String readOnlyBackground) {
             this.readOnlyBackground = Optional.ofNullable(readOnlyBackground);
             return this;
@@ -774,20 +774,20 @@ public final class BrandingThemeColors {
         /**
          * <p>Read only background</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "read_only_background", nulls = Nulls.SKIP)
         public _FinalStage readOnlyBackground(Optional<String> readOnlyBackground) {
             this.readOnlyBackground = readOnlyBackground;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage captchaWidgetTheme(BrandingThemeColorsCaptchaWidgetThemeEnum captchaWidgetTheme) {
             this.captchaWidgetTheme = Optional.ofNullable(captchaWidgetTheme);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "captcha_widget_theme", nulls = Nulls.SKIP)
         public _FinalStage captchaWidgetTheme(Optional<BrandingThemeColorsCaptchaWidgetThemeEnum> captchaWidgetTheme) {
             this.captchaWidgetTheme = captchaWidgetTheme;
@@ -798,7 +798,7 @@ public final class BrandingThemeColors {
          * <p>Base Hover Color</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage baseHoverColor(String baseHoverColor) {
             this.baseHoverColor = Optional.ofNullable(baseHoverColor);
             return this;
@@ -807,7 +807,7 @@ public final class BrandingThemeColors {
         /**
          * <p>Base Hover Color</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "base_hover_color", nulls = Nulls.SKIP)
         public _FinalStage baseHoverColor(Optional<String> baseHoverColor) {
             this.baseHoverColor = baseHoverColor;
@@ -818,7 +818,7 @@ public final class BrandingThemeColors {
          * <p>Base Focus Color</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage baseFocusColor(String baseFocusColor) {
             this.baseFocusColor = Optional.ofNullable(baseFocusColor);
             return this;
@@ -827,14 +827,14 @@ public final class BrandingThemeColors {
         /**
          * <p>Base Focus Color</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "base_focus_color", nulls = Nulls.SKIP)
         public _FinalStage baseFocusColor(Optional<String> baseFocusColor) {
             this.baseFocusColor = baseFocusColor;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public BrandingThemeColors build() {
             return new BrandingThemeColors(
                     baseFocusColor,

@@ -100,7 +100,7 @@ public final class GetJobGenericErrorResponseContent {
         return statusDetails;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetJobGenericErrorResponseContent && equalTo((GetJobGenericErrorResponseContent) other);
@@ -120,12 +120,12 @@ public final class GetJobGenericErrorResponseContent {
                 && statusDetails.equals(other.statusDetails);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.status, this.type, this.createdAt, this.id, this.connectionId, this.statusDetails);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -201,7 +201,7 @@ public final class GetJobGenericErrorResponseContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(GetJobGenericErrorResponseContent other) {
             status(other.getStatus());
             type(other.getType());
@@ -217,7 +217,7 @@ public final class GetJobGenericErrorResponseContent {
          * <p>Status of this job.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("status")
         public TypeStage status(@NotNull String status) {
             this.status = Objects.requireNonNull(status, "status must not be null");
@@ -229,7 +229,7 @@ public final class GetJobGenericErrorResponseContent {
          * <p>Type of job this is.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public IdStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
@@ -241,7 +241,7 @@ public final class GetJobGenericErrorResponseContent {
          * <p>ID of this job.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("id")
         public _FinalStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
@@ -252,7 +252,7 @@ public final class GetJobGenericErrorResponseContent {
          * <p>Status details.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage statusDetails(String statusDetails) {
             this.statusDetails = Optional.ofNullable(statusDetails);
             return this;
@@ -261,7 +261,7 @@ public final class GetJobGenericErrorResponseContent {
         /**
          * <p>Status details.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "status_details", nulls = Nulls.SKIP)
         public _FinalStage statusDetails(Optional<String> statusDetails) {
             this.statusDetails = statusDetails;
@@ -272,7 +272,7 @@ public final class GetJobGenericErrorResponseContent {
          * <p>connection_id of the connection this job uses.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage connectionId(String connectionId) {
             this.connectionId = Optional.ofNullable(connectionId);
             return this;
@@ -281,7 +281,7 @@ public final class GetJobGenericErrorResponseContent {
         /**
          * <p>connection_id of the connection this job uses.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "connection_id", nulls = Nulls.SKIP)
         public _FinalStage connectionId(Optional<String> connectionId) {
             this.connectionId = connectionId;
@@ -292,7 +292,7 @@ public final class GetJobGenericErrorResponseContent {
          * <p>When this job was created.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage createdAt(String createdAt) {
             this.createdAt = Optional.ofNullable(createdAt);
             return this;
@@ -301,14 +301,14 @@ public final class GetJobGenericErrorResponseContent {
         /**
          * <p>When this job was created.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public GetJobGenericErrorResponseContent build() {
             return new GetJobGenericErrorResponseContent(
                     status, type, createdAt, id, connectionId, statusDetails, additionalProperties);

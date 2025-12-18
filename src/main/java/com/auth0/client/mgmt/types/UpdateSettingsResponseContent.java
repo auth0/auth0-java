@@ -60,7 +60,7 @@ public final class UpdateSettingsResponseContent {
         return webauthnPlatformFirstFactor;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateSettingsResponseContent && equalTo((UpdateSettingsResponseContent) other);
@@ -77,12 +77,12 @@ public final class UpdateSettingsResponseContent {
                 && webauthnPlatformFirstFactor.equals(other.webauthnPlatformFirstFactor);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.universalLoginExperience, this.identifierFirst, this.webauthnPlatformFirstFactor);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

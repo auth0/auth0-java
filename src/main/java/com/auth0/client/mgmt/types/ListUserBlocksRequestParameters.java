@@ -52,7 +52,7 @@ public final class ListUserBlocksRequestParameters {
         return considerBruteForceEnablement;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListUserBlocksRequestParameters && equalTo((ListUserBlocksRequestParameters) other);
@@ -67,12 +67,12 @@ public final class ListUserBlocksRequestParameters {
         return considerBruteForceEnablement.equals(other.considerBruteForceEnablement);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.considerBruteForceEnablement);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

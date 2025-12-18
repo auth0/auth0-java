@@ -30,20 +30,20 @@ public final class ResourceServerSubjectTypeAuthorizationUserPolicyEnum {
         return value;
     }
 
-    @Override
+    @java.lang.Override
     @JsonValue
     public String toString() {
         return this.string;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
                 || (other instanceof ResourceServerSubjectTypeAuthorizationUserPolicyEnum
                         && this.string.equals(((ResourceServerSubjectTypeAuthorizationUserPolicyEnum) other).string));
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return this.string.hashCode();
     }

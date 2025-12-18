@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -35,6 +36,8 @@ public final class ClientRefreshTokenConfiguration {
 
     private final Optional<Boolean> infiniteIdleTokenLifetime;
 
+    private final Optional<List<ClientRefreshTokenPolicy>> policies;
+
     private final Map<String, Object> additionalProperties;
 
     private ClientRefreshTokenConfiguration(
@@ -45,6 +48,7 @@ public final class ClientRefreshTokenConfiguration {
             Optional<Boolean> infiniteTokenLifetime,
             Optional<Integer> idleTokenLifetime,
             Optional<Boolean> infiniteIdleTokenLifetime,
+            Optional<List<ClientRefreshTokenPolicy>> policies,
             Map<String, Object> additionalProperties) {
         this.rotationType = rotationType;
         this.expirationType = expirationType;
@@ -53,6 +57,7 @@ public final class ClientRefreshTokenConfiguration {
         this.infiniteTokenLifetime = infiniteTokenLifetime;
         this.idleTokenLifetime = idleTokenLifetime;
         this.infiniteIdleTokenLifetime = infiniteIdleTokenLifetime;
+        this.policies = policies;
         this.additionalProperties = additionalProperties;
     }
 
@@ -106,7 +111,15 @@ public final class ClientRefreshTokenConfiguration {
         return infiniteIdleTokenLifetime;
     }
 
-    @Override
+    /**
+     * @return A collection of policies governing multi-resource refresh token exchange (MRRT), defining how refresh tokens can be used across different resource servers
+     */
+    @JsonProperty("policies")
+    public Optional<List<ClientRefreshTokenPolicy>> getPolicies() {
+        return policies;
+    }
+
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientRefreshTokenConfiguration && equalTo((ClientRefreshTokenConfiguration) other);
@@ -124,10 +137,11 @@ public final class ClientRefreshTokenConfiguration {
                 && tokenLifetime.equals(other.tokenLifetime)
                 && infiniteTokenLifetime.equals(other.infiniteTokenLifetime)
                 && idleTokenLifetime.equals(other.idleTokenLifetime)
-                && infiniteIdleTokenLifetime.equals(other.infiniteIdleTokenLifetime);
+                && infiniteIdleTokenLifetime.equals(other.infiniteIdleTokenLifetime)
+                && policies.equals(other.policies);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.rotationType,
@@ -136,10 +150,11 @@ public final class ClientRefreshTokenConfiguration {
                 this.tokenLifetime,
                 this.infiniteTokenLifetime,
                 this.idleTokenLifetime,
-                this.infiniteIdleTokenLifetime);
+                this.infiniteIdleTokenLifetime,
+                this.policies);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -195,6 +210,13 @@ public final class ClientRefreshTokenConfiguration {
         _FinalStage infiniteIdleTokenLifetime(Optional<Boolean> infiniteIdleTokenLifetime);
 
         _FinalStage infiniteIdleTokenLifetime(Boolean infiniteIdleTokenLifetime);
+
+        /**
+         * <p>A collection of policies governing multi-resource refresh token exchange (MRRT), defining how refresh tokens can be used across different resource servers</p>
+         */
+        _FinalStage policies(Optional<List<ClientRefreshTokenPolicy>> policies);
+
+        _FinalStage policies(List<ClientRefreshTokenPolicy> policies);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -202,6 +224,8 @@ public final class ClientRefreshTokenConfiguration {
         private RefreshTokenRotationTypeEnum rotationType;
 
         private RefreshTokenExpirationTypeEnum expirationType;
+
+        private Optional<List<ClientRefreshTokenPolicy>> policies = Optional.empty();
 
         private Optional<Boolean> infiniteIdleTokenLifetime = Optional.empty();
 
@@ -218,7 +242,7 @@ public final class ClientRefreshTokenConfiguration {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(ClientRefreshTokenConfiguration other) {
             rotationType(other.getRotationType());
             expirationType(other.getExpirationType());
@@ -227,17 +251,18 @@ public final class ClientRefreshTokenConfiguration {
             infiniteTokenLifetime(other.getInfiniteTokenLifetime());
             idleTokenLifetime(other.getIdleTokenLifetime());
             infiniteIdleTokenLifetime(other.getInfiniteIdleTokenLifetime());
+            policies(other.getPolicies());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("rotation_type")
         public ExpirationTypeStage rotationType(@NotNull RefreshTokenRotationTypeEnum rotationType) {
             this.rotationType = Objects.requireNonNull(rotationType, "rotationType must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("expiration_type")
         public _FinalStage expirationType(@NotNull RefreshTokenExpirationTypeEnum expirationType) {
             this.expirationType = Objects.requireNonNull(expirationType, "expirationType must not be null");
@@ -245,10 +270,30 @@ public final class ClientRefreshTokenConfiguration {
         }
 
         /**
+         * <p>A collection of policies governing multi-resource refresh token exchange (MRRT), defining how refresh tokens can be used across different resource servers</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage policies(List<ClientRefreshTokenPolicy> policies) {
+            this.policies = Optional.ofNullable(policies);
+            return this;
+        }
+
+        /**
+         * <p>A collection of policies governing multi-resource refresh token exchange (MRRT), defining how refresh tokens can be used across different resource servers</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "policies", nulls = Nulls.SKIP)
+        public _FinalStage policies(Optional<List<ClientRefreshTokenPolicy>> policies) {
+            this.policies = policies;
+            return this;
+        }
+
+        /**
          * <p>Prevents tokens from expiring without use when <code>true</code> (takes precedence over <code>idle_token_lifetime</code> values)</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage infiniteIdleTokenLifetime(Boolean infiniteIdleTokenLifetime) {
             this.infiniteIdleTokenLifetime = Optional.ofNullable(infiniteIdleTokenLifetime);
             return this;
@@ -257,7 +302,7 @@ public final class ClientRefreshTokenConfiguration {
         /**
          * <p>Prevents tokens from expiring without use when <code>true</code> (takes precedence over <code>idle_token_lifetime</code> values)</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "infinite_idle_token_lifetime", nulls = Nulls.SKIP)
         public _FinalStage infiniteIdleTokenLifetime(Optional<Boolean> infiniteIdleTokenLifetime) {
             this.infiniteIdleTokenLifetime = infiniteIdleTokenLifetime;
@@ -268,7 +313,7 @@ public final class ClientRefreshTokenConfiguration {
          * <p>Period (in seconds) for which refresh tokens will remain valid without use</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage idleTokenLifetime(Integer idleTokenLifetime) {
             this.idleTokenLifetime = Optional.ofNullable(idleTokenLifetime);
             return this;
@@ -277,7 +322,7 @@ public final class ClientRefreshTokenConfiguration {
         /**
          * <p>Period (in seconds) for which refresh tokens will remain valid without use</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "idle_token_lifetime", nulls = Nulls.SKIP)
         public _FinalStage idleTokenLifetime(Optional<Integer> idleTokenLifetime) {
             this.idleTokenLifetime = idleTokenLifetime;
@@ -288,7 +333,7 @@ public final class ClientRefreshTokenConfiguration {
          * <p>Prevents tokens from having a set lifetime when <code>true</code> (takes precedence over <code>token_lifetime</code> values)</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage infiniteTokenLifetime(Boolean infiniteTokenLifetime) {
             this.infiniteTokenLifetime = Optional.ofNullable(infiniteTokenLifetime);
             return this;
@@ -297,7 +342,7 @@ public final class ClientRefreshTokenConfiguration {
         /**
          * <p>Prevents tokens from having a set lifetime when <code>true</code> (takes precedence over <code>token_lifetime</code> values)</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "infinite_token_lifetime", nulls = Nulls.SKIP)
         public _FinalStage infiniteTokenLifetime(Optional<Boolean> infiniteTokenLifetime) {
             this.infiniteTokenLifetime = infiniteTokenLifetime;
@@ -308,7 +353,7 @@ public final class ClientRefreshTokenConfiguration {
          * <p>Period (in seconds) for which refresh tokens will remain valid</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage tokenLifetime(Integer tokenLifetime) {
             this.tokenLifetime = Optional.ofNullable(tokenLifetime);
             return this;
@@ -317,7 +362,7 @@ public final class ClientRefreshTokenConfiguration {
         /**
          * <p>Period (in seconds) for which refresh tokens will remain valid</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "token_lifetime", nulls = Nulls.SKIP)
         public _FinalStage tokenLifetime(Optional<Integer> tokenLifetime) {
             this.tokenLifetime = tokenLifetime;
@@ -328,7 +373,7 @@ public final class ClientRefreshTokenConfiguration {
          * <p>Period in seconds where the previous refresh token can be exchanged without triggering breach detection</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage leeway(Integer leeway) {
             this.leeway = Optional.ofNullable(leeway);
             return this;
@@ -337,14 +382,14 @@ public final class ClientRefreshTokenConfiguration {
         /**
          * <p>Period in seconds where the previous refresh token can be exchanged without triggering breach detection</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "leeway", nulls = Nulls.SKIP)
         public _FinalStage leeway(Optional<Integer> leeway) {
             this.leeway = leeway;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public ClientRefreshTokenConfiguration build() {
             return new ClientRefreshTokenConfiguration(
                     rotationType,
@@ -354,6 +399,7 @@ public final class ClientRefreshTokenConfiguration {
                     infiniteTokenLifetime,
                     idleTokenLifetime,
                     infiniteIdleTokenLifetime,
+                    policies,
                     additionalProperties);
         }
     }

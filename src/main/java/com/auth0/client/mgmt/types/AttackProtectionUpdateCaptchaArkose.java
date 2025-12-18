@@ -88,7 +88,7 @@ public final class AttackProtectionUpdateCaptchaArkose {
         return failOpen;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof AttackProtectionUpdateCaptchaArkose
@@ -108,12 +108,12 @@ public final class AttackProtectionUpdateCaptchaArkose {
                 && failOpen.equals(other.failOpen);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.siteKey, this.secret, this.clientSubdomain, this.verifySubdomain, this.failOpen);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -180,7 +180,7 @@ public final class AttackProtectionUpdateCaptchaArkose {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(AttackProtectionUpdateCaptchaArkose other) {
             siteKey(other.getSiteKey());
             secret(other.getSecret());
@@ -195,7 +195,7 @@ public final class AttackProtectionUpdateCaptchaArkose {
          * <p>The site key for the Arkose captcha provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("site_key")
         public SecretStage siteKey(@NotNull String siteKey) {
             this.siteKey = Objects.requireNonNull(siteKey, "siteKey must not be null");
@@ -207,7 +207,7 @@ public final class AttackProtectionUpdateCaptchaArkose {
          * <p>The secret key for the Arkose captcha provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("secret")
         public _FinalStage secret(@NotNull String secret) {
             this.secret = Objects.requireNonNull(secret, "secret must not be null");
@@ -218,7 +218,7 @@ public final class AttackProtectionUpdateCaptchaArkose {
          * <p>Whether the captcha should fail open.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage failOpen(Boolean failOpen) {
             this.failOpen = Optional.ofNullable(failOpen);
             return this;
@@ -227,7 +227,7 @@ public final class AttackProtectionUpdateCaptchaArkose {
         /**
          * <p>Whether the captcha should fail open.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "fail_open", nulls = Nulls.SKIP)
         public _FinalStage failOpen(Optional<Boolean> failOpen) {
             this.failOpen = failOpen;
@@ -238,7 +238,7 @@ public final class AttackProtectionUpdateCaptchaArkose {
          * <p>The subdomain used for server-side verification requests to the Arkose captcha provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage verifySubdomain(String verifySubdomain) {
             this.verifySubdomain = Optional.ofNullable(verifySubdomain);
             return this;
@@ -247,7 +247,7 @@ public final class AttackProtectionUpdateCaptchaArkose {
         /**
          * <p>The subdomain used for server-side verification requests to the Arkose captcha provider.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "verify_subdomain", nulls = Nulls.SKIP)
         public _FinalStage verifySubdomain(Optional<String> verifySubdomain) {
             this.verifySubdomain = verifySubdomain;
@@ -258,7 +258,7 @@ public final class AttackProtectionUpdateCaptchaArkose {
          * <p>The subdomain used for client requests to the Arkose captcha provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage clientSubdomain(String clientSubdomain) {
             this.clientSubdomain = Optional.ofNullable(clientSubdomain);
             return this;
@@ -267,14 +267,14 @@ public final class AttackProtectionUpdateCaptchaArkose {
         /**
          * <p>The subdomain used for client requests to the Arkose captcha provider.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "client_subdomain", nulls = Nulls.SKIP)
         public _FinalStage clientSubdomain(Optional<String> clientSubdomain) {
             this.clientSubdomain = clientSubdomain;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public AttackProtectionUpdateCaptchaArkose build() {
             return new AttackProtectionUpdateCaptchaArkose(
                     siteKey, secret, clientSubdomain, verifySubdomain, failOpen, additionalProperties);

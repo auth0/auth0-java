@@ -44,7 +44,7 @@ public final class FormFieldPaymentConfigChargeOneOffOneOff {
         return currency;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldPaymentConfigChargeOneOffOneOff
@@ -60,12 +60,12 @@ public final class FormFieldPaymentConfigChargeOneOffOneOff {
         return amount.equals(other.amount) && currency.equals(other.currency);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.amount, this.currency);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -99,28 +99,28 @@ public final class FormFieldPaymentConfigChargeOneOffOneOff {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FormFieldPaymentConfigChargeOneOffOneOff other) {
             amount(other.getAmount());
             currency(other.getCurrency());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("amount")
         public CurrencyStage amount(@NotNull FormFieldPaymentConfigChargeOneOffOneOffAmount amount) {
             this.amount = Objects.requireNonNull(amount, "amount must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("currency")
         public _FinalStage currency(@NotNull FormFieldPaymentConfigChargeOneOffCurrencyEnum currency) {
             this.currency = Objects.requireNonNull(currency, "currency must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FormFieldPaymentConfigChargeOneOffOneOff build() {
             return new FormFieldPaymentConfigChargeOneOffOneOff(amount, currency, additionalProperties);
         }

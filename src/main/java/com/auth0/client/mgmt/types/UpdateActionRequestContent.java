@@ -33,6 +33,8 @@ public final class UpdateActionRequestContent {
 
     private final Optional<List<ActionSecretRequest>> secrets;
 
+    private final Optional<List<ActionModuleReference>> modules;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateActionRequestContent(
@@ -42,6 +44,7 @@ public final class UpdateActionRequestContent {
             Optional<List<ActionVersionDependency>> dependencies,
             Optional<String> runtime,
             Optional<List<ActionSecretRequest>> secrets,
+            Optional<List<ActionModuleReference>> modules,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.supportedTriggers = supportedTriggers;
@@ -49,6 +52,7 @@ public final class UpdateActionRequestContent {
         this.dependencies = dependencies;
         this.runtime = runtime;
         this.secrets = secrets;
+        this.modules = modules;
         this.additionalProperties = additionalProperties;
     }
 
@@ -100,7 +104,15 @@ public final class UpdateActionRequestContent {
         return secrets;
     }
 
-    @Override
+    /**
+     * @return The list of action modules and their versions used by this action.
+     */
+    @JsonProperty("modules")
+    public Optional<List<ActionModuleReference>> getModules() {
+        return modules;
+    }
+
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateActionRequestContent && equalTo((UpdateActionRequestContent) other);
@@ -117,16 +129,23 @@ public final class UpdateActionRequestContent {
                 && code.equals(other.code)
                 && dependencies.equals(other.dependencies)
                 && runtime.equals(other.runtime)
-                && secrets.equals(other.secrets);
+                && secrets.equals(other.secrets)
+                && modules.equals(other.modules);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.name, this.supportedTriggers, this.code, this.dependencies, this.runtime, this.secrets);
+                this.name,
+                this.supportedTriggers,
+                this.code,
+                this.dependencies,
+                this.runtime,
+                this.secrets,
+                this.modules);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -149,6 +168,8 @@ public final class UpdateActionRequestContent {
 
         private Optional<List<ActionSecretRequest>> secrets = Optional.empty();
 
+        private Optional<List<ActionModuleReference>> modules = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -161,6 +182,7 @@ public final class UpdateActionRequestContent {
             dependencies(other.getDependencies());
             runtime(other.getRuntime());
             secrets(other.getSecrets());
+            modules(other.getModules());
             return this;
         }
 
@@ -248,9 +270,23 @@ public final class UpdateActionRequestContent {
             return this;
         }
 
+        /**
+         * <p>The list of action modules and their versions used by this action.</p>
+         */
+        @JsonSetter(value = "modules", nulls = Nulls.SKIP)
+        public Builder modules(Optional<List<ActionModuleReference>> modules) {
+            this.modules = modules;
+            return this;
+        }
+
+        public Builder modules(List<ActionModuleReference> modules) {
+            this.modules = Optional.ofNullable(modules);
+            return this;
+        }
+
         public UpdateActionRequestContent build() {
             return new UpdateActionRequestContent(
-                    name, supportedTriggers, code, dependencies, runtime, secrets, additionalProperties);
+                    name, supportedTriggers, code, dependencies, runtime, secrets, modules, additionalProperties);
         }
     }
 }

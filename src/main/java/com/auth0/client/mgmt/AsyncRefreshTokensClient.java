@@ -6,6 +6,8 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.types.GetRefreshTokenResponseContent;
+import com.auth0.client.mgmt.types.UpdateRefreshTokenRequestContent;
+import com.auth0.client.mgmt.types.UpdateRefreshTokenResponseContent;
 import java.util.concurrent.CompletableFuture;
 
 public class AsyncRefreshTokensClient {
@@ -51,5 +53,28 @@ public class AsyncRefreshTokensClient {
      */
     public CompletableFuture<Void> delete(String id, RequestOptions requestOptions) {
         return this.rawClient.delete(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update a refresh token by its ID.
+     */
+    public CompletableFuture<UpdateRefreshTokenResponseContent> update(String id) {
+        return this.rawClient.update(id).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update a refresh token by its ID.
+     */
+    public CompletableFuture<UpdateRefreshTokenResponseContent> update(
+            String id, UpdateRefreshTokenRequestContent request) {
+        return this.rawClient.update(id, request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update a refresh token by its ID.
+     */
+    public CompletableFuture<UpdateRefreshTokenResponseContent> update(
+            String id, UpdateRefreshTokenRequestContent request, RequestOptions requestOptions) {
+        return this.rawClient.update(id, request, requestOptions).thenApply(response -> response.body());
     }
 }

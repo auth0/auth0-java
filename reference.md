@@ -30,12 +30,24 @@ Retrieve all actions.
 client.actions().list(
     ListActionsRequestParameters
         .builder()
-        .triggerId("triggerId")
-        .actionName("actionName")
-        .deployed(true)
-        .page(1)
-        .perPage(1)
-        .installed(true)
+        .triggerId(
+            OptionalNullable.of("triggerId")
+        )
+        .actionName(
+            OptionalNullable.of("actionName")
+        )
+        .deployed(
+            OptionalNullable.of(true)
+        )
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .installed(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -191,7 +203,7 @@ client.actions().create(
 <dl>
 <dd>
 
-**runtime:** `Optional<String>` — The Node runtime. For example: `node12`, defaults to `node12`
+**runtime:** `Optional<String>` — The Node runtime. For example: `node22`, defaults to `node22`
     
 </dd>
 </dl>
@@ -200,6 +212,14 @@ client.actions().create(
 <dd>
 
 **secrets:** `Optional<List<ActionSecretRequest>>` — The list of secrets that are included in an action or a version of an action.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modules:** `Optional<List<ActionModuleReference>>` — The list of action modules and their versions used by this action.
     
 </dd>
 </dl>
@@ -304,7 +324,9 @@ client.actions().delete(
     "id",
     DeleteActionRequestParameters
         .builder()
-        .force(true)
+        .force(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -428,7 +450,7 @@ client.actions().update(
 <dl>
 <dd>
 
-**runtime:** `Optional<String>` — The Node runtime. For example: `node12`, defaults to `node12`
+**runtime:** `Optional<String>` — The Node runtime. For example: `node22`, defaults to `node22`
     
 </dd>
 </dl>
@@ -437,6 +459,14 @@ client.actions().update(
 <dd>
 
 **secrets:** `Optional<List<ActionSecretRequest>>` — The list of secrets that are included in an action or a version of an action.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modules:** `Optional<List<ActionModuleReference>>` — The list of action modules and their versions used by this action.
     
 </dd>
 </dl>
@@ -709,7 +739,7 @@ client.branding().update(
 <dl>
 <dd>
 
-Retrieve a list of <a href="https://auth0.com/docs/api-auth/grant/client-credentials">client grants</a>, including the scopes associated with the application/API pair.
+Retrieve a list of <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grants</a>, including the scopes associated with the application/API pair.
 </dd>
 </dl>
 </dd>
@@ -727,11 +757,24 @@ Retrieve a list of <a href="https://auth0.com/docs/api-auth/grant/client-credent
 client.clientGrants().list(
     ListClientGrantsRequestParameters
         .builder()
-        .from("from")
-        .take(1)
-        .audience("audience")
-        .clientId("client_id")
-        .allowAnyOrganization(true)
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
+        .audience(
+            OptionalNullable.of("audience")
+        )
+        .clientId(
+            OptionalNullable.of("client_id")
+        )
+        .allowAnyOrganization(
+            OptionalNullable.of(true)
+        )
+        .subjectType(
+            OptionalNullable.of(ClientGrantSubjectTypeEnum.CLIENT)
+        )
         .build()
 );
 ```
@@ -784,6 +827,14 @@ client.clientGrants().list(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**subjectType:** `Optional<ClientGrantSubjectTypeEnum>` — The type of application access the client grant allows. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href="https://www.okta.com/legal/"> Master Subscription Agreement.</a>
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -824,9 +875,6 @@ client.clientGrants().create(
         .builder()
         .clientId("client_id")
         .audience("audience")
-        .scope(
-            Arrays.asList("scope")
-        )
         .build()
 );
 ```
@@ -875,7 +923,23 @@ client.clientGrants().create(
 <dl>
 <dd>
 
-**scope:** `List<String>` — Scopes allowed for this client grant.
+**scope:** `Optional<List<String>>` — Scopes allowed for this client grant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**subjectType:** `Optional<ClientGrantSubjectTypeEnum>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**authorizationDetailsTypes:** `Optional<List<String>>` — Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href= "https://www.okta.com/legal/"> Master Subscription Agreement.</a>
     
 </dd>
 </dl>
@@ -1016,6 +1080,14 @@ client.clientGrants().update(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**authorizationDetailsTypes:** `Optional<List<String>>` — Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href= "https://www.okta.com/legal/"> Master Subscription Agreement.</a>
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -1087,15 +1159,33 @@ For more information, read <a href="https://www.auth0.com/docs/get-started/appli
 client.clients().list(
     ListClientsRequestParameters
         .builder()
-        .fields("fields")
-        .includeFields(true)
-        .page(1)
-        .perPage(1)
-        .includeTotals(true)
-        .isGlobal(true)
-        .isFirstParty(true)
-        .appType("app_type")
-        .q("q")
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
+        .isGlobal(
+            OptionalNullable.of(true)
+        )
+        .isFirstParty(
+            OptionalNullable.of(true)
+        )
+        .appType(
+            OptionalNullable.of("app_type")
+        )
+        .q(
+            OptionalNullable.of("q")
+        )
         .build()
 );
 ```
@@ -1344,7 +1434,7 @@ client.clients().create(
 <dl>
 <dd>
 
-**grantTypes:** `Optional<List<String>>` — List of grant types supported for this application. Can include `authorization_code`, `implicit`, `refresh_token`, `client_credentials`, `password`, `http://auth0.com/oauth/grant-type/password-realm`, `http://auth0.com/oauth/grant-type/mfa-oob`, `http://auth0.com/oauth/grant-type/mfa-otp`, `http://auth0.com/oauth/grant-type/mfa-recovery-code`, `urn:openid:params:grant-type:ciba`, and `urn:ietf:params:oauth:grant-type:device_code`.
+**grantTypes:** `Optional<List<String>>` — List of grant types supported for this application. Can include `authorization_code`, `implicit`, `refresh_token`, `client_credentials`, `password`, `http://auth0.com/oauth/grant-type/password-realm`, `http://auth0.com/oauth/grant-type/mfa-oob`, `http://auth0.com/oauth/grant-type/mfa-otp`, `http://auth0.com/oauth/grant-type/mfa-recovery-code`, `urn:openid:params:grant-type:ciba`, `urn:ietf:params:oauth:grant-type:device_code`, and `urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token`.
     
 </dd>
 </dl>
@@ -1353,6 +1443,14 @@ client.clients().create(
 <dd>
 
 **tokenEndpointAuthMethod:** `Optional<ClientTokenEndpointAuthMethodEnum>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**isTokenEndpointIpHeaderTrusted:** `Optional<Boolean>` — If true, trust that the IP specified in the `auth0-forwarded-for` header is the end-user's IP for brute-force-protection on token endpoint.
     
 </dd>
 </dl>
@@ -1536,6 +1634,14 @@ client.clients().create(
 <dl>
 <dd>
 
+**organizationDiscoveryMethods:** `Optional<List<ClientOrganizationDiscoveryEnum>>` — Defines the available methods for organization discovery during the `pre_login_prompt`. Users can discover their organization either by `email`, `organization_name` or both.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **clientAuthenticationMethods:** `Optional<ClientCreateAuthenticationMethod>` 
     
 </dd>
@@ -1576,6 +1682,26 @@ client.clients().create(
 <dl>
 <dd>
 
+**skipNonVerifiableCallbackUriConfirmationPrompt:** `Optional<Boolean>` 
+
+Controls whether a confirmation prompt is shown during login flows when the redirect URI uses non-verifiable callback URIs (for example, a custom URI schema such as `myapp://`, or `localhost`).
+If set to true, a confirmation prompt will not be shown. We recommend that this is set to false for improved protection from malicious apps.
+See https://auth0.com/docs/secure/security-guidance/measures-against-app-impersonation for more information.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tokenExchange:** `Optional<ClientTokenExchangeConfiguration>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **parRequestExpiry:** `Optional<Integer>` — Specifies how long, in seconds, a Pushed Authorization Request URI remains valid
     
 </dd>
@@ -1593,6 +1719,22 @@ client.clients().create(
 <dd>
 
 **resourceServerIdentifier:** `Optional<String>` — The identifier of the resource server that this client is linked to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expressConfiguration:** `Optional<ExpressConfiguration>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**asyncApprovalNotificationChannels:** `Optional<List<AsyncApprovalNotificationsChannelsEnum>>` 
     
 </dd>
 </dl>
@@ -1665,8 +1807,12 @@ client.clients().get(
     "id",
     GetClientRequestParameters
         .builder()
-        .fields("fields")
-        .includeFields(true)
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -1908,7 +2054,7 @@ client.clients().update(
 <dl>
 <dd>
 
-**grantTypes:** `Optional<List<String>>` — A set of grant types that the client is authorized to use. Can include `authorization_code`, `implicit`, `refresh_token`, `client_credentials`, `password`, `http://auth0.com/oauth/grant-type/password-realm`, `http://auth0.com/oauth/grant-type/mfa-oob`, `http://auth0.com/oauth/grant-type/mfa-otp`, `http://auth0.com/oauth/grant-type/mfa-recovery-code`, `urn:openid:params:grant-type:ciba`, and `urn:ietf:params:oauth:grant-type:device_code`.
+**grantTypes:** `Optional<List<String>>` — A set of grant types that the client is authorized to use. Can include `authorization_code`, `implicit`, `refresh_token`, `client_credentials`, `password`, `http://auth0.com/oauth/grant-type/password-realm`, `http://auth0.com/oauth/grant-type/mfa-oob`, `http://auth0.com/oauth/grant-type/mfa-otp`, `http://auth0.com/oauth/grant-type/mfa-recovery-code`, `urn:openid:params:grant-type:ciba`, `urn:ietf:params:oauth:grant-type:device_code`, and `urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token`.
     
 </dd>
 </dl>
@@ -1997,6 +2143,14 @@ client.clients().update(
 <dd>
 
 **tokenEndpointAuthMethod:** `Optional<ClientTokenEndpointAuthMethodOrNullEnum>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**isTokenEndpointIpHeaderTrusted:** `Optional<Boolean>` — If true, trust that the IP specified in the `auth0-forwarded-for` header is the end-user's IP for brute-force-protection on token endpoint.
     
 </dd>
 </dl>
@@ -2132,6 +2286,14 @@ client.clients().update(
 <dl>
 <dd>
 
+**organizationDiscoveryMethods:** `Optional<List<ClientOrganizationDiscoveryEnum>>` — Defines the available methods for organization discovery during the `pre_login_prompt`. Users can discover their organization either by `email`, `organization_name` or both.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **clientAuthenticationMethods:** `Optional<ClientAuthenticationMethod>` 
     
 </dd>
@@ -2172,7 +2334,43 @@ client.clients().update(
 <dl>
 <dd>
 
+**skipNonVerifiableCallbackUriConfirmationPrompt:** `Optional<Boolean>` 
+
+Controls whether a confirmation prompt is shown during login flows when the redirect URI uses non-verifiable callback URIs (for example, a custom URI schema such as `myapp://`, or `localhost`).
+If set to true, a confirmation prompt will not be shown. We recommend that this is set to false for improved protection from malicious apps.
+See https://auth0.com/docs/secure/security-guidance/measures-against-app-impersonation for more information.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tokenExchange:** `Optional<ClientTokenExchangeConfigurationOrNull>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **parRequestExpiry:** `Optional<Integer>` — Specifies how long, in seconds, a Pushed Authorization Request URI remains valid
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expressConfiguration:** `Optional<ExpressConfigurationOrNull>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**asyncApprovalNotificationChannels:** `Optional<List<AsyncApprovalNotificationsChannelsEnum>>` 
     
 </dd>
 </dl>
@@ -2242,6 +2440,486 @@ client.clients().rotateSecret("id");
 </dl>
 </details>
 
+## ConnectionProfiles
+<details><summary><code>client.connectionProfiles.list() -> SyncPagingIterable&lt;ConnectionProfile&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a list of Connection Profiles. This endpoint supports Checkpoint pagination.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.connectionProfiles().list(
+    ListConnectionProfileRequestParameters
+        .builder()
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**from:** `Optional<String>` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `Optional<Integer>` — Number of results per page. Defaults to 5.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.connectionProfiles.create(request) -> CreateConnectionProfileResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a Connection Profile.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.connectionProfiles().create(
+    CreateConnectionProfileRequestContent
+        .builder()
+        .name("name")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**organization:** `Optional<ConnectionProfileOrganization>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connectionNamePrefixTemplate:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**enabledFeatures:** `Optional<List<EnabledFeaturesEnum>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connectionConfig:** `Optional<ConnectionProfileConfig>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**strategyOverrides:** `Optional<ConnectionProfileStrategyOverrides>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.connectionProfiles.listTemplates() -> ListConnectionProfileTemplateResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a list of Connection Profile Templates.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.connectionProfiles().listTemplates();
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.connectionProfiles.getTemplate(id) -> GetConnectionProfileTemplateResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a Connection Profile Template.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.connectionProfiles().getTemplate("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the connection-profile-template to retrieve.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.connectionProfiles.get(id) -> GetConnectionProfileResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve details about a single Connection Profile specified by ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.connectionProfiles().get("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the connection-profile to retrieve.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.connectionProfiles.delete(id)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a single Connection Profile specified by ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.connectionProfiles().delete("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the connection-profile to delete.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.connectionProfiles.update(id, request) -> UpdateConnectionProfileResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the details of a specific Connection Profile.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.connectionProfiles().update(
+    "id",
+    UpdateConnectionProfileRequestContent
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the connection profile to update.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**organization:** `Optional<ConnectionProfileOrganization>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connectionNamePrefixTemplate:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**enabledFeatures:** `Optional<List<EnabledFeaturesEnum>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connectionConfig:** `Optional<ConnectionProfileConfig>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**strategyOverrides:** `Optional<ConnectionProfileStrategyOverrides>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Connections
 <details><summary><code>client.connections.list() -> SyncPagingIterable&lt;ConnectionForList&gt;</code></summary>
 <dl>
@@ -2291,11 +2969,21 @@ To search by checkpoint, use the following parameters:
 client.connections().list(
     ListConnectionsQueryParameters
         .builder()
-        .from("from")
-        .take(1)
-        .name("name")
-        .fields("fields")
-        .includeFields(true)
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
+        .name(
+            OptionalNullable.of("name")
+        )
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -2476,7 +3164,23 @@ client.connections().create(
 <dl>
 <dd>
 
-**metadata:** `Optional<Map<String, Object>>` 
+**metadata:** `Optional<Map<String, Optional<String>>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**authentication:** `Optional<ConnectionAuthenticationPurpose>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connectedAccounts:** `Optional<ConnectionConnectedAccountsPurpose>` 
     
 </dd>
 </dl>
@@ -2519,8 +3223,12 @@ client.connections().get(
     "id",
     GetConnectionRequestParameters
         .builder()
-        .fields("fields")
-        .includeFields(true)
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -2724,7 +3432,23 @@ client.connections().update(
 <dl>
 <dd>
 
-**metadata:** `Optional<Map<String, Object>>` 
+**metadata:** `Optional<Map<String, Optional<String>>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**authentication:** `Optional<ConnectionAuthenticationPurpose>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connectedAccounts:** `Optional<ConnectionConnectedAccountsPurpose>` 
     
 </dd>
 </dl>
@@ -2818,8 +3542,63 @@ Retrieve details on <a href="https://auth0.com/docs/custom-domains">custom domai
 <dd>
 
 ```java
-client.customDomains().list();
+client.customDomains().list(
+    ListCustomDomainsRequestParameters
+        .builder()
+        .q(
+            OptionalNullable.of("q")
+        )
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
+        .sort(
+            OptionalNullable.of("sort")
+        )
+        .build()
+);
 ```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**q:** `Optional<String>` — Query in <a href ="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene query string syntax</a>.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `Optional<String>` — Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**includeFields:** `Optional<Boolean>` — Whether specified fields are to be included (true) or excluded (false).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort:** `Optional<String>` — Field to sort by. Only <code>domain:1</code> (ascending order by domain) is supported at this time.
+    
 </dd>
 </dl>
 </dd>
@@ -2924,6 +3703,14 @@ client.customDomains().create(
 <dd>
 
 **customClientIpHeader:** `Optional<CustomDomainCustomClientIpHeaderEnum>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**domainMetadata:** `Optional<Map<String, Optional<String>>>` 
     
 </dd>
 </dl>
@@ -3133,6 +3920,14 @@ client.customDomains().update(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**domainMetadata:** `Optional<Map<String, Optional<String>>>` 
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -3287,14 +4082,30 @@ Retrieve device credential information (<code>public_key</code>, <code>refresh_t
 client.deviceCredentials().list(
     ListDeviceCredentialsRequestParameters
         .builder()
-        .page(1)
-        .perPage(1)
-        .includeTotals(true)
-        .fields("fields")
-        .includeFields(true)
-        .userId("user_id")
-        .clientId("client_id")
-        .type(DeviceCredentialTypeEnum.PUBLIC_KEY)
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
+        .userId(
+            OptionalNullable.of("user_id")
+        )
+        .clientId(
+            OptionalNullable.of("client_id")
+        )
+        .type(
+            OptionalNullable.of(DeviceCredentialTypeEnum.PUBLIC_KEY)
+        )
         .build()
 );
 ```
@@ -3971,7 +4782,7 @@ client.emailTemplates().update(
 </details>
 
 ## EventStreams
-<details><summary><code>client.eventStreams.list() -> List&lt;EventStreamResponseContent&gt;</code></summary>
+<details><summary><code>client.eventStreams.list() -> ListEventStreamsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -3987,8 +4798,12 @@ client.emailTemplates().update(
 client.eventStreams().list(
     ListEventStreamsRequestParameters
         .builder()
-        .from("from")
-        .take(1)
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
         .build()
 );
 ```
@@ -4249,69 +5064,6 @@ client.eventStreams().update(
 </dl>
 </details>
 
-<details><summary><code>client.eventStreams.getStats(id) -> GetEventStreamStatsResponseContent</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.eventStreams().getStats(
-    "id",
-    EventStreamsGetStatsRequest
-        .builder()
-        .dateFrom("date_from")
-        .dateTo("date_to")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `String` — Unique identifier for the event stream.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**dateFrom:** `Optional<String>` — The RFC3339 start date for the stats query.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**dateTo:** `Optional<String>` — The RFC3339 end date for the stats query.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.eventStreams.test(id, request) -> CreateEventStreamTestEventResponseContent</code></summary>
 <dl>
 <dd>
@@ -4391,10 +5143,18 @@ client.eventStreams().test(
 client.flows().list(
     FlowsListRequest
         .builder()
-        .page(1)
-        .perPage(1)
-        .includeTotals(true)
-        .synchronous(true)
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
+        .synchronous(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -4679,9 +5439,15 @@ client.flows().update(
 client.forms().list(
     ListFormsRequestParameters
         .builder()
-        .page(1)
-        .perPage(1)
-        .includeTotals(true)
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -4791,7 +5557,7 @@ client.forms().create(
 <dl>
 <dd>
 
-**translations:** `Optional<Map<String, Object>>` 
+**translations:** `Optional<Map<String, Map<String, Object>>>` 
     
 </dd>
 </dl>
@@ -4993,7 +5759,7 @@ client.forms().update(
 <dl>
 <dd>
 
-**translations:** `Optional<Map<String, Object>>` 
+**translations:** `Optional<Map<String, Map<String, Object>>>` 
     
 </dd>
 </dl>
@@ -5068,12 +5834,24 @@ Retrieve the <a href="https://auth0.com/docs/api-auth/which-oauth-flow-to-use">g
 client.userGrants().list(
     ListUserGrantsRequestParameters
         .builder()
-        .perPage(1)
-        .page(1)
-        .includeTotals(true)
-        .userId("user_id")
-        .clientId("client_id")
-        .audience("audience")
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .page(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
+        .userId(
+            OptionalNullable.of("user_id")
+        )
+        .clientId(
+            OptionalNullable.of("client_id")
+        )
+        .audience(
+            OptionalNullable.of("audience")
+        )
         .build()
 );
 ```
@@ -5286,12 +6064,24 @@ Retrieve all <a href="https://auth0.com/docs/hooks">hooks</a>. Accepts a list of
 client.hooks().list(
     ListHooksRequestParameters
         .builder()
-        .page(1)
-        .perPage(1)
-        .includeTotals(true)
-        .enabled(true)
-        .fields("fields")
-        .triggerId(HookTriggerIdEnum.CREDENTIALS_EXCHANGE)
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
+        .enabled(
+            OptionalNullable.of(true)
+        )
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .triggerId(
+            OptionalNullable.of(HookTriggerIdEnum.CREDENTIALS_EXCHANGE)
+        )
         .build()
 );
 ```
@@ -5433,7 +6223,7 @@ client.hooks().create(
 <dl>
 <dd>
 
-**dependencies:** `Optional<Map<String, Object>>` 
+**dependencies:** `Optional<Map<String, String>>` 
     
 </dd>
 </dl>
@@ -5484,7 +6274,9 @@ client.hooks().get(
     "id",
     GetHookRequestParameters
         .builder()
-        .fields("fields")
+        .fields(
+            OptionalNullable.of("fields")
+        )
         .build()
 );
 ```
@@ -5654,7 +6446,7 @@ client.hooks().update(
 <dl>
 <dd>
 
-**dependencies:** `Optional<Map<String, Object>>` 
+**dependencies:** `Optional<Map<String, String>>` 
     
 </dd>
 </dl>
@@ -6427,13 +7219,27 @@ Auth0 <a href="https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#li
 client.logs().list(
     ListLogsRequestParameters
         .builder()
-        .page(1)
-        .perPage(1)
-        .sort("sort")
-        .fields("fields")
-        .includeFields(true)
-        .includeTotals(true)
-        .q("q")
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .sort(
+            OptionalNullable.of("sort")
+        )
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
+        .search(
+            OptionalNullable.of("search")
+        )
         .build()
 );
 ```
@@ -6498,7 +7304,11 @@ client.logs().list(
 <dl>
 <dd>
 
-**q:** `Optional<String>` — Query in <a target='_new' href ='http://www.lucenetutorial.com/lucene-query-syntax.html'>Lucene query string syntax</a>.
+**search:** `Optional<String>` 
+
+Retrieves logs that match the specified search criteria. This parameter can be combined with all the others in the /api/logs endpoint but is specified separately for clarity.
+If no fields are provided a case insensitive 'starts with' search is performed on all of the following fields: client_name, connection, user_name. Otherwise, you can specify multiple fields and specify the search using the %field%:%search%, for example: application:node user:"John@contoso.com".
+Values specified without quotes are matched using a case insensitive 'starts with' search. If quotes are used a case insensitve exact search is used. If multiple fields are used, the AND operator is used to join the clauses.
     
 </dd>
 </dl>
@@ -6595,9 +7405,15 @@ Get all access control list entries for your client.
 client.networkAcls().list(
     ListNetworkAclsRequestParameters
         .builder()
-        .page(1)
-        .perPage(1)
-        .includeTotals(true)
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -7091,9 +7907,15 @@ To search by checkpoint, use the following parameters:
 client.organizations().list(
     ListOrganizationsRequestParameters
         .builder()
-        .from("from")
-        .take(1)
-        .sort("sort")
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
+        .sort(
+            OptionalNullable.of("sort")
+        )
         .build()
 );
 ```
@@ -7209,7 +8031,7 @@ client.organizations().create(
 <dl>
 <dd>
 
-**metadata:** `Optional<Map<String, Object>>` 
+**metadata:** `Optional<Map<String, Optional<String>>>` 
     
 </dd>
 </dl>
@@ -7480,7 +8302,7 @@ client.organizations().update(
 <dl>
 <dd>
 
-**metadata:** `Optional<Map<String, Object>>` 
+**metadata:** `Optional<Map<String, Optional<String>>>` 
     
 </dd>
 </dl>
@@ -7723,6 +8545,73 @@ client.refreshTokens().delete("id");
 </dl>
 </details>
 
+<details><summary><code>client.refreshTokens.update(id, request) -> UpdateRefreshTokenResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update a refresh token by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.refreshTokens().update(
+    "id",
+    UpdateRefreshTokenRequestContent
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the refresh token to update.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**refreshTokenMetadata:** `Optional<Map<String, Object>>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## ResourceServers
 <details><summary><code>client.resourceServers.list() -> SyncPagingIterable&lt;ResourceServer&gt;</code></summary>
 <dl>
@@ -7754,10 +8643,18 @@ Retrieve details of all APIs associated with your tenant.
 client.resourceServers().list(
     ListResourceServerRequestParameters
         .builder()
-        .page(1)
-        .perPage(1)
-        .includeTotals(true)
-        .includeFields(true)
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -7973,6 +8870,14 @@ client.resourceServers().create(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**subjectTypeAuthorization:** `Optional<ResourceServerSubjectTypeAuthorization>` 
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -8012,7 +8917,9 @@ client.resourceServers().get(
     "id",
     GetResourceServerRequestParameters
         .builder()
-        .includeFields(true)
+        .includeFields(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -8258,6 +9165,14 @@ client.resourceServers().update(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**subjectTypeAuthorization:** `Optional<ResourceServerSubjectTypeAuthorization>` 
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -8299,10 +9214,18 @@ Retrieve detailed list of user roles created in your tenant.
 client.roles().list(
     ListRolesRequestParameters
         .builder()
-        .perPage(1)
-        .page(1)
-        .includeTotals(true)
-        .nameFilter("name_filter")
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .page(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
+        .nameFilter(
+            OptionalNullable.of("name_filter")
+        )
         .build()
 );
 ```
@@ -8638,12 +9561,24 @@ Retrieve a filtered list of <a href="https://auth0.com/docs/rules">rules</a>. Ac
 client.rules().list(
     ListRulesRequestParameters
         .builder()
-        .page(1)
-        .perPage(1)
-        .includeTotals(true)
-        .enabled(true)
-        .fields("fields")
-        .includeFields(true)
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
+        .enabled(
+            OptionalNullable.of(true)
+        )
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -8829,8 +9764,12 @@ client.rules().get(
     "id",
     GetRuleRequestParameters
         .builder()
-        .fields("fields")
-        .includeFields(true)
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -9215,9 +10154,15 @@ Retrieves self-service profiles.
 client.selfServiceProfiles().list(
     ListSelfServiceProfilesRequestParameters
         .builder()
-        .page(1)
-        .perPage(1)
-        .includeTotals(true)
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -9342,6 +10287,14 @@ client.selfServiceProfiles().create(
 <dd>
 
 **userAttributes:** `Optional<List<SelfServiceProfileUserAttribute>>` — List of attributes to be mapped that will be shown to the user during the SS-SSO flow.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**userAttributeProfileId:** `Optional<String>` — ID of the user-attribute-profile to associate with this self-service profile.
     
 </dd>
 </dl>
@@ -9552,6 +10505,14 @@ client.selfServiceProfiles().update(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**userAttributeProfileId:** `Optional<String>` — ID of the user-attribute-profile to associate with this self-service profile.
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -9658,6 +10619,73 @@ client.sessions().delete("id");
 <dd>
 
 **id:** `String` — ID of the session to delete.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sessions.update(id, request) -> UpdateSessionResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update session information.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.sessions().update(
+    "id",
+    UpdateSessionRequestContent
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the session to update.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sessionMetadata:** `Optional<Map<String, Object>>` 
     
 </dd>
 </dl>
@@ -9793,8 +10821,12 @@ Retrieve the number of logins, signups and breached-password detections (subscri
 client.stats().getDaily(
     GetDailyStatsRequestParameters
         .builder()
-        .from("from")
-        .to("to")
+        .from(
+            OptionalNullable.of("from")
+        )
+        .to(
+            OptionalNullable.of("to")
+        )
         .build()
 );
 ```
@@ -10154,6 +11186,14 @@ client.tickets().changePassword(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**identity:** `Optional<ChangePasswordTicketIdentity>` 
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -10176,6 +11216,8 @@ client.tickets().changePassword(
 <dd>
 
 Retrieve a list of all Token Exchange Profiles available in your tenant.
+
+By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta’s Master Subscription Agreement</a>. It is your responsibility to securely validate the user’s subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.
 
 This endpoint supports Checkpoint pagination. To search by checkpoint, use the following parameters:
 <ul>
@@ -10201,8 +11243,12 @@ This endpoint supports Checkpoint pagination. To search by checkpoint, use the f
 client.tokenExchangeProfiles().list(
     TokenExchangeProfilesListRequest
         .builder()
-        .from("from")
-        .take(1)
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
         .build()
 );
 ```
@@ -10252,6 +11298,8 @@ client.tokenExchangeProfiles().list(
 <dd>
 
 Create a new Token Exchange Profile within your tenant.
+
+By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta’s Master Subscription Agreement</a>. It is your responsibility to securely validate the user’s subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.
 </dd>
 </dl>
 </dd>
@@ -10338,6 +11386,8 @@ client.tokenExchangeProfiles().create(
 <dd>
 
 Retrieve details about a single Token Exchange Profile specified by ID.
+
+By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta’s Master Subscription Agreement</a>. It is your responsibility to securely validate the user’s subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.
 </dd>
 </dl>
 </dd>
@@ -10392,6 +11442,9 @@ client.tokenExchangeProfiles().get("id");
 <dd>
 
 Delete a Token Exchange Profile within your tenant.
+
+By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta's Master Subscription Agreement</a>. It is your responsibility to securely validate the user's subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.
+
 </dd>
 </dl>
 </dd>
@@ -10446,6 +11499,9 @@ client.tokenExchangeProfiles().delete("id");
 <dd>
 
 Update a Token Exchange Profile within your tenant.
+
+By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta's Master Subscription Agreement</a>. It is your responsibility to securely validate the user's subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.
+
 </dd>
 </dl>
 </dd>
@@ -10508,6 +11564,449 @@ client.tokenExchangeProfiles().update(
 </dl>
 </details>
 
+## UserAttributeProfiles
+<details><summary><code>client.userAttributeProfiles.list() -> SyncPagingIterable&lt;UserAttributeProfile&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a list of User Attribute Profiles. This endpoint supports Checkpoint pagination.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.userAttributeProfiles().list(
+    ListUserAttributeProfileRequestParameters
+        .builder()
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**from:** `Optional<String>` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `Optional<Integer>` — Number of results per page. Defaults to 5.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userAttributeProfiles.create(request) -> CreateUserAttributeProfileResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve details about a single User Attribute Profile specified by ID. 
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.userAttributeProfiles().create(
+    CreateUserAttributeProfileRequestContent
+        .builder()
+        .name("name")
+        .userAttributes(
+            new HashMap<String, UserAttributeProfileUserAttributeAdditionalProperties>() {{
+                put("key", UserAttributeProfileUserAttributeAdditionalProperties
+                    .builder()
+                    .description("description")
+                    .label("label")
+                    .profileRequired(true)
+                    .auth0Mapping("auth0_mapping")
+                    .build());
+            }}
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**userId:** `Optional<UserAttributeProfileUserId>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**userAttributes:** `Map<String, UserAttributeProfileUserAttributeAdditionalProperties>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userAttributeProfiles.listTemplates() -> ListUserAttributeProfileTemplateResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a list of User Attribute Profile Templates.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.userAttributeProfiles().listTemplates();
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userAttributeProfiles.getTemplate(id) -> GetUserAttributeProfileTemplateResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a User Attribute Profile Template.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.userAttributeProfiles().getTemplate("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the user-attribute-profile-template to retrieve.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userAttributeProfiles.get(id) -> GetUserAttributeProfileResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve details about a single User Attribute Profile specified by ID. 
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.userAttributeProfiles().get("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the user-attribute-profile to retrieve.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userAttributeProfiles.delete(id)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a single User Attribute Profile specified by ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.userAttributeProfiles().delete("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the user-attribute-profile to delete.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userAttributeProfiles.update(id, request) -> UpdateUserAttributeProfileResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the details of a specific User attribute profile, such as name, user_id and user_attributes.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.userAttributeProfiles().update(
+    "id",
+    UpdateUserAttributeProfileRequestContent
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the user attribute profile to update.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**userId:** `Optional<UserAttributeProfileUserId>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**userAttributes:** `Optional<Map<String, UserAttributeProfileUserAttributeAdditionalProperties>>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## UserBlocks
 <details><summary><code>client.userBlocks.listByIdentifier() -> ListUserBlocksByIdentifierResponseContent</code></summary>
 <dl>
@@ -10540,7 +12039,9 @@ client.userBlocks().listByIdentifier(
     ListUserBlocksByIdentifierRequestParameters
         .builder()
         .identifier("identifier")
-        .considerBruteForceEnablement(true)
+        .considerBruteForceEnablement(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -10674,7 +12175,9 @@ client.userBlocks().list(
     "id",
     ListUserBlocksRequestParameters
         .builder()
-        .considerBruteForceEnablement(true)
+        .considerBruteForceEnablement(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -10816,16 +12319,36 @@ Auth0 limits the number of users you can return. If you exceed this threshold, p
 client.users().list(
     ListUsersRequestParameters
         .builder()
-        .page(1)
-        .perPage(1)
-        .includeTotals(true)
-        .sort("sort")
-        .connection("connection")
-        .fields("fields")
-        .includeFields(true)
-        .q("q")
-        .searchEngine(SearchEngineVersionsEnum.V1)
-        .primaryOrder(true)
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
+        .sort(
+            OptionalNullable.of("sort")
+        )
+        .connection(
+            OptionalNullable.of("connection")
+        )
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
+        .q(
+            OptionalNullable.of("q")
+        )
+        .searchEngine(
+            OptionalNullable.of(SearchEngineVersionsEnum.V1)
+        )
+        .primaryOrder(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -11150,8 +12673,12 @@ client.users().listUsersByEmail(
     ListUsersByEmailRequestParameters
         .builder()
         .email("email")
-        .fields("fields")
-        .includeFields(true)
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -11227,8 +12754,12 @@ client.users().get(
     "id",
     GetUserRequestParameters
         .builder()
-        .fields("fields")
-        .includeFields(true)
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -11760,8 +13291,12 @@ client.actions().versions().list(
     "actionId",
     ListActionVersionsRequestParameters
         .builder()
-        .page(1)
-        .perPage(1)
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
         .build()
 );
 ```
@@ -11898,7 +13433,7 @@ Performs the equivalent of a roll-back of an action to an earlier, specified ver
 client.actions().versions().deploy(
     "actionId",
     "id",
-    Optional.empty()
+    OptionalNullable.absent()
 );
 ```
 </dd>
@@ -12069,8 +13604,12 @@ client.actions().triggers().bindings().list(
     "triggerId",
     ListActionTriggerBindingsRequestParameters
         .builder()
-        .page(1)
-        .perPage(1)
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
         .build()
 );
 ```
@@ -12280,6 +13819,144 @@ client.anomaly().blocks().unblockIp("id");
 <dd>
 
 **id:** `String` — IP address to unblock.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## AttackProtection BotDetection
+<details><summary><code>client.attackProtection.botDetection.get() -> GetBotDetectionSettingsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the Bot Detection configuration of your tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.attackProtection().botDetection().get();
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.attackProtection.botDetection.update(request) -> UpdateBotDetectionSettingsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the Bot Detection configuration of your tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.attackProtection().botDetection().update(
+    UpdateBotDetectionSettingsRequestContent
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**botDetectionLevel:** `Optional<BotDetectionLevelEnum>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**challengePasswordPolicy:** `Optional<BotDetectionChallengePolicyPasswordFlowEnum>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**challengePasswordlessPolicy:** `Optional<BotDetectionChallengePolicyPasswordlessFlowEnum>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**challengePasswordResetPolicy:** `Optional<BotDetectionChallengePolicyPasswordResetFlowEnum>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**allowlist:** `Optional<List<String>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**monitoringModeEnabled:** `Optional<Boolean>` 
     
 </dd>
 </dl>
@@ -12563,6 +14240,160 @@ Account Lockout: Determines whether or not IP address is used when counting fail
 </dl>
 </details>
 
+## AttackProtection Captcha
+<details><summary><code>client.attackProtection.captcha.get() -> GetAttackProtectionCaptchaResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the CAPTCHA configuration for your client.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.attackProtection().captcha().get();
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.attackProtection.captcha.update(request) -> UpdateAttackProtectionCaptchaResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update existing CAPTCHA configuration for your client.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.attackProtection().captcha().update(
+    UpdateAttackProtectionCaptchaRequestContent
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**activeProviderId:** `Optional<AttackProtectionCaptchaProviderId>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**arkose:** `Optional<AttackProtectionUpdateCaptchaArkose>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**authChallenge:** `Optional<AttackProtectionCaptchaAuthChallengeRequest>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**hcaptcha:** `Optional<AttackProtectionUpdateCaptchaHcaptcha>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**friendlyCaptcha:** `Optional<AttackProtectionUpdateCaptchaFriendlyCaptcha>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**recaptchaEnterprise:** `Optional<AttackProtectionUpdateCaptchaRecaptchaEnterprise>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**recaptchaV2:** `Optional<AttackProtectionUpdateCaptchaRecaptchaV2>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**simpleCaptcha:** `Optional<Map<String, Object>>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## AttackProtection SuspiciousIpThrottling
 <details><summary><code>client.attackProtection.suspiciousIpThrottling.get() -> GetSuspiciousIpThrottlingSettingsResponseContent</code></summary>
 <dl>
@@ -12728,28 +14559,27 @@ client.branding().templates().getUniversalLogin();
 
 Update the Universal Login branding template.
 
-<p>When <code>content-type</code> header is set to <code>application/json</code>, the expected body must be JSON:</p>
+<p>When <code>content-type</code> header is set to <code>application/json</code>:</p>
 <pre>
 {
-  "template": "&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;{%- auth0:head -%}&lt;/head&gt;&lt;body&gt;{%- auth0:widget -%}&lt;/body&gt;&lt;/html&gt;"
+  "template": "&lt;!DOCTYPE html&gt;{% assign resolved_dir = dir | default: "auto" %}&lt;html lang="{{locale}}" dir="{{resolved_dir}}"&gt;&lt;head&gt;{%- auth0:head -%}&lt;/head&gt;&lt;body class="_widget-auto-layout"&gt;{%- auth0:widget -%}&lt;/body&gt;&lt;/html&gt;"
 }
 </pre>
 
 <p>
-  When <code>content-type</code> header is set to <code>text/html</code>, the expected body must be the HTML template:
+  When <code>content-type</code> header is set to <code>text/html</code>:
 </p>
 <pre>
 &lt!DOCTYPE html&gt;
-&lt;code&gt;
-  &lt;html&gt;
-    &lt;head&gt;
-     {%- auth0:head -%}
-    &lt;/head&gt;
-    &lt;body&gt;
-      {%- auth0:widget -%}
-    &lt;/body&gt;
-  &lt;/html&gt;
-&lt;/code&gt;
+{% assign resolved_dir = dir | default: "auto" %}
+&lt;html lang="{{locale}}" dir="{{resolved_dir}}"&gt;
+  &lt;head&gt;
+    {%- auth0:head -%}
+  &lt;/head&gt;
+  &lt;body class="_widget-auto-layout"&gt;
+    {%- auth0:widget -%}
+  &lt;/body&gt;
+&lt;/html&gt;
 </pre>
 </dd>
 </dl>
@@ -13409,7 +15239,9 @@ Retrieve a list of <a href="https://auth0.com/docs/customize/phone-messages/conf
 client.branding().phone().providers().list(
     ListBrandingPhoneProvidersRequestParameters
         .builder()
-        .disabled(true)
+        .disabled(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -13809,7 +15641,9 @@ client.branding().phone().providers().test(
 client.branding().phone().templates().list(
     ListPhoneTemplatesRequestParameters
         .builder()
-        .disabled(true)
+        .disabled(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -14169,8 +16003,12 @@ client.clientGrants().organizations().list(
     "id",
     ListClientGrantOrganizationsRequestParameters
         .builder()
-        .from("from")
-        .take(1)
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
         .build()
 );
 ```
@@ -14662,10 +16500,18 @@ client.clients().connections().get(
     "id",
     ConnectionsGetRequest
         .builder()
-        .from("from")
-        .take(1)
-        .fields("fields")
-        .includeFields(true)
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -14768,8 +16614,12 @@ client.connections().clients().get(
     "id",
     GetConnectionEnabledClientsRequestParameters
         .builder()
-        .take(1)
-        .from("from")
+        .take(
+            OptionalNullable.of(1)
+        )
+        .from(
+            OptionalNullable.of("from")
+        )
         .build()
 );
 ```
@@ -14871,6 +16721,299 @@ client.connections().clients().update(
 </dl>
 </details>
 
+## Connections DirectoryProvisioning
+<details><summary><code>client.connections.directoryProvisioning.get(id) -> GetDirectoryProvisioningResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the directory provisioning configuration of a connection.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.connections().directoryProvisioning().get("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The id of the connection to retrieve its directory provisioning configuration
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.connections.directoryProvisioning.create(id, request) -> CreateDirectoryProvisioningResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a directory provisioning configuration for a connection.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.connections().directoryProvisioning().create(
+    "id",
+    OptionalNullable.absent()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The id of the connection to create its directory provisioning configuration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Optional<CreateDirectoryProvisioningRequestContent>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.connections.directoryProvisioning.delete(id)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete the directory provisioning configuration of a connection.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.connections().directoryProvisioning().delete("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The id of the connection to delete its directory provisioning configuration
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.connections.directoryProvisioning.update(id, request) -> UpdateDirectoryProvisioningResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the directory provisioning configuration of a connection.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.connections().directoryProvisioning().update(
+    "id",
+    OptionalNullable.absent()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The id of the connection to create its directory provisioning configuration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Optional<UpdateDirectoryProvisioningRequestContent>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.connections.directoryProvisioning.getDefaultMapping(id) -> GetDirectoryProvisioningDefaultMappingResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the directory provisioning default attribute mapping of a connection.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.connections().directoryProvisioning().getDefaultMapping("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The id of the connection to retrieve its directory provisioning configuration
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Connections Keys
 <details><summary><code>client.connections.keys.get(id) -> List&lt;ConnectionKey&gt;</code></summary>
 <dl>
@@ -14955,7 +17098,7 @@ Rotates the connection keys for the Okta or OIDC connection strategies.
 ```java
 client.connections().keys().rotate(
     "id",
-    Optional.empty()
+    OptionalNullable.absent()
 );
 ```
 </dd>
@@ -15075,7 +17218,7 @@ Create a scim configuration for a connection.
 ```java
 client.connections().scimConfiguration().create(
     "id",
-    Optional.empty()
+    OptionalNullable.absent()
 );
 ```
 </dd>
@@ -15371,6 +17514,61 @@ client.connections().users().deleteByEmail(
 </dl>
 </details>
 
+## Connections DirectoryProvisioning Synchronizations
+<details><summary><code>client.connections.directoryProvisioning.synchronizations.create(id) -> CreateDirectorySynchronizationResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Request an on-demand synchronization of the directory.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.connections().directoryProvisioning().synchronizations().create("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The id of the connection to trigger synchronization for
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Connections ScimConfiguration Tokens
 <details><summary><code>client.connections.scimConfiguration.tokens.get(id) -> List&lt;ScimTokenItem&gt;</code></summary>
 <dl>
@@ -15594,8 +17792,12 @@ Retrieve details of the <a href="https://auth0.com/docs/customize/email/smtp-ema
 client.emails().provider().get(
     GetEmailProviderRequestParameters
         .builder()
-        .fields("fields")
-        .includeFields(true)
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -15958,12 +18160,24 @@ client.eventStreams().deliveries().list(
     "id",
     ListEventStreamDeliveriesRequestParameters
         .builder()
-        .statuses("statuses")
-        .eventTypes("event_types")
-        .dateFrom("date_from")
-        .dateTo("date_to")
-        .from("from")
-        .take(1)
+        .statuses(
+            OptionalNullable.of("statuses")
+        )
+        .eventTypes(
+            OptionalNullable.of("event_types")
+        )
+        .dateFrom(
+            OptionalNullable.of("date_from")
+        )
+        .dateTo(
+            OptionalNullable.of("date_to")
+        )
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
         .build()
 );
 ```
@@ -16232,8 +18446,12 @@ client.flows().executions().list(
     "flow_id",
     ExecutionsListRequest
         .builder()
-        .from("from")
-        .take(1)
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
         .build()
 );
 ```
@@ -16377,6 +18595,275 @@ client.flows().executions().delete("flow_id", "execution_id");
 <dd>
 
 **executionId:** `String` — Flow execution identifier
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Flows Vault Connections
+<details><summary><code>client.flows.vault.connections.list() -> SyncPagingIterable&lt;FlowsVaultConnectionSummary&gt;</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.flows().vault().connections().list(
+    ListFlowsVaultConnectionsRequestParameters
+        .builder()
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**page:** `Optional<Integer>` — Page index of the results to return. First page is 0.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**perPage:** `Optional<Integer>` — Number of results per page. Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**includeTotals:** `Optional<Boolean>` — Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.flows.vault.connections.create(request) -> CreateFlowsVaultConnectionResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.flows().vault().connections().create(
+    CreateFlowsVaultConnectionRequestContent.of(
+        CreateFlowsVaultConnectionActivecampaign.of(
+            CreateFlowsVaultConnectionActivecampaignApiKey
+                .builder()
+                .name("name")
+                .appId("ACTIVECAMPAIGN")
+                .setup(
+                    FlowsVaultConnectioSetupApiKeyWithBaseUrl
+                        .builder()
+                        .type("API_KEY")
+                        .apiKey("api_key")
+                        .baseUrl("base_url")
+                        .build()
+                )
+                .build()
+        )
+    )
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `CreateFlowsVaultConnectionRequestContent` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.flows.vault.connections.get(id) -> GetFlowsVaultConnectionResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.flows().vault().connections().get("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — Flows Vault connection ID
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.flows.vault.connections.delete(id)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.flows().vault().connections().delete("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — Vault connection id
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.flows.vault.connections.update(id, request) -> UpdateFlowsVaultConnectionResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.flows().vault().connections().update(
+    "id",
+    UpdateFlowsVaultConnectionRequestContent
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — Flows Vault connection ID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `Optional<String>` — Flows Vault Connection name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**setup:** `Optional<UpdateFlowsVaultConnectionSetup>` 
     
 </dd>
 </dl>
@@ -17284,7 +19771,7 @@ client.guardian().factors().pushNotification().getApnsProvider();
 <dl>
 <dd>
 
-Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+Overwrite all configuration details of the multi-factor authentication APNS provider associated with your tenant.
 </dd>
 </dl>
 </dd>
@@ -17318,7 +19805,97 @@ client.guardian().factors().pushNotification().setApnsProvider(
 <dl>
 <dd>
 
-**request:** `SetGuardianFactorsProviderPushNotificationApnsRequestContent` 
+**sandbox:** `Optional<Boolean>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**bundleId:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**p12:** `Optional<String>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.guardian.factors.pushNotification.updateApnsProvider(request) -> UpdateGuardianFactorsProviderPushNotificationApnsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.guardian().factors().pushNotification().updateApnsProvider(
+    UpdateGuardianFactorsProviderPushNotificationApnsRequestContent
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandbox:** `Optional<Boolean>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**bundleId:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**p12:** `Optional<String>` 
     
 </dd>
 </dl>
@@ -17342,7 +19919,7 @@ client.guardian().factors().pushNotification().setApnsProvider(
 <dl>
 <dd>
 
-Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+Overwrite all configuration details of the multi-factor authentication FCM provider associated with your tenant.
 </dd>
 </dl>
 </dd>
@@ -17376,7 +19953,65 @@ client.guardian().factors().pushNotification().setFcmProvider(
 <dl>
 <dd>
 
-**request:** `SetGuardianFactorsProviderPushNotificationFcmRequestContent` 
+**serverKey:** `Optional<String>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.guardian.factors.pushNotification.updateFcmProvider(request) -> Map&lt;String, Object&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.guardian().factors().pushNotification().updateFcmProvider(
+    UpdateGuardianFactorsProviderPushNotificationFcmRequestContent
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**serverKey:** `Optional<String>` 
     
 </dd>
 </dl>
@@ -17400,7 +20035,7 @@ client.guardian().factors().pushNotification().setFcmProvider(
 <dl>
 <dd>
 
-Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+Overwrite all configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
 </dd>
 </dl>
 </dd>
@@ -17434,7 +20069,65 @@ client.guardian().factors().pushNotification().setFcmv1Provider(
 <dl>
 <dd>
 
-**request:** `SetGuardianFactorsProviderPushNotificationFcmv1RequestContent` 
+**serverCredentials:** `Optional<String>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.guardian.factors.pushNotification.updateFcmv1Provider(request) -> Map&lt;String, Object&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.guardian().factors().pushNotification().updateFcmv1Provider(
+    UpdateGuardianFactorsProviderPushNotificationFcmv1RequestContent
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**serverCredentials:** `Optional<String>` 
     
 </dd>
 </dl>
@@ -18277,7 +20970,7 @@ client.guardian().factors().duo().settings().update(
 </details>
 
 ## Hooks Secrets
-<details><summary><code>client.hooks.secrets.get(id) -> Map&lt;String, Object&gt;</code></summary>
+<details><summary><code>client.hooks.secrets.get(id) -> Map&lt;String, String&gt;</code></summary>
 <dl>
 <dd>
 
@@ -18360,7 +21053,7 @@ Add one or more secrets to an existing hook. Accepts an object of key-value pair
 ```java
 client.hooks().secrets().create(
     "id",
-    new HashMap<String, Object>() {{
+    new HashMap<String, String>() {{
         put("key", "value");
     }}
 );
@@ -18386,7 +21079,7 @@ client.hooks().secrets().create(
 <dl>
 <dd>
 
-**request:** `Map<String, Object>` 
+**request:** `Map<String, String>` 
     
 </dd>
 </dl>
@@ -18492,7 +21185,7 @@ Update one or more existing secrets for an existing hook. Accepts an object of k
 ```java
 client.hooks().secrets().update(
     "id",
-    new HashMap<String, Object>() {{
+    new HashMap<String, String>() {{
         put("key", "value");
     }}
 );
@@ -18518,7 +21211,7 @@ client.hooks().secrets().update(
 <dl>
 <dd>
 
-**request:** `Map<String, Object>` 
+**request:** `Map<String, String>` 
     
 </dd>
 </dl>
@@ -18975,9 +21668,15 @@ Retrieve details of all the encryption keys associated with your tenant.
 client.keys().encryption().list(
     ListEncryptionKeysRequestParameters
         .builder()
-        .page(1)
-        .perPage(1)
-        .includeTotals(true)
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -19555,11 +22254,21 @@ client.organizations().clientGrants().list(
     "id",
     ListOrganizationClientGrantsRequestParameters
         .builder()
-        .audience("audience")
-        .clientId("client_id")
-        .page(1)
-        .perPage(1)
-        .includeTotals(true)
+        .audience(
+            OptionalNullable.of("audience")
+        )
+        .clientId(
+            OptionalNullable.of("client_id")
+        )
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -19738,6 +22447,443 @@ client.organizations().clientGrants().delete("id", "grant_id");
 </dl>
 </details>
 
+## Organizations DiscoveryDomains
+<details><summary><code>client.organizations.discoveryDomains.list(id) -> SyncPagingIterable&lt;OrganizationDiscoveryDomain&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve list of all organization discovery domains associated with the specified organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.organizations().discoveryDomains().list(
+    "id",
+    ListOrganizationDiscoveryDomainsRequestParameters
+        .builder()
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `Optional<String>` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `Optional<Integer>` — Number of results per page. Defaults to 50.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.discoveryDomains.create(id, request) -> CreateOrganizationDiscoveryDomainResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>. The <code>use_for_organization_discovery</code> field can be <code>true</code> or <code>false</code> (default: <code>true</code>).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.organizations().discoveryDomains().create(
+    "id",
+    CreateOrganizationDiscoveryDomainRequestContent
+        .builder()
+        .domain("domain")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**domain:** `String` — The domain name to associate with the organization e.g. acme.com.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `Optional<OrganizationDiscoveryDomainStatus>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**useForOrganizationDiscovery:** `Optional<Boolean>` — Indicates whether this discovery domain should be used for organization discovery.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.discoveryDomains.getByName(id, discoveryDomain) -> GetOrganizationDiscoveryDomainByNameResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve details about a single organization discovery domain specified by domain name.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.organizations().discoveryDomains().getByName("id", "discovery_domain");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**discoveryDomain:** `String` — Domain name of the discovery domain.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.discoveryDomains.get(id, discoveryDomainId) -> GetOrganizationDiscoveryDomainResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve details about a single organization discovery domain specified by ID. 
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.organizations().discoveryDomains().get("id", "discovery_domain_id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**discoveryDomainId:** `String` — ID of the discovery domain.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.discoveryDomains.delete(id, discoveryDomainId)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Remove a discovery domain from an organization. This action cannot be undone. 
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.organizations().discoveryDomains().delete("id", "discovery_domain_id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**discoveryDomainId:** `String` — ID of the discovery domain.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.discoveryDomains.update(id, discoveryDomainId, request) -> UpdateOrganizationDiscoveryDomainResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>. The <code>use_for_organization_discovery</code> field can be <code>true</code> or <code>false</code> (default: <code>true</code>).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.organizations().discoveryDomains().update(
+    "id",
+    "discovery_domain_id",
+    UpdateOrganizationDiscoveryDomainRequestContent
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**discoveryDomainId:** `String` — ID of the discovery domain to update.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `Optional<OrganizationDiscoveryDomainStatus>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**useForOrganizationDiscovery:** `Optional<Boolean>` — Indicates whether this discovery domain should be used for organization discovery.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Organizations EnabledConnections
 <details><summary><code>client.organizations.enabledConnections.list(id) -> SyncPagingIterable&lt;OrganizationConnection&gt;</code></summary>
 <dl>
@@ -19770,9 +22916,15 @@ client.organizations().enabledConnections().list(
     "id",
     ListOrganizationConnectionsRequestParameters
         .builder()
-        .page(1)
-        .perPage(1)
-        .includeTotals(true)
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -20169,12 +23321,24 @@ client.organizations().invitations().list(
     "id",
     ListOrganizationInvitationsRequestParameters
         .builder()
-        .page(1)
-        .perPage(1)
-        .includeTotals(true)
-        .fields("fields")
-        .includeFields(true)
-        .sort("sort")
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
+        .sort(
+            OptionalNullable.of("sort")
+        )
         .build()
 );
 ```
@@ -20413,8 +23577,12 @@ client.organizations().invitations().get(
     "invitation_id",
     GetOrganizationInvitationRequestParameters
         .builder()
-        .fields("fields")
-        .includeFields(true)
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -20568,10 +23736,18 @@ client.organizations().members().list(
     "id",
     ListOrganizationMembersRequestParameters
         .builder()
-        .from("from")
-        .take(1)
-        .fields("fields")
-        .includeFields(true)
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -20795,9 +23971,15 @@ client.organizations().members().roles().list(
     "user_id",
     ListOrganizationMemberRolesRequestParameters
         .builder()
-        .page(1)
-        .perPage(1)
-        .includeTotals(true)
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -21051,14 +24233,30 @@ Get render setting configurations for all screens.
 client.prompts().rendering().list(
     ListAculsRequestParameters
         .builder()
-        .fields("fields")
-        .includeFields(true)
-        .page(1)
-        .perPage(1)
-        .includeTotals(true)
-        .prompt("prompt")
-        .screen("screen")
-        .renderingMode(AculRenderingModeEnum.ADVANCED)
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
+        .prompt(
+            OptionalNullable.of("prompt")
+        )
+        .screen(
+            OptionalNullable.of("screen")
+        )
+        .renderingMode(
+            OptionalNullable.of(AculRenderingModeEnum.ADVANCED)
+        )
         .build()
 );
 ```
@@ -21132,6 +24330,73 @@ client.prompts().rendering().list(
 <dd>
 
 **renderingMode:** `Optional<AculRenderingModeEnum>` — Rendering mode to filter by
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.prompts.rendering.bulkUpdate(request) -> BulkUpdateAculResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.prompts().rendering().bulkUpdate(
+    BulkUpdateAculRequestContent
+        .builder()
+        .configs(
+            Arrays.asList(
+                AculConfigsItem
+                    .builder()
+                    .prompt(PromptGroupNameEnum.LOGIN)
+                    .screen(ScreenGroupNameEnum.LOGIN)
+                    .build()
+            )
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**configs:** `List<AculConfigsItem>` 
     
 </dd>
 </dl>
@@ -21218,33 +24483,6 @@ client.prompts().rendering().get(PromptGroupNameEnum.LOGIN, ScreenGroupNameEnum.
 <dd>
 
 Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
-
-<p>
-  Example <code>head_tags</code> array. See our <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>documentation</a> on using Liquid variables within head tags.
-</p>
-<pre>{
-  "head_tags": [
-    {
-      "tag": "script",
-      "attributes": {
-        "defer": true,
-        "src": "URL_TO_ASSET",
-        "async": true,
-        "integrity": [
-          "ASSET_SHA"
-        ]
-      }
-    },
-    {
-      "tag": "link",
-      "attributes": {
-        "href": "URL_TO_ASSET",
-        "rel": "stylesheet"
-      }
-    }
-  ]
-}
-</pre>
 </dd>
 </dl>
 </dd>
@@ -21304,7 +24542,7 @@ client.prompts().rendering().update(
 <dl>
 <dd>
 
-**contextConfiguration:** `Optional<List<String>>` — Context values to make available
+**contextConfiguration:** `Optional<List<AculContextConfigurationItem>>` 
     
 </dd>
 </dl>
@@ -21313,6 +24551,14 @@ client.prompts().rendering().update(
 <dd>
 
 **defaultHeadTagsDisabled:** `Optional<Boolean>` — Override Universal Login default head tags
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**usePageTemplate:** `Optional<Boolean>` — Use page template with ACUL
     
 </dd>
 </dl>
@@ -21329,14 +24575,6 @@ client.prompts().rendering().update(
 <dd>
 
 **filters:** `Optional<AculFilters>` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**usePageTemplate:** `Optional<Boolean>` — Use page template with ACUL
     
 </dd>
 </dl>
@@ -21609,6 +24847,204 @@ client.prompts().partials().set(
 </dl>
 </details>
 
+## RiskAssessments Settings
+<details><summary><code>client.riskAssessments.settings.get() -> GetRiskAssessmentsSettingsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Gets the tenant settings for risk assessments
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.riskAssessments().settings().get();
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.riskAssessments.settings.update(request) -> UpdateRiskAssessmentsSettingsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the tenant settings for risk assessments
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.riskAssessments().settings().update(
+    UpdateRiskAssessmentsSettingsRequestContent
+        .builder()
+        .enabled(true)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**enabled:** `Boolean` — Whether or not risk assessment is enabled.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## RiskAssessments Settings NewDevice
+<details><summary><code>client.riskAssessments.settings.newDevice.get() -> GetRiskAssessmentsSettingsNewDeviceResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Gets the risk assessment settings for the new device assessor
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.riskAssessments().settings().newDevice().get();
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.riskAssessments.settings.newDevice.update(request) -> UpdateRiskAssessmentsSettingsNewDeviceResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the risk assessment settings for the new device assessor
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.riskAssessments().settings().newDevice().update(
+    UpdateRiskAssessmentsSettingsNewDeviceRequestContent
+        .builder()
+        .rememberFor(1)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**rememberFor:** `Integer` — Length of time to remember devices for, in days.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Roles Permissions
 <details><summary><code>client.roles.permissions.list(id) -> SyncPagingIterable&lt;PermissionsResponsePayload&gt;</code></summary>
 <dl>
@@ -21641,9 +25077,15 @@ client.roles().permissions().list(
     "id",
     ListRolePermissionsRequestParameters
         .builder()
-        .perPage(1)
-        .page(1)
-        .includeTotals(true)
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .page(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -21898,8 +25340,12 @@ client.roles().users().list(
     "id",
     ListRoleUsersRequestParameters
         .builder()
-        .from("from")
-        .take(1)
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
         .build()
 );
 ```
@@ -22017,7 +25463,7 @@ client.roles().users().assign(
 </details>
 
 ## SelfServiceProfiles CustomText
-<details><summary><code>client.selfServiceProfiles.customText.list(id, language, page) -> Map&lt;String, Object&gt;</code></summary>
+<details><summary><code>client.selfServiceProfiles.customText.list(id, language, page) -> Map&lt;String, String&gt;</code></summary>
 <dl>
 <dd>
 
@@ -22087,7 +25533,7 @@ client.selfServiceProfiles().customText().list("id", "en", "get-started");
 </dl>
 </details>
 
-<details><summary><code>client.selfServiceProfiles.customText.set(id, language, page, request) -> Map&lt;String, Object&gt;</code></summary>
+<details><summary><code>client.selfServiceProfiles.customText.set(id, language, page, request) -> Map&lt;String, String&gt;</code></summary>
 <dl>
 <dd>
 
@@ -22118,7 +25564,7 @@ client.selfServiceProfiles().customText().set(
     "id",
     "en",
     "get-started",
-    new HashMap<String, Object>() {{
+    new HashMap<String, String>() {{
         put("key", "value");
     }}
 );
@@ -22160,7 +25606,7 @@ client.selfServiceProfiles().customText().set(
 <dl>
 <dd>
 
-**request:** `Map<String, Object>` 
+**request:** `Map<String, String>` 
     
 </dd>
 </dl>
@@ -22280,6 +25726,14 @@ client.selfServiceProfiles().ssoTicket().create(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**useForOrganizationDiscovery:** `Optional<Boolean>` — Indicates whether a verified domain should be used for organization discovery during authentication.
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -22382,8 +25836,12 @@ Retrieve tenant settings. A list of fields to include or exclude may also be spe
 client.tenants().settings().get(
     GetTenantSettingsRequestParameters
         .builder()
-        .fields("fields")
-        .includeFields(true)
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -22702,6 +26160,34 @@ client.tenants().settings().update(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**skipNonVerifiableCallbackUriConfirmationPrompt:** `Optional<Boolean>` 
+
+Controls whether a confirmation prompt is shown during login flows when the redirect URI uses non-verifiable callback URIs (for example, a custom URI schema such as `myapp://`, or `localhost`).
+If set to true, a confirmation prompt will not be shown. We recommend that this is set to false for improved protection from malicious apps.
+See https://auth0.com/docs/secure/security-guidance/measures-against-app-impersonation for more information.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**resourceParameterProfile:** `Optional<TenantSettingsResourceParameterProfile>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**enableAiGuide:** `Optional<Boolean>` — Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -22742,9 +26228,15 @@ client.users().authenticationMethods().list(
     "id",
     ListUserAuthenticationMethodsRequestParameters
         .builder()
-        .page(1)
-        .perPage(1)
-        .includeTotals(true)
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -22909,7 +26401,7 @@ client.users().authenticationMethods().create(
 <dl>
 <dd>
 
-**publicKey:** `Optional<String>` — Applies to webauthn authentication methods only. The public key.
+**publicKey:** `Optional<String>` — Applies to webauthn authentication methods only. The public key, which is encoded as base64.
     
 </dd>
 </dl>
@@ -23304,6 +26796,88 @@ client.users().authenticators().deleteAll("id");
 </dl>
 </details>
 
+## Users ConnectedAccounts
+<details><summary><code>client.users.connectedAccounts.list(id) -> SyncPagingIterable&lt;ConnectedAccount&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve all connected accounts associated with the user.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.users().connectedAccounts().list(
+    "id",
+    GetUserConnectedAccountsRequestParameters
+        .builder()
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the user to list connected accounts for.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `Optional<String>` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `Optional<Integer>` — Number of results to return.  Defaults to 10 with a maximum of 20
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Users Enrollments
 <details><summary><code>client.users.enrollments.get(id) -> List&lt;UsersEnrollment&gt;</code></summary>
 <dl>
@@ -23561,7 +27135,7 @@ client.users().identities().link(
 <dl>
 <dd>
 
-**userId:** `Optional<UserIdEnum>` 
+**userId:** `Optional<UserId>` 
     
 </dd>
 </dl>
@@ -23691,10 +27265,18 @@ client.users().logs().list(
     "id",
     ListUserLogsRequestParameters
         .builder()
-        .page(1)
-        .perPage(1)
-        .sort("sort")
-        .includeTotals(true)
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .sort(
+            OptionalNullable.of("sort")
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -23904,9 +27486,15 @@ client.users().organizations().list(
     "id",
     ListUserOrganizationsRequestParameters
         .builder()
-        .page(1)
-        .perPage(1)
-        .includeTotals(true)
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -23991,9 +27579,15 @@ client.users().permissions().list(
     "id",
     ListUserPermissionsRequestParameters
         .builder()
-        .perPage(1)
-        .page(1)
-        .includeTotals(true)
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .page(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -24198,6 +27792,86 @@ client.users().permissions().delete(
 </dl>
 </details>
 
+## Users RiskAssessments
+<details><summary><code>client.users.riskAssessments.clear(id, request)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Clear risk assessment assessors for a specific user
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.users().riskAssessments().clear(
+    "id",
+    ClearAssessorsRequestContent
+        .builder()
+        .connection("connection")
+        .assessors(
+            Arrays.asList("new-device")
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the user to clear assessors for.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connection:** `String` — The name of the connection containing the user whose assessors should be cleared.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assessors:** `List<String>` — List of assessors to clear.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Users Roles
 <details><summary><code>client.users.roles.list(id) -> SyncPagingIterable&lt;Role&gt;</code></summary>
 <dl>
@@ -24232,9 +27906,15 @@ client.users().roles().list(
     "id",
     ListUserRolesRequestParameters
         .builder()
-        .perPage(1)
-        .page(1)
-        .includeTotals(true)
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .page(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
         .build()
 );
 ```
@@ -24463,8 +28143,12 @@ client.users().refreshToken().list(
     "user_id",
     ListRefreshTokensRequestParameters
         .builder()
-        .from("from")
-        .take(1)
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
         .build()
 );
 ```
@@ -24595,8 +28279,12 @@ client.users().sessions().list(
     "user_id",
     ListUserSessionsRequestParameters
         .builder()
-        .from("from")
-        .take(1)
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
         .build()
 );
 ```
@@ -24726,8 +28414,12 @@ List a verifiable credential templates.
 client.verifiableCredentials().verification().templates().list(
     ListVerifiableCredentialTemplatesRequestParameters
         .builder()
-        .from("from")
-        .take(1)
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
         .build()
 );
 ```

@@ -39,7 +39,7 @@ public final class CreateFlowsVaultConnectionSalesforce {
         throw new IllegalStateException("Failed to visit value. This should never happen.");
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateFlowsVaultConnectionSalesforce
@@ -50,12 +50,12 @@ public final class CreateFlowsVaultConnectionSalesforce {
         return value.equals(other.value);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.value);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return this.value.toString();
     }
@@ -79,7 +79,7 @@ public final class CreateFlowsVaultConnectionSalesforce {
             super(CreateFlowsVaultConnectionSalesforce.class);
         }
 
-        @Override
+        @java.lang.Override
         public CreateFlowsVaultConnectionSalesforce deserialize(JsonParser p, DeserializationContext context)
                 throws IOException {
             Object value = p.readValueAs(Object.class);

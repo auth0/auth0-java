@@ -48,7 +48,7 @@ public final class BrandingColors {
         return pageBackground;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof BrandingColors && equalTo((BrandingColors) other);
@@ -63,12 +63,12 @@ public final class BrandingColors {
         return primary.equals(other.primary) && pageBackground.equals(other.pageBackground);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.primary, this.pageBackground);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

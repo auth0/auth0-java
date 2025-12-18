@@ -49,7 +49,7 @@ public final class ListClientGrantOrganizationsPaginatedResponseContent {
         return organizations;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListClientGrantOrganizationsPaginatedResponseContent
@@ -65,12 +65,12 @@ public final class ListClientGrantOrganizationsPaginatedResponseContent {
         return next.equals(other.next) && organizations.equals(other.organizations);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.next, this.organizations);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

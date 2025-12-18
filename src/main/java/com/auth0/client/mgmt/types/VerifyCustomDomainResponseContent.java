@@ -170,7 +170,7 @@ public final class VerifyCustomDomainResponseContent {
         return customClientIpHeader;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof VerifyCustomDomainResponseContent && equalTo((VerifyCustomDomainResponseContent) other);
@@ -196,7 +196,7 @@ public final class VerifyCustomDomainResponseContent {
                 && certificate.equals(other.certificate);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.customDomainId,
@@ -213,7 +213,7 @@ public final class VerifyCustomDomainResponseContent {
                 this.certificate);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -333,7 +333,7 @@ public final class VerifyCustomDomainResponseContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(VerifyCustomDomainResponseContent other) {
             customDomainId(other.getCustomDomainId());
             domain(other.getDomain());
@@ -355,7 +355,7 @@ public final class VerifyCustomDomainResponseContent {
          * <p>ID of the custom domain.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("custom_domain_id")
         public DomainStage customDomainId(@NotNull String customDomainId) {
             this.customDomainId = Objects.requireNonNull(customDomainId, "customDomainId must not be null");
@@ -367,7 +367,7 @@ public final class VerifyCustomDomainResponseContent {
          * <p>Domain name.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("domain")
         public PrimaryStage domain(@NotNull String domain) {
             this.domain = Objects.requireNonNull(domain, "domain must not be null");
@@ -379,47 +379,47 @@ public final class VerifyCustomDomainResponseContent {
          * <p>Whether this is a primary domain (true) or not (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("primary")
         public StatusStage primary(boolean primary) {
             this.primary = primary;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("status")
         public TypeStage status(@NotNull CustomDomainStatusFilterEnum status) {
             this.status = Objects.requireNonNull(status, "status must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public _FinalStage type(@NotNull CustomDomainTypeEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage certificate(DomainCertificate certificate) {
             this.certificate = Optional.ofNullable(certificate);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "certificate", nulls = Nulls.SKIP)
         public _FinalStage certificate(Optional<DomainCertificate> certificate) {
             this.certificate = certificate;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage domainMetadata(Map<String, OptionalNullable<String>> domainMetadata) {
             this.domainMetadata = Optional.ofNullable(domainMetadata);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "domain_metadata", nulls = Nulls.SKIP)
         public _FinalStage domainMetadata(Optional<Map<String, OptionalNullable<String>>> domainMetadata) {
             this.domainMetadata = domainMetadata;
@@ -430,7 +430,7 @@ public final class VerifyCustomDomainResponseContent {
          * <p>The TLS version policy</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage tlsPolicy(String tlsPolicy) {
             this.tlsPolicy = Optional.ofNullable(tlsPolicy);
             return this;
@@ -439,7 +439,7 @@ public final class VerifyCustomDomainResponseContent {
         /**
          * <p>The TLS version policy</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "tls_policy", nulls = Nulls.SKIP)
         public _FinalStage tlsPolicy(Optional<String> tlsPolicy) {
             this.tlsPolicy = tlsPolicy;
@@ -450,7 +450,7 @@ public final class VerifyCustomDomainResponseContent {
          * <p>The HTTP header to fetch the client's IP address</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage customClientIpHeader(com.auth0.client.mgmt.core.Nullable<String> customClientIpHeader) {
             if (customClientIpHeader.isNull()) {
                 this.customClientIpHeader = OptionalNullable.ofNull();
@@ -466,7 +466,7 @@ public final class VerifyCustomDomainResponseContent {
          * <p>The HTTP header to fetch the client's IP address</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage customClientIpHeader(Optional<String> customClientIpHeader) {
             if (customClientIpHeader.isPresent()) {
                 this.customClientIpHeader = OptionalNullable.of(customClientIpHeader.get());
@@ -480,7 +480,7 @@ public final class VerifyCustomDomainResponseContent {
          * <p>The HTTP header to fetch the client's IP address</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage customClientIpHeader(String customClientIpHeader) {
             this.customClientIpHeader = OptionalNullable.of(customClientIpHeader);
             return this;
@@ -489,20 +489,20 @@ public final class VerifyCustomDomainResponseContent {
         /**
          * <p>The HTTP header to fetch the client's IP address</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "custom_client_ip_header", nulls = Nulls.SKIP)
         public _FinalStage customClientIpHeader(@Nullable OptionalNullable<String> customClientIpHeader) {
             this.customClientIpHeader = customClientIpHeader;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage verification(DomainVerification verification) {
             this.verification = Optional.ofNullable(verification);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "verification", nulls = Nulls.SKIP)
         public _FinalStage verification(Optional<DomainVerification> verification) {
             this.verification = verification;
@@ -513,7 +513,7 @@ public final class VerifyCustomDomainResponseContent {
          * <p>Intermediate address.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage originDomainName(String originDomainName) {
             this.originDomainName = Optional.ofNullable(originDomainName);
             return this;
@@ -522,7 +522,7 @@ public final class VerifyCustomDomainResponseContent {
         /**
          * <p>Intermediate address.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "origin_domain_name", nulls = Nulls.SKIP)
         public _FinalStage originDomainName(Optional<String> originDomainName) {
             this.originDomainName = originDomainName;
@@ -533,7 +533,7 @@ public final class VerifyCustomDomainResponseContent {
          * <p>CNAME API key header.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage cnameApiKey(String cnameApiKey) {
             this.cnameApiKey = Optional.ofNullable(cnameApiKey);
             return this;
@@ -542,14 +542,14 @@ public final class VerifyCustomDomainResponseContent {
         /**
          * <p>CNAME API key header.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "cname_api_key", nulls = Nulls.SKIP)
         public _FinalStage cnameApiKey(Optional<String> cnameApiKey) {
             this.cnameApiKey = cnameApiKey;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public VerifyCustomDomainResponseContent build() {
             return new VerifyCustomDomainResponseContent(
                     customDomainId,

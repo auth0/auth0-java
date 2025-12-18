@@ -40,7 +40,7 @@ public final class ConnectionUsernameValidationOptions {
         return max;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionUsernameValidationOptions
@@ -56,12 +56,12 @@ public final class ConnectionUsernameValidationOptions {
         return min == other.min && max == other.max;
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.min, this.max);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -95,28 +95,28 @@ public final class ConnectionUsernameValidationOptions {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(ConnectionUsernameValidationOptions other) {
             min(other.getMin());
             max(other.getMax());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("min")
         public MaxStage min(int min) {
             this.min = min;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("max")
         public _FinalStage max(int max) {
             this.max = max;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public ConnectionUsernameValidationOptions build() {
             return new ConnectionUsernameValidationOptions(min, max, additionalProperties);
         }

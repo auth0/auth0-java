@@ -56,7 +56,7 @@ public final class FlowActionHubspotUpsertContactParams {
         return properties;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionHubspotUpsertContactParams
@@ -74,12 +74,12 @@ public final class FlowActionHubspotUpsertContactParams {
                 && properties.equals(other.properties);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.email, this.properties);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -119,7 +119,7 @@ public final class FlowActionHubspotUpsertContactParams {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionHubspotUpsertContactParams other) {
             connectionId(other.getConnectionId());
             email(other.getEmail());
@@ -127,34 +127,34 @@ public final class FlowActionHubspotUpsertContactParams {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_id")
         public EmailStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("email")
         public _FinalStage email(@NotNull String email) {
             this.email = Objects.requireNonNull(email, "email must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage properties(List<FlowActionHubspotUpsertContactParamsProperty> properties) {
             this.properties = Optional.ofNullable(properties);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "properties", nulls = Nulls.SKIP)
         public _FinalStage properties(Optional<List<FlowActionHubspotUpsertContactParamsProperty>> properties) {
             this.properties = properties;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionHubspotUpsertContactParams build() {
             return new FlowActionHubspotUpsertContactParams(connectionId, email, properties, additionalProperties);
         }

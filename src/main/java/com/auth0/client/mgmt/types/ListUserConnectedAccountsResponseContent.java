@@ -48,7 +48,7 @@ public final class ListUserConnectedAccountsResponseContent {
         return next;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListUserConnectedAccountsResponseContent
@@ -64,12 +64,12 @@ public final class ListUserConnectedAccountsResponseContent {
         return connectedAccounts.equals(other.connectedAccounts) && next.equals(other.next);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.connectedAccounts, this.next);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

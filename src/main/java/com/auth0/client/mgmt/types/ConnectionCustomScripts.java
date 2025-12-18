@@ -108,7 +108,7 @@ public final class ConnectionCustomScripts {
         return changePhoneNumber;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionCustomScripts && equalTo((ConnectionCustomScripts) other);
@@ -131,7 +131,7 @@ public final class ConnectionCustomScripts {
                 && changePhoneNumber.equals(other.changePhoneNumber);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.login,
@@ -145,7 +145,7 @@ public final class ConnectionCustomScripts {
                 this.changePhoneNumber);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

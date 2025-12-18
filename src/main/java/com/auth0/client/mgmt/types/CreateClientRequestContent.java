@@ -628,7 +628,7 @@ public final class CreateClientRequestContent {
         return parRequestExpiry;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateClientRequestContent && equalTo((CreateClientRequestContent) other);
@@ -693,7 +693,7 @@ public final class CreateClientRequestContent {
                 && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.name,
@@ -748,7 +748,7 @@ public final class CreateClientRequestContent {
                 this.asyncApprovalNotificationChannels);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -1189,7 +1189,7 @@ public final class CreateClientRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateClientRequestContent other) {
             name(other.getName());
             description(other.getDescription());
@@ -1249,21 +1249,21 @@ public final class CreateClientRequestContent {
          * <p>Name of this client (min length: 1 character, does not allow <code>&lt;</code> or <code>&gt;</code>).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("name")
         public _FinalStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage asyncApprovalNotificationChannels(
                 List<AsyncApprovalNotificationsChannelsEnum> asyncApprovalNotificationChannels) {
             this.asyncApprovalNotificationChannels = Optional.ofNullable(asyncApprovalNotificationChannels);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "async_approval_notification_channels", nulls = Nulls.SKIP)
         public _FinalStage asyncApprovalNotificationChannels(
                 Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels) {
@@ -1271,13 +1271,13 @@ public final class CreateClientRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage expressConfiguration(ExpressConfiguration expressConfiguration) {
             this.expressConfiguration = Optional.ofNullable(expressConfiguration);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "express_configuration", nulls = Nulls.SKIP)
         public _FinalStage expressConfiguration(Optional<ExpressConfiguration> expressConfiguration) {
             this.expressConfiguration = expressConfiguration;
@@ -1288,7 +1288,7 @@ public final class CreateClientRequestContent {
          * <p>The identifier of the resource server that this client is linked to.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage resourceServerIdentifier(String resourceServerIdentifier) {
             this.resourceServerIdentifier = Optional.ofNullable(resourceServerIdentifier);
             return this;
@@ -1297,20 +1297,20 @@ public final class CreateClientRequestContent {
         /**
          * <p>The identifier of the resource server that this client is linked to.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "resource_server_identifier", nulls = Nulls.SKIP)
         public _FinalStage resourceServerIdentifier(Optional<String> resourceServerIdentifier) {
             this.resourceServerIdentifier = resourceServerIdentifier;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage tokenQuota(CreateTokenQuota tokenQuota) {
             this.tokenQuota = Optional.ofNullable(tokenQuota);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "token_quota", nulls = Nulls.SKIP)
         public _FinalStage tokenQuota(Optional<CreateTokenQuota> tokenQuota) {
             this.tokenQuota = tokenQuota;
@@ -1321,7 +1321,7 @@ public final class CreateClientRequestContent {
          * <p>Specifies how long, in seconds, a Pushed Authorization Request URI remains valid</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage parRequestExpiry(com.auth0.client.mgmt.core.Nullable<Integer> parRequestExpiry) {
             if (parRequestExpiry.isNull()) {
                 this.parRequestExpiry = OptionalNullable.ofNull();
@@ -1337,7 +1337,7 @@ public final class CreateClientRequestContent {
          * <p>Specifies how long, in seconds, a Pushed Authorization Request URI remains valid</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage parRequestExpiry(Optional<Integer> parRequestExpiry) {
             if (parRequestExpiry.isPresent()) {
                 this.parRequestExpiry = OptionalNullable.of(parRequestExpiry.get());
@@ -1351,7 +1351,7 @@ public final class CreateClientRequestContent {
          * <p>Specifies how long, in seconds, a Pushed Authorization Request URI remains valid</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage parRequestExpiry(Integer parRequestExpiry) {
             this.parRequestExpiry = OptionalNullable.of(parRequestExpiry);
             return this;
@@ -1360,20 +1360,20 @@ public final class CreateClientRequestContent {
         /**
          * <p>Specifies how long, in seconds, a Pushed Authorization Request URI remains valid</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "par_request_expiry", nulls = Nulls.SKIP)
         public _FinalStage parRequestExpiry(@Nullable OptionalNullable<Integer> parRequestExpiry) {
             this.parRequestExpiry = parRequestExpiry;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage tokenExchange(ClientTokenExchangeConfiguration tokenExchange) {
             this.tokenExchange = Optional.ofNullable(tokenExchange);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "token_exchange", nulls = Nulls.SKIP)
         public _FinalStage tokenExchange(Optional<ClientTokenExchangeConfiguration> tokenExchange) {
             this.tokenExchange = tokenExchange;
@@ -1386,7 +1386,7 @@ public final class CreateClientRequestContent {
          * See https://auth0.com/docs/secure/security-guidance/measures-against-app-impersonation for more information.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage skipNonVerifiableCallbackUriConfirmationPrompt(
                 Boolean skipNonVerifiableCallbackUriConfirmationPrompt) {
             this.skipNonVerifiableCallbackUriConfirmationPrompt =
@@ -1399,7 +1399,7 @@ public final class CreateClientRequestContent {
          * If set to true, a confirmation prompt will not be shown. We recommend that this is set to false for improved protection from malicious apps.
          * See https://auth0.com/docs/secure/security-guidance/measures-against-app-impersonation for more information.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "skip_non_verifiable_callback_uri_confirmation_prompt", nulls = Nulls.SKIP)
         public _FinalStage skipNonVerifiableCallbackUriConfirmationPrompt(
                 Optional<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt) {
@@ -1407,7 +1407,7 @@ public final class CreateClientRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage complianceLevel(
                 com.auth0.client.mgmt.core.Nullable<ClientComplianceLevelEnum> complianceLevel) {
             if (complianceLevel.isNull()) {
@@ -1420,7 +1420,7 @@ public final class CreateClientRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage complianceLevel(Optional<ClientComplianceLevelEnum> complianceLevel) {
             if (complianceLevel.isPresent()) {
                 this.complianceLevel = OptionalNullable.of(complianceLevel.get());
@@ -1430,26 +1430,26 @@ public final class CreateClientRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage complianceLevel(ClientComplianceLevelEnum complianceLevel) {
             this.complianceLevel = OptionalNullable.of(complianceLevel);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "compliance_level", nulls = Nulls.SKIP)
         public _FinalStage complianceLevel(@Nullable OptionalNullable<ClientComplianceLevelEnum> complianceLevel) {
             this.complianceLevel = complianceLevel;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage signedRequestObject(ClientSignedRequestObjectWithPublicKey signedRequestObject) {
             this.signedRequestObject = Optional.ofNullable(signedRequestObject);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "signed_request_object", nulls = Nulls.SKIP)
         public _FinalStage signedRequestObject(Optional<ClientSignedRequestObjectWithPublicKey> signedRequestObject) {
             this.signedRequestObject = signedRequestObject;
@@ -1460,7 +1460,7 @@ public final class CreateClientRequestContent {
          * <p>Makes the use of Proof-of-Possession mandatory for this client</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage requireProofOfPossession(Boolean requireProofOfPossession) {
             this.requireProofOfPossession = Optional.ofNullable(requireProofOfPossession);
             return this;
@@ -1469,7 +1469,7 @@ public final class CreateClientRequestContent {
         /**
          * <p>Makes the use of Proof-of-Possession mandatory for this client</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "require_proof_of_possession", nulls = Nulls.SKIP)
         public _FinalStage requireProofOfPossession(Optional<Boolean> requireProofOfPossession) {
             this.requireProofOfPossession = requireProofOfPossession;
@@ -1480,7 +1480,7 @@ public final class CreateClientRequestContent {
          * <p>Makes the use of Pushed Authorization Requests mandatory for this client</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage requirePushedAuthorizationRequests(Boolean requirePushedAuthorizationRequests) {
             this.requirePushedAuthorizationRequests = Optional.ofNullable(requirePushedAuthorizationRequests);
             return this;
@@ -1489,20 +1489,20 @@ public final class CreateClientRequestContent {
         /**
          * <p>Makes the use of Pushed Authorization Requests mandatory for this client</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "require_pushed_authorization_requests", nulls = Nulls.SKIP)
         public _FinalStage requirePushedAuthorizationRequests(Optional<Boolean> requirePushedAuthorizationRequests) {
             this.requirePushedAuthorizationRequests = requirePushedAuthorizationRequests;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage clientAuthenticationMethods(ClientCreateAuthenticationMethod clientAuthenticationMethods) {
             this.clientAuthenticationMethods = Optional.ofNullable(clientAuthenticationMethods);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "client_authentication_methods", nulls = Nulls.SKIP)
         public _FinalStage clientAuthenticationMethods(
                 Optional<ClientCreateAuthenticationMethod> clientAuthenticationMethods) {
@@ -1514,7 +1514,7 @@ public final class CreateClientRequestContent {
          * <p>Defines the available methods for organization discovery during the <code>pre_login_prompt</code>. Users can discover their organization either by <code>email</code>, <code>organization_name</code> or both.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage organizationDiscoveryMethods(
                 List<ClientOrganizationDiscoveryEnum> organizationDiscoveryMethods) {
             this.organizationDiscoveryMethods = Optional.ofNullable(organizationDiscoveryMethods);
@@ -1524,7 +1524,7 @@ public final class CreateClientRequestContent {
         /**
          * <p>Defines the available methods for organization discovery during the <code>pre_login_prompt</code>. Users can discover their organization either by <code>email</code>, <code>organization_name</code> or both.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "organization_discovery_methods", nulls = Nulls.SKIP)
         public _FinalStage organizationDiscoveryMethods(
                 Optional<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods) {
@@ -1532,14 +1532,14 @@ public final class CreateClientRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage organizationRequireBehavior(
                 ClientOrganizationRequireBehaviorEnum organizationRequireBehavior) {
             this.organizationRequireBehavior = Optional.ofNullable(organizationRequireBehavior);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "organization_require_behavior", nulls = Nulls.SKIP)
         public _FinalStage organizationRequireBehavior(
                 Optional<ClientOrganizationRequireBehaviorEnum> organizationRequireBehavior) {
@@ -1547,20 +1547,20 @@ public final class CreateClientRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage organizationUsage(ClientOrganizationUsageEnum organizationUsage) {
             this.organizationUsage = Optional.ofNullable(organizationUsage);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "organization_usage", nulls = Nulls.SKIP)
         public _FinalStage organizationUsage(Optional<ClientOrganizationUsageEnum> organizationUsage) {
             this.organizationUsage = organizationUsage;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage defaultOrganization(
                 com.auth0.client.mgmt.core.Nullable<ClientDefaultOrganization> defaultOrganization) {
             if (defaultOrganization.isNull()) {
@@ -1573,7 +1573,7 @@ public final class CreateClientRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage defaultOrganization(Optional<ClientDefaultOrganization> defaultOrganization) {
             if (defaultOrganization.isPresent()) {
                 this.defaultOrganization = OptionalNullable.of(defaultOrganization.get());
@@ -1583,13 +1583,13 @@ public final class CreateClientRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage defaultOrganization(ClientDefaultOrganization defaultOrganization) {
             this.defaultOrganization = OptionalNullable.of(defaultOrganization);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "default_organization", nulls = Nulls.SKIP)
         public _FinalStage defaultOrganization(
                 @Nullable OptionalNullable<ClientDefaultOrganization> defaultOrganization) {
@@ -1597,7 +1597,7 @@ public final class CreateClientRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage refreshToken(
                 com.auth0.client.mgmt.core.Nullable<ClientRefreshTokenConfiguration> refreshToken) {
             if (refreshToken.isNull()) {
@@ -1610,7 +1610,7 @@ public final class CreateClientRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage refreshToken(Optional<ClientRefreshTokenConfiguration> refreshToken) {
             if (refreshToken.isPresent()) {
                 this.refreshToken = OptionalNullable.of(refreshToken.get());
@@ -1620,26 +1620,26 @@ public final class CreateClientRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage refreshToken(ClientRefreshTokenConfiguration refreshToken) {
             this.refreshToken = OptionalNullable.of(refreshToken);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "refresh_token", nulls = Nulls.SKIP)
         public _FinalStage refreshToken(@Nullable OptionalNullable<ClientRefreshTokenConfiguration> refreshToken) {
             this.refreshToken = refreshToken;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage nativeSocialLogin(NativeSocialLogin nativeSocialLogin) {
             this.nativeSocialLogin = Optional.ofNullable(nativeSocialLogin);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "native_social_login", nulls = Nulls.SKIP)
         public _FinalStage nativeSocialLogin(Optional<NativeSocialLogin> nativeSocialLogin) {
             this.nativeSocialLogin = nativeSocialLogin;
@@ -1650,7 +1650,7 @@ public final class CreateClientRequestContent {
          * <p>Initiate login uri, must be https</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage initiateLoginUri(String initiateLoginUri) {
             this.initiateLoginUri = Optional.ofNullable(initiateLoginUri);
             return this;
@@ -1659,46 +1659,46 @@ public final class CreateClientRequestContent {
         /**
          * <p>Initiate login uri, must be https</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "initiate_login_uri", nulls = Nulls.SKIP)
         public _FinalStage initiateLoginUri(Optional<String> initiateLoginUri) {
             this.initiateLoginUri = initiateLoginUri;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage mobile(ClientMobile mobile) {
             this.mobile = Optional.ofNullable(mobile);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "mobile", nulls = Nulls.SKIP)
         public _FinalStage mobile(Optional<ClientMobile> mobile) {
             this.mobile = mobile;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage clientMetadata(Map<String, Object> clientMetadata) {
             this.clientMetadata = Optional.ofNullable(clientMetadata);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "client_metadata", nulls = Nulls.SKIP)
         public _FinalStage clientMetadata(Optional<Map<String, Object>> clientMetadata) {
             this.clientMetadata = clientMetadata;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage addons(ClientAddons addons) {
             this.addons = Optional.ofNullable(addons);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "addons", nulls = Nulls.SKIP)
         public _FinalStage addons(Optional<ClientAddons> addons) {
             this.addons = addons;
@@ -1709,7 +1709,7 @@ public final class CreateClientRequestContent {
          * <p>HTML form template to be used for WS-Federation.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage formTemplate(String formTemplate) {
             this.formTemplate = Optional.ofNullable(formTemplate);
             return this;
@@ -1718,7 +1718,7 @@ public final class CreateClientRequestContent {
         /**
          * <p>HTML form template to be used for WS-Federation.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "form_template", nulls = Nulls.SKIP)
         public _FinalStage formTemplate(Optional<String> formTemplate) {
             this.formTemplate = formTemplate;
@@ -1729,7 +1729,7 @@ public final class CreateClientRequestContent {
          * <p>The content (HTML, CSS, JS) of the custom login page. (Used on Previews)</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage customLoginPagePreview(String customLoginPagePreview) {
             this.customLoginPagePreview = Optional.ofNullable(customLoginPagePreview);
             return this;
@@ -1738,7 +1738,7 @@ public final class CreateClientRequestContent {
         /**
          * <p>The content (HTML, CSS, JS) of the custom login page. (Used on Previews)</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "custom_login_page_preview", nulls = Nulls.SKIP)
         public _FinalStage customLoginPagePreview(Optional<String> customLoginPagePreview) {
             this.customLoginPagePreview = customLoginPagePreview;
@@ -1749,7 +1749,7 @@ public final class CreateClientRequestContent {
          * <p>The content (HTML, CSS, JS) of the custom login page.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage customLoginPage(String customLoginPage) {
             this.customLoginPage = Optional.ofNullable(customLoginPage);
             return this;
@@ -1758,7 +1758,7 @@ public final class CreateClientRequestContent {
         /**
          * <p>The content (HTML, CSS, JS) of the custom login page.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "custom_login_page", nulls = Nulls.SKIP)
         public _FinalStage customLoginPage(Optional<String> customLoginPage) {
             this.customLoginPage = customLoginPage;
@@ -1769,7 +1769,7 @@ public final class CreateClientRequestContent {
          * <p>&lt;code&gt;true&lt;/code&gt; if the custom login page is to be used, &lt;code&gt;false&lt;/code&gt; otherwise. Defaults to &lt;code&gt;true&lt;/code&gt;</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage customLoginPageOn(Boolean customLoginPageOn) {
             this.customLoginPageOn = Optional.ofNullable(customLoginPageOn);
             return this;
@@ -1778,7 +1778,7 @@ public final class CreateClientRequestContent {
         /**
          * <p>&lt;code&gt;true&lt;/code&gt; if the custom login page is to be used, &lt;code&gt;false&lt;/code&gt; otherwise. Defaults to &lt;code&gt;true&lt;/code&gt;</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "custom_login_page_on", nulls = Nulls.SKIP)
         public _FinalStage customLoginPageOn(Optional<Boolean> customLoginPageOn) {
             this.customLoginPageOn = customLoginPageOn;
@@ -1789,7 +1789,7 @@ public final class CreateClientRequestContent {
          * <p>&lt;code&gt;true&lt;/code&gt; to disable Single Sign On, &lt;code&gt;false&lt;/code&gt; otherwise (default: &lt;code&gt;false&lt;/code&gt;)</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage ssoDisabled(Boolean ssoDisabled) {
             this.ssoDisabled = Optional.ofNullable(ssoDisabled);
             return this;
@@ -1798,7 +1798,7 @@ public final class CreateClientRequestContent {
         /**
          * <p>&lt;code&gt;true&lt;/code&gt; to disable Single Sign On, &lt;code&gt;false&lt;/code&gt; otherwise (default: &lt;code&gt;false&lt;/code&gt;)</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "sso_disabled", nulls = Nulls.SKIP)
         public _FinalStage ssoDisabled(Optional<Boolean> ssoDisabled) {
             this.ssoDisabled = ssoDisabled;
@@ -1809,7 +1809,7 @@ public final class CreateClientRequestContent {
          * <p>URL of the location in your site where the cross origin verification takes place for the cross-origin auth flow when performing Auth in your own domain instead of Auth0 hosted login page.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage crossOriginLoc(String crossOriginLoc) {
             this.crossOriginLoc = Optional.ofNullable(crossOriginLoc);
             return this;
@@ -1818,7 +1818,7 @@ public final class CreateClientRequestContent {
         /**
          * <p>URL of the location in your site where the cross origin verification takes place for the cross-origin auth flow when performing Auth in your own domain instead of Auth0 hosted login page.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "cross_origin_loc", nulls = Nulls.SKIP)
         public _FinalStage crossOriginLoc(Optional<String> crossOriginLoc) {
             this.crossOriginLoc = crossOriginLoc;
@@ -1829,7 +1829,7 @@ public final class CreateClientRequestContent {
          * <p>Whether this client can be used to make cross-origin authentication requests (true) or it is not allowed to make such requests (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage crossOriginAuthentication(Boolean crossOriginAuthentication) {
             this.crossOriginAuthentication = Optional.ofNullable(crossOriginAuthentication);
             return this;
@@ -1838,7 +1838,7 @@ public final class CreateClientRequestContent {
         /**
          * <p>Whether this client can be used to make cross-origin authentication requests (true) or it is not allowed to make such requests (false).</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "cross_origin_authentication", nulls = Nulls.SKIP)
         public _FinalStage crossOriginAuthentication(Optional<Boolean> crossOriginAuthentication) {
             this.crossOriginAuthentication = crossOriginAuthentication;
@@ -1849,7 +1849,7 @@ public final class CreateClientRequestContent {
          * <p>Applies only to SSO clients and determines whether Auth0 will handle Single Sign On (true) or whether the Identity Provider will (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage sso(Boolean sso) {
             this.sso = Optional.ofNullable(sso);
             return this;
@@ -1858,14 +1858,14 @@ public final class CreateClientRequestContent {
         /**
          * <p>Applies only to SSO clients and determines whether Auth0 will handle Single Sign On (true) or whether the Identity Provider will (false).</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "sso", nulls = Nulls.SKIP)
         public _FinalStage sso(Optional<Boolean> sso) {
             this.sso = sso;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage encryptionKey(com.auth0.client.mgmt.core.Nullable<ClientEncryptionKey> encryptionKey) {
             if (encryptionKey.isNull()) {
                 this.encryptionKey = OptionalNullable.ofNull();
@@ -1877,7 +1877,7 @@ public final class CreateClientRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage encryptionKey(Optional<ClientEncryptionKey> encryptionKey) {
             if (encryptionKey.isPresent()) {
                 this.encryptionKey = OptionalNullable.of(encryptionKey.get());
@@ -1887,26 +1887,26 @@ public final class CreateClientRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage encryptionKey(ClientEncryptionKey encryptionKey) {
             this.encryptionKey = OptionalNullable.of(encryptionKey);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "encryption_key", nulls = Nulls.SKIP)
         public _FinalStage encryptionKey(@Nullable OptionalNullable<ClientEncryptionKey> encryptionKey) {
             this.encryptionKey = encryptionKey;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage jwtConfiguration(ClientJwtConfiguration jwtConfiguration) {
             this.jwtConfiguration = Optional.ofNullable(jwtConfiguration);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "jwt_configuration", nulls = Nulls.SKIP)
         public _FinalStage jwtConfiguration(Optional<ClientJwtConfiguration> jwtConfiguration) {
             this.jwtConfiguration = jwtConfiguration;
@@ -1917,7 +1917,7 @@ public final class CreateClientRequestContent {
          * <p>Whether this client conforms to &lt;a href='https://auth0.com/docs/api-auth/tutorials/adoption'&gt;strict OIDC specifications&lt;/a&gt; (true) or uses legacy features (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage oidcConformant(Boolean oidcConformant) {
             this.oidcConformant = Optional.ofNullable(oidcConformant);
             return this;
@@ -1926,7 +1926,7 @@ public final class CreateClientRequestContent {
         /**
          * <p>Whether this client conforms to &lt;a href='https://auth0.com/docs/api-auth/tutorials/adoption'&gt;strict OIDC specifications&lt;/a&gt; (true) or uses legacy features (false).</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "oidc_conformant", nulls = Nulls.SKIP)
         public _FinalStage oidcConformant(Optional<Boolean> oidcConformant) {
             this.oidcConformant = oidcConformant;
@@ -1937,7 +1937,7 @@ public final class CreateClientRequestContent {
          * <p>Whether this client a first party client or not</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage isFirstParty(Boolean isFirstParty) {
             this.isFirstParty = Optional.ofNullable(isFirstParty);
             return this;
@@ -1946,20 +1946,20 @@ public final class CreateClientRequestContent {
         /**
          * <p>Whether this client a first party client or not</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "is_first_party", nulls = Nulls.SKIP)
         public _FinalStage isFirstParty(Optional<Boolean> isFirstParty) {
             this.isFirstParty = isFirstParty;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage appType(ClientAppTypeEnum appType) {
             this.appType = Optional.ofNullable(appType);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "app_type", nulls = Nulls.SKIP)
         public _FinalStage appType(Optional<ClientAppTypeEnum> appType) {
             this.appType = appType;
@@ -1970,7 +1970,7 @@ public final class CreateClientRequestContent {
          * <p>If true, trust that the IP specified in the <code>auth0-forwarded-for</code> header is the end-user's IP for brute-force-protection on token endpoint.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage isTokenEndpointIpHeaderTrusted(Boolean isTokenEndpointIpHeaderTrusted) {
             this.isTokenEndpointIpHeaderTrusted = Optional.ofNullable(isTokenEndpointIpHeaderTrusted);
             return this;
@@ -1979,20 +1979,20 @@ public final class CreateClientRequestContent {
         /**
          * <p>If true, trust that the IP specified in the <code>auth0-forwarded-for</code> header is the end-user's IP for brute-force-protection on token endpoint.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "is_token_endpoint_ip_header_trusted", nulls = Nulls.SKIP)
         public _FinalStage isTokenEndpointIpHeaderTrusted(Optional<Boolean> isTokenEndpointIpHeaderTrusted) {
             this.isTokenEndpointIpHeaderTrusted = isTokenEndpointIpHeaderTrusted;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage tokenEndpointAuthMethod(ClientTokenEndpointAuthMethodEnum tokenEndpointAuthMethod) {
             this.tokenEndpointAuthMethod = Optional.ofNullable(tokenEndpointAuthMethod);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "token_endpoint_auth_method", nulls = Nulls.SKIP)
         public _FinalStage tokenEndpointAuthMethod(
                 Optional<ClientTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod) {
@@ -2004,7 +2004,7 @@ public final class CreateClientRequestContent {
          * <p>List of grant types supported for this application. Can include <code>authorization_code</code>, <code>implicit</code>, <code>refresh_token</code>, <code>client_credentials</code>, <code>password</code>, <code>http://auth0.com/oauth/grant-type/password-realm</code>, <code>http://auth0.com/oauth/grant-type/mfa-oob</code>, <code>http://auth0.com/oauth/grant-type/mfa-otp</code>, <code>http://auth0.com/oauth/grant-type/mfa-recovery-code</code>, <code>urn:openid:params:grant-type:ciba</code>, <code>urn:ietf:params:oauth:grant-type:device_code</code>, and <code>urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage grantTypes(List<String> grantTypes) {
             this.grantTypes = Optional.ofNullable(grantTypes);
             return this;
@@ -2013,7 +2013,7 @@ public final class CreateClientRequestContent {
         /**
          * <p>List of grant types supported for this application. Can include <code>authorization_code</code>, <code>implicit</code>, <code>refresh_token</code>, <code>client_credentials</code>, <code>password</code>, <code>http://auth0.com/oauth/grant-type/password-realm</code>, <code>http://auth0.com/oauth/grant-type/mfa-oob</code>, <code>http://auth0.com/oauth/grant-type/mfa-otp</code>, <code>http://auth0.com/oauth/grant-type/mfa-recovery-code</code>, <code>urn:openid:params:grant-type:ciba</code>, <code>urn:ietf:params:oauth:grant-type:device_code</code>, and <code>urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token</code>.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "grant_types", nulls = Nulls.SKIP)
         public _FinalStage grantTypes(Optional<List<String>> grantTypes) {
             this.grantTypes = grantTypes;
@@ -2024,7 +2024,7 @@ public final class CreateClientRequestContent {
          * <p>Comma-separated list of URLs that are valid to redirect to after logout from Auth0. Wildcards are allowed for subdomains.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage allowedLogoutUrls(List<String> allowedLogoutUrls) {
             this.allowedLogoutUrls = Optional.ofNullable(allowedLogoutUrls);
             return this;
@@ -2033,7 +2033,7 @@ public final class CreateClientRequestContent {
         /**
          * <p>Comma-separated list of URLs that are valid to redirect to after logout from Auth0. Wildcards are allowed for subdomains.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "allowed_logout_urls", nulls = Nulls.SKIP)
         public _FinalStage allowedLogoutUrls(Optional<List<String>> allowedLogoutUrls) {
             this.allowedLogoutUrls = allowedLogoutUrls;
@@ -2044,7 +2044,7 @@ public final class CreateClientRequestContent {
          * <p>List of allow clients and API ids that are allowed to make delegation requests. Empty means all all your clients are allowed.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage allowedClients(List<String> allowedClients) {
             this.allowedClients = Optional.ofNullable(allowedClients);
             return this;
@@ -2053,7 +2053,7 @@ public final class CreateClientRequestContent {
         /**
          * <p>List of allow clients and API ids that are allowed to make delegation requests. Empty means all all your clients are allowed.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "allowed_clients", nulls = Nulls.SKIP)
         public _FinalStage allowedClients(Optional<List<String>> allowedClients) {
             this.allowedClients = allowedClients;
@@ -2064,7 +2064,7 @@ public final class CreateClientRequestContent {
          * <p>List of audiences/realms for SAML protocol. Used by the wsfed addon.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage clientAliases(List<String> clientAliases) {
             this.clientAliases = Optional.ofNullable(clientAliases);
             return this;
@@ -2073,7 +2073,7 @@ public final class CreateClientRequestContent {
         /**
          * <p>List of audiences/realms for SAML protocol. Used by the wsfed addon.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "client_aliases", nulls = Nulls.SKIP)
         public _FinalStage clientAliases(Optional<List<String>> clientAliases) {
             this.clientAliases = clientAliases;
@@ -2084,7 +2084,7 @@ public final class CreateClientRequestContent {
          * <p>Comma-separated list of allowed origins for use with &lt;a href='https://auth0.com/docs/cross-origin-authentication'&gt;Cross-Origin Authentication&lt;/a&gt;, &lt;a href='https://auth0.com/docs/flows/concepts/device-auth'&gt;Device Flow&lt;/a&gt;, and &lt;a href='https://auth0.com/docs/protocols/oauth2#how-response-mode-works'&gt;web message response mode&lt;/a&gt;.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage webOrigins(List<String> webOrigins) {
             this.webOrigins = Optional.ofNullable(webOrigins);
             return this;
@@ -2093,7 +2093,7 @@ public final class CreateClientRequestContent {
         /**
          * <p>Comma-separated list of allowed origins for use with &lt;a href='https://auth0.com/docs/cross-origin-authentication'&gt;Cross-Origin Authentication&lt;/a&gt;, &lt;a href='https://auth0.com/docs/flows/concepts/device-auth'&gt;Device Flow&lt;/a&gt;, and &lt;a href='https://auth0.com/docs/protocols/oauth2#how-response-mode-works'&gt;web message response mode&lt;/a&gt;.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "web_origins", nulls = Nulls.SKIP)
         public _FinalStage webOrigins(Optional<List<String>> webOrigins) {
             this.webOrigins = webOrigins;
@@ -2104,7 +2104,7 @@ public final class CreateClientRequestContent {
          * <p>Comma-separated list of URLs allowed to make requests from JavaScript to Auth0 API (typically used with CORS). By default, all your callback URLs will be allowed. This field allows you to enter other origins if necessary. You can also use wildcards at the subdomain level (e.g., https://*.contoso.com). Query strings and hash information are not taken into account when validating these URLs.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage allowedOrigins(List<String> allowedOrigins) {
             this.allowedOrigins = Optional.ofNullable(allowedOrigins);
             return this;
@@ -2113,14 +2113,14 @@ public final class CreateClientRequestContent {
         /**
          * <p>Comma-separated list of URLs allowed to make requests from JavaScript to Auth0 API (typically used with CORS). By default, all your callback URLs will be allowed. This field allows you to enter other origins if necessary. You can also use wildcards at the subdomain level (e.g., https://*.contoso.com). Query strings and hash information are not taken into account when validating these URLs.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "allowed_origins", nulls = Nulls.SKIP)
         public _FinalStage allowedOrigins(Optional<List<String>> allowedOrigins) {
             this.allowedOrigins = allowedOrigins;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage sessionTransfer(
                 com.auth0.client.mgmt.core.Nullable<ClientSessionTransferConfiguration> sessionTransfer) {
             if (sessionTransfer.isNull()) {
@@ -2133,7 +2133,7 @@ public final class CreateClientRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage sessionTransfer(Optional<ClientSessionTransferConfiguration> sessionTransfer) {
             if (sessionTransfer.isPresent()) {
                 this.sessionTransfer = OptionalNullable.of(sessionTransfer.get());
@@ -2143,13 +2143,13 @@ public final class CreateClientRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage sessionTransfer(ClientSessionTransferConfiguration sessionTransfer) {
             this.sessionTransfer = OptionalNullable.of(sessionTransfer);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "session_transfer", nulls = Nulls.SKIP)
         public _FinalStage sessionTransfer(
                 @Nullable OptionalNullable<ClientSessionTransferConfiguration> sessionTransfer) {
@@ -2157,26 +2157,26 @@ public final class CreateClientRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage oidcBackchannelLogout(ClientOidcBackchannelLogoutSettings oidcBackchannelLogout) {
             this.oidcBackchannelLogout = Optional.ofNullable(oidcBackchannelLogout);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "oidc_backchannel_logout", nulls = Nulls.SKIP)
         public _FinalStage oidcBackchannelLogout(Optional<ClientOidcBackchannelLogoutSettings> oidcBackchannelLogout) {
             this.oidcBackchannelLogout = oidcBackchannelLogout;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage oidcLogout(ClientOidcBackchannelLogoutSettings oidcLogout) {
             this.oidcLogout = Optional.ofNullable(oidcLogout);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "oidc_logout", nulls = Nulls.SKIP)
         public _FinalStage oidcLogout(Optional<ClientOidcBackchannelLogoutSettings> oidcLogout) {
             this.oidcLogout = oidcLogout;
@@ -2187,7 +2187,7 @@ public final class CreateClientRequestContent {
          * <p>Comma-separated list of URLs whitelisted for Auth0 to use as a callback to the client after authentication.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage callbacks(List<String> callbacks) {
             this.callbacks = Optional.ofNullable(callbacks);
             return this;
@@ -2196,7 +2196,7 @@ public final class CreateClientRequestContent {
         /**
          * <p>Comma-separated list of URLs whitelisted for Auth0 to use as a callback to the client after authentication.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "callbacks", nulls = Nulls.SKIP)
         public _FinalStage callbacks(Optional<List<String>> callbacks) {
             this.callbacks = callbacks;
@@ -2207,7 +2207,7 @@ public final class CreateClientRequestContent {
          * <p>URL of the logo to display for this client. Recommended size is 150x150 pixels.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage logoUri(String logoUri) {
             this.logoUri = Optional.ofNullable(logoUri);
             return this;
@@ -2216,7 +2216,7 @@ public final class CreateClientRequestContent {
         /**
          * <p>URL of the logo to display for this client. Recommended size is 150x150 pixels.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "logo_uri", nulls = Nulls.SKIP)
         public _FinalStage logoUri(Optional<String> logoUri) {
             this.logoUri = logoUri;
@@ -2227,7 +2227,7 @@ public final class CreateClientRequestContent {
          * <p>Free text description of this client (max length: 140 characters).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage description(String description) {
             this.description = Optional.ofNullable(description);
             return this;
@@ -2236,14 +2236,14 @@ public final class CreateClientRequestContent {
         /**
          * <p>Free text description of this client (max length: 140 characters).</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public _FinalStage description(Optional<String> description) {
             this.description = description;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateClientRequestContent build() {
             return new CreateClientRequestContent(
                     name,

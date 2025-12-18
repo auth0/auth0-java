@@ -83,7 +83,7 @@ public final class CreateConnectionProfileRequestContent {
         return strategyOverrides;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateConnectionProfileRequestContent
@@ -104,7 +104,7 @@ public final class CreateConnectionProfileRequestContent {
                 && strategyOverrides.equals(other.strategyOverrides);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.name,
@@ -115,7 +115,7 @@ public final class CreateConnectionProfileRequestContent {
                 this.strategyOverrides);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -173,7 +173,7 @@ public final class CreateConnectionProfileRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateConnectionProfileRequestContent other) {
             name(other.getName());
             organization(other.getOrganization());
@@ -184,79 +184,79 @@ public final class CreateConnectionProfileRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("name")
         public _FinalStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage strategyOverrides(ConnectionProfileStrategyOverrides strategyOverrides) {
             this.strategyOverrides = Optional.ofNullable(strategyOverrides);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "strategy_overrides", nulls = Nulls.SKIP)
         public _FinalStage strategyOverrides(Optional<ConnectionProfileStrategyOverrides> strategyOverrides) {
             this.strategyOverrides = strategyOverrides;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage connectionConfig(ConnectionProfileConfig connectionConfig) {
             this.connectionConfig = Optional.ofNullable(connectionConfig);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "connection_config", nulls = Nulls.SKIP)
         public _FinalStage connectionConfig(Optional<ConnectionProfileConfig> connectionConfig) {
             this.connectionConfig = connectionConfig;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage enabledFeatures(List<EnabledFeaturesEnum> enabledFeatures) {
             this.enabledFeatures = Optional.ofNullable(enabledFeatures);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "enabled_features", nulls = Nulls.SKIP)
         public _FinalStage enabledFeatures(Optional<List<EnabledFeaturesEnum>> enabledFeatures) {
             this.enabledFeatures = enabledFeatures;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage connectionNamePrefixTemplate(String connectionNamePrefixTemplate) {
             this.connectionNamePrefixTemplate = Optional.ofNullable(connectionNamePrefixTemplate);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "connection_name_prefix_template", nulls = Nulls.SKIP)
         public _FinalStage connectionNamePrefixTemplate(Optional<String> connectionNamePrefixTemplate) {
             this.connectionNamePrefixTemplate = connectionNamePrefixTemplate;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage organization(ConnectionProfileOrganization organization) {
             this.organization = Optional.ofNullable(organization);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "organization", nulls = Nulls.SKIP)
         public _FinalStage organization(Optional<ConnectionProfileOrganization> organization) {
             this.organization = organization;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateConnectionProfileRequestContent build() {
             return new CreateConnectionProfileRequestContent(
                     name,

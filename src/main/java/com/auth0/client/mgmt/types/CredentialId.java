@@ -36,7 +36,7 @@ public final class CredentialId {
         return id;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CredentialId && equalTo((CredentialId) other);
@@ -51,12 +51,12 @@ public final class CredentialId {
         return id.equals(other.id);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.id);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -87,7 +87,7 @@ public final class CredentialId {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CredentialId other) {
             id(other.getId());
             return this;
@@ -98,14 +98,14 @@ public final class CredentialId {
          * <p>Credential ID</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("id")
         public _FinalStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CredentialId build() {
             return new CredentialId(id, additionalProperties);
         }

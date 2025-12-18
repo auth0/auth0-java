@@ -77,7 +77,7 @@ public final class BrandingThemeWidget {
         return socialButtonsLayout;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof BrandingThemeWidget && equalTo((BrandingThemeWidget) other);
@@ -96,13 +96,13 @@ public final class BrandingThemeWidget {
                 && socialButtonsLayout.equals(other.socialButtonsLayout);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.headerTextAlignment, this.logoHeight, this.logoPosition, this.logoUrl, this.socialButtonsLayout);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -166,7 +166,7 @@ public final class BrandingThemeWidget {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(BrandingThemeWidget other) {
             headerTextAlignment(other.getHeaderTextAlignment());
             logoHeight(other.getLogoHeight());
@@ -176,7 +176,7 @@ public final class BrandingThemeWidget {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("header_text_alignment")
         public LogoHeightStage headerTextAlignment(
                 @NotNull BrandingThemeWidgetHeaderTextAlignmentEnum headerTextAlignment) {
@@ -190,14 +190,14 @@ public final class BrandingThemeWidget {
          * <p>Logo height</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("logo_height")
         public LogoPositionStage logoHeight(double logoHeight) {
             this.logoHeight = logoHeight;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("logo_position")
         public LogoUrlStage logoPosition(@NotNull BrandingThemeWidgetLogoPositionEnum logoPosition) {
             this.logoPosition = Objects.requireNonNull(logoPosition, "logoPosition must not be null");
@@ -209,14 +209,14 @@ public final class BrandingThemeWidget {
          * <p>Logo url</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("logo_url")
         public SocialButtonsLayoutStage logoUrl(@NotNull String logoUrl) {
             this.logoUrl = Objects.requireNonNull(logoUrl, "logoUrl must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("social_buttons_layout")
         public _FinalStage socialButtonsLayout(
                 @NotNull BrandingThemeWidgetSocialButtonsLayoutEnum socialButtonsLayout) {
@@ -225,7 +225,7 @@ public final class BrandingThemeWidget {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public BrandingThemeWidget build() {
             return new BrandingThemeWidget(
                     headerTextAlignment, logoHeight, logoPosition, logoUrl, socialButtonsLayout, additionalProperties);

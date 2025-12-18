@@ -90,6 +90,8 @@ public final class UpdateTenantSettingsResponseContent {
 
     private final Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile;
 
+    private final Optional<Boolean> enableAiGuide;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateTenantSettingsResponseContent(
@@ -126,6 +128,7 @@ public final class UpdateTenantSettingsResponseContent {
             OptionalNullable<Boolean> authorizationResponseIssParameterSupported,
             OptionalNullable<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt,
             Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile,
+            Optional<Boolean> enableAiGuide,
             Map<String, Object> additionalProperties) {
         this.changePassword = changePassword;
         this.guardianMfaPage = guardianMfaPage;
@@ -160,6 +163,7 @@ public final class UpdateTenantSettingsResponseContent {
         this.authorizationResponseIssParameterSupported = authorizationResponseIssParameterSupported;
         this.skipNonVerifiableCallbackUriConfirmationPrompt = skipNonVerifiableCallbackUriConfirmationPrompt;
         this.resourceParameterProfile = resourceParameterProfile;
+        this.enableAiGuide = enableAiGuide;
         this.additionalProperties = additionalProperties;
     }
 
@@ -436,6 +440,14 @@ public final class UpdateTenantSettingsResponseContent {
         return resourceParameterProfile;
     }
 
+    /**
+     * @return Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.
+     */
+    @JsonProperty("enable_ai_guide")
+    public Optional<Boolean> getEnableAiGuide() {
+        return enableAiGuide;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("change_password")
     private OptionalNullable<TenantSettingsPasswordPage> _getChangePassword() {
@@ -496,7 +508,7 @@ public final class UpdateTenantSettingsResponseContent {
         return skipNonVerifiableCallbackUriConfirmationPrompt;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateTenantSettingsResponseContent
@@ -542,10 +554,11 @@ public final class UpdateTenantSettingsResponseContent {
                 && authorizationResponseIssParameterSupported.equals(other.authorizationResponseIssParameterSupported)
                 && skipNonVerifiableCallbackUriConfirmationPrompt.equals(
                         other.skipNonVerifiableCallbackUriConfirmationPrompt)
-                && resourceParameterProfile.equals(other.resourceParameterProfile);
+                && resourceParameterProfile.equals(other.resourceParameterProfile)
+                && enableAiGuide.equals(other.enableAiGuide);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.changePassword,
@@ -580,10 +593,11 @@ public final class UpdateTenantSettingsResponseContent {
                 this.pushedAuthorizationRequestsSupported,
                 this.authorizationResponseIssParameterSupported,
                 this.skipNonVerifiableCallbackUriConfirmationPrompt,
-                this.resourceParameterProfile);
+                this.resourceParameterProfile,
+                this.enableAiGuide);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -660,6 +674,8 @@ public final class UpdateTenantSettingsResponseContent {
 
         private Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile = Optional.empty();
 
+        private Optional<Boolean> enableAiGuide = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -699,6 +715,7 @@ public final class UpdateTenantSettingsResponseContent {
             authorizationResponseIssParameterSupported(other.getAuthorizationResponseIssParameterSupported());
             skipNonVerifiableCallbackUriConfirmationPrompt(other.getSkipNonVerifiableCallbackUriConfirmationPrompt());
             resourceParameterProfile(other.getResourceParameterProfile());
+            enableAiGuide(other.getEnableAiGuide());
             return this;
         }
 
@@ -1350,6 +1367,20 @@ public final class UpdateTenantSettingsResponseContent {
             return this;
         }
 
+        /**
+         * <p>Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.</p>
+         */
+        @JsonSetter(value = "enable_ai_guide", nulls = Nulls.SKIP)
+        public Builder enableAiGuide(Optional<Boolean> enableAiGuide) {
+            this.enableAiGuide = enableAiGuide;
+            return this;
+        }
+
+        public Builder enableAiGuide(Boolean enableAiGuide) {
+            this.enableAiGuide = Optional.ofNullable(enableAiGuide);
+            return this;
+        }
+
         public UpdateTenantSettingsResponseContent build() {
             return new UpdateTenantSettingsResponseContent(
                     changePassword,
@@ -1385,6 +1416,7 @@ public final class UpdateTenantSettingsResponseContent {
                     authorizationResponseIssParameterSupported,
                     skipNonVerifiableCallbackUriConfirmationPrompt,
                     resourceParameterProfile,
+                    enableAiGuide,
                     additionalProperties);
         }
     }

@@ -58,7 +58,7 @@ public final class UserAttributeProfileStrategyOverridesMapping {
         return scimMapping;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UserAttributeProfileStrategyOverridesMapping
@@ -76,12 +76,12 @@ public final class UserAttributeProfileStrategyOverridesMapping {
                 && scimMapping.equals(other.scimMapping);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.oidcMapping, this.samlMapping, this.scimMapping);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

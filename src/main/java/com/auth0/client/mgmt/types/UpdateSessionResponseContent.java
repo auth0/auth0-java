@@ -167,7 +167,7 @@ public final class UpdateSessionResponseContent {
         return sessionMetadata;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateSessionResponseContent && equalTo((UpdateSessionResponseContent) other);
@@ -194,7 +194,7 @@ public final class UpdateSessionResponseContent {
                 && sessionMetadata.equals(other.sessionMetadata);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -212,7 +212,7 @@ public final class UpdateSessionResponseContent {
                 this.sessionMetadata);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

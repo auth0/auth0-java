@@ -42,7 +42,7 @@ public final class FlowActionActivecampaignListContactsParams {
         return email;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionActivecampaignListContactsParams
@@ -58,12 +58,12 @@ public final class FlowActionActivecampaignListContactsParams {
         return connectionId.equals(other.connectionId) && email.equals(other.email);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.email);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -97,28 +97,28 @@ public final class FlowActionActivecampaignListContactsParams {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionActivecampaignListContactsParams other) {
             connectionId(other.getConnectionId());
             email(other.getEmail());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_id")
         public EmailStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("email")
         public _FinalStage email(@NotNull String email) {
             this.email = Objects.requireNonNull(email, "email must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionActivecampaignListContactsParams build() {
             return new FlowActionActivecampaignListContactsParams(connectionId, email, additionalProperties);
         }

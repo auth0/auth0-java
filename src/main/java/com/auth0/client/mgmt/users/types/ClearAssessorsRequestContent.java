@@ -51,7 +51,7 @@ public final class ClearAssessorsRequestContent {
         return assessors;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClearAssessorsRequestContent && equalTo((ClearAssessorsRequestContent) other);
@@ -66,12 +66,12 @@ public final class ClearAssessorsRequestContent {
         return connection.equals(other.connection) && assessors.equals(other.assessors);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.connection, this.assessors);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -113,7 +113,7 @@ public final class ClearAssessorsRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(ClearAssessorsRequestContent other) {
             connection(other.getConnection());
             assessors(other.getAssessors());
@@ -125,7 +125,7 @@ public final class ClearAssessorsRequestContent {
          * <p>The name of the connection containing the user whose assessors should be cleared.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("connection")
         public _FinalStage connection(@NotNull String connection) {
             this.connection = Objects.requireNonNull(connection, "connection must not be null");
@@ -136,7 +136,7 @@ public final class ClearAssessorsRequestContent {
          * <p>List of assessors to clear.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage addAllAssessors(List<String> assessors) {
             if (assessors != null) {
                 this.assessors.addAll(assessors);
@@ -148,7 +148,7 @@ public final class ClearAssessorsRequestContent {
          * <p>List of assessors to clear.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage addAssessors(String assessors) {
             this.assessors.add(assessors);
             return this;
@@ -157,7 +157,7 @@ public final class ClearAssessorsRequestContent {
         /**
          * <p>List of assessors to clear.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "assessors", nulls = Nulls.SKIP)
         public _FinalStage assessors(List<String> assessors) {
             this.assessors.clear();
@@ -167,7 +167,7 @@ public final class ClearAssessorsRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public ClearAssessorsRequestContent build() {
             return new ClearAssessorsRequestContent(connection, assessors, additionalProperties);
         }

@@ -49,7 +49,7 @@ public final class ResourceServerScope {
         return description;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ResourceServerScope && equalTo((ResourceServerScope) other);
@@ -64,12 +64,12 @@ public final class ResourceServerScope {
         return value.equals(other.value) && description.equals(other.description);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.value, this.description);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -109,7 +109,7 @@ public final class ResourceServerScope {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(ResourceServerScope other) {
             value(other.getValue());
             description(other.getDescription());
@@ -121,7 +121,7 @@ public final class ResourceServerScope {
          * <p>Value of this scope.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("value")
         public _FinalStage value(@NotNull String value) {
             this.value = Objects.requireNonNull(value, "value must not be null");
@@ -132,7 +132,7 @@ public final class ResourceServerScope {
          * <p>User-friendly description of this scope.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage description(String description) {
             this.description = Optional.ofNullable(description);
             return this;
@@ -141,14 +141,14 @@ public final class ResourceServerScope {
         /**
          * <p>User-friendly description of this scope.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public _FinalStage description(Optional<String> description) {
             this.description = description;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public ResourceServerScope build() {
             return new ResourceServerScope(value, description, additionalProperties);
         }

@@ -59,7 +59,7 @@ public final class AttackProtectionUpdateCaptchaRecaptchaEnterprise {
         return projectId;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof AttackProtectionUpdateCaptchaRecaptchaEnterprise
@@ -75,12 +75,12 @@ public final class AttackProtectionUpdateCaptchaRecaptchaEnterprise {
         return siteKey.equals(other.siteKey) && apiKey.equals(other.apiKey) && projectId.equals(other.projectId);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.siteKey, this.apiKey, this.projectId);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -129,7 +129,7 @@ public final class AttackProtectionUpdateCaptchaRecaptchaEnterprise {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(AttackProtectionUpdateCaptchaRecaptchaEnterprise other) {
             siteKey(other.getSiteKey());
             apiKey(other.getApiKey());
@@ -142,7 +142,7 @@ public final class AttackProtectionUpdateCaptchaRecaptchaEnterprise {
          * <p>The site key for the reCAPTCHA Enterprise provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("site_key")
         public ApiKeyStage siteKey(@NotNull String siteKey) {
             this.siteKey = Objects.requireNonNull(siteKey, "siteKey must not be null");
@@ -154,7 +154,7 @@ public final class AttackProtectionUpdateCaptchaRecaptchaEnterprise {
          * <p>The API key for the reCAPTCHA Enterprise provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("api_key")
         public ProjectIdStage apiKey(@NotNull String apiKey) {
             this.apiKey = Objects.requireNonNull(apiKey, "apiKey must not be null");
@@ -166,14 +166,14 @@ public final class AttackProtectionUpdateCaptchaRecaptchaEnterprise {
          * <p>The project ID for the reCAPTCHA Enterprise provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("project_id")
         public _FinalStage projectId(@NotNull String projectId) {
             this.projectId = Objects.requireNonNull(projectId, "projectId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public AttackProtectionUpdateCaptchaRecaptchaEnterprise build() {
             return new AttackProtectionUpdateCaptchaRecaptchaEnterprise(
                     siteKey, apiKey, projectId, additionalProperties);

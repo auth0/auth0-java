@@ -62,7 +62,7 @@ public final class ActionBindingWithRef {
         return secrets;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ActionBindingWithRef && equalTo((ActionBindingWithRef) other);
@@ -77,12 +77,12 @@ public final class ActionBindingWithRef {
         return ref.equals(other.ref) && displayName.equals(other.displayName) && secrets.equals(other.secrets);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.ref, this.displayName, this.secrets);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -128,7 +128,7 @@ public final class ActionBindingWithRef {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(ActionBindingWithRef other) {
             ref(other.getRef());
             displayName(other.getDisplayName());
@@ -136,7 +136,7 @@ public final class ActionBindingWithRef {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("ref")
         public _FinalStage ref(@NotNull ActionBindingRef ref) {
             this.ref = Objects.requireNonNull(ref, "ref must not be null");
@@ -147,7 +147,7 @@ public final class ActionBindingWithRef {
          * <p>The list of secrets that are included in an action or a version of an action.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage secrets(List<ActionSecretRequest> secrets) {
             this.secrets = Optional.ofNullable(secrets);
             return this;
@@ -156,7 +156,7 @@ public final class ActionBindingWithRef {
         /**
          * <p>The list of secrets that are included in an action or a version of an action.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "secrets", nulls = Nulls.SKIP)
         public _FinalStage secrets(Optional<List<ActionSecretRequest>> secrets) {
             this.secrets = secrets;
@@ -167,7 +167,7 @@ public final class ActionBindingWithRef {
          * <p>The name of the binding.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage displayName(String displayName) {
             this.displayName = Optional.ofNullable(displayName);
             return this;
@@ -176,14 +176,14 @@ public final class ActionBindingWithRef {
         /**
          * <p>The name of the binding.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "display_name", nulls = Nulls.SKIP)
         public _FinalStage displayName(Optional<String> displayName) {
             this.displayName = displayName;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public ActionBindingWithRef build() {
             return new ActionBindingWithRef(ref, displayName, secrets, additionalProperties);
         }

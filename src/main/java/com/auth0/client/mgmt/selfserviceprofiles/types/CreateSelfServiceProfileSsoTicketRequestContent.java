@@ -39,6 +39,8 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
 
     private final Optional<SelfServiceProfileSsoTicketProvisioningConfig> provisioningConfig;
 
+    private final Optional<Boolean> useForOrganizationDiscovery;
+
     private final Map<String, Object> additionalProperties;
 
     private CreateSelfServiceProfileSsoTicketRequestContent(
@@ -49,6 +51,7 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
             Optional<Integer> ttlSec,
             Optional<SelfServiceProfileSsoTicketDomainAliasesConfig> domainAliasesConfig,
             Optional<SelfServiceProfileSsoTicketProvisioningConfig> provisioningConfig,
+            Optional<Boolean> useForOrganizationDiscovery,
             Map<String, Object> additionalProperties) {
         this.connectionId = connectionId;
         this.connectionConfig = connectionConfig;
@@ -57,6 +60,7 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
         this.ttlSec = ttlSec;
         this.domainAliasesConfig = domainAliasesConfig;
         this.provisioningConfig = provisioningConfig;
+        this.useForOrganizationDiscovery = useForOrganizationDiscovery;
         this.additionalProperties = additionalProperties;
     }
 
@@ -107,7 +111,15 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
         return provisioningConfig;
     }
 
-    @Override
+    /**
+     * @return Indicates whether a verified domain should be used for organization discovery during authentication.
+     */
+    @JsonProperty("use_for_organization_discovery")
+    public Optional<Boolean> getUseForOrganizationDiscovery() {
+        return useForOrganizationDiscovery;
+    }
+
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateSelfServiceProfileSsoTicketRequestContent
@@ -126,10 +138,11 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
                 && enabledOrganizations.equals(other.enabledOrganizations)
                 && ttlSec.equals(other.ttlSec)
                 && domainAliasesConfig.equals(other.domainAliasesConfig)
-                && provisioningConfig.equals(other.provisioningConfig);
+                && provisioningConfig.equals(other.provisioningConfig)
+                && useForOrganizationDiscovery.equals(other.useForOrganizationDiscovery);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.connectionId,
@@ -138,10 +151,11 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
                 this.enabledOrganizations,
                 this.ttlSec,
                 this.domainAliasesConfig,
-                this.provisioningConfig);
+                this.provisioningConfig,
+                this.useForOrganizationDiscovery);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -166,6 +180,8 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
 
         private Optional<SelfServiceProfileSsoTicketProvisioningConfig> provisioningConfig = Optional.empty();
 
+        private Optional<Boolean> useForOrganizationDiscovery = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -179,6 +195,7 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
             ttlSec(other.getTtlSec());
             domainAliasesConfig(other.getDomainAliasesConfig());
             provisioningConfig(other.getProvisioningConfig());
+            useForOrganizationDiscovery(other.getUseForOrganizationDiscovery());
             return this;
         }
 
@@ -273,6 +290,20 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
             return this;
         }
 
+        /**
+         * <p>Indicates whether a verified domain should be used for organization discovery during authentication.</p>
+         */
+        @JsonSetter(value = "use_for_organization_discovery", nulls = Nulls.SKIP)
+        public Builder useForOrganizationDiscovery(Optional<Boolean> useForOrganizationDiscovery) {
+            this.useForOrganizationDiscovery = useForOrganizationDiscovery;
+            return this;
+        }
+
+        public Builder useForOrganizationDiscovery(Boolean useForOrganizationDiscovery) {
+            this.useForOrganizationDiscovery = Optional.ofNullable(useForOrganizationDiscovery);
+            return this;
+        }
+
         public CreateSelfServiceProfileSsoTicketRequestContent build() {
             return new CreateSelfServiceProfileSsoTicketRequestContent(
                     connectionId,
@@ -282,6 +313,7 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
                     ttlSec,
                     domainAliasesConfig,
                     provisioningConfig,
+                    useForOrganizationDiscovery,
                     additionalProperties);
         }
     }

@@ -76,7 +76,7 @@ public final class CreateVerificationEmailResponseContent {
         return id;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateVerificationEmailResponseContent
@@ -95,12 +95,12 @@ public final class CreateVerificationEmailResponseContent {
                 && id.equals(other.id);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.status, this.type, this.createdAt, this.id);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -158,7 +158,7 @@ public final class CreateVerificationEmailResponseContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateVerificationEmailResponseContent other) {
             status(other.getStatus());
             type(other.getType());
@@ -172,7 +172,7 @@ public final class CreateVerificationEmailResponseContent {
          * <p>Status of this job.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("status")
         public TypeStage status(@NotNull String status) {
             this.status = Objects.requireNonNull(status, "status must not be null");
@@ -184,7 +184,7 @@ public final class CreateVerificationEmailResponseContent {
          * <p>Type of job this is.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public IdStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
@@ -196,7 +196,7 @@ public final class CreateVerificationEmailResponseContent {
          * <p>ID of this job.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("id")
         public _FinalStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
@@ -207,7 +207,7 @@ public final class CreateVerificationEmailResponseContent {
          * <p>When this job was created.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage createdAt(String createdAt) {
             this.createdAt = Optional.ofNullable(createdAt);
             return this;
@@ -216,14 +216,14 @@ public final class CreateVerificationEmailResponseContent {
         /**
          * <p>When this job was created.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateVerificationEmailResponseContent build() {
             return new CreateVerificationEmailResponseContent(status, type, createdAt, id, additionalProperties);
         }

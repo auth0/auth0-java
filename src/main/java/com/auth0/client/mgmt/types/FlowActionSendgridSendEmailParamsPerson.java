@@ -44,7 +44,7 @@ public final class FlowActionSendgridSendEmailParamsPerson {
         return email;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionSendgridSendEmailParamsPerson
@@ -60,12 +60,12 @@ public final class FlowActionSendgridSendEmailParamsPerson {
         return name.equals(other.name) && email.equals(other.email);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.email);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -99,34 +99,34 @@ public final class FlowActionSendgridSendEmailParamsPerson {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionSendgridSendEmailParamsPerson other) {
             name(other.getName());
             email(other.getEmail());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("email")
         public _FinalStage email(@NotNull String email) {
             this.email = Objects.requireNonNull(email, "email must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage name(String name) {
             this.name = Optional.ofNullable(name);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<String> name) {
             this.name = name;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionSendgridSendEmailParamsPerson build() {
             return new FlowActionSendgridSendEmailParamsPerson(name, email, additionalProperties);
         }

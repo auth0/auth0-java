@@ -134,7 +134,7 @@ public final class ConnectionsGetRequest {
         return includeFields;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionsGetRequest && equalTo((ConnectionsGetRequest) other);
@@ -153,12 +153,12 @@ public final class ConnectionsGetRequest {
                 && includeFields.equals(other.includeFields);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.strategy, this.from, this.take, this.fields, this.includeFields);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -87,7 +87,7 @@ public final class ClientAddonAzureSb {
         return expiration;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientAddonAzureSb && equalTo((ClientAddonAzureSb) other);
@@ -106,12 +106,12 @@ public final class ClientAddonAzureSb {
                 && expiration.equals(other.expiration);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.namespace, this.sasKeyName, this.sasKey, this.entityPath, this.expiration);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

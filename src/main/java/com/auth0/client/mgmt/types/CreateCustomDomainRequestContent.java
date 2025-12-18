@@ -89,7 +89,7 @@ public final class CreateCustomDomainRequestContent {
         return domainMetadata;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateCustomDomainRequestContent && equalTo((CreateCustomDomainRequestContent) other);
@@ -109,7 +109,7 @@ public final class CreateCustomDomainRequestContent {
                 && domainMetadata.equals(other.domainMetadata);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.domain,
@@ -120,7 +120,7 @@ public final class CreateCustomDomainRequestContent {
                 this.domainMetadata);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -185,7 +185,7 @@ public final class CreateCustomDomainRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateCustomDomainRequestContent other) {
             domain(other.getDomain());
             type(other.getType());
@@ -201,34 +201,34 @@ public final class CreateCustomDomainRequestContent {
          * <p>Domain name.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("domain")
         public TypeStage domain(@NotNull String domain) {
             this.domain = Objects.requireNonNull(domain, "domain must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public _FinalStage type(@NotNull CustomDomainProvisioningTypeEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage domainMetadata(Map<String, OptionalNullable<String>> domainMetadata) {
             this.domainMetadata = Optional.ofNullable(domainMetadata);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "domain_metadata", nulls = Nulls.SKIP)
         public _FinalStage domainMetadata(Optional<Map<String, OptionalNullable<String>>> domainMetadata) {
             this.domainMetadata = domainMetadata;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage customClientIpHeader(Nullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader) {
             if (customClientIpHeader.isNull()) {
                 this.customClientIpHeader = OptionalNullable.ofNull();
@@ -240,7 +240,7 @@ public final class CreateCustomDomainRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage customClientIpHeader(Optional<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader) {
             if (customClientIpHeader.isPresent()) {
                 this.customClientIpHeader = OptionalNullable.of(customClientIpHeader.get());
@@ -250,13 +250,13 @@ public final class CreateCustomDomainRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage customClientIpHeader(CustomDomainCustomClientIpHeaderEnum customClientIpHeader) {
             this.customClientIpHeader = OptionalNullable.of(customClientIpHeader);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "custom_client_ip_header", nulls = Nulls.SKIP)
         public _FinalStage customClientIpHeader(
                 OptionalNullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader) {
@@ -264,33 +264,33 @@ public final class CreateCustomDomainRequestContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage tlsPolicy(String tlsPolicy) {
             this.tlsPolicy = Optional.ofNullable(tlsPolicy);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "tls_policy", nulls = Nulls.SKIP)
         public _FinalStage tlsPolicy(Optional<String> tlsPolicy) {
             this.tlsPolicy = tlsPolicy;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage verificationMethod(String verificationMethod) {
             this.verificationMethod = Optional.ofNullable(verificationMethod);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "verification_method", nulls = Nulls.SKIP)
         public _FinalStage verificationMethod(Optional<String> verificationMethod) {
             this.verificationMethod = verificationMethod;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateCustomDomainRequestContent build() {
             return new CreateCustomDomainRequestContent(
                     domain,

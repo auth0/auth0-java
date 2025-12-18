@@ -38,7 +38,7 @@ public final class RegenerateUsersRecoveryCodeResponseContent {
         return recoveryCode;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof RegenerateUsersRecoveryCodeResponseContent
@@ -54,12 +54,12 @@ public final class RegenerateUsersRecoveryCodeResponseContent {
         return recoveryCode.equals(other.recoveryCode);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.recoveryCode);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

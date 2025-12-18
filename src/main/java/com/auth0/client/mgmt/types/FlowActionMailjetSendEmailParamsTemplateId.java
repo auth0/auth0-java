@@ -43,7 +43,7 @@ public final class FlowActionMailjetSendEmailParamsTemplateId {
         return variables;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionMailjetSendEmailParamsTemplateId
@@ -59,12 +59,12 @@ public final class FlowActionMailjetSendEmailParamsTemplateId {
         return templateId == other.templateId && variables.equals(other.variables);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.templateId, this.variables);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -98,34 +98,34 @@ public final class FlowActionMailjetSendEmailParamsTemplateId {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionMailjetSendEmailParamsTemplateId other) {
             templateId(other.getTemplateId());
             variables(other.getVariables());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("template_id")
         public _FinalStage templateId(int templateId) {
             this.templateId = templateId;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage variables(Map<String, Object> variables) {
             this.variables = Optional.ofNullable(variables);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "variables", nulls = Nulls.SKIP)
         public _FinalStage variables(Optional<Map<String, Object>> variables) {
             this.variables = variables;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionMailjetSendEmailParamsTemplateId build() {
             return new FlowActionMailjetSendEmailParamsTemplateId(templateId, variables, additionalProperties);
         }

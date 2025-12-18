@@ -49,7 +49,7 @@ public final class ClientSignedRequestObjectWithPublicKey {
         return credentials;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientSignedRequestObjectWithPublicKey
@@ -65,12 +65,12 @@ public final class ClientSignedRequestObjectWithPublicKey {
         return required.equals(other.required) && credentials.equals(other.credentials);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.required, this.credentials);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

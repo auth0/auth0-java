@@ -47,20 +47,20 @@ public final class ClientOidcBackchannelLogoutInitiatorsEnum {
         return value;
     }
 
-    @Override
+    @java.lang.Override
     @JsonValue
     public String toString() {
         return this.string;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
                 || (other instanceof ClientOidcBackchannelLogoutInitiatorsEnum
                         && this.string.equals(((ClientOidcBackchannelLogoutInitiatorsEnum) other).string));
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return this.string.hashCode();
     }

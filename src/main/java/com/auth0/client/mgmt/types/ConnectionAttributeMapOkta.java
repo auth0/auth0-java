@@ -54,7 +54,7 @@ public final class ConnectionAttributeMapOkta {
         return userinfoScope;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionAttributeMapOkta && equalTo((ConnectionAttributeMapOkta) other);
@@ -71,12 +71,12 @@ public final class ConnectionAttributeMapOkta {
                 && userinfoScope.equals(other.userinfoScope);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.attributes, this.mappingMode, this.userinfoScope);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

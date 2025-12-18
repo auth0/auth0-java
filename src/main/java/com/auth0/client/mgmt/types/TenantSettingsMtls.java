@@ -37,7 +37,7 @@ public final class TenantSettingsMtls {
         return enableEndpointAliases;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof TenantSettingsMtls && equalTo((TenantSettingsMtls) other);
@@ -52,12 +52,12 @@ public final class TenantSettingsMtls {
         return enableEndpointAliases.equals(other.enableEndpointAliases);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.enableEndpointAliases);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -99,7 +99,7 @@ public final class UserAttributeProfileStrategyOverrides {
         return samlp;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UserAttributeProfileStrategyOverrides
@@ -122,13 +122,13 @@ public final class UserAttributeProfileStrategyOverrides {
                 && samlp.equals(other.samlp);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.pingfederate, this.ad, this.adfs, this.waad, this.googleApps, this.okta, this.oidc, this.samlp);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

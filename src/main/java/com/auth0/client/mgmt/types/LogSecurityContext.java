@@ -48,7 +48,7 @@ public final class LogSecurityContext {
         return ja4;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof LogSecurityContext && equalTo((LogSecurityContext) other);
@@ -63,12 +63,12 @@ public final class LogSecurityContext {
         return ja3.equals(other.ja3) && ja4.equals(other.ja4);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.ja3, this.ja4);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -50,7 +50,7 @@ public final class FlowsVaultConnectioSetupMailjetApiKey {
         return secretKey;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowsVaultConnectioSetupMailjetApiKey
@@ -66,12 +66,12 @@ public final class FlowsVaultConnectioSetupMailjetApiKey {
         return type.equals(other.type) && apiKey.equals(other.apiKey) && secretKey.equals(other.secretKey);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.type, this.apiKey, this.secretKey);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -111,7 +111,7 @@ public final class FlowsVaultConnectioSetupMailjetApiKey {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowsVaultConnectioSetupMailjetApiKey other) {
             type(other.getType());
             apiKey(other.getApiKey());
@@ -119,28 +119,28 @@ public final class FlowsVaultConnectioSetupMailjetApiKey {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public ApiKeyStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("api_key")
         public SecretKeyStage apiKey(@NotNull String apiKey) {
             this.apiKey = Objects.requireNonNull(apiKey, "apiKey must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("secret_key")
         public _FinalStage secretKey(@NotNull String secretKey) {
             this.secretKey = Objects.requireNonNull(secretKey, "secretKey must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowsVaultConnectioSetupMailjetApiKey build() {
             return new FlowsVaultConnectioSetupMailjetApiKey(type, apiKey, secretKey, additionalProperties);
         }

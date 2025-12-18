@@ -38,7 +38,7 @@ public final class GetSupplementalSignalsResponseContent {
         return akamaiEnabled;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetSupplementalSignalsResponseContent
@@ -54,12 +54,12 @@ public final class GetSupplementalSignalsResponseContent {
         return akamaiEnabled.equals(other.akamaiEnabled);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.akamaiEnabled);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -1,19 +1,23 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorsProviderPushNotificationApnsRequestContent;
+import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorsProviderPushNotificationFcmRequestContent;
+import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorsProviderPushNotificationFcmv1RequestContent;
 import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorsProviderPushNotificationRequestContent;
 import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorsProviderPushNotificationSnsRequestContent;
+import com.auth0.client.mgmt.guardian.factors.types.UpdateGuardianFactorsProviderPushNotificationApnsRequestContent;
+import com.auth0.client.mgmt.guardian.factors.types.UpdateGuardianFactorsProviderPushNotificationFcmRequestContent;
+import com.auth0.client.mgmt.guardian.factors.types.UpdateGuardianFactorsProviderPushNotificationFcmv1RequestContent;
 import com.auth0.client.mgmt.guardian.factors.types.UpdateGuardianFactorsProviderPushNotificationSnsRequestContent;
 import com.auth0.client.mgmt.types.GetGuardianFactorsProviderApnsResponseContent;
 import com.auth0.client.mgmt.types.GetGuardianFactorsProviderPushNotificationResponseContent;
 import com.auth0.client.mgmt.types.GetGuardianFactorsProviderSnsResponseContent;
 import com.auth0.client.mgmt.types.GuardianFactorsProviderPushNotificationProviderDataEnum;
-import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationApnsRequestContent;
 import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationApnsResponseContent;
-import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationFcmRequestContent;
-import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationFcmv1RequestContent;
 import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationResponseContent;
 import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPushNotificationSnsResponseContent;
+import com.auth0.client.mgmt.types.UpdateGuardianFactorsProviderPushNotificationApnsResponseContent;
 import com.auth0.client.mgmt.types.UpdateGuardianFactorsProviderPushNotificationSnsResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -108,6 +112,83 @@ public class GuardianFactorsPushNotificationWireTest {
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
+        Assertions.assertEquals("PUT", request.getMethod());
+        // Validate request body
+        String actualRequestBody = request.getBody().readUtf8();
+        String expectedRequestBody = "" + "{}";
+        JsonNode actualJson = objectMapper.readTree(actualRequestBody);
+        JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
+        Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");
+        if (actualJson.has("type") || actualJson.has("_type") || actualJson.has("kind")) {
+            String discriminator = null;
+            if (actualJson.has("type")) discriminator = actualJson.get("type").asText();
+            else if (actualJson.has("_type"))
+                discriminator = actualJson.get("_type").asText();
+            else if (actualJson.has("kind"))
+                discriminator = actualJson.get("kind").asText();
+            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
+            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
+        }
+
+        if (!actualJson.isNull()) {
+            Assertions.assertTrue(
+                    actualJson.isObject() || actualJson.isArray() || actualJson.isValueNode(),
+                    "request should be a valid JSON value");
+        }
+
+        if (actualJson.isArray()) {
+            Assertions.assertTrue(actualJson.size() >= 0, "Array should have valid size");
+        }
+        if (actualJson.isObject()) {
+            Assertions.assertTrue(actualJson.size() >= 0, "Object should have valid field count");
+        }
+
+        // Validate response body
+        Assertions.assertNotNull(response, "Response should not be null");
+        String actualResponseJson = objectMapper.writeValueAsString(response);
+        String expectedResponseBody = "" + "{\n" + "  \"sandbox\": true,\n" + "  \"bundle_id\": \"bundle_id\"\n" + "}";
+        JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
+        JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
+        Assertions.assertTrue(
+                jsonEquals(expectedResponseNode, actualResponseNode),
+                "Response body structure does not match expected");
+        if (actualResponseNode.has("type") || actualResponseNode.has("_type") || actualResponseNode.has("kind")) {
+            String discriminator = null;
+            if (actualResponseNode.has("type"))
+                discriminator = actualResponseNode.get("type").asText();
+            else if (actualResponseNode.has("_type"))
+                discriminator = actualResponseNode.get("_type").asText();
+            else if (actualResponseNode.has("kind"))
+                discriminator = actualResponseNode.get("kind").asText();
+            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
+            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
+        }
+
+        if (!actualResponseNode.isNull()) {
+            Assertions.assertTrue(
+                    actualResponseNode.isObject() || actualResponseNode.isArray() || actualResponseNode.isValueNode(),
+                    "response should be a valid JSON value");
+        }
+
+        if (actualResponseNode.isArray()) {
+            Assertions.assertTrue(actualResponseNode.size() >= 0, "Array should have valid size");
+        }
+        if (actualResponseNode.isObject()) {
+            Assertions.assertTrue(actualResponseNode.size() >= 0, "Object should have valid field count");
+        }
+    }
+
+    @Test
+    public void testUpdateApnsProvider() throws Exception {
+        server.enqueue(
+                new MockResponse().setResponseCode(200).setBody("{\"sandbox\":true,\"bundle_id\":\"bundle_id\"}"));
+        UpdateGuardianFactorsProviderPushNotificationApnsResponseContent response = client.guardian()
+                .factors()
+                .pushNotification()
+                .updateApnsProvider(UpdateGuardianFactorsProviderPushNotificationApnsRequestContent.builder()
+                        .build());
+        RecordedRequest request = server.takeRequest();
+        Assertions.assertNotNull(request);
         Assertions.assertEquals("PATCH", request.getMethod());
         // Validate request body
         String actualRequestBody = request.getBody().readUtf8();
@@ -184,6 +265,82 @@ public class GuardianFactorsPushNotificationWireTest {
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
+        Assertions.assertEquals("PUT", request.getMethod());
+        // Validate request body
+        String actualRequestBody = request.getBody().readUtf8();
+        String expectedRequestBody = "" + "{}";
+        JsonNode actualJson = objectMapper.readTree(actualRequestBody);
+        JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
+        Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");
+        if (actualJson.has("type") || actualJson.has("_type") || actualJson.has("kind")) {
+            String discriminator = null;
+            if (actualJson.has("type")) discriminator = actualJson.get("type").asText();
+            else if (actualJson.has("_type"))
+                discriminator = actualJson.get("_type").asText();
+            else if (actualJson.has("kind"))
+                discriminator = actualJson.get("kind").asText();
+            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
+            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
+        }
+
+        if (!actualJson.isNull()) {
+            Assertions.assertTrue(
+                    actualJson.isObject() || actualJson.isArray() || actualJson.isValueNode(),
+                    "request should be a valid JSON value");
+        }
+
+        if (actualJson.isArray()) {
+            Assertions.assertTrue(actualJson.size() >= 0, "Array should have valid size");
+        }
+        if (actualJson.isObject()) {
+            Assertions.assertTrue(actualJson.size() >= 0, "Object should have valid field count");
+        }
+
+        // Validate response body
+        Assertions.assertNotNull(response, "Response should not be null");
+        String actualResponseJson = objectMapper.writeValueAsString(response);
+        String expectedResponseBody = "" + "{\n" + "  \"key\": \"value\"\n" + "}";
+        JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
+        JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
+        Assertions.assertTrue(
+                jsonEquals(expectedResponseNode, actualResponseNode),
+                "Response body structure does not match expected");
+        if (actualResponseNode.has("type") || actualResponseNode.has("_type") || actualResponseNode.has("kind")) {
+            String discriminator = null;
+            if (actualResponseNode.has("type"))
+                discriminator = actualResponseNode.get("type").asText();
+            else if (actualResponseNode.has("_type"))
+                discriminator = actualResponseNode.get("_type").asText();
+            else if (actualResponseNode.has("kind"))
+                discriminator = actualResponseNode.get("kind").asText();
+            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
+            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
+        }
+
+        if (!actualResponseNode.isNull()) {
+            Assertions.assertTrue(
+                    actualResponseNode.isObject() || actualResponseNode.isArray() || actualResponseNode.isValueNode(),
+                    "response should be a valid JSON value");
+        }
+
+        if (actualResponseNode.isArray()) {
+            Assertions.assertTrue(actualResponseNode.size() >= 0, "Array should have valid size");
+        }
+        if (actualResponseNode.isObject()) {
+            Assertions.assertTrue(actualResponseNode.size() >= 0, "Object should have valid field count");
+        }
+    }
+
+    @Test
+    public void testUpdateFcmProvider() throws Exception {
+        server.enqueue(new MockResponse().setResponseCode(200).setBody("{\"key\":\"value\"}"));
+        Map<String, Object> response = client.guardian()
+                .factors()
+                .pushNotification()
+                .updateFcmProvider(UpdateGuardianFactorsProviderPushNotificationFcmRequestContent.builder()
+                        .build());
+        RecordedRequest request = server.takeRequest();
+        Assertions.assertNotNull(request);
         Assertions.assertEquals("PATCH", request.getMethod());
         // Validate request body
         String actualRequestBody = request.getBody().readUtf8();
@@ -257,6 +414,82 @@ public class GuardianFactorsPushNotificationWireTest {
                 .factors()
                 .pushNotification()
                 .setFcmv1Provider(SetGuardianFactorsProviderPushNotificationFcmv1RequestContent.builder()
+                        .build());
+        RecordedRequest request = server.takeRequest();
+        Assertions.assertNotNull(request);
+        Assertions.assertEquals("PUT", request.getMethod());
+        // Validate request body
+        String actualRequestBody = request.getBody().readUtf8();
+        String expectedRequestBody = "" + "{}";
+        JsonNode actualJson = objectMapper.readTree(actualRequestBody);
+        JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
+        Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");
+        if (actualJson.has("type") || actualJson.has("_type") || actualJson.has("kind")) {
+            String discriminator = null;
+            if (actualJson.has("type")) discriminator = actualJson.get("type").asText();
+            else if (actualJson.has("_type"))
+                discriminator = actualJson.get("_type").asText();
+            else if (actualJson.has("kind"))
+                discriminator = actualJson.get("kind").asText();
+            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
+            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
+        }
+
+        if (!actualJson.isNull()) {
+            Assertions.assertTrue(
+                    actualJson.isObject() || actualJson.isArray() || actualJson.isValueNode(),
+                    "request should be a valid JSON value");
+        }
+
+        if (actualJson.isArray()) {
+            Assertions.assertTrue(actualJson.size() >= 0, "Array should have valid size");
+        }
+        if (actualJson.isObject()) {
+            Assertions.assertTrue(actualJson.size() >= 0, "Object should have valid field count");
+        }
+
+        // Validate response body
+        Assertions.assertNotNull(response, "Response should not be null");
+        String actualResponseJson = objectMapper.writeValueAsString(response);
+        String expectedResponseBody = "" + "{\n" + "  \"key\": \"value\"\n" + "}";
+        JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
+        JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
+        Assertions.assertTrue(
+                jsonEquals(expectedResponseNode, actualResponseNode),
+                "Response body structure does not match expected");
+        if (actualResponseNode.has("type") || actualResponseNode.has("_type") || actualResponseNode.has("kind")) {
+            String discriminator = null;
+            if (actualResponseNode.has("type"))
+                discriminator = actualResponseNode.get("type").asText();
+            else if (actualResponseNode.has("_type"))
+                discriminator = actualResponseNode.get("_type").asText();
+            else if (actualResponseNode.has("kind"))
+                discriminator = actualResponseNode.get("kind").asText();
+            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
+            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
+        }
+
+        if (!actualResponseNode.isNull()) {
+            Assertions.assertTrue(
+                    actualResponseNode.isObject() || actualResponseNode.isArray() || actualResponseNode.isValueNode(),
+                    "response should be a valid JSON value");
+        }
+
+        if (actualResponseNode.isArray()) {
+            Assertions.assertTrue(actualResponseNode.size() >= 0, "Array should have valid size");
+        }
+        if (actualResponseNode.isObject()) {
+            Assertions.assertTrue(actualResponseNode.size() >= 0, "Object should have valid field count");
+        }
+    }
+
+    @Test
+    public void testUpdateFcmv1Provider() throws Exception {
+        server.enqueue(new MockResponse().setResponseCode(200).setBody("{\"key\":\"value\"}"));
+        Map<String, Object> response = client.guardian()
+                .factors()
+                .pushNotification()
+                .updateFcmv1Provider(UpdateGuardianFactorsProviderPushNotificationFcmv1RequestContent.builder()
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -688,9 +921,9 @@ public class GuardianFactorsPushNotificationWireTest {
         if (expected.isNumber() && actual.isNumber())
             return Math.abs(expected.doubleValue() - actual.doubleValue()) < 1e-10;
         if (expected.isObject() && actual.isObject()) {
-            java.util.Iterator<Map.Entry<String, JsonNode>> iter = expected.fields();
+            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> iter = expected.fields();
             while (iter.hasNext()) {
-                Map.Entry<String, JsonNode> entry = iter.next();
+                java.util.Map.Entry<String, JsonNode> entry = iter.next();
                 JsonNode actualValue = actual.get(entry.getKey());
                 if (actualValue == null || !jsonEquals(entry.getValue(), actualValue)) return false;
             }

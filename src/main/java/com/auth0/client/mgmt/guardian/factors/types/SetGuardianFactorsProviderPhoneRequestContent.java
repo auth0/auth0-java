@@ -35,7 +35,7 @@ public final class SetGuardianFactorsProviderPhoneRequestContent {
         return provider;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SetGuardianFactorsProviderPhoneRequestContent
@@ -51,12 +51,12 @@ public final class SetGuardianFactorsProviderPhoneRequestContent {
         return provider.equals(other.provider);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.provider);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -84,20 +84,20 @@ public final class SetGuardianFactorsProviderPhoneRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(SetGuardianFactorsProviderPhoneRequestContent other) {
             provider(other.getProvider());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("provider")
         public _FinalStage provider(@NotNull GuardianFactorsProviderSmsProviderEnum provider) {
             this.provider = Objects.requireNonNull(provider, "provider must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public SetGuardianFactorsProviderPhoneRequestContent build() {
             return new SetGuardianFactorsProviderPhoneRequestContent(provider, additionalProperties);
         }

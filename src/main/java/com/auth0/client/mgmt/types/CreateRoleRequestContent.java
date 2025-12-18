@@ -50,7 +50,7 @@ public final class CreateRoleRequestContent {
         return description;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateRoleRequestContent && equalTo((CreateRoleRequestContent) other);
@@ -65,12 +65,12 @@ public final class CreateRoleRequestContent {
         return name.equals(other.name) && description.equals(other.description);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.description);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -110,7 +110,7 @@ public final class CreateRoleRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateRoleRequestContent other) {
             name(other.getName());
             description(other.getDescription());
@@ -122,7 +122,7 @@ public final class CreateRoleRequestContent {
          * <p>Name of the role.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("name")
         public _FinalStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
@@ -133,7 +133,7 @@ public final class CreateRoleRequestContent {
          * <p>Description of the role.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage description(String description) {
             this.description = Optional.ofNullable(description);
             return this;
@@ -142,14 +142,14 @@ public final class CreateRoleRequestContent {
         /**
          * <p>Description of the role.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public _FinalStage description(Optional<String> description) {
             this.description = description;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateRoleRequestContent build() {
             return new CreateRoleRequestContent(name, description, additionalProperties);
         }

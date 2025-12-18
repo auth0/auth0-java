@@ -33,7 +33,7 @@ public final class FlowActionHubspotUpsertContactParamsProperty {
         return property;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionHubspotUpsertContactParamsProperty
@@ -49,12 +49,12 @@ public final class FlowActionHubspotUpsertContactParamsProperty {
         return property.equals(other.property);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.property);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -82,20 +82,20 @@ public final class FlowActionHubspotUpsertContactParamsProperty {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionHubspotUpsertContactParamsProperty other) {
             property(other.getProperty());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("property")
         public _FinalStage property(@NotNull String property) {
             this.property = Objects.requireNonNull(property, "property must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionHubspotUpsertContactParamsProperty build() {
             return new FlowActionHubspotUpsertContactParamsProperty(property, additionalProperties);
         }

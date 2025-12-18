@@ -59,7 +59,7 @@ public final class SelfServiceProfileUserAttribute {
         return isOptional;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof SelfServiceProfileUserAttribute && equalTo((SelfServiceProfileUserAttribute) other);
@@ -74,12 +74,12 @@ public final class SelfServiceProfileUserAttribute {
         return name.equals(other.name) && description.equals(other.description) && isOptional == other.isOptional;
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.name, this.description, this.isOptional);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -128,7 +128,7 @@ public final class SelfServiceProfileUserAttribute {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(SelfServiceProfileUserAttribute other) {
             name(other.getName());
             description(other.getDescription());
@@ -141,7 +141,7 @@ public final class SelfServiceProfileUserAttribute {
          * <p>Identifier of this attribute.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("name")
         public DescriptionStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
@@ -153,7 +153,7 @@ public final class SelfServiceProfileUserAttribute {
          * <p>Description of this attribute.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("description")
         public IsOptionalStage description(@NotNull String description) {
             this.description = Objects.requireNonNull(description, "description must not be null");
@@ -165,14 +165,14 @@ public final class SelfServiceProfileUserAttribute {
          * <p>Determines if this attribute is required</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("is_optional")
         public _FinalStage isOptional(boolean isOptional) {
             this.isOptional = isOptional;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public SelfServiceProfileUserAttribute build() {
             return new SelfServiceProfileUserAttribute(name, description, isOptional, additionalProperties);
         }

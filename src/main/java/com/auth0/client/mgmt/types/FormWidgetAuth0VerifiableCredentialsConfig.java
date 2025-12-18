@@ -82,7 +82,7 @@ public final class FormWidgetAuth0VerifiableCredentialsConfig {
         return maxWait;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormWidgetAuth0VerifiableCredentialsConfig
@@ -103,13 +103,13 @@ public final class FormWidgetAuth0VerifiableCredentialsConfig {
                 && maxWait.equals(other.maxWait);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.url, this.size, this.alternateText, this.accessToken, this.verificationId, this.maxWait);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -168,7 +168,7 @@ public final class FormWidgetAuth0VerifiableCredentialsConfig {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FormWidgetAuth0VerifiableCredentialsConfig other) {
             url(other.getUrl());
             size(other.getSize());
@@ -179,61 +179,61 @@ public final class FormWidgetAuth0VerifiableCredentialsConfig {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("url")
         public AlternateTextStage url(@NotNull String url) {
             this.url = Objects.requireNonNull(url, "url must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("alternate_text")
         public AccessTokenStage alternateText(@NotNull String alternateText) {
             this.alternateText = Objects.requireNonNull(alternateText, "alternateText must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("access_token")
         public VerificationIdStage accessToken(@NotNull String accessToken) {
             this.accessToken = Objects.requireNonNull(accessToken, "accessToken must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("verification_id")
         public _FinalStage verificationId(@NotNull String verificationId) {
             this.verificationId = Objects.requireNonNull(verificationId, "verificationId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage maxWait(Double maxWait) {
             this.maxWait = Optional.ofNullable(maxWait);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "max_wait", nulls = Nulls.SKIP)
         public _FinalStage maxWait(Optional<Double> maxWait) {
             this.maxWait = maxWait;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage size(Double size) {
             this.size = Optional.ofNullable(size);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "size", nulls = Nulls.SKIP)
         public _FinalStage size(Optional<Double> size) {
             this.size = size;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FormWidgetAuth0VerifiableCredentialsConfig build() {
             return new FormWidgetAuth0VerifiableCredentialsConfig(
                     url, size, alternateText, accessToken, verificationId, maxWait, additionalProperties);

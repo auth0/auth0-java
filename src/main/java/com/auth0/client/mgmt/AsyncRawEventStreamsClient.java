@@ -20,16 +20,14 @@ import com.auth0.client.mgmt.errors.UnauthorizedError;
 import com.auth0.client.mgmt.types.CreateEventStreamResponseContent;
 import com.auth0.client.mgmt.types.CreateEventStreamTestEventRequestContent;
 import com.auth0.client.mgmt.types.CreateEventStreamTestEventResponseContent;
-import com.auth0.client.mgmt.types.EventStreamResponseContent;
 import com.auth0.client.mgmt.types.EventStreamsCreateRequest;
 import com.auth0.client.mgmt.types.GetEventStreamResponseContent;
 import com.auth0.client.mgmt.types.ListEventStreamsRequestParameters;
+import com.auth0.client.mgmt.types.ListEventStreamsResponseContent;
 import com.auth0.client.mgmt.types.UpdateEventStreamRequestContent;
 import com.auth0.client.mgmt.types.UpdateEventStreamResponseContent;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -49,16 +47,16 @@ public class AsyncRawEventStreamsClient {
         this.clientOptions = clientOptions;
     }
 
-    public CompletableFuture<ManagementApiHttpResponse<List<EventStreamResponseContent>>> list() {
+    public CompletableFuture<ManagementApiHttpResponse<ListEventStreamsResponseContent>> list() {
         return list(ListEventStreamsRequestParameters.builder().build());
     }
 
-    public CompletableFuture<ManagementApiHttpResponse<List<EventStreamResponseContent>>> list(
+    public CompletableFuture<ManagementApiHttpResponse<ListEventStreamsResponseContent>> list(
             ListEventStreamsRequestParameters request) {
         return list(request, null);
     }
 
-    public CompletableFuture<ManagementApiHttpResponse<List<EventStreamResponseContent>>> list(
+    public CompletableFuture<ManagementApiHttpResponse<ListEventStreamsResponseContent>> list(
             ListEventStreamsRequestParameters request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -78,7 +76,7 @@ public class AsyncRawEventStreamsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<ManagementApiHttpResponse<List<EventStreamResponseContent>>> future =
+        CompletableFuture<ManagementApiHttpResponse<ListEventStreamsResponseContent>> future =
                 new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
@@ -88,7 +86,7 @@ public class AsyncRawEventStreamsClient {
                     if (response.isSuccessful()) {
                         future.complete(new ManagementApiHttpResponse<>(
                                 ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBodyString, new TypeReference<List<EventStreamResponseContent>>() {}),
+                                        responseBodyString, ListEventStreamsResponseContent.class),
                                 response));
                         return;
                     }

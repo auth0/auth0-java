@@ -97,7 +97,7 @@ public final class ClientSessionTransferConfiguration {
         return enforceOnlineRefreshTokens;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientSessionTransferConfiguration
@@ -118,7 +118,7 @@ public final class ClientSessionTransferConfiguration {
                 && enforceOnlineRefreshTokens.equals(other.enforceOnlineRefreshTokens);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.canCreateSessionTransferToken,
@@ -129,7 +129,7 @@ public final class ClientSessionTransferConfiguration {
                 this.enforceOnlineRefreshTokens);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

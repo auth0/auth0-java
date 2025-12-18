@@ -61,7 +61,7 @@ public final class Identity {
         return connectionId;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof Identity && equalTo((Identity) other);
@@ -78,12 +78,12 @@ public final class Identity {
                 && connectionId.equals(other.connectionId);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.userId, this.provider, this.connectionId);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -129,7 +129,7 @@ public final class Identity {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(Identity other) {
             userId(other.getUserId());
             provider(other.getProvider());
@@ -142,14 +142,14 @@ public final class Identity {
          * <p>user_id of the identity to be verified.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("user_id")
         public ProviderStage userId(@NotNull String userId) {
             this.userId = Objects.requireNonNull(userId, "userId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("provider")
         public _FinalStage provider(@NotNull IdentityProviderEnum provider) {
             this.provider = Objects.requireNonNull(provider, "provider must not be null");
@@ -160,7 +160,7 @@ public final class Identity {
          * <p>connection_id of the identity.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage connectionId(String connectionId) {
             this.connectionId = Optional.ofNullable(connectionId);
             return this;
@@ -169,14 +169,14 @@ public final class Identity {
         /**
          * <p>connection_id of the identity.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "connection_id", nulls = Nulls.SKIP)
         public _FinalStage connectionId(Optional<String> connectionId) {
             this.connectionId = connectionId;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public Identity build() {
             return new Identity(userId, provider, connectionId, additionalProperties);
         }

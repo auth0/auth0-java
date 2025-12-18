@@ -42,7 +42,7 @@ public final class FlowActionStripeGetCustomerParams {
         return id;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowActionStripeGetCustomerParams && equalTo((FlowActionStripeGetCustomerParams) other);
@@ -57,12 +57,12 @@ public final class FlowActionStripeGetCustomerParams {
         return connectionId.equals(other.connectionId) && id.equals(other.id);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.connectionId, this.id);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -96,28 +96,28 @@ public final class FlowActionStripeGetCustomerParams {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowActionStripeGetCustomerParams other) {
             connectionId(other.getConnectionId());
             id(other.getId());
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_id")
         public IdStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("id")
         public _FinalStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowActionStripeGetCustomerParams build() {
             return new FlowActionStripeGetCustomerParams(connectionId, id, additionalProperties);
         }

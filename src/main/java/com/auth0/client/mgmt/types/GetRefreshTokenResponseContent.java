@@ -44,6 +44,8 @@ public final class GetRefreshTokenResponseContent {
 
     private final Optional<List<RefreshTokenResourceServer>> resourceServers;
 
+    private final OptionalNullable<Map<String, Object>> refreshTokenMetadata;
+
     private final Optional<RefreshTokenDate> lastExchangedAt;
 
     private final Map<String, Object> additionalProperties;
@@ -59,6 +61,7 @@ public final class GetRefreshTokenResponseContent {
             OptionalNullable<String> sessionId,
             Optional<Boolean> rotating,
             Optional<List<RefreshTokenResourceServer>> resourceServers,
+            OptionalNullable<Map<String, Object>> refreshTokenMetadata,
             Optional<RefreshTokenDate> lastExchangedAt,
             Map<String, Object> additionalProperties) {
         this.id = id;
@@ -71,6 +74,7 @@ public final class GetRefreshTokenResponseContent {
         this.sessionId = sessionId;
         this.rotating = rotating;
         this.resourceServers = resourceServers;
+        this.refreshTokenMetadata = refreshTokenMetadata;
         this.lastExchangedAt = lastExchangedAt;
         this.additionalProperties = additionalProperties;
     }
@@ -144,6 +148,15 @@ public final class GetRefreshTokenResponseContent {
         return resourceServers;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("refresh_token_metadata")
+    public OptionalNullable<Map<String, Object>> getRefreshTokenMetadata() {
+        if (refreshTokenMetadata == null) {
+            return OptionalNullable.absent();
+        }
+        return refreshTokenMetadata;
+    }
+
     @JsonProperty("last_exchanged_at")
     public Optional<RefreshTokenDate> getLastExchangedAt() {
         return lastExchangedAt;
@@ -155,7 +168,13 @@ public final class GetRefreshTokenResponseContent {
         return sessionId;
     }
 
-    @Override
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("refresh_token_metadata")
+    private OptionalNullable<Map<String, Object>> _getRefreshTokenMetadata() {
+        return refreshTokenMetadata;
+    }
+
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof GetRefreshTokenResponseContent && equalTo((GetRefreshTokenResponseContent) other);
@@ -177,10 +196,11 @@ public final class GetRefreshTokenResponseContent {
                 && sessionId.equals(other.sessionId)
                 && rotating.equals(other.rotating)
                 && resourceServers.equals(other.resourceServers)
+                && refreshTokenMetadata.equals(other.refreshTokenMetadata)
                 && lastExchangedAt.equals(other.lastExchangedAt);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -193,10 +213,11 @@ public final class GetRefreshTokenResponseContent {
                 this.sessionId,
                 this.rotating,
                 this.resourceServers,
+                this.refreshTokenMetadata,
                 this.lastExchangedAt);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -227,6 +248,8 @@ public final class GetRefreshTokenResponseContent {
 
         private Optional<List<RefreshTokenResourceServer>> resourceServers = Optional.empty();
 
+        private OptionalNullable<Map<String, Object>> refreshTokenMetadata = OptionalNullable.absent();
+
         private Optional<RefreshTokenDate> lastExchangedAt = Optional.empty();
 
         @JsonAnySetter
@@ -245,6 +268,7 @@ public final class GetRefreshTokenResponseContent {
             sessionId(other.getSessionId());
             rotating(other.getRotating());
             resourceServers(other.getResourceServers());
+            refreshTokenMetadata(other.getRefreshTokenMetadata());
             lastExchangedAt(other.getLastExchangedAt());
             return this;
         }
@@ -394,6 +418,38 @@ public final class GetRefreshTokenResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "refresh_token_metadata", nulls = Nulls.SKIP)
+        public Builder refreshTokenMetadata(@Nullable OptionalNullable<Map<String, Object>> refreshTokenMetadata) {
+            this.refreshTokenMetadata = refreshTokenMetadata;
+            return this;
+        }
+
+        public Builder refreshTokenMetadata(Map<String, Object> refreshTokenMetadata) {
+            this.refreshTokenMetadata = OptionalNullable.of(refreshTokenMetadata);
+            return this;
+        }
+
+        public Builder refreshTokenMetadata(Optional<Map<String, Object>> refreshTokenMetadata) {
+            if (refreshTokenMetadata.isPresent()) {
+                this.refreshTokenMetadata = OptionalNullable.of(refreshTokenMetadata.get());
+            } else {
+                this.refreshTokenMetadata = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder refreshTokenMetadata(
+                com.auth0.client.mgmt.core.Nullable<Map<String, Object>> refreshTokenMetadata) {
+            if (refreshTokenMetadata.isNull()) {
+                this.refreshTokenMetadata = OptionalNullable.ofNull();
+            } else if (refreshTokenMetadata.isEmpty()) {
+                this.refreshTokenMetadata = OptionalNullable.absent();
+            } else {
+                this.refreshTokenMetadata = OptionalNullable.of(refreshTokenMetadata.get());
+            }
+            return this;
+        }
+
         @JsonSetter(value = "last_exchanged_at", nulls = Nulls.SKIP)
         public Builder lastExchangedAt(Optional<RefreshTokenDate> lastExchangedAt) {
             this.lastExchangedAt = lastExchangedAt;
@@ -417,6 +473,7 @@ public final class GetRefreshTokenResponseContent {
                     sessionId,
                     rotating,
                     resourceServers,
+                    refreshTokenMetadata,
                     lastExchangedAt,
                     additionalProperties);
         }

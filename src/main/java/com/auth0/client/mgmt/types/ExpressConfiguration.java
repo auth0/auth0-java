@@ -137,7 +137,7 @@ public final class ExpressConfiguration {
         return oinSubmissionId;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ExpressConfiguration && equalTo((ExpressConfiguration) other);
@@ -160,7 +160,7 @@ public final class ExpressConfiguration {
                 && oinSubmissionId.equals(other.oinSubmissionId);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.initiateLoginUriTemplate,
@@ -174,7 +174,7 @@ public final class ExpressConfiguration {
                 this.oinSubmissionId);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -285,7 +285,7 @@ public final class ExpressConfiguration {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(ExpressConfiguration other) {
             initiateLoginUriTemplate(other.getInitiateLoginUriTemplate());
             userAttributeProfileId(other.getUserAttributeProfileId());
@@ -304,7 +304,7 @@ public final class ExpressConfiguration {
          * <p>The URI users should bookmark to log in to this application. Variable substitution is permitted for the following properties: organization_name, organization_id, and connection_name.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("initiate_login_uri_template")
         public UserAttributeProfileIdStage initiateLoginUriTemplate(@NotNull String initiateLoginUriTemplate) {
             this.initiateLoginUriTemplate =
@@ -317,7 +317,7 @@ public final class ExpressConfiguration {
          * <p>The ID of the user attribute profile to use for this application.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("user_attribute_profile_id")
         public ConnectionProfileIdStage userAttributeProfileId(@NotNull String userAttributeProfileId) {
             this.userAttributeProfileId =
@@ -330,7 +330,7 @@ public final class ExpressConfiguration {
          * <p>The ID of the connection profile to use for this application.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_profile_id")
         public EnableClientStage connectionProfileId(@NotNull String connectionProfileId) {
             this.connectionProfileId =
@@ -343,7 +343,7 @@ public final class ExpressConfiguration {
          * <p>When true, all connections made via express configuration will be enabled for this application.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("enable_client")
         public EnableOrganizationStage enableClient(boolean enableClient) {
             this.enableClient = enableClient;
@@ -355,7 +355,7 @@ public final class ExpressConfiguration {
          * <p>When true, all connections made via express configuration will have the associated organization enabled.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("enable_organization")
         public OktaOinClientIdStage enableOrganization(boolean enableOrganization) {
             this.enableOrganization = enableOrganization;
@@ -367,7 +367,7 @@ public final class ExpressConfiguration {
          * <p>This is the unique identifier for the Okta OIN Express Configuration Client, which Okta will use for this application.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("okta_oin_client_id")
         public AdminLoginDomainStage oktaOinClientId(@NotNull String oktaOinClientId) {
             this.oktaOinClientId = Objects.requireNonNull(oktaOinClientId, "oktaOinClientId must not be null");
@@ -379,7 +379,7 @@ public final class ExpressConfiguration {
          * <p>This is the domain that admins are expected to log in via for authenticating for express configuration. It can be either the canonical domain or a registered custom domain.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("admin_login_domain")
         public _FinalStage adminLoginDomain(@NotNull String adminLoginDomain) {
             this.adminLoginDomain = Objects.requireNonNull(adminLoginDomain, "adminLoginDomain must not be null");
@@ -390,7 +390,7 @@ public final class ExpressConfiguration {
          * <p>The identifier of the published application in the OKTA OIN.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage oinSubmissionId(String oinSubmissionId) {
             this.oinSubmissionId = Optional.ofNullable(oinSubmissionId);
             return this;
@@ -399,7 +399,7 @@ public final class ExpressConfiguration {
         /**
          * <p>The identifier of the published application in the OKTA OIN.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "oin_submission_id", nulls = Nulls.SKIP)
         public _FinalStage oinSubmissionId(Optional<String> oinSubmissionId) {
             this.oinSubmissionId = oinSubmissionId;
@@ -410,7 +410,7 @@ public final class ExpressConfiguration {
          * <p>List of client IDs that are linked to this express configuration (e.g. web or mobile clients).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage linkedClients(List<LinkedClientConfiguration> linkedClients) {
             this.linkedClients = Optional.ofNullable(linkedClients);
             return this;
@@ -419,14 +419,14 @@ public final class ExpressConfiguration {
         /**
          * <p>List of client IDs that are linked to this express configuration (e.g. web or mobile clients).</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "linked_clients", nulls = Nulls.SKIP)
         public _FinalStage linkedClients(Optional<List<LinkedClientConfiguration>> linkedClients) {
             this.linkedClients = linkedClients;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public ExpressConfiguration build() {
             return new ExpressConfiguration(
                     initiateLoginUriTemplate,

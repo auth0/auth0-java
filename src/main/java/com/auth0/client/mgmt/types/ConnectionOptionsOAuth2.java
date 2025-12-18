@@ -101,7 +101,7 @@ public final class ConnectionOptionsOAuth2 implements IConnectionOptionsCommon {
     }
 
     @JsonProperty("non_persistent_attrs")
-    @Override
+    @java.lang.Override
     public Optional<List<String>> getNonPersistentAttrs() {
         return nonPersistentAttrs;
     }
@@ -203,7 +203,7 @@ public final class ConnectionOptionsOAuth2 implements IConnectionOptionsCommon {
         return upstreamParams;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionOptionsOAuth2 && equalTo((ConnectionOptionsOAuth2) other);
@@ -234,7 +234,7 @@ public final class ConnectionOptionsOAuth2 implements IConnectionOptionsCommon {
                 && useOauthSpecScope.equals(other.useOauthSpecScope);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.nonPersistentAttrs,
@@ -256,7 +256,7 @@ public final class ConnectionOptionsOAuth2 implements IConnectionOptionsCommon {
                 this.useOauthSpecScope);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -52,6 +52,8 @@ public final class ActionVersion {
 
     private final Optional<List<ActionTrigger>> supportedTriggers;
 
+    private final Optional<List<ActionModuleReference>> modules;
+
     private final Map<String, Object> additionalProperties;
 
     private ActionVersion(
@@ -70,6 +72,7 @@ public final class ActionVersion {
             Optional<OffsetDateTime> createdAt,
             Optional<OffsetDateTime> updatedAt,
             Optional<List<ActionTrigger>> supportedTriggers,
+            Optional<List<ActionModuleReference>> modules,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.actionId = actionId;
@@ -86,6 +89,7 @@ public final class ActionVersion {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.supportedTriggers = supportedTriggers;
+        this.modules = modules;
         this.additionalProperties = additionalProperties;
     }
 
@@ -203,7 +207,15 @@ public final class ActionVersion {
         return supportedTriggers;
     }
 
-    @Override
+    /**
+     * @return The list of action modules and their versions used by this action version.
+     */
+    @JsonProperty("modules")
+    public Optional<List<ActionModuleReference>> getModules() {
+        return modules;
+    }
+
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ActionVersion && equalTo((ActionVersion) other);
@@ -229,10 +241,11 @@ public final class ActionVersion {
                 && builtAt.equals(other.builtAt)
                 && createdAt.equals(other.createdAt)
                 && updatedAt.equals(other.updatedAt)
-                && supportedTriggers.equals(other.supportedTriggers);
+                && supportedTriggers.equals(other.supportedTriggers)
+                && modules.equals(other.modules);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -249,10 +262,11 @@ public final class ActionVersion {
                 this.builtAt,
                 this.createdAt,
                 this.updatedAt,
-                this.supportedTriggers);
+                this.supportedTriggers,
+                this.modules);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -293,6 +307,8 @@ public final class ActionVersion {
 
         private Optional<List<ActionTrigger>> supportedTriggers = Optional.empty();
 
+        private Optional<List<ActionModuleReference>> modules = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -314,6 +330,7 @@ public final class ActionVersion {
             createdAt(other.getCreatedAt());
             updatedAt(other.getUpdatedAt());
             supportedTriggers(other.getSupportedTriggers());
+            modules(other.getModules());
             return this;
         }
 
@@ -521,6 +538,20 @@ public final class ActionVersion {
             return this;
         }
 
+        /**
+         * <p>The list of action modules and their versions used by this action version.</p>
+         */
+        @JsonSetter(value = "modules", nulls = Nulls.SKIP)
+        public Builder modules(Optional<List<ActionModuleReference>> modules) {
+            this.modules = modules;
+            return this;
+        }
+
+        public Builder modules(List<ActionModuleReference> modules) {
+            this.modules = Optional.ofNullable(modules);
+            return this;
+        }
+
         public ActionVersion build() {
             return new ActionVersion(
                     id,
@@ -538,6 +569,7 @@ public final class ActionVersion {
                     createdAt,
                     updatedAt,
                     supportedTriggers,
+                    modules,
                     additionalProperties);
         }
     }

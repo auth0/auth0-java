@@ -106,7 +106,7 @@ public final class UpdateAttackProtectionCaptchaRequestContent {
         return simpleCaptcha;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateAttackProtectionCaptchaRequestContent
@@ -129,7 +129,7 @@ public final class UpdateAttackProtectionCaptchaRequestContent {
                 && simpleCaptcha.equals(other.simpleCaptcha);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.activeProviderId,
@@ -142,7 +142,7 @@ public final class UpdateAttackProtectionCaptchaRequestContent {
                 this.simpleCaptcha);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

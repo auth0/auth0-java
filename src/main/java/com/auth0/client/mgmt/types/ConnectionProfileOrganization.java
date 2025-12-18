@@ -45,7 +45,7 @@ public final class ConnectionProfileOrganization {
         return assignMembershipOnLogin;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionProfileOrganization && equalTo((ConnectionProfileOrganization) other);
@@ -60,12 +60,12 @@ public final class ConnectionProfileOrganization {
         return showAsButton.equals(other.showAsButton) && assignMembershipOnLogin.equals(other.assignMembershipOnLogin);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.showAsButton, this.assignMembershipOnLogin);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

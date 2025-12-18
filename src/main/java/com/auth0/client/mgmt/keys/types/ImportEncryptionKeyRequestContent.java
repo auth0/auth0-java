@@ -36,7 +36,7 @@ public final class ImportEncryptionKeyRequestContent {
         return wrappedKey;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ImportEncryptionKeyRequestContent && equalTo((ImportEncryptionKeyRequestContent) other);
@@ -51,12 +51,12 @@ public final class ImportEncryptionKeyRequestContent {
         return wrappedKey.equals(other.wrappedKey);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.wrappedKey);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -87,7 +87,7 @@ public final class ImportEncryptionKeyRequestContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(ImportEncryptionKeyRequestContent other) {
             wrappedKey(other.getWrappedKey());
             return this;
@@ -98,14 +98,14 @@ public final class ImportEncryptionKeyRequestContent {
          * <p>Base64 encoded ciphertext of key material wrapped by public wrapping key.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("wrapped_key")
         public _FinalStage wrappedKey(@NotNull String wrappedKey) {
             this.wrappedKey = Objects.requireNonNull(wrappedKey, "wrappedKey must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public ImportEncryptionKeyRequestContent build() {
             return new ImportEncryptionKeyRequestContent(wrappedKey, additionalProperties);
         }

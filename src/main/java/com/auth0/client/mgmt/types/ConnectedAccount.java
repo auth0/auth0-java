@@ -123,7 +123,7 @@ public final class ConnectedAccount {
         return expiresAt;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectedAccount && equalTo((ConnectedAccount) other);
@@ -145,7 +145,7 @@ public final class ConnectedAccount {
                 && expiresAt.equals(other.expiresAt);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -158,7 +158,7 @@ public final class ConnectedAccount {
                 this.expiresAt);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -256,7 +256,7 @@ public final class ConnectedAccount {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(ConnectedAccount other) {
             id(other.getId());
             connection(other.getConnection());
@@ -274,7 +274,7 @@ public final class ConnectedAccount {
          * <p>The unique identifier for the connected account.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("id")
         public ConnectionStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
@@ -286,7 +286,7 @@ public final class ConnectedAccount {
          * <p>The name of the connection associated with the account.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("connection")
         public ConnectionIdStage connection(@NotNull String connection) {
             this.connection = Objects.requireNonNull(connection, "connection must not be null");
@@ -298,7 +298,7 @@ public final class ConnectedAccount {
          * <p>The unique identifier of the connection associated with the account.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_id")
         public StrategyStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
@@ -310,14 +310,14 @@ public final class ConnectedAccount {
          * <p>The authentication strategy used by the connection.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("strategy")
         public AccessTypeStage strategy(@NotNull String strategy) {
             this.strategy = Objects.requireNonNull(strategy, "strategy must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("access_type")
         public CreatedAtStage accessType(@NotNull String accessType) {
             this.accessType = Objects.requireNonNull(accessType, "accessType must not be null");
@@ -329,7 +329,7 @@ public final class ConnectedAccount {
          * <p>ISO 8601 timestamp when the connected account was created.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("created_at")
         public _FinalStage createdAt(@NotNull OffsetDateTime createdAt) {
             this.createdAt = Objects.requireNonNull(createdAt, "createdAt must not be null");
@@ -340,7 +340,7 @@ public final class ConnectedAccount {
          * <p>ISO 8601 timestamp when the connected account expires.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage expiresAt(OffsetDateTime expiresAt) {
             this.expiresAt = Optional.ofNullable(expiresAt);
             return this;
@@ -349,7 +349,7 @@ public final class ConnectedAccount {
         /**
          * <p>ISO 8601 timestamp when the connected account expires.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "expires_at", nulls = Nulls.SKIP)
         public _FinalStage expiresAt(Optional<OffsetDateTime> expiresAt) {
             this.expiresAt = expiresAt;
@@ -360,7 +360,7 @@ public final class ConnectedAccount {
          * <p>The scopes granted for this connected account.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage scopes(List<String> scopes) {
             this.scopes = Optional.ofNullable(scopes);
             return this;
@@ -369,14 +369,14 @@ public final class ConnectedAccount {
         /**
          * <p>The scopes granted for this connected account.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "scopes", nulls = Nulls.SKIP)
         public _FinalStage scopes(Optional<List<String>> scopes) {
             this.scopes = scopes;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public ConnectedAccount build() {
             return new ConnectedAccount(
                     id,

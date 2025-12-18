@@ -76,7 +76,7 @@ public final class ListEncryptionKeyOffsetPaginatedResponseContent {
         return keys;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ListEncryptionKeyOffsetPaginatedResponseContent
@@ -95,12 +95,12 @@ public final class ListEncryptionKeyOffsetPaginatedResponseContent {
                 && keys.equals(other.keys);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.start, this.limit, this.total, this.keys);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

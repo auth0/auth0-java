@@ -52,7 +52,7 @@ public final class CreateScimConfigurationRequestContent {
         return mapping;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateScimConfigurationRequestContent
@@ -68,12 +68,12 @@ public final class CreateScimConfigurationRequestContent {
         return userIdAttribute.equals(other.userIdAttribute) && mapping.equals(other.mapping);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.userIdAttribute, this.mapping);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

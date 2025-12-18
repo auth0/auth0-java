@@ -81,7 +81,7 @@ public final class FormFieldTelConfig {
         return strings;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldTelConfig && equalTo((FormFieldTelConfig) other);
@@ -101,13 +101,13 @@ public final class FormFieldTelConfig {
                 && strings.equals(other.strings);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.defaultValue, this.placeholder, this.minLength, this.maxLength, this.countryPicker, this.strings);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -38,7 +38,7 @@ public final class EmailProviderCredentialsSchemaConnectionString {
         return connectionString;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof EmailProviderCredentialsSchemaConnectionString
@@ -54,12 +54,12 @@ public final class EmailProviderCredentialsSchemaConnectionString {
         return connectionString.equals(other.connectionString);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.connectionString);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

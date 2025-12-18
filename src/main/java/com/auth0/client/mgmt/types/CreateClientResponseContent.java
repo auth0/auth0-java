@@ -676,7 +676,7 @@ public final class CreateClientResponseContent {
         return parRequestExpiry;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateClientResponseContent && equalTo((CreateClientResponseContent) other);
@@ -744,7 +744,7 @@ public final class CreateClientResponseContent {
                 && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.clientId,
@@ -802,7 +802,7 @@ public final class CreateClientResponseContent {
                 this.asyncApprovalNotificationChannels);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

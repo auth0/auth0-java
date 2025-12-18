@@ -63,7 +63,7 @@ public final class ClientSigningKey {
         return subject;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientSigningKey && equalTo((ClientSigningKey) other);
@@ -78,12 +78,12 @@ public final class ClientSigningKey {
         return pkcs7.equals(other.pkcs7) && cert.equals(other.cert) && subject.equals(other.subject);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.pkcs7, this.cert, this.subject);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

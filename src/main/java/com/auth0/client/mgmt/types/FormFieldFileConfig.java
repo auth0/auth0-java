@@ -82,7 +82,7 @@ public final class FormFieldFileConfig {
         return maxFiles;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormFieldFileConfig && equalTo((FormFieldFileConfig) other);
@@ -102,12 +102,12 @@ public final class FormFieldFileConfig {
                 && maxFiles.equals(other.maxFiles);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.multiple, this.storage, this.categories, this.extensions, this.maxSize, this.maxFiles);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

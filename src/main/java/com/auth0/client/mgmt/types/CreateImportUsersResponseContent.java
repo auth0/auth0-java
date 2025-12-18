@@ -100,7 +100,7 @@ public final class CreateImportUsersResponseContent {
         return externalId;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateImportUsersResponseContent && equalTo((CreateImportUsersResponseContent) other);
@@ -120,12 +120,12 @@ public final class CreateImportUsersResponseContent {
                 && externalId.equals(other.externalId);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.status, this.type, this.createdAt, this.id, this.connectionId, this.externalId);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -202,7 +202,7 @@ public final class CreateImportUsersResponseContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateImportUsersResponseContent other) {
             status(other.getStatus());
             type(other.getType());
@@ -218,7 +218,7 @@ public final class CreateImportUsersResponseContent {
          * <p>Status of this job.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("status")
         public TypeStage status(@NotNull String status) {
             this.status = Objects.requireNonNull(status, "status must not be null");
@@ -230,7 +230,7 @@ public final class CreateImportUsersResponseContent {
          * <p>Type of job this is.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public CreatedAtStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
@@ -242,7 +242,7 @@ public final class CreateImportUsersResponseContent {
          * <p>When this job was created.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("created_at")
         public IdStage createdAt(@NotNull String createdAt) {
             this.createdAt = Objects.requireNonNull(createdAt, "createdAt must not be null");
@@ -254,7 +254,7 @@ public final class CreateImportUsersResponseContent {
          * <p>ID of this job.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("id")
         public ConnectionIdStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
@@ -266,7 +266,7 @@ public final class CreateImportUsersResponseContent {
          * <p>connection_id of the connection to which users will be imported.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("connection_id")
         public _FinalStage connectionId(@NotNull String connectionId) {
             this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
@@ -277,7 +277,7 @@ public final class CreateImportUsersResponseContent {
          * <p>Customer-defined ID.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage externalId(String externalId) {
             this.externalId = Optional.ofNullable(externalId);
             return this;
@@ -286,14 +286,14 @@ public final class CreateImportUsersResponseContent {
         /**
          * <p>Customer-defined ID.</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "external_id", nulls = Nulls.SKIP)
         public _FinalStage externalId(Optional<String> externalId) {
             this.externalId = externalId;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateImportUsersResponseContent build() {
             return new CreateImportUsersResponseContent(
                     status, type, createdAt, id, connectionId, externalId, additionalProperties);

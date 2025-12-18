@@ -24,20 +24,20 @@ public final class LogStreamPiiMethodEnum {
         return value;
     }
 
-    @Override
+    @java.lang.Override
     @JsonValue
     public String toString() {
         return this.string;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
                 || (other instanceof LogStreamPiiMethodEnum
                         && this.string.equals(((LogStreamPiiMethodEnum) other).string));
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return this.string.hashCode();
     }

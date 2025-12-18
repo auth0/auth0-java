@@ -39,7 +39,7 @@ public final class UserId {
         throw new IllegalStateException("Failed to visit value. This should never happen.");
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UserId && equalTo((UserId) other);
@@ -49,12 +49,12 @@ public final class UserId {
         return value.equals(other.value);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.value);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return this.value.toString();
     }
@@ -78,7 +78,7 @@ public final class UserId {
             super(UserId.class);
         }
 
-        @Override
+        @java.lang.Override
         public UserId deserialize(JsonParser p, DeserializationContext context) throws IOException {
             Object value = p.readValueAs(Object.class);
             try {

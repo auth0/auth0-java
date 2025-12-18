@@ -676,7 +676,7 @@ public final class RotateClientSecretResponseContent {
         return parRequestExpiry;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof RotateClientSecretResponseContent && equalTo((RotateClientSecretResponseContent) other);
@@ -744,7 +744,7 @@ public final class RotateClientSecretResponseContent {
                 && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.clientId,
@@ -802,7 +802,7 @@ public final class RotateClientSecretResponseContent {
                 this.asyncApprovalNotificationChannels);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -101,7 +101,7 @@ public final class CreateOrganizationResponseContent {
         return enabledConnections;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateOrganizationResponseContent && equalTo((CreateOrganizationResponseContent) other);
@@ -122,7 +122,7 @@ public final class CreateOrganizationResponseContent {
                 && enabledConnections.equals(other.enabledConnections);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -134,7 +134,7 @@ public final class CreateOrganizationResponseContent {
                 this.enabledConnections);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

@@ -73,7 +73,7 @@ public final class LogStreamEventGridSink {
         return azurePartnerTopic;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof LogStreamEventGridSink && equalTo((LogStreamEventGridSink) other);
@@ -91,13 +91,13 @@ public final class LogStreamEventGridSink {
                 && azurePartnerTopic.equals(other.azurePartnerTopic);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.azureSubscriptionId, this.azureRegion, this.azureResourceGroup, this.azurePartnerTopic);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -153,7 +153,7 @@ public final class LogStreamEventGridSink {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(LogStreamEventGridSink other) {
             azureSubscriptionId(other.getAzureSubscriptionId());
             azureRegion(other.getAzureRegion());
@@ -167,7 +167,7 @@ public final class LogStreamEventGridSink {
          * <p>Subscription ID</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("azureSubscriptionId")
         public AzureRegionStage azureSubscriptionId(@NotNull String azureSubscriptionId) {
             this.azureSubscriptionId =
@@ -175,7 +175,7 @@ public final class LogStreamEventGridSink {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("azureRegion")
         public AzureResourceGroupStage azureRegion(@NotNull LogStreamEventGridRegionEnum azureRegion) {
             this.azureRegion = Objects.requireNonNull(azureRegion, "azureRegion must not be null");
@@ -187,7 +187,7 @@ public final class LogStreamEventGridSink {
          * <p>Resource Group</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         @JsonSetter("azureResourceGroup")
         public _FinalStage azureResourceGroup(@NotNull String azureResourceGroup) {
             this.azureResourceGroup = Objects.requireNonNull(azureResourceGroup, "azureResourceGroup must not be null");
@@ -198,7 +198,7 @@ public final class LogStreamEventGridSink {
          * <p>Partner Topic</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @Override
+        @java.lang.Override
         public _FinalStage azurePartnerTopic(String azurePartnerTopic) {
             this.azurePartnerTopic = Optional.ofNullable(azurePartnerTopic);
             return this;
@@ -207,14 +207,14 @@ public final class LogStreamEventGridSink {
         /**
          * <p>Partner Topic</p>
          */
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "azurePartnerTopic", nulls = Nulls.SKIP)
         public _FinalStage azurePartnerTopic(Optional<String> azurePartnerTopic) {
             this.azurePartnerTopic = azurePartnerTopic;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public LogStreamEventGridSink build() {
             return new LogStreamEventGridSink(
                     azureSubscriptionId, azureRegion, azureResourceGroup, azurePartnerTopic, additionalProperties);

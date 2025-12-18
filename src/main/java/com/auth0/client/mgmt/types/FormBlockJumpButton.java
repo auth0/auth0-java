@@ -62,7 +62,7 @@ public final class FormBlockJumpButton {
         return config;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormBlockJumpButton && equalTo((FormBlockJumpButton) other);
@@ -80,12 +80,12 @@ public final class FormBlockJumpButton {
                 && config.equals(other.config);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.id, this.category, this.type, this.config);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -131,7 +131,7 @@ public final class FormBlockJumpButton {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FormBlockJumpButton other) {
             id(other.getId());
             category(other.getCategory());
@@ -140,35 +140,35 @@ public final class FormBlockJumpButton {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("id")
         public CategoryStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("category")
         public TypeStage category(@NotNull String category) {
             this.category = Objects.requireNonNull(category, "category must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public ConfigStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("config")
         public _FinalStage config(@NotNull FormBlockJumpButtonConfig config) {
             this.config = Objects.requireNonNull(config, "config must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FormBlockJumpButton build() {
             return new FormBlockJumpButton(id, category, type, config, additionalProperties);
         }

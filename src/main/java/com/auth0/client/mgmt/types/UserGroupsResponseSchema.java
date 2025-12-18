@@ -75,7 +75,7 @@ public final class UserGroupsResponseSchema implements IGroup {
      * @return Unique identifier for the group (service-generated).
      */
     @JsonProperty("id")
-    @Override
+    @java.lang.Override
     public Optional<String> getId() {
         return id;
     }
@@ -84,7 +84,7 @@ public final class UserGroupsResponseSchema implements IGroup {
      * @return Name of the group. Must be unique within its scope (connection, organization, or tenant). Must contain between 1 and 128 printable ASCII characters.
      */
     @JsonProperty("name")
-    @Override
+    @java.lang.Override
     public Optional<String> getName() {
         return name;
     }
@@ -93,7 +93,7 @@ public final class UserGroupsResponseSchema implements IGroup {
      * @return External identifier for the group, often used for SCIM synchronization. Max length of 256 characters.
      */
     @JsonProperty("external_id")
-    @Override
+    @java.lang.Override
     public Optional<String> getExternalId() {
         return externalId;
     }
@@ -102,7 +102,7 @@ public final class UserGroupsResponseSchema implements IGroup {
      * @return Identifier for the connection this group belongs to (if a connection group).
      */
     @JsonProperty("connection_id")
-    @Override
+    @java.lang.Override
     public Optional<String> getConnectionId() {
         return connectionId;
     }
@@ -112,7 +112,7 @@ public final class UserGroupsResponseSchema implements IGroup {
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("organization_id")
-    @Override
+    @java.lang.Override
     public OptionalNullable<String> getOrganizationId() {
         if (organizationId == null) {
             return OptionalNullable.absent();
@@ -124,14 +124,14 @@ public final class UserGroupsResponseSchema implements IGroup {
      * @return Identifier for the tenant this group belongs to.
      */
     @JsonProperty("tenant_name")
-    @Override
+    @java.lang.Override
     public Optional<String> getTenantName() {
         return tenantName;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("description")
-    @Override
+    @java.lang.Override
     public OptionalNullable<String> getDescription() {
         if (description == null) {
             return OptionalNullable.absent();
@@ -143,7 +143,7 @@ public final class UserGroupsResponseSchema implements IGroup {
      * @return Timestamp of when the group was created.
      */
     @JsonProperty("created_at")
-    @Override
+    @java.lang.Override
     public Optional<OffsetDateTime> getCreatedAt() {
         return createdAt;
     }
@@ -152,7 +152,7 @@ public final class UserGroupsResponseSchema implements IGroup {
      * @return Timestamp of when the group was last updated.
      */
     @JsonProperty("updated_at")
-    @Override
+    @java.lang.Override
     public Optional<OffsetDateTime> getUpdatedAt() {
         return updatedAt;
     }
@@ -177,7 +177,7 @@ public final class UserGroupsResponseSchema implements IGroup {
         return description;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UserGroupsResponseSchema && equalTo((UserGroupsResponseSchema) other);
@@ -201,7 +201,7 @@ public final class UserGroupsResponseSchema implements IGroup {
                 && membershipCreatedAt.equals(other.membershipCreatedAt);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.id,
@@ -216,7 +216,7 @@ public final class UserGroupsResponseSchema implements IGroup {
                 this.membershipCreatedAt);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

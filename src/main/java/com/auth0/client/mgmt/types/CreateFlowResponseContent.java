@@ -84,7 +84,7 @@ public final class CreateFlowResponseContent {
         return executedAt;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof CreateFlowResponseContent && equalTo((CreateFlowResponseContent) other);
@@ -104,12 +104,12 @@ public final class CreateFlowResponseContent {
                 && executedAt.equals(other.executedAt);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.id, this.name, this.actions, this.createdAt, this.updatedAt, this.executedAt);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -167,7 +167,7 @@ public final class CreateFlowResponseContent {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(CreateFlowResponseContent other) {
             id(other.getId());
             name(other.getName());
@@ -178,61 +178,61 @@ public final class CreateFlowResponseContent {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("id")
         public NameStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("name")
         public CreatedAtStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("created_at")
         public UpdatedAtStage createdAt(@NotNull OffsetDateTime createdAt) {
             this.createdAt = Objects.requireNonNull(createdAt, "createdAt must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("updated_at")
         public _FinalStage updatedAt(@NotNull OffsetDateTime updatedAt) {
             this.updatedAt = Objects.requireNonNull(updatedAt, "updatedAt must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage executedAt(String executedAt) {
             this.executedAt = Optional.ofNullable(executedAt);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "executed_at", nulls = Nulls.SKIP)
         public _FinalStage executedAt(Optional<String> executedAt) {
             this.executedAt = executedAt;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage actions(List<FlowAction> actions) {
             this.actions = Optional.ofNullable(actions);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "actions", nulls = Nulls.SKIP)
         public _FinalStage actions(Optional<List<FlowAction>> actions) {
             this.actions = actions;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public CreateFlowResponseContent build() {
             return new CreateFlowResponseContent(
                     id, name, actions, createdAt, updatedAt, executedAt, additionalProperties);

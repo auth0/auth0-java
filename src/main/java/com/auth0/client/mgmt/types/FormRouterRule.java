@@ -55,7 +55,7 @@ public final class FormRouterRule {
         return nextNode;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FormRouterRule && equalTo((FormRouterRule) other);
@@ -70,12 +70,12 @@ public final class FormRouterRule {
         return id.equals(other.id) && alias.equals(other.alias) && nextNode.equals(other.nextNode);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.id, this.alias, this.nextNode);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -115,7 +115,7 @@ public final class FormRouterRule {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FormRouterRule other) {
             id(other.getId());
             alias(other.getAlias());
@@ -123,40 +123,40 @@ public final class FormRouterRule {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("id")
         public _FinalStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage nextNode(FormNodePointer nextNode) {
             this.nextNode = Optional.ofNullable(nextNode);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "next_node", nulls = Nulls.SKIP)
         public _FinalStage nextNode(Optional<FormNodePointer> nextNode) {
             this.nextNode = nextNode;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public _FinalStage alias(String alias) {
             this.alias = Optional.ofNullable(alias);
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter(value = "alias", nulls = Nulls.SKIP)
         public _FinalStage alias(Optional<String> alias) {
             this.alias = alias;
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FormRouterRule build() {
             return new FormRouterRule(id, alias, nextNode, additionalProperties);
         }

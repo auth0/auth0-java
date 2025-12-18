@@ -37,7 +37,7 @@ public final class ClientAddonEgnyte {
         return domain;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ClientAddonEgnyte && equalTo((ClientAddonEgnyte) other);
@@ -52,12 +52,12 @@ public final class ClientAddonEgnyte {
         return domain.equals(other.domain);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.domain);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

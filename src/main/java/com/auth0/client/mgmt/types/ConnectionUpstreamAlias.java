@@ -35,7 +35,7 @@ public final class ConnectionUpstreamAlias {
         return alias;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof ConnectionUpstreamAlias && equalTo((ConnectionUpstreamAlias) other);
@@ -50,12 +50,12 @@ public final class ConnectionUpstreamAlias {
         return alias.equals(other.alias);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.alias);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }

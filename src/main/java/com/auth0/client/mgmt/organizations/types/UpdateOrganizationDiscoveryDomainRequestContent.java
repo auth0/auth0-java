@@ -23,11 +23,16 @@ import java.util.Optional;
 public final class UpdateOrganizationDiscoveryDomainRequestContent {
     private final Optional<OrganizationDiscoveryDomainStatus> status;
 
+    private final Optional<Boolean> useForOrganizationDiscovery;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateOrganizationDiscoveryDomainRequestContent(
-            Optional<OrganizationDiscoveryDomainStatus> status, Map<String, Object> additionalProperties) {
+            Optional<OrganizationDiscoveryDomainStatus> status,
+            Optional<Boolean> useForOrganizationDiscovery,
+            Map<String, Object> additionalProperties) {
         this.status = status;
+        this.useForOrganizationDiscovery = useForOrganizationDiscovery;
         this.additionalProperties = additionalProperties;
     }
 
@@ -36,7 +41,15 @@ public final class UpdateOrganizationDiscoveryDomainRequestContent {
         return status;
     }
 
-    @Override
+    /**
+     * @return Indicates whether this discovery domain should be used for organization discovery.
+     */
+    @JsonProperty("use_for_organization_discovery")
+    public Optional<Boolean> getUseForOrganizationDiscovery() {
+        return useForOrganizationDiscovery;
+    }
+
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof UpdateOrganizationDiscoveryDomainRequestContent
@@ -49,15 +62,15 @@ public final class UpdateOrganizationDiscoveryDomainRequestContent {
     }
 
     private boolean equalTo(UpdateOrganizationDiscoveryDomainRequestContent other) {
-        return status.equals(other.status);
+        return status.equals(other.status) && useForOrganizationDiscovery.equals(other.useForOrganizationDiscovery);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.status);
+        return Objects.hash(this.status, this.useForOrganizationDiscovery);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -70,6 +83,8 @@ public final class UpdateOrganizationDiscoveryDomainRequestContent {
     public static final class Builder {
         private Optional<OrganizationDiscoveryDomainStatus> status = Optional.empty();
 
+        private Optional<Boolean> useForOrganizationDiscovery = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -77,6 +92,7 @@ public final class UpdateOrganizationDiscoveryDomainRequestContent {
 
         public Builder from(UpdateOrganizationDiscoveryDomainRequestContent other) {
             status(other.getStatus());
+            useForOrganizationDiscovery(other.getUseForOrganizationDiscovery());
             return this;
         }
 
@@ -91,8 +107,23 @@ public final class UpdateOrganizationDiscoveryDomainRequestContent {
             return this;
         }
 
+        /**
+         * <p>Indicates whether this discovery domain should be used for organization discovery.</p>
+         */
+        @JsonSetter(value = "use_for_organization_discovery", nulls = Nulls.SKIP)
+        public Builder useForOrganizationDiscovery(Optional<Boolean> useForOrganizationDiscovery) {
+            this.useForOrganizationDiscovery = useForOrganizationDiscovery;
+            return this;
+        }
+
+        public Builder useForOrganizationDiscovery(Boolean useForOrganizationDiscovery) {
+            this.useForOrganizationDiscovery = Optional.ofNullable(useForOrganizationDiscovery);
+            return this;
+        }
+
         public UpdateOrganizationDiscoveryDomainRequestContent build() {
-            return new UpdateOrganizationDiscoveryDomainRequestContent(status, additionalProperties);
+            return new UpdateOrganizationDiscoveryDomainRequestContent(
+                    status, useForOrganizationDiscovery, additionalProperties);
         }
     }
 }

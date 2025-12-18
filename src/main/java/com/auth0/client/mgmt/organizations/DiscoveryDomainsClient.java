@@ -10,6 +10,7 @@ import com.auth0.client.mgmt.organizations.types.CreateOrganizationDiscoveryDoma
 import com.auth0.client.mgmt.organizations.types.ListOrganizationDiscoveryDomainsRequestParameters;
 import com.auth0.client.mgmt.organizations.types.UpdateOrganizationDiscoveryDomainRequestContent;
 import com.auth0.client.mgmt.types.CreateOrganizationDiscoveryDomainResponseContent;
+import com.auth0.client.mgmt.types.GetOrganizationDiscoveryDomainByNameResponseContent;
 import com.auth0.client.mgmt.types.GetOrganizationDiscoveryDomainResponseContent;
 import com.auth0.client.mgmt.types.OrganizationDiscoveryDomain;
 import com.auth0.client.mgmt.types.UpdateOrganizationDiscoveryDomainResponseContent;
@@ -55,7 +56,7 @@ public class DiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;.
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
      */
     public CreateOrganizationDiscoveryDomainResponseContent create(
             String id, CreateOrganizationDiscoveryDomainRequestContent request) {
@@ -63,11 +64,26 @@ public class DiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;.
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
      */
     public CreateOrganizationDiscoveryDomainResponseContent create(
             String id, CreateOrganizationDiscoveryDomainRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.create(id, request, requestOptions).body();
+    }
+
+    /**
+     * Retrieve details about a single organization discovery domain specified by domain name.
+     */
+    public GetOrganizationDiscoveryDomainByNameResponseContent getByName(String id, String discoveryDomain) {
+        return this.rawClient.getByName(id, discoveryDomain).body();
+    }
+
+    /**
+     * Retrieve details about a single organization discovery domain specified by domain name.
+     */
+    public GetOrganizationDiscoveryDomainByNameResponseContent getByName(
+            String id, String discoveryDomain, RequestOptions requestOptions) {
+        return this.rawClient.getByName(id, discoveryDomain, requestOptions).body();
     }
 
     /**
@@ -100,14 +116,14 @@ public class DiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;.
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
      */
     public UpdateOrganizationDiscoveryDomainResponseContent update(String id, String discoveryDomainId) {
         return this.rawClient.update(id, discoveryDomainId).body();
     }
 
     /**
-     * Update the verification status for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;.
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
      */
     public UpdateOrganizationDiscoveryDomainResponseContent update(
             String id, String discoveryDomainId, UpdateOrganizationDiscoveryDomainRequestContent request) {
@@ -115,7 +131,7 @@ public class DiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;.
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
      */
     public UpdateOrganizationDiscoveryDomainResponseContent update(
             String id,

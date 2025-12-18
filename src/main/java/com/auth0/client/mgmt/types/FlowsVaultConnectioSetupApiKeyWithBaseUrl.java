@@ -50,7 +50,7 @@ public final class FlowsVaultConnectioSetupApiKeyWithBaseUrl {
         return baseUrl;
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
         return other instanceof FlowsVaultConnectioSetupApiKeyWithBaseUrl
@@ -66,12 +66,12 @@ public final class FlowsVaultConnectioSetupApiKeyWithBaseUrl {
         return type.equals(other.type) && apiKey.equals(other.apiKey) && baseUrl.equals(other.baseUrl);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
         return Objects.hash(this.type, this.apiKey, this.baseUrl);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
         return ObjectMappers.stringify(this);
     }
@@ -111,7 +111,7 @@ public final class FlowsVaultConnectioSetupApiKeyWithBaseUrl {
 
         private Builder() {}
 
-        @Override
+        @java.lang.Override
         public Builder from(FlowsVaultConnectioSetupApiKeyWithBaseUrl other) {
             type(other.getType());
             apiKey(other.getApiKey());
@@ -119,28 +119,28 @@ public final class FlowsVaultConnectioSetupApiKeyWithBaseUrl {
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("type")
         public ApiKeyStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("api_key")
         public BaseUrlStage apiKey(@NotNull String apiKey) {
             this.apiKey = Objects.requireNonNull(apiKey, "apiKey must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         @JsonSetter("base_url")
         public _FinalStage baseUrl(@NotNull String baseUrl) {
             this.baseUrl = Objects.requireNonNull(baseUrl, "baseUrl must not be null");
             return this;
         }
 
-        @Override
+        @java.lang.Override
         public FlowsVaultConnectioSetupApiKeyWithBaseUrl build() {
             return new FlowsVaultConnectioSetupApiKeyWithBaseUrl(type, apiKey, baseUrl, additionalProperties);
         }
