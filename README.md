@@ -1,18 +1,27 @@
-> **Note**
-> As part of our ongoing commitment to best security practices, we have rotated the signing keys used to sign previous releases of this SDK. As a result, new patch builds have been released using the new signing key. Please upgrade at your earliest convenience.
->
-> While this change won't affect most developers, if you have implemented a dependency signature validation step in your build process, you may notice a warning that past releases can't be verified. This is expected, and a result of the key rotation process. Updating to the latest version will resolve this for you.
+# Auth0 Java Library
 
-![A Java client library for the Auth0 Authentication and Management APIs.](https://cdn.auth0.com/website/sdks/banners/auth0-java-banner.png)
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fauth0%2Fauth0-java)
 
-![Build Status](https://img.shields.io/github/checks-status/auth0/auth0-java/master)
-[![Coverage Status](https://codecov.io/gh/auth0/auth0-java/branch/master/graph/badge.svg?style=flat-square)](https://codecov.io/github/auth0/auth0-java)
-[![License](http://img.shields.io/:license-mit-blue.svg?style=flat)](https://doge.mit-license.org/)
-[![Maven Central](https://img.shields.io/maven-central/v/com.auth0/auth0.svg?style=flat-square)](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.auth0%22%20AND%20a%3A%22auth0%22)
-[![javadoc](https://javadoc.io/badge2/com.auth0/auth0/javadoc.svg)](https://javadoc.io/doc/com.auth0/auth0)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/auth0/auth0-java)
+The Auth0 Java library provides convenient access to the Auth0 APIs from Java.
 
-:books: [Documentation](#documentation) - :rocket: [Getting Started](#getting-started) - :computer: [API Reference](#api-reference) :speech_balloon: [Feedback](#feedback)
+## Table of Contents
+
+- [Documentation](#documentation)
+- [Getting Started](#getting-started)
+- [Api Reference](#api-reference)
+- [Feedback](#feedback)
+- [Reference](#reference)
+- [Usage](#usage)
+- [Environments](#environments)
+- [Base Url](#base-url)
+- [Exception Handling](#exception-handling)
+- [Advanced](#advanced)
+  - [Custom Client](#custom-client)
+  - [Retries](#retries)
+  - [Timeouts](#timeouts)
+  - [Custom Headers](#custom-headers)
+  - [Access Raw Response Data](#access-raw-response-data)
+- [Contributing](#contributing)
 
 ## Documentation
 - [Examples](./EXAMPLES.md) - code samples for common auth0-java scenarios.
@@ -129,3 +138,226 @@ Please do not report security vulnerabilities on the public Github issue tracker
 <p align="center">Auth0 is an easy to implement, adaptable authentication and authorization platform. To learn more checkout <a href="https://auth0.com/why-auth0">Why Auth0?</a></p>
 <p align="center">
 This project is licensed under the MIT license. See the <a href="./LICENSE"> LICENSE</a> file for more info.</p>
+## Reference
+
+A full reference for this library is available [here](https://github.com/auth0/auth0-java/blob/HEAD/./reference.md).
+
+## Usage
+
+Instantiate and use the client with the following:
+
+```java
+package com.example.usage;
+
+import com.auth0.client.mgmt.ManagementApi;
+import com.auth0.client.mgmt.types.ActionTrigger;
+import com.auth0.client.mgmt.types.CreateActionRequestContent;
+import java.util.Arrays;
+
+public class Example {
+    public static void main(String[] args) {
+        ManagementApi client = ManagementApi
+            .builder()
+            .token("<token>")
+            .build();
+
+        client.actions().create(
+            CreateActionRequestContent
+                .builder()
+                .name("my-action")
+                .supportedTriggers(
+                    Arrays.asList(
+                        ActionTrigger
+                            .builder()
+                            .id("id")
+                            .build(),
+                        ActionTrigger
+                            .builder()
+                            .id("id")
+                            .build()
+                    )
+                )
+                .build()
+        );
+    }
+}
+```
+## OptionalNullable for PATCH Requests
+
+For PATCH requests, the SDK uses `OptionalNullable<T>` to handle three-state nullable semantics:
+
+- **ABSENT**: Field not provided (omitted from JSON)
+- **NULL**: Field explicitly set to null (included as `null` in JSON)
+- **PRESENT**: Field has a non-null value
+
+```java
+import com.seed.api.core.OptionalNullable;
+
+UpdateRequest request = UpdateRequest.builder()
+    .fieldName(OptionalNullable.absent())    // Skip field
+    .anotherField(OptionalNullable.ofNull()) // Clear field
+    .yetAnotherField(OptionalNullable.of("value")) // Set value
+    .build();
+```
+
+### Important Notes
+
+- **Required fields**: For required fields, you cannot use `absent()`. Required fields must always be present with either a non-null value or explicitly set to null using `ofNull()`.
+- **Type safety**: `OptionalNullable<T>` is not fully type-safe since all three states use the same type, but it provides a cleaner API than nested `Optional<Optional<T>>` for handling three-state nullable semantics.
+
+## Environments
+
+This SDK allows you to configure different environments for API requests.
+
+```java
+import com.auth0.client.mgmt.ManagementApi;
+import com.auth0.client.mgmt.core.Environment;
+
+ManagementApi client = ManagementApi
+    .builder()
+    .environment(Environment.Default)
+    .build();
+```
+
+## Base Url
+
+You can set a custom base URL when constructing the client.
+
+```java
+import com.auth0.client.mgmt.ManagementApi;
+
+ManagementApi client = ManagementApi
+    .builder()
+    .url("https://example.com")
+    .build();
+```
+
+## Exception Handling
+
+When the API returns a non-success status code (4xx or 5xx response), an API exception will be thrown.
+
+```java
+import com.auth0.client.mgmt.core.ManagementApiException;
+
+try{
+    client.actions().create(...);
+} catch (ManagementApiException e){
+    // Do something with the API exception...
+}
+```
+
+## Advanced
+
+### Custom Client
+
+This SDK is built to work with any instance of `OkHttpClient`. By default, if no client is provided, the SDK will construct one.
+However, you can pass your own client like so:
+
+```java
+import com.auth0.client.mgmt.ManagementApi;
+import okhttp3.OkHttpClient;
+
+OkHttpClient customClient = ...;
+
+ManagementApi client = ManagementApi
+    .builder()
+    .httpClient(customClient)
+    .build();
+```
+
+### Retries
+
+The SDK is instrumented with automatic retries with exponential backoff. A request will be retried as long
+as the request is deemed retryable and the number of retry attempts has not grown larger than the configured
+retry limit (default: 2). Before defaulting to exponential backoff, the SDK will first attempt to respect
+the `Retry-After` header (as either in seconds or as an HTTP date), and then the `X-RateLimit-Reset` header
+(as a Unix timestamp in epoch seconds); failing both of those, it will fall back to exponential backoff.
+
+A request is deemed retryable when any of the following HTTP status codes is returned:
+
+- [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
+- [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
+- [5XX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500) (Internal Server Errors)
+
+Use the `maxRetries` client option to configure this behavior.
+
+```java
+import com.auth0.client.mgmt.ManagementApi;
+
+ManagementApi client = ManagementApi
+    .builder()
+    .maxRetries(1)
+    .build();
+```
+
+### Timeouts
+
+The SDK defaults to a 60 second timeout. You can configure this with a timeout option at the client or request level.
+```java
+import com.auth0.client.mgmt.ManagementApi;
+import com.auth0.client.mgmt.core.RequestOptions;
+
+// Client level
+ManagementApi client = ManagementApi
+    .builder()
+    .timeout(60)
+    .build();
+
+// Request level
+client.actions().create(
+    ...,
+    RequestOptions
+        .builder()
+        .timeout(60)
+        .build()
+);
+```
+
+### Custom Headers
+
+The SDK allows you to add custom headers to requests. You can configure headers at the client level or at the request level.
+
+```java
+import com.auth0.client.mgmt.ManagementApi;
+import com.auth0.client.mgmt.core.RequestOptions;
+
+// Client level
+ManagementApi client = ManagementApi
+    .builder()
+    .addHeader("X-Custom-Header", "custom-value")
+    .addHeader("X-Request-Id", "abc-123")
+    .build();
+;
+
+// Request level
+client.actions().create(
+    ...,
+    RequestOptions
+        .builder()
+        .addHeader("X-Request-Header", "request-value")
+        .build()
+);
+```
+
+### Access Raw Response Data
+
+The SDK provides access to raw response data, including headers, through the `withRawResponse()` method.
+The `withRawResponse()` method returns a raw client that wraps all responses with `body()` and `headers()` methods.
+(A normal client's `response` is identical to a raw client's `response.body()`.)
+
+```java
+CreateHttpResponse response = client.actions().withRawResponse().create(...);
+
+System.out.println(response.body());
+System.out.println(response.headers().get("X-My-Header"));
+```
+
+## Contributing
+
+While we value open-source contributions to this SDK, this library is generated programmatically.
+Additions made directly to this library would have to be moved over to our generation code,
+otherwise they would be overwritten upon the next generated release. Feel free to open a PR as
+a proof of concept, but know that we will not be able to merge it as-is. We suggest opening
+an issue first to discuss with us!
+
+On the other hand, contributions to the README are always very welcome!

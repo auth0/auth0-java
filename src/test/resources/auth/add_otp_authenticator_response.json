@@ -1,6 +1,0 @@
-{
-  "secret": "ABCDEFGMK5CE6WTZKRTTQRKUJVFXOVRF",
-  "barcode_uri":"otpauth://...",
-  "authenticator_type":"otp",
-  "recovery_codes":["ABCDEFGDRFK75ABYR7PH8TJA"]
-}

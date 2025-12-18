@@ -1,7 +1,1 @@
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-    }
-}
-
-rootProject.name = 'auth0'
+include 'sample-app'

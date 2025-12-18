@@ -1,9 +1,0 @@
-{
-  "id": "1",
-  "client_id": "clientId1",
-  "audience": "audience1",
-  "scope": [
-    "openid",
-    "profile"
-  ]
-}

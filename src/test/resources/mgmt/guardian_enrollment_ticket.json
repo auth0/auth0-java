@@ -1,7 +1,0 @@
-{
-  "user_id": "u123",
-  "email": "me@auth0.com",
-  "send_mail": false,
-  "ticket_id": "12345679",
-  "ticket_url": "https://auth0.com/guardian/tickets/123"
-}

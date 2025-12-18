@@ -1,3 +1,0 @@
-{
-  "body": "<!DOCTYPE html><html><head>{%- auth0:head -%}</head><body>{%- auth0:widget -%}</body></html>"
-}

@@ -1,6 +1,0 @@
-{
-  "statusCode": 400,
-  "error": "Bad Request",
-  "message": "Query validation error: 'String 'invalid_field' does not match pattern. Must be a comma separated list of the following values: allowed_logout_urls,change_password.",
-  "errorCode": "invalid_query_string"
-}
