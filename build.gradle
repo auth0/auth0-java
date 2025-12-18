@@ -12,6 +12,9 @@ repositories {
   }
 }
 
+group = GROUP
+
+
 dependencies {
   // Core dependencies
   api 'com.squareup.okhttp3:okhttp:5.2.1'
@@ -52,12 +55,6 @@ spotless {
     palantirJavaFormat()
   }
 }
-
-
-//java {
-//  withSourcesJar()
-//  withJavadocJar()
-//}
 
 
 test {
