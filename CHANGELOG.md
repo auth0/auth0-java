@@ -12,7 +12,7 @@
 - Nullability annotations to POJO classes
 - Fully compatible **Authentication API client** — no breaking changes
 
-- [Migration guide](v3_MIGRATION_GUIDE.md) available for upgrading from v2.x
+- [Migration guide](MIGRATION_GUIDE) available for upgrading from v2.x
 
 
 ## [2.27.0](https://github.com/auth0/auth0-java/tree/2.27.0) (2025-12-18)
@@ -262,7 +262,6 @@
 - ... and more!
 
 As a major version release, 2.0.0 does include breaking changes.
-Please see the [Migration Guide](MIGRATION_GUIDE.md) for additional details as well as guidance for updating your application.
 
 ## [2.0.0 Beta 2](https://github.com/auth0/auth0-java/tree/2.0.0-beta.2) (2023-02-13)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.0.0-beta.1...2.0.0-beta.2)
@@ -288,8 +287,6 @@ This release introduces several enhancement, including:
 - Additional HTTP client configurability
 - Authentication API improvements to not require a client secret
 - ... and more!
-
-Please see the [Migration Guide](MIGRATION_GUIDE.md) for guidance on updating your application.
 
 ## [1.44.2](https://github.com/auth0/auth0-java/tree/1.44.2) (2023-01-11)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/1.44.1...1.44.2)
