@@ -1,7 +1,7 @@
 # Change Log
 
-## [v3.0.0-beta.0](https://github.com/auth0/auth0-java/tree/v3.0.0-beta.0) (2025-12-18)
-[Full Changelog](https://github.com/auth0/auth0-java/compare/v4.26.0...v3.0.0-beta.0)
+## [3.0.0-beta.0](https://github.com/auth0/auth0-java/tree/3.0.0-beta.0) (2025-12-18)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.27.0...3.0.0-beta.0)
 
 > **Warning** This SDK is in beta and is subject to breaking changes. It is not recommended for production use, but your feedback and help in testing is appreciated!
 
