@@ -17,7 +17,7 @@
 
 ## Documentation
 - [Examples](./EXAMPLES.md) - code samples for common auth0-java scenarios.
-- [Migration Guide](./v3_MIGRATION_GUIDE.md) - guidance for updating your application to use version 3 of auth0-java.
+- [Migration Guide](./MIGRATION_GUIDE) - guidance for updating your application to use version 3 of auth0-java.
 - [Docs site](https://www.auth0.com/docs) - explore our docs site and learn more about Auth0.
 
 ## Getting Started
