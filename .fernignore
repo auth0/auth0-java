@@ -83,3 +83,6 @@ gradle.properties
 settings.gradle
 build.gradle
 sample-app/
+MIGRATION_GUIDE.md
+LICENSE
+CHANGELOG.md
