@@ -34,5 +34,8 @@
   "ttl_sec": 0,
   "domain_aliases_config": {
     "domain_verification": "none"
+  },
+  "provisioning_config": {
+    "scopes": ["get:users"]
   }
 }

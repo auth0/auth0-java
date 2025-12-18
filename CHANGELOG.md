@@ -1,9 +1,11 @@
 # Change Log
 
 ## [v3.0.0-beta.0](https://github.com/auth0/auth0-java/tree/v3.0.0-beta.0) (2025-12-18)
-
 [Full Changelog](https://github.com/auth0/auth0-java/compare/v4.26.0...v3.0.0-beta.0)
 
+> **Warning** This SDK is in beta and is subject to breaking changes. It is not recommended for production use, but your feedback and help in testing is appreciated!
+
+**Added**
 - Complete rewrite of the **Management API client** using Fern code generation
 - Update OkHttp to 5.2.1
 - API attributes can set null for patch operations
@@ -12,6 +14,15 @@
 
 - [Migration guide](v3_MIGRATION_GUIDE.md) available for upgrading from v2.x
 
+
+## [2.27.0](https://github.com/auth0/auth0-java/tree/2.27.0) (2025-12-18)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.26.0...2.27.0)
+
+**Added**
+- Feat: Add Google WorkSpace Provisioning Config Support [\#795](https://github.com/auth0/auth0-java/pull/795) ([tanya732](https://github.com/tanya732))
+
+**Fixed**
+- Fix: updated token_lifetime to Integer [\#797](https://github.com/auth0/auth0-java/pull/797) ([tanya732](https://github.com/tanya732))
 
 ## [2.26.0](https://github.com/auth0/auth0-java/tree/2.26.0) (2025-10-24)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.25.0...2.26.0)
