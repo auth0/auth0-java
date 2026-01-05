@@ -12,5 +12,4 @@ class HS256SignatureVerifier extends SignatureVerifier {
     HS256SignatureVerifier(String secret) {
         super(Algorithm.HMAC256(secret));
     }
-
 }

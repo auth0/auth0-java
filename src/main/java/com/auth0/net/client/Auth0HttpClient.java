@@ -22,5 +22,4 @@ public interface Auth0HttpClient {
      * @return the {@link CompletableFuture} that represents the result of the asynchronous HTTP request.
      */
     CompletableFuture<Auth0HttpResponse> sendRequestAsync(Auth0HttpRequest request);
-
 }

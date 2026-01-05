@@ -3,6 +3,7 @@
 >
 > While this change won't affect most developers, if you have implemented a dependency signature validation step in your build process, you may notice a warning that past releases can't be verified. This is expected, and a result of the key rotation process. Updating to the latest version will resolve this for you.
 
+> **Warning** Releasing v3 beta version; it is subject to breaking changes prior to the General Availability release. It is not recommended for production use, but your feedback and help in testing is appreciated!
 ![A Java client library for the Auth0 Authentication and Management APIs.](https://cdn.auth0.com/website/sdks/banners/auth0-java-banner.png)
 
 ![Build Status](https://img.shields.io/github/checks-status/auth0/auth0-java/master)
@@ -10,12 +11,13 @@
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat)](https://doge.mit-license.org/)
 [![Maven Central](https://img.shields.io/maven-central/v/com.auth0/auth0.svg?style=flat-square)](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.auth0%22%20AND%20a%3A%22auth0%22)
 [![javadoc](https://javadoc.io/badge2/com.auth0/auth0/javadoc.svg)](https://javadoc.io/doc/com.auth0/auth0)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/auth0/auth0-java)
 
 :books: [Documentation](#documentation) - :rocket: [Getting Started](#getting-started) - :computer: [API Reference](#api-reference) :speech_balloon: [Feedback](#feedback)
 
 ## Documentation
 - [Examples](./EXAMPLES.md) - code samples for common auth0-java scenarios.
-- [Migration Guide](./MIGRATION_GUIDE.md) - guidance for updating your application to use version 2 of auth0-java.
+- [Migration Guide](./MIGRATION_GUIDE) - guidance for updating your application to use version 3 of auth0-java.
 - [Docs site](https://www.auth0.com/docs) - explore our docs site and learn more about Auth0.
 
 ## Getting Started
@@ -34,14 +36,14 @@ Add the dependency via Maven:
 <dependency>
   <groupId>com.auth0</groupId>
   <artifactId>auth0</artifactId>
-  <version>2.26.0</version>
+  <version>3.0.0-beta.0</version>
 </dependency>
 ```
 
 or Gradle:
 
 ```gradle
-implementation 'com.auth0:auth0:2.26.0'
+implementation 'com.auth0:auth0:3.0.0-beta.0'
 ```
 
 ### Configure the SDK

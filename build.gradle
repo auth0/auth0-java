@@ -1,160 +1,72 @@
-buildscript {
-  repositories {
-    jcenter()
-  }
-
-  dependencies {
-    // https://github.com/melix/japicmp-gradle-plugin/issues/36
-    classpath 'com.google.guava:guava:31.1-jre'
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.0"
-  }
-}
-
-
 plugins {
-    id 'java'
-    id 'jacoco'
-    id 'me.champeau.gradle.japicmp' version '0.2.9'
-    id 'io.github.gradle-nexus.publish-plugin' version '2.0.0'
+  id 'java-library'
+  id 'maven-publish'
+  id 'com.diffplug.spotless' version '6.11.0'
+  id 'io.github.gradle-nexus.publish-plugin' version '2.0.0'
 }
 
 repositories {
-    mavenCentral()
+  mavenCentral()
+  maven {
+    url 'https://s01.oss.sonatype.org/content/repositories/releases/'
+  }
 }
 
 apply from: rootProject.file('gradle/versioning.gradle')
 
 version = getVersionFromFile()
 group = GROUP
+
 logger.lifecycle("Using version ${version} for ${name} group $group")
 
-jacocoTestReport {
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
+dependencies {
+  // Core dependencies
+  api 'com.squareup.okhttp3:okhttp:5.2.1'
+  api 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
+  api 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.18.2'
+  api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.2'
+
+  // Dependencies for legacy management code from auth0-real
+  implementation 'com.squareup.okhttp3:logging-interceptor:5.2.1'
+  implementation 'com.auth0:java-jwt:4.4.0'
+  implementation 'com.auth0:jwks-rsa:0.22.1'
+  implementation 'net.jodah:failsafe:2.4.4'
+
+  // Test dependencies
+  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+  testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+  testImplementation 'org.mockito:mockito-core:4.11.0'
+  testImplementation 'com.squareup.okhttp3:mockwebserver:5.2.1'
+  testImplementation 'org.hamcrest:hamcrest:2.2'
 }
 
 java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(8)
-    }
-}
-
-compileJava {
-    sourceCompatibility '1.8'
-    targetCompatibility '1.8'
-
-    options.compilerArgs << "-Xlint:deprecation" << "-Xlint:unchecked" << "-Werror"
-}
-
-compileTestJava {
-    options.compilerArgs << "-Xlint:deprecation" << "-Werror"
-}
-
-import me.champeau.gradle.japicmp.JapicmpTask
-
-project.afterEvaluate {
-
-  def versions = project.ext.testInJavaVersions
-  for (pluginJavaTestVersion in versions) {
-    def taskName = "testInJava-${pluginJavaTestVersion}"
-    tasks.register(taskName, Test) {
-      def versionToUse = taskName.split("-").getAt(1) as Integer
-      description = "Runs unit tests on Java version ${versionToUse}."
-      project.logger.quiet("Test will be running in ${versionToUse}")
-      group = 'verification'
-      javaLauncher.set(javaToolchains.launcherFor {
-        languageVersion = JavaLanguageVersion.of(versionToUse)
-      })
-      shouldRunAfter(tasks.named('test'))
-    }
-    tasks.named('check') {
-      dependsOn(taskName)
-    }
-  }
-
-  project.configure(project) {
-    def baselineVersion = project.ext.baselineCompareVersion
-    task('apiDiff', type: JapicmpTask, dependsOn: 'jar') {
-      oldClasspath = files(getBaselineJar(project, baselineVersion))
-      newClasspath = files(jar.archiveFile)
-      onlyModified = true
-      failOnModification = true
-      ignoreMissingClasses = true
-      htmlOutputFile = file("$buildDir/reports/apiDiff/apiDiff.html")
-      txtOutputFile = file("$buildDir/reports/apiDiff/apiDiff.txt")
-      doLast {
-        project.logger.quiet("Comparing against baseline version ${baselineVersion}")
-      }
-    }
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(8)
   }
 }
 
-private static File getBaselineJar(Project project, String baselineVersion) {
-  // Use detached configuration: https://github.com/square/okhttp/blob/master/build.gradle#L270
-  def group = project.group
-  try {
-    def baseline = "${project.group}:${project.name}:$baselineVersion"
-    project.group = 'virtual_group_for_japicmp'
-    def dependency = project.dependencies.create(baseline + "@jar")
-    return project.configurations.detachedConfiguration(dependency).files.find {
-      it.name == "${project.name}-${baselineVersion}.jar"
-    }
-  } finally {
-    project.group = group
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+tasks.withType(Javadoc) {
+  failOnError false
+  options.addStringOption('Xdoclint:none', '-quiet')
+}
+
+spotless {
+  java {
+    palantirJavaFormat()
   }
 }
 
 
 test {
-    testLogging {
-        events "skipped", "failed"
-        exceptionFormat "short"
-    }
-    useJUnitPlatform()
+  useJUnitPlatform()
+  testLogging {
+    showStandardStreams = true
+  }
 }
 
-ext {
-    okhttpVersion = '4.12.0'
-    hamcrestVersion = '2.2'
-    jupiterVersion = '5.9.3'
-
-    baselineCompareVersion = '2.0.0'
-    testInJavaVersions = [8, 11, 17, 21]
-}
-
-dependencies {
-    // TODO remove direct dependency when OkHttp 4.12.0 is released
-    implementation ("com.squareup.okhttp3:okhttp:${okhttpVersion}") {
-      exclude group: 'com.squareup.okhttp3', module: 'okio'
-      exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
-      exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
-    }
-    implementation "com.squareup.okio:okio:3.5.0"
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:2.1.0"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.0"
-
-    implementation "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
-    implementation "com.fasterxml.jackson.core:jackson-databind:2.15.0"
-    implementation "com.auth0:java-jwt:4.4.0"
-    implementation "net.jodah:failsafe:2.4.4"
-
-    testImplementation "org.mockito:mockito-core:4.8.1"
-    testImplementation "com.squareup.okhttp3:mockwebserver:${okhttpVersion}"
-    testImplementation "org.hamcrest:hamcrest:${hamcrestVersion}"
-    testImplementation "org.junit.jupiter:junit-jupiter-api:${jupiterVersion}"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}"
-
-    // Override MockWebServer's junit transitive dependency to latest v4
-    constraints {
-      testImplementation( group: 'junit', name: 'junit'){
-        version{
-          strictly "[4.13.2]"
-        }
-      }
-    }
-}
 
 apply from: rootProject.file('gradle/maven-publish.gradle')

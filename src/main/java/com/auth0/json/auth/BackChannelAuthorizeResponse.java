@@ -7,13 +7,18 @@ import com.fasterxml.jackson.annotation.*;
 public class BackChannelAuthorizeResponse {
     @JsonProperty("auth_req_id")
     private String authReqId;
+
     @JsonProperty("expires_in")
     private Long expiresIn;
+
     @JsonProperty("interval")
     private Integer interval;
 
     @JsonCreator
-    public BackChannelAuthorizeResponse(@JsonProperty("auth_req_id") String authReqId, @JsonProperty("expires_in") Long expiresIn, @JsonProperty("interval") Integer interval) {
+    public BackChannelAuthorizeResponse(
+            @JsonProperty("auth_req_id") String authReqId,
+            @JsonProperty("expires_in") Long expiresIn,
+            @JsonProperty("interval") Integer interval) {
         this.authReqId = authReqId;
         this.expiresIn = expiresIn;
         this.interval = interval;

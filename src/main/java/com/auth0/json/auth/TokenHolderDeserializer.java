@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-
 import java.io.IOException;
 import java.time.Instant;
 import java.util.Date;
@@ -26,7 +25,8 @@ public class TokenHolderDeserializer extends StdDeserializer<TokenHolder> {
     }
 
     @Override
-    public TokenHolder deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public TokenHolder deserialize(JsonParser p, DeserializationContext ctxt)
+            throws IOException, JsonProcessingException {
         JsonNode node = p.getCodec().readTree(p);
 
         JsonNode accessTokenNode = node.get("access_token");
@@ -37,13 +37,13 @@ public class TokenHolderDeserializer extends StdDeserializer<TokenHolder> {
         JsonNode expiresInNode = node.get("expires_in");
 
         String accessToken = accessTokenNode != null ? accessTokenNode.asText() : null;
-        String idToken = idTokenNode !=  null ? idTokenNode.asText() : null;
+        String idToken = idTokenNode != null ? idTokenNode.asText() : null;
         String refreshToken = refreshTokenNode != null ? refreshTokenNode.asText() : null;
-        String tokenType = tokenTypeNode != null  ? tokenTypeNode.asText() : null;
-        String scope = scopeNode != null ?  scopeNode.asText() : null;
+        String tokenType = tokenTypeNode != null ? tokenTypeNode.asText() : null;
+        String scope = scopeNode != null ? scopeNode.asText() : null;
 
         // As a primitive, if expires_in is not sent on the response, value will be 0 instead of null
-        long expiresIn = expiresInNode !=  null ? expiresInNode.asLong() : 0L;
+        long expiresIn = expiresInNode != null ? expiresInNode.asLong() : 0L;
         Date expiresAt = expiresInNode != null ? Date.from(Instant.now().plusSeconds(expiresIn)) : null;
 
         return new TokenHolder(accessToken, idToken, refreshToken, tokenType, expiresIn, scope, expiresAt);

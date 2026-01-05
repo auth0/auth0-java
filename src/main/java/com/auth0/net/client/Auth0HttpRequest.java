@@ -32,8 +32,8 @@ public class Auth0HttpRequest {
     }
 
     public HttpRequestBody getBody() {
-    return body;
-}
+        return body;
+    }
 
     public HttpMethod getMethod() {
         return method;
@@ -52,7 +52,7 @@ public class Auth0HttpRequest {
         }
 
         public Builder withHeaders(Map<String, String> headers) {
-            this.headers =  headers;
+            this.headers = headers;
             return this;
         }
 

@@ -14,11 +14,13 @@ public class PushedAuthorizationResponse {
 
     @JsonProperty("request_uri")
     private String requestURI;
+
     @JsonProperty("expires_in")
     private Integer expiresIn;
 
     @JsonCreator
-    public PushedAuthorizationResponse(@JsonProperty("request_uri") String requestURI, @JsonProperty("expires_in") Integer expiresIn) {
+    public PushedAuthorizationResponse(
+            @JsonProperty("request_uri") String requestURI, @JsonProperty("expires_in") Integer expiresIn) {
         this.requestURI = requestURI;
         this.expiresIn = expiresIn;
     }
