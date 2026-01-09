@@ -1,9 +1,8 @@
 package com.auth0.client;
 
 import com.auth0.utils.Asserts;
-import okhttp3.Credentials;
-
 import java.net.Proxy;
+import okhttp3.Credentials;
 
 /**
  * Used to configure Java Proxy-related configurations.

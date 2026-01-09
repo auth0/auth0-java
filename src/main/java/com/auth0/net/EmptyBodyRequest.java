@@ -5,7 +5,6 @@ import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.HttpMethod;
 import com.auth0.net.client.HttpRequestBody;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Request class that does not accept parameters to be sent as part of its body.
@@ -16,7 +15,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class EmptyBodyRequest<T> extends BaseRequest<T> {
 
-    public EmptyBodyRequest(Auth0HttpClient client, TokenProvider tokenProvider, String url, HttpMethod method, TypeReference<T> tType) {
+    public EmptyBodyRequest(
+            Auth0HttpClient client,
+            TokenProvider tokenProvider,
+            String url,
+            HttpMethod method,
+            TypeReference<T> tType) {
         super(client, tokenProvider, url, method, tType);
     }
 
@@ -28,7 +32,7 @@ public class EmptyBodyRequest<T> extends BaseRequest<T> {
 
     @Override
     public EmptyBodyRequest<T> addParameter(String name, Object value) {
-        //do nothing
+        // do nothing
         return this;
     }
 }

@@ -71,7 +71,8 @@ class PasswordStrengthErrorParser {
 
         if (rule.containsKey(KEY_FORMAT)) {
             List<Number> quantity = (List<Number>) rule.get(KEY_FORMAT);
-            message = String.format(message, quantity.get(0).intValue(), quantity.get(1).intValue());
+            message = String.format(
+                    message, quantity.get(0).intValue(), quantity.get(1).intValue());
         }
 
         return String.format("%s %s", message, requiredItems);

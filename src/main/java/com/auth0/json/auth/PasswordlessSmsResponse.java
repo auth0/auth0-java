@@ -12,10 +12,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class PasswordlessSmsResponse {
     @JsonProperty("_id")
     private String id;
+
     @JsonProperty("phone_number")
     private String phoneNumber;
+
     @JsonProperty("phone_verified")
     private Boolean phoneVerified;
+
     @JsonProperty("request_language")
     private String requestLanguage;
 

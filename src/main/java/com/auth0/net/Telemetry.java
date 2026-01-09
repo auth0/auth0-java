@@ -2,7 +2,6 @@ package com.auth0.net;
 
 import com.auth0.json.ObjectMapperProvider;
 import com.fasterxml.jackson.core.JsonProcessingException;
-
 import java.util.Base64;
 import java.util.Collections;
 import java.util.HashMap;
@@ -80,12 +79,12 @@ public class Telemetry {
         return version;
     }
 
-    //Visible for testing
+    // Visible for testing
     String getLibraryVersion() {
         return libraryVersion;
     }
 
-    //Visible for testing
+    // Visible for testing
     Map<String, String> getEnvironment() {
         return env;
     }
@@ -103,5 +102,4 @@ public class Telemetry {
         }
         return version;
     }
-
 }
