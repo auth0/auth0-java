@@ -1,5 +1,11 @@
 # Change Log
 
+## [3.0.0](https://github.com/auth0/auth0-java/tree/3.0.0) (2026-01-09)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/2.27.0...3.0.0)
+
+**Added**
+- Adding v3 changes [\#790](https://github.com/auth0/auth0-java/pull/790) ([tanya732](https://github.com/tanya732))
+
 ## [3.0.0-beta.0](https://github.com/auth0/auth0-java/tree/3.0.0-beta.0) (2025-12-18)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.27.0...3.0.0-beta.0)
 
