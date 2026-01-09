@@ -26,7 +26,6 @@ src/main/java/com/auth0/json/mgmt/
 src/main/java/com/auth0/json/ObjectMapperProvider.java
 
 # Client options from auth0-real
-src/main/java/com/auth0/client/HttpOptions.java
 src/main/java/com/auth0/client/ProxyOptions.java
 src/main/java/com/auth0/client/LoggingOptions.java
 
