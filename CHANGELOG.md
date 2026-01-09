@@ -3,8 +3,66 @@
 ## [3.0.0](https://github.com/auth0/auth0-java/tree/3.0.0) (2026-01-09)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.27.0...3.0.0)
 
-**Added**
-- Adding v3 changes [\#790](https://github.com/auth0/auth0-java/pull/790) ([tanya732](https://github.com/tanya732))
+
+### Added Features
+
+- **New OpenAPI-generated Management API SDK**: Complete rewrite of the Management API client using Fern code generation.
+- **Improved type safety**: using enums
+- **Automatic pagination:** `SyncPagingIterable<T>` for automatic pagination
+- **Nullability annotations** on generated POJOs
+- **error handling**: unified `ManagementApiException` class
+- Support for **explicit null values** in **PATCH** operations
+- **HTTP client** upgraded to **OkHttp 5.2.1**
+
+### ⚠️ Breaking Changes — Major Rewrite
+- The Management API client has been fully rewritten using Fern OpenAPI code generation. Applications migrating from v2.x must update their code.
+- **Key Breaking Changes**:
+    - Hierarchical sub-clients replace flat entity APIs.
+    - Manual pagination removed in favor of `SyncPagingIterable<T>`.
+    - Unified exception handling via `ManagementApiException`.
+    - Client initialization updated to `ManagementApi.builder()`.
+    - Request and response models now use generated, immutable `*RequestContent`, `*ResponseContent`, and `*RequestParameters` types.
+    - Package structure updated across all Management API resources.
+
+### Deprecated APIs have been removed:
+- Removed deprecated AuthAPI constructors.
+- Removed legacy authentication and signup helpers.
+- Deprecated networking helpers removed:
+- Removed deprecated method from MultipartRequest.
+- Removed internal EmptyBodyVoidRequest
+- Removed HttpOptions
+- Removed EXAMPLES.md, refer [reference.md](https://github.com/auth0/auth0-java/blob/master/reference.md)
+
+
+### Migration Example
+
+#### Management API Client Initialization
+
+**Before (v2):**
+```java
+import com.auth0.client.mgmt.ManagementAPI;
+
+// Using domain and token
+ManagementAPI mgmt = ManagementAPI.newBuilder("{YOUR_DOMAIN}", "{YOUR_API_TOKEN}").build();
+
+// Using TokenProvider
+TokenProvider tokenProvider = SimpleTokenProvider.create("{YOUR_API_TOKEN}");
+ManagementAPI mgmt = ManagementAPI.newBuilder("{YOUR_DOMAIN}", tokenProvider).build();
+```
+
+**After (v3 – Standard Token-Based):**
+```java
+import com.auth0.client.mgmt.ManagementApi;
+
+ManagementApi client = ManagementApi
+    .builder()
+    .url("https://{YOUR_DOMAIN}/api/v2")
+    .token("{YOUR_API_TOKEN}")
+    .build();
+```
+
+**Note**: The Authentication API remains supported, with deprecated APIs removed.
+A complete migration guide is available at [MIGRATION_GUIDE](MIGRATION_GUIDE.md).
 
 ## [3.0.0-beta.0](https://github.com/auth0/auth0-java/tree/3.0.0-beta.0) (2025-12-18)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.27.0...3.0.0-beta.0)
