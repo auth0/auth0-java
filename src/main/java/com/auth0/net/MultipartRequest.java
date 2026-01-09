@@ -7,7 +7,6 @@ import com.auth0.json.ObjectMapperProvider;
 import com.auth0.net.client.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -79,26 +78,6 @@ public class MultipartRequest<T> extends BaseRequest<T> {
     public MultipartRequest<T> addHeader(String name, String value) {
         // This is to avoid returning a different type
         super.addHeader(name, value);
-        return this;
-    }
-
-    /**
-     * Adds a file part to the form of this request
-     *
-     * @param name      the name of the part
-     * @param file      the file contents to send in this part
-     * @param mediaType the file contents media type
-     * @return this same request instance
-     */
-    @SuppressWarnings("deprecation")
-    public MultipartRequest<T> addPart(String name, File file, String mediaType) {
-        assertNotNull(name, "name");
-        assertNotNull(name, "file");
-        if (!file.exists()) {
-            throw new IllegalArgumentException("Failed to add part because the file specified cannot be found.");
-        }
-        bodyBuilder.withFilePart(new Auth0MultipartRequestBody.FilePart(name, file, mediaType));
-        partsCount++;
         return this;
     }
 

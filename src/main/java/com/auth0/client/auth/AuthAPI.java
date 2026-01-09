@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.TestOnly;
 
 /**
@@ -74,40 +73,6 @@ public class AuthAPI {
     private final HttpUrl baseUrl;
 
     /**
-     * Create a new instance with the given tenant's domain, application's client id and client secret.
-     * These values can be obtained at {@code https://manage.auth0.com/#/applications/{YOUR_CLIENT_ID}/settings}.
-     * In addition, accepts an {@link com.auth0.client.HttpOptions} that will be used to configure the networking client.
-     *
-     * @deprecated Use the {@link Builder} to configure and create instances.
-     *
-     * @param domain       tenant's domain.
-     * @param clientId     the application's client id.
-     * @param clientSecret the application's client secret.
-     * @param options      configuration options for this client instance.
-     * @see #AuthAPI(String, String, String)
-     */
-    @Deprecated
-    @SuppressWarnings("deprecation")
-    public AuthAPI(String domain, String clientId, String clientSecret, com.auth0.client.HttpOptions options) {
-        this(domain, clientId, clientSecret, null, buildNetworkingClient(options));
-    }
-
-    /**
-     * Create a new instance with the given tenant's domain, application's client id and client secret.
-     * These values can be obtained at {@code https://manage.auth0.com/#/applications/{YOUR_CLIENT_ID}/}settings.
-     *
-     * @deprecated Use the {@link Builder} to configure and create instances.
-     *
-     * @param domain       tenant's domain.
-     * @param clientId     the application's client id.
-     * @param clientSecret the application's client secret.
-     */
-    @Deprecated
-    public AuthAPI(String domain, String clientId, String clientSecret) {
-        this(domain, clientId, clientSecret, new com.auth0.client.HttpOptions());
-    }
-
-    /**
      * Initialize a new {@link Builder} to configure and create an instance. Use this to construct an instance
      * with a client secret when using a confidential client (Regular Web Application).
      * @param domain the tenant's domain. Must be a non-null valid HTTPS URL.
@@ -161,27 +126,6 @@ public class AuthAPI {
         this.clientSecret = clientSecret;
         this.clientAssertionSigner = clientAssertionSigner;
         this.client = httpClient;
-    }
-
-    /**
-     * Given a set of options, it creates a new instance of the {@link OkHttpClient}
-     * configuring them according to their availability.
-     *
-     * @param options the options to set to the client.
-     * @return a new networking client instance configured as requested.
-     */
-    @SuppressWarnings("deprecation")
-    private static Auth0HttpClient buildNetworkingClient(com.auth0.client.HttpOptions options) {
-        Asserts.assertNotNull(options, "Http options");
-        return DefaultHttpClient.newBuilder()
-                .withLogging(options.getLoggingOptions())
-                .withMaxRetries(options.getManagementAPIMaxRetries())
-                .withMaxRequests(options.getMaxRequests())
-                .withMaxRequestsPerHost(options.getMaxRequestsPerHost())
-                .withProxy(options.getProxyOptions())
-                .withConnectTimeout(options.getConnectTimeout())
-                .withReadTimeout(options.getReadTimeout())
-                .build();
     }
 
     @TestOnly
@@ -610,37 +554,6 @@ public class AuthAPI {
      *      Map<String, String> fields = new HashMap<String, String>();
      *      fields.put("age", "25);
      *      fields.put("city", "Buenos Aires");
-     *      authAPI.signUp("me@auth0.com", "myself", "topsecret", "db-connection")
-     *          .setCustomFields(fields)
-     *          .execute();
-     * } catch (Auth0Exception e) {
-     *      //Something happened
-     * }
-     * }
-     * </pre>
-     *
-     * @param email      the desired user's email.
-     * @param username   the desired user's username.
-     * @param password   the desired user's password.
-     * @param connection the database connection where the user is going to be created.
-     * @return a Request to configure and execute.
-     * @deprecated Use {@linkplain #signUp(String, String, char[], String)} instead.
-     */
-    @Deprecated
-    public SignUpRequest signUp(String email, String username, String password, String connection) {
-        return this.signUp(email, username, password != null ? password.toCharArray() : null, connection);
-    }
-
-    /**
-     * Creates a sign up request with the given credentials and database connection.
-     * "Requires Username" option must be turned on in the Connection's configuration first.
-     * i.e.:
-     * <pre>
-     * {@code
-     * try {
-     *      Map<String, String> fields = new HashMap<String, String>();
-     *      fields.put("age", "25);
-     *      fields.put("city", "Buenos Aires");
      *      authAPI.signUp("me@auth0.com", "myself", new char[]{'s','e','c','r','e','t'}, "db-connection")
      *          .setCustomFields(fields)
      *          .execute();
@@ -663,35 +576,6 @@ public class AuthAPI {
         SignUpRequest request = this.signUp(email, password, connection);
         request.addParameter(KEY_USERNAME, username);
         return request;
-    }
-
-    /**
-     * Creates a sign up request with the given credentials and database connection.
-     * i.e.:
-     * <pre>
-     * {@code
-     * try {
-     *      Map<String, String> fields = new HashMap<String, String>();
-     *      fields.put("age", "25);
-     *      fields.put("city", "Buenos Aires");
-     *      authAPI.signUp("me@auth0.com", "topsecret", "db-connection")
-     *          .setCustomFields(fields)
-     *          .execute();
-     * } catch (Auth0Exception e) {
-     *      //Something happened
-     * }
-     * }
-     * </pre>
-     *
-     * @param email      the desired user's email.
-     * @param password   the desired user's password.
-     * @param connection the database connection where the user is going to be created.
-     * @return a Request to configure and execute.
-     * @deprecated Use {@linkplain #signUp(String, char[], String)} instead.
-     */
-    @Deprecated
-    public SignUpRequest signUp(String email, String password, String connection) {
-        return this.signUp(email, password != null ? password.toCharArray() : null, connection);
     }
 
     /**
@@ -737,31 +621,6 @@ public class AuthAPI {
 
     /**
      * Creates a log in request using the 'Password' grant and the given credentials.
-     * i.e.:
-     * <pre>
-     * {@code
-     * try {
-     *      TokenHolder result = authAPI.login("me@auth0.com", "topsecret")
-     *          .setScope("openid email nickname")
-     *          .execute();
-     * } catch (Auth0Exception e) {
-     *      //Something happened
-     * }
-     * }
-     * </pre>
-     *
-     * @param emailOrUsername the identity of the user.
-     * @param password        the password of the user.
-     * @return a Request to configure and execute.
-     * @deprecated Use {@linkplain #login(String, char[])} instead.
-     */
-    @Deprecated
-    public TokenRequest login(String emailOrUsername, String password) {
-        return this.login(emailOrUsername, password != null ? password.toCharArray() : null);
-    }
-
-    /**
-     * Creates a log in request using the 'Password' grant and the given credentials.
      * <strong>
      * This flow should only be used from highly-trusted applications that cannot do redirects.
      * If you can use redirect-based flows from your app, we recommend using the Authorization Code Flow instead.
@@ -796,33 +655,6 @@ public class AuthAPI {
         request.addParameter(KEY_PASSWORD, password);
         addClientAuthentication(request, true);
         return request;
-    }
-
-    /**
-     * Creates a log in request using the 'Password Realm' grant and the given credentials.
-     * Default used realm and audience are defined in the "API Authorization Settings" in the account's advanced settings in the Auth0 Dashboard.
-     * <pre>
-     * {@code
-     * try {
-     *      TokenHolder result = authAPI.login("me@auth0.com", "topsecret", "my-realm")
-     *          .setAudience("https://myapi.me.auth0.com/users")
-     *          .execute()
-     *          .getBody();
-     * } catch (Auth0Exception e) {
-     *      //Something happened
-     * }
-     * }
-     * </pre>
-     *
-     * @param emailOrUsername the identity of the user.
-     * @param password        the password of the user.
-     * @param realm           the realm to use.
-     * @return a Request to configure and execute.
-     * @deprecated Use {@linkplain #login(String, char[], String)} instead.
-     */
-    @Deprecated
-    public TokenRequest login(String emailOrUsername, String password, String realm) {
-        return this.login(emailOrUsername, password != null ? password.toCharArray() : null, realm);
     }
 
     /**
@@ -1402,46 +1234,6 @@ public class AuthAPI {
         request.addParameter(KEY_CLIENT_ID, clientId);
         addClientAuthentication(request, false);
         request.addHeader("Authorization", "Bearer " + mfaToken);
-
-        return request;
-    }
-
-    /**
-     * Associates or adds a new OOB authenticator for multi-factor authentication (MFA).
-     * Confidential clients (Regular Web Apps) <strong>must</strong> have a client secret configured on this {@code AuthAPI} instance.
-     * <pre>
-     * {@code
-     * try {
-     *      CreatedOobResponse result = authAPI.addOobAuthenticator("the-mfa-token", Collections.singletonList("sms"), "phone-number")
-     *          .execute()
-     *          .getBody();
-     * } catch (Auth0Exception e) {
-     *      //Something happened
-     * }
-     * }
-     * </pre>
-     *
-     * @param mfaToken The token received from mfa_required error. Must not be null.
-     * @param oobChannels The type of OOB channels supported by the client. Must not be null.
-     * @param phoneNumber The phone number for "sms" or "voice" channels. May be null if not using "sms" or "voice".
-     * @return a Request to execute.
-     * @see <a href="https://auth0.com/docs/api/authentication#add-an-authenticator">Add an Authenticator API documentation</a>
-     * @deprecated Use {@linkplain #addOobAuthenticator(String, List, String, String)} instead.
-     */
-    @Deprecated
-    public Request<CreatedOobResponse> addOobAuthenticator(
-            String mfaToken, List<String> oobChannels, String phoneNumber) {
-        Asserts.assertNotNull(mfaToken, "mfa token");
-        Asserts.assertNotNull(oobChannels, "OOB channels");
-        if (oobChannels.contains("sms") || oobChannels.contains("voice")) {
-            Asserts.assertNotNull(phoneNumber, "phone number");
-        }
-
-        BaseRequest<CreatedOobResponse> request = createBaseOobRequest(mfaToken, oobChannels);
-
-        if (phoneNumber != null) {
-            request.addParameter("phone_number", phoneNumber);
-        }
 
         return request;
     }
