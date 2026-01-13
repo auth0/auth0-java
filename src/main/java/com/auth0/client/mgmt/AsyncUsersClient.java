@@ -23,6 +23,7 @@ import com.auth0.client.mgmt.users.AsyncAuthenticatorsClient;
 import com.auth0.client.mgmt.users.AsyncConnectedAccountsClient;
 import com.auth0.client.mgmt.users.AsyncEnrollmentsClient;
 import com.auth0.client.mgmt.users.AsyncFederatedConnectionsTokensetsClient;
+import com.auth0.client.mgmt.users.AsyncGroupsClient;
 import com.auth0.client.mgmt.users.AsyncIdentitiesClient;
 import com.auth0.client.mgmt.users.AsyncLogsClient;
 import com.auth0.client.mgmt.users.AsyncMultifactorClient;
@@ -51,6 +52,8 @@ public class AsyncUsersClient {
 
     protected final Supplier<AsyncFederatedConnectionsTokensetsClient> federatedConnectionsTokensetsClient;
 
+    protected final Supplier<AsyncGroupsClient> groupsClient;
+
     protected final Supplier<AsyncIdentitiesClient> identitiesClient;
 
     protected final Supplier<AsyncLogsClient> logsClient;
@@ -78,6 +81,7 @@ public class AsyncUsersClient {
         this.enrollmentsClient = Suppliers.memoize(() -> new AsyncEnrollmentsClient(clientOptions));
         this.federatedConnectionsTokensetsClient =
                 Suppliers.memoize(() -> new AsyncFederatedConnectionsTokensetsClient(clientOptions));
+        this.groupsClient = Suppliers.memoize(() -> new AsyncGroupsClient(clientOptions));
         this.identitiesClient = Suppliers.memoize(() -> new AsyncIdentitiesClient(clientOptions));
         this.logsClient = Suppliers.memoize(() -> new AsyncLogsClient(clientOptions));
         this.multifactorClient = Suppliers.memoize(() -> new AsyncMultifactorClient(clientOptions));
@@ -480,6 +484,10 @@ public class AsyncUsersClient {
 
     public AsyncFederatedConnectionsTokensetsClient federatedConnectionsTokensets() {
         return this.federatedConnectionsTokensetsClient.get();
+    }
+
+    public AsyncGroupsClient groups() {
+        return this.groupsClient.get();
     }
 
     public AsyncIdentitiesClient identities() {

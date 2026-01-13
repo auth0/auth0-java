@@ -19,26 +19,28 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = PrivateKeyJwt.Builder.class)
-public final class PrivateKeyJwt {
-    private final List<CredentialId> credentials;
+@JsonDeserialize(builder = ClientCreateAuthenticationMethodTlsClientAuth.Builder.class)
+public final class ClientCreateAuthenticationMethodTlsClientAuth {
+    private final List<CertificateSubjectDnCredential> credentials;
 
     private final Map<String, Object> additionalProperties;
 
-    private PrivateKeyJwt(List<CredentialId> credentials, Map<String, Object> additionalProperties) {
+    private ClientCreateAuthenticationMethodTlsClientAuth(
+            List<CertificateSubjectDnCredential> credentials, Map<String, Object> additionalProperties) {
         this.credentials = credentials;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("credentials")
-    public List<CredentialId> getCredentials() {
+    public List<CertificateSubjectDnCredential> getCredentials() {
         return credentials;
     }
 
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof PrivateKeyJwt && equalTo((PrivateKeyJwt) other);
+        return other instanceof ClientCreateAuthenticationMethodTlsClientAuth
+                && equalTo((ClientCreateAuthenticationMethodTlsClientAuth) other);
     }
 
     @JsonAnyGetter
@@ -46,7 +48,7 @@ public final class PrivateKeyJwt {
         return this.additionalProperties;
     }
 
-    private boolean equalTo(PrivateKeyJwt other) {
+    private boolean equalTo(ClientCreateAuthenticationMethodTlsClientAuth other) {
         return credentials.equals(other.credentials);
     }
 
@@ -66,20 +68,20 @@ public final class PrivateKeyJwt {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private List<CredentialId> credentials = new ArrayList<>();
+        private List<CertificateSubjectDnCredential> credentials = new ArrayList<>();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
-        public Builder from(PrivateKeyJwt other) {
+        public Builder from(ClientCreateAuthenticationMethodTlsClientAuth other) {
             credentials(other.getCredentials());
             return this;
         }
 
         @JsonSetter(value = "credentials", nulls = Nulls.SKIP)
-        public Builder credentials(List<CredentialId> credentials) {
+        public Builder credentials(List<CertificateSubjectDnCredential> credentials) {
             this.credentials.clear();
             if (credentials != null) {
                 this.credentials.addAll(credentials);
@@ -87,20 +89,20 @@ public final class PrivateKeyJwt {
             return this;
         }
 
-        public Builder addCredentials(CredentialId credentials) {
+        public Builder addCredentials(CertificateSubjectDnCredential credentials) {
             this.credentials.add(credentials);
             return this;
         }
 
-        public Builder addAllCredentials(List<CredentialId> credentials) {
+        public Builder addAllCredentials(List<CertificateSubjectDnCredential> credentials) {
             if (credentials != null) {
                 this.credentials.addAll(credentials);
             }
             return this;
         }
 
-        public PrivateKeyJwt build() {
-            return new PrivateKeyJwt(credentials, additionalProperties);
+        public ClientCreateAuthenticationMethodTlsClientAuth build() {
+            return new ClientCreateAuthenticationMethodTlsClientAuth(credentials, additionalProperties);
         }
     }
 }

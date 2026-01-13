@@ -39,11 +39,11 @@ public final class ConnectionResponseContentPingFederate
 
     private final Optional<Map<String, OptionalNullable<String>>> metadata;
 
-    private final Optional<List<String>> realms;
+    private final Optional<ConnectionOptionsPingFederate> options;
+
+    private final Optional<String> provisioningTicketUrl;
 
     private final Optional<Boolean> showAsButton;
-
-    private final Optional<Map<String, Object>> options;
 
     private final Map<String, Object> additionalProperties;
 
@@ -56,9 +56,9 @@ public final class ConnectionResponseContentPingFederate
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
-            Optional<List<String>> realms,
+            Optional<ConnectionOptionsPingFederate> options,
+            Optional<String> provisioningTicketUrl,
             Optional<Boolean> showAsButton,
-            Optional<Map<String, Object>> options,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.name = name;
@@ -68,9 +68,9 @@ public final class ConnectionResponseContentPingFederate
         this.enabledClients = enabledClients;
         this.isDomainConnection = isDomainConnection;
         this.metadata = metadata;
-        this.realms = realms;
-        this.showAsButton = showAsButton;
         this.options = options;
+        this.provisioningTicketUrl = provisioningTicketUrl;
+        this.showAsButton = showAsButton;
         this.additionalProperties = additionalProperties;
     }
 
@@ -122,26 +122,24 @@ public final class ConnectionResponseContentPingFederate
         return metadata;
     }
 
-    @JsonProperty("realms")
-    @java.lang.Override
-    public Optional<List<String>> getRealms() {
-        return realms;
-    }
-
-    @JsonProperty("show_as_button")
-    @java.lang.Override
-    public Optional<Boolean> getShowAsButton() {
-        return showAsButton;
-    }
-
     @JsonProperty("strategy")
     public String getStrategy() {
         return "pingfederate";
     }
 
     @JsonProperty("options")
-    public Optional<Map<String, Object>> getOptions() {
+    public Optional<ConnectionOptionsPingFederate> getOptions() {
         return options;
+    }
+
+    @JsonProperty("provisioning_ticket_url")
+    public Optional<String> getProvisioningTicketUrl() {
+        return provisioningTicketUrl;
+    }
+
+    @JsonProperty("show_as_button")
+    public Optional<Boolean> getShowAsButton() {
+        return showAsButton;
     }
 
     @java.lang.Override
@@ -165,9 +163,9 @@ public final class ConnectionResponseContentPingFederate
                 && enabledClients.equals(other.enabledClients)
                 && isDomainConnection.equals(other.isDomainConnection)
                 && metadata.equals(other.metadata)
-                && realms.equals(other.realms)
-                && showAsButton.equals(other.showAsButton)
-                && options.equals(other.options);
+                && options.equals(other.options)
+                && provisioningTicketUrl.equals(other.provisioningTicketUrl)
+                && showAsButton.equals(other.showAsButton);
     }
 
     @java.lang.Override
@@ -181,9 +179,9 @@ public final class ConnectionResponseContentPingFederate
                 this.enabledClients,
                 this.isDomainConnection,
                 this.metadata,
-                this.realms,
-                this.showAsButton,
-                this.options);
+                this.options,
+                this.provisioningTicketUrl,
+                this.showAsButton);
     }
 
     @java.lang.Override
@@ -213,11 +211,11 @@ public final class ConnectionResponseContentPingFederate
 
         private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
-        private Optional<List<String>> realms = Optional.empty();
+        private Optional<ConnectionOptionsPingFederate> options = Optional.empty();
+
+        private Optional<String> provisioningTicketUrl = Optional.empty();
 
         private Optional<Boolean> showAsButton = Optional.empty();
-
-        private Optional<Map<String, Object>> options = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -233,9 +231,9 @@ public final class ConnectionResponseContentPingFederate
             enabledClients(other.getEnabledClients());
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
-            realms(other.getRealms());
-            showAsButton(other.getShowAsButton());
             options(other.getOptions());
+            provisioningTicketUrl(other.getProvisioningTicketUrl());
+            showAsButton(other.getShowAsButton());
             return this;
         }
 
@@ -327,14 +325,25 @@ public final class ConnectionResponseContentPingFederate
             return this;
         }
 
-        @JsonSetter(value = "realms", nulls = Nulls.SKIP)
-        public Builder realms(Optional<List<String>> realms) {
-            this.realms = realms;
+        @JsonSetter(value = "options", nulls = Nulls.SKIP)
+        public Builder options(Optional<ConnectionOptionsPingFederate> options) {
+            this.options = options;
             return this;
         }
 
-        public Builder realms(List<String> realms) {
-            this.realms = Optional.ofNullable(realms);
+        public Builder options(ConnectionOptionsPingFederate options) {
+            this.options = Optional.ofNullable(options);
+            return this;
+        }
+
+        @JsonSetter(value = "provisioning_ticket_url", nulls = Nulls.SKIP)
+        public Builder provisioningTicketUrl(Optional<String> provisioningTicketUrl) {
+            this.provisioningTicketUrl = provisioningTicketUrl;
+            return this;
+        }
+
+        public Builder provisioningTicketUrl(String provisioningTicketUrl) {
+            this.provisioningTicketUrl = Optional.ofNullable(provisioningTicketUrl);
             return this;
         }
 
@@ -349,17 +358,6 @@ public final class ConnectionResponseContentPingFederate
             return this;
         }
 
-        @JsonSetter(value = "options", nulls = Nulls.SKIP)
-        public Builder options(Optional<Map<String, Object>> options) {
-            this.options = options;
-            return this;
-        }
-
-        public Builder options(Map<String, Object> options) {
-            this.options = Optional.ofNullable(options);
-            return this;
-        }
-
         public ConnectionResponseContentPingFederate build() {
             return new ConnectionResponseContentPingFederate(
                     id,
@@ -370,9 +368,9 @@ public final class ConnectionResponseContentPingFederate
                     enabledClients,
                     isDomainConnection,
                     metadata,
-                    realms,
-                    showAsButton,
                     options,
+                    provisioningTicketUrl,
+                    showAsButton,
                     additionalProperties);
         }
     }

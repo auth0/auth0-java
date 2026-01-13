@@ -23,17 +23,30 @@ import java.util.Optional;
 public final class ListEventStreamsResponseContent {
     private final Optional<List<EventStreamResponseContent>> eventStreams;
 
+    private final Optional<String> next;
+
     private final Map<String, Object> additionalProperties;
 
     private ListEventStreamsResponseContent(
-            Optional<List<EventStreamResponseContent>> eventStreams, Map<String, Object> additionalProperties) {
+            Optional<List<EventStreamResponseContent>> eventStreams,
+            Optional<String> next,
+            Map<String, Object> additionalProperties) {
         this.eventStreams = eventStreams;
+        this.next = next;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("eventStreams")
     public Optional<List<EventStreamResponseContent>> getEventStreams() {
         return eventStreams;
+    }
+
+    /**
+     * @return Opaque identifier for use with the &lt;i&gt;from&lt;/i&gt; query parameter for the next page of results.
+     */
+    @JsonProperty("next")
+    public Optional<String> getNext() {
+        return next;
     }
 
     @java.lang.Override
@@ -48,12 +61,12 @@ public final class ListEventStreamsResponseContent {
     }
 
     private boolean equalTo(ListEventStreamsResponseContent other) {
-        return eventStreams.equals(other.eventStreams);
+        return eventStreams.equals(other.eventStreams) && next.equals(other.next);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.eventStreams);
+        return Objects.hash(this.eventStreams, this.next);
     }
 
     @java.lang.Override
@@ -69,6 +82,8 @@ public final class ListEventStreamsResponseContent {
     public static final class Builder {
         private Optional<List<EventStreamResponseContent>> eventStreams = Optional.empty();
 
+        private Optional<String> next = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -76,6 +91,7 @@ public final class ListEventStreamsResponseContent {
 
         public Builder from(ListEventStreamsResponseContent other) {
             eventStreams(other.getEventStreams());
+            next(other.getNext());
             return this;
         }
 
@@ -90,8 +106,22 @@ public final class ListEventStreamsResponseContent {
             return this;
         }
 
+        /**
+         * <p>Opaque identifier for use with the &lt;i&gt;from&lt;/i&gt; query parameter for the next page of results.</p>
+         */
+        @JsonSetter(value = "next", nulls = Nulls.SKIP)
+        public Builder next(Optional<String> next) {
+            this.next = next;
+            return this;
+        }
+
+        public Builder next(String next) {
+            this.next = Optional.ofNullable(next);
+            return this;
+        }
+
         public ListEventStreamsResponseContent build() {
-            return new ListEventStreamsResponseContent(eventStreams, additionalProperties);
+            return new ListEventStreamsResponseContent(eventStreams, next, additionalProperties);
         }
     }
 }

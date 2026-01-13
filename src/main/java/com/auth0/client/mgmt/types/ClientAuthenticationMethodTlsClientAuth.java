@@ -31,9 +31,6 @@ public final class ClientAuthenticationMethodTlsClientAuth {
         this.additionalProperties = additionalProperties;
     }
 
-    /**
-     * @return A list of unique and previously created credential IDs enabled on the client for CA-based mTLS authentication.
-     */
     @JsonProperty("credentials")
     public List<CredentialId> getCredentials() {
         return credentials;
@@ -83,9 +80,6 @@ public final class ClientAuthenticationMethodTlsClientAuth {
             return this;
         }
 
-        /**
-         * <p>A list of unique and previously created credential IDs enabled on the client for CA-based mTLS authentication.</p>
-         */
         @JsonSetter(value = "credentials", nulls = Nulls.SKIP)
         public Builder credentials(List<CredentialId> credentials) {
             this.credentials.clear();

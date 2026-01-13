@@ -36,10 +36,6 @@ public final class CreateConnectionCommon implements ICreateConnectionCommon, IC
 
     private final Optional<Map<String, OptionalNullable<String>>> metadata;
 
-    private final Optional<List<String>> realms;
-
-    private final Optional<Boolean> showAsButton;
-
     private final Map<String, Object> additionalProperties;
 
     private CreateConnectionCommon(
@@ -50,8 +46,6 @@ public final class CreateConnectionCommon implements ICreateConnectionCommon, IC
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
-            Optional<List<String>> realms,
-            Optional<Boolean> showAsButton,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.authentication = authentication;
@@ -60,8 +54,6 @@ public final class CreateConnectionCommon implements ICreateConnectionCommon, IC
         this.enabledClients = enabledClients;
         this.isDomainConnection = isDomainConnection;
         this.metadata = metadata;
-        this.realms = realms;
-        this.showAsButton = showAsButton;
         this.additionalProperties = additionalProperties;
     }
 
@@ -107,18 +99,6 @@ public final class CreateConnectionCommon implements ICreateConnectionCommon, IC
         return metadata;
     }
 
-    @JsonProperty("realms")
-    @java.lang.Override
-    public Optional<List<String>> getRealms() {
-        return realms;
-    }
-
-    @JsonProperty("show_as_button")
-    @java.lang.Override
-    public Optional<Boolean> getShowAsButton() {
-        return showAsButton;
-    }
-
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -137,9 +117,7 @@ public final class CreateConnectionCommon implements ICreateConnectionCommon, IC
                 && displayName.equals(other.displayName)
                 && enabledClients.equals(other.enabledClients)
                 && isDomainConnection.equals(other.isDomainConnection)
-                && metadata.equals(other.metadata)
-                && realms.equals(other.realms)
-                && showAsButton.equals(other.showAsButton);
+                && metadata.equals(other.metadata);
     }
 
     @java.lang.Override
@@ -151,9 +129,7 @@ public final class CreateConnectionCommon implements ICreateConnectionCommon, IC
                 this.displayName,
                 this.enabledClients,
                 this.isDomainConnection,
-                this.metadata,
-                this.realms,
-                this.showAsButton);
+                this.metadata);
     }
 
     @java.lang.Override
@@ -181,10 +157,6 @@ public final class CreateConnectionCommon implements ICreateConnectionCommon, IC
 
         private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
-        private Optional<List<String>> realms = Optional.empty();
-
-        private Optional<Boolean> showAsButton = Optional.empty();
-
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -198,8 +170,6 @@ public final class CreateConnectionCommon implements ICreateConnectionCommon, IC
             enabledClients(other.getEnabledClients());
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
-            realms(other.getRealms());
-            showAsButton(other.getShowAsButton());
             return this;
         }
 
@@ -280,28 +250,6 @@ public final class CreateConnectionCommon implements ICreateConnectionCommon, IC
             return this;
         }
 
-        @JsonSetter(value = "realms", nulls = Nulls.SKIP)
-        public Builder realms(Optional<List<String>> realms) {
-            this.realms = realms;
-            return this;
-        }
-
-        public Builder realms(List<String> realms) {
-            this.realms = Optional.ofNullable(realms);
-            return this;
-        }
-
-        @JsonSetter(value = "show_as_button", nulls = Nulls.SKIP)
-        public Builder showAsButton(Optional<Boolean> showAsButton) {
-            this.showAsButton = showAsButton;
-            return this;
-        }
-
-        public Builder showAsButton(Boolean showAsButton) {
-            this.showAsButton = Optional.ofNullable(showAsButton);
-            return this;
-        }
-
         public CreateConnectionCommon build() {
             return new CreateConnectionCommon(
                     name,
@@ -311,8 +259,6 @@ public final class CreateConnectionCommon implements ICreateConnectionCommon, IC
                     enabledClients,
                     isDomainConnection,
                     metadata,
-                    realms,
-                    showAsButton,
                     additionalProperties);
         }
     }
