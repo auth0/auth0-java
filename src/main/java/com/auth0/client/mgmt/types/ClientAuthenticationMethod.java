@@ -20,7 +20,7 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ClientAuthenticationMethod.Builder.class)
 public final class ClientAuthenticationMethod {
-    private final Optional<PrivateKeyJwt> privateKeyJwt;
+    private final Optional<ClientAuthenticationMethodPrivateKeyJwt> privateKeyJwt;
 
     private final Optional<ClientAuthenticationMethodTlsClientAuth> tlsClientAuth;
 
@@ -29,7 +29,7 @@ public final class ClientAuthenticationMethod {
     private final Map<String, Object> additionalProperties;
 
     private ClientAuthenticationMethod(
-            Optional<PrivateKeyJwt> privateKeyJwt,
+            Optional<ClientAuthenticationMethodPrivateKeyJwt> privateKeyJwt,
             Optional<ClientAuthenticationMethodTlsClientAuth> tlsClientAuth,
             Optional<ClientAuthenticationMethodSelfSignedTlsClientAuth> selfSignedTlsClientAuth,
             Map<String, Object> additionalProperties) {
@@ -40,7 +40,7 @@ public final class ClientAuthenticationMethod {
     }
 
     @JsonProperty("private_key_jwt")
-    public Optional<PrivateKeyJwt> getPrivateKeyJwt() {
+    public Optional<ClientAuthenticationMethodPrivateKeyJwt> getPrivateKeyJwt() {
         return privateKeyJwt;
     }
 
@@ -87,7 +87,7 @@ public final class ClientAuthenticationMethod {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<PrivateKeyJwt> privateKeyJwt = Optional.empty();
+        private Optional<ClientAuthenticationMethodPrivateKeyJwt> privateKeyJwt = Optional.empty();
 
         private Optional<ClientAuthenticationMethodTlsClientAuth> tlsClientAuth = Optional.empty();
 
@@ -106,12 +106,12 @@ public final class ClientAuthenticationMethod {
         }
 
         @JsonSetter(value = "private_key_jwt", nulls = Nulls.SKIP)
-        public Builder privateKeyJwt(Optional<PrivateKeyJwt> privateKeyJwt) {
+        public Builder privateKeyJwt(Optional<ClientAuthenticationMethodPrivateKeyJwt> privateKeyJwt) {
             this.privateKeyJwt = privateKeyJwt;
             return this;
         }
 
-        public Builder privateKeyJwt(PrivateKeyJwt privateKeyJwt) {
+        public Builder privateKeyJwt(ClientAuthenticationMethodPrivateKeyJwt privateKeyJwt) {
             this.privateKeyJwt = Optional.ofNullable(privateKeyJwt);
             return this;
         }

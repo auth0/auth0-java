@@ -23,6 +23,7 @@ import com.auth0.client.mgmt.users.AuthenticatorsClient;
 import com.auth0.client.mgmt.users.ConnectedAccountsClient;
 import com.auth0.client.mgmt.users.EnrollmentsClient;
 import com.auth0.client.mgmt.users.FederatedConnectionsTokensetsClient;
+import com.auth0.client.mgmt.users.GroupsClient;
 import com.auth0.client.mgmt.users.IdentitiesClient;
 import com.auth0.client.mgmt.users.LogsClient;
 import com.auth0.client.mgmt.users.MultifactorClient;
@@ -49,6 +50,8 @@ public class UsersClient {
     protected final Supplier<EnrollmentsClient> enrollmentsClient;
 
     protected final Supplier<FederatedConnectionsTokensetsClient> federatedConnectionsTokensetsClient;
+
+    protected final Supplier<GroupsClient> groupsClient;
 
     protected final Supplier<IdentitiesClient> identitiesClient;
 
@@ -77,6 +80,7 @@ public class UsersClient {
         this.enrollmentsClient = Suppliers.memoize(() -> new EnrollmentsClient(clientOptions));
         this.federatedConnectionsTokensetsClient =
                 Suppliers.memoize(() -> new FederatedConnectionsTokensetsClient(clientOptions));
+        this.groupsClient = Suppliers.memoize(() -> new GroupsClient(clientOptions));
         this.identitiesClient = Suppliers.memoize(() -> new IdentitiesClient(clientOptions));
         this.logsClient = Suppliers.memoize(() -> new LogsClient(clientOptions));
         this.multifactorClient = Suppliers.memoize(() -> new MultifactorClient(clientOptions));
@@ -475,6 +479,10 @@ public class UsersClient {
 
     public FederatedConnectionsTokensetsClient federatedConnectionsTokensets() {
         return this.federatedConnectionsTokensetsClient.get();
+    }
+
+    public GroupsClient groups() {
+        return this.groupsClient.get();
     }
 
     public IdentitiesClient identities() {

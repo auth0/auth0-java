@@ -6,15 +6,16 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.Suppliers;
+import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.eventstreams.AsyncDeliveriesClient;
 import com.auth0.client.mgmt.eventstreams.AsyncRedeliveriesClient;
 import com.auth0.client.mgmt.types.CreateEventStreamResponseContent;
 import com.auth0.client.mgmt.types.CreateEventStreamTestEventRequestContent;
 import com.auth0.client.mgmt.types.CreateEventStreamTestEventResponseContent;
+import com.auth0.client.mgmt.types.EventStreamResponseContent;
 import com.auth0.client.mgmt.types.EventStreamsCreateRequest;
 import com.auth0.client.mgmt.types.GetEventStreamResponseContent;
 import com.auth0.client.mgmt.types.ListEventStreamsRequestParameters;
-import com.auth0.client.mgmt.types.ListEventStreamsResponseContent;
 import com.auth0.client.mgmt.types.UpdateEventStreamRequestContent;
 import com.auth0.client.mgmt.types.UpdateEventStreamResponseContent;
 import java.util.concurrent.CompletableFuture;
@@ -43,15 +44,16 @@ public class AsyncEventStreamsClient {
         return this.rawClient;
     }
 
-    public CompletableFuture<ListEventStreamsResponseContent> list() {
+    public CompletableFuture<SyncPagingIterable<EventStreamResponseContent>> list() {
         return this.rawClient.list().thenApply(response -> response.body());
     }
 
-    public CompletableFuture<ListEventStreamsResponseContent> list(ListEventStreamsRequestParameters request) {
+    public CompletableFuture<SyncPagingIterable<EventStreamResponseContent>> list(
+            ListEventStreamsRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
 
-    public CompletableFuture<ListEventStreamsResponseContent> list(
+    public CompletableFuture<SyncPagingIterable<EventStreamResponseContent>> list(
             ListEventStreamsRequestParameters request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).thenApply(response -> response.body());
     }

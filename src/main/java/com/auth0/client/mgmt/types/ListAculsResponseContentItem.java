@@ -22,11 +22,17 @@ import java.util.Optional;
 import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = AculResponseContent.Builder.class)
-public final class AculResponseContent {
+@JsonDeserialize(builder = ListAculsResponseContentItem.Builder.class)
+public final class ListAculsResponseContentItem {
+    private final Optional<String> tenant;
+
+    private final Optional<String> prompt;
+
+    private final Optional<String> screen;
+
     private final Optional<AculRenderingModeEnum> renderingMode;
 
-    private final Optional<List<String>> contextConfiguration;
+    private final Optional<List<AculContextConfigurationItem>> contextConfiguration;
 
     private final OptionalNullable<Boolean> defaultHeadTagsDisabled;
 
@@ -38,14 +44,20 @@ public final class AculResponseContent {
 
     private final Map<String, Object> additionalProperties;
 
-    private AculResponseContent(
+    private ListAculsResponseContentItem(
+            Optional<String> tenant,
+            Optional<String> prompt,
+            Optional<String> screen,
             Optional<AculRenderingModeEnum> renderingMode,
-            Optional<List<String>> contextConfiguration,
+            Optional<List<AculContextConfigurationItem>> contextConfiguration,
             OptionalNullable<Boolean> defaultHeadTagsDisabled,
             OptionalNullable<Boolean> usePageTemplate,
             Optional<List<AculHeadTag>> headTags,
             OptionalNullable<AculFilters> filters,
             Map<String, Object> additionalProperties) {
+        this.tenant = tenant;
+        this.prompt = prompt;
+        this.screen = screen;
         this.renderingMode = renderingMode;
         this.contextConfiguration = contextConfiguration;
         this.defaultHeadTagsDisabled = defaultHeadTagsDisabled;
@@ -55,16 +67,37 @@ public final class AculResponseContent {
         this.additionalProperties = additionalProperties;
     }
 
+    /**
+     * @return Tenant ID
+     */
+    @JsonProperty("tenant")
+    public Optional<String> getTenant() {
+        return tenant;
+    }
+
+    /**
+     * @return Name of the prompt
+     */
+    @JsonProperty("prompt")
+    public Optional<String> getPrompt() {
+        return prompt;
+    }
+
+    /**
+     * @return Name of the screen
+     */
+    @JsonProperty("screen")
+    public Optional<String> getScreen() {
+        return screen;
+    }
+
     @JsonProperty("rendering_mode")
     public Optional<AculRenderingModeEnum> getRenderingMode() {
         return renderingMode;
     }
 
-    /**
-     * @return Context values to make available
-     */
     @JsonProperty("context_configuration")
-    public Optional<List<String>> getContextConfiguration() {
+    public Optional<List<AculContextConfigurationItem>> getContextConfiguration() {
         return contextConfiguration;
     }
 
@@ -130,7 +163,7 @@ public final class AculResponseContent {
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof AculResponseContent && equalTo((AculResponseContent) other);
+        return other instanceof ListAculsResponseContentItem && equalTo((ListAculsResponseContentItem) other);
     }
 
     @JsonAnyGetter
@@ -138,8 +171,11 @@ public final class AculResponseContent {
         return this.additionalProperties;
     }
 
-    private boolean equalTo(AculResponseContent other) {
-        return renderingMode.equals(other.renderingMode)
+    private boolean equalTo(ListAculsResponseContentItem other) {
+        return tenant.equals(other.tenant)
+                && prompt.equals(other.prompt)
+                && screen.equals(other.screen)
+                && renderingMode.equals(other.renderingMode)
                 && contextConfiguration.equals(other.contextConfiguration)
                 && defaultHeadTagsDisabled.equals(other.defaultHeadTagsDisabled)
                 && usePageTemplate.equals(other.usePageTemplate)
@@ -150,6 +186,9 @@ public final class AculResponseContent {
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.tenant,
+                this.prompt,
+                this.screen,
                 this.renderingMode,
                 this.contextConfiguration,
                 this.defaultHeadTagsDisabled,
@@ -169,9 +208,15 @@ public final class AculResponseContent {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<String> tenant = Optional.empty();
+
+        private Optional<String> prompt = Optional.empty();
+
+        private Optional<String> screen = Optional.empty();
+
         private Optional<AculRenderingModeEnum> renderingMode = Optional.empty();
 
-        private Optional<List<String>> contextConfiguration = Optional.empty();
+        private Optional<List<AculContextConfigurationItem>> contextConfiguration = Optional.empty();
 
         private OptionalNullable<Boolean> defaultHeadTagsDisabled = OptionalNullable.absent();
 
@@ -186,13 +231,58 @@ public final class AculResponseContent {
 
         private Builder() {}
 
-        public Builder from(AculResponseContent other) {
+        public Builder from(ListAculsResponseContentItem other) {
+            tenant(other.getTenant());
+            prompt(other.getPrompt());
+            screen(other.getScreen());
             renderingMode(other.getRenderingMode());
             contextConfiguration(other.getContextConfiguration());
             defaultHeadTagsDisabled(other.getDefaultHeadTagsDisabled());
             usePageTemplate(other.getUsePageTemplate());
             headTags(other.getHeadTags());
             filters(other.getFilters());
+            return this;
+        }
+
+        /**
+         * <p>Tenant ID</p>
+         */
+        @JsonSetter(value = "tenant", nulls = Nulls.SKIP)
+        public Builder tenant(Optional<String> tenant) {
+            this.tenant = tenant;
+            return this;
+        }
+
+        public Builder tenant(String tenant) {
+            this.tenant = Optional.ofNullable(tenant);
+            return this;
+        }
+
+        /**
+         * <p>Name of the prompt</p>
+         */
+        @JsonSetter(value = "prompt", nulls = Nulls.SKIP)
+        public Builder prompt(Optional<String> prompt) {
+            this.prompt = prompt;
+            return this;
+        }
+
+        public Builder prompt(String prompt) {
+            this.prompt = Optional.ofNullable(prompt);
+            return this;
+        }
+
+        /**
+         * <p>Name of the screen</p>
+         */
+        @JsonSetter(value = "screen", nulls = Nulls.SKIP)
+        public Builder screen(Optional<String> screen) {
+            this.screen = screen;
+            return this;
+        }
+
+        public Builder screen(String screen) {
+            this.screen = Optional.ofNullable(screen);
             return this;
         }
 
@@ -207,16 +297,13 @@ public final class AculResponseContent {
             return this;
         }
 
-        /**
-         * <p>Context values to make available</p>
-         */
         @JsonSetter(value = "context_configuration", nulls = Nulls.SKIP)
-        public Builder contextConfiguration(Optional<List<String>> contextConfiguration) {
+        public Builder contextConfiguration(Optional<List<AculContextConfigurationItem>> contextConfiguration) {
             this.contextConfiguration = contextConfiguration;
             return this;
         }
 
-        public Builder contextConfiguration(List<String> contextConfiguration) {
+        public Builder contextConfiguration(List<AculContextConfigurationItem> contextConfiguration) {
             this.contextConfiguration = Optional.ofNullable(contextConfiguration);
             return this;
         }
@@ -334,8 +421,11 @@ public final class AculResponseContent {
             return this;
         }
 
-        public AculResponseContent build() {
-            return new AculResponseContent(
+        public ListAculsResponseContentItem build() {
+            return new ListAculsResponseContentItem(
+                    tenant,
+                    prompt,
+                    screen,
                     renderingMode,
                     contextConfiguration,
                     defaultHeadTagsDisabled,

@@ -32,9 +32,9 @@ public final class GetAculResponseContent {
 
     private final Optional<AculRenderingModeEnum> renderingMode;
 
-    private final Optional<List<String>> contextConfiguration;
+    private final Optional<List<AculContextConfigurationItem>> contextConfiguration;
 
-    private final Optional<Boolean> defaultHeadTagsDisabled;
+    private final OptionalNullable<Boolean> defaultHeadTagsDisabled;
 
     private final OptionalNullable<Boolean> usePageTemplate;
 
@@ -49,8 +49,8 @@ public final class GetAculResponseContent {
             Optional<String> prompt,
             Optional<String> screen,
             Optional<AculRenderingModeEnum> renderingMode,
-            Optional<List<String>> contextConfiguration,
-            Optional<Boolean> defaultHeadTagsDisabled,
+            Optional<List<AculContextConfigurationItem>> contextConfiguration,
+            OptionalNullable<Boolean> defaultHeadTagsDisabled,
             OptionalNullable<Boolean> usePageTemplate,
             Optional<List<AculHeadTag>> headTags,
             OptionalNullable<AculFilters> filters,
@@ -96,19 +96,20 @@ public final class GetAculResponseContent {
         return renderingMode;
     }
 
-    /**
-     * @return Context values to make available
-     */
     @JsonProperty("context_configuration")
-    public Optional<List<String>> getContextConfiguration() {
+    public Optional<List<AculContextConfigurationItem>> getContextConfiguration() {
         return contextConfiguration;
     }
 
     /**
      * @return Override Universal Login default head tags
      */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("default_head_tags_disabled")
-    public Optional<Boolean> getDefaultHeadTagsDisabled() {
+    public OptionalNullable<Boolean> getDefaultHeadTagsDisabled() {
+        if (defaultHeadTagsDisabled == null) {
+            return OptionalNullable.absent();
+        }
         return defaultHeadTagsDisabled;
     }
 
@@ -139,6 +140,12 @@ public final class GetAculResponseContent {
             return OptionalNullable.absent();
         }
         return filters;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("default_head_tags_disabled")
+    private OptionalNullable<Boolean> _getDefaultHeadTagsDisabled() {
+        return defaultHeadTagsDisabled;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -209,9 +216,9 @@ public final class GetAculResponseContent {
 
         private Optional<AculRenderingModeEnum> renderingMode = Optional.empty();
 
-        private Optional<List<String>> contextConfiguration = Optional.empty();
+        private Optional<List<AculContextConfigurationItem>> contextConfiguration = Optional.empty();
 
-        private Optional<Boolean> defaultHeadTagsDisabled = Optional.empty();
+        private OptionalNullable<Boolean> defaultHeadTagsDisabled = OptionalNullable.absent();
 
         private OptionalNullable<Boolean> usePageTemplate = OptionalNullable.absent();
 
@@ -290,16 +297,13 @@ public final class GetAculResponseContent {
             return this;
         }
 
-        /**
-         * <p>Context values to make available</p>
-         */
         @JsonSetter(value = "context_configuration", nulls = Nulls.SKIP)
-        public Builder contextConfiguration(Optional<List<String>> contextConfiguration) {
+        public Builder contextConfiguration(Optional<List<AculContextConfigurationItem>> contextConfiguration) {
             this.contextConfiguration = contextConfiguration;
             return this;
         }
 
-        public Builder contextConfiguration(List<String> contextConfiguration) {
+        public Builder contextConfiguration(List<AculContextConfigurationItem> contextConfiguration) {
             this.contextConfiguration = Optional.ofNullable(contextConfiguration);
             return this;
         }
@@ -308,13 +312,33 @@ public final class GetAculResponseContent {
          * <p>Override Universal Login default head tags</p>
          */
         @JsonSetter(value = "default_head_tags_disabled", nulls = Nulls.SKIP)
-        public Builder defaultHeadTagsDisabled(Optional<Boolean> defaultHeadTagsDisabled) {
+        public Builder defaultHeadTagsDisabled(@Nullable OptionalNullable<Boolean> defaultHeadTagsDisabled) {
             this.defaultHeadTagsDisabled = defaultHeadTagsDisabled;
             return this;
         }
 
         public Builder defaultHeadTagsDisabled(Boolean defaultHeadTagsDisabled) {
-            this.defaultHeadTagsDisabled = Optional.ofNullable(defaultHeadTagsDisabled);
+            this.defaultHeadTagsDisabled = OptionalNullable.of(defaultHeadTagsDisabled);
+            return this;
+        }
+
+        public Builder defaultHeadTagsDisabled(Optional<Boolean> defaultHeadTagsDisabled) {
+            if (defaultHeadTagsDisabled.isPresent()) {
+                this.defaultHeadTagsDisabled = OptionalNullable.of(defaultHeadTagsDisabled.get());
+            } else {
+                this.defaultHeadTagsDisabled = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder defaultHeadTagsDisabled(com.auth0.client.mgmt.core.Nullable<Boolean> defaultHeadTagsDisabled) {
+            if (defaultHeadTagsDisabled.isNull()) {
+                this.defaultHeadTagsDisabled = OptionalNullable.ofNull();
+            } else if (defaultHeadTagsDisabled.isEmpty()) {
+                this.defaultHeadTagsDisabled = OptionalNullable.absent();
+            } else {
+                this.defaultHeadTagsDisabled = OptionalNullable.of(defaultHeadTagsDisabled.get());
+            }
             return this;
         }
 

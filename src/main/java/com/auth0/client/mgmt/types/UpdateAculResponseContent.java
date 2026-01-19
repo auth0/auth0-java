@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 public final class UpdateAculResponseContent {
     private final Optional<AculRenderingModeEnum> renderingMode;
 
-    private final Optional<List<String>> contextConfiguration;
+    private final Optional<List<AculContextConfigurationItem>> contextConfiguration;
 
     private final OptionalNullable<Boolean> defaultHeadTagsDisabled;
 
@@ -40,7 +40,7 @@ public final class UpdateAculResponseContent {
 
     private UpdateAculResponseContent(
             Optional<AculRenderingModeEnum> renderingMode,
-            Optional<List<String>> contextConfiguration,
+            Optional<List<AculContextConfigurationItem>> contextConfiguration,
             OptionalNullable<Boolean> defaultHeadTagsDisabled,
             OptionalNullable<Boolean> usePageTemplate,
             Optional<List<AculHeadTag>> headTags,
@@ -60,11 +60,8 @@ public final class UpdateAculResponseContent {
         return renderingMode;
     }
 
-    /**
-     * @return Context values to make available
-     */
     @JsonProperty("context_configuration")
-    public Optional<List<String>> getContextConfiguration() {
+    public Optional<List<AculContextConfigurationItem>> getContextConfiguration() {
         return contextConfiguration;
     }
 
@@ -171,7 +168,7 @@ public final class UpdateAculResponseContent {
     public static final class Builder {
         private Optional<AculRenderingModeEnum> renderingMode = Optional.empty();
 
-        private Optional<List<String>> contextConfiguration = Optional.empty();
+        private Optional<List<AculContextConfigurationItem>> contextConfiguration = Optional.empty();
 
         private OptionalNullable<Boolean> defaultHeadTagsDisabled = OptionalNullable.absent();
 
@@ -207,16 +204,13 @@ public final class UpdateAculResponseContent {
             return this;
         }
 
-        /**
-         * <p>Context values to make available</p>
-         */
         @JsonSetter(value = "context_configuration", nulls = Nulls.SKIP)
-        public Builder contextConfiguration(Optional<List<String>> contextConfiguration) {
+        public Builder contextConfiguration(Optional<List<AculContextConfigurationItem>> contextConfiguration) {
             this.contextConfiguration = contextConfiguration;
             return this;
         }
 
-        public Builder contextConfiguration(List<String> contextConfiguration) {
+        public Builder contextConfiguration(List<AculContextConfigurationItem> contextConfiguration) {
             this.contextConfiguration = Optional.ofNullable(contextConfiguration);
             return this;
         }

@@ -44,6 +44,8 @@ public class AsyncManagementApi {
 
     protected final Supplier<AsyncUserGrantsClient> userGrantsClient;
 
+    protected final Supplier<AsyncGroupsClient> groupsClient;
+
     protected final Supplier<AsyncHooksClient> hooksClient;
 
     protected final Supplier<AsyncJobsClient> jobsClient;
@@ -117,6 +119,7 @@ public class AsyncManagementApi {
         this.flowsClient = Suppliers.memoize(() -> new AsyncFlowsClient(clientOptions));
         this.formsClient = Suppliers.memoize(() -> new AsyncFormsClient(clientOptions));
         this.userGrantsClient = Suppliers.memoize(() -> new AsyncUserGrantsClient(clientOptions));
+        this.groupsClient = Suppliers.memoize(() -> new AsyncGroupsClient(clientOptions));
         this.hooksClient = Suppliers.memoize(() -> new AsyncHooksClient(clientOptions));
         this.jobsClient = Suppliers.memoize(() -> new AsyncJobsClient(clientOptions));
         this.logStreamsClient = Suppliers.memoize(() -> new AsyncLogStreamsClient(clientOptions));
@@ -198,6 +201,10 @@ public class AsyncManagementApi {
 
     public AsyncUserGrantsClient userGrants() {
         return this.userGrantsClient.get();
+    }
+
+    public AsyncGroupsClient groups() {
+        return this.groupsClient.get();
     }
 
     public AsyncHooksClient hooks() {

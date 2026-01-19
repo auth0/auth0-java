@@ -21,7 +21,7 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ListAculsOffsetPaginatedResponseContent.Builder.class)
 public final class ListAculsOffsetPaginatedResponseContent {
-    private final Optional<List<AculResponseContent>> configs;
+    private final Optional<List<ListAculsResponseContentItem>> configs;
 
     private final Optional<Double> start;
 
@@ -32,7 +32,7 @@ public final class ListAculsOffsetPaginatedResponseContent {
     private final Map<String, Object> additionalProperties;
 
     private ListAculsOffsetPaginatedResponseContent(
-            Optional<List<AculResponseContent>> configs,
+            Optional<List<ListAculsResponseContentItem>> configs,
             Optional<Double> start,
             Optional<Double> limit,
             Optional<Double> total,
@@ -45,7 +45,7 @@ public final class ListAculsOffsetPaginatedResponseContent {
     }
 
     @JsonProperty("configs")
-    public Optional<List<AculResponseContent>> getConfigs() {
+    public Optional<List<ListAculsResponseContentItem>> getConfigs() {
         return configs;
     }
 
@@ -108,7 +108,7 @@ public final class ListAculsOffsetPaginatedResponseContent {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<List<AculResponseContent>> configs = Optional.empty();
+        private Optional<List<ListAculsResponseContentItem>> configs = Optional.empty();
 
         private Optional<Double> start = Optional.empty();
 
@@ -130,12 +130,12 @@ public final class ListAculsOffsetPaginatedResponseContent {
         }
 
         @JsonSetter(value = "configs", nulls = Nulls.SKIP)
-        public Builder configs(Optional<List<AculResponseContent>> configs) {
+        public Builder configs(Optional<List<ListAculsResponseContentItem>> configs) {
             this.configs = configs;
             return this;
         }
 
-        public Builder configs(List<AculResponseContent> configs) {
+        public Builder configs(List<ListAculsResponseContentItem> configs) {
             this.configs = Optional.ofNullable(configs);
             return this;
         }

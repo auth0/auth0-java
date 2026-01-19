@@ -20,18 +20,18 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ClientCreateAuthenticationMethod.Builder.class)
 public final class ClientCreateAuthenticationMethod {
-    private final Optional<PrivateKeyJwt> privateKeyJwt;
+    private final Optional<ClientCreateAuthenticationMethodPrivateKeyJwt> privateKeyJwt;
 
-    private final Optional<ClientAuthenticationMethodTlsClientAuth> tlsClientAuth;
+    private final Optional<ClientCreateAuthenticationMethodTlsClientAuth> tlsClientAuth;
 
-    private final Optional<ClientAuthenticationMethodSelfSignedTlsClientAuth> selfSignedTlsClientAuth;
+    private final Optional<CreateClientAuthenticationMethodSelfSignedTlsClientAuth> selfSignedTlsClientAuth;
 
     private final Map<String, Object> additionalProperties;
 
     private ClientCreateAuthenticationMethod(
-            Optional<PrivateKeyJwt> privateKeyJwt,
-            Optional<ClientAuthenticationMethodTlsClientAuth> tlsClientAuth,
-            Optional<ClientAuthenticationMethodSelfSignedTlsClientAuth> selfSignedTlsClientAuth,
+            Optional<ClientCreateAuthenticationMethodPrivateKeyJwt> privateKeyJwt,
+            Optional<ClientCreateAuthenticationMethodTlsClientAuth> tlsClientAuth,
+            Optional<CreateClientAuthenticationMethodSelfSignedTlsClientAuth> selfSignedTlsClientAuth,
             Map<String, Object> additionalProperties) {
         this.privateKeyJwt = privateKeyJwt;
         this.tlsClientAuth = tlsClientAuth;
@@ -40,17 +40,17 @@ public final class ClientCreateAuthenticationMethod {
     }
 
     @JsonProperty("private_key_jwt")
-    public Optional<PrivateKeyJwt> getPrivateKeyJwt() {
+    public Optional<ClientCreateAuthenticationMethodPrivateKeyJwt> getPrivateKeyJwt() {
         return privateKeyJwt;
     }
 
     @JsonProperty("tls_client_auth")
-    public Optional<ClientAuthenticationMethodTlsClientAuth> getTlsClientAuth() {
+    public Optional<ClientCreateAuthenticationMethodTlsClientAuth> getTlsClientAuth() {
         return tlsClientAuth;
     }
 
     @JsonProperty("self_signed_tls_client_auth")
-    public Optional<ClientAuthenticationMethodSelfSignedTlsClientAuth> getSelfSignedTlsClientAuth() {
+    public Optional<CreateClientAuthenticationMethodSelfSignedTlsClientAuth> getSelfSignedTlsClientAuth() {
         return selfSignedTlsClientAuth;
     }
 
@@ -87,11 +87,12 @@ public final class ClientCreateAuthenticationMethod {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<PrivateKeyJwt> privateKeyJwt = Optional.empty();
+        private Optional<ClientCreateAuthenticationMethodPrivateKeyJwt> privateKeyJwt = Optional.empty();
 
-        private Optional<ClientAuthenticationMethodTlsClientAuth> tlsClientAuth = Optional.empty();
+        private Optional<ClientCreateAuthenticationMethodTlsClientAuth> tlsClientAuth = Optional.empty();
 
-        private Optional<ClientAuthenticationMethodSelfSignedTlsClientAuth> selfSignedTlsClientAuth = Optional.empty();
+        private Optional<CreateClientAuthenticationMethodSelfSignedTlsClientAuth> selfSignedTlsClientAuth =
+                Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -106,36 +107,36 @@ public final class ClientCreateAuthenticationMethod {
         }
 
         @JsonSetter(value = "private_key_jwt", nulls = Nulls.SKIP)
-        public Builder privateKeyJwt(Optional<PrivateKeyJwt> privateKeyJwt) {
+        public Builder privateKeyJwt(Optional<ClientCreateAuthenticationMethodPrivateKeyJwt> privateKeyJwt) {
             this.privateKeyJwt = privateKeyJwt;
             return this;
         }
 
-        public Builder privateKeyJwt(PrivateKeyJwt privateKeyJwt) {
+        public Builder privateKeyJwt(ClientCreateAuthenticationMethodPrivateKeyJwt privateKeyJwt) {
             this.privateKeyJwt = Optional.ofNullable(privateKeyJwt);
             return this;
         }
 
         @JsonSetter(value = "tls_client_auth", nulls = Nulls.SKIP)
-        public Builder tlsClientAuth(Optional<ClientAuthenticationMethodTlsClientAuth> tlsClientAuth) {
+        public Builder tlsClientAuth(Optional<ClientCreateAuthenticationMethodTlsClientAuth> tlsClientAuth) {
             this.tlsClientAuth = tlsClientAuth;
             return this;
         }
 
-        public Builder tlsClientAuth(ClientAuthenticationMethodTlsClientAuth tlsClientAuth) {
+        public Builder tlsClientAuth(ClientCreateAuthenticationMethodTlsClientAuth tlsClientAuth) {
             this.tlsClientAuth = Optional.ofNullable(tlsClientAuth);
             return this;
         }
 
         @JsonSetter(value = "self_signed_tls_client_auth", nulls = Nulls.SKIP)
         public Builder selfSignedTlsClientAuth(
-                Optional<ClientAuthenticationMethodSelfSignedTlsClientAuth> selfSignedTlsClientAuth) {
+                Optional<CreateClientAuthenticationMethodSelfSignedTlsClientAuth> selfSignedTlsClientAuth) {
             this.selfSignedTlsClientAuth = selfSignedTlsClientAuth;
             return this;
         }
 
         public Builder selfSignedTlsClientAuth(
-                ClientAuthenticationMethodSelfSignedTlsClientAuth selfSignedTlsClientAuth) {
+                CreateClientAuthenticationMethodSelfSignedTlsClientAuth selfSignedTlsClientAuth) {
             this.selfSignedTlsClientAuth = Optional.ofNullable(selfSignedTlsClientAuth);
             return this;
         }

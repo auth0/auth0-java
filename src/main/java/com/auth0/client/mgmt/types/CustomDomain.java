@@ -30,6 +30,8 @@ public final class CustomDomain {
 
     private final boolean primary;
 
+    private final Optional<Boolean> isDefault;
+
     private final CustomDomainStatusFilterEnum status;
 
     private final CustomDomainTypeEnum type;
@@ -52,6 +54,7 @@ public final class CustomDomain {
             String customDomainId,
             String domain,
             boolean primary,
+            Optional<Boolean> isDefault,
             CustomDomainStatusFilterEnum status,
             CustomDomainTypeEnum type,
             Optional<String> originDomainName,
@@ -64,6 +67,7 @@ public final class CustomDomain {
         this.customDomainId = customDomainId;
         this.domain = domain;
         this.primary = primary;
+        this.isDefault = isDefault;
         this.status = status;
         this.type = type;
         this.originDomainName = originDomainName;
@@ -97,6 +101,14 @@ public final class CustomDomain {
     @JsonProperty("primary")
     public boolean getPrimary() {
         return primary;
+    }
+
+    /**
+     * @return Whether this is the default custom domain (true) or not (false).
+     */
+    @JsonProperty("is_default")
+    public Optional<Boolean> getIsDefault() {
+        return isDefault;
     }
 
     @JsonProperty("status")
@@ -173,6 +185,7 @@ public final class CustomDomain {
         return customDomainId.equals(other.customDomainId)
                 && domain.equals(other.domain)
                 && primary == other.primary
+                && isDefault.equals(other.isDefault)
                 && status.equals(other.status)
                 && type.equals(other.type)
                 && originDomainName.equals(other.originDomainName)
@@ -189,6 +202,7 @@ public final class CustomDomain {
                 this.customDomainId,
                 this.domain,
                 this.primary,
+                this.isDefault,
                 this.status,
                 this.type,
                 this.originDomainName,
@@ -241,6 +255,13 @@ public final class CustomDomain {
 
     public interface _FinalStage {
         CustomDomain build();
+
+        /**
+         * <p>Whether this is the default custom domain (true) or not (false).</p>
+         */
+        _FinalStage isDefault(Optional<Boolean> isDefault);
+
+        _FinalStage isDefault(Boolean isDefault);
 
         /**
          * <p>Intermediate address.</p>
@@ -305,6 +326,8 @@ public final class CustomDomain {
 
         private Optional<String> originDomainName = Optional.empty();
 
+        private Optional<Boolean> isDefault = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -315,6 +338,7 @@ public final class CustomDomain {
             customDomainId(other.getCustomDomainId());
             domain(other.getDomain());
             primary(other.getPrimary());
+            isDefault(other.getIsDefault());
             status(other.getStatus());
             type(other.getType());
             originDomainName(other.getOriginDomainName());
@@ -505,12 +529,33 @@ public final class CustomDomain {
             return this;
         }
 
+        /**
+         * <p>Whether this is the default custom domain (true) or not (false).</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage isDefault(Boolean isDefault) {
+            this.isDefault = Optional.ofNullable(isDefault);
+            return this;
+        }
+
+        /**
+         * <p>Whether this is the default custom domain (true) or not (false).</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "is_default", nulls = Nulls.SKIP)
+        public _FinalStage isDefault(Optional<Boolean> isDefault) {
+            this.isDefault = isDefault;
+            return this;
+        }
+
         @java.lang.Override
         public CustomDomain build() {
             return new CustomDomain(
                     customDomainId,
                     domain,
                     primary,
+                    isDefault,
                     status,
                     type,
                     originDomainName,

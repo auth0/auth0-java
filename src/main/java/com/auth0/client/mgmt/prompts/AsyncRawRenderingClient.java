@@ -21,10 +21,10 @@ import com.auth0.client.mgmt.errors.UnauthorizedError;
 import com.auth0.client.mgmt.prompts.types.BulkUpdateAculRequestContent;
 import com.auth0.client.mgmt.prompts.types.ListAculsRequestParameters;
 import com.auth0.client.mgmt.prompts.types.UpdateAculRequestContent;
-import com.auth0.client.mgmt.types.AculResponseContent;
 import com.auth0.client.mgmt.types.BulkUpdateAculResponseContent;
 import com.auth0.client.mgmt.types.GetAculResponseContent;
 import com.auth0.client.mgmt.types.ListAculsOffsetPaginatedResponseContent;
+import com.auth0.client.mgmt.types.ListAculsResponseContentItem;
 import com.auth0.client.mgmt.types.PromptGroupNameEnum;
 import com.auth0.client.mgmt.types.ScreenGroupNameEnum;
 import com.auth0.client.mgmt.types.UpdateAculResponseContent;
@@ -55,14 +55,14 @@ public class AsyncRawRenderingClient {
     /**
      * Get render setting configurations for all screens.
      */
-    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<AculResponseContent>>> list() {
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ListAculsResponseContentItem>>> list() {
         return list(ListAculsRequestParameters.builder().build());
     }
 
     /**
      * Get render setting configurations for all screens.
      */
-    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<AculResponseContent>>> list(
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ListAculsResponseContentItem>>> list(
             ListAculsRequestParameters request) {
         return list(request, null);
     }
@@ -70,7 +70,7 @@ public class AsyncRawRenderingClient {
     /**
      * Get render setting configurations for all screens.
      */
-    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<AculResponseContent>>> list(
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ListAculsResponseContentItem>>> list(
             ListAculsRequestParameters request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -110,7 +110,7 @@ public class AsyncRawRenderingClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<AculResponseContent>>> future =
+        CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ListAculsResponseContentItem>>> future =
                 new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
@@ -127,18 +127,19 @@ public class AsyncRawRenderingClient {
                                 .from(request)
                                 .page(newPageNumber)
                                 .build();
-                        List<AculResponseContent> result =
+                        List<ListAculsResponseContentItem> result =
                                 parsedResponse.getConfigs().orElse(Collections.emptyList());
                         future.complete(new ManagementApiHttpResponse<>(
-                                new SyncPagingIterable<AculResponseContent>(true, result, parsedResponse, () -> {
-                                    try {
-                                        return list(nextRequest, requestOptions)
-                                                .get()
-                                                .body();
-                                    } catch (InterruptedException | ExecutionException e) {
-                                        throw new RuntimeException(e);
-                                    }
-                                }),
+                                new SyncPagingIterable<ListAculsResponseContentItem>(
+                                        true, result, parsedResponse, () -> {
+                                            try {
+                                                return list(nextRequest, requestOptions)
+                                                        .get()
+                                                        .body();
+                                            } catch (InterruptedException | ExecutionException e) {
+                                                throw new RuntimeException(e);
+                                            }
+                                        }),
                                 response));
                         return;
                     }

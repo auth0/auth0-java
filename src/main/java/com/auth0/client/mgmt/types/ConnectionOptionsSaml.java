@@ -23,60 +23,30 @@ import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionOptionsSaml.Builder.class)
-public final class ConnectionOptionsSaml {
+public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml, IConnectionOptionsCommon {
     private final Optional<String> cert;
-
-    private final Optional<Boolean> debug;
 
     private final Optional<String> decryptionKey;
 
-    private final Optional<Boolean> deflate;
-
-    private final Optional<String> destinationUrl;
-
     private final Optional<ConnectionDigestAlgorithmEnumSaml> digestAlgorithm;
-
-    private final Optional<Boolean> disableSignout;
 
     private final Optional<List<String>> domainAliases;
 
     private final Optional<String> entityId;
 
-    private final Optional<Map<String, ConnectionFieldsMapSamlValue>> fieldsMap;
-
-    private final Optional<String> globalTokenRevocationJwtIss;
-
-    private final Optional<String> globalTokenRevocationJwtSub;
-
     private final Optional<String> iconUrl;
 
     private final Optional<ConnectionOptionsIdpinitiatedSaml> idpinitiated;
 
-    private final Optional<String> metadataUrl;
-
-    private final Optional<String> metadataXml;
-
-    private final Optional<List<String>> nonPersistentAttrs;
-
     private final Optional<ConnectionProtocolBindingEnumSaml> protocolBinding;
-
-    private final Optional<String> recipientUrl;
-
-    private final Optional<String> requestTemplate;
 
     private final Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes;
 
     private final Optional<String> signInEndpoint;
 
-    private final Optional<String> signOutEndpoint;
-
     private final Optional<Boolean> signSamlRequest;
 
     private final Optional<ConnectionSignatureAlgorithmEnumSaml> signatureAlgorithm;
-
-    private final Optional<String> signingCert;
-
-    private final Optional<ConnectionSigningKeySaml> signingKey;
 
     private final Optional<String> tenantDomain;
 
@@ -85,90 +55,213 @@ public final class ConnectionOptionsSaml {
     private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
             upstreamParams;
 
+    private final Optional<List<String>> nonPersistentAttrs;
+
+    private final Optional<Boolean> debug;
+
+    private final Optional<Boolean> deflate;
+
+    private final Optional<String> destinationUrl;
+
+    private final Optional<Boolean> disableSignout;
+
+    private final Optional<Map<String, ConnectionFieldsMapSamlValue>> fieldsMap;
+
+    private final Optional<String> globalTokenRevocationJwtIss;
+
+    private final Optional<String> globalTokenRevocationJwtSub;
+
+    private final Optional<String> metadataUrl;
+
+    private final Optional<String> metadataXml;
+
+    private final Optional<String> recipientUrl;
+
+    private final Optional<String> requestTemplate;
+
+    private final Optional<String> signingCert;
+
+    private final Optional<ConnectionSigningKeySaml> signingKey;
+
+    private final Optional<String> signOutEndpoint;
+
     private final Optional<String> userIdAttribute;
 
     private final Map<String, Object> additionalProperties;
 
     private ConnectionOptionsSaml(
             Optional<String> cert,
-            Optional<Boolean> debug,
             Optional<String> decryptionKey,
-            Optional<Boolean> deflate,
-            Optional<String> destinationUrl,
             Optional<ConnectionDigestAlgorithmEnumSaml> digestAlgorithm,
-            Optional<Boolean> disableSignout,
             Optional<List<String>> domainAliases,
             Optional<String> entityId,
-            Optional<Map<String, ConnectionFieldsMapSamlValue>> fieldsMap,
-            Optional<String> globalTokenRevocationJwtIss,
-            Optional<String> globalTokenRevocationJwtSub,
             Optional<String> iconUrl,
             Optional<ConnectionOptionsIdpinitiatedSaml> idpinitiated,
-            Optional<String> metadataUrl,
-            Optional<String> metadataXml,
-            Optional<List<String>> nonPersistentAttrs,
             Optional<ConnectionProtocolBindingEnumSaml> protocolBinding,
-            Optional<String> recipientUrl,
-            Optional<String> requestTemplate,
             Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes,
             Optional<String> signInEndpoint,
-            Optional<String> signOutEndpoint,
             Optional<Boolean> signSamlRequest,
             Optional<ConnectionSignatureAlgorithmEnumSaml> signatureAlgorithm,
-            Optional<String> signingCert,
-            Optional<ConnectionSigningKeySaml> signingKey,
             Optional<String> tenantDomain,
             Optional<List<String>> thumbprints,
             OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
+            Optional<List<String>> nonPersistentAttrs,
+            Optional<Boolean> debug,
+            Optional<Boolean> deflate,
+            Optional<String> destinationUrl,
+            Optional<Boolean> disableSignout,
+            Optional<Map<String, ConnectionFieldsMapSamlValue>> fieldsMap,
+            Optional<String> globalTokenRevocationJwtIss,
+            Optional<String> globalTokenRevocationJwtSub,
+            Optional<String> metadataUrl,
+            Optional<String> metadataXml,
+            Optional<String> recipientUrl,
+            Optional<String> requestTemplate,
+            Optional<String> signingCert,
+            Optional<ConnectionSigningKeySaml> signingKey,
+            Optional<String> signOutEndpoint,
             Optional<String> userIdAttribute,
             Map<String, Object> additionalProperties) {
         this.cert = cert;
-        this.debug = debug;
         this.decryptionKey = decryptionKey;
-        this.deflate = deflate;
-        this.destinationUrl = destinationUrl;
         this.digestAlgorithm = digestAlgorithm;
-        this.disableSignout = disableSignout;
         this.domainAliases = domainAliases;
         this.entityId = entityId;
-        this.fieldsMap = fieldsMap;
-        this.globalTokenRevocationJwtIss = globalTokenRevocationJwtIss;
-        this.globalTokenRevocationJwtSub = globalTokenRevocationJwtSub;
         this.iconUrl = iconUrl;
         this.idpinitiated = idpinitiated;
-        this.metadataUrl = metadataUrl;
-        this.metadataXml = metadataXml;
-        this.nonPersistentAttrs = nonPersistentAttrs;
         this.protocolBinding = protocolBinding;
-        this.recipientUrl = recipientUrl;
-        this.requestTemplate = requestTemplate;
         this.setUserRootAttributes = setUserRootAttributes;
         this.signInEndpoint = signInEndpoint;
-        this.signOutEndpoint = signOutEndpoint;
         this.signSamlRequest = signSamlRequest;
         this.signatureAlgorithm = signatureAlgorithm;
-        this.signingCert = signingCert;
-        this.signingKey = signingKey;
         this.tenantDomain = tenantDomain;
         this.thumbprints = thumbprints;
         this.upstreamParams = upstreamParams;
+        this.nonPersistentAttrs = nonPersistentAttrs;
+        this.debug = debug;
+        this.deflate = deflate;
+        this.destinationUrl = destinationUrl;
+        this.disableSignout = disableSignout;
+        this.fieldsMap = fieldsMap;
+        this.globalTokenRevocationJwtIss = globalTokenRevocationJwtIss;
+        this.globalTokenRevocationJwtSub = globalTokenRevocationJwtSub;
+        this.metadataUrl = metadataUrl;
+        this.metadataXml = metadataXml;
+        this.recipientUrl = recipientUrl;
+        this.requestTemplate = requestTemplate;
+        this.signingCert = signingCert;
+        this.signingKey = signingKey;
+        this.signOutEndpoint = signOutEndpoint;
         this.userIdAttribute = userIdAttribute;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("cert")
+    @java.lang.Override
     public Optional<String> getCert() {
         return cert;
+    }
+
+    @JsonProperty("decryptionKey")
+    @java.lang.Override
+    public Optional<String> getDecryptionKey() {
+        return decryptionKey;
+    }
+
+    @JsonProperty("digestAlgorithm")
+    @java.lang.Override
+    public Optional<ConnectionDigestAlgorithmEnumSaml> getDigestAlgorithm() {
+        return digestAlgorithm;
+    }
+
+    @JsonProperty("domain_aliases")
+    @java.lang.Override
+    public Optional<List<String>> getDomainAliases() {
+        return domainAliases;
+    }
+
+    @JsonProperty("entityId")
+    @java.lang.Override
+    public Optional<String> getEntityId() {
+        return entityId;
+    }
+
+    @JsonProperty("icon_url")
+    @java.lang.Override
+    public Optional<String> getIconUrl() {
+        return iconUrl;
+    }
+
+    @JsonProperty("idpinitiated")
+    @java.lang.Override
+    public Optional<ConnectionOptionsIdpinitiatedSaml> getIdpinitiated() {
+        return idpinitiated;
+    }
+
+    @JsonProperty("protocolBinding")
+    @java.lang.Override
+    public Optional<ConnectionProtocolBindingEnumSaml> getProtocolBinding() {
+        return protocolBinding;
+    }
+
+    @JsonProperty("set_user_root_attributes")
+    @java.lang.Override
+    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
+        return setUserRootAttributes;
+    }
+
+    @JsonProperty("signInEndpoint")
+    @java.lang.Override
+    public Optional<String> getSignInEndpoint() {
+        return signInEndpoint;
+    }
+
+    @JsonProperty("signSAMLRequest")
+    @java.lang.Override
+    public Optional<Boolean> getSignSamlRequest() {
+        return signSamlRequest;
+    }
+
+    @JsonProperty("signatureAlgorithm")
+    @java.lang.Override
+    public Optional<ConnectionSignatureAlgorithmEnumSaml> getSignatureAlgorithm() {
+        return signatureAlgorithm;
+    }
+
+    @JsonProperty("tenant_domain")
+    @java.lang.Override
+    public Optional<String> getTenantDomain() {
+        return tenantDomain;
+    }
+
+    /**
+     * @return SHA-1 thumbprints (fingerprints) of the identity provider's signing certificates. Automatically computed from signingCert during connection creation. Each thumbprint must be a 40-character hexadecimal string.
+     */
+    @JsonProperty("thumbprints")
+    @java.lang.Override
+    public Optional<List<String>> getThumbprints() {
+        return thumbprints;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("upstream_params")
+    @java.lang.Override
+    public OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams() {
+        if (upstreamParams == null) {
+            return OptionalNullable.absent();
+        }
+        return upstreamParams;
+    }
+
+    @JsonProperty("non_persistent_attrs")
+    @java.lang.Override
+    public Optional<List<String>> getNonPersistentAttrs() {
+        return nonPersistentAttrs;
     }
 
     @JsonProperty("debug")
     public Optional<Boolean> getDebug() {
         return debug;
-    }
-
-    @JsonProperty("decryptionKey")
-    public Optional<String> getDecryptionKey() {
-        return decryptionKey;
     }
 
     @JsonProperty("deflate")
@@ -181,11 +274,6 @@ public final class ConnectionOptionsSaml {
         return destinationUrl;
     }
 
-    @JsonProperty("digestAlgorithm")
-    public Optional<ConnectionDigestAlgorithmEnumSaml> getDigestAlgorithm() {
-        return digestAlgorithm;
-    }
-
     /**
      * @return When true, disables sending SAML logout requests (SingleLogoutService) to the identity provider during user sign-out. The user will be logged out of Auth0 but will remain logged into the identity provider. Defaults to false (federated logout enabled).
      */
@@ -194,45 +282,19 @@ public final class ConnectionOptionsSaml {
         return disableSignout;
     }
 
-    @JsonProperty("domain_aliases")
-    public Optional<List<String>> getDomainAliases() {
-        return domainAliases;
-    }
-
-    @JsonProperty("entityId")
-    public Optional<String> getEntityId() {
-        return entityId;
-    }
-
     @JsonProperty("fieldsMap")
     public Optional<Map<String, ConnectionFieldsMapSamlValue>> getFieldsMap() {
         return fieldsMap;
     }
 
-    /**
-     * @return Expected 'iss' (Issuer) claim value for JWT tokens in Global Token Revocation requests from the identity provider. When configured, Auth0 validates the JWT issuer matches this value before processing token revocation. Must be used together with global_token_revocation_jwt_sub.
-     */
     @JsonProperty("global_token_revocation_jwt_iss")
     public Optional<String> getGlobalTokenRevocationJwtIss() {
         return globalTokenRevocationJwtIss;
     }
 
-    /**
-     * @return Expected 'sub' (Subject) claim value for JWT tokens in Global Token Revocation requests from the identity provider. When configured, Auth0 validates the JWT subject matches this value before processing token revocation. Must be used together with global_token_revocation_jwt_iss.
-     */
     @JsonProperty("global_token_revocation_jwt_sub")
     public Optional<String> getGlobalTokenRevocationJwtSub() {
         return globalTokenRevocationJwtSub;
-    }
-
-    @JsonProperty("icon_url")
-    public Optional<String> getIconUrl() {
-        return iconUrl;
-    }
-
-    @JsonProperty("idpinitiated")
-    public Optional<ConnectionOptionsIdpinitiatedSaml> getIdpinitiated() {
-        return idpinitiated;
     }
 
     @JsonProperty("metadataUrl")
@@ -245,16 +307,6 @@ public final class ConnectionOptionsSaml {
         return metadataXml;
     }
 
-    @JsonProperty("non_persistent_attrs")
-    public Optional<List<String>> getNonPersistentAttrs() {
-        return nonPersistentAttrs;
-    }
-
-    @JsonProperty("protocolBinding")
-    public Optional<ConnectionProtocolBindingEnumSaml> getProtocolBinding() {
-        return protocolBinding;
-    }
-
     @JsonProperty("recipientUrl")
     public Optional<String> getRecipientUrl() {
         return recipientUrl;
@@ -263,31 +315,6 @@ public final class ConnectionOptionsSaml {
     @JsonProperty("requestTemplate")
     public Optional<String> getRequestTemplate() {
         return requestTemplate;
-    }
-
-    @JsonProperty("set_user_root_attributes")
-    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
-        return setUserRootAttributes;
-    }
-
-    @JsonProperty("signInEndpoint")
-    public Optional<String> getSignInEndpoint() {
-        return signInEndpoint;
-    }
-
-    @JsonProperty("signOutEndpoint")
-    public Optional<String> getSignOutEndpoint() {
-        return signOutEndpoint;
-    }
-
-    @JsonProperty("signSAMLRequest")
-    public Optional<Boolean> getSignSamlRequest() {
-        return signSamlRequest;
-    }
-
-    @JsonProperty("signatureAlgorithm")
-    public Optional<ConnectionSignatureAlgorithmEnumSaml> getSignatureAlgorithm() {
-        return signatureAlgorithm;
     }
 
     @JsonProperty("signingCert")
@@ -300,26 +327,9 @@ public final class ConnectionOptionsSaml {
         return signingKey;
     }
 
-    @JsonProperty("tenant_domain")
-    public Optional<String> getTenantDomain() {
-        return tenantDomain;
-    }
-
-    /**
-     * @return SHA-1 thumbprints (fingerprints) of the identity provider's signing certificates. Automatically computed from signingCert during connection creation. Each thumbprint must be a 40-character hexadecimal string.
-     */
-    @JsonProperty("thumbprints")
-    public Optional<List<String>> getThumbprints() {
-        return thumbprints;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("upstream_params")
-    public OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams() {
-        if (upstreamParams == null) {
-            return OptionalNullable.absent();
-        }
-        return upstreamParams;
+    @JsonProperty("signOutEndpoint")
+    public Optional<String> getSignOutEndpoint() {
+        return signOutEndpoint;
     }
 
     @JsonProperty("user_id_attribute")
@@ -347,35 +357,35 @@ public final class ConnectionOptionsSaml {
 
     private boolean equalTo(ConnectionOptionsSaml other) {
         return cert.equals(other.cert)
-                && debug.equals(other.debug)
                 && decryptionKey.equals(other.decryptionKey)
-                && deflate.equals(other.deflate)
-                && destinationUrl.equals(other.destinationUrl)
                 && digestAlgorithm.equals(other.digestAlgorithm)
-                && disableSignout.equals(other.disableSignout)
                 && domainAliases.equals(other.domainAliases)
                 && entityId.equals(other.entityId)
-                && fieldsMap.equals(other.fieldsMap)
-                && globalTokenRevocationJwtIss.equals(other.globalTokenRevocationJwtIss)
-                && globalTokenRevocationJwtSub.equals(other.globalTokenRevocationJwtSub)
                 && iconUrl.equals(other.iconUrl)
                 && idpinitiated.equals(other.idpinitiated)
-                && metadataUrl.equals(other.metadataUrl)
-                && metadataXml.equals(other.metadataXml)
-                && nonPersistentAttrs.equals(other.nonPersistentAttrs)
                 && protocolBinding.equals(other.protocolBinding)
-                && recipientUrl.equals(other.recipientUrl)
-                && requestTemplate.equals(other.requestTemplate)
                 && setUserRootAttributes.equals(other.setUserRootAttributes)
                 && signInEndpoint.equals(other.signInEndpoint)
-                && signOutEndpoint.equals(other.signOutEndpoint)
                 && signSamlRequest.equals(other.signSamlRequest)
                 && signatureAlgorithm.equals(other.signatureAlgorithm)
-                && signingCert.equals(other.signingCert)
-                && signingKey.equals(other.signingKey)
                 && tenantDomain.equals(other.tenantDomain)
                 && thumbprints.equals(other.thumbprints)
                 && upstreamParams.equals(other.upstreamParams)
+                && nonPersistentAttrs.equals(other.nonPersistentAttrs)
+                && debug.equals(other.debug)
+                && deflate.equals(other.deflate)
+                && destinationUrl.equals(other.destinationUrl)
+                && disableSignout.equals(other.disableSignout)
+                && fieldsMap.equals(other.fieldsMap)
+                && globalTokenRevocationJwtIss.equals(other.globalTokenRevocationJwtIss)
+                && globalTokenRevocationJwtSub.equals(other.globalTokenRevocationJwtSub)
+                && metadataUrl.equals(other.metadataUrl)
+                && metadataXml.equals(other.metadataXml)
+                && recipientUrl.equals(other.recipientUrl)
+                && requestTemplate.equals(other.requestTemplate)
+                && signingCert.equals(other.signingCert)
+                && signingKey.equals(other.signingKey)
+                && signOutEndpoint.equals(other.signOutEndpoint)
                 && userIdAttribute.equals(other.userIdAttribute);
     }
 
@@ -383,35 +393,35 @@ public final class ConnectionOptionsSaml {
     public int hashCode() {
         return Objects.hash(
                 this.cert,
-                this.debug,
                 this.decryptionKey,
-                this.deflate,
-                this.destinationUrl,
                 this.digestAlgorithm,
-                this.disableSignout,
                 this.domainAliases,
                 this.entityId,
-                this.fieldsMap,
-                this.globalTokenRevocationJwtIss,
-                this.globalTokenRevocationJwtSub,
                 this.iconUrl,
                 this.idpinitiated,
-                this.metadataUrl,
-                this.metadataXml,
-                this.nonPersistentAttrs,
                 this.protocolBinding,
-                this.recipientUrl,
-                this.requestTemplate,
                 this.setUserRootAttributes,
                 this.signInEndpoint,
-                this.signOutEndpoint,
                 this.signSamlRequest,
                 this.signatureAlgorithm,
-                this.signingCert,
-                this.signingKey,
                 this.tenantDomain,
                 this.thumbprints,
                 this.upstreamParams,
+                this.nonPersistentAttrs,
+                this.debug,
+                this.deflate,
+                this.destinationUrl,
+                this.disableSignout,
+                this.fieldsMap,
+                this.globalTokenRevocationJwtIss,
+                this.globalTokenRevocationJwtSub,
+                this.metadataUrl,
+                this.metadataXml,
+                this.recipientUrl,
+                this.requestTemplate,
+                this.signingCert,
+                this.signingKey,
+                this.signOutEndpoint,
                 this.userIdAttribute);
     }
 
@@ -428,57 +438,27 @@ public final class ConnectionOptionsSaml {
     public static final class Builder {
         private Optional<String> cert = Optional.empty();
 
-        private Optional<Boolean> debug = Optional.empty();
-
         private Optional<String> decryptionKey = Optional.empty();
 
-        private Optional<Boolean> deflate = Optional.empty();
-
-        private Optional<String> destinationUrl = Optional.empty();
-
         private Optional<ConnectionDigestAlgorithmEnumSaml> digestAlgorithm = Optional.empty();
-
-        private Optional<Boolean> disableSignout = Optional.empty();
 
         private Optional<List<String>> domainAliases = Optional.empty();
 
         private Optional<String> entityId = Optional.empty();
 
-        private Optional<Map<String, ConnectionFieldsMapSamlValue>> fieldsMap = Optional.empty();
-
-        private Optional<String> globalTokenRevocationJwtIss = Optional.empty();
-
-        private Optional<String> globalTokenRevocationJwtSub = Optional.empty();
-
         private Optional<String> iconUrl = Optional.empty();
 
         private Optional<ConnectionOptionsIdpinitiatedSaml> idpinitiated = Optional.empty();
 
-        private Optional<String> metadataUrl = Optional.empty();
-
-        private Optional<String> metadataXml = Optional.empty();
-
-        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
-
         private Optional<ConnectionProtocolBindingEnumSaml> protocolBinding = Optional.empty();
-
-        private Optional<String> recipientUrl = Optional.empty();
-
-        private Optional<String> requestTemplate = Optional.empty();
 
         private Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes = Optional.empty();
 
         private Optional<String> signInEndpoint = Optional.empty();
 
-        private Optional<String> signOutEndpoint = Optional.empty();
-
         private Optional<Boolean> signSamlRequest = Optional.empty();
 
         private Optional<ConnectionSignatureAlgorithmEnumSaml> signatureAlgorithm = Optional.empty();
-
-        private Optional<String> signingCert = Optional.empty();
-
-        private Optional<ConnectionSigningKeySaml> signingKey = Optional.empty();
 
         private Optional<String> tenantDomain = Optional.empty();
 
@@ -486,6 +466,36 @@ public final class ConnectionOptionsSaml {
 
         private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
                 OptionalNullable.absent();
+
+        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
+
+        private Optional<Boolean> debug = Optional.empty();
+
+        private Optional<Boolean> deflate = Optional.empty();
+
+        private Optional<String> destinationUrl = Optional.empty();
+
+        private Optional<Boolean> disableSignout = Optional.empty();
+
+        private Optional<Map<String, ConnectionFieldsMapSamlValue>> fieldsMap = Optional.empty();
+
+        private Optional<String> globalTokenRevocationJwtIss = Optional.empty();
+
+        private Optional<String> globalTokenRevocationJwtSub = Optional.empty();
+
+        private Optional<String> metadataUrl = Optional.empty();
+
+        private Optional<String> metadataXml = Optional.empty();
+
+        private Optional<String> recipientUrl = Optional.empty();
+
+        private Optional<String> requestTemplate = Optional.empty();
+
+        private Optional<String> signingCert = Optional.empty();
+
+        private Optional<ConnectionSigningKeySaml> signingKey = Optional.empty();
+
+        private Optional<String> signOutEndpoint = Optional.empty();
 
         private Optional<String> userIdAttribute = Optional.empty();
 
@@ -496,35 +506,35 @@ public final class ConnectionOptionsSaml {
 
         public Builder from(ConnectionOptionsSaml other) {
             cert(other.getCert());
-            debug(other.getDebug());
             decryptionKey(other.getDecryptionKey());
-            deflate(other.getDeflate());
-            destinationUrl(other.getDestinationUrl());
             digestAlgorithm(other.getDigestAlgorithm());
-            disableSignout(other.getDisableSignout());
             domainAliases(other.getDomainAliases());
             entityId(other.getEntityId());
-            fieldsMap(other.getFieldsMap());
-            globalTokenRevocationJwtIss(other.getGlobalTokenRevocationJwtIss());
-            globalTokenRevocationJwtSub(other.getGlobalTokenRevocationJwtSub());
             iconUrl(other.getIconUrl());
             idpinitiated(other.getIdpinitiated());
-            metadataUrl(other.getMetadataUrl());
-            metadataXml(other.getMetadataXml());
-            nonPersistentAttrs(other.getNonPersistentAttrs());
             protocolBinding(other.getProtocolBinding());
-            recipientUrl(other.getRecipientUrl());
-            requestTemplate(other.getRequestTemplate());
             setUserRootAttributes(other.getSetUserRootAttributes());
             signInEndpoint(other.getSignInEndpoint());
-            signOutEndpoint(other.getSignOutEndpoint());
             signSamlRequest(other.getSignSamlRequest());
             signatureAlgorithm(other.getSignatureAlgorithm());
-            signingCert(other.getSigningCert());
-            signingKey(other.getSigningKey());
             tenantDomain(other.getTenantDomain());
             thumbprints(other.getThumbprints());
             upstreamParams(other.getUpstreamParams());
+            nonPersistentAttrs(other.getNonPersistentAttrs());
+            debug(other.getDebug());
+            deflate(other.getDeflate());
+            destinationUrl(other.getDestinationUrl());
+            disableSignout(other.getDisableSignout());
+            fieldsMap(other.getFieldsMap());
+            globalTokenRevocationJwtIss(other.getGlobalTokenRevocationJwtIss());
+            globalTokenRevocationJwtSub(other.getGlobalTokenRevocationJwtSub());
+            metadataUrl(other.getMetadataUrl());
+            metadataXml(other.getMetadataXml());
+            recipientUrl(other.getRecipientUrl());
+            requestTemplate(other.getRequestTemplate());
+            signingCert(other.getSigningCert());
+            signingKey(other.getSigningKey());
+            signOutEndpoint(other.getSignOutEndpoint());
             userIdAttribute(other.getUserIdAttribute());
             return this;
         }
@@ -540,17 +550,6 @@ public final class ConnectionOptionsSaml {
             return this;
         }
 
-        @JsonSetter(value = "debug", nulls = Nulls.SKIP)
-        public Builder debug(Optional<Boolean> debug) {
-            this.debug = debug;
-            return this;
-        }
-
-        public Builder debug(Boolean debug) {
-            this.debug = Optional.ofNullable(debug);
-            return this;
-        }
-
         @JsonSetter(value = "decryptionKey", nulls = Nulls.SKIP)
         public Builder decryptionKey(Optional<String> decryptionKey) {
             this.decryptionKey = decryptionKey;
@@ -562,28 +561,6 @@ public final class ConnectionOptionsSaml {
             return this;
         }
 
-        @JsonSetter(value = "deflate", nulls = Nulls.SKIP)
-        public Builder deflate(Optional<Boolean> deflate) {
-            this.deflate = deflate;
-            return this;
-        }
-
-        public Builder deflate(Boolean deflate) {
-            this.deflate = Optional.ofNullable(deflate);
-            return this;
-        }
-
-        @JsonSetter(value = "destinationUrl", nulls = Nulls.SKIP)
-        public Builder destinationUrl(Optional<String> destinationUrl) {
-            this.destinationUrl = destinationUrl;
-            return this;
-        }
-
-        public Builder destinationUrl(String destinationUrl) {
-            this.destinationUrl = Optional.ofNullable(destinationUrl);
-            return this;
-        }
-
         @JsonSetter(value = "digestAlgorithm", nulls = Nulls.SKIP)
         public Builder digestAlgorithm(Optional<ConnectionDigestAlgorithmEnumSaml> digestAlgorithm) {
             this.digestAlgorithm = digestAlgorithm;
@@ -592,20 +569,6 @@ public final class ConnectionOptionsSaml {
 
         public Builder digestAlgorithm(ConnectionDigestAlgorithmEnumSaml digestAlgorithm) {
             this.digestAlgorithm = Optional.ofNullable(digestAlgorithm);
-            return this;
-        }
-
-        /**
-         * <p>When true, disables sending SAML logout requests (SingleLogoutService) to the identity provider during user sign-out. The user will be logged out of Auth0 but will remain logged into the identity provider. Defaults to false (federated logout enabled).</p>
-         */
-        @JsonSetter(value = "disableSignout", nulls = Nulls.SKIP)
-        public Builder disableSignout(Optional<Boolean> disableSignout) {
-            this.disableSignout = disableSignout;
-            return this;
-        }
-
-        public Builder disableSignout(Boolean disableSignout) {
-            this.disableSignout = Optional.ofNullable(disableSignout);
             return this;
         }
 
@@ -631,45 +594,6 @@ public final class ConnectionOptionsSaml {
             return this;
         }
 
-        @JsonSetter(value = "fieldsMap", nulls = Nulls.SKIP)
-        public Builder fieldsMap(Optional<Map<String, ConnectionFieldsMapSamlValue>> fieldsMap) {
-            this.fieldsMap = fieldsMap;
-            return this;
-        }
-
-        public Builder fieldsMap(Map<String, ConnectionFieldsMapSamlValue> fieldsMap) {
-            this.fieldsMap = Optional.ofNullable(fieldsMap);
-            return this;
-        }
-
-        /**
-         * <p>Expected 'iss' (Issuer) claim value for JWT tokens in Global Token Revocation requests from the identity provider. When configured, Auth0 validates the JWT issuer matches this value before processing token revocation. Must be used together with global_token_revocation_jwt_sub.</p>
-         */
-        @JsonSetter(value = "global_token_revocation_jwt_iss", nulls = Nulls.SKIP)
-        public Builder globalTokenRevocationJwtIss(Optional<String> globalTokenRevocationJwtIss) {
-            this.globalTokenRevocationJwtIss = globalTokenRevocationJwtIss;
-            return this;
-        }
-
-        public Builder globalTokenRevocationJwtIss(String globalTokenRevocationJwtIss) {
-            this.globalTokenRevocationJwtIss = Optional.ofNullable(globalTokenRevocationJwtIss);
-            return this;
-        }
-
-        /**
-         * <p>Expected 'sub' (Subject) claim value for JWT tokens in Global Token Revocation requests from the identity provider. When configured, Auth0 validates the JWT subject matches this value before processing token revocation. Must be used together with global_token_revocation_jwt_iss.</p>
-         */
-        @JsonSetter(value = "global_token_revocation_jwt_sub", nulls = Nulls.SKIP)
-        public Builder globalTokenRevocationJwtSub(Optional<String> globalTokenRevocationJwtSub) {
-            this.globalTokenRevocationJwtSub = globalTokenRevocationJwtSub;
-            return this;
-        }
-
-        public Builder globalTokenRevocationJwtSub(String globalTokenRevocationJwtSub) {
-            this.globalTokenRevocationJwtSub = Optional.ofNullable(globalTokenRevocationJwtSub);
-            return this;
-        }
-
         @JsonSetter(value = "icon_url", nulls = Nulls.SKIP)
         public Builder iconUrl(Optional<String> iconUrl) {
             this.iconUrl = iconUrl;
@@ -692,39 +616,6 @@ public final class ConnectionOptionsSaml {
             return this;
         }
 
-        @JsonSetter(value = "metadataUrl", nulls = Nulls.SKIP)
-        public Builder metadataUrl(Optional<String> metadataUrl) {
-            this.metadataUrl = metadataUrl;
-            return this;
-        }
-
-        public Builder metadataUrl(String metadataUrl) {
-            this.metadataUrl = Optional.ofNullable(metadataUrl);
-            return this;
-        }
-
-        @JsonSetter(value = "metadataXml", nulls = Nulls.SKIP)
-        public Builder metadataXml(Optional<String> metadataXml) {
-            this.metadataXml = metadataXml;
-            return this;
-        }
-
-        public Builder metadataXml(String metadataXml) {
-            this.metadataXml = Optional.ofNullable(metadataXml);
-            return this;
-        }
-
-        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
-        public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
-            this.nonPersistentAttrs = nonPersistentAttrs;
-            return this;
-        }
-
-        public Builder nonPersistentAttrs(List<String> nonPersistentAttrs) {
-            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
-            return this;
-        }
-
         @JsonSetter(value = "protocolBinding", nulls = Nulls.SKIP)
         public Builder protocolBinding(Optional<ConnectionProtocolBindingEnumSaml> protocolBinding) {
             this.protocolBinding = protocolBinding;
@@ -733,28 +624,6 @@ public final class ConnectionOptionsSaml {
 
         public Builder protocolBinding(ConnectionProtocolBindingEnumSaml protocolBinding) {
             this.protocolBinding = Optional.ofNullable(protocolBinding);
-            return this;
-        }
-
-        @JsonSetter(value = "recipientUrl", nulls = Nulls.SKIP)
-        public Builder recipientUrl(Optional<String> recipientUrl) {
-            this.recipientUrl = recipientUrl;
-            return this;
-        }
-
-        public Builder recipientUrl(String recipientUrl) {
-            this.recipientUrl = Optional.ofNullable(recipientUrl);
-            return this;
-        }
-
-        @JsonSetter(value = "requestTemplate", nulls = Nulls.SKIP)
-        public Builder requestTemplate(Optional<String> requestTemplate) {
-            this.requestTemplate = requestTemplate;
-            return this;
-        }
-
-        public Builder requestTemplate(String requestTemplate) {
-            this.requestTemplate = Optional.ofNullable(requestTemplate);
             return this;
         }
 
@@ -780,17 +649,6 @@ public final class ConnectionOptionsSaml {
             return this;
         }
 
-        @JsonSetter(value = "signOutEndpoint", nulls = Nulls.SKIP)
-        public Builder signOutEndpoint(Optional<String> signOutEndpoint) {
-            this.signOutEndpoint = signOutEndpoint;
-            return this;
-        }
-
-        public Builder signOutEndpoint(String signOutEndpoint) {
-            this.signOutEndpoint = Optional.ofNullable(signOutEndpoint);
-            return this;
-        }
-
         @JsonSetter(value = "signSAMLRequest", nulls = Nulls.SKIP)
         public Builder signSamlRequest(Optional<Boolean> signSamlRequest) {
             this.signSamlRequest = signSamlRequest;
@@ -810,28 +668,6 @@ public final class ConnectionOptionsSaml {
 
         public Builder signatureAlgorithm(ConnectionSignatureAlgorithmEnumSaml signatureAlgorithm) {
             this.signatureAlgorithm = Optional.ofNullable(signatureAlgorithm);
-            return this;
-        }
-
-        @JsonSetter(value = "signingCert", nulls = Nulls.SKIP)
-        public Builder signingCert(Optional<String> signingCert) {
-            this.signingCert = signingCert;
-            return this;
-        }
-
-        public Builder signingCert(String signingCert) {
-            this.signingCert = Optional.ofNullable(signingCert);
-            return this;
-        }
-
-        @JsonSetter(value = "signing_key", nulls = Nulls.SKIP)
-        public Builder signingKey(Optional<ConnectionSigningKeySaml> signingKey) {
-            this.signingKey = signingKey;
-            return this;
-        }
-
-        public Builder signingKey(ConnectionSigningKeySaml signingKey) {
-            this.signingKey = Optional.ofNullable(signingKey);
             return this;
         }
 
@@ -899,6 +735,174 @@ public final class ConnectionOptionsSaml {
             return this;
         }
 
+        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
+        public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
+            this.nonPersistentAttrs = nonPersistentAttrs;
+            return this;
+        }
+
+        public Builder nonPersistentAttrs(List<String> nonPersistentAttrs) {
+            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
+            return this;
+        }
+
+        @JsonSetter(value = "debug", nulls = Nulls.SKIP)
+        public Builder debug(Optional<Boolean> debug) {
+            this.debug = debug;
+            return this;
+        }
+
+        public Builder debug(Boolean debug) {
+            this.debug = Optional.ofNullable(debug);
+            return this;
+        }
+
+        @JsonSetter(value = "deflate", nulls = Nulls.SKIP)
+        public Builder deflate(Optional<Boolean> deflate) {
+            this.deflate = deflate;
+            return this;
+        }
+
+        public Builder deflate(Boolean deflate) {
+            this.deflate = Optional.ofNullable(deflate);
+            return this;
+        }
+
+        @JsonSetter(value = "destinationUrl", nulls = Nulls.SKIP)
+        public Builder destinationUrl(Optional<String> destinationUrl) {
+            this.destinationUrl = destinationUrl;
+            return this;
+        }
+
+        public Builder destinationUrl(String destinationUrl) {
+            this.destinationUrl = Optional.ofNullable(destinationUrl);
+            return this;
+        }
+
+        /**
+         * <p>When true, disables sending SAML logout requests (SingleLogoutService) to the identity provider during user sign-out. The user will be logged out of Auth0 but will remain logged into the identity provider. Defaults to false (federated logout enabled).</p>
+         */
+        @JsonSetter(value = "disableSignout", nulls = Nulls.SKIP)
+        public Builder disableSignout(Optional<Boolean> disableSignout) {
+            this.disableSignout = disableSignout;
+            return this;
+        }
+
+        public Builder disableSignout(Boolean disableSignout) {
+            this.disableSignout = Optional.ofNullable(disableSignout);
+            return this;
+        }
+
+        @JsonSetter(value = "fieldsMap", nulls = Nulls.SKIP)
+        public Builder fieldsMap(Optional<Map<String, ConnectionFieldsMapSamlValue>> fieldsMap) {
+            this.fieldsMap = fieldsMap;
+            return this;
+        }
+
+        public Builder fieldsMap(Map<String, ConnectionFieldsMapSamlValue> fieldsMap) {
+            this.fieldsMap = Optional.ofNullable(fieldsMap);
+            return this;
+        }
+
+        @JsonSetter(value = "global_token_revocation_jwt_iss", nulls = Nulls.SKIP)
+        public Builder globalTokenRevocationJwtIss(Optional<String> globalTokenRevocationJwtIss) {
+            this.globalTokenRevocationJwtIss = globalTokenRevocationJwtIss;
+            return this;
+        }
+
+        public Builder globalTokenRevocationJwtIss(String globalTokenRevocationJwtIss) {
+            this.globalTokenRevocationJwtIss = Optional.ofNullable(globalTokenRevocationJwtIss);
+            return this;
+        }
+
+        @JsonSetter(value = "global_token_revocation_jwt_sub", nulls = Nulls.SKIP)
+        public Builder globalTokenRevocationJwtSub(Optional<String> globalTokenRevocationJwtSub) {
+            this.globalTokenRevocationJwtSub = globalTokenRevocationJwtSub;
+            return this;
+        }
+
+        public Builder globalTokenRevocationJwtSub(String globalTokenRevocationJwtSub) {
+            this.globalTokenRevocationJwtSub = Optional.ofNullable(globalTokenRevocationJwtSub);
+            return this;
+        }
+
+        @JsonSetter(value = "metadataUrl", nulls = Nulls.SKIP)
+        public Builder metadataUrl(Optional<String> metadataUrl) {
+            this.metadataUrl = metadataUrl;
+            return this;
+        }
+
+        public Builder metadataUrl(String metadataUrl) {
+            this.metadataUrl = Optional.ofNullable(metadataUrl);
+            return this;
+        }
+
+        @JsonSetter(value = "metadataXml", nulls = Nulls.SKIP)
+        public Builder metadataXml(Optional<String> metadataXml) {
+            this.metadataXml = metadataXml;
+            return this;
+        }
+
+        public Builder metadataXml(String metadataXml) {
+            this.metadataXml = Optional.ofNullable(metadataXml);
+            return this;
+        }
+
+        @JsonSetter(value = "recipientUrl", nulls = Nulls.SKIP)
+        public Builder recipientUrl(Optional<String> recipientUrl) {
+            this.recipientUrl = recipientUrl;
+            return this;
+        }
+
+        public Builder recipientUrl(String recipientUrl) {
+            this.recipientUrl = Optional.ofNullable(recipientUrl);
+            return this;
+        }
+
+        @JsonSetter(value = "requestTemplate", nulls = Nulls.SKIP)
+        public Builder requestTemplate(Optional<String> requestTemplate) {
+            this.requestTemplate = requestTemplate;
+            return this;
+        }
+
+        public Builder requestTemplate(String requestTemplate) {
+            this.requestTemplate = Optional.ofNullable(requestTemplate);
+            return this;
+        }
+
+        @JsonSetter(value = "signingCert", nulls = Nulls.SKIP)
+        public Builder signingCert(Optional<String> signingCert) {
+            this.signingCert = signingCert;
+            return this;
+        }
+
+        public Builder signingCert(String signingCert) {
+            this.signingCert = Optional.ofNullable(signingCert);
+            return this;
+        }
+
+        @JsonSetter(value = "signing_key", nulls = Nulls.SKIP)
+        public Builder signingKey(Optional<ConnectionSigningKeySaml> signingKey) {
+            this.signingKey = signingKey;
+            return this;
+        }
+
+        public Builder signingKey(ConnectionSigningKeySaml signingKey) {
+            this.signingKey = Optional.ofNullable(signingKey);
+            return this;
+        }
+
+        @JsonSetter(value = "signOutEndpoint", nulls = Nulls.SKIP)
+        public Builder signOutEndpoint(Optional<String> signOutEndpoint) {
+            this.signOutEndpoint = signOutEndpoint;
+            return this;
+        }
+
+        public Builder signOutEndpoint(String signOutEndpoint) {
+            this.signOutEndpoint = Optional.ofNullable(signOutEndpoint);
+            return this;
+        }
+
         @JsonSetter(value = "user_id_attribute", nulls = Nulls.SKIP)
         public Builder userIdAttribute(Optional<String> userIdAttribute) {
             this.userIdAttribute = userIdAttribute;
@@ -913,35 +917,35 @@ public final class ConnectionOptionsSaml {
         public ConnectionOptionsSaml build() {
             return new ConnectionOptionsSaml(
                     cert,
-                    debug,
                     decryptionKey,
-                    deflate,
-                    destinationUrl,
                     digestAlgorithm,
-                    disableSignout,
                     domainAliases,
                     entityId,
-                    fieldsMap,
-                    globalTokenRevocationJwtIss,
-                    globalTokenRevocationJwtSub,
                     iconUrl,
                     idpinitiated,
-                    metadataUrl,
-                    metadataXml,
-                    nonPersistentAttrs,
                     protocolBinding,
-                    recipientUrl,
-                    requestTemplate,
                     setUserRootAttributes,
                     signInEndpoint,
-                    signOutEndpoint,
                     signSamlRequest,
                     signatureAlgorithm,
-                    signingCert,
-                    signingKey,
                     tenantDomain,
                     thumbprints,
                     upstreamParams,
+                    nonPersistentAttrs,
+                    debug,
+                    deflate,
+                    destinationUrl,
+                    disableSignout,
+                    fieldsMap,
+                    globalTokenRevocationJwtIss,
+                    globalTokenRevocationJwtSub,
+                    metadataUrl,
+                    metadataXml,
+                    recipientUrl,
+                    requestTemplate,
+                    signingCert,
+                    signingKey,
+                    signOutEndpoint,
                     userIdAttribute,
                     additionalProperties);
         }

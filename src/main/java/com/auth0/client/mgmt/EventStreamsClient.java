@@ -6,15 +6,16 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.Suppliers;
+import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.eventstreams.DeliveriesClient;
 import com.auth0.client.mgmt.eventstreams.RedeliveriesClient;
 import com.auth0.client.mgmt.types.CreateEventStreamResponseContent;
 import com.auth0.client.mgmt.types.CreateEventStreamTestEventRequestContent;
 import com.auth0.client.mgmt.types.CreateEventStreamTestEventResponseContent;
+import com.auth0.client.mgmt.types.EventStreamResponseContent;
 import com.auth0.client.mgmt.types.EventStreamsCreateRequest;
 import com.auth0.client.mgmt.types.GetEventStreamResponseContent;
 import com.auth0.client.mgmt.types.ListEventStreamsRequestParameters;
-import com.auth0.client.mgmt.types.ListEventStreamsResponseContent;
 import com.auth0.client.mgmt.types.UpdateEventStreamRequestContent;
 import com.auth0.client.mgmt.types.UpdateEventStreamResponseContent;
 import java.util.function.Supplier;
@@ -42,15 +43,15 @@ public class EventStreamsClient {
         return this.rawClient;
     }
 
-    public ListEventStreamsResponseContent list() {
+    public SyncPagingIterable<EventStreamResponseContent> list() {
         return this.rawClient.list().body();
     }
 
-    public ListEventStreamsResponseContent list(ListEventStreamsRequestParameters request) {
+    public SyncPagingIterable<EventStreamResponseContent> list(ListEventStreamsRequestParameters request) {
         return this.rawClient.list(request).body();
     }
 
-    public ListEventStreamsResponseContent list(
+    public SyncPagingIterable<EventStreamResponseContent> list(
             ListEventStreamsRequestParameters request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).body();
     }

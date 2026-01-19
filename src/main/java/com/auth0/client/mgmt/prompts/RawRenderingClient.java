@@ -21,10 +21,10 @@ import com.auth0.client.mgmt.errors.UnauthorizedError;
 import com.auth0.client.mgmt.prompts.types.BulkUpdateAculRequestContent;
 import com.auth0.client.mgmt.prompts.types.ListAculsRequestParameters;
 import com.auth0.client.mgmt.prompts.types.UpdateAculRequestContent;
-import com.auth0.client.mgmt.types.AculResponseContent;
 import com.auth0.client.mgmt.types.BulkUpdateAculResponseContent;
 import com.auth0.client.mgmt.types.GetAculResponseContent;
 import com.auth0.client.mgmt.types.ListAculsOffsetPaginatedResponseContent;
+import com.auth0.client.mgmt.types.ListAculsResponseContentItem;
 import com.auth0.client.mgmt.types.PromptGroupNameEnum;
 import com.auth0.client.mgmt.types.ScreenGroupNameEnum;
 import com.auth0.client.mgmt.types.UpdateAculResponseContent;
@@ -50,21 +50,22 @@ public class RawRenderingClient {
     /**
      * Get render setting configurations for all screens.
      */
-    public ManagementApiHttpResponse<SyncPagingIterable<AculResponseContent>> list() {
+    public ManagementApiHttpResponse<SyncPagingIterable<ListAculsResponseContentItem>> list() {
         return list(ListAculsRequestParameters.builder().build());
     }
 
     /**
      * Get render setting configurations for all screens.
      */
-    public ManagementApiHttpResponse<SyncPagingIterable<AculResponseContent>> list(ListAculsRequestParameters request) {
+    public ManagementApiHttpResponse<SyncPagingIterable<ListAculsResponseContentItem>> list(
+            ListAculsRequestParameters request) {
         return list(request, null);
     }
 
     /**
      * Get render setting configurations for all screens.
      */
-    public ManagementApiHttpResponse<SyncPagingIterable<AculResponseContent>> list(
+    public ManagementApiHttpResponse<SyncPagingIterable<ListAculsResponseContentItem>> list(
             ListAculsRequestParameters request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -116,9 +117,10 @@ public class RawRenderingClient {
                         .from(request)
                         .page(newPageNumber)
                         .build();
-                List<AculResponseContent> result = parsedResponse.getConfigs().orElse(Collections.emptyList());
+                List<ListAculsResponseContentItem> result =
+                        parsedResponse.getConfigs().orElse(Collections.emptyList());
                 return new ManagementApiHttpResponse<>(
-                        new SyncPagingIterable<AculResponseContent>(
+                        new SyncPagingIterable<ListAculsResponseContentItem>(
                                 true, result, parsedResponse, () -> list(nextRequest, requestOptions)
                                         .body()),
                         response);

@@ -1,6 +1,6 @@
 # Reference
 ## Actions
-<details><summary><code>client.actions.list() -> SyncPagingIterable&lt;Action&gt;</code></summary>
+<details><summary><code>client.actions.list() -> SyncPagingIterable&amp;lt;Action&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -727,7 +727,7 @@ client.branding().update(
 </details>
 
 ## ClientGrants
-<details><summary><code>client.clientGrants.list() -> SyncPagingIterable&lt;ClientGrantResponseContent&gt;</code></summary>
+<details><summary><code>client.clientGrants.list() -> SyncPagingIterable&amp;lt;ClientGrantResponseContent&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -1097,7 +1097,7 @@ client.clientGrants().update(
 </details>
 
 ## Clients
-<details><summary><code>client.clients.list() -> SyncPagingIterable&lt;Client&gt;</code></summary>
+<details><summary><code>client.clients.list() -> SyncPagingIterable&amp;lt;Client&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -2441,7 +2441,7 @@ client.clients().rotateSecret("id");
 </details>
 
 ## ConnectionProfiles
-<details><summary><code>client.connectionProfiles.list() -> SyncPagingIterable&lt;ConnectionProfile&gt;</code></summary>
+<details><summary><code>client.connectionProfiles.list() -> SyncPagingIterable&amp;lt;ConnectionProfile&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -2921,7 +2921,7 @@ client.connectionProfiles().update(
 </details>
 
 ## Connections
-<details><summary><code>client.connections.list() -> SyncPagingIterable&lt;ConnectionForList&gt;</code></summary>
+<details><summary><code>client.connections.list() -> SyncPagingIterable&amp;lt;ConnectionForList&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -3515,7 +3515,7 @@ client.connections().checkStatus("id");
 </details>
 
 ## CustomDomains
-<details><summary><code>client.customDomains.list() -> List&lt;CustomDomain&gt;</code></summary>
+<details><summary><code>client.customDomains.list() -> List&amp;lt;CustomDomain&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -4052,7 +4052,7 @@ client.customDomains().verify("id");
 </details>
 
 ## DeviceCredentials
-<details><summary><code>client.deviceCredentials.list() -> SyncPagingIterable&lt;DeviceCredential&gt;</code></summary>
+<details><summary><code>client.deviceCredentials.list() -> SyncPagingIterable&amp;lt;DeviceCredential&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -4782,7 +4782,7 @@ client.emailTemplates().update(
 </details>
 
 ## EventStreams
-<details><summary><code>client.eventStreams.list() -> ListEventStreamsResponseContent</code></summary>
+<details><summary><code>client.eventStreams.list() -> SyncPagingIterable&amp;lt;EventStreamResponseContent&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -5127,7 +5127,7 @@ client.eventStreams().test(
 </details>
 
 ## Flows
-<details><summary><code>client.flows.list() -> SyncPagingIterable&lt;FlowSummary&gt;</code></summary>
+<details><summary><code>client.flows.list() -> SyncPagingIterable&amp;lt;FlowSummary&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -5423,7 +5423,7 @@ client.flows().update(
 </details>
 
 ## Forms
-<details><summary><code>client.forms.list() -> SyncPagingIterable&lt;FormSummary&gt;</code></summary>
+<details><summary><code>client.forms.list() -> SyncPagingIterable&amp;lt;FormSummary&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -5804,7 +5804,7 @@ client.forms().update(
 </details>
 
 ## UserGrants
-<details><summary><code>client.userGrants.list() -> SyncPagingIterable&lt;UserGrant&gt;</code></summary>
+<details><summary><code>client.userGrants.list() -> SyncPagingIterable&amp;lt;UserGrant&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -6033,8 +6033,190 @@ client.userGrants().delete("id");
 </dl>
 </details>
 
+## Groups
+<details><summary><code>client.groups.list() -> SyncPagingIterable&amp;lt;Group&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all groups in your tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.groups().list(
+    ListGroupsRequestParameters
+        .builder()
+        .connectionId(
+            OptionalNullable.of("connection_id")
+        )
+        .name(
+            OptionalNullable.of("name")
+        )
+        .externalId(
+            OptionalNullable.of("external_id")
+        )
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**connectionId:** `Optional<String>` — Filter groups by connection ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `Optional<String>` — Filter groups by name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**externalId:** `Optional<String>` — Filter groups by external ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `Optional<String>` — A comma separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**includeFields:** `Optional<Boolean>` — Whether specified fields are to be included (true) or excluded (false).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `Optional<String>` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `Optional<Integer>` — Number of results per page. Defaults to 50.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.groups.get(id) -> GetGroupResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a group by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.groups().get("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — Unique identifier for the group (service-generated).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Hooks
-<details><summary><code>client.hooks.list() -> SyncPagingIterable&lt;Hook&gt;</code></summary>
+<details><summary><code>client.hooks.list() -> SyncPagingIterable&amp;lt;Hook&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -6514,7 +6696,7 @@ client.jobs().get("id");
 </details>
 
 ## LogStreams
-<details><summary><code>client.logStreams.list() -> List&lt;LogStreamResponseSchema&gt;</code></summary>
+<details><summary><code>client.logStreams.list() -> List&amp;lt;LogStreamResponseSchema&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -7161,7 +7343,7 @@ client.logStreams().update(
 </details>
 
 ## Logs
-<details><summary><code>client.logs.list() -> SyncPagingIterable&lt;Log&gt;</code></summary>
+<details><summary><code>client.logs.list() -> SyncPagingIterable&amp;lt;Log&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -7375,7 +7557,7 @@ client.logs().get("id");
 </details>
 
 ## NetworkAcls
-<details><summary><code>client.networkAcls.list() -> SyncPagingIterable&lt;NetworkAclsResponseContent&gt;</code></summary>
+<details><summary><code>client.networkAcls.list() -> SyncPagingIterable&amp;lt;NetworkAclsResponseContent&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -7859,7 +8041,7 @@ client.networkAcls().update(
 </details>
 
 ## Organizations
-<details><summary><code>client.organizations.list() -> SyncPagingIterable&lt;Organization&gt;</code></summary>
+<details><summary><code>client.organizations.list() -> SyncPagingIterable&amp;lt;Organization&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -8613,7 +8795,7 @@ client.refreshTokens().update(
 </details>
 
 ## ResourceServers
-<details><summary><code>client.resourceServers.list() -> SyncPagingIterable&lt;ResourceServer&gt;</code></summary>
+<details><summary><code>client.resourceServers.list() -> SyncPagingIterable&amp;lt;ResourceServer&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -9182,7 +9364,7 @@ client.resourceServers().update(
 </details>
 
 ## Roles
-<details><summary><code>client.roles.list() -> SyncPagingIterable&lt;Role&gt;</code></summary>
+<details><summary><code>client.roles.list() -> SyncPagingIterable&amp;lt;Role&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -9531,7 +9713,7 @@ client.roles().update(
 </details>
 
 ## Rules
-<details><summary><code>client.rules.list() -> SyncPagingIterable&lt;Rule&gt;</code></summary>
+<details><summary><code>client.rules.list() -> SyncPagingIterable&amp;lt;Rule&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -9960,7 +10142,7 @@ client.rules().update(
 </details>
 
 ## RulesConfigs
-<details><summary><code>client.rulesConfigs.list() -> List&lt;RulesConfig&gt;</code></summary>
+<details><summary><code>client.rulesConfigs.list() -> List&amp;lt;RulesConfig&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -10124,7 +10306,7 @@ client.rulesConfigs().delete("key");
 </details>
 
 ## SelfServiceProfiles
-<details><summary><code>client.selfServiceProfiles.list() -> SyncPagingIterable&lt;SelfServiceProfile&gt;</code></summary>
+<details><summary><code>client.selfServiceProfiles.list() -> SyncPagingIterable&amp;lt;SelfServiceProfile&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -10791,7 +10973,7 @@ client.stats().getActiveUsersCount();
 </dl>
 </details>
 
-<details><summary><code>client.stats.getDaily() -> List&lt;DailyStats&gt;</code></summary>
+<details><summary><code>client.stats.getDaily() -> List&amp;lt;DailyStats&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -11203,7 +11385,7 @@ client.tickets().changePassword(
 </details>
 
 ## TokenExchangeProfiles
-<details><summary><code>client.tokenExchangeProfiles.list() -> SyncPagingIterable&lt;TokenExchangeProfileResponseContent&gt;</code></summary>
+<details><summary><code>client.tokenExchangeProfiles.list() -> SyncPagingIterable&amp;lt;TokenExchangeProfileResponseContent&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -11565,7 +11747,7 @@ client.tokenExchangeProfiles().update(
 </details>
 
 ## UserAttributeProfiles
-<details><summary><code>client.userAttributeProfiles.list() -> SyncPagingIterable&lt;UserAttributeProfile&gt;</code></summary>
+<details><summary><code>client.userAttributeProfiles.list() -> SyncPagingIterable&amp;lt;UserAttributeProfile&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -12276,7 +12458,7 @@ client.userBlocks().delete("id");
 </details>
 
 ## Users
-<details><summary><code>client.users.list() -> SyncPagingIterable&lt;UserResponseSchema&gt;</code></summary>
+<details><summary><code>client.users.list() -> SyncPagingIterable&amp;lt;UserResponseSchema&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -12638,7 +12820,7 @@ client.users().create(
 </dl>
 </details>
 
-<details><summary><code>client.users.listUsersByEmail() -> List&lt;UserResponseSchema&gt;</code></summary>
+<details><summary><code>client.users.listUsersByEmail() -> List&amp;lt;UserResponseSchema&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -13260,7 +13442,7 @@ client.users().revokeAccess(
 </details>
 
 ## Actions Versions
-<details><summary><code>client.actions.versions.list(actionId) -> SyncPagingIterable&lt;ActionVersion&gt;</code></summary>
+<details><summary><code>client.actions.versions.list(actionId) -> SyncPagingIterable&amp;lt;ActionVersion&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -13573,7 +13755,7 @@ client.actions().triggers().list();
 </details>
 
 ## Actions Triggers Bindings
-<details><summary><code>client.actions.triggers.bindings.list(triggerId) -> SyncPagingIterable&lt;ActionBinding&gt;</code></summary>
+<details><summary><code>client.actions.triggers.bindings.list(triggerId) -> SyncPagingIterable&amp;lt;ActionBinding&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -15986,7 +16168,7 @@ client.branding().phone().templates().test(
 </details>
 
 ## ClientGrants Organizations
-<details><summary><code>client.clientGrants.organizations.list(id) -> SyncPagingIterable&lt;Organization&gt;</code></summary>
+<details><summary><code>client.clientGrants.organizations.list(id) -> SyncPagingIterable&amp;lt;Organization&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -16054,7 +16236,7 @@ client.clientGrants().organizations().list(
 </details>
 
 ## Clients Credentials
-<details><summary><code>client.clients.credentials.list(clientId) -> List&lt;ClientCredential&gt;</code></summary>
+<details><summary><code>client.clients.credentials.list(clientId) -> List&amp;lt;ClientCredential&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -16461,7 +16643,7 @@ client.clients().credentials().update(
 </details>
 
 ## Clients Connections
-<details><summary><code>client.clients.connections.get(id) -> SyncPagingIterable&lt;ConnectionForList&gt;</code></summary>
+<details><summary><code>client.clients.connections.get(id) -> SyncPagingIterable&amp;lt;ConnectionForList&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -16581,7 +16763,7 @@ client.clients().connections().get(
 </details>
 
 ## Connections Clients
-<details><summary><code>client.connections.clients.get(id) -> SyncPagingIterable&lt;ConnectionEnabledClient&gt;</code></summary>
+<details><summary><code>client.connections.clients.get(id) -> SyncPagingIterable&amp;lt;ConnectionEnabledClient&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -17015,7 +17197,7 @@ client.connections().directoryProvisioning().getDefaultMapping("id");
 </details>
 
 ## Connections Keys
-<details><summary><code>client.connections.keys.get(id) -> List&lt;ConnectionKey&gt;</code></summary>
+<details><summary><code>client.connections.keys.get(id) -> List&amp;lt;ConnectionKey&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -17570,7 +17752,7 @@ client.connections().directoryProvisioning().synchronizations().create("id");
 </details>
 
 ## Connections ScimConfiguration Tokens
-<details><summary><code>client.connections.scimConfiguration.tokens.get(id) -> List&lt;ScimTokenItem&gt;</code></summary>
+<details><summary><code>client.connections.scimConfiguration.tokens.get(id) -> List&amp;lt;ScimTokenItem&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -18143,7 +18325,7 @@ client.emails().provider().update(
 </details>
 
 ## EventStreams Deliveries
-<details><summary><code>client.eventStreams.deliveries.list(id) -> List&lt;EventStreamDelivery&gt;</code></summary>
+<details><summary><code>client.eventStreams.deliveries.list(id) -> List&amp;lt;EventStreamDelivery&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -18429,7 +18611,7 @@ client.eventStreams().redeliveries().createById("id", "event_id");
 </details>
 
 ## Flows Executions
-<details><summary><code>client.flows.executions.list(flowId) -> SyncPagingIterable&lt;FlowExecutionSummary&gt;</code></summary>
+<details><summary><code>client.flows.executions.list(flowId) -> SyncPagingIterable&amp;lt;FlowExecutionSummary&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -18607,7 +18789,7 @@ client.flows().executions().delete("flow_id", "execution_id");
 </details>
 
 ## Flows Vault Connections
-<details><summary><code>client.flows.vault.connections.list() -> SyncPagingIterable&lt;FlowsVaultConnectionSummary&gt;</code></summary>
+<details><summary><code>client.flows.vault.connections.list() -> SyncPagingIterable&amp;lt;FlowsVaultConnectionSummary&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -18875,6 +19057,110 @@ client.flows().vault().connections().update(
 </dl>
 </details>
 
+## Groups Members
+<details><summary><code>client.groups.members.get(id) -> SyncPagingIterable&amp;lt;GroupMember&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all users that are a member of this group.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.groups().members().get(
+    "id",
+    GetGroupMembersRequestParameters
+        .builder()
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — Unique identifier for the group (service-generated).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `Optional<String>` — A comma separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**includeFields:** `Optional<Boolean>` — Whether specified fields are to be included (true) or excluded (false).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `Optional<String>` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `Optional<Integer>` — Number of results per page. Defaults to 50.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Guardian Enrollments
 <details><summary><code>client.guardian.enrollments.createTicket(request) -> CreateGuardianEnrollmentTicketResponseContent</code></summary>
 <dl>
@@ -19087,7 +19373,7 @@ client.guardian().enrollments().delete("id");
 </details>
 
 ## Guardian Factors
-<details><summary><code>client.guardian.factors.list() -> List&lt;GuardianFactor&gt;</code></summary>
+<details><summary><code>client.guardian.factors.list() -> List&amp;lt;GuardianFactor&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -19195,7 +19481,7 @@ client.guardian().factors().set(
 </details>
 
 ## Guardian Policies
-<details><summary><code>client.guardian.policies.list() -> List&lt;MfaPolicyEnum&gt;</code></summary>
+<details><summary><code>client.guardian.policies.list() -> List&amp;lt;MfaPolicyEnum&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -19242,7 +19528,7 @@ client.guardian().policies().list();
 </dl>
 </details>
 
-<details><summary><code>client.guardian.policies.set(request) -> List&lt;MfaPolicyEnum&gt;</code></summary>
+<details><summary><code>client.guardian.policies.set(request) -> List&amp;lt;MfaPolicyEnum&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -19907,7 +20193,7 @@ client.guardian().factors().pushNotification().updateApnsProvider(
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.pushNotification.setFcmProvider(request) -> Map&lt;String, Object&gt;</code></summary>
+<details><summary><code>client.guardian.factors.pushNotification.setFcmProvider(request) -> Map&amp;lt;String, Object&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -19965,7 +20251,7 @@ client.guardian().factors().pushNotification().setFcmProvider(
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.pushNotification.updateFcmProvider(request) -> Map&lt;String, Object&gt;</code></summary>
+<details><summary><code>client.guardian.factors.pushNotification.updateFcmProvider(request) -> Map&amp;lt;String, Object&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -20023,7 +20309,7 @@ client.guardian().factors().pushNotification().updateFcmProvider(
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.pushNotification.setFcmv1Provider(request) -> Map&lt;String, Object&gt;</code></summary>
+<details><summary><code>client.guardian.factors.pushNotification.setFcmv1Provider(request) -> Map&amp;lt;String, Object&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -20081,7 +20367,7 @@ client.guardian().factors().pushNotification().setFcmv1Provider(
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.pushNotification.updateFcmv1Provider(request) -> Map&lt;String, Object&gt;</code></summary>
+<details><summary><code>client.guardian.factors.pushNotification.updateFcmv1Provider(request) -> Map&amp;lt;String, Object&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -20970,7 +21256,7 @@ client.guardian().factors().duo().settings().update(
 </details>
 
 ## Hooks Secrets
-<details><summary><code>client.hooks.secrets.get(id) -> Map&lt;String, String&gt;</code></summary>
+<details><summary><code>client.hooks.secrets.get(id) -> Map&amp;lt;String, String&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -21638,7 +21924,7 @@ client.keys().customSigning().delete();
 </details>
 
 ## Keys Encryption
-<details><summary><code>client.keys.encryption.list() -> SyncPagingIterable&lt;EncryptionKey&gt;</code></summary>
+<details><summary><code>client.keys.encryption.list() -> SyncPagingIterable&amp;lt;EncryptionKey&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -22050,7 +22336,7 @@ client.keys().encryption().createPublicWrappingKey("kid");
 </details>
 
 ## Keys Signing
-<details><summary><code>client.keys.signing.list() -> List&lt;SigningKeys&gt;</code></summary>
+<details><summary><code>client.keys.signing.list() -> List&amp;lt;SigningKeys&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -22237,7 +22523,7 @@ client.keys().signing().revoke("kid");
 </details>
 
 ## Organizations ClientGrants
-<details><summary><code>client.organizations.clientGrants.list(id) -> SyncPagingIterable&lt;OrganizationClientGrant&gt;</code></summary>
+<details><summary><code>client.organizations.clientGrants.list(id) -> SyncPagingIterable&amp;lt;OrganizationClientGrant&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -22448,7 +22734,7 @@ client.organizations().clientGrants().delete("id", "grant_id");
 </details>
 
 ## Organizations DiscoveryDomains
-<details><summary><code>client.organizations.discoveryDomains.list(id) -> SyncPagingIterable&lt;OrganizationDiscoveryDomain&gt;</code></summary>
+<details><summary><code>client.organizations.discoveryDomains.list(id) -> SyncPagingIterable&amp;lt;OrganizationDiscoveryDomain&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -22885,7 +23171,7 @@ client.organizations().discoveryDomains().update(
 </details>
 
 ## Organizations EnabledConnections
-<details><summary><code>client.organizations.enabledConnections.list(id) -> SyncPagingIterable&lt;OrganizationConnection&gt;</code></summary>
+<details><summary><code>client.organizations.enabledConnections.list(id) -> SyncPagingIterable&amp;lt;OrganizationConnection&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -23290,7 +23576,7 @@ client.organizations().enabledConnections().update(
 </details>
 
 ## Organizations Invitations
-<details><summary><code>client.organizations.invitations.list(id) -> SyncPagingIterable&lt;OrganizationInvitation&gt;</code></summary>
+<details><summary><code>client.organizations.invitations.list(id) -> SyncPagingIterable&amp;lt;OrganizationInvitation&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -23684,7 +23970,7 @@ client.organizations().invitations().delete("id", "invitation_id");
 </details>
 
 ## Organizations Members
-<details><summary><code>client.organizations.members.list(id) -> SyncPagingIterable&lt;OrganizationMember&gt;</code></summary>
+<details><summary><code>client.organizations.members.list(id) -> SyncPagingIterable&amp;lt;OrganizationMember&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -23937,7 +24223,7 @@ client.organizations().members().delete(
 </details>
 
 ## Organizations Members Roles
-<details><summary><code>client.organizations.members.roles.list(id, userId) -> SyncPagingIterable&lt;Role&gt;</code></summary>
+<details><summary><code>client.organizations.members.roles.list(id, userId) -> SyncPagingIterable&amp;lt;Role&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -24203,7 +24489,7 @@ client.organizations().members().roles().delete(
 </details>
 
 ## Prompts Rendering
-<details><summary><code>client.prompts.rendering.list() -> SyncPagingIterable&lt;AculResponseContent&gt;</code></summary>
+<details><summary><code>client.prompts.rendering.list() -> SyncPagingIterable&amp;lt;ListAculsResponseContentItem&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -24587,7 +24873,7 @@ client.prompts().rendering().update(
 </details>
 
 ## Prompts CustomText
-<details><summary><code>client.prompts.customText.get(prompt, language) -> Map&lt;String, Object&gt;</code></summary>
+<details><summary><code>client.prompts.customText.get(prompt, language) -> Map&amp;lt;String, Object&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -24726,7 +25012,7 @@ client.prompts().customText().set(
 </details>
 
 ## Prompts Partials
-<details><summary><code>client.prompts.partials.get(prompt) -> Map&lt;String, Object&gt;</code></summary>
+<details><summary><code>client.prompts.partials.get(prompt) -> Map&amp;lt;String, Object&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -25046,7 +25332,7 @@ client.riskAssessments().settings().newDevice().update(
 </details>
 
 ## Roles Permissions
-<details><summary><code>client.roles.permissions.list(id) -> SyncPagingIterable&lt;PermissionsResponsePayload&gt;</code></summary>
+<details><summary><code>client.roles.permissions.list(id) -> SyncPagingIterable&amp;lt;PermissionsResponsePayload&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -25291,7 +25577,7 @@ client.roles().permissions().delete(
 </details>
 
 ## Roles Users
-<details><summary><code>client.roles.users.list(id) -> SyncPagingIterable&lt;RoleUser&gt;</code></summary>
+<details><summary><code>client.roles.users.list(id) -> SyncPagingIterable&amp;lt;RoleUser&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -25463,7 +25749,7 @@ client.roles().users().assign(
 </details>
 
 ## SelfServiceProfiles CustomText
-<details><summary><code>client.selfServiceProfiles.customText.list(id, language, page) -> Map&lt;String, String&gt;</code></summary>
+<details><summary><code>client.selfServiceProfiles.customText.list(id, language, page) -> Map&amp;lt;String, String&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -25533,7 +25819,7 @@ client.selfServiceProfiles().customText().list("id", "en", "get-started");
 </dl>
 </details>
 
-<details><summary><code>client.selfServiceProfiles.customText.set(id, language, page, request) -> Map&lt;String, String&gt;</code></summary>
+<details><summary><code>client.selfServiceProfiles.customText.set(id, language, page, request) -> Map&amp;lt;String, String&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -26197,7 +26483,7 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 </details>
 
 ## Users AuthenticationMethods
-<details><summary><code>client.users.authenticationMethods.list(id) -> SyncPagingIterable&lt;UserAuthenticationMethod&gt;</code></summary>
+<details><summary><code>client.users.authenticationMethods.list(id) -> SyncPagingIterable&amp;lt;UserAuthenticationMethod&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -26421,7 +26707,7 @@ client.users().authenticationMethods().create(
 </dl>
 </details>
 
-<details><summary><code>client.users.authenticationMethods.set(id, request) -> List&lt;SetUserAuthenticationMethodResponseContent&gt;</code></summary>
+<details><summary><code>client.users.authenticationMethods.set(id, request) -> List&amp;lt;SetUserAuthenticationMethodResponseContent&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -26797,7 +27083,7 @@ client.users().authenticators().deleteAll("id");
 </details>
 
 ## Users ConnectedAccounts
-<details><summary><code>client.users.connectedAccounts.list(id) -> SyncPagingIterable&lt;ConnectedAccount&gt;</code></summary>
+<details><summary><code>client.users.connectedAccounts.list(id) -> SyncPagingIterable&amp;lt;ConnectedAccount&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -26879,7 +27165,7 @@ client.users().connectedAccounts().list(
 </details>
 
 ## Users Enrollments
-<details><summary><code>client.users.enrollments.get(id) -> List&lt;UsersEnrollment&gt;</code></summary>
+<details><summary><code>client.users.enrollments.get(id) -> List&amp;lt;UsersEnrollment&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -26934,7 +27220,7 @@ client.users().enrollments().get("id");
 </details>
 
 ## Users FederatedConnectionsTokensets
-<details><summary><code>client.users.federatedConnectionsTokensets.list(id) -> List&lt;FederatedConnectionTokenSet&gt;</code></summary>
+<details><summary><code>client.users.federatedConnectionsTokensets.list(id) -> List&amp;lt;FederatedConnectionTokenSet&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -27036,8 +27322,112 @@ client.users().federatedConnectionsTokensets().delete("id", "tokenset_id");
 </dl>
 </details>
 
+## Users Groups
+<details><summary><code>client.users.groups.get(id) -> SyncPagingIterable&amp;lt;UserGroupsResponseSchema&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all groups to which this user belongs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.users().groups().get(
+    "id",
+    GetUserGroupsRequestParameters
+        .builder()
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the user to list groups for.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `Optional<String>` — A comma separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**includeFields:** `Optional<Boolean>` — Whether specified fields are to be included (true) or excluded (false).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `Optional<String>` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `Optional<Integer>` — Number of results per page. Defaults to 50.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Users Identities
-<details><summary><code>client.users.identities.link(id, request) -> List&lt;UserIdentity&gt;</code></summary>
+<details><summary><code>client.users.identities.link(id, request) -> List&amp;lt;UserIdentity&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -27155,7 +27545,7 @@ client.users().identities().link(
 </dl>
 </details>
 
-<details><summary><code>client.users.identities.delete(id, provider, userId) -> List&lt;DeleteUserIdentityResponseContentItem&gt;</code></summary>
+<details><summary><code>client.users.identities.delete(id, provider, userId) -> List&amp;lt;DeleteUserIdentityResponseContentItem&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -27228,7 +27618,7 @@ client.users().identities().delete("id", UserIdentityProviderEnum.AD, "user_id")
 </details>
 
 ## Users Logs
-<details><summary><code>client.users.logs.list(id) -> SyncPagingIterable&lt;Log&gt;</code></summary>
+<details><summary><code>client.users.logs.list(id) -> SyncPagingIterable&amp;lt;Log&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -27455,7 +27845,7 @@ client.users().multifactor().deleteProvider("id", UserMultifactorProviderEnum.DU
 </details>
 
 ## Users Organizations
-<details><summary><code>client.users.organizations.list(id) -> SyncPagingIterable&lt;Organization&gt;</code></summary>
+<details><summary><code>client.users.organizations.list(id) -> SyncPagingIterable&amp;lt;Organization&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -27548,7 +27938,7 @@ client.users().organizations().list(
 </details>
 
 ## Users Permissions
-<details><summary><code>client.users.permissions.list(id) -> SyncPagingIterable&lt;UserPermissionSchema&gt;</code></summary>
+<details><summary><code>client.users.permissions.list(id) -> SyncPagingIterable&amp;lt;UserPermissionSchema&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -27873,7 +28263,7 @@ client.users().riskAssessments().clear(
 </details>
 
 ## Users Roles
-<details><summary><code>client.users.roles.list(id) -> SyncPagingIterable&lt;Role&gt;</code></summary>
+<details><summary><code>client.users.roles.list(id) -> SyncPagingIterable&amp;lt;Role&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -28112,7 +28502,7 @@ client.users().roles().delete(
 </details>
 
 ## Users RefreshToken
-<details><summary><code>client.users.refreshToken.list(userId) -> SyncPagingIterable&lt;RefreshTokenResponseContent&gt;</code></summary>
+<details><summary><code>client.users.refreshToken.list(userId) -> SyncPagingIterable&amp;lt;RefreshTokenResponseContent&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -28248,7 +28638,7 @@ client.users().refreshToken().delete("user_id");
 </details>
 
 ## Users Sessions
-<details><summary><code>client.users.sessions.list(userId) -> SyncPagingIterable&lt;SessionResponseContent&gt;</code></summary>
+<details><summary><code>client.users.sessions.list(userId) -> SyncPagingIterable&amp;lt;SessionResponseContent&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -28384,7 +28774,7 @@ client.users().sessions().delete("user_id");
 </details>
 
 ## VerifiableCredentials Verification Templates
-<details><summary><code>client.verifiableCredentials.verification.templates.list() -> SyncPagingIterable&lt;VerifiableCredentialTemplateResponse&gt;</code></summary>
+<details><summary><code>client.verifiableCredentials.verification.templates.list() -> SyncPagingIterable&amp;lt;VerifiableCredentialTemplateResponse&amp;gt;</code></summary>
 <dl>
 <dd>
 

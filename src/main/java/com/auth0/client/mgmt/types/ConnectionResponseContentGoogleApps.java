@@ -39,11 +39,9 @@ public final class ConnectionResponseContentGoogleApps
 
     private final Optional<Map<String, OptionalNullable<String>>> metadata;
 
-    private final Optional<List<String>> realms;
+    private final Optional<ConnectionOptionsGoogleApps> options;
 
     private final Optional<Boolean> showAsButton;
-
-    private final Optional<ConnectionOptionsGoogleApps> options;
 
     private final Map<String, Object> additionalProperties;
 
@@ -56,9 +54,8 @@ public final class ConnectionResponseContentGoogleApps
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
-            Optional<List<String>> realms,
-            Optional<Boolean> showAsButton,
             Optional<ConnectionOptionsGoogleApps> options,
+            Optional<Boolean> showAsButton,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.name = name;
@@ -68,9 +65,8 @@ public final class ConnectionResponseContentGoogleApps
         this.enabledClients = enabledClients;
         this.isDomainConnection = isDomainConnection;
         this.metadata = metadata;
-        this.realms = realms;
-        this.showAsButton = showAsButton;
         this.options = options;
+        this.showAsButton = showAsButton;
         this.additionalProperties = additionalProperties;
     }
 
@@ -122,18 +118,6 @@ public final class ConnectionResponseContentGoogleApps
         return metadata;
     }
 
-    @JsonProperty("realms")
-    @java.lang.Override
-    public Optional<List<String>> getRealms() {
-        return realms;
-    }
-
-    @JsonProperty("show_as_button")
-    @java.lang.Override
-    public Optional<Boolean> getShowAsButton() {
-        return showAsButton;
-    }
-
     @JsonProperty("strategy")
     public String getStrategy() {
         return "google-apps";
@@ -142,6 +126,11 @@ public final class ConnectionResponseContentGoogleApps
     @JsonProperty("options")
     public Optional<ConnectionOptionsGoogleApps> getOptions() {
         return options;
+    }
+
+    @JsonProperty("show_as_button")
+    public Optional<Boolean> getShowAsButton() {
+        return showAsButton;
     }
 
     @java.lang.Override
@@ -165,9 +154,8 @@ public final class ConnectionResponseContentGoogleApps
                 && enabledClients.equals(other.enabledClients)
                 && isDomainConnection.equals(other.isDomainConnection)
                 && metadata.equals(other.metadata)
-                && realms.equals(other.realms)
-                && showAsButton.equals(other.showAsButton)
-                && options.equals(other.options);
+                && options.equals(other.options)
+                && showAsButton.equals(other.showAsButton);
     }
 
     @java.lang.Override
@@ -181,9 +169,8 @@ public final class ConnectionResponseContentGoogleApps
                 this.enabledClients,
                 this.isDomainConnection,
                 this.metadata,
-                this.realms,
-                this.showAsButton,
-                this.options);
+                this.options,
+                this.showAsButton);
     }
 
     @java.lang.Override
@@ -213,11 +200,9 @@ public final class ConnectionResponseContentGoogleApps
 
         private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
-        private Optional<List<String>> realms = Optional.empty();
+        private Optional<ConnectionOptionsGoogleApps> options = Optional.empty();
 
         private Optional<Boolean> showAsButton = Optional.empty();
-
-        private Optional<ConnectionOptionsGoogleApps> options = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -233,9 +218,8 @@ public final class ConnectionResponseContentGoogleApps
             enabledClients(other.getEnabledClients());
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
-            realms(other.getRealms());
-            showAsButton(other.getShowAsButton());
             options(other.getOptions());
+            showAsButton(other.getShowAsButton());
             return this;
         }
 
@@ -327,14 +311,14 @@ public final class ConnectionResponseContentGoogleApps
             return this;
         }
 
-        @JsonSetter(value = "realms", nulls = Nulls.SKIP)
-        public Builder realms(Optional<List<String>> realms) {
-            this.realms = realms;
+        @JsonSetter(value = "options", nulls = Nulls.SKIP)
+        public Builder options(Optional<ConnectionOptionsGoogleApps> options) {
+            this.options = options;
             return this;
         }
 
-        public Builder realms(List<String> realms) {
-            this.realms = Optional.ofNullable(realms);
+        public Builder options(ConnectionOptionsGoogleApps options) {
+            this.options = Optional.ofNullable(options);
             return this;
         }
 
@@ -349,17 +333,6 @@ public final class ConnectionResponseContentGoogleApps
             return this;
         }
 
-        @JsonSetter(value = "options", nulls = Nulls.SKIP)
-        public Builder options(Optional<ConnectionOptionsGoogleApps> options) {
-            this.options = options;
-            return this;
-        }
-
-        public Builder options(ConnectionOptionsGoogleApps options) {
-            this.options = Optional.ofNullable(options);
-            return this;
-        }
-
         public ConnectionResponseContentGoogleApps build() {
             return new ConnectionResponseContentGoogleApps(
                     id,
@@ -370,9 +343,8 @@ public final class ConnectionResponseContentGoogleApps
                     enabledClients,
                     isDomainConnection,
                     metadata,
-                    realms,
-                    showAsButton,
                     options,
+                    showAsButton,
                     additionalProperties);
         }
     }

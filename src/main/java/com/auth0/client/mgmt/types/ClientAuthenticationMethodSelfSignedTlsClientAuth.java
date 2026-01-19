@@ -31,9 +31,6 @@ public final class ClientAuthenticationMethodSelfSignedTlsClientAuth {
         this.additionalProperties = additionalProperties;
     }
 
-    /**
-     * @return A list of unique and previously created credential IDs enabled on the client for mTLS authentication utilizing self-signed certificate.
-     */
     @JsonProperty("credentials")
     public List<CredentialId> getCredentials() {
         return credentials;
@@ -83,9 +80,6 @@ public final class ClientAuthenticationMethodSelfSignedTlsClientAuth {
             return this;
         }
 
-        /**
-         * <p>A list of unique and previously created credential IDs enabled on the client for mTLS authentication utilizing self-signed certificate.</p>
-         */
         @JsonSetter(value = "credentials", nulls = Nulls.SKIP)
         public Builder credentials(List<CredentialId> credentials) {
             this.credentials.clear();

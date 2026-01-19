@@ -84,6 +84,9 @@ public final class AculConfigsItem {
         return contextConfiguration;
     }
 
+    /**
+     * @return Override Universal Login default head tags
+     */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("default_head_tags_disabled")
     public OptionalNullable<Boolean> getDefaultHeadTagsDisabled() {
@@ -93,6 +96,9 @@ public final class AculConfigsItem {
         return defaultHeadTagsDisabled;
     }
 
+    /**
+     * @return Use page template with ACUL
+     */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("use_page_template")
     public OptionalNullable<Boolean> getUsePageTemplate() {
@@ -102,6 +108,9 @@ public final class AculConfigsItem {
         return usePageTemplate;
     }
 
+    /**
+     * @return An array of head tags
+     */
     @JsonProperty("head_tags")
     public Optional<List<AculHeadTag>> getHeadTags() {
         return headTags;
@@ -199,6 +208,9 @@ public final class AculConfigsItem {
 
         _FinalStage contextConfiguration(List<AculContextConfigurationItem> contextConfiguration);
 
+        /**
+         * <p>Override Universal Login default head tags</p>
+         */
         _FinalStage defaultHeadTagsDisabled(@Nullable OptionalNullable<Boolean> defaultHeadTagsDisabled);
 
         _FinalStage defaultHeadTagsDisabled(Boolean defaultHeadTagsDisabled);
@@ -207,6 +219,9 @@ public final class AculConfigsItem {
 
         _FinalStage defaultHeadTagsDisabled(com.auth0.client.mgmt.core.Nullable<Boolean> defaultHeadTagsDisabled);
 
+        /**
+         * <p>Use page template with ACUL</p>
+         */
         _FinalStage usePageTemplate(@Nullable OptionalNullable<Boolean> usePageTemplate);
 
         _FinalStage usePageTemplate(Boolean usePageTemplate);
@@ -215,6 +230,9 @@ public final class AculConfigsItem {
 
         _FinalStage usePageTemplate(com.auth0.client.mgmt.core.Nullable<Boolean> usePageTemplate);
 
+        /**
+         * <p>An array of head tags</p>
+         */
         _FinalStage headTags(Optional<List<AculHeadTag>> headTags);
 
         _FinalStage headTags(List<AculHeadTag> headTags);
@@ -313,12 +331,19 @@ public final class AculConfigsItem {
             return this;
         }
 
+        /**
+         * <p>An array of head tags</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage headTags(List<AculHeadTag> headTags) {
             this.headTags = Optional.ofNullable(headTags);
             return this;
         }
 
+        /**
+         * <p>An array of head tags</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "head_tags", nulls = Nulls.SKIP)
         public _FinalStage headTags(Optional<List<AculHeadTag>> headTags) {
@@ -326,6 +351,10 @@ public final class AculConfigsItem {
             return this;
         }
 
+        /**
+         * <p>Use page template with ACUL</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage usePageTemplate(com.auth0.client.mgmt.core.Nullable<Boolean> usePageTemplate) {
             if (usePageTemplate.isNull()) {
@@ -338,6 +367,10 @@ public final class AculConfigsItem {
             return this;
         }
 
+        /**
+         * <p>Use page template with ACUL</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage usePageTemplate(Optional<Boolean> usePageTemplate) {
             if (usePageTemplate.isPresent()) {
@@ -348,12 +381,19 @@ public final class AculConfigsItem {
             return this;
         }
 
+        /**
+         * <p>Use page template with ACUL</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage usePageTemplate(Boolean usePageTemplate) {
             this.usePageTemplate = OptionalNullable.of(usePageTemplate);
             return this;
         }
 
+        /**
+         * <p>Use page template with ACUL</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "use_page_template", nulls = Nulls.SKIP)
         public _FinalStage usePageTemplate(@Nullable OptionalNullable<Boolean> usePageTemplate) {
@@ -361,6 +401,10 @@ public final class AculConfigsItem {
             return this;
         }
 
+        /**
+         * <p>Override Universal Login default head tags</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage defaultHeadTagsDisabled(
                 com.auth0.client.mgmt.core.Nullable<Boolean> defaultHeadTagsDisabled) {
@@ -374,6 +418,10 @@ public final class AculConfigsItem {
             return this;
         }
 
+        /**
+         * <p>Override Universal Login default head tags</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage defaultHeadTagsDisabled(Optional<Boolean> defaultHeadTagsDisabled) {
             if (defaultHeadTagsDisabled.isPresent()) {
@@ -384,12 +432,19 @@ public final class AculConfigsItem {
             return this;
         }
 
+        /**
+         * <p>Override Universal Login default head tags</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage defaultHeadTagsDisabled(Boolean defaultHeadTagsDisabled) {
             this.defaultHeadTagsDisabled = OptionalNullable.of(defaultHeadTagsDisabled);
             return this;
         }
 
+        /**
+         * <p>Override Universal Login default head tags</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "default_head_tags_disabled", nulls = Nulls.SKIP)
         public _FinalStage defaultHeadTagsDisabled(@Nullable OptionalNullable<Boolean> defaultHeadTagsDisabled) {

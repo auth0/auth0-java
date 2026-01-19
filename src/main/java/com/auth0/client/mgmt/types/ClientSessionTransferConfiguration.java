@@ -53,7 +53,7 @@ public final class ClientSessionTransferConfiguration {
     }
 
     /**
-     * @return Indicates whether an app can issue a Session Transfer Token through Token Exchange. If set to 'false', the app will not be able to issue a Session Transfer Token. Usually configured in the native application.
+     * @return Indicates whether an app can issue a Session Transfer Token through Token Exchange. If set to 'false', the app will not be able to issue a Session Transfer Token. Usually configured in the native application. Default value is <code>false</code>.
      */
     @JsonProperty("can_create_session_transfer_token")
     public Optional<Boolean> getCanCreateSessionTransferToken() {
@@ -61,7 +61,7 @@ public final class ClientSessionTransferConfiguration {
     }
 
     /**
-     * @return Indicates whether revoking the parent Refresh Token that initiated a Native to Web flow and was used to issue a Session Transfer Token should trigger a cascade revocation affecting its dependent child entities. Usually configured in the native application.
+     * @return Indicates whether revoking the parent Refresh Token that initiated a Native to Web flow and was used to issue a Session Transfer Token should trigger a cascade revocation affecting its dependent child entities. Usually configured in the native application. Default value is <code>true</code>, applicable only in Native to Web SSO context.
      */
     @JsonProperty("enforce_cascade_revocation")
     public Optional<Boolean> getEnforceCascadeRevocation() {
@@ -69,7 +69,7 @@ public final class ClientSessionTransferConfiguration {
     }
 
     /**
-     * @return Indicates whether an app can create a session from a Session Transfer Token received via indicated methods. Can include <code>cookie</code> and/or <code>query</code>. Usually configured in the web application.
+     * @return Indicates whether an app can create a session from a Session Transfer Token received via indicated methods. Can include <code>cookie</code> and/or <code>query</code>. Usually configured in the web application. Default value is an empty array [].
      */
     @JsonProperty("allowed_authentication_methods")
     public Optional<List<ClientSessionTransferAllowedAuthenticationMethodsEnum>> getAllowedAuthenticationMethods() {
@@ -82,7 +82,7 @@ public final class ClientSessionTransferConfiguration {
     }
 
     /**
-     * @return Indicates whether Refresh Tokens are allowed to be issued when authenticating with a Session Transfer Token. Usually configured in the web application.
+     * @return Indicates whether Refresh Tokens are allowed to be issued when authenticating with a Session Transfer Token. Usually configured in the web application. Default value is <code>false</code>.
      */
     @JsonProperty("allow_refresh_token")
     public Optional<Boolean> getAllowRefreshToken() {
@@ -90,7 +90,7 @@ public final class ClientSessionTransferConfiguration {
     }
 
     /**
-     * @return Indicates whether Refresh Tokens created during a native-to-web session are tied to that session's lifetime. This determines if such refresh tokens should be automatically revoked when their corresponding sessions are. Usually configured in the web application.
+     * @return Indicates whether Refresh Tokens created during a Native to Web session are tied to that session's lifetime. This determines if such refresh tokens should be automatically revoked when their corresponding sessions are. Usually configured in the web application. Default value is <code>true</code>, applicable only in Native to Web SSO context.
      */
     @JsonProperty("enforce_online_refresh_tokens")
     public Optional<Boolean> getEnforceOnlineRefreshTokens() {
@@ -169,7 +169,7 @@ public final class ClientSessionTransferConfiguration {
         }
 
         /**
-         * <p>Indicates whether an app can issue a Session Transfer Token through Token Exchange. If set to 'false', the app will not be able to issue a Session Transfer Token. Usually configured in the native application.</p>
+         * <p>Indicates whether an app can issue a Session Transfer Token through Token Exchange. If set to 'false', the app will not be able to issue a Session Transfer Token. Usually configured in the native application. Default value is <code>false</code>.</p>
          */
         @JsonSetter(value = "can_create_session_transfer_token", nulls = Nulls.SKIP)
         public Builder canCreateSessionTransferToken(Optional<Boolean> canCreateSessionTransferToken) {
@@ -183,7 +183,7 @@ public final class ClientSessionTransferConfiguration {
         }
 
         /**
-         * <p>Indicates whether revoking the parent Refresh Token that initiated a Native to Web flow and was used to issue a Session Transfer Token should trigger a cascade revocation affecting its dependent child entities. Usually configured in the native application.</p>
+         * <p>Indicates whether revoking the parent Refresh Token that initiated a Native to Web flow and was used to issue a Session Transfer Token should trigger a cascade revocation affecting its dependent child entities. Usually configured in the native application. Default value is <code>true</code>, applicable only in Native to Web SSO context.</p>
          */
         @JsonSetter(value = "enforce_cascade_revocation", nulls = Nulls.SKIP)
         public Builder enforceCascadeRevocation(Optional<Boolean> enforceCascadeRevocation) {
@@ -197,7 +197,7 @@ public final class ClientSessionTransferConfiguration {
         }
 
         /**
-         * <p>Indicates whether an app can create a session from a Session Transfer Token received via indicated methods. Can include <code>cookie</code> and/or <code>query</code>. Usually configured in the web application.</p>
+         * <p>Indicates whether an app can create a session from a Session Transfer Token received via indicated methods. Can include <code>cookie</code> and/or <code>query</code>. Usually configured in the web application. Default value is an empty array [].</p>
          */
         @JsonSetter(value = "allowed_authentication_methods", nulls = Nulls.SKIP)
         public Builder allowedAuthenticationMethods(
@@ -224,7 +224,7 @@ public final class ClientSessionTransferConfiguration {
         }
 
         /**
-         * <p>Indicates whether Refresh Tokens are allowed to be issued when authenticating with a Session Transfer Token. Usually configured in the web application.</p>
+         * <p>Indicates whether Refresh Tokens are allowed to be issued when authenticating with a Session Transfer Token. Usually configured in the web application. Default value is <code>false</code>.</p>
          */
         @JsonSetter(value = "allow_refresh_token", nulls = Nulls.SKIP)
         public Builder allowRefreshToken(Optional<Boolean> allowRefreshToken) {
@@ -238,7 +238,7 @@ public final class ClientSessionTransferConfiguration {
         }
 
         /**
-         * <p>Indicates whether Refresh Tokens created during a native-to-web session are tied to that session's lifetime. This determines if such refresh tokens should be automatically revoked when their corresponding sessions are. Usually configured in the web application.</p>
+         * <p>Indicates whether Refresh Tokens created during a Native to Web session are tied to that session's lifetime. This determines if such refresh tokens should be automatically revoked when their corresponding sessions are. Usually configured in the web application. Default value is <code>true</code>, applicable only in Native to Web SSO context.</p>
          */
         @JsonSetter(value = "enforce_online_refresh_tokens", nulls = Nulls.SKIP)
         public Builder enforceOnlineRefreshTokens(Optional<Boolean> enforceOnlineRefreshTokens) {

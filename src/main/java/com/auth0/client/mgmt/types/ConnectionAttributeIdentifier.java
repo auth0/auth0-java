@@ -22,10 +22,16 @@ import java.util.Optional;
 public final class ConnectionAttributeIdentifier {
     private final Optional<Boolean> active;
 
+    private final Optional<DefaultMethodEmailIdentifierEnum> defaultMethod;
+
     private final Map<String, Object> additionalProperties;
 
-    private ConnectionAttributeIdentifier(Optional<Boolean> active, Map<String, Object> additionalProperties) {
+    private ConnectionAttributeIdentifier(
+            Optional<Boolean> active,
+            Optional<DefaultMethodEmailIdentifierEnum> defaultMethod,
+            Map<String, Object> additionalProperties) {
         this.active = active;
+        this.defaultMethod = defaultMethod;
         this.additionalProperties = additionalProperties;
     }
 
@@ -35,6 +41,11 @@ public final class ConnectionAttributeIdentifier {
     @JsonProperty("active")
     public Optional<Boolean> getActive() {
         return active;
+    }
+
+    @JsonProperty("default_method")
+    public Optional<DefaultMethodEmailIdentifierEnum> getDefaultMethod() {
+        return defaultMethod;
     }
 
     @java.lang.Override
@@ -49,12 +60,12 @@ public final class ConnectionAttributeIdentifier {
     }
 
     private boolean equalTo(ConnectionAttributeIdentifier other) {
-        return active.equals(other.active);
+        return active.equals(other.active) && defaultMethod.equals(other.defaultMethod);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.active);
+        return Objects.hash(this.active, this.defaultMethod);
     }
 
     @java.lang.Override
@@ -70,6 +81,8 @@ public final class ConnectionAttributeIdentifier {
     public static final class Builder {
         private Optional<Boolean> active = Optional.empty();
 
+        private Optional<DefaultMethodEmailIdentifierEnum> defaultMethod = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -77,6 +90,7 @@ public final class ConnectionAttributeIdentifier {
 
         public Builder from(ConnectionAttributeIdentifier other) {
             active(other.getActive());
+            defaultMethod(other.getDefaultMethod());
             return this;
         }
 
@@ -94,8 +108,19 @@ public final class ConnectionAttributeIdentifier {
             return this;
         }
 
+        @JsonSetter(value = "default_method", nulls = Nulls.SKIP)
+        public Builder defaultMethod(Optional<DefaultMethodEmailIdentifierEnum> defaultMethod) {
+            this.defaultMethod = defaultMethod;
+            return this;
+        }
+
+        public Builder defaultMethod(DefaultMethodEmailIdentifierEnum defaultMethod) {
+            this.defaultMethod = Optional.ofNullable(defaultMethod);
+            return this;
+        }
+
         public ConnectionAttributeIdentifier build() {
-            return new ConnectionAttributeIdentifier(active, additionalProperties);
+            return new ConnectionAttributeIdentifier(active, defaultMethod, additionalProperties);
         }
     }
 }

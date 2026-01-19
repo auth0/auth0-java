@@ -20,8 +20,4 @@ public interface IConnectionCommon {
     Optional<Boolean> getIsDomainConnection();
 
     Optional<Map<String, OptionalNullable<String>>> getMetadata();
-
-    Optional<List<String>> getRealms();
-
-    Optional<Boolean> getShowAsButton();
 }

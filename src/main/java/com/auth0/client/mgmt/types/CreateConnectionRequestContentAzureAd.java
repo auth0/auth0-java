@@ -36,15 +36,13 @@ public final class CreateConnectionRequestContentAzureAd implements ICreateConne
 
     private final Optional<Map<String, OptionalNullable<String>>> metadata;
 
-    private final Optional<List<String>> realms;
-
-    private final Optional<Boolean> showAsButton;
-
     private final Optional<ConnectionOptionsAzureAd> options;
 
     private final Optional<String> provisioningTicket;
 
     private final Optional<String> provisioningTicketUrl;
+
+    private final Optional<Boolean> showAsButton;
 
     private final Map<String, Object> additionalProperties;
 
@@ -56,11 +54,10 @@ public final class CreateConnectionRequestContentAzureAd implements ICreateConne
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
-            Optional<List<String>> realms,
-            Optional<Boolean> showAsButton,
             Optional<ConnectionOptionsAzureAd> options,
             Optional<String> provisioningTicket,
             Optional<String> provisioningTicketUrl,
+            Optional<Boolean> showAsButton,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.authentication = authentication;
@@ -69,11 +66,10 @@ public final class CreateConnectionRequestContentAzureAd implements ICreateConne
         this.enabledClients = enabledClients;
         this.isDomainConnection = isDomainConnection;
         this.metadata = metadata;
-        this.realms = realms;
-        this.showAsButton = showAsButton;
         this.options = options;
         this.provisioningTicket = provisioningTicket;
         this.provisioningTicketUrl = provisioningTicketUrl;
+        this.showAsButton = showAsButton;
         this.additionalProperties = additionalProperties;
     }
 
@@ -119,18 +115,6 @@ public final class CreateConnectionRequestContentAzureAd implements ICreateConne
         return metadata;
     }
 
-    @JsonProperty("realms")
-    @java.lang.Override
-    public Optional<List<String>> getRealms() {
-        return realms;
-    }
-
-    @JsonProperty("show_as_button")
-    @java.lang.Override
-    public Optional<Boolean> getShowAsButton() {
-        return showAsButton;
-    }
-
     @JsonProperty("strategy")
     public String getStrategy() {
         return "waad";
@@ -149,6 +133,11 @@ public final class CreateConnectionRequestContentAzureAd implements ICreateConne
     @JsonProperty("provisioning_ticket_url")
     public Optional<String> getProvisioningTicketUrl() {
         return provisioningTicketUrl;
+    }
+
+    @JsonProperty("show_as_button")
+    public Optional<Boolean> getShowAsButton() {
+        return showAsButton;
     }
 
     @java.lang.Override
@@ -171,11 +160,10 @@ public final class CreateConnectionRequestContentAzureAd implements ICreateConne
                 && enabledClients.equals(other.enabledClients)
                 && isDomainConnection.equals(other.isDomainConnection)
                 && metadata.equals(other.metadata)
-                && realms.equals(other.realms)
-                && showAsButton.equals(other.showAsButton)
                 && options.equals(other.options)
                 && provisioningTicket.equals(other.provisioningTicket)
-                && provisioningTicketUrl.equals(other.provisioningTicketUrl);
+                && provisioningTicketUrl.equals(other.provisioningTicketUrl)
+                && showAsButton.equals(other.showAsButton);
     }
 
     @java.lang.Override
@@ -188,11 +176,10 @@ public final class CreateConnectionRequestContentAzureAd implements ICreateConne
                 this.enabledClients,
                 this.isDomainConnection,
                 this.metadata,
-                this.realms,
-                this.showAsButton,
                 this.options,
                 this.provisioningTicket,
-                this.provisioningTicketUrl);
+                this.provisioningTicketUrl,
+                this.showAsButton);
     }
 
     @java.lang.Override
@@ -220,15 +207,13 @@ public final class CreateConnectionRequestContentAzureAd implements ICreateConne
 
         private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
-        private Optional<List<String>> realms = Optional.empty();
-
-        private Optional<Boolean> showAsButton = Optional.empty();
-
         private Optional<ConnectionOptionsAzureAd> options = Optional.empty();
 
         private Optional<String> provisioningTicket = Optional.empty();
 
         private Optional<String> provisioningTicketUrl = Optional.empty();
+
+        private Optional<Boolean> showAsButton = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -243,11 +228,10 @@ public final class CreateConnectionRequestContentAzureAd implements ICreateConne
             enabledClients(other.getEnabledClients());
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
-            realms(other.getRealms());
-            showAsButton(other.getShowAsButton());
             options(other.getOptions());
             provisioningTicket(other.getProvisioningTicket());
             provisioningTicketUrl(other.getProvisioningTicketUrl());
+            showAsButton(other.getShowAsButton());
             return this;
         }
 
@@ -328,28 +312,6 @@ public final class CreateConnectionRequestContentAzureAd implements ICreateConne
             return this;
         }
 
-        @JsonSetter(value = "realms", nulls = Nulls.SKIP)
-        public Builder realms(Optional<List<String>> realms) {
-            this.realms = realms;
-            return this;
-        }
-
-        public Builder realms(List<String> realms) {
-            this.realms = Optional.ofNullable(realms);
-            return this;
-        }
-
-        @JsonSetter(value = "show_as_button", nulls = Nulls.SKIP)
-        public Builder showAsButton(Optional<Boolean> showAsButton) {
-            this.showAsButton = showAsButton;
-            return this;
-        }
-
-        public Builder showAsButton(Boolean showAsButton) {
-            this.showAsButton = Optional.ofNullable(showAsButton);
-            return this;
-        }
-
         @JsonSetter(value = "options", nulls = Nulls.SKIP)
         public Builder options(Optional<ConnectionOptionsAzureAd> options) {
             this.options = options;
@@ -383,6 +345,17 @@ public final class CreateConnectionRequestContentAzureAd implements ICreateConne
             return this;
         }
 
+        @JsonSetter(value = "show_as_button", nulls = Nulls.SKIP)
+        public Builder showAsButton(Optional<Boolean> showAsButton) {
+            this.showAsButton = showAsButton;
+            return this;
+        }
+
+        public Builder showAsButton(Boolean showAsButton) {
+            this.showAsButton = Optional.ofNullable(showAsButton);
+            return this;
+        }
+
         public CreateConnectionRequestContentAzureAd build() {
             return new CreateConnectionRequestContentAzureAd(
                     name,
@@ -392,11 +365,10 @@ public final class CreateConnectionRequestContentAzureAd implements ICreateConne
                     enabledClients,
                     isDomainConnection,
                     metadata,
-                    realms,
-                    showAsButton,
                     options,
                     provisioningTicket,
                     provisioningTicketUrl,
+                    showAsButton,
                     additionalProperties);
         }
     }

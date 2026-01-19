@@ -37,10 +37,6 @@ public final class CreateConnectionRequestContentThirtySevenSignals
 
     private final Optional<Map<String, OptionalNullable<String>>> metadata;
 
-    private final Optional<List<String>> realms;
-
-    private final Optional<Boolean> showAsButton;
-
     private final Optional<ConnectionOptionsOAuth2Common> options;
 
     private final Map<String, Object> additionalProperties;
@@ -53,8 +49,6 @@ public final class CreateConnectionRequestContentThirtySevenSignals
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
-            Optional<List<String>> realms,
-            Optional<Boolean> showAsButton,
             Optional<ConnectionOptionsOAuth2Common> options,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -64,8 +58,6 @@ public final class CreateConnectionRequestContentThirtySevenSignals
         this.enabledClients = enabledClients;
         this.isDomainConnection = isDomainConnection;
         this.metadata = metadata;
-        this.realms = realms;
-        this.showAsButton = showAsButton;
         this.options = options;
         this.additionalProperties = additionalProperties;
     }
@@ -112,18 +104,6 @@ public final class CreateConnectionRequestContentThirtySevenSignals
         return metadata;
     }
 
-    @JsonProperty("realms")
-    @java.lang.Override
-    public Optional<List<String>> getRealms() {
-        return realms;
-    }
-
-    @JsonProperty("show_as_button")
-    @java.lang.Override
-    public Optional<Boolean> getShowAsButton() {
-        return showAsButton;
-    }
-
     @JsonProperty("strategy")
     public String getStrategy() {
         return "thirtysevensignals";
@@ -154,8 +134,6 @@ public final class CreateConnectionRequestContentThirtySevenSignals
                 && enabledClients.equals(other.enabledClients)
                 && isDomainConnection.equals(other.isDomainConnection)
                 && metadata.equals(other.metadata)
-                && realms.equals(other.realms)
-                && showAsButton.equals(other.showAsButton)
                 && options.equals(other.options);
     }
 
@@ -169,8 +147,6 @@ public final class CreateConnectionRequestContentThirtySevenSignals
                 this.enabledClients,
                 this.isDomainConnection,
                 this.metadata,
-                this.realms,
-                this.showAsButton,
                 this.options);
     }
 
@@ -199,10 +175,6 @@ public final class CreateConnectionRequestContentThirtySevenSignals
 
         private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
-        private Optional<List<String>> realms = Optional.empty();
-
-        private Optional<Boolean> showAsButton = Optional.empty();
-
         private Optional<ConnectionOptionsOAuth2Common> options = Optional.empty();
 
         @JsonAnySetter
@@ -218,8 +190,6 @@ public final class CreateConnectionRequestContentThirtySevenSignals
             enabledClients(other.getEnabledClients());
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
-            realms(other.getRealms());
-            showAsButton(other.getShowAsButton());
             options(other.getOptions());
             return this;
         }
@@ -301,28 +271,6 @@ public final class CreateConnectionRequestContentThirtySevenSignals
             return this;
         }
 
-        @JsonSetter(value = "realms", nulls = Nulls.SKIP)
-        public Builder realms(Optional<List<String>> realms) {
-            this.realms = realms;
-            return this;
-        }
-
-        public Builder realms(List<String> realms) {
-            this.realms = Optional.ofNullable(realms);
-            return this;
-        }
-
-        @JsonSetter(value = "show_as_button", nulls = Nulls.SKIP)
-        public Builder showAsButton(Optional<Boolean> showAsButton) {
-            this.showAsButton = showAsButton;
-            return this;
-        }
-
-        public Builder showAsButton(Boolean showAsButton) {
-            this.showAsButton = Optional.ofNullable(showAsButton);
-            return this;
-        }
-
         @JsonSetter(value = "options", nulls = Nulls.SKIP)
         public Builder options(Optional<ConnectionOptionsOAuth2Common> options) {
             this.options = options;
@@ -343,8 +291,6 @@ public final class CreateConnectionRequestContentThirtySevenSignals
                     enabledClients,
                     isDomainConnection,
                     metadata,
-                    realms,
-                    showAsButton,
                     options,
                     additionalProperties);
         }
