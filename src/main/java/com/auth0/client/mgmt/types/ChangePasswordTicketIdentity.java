@@ -23,14 +23,17 @@ import org.jetbrains.annotations.NotNull;
 public final class ChangePasswordTicketIdentity {
     private final String userId;
 
-    private final String provider;
+    private final IdentityProviderOnlyAuth0Enum provider;
 
     private final Optional<String> connectionId;
 
     private final Map<String, Object> additionalProperties;
 
     private ChangePasswordTicketIdentity(
-            String userId, String provider, Optional<String> connectionId, Map<String, Object> additionalProperties) {
+            String userId,
+            IdentityProviderOnlyAuth0Enum provider,
+            Optional<String> connectionId,
+            Map<String, Object> additionalProperties) {
         this.userId = userId;
         this.provider = provider;
         this.connectionId = connectionId;
@@ -46,7 +49,7 @@ public final class ChangePasswordTicketIdentity {
     }
 
     @JsonProperty("provider")
-    public String getProvider() {
+    public IdentityProviderOnlyAuth0Enum getProvider() {
         return provider;
     }
 
@@ -99,7 +102,7 @@ public final class ChangePasswordTicketIdentity {
     }
 
     public interface ProviderStage {
-        _FinalStage provider(@NotNull String provider);
+        _FinalStage provider(@NotNull IdentityProviderOnlyAuth0Enum provider);
     }
 
     public interface _FinalStage {
@@ -117,7 +120,7 @@ public final class ChangePasswordTicketIdentity {
     public static final class Builder implements UserIdStage, ProviderStage, _FinalStage {
         private String userId;
 
-        private String provider;
+        private IdentityProviderOnlyAuth0Enum provider;
 
         private Optional<String> connectionId = Optional.empty();
 
@@ -148,7 +151,7 @@ public final class ChangePasswordTicketIdentity {
 
         @java.lang.Override
         @JsonSetter("provider")
-        public _FinalStage provider(@NotNull String provider) {
+        public _FinalStage provider(@NotNull IdentityProviderOnlyAuth0Enum provider) {
             this.provider = Objects.requireNonNull(provider, "provider must not be null");
             return this;
         }

@@ -25,6 +25,10 @@ public final class FlowActionFlowStoreVars {
 
     private final Optional<String> alias;
 
+    private final FlowActionFlowStoreVarsType type;
+
+    private final FlowActionFlowStoreVarsAction action;
+
     private final Optional<Boolean> allowFailure;
 
     private final Optional<Boolean> maskOutput;
@@ -36,12 +40,16 @@ public final class FlowActionFlowStoreVars {
     private FlowActionFlowStoreVars(
             String id,
             Optional<String> alias,
+            FlowActionFlowStoreVarsType type,
+            FlowActionFlowStoreVarsAction action,
             Optional<Boolean> allowFailure,
             Optional<Boolean> maskOutput,
             FlowActionFlowStoreVarsParams params,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.alias = alias;
+        this.type = type;
+        this.action = action;
         this.allowFailure = allowFailure;
         this.maskOutput = maskOutput;
         this.params = params;
@@ -59,13 +67,13 @@ public final class FlowActionFlowStoreVars {
     }
 
     @JsonProperty("type")
-    public String getType() {
-        return "FLOW";
+    public FlowActionFlowStoreVarsType getType() {
+        return type;
     }
 
     @JsonProperty("action")
-    public String getAction() {
-        return "STORE_VARS";
+    public FlowActionFlowStoreVarsAction getAction() {
+        return action;
     }
 
     @JsonProperty("allow_failure")
@@ -97,6 +105,8 @@ public final class FlowActionFlowStoreVars {
     private boolean equalTo(FlowActionFlowStoreVars other) {
         return id.equals(other.id)
                 && alias.equals(other.alias)
+                && type.equals(other.type)
+                && action.equals(other.action)
                 && allowFailure.equals(other.allowFailure)
                 && maskOutput.equals(other.maskOutput)
                 && params.equals(other.params);
@@ -104,7 +114,8 @@ public final class FlowActionFlowStoreVars {
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.id, this.alias, this.allowFailure, this.maskOutput, this.params);
+        return Objects.hash(
+                this.id, this.alias, this.type, this.action, this.allowFailure, this.maskOutput, this.params);
     }
 
     @java.lang.Override
@@ -117,9 +128,17 @@ public final class FlowActionFlowStoreVars {
     }
 
     public interface IdStage {
-        ParamsStage id(@NotNull String id);
+        TypeStage id(@NotNull String id);
 
         Builder from(FlowActionFlowStoreVars other);
+    }
+
+    public interface TypeStage {
+        ActionStage type(@NotNull FlowActionFlowStoreVarsType type);
+    }
+
+    public interface ActionStage {
+        ParamsStage action(@NotNull FlowActionFlowStoreVarsAction action);
     }
 
     public interface ParamsStage {
@@ -143,8 +162,12 @@ public final class FlowActionFlowStoreVars {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements IdStage, ParamsStage, _FinalStage {
+    public static final class Builder implements IdStage, TypeStage, ActionStage, ParamsStage, _FinalStage {
         private String id;
+
+        private FlowActionFlowStoreVarsType type;
+
+        private FlowActionFlowStoreVarsAction action;
 
         private FlowActionFlowStoreVarsParams params;
 
@@ -163,6 +186,8 @@ public final class FlowActionFlowStoreVars {
         public Builder from(FlowActionFlowStoreVars other) {
             id(other.getId());
             alias(other.getAlias());
+            type(other.getType());
+            action(other.getAction());
             allowFailure(other.getAllowFailure());
             maskOutput(other.getMaskOutput());
             params(other.getParams());
@@ -171,8 +196,22 @@ public final class FlowActionFlowStoreVars {
 
         @java.lang.Override
         @JsonSetter("id")
-        public ParamsStage id(@NotNull String id) {
+        public TypeStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter("type")
+        public ActionStage type(@NotNull FlowActionFlowStoreVarsType type) {
+            this.type = Objects.requireNonNull(type, "type must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter("action")
+        public ParamsStage action(@NotNull FlowActionFlowStoreVarsAction action) {
+            this.action = Objects.requireNonNull(action, "action must not be null");
             return this;
         }
 
@@ -224,7 +263,8 @@ public final class FlowActionFlowStoreVars {
 
         @java.lang.Override
         public FlowActionFlowStoreVars build() {
-            return new FlowActionFlowStoreVars(id, alias, allowFailure, maskOutput, params, additionalProperties);
+            return new FlowActionFlowStoreVars(
+                    id, alias, type, action, allowFailure, maskOutput, params, additionalProperties);
         }
     }
 }

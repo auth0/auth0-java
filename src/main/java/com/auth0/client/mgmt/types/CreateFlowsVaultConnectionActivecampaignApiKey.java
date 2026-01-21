@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateFlowsVaultConnectionActivecampaignApiKey {
     private final String name;
 
-    private final String appId;
+    private final FlowsVaultConnectionAppIdActivecampaignEnum appId;
 
     private final FlowsVaultConnectioSetupApiKeyWithBaseUrl setup;
 
@@ -29,7 +29,7 @@ public final class CreateFlowsVaultConnectionActivecampaignApiKey {
 
     private CreateFlowsVaultConnectionActivecampaignApiKey(
             String name,
-            String appId,
+            FlowsVaultConnectionAppIdActivecampaignEnum appId,
             FlowsVaultConnectioSetupApiKeyWithBaseUrl setup,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -47,7 +47,7 @@ public final class CreateFlowsVaultConnectionActivecampaignApiKey {
     }
 
     @JsonProperty("app_id")
-    public String getAppId() {
+    public FlowsVaultConnectionAppIdActivecampaignEnum getAppId() {
         return appId;
     }
 
@@ -96,7 +96,7 @@ public final class CreateFlowsVaultConnectionActivecampaignApiKey {
     }
 
     public interface AppIdStage {
-        SetupStage appId(@NotNull String appId);
+        SetupStage appId(@NotNull FlowsVaultConnectionAppIdActivecampaignEnum appId);
     }
 
     public interface SetupStage {
@@ -111,7 +111,7 @@ public final class CreateFlowsVaultConnectionActivecampaignApiKey {
     public static final class Builder implements NameStage, AppIdStage, SetupStage, _FinalStage {
         private String name;
 
-        private String appId;
+        private FlowsVaultConnectionAppIdActivecampaignEnum appId;
 
         private FlowsVaultConnectioSetupApiKeyWithBaseUrl setup;
 
@@ -142,7 +142,7 @@ public final class CreateFlowsVaultConnectionActivecampaignApiKey {
 
         @java.lang.Override
         @JsonSetter("app_id")
-        public SetupStage appId(@NotNull String appId) {
+        public SetupStage appId(@NotNull FlowsVaultConnectionAppIdActivecampaignEnum appId) {
             this.appId = Objects.requireNonNull(appId, "appId must not be null");
             return this;
         }

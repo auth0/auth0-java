@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = FlowsListRequest.Builder.class)
 public final class FlowsListRequest {
-    private final Optional<List<String>> hydrate;
+    private final Optional<List<FlowsListRequestHydrateItem>> hydrate;
 
     private final OptionalNullable<Integer> page;
 
@@ -39,7 +39,7 @@ public final class FlowsListRequest {
     private final Map<String, Object> additionalProperties;
 
     private FlowsListRequest(
-            Optional<List<String>> hydrate,
+            Optional<List<FlowsListRequestHydrateItem>> hydrate,
             OptionalNullable<Integer> page,
             OptionalNullable<Integer> perPage,
             OptionalNullable<Boolean> includeTotals,
@@ -57,7 +57,7 @@ public final class FlowsListRequest {
      * @return hydration param
      */
     @JsonIgnore
-    public Optional<List<String>> getHydrate() {
+    public Optional<List<FlowsListRequestHydrateItem>> getHydrate() {
         if (hydrate == null) {
             return Optional.empty();
         }
@@ -105,7 +105,7 @@ public final class FlowsListRequest {
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("hydrate")
-    private Optional<List<String>> _getHydrate() {
+    private Optional<List<FlowsListRequestHydrateItem>> _getHydrate() {
         return hydrate;
     }
 
@@ -150,7 +150,7 @@ public final class FlowsListRequest {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<List<String>> hydrate = Optional.empty();
+        private Optional<List<FlowsListRequestHydrateItem>> hydrate = Optional.empty();
 
         private OptionalNullable<Integer> page = OptionalNullable.absent();
 
@@ -178,17 +178,17 @@ public final class FlowsListRequest {
          * <p>hydration param</p>
          */
         @JsonSetter(value = "hydrate", nulls = Nulls.SKIP)
-        public Builder hydrate(@Nullable Optional<List<String>> hydrate) {
+        public Builder hydrate(@Nullable Optional<List<FlowsListRequestHydrateItem>> hydrate) {
             this.hydrate = hydrate;
             return this;
         }
 
-        public Builder hydrate(List<String> hydrate) {
+        public Builder hydrate(List<FlowsListRequestHydrateItem> hydrate) {
             this.hydrate = Optional.ofNullable(hydrate);
             return this;
         }
 
-        public Builder hydrate(com.auth0.client.mgmt.core.Nullable<List<String>> hydrate) {
+        public Builder hydrate(com.auth0.client.mgmt.core.Nullable<List<FlowsListRequestHydrateItem>> hydrate) {
             if (hydrate.isNull()) {
                 this.hydrate = null;
             } else if (hydrate.isEmpty()) {
@@ -199,7 +199,7 @@ public final class FlowsListRequest {
             return this;
         }
 
-        public Builder hydrate(String hydrate) {
+        public Builder hydrate(FlowsListRequestHydrateItem hydrate) {
             this.hydrate = Optional.of(Collections.singletonList(hydrate));
             return this;
         }

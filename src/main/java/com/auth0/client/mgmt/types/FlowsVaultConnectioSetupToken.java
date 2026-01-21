@@ -19,20 +19,21 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = FlowsVaultConnectioSetupToken.Builder.class)
 public final class FlowsVaultConnectioSetupToken {
-    private final String type;
+    private final FlowsVaultConnectioSetupTypeTokenEnum type;
 
     private final String token;
 
     private final Map<String, Object> additionalProperties;
 
-    private FlowsVaultConnectioSetupToken(String type, String token, Map<String, Object> additionalProperties) {
+    private FlowsVaultConnectioSetupToken(
+            FlowsVaultConnectioSetupTypeTokenEnum type, String token, Map<String, Object> additionalProperties) {
         this.type = type;
         this.token = token;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public FlowsVaultConnectioSetupTypeTokenEnum getType() {
         return type;
     }
 
@@ -71,7 +72,7 @@ public final class FlowsVaultConnectioSetupToken {
     }
 
     public interface TypeStage {
-        TokenStage type(@NotNull String type);
+        TokenStage type(@NotNull FlowsVaultConnectioSetupTypeTokenEnum type);
 
         Builder from(FlowsVaultConnectioSetupToken other);
     }
@@ -86,7 +87,7 @@ public final class FlowsVaultConnectioSetupToken {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements TypeStage, TokenStage, _FinalStage {
-        private String type;
+        private FlowsVaultConnectioSetupTypeTokenEnum type;
 
         private String token;
 
@@ -104,7 +105,7 @@ public final class FlowsVaultConnectioSetupToken {
 
         @java.lang.Override
         @JsonSetter("type")
-        public TokenStage type(@NotNull String type) {
+        public TokenStage type(@NotNull FlowsVaultConnectioSetupTypeTokenEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

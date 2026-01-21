@@ -112,7 +112,7 @@ public final class ListClientGrantsRequestParameters {
     }
 
     /**
-     * @return The type of application access the client grant allows. Use of this field is subject to the applicable Free Trial terms in Okta’s &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt; Master Subscription Agreement.&lt;/a&gt;
+     * @return The type of application access the client grant allows.
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("subject_type")
@@ -388,7 +388,7 @@ public final class ListClientGrantsRequestParameters {
         }
 
         /**
-         * <p>The type of application access the client grant allows. Use of this field is subject to the applicable Free Trial terms in Okta’s &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt; Master Subscription Agreement.&lt;/a&gt;</p>
+         * <p>The type of application access the client grant allows.</p>
          */
         @JsonSetter(value = "subject_type", nulls = Nulls.SKIP)
         public Builder subjectType(@Nullable OptionalNullable<ClientGrantSubjectTypeEnum> subjectType) {

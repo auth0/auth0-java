@@ -34,7 +34,7 @@ public final class UpdateConnectionRequestContentFacebook implements IConnection
 
     private final Optional<Map<String, OptionalNullable<String>>> metadata;
 
-    private final Optional<Map<String, Object>> options;
+    private final Optional<ConnectionOptionsFacebook> options;
 
     private final Map<String, Object> additionalProperties;
 
@@ -45,7 +45,7 @@ public final class UpdateConnectionRequestContentFacebook implements IConnection
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
-            Optional<Map<String, Object>> options,
+            Optional<ConnectionOptionsFacebook> options,
             Map<String, Object> additionalProperties) {
         this.authentication = authentication;
         this.connectedAccounts = connectedAccounts;
@@ -94,7 +94,7 @@ public final class UpdateConnectionRequestContentFacebook implements IConnection
     }
 
     @JsonProperty("options")
-    public Optional<Map<String, Object>> getOptions() {
+    public Optional<ConnectionOptionsFacebook> getOptions() {
         return options;
     }
 
@@ -155,7 +155,7 @@ public final class UpdateConnectionRequestContentFacebook implements IConnection
 
         private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
-        private Optional<Map<String, Object>> options = Optional.empty();
+        private Optional<ConnectionOptionsFacebook> options = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -240,12 +240,12 @@ public final class UpdateConnectionRequestContentFacebook implements IConnection
         }
 
         @JsonSetter(value = "options", nulls = Nulls.SKIP)
-        public Builder options(Optional<Map<String, Object>> options) {
+        public Builder options(Optional<ConnectionOptionsFacebook> options) {
             this.options = options;
             return this;
         }
 
-        public Builder options(Map<String, Object> options) {
+        public Builder options(ConnectionOptionsFacebook options) {
             this.options = Optional.ofNullable(options);
             return this;
         }

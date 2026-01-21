@@ -3,8 +3,11 @@
  */
 package com.auth0.client.mgmt.types;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IConnectionResponseCommon extends ICreateConnectionCommon {
     Optional<String> getId();
+
+    Optional<List<String>> getRealms();
 }

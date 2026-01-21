@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateLogStreamMixpanelRequestBody {
     private final Optional<String> name;
 
-    private final String type;
+    private final LogStreamMixpanelEnum type;
 
     private final Optional<Boolean> isPriority;
 
@@ -40,7 +40,7 @@ public final class CreateLogStreamMixpanelRequestBody {
 
     private CreateLogStreamMixpanelRequestBody(
             Optional<String> name,
-            String type,
+            LogStreamMixpanelEnum type,
             Optional<Boolean> isPriority,
             Optional<List<LogStreamFilter>> filters,
             Optional<LogStreamPiiConfig> piiConfig,
@@ -66,7 +66,7 @@ public final class CreateLogStreamMixpanelRequestBody {
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public LogStreamMixpanelEnum getType() {
         return type;
     }
 
@@ -142,7 +142,7 @@ public final class CreateLogStreamMixpanelRequestBody {
     }
 
     public interface TypeStage {
-        SinkStage type(@NotNull String type);
+        SinkStage type(@NotNull LogStreamMixpanelEnum type);
 
         Builder from(CreateLogStreamMixpanelRequestBody other);
     }
@@ -189,7 +189,7 @@ public final class CreateLogStreamMixpanelRequestBody {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements TypeStage, SinkStage, _FinalStage {
-        private String type;
+        private LogStreamMixpanelEnum type;
 
         private LogStreamMixpanelSink sink;
 
@@ -222,7 +222,7 @@ public final class CreateLogStreamMixpanelRequestBody {
 
         @java.lang.Override
         @JsonSetter("type")
-        public SinkStage type(@NotNull String type) {
+        public SinkStage type(@NotNull LogStreamMixpanelEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

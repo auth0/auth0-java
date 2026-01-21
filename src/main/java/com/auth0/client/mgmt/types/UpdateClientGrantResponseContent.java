@@ -39,6 +39,8 @@ public final class UpdateClientGrantResponseContent {
 
     private final Optional<List<String>> authorizationDetailsTypes;
 
+    private final Optional<Boolean> allowAllScopes;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateClientGrantResponseContent(
@@ -51,6 +53,7 @@ public final class UpdateClientGrantResponseContent {
             Optional<Boolean> isSystem,
             Optional<ClientGrantSubjectTypeEnum> subjectType,
             Optional<List<String>> authorizationDetailsTypes,
+            Optional<Boolean> allowAllScopes,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.clientId = clientId;
@@ -61,6 +64,7 @@ public final class UpdateClientGrantResponseContent {
         this.isSystem = isSystem;
         this.subjectType = subjectType;
         this.authorizationDetailsTypes = authorizationDetailsTypes;
+        this.allowAllScopes = allowAllScopes;
         this.additionalProperties = additionalProperties;
     }
 
@@ -123,11 +127,19 @@ public final class UpdateClientGrantResponseContent {
     }
 
     /**
-     * @return Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s &lt;a href= &quot;https://www.okta.com/legal/&quot;&gt; Master Subscription Agreement.&lt;/a&gt;
+     * @return Types of authorization_details allowed for this client grant.
      */
     @JsonProperty("authorization_details_types")
     public Optional<List<String>> getAuthorizationDetailsTypes() {
         return authorizationDetailsTypes;
+    }
+
+    /**
+     * @return If enabled, all scopes configured on the resource server are allowed for this grant.
+     */
+    @JsonProperty("allow_all_scopes")
+    public Optional<Boolean> getAllowAllScopes() {
+        return allowAllScopes;
     }
 
     @java.lang.Override
@@ -150,7 +162,8 @@ public final class UpdateClientGrantResponseContent {
                 && allowAnyOrganization.equals(other.allowAnyOrganization)
                 && isSystem.equals(other.isSystem)
                 && subjectType.equals(other.subjectType)
-                && authorizationDetailsTypes.equals(other.authorizationDetailsTypes);
+                && authorizationDetailsTypes.equals(other.authorizationDetailsTypes)
+                && allowAllScopes.equals(other.allowAllScopes);
     }
 
     @java.lang.Override
@@ -164,7 +177,8 @@ public final class UpdateClientGrantResponseContent {
                 this.allowAnyOrganization,
                 this.isSystem,
                 this.subjectType,
-                this.authorizationDetailsTypes);
+                this.authorizationDetailsTypes,
+                this.allowAllScopes);
     }
 
     @java.lang.Override
@@ -196,6 +210,8 @@ public final class UpdateClientGrantResponseContent {
 
         private Optional<List<String>> authorizationDetailsTypes = Optional.empty();
 
+        private Optional<Boolean> allowAllScopes = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -211,6 +227,7 @@ public final class UpdateClientGrantResponseContent {
             isSystem(other.getIsSystem());
             subjectType(other.getSubjectType());
             authorizationDetailsTypes(other.getAuthorizationDetailsTypes());
+            allowAllScopes(other.getAllowAllScopes());
             return this;
         }
 
@@ -321,7 +338,7 @@ public final class UpdateClientGrantResponseContent {
         }
 
         /**
-         * <p>Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s &lt;a href= &quot;https://www.okta.com/legal/&quot;&gt; Master Subscription Agreement.&lt;/a&gt;</p>
+         * <p>Types of authorization_details allowed for this client grant.</p>
          */
         @JsonSetter(value = "authorization_details_types", nulls = Nulls.SKIP)
         public Builder authorizationDetailsTypes(Optional<List<String>> authorizationDetailsTypes) {
@@ -331,6 +348,20 @@ public final class UpdateClientGrantResponseContent {
 
         public Builder authorizationDetailsTypes(List<String> authorizationDetailsTypes) {
             this.authorizationDetailsTypes = Optional.ofNullable(authorizationDetailsTypes);
+            return this;
+        }
+
+        /**
+         * <p>If enabled, all scopes configured on the resource server are allowed for this grant.</p>
+         */
+        @JsonSetter(value = "allow_all_scopes", nulls = Nulls.SKIP)
+        public Builder allowAllScopes(Optional<Boolean> allowAllScopes) {
+            this.allowAllScopes = allowAllScopes;
+            return this;
+        }
+
+        public Builder allowAllScopes(Boolean allowAllScopes) {
+            this.allowAllScopes = Optional.ofNullable(allowAllScopes);
             return this;
         }
 
@@ -345,6 +376,7 @@ public final class UpdateClientGrantResponseContent {
                     isSystem,
                     subjectType,
                     authorizationDetailsTypes,
+                    allowAllScopes,
                     additionalProperties);
         }
     }

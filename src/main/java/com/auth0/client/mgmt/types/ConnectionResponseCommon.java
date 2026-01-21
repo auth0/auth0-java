@@ -25,6 +25,8 @@ public final class ConnectionResponseCommon
         implements IConnectionResponseCommon, ICreateConnectionCommon, IConnectionCommon {
     private final Optional<String> id;
 
+    private final Optional<List<String>> realms;
+
     private final Optional<String> name;
 
     private final Optional<ConnectionAuthenticationPurpose> authentication;
@@ -43,6 +45,7 @@ public final class ConnectionResponseCommon
 
     private ConnectionResponseCommon(
             Optional<String> id,
+            Optional<List<String>> realms,
             Optional<String> name,
             Optional<ConnectionAuthenticationPurpose> authentication,
             Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
@@ -52,6 +55,7 @@ public final class ConnectionResponseCommon
             Optional<Map<String, OptionalNullable<String>>> metadata,
             Map<String, Object> additionalProperties) {
         this.id = id;
+        this.realms = realms;
         this.name = name;
         this.authentication = authentication;
         this.connectedAccounts = connectedAccounts;
@@ -66,6 +70,12 @@ public final class ConnectionResponseCommon
     @java.lang.Override
     public Optional<String> getId() {
         return id;
+    }
+
+    @JsonProperty("realms")
+    @java.lang.Override
+    public Optional<List<String>> getRealms() {
+        return realms;
     }
 
     @JsonProperty("name")
@@ -123,6 +133,7 @@ public final class ConnectionResponseCommon
 
     private boolean equalTo(ConnectionResponseCommon other) {
         return id.equals(other.id)
+                && realms.equals(other.realms)
                 && name.equals(other.name)
                 && authentication.equals(other.authentication)
                 && connectedAccounts.equals(other.connectedAccounts)
@@ -136,6 +147,7 @@ public final class ConnectionResponseCommon
     public int hashCode() {
         return Objects.hash(
                 this.id,
+                this.realms,
                 this.name,
                 this.authentication,
                 this.connectedAccounts,
@@ -158,6 +170,8 @@ public final class ConnectionResponseCommon
     public static final class Builder {
         private Optional<String> id = Optional.empty();
 
+        private Optional<List<String>> realms = Optional.empty();
+
         private Optional<String> name = Optional.empty();
 
         private Optional<ConnectionAuthenticationPurpose> authentication = Optional.empty();
@@ -179,6 +193,7 @@ public final class ConnectionResponseCommon
 
         public Builder from(ConnectionResponseCommon other) {
             id(other.getId());
+            realms(other.getRealms());
             name(other.getName());
             authentication(other.getAuthentication());
             connectedAccounts(other.getConnectedAccounts());
@@ -197,6 +212,17 @@ public final class ConnectionResponseCommon
 
         public Builder id(String id) {
             this.id = Optional.ofNullable(id);
+            return this;
+        }
+
+        @JsonSetter(value = "realms", nulls = Nulls.SKIP)
+        public Builder realms(Optional<List<String>> realms) {
+            this.realms = realms;
+            return this;
+        }
+
+        public Builder realms(List<String> realms) {
+            this.realms = Optional.ofNullable(realms);
             return this;
         }
 
@@ -280,6 +306,7 @@ public final class ConnectionResponseCommon
         public ConnectionResponseCommon build() {
             return new ConnectionResponseCommon(
                     id,
+                    realms,
                     name,
                     authentication,
                     connectedAccounts,

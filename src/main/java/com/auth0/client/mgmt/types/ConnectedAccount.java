@@ -31,7 +31,7 @@ public final class ConnectedAccount {
 
     private final String strategy;
 
-    private final String accessType;
+    private final ConnectedAccountAccessTypeEnum accessType;
 
     private final Optional<List<String>> scopes;
 
@@ -46,7 +46,7 @@ public final class ConnectedAccount {
             String connection,
             String connectionId,
             String strategy,
-            String accessType,
+            ConnectedAccountAccessTypeEnum accessType,
             Optional<List<String>> scopes,
             OffsetDateTime createdAt,
             Optional<OffsetDateTime> expiresAt,
@@ -95,7 +95,7 @@ public final class ConnectedAccount {
     }
 
     @JsonProperty("access_type")
-    public String getAccessType() {
+    public ConnectedAccountAccessTypeEnum getAccessType() {
         return accessType;
     }
 
@@ -198,7 +198,7 @@ public final class ConnectedAccount {
     }
 
     public interface AccessTypeStage {
-        CreatedAtStage accessType(@NotNull String accessType);
+        CreatedAtStage accessType(@NotNull ConnectedAccountAccessTypeEnum accessType);
     }
 
     public interface CreatedAtStage {
@@ -243,7 +243,7 @@ public final class ConnectedAccount {
 
         private String strategy;
 
-        private String accessType;
+        private ConnectedAccountAccessTypeEnum accessType;
 
         private OffsetDateTime createdAt;
 
@@ -319,7 +319,7 @@ public final class ConnectedAccount {
 
         @java.lang.Override
         @JsonSetter("access_type")
-        public CreatedAtStage accessType(@NotNull String accessType) {
+        public CreatedAtStage accessType(@NotNull ConnectedAccountAccessTypeEnum accessType) {
             this.accessType = Objects.requireNonNull(accessType, "accessType must not be null");
             return this;
         }

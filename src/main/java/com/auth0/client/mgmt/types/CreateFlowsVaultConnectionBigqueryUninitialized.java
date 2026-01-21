@@ -21,12 +21,12 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateFlowsVaultConnectionBigqueryUninitialized {
     private final String name;
 
-    private final String appId;
+    private final FlowsVaultConnectionAppIdBigqueryEnum appId;
 
     private final Map<String, Object> additionalProperties;
 
     private CreateFlowsVaultConnectionBigqueryUninitialized(
-            String name, String appId, Map<String, Object> additionalProperties) {
+            String name, FlowsVaultConnectionAppIdBigqueryEnum appId, Map<String, Object> additionalProperties) {
         this.name = name;
         this.appId = appId;
         this.additionalProperties = additionalProperties;
@@ -41,7 +41,7 @@ public final class CreateFlowsVaultConnectionBigqueryUninitialized {
     }
 
     @JsonProperty("app_id")
-    public String getAppId() {
+    public FlowsVaultConnectionAppIdBigqueryEnum getAppId() {
         return appId;
     }
 
@@ -85,7 +85,7 @@ public final class CreateFlowsVaultConnectionBigqueryUninitialized {
     }
 
     public interface AppIdStage {
-        _FinalStage appId(@NotNull String appId);
+        _FinalStage appId(@NotNull FlowsVaultConnectionAppIdBigqueryEnum appId);
     }
 
     public interface _FinalStage {
@@ -96,7 +96,7 @@ public final class CreateFlowsVaultConnectionBigqueryUninitialized {
     public static final class Builder implements NameStage, AppIdStage, _FinalStage {
         private String name;
 
-        private String appId;
+        private FlowsVaultConnectionAppIdBigqueryEnum appId;
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -124,7 +124,7 @@ public final class CreateFlowsVaultConnectionBigqueryUninitialized {
 
         @java.lang.Override
         @JsonSetter("app_id")
-        public _FinalStage appId(@NotNull String appId) {
+        public _FinalStage appId(@NotNull FlowsVaultConnectionAppIdBigqueryEnum appId) {
             this.appId = Objects.requireNonNull(appId, "appId must not be null");
             return this;
         }

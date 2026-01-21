@@ -21,6 +21,7 @@ import com.auth0.client.mgmt.errors.UnauthorizedError;
 import com.auth0.client.mgmt.types.ClientGrantResponseContent;
 import com.auth0.client.mgmt.types.CreateClientGrantRequestContent;
 import com.auth0.client.mgmt.types.CreateClientGrantResponseContent;
+import com.auth0.client.mgmt.types.GetClientGrantResponseContent;
 import com.auth0.client.mgmt.types.ListClientGrantPaginatedResponseContent;
 import com.auth0.client.mgmt.types.ListClientGrantsRequestParameters;
 import com.auth0.client.mgmt.types.UpdateClientGrantRequestContent;
@@ -249,6 +250,91 @@ public class AsyncRawClientGrantsClient {
                                 return;
                             case 409:
                                 future.completeExceptionally(new ConflictError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 429:
+                                future.completeExceptionally(new TooManyRequestsError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+                    future.completeExceptionally(new ManagementApiException(
+                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                    return;
+                } catch (IOException e) {
+                    future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
+    }
+
+    /**
+     * Retrieve a single &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grant&lt;/a&gt;, including the
+     * scopes associated with the application/API pair.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<GetClientGrantResponseContent>> get(String id) {
+        return get(id, null);
+    }
+
+    /**
+     * Retrieve a single &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grant&lt;/a&gt;, including the
+     * scopes associated with the application/API pair.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<GetClientGrantResponseContent>> get(
+            String id, RequestOptions requestOptions) {
+        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("client-grants")
+                .addPathSegment(id)
+                .build();
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl)
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        CompletableFuture<ManagementApiHttpResponse<GetClientGrantResponseContent>> future = new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    if (response.isSuccessful()) {
+                        future.complete(new ManagementApiHttpResponse<>(
+                                ObjectMappers.JSON_MAPPER.readValue(
+                                        responseBodyString, GetClientGrantResponseContent.class),
+                                response));
+                        return;
+                    }
+                    try {
+                        switch (response.code()) {
+                            case 401:
+                                future.completeExceptionally(new UnauthorizedError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 403:
+                                future.completeExceptionally(new ForbiddenError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 404:
+                                future.completeExceptionally(new NotFoundError(
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
                                         response));
                                 return;

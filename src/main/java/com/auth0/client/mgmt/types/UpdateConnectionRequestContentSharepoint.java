@@ -34,7 +34,7 @@ public final class UpdateConnectionRequestContentSharepoint implements IConnecti
 
     private final Optional<Map<String, OptionalNullable<String>>> metadata;
 
-    private final Optional<ConnectionOptionsOAuth2Common> options;
+    private final Optional<ConnectionOptionsSharepoint> options;
 
     private final Optional<Boolean> showAsButton;
 
@@ -47,7 +47,7 @@ public final class UpdateConnectionRequestContentSharepoint implements IConnecti
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
-            Optional<ConnectionOptionsOAuth2Common> options,
+            Optional<ConnectionOptionsSharepoint> options,
             Optional<Boolean> showAsButton,
             Map<String, Object> additionalProperties) {
         this.authentication = authentication;
@@ -98,7 +98,7 @@ public final class UpdateConnectionRequestContentSharepoint implements IConnecti
     }
 
     @JsonProperty("options")
-    public Optional<ConnectionOptionsOAuth2Common> getOptions() {
+    public Optional<ConnectionOptionsSharepoint> getOptions() {
         return options;
     }
 
@@ -166,7 +166,7 @@ public final class UpdateConnectionRequestContentSharepoint implements IConnecti
 
         private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
-        private Optional<ConnectionOptionsOAuth2Common> options = Optional.empty();
+        private Optional<ConnectionOptionsSharepoint> options = Optional.empty();
 
         private Optional<Boolean> showAsButton = Optional.empty();
 
@@ -254,12 +254,12 @@ public final class UpdateConnectionRequestContentSharepoint implements IConnecti
         }
 
         @JsonSetter(value = "options", nulls = Nulls.SKIP)
-        public Builder options(Optional<ConnectionOptionsOAuth2Common> options) {
+        public Builder options(Optional<ConnectionOptionsSharepoint> options) {
             this.options = options;
             return this;
         }
 
-        public Builder options(ConnectionOptionsOAuth2Common options) {
+        public Builder options(ConnectionOptionsSharepoint options) {
             this.options = Optional.ofNullable(options);
             return this;
         }

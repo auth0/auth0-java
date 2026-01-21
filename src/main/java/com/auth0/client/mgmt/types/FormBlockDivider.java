@@ -23,9 +23,9 @@ import org.jetbrains.annotations.NotNull;
 public final class FormBlockDivider {
     private final String id;
 
-    private final String category;
+    private final FormComponentCategoryBlockConst category;
 
-    private final String type;
+    private final FormBlockTypeDividerConst type;
 
     private final Optional<FormBlockDividerConfig> config;
 
@@ -33,8 +33,8 @@ public final class FormBlockDivider {
 
     private FormBlockDivider(
             String id,
-            String category,
-            String type,
+            FormComponentCategoryBlockConst category,
+            FormBlockTypeDividerConst type,
             Optional<FormBlockDividerConfig> config,
             Map<String, Object> additionalProperties) {
         this.id = id;
@@ -50,12 +50,12 @@ public final class FormBlockDivider {
     }
 
     @JsonProperty("category")
-    public String getCategory() {
+    public FormComponentCategoryBlockConst getCategory() {
         return category;
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public FormBlockTypeDividerConst getType() {
         return type;
     }
 
@@ -103,11 +103,11 @@ public final class FormBlockDivider {
     }
 
     public interface CategoryStage {
-        TypeStage category(@NotNull String category);
+        TypeStage category(@NotNull FormComponentCategoryBlockConst category);
     }
 
     public interface TypeStage {
-        _FinalStage type(@NotNull String type);
+        _FinalStage type(@NotNull FormBlockTypeDividerConst type);
     }
 
     public interface _FinalStage {
@@ -122,9 +122,9 @@ public final class FormBlockDivider {
     public static final class Builder implements IdStage, CategoryStage, TypeStage, _FinalStage {
         private String id;
 
-        private String category;
+        private FormComponentCategoryBlockConst category;
 
-        private String type;
+        private FormBlockTypeDividerConst type;
 
         private Optional<FormBlockDividerConfig> config = Optional.empty();
 
@@ -151,14 +151,14 @@ public final class FormBlockDivider {
 
         @java.lang.Override
         @JsonSetter("category")
-        public TypeStage category(@NotNull String category) {
+        public TypeStage category(@NotNull FormComponentCategoryBlockConst category) {
             this.category = Objects.requireNonNull(category, "category must not be null");
             return this;
         }
 
         @java.lang.Override
         @JsonSetter("type")
-        public _FinalStage type(@NotNull String type) {
+        public _FinalStage type(@NotNull FormBlockTypeDividerConst type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

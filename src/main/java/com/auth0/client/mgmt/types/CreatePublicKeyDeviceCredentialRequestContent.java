@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 public final class CreatePublicKeyDeviceCredentialRequestContent {
     private final String deviceName;
 
-    private final String type;
+    private final DeviceCredentialPublicKeyTypeEnum type;
 
     private final String value;
 
@@ -35,7 +35,7 @@ public final class CreatePublicKeyDeviceCredentialRequestContent {
 
     private CreatePublicKeyDeviceCredentialRequestContent(
             String deviceName,
-            String type,
+            DeviceCredentialPublicKeyTypeEnum type,
             String value,
             String deviceId,
             Optional<String> clientId,
@@ -57,7 +57,7 @@ public final class CreatePublicKeyDeviceCredentialRequestContent {
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public DeviceCredentialPublicKeyTypeEnum getType() {
         return type;
     }
 
@@ -129,7 +129,7 @@ public final class CreatePublicKeyDeviceCredentialRequestContent {
     }
 
     public interface TypeStage {
-        ValueStage type(@NotNull String type);
+        ValueStage type(@NotNull DeviceCredentialPublicKeyTypeEnum type);
     }
 
     public interface ValueStage {
@@ -161,7 +161,7 @@ public final class CreatePublicKeyDeviceCredentialRequestContent {
     public static final class Builder implements DeviceNameStage, TypeStage, ValueStage, DeviceIdStage, _FinalStage {
         private String deviceName;
 
-        private String type;
+        private DeviceCredentialPublicKeyTypeEnum type;
 
         private String value;
 
@@ -198,7 +198,7 @@ public final class CreatePublicKeyDeviceCredentialRequestContent {
 
         @java.lang.Override
         @JsonSetter("type")
-        public ValueStage type(@NotNull String type) {
+        public ValueStage type(@NotNull DeviceCredentialPublicKeyTypeEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

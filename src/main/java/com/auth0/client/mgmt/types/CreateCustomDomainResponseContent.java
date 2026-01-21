@@ -30,6 +30,8 @@ public final class CreateCustomDomainResponseContent {
 
     private final boolean primary;
 
+    private final Optional<Boolean> isDefault;
+
     private final CustomDomainStatusFilterEnum status;
 
     private final CustomDomainTypeEnum type;
@@ -44,12 +46,15 @@ public final class CreateCustomDomainResponseContent {
 
     private final Optional<DomainCertificate> certificate;
 
+    private final Optional<String> relyingPartyIdentifier;
+
     private final Map<String, Object> additionalProperties;
 
     private CreateCustomDomainResponseContent(
             String customDomainId,
             String domain,
             boolean primary,
+            Optional<Boolean> isDefault,
             CustomDomainStatusFilterEnum status,
             CustomDomainTypeEnum type,
             DomainVerification verification,
@@ -57,10 +62,12 @@ public final class CreateCustomDomainResponseContent {
             Optional<String> tlsPolicy,
             Optional<Map<String, OptionalNullable<String>>> domainMetadata,
             Optional<DomainCertificate> certificate,
+            Optional<String> relyingPartyIdentifier,
             Map<String, Object> additionalProperties) {
         this.customDomainId = customDomainId;
         this.domain = domain;
         this.primary = primary;
+        this.isDefault = isDefault;
         this.status = status;
         this.type = type;
         this.verification = verification;
@@ -68,6 +75,7 @@ public final class CreateCustomDomainResponseContent {
         this.tlsPolicy = tlsPolicy;
         this.domainMetadata = domainMetadata;
         this.certificate = certificate;
+        this.relyingPartyIdentifier = relyingPartyIdentifier;
         this.additionalProperties = additionalProperties;
     }
 
@@ -93,6 +101,14 @@ public final class CreateCustomDomainResponseContent {
     @JsonProperty("primary")
     public boolean getPrimary() {
         return primary;
+    }
+
+    /**
+     * @return Whether this is the default custom domain (true) or not (false).
+     */
+    @JsonProperty("is_default")
+    public Optional<Boolean> getIsDefault() {
+        return isDefault;
     }
 
     @JsonProperty("status")
@@ -140,6 +156,14 @@ public final class CreateCustomDomainResponseContent {
         return certificate;
     }
 
+    /**
+     * @return Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not present, the full domain will be used.
+     */
+    @JsonProperty("relying_party_identifier")
+    public Optional<String> getRelyingPartyIdentifier() {
+        return relyingPartyIdentifier;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("custom_client_ip_header")
     private OptionalNullable<String> _getCustomClientIpHeader() {
@@ -161,13 +185,15 @@ public final class CreateCustomDomainResponseContent {
         return customDomainId.equals(other.customDomainId)
                 && domain.equals(other.domain)
                 && primary == other.primary
+                && isDefault.equals(other.isDefault)
                 && status.equals(other.status)
                 && type.equals(other.type)
                 && verification.equals(other.verification)
                 && customClientIpHeader.equals(other.customClientIpHeader)
                 && tlsPolicy.equals(other.tlsPolicy)
                 && domainMetadata.equals(other.domainMetadata)
-                && certificate.equals(other.certificate);
+                && certificate.equals(other.certificate)
+                && relyingPartyIdentifier.equals(other.relyingPartyIdentifier);
     }
 
     @java.lang.Override
@@ -176,13 +202,15 @@ public final class CreateCustomDomainResponseContent {
                 this.customDomainId,
                 this.domain,
                 this.primary,
+                this.isDefault,
                 this.status,
                 this.type,
                 this.verification,
                 this.customClientIpHeader,
                 this.tlsPolicy,
                 this.domainMetadata,
-                this.certificate);
+                this.certificate,
+                this.relyingPartyIdentifier);
     }
 
     @java.lang.Override
@@ -233,6 +261,13 @@ public final class CreateCustomDomainResponseContent {
         CreateCustomDomainResponseContent build();
 
         /**
+         * <p>Whether this is the default custom domain (true) or not (false).</p>
+         */
+        _FinalStage isDefault(Optional<Boolean> isDefault);
+
+        _FinalStage isDefault(Boolean isDefault);
+
+        /**
          * <p>The HTTP header to fetch the client's IP address</p>
          */
         _FinalStage customClientIpHeader(@Nullable OptionalNullable<String> customClientIpHeader);
@@ -257,6 +292,13 @@ public final class CreateCustomDomainResponseContent {
         _FinalStage certificate(Optional<DomainCertificate> certificate);
 
         _FinalStage certificate(DomainCertificate certificate);
+
+        /**
+         * <p>Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not present, the full domain will be used.</p>
+         */
+        _FinalStage relyingPartyIdentifier(Optional<String> relyingPartyIdentifier);
+
+        _FinalStage relyingPartyIdentifier(String relyingPartyIdentifier);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -280,6 +322,8 @@ public final class CreateCustomDomainResponseContent {
 
         private DomainVerification verification;
 
+        private Optional<String> relyingPartyIdentifier = Optional.empty();
+
         private Optional<DomainCertificate> certificate = Optional.empty();
 
         private Optional<Map<String, OptionalNullable<String>>> domainMetadata = Optional.empty();
@@ -287,6 +331,8 @@ public final class CreateCustomDomainResponseContent {
         private Optional<String> tlsPolicy = Optional.empty();
 
         private OptionalNullable<String> customClientIpHeader = OptionalNullable.absent();
+
+        private Optional<Boolean> isDefault = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -298,6 +344,7 @@ public final class CreateCustomDomainResponseContent {
             customDomainId(other.getCustomDomainId());
             domain(other.getDomain());
             primary(other.getPrimary());
+            isDefault(other.getIsDefault());
             status(other.getStatus());
             type(other.getType());
             verification(other.getVerification());
@@ -305,6 +352,7 @@ public final class CreateCustomDomainResponseContent {
             tlsPolicy(other.getTlsPolicy());
             domainMetadata(other.getDomainMetadata());
             certificate(other.getCertificate());
+            relyingPartyIdentifier(other.getRelyingPartyIdentifier());
             return this;
         }
 
@@ -362,6 +410,26 @@ public final class CreateCustomDomainResponseContent {
         @JsonSetter("verification")
         public _FinalStage verification(@NotNull DomainVerification verification) {
             this.verification = Objects.requireNonNull(verification, "verification must not be null");
+            return this;
+        }
+
+        /**
+         * <p>Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not present, the full domain will be used.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage relyingPartyIdentifier(String relyingPartyIdentifier) {
+            this.relyingPartyIdentifier = Optional.ofNullable(relyingPartyIdentifier);
+            return this;
+        }
+
+        /**
+         * <p>Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not present, the full domain will be used.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "relying_party_identifier", nulls = Nulls.SKIP)
+        public _FinalStage relyingPartyIdentifier(Optional<String> relyingPartyIdentifier) {
+            this.relyingPartyIdentifier = relyingPartyIdentifier;
             return this;
         }
 
@@ -461,12 +529,33 @@ public final class CreateCustomDomainResponseContent {
             return this;
         }
 
+        /**
+         * <p>Whether this is the default custom domain (true) or not (false).</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage isDefault(Boolean isDefault) {
+            this.isDefault = Optional.ofNullable(isDefault);
+            return this;
+        }
+
+        /**
+         * <p>Whether this is the default custom domain (true) or not (false).</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "is_default", nulls = Nulls.SKIP)
+        public _FinalStage isDefault(Optional<Boolean> isDefault) {
+            this.isDefault = isDefault;
+            return this;
+        }
+
         @java.lang.Override
         public CreateCustomDomainResponseContent build() {
             return new CreateCustomDomainResponseContent(
                     customDomainId,
                     domain,
                     primary,
+                    isDefault,
                     status,
                     type,
                     verification,
@@ -474,6 +563,7 @@ public final class CreateCustomDomainResponseContent {
                     tlsPolicy,
                     domainMetadata,
                     certificate,
+                    relyingPartyIdentifier,
                     additionalProperties);
         }
     }

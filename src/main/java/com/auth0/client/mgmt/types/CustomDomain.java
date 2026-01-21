@@ -48,6 +48,8 @@ public final class CustomDomain {
 
     private final Optional<DomainCertificate> certificate;
 
+    private final Optional<String> relyingPartyIdentifier;
+
     private final Map<String, Object> additionalProperties;
 
     private CustomDomain(
@@ -63,6 +65,7 @@ public final class CustomDomain {
             Optional<String> tlsPolicy,
             Optional<Map<String, OptionalNullable<String>>> domainMetadata,
             Optional<DomainCertificate> certificate,
+            Optional<String> relyingPartyIdentifier,
             Map<String, Object> additionalProperties) {
         this.customDomainId = customDomainId;
         this.domain = domain;
@@ -76,6 +79,7 @@ public final class CustomDomain {
         this.tlsPolicy = tlsPolicy;
         this.domainMetadata = domainMetadata;
         this.certificate = certificate;
+        this.relyingPartyIdentifier = relyingPartyIdentifier;
         this.additionalProperties = additionalProperties;
     }
 
@@ -164,6 +168,14 @@ public final class CustomDomain {
         return certificate;
     }
 
+    /**
+     * @return Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not present, the full domain will be used.
+     */
+    @JsonProperty("relying_party_identifier")
+    public Optional<String> getRelyingPartyIdentifier() {
+        return relyingPartyIdentifier;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("custom_client_ip_header")
     private OptionalNullable<String> _getCustomClientIpHeader() {
@@ -193,7 +205,8 @@ public final class CustomDomain {
                 && customClientIpHeader.equals(other.customClientIpHeader)
                 && tlsPolicy.equals(other.tlsPolicy)
                 && domainMetadata.equals(other.domainMetadata)
-                && certificate.equals(other.certificate);
+                && certificate.equals(other.certificate)
+                && relyingPartyIdentifier.equals(other.relyingPartyIdentifier);
     }
 
     @java.lang.Override
@@ -210,7 +223,8 @@ public final class CustomDomain {
                 this.customClientIpHeader,
                 this.tlsPolicy,
                 this.domainMetadata,
-                this.certificate);
+                this.certificate,
+                this.relyingPartyIdentifier);
     }
 
     @java.lang.Override
@@ -299,6 +313,13 @@ public final class CustomDomain {
         _FinalStage certificate(Optional<DomainCertificate> certificate);
 
         _FinalStage certificate(DomainCertificate certificate);
+
+        /**
+         * <p>Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not present, the full domain will be used.</p>
+         */
+        _FinalStage relyingPartyIdentifier(Optional<String> relyingPartyIdentifier);
+
+        _FinalStage relyingPartyIdentifier(String relyingPartyIdentifier);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -313,6 +334,8 @@ public final class CustomDomain {
         private CustomDomainStatusFilterEnum status;
 
         private CustomDomainTypeEnum type;
+
+        private Optional<String> relyingPartyIdentifier = Optional.empty();
 
         private Optional<DomainCertificate> certificate = Optional.empty();
 
@@ -347,6 +370,7 @@ public final class CustomDomain {
             tlsPolicy(other.getTlsPolicy());
             domainMetadata(other.getDomainMetadata());
             certificate(other.getCertificate());
+            relyingPartyIdentifier(other.getRelyingPartyIdentifier());
             return this;
         }
 
@@ -397,6 +421,26 @@ public final class CustomDomain {
         @JsonSetter("type")
         public _FinalStage type(@NotNull CustomDomainTypeEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
+            return this;
+        }
+
+        /**
+         * <p>Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not present, the full domain will be used.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage relyingPartyIdentifier(String relyingPartyIdentifier) {
+            this.relyingPartyIdentifier = Optional.ofNullable(relyingPartyIdentifier);
+            return this;
+        }
+
+        /**
+         * <p>Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not present, the full domain will be used.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "relying_party_identifier", nulls = Nulls.SKIP)
+        public _FinalStage relyingPartyIdentifier(Optional<String> relyingPartyIdentifier) {
+            this.relyingPartyIdentifier = relyingPartyIdentifier;
             return this;
         }
 
@@ -564,6 +608,7 @@ public final class CustomDomain {
                     tlsPolicy,
                     domainMetadata,
                     certificate,
+                    relyingPartyIdentifier,
                     additionalProperties);
         }
     }

@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateFlowsVaultConnectionHubspotOauthCode {
     private final String name;
 
-    private final String appId;
+    private final FlowsVaultConnectionAppIdHubspotEnum appId;
 
     private final FlowsVaultConnectioSetupOauthCode setup;
 
@@ -29,7 +29,7 @@ public final class CreateFlowsVaultConnectionHubspotOauthCode {
 
     private CreateFlowsVaultConnectionHubspotOauthCode(
             String name,
-            String appId,
+            FlowsVaultConnectionAppIdHubspotEnum appId,
             FlowsVaultConnectioSetupOauthCode setup,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -47,7 +47,7 @@ public final class CreateFlowsVaultConnectionHubspotOauthCode {
     }
 
     @JsonProperty("app_id")
-    public String getAppId() {
+    public FlowsVaultConnectionAppIdHubspotEnum getAppId() {
         return appId;
     }
 
@@ -96,7 +96,7 @@ public final class CreateFlowsVaultConnectionHubspotOauthCode {
     }
 
     public interface AppIdStage {
-        SetupStage appId(@NotNull String appId);
+        SetupStage appId(@NotNull FlowsVaultConnectionAppIdHubspotEnum appId);
     }
 
     public interface SetupStage {
@@ -111,7 +111,7 @@ public final class CreateFlowsVaultConnectionHubspotOauthCode {
     public static final class Builder implements NameStage, AppIdStage, SetupStage, _FinalStage {
         private String name;
 
-        private String appId;
+        private FlowsVaultConnectionAppIdHubspotEnum appId;
 
         private FlowsVaultConnectioSetupOauthCode setup;
 
@@ -142,7 +142,7 @@ public final class CreateFlowsVaultConnectionHubspotOauthCode {
 
         @java.lang.Override
         @JsonSetter("app_id")
-        public SetupStage appId(@NotNull String appId) {
+        public SetupStage appId(@NotNull FlowsVaultConnectionAppIdHubspotEnum appId) {
             this.appId = Objects.requireNonNull(appId, "appId must not be null");
             return this;
         }

@@ -36,6 +36,8 @@ public final class CreateClientGrantRequestContent {
 
     private final Optional<List<String>> authorizationDetailsTypes;
 
+    private final Optional<Boolean> allowAllScopes;
+
     private final Map<String, Object> additionalProperties;
 
     private CreateClientGrantRequestContent(
@@ -46,6 +48,7 @@ public final class CreateClientGrantRequestContent {
             Optional<List<String>> scope,
             Optional<ClientGrantSubjectTypeEnum> subjectType,
             Optional<List<String>> authorizationDetailsTypes,
+            Optional<Boolean> allowAllScopes,
             Map<String, Object> additionalProperties) {
         this.clientId = clientId;
         this.audience = audience;
@@ -54,6 +57,7 @@ public final class CreateClientGrantRequestContent {
         this.scope = scope;
         this.subjectType = subjectType;
         this.authorizationDetailsTypes = authorizationDetailsTypes;
+        this.allowAllScopes = allowAllScopes;
         this.additionalProperties = additionalProperties;
     }
 
@@ -100,11 +104,19 @@ public final class CreateClientGrantRequestContent {
     }
 
     /**
-     * @return Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s &lt;a href= &quot;https://www.okta.com/legal/&quot;&gt; Master Subscription Agreement.&lt;/a&gt;
+     * @return Types of authorization_details allowed for this client grant.
      */
     @JsonProperty("authorization_details_types")
     public Optional<List<String>> getAuthorizationDetailsTypes() {
         return authorizationDetailsTypes;
+    }
+
+    /**
+     * @return If enabled, all scopes configured on the resource server are allowed for this grant.
+     */
+    @JsonProperty("allow_all_scopes")
+    public Optional<Boolean> getAllowAllScopes() {
+        return allowAllScopes;
     }
 
     @java.lang.Override
@@ -125,7 +137,8 @@ public final class CreateClientGrantRequestContent {
                 && allowAnyOrganization.equals(other.allowAnyOrganization)
                 && scope.equals(other.scope)
                 && subjectType.equals(other.subjectType)
-                && authorizationDetailsTypes.equals(other.authorizationDetailsTypes);
+                && authorizationDetailsTypes.equals(other.authorizationDetailsTypes)
+                && allowAllScopes.equals(other.allowAllScopes);
     }
 
     @java.lang.Override
@@ -137,7 +150,8 @@ public final class CreateClientGrantRequestContent {
                 this.allowAnyOrganization,
                 this.scope,
                 this.subjectType,
-                this.authorizationDetailsTypes);
+                this.authorizationDetailsTypes,
+                this.allowAllScopes);
     }
 
     @java.lang.Override
@@ -191,11 +205,18 @@ public final class CreateClientGrantRequestContent {
         _FinalStage subjectType(ClientGrantSubjectTypeEnum subjectType);
 
         /**
-         * <p>Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s &lt;a href= &quot;https://www.okta.com/legal/&quot;&gt; Master Subscription Agreement.&lt;/a&gt;</p>
+         * <p>Types of authorization_details allowed for this client grant.</p>
          */
         _FinalStage authorizationDetailsTypes(Optional<List<String>> authorizationDetailsTypes);
 
         _FinalStage authorizationDetailsTypes(List<String> authorizationDetailsTypes);
+
+        /**
+         * <p>If enabled, all scopes configured on the resource server are allowed for this grant.</p>
+         */
+        _FinalStage allowAllScopes(Optional<Boolean> allowAllScopes);
+
+        _FinalStage allowAllScopes(Boolean allowAllScopes);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -203,6 +224,8 @@ public final class CreateClientGrantRequestContent {
         private String clientId;
 
         private String audience;
+
+        private Optional<Boolean> allowAllScopes = Optional.empty();
 
         private Optional<List<String>> authorizationDetailsTypes = Optional.empty();
 
@@ -228,6 +251,7 @@ public final class CreateClientGrantRequestContent {
             scope(other.getScope());
             subjectType(other.getSubjectType());
             authorizationDetailsTypes(other.getAuthorizationDetailsTypes());
+            allowAllScopes(other.getAllowAllScopes());
             return this;
         }
 
@@ -256,7 +280,27 @@ public final class CreateClientGrantRequestContent {
         }
 
         /**
-         * <p>Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s &lt;a href= &quot;https://www.okta.com/legal/&quot;&gt; Master Subscription Agreement.&lt;/a&gt;</p>
+         * <p>If enabled, all scopes configured on the resource server are allowed for this grant.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage allowAllScopes(Boolean allowAllScopes) {
+            this.allowAllScopes = Optional.ofNullable(allowAllScopes);
+            return this;
+        }
+
+        /**
+         * <p>If enabled, all scopes configured on the resource server are allowed for this grant.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "allow_all_scopes", nulls = Nulls.SKIP)
+        public _FinalStage allowAllScopes(Optional<Boolean> allowAllScopes) {
+            this.allowAllScopes = allowAllScopes;
+            return this;
+        }
+
+        /**
+         * <p>Types of authorization_details allowed for this client grant.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -266,7 +310,7 @@ public final class CreateClientGrantRequestContent {
         }
 
         /**
-         * <p>Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s &lt;a href= &quot;https://www.okta.com/legal/&quot;&gt; Master Subscription Agreement.&lt;/a&gt;</p>
+         * <p>Types of authorization_details allowed for this client grant.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "authorization_details_types", nulls = Nulls.SKIP)
@@ -351,6 +395,7 @@ public final class CreateClientGrantRequestContent {
                     scope,
                     subjectType,
                     authorizationDetailsTypes,
+                    allowAllScopes,
                     additionalProperties);
         }
     }

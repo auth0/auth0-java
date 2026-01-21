@@ -26,7 +26,7 @@ public final class ConnectionEmailEmail {
 
     private final Optional<String> subject;
 
-    private final Optional<String> syntax;
+    private final Optional<ConnectionEmailEmailSyntax> syntax;
 
     private final Map<String, Object> additionalProperties;
 
@@ -34,7 +34,7 @@ public final class ConnectionEmailEmail {
             Optional<String> body,
             Optional<String> from,
             Optional<String> subject,
-            Optional<String> syntax,
+            Optional<ConnectionEmailEmailSyntax> syntax,
             Map<String, Object> additionalProperties) {
         this.body = body;
         this.from = from;
@@ -62,7 +62,7 @@ public final class ConnectionEmailEmail {
      * @return Email template syntax type
      */
     @JsonProperty("syntax")
-    public Optional<String> getSyntax() {
+    public Optional<ConnectionEmailEmailSyntax> getSyntax() {
         return syntax;
     }
 
@@ -106,7 +106,7 @@ public final class ConnectionEmailEmail {
 
         private Optional<String> subject = Optional.empty();
 
-        private Optional<String> syntax = Optional.empty();
+        private Optional<ConnectionEmailEmailSyntax> syntax = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -158,12 +158,12 @@ public final class ConnectionEmailEmail {
          * <p>Email template syntax type</p>
          */
         @JsonSetter(value = "syntax", nulls = Nulls.SKIP)
-        public Builder syntax(Optional<String> syntax) {
+        public Builder syntax(Optional<ConnectionEmailEmailSyntax> syntax) {
             this.syntax = syntax;
             return this;
         }
 
-        public Builder syntax(String syntax) {
+        public Builder syntax(ConnectionEmailEmailSyntax syntax) {
             this.syntax = Optional.ofNullable(syntax);
             return this;
         }

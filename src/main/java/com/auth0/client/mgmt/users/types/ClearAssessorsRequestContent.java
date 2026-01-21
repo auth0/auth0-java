@@ -4,6 +4,7 @@
 package com.auth0.client.mgmt.users.types;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.types.AssessorsTypeEnum;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -24,12 +25,12 @@ import org.jetbrains.annotations.NotNull;
 public final class ClearAssessorsRequestContent {
     private final String connection;
 
-    private final List<String> assessors;
+    private final List<AssessorsTypeEnum> assessors;
 
     private final Map<String, Object> additionalProperties;
 
     private ClearAssessorsRequestContent(
-            String connection, List<String> assessors, Map<String, Object> additionalProperties) {
+            String connection, List<AssessorsTypeEnum> assessors, Map<String, Object> additionalProperties) {
         this.connection = connection;
         this.assessors = assessors;
         this.additionalProperties = additionalProperties;
@@ -47,7 +48,7 @@ public final class ClearAssessorsRequestContent {
      * @return List of assessors to clear.
      */
     @JsonProperty("assessors")
-    public List<String> getAssessors() {
+    public List<AssessorsTypeEnum> getAssessors() {
         return assessors;
     }
 
@@ -95,18 +96,18 @@ public final class ClearAssessorsRequestContent {
         /**
          * <p>List of assessors to clear.</p>
          */
-        _FinalStage assessors(List<String> assessors);
+        _FinalStage assessors(List<AssessorsTypeEnum> assessors);
 
-        _FinalStage addAssessors(String assessors);
+        _FinalStage addAssessors(AssessorsTypeEnum assessors);
 
-        _FinalStage addAllAssessors(List<String> assessors);
+        _FinalStage addAllAssessors(List<AssessorsTypeEnum> assessors);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements ConnectionStage, _FinalStage {
         private String connection;
 
-        private List<String> assessors = new ArrayList<>();
+        private List<AssessorsTypeEnum> assessors = new ArrayList<>();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -137,7 +138,7 @@ public final class ClearAssessorsRequestContent {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        public _FinalStage addAllAssessors(List<String> assessors) {
+        public _FinalStage addAllAssessors(List<AssessorsTypeEnum> assessors) {
             if (assessors != null) {
                 this.assessors.addAll(assessors);
             }
@@ -149,7 +150,7 @@ public final class ClearAssessorsRequestContent {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        public _FinalStage addAssessors(String assessors) {
+        public _FinalStage addAssessors(AssessorsTypeEnum assessors) {
             this.assessors.add(assessors);
             return this;
         }
@@ -159,7 +160,7 @@ public final class ClearAssessorsRequestContent {
          */
         @java.lang.Override
         @JsonSetter(value = "assessors", nulls = Nulls.SKIP)
-        public _FinalStage assessors(List<String> assessors) {
+        public _FinalStage assessors(List<AssessorsTypeEnum> assessors) {
             this.assessors.clear();
             if (assessors != null) {
                 this.assessors.addAll(assessors);

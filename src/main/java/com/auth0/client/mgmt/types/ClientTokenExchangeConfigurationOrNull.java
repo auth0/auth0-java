@@ -21,12 +21,13 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ClientTokenExchangeConfigurationOrNull.Builder.class)
 public final class ClientTokenExchangeConfigurationOrNull {
-    private final Optional<List<String>> allowAnyProfileOfType;
+    private final Optional<List<ClientTokenExchangeTypeEnum>> allowAnyProfileOfType;
 
     private final Map<String, Object> additionalProperties;
 
     private ClientTokenExchangeConfigurationOrNull(
-            Optional<List<String>> allowAnyProfileOfType, Map<String, Object> additionalProperties) {
+            Optional<List<ClientTokenExchangeTypeEnum>> allowAnyProfileOfType,
+            Map<String, Object> additionalProperties) {
         this.allowAnyProfileOfType = allowAnyProfileOfType;
         this.additionalProperties = additionalProperties;
     }
@@ -35,7 +36,7 @@ public final class ClientTokenExchangeConfigurationOrNull {
      * @return List the enabled token exchange types for this client.
      */
     @JsonProperty("allow_any_profile_of_type")
-    public Optional<List<String>> getAllowAnyProfileOfType() {
+    public Optional<List<ClientTokenExchangeTypeEnum>> getAllowAnyProfileOfType() {
         return allowAnyProfileOfType;
     }
 
@@ -71,7 +72,7 @@ public final class ClientTokenExchangeConfigurationOrNull {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<List<String>> allowAnyProfileOfType = Optional.empty();
+        private Optional<List<ClientTokenExchangeTypeEnum>> allowAnyProfileOfType = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -87,12 +88,12 @@ public final class ClientTokenExchangeConfigurationOrNull {
          * <p>List the enabled token exchange types for this client.</p>
          */
         @JsonSetter(value = "allow_any_profile_of_type", nulls = Nulls.SKIP)
-        public Builder allowAnyProfileOfType(Optional<List<String>> allowAnyProfileOfType) {
+        public Builder allowAnyProfileOfType(Optional<List<ClientTokenExchangeTypeEnum>> allowAnyProfileOfType) {
             this.allowAnyProfileOfType = allowAnyProfileOfType;
             return this;
         }
 
-        public Builder allowAnyProfileOfType(List<String> allowAnyProfileOfType) {
+        public Builder allowAnyProfileOfType(List<ClientTokenExchangeTypeEnum> allowAnyProfileOfType) {
             this.allowAnyProfileOfType = Optional.ofNullable(allowAnyProfileOfType);
             return this;
         }

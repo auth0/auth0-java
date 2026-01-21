@@ -27,7 +27,7 @@ public final class GetEventStreamDeliveryHistoryResponseContent {
 
     private final String eventStreamId;
 
-    private final String status;
+    private final EventStreamDeliveryStatusEnum status;
 
     private final EventStreamDeliveryEventTypeEnum eventType;
 
@@ -40,7 +40,7 @@ public final class GetEventStreamDeliveryHistoryResponseContent {
     private GetEventStreamDeliveryHistoryResponseContent(
             String id,
             String eventStreamId,
-            String status,
+            EventStreamDeliveryStatusEnum status,
             EventStreamDeliveryEventTypeEnum eventType,
             List<EventStreamDeliveryAttempt> attempts,
             Optional<EventStreamCloudEvent> event,
@@ -71,7 +71,7 @@ public final class GetEventStreamDeliveryHistoryResponseContent {
     }
 
     @JsonProperty("status")
-    public String getStatus() {
+    public EventStreamDeliveryStatusEnum getStatus() {
         return status;
     }
 
@@ -145,7 +145,7 @@ public final class GetEventStreamDeliveryHistoryResponseContent {
     }
 
     public interface StatusStage {
-        EventTypeStage status(@NotNull String status);
+        EventTypeStage status(@NotNull EventStreamDeliveryStatusEnum status);
     }
 
     public interface EventTypeStage {
@@ -175,7 +175,7 @@ public final class GetEventStreamDeliveryHistoryResponseContent {
 
         private String eventStreamId;
 
-        private String status;
+        private EventStreamDeliveryStatusEnum status;
 
         private EventStreamDeliveryEventTypeEnum eventType;
 
@@ -225,7 +225,7 @@ public final class GetEventStreamDeliveryHistoryResponseContent {
 
         @java.lang.Override
         @JsonSetter("status")
-        public EventTypeStage status(@NotNull String status) {
+        public EventTypeStage status(@NotNull EventStreamDeliveryStatusEnum status) {
             this.status = Objects.requireNonNull(status, "status must not be null");
             return this;
         }

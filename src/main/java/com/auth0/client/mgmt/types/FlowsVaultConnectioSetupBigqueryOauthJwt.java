@@ -20,7 +20,7 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = FlowsVaultConnectioSetupBigqueryOauthJwt.Builder.class)
 public final class FlowsVaultConnectioSetupBigqueryOauthJwt {
-    private final Optional<String> type;
+    private final Optional<FlowsVaultConnectioSetupTypeOauthJwtEnum> type;
 
     private final Optional<String> projectId;
 
@@ -31,7 +31,7 @@ public final class FlowsVaultConnectioSetupBigqueryOauthJwt {
     private final Map<String, Object> additionalProperties;
 
     private FlowsVaultConnectioSetupBigqueryOauthJwt(
-            Optional<String> type,
+            Optional<FlowsVaultConnectioSetupTypeOauthJwtEnum> type,
             Optional<String> projectId,
             Optional<String> privateKey,
             Optional<String> clientEmail,
@@ -44,7 +44,7 @@ public final class FlowsVaultConnectioSetupBigqueryOauthJwt {
     }
 
     @JsonProperty("type")
-    public Optional<String> getType() {
+    public Optional<FlowsVaultConnectioSetupTypeOauthJwtEnum> getType() {
         return type;
     }
 
@@ -98,7 +98,7 @@ public final class FlowsVaultConnectioSetupBigqueryOauthJwt {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<String> type = Optional.empty();
+        private Optional<FlowsVaultConnectioSetupTypeOauthJwtEnum> type = Optional.empty();
 
         private Optional<String> projectId = Optional.empty();
 
@@ -120,12 +120,12 @@ public final class FlowsVaultConnectioSetupBigqueryOauthJwt {
         }
 
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
-        public Builder type(Optional<String> type) {
+        public Builder type(Optional<FlowsVaultConnectioSetupTypeOauthJwtEnum> type) {
             this.type = type;
             return this;
         }
 
-        public Builder type(String type) {
+        public Builder type(FlowsVaultConnectioSetupTypeOauthJwtEnum type) {
             this.type = Optional.ofNullable(type);
             return this;
         }

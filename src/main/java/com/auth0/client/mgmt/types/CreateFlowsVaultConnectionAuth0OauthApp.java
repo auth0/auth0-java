@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateFlowsVaultConnectionAuth0OauthApp {
     private final String name;
 
-    private final String appId;
+    private final FlowsVaultConnectionAppIdAuth0Enum appId;
 
     private final FlowsVaultConnectioSetupOauthApp setup;
 
@@ -29,7 +29,7 @@ public final class CreateFlowsVaultConnectionAuth0OauthApp {
 
     private CreateFlowsVaultConnectionAuth0OauthApp(
             String name,
-            String appId,
+            FlowsVaultConnectionAppIdAuth0Enum appId,
             FlowsVaultConnectioSetupOauthApp setup,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -47,7 +47,7 @@ public final class CreateFlowsVaultConnectionAuth0OauthApp {
     }
 
     @JsonProperty("app_id")
-    public String getAppId() {
+    public FlowsVaultConnectionAppIdAuth0Enum getAppId() {
         return appId;
     }
 
@@ -96,7 +96,7 @@ public final class CreateFlowsVaultConnectionAuth0OauthApp {
     }
 
     public interface AppIdStage {
-        SetupStage appId(@NotNull String appId);
+        SetupStage appId(@NotNull FlowsVaultConnectionAppIdAuth0Enum appId);
     }
 
     public interface SetupStage {
@@ -111,7 +111,7 @@ public final class CreateFlowsVaultConnectionAuth0OauthApp {
     public static final class Builder implements NameStage, AppIdStage, SetupStage, _FinalStage {
         private String name;
 
-        private String appId;
+        private FlowsVaultConnectionAppIdAuth0Enum appId;
 
         private FlowsVaultConnectioSetupOauthApp setup;
 
@@ -142,7 +142,7 @@ public final class CreateFlowsVaultConnectionAuth0OauthApp {
 
         @java.lang.Override
         @JsonSetter("app_id")
-        public SetupStage appId(@NotNull String appId) {
+        public SetupStage appId(@NotNull FlowsVaultConnectionAppIdAuth0Enum appId) {
             this.appId = Objects.requireNonNull(appId, "appId must not be null");
             return this;
         }

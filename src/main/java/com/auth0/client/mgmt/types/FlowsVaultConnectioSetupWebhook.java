@@ -19,20 +19,21 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = FlowsVaultConnectioSetupWebhook.Builder.class)
 public final class FlowsVaultConnectioSetupWebhook {
-    private final String type;
+    private final FlowsVaultConnectioSetupTypeWebhookEnum type;
 
     private final String url;
 
     private final Map<String, Object> additionalProperties;
 
-    private FlowsVaultConnectioSetupWebhook(String type, String url, Map<String, Object> additionalProperties) {
+    private FlowsVaultConnectioSetupWebhook(
+            FlowsVaultConnectioSetupTypeWebhookEnum type, String url, Map<String, Object> additionalProperties) {
         this.type = type;
         this.url = url;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public FlowsVaultConnectioSetupTypeWebhookEnum getType() {
         return type;
     }
 
@@ -71,7 +72,7 @@ public final class FlowsVaultConnectioSetupWebhook {
     }
 
     public interface TypeStage {
-        UrlStage type(@NotNull String type);
+        UrlStage type(@NotNull FlowsVaultConnectioSetupTypeWebhookEnum type);
 
         Builder from(FlowsVaultConnectioSetupWebhook other);
     }
@@ -86,7 +87,7 @@ public final class FlowsVaultConnectioSetupWebhook {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements TypeStage, UrlStage, _FinalStage {
-        private String type;
+        private FlowsVaultConnectioSetupTypeWebhookEnum type;
 
         private String url;
 
@@ -104,7 +105,7 @@ public final class FlowsVaultConnectioSetupWebhook {
 
         @java.lang.Override
         @JsonSetter("type")
-        public UrlStage type(@NotNull String type) {
+        public UrlStage type(@NotNull FlowsVaultConnectioSetupTypeWebhookEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

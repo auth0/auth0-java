@@ -10,6 +10,8 @@ import com.auth0.client.mgmt.types.CreateFlowsVaultConnectionActivecampaignApiKe
 import com.auth0.client.mgmt.types.CreateFlowsVaultConnectionRequestContent;
 import com.auth0.client.mgmt.types.CreateFlowsVaultConnectionResponseContent;
 import com.auth0.client.mgmt.types.FlowsVaultConnectioSetupApiKeyWithBaseUrl;
+import com.auth0.client.mgmt.types.FlowsVaultConnectioSetupTypeApiKeyEnum;
+import com.auth0.client.mgmt.types.FlowsVaultConnectionAppIdActivecampaignEnum;
 import com.auth0.client.mgmt.types.FlowsVaultConnectionSummary;
 import com.auth0.client.mgmt.types.GetFlowsVaultConnectionResponseContent;
 import com.auth0.client.mgmt.types.UpdateFlowsVaultConnectionResponseContent;
@@ -81,9 +83,9 @@ public class FlowsVaultConnectionsWireTest {
                 .create(CreateFlowsVaultConnectionRequestContent.of(CreateFlowsVaultConnectionActivecampaign.of(
                         CreateFlowsVaultConnectionActivecampaignApiKey.builder()
                                 .name("name")
-                                .appId("ACTIVECAMPAIGN")
+                                .appId(FlowsVaultConnectionAppIdActivecampaignEnum.ACTIVECAMPAIGN)
                                 .setup(FlowsVaultConnectioSetupApiKeyWithBaseUrl.builder()
-                                        .type("API_KEY")
+                                        .type(FlowsVaultConnectioSetupTypeApiKeyEnum.API_KEY)
                                         .apiKey("api_key")
                                         .baseUrl("base_url")
                                         .build())

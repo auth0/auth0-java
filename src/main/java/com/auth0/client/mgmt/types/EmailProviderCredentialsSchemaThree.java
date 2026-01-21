@@ -22,12 +22,14 @@ import java.util.Optional;
 public final class EmailProviderCredentialsSchemaThree {
     private final Optional<String> apiKey;
 
-    private final Optional<String> region;
+    private final Optional<EmailSparkPostRegionEnum> region;
 
     private final Map<String, Object> additionalProperties;
 
     private EmailProviderCredentialsSchemaThree(
-            Optional<String> apiKey, Optional<String> region, Map<String, Object> additionalProperties) {
+            Optional<String> apiKey,
+            Optional<EmailSparkPostRegionEnum> region,
+            Map<String, Object> additionalProperties) {
         this.apiKey = apiKey;
         this.region = region;
         this.additionalProperties = additionalProperties;
@@ -42,7 +44,7 @@ public final class EmailProviderCredentialsSchemaThree {
     }
 
     @JsonProperty("region")
-    public Optional<String> getRegion() {
+    public Optional<EmailSparkPostRegionEnum> getRegion() {
         return region;
     }
 
@@ -80,7 +82,7 @@ public final class EmailProviderCredentialsSchemaThree {
     public static final class Builder {
         private Optional<String> apiKey = Optional.empty();
 
-        private Optional<String> region = Optional.empty();
+        private Optional<EmailSparkPostRegionEnum> region = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -108,12 +110,12 @@ public final class EmailProviderCredentialsSchemaThree {
         }
 
         @JsonSetter(value = "region", nulls = Nulls.SKIP)
-        public Builder region(Optional<String> region) {
+        public Builder region(Optional<EmailSparkPostRegionEnum> region) {
             this.region = region;
             return this;
         }
 
-        public Builder region(String region) {
+        public Builder region(EmailSparkPostRegionEnum region) {
             this.region = Optional.ofNullable(region);
             return this;
         }

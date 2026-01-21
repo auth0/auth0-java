@@ -19,20 +19,21 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = EventStreamWebhookBasicAuth.Builder.class)
 public final class EventStreamWebhookBasicAuth {
-    private final String method;
+    private final EventStreamWebhookBasicAuthMethodEnum method;
 
     private final String username;
 
     private final Map<String, Object> additionalProperties;
 
-    private EventStreamWebhookBasicAuth(String method, String username, Map<String, Object> additionalProperties) {
+    private EventStreamWebhookBasicAuth(
+            EventStreamWebhookBasicAuthMethodEnum method, String username, Map<String, Object> additionalProperties) {
         this.method = method;
         this.username = username;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("method")
-    public String getMethod() {
+    public EventStreamWebhookBasicAuthMethodEnum getMethod() {
         return method;
     }
 
@@ -74,7 +75,7 @@ public final class EventStreamWebhookBasicAuth {
     }
 
     public interface MethodStage {
-        UsernameStage method(@NotNull String method);
+        UsernameStage method(@NotNull EventStreamWebhookBasicAuthMethodEnum method);
 
         Builder from(EventStreamWebhookBasicAuth other);
     }
@@ -92,7 +93,7 @@ public final class EventStreamWebhookBasicAuth {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements MethodStage, UsernameStage, _FinalStage {
-        private String method;
+        private EventStreamWebhookBasicAuthMethodEnum method;
 
         private String username;
 
@@ -110,7 +111,7 @@ public final class EventStreamWebhookBasicAuth {
 
         @java.lang.Override
         @JsonSetter("method")
-        public UsernameStage method(@NotNull String method) {
+        public UsernameStage method(@NotNull EventStreamWebhookBasicAuthMethodEnum method) {
             this.method = Objects.requireNonNull(method, "method must not be null");
             return this;
         }

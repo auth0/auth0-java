@@ -21,12 +21,14 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateEncryptionKeyPublicWrappingResponseContent {
     private final String publicKey;
 
-    private final String algorithm;
+    private final EncryptionKeyPublicWrappingAlgorithm algorithm;
 
     private final Map<String, Object> additionalProperties;
 
     private CreateEncryptionKeyPublicWrappingResponseContent(
-            String publicKey, String algorithm, Map<String, Object> additionalProperties) {
+            String publicKey,
+            EncryptionKeyPublicWrappingAlgorithm algorithm,
+            Map<String, Object> additionalProperties) {
         this.publicKey = publicKey;
         this.algorithm = algorithm;
         this.additionalProperties = additionalProperties;
@@ -41,7 +43,7 @@ public final class CreateEncryptionKeyPublicWrappingResponseContent {
     }
 
     @JsonProperty("algorithm")
-    public String getAlgorithm() {
+    public EncryptionKeyPublicWrappingAlgorithm getAlgorithm() {
         return algorithm;
     }
 
@@ -85,7 +87,7 @@ public final class CreateEncryptionKeyPublicWrappingResponseContent {
     }
 
     public interface AlgorithmStage {
-        _FinalStage algorithm(@NotNull String algorithm);
+        _FinalStage algorithm(@NotNull EncryptionKeyPublicWrappingAlgorithm algorithm);
     }
 
     public interface _FinalStage {
@@ -96,7 +98,7 @@ public final class CreateEncryptionKeyPublicWrappingResponseContent {
     public static final class Builder implements PublicKeyStage, AlgorithmStage, _FinalStage {
         private String publicKey;
 
-        private String algorithm;
+        private EncryptionKeyPublicWrappingAlgorithm algorithm;
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -124,7 +126,7 @@ public final class CreateEncryptionKeyPublicWrappingResponseContent {
 
         @java.lang.Override
         @JsonSetter("algorithm")
-        public _FinalStage algorithm(@NotNull String algorithm) {
+        public _FinalStage algorithm(@NotNull EncryptionKeyPublicWrappingAlgorithm algorithm) {
             this.algorithm = Objects.requireNonNull(algorithm, "algorithm must not be null");
             return this;
         }

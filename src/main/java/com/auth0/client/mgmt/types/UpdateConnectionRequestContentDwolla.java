@@ -34,7 +34,7 @@ public final class UpdateConnectionRequestContentDwolla implements IConnectionCo
 
     private final Optional<Map<String, OptionalNullable<String>>> metadata;
 
-    private final Optional<ConnectionOptionsOAuth2Common> options;
+    private final Optional<ConnectionOptionsDwolla> options;
 
     private final Map<String, Object> additionalProperties;
 
@@ -45,7 +45,7 @@ public final class UpdateConnectionRequestContentDwolla implements IConnectionCo
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
-            Optional<ConnectionOptionsOAuth2Common> options,
+            Optional<ConnectionOptionsDwolla> options,
             Map<String, Object> additionalProperties) {
         this.authentication = authentication;
         this.connectedAccounts = connectedAccounts;
@@ -94,7 +94,7 @@ public final class UpdateConnectionRequestContentDwolla implements IConnectionCo
     }
 
     @JsonProperty("options")
-    public Optional<ConnectionOptionsOAuth2Common> getOptions() {
+    public Optional<ConnectionOptionsDwolla> getOptions() {
         return options;
     }
 
@@ -155,7 +155,7 @@ public final class UpdateConnectionRequestContentDwolla implements IConnectionCo
 
         private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
-        private Optional<ConnectionOptionsOAuth2Common> options = Optional.empty();
+        private Optional<ConnectionOptionsDwolla> options = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -240,12 +240,12 @@ public final class UpdateConnectionRequestContentDwolla implements IConnectionCo
         }
 
         @JsonSetter(value = "options", nulls = Nulls.SKIP)
-        public Builder options(Optional<ConnectionOptionsOAuth2Common> options) {
+        public Builder options(Optional<ConnectionOptionsDwolla> options) {
             this.options = options;
             return this;
         }
 
-        public Builder options(ConnectionOptionsOAuth2Common options) {
+        public Builder options(ConnectionOptionsDwolla options) {
             this.options = Optional.ofNullable(options);
             return this;
         }

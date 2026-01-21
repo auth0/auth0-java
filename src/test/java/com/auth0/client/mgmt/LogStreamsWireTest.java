@@ -5,6 +5,7 @@ import com.auth0.client.mgmt.types.CreateLogStreamHttpRequestBody;
 import com.auth0.client.mgmt.types.CreateLogStreamRequestContent;
 import com.auth0.client.mgmt.types.CreateLogStreamResponseContent;
 import com.auth0.client.mgmt.types.GetLogStreamResponseContent;
+import com.auth0.client.mgmt.types.LogStreamHttpEnum;
 import com.auth0.client.mgmt.types.LogStreamHttpSink;
 import com.auth0.client.mgmt.types.LogStreamResponseSchema;
 import com.auth0.client.mgmt.types.UpdateLogStreamRequestContent;
@@ -124,7 +125,7 @@ public class LogStreamsWireTest {
                                 "{\"id\":\"id\",\"name\":\"name\",\"status\":\"active\",\"type\":\"http\",\"isPriority\":true,\"filters\":[{\"type\":\"category\",\"name\":\"auth.login.fail\"}],\"pii_config\":{\"log_fields\":[\"first_name\"],\"method\":\"mask\",\"algorithm\":\"xxhash\"},\"sink\":{\"httpAuthorization\":\"httpAuthorization\",\"httpContentFormat\":\"JSONARRAY\",\"httpContentType\":\"httpContentType\",\"httpEndpoint\":\"httpEndpoint\",\"httpCustomHeaders\":[{}]}}"));
         CreateLogStreamResponseContent response = client.logStreams()
                 .create(CreateLogStreamRequestContent.of(CreateLogStreamHttpRequestBody.builder()
-                        .type("http")
+                        .type(LogStreamHttpEnum.HTTP)
                         .sink(LogStreamHttpSink.builder()
                                 .httpEndpoint("httpEndpoint")
                                 .build())

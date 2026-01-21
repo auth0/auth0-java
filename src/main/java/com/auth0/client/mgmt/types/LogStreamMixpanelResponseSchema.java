@@ -27,7 +27,7 @@ public final class LogStreamMixpanelResponseSchema {
 
     private final Optional<LogStreamStatusEnum> status;
 
-    private final Optional<String> type;
+    private final Optional<LogStreamMixpanelEnum> type;
 
     private final Optional<Boolean> isPriority;
 
@@ -43,7 +43,7 @@ public final class LogStreamMixpanelResponseSchema {
             Optional<String> id,
             Optional<String> name,
             Optional<LogStreamStatusEnum> status,
-            Optional<String> type,
+            Optional<LogStreamMixpanelEnum> type,
             Optional<Boolean> isPriority,
             Optional<List<LogStreamFilter>> filters,
             Optional<LogStreamPiiConfig> piiConfig,
@@ -82,7 +82,7 @@ public final class LogStreamMixpanelResponseSchema {
     }
 
     @JsonProperty("type")
-    public Optional<String> getType() {
+    public Optional<LogStreamMixpanelEnum> getType() {
         return type;
     }
 
@@ -157,7 +157,7 @@ public final class LogStreamMixpanelResponseSchema {
 
         private Optional<LogStreamStatusEnum> status = Optional.empty();
 
-        private Optional<String> type = Optional.empty();
+        private Optional<LogStreamMixpanelEnum> type = Optional.empty();
 
         private Optional<Boolean> isPriority = Optional.empty();
 
@@ -224,12 +224,12 @@ public final class LogStreamMixpanelResponseSchema {
         }
 
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
-        public Builder type(Optional<String> type) {
+        public Builder type(Optional<LogStreamMixpanelEnum> type) {
             this.type = type;
             return this;
         }
 
-        public Builder type(String type) {
+        public Builder type(LogStreamMixpanelEnum type) {
             this.type = Optional.ofNullable(type);
             return this;
         }

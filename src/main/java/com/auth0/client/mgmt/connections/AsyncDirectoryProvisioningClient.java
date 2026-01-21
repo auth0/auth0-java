@@ -4,12 +4,15 @@
 package com.auth0.client.mgmt.connections;
 
 import com.auth0.client.mgmt.connections.directoryprovisioning.AsyncSynchronizationsClient;
+import com.auth0.client.mgmt.connections.types.ListDirectoryProvisioningsRequestParameters;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.Suppliers;
+import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateDirectoryProvisioningRequestContent;
 import com.auth0.client.mgmt.types.CreateDirectoryProvisioningResponseContent;
+import com.auth0.client.mgmt.types.DirectoryProvisioning;
 import com.auth0.client.mgmt.types.GetDirectoryProvisioningDefaultMappingResponseContent;
 import com.auth0.client.mgmt.types.GetDirectoryProvisioningResponseContent;
 import com.auth0.client.mgmt.types.UpdateDirectoryProvisioningRequestContent;
@@ -35,6 +38,29 @@ public class AsyncDirectoryProvisioningClient {
      */
     public AsyncRawDirectoryProvisioningClient withRawResponse() {
         return this.rawClient;
+    }
+
+    /**
+     * Retrieve a list of directory provisioning configurations of a tenant.
+     */
+    public CompletableFuture<SyncPagingIterable<DirectoryProvisioning>> list() {
+        return this.rawClient.list().thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve a list of directory provisioning configurations of a tenant.
+     */
+    public CompletableFuture<SyncPagingIterable<DirectoryProvisioning>> list(
+            ListDirectoryProvisioningsRequestParameters request) {
+        return this.rawClient.list(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve a list of directory provisioning configurations of a tenant.
+     */
+    public CompletableFuture<SyncPagingIterable<DirectoryProvisioning>> list(
+            ListDirectoryProvisioningsRequestParameters request, RequestOptions requestOptions) {
+        return this.rawClient.list(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**

@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = FlowsVaultConnectioSetupApiKeyWithBaseUrl.Builder.class)
 public final class FlowsVaultConnectioSetupApiKeyWithBaseUrl {
-    private final String type;
+    private final FlowsVaultConnectioSetupTypeApiKeyEnum type;
 
     private final String apiKey;
 
@@ -28,7 +28,10 @@ public final class FlowsVaultConnectioSetupApiKeyWithBaseUrl {
     private final Map<String, Object> additionalProperties;
 
     private FlowsVaultConnectioSetupApiKeyWithBaseUrl(
-            String type, String apiKey, String baseUrl, Map<String, Object> additionalProperties) {
+            FlowsVaultConnectioSetupTypeApiKeyEnum type,
+            String apiKey,
+            String baseUrl,
+            Map<String, Object> additionalProperties) {
         this.type = type;
         this.apiKey = apiKey;
         this.baseUrl = baseUrl;
@@ -36,7 +39,7 @@ public final class FlowsVaultConnectioSetupApiKeyWithBaseUrl {
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public FlowsVaultConnectioSetupTypeApiKeyEnum getType() {
         return type;
     }
 
@@ -81,7 +84,7 @@ public final class FlowsVaultConnectioSetupApiKeyWithBaseUrl {
     }
 
     public interface TypeStage {
-        ApiKeyStage type(@NotNull String type);
+        ApiKeyStage type(@NotNull FlowsVaultConnectioSetupTypeApiKeyEnum type);
 
         Builder from(FlowsVaultConnectioSetupApiKeyWithBaseUrl other);
     }
@@ -100,7 +103,7 @@ public final class FlowsVaultConnectioSetupApiKeyWithBaseUrl {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements TypeStage, ApiKeyStage, BaseUrlStage, _FinalStage {
-        private String type;
+        private FlowsVaultConnectioSetupTypeApiKeyEnum type;
 
         private String apiKey;
 
@@ -121,7 +124,7 @@ public final class FlowsVaultConnectioSetupApiKeyWithBaseUrl {
 
         @java.lang.Override
         @JsonSetter("type")
-        public ApiKeyStage type(@NotNull String type) {
+        public ApiKeyStage type(@NotNull FlowsVaultConnectioSetupTypeApiKeyEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

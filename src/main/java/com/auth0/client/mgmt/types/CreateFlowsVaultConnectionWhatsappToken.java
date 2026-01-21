@@ -21,14 +21,17 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateFlowsVaultConnectionWhatsappToken {
     private final String name;
 
-    private final String appId;
+    private final FlowsVaultConnectionAppIdWhatsappEnum appId;
 
     private final FlowsVaultConnectioSetupToken setup;
 
     private final Map<String, Object> additionalProperties;
 
     private CreateFlowsVaultConnectionWhatsappToken(
-            String name, String appId, FlowsVaultConnectioSetupToken setup, Map<String, Object> additionalProperties) {
+            String name,
+            FlowsVaultConnectionAppIdWhatsappEnum appId,
+            FlowsVaultConnectioSetupToken setup,
+            Map<String, Object> additionalProperties) {
         this.name = name;
         this.appId = appId;
         this.setup = setup;
@@ -44,7 +47,7 @@ public final class CreateFlowsVaultConnectionWhatsappToken {
     }
 
     @JsonProperty("app_id")
-    public String getAppId() {
+    public FlowsVaultConnectionAppIdWhatsappEnum getAppId() {
         return appId;
     }
 
@@ -93,7 +96,7 @@ public final class CreateFlowsVaultConnectionWhatsappToken {
     }
 
     public interface AppIdStage {
-        SetupStage appId(@NotNull String appId);
+        SetupStage appId(@NotNull FlowsVaultConnectionAppIdWhatsappEnum appId);
     }
 
     public interface SetupStage {
@@ -108,7 +111,7 @@ public final class CreateFlowsVaultConnectionWhatsappToken {
     public static final class Builder implements NameStage, AppIdStage, SetupStage, _FinalStage {
         private String name;
 
-        private String appId;
+        private FlowsVaultConnectionAppIdWhatsappEnum appId;
 
         private FlowsVaultConnectioSetupToken setup;
 
@@ -139,7 +142,7 @@ public final class CreateFlowsVaultConnectionWhatsappToken {
 
         @java.lang.Override
         @JsonSetter("app_id")
-        public SetupStage appId(@NotNull String appId) {
+        public SetupStage appId(@NotNull FlowsVaultConnectionAppIdWhatsappEnum appId) {
             this.appId = Objects.requireNonNull(appId, "appId must not be null");
             return this;
         }

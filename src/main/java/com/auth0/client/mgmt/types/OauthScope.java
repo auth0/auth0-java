@@ -381,6 +381,8 @@ public final class OauthScope {
     public static final OauthScope UPDATE_SELF_SERVICE_PROFILE_CUSTOM_TEXTS =
             new OauthScope(Value.UPDATE_SELF_SERVICE_PROFILE_CUSTOM_TEXTS, "update:self_service_profile_custom_texts");
 
+    public static final OauthScope READ_GROUP_ROLES = new OauthScope(Value.READ_GROUP_ROLES, "read:group_roles");
+
     public static final OauthScope DELETE_ORGANIZATION_DISCOVERY_DOMAINS =
             new OauthScope(Value.DELETE_ORGANIZATION_DISCOVERY_DOMAINS, "delete:organization_discovery_domains");
 
@@ -989,6 +991,8 @@ public final class OauthScope {
                 return visitor.visitDeleteNetworkAcls();
             case UPDATE_SELF_SERVICE_PROFILE_CUSTOM_TEXTS:
                 return visitor.visitUpdateSelfServiceProfileCustomTexts();
+            case READ_GROUP_ROLES:
+                return visitor.visitReadGroupRoles();
             case DELETE_ORGANIZATION_DISCOVERY_DOMAINS:
                 return visitor.visitDeleteOrganizationDiscoveryDomains();
             case UPDATE_CLIENT_GRANTS:
@@ -1504,6 +1508,8 @@ public final class OauthScope {
                 return DELETE_NETWORK_ACLS;
             case "update:self_service_profile_custom_texts":
                 return UPDATE_SELF_SERVICE_PROFILE_CUSTOM_TEXTS;
+            case "read:group_roles":
+                return READ_GROUP_ROLES;
             case "delete:organization_discovery_domains":
                 return DELETE_ORGANIZATION_DISCOVERY_DOMAINS;
             case "update:client_grants":
@@ -1824,11 +1830,11 @@ public final class OauthScope {
 
         CREATE_CONNECTIONS,
 
+        READ_DIRECTORY_PROVISIONINGS,
+
         UPDATE_CONNECTIONS,
 
         DELETE_CONNECTIONS,
-
-        READ_DIRECTORY_PROVISIONINGS,
 
         CREATE_DIRECTORY_PROVISIONINGS,
 
@@ -1949,6 +1955,8 @@ public final class OauthScope {
         READ_GROUPS,
 
         READ_GROUP_MEMBERS,
+
+        READ_GROUP_ROLES,
 
         CREATE_GROUP_ROLES,
 
@@ -2334,11 +2342,11 @@ public final class OauthScope {
 
         T visitCreateConnections();
 
+        T visitReadDirectoryProvisionings();
+
         T visitUpdateConnections();
 
         T visitDeleteConnections();
-
-        T visitReadDirectoryProvisionings();
 
         T visitCreateDirectoryProvisionings();
 
@@ -2459,6 +2467,8 @@ public final class OauthScope {
         T visitReadGroups();
 
         T visitReadGroupMembers();
+
+        T visitReadGroupRoles();
 
         T visitCreateGroupRoles();
 

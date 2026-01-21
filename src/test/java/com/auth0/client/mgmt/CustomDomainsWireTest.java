@@ -49,7 +49,7 @@ public class CustomDomainsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "[{\"custom_domain_id\":\"custom_domain_id\",\"domain\":\"domain\",\"primary\":true,\"is_default\":true,\"status\":\"pending_verification\",\"type\":\"auth0_managed_certs\",\"origin_domain_name\":\"origin_domain_name\",\"verification\":{\"methods\":[{\"name\":\"cname\",\"record\":\"record\"}],\"status\":\"verified\",\"error_msg\":\"error_msg\",\"last_verified_at\":\"last_verified_at\"},\"custom_client_ip_header\":\"custom_client_ip_header\",\"tls_policy\":\"tls_policy\",\"domain_metadata\":{\"key\":\"value\"},\"certificate\":{\"status\":\"provisioning\",\"error_msg\":\"error_msg\",\"certificate_authority\":\"letsencrypt\",\"renews_before\":\"renews_before\"}}]"));
+                                "[{\"custom_domain_id\":\"custom_domain_id\",\"domain\":\"domain\",\"primary\":true,\"is_default\":true,\"status\":\"pending_verification\",\"type\":\"auth0_managed_certs\",\"origin_domain_name\":\"origin_domain_name\",\"verification\":{\"methods\":[{\"name\":\"cname\",\"record\":\"record\"}],\"status\":\"verified\",\"error_msg\":\"error_msg\",\"last_verified_at\":\"last_verified_at\"},\"custom_client_ip_header\":\"custom_client_ip_header\",\"tls_policy\":\"tls_policy\",\"domain_metadata\":{\"key\":\"value\"},\"certificate\":{\"status\":\"provisioning\",\"error_msg\":\"error_msg\",\"certificate_authority\":\"letsencrypt\",\"renews_before\":\"renews_before\"},\"relying_party_identifier\":\"relying_party_identifier\"}]"));
         List<CustomDomain> response = client.customDomains()
                 .list(ListCustomDomainsRequestParameters.builder()
                         .q(OptionalNullable.of("q"))
@@ -95,7 +95,8 @@ public class CustomDomainsWireTest {
                 + "      \"error_msg\": \"error_msg\",\n"
                 + "      \"certificate_authority\": \"letsencrypt\",\n"
                 + "      \"renews_before\": \"renews_before\"\n"
-                + "    }\n"
+                + "    },\n"
+                + "    \"relying_party_identifier\": \"relying_party_identifier\"\n"
                 + "  }\n"
                 + "]";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
@@ -135,7 +136,7 @@ public class CustomDomainsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"custom_domain_id\":\"custom_domain_id\",\"domain\":\"domain\",\"primary\":true,\"status\":\"pending_verification\",\"type\":\"auth0_managed_certs\",\"verification\":{\"methods\":[{\"name\":\"cname\",\"record\":\"record\"}],\"status\":\"verified\",\"error_msg\":\"error_msg\",\"last_verified_at\":\"last_verified_at\"},\"custom_client_ip_header\":\"custom_client_ip_header\",\"tls_policy\":\"tls_policy\",\"domain_metadata\":{\"key\":\"value\"},\"certificate\":{\"status\":\"provisioning\",\"error_msg\":\"error_msg\",\"certificate_authority\":\"letsencrypt\",\"renews_before\":\"renews_before\"}}"));
+                                "{\"custom_domain_id\":\"custom_domain_id\",\"domain\":\"domain\",\"primary\":true,\"is_default\":true,\"status\":\"pending_verification\",\"type\":\"auth0_managed_certs\",\"verification\":{\"methods\":[{\"name\":\"cname\",\"record\":\"record\"}],\"status\":\"verified\",\"error_msg\":\"error_msg\",\"last_verified_at\":\"last_verified_at\"},\"custom_client_ip_header\":\"custom_client_ip_header\",\"tls_policy\":\"tls_policy\",\"domain_metadata\":{\"key\":\"value\"},\"certificate\":{\"status\":\"provisioning\",\"error_msg\":\"error_msg\",\"certificate_authority\":\"letsencrypt\",\"renews_before\":\"renews_before\"},\"relying_party_identifier\":\"relying_party_identifier\"}"));
         CreateCustomDomainResponseContent response = client.customDomains()
                 .create(CreateCustomDomainRequestContent.builder()
                         .domain("domain")
@@ -183,6 +184,7 @@ public class CustomDomainsWireTest {
                 + "  \"custom_domain_id\": \"custom_domain_id\",\n"
                 + "  \"domain\": \"domain\",\n"
                 + "  \"primary\": true,\n"
+                + "  \"is_default\": true,\n"
                 + "  \"status\": \"pending_verification\",\n"
                 + "  \"type\": \"auth0_managed_certs\",\n"
                 + "  \"verification\": {\n"
@@ -206,7 +208,8 @@ public class CustomDomainsWireTest {
                 + "    \"error_msg\": \"error_msg\",\n"
                 + "    \"certificate_authority\": \"letsencrypt\",\n"
                 + "    \"renews_before\": \"renews_before\"\n"
-                + "  }\n"
+                + "  },\n"
+                + "  \"relying_party_identifier\": \"relying_party_identifier\"\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -245,7 +248,7 @@ public class CustomDomainsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"custom_domain_id\":\"custom_domain_id\",\"domain\":\"domain\",\"primary\":true,\"is_default\":true,\"status\":\"pending_verification\",\"type\":\"auth0_managed_certs\",\"origin_domain_name\":\"origin_domain_name\",\"verification\":{\"methods\":[{\"name\":\"cname\",\"record\":\"record\"}],\"status\":\"verified\",\"error_msg\":\"error_msg\",\"last_verified_at\":\"last_verified_at\"},\"custom_client_ip_header\":\"custom_client_ip_header\",\"tls_policy\":\"tls_policy\",\"domain_metadata\":{\"key\":\"value\"},\"certificate\":{\"status\":\"provisioning\",\"error_msg\":\"error_msg\",\"certificate_authority\":\"letsencrypt\",\"renews_before\":\"renews_before\"}}"));
+                                "{\"custom_domain_id\":\"custom_domain_id\",\"domain\":\"domain\",\"primary\":true,\"is_default\":true,\"status\":\"pending_verification\",\"type\":\"auth0_managed_certs\",\"origin_domain_name\":\"origin_domain_name\",\"verification\":{\"methods\":[{\"name\":\"cname\",\"record\":\"record\"}],\"status\":\"verified\",\"error_msg\":\"error_msg\",\"last_verified_at\":\"last_verified_at\"},\"custom_client_ip_header\":\"custom_client_ip_header\",\"tls_policy\":\"tls_policy\",\"domain_metadata\":{\"key\":\"value\"},\"certificate\":{\"status\":\"provisioning\",\"error_msg\":\"error_msg\",\"certificate_authority\":\"letsencrypt\",\"renews_before\":\"renews_before\"},\"relying_party_identifier\":\"relying_party_identifier\"}"));
         GetCustomDomainResponseContent response = client.customDomains().get("id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -284,7 +287,8 @@ public class CustomDomainsWireTest {
                 + "    \"error_msg\": \"error_msg\",\n"
                 + "    \"certificate_authority\": \"letsencrypt\",\n"
                 + "    \"renews_before\": \"renews_before\"\n"
-                + "  }\n"
+                + "  },\n"
+                + "  \"relying_party_identifier\": \"relying_party_identifier\"\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -332,7 +336,7 @@ public class CustomDomainsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"custom_domain_id\":\"custom_domain_id\",\"domain\":\"domain\",\"primary\":true,\"is_default\":true,\"status\":\"pending_verification\",\"type\":\"auth0_managed_certs\",\"verification\":{\"methods\":[{\"name\":\"cname\",\"record\":\"record\"}],\"status\":\"verified\",\"error_msg\":\"error_msg\",\"last_verified_at\":\"last_verified_at\"},\"custom_client_ip_header\":\"custom_client_ip_header\",\"tls_policy\":\"tls_policy\",\"domain_metadata\":{\"key\":\"value\"},\"certificate\":{\"status\":\"provisioning\",\"error_msg\":\"error_msg\",\"certificate_authority\":\"letsencrypt\",\"renews_before\":\"renews_before\"}}"));
+                                "{\"custom_domain_id\":\"custom_domain_id\",\"domain\":\"domain\",\"primary\":true,\"is_default\":true,\"status\":\"pending_verification\",\"type\":\"auth0_managed_certs\",\"verification\":{\"methods\":[{\"name\":\"cname\",\"record\":\"record\"}],\"status\":\"verified\",\"error_msg\":\"error_msg\",\"last_verified_at\":\"last_verified_at\"},\"custom_client_ip_header\":\"custom_client_ip_header\",\"tls_policy\":\"tls_policy\",\"domain_metadata\":{\"key\":\"value\"},\"certificate\":{\"status\":\"provisioning\",\"error_msg\":\"error_msg\",\"certificate_authority\":\"letsencrypt\",\"renews_before\":\"renews_before\"},\"relying_party_identifier\":\"relying_party_identifier\"}"));
         UpdateCustomDomainResponseContent response = client.customDomains()
                 .update("id", UpdateCustomDomainRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -400,7 +404,8 @@ public class CustomDomainsWireTest {
                 + "    \"error_msg\": \"error_msg\",\n"
                 + "    \"certificate_authority\": \"letsencrypt\",\n"
                 + "    \"renews_before\": \"renews_before\"\n"
-                + "  }\n"
+                + "  },\n"
+                + "  \"relying_party_identifier\": \"relying_party_identifier\"\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
