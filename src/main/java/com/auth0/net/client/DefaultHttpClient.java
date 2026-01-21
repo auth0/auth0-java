@@ -37,10 +37,10 @@ public class DefaultHttpClient implements Auth0HttpClient {
     }
 
     /**
-     * For testing purposes only.
-     * @param client The client to inject for testing purposes.
+     * For extensibility or testing purposes.
+     * @param client The pre-built client to use.
      */
-    DefaultHttpClient(OkHttpClient client) {
+    protected DefaultHttpClient(OkHttpClient client) {
         this.client = client;
     }
 
