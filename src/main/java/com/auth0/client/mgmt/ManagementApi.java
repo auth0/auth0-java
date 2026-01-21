@@ -44,6 +44,8 @@ public class ManagementApi {
 
     protected final Supplier<UserGrantsClient> userGrantsClient;
 
+    protected final Supplier<GroupsClient> groupsClient;
+
     protected final Supplier<HooksClient> hooksClient;
 
     protected final Supplier<JobsClient> jobsClient;
@@ -117,6 +119,7 @@ public class ManagementApi {
         this.flowsClient = Suppliers.memoize(() -> new FlowsClient(clientOptions));
         this.formsClient = Suppliers.memoize(() -> new FormsClient(clientOptions));
         this.userGrantsClient = Suppliers.memoize(() -> new UserGrantsClient(clientOptions));
+        this.groupsClient = Suppliers.memoize(() -> new GroupsClient(clientOptions));
         this.hooksClient = Suppliers.memoize(() -> new HooksClient(clientOptions));
         this.jobsClient = Suppliers.memoize(() -> new JobsClient(clientOptions));
         this.logStreamsClient = Suppliers.memoize(() -> new LogStreamsClient(clientOptions));
@@ -198,6 +201,10 @@ public class ManagementApi {
 
     public UserGrantsClient userGrants() {
         return this.userGrantsClient.get();
+    }
+
+    public GroupsClient groups() {
+        return this.groupsClient.get();
     }
 
     public HooksClient hooks() {

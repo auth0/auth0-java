@@ -30,6 +30,8 @@ public final class UpdateCustomDomainResponseContent {
 
     private final boolean primary;
 
+    private final Optional<Boolean> isDefault;
+
     private final CustomDomainStatusFilterEnum status;
 
     private final CustomDomainTypeEnum type;
@@ -50,6 +52,7 @@ public final class UpdateCustomDomainResponseContent {
             String customDomainId,
             String domain,
             boolean primary,
+            Optional<Boolean> isDefault,
             CustomDomainStatusFilterEnum status,
             CustomDomainTypeEnum type,
             DomainVerification verification,
@@ -61,6 +64,7 @@ public final class UpdateCustomDomainResponseContent {
         this.customDomainId = customDomainId;
         this.domain = domain;
         this.primary = primary;
+        this.isDefault = isDefault;
         this.status = status;
         this.type = type;
         this.verification = verification;
@@ -93,6 +97,14 @@ public final class UpdateCustomDomainResponseContent {
     @JsonProperty("primary")
     public boolean getPrimary() {
         return primary;
+    }
+
+    /**
+     * @return Whether this is the default custom domain (true) or not (false).
+     */
+    @JsonProperty("is_default")
+    public Optional<Boolean> getIsDefault() {
+        return isDefault;
     }
 
     @JsonProperty("status")
@@ -161,6 +173,7 @@ public final class UpdateCustomDomainResponseContent {
         return customDomainId.equals(other.customDomainId)
                 && domain.equals(other.domain)
                 && primary == other.primary
+                && isDefault.equals(other.isDefault)
                 && status.equals(other.status)
                 && type.equals(other.type)
                 && verification.equals(other.verification)
@@ -176,6 +189,7 @@ public final class UpdateCustomDomainResponseContent {
                 this.customDomainId,
                 this.domain,
                 this.primary,
+                this.isDefault,
                 this.status,
                 this.type,
                 this.verification,
@@ -233,6 +247,13 @@ public final class UpdateCustomDomainResponseContent {
         UpdateCustomDomainResponseContent build();
 
         /**
+         * <p>Whether this is the default custom domain (true) or not (false).</p>
+         */
+        _FinalStage isDefault(Optional<Boolean> isDefault);
+
+        _FinalStage isDefault(Boolean isDefault);
+
+        /**
          * <p>The HTTP header to fetch the client's IP address</p>
          */
         _FinalStage customClientIpHeader(@Nullable OptionalNullable<String> customClientIpHeader);
@@ -288,6 +309,8 @@ public final class UpdateCustomDomainResponseContent {
 
         private OptionalNullable<String> customClientIpHeader = OptionalNullable.absent();
 
+        private Optional<Boolean> isDefault = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -298,6 +321,7 @@ public final class UpdateCustomDomainResponseContent {
             customDomainId(other.getCustomDomainId());
             domain(other.getDomain());
             primary(other.getPrimary());
+            isDefault(other.getIsDefault());
             status(other.getStatus());
             type(other.getType());
             verification(other.getVerification());
@@ -461,12 +485,33 @@ public final class UpdateCustomDomainResponseContent {
             return this;
         }
 
+        /**
+         * <p>Whether this is the default custom domain (true) or not (false).</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage isDefault(Boolean isDefault) {
+            this.isDefault = Optional.ofNullable(isDefault);
+            return this;
+        }
+
+        /**
+         * <p>Whether this is the default custom domain (true) or not (false).</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "is_default", nulls = Nulls.SKIP)
+        public _FinalStage isDefault(Optional<Boolean> isDefault) {
+            this.isDefault = isDefault;
+            return this;
+        }
+
         @java.lang.Override
         public UpdateCustomDomainResponseContent build() {
             return new UpdateCustomDomainResponseContent(
                     customDomainId,
                     domain,
                     primary,
+                    isDefault,
                     status,
                     type,
                     verification,

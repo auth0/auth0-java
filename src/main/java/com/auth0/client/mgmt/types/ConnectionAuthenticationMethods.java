@@ -24,14 +24,22 @@ public final class ConnectionAuthenticationMethods {
 
     private final Optional<ConnectionPasskeyAuthenticationMethod> passkey;
 
+    private final Optional<ConnectionEmailOtpAuthenticationMethod> emailOtp;
+
+    private final Optional<ConnectionPhoneOtpAuthenticationMethod> phoneOtp;
+
     private final Map<String, Object> additionalProperties;
 
     private ConnectionAuthenticationMethods(
             Optional<ConnectionPasswordAuthenticationMethod> password,
             Optional<ConnectionPasskeyAuthenticationMethod> passkey,
+            Optional<ConnectionEmailOtpAuthenticationMethod> emailOtp,
+            Optional<ConnectionPhoneOtpAuthenticationMethod> phoneOtp,
             Map<String, Object> additionalProperties) {
         this.password = password;
         this.passkey = passkey;
+        this.emailOtp = emailOtp;
+        this.phoneOtp = phoneOtp;
         this.additionalProperties = additionalProperties;
     }
 
@@ -43,6 +51,16 @@ public final class ConnectionAuthenticationMethods {
     @JsonProperty("passkey")
     public Optional<ConnectionPasskeyAuthenticationMethod> getPasskey() {
         return passkey;
+    }
+
+    @JsonProperty("email_otp")
+    public Optional<ConnectionEmailOtpAuthenticationMethod> getEmailOtp() {
+        return emailOtp;
+    }
+
+    @JsonProperty("phone_otp")
+    public Optional<ConnectionPhoneOtpAuthenticationMethod> getPhoneOtp() {
+        return phoneOtp;
     }
 
     @java.lang.Override
@@ -57,12 +75,15 @@ public final class ConnectionAuthenticationMethods {
     }
 
     private boolean equalTo(ConnectionAuthenticationMethods other) {
-        return password.equals(other.password) && passkey.equals(other.passkey);
+        return password.equals(other.password)
+                && passkey.equals(other.passkey)
+                && emailOtp.equals(other.emailOtp)
+                && phoneOtp.equals(other.phoneOtp);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.password, this.passkey);
+        return Objects.hash(this.password, this.passkey, this.emailOtp, this.phoneOtp);
     }
 
     @java.lang.Override
@@ -80,6 +101,10 @@ public final class ConnectionAuthenticationMethods {
 
         private Optional<ConnectionPasskeyAuthenticationMethod> passkey = Optional.empty();
 
+        private Optional<ConnectionEmailOtpAuthenticationMethod> emailOtp = Optional.empty();
+
+        private Optional<ConnectionPhoneOtpAuthenticationMethod> phoneOtp = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -88,6 +113,8 @@ public final class ConnectionAuthenticationMethods {
         public Builder from(ConnectionAuthenticationMethods other) {
             password(other.getPassword());
             passkey(other.getPasskey());
+            emailOtp(other.getEmailOtp());
+            phoneOtp(other.getPhoneOtp());
             return this;
         }
 
@@ -113,8 +140,30 @@ public final class ConnectionAuthenticationMethods {
             return this;
         }
 
+        @JsonSetter(value = "email_otp", nulls = Nulls.SKIP)
+        public Builder emailOtp(Optional<ConnectionEmailOtpAuthenticationMethod> emailOtp) {
+            this.emailOtp = emailOtp;
+            return this;
+        }
+
+        public Builder emailOtp(ConnectionEmailOtpAuthenticationMethod emailOtp) {
+            this.emailOtp = Optional.ofNullable(emailOtp);
+            return this;
+        }
+
+        @JsonSetter(value = "phone_otp", nulls = Nulls.SKIP)
+        public Builder phoneOtp(Optional<ConnectionPhoneOtpAuthenticationMethod> phoneOtp) {
+            this.phoneOtp = phoneOtp;
+            return this;
+        }
+
+        public Builder phoneOtp(ConnectionPhoneOtpAuthenticationMethod phoneOtp) {
+            this.phoneOtp = Optional.ofNullable(phoneOtp);
+            return this;
+        }
+
         public ConnectionAuthenticationMethods build() {
-            return new ConnectionAuthenticationMethods(password, passkey, additionalProperties);
+            return new ConnectionAuthenticationMethods(password, passkey, emailOtp, phoneOtp, additionalProperties);
         }
     }
 }

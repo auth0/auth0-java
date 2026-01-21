@@ -39,15 +39,13 @@ public final class ConnectionResponseContentAzureAd
 
     private final Optional<Map<String, OptionalNullable<String>>> metadata;
 
-    private final Optional<List<String>> realms;
-
-    private final Optional<Boolean> showAsButton;
-
     private final Optional<ConnectionOptionsAzureAd> options;
 
     private final Optional<String> provisioningTicket;
 
     private final Optional<String> provisioningTicketUrl;
+
+    private final Optional<Boolean> showAsButton;
 
     private final Optional<Integer> strategyVersion;
 
@@ -62,11 +60,10 @@ public final class ConnectionResponseContentAzureAd
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
-            Optional<List<String>> realms,
-            Optional<Boolean> showAsButton,
             Optional<ConnectionOptionsAzureAd> options,
             Optional<String> provisioningTicket,
             Optional<String> provisioningTicketUrl,
+            Optional<Boolean> showAsButton,
             Optional<Integer> strategyVersion,
             Map<String, Object> additionalProperties) {
         this.id = id;
@@ -77,11 +74,10 @@ public final class ConnectionResponseContentAzureAd
         this.enabledClients = enabledClients;
         this.isDomainConnection = isDomainConnection;
         this.metadata = metadata;
-        this.realms = realms;
-        this.showAsButton = showAsButton;
         this.options = options;
         this.provisioningTicket = provisioningTicket;
         this.provisioningTicketUrl = provisioningTicketUrl;
+        this.showAsButton = showAsButton;
         this.strategyVersion = strategyVersion;
         this.additionalProperties = additionalProperties;
     }
@@ -134,18 +130,6 @@ public final class ConnectionResponseContentAzureAd
         return metadata;
     }
 
-    @JsonProperty("realms")
-    @java.lang.Override
-    public Optional<List<String>> getRealms() {
-        return realms;
-    }
-
-    @JsonProperty("show_as_button")
-    @java.lang.Override
-    public Optional<Boolean> getShowAsButton() {
-        return showAsButton;
-    }
-
     @JsonProperty("strategy")
     public String getStrategy() {
         return "waad";
@@ -164,6 +148,11 @@ public final class ConnectionResponseContentAzureAd
     @JsonProperty("provisioning_ticket_url")
     public Optional<String> getProvisioningTicketUrl() {
         return provisioningTicketUrl;
+    }
+
+    @JsonProperty("show_as_button")
+    public Optional<Boolean> getShowAsButton() {
+        return showAsButton;
     }
 
     @JsonProperty("strategy_version")
@@ -191,11 +180,10 @@ public final class ConnectionResponseContentAzureAd
                 && enabledClients.equals(other.enabledClients)
                 && isDomainConnection.equals(other.isDomainConnection)
                 && metadata.equals(other.metadata)
-                && realms.equals(other.realms)
-                && showAsButton.equals(other.showAsButton)
                 && options.equals(other.options)
                 && provisioningTicket.equals(other.provisioningTicket)
                 && provisioningTicketUrl.equals(other.provisioningTicketUrl)
+                && showAsButton.equals(other.showAsButton)
                 && strategyVersion.equals(other.strategyVersion);
     }
 
@@ -210,11 +198,10 @@ public final class ConnectionResponseContentAzureAd
                 this.enabledClients,
                 this.isDomainConnection,
                 this.metadata,
-                this.realms,
-                this.showAsButton,
                 this.options,
                 this.provisioningTicket,
                 this.provisioningTicketUrl,
+                this.showAsButton,
                 this.strategyVersion);
     }
 
@@ -245,15 +232,13 @@ public final class ConnectionResponseContentAzureAd
 
         private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
-        private Optional<List<String>> realms = Optional.empty();
-
-        private Optional<Boolean> showAsButton = Optional.empty();
-
         private Optional<ConnectionOptionsAzureAd> options = Optional.empty();
 
         private Optional<String> provisioningTicket = Optional.empty();
 
         private Optional<String> provisioningTicketUrl = Optional.empty();
+
+        private Optional<Boolean> showAsButton = Optional.empty();
 
         private Optional<Integer> strategyVersion = Optional.empty();
 
@@ -271,11 +256,10 @@ public final class ConnectionResponseContentAzureAd
             enabledClients(other.getEnabledClients());
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
-            realms(other.getRealms());
-            showAsButton(other.getShowAsButton());
             options(other.getOptions());
             provisioningTicket(other.getProvisioningTicket());
             provisioningTicketUrl(other.getProvisioningTicketUrl());
+            showAsButton(other.getShowAsButton());
             strategyVersion(other.getStrategyVersion());
             return this;
         }
@@ -368,28 +352,6 @@ public final class ConnectionResponseContentAzureAd
             return this;
         }
 
-        @JsonSetter(value = "realms", nulls = Nulls.SKIP)
-        public Builder realms(Optional<List<String>> realms) {
-            this.realms = realms;
-            return this;
-        }
-
-        public Builder realms(List<String> realms) {
-            this.realms = Optional.ofNullable(realms);
-            return this;
-        }
-
-        @JsonSetter(value = "show_as_button", nulls = Nulls.SKIP)
-        public Builder showAsButton(Optional<Boolean> showAsButton) {
-            this.showAsButton = showAsButton;
-            return this;
-        }
-
-        public Builder showAsButton(Boolean showAsButton) {
-            this.showAsButton = Optional.ofNullable(showAsButton);
-            return this;
-        }
-
         @JsonSetter(value = "options", nulls = Nulls.SKIP)
         public Builder options(Optional<ConnectionOptionsAzureAd> options) {
             this.options = options;
@@ -423,6 +385,17 @@ public final class ConnectionResponseContentAzureAd
             return this;
         }
 
+        @JsonSetter(value = "show_as_button", nulls = Nulls.SKIP)
+        public Builder showAsButton(Optional<Boolean> showAsButton) {
+            this.showAsButton = showAsButton;
+            return this;
+        }
+
+        public Builder showAsButton(Boolean showAsButton) {
+            this.showAsButton = Optional.ofNullable(showAsButton);
+            return this;
+        }
+
         @JsonSetter(value = "strategy_version", nulls = Nulls.SKIP)
         public Builder strategyVersion(Optional<Integer> strategyVersion) {
             this.strategyVersion = strategyVersion;
@@ -444,11 +417,10 @@ public final class ConnectionResponseContentAzureAd
                     enabledClients,
                     isDomainConnection,
                     metadata,
-                    realms,
-                    showAsButton,
                     options,
                     provisioningTicket,
                     provisioningTicketUrl,
+                    showAsButton,
                     strategyVersion,
                     additionalProperties);
         }

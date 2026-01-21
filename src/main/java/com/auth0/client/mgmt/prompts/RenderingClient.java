@@ -9,9 +9,9 @@ import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.prompts.types.BulkUpdateAculRequestContent;
 import com.auth0.client.mgmt.prompts.types.ListAculsRequestParameters;
 import com.auth0.client.mgmt.prompts.types.UpdateAculRequestContent;
-import com.auth0.client.mgmt.types.AculResponseContent;
 import com.auth0.client.mgmt.types.BulkUpdateAculResponseContent;
 import com.auth0.client.mgmt.types.GetAculResponseContent;
+import com.auth0.client.mgmt.types.ListAculsResponseContentItem;
 import com.auth0.client.mgmt.types.PromptGroupNameEnum;
 import com.auth0.client.mgmt.types.ScreenGroupNameEnum;
 import com.auth0.client.mgmt.types.UpdateAculResponseContent;
@@ -36,21 +36,21 @@ public class RenderingClient {
     /**
      * Get render setting configurations for all screens.
      */
-    public SyncPagingIterable<AculResponseContent> list() {
+    public SyncPagingIterable<ListAculsResponseContentItem> list() {
         return this.rawClient.list().body();
     }
 
     /**
      * Get render setting configurations for all screens.
      */
-    public SyncPagingIterable<AculResponseContent> list(ListAculsRequestParameters request) {
+    public SyncPagingIterable<ListAculsResponseContentItem> list(ListAculsRequestParameters request) {
         return this.rawClient.list(request).body();
     }
 
     /**
      * Get render setting configurations for all screens.
      */
-    public SyncPagingIterable<AculResponseContent> list(
+    public SyncPagingIterable<ListAculsResponseContentItem> list(
             ListAculsRequestParameters request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).body();
     }

@@ -11,6 +11,7 @@ import com.auth0.client.mgmt.core.MediaTypes;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.QueryStringMapper;
 import com.auth0.client.mgmt.core.RequestOptions;
+import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.errors.BadRequestError;
 import com.auth0.client.mgmt.errors.ConflictError;
 import com.auth0.client.mgmt.errors.ForbiddenError;
@@ -20,6 +21,7 @@ import com.auth0.client.mgmt.errors.UnauthorizedError;
 import com.auth0.client.mgmt.types.CreateEventStreamResponseContent;
 import com.auth0.client.mgmt.types.CreateEventStreamTestEventRequestContent;
 import com.auth0.client.mgmt.types.CreateEventStreamTestEventResponseContent;
+import com.auth0.client.mgmt.types.EventStreamResponseContent;
 import com.auth0.client.mgmt.types.EventStreamsCreateRequest;
 import com.auth0.client.mgmt.types.GetEventStreamResponseContent;
 import com.auth0.client.mgmt.types.ListEventStreamsRequestParameters;
@@ -28,7 +30,11 @@ import com.auth0.client.mgmt.types.UpdateEventStreamRequestContent;
 import com.auth0.client.mgmt.types.UpdateEventStreamResponseContent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -47,16 +53,16 @@ public class AsyncRawEventStreamsClient {
         this.clientOptions = clientOptions;
     }
 
-    public CompletableFuture<ManagementApiHttpResponse<ListEventStreamsResponseContent>> list() {
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<EventStreamResponseContent>>> list() {
         return list(ListEventStreamsRequestParameters.builder().build());
     }
 
-    public CompletableFuture<ManagementApiHttpResponse<ListEventStreamsResponseContent>> list(
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<EventStreamResponseContent>>> list(
             ListEventStreamsRequestParameters request) {
         return list(request, null);
     }
 
-    public CompletableFuture<ManagementApiHttpResponse<ListEventStreamsResponseContent>> list(
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<EventStreamResponseContent>>> list(
             ListEventStreamsRequestParameters request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -76,7 +82,7 @@ public class AsyncRawEventStreamsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<ManagementApiHttpResponse<ListEventStreamsResponseContent>> future =
+        CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<EventStreamResponseContent>>> future =
                 new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
@@ -84,9 +90,26 @@ public class AsyncRawEventStreamsClient {
                 try (ResponseBody responseBody = response.body()) {
                     String responseBodyString = responseBody != null ? responseBody.string() : "{}";
                     if (response.isSuccessful()) {
+                        ListEventStreamsResponseContent parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                                responseBodyString, ListEventStreamsResponseContent.class);
+                        Optional<String> startingAfter = parsedResponse.getNext();
+                        ListEventStreamsRequestParameters nextRequest = ListEventStreamsRequestParameters.builder()
+                                .from(request)
+                                .from(startingAfter)
+                                .build();
+                        List<EventStreamResponseContent> result =
+                                parsedResponse.getEventStreams().orElse(Collections.emptyList());
                         future.complete(new ManagementApiHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBodyString, ListEventStreamsResponseContent.class),
+                                new SyncPagingIterable<EventStreamResponseContent>(
+                                        startingAfter.isPresent(), result, parsedResponse, () -> {
+                                            try {
+                                                return list(nextRequest, requestOptions)
+                                                        .get()
+                                                        .body();
+                                            } catch (InterruptedException | ExecutionException e) {
+                                                throw new RuntimeException(e);
+                                            }
+                                        }),
                                 response));
                         return;
                     }

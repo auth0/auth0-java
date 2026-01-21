@@ -235,6 +235,8 @@ public final class OauthScope {
     public static final OauthScope CREATE_PHONE_PROVIDERS =
             new OauthScope(Value.CREATE_PHONE_PROVIDERS, "create:phone_providers");
 
+    public static final OauthScope DELETE_GROUP_ROLES = new OauthScope(Value.DELETE_GROUP_ROLES, "delete:group_roles");
+
     public static final OauthScope DELETE_ORGANIZATION_CLIENT_GRANTS =
             new OauthScope(Value.DELETE_ORGANIZATION_CLIENT_GRANTS, "delete:organization_client_grants");
 
@@ -535,6 +537,8 @@ public final class OauthScope {
             new OauthScope(Value.CREATE_ROLE_MEMBERS, "create:role_members");
 
     public static final OauthScope CREATE_FLOWS = new OauthScope(Value.CREATE_FLOWS, "create:flows");
+
+    public static final OauthScope CREATE_GROUP_ROLES = new OauthScope(Value.CREATE_GROUP_ROLES, "create:group_roles");
 
     public static final OauthScope DELETE_HOOKS = new OauthScope(Value.DELETE_HOOKS, "delete:hooks");
 
@@ -875,6 +879,8 @@ public final class OauthScope {
                 return visitor.visitCreateAuthenticationMethods();
             case CREATE_PHONE_PROVIDERS:
                 return visitor.visitCreatePhoneProviders();
+            case DELETE_GROUP_ROLES:
+                return visitor.visitDeleteGroupRoles();
             case DELETE_ORGANIZATION_CLIENT_GRANTS:
                 return visitor.visitDeleteOrganizationClientGrants();
             case CREATE_SCIM_CONFIG:
@@ -1103,6 +1109,8 @@ public final class OauthScope {
                 return visitor.visitCreateRoleMembers();
             case CREATE_FLOWS:
                 return visitor.visitCreateFlows();
+            case CREATE_GROUP_ROLES:
+                return visitor.visitCreateGroupRoles();
             case DELETE_HOOKS:
                 return visitor.visitDeleteHooks();
             case READ_ORGANIZATIONS:
@@ -1386,6 +1394,8 @@ public final class OauthScope {
                 return CREATE_AUTHENTICATION_METHODS;
             case "create:phone_providers":
                 return CREATE_PHONE_PROVIDERS;
+            case "delete:group_roles":
+                return DELETE_GROUP_ROLES;
             case "delete:organization_client_grants":
                 return DELETE_ORGANIZATION_CLIENT_GRANTS;
             case "create:scim_config":
@@ -1614,6 +1624,8 @@ public final class OauthScope {
                 return CREATE_ROLE_MEMBERS;
             case "create:flows":
                 return CREATE_FLOWS;
+            case "create:group_roles":
+                return CREATE_GROUP_ROLES;
             case "delete:hooks":
                 return DELETE_HOOKS;
             case "read:organizations":
@@ -1937,6 +1949,10 @@ public final class OauthScope {
         READ_GROUPS,
 
         READ_GROUP_MEMBERS,
+
+        CREATE_GROUP_ROLES,
+
+        DELETE_GROUP_ROLES,
 
         CREATE_GUARDIAN_ENROLLMENT_TICKETS,
 
@@ -2443,6 +2459,10 @@ public final class OauthScope {
         T visitReadGroups();
 
         T visitReadGroupMembers();
+
+        T visitCreateGroupRoles();
+
+        T visitDeleteGroupRoles();
 
         T visitCreateGuardianEnrollmentTickets();
 

@@ -8,9 +8,9 @@ import com.auth0.client.mgmt.prompts.types.ListAculsRequestParameters;
 import com.auth0.client.mgmt.prompts.types.UpdateAculRequestContent;
 import com.auth0.client.mgmt.types.AculConfigsItem;
 import com.auth0.client.mgmt.types.AculRenderingModeEnum;
-import com.auth0.client.mgmt.types.AculResponseContent;
 import com.auth0.client.mgmt.types.BulkUpdateAculResponseContent;
 import com.auth0.client.mgmt.types.GetAculResponseContent;
+import com.auth0.client.mgmt.types.ListAculsResponseContentItem;
 import com.auth0.client.mgmt.types.PromptGroupNameEnum;
 import com.auth0.client.mgmt.types.ScreenGroupNameEnum;
 import com.auth0.client.mgmt.types.UpdateAculResponseContent;
@@ -51,8 +51,8 @@ public class PromptsRenderingWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"configs\":[{\"rendering_mode\":\"advanced\",\"context_configuration\":[\"context_configuration\"],\"default_head_tags_disabled\":true,\"use_page_template\":true,\"head_tags\":[{}]}],\"start\":1.1,\"limit\":1.1,\"total\":1.1}"));
-        SyncPagingIterable<AculResponseContent> response = client.prompts()
+                                "{\"configs\":[{\"tenant\":\"tenant\",\"prompt\":\"prompt\",\"screen\":\"screen\",\"rendering_mode\":\"advanced\",\"context_configuration\":[\"branding.settings\"],\"default_head_tags_disabled\":true,\"use_page_template\":true,\"head_tags\":[{}]}],\"start\":1.1,\"limit\":1.1,\"total\":1.1}"));
+        SyncPagingIterable<ListAculsResponseContentItem> response = client.prompts()
                 .rendering()
                 .list(ListAculsRequestParameters.builder()
                         .fields(OptionalNullable.of("fields"))
@@ -188,7 +188,7 @@ public class PromptsRenderingWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"tenant\":\"tenant\",\"prompt\":\"prompt\",\"screen\":\"screen\",\"rendering_mode\":\"advanced\",\"context_configuration\":[\"context_configuration\"],\"default_head_tags_disabled\":true,\"use_page_template\":true,\"head_tags\":[{\"tag\":\"tag\",\"attributes\":{\"key\":\"value\"},\"content\":\"content\"}],\"filters\":{\"match_type\":\"includes_any\",\"clients\":[{\"id\":\"id\"}],\"organizations\":[{\"id\":\"id\"}],\"domains\":[{\"id\":\"id\"}]}}"));
+                                "{\"tenant\":\"tenant\",\"prompt\":\"prompt\",\"screen\":\"screen\",\"rendering_mode\":\"advanced\",\"context_configuration\":[\"branding.settings\"],\"default_head_tags_disabled\":true,\"use_page_template\":true,\"head_tags\":[{\"tag\":\"tag\",\"attributes\":{\"key\":\"value\"},\"content\":\"content\"}],\"filters\":{\"match_type\":\"includes_any\",\"clients\":[{\"id\":\"id\"}],\"organizations\":[{\"id\":\"id\"}],\"domains\":[{\"id\":\"id\"}]}}"));
         GetAculResponseContent response =
                 client.prompts().rendering().get(PromptGroupNameEnum.LOGIN, ScreenGroupNameEnum.LOGIN);
         RecordedRequest request = server.takeRequest();
@@ -205,7 +205,7 @@ public class PromptsRenderingWireTest {
                 + "  \"screen\": \"screen\",\n"
                 + "  \"rendering_mode\": \"advanced\",\n"
                 + "  \"context_configuration\": [\n"
-                + "    \"context_configuration\"\n"
+                + "    \"branding.settings\"\n"
                 + "  ],\n"
                 + "  \"default_head_tags_disabled\": true,\n"
                 + "  \"use_page_template\": true,\n"
@@ -274,7 +274,7 @@ public class PromptsRenderingWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"rendering_mode\":\"advanced\",\"context_configuration\":[\"context_configuration\"],\"default_head_tags_disabled\":true,\"use_page_template\":true,\"head_tags\":[{\"tag\":\"tag\",\"attributes\":{\"key\":\"value\"},\"content\":\"content\"}],\"filters\":{\"match_type\":\"includes_any\",\"clients\":[{\"id\":\"id\"}],\"organizations\":[{\"id\":\"id\"}],\"domains\":[{\"id\":\"id\"}]}}"));
+                                "{\"rendering_mode\":\"advanced\",\"context_configuration\":[\"branding.settings\"],\"default_head_tags_disabled\":true,\"use_page_template\":true,\"head_tags\":[{\"tag\":\"tag\",\"attributes\":{\"key\":\"value\"},\"content\":\"content\"}],\"filters\":{\"match_type\":\"includes_any\",\"clients\":[{\"id\":\"id\"}],\"organizations\":[{\"id\":\"id\"}],\"domains\":[{\"id\":\"id\"}]}}"));
         UpdateAculResponseContent response = client.prompts()
                 .rendering()
                 .update(
@@ -321,7 +321,7 @@ public class PromptsRenderingWireTest {
                 + "{\n"
                 + "  \"rendering_mode\": \"advanced\",\n"
                 + "  \"context_configuration\": [\n"
-                + "    \"context_configuration\"\n"
+                + "    \"branding.settings\"\n"
                 + "  ],\n"
                 + "  \"default_head_tags_disabled\": true,\n"
                 + "  \"use_page_template\": true,\n"
