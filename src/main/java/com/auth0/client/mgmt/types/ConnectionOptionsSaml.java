@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml, IConnectionOptionsCommon {
     private final Optional<String> cert;
 
-    private final Optional<String> decryptionKey;
+    private final Optional<ConnectionDecryptionKeySaml> decryptionKey;
 
     private final Optional<ConnectionDigestAlgorithmEnumSaml> digestAlgorithm;
 
@@ -91,7 +91,7 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
 
     private ConnectionOptionsSaml(
             Optional<String> cert,
-            Optional<String> decryptionKey,
+            Optional<ConnectionDecryptionKeySaml> decryptionKey,
             Optional<ConnectionDigestAlgorithmEnumSaml> digestAlgorithm,
             Optional<List<String>> domainAliases,
             Optional<String> entityId,
@@ -164,7 +164,7 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
 
     @JsonProperty("decryptionKey")
     @java.lang.Override
-    public Optional<String> getDecryptionKey() {
+    public Optional<ConnectionDecryptionKeySaml> getDecryptionKey() {
         return decryptionKey;
     }
 
@@ -234,9 +234,6 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
         return tenantDomain;
     }
 
-    /**
-     * @return SHA-1 thumbprints (fingerprints) of the identity provider's signing certificates. Automatically computed from signingCert during connection creation. Each thumbprint must be a 40-character hexadecimal string.
-     */
     @JsonProperty("thumbprints")
     @java.lang.Override
     public Optional<List<String>> getThumbprints() {
@@ -438,7 +435,7 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
     public static final class Builder {
         private Optional<String> cert = Optional.empty();
 
-        private Optional<String> decryptionKey = Optional.empty();
+        private Optional<ConnectionDecryptionKeySaml> decryptionKey = Optional.empty();
 
         private Optional<ConnectionDigestAlgorithmEnumSaml> digestAlgorithm = Optional.empty();
 
@@ -551,12 +548,12 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
         }
 
         @JsonSetter(value = "decryptionKey", nulls = Nulls.SKIP)
-        public Builder decryptionKey(Optional<String> decryptionKey) {
+        public Builder decryptionKey(Optional<ConnectionDecryptionKeySaml> decryptionKey) {
             this.decryptionKey = decryptionKey;
             return this;
         }
 
-        public Builder decryptionKey(String decryptionKey) {
+        public Builder decryptionKey(ConnectionDecryptionKeySaml decryptionKey) {
             this.decryptionKey = Optional.ofNullable(decryptionKey);
             return this;
         }
@@ -682,9 +679,6 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
             return this;
         }
 
-        /**
-         * <p>SHA-1 thumbprints (fingerprints) of the identity provider's signing certificates. Automatically computed from signingCert during connection creation. Each thumbprint must be a 40-character hexadecimal string.</p>
-         */
         @JsonSetter(value = "thumbprints", nulls = Nulls.SKIP)
         public Builder thumbprints(Optional<List<String>> thumbprints) {
             this.thumbprints = thumbprints;

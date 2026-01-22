@@ -24,12 +24,14 @@ import org.jetbrains.annotations.NotNull;
 public final class ClientDefaultOrganization {
     private final String organizationId;
 
-    private final List<String> flows;
+    private final List<ClientDefaultOrganizationFlowsEnum> flows;
 
     private final Map<String, Object> additionalProperties;
 
     private ClientDefaultOrganization(
-            String organizationId, List<String> flows, Map<String, Object> additionalProperties) {
+            String organizationId,
+            List<ClientDefaultOrganizationFlowsEnum> flows,
+            Map<String, Object> additionalProperties) {
         this.organizationId = organizationId;
         this.flows = flows;
         this.additionalProperties = additionalProperties;
@@ -47,7 +49,7 @@ public final class ClientDefaultOrganization {
      * @return The default Organization usage
      */
     @JsonProperty("flows")
-    public List<String> getFlows() {
+    public List<ClientDefaultOrganizationFlowsEnum> getFlows() {
         return flows;
     }
 
@@ -95,18 +97,18 @@ public final class ClientDefaultOrganization {
         /**
          * <p>The default Organization usage</p>
          */
-        _FinalStage flows(List<String> flows);
+        _FinalStage flows(List<ClientDefaultOrganizationFlowsEnum> flows);
 
-        _FinalStage addFlows(String flows);
+        _FinalStage addFlows(ClientDefaultOrganizationFlowsEnum flows);
 
-        _FinalStage addAllFlows(List<String> flows);
+        _FinalStage addAllFlows(List<ClientDefaultOrganizationFlowsEnum> flows);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements OrganizationIdStage, _FinalStage {
         private String organizationId;
 
-        private List<String> flows = new ArrayList<>();
+        private List<ClientDefaultOrganizationFlowsEnum> flows = new ArrayList<>();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -137,7 +139,7 @@ public final class ClientDefaultOrganization {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        public _FinalStage addAllFlows(List<String> flows) {
+        public _FinalStage addAllFlows(List<ClientDefaultOrganizationFlowsEnum> flows) {
             if (flows != null) {
                 this.flows.addAll(flows);
             }
@@ -149,7 +151,7 @@ public final class ClientDefaultOrganization {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        public _FinalStage addFlows(String flows) {
+        public _FinalStage addFlows(ClientDefaultOrganizationFlowsEnum flows) {
             this.flows.add(flows);
             return this;
         }
@@ -159,7 +161,7 @@ public final class ClientDefaultOrganization {
          */
         @java.lang.Override
         @JsonSetter(value = "flows", nulls = Nulls.SKIP)
-        public _FinalStage flows(List<String> flows) {
+        public _FinalStage flows(List<ClientDefaultOrganizationFlowsEnum> flows) {
             this.flows.clear();
             if (flows != null) {
                 this.flows.addAll(flows);

@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = CertificateSubjectDnCredential.Builder.class)
 public final class CertificateSubjectDnCredential {
-    private final String credentialType;
+    private final CertificateSubjectDnCredentialTypeEnum credentialType;
 
     private final Optional<String> name;
 
@@ -32,7 +32,7 @@ public final class CertificateSubjectDnCredential {
     private final Map<String, Object> additionalProperties;
 
     private CertificateSubjectDnCredential(
-            String credentialType,
+            CertificateSubjectDnCredentialTypeEnum credentialType,
             Optional<String> name,
             Optional<String> subjectDn,
             Optional<String> pem,
@@ -45,7 +45,7 @@ public final class CertificateSubjectDnCredential {
     }
 
     @JsonProperty("credential_type")
-    public String getCredentialType() {
+    public CertificateSubjectDnCredentialTypeEnum getCredentialType() {
         return credentialType;
     }
 
@@ -106,7 +106,7 @@ public final class CertificateSubjectDnCredential {
     }
 
     public interface CredentialTypeStage {
-        _FinalStage credentialType(@NotNull String credentialType);
+        _FinalStage credentialType(@NotNull CertificateSubjectDnCredentialTypeEnum credentialType);
 
         Builder from(CertificateSubjectDnCredential other);
     }
@@ -138,7 +138,7 @@ public final class CertificateSubjectDnCredential {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements CredentialTypeStage, _FinalStage {
-        private String credentialType;
+        private CertificateSubjectDnCredentialTypeEnum credentialType;
 
         private Optional<String> pem = Optional.empty();
 
@@ -162,7 +162,7 @@ public final class CertificateSubjectDnCredential {
 
         @java.lang.Override
         @JsonSetter("credential_type")
-        public _FinalStage credentialType(@NotNull String credentialType) {
+        public _FinalStage credentialType(@NotNull CertificateSubjectDnCredentialTypeEnum credentialType) {
             this.credentialType = Objects.requireNonNull(credentialType, "credentialType must not be null");
             return this;
         }

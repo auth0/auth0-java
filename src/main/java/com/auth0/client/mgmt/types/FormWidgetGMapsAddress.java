@@ -23,9 +23,9 @@ import org.jetbrains.annotations.NotNull;
 public final class FormWidgetGMapsAddress {
     private final String id;
 
-    private final String category;
+    private final FormComponentCategoryWidgetConst category;
 
-    private final String type;
+    private final FormWidgetTypeGMapsAddressConst type;
 
     private final FormWidgetGMapsAddressConfig config;
 
@@ -41,8 +41,8 @@ public final class FormWidgetGMapsAddress {
 
     private FormWidgetGMapsAddress(
             String id,
-            String category,
-            String type,
+            FormComponentCategoryWidgetConst category,
+            FormWidgetTypeGMapsAddressConst type,
             FormWidgetGMapsAddressConfig config,
             Optional<String> label,
             Optional<String> hint,
@@ -66,12 +66,12 @@ public final class FormWidgetGMapsAddress {
     }
 
     @JsonProperty("category")
-    public String getCategory() {
+    public FormComponentCategoryWidgetConst getCategory() {
         return category;
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public FormWidgetTypeGMapsAddressConst getType() {
         return type;
     }
 
@@ -144,11 +144,11 @@ public final class FormWidgetGMapsAddress {
     }
 
     public interface CategoryStage {
-        TypeStage category(@NotNull String category);
+        TypeStage category(@NotNull FormComponentCategoryWidgetConst category);
     }
 
     public interface TypeStage {
-        ConfigStage type(@NotNull String type);
+        ConfigStage type(@NotNull FormWidgetTypeGMapsAddressConst type);
     }
 
     public interface ConfigStage {
@@ -179,9 +179,9 @@ public final class FormWidgetGMapsAddress {
     public static final class Builder implements IdStage, CategoryStage, TypeStage, ConfigStage, _FinalStage {
         private String id;
 
-        private String category;
+        private FormComponentCategoryWidgetConst category;
 
-        private String type;
+        private FormWidgetTypeGMapsAddressConst type;
 
         private FormWidgetGMapsAddressConfig config;
 
@@ -220,14 +220,14 @@ public final class FormWidgetGMapsAddress {
 
         @java.lang.Override
         @JsonSetter("category")
-        public TypeStage category(@NotNull String category) {
+        public TypeStage category(@NotNull FormComponentCategoryWidgetConst category) {
             this.category = Objects.requireNonNull(category, "category must not be null");
             return this;
         }
 
         @java.lang.Override
         @JsonSetter("type")
-        public ConfigStage type(@NotNull String type) {
+        public ConfigStage type(@NotNull FormWidgetTypeGMapsAddressConst type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

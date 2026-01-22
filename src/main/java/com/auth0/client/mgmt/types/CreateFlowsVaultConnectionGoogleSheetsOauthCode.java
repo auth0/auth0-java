@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateFlowsVaultConnectionGoogleSheetsOauthCode {
     private final String name;
 
-    private final String appId;
+    private final FlowsVaultConnectionAppIdGoogleSheetsEnum appId;
 
     private final FlowsVaultConnectioSetupOauthCode setup;
 
@@ -29,7 +29,7 @@ public final class CreateFlowsVaultConnectionGoogleSheetsOauthCode {
 
     private CreateFlowsVaultConnectionGoogleSheetsOauthCode(
             String name,
-            String appId,
+            FlowsVaultConnectionAppIdGoogleSheetsEnum appId,
             FlowsVaultConnectioSetupOauthCode setup,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -47,7 +47,7 @@ public final class CreateFlowsVaultConnectionGoogleSheetsOauthCode {
     }
 
     @JsonProperty("app_id")
-    public String getAppId() {
+    public FlowsVaultConnectionAppIdGoogleSheetsEnum getAppId() {
         return appId;
     }
 
@@ -96,7 +96,7 @@ public final class CreateFlowsVaultConnectionGoogleSheetsOauthCode {
     }
 
     public interface AppIdStage {
-        SetupStage appId(@NotNull String appId);
+        SetupStage appId(@NotNull FlowsVaultConnectionAppIdGoogleSheetsEnum appId);
     }
 
     public interface SetupStage {
@@ -111,7 +111,7 @@ public final class CreateFlowsVaultConnectionGoogleSheetsOauthCode {
     public static final class Builder implements NameStage, AppIdStage, SetupStage, _FinalStage {
         private String name;
 
-        private String appId;
+        private FlowsVaultConnectionAppIdGoogleSheetsEnum appId;
 
         private FlowsVaultConnectioSetupOauthCode setup;
 
@@ -142,7 +142,7 @@ public final class CreateFlowsVaultConnectionGoogleSheetsOauthCode {
 
         @java.lang.Override
         @JsonSetter("app_id")
-        public SetupStage appId(@NotNull String appId) {
+        public SetupStage appId(@NotNull FlowsVaultConnectionAppIdGoogleSheetsEnum appId) {
             this.appId = Objects.requireNonNull(appId, "appId must not be null");
             return this;
         }

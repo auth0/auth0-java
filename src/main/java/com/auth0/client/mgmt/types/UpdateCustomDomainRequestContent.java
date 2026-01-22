@@ -23,27 +23,31 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = UpdateCustomDomainRequestContent.Builder.class)
 public final class UpdateCustomDomainRequestContent {
-    private final Optional<String> tlsPolicy;
+    private final Optional<CustomDomainTlsPolicyEnum> tlsPolicy;
 
     private final OptionalNullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader;
 
     private final Optional<Map<String, OptionalNullable<String>>> domainMetadata;
 
+    private final OptionalNullable<String> relyingPartyIdentifier;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateCustomDomainRequestContent(
-            Optional<String> tlsPolicy,
+            Optional<CustomDomainTlsPolicyEnum> tlsPolicy,
             OptionalNullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader,
             Optional<Map<String, OptionalNullable<String>>> domainMetadata,
+            OptionalNullable<String> relyingPartyIdentifier,
             Map<String, Object> additionalProperties) {
         this.tlsPolicy = tlsPolicy;
         this.customClientIpHeader = customClientIpHeader;
         this.domainMetadata = domainMetadata;
+        this.relyingPartyIdentifier = relyingPartyIdentifier;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("tls_policy")
-    public Optional<String> getTlsPolicy() {
+    public Optional<CustomDomainTlsPolicyEnum> getTlsPolicy() {
         return tlsPolicy;
     }
 
@@ -56,6 +60,24 @@ public final class UpdateCustomDomainRequestContent {
     @JsonProperty("domain_metadata")
     public Optional<Map<String, OptionalNullable<String>>> getDomainMetadata() {
         return domainMetadata;
+    }
+
+    /**
+     * @return Relying Party ID (rpId) to be used for Passkeys on this custom domain. Set to null to remove the rpId and fall back to using the full domain.
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("relying_party_identifier")
+    public OptionalNullable<String> getRelyingPartyIdentifier() {
+        if (relyingPartyIdentifier == null) {
+            return OptionalNullable.absent();
+        }
+        return relyingPartyIdentifier;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("relying_party_identifier")
+    private OptionalNullable<String> _getRelyingPartyIdentifier() {
+        return relyingPartyIdentifier;
     }
 
     @java.lang.Override
@@ -72,12 +94,14 @@ public final class UpdateCustomDomainRequestContent {
     private boolean equalTo(UpdateCustomDomainRequestContent other) {
         return tlsPolicy.equals(other.tlsPolicy)
                 && customClientIpHeader.equals(other.customClientIpHeader)
-                && domainMetadata.equals(other.domainMetadata);
+                && domainMetadata.equals(other.domainMetadata)
+                && relyingPartyIdentifier.equals(other.relyingPartyIdentifier);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.tlsPolicy, this.customClientIpHeader, this.domainMetadata);
+        return Objects.hash(
+                this.tlsPolicy, this.customClientIpHeader, this.domainMetadata, this.relyingPartyIdentifier);
     }
 
     @java.lang.Override
@@ -91,11 +115,13 @@ public final class UpdateCustomDomainRequestContent {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<String> tlsPolicy = Optional.empty();
+        private Optional<CustomDomainTlsPolicyEnum> tlsPolicy = Optional.empty();
 
         private OptionalNullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader = OptionalNullable.absent();
 
         private Optional<Map<String, OptionalNullable<String>>> domainMetadata = Optional.empty();
+
+        private OptionalNullable<String> relyingPartyIdentifier = OptionalNullable.absent();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -106,16 +132,17 @@ public final class UpdateCustomDomainRequestContent {
             tlsPolicy(other.getTlsPolicy());
             customClientIpHeader(other.getCustomClientIpHeader());
             domainMetadata(other.getDomainMetadata());
+            relyingPartyIdentifier(other.getRelyingPartyIdentifier());
             return this;
         }
 
         @JsonSetter(value = "tls_policy", nulls = Nulls.SKIP)
-        public Builder tlsPolicy(Optional<String> tlsPolicy) {
+        public Builder tlsPolicy(Optional<CustomDomainTlsPolicyEnum> tlsPolicy) {
             this.tlsPolicy = tlsPolicy;
             return this;
         }
 
-        public Builder tlsPolicy(String tlsPolicy) {
+        public Builder tlsPolicy(CustomDomainTlsPolicyEnum tlsPolicy) {
             this.tlsPolicy = Optional.ofNullable(tlsPolicy);
             return this;
         }
@@ -163,9 +190,44 @@ public final class UpdateCustomDomainRequestContent {
             return this;
         }
 
+        /**
+         * <p>Relying Party ID (rpId) to be used for Passkeys on this custom domain. Set to null to remove the rpId and fall back to using the full domain.</p>
+         */
+        @JsonSetter(value = "relying_party_identifier", nulls = Nulls.SKIP)
+        public Builder relyingPartyIdentifier(
+                @org.jetbrains.annotations.Nullable OptionalNullable<String> relyingPartyIdentifier) {
+            this.relyingPartyIdentifier = relyingPartyIdentifier;
+            return this;
+        }
+
+        public Builder relyingPartyIdentifier(String relyingPartyIdentifier) {
+            this.relyingPartyIdentifier = OptionalNullable.of(relyingPartyIdentifier);
+            return this;
+        }
+
+        public Builder relyingPartyIdentifier(Optional<String> relyingPartyIdentifier) {
+            if (relyingPartyIdentifier.isPresent()) {
+                this.relyingPartyIdentifier = OptionalNullable.of(relyingPartyIdentifier.get());
+            } else {
+                this.relyingPartyIdentifier = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder relyingPartyIdentifier(Nullable<String> relyingPartyIdentifier) {
+            if (relyingPartyIdentifier.isNull()) {
+                this.relyingPartyIdentifier = OptionalNullable.ofNull();
+            } else if (relyingPartyIdentifier.isEmpty()) {
+                this.relyingPartyIdentifier = OptionalNullable.absent();
+            } else {
+                this.relyingPartyIdentifier = OptionalNullable.of(relyingPartyIdentifier.get());
+            }
+            return this;
+        }
+
         public UpdateCustomDomainRequestContent build() {
             return new UpdateCustomDomainRequestContent(
-                    tlsPolicy, customClientIpHeader, domainMetadata, additionalProperties);
+                    tlsPolicy, customClientIpHeader, domainMetadata, relyingPartyIdentifier, additionalProperties);
         }
     }
 }

@@ -18,12 +18,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionResponseContentAdfs.Builder.class)
 public final class ConnectionResponseContentAdfs
         implements IConnectionResponseCommon, ICreateConnectionCommon, IConnectionCommon {
     private final Optional<String> id;
+
+    private final Optional<List<String>> realms;
 
     private final Optional<String> name;
 
@@ -39,7 +42,11 @@ public final class ConnectionResponseContentAdfs
 
     private final Optional<Map<String, OptionalNullable<String>>> metadata;
 
+    private final ConnectionResponseContentAdfsStrategy strategy;
+
     private final Optional<ConnectionOptionsAdfs> options;
+
+    private final Optional<String> provisioningTicketUrl;
 
     private final Optional<Boolean> showAsButton;
 
@@ -47,6 +54,7 @@ public final class ConnectionResponseContentAdfs
 
     private ConnectionResponseContentAdfs(
             Optional<String> id,
+            Optional<List<String>> realms,
             Optional<String> name,
             Optional<ConnectionAuthenticationPurpose> authentication,
             Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
@@ -54,10 +62,13 @@ public final class ConnectionResponseContentAdfs
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
+            ConnectionResponseContentAdfsStrategy strategy,
             Optional<ConnectionOptionsAdfs> options,
+            Optional<String> provisioningTicketUrl,
             Optional<Boolean> showAsButton,
             Map<String, Object> additionalProperties) {
         this.id = id;
+        this.realms = realms;
         this.name = name;
         this.authentication = authentication;
         this.connectedAccounts = connectedAccounts;
@@ -65,7 +76,9 @@ public final class ConnectionResponseContentAdfs
         this.enabledClients = enabledClients;
         this.isDomainConnection = isDomainConnection;
         this.metadata = metadata;
+        this.strategy = strategy;
         this.options = options;
+        this.provisioningTicketUrl = provisioningTicketUrl;
         this.showAsButton = showAsButton;
         this.additionalProperties = additionalProperties;
     }
@@ -74,6 +87,12 @@ public final class ConnectionResponseContentAdfs
     @java.lang.Override
     public Optional<String> getId() {
         return id;
+    }
+
+    @JsonProperty("realms")
+    @java.lang.Override
+    public Optional<List<String>> getRealms() {
+        return realms;
     }
 
     @JsonProperty("name")
@@ -119,13 +138,18 @@ public final class ConnectionResponseContentAdfs
     }
 
     @JsonProperty("strategy")
-    public String getStrategy() {
-        return "adfs";
+    public ConnectionResponseContentAdfsStrategy getStrategy() {
+        return strategy;
     }
 
     @JsonProperty("options")
     public Optional<ConnectionOptionsAdfs> getOptions() {
         return options;
+    }
+
+    @JsonProperty("provisioning_ticket_url")
+    public Optional<String> getProvisioningTicketUrl() {
+        return provisioningTicketUrl;
     }
 
     @JsonProperty("show_as_button")
@@ -146,6 +170,7 @@ public final class ConnectionResponseContentAdfs
 
     private boolean equalTo(ConnectionResponseContentAdfs other) {
         return id.equals(other.id)
+                && realms.equals(other.realms)
                 && name.equals(other.name)
                 && authentication.equals(other.authentication)
                 && connectedAccounts.equals(other.connectedAccounts)
@@ -153,7 +178,9 @@ public final class ConnectionResponseContentAdfs
                 && enabledClients.equals(other.enabledClients)
                 && isDomainConnection.equals(other.isDomainConnection)
                 && metadata.equals(other.metadata)
+                && strategy.equals(other.strategy)
                 && options.equals(other.options)
+                && provisioningTicketUrl.equals(other.provisioningTicketUrl)
                 && showAsButton.equals(other.showAsButton);
     }
 
@@ -161,6 +188,7 @@ public final class ConnectionResponseContentAdfs
     public int hashCode() {
         return Objects.hash(
                 this.id,
+                this.realms,
                 this.name,
                 this.authentication,
                 this.connectedAccounts,
@@ -168,7 +196,9 @@ public final class ConnectionResponseContentAdfs
                 this.enabledClients,
                 this.isDomainConnection,
                 this.metadata,
+                this.strategy,
                 this.options,
+                this.provisioningTicketUrl,
                 this.showAsButton);
     }
 
@@ -177,39 +207,105 @@ public final class ConnectionResponseContentAdfs
         return ObjectMappers.stringify(this);
     }
 
-    public static Builder builder() {
+    public static StrategyStage builder() {
         return new Builder();
     }
 
+    public interface StrategyStage {
+        _FinalStage strategy(@NotNull ConnectionResponseContentAdfsStrategy strategy);
+
+        Builder from(ConnectionResponseContentAdfs other);
+    }
+
+    public interface _FinalStage {
+        ConnectionResponseContentAdfs build();
+
+        _FinalStage id(Optional<String> id);
+
+        _FinalStage id(String id);
+
+        _FinalStage realms(Optional<List<String>> realms);
+
+        _FinalStage realms(List<String> realms);
+
+        _FinalStage name(Optional<String> name);
+
+        _FinalStage name(String name);
+
+        _FinalStage authentication(Optional<ConnectionAuthenticationPurpose> authentication);
+
+        _FinalStage authentication(ConnectionAuthenticationPurpose authentication);
+
+        _FinalStage connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts);
+
+        _FinalStage connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts);
+
+        _FinalStage displayName(Optional<String> displayName);
+
+        _FinalStage displayName(String displayName);
+
+        _FinalStage enabledClients(Optional<List<String>> enabledClients);
+
+        _FinalStage enabledClients(List<String> enabledClients);
+
+        _FinalStage isDomainConnection(Optional<Boolean> isDomainConnection);
+
+        _FinalStage isDomainConnection(Boolean isDomainConnection);
+
+        _FinalStage metadata(Optional<Map<String, OptionalNullable<String>>> metadata);
+
+        _FinalStage metadata(Map<String, OptionalNullable<String>> metadata);
+
+        _FinalStage options(Optional<ConnectionOptionsAdfs> options);
+
+        _FinalStage options(ConnectionOptionsAdfs options);
+
+        _FinalStage provisioningTicketUrl(Optional<String> provisioningTicketUrl);
+
+        _FinalStage provisioningTicketUrl(String provisioningTicketUrl);
+
+        _FinalStage showAsButton(Optional<Boolean> showAsButton);
+
+        _FinalStage showAsButton(Boolean showAsButton);
+    }
+
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder {
-        private Optional<String> id = Optional.empty();
+    public static final class Builder implements StrategyStage, _FinalStage {
+        private ConnectionResponseContentAdfsStrategy strategy;
 
-        private Optional<String> name = Optional.empty();
+        private Optional<Boolean> showAsButton = Optional.empty();
 
-        private Optional<ConnectionAuthenticationPurpose> authentication = Optional.empty();
-
-        private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
-
-        private Optional<String> displayName = Optional.empty();
-
-        private Optional<List<String>> enabledClients = Optional.empty();
-
-        private Optional<Boolean> isDomainConnection = Optional.empty();
-
-        private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
+        private Optional<String> provisioningTicketUrl = Optional.empty();
 
         private Optional<ConnectionOptionsAdfs> options = Optional.empty();
 
-        private Optional<Boolean> showAsButton = Optional.empty();
+        private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
+
+        private Optional<Boolean> isDomainConnection = Optional.empty();
+
+        private Optional<List<String>> enabledClients = Optional.empty();
+
+        private Optional<String> displayName = Optional.empty();
+
+        private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
+
+        private Optional<ConnectionAuthenticationPurpose> authentication = Optional.empty();
+
+        private Optional<String> name = Optional.empty();
+
+        private Optional<List<String>> realms = Optional.empty();
+
+        private Optional<String> id = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
+        @java.lang.Override
         public Builder from(ConnectionResponseContentAdfs other) {
             id(other.getId());
+            realms(other.getRealms());
             name(other.getName());
             authentication(other.getAuthentication());
             connectedAccounts(other.getConnectedAccounts());
@@ -217,124 +313,181 @@ public final class ConnectionResponseContentAdfs
             enabledClients(other.getEnabledClients());
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
+            strategy(other.getStrategy());
             options(other.getOptions());
+            provisioningTicketUrl(other.getProvisioningTicketUrl());
             showAsButton(other.getShowAsButton());
             return this;
         }
 
-        @JsonSetter(value = "id", nulls = Nulls.SKIP)
-        public Builder id(Optional<String> id) {
-            this.id = id;
+        @java.lang.Override
+        @JsonSetter("strategy")
+        public _FinalStage strategy(@NotNull ConnectionResponseContentAdfsStrategy strategy) {
+            this.strategy = Objects.requireNonNull(strategy, "strategy must not be null");
             return this;
         }
 
-        public Builder id(String id) {
-            this.id = Optional.ofNullable(id);
-            return this;
-        }
-
-        @JsonSetter(value = "name", nulls = Nulls.SKIP)
-        public Builder name(Optional<String> name) {
-            this.name = name;
-            return this;
-        }
-
-        public Builder name(String name) {
-            this.name = Optional.ofNullable(name);
-            return this;
-        }
-
-        @JsonSetter(value = "authentication", nulls = Nulls.SKIP)
-        public Builder authentication(Optional<ConnectionAuthenticationPurpose> authentication) {
-            this.authentication = authentication;
-            return this;
-        }
-
-        public Builder authentication(ConnectionAuthenticationPurpose authentication) {
-            this.authentication = Optional.ofNullable(authentication);
-            return this;
-        }
-
-        @JsonSetter(value = "connected_accounts", nulls = Nulls.SKIP)
-        public Builder connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts) {
-            this.connectedAccounts = connectedAccounts;
-            return this;
-        }
-
-        public Builder connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts) {
-            this.connectedAccounts = Optional.ofNullable(connectedAccounts);
-            return this;
-        }
-
-        @JsonSetter(value = "display_name", nulls = Nulls.SKIP)
-        public Builder displayName(Optional<String> displayName) {
-            this.displayName = displayName;
-            return this;
-        }
-
-        public Builder displayName(String displayName) {
-            this.displayName = Optional.ofNullable(displayName);
-            return this;
-        }
-
-        @JsonSetter(value = "enabled_clients", nulls = Nulls.SKIP)
-        public Builder enabledClients(Optional<List<String>> enabledClients) {
-            this.enabledClients = enabledClients;
-            return this;
-        }
-
-        public Builder enabledClients(List<String> enabledClients) {
-            this.enabledClients = Optional.ofNullable(enabledClients);
-            return this;
-        }
-
-        @JsonSetter(value = "is_domain_connection", nulls = Nulls.SKIP)
-        public Builder isDomainConnection(Optional<Boolean> isDomainConnection) {
-            this.isDomainConnection = isDomainConnection;
-            return this;
-        }
-
-        public Builder isDomainConnection(Boolean isDomainConnection) {
-            this.isDomainConnection = Optional.ofNullable(isDomainConnection);
-            return this;
-        }
-
-        @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
-        public Builder metadata(Optional<Map<String, OptionalNullable<String>>> metadata) {
-            this.metadata = metadata;
-            return this;
-        }
-
-        public Builder metadata(Map<String, OptionalNullable<String>> metadata) {
-            this.metadata = Optional.ofNullable(metadata);
-            return this;
-        }
-
-        @JsonSetter(value = "options", nulls = Nulls.SKIP)
-        public Builder options(Optional<ConnectionOptionsAdfs> options) {
-            this.options = options;
-            return this;
-        }
-
-        public Builder options(ConnectionOptionsAdfs options) {
-            this.options = Optional.ofNullable(options);
-            return this;
-        }
-
-        @JsonSetter(value = "show_as_button", nulls = Nulls.SKIP)
-        public Builder showAsButton(Optional<Boolean> showAsButton) {
-            this.showAsButton = showAsButton;
-            return this;
-        }
-
-        public Builder showAsButton(Boolean showAsButton) {
+        @java.lang.Override
+        public _FinalStage showAsButton(Boolean showAsButton) {
             this.showAsButton = Optional.ofNullable(showAsButton);
             return this;
         }
 
+        @java.lang.Override
+        @JsonSetter(value = "show_as_button", nulls = Nulls.SKIP)
+        public _FinalStage showAsButton(Optional<Boolean> showAsButton) {
+            this.showAsButton = showAsButton;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage provisioningTicketUrl(String provisioningTicketUrl) {
+            this.provisioningTicketUrl = Optional.ofNullable(provisioningTicketUrl);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "provisioning_ticket_url", nulls = Nulls.SKIP)
+        public _FinalStage provisioningTicketUrl(Optional<String> provisioningTicketUrl) {
+            this.provisioningTicketUrl = provisioningTicketUrl;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage options(ConnectionOptionsAdfs options) {
+            this.options = Optional.ofNullable(options);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "options", nulls = Nulls.SKIP)
+        public _FinalStage options(Optional<ConnectionOptionsAdfs> options) {
+            this.options = options;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage metadata(Map<String, OptionalNullable<String>> metadata) {
+            this.metadata = Optional.ofNullable(metadata);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
+        public _FinalStage metadata(Optional<Map<String, OptionalNullable<String>>> metadata) {
+            this.metadata = metadata;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage isDomainConnection(Boolean isDomainConnection) {
+            this.isDomainConnection = Optional.ofNullable(isDomainConnection);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "is_domain_connection", nulls = Nulls.SKIP)
+        public _FinalStage isDomainConnection(Optional<Boolean> isDomainConnection) {
+            this.isDomainConnection = isDomainConnection;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage enabledClients(List<String> enabledClients) {
+            this.enabledClients = Optional.ofNullable(enabledClients);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "enabled_clients", nulls = Nulls.SKIP)
+        public _FinalStage enabledClients(Optional<List<String>> enabledClients) {
+            this.enabledClients = enabledClients;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage displayName(String displayName) {
+            this.displayName = Optional.ofNullable(displayName);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "display_name", nulls = Nulls.SKIP)
+        public _FinalStage displayName(Optional<String> displayName) {
+            this.displayName = displayName;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts) {
+            this.connectedAccounts = Optional.ofNullable(connectedAccounts);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "connected_accounts", nulls = Nulls.SKIP)
+        public _FinalStage connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts) {
+            this.connectedAccounts = connectedAccounts;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage authentication(ConnectionAuthenticationPurpose authentication) {
+            this.authentication = Optional.ofNullable(authentication);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "authentication", nulls = Nulls.SKIP)
+        public _FinalStage authentication(Optional<ConnectionAuthenticationPurpose> authentication) {
+            this.authentication = authentication;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage name(String name) {
+            this.name = Optional.ofNullable(name);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "name", nulls = Nulls.SKIP)
+        public _FinalStage name(Optional<String> name) {
+            this.name = name;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage realms(List<String> realms) {
+            this.realms = Optional.ofNullable(realms);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "realms", nulls = Nulls.SKIP)
+        public _FinalStage realms(Optional<List<String>> realms) {
+            this.realms = realms;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage id(String id) {
+            this.id = Optional.ofNullable(id);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "id", nulls = Nulls.SKIP)
+        public _FinalStage id(Optional<String> id) {
+            this.id = id;
+            return this;
+        }
+
+        @java.lang.Override
         public ConnectionResponseContentAdfs build() {
             return new ConnectionResponseContentAdfs(
                     id,
+                    realms,
                     name,
                     authentication,
                     connectedAccounts,
@@ -342,7 +495,9 @@ public final class ConnectionResponseContentAdfs
                     enabledClients,
                     isDomainConnection,
                     metadata,
+                    strategy,
                     options,
+                    provisioningTicketUrl,
                     showAsButton,
                     additionalProperties);
         }

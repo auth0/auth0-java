@@ -7,6 +7,7 @@ import com.auth0.client.mgmt.types.CreateTokenExchangeProfileRequestContent;
 import com.auth0.client.mgmt.types.CreateTokenExchangeProfileResponseContent;
 import com.auth0.client.mgmt.types.GetTokenExchangeProfileResponseContent;
 import com.auth0.client.mgmt.types.TokenExchangeProfileResponseContent;
+import com.auth0.client.mgmt.types.TokenExchangeProfileTypeEnum;
 import com.auth0.client.mgmt.types.TokenExchangeProfilesListRequest;
 import com.auth0.client.mgmt.types.UpdateTokenExchangeProfileRequestContent;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -73,7 +74,7 @@ public class TokenExchangeProfilesWireTest {
                         .name("name")
                         .subjectTokenType("subject_token_type")
                         .actionId("action_id")
-                        .type("custom_authentication")
+                        .type(TokenExchangeProfileTypeEnum.CUSTOM_AUTHENTICATION)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

@@ -25,6 +25,10 @@ public final class FlowActionAuth0UpdateUser {
 
     private final Optional<String> alias;
 
+    private final FlowActionAuth0UpdateUserType type;
+
+    private final FlowActionAuth0UpdateUserAction action;
+
     private final Optional<Boolean> allowFailure;
 
     private final Optional<Boolean> maskOutput;
@@ -36,12 +40,16 @@ public final class FlowActionAuth0UpdateUser {
     private FlowActionAuth0UpdateUser(
             String id,
             Optional<String> alias,
+            FlowActionAuth0UpdateUserType type,
+            FlowActionAuth0UpdateUserAction action,
             Optional<Boolean> allowFailure,
             Optional<Boolean> maskOutput,
             FlowActionAuth0UpdateUserParams params,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.alias = alias;
+        this.type = type;
+        this.action = action;
         this.allowFailure = allowFailure;
         this.maskOutput = maskOutput;
         this.params = params;
@@ -59,13 +67,13 @@ public final class FlowActionAuth0UpdateUser {
     }
 
     @JsonProperty("type")
-    public String getType() {
-        return "AUTH0";
+    public FlowActionAuth0UpdateUserType getType() {
+        return type;
     }
 
     @JsonProperty("action")
-    public String getAction() {
-        return "UPDATE_USER";
+    public FlowActionAuth0UpdateUserAction getAction() {
+        return action;
     }
 
     @JsonProperty("allow_failure")
@@ -97,6 +105,8 @@ public final class FlowActionAuth0UpdateUser {
     private boolean equalTo(FlowActionAuth0UpdateUser other) {
         return id.equals(other.id)
                 && alias.equals(other.alias)
+                && type.equals(other.type)
+                && action.equals(other.action)
                 && allowFailure.equals(other.allowFailure)
                 && maskOutput.equals(other.maskOutput)
                 && params.equals(other.params);
@@ -104,7 +114,8 @@ public final class FlowActionAuth0UpdateUser {
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.id, this.alias, this.allowFailure, this.maskOutput, this.params);
+        return Objects.hash(
+                this.id, this.alias, this.type, this.action, this.allowFailure, this.maskOutput, this.params);
     }
 
     @java.lang.Override
@@ -117,9 +128,17 @@ public final class FlowActionAuth0UpdateUser {
     }
 
     public interface IdStage {
-        ParamsStage id(@NotNull String id);
+        TypeStage id(@NotNull String id);
 
         Builder from(FlowActionAuth0UpdateUser other);
+    }
+
+    public interface TypeStage {
+        ActionStage type(@NotNull FlowActionAuth0UpdateUserType type);
+    }
+
+    public interface ActionStage {
+        ParamsStage action(@NotNull FlowActionAuth0UpdateUserAction action);
     }
 
     public interface ParamsStage {
@@ -143,8 +162,12 @@ public final class FlowActionAuth0UpdateUser {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements IdStage, ParamsStage, _FinalStage {
+    public static final class Builder implements IdStage, TypeStage, ActionStage, ParamsStage, _FinalStage {
         private String id;
+
+        private FlowActionAuth0UpdateUserType type;
+
+        private FlowActionAuth0UpdateUserAction action;
 
         private FlowActionAuth0UpdateUserParams params;
 
@@ -163,6 +186,8 @@ public final class FlowActionAuth0UpdateUser {
         public Builder from(FlowActionAuth0UpdateUser other) {
             id(other.getId());
             alias(other.getAlias());
+            type(other.getType());
+            action(other.getAction());
             allowFailure(other.getAllowFailure());
             maskOutput(other.getMaskOutput());
             params(other.getParams());
@@ -171,8 +196,22 @@ public final class FlowActionAuth0UpdateUser {
 
         @java.lang.Override
         @JsonSetter("id")
-        public ParamsStage id(@NotNull String id) {
+        public TypeStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter("type")
+        public ActionStage type(@NotNull FlowActionAuth0UpdateUserType type) {
+            this.type = Objects.requireNonNull(type, "type must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter("action")
+        public ParamsStage action(@NotNull FlowActionAuth0UpdateUserAction action) {
+            this.action = Objects.requireNonNull(action, "action must not be null");
             return this;
         }
 
@@ -224,7 +263,8 @@ public final class FlowActionAuth0UpdateUser {
 
         @java.lang.Override
         public FlowActionAuth0UpdateUser build() {
-            return new FlowActionAuth0UpdateUser(id, alias, allowFailure, maskOutput, params, additionalProperties);
+            return new FlowActionAuth0UpdateUser(
+                    id, alias, type, action, allowFailure, maskOutput, params, additionalProperties);
         }
     }
 }

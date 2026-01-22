@@ -19,21 +19,23 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = EventStreamWebhookDestination.Builder.class)
 public final class EventStreamWebhookDestination {
-    private final String type;
+    private final EventStreamWebhookDestinationTypeEnum type;
 
     private final EventStreamWebhookConfiguration configuration;
 
     private final Map<String, Object> additionalProperties;
 
     private EventStreamWebhookDestination(
-            String type, EventStreamWebhookConfiguration configuration, Map<String, Object> additionalProperties) {
+            EventStreamWebhookDestinationTypeEnum type,
+            EventStreamWebhookConfiguration configuration,
+            Map<String, Object> additionalProperties) {
         this.type = type;
         this.configuration = configuration;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public EventStreamWebhookDestinationTypeEnum getType() {
         return type;
     }
 
@@ -72,7 +74,7 @@ public final class EventStreamWebhookDestination {
     }
 
     public interface TypeStage {
-        ConfigurationStage type(@NotNull String type);
+        ConfigurationStage type(@NotNull EventStreamWebhookDestinationTypeEnum type);
 
         Builder from(EventStreamWebhookDestination other);
     }
@@ -87,7 +89,7 @@ public final class EventStreamWebhookDestination {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements TypeStage, ConfigurationStage, _FinalStage {
-        private String type;
+        private EventStreamWebhookDestinationTypeEnum type;
 
         private EventStreamWebhookConfiguration configuration;
 
@@ -105,7 +107,7 @@ public final class EventStreamWebhookDestination {
 
         @java.lang.Override
         @JsonSetter("type")
-        public ConfigurationStage type(@NotNull String type) {
+        public ConfigurationStage type(@NotNull EventStreamWebhookDestinationTypeEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

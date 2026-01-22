@@ -25,7 +25,7 @@ public final class CreateTokenExchangeProfileRequestContent {
 
     private final String actionId;
 
-    private final String type;
+    private final TokenExchangeProfileTypeEnum type;
 
     private final Map<String, Object> additionalProperties;
 
@@ -33,7 +33,7 @@ public final class CreateTokenExchangeProfileRequestContent {
             String name,
             String subjectTokenType,
             String actionId,
-            String type,
+            TokenExchangeProfileTypeEnum type,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.subjectTokenType = subjectTokenType;
@@ -67,7 +67,7 @@ public final class CreateTokenExchangeProfileRequestContent {
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public TokenExchangeProfileTypeEnum getType() {
         return type;
     }
 
@@ -128,7 +128,7 @@ public final class CreateTokenExchangeProfileRequestContent {
     }
 
     public interface TypeStage {
-        _FinalStage type(@NotNull String type);
+        _FinalStage type(@NotNull TokenExchangeProfileTypeEnum type);
     }
 
     public interface _FinalStage {
@@ -144,7 +144,7 @@ public final class CreateTokenExchangeProfileRequestContent {
 
         private String actionId;
 
-        private String type;
+        private TokenExchangeProfileTypeEnum type;
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -198,7 +198,7 @@ public final class CreateTokenExchangeProfileRequestContent {
 
         @java.lang.Override
         @JsonSetter("type")
-        public _FinalStage type(@NotNull String type) {
+        public _FinalStage type(@NotNull TokenExchangeProfileTypeEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

@@ -42,7 +42,7 @@ public final class UpdateOrganizationDiscoveryDomainRequestContent {
     }
 
     /**
-     * @return Indicates whether this discovery domain should be used for organization discovery.
+     * @return Indicates whether this domain should be used for organization discovery.
      */
     @JsonProperty("use_for_organization_discovery")
     public Optional<Boolean> getUseForOrganizationDiscovery() {
@@ -108,7 +108,7 @@ public final class UpdateOrganizationDiscoveryDomainRequestContent {
         }
 
         /**
-         * <p>Indicates whether this discovery domain should be used for organization discovery.</p>
+         * <p>Indicates whether this domain should be used for organization discovery.</p>
          */
         @JsonSetter(value = "use_for_organization_discovery", nulls = Nulls.SKIP)
         public Builder useForOrganizationDiscovery(Optional<Boolean> useForOrganizationDiscovery) {

@@ -32,6 +32,8 @@ public final class UpdateClientGrantRequestContent {
 
     private final Optional<List<String>> authorizationDetailsTypes;
 
+    private final OptionalNullable<Boolean> allowAllScopes;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateClientGrantRequestContent(
@@ -39,11 +41,13 @@ public final class UpdateClientGrantRequestContent {
             OptionalNullable<ClientGrantOrganizationNullableUsageEnum> organizationUsage,
             OptionalNullable<Boolean> allowAnyOrganization,
             Optional<List<String>> authorizationDetailsTypes,
+            OptionalNullable<Boolean> allowAllScopes,
             Map<String, Object> additionalProperties) {
         this.scope = scope;
         this.organizationUsage = organizationUsage;
         this.allowAnyOrganization = allowAnyOrganization;
         this.authorizationDetailsTypes = authorizationDetailsTypes;
+        this.allowAllScopes = allowAllScopes;
         this.additionalProperties = additionalProperties;
     }
 
@@ -77,11 +81,23 @@ public final class UpdateClientGrantRequestContent {
     }
 
     /**
-     * @return Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s &lt;a href= &quot;https://www.okta.com/legal/&quot;&gt; Master Subscription Agreement.&lt;/a&gt;
+     * @return Types of authorization_details allowed for this client grant.
      */
     @JsonProperty("authorization_details_types")
     public Optional<List<String>> getAuthorizationDetailsTypes() {
         return authorizationDetailsTypes;
+    }
+
+    /**
+     * @return If enabled, all scopes configured on the resource server are allowed for this grant.
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("allow_all_scopes")
+    public OptionalNullable<Boolean> getAllowAllScopes() {
+        if (allowAllScopes == null) {
+            return OptionalNullable.absent();
+        }
+        return allowAllScopes;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -94,6 +110,12 @@ public final class UpdateClientGrantRequestContent {
     @JsonProperty("allow_any_organization")
     private OptionalNullable<Boolean> _getAllowAnyOrganization() {
         return allowAnyOrganization;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("allow_all_scopes")
+    private OptionalNullable<Boolean> _getAllowAllScopes() {
+        return allowAllScopes;
     }
 
     @java.lang.Override
@@ -111,13 +133,18 @@ public final class UpdateClientGrantRequestContent {
         return scope.equals(other.scope)
                 && organizationUsage.equals(other.organizationUsage)
                 && allowAnyOrganization.equals(other.allowAnyOrganization)
-                && authorizationDetailsTypes.equals(other.authorizationDetailsTypes);
+                && authorizationDetailsTypes.equals(other.authorizationDetailsTypes)
+                && allowAllScopes.equals(other.allowAllScopes);
     }
 
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.scope, this.organizationUsage, this.allowAnyOrganization, this.authorizationDetailsTypes);
+                this.scope,
+                this.organizationUsage,
+                this.allowAnyOrganization,
+                this.authorizationDetailsTypes,
+                this.allowAllScopes);
     }
 
     @java.lang.Override
@@ -140,6 +167,8 @@ public final class UpdateClientGrantRequestContent {
 
         private Optional<List<String>> authorizationDetailsTypes = Optional.empty();
 
+        private OptionalNullable<Boolean> allowAllScopes = OptionalNullable.absent();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -150,6 +179,7 @@ public final class UpdateClientGrantRequestContent {
             organizationUsage(other.getOrganizationUsage());
             allowAnyOrganization(other.getAllowAnyOrganization());
             authorizationDetailsTypes(other.getAuthorizationDetailsTypes());
+            allowAllScopes(other.getAllowAllScopes());
             return this;
         }
 
@@ -235,7 +265,7 @@ public final class UpdateClientGrantRequestContent {
         }
 
         /**
-         * <p>Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s &lt;a href= &quot;https://www.okta.com/legal/&quot;&gt; Master Subscription Agreement.&lt;/a&gt;</p>
+         * <p>Types of authorization_details allowed for this client grant.</p>
          */
         @JsonSetter(value = "authorization_details_types", nulls = Nulls.SKIP)
         public Builder authorizationDetailsTypes(Optional<List<String>> authorizationDetailsTypes) {
@@ -248,9 +278,48 @@ public final class UpdateClientGrantRequestContent {
             return this;
         }
 
+        /**
+         * <p>If enabled, all scopes configured on the resource server are allowed for this grant.</p>
+         */
+        @JsonSetter(value = "allow_all_scopes", nulls = Nulls.SKIP)
+        public Builder allowAllScopes(@Nullable OptionalNullable<Boolean> allowAllScopes) {
+            this.allowAllScopes = allowAllScopes;
+            return this;
+        }
+
+        public Builder allowAllScopes(Boolean allowAllScopes) {
+            this.allowAllScopes = OptionalNullable.of(allowAllScopes);
+            return this;
+        }
+
+        public Builder allowAllScopes(Optional<Boolean> allowAllScopes) {
+            if (allowAllScopes.isPresent()) {
+                this.allowAllScopes = OptionalNullable.of(allowAllScopes.get());
+            } else {
+                this.allowAllScopes = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder allowAllScopes(com.auth0.client.mgmt.core.Nullable<Boolean> allowAllScopes) {
+            if (allowAllScopes.isNull()) {
+                this.allowAllScopes = OptionalNullable.ofNull();
+            } else if (allowAllScopes.isEmpty()) {
+                this.allowAllScopes = OptionalNullable.absent();
+            } else {
+                this.allowAllScopes = OptionalNullable.of(allowAllScopes.get());
+            }
+            return this;
+        }
+
         public UpdateClientGrantRequestContent build() {
             return new UpdateClientGrantRequestContent(
-                    scope, organizationUsage, allowAnyOrganization, authorizationDetailsTypes, additionalProperties);
+                    scope,
+                    organizationUsage,
+                    allowAnyOrganization,
+                    authorizationDetailsTypes,
+                    allowAllScopes,
+                    additionalProperties);
         }
     }
 }

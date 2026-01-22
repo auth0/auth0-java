@@ -7,7 +7,6 @@ import com.auth0.client.mgmt.core.ObjectMappers;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
@@ -35,7 +34,7 @@ public final class FormNodePointer {
         if (this.type == 0) {
             return visitor.visit((String) this.value);
         } else if (this.type == 1) {
-            return visitor.visit2((String) this.value);
+            return visitor.visit((FormEndingNodeId) this.value);
         }
         throw new IllegalStateException("Failed to visit value. This should never happen.");
     }
@@ -64,14 +63,14 @@ public final class FormNodePointer {
         return new FormNodePointer(value, 0);
     }
 
-    public static FormNodePointer of2(String value) {
+    public static FormNodePointer of(FormEndingNodeId value) {
         return new FormNodePointer(value, 1);
     }
 
     public interface Visitor<T> {
         T visit(String value);
 
-        T visit2(String value);
+        T visit(FormEndingNodeId value);
     }
 
     static final class Deserializer extends StdDeserializer<FormNodePointer> {
@@ -87,7 +86,7 @@ public final class FormNodePointer {
             } catch (RuntimeException e) {
             }
             try {
-                return of2(ObjectMappers.JSON_MAPPER.convertValue(value, new TypeReference<String>() {}));
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FormEndingNodeId.class));
             } catch (RuntimeException e) {
             }
             throw new JsonParseException(p, "Failed to deserialize");

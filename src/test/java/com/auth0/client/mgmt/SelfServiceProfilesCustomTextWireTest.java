@@ -1,6 +1,8 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.types.SelfServiceProfileCustomTextLanguageEnum;
+import com.auth0.client.mgmt.types.SelfServiceProfileCustomTextPageEnum;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
@@ -36,7 +38,12 @@ public class SelfServiceProfilesCustomTextWireTest {
     @Test
     public void testList() throws Exception {
         server.enqueue(new MockResponse().setResponseCode(200).setBody("{\"key\":\"value\"}"));
-        Map<String, String> response = client.selfServiceProfiles().customText().list("id", "en", "get-started");
+        Map<String, String> response = client.selfServiceProfiles()
+                .customText()
+                .list(
+                        "id",
+                        SelfServiceProfileCustomTextLanguageEnum.EN,
+                        SelfServiceProfileCustomTextPageEnum.GET_STARTED);
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("GET", request.getMethod());
@@ -81,11 +88,15 @@ public class SelfServiceProfilesCustomTextWireTest {
         server.enqueue(new MockResponse().setResponseCode(200).setBody("{\"key\":\"value\"}"));
         Map<String, String> response = client.selfServiceProfiles()
                 .customText()
-                .set("id", "en", "get-started", new HashMap<String, String>() {
-                    {
-                        put("key", "value");
-                    }
-                });
+                .set(
+                        "id",
+                        SelfServiceProfileCustomTextLanguageEnum.EN,
+                        SelfServiceProfileCustomTextPageEnum.GET_STARTED,
+                        new HashMap<String, String>() {
+                            {
+                                put("key", "value");
+                            }
+                        });
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("PUT", request.getMethod());

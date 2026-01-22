@@ -21,21 +21,23 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = FormFieldPaymentConfigChargeSubscription.Builder.class)
 public final class FormFieldPaymentConfigChargeSubscription {
-    private final String type;
+    private final FormFieldPaymentConfigChargeTypeSubscriptionConst type;
 
     private final Map<String, Object> subscription;
 
     private final Map<String, Object> additionalProperties;
 
     private FormFieldPaymentConfigChargeSubscription(
-            String type, Map<String, Object> subscription, Map<String, Object> additionalProperties) {
+            FormFieldPaymentConfigChargeTypeSubscriptionConst type,
+            Map<String, Object> subscription,
+            Map<String, Object> additionalProperties) {
         this.type = type;
         this.subscription = subscription;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public FormFieldPaymentConfigChargeTypeSubscriptionConst getType() {
         return type;
     }
 
@@ -75,7 +77,7 @@ public final class FormFieldPaymentConfigChargeSubscription {
     }
 
     public interface TypeStage {
-        _FinalStage type(@NotNull String type);
+        _FinalStage type(@NotNull FormFieldPaymentConfigChargeTypeSubscriptionConst type);
 
         Builder from(FormFieldPaymentConfigChargeSubscription other);
     }
@@ -92,7 +94,7 @@ public final class FormFieldPaymentConfigChargeSubscription {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements TypeStage, _FinalStage {
-        private String type;
+        private FormFieldPaymentConfigChargeTypeSubscriptionConst type;
 
         private Map<String, Object> subscription = new LinkedHashMap<>();
 
@@ -110,7 +112,7 @@ public final class FormFieldPaymentConfigChargeSubscription {
 
         @java.lang.Override
         @JsonSetter("type")
-        public _FinalStage type(@NotNull String type) {
+        public _FinalStage type(@NotNull FormFieldPaymentConfigChargeTypeSubscriptionConst type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

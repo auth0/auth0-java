@@ -19,21 +19,23 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = FormFieldPaymentConfigChargeOneOff.Builder.class)
 public final class FormFieldPaymentConfigChargeOneOff {
-    private final String type;
+    private final FormFieldPaymentConfigChargeTypeOneOffConst type;
 
     private final FormFieldPaymentConfigChargeOneOffOneOff oneOff;
 
     private final Map<String, Object> additionalProperties;
 
     private FormFieldPaymentConfigChargeOneOff(
-            String type, FormFieldPaymentConfigChargeOneOffOneOff oneOff, Map<String, Object> additionalProperties) {
+            FormFieldPaymentConfigChargeTypeOneOffConst type,
+            FormFieldPaymentConfigChargeOneOffOneOff oneOff,
+            Map<String, Object> additionalProperties) {
         this.type = type;
         this.oneOff = oneOff;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public FormFieldPaymentConfigChargeTypeOneOffConst getType() {
         return type;
     }
 
@@ -73,7 +75,7 @@ public final class FormFieldPaymentConfigChargeOneOff {
     }
 
     public interface TypeStage {
-        OneOffStage type(@NotNull String type);
+        OneOffStage type(@NotNull FormFieldPaymentConfigChargeTypeOneOffConst type);
 
         Builder from(FormFieldPaymentConfigChargeOneOff other);
     }
@@ -88,7 +90,7 @@ public final class FormFieldPaymentConfigChargeOneOff {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements TypeStage, OneOffStage, _FinalStage {
-        private String type;
+        private FormFieldPaymentConfigChargeTypeOneOffConst type;
 
         private FormFieldPaymentConfigChargeOneOffOneOff oneOff;
 
@@ -106,7 +108,7 @@ public final class FormFieldPaymentConfigChargeOneOff {
 
         @java.lang.Override
         @JsonSetter("type")
-        public OneOffStage type(@NotNull String type) {
+        public OneOffStage type(@NotNull FormFieldPaymentConfigChargeTypeOneOffConst type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

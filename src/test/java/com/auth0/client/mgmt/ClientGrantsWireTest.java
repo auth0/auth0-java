@@ -7,6 +7,7 @@ import com.auth0.client.mgmt.types.ClientGrantResponseContent;
 import com.auth0.client.mgmt.types.ClientGrantSubjectTypeEnum;
 import com.auth0.client.mgmt.types.CreateClientGrantRequestContent;
 import com.auth0.client.mgmt.types.CreateClientGrantResponseContent;
+import com.auth0.client.mgmt.types.GetClientGrantResponseContent;
 import com.auth0.client.mgmt.types.ListClientGrantsRequestParameters;
 import com.auth0.client.mgmt.types.UpdateClientGrantRequestContent;
 import com.auth0.client.mgmt.types.UpdateClientGrantResponseContent;
@@ -46,7 +47,7 @@ public class ClientGrantsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"next\":\"next\",\"client_grants\":[{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"is_system\":true,\"subject_type\":\"client\",\"authorization_details_types\":[\"authorization_details_types\"]}]}"));
+                                "{\"next\":\"next\",\"client_grants\":[{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"is_system\":true,\"subject_type\":\"client\",\"authorization_details_types\":[\"authorization_details_types\"],\"allow_all_scopes\":true}]}"));
         SyncPagingIterable<ClientGrantResponseContent> response = client.clientGrants()
                 .list(ListClientGrantsRequestParameters.builder()
                         .from(OptionalNullable.of("from"))
@@ -72,7 +73,7 @@ public class ClientGrantsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"is_system\":true,\"subject_type\":\"client\",\"authorization_details_types\":[\"authorization_details_types\"]}"));
+                                "{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"is_system\":true,\"subject_type\":\"client\",\"authorization_details_types\":[\"authorization_details_types\"],\"allow_all_scopes\":true}"));
         CreateClientGrantResponseContent response = client.clientGrants()
                 .create(CreateClientGrantRequestContent.builder()
                         .clientId("client_id")
@@ -129,7 +130,71 @@ public class ClientGrantsWireTest {
                 + "  \"subject_type\": \"client\",\n"
                 + "  \"authorization_details_types\": [\n"
                 + "    \"authorization_details_types\"\n"
-                + "  ]\n"
+                + "  ],\n"
+                + "  \"allow_all_scopes\": true\n"
+                + "}";
+        JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
+        JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
+        Assertions.assertTrue(
+                jsonEquals(expectedResponseNode, actualResponseNode),
+                "Response body structure does not match expected");
+        if (actualResponseNode.has("type") || actualResponseNode.has("_type") || actualResponseNode.has("kind")) {
+            String discriminator = null;
+            if (actualResponseNode.has("type"))
+                discriminator = actualResponseNode.get("type").asText();
+            else if (actualResponseNode.has("_type"))
+                discriminator = actualResponseNode.get("_type").asText();
+            else if (actualResponseNode.has("kind"))
+                discriminator = actualResponseNode.get("kind").asText();
+            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
+            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
+        }
+
+        if (!actualResponseNode.isNull()) {
+            Assertions.assertTrue(
+                    actualResponseNode.isObject() || actualResponseNode.isArray() || actualResponseNode.isValueNode(),
+                    "response should be a valid JSON value");
+        }
+
+        if (actualResponseNode.isArray()) {
+            Assertions.assertTrue(actualResponseNode.size() >= 0, "Array should have valid size");
+        }
+        if (actualResponseNode.isObject()) {
+            Assertions.assertTrue(actualResponseNode.size() >= 0, "Object should have valid field count");
+        }
+    }
+
+    @Test
+    public void testGet() throws Exception {
+        server.enqueue(
+                new MockResponse()
+                        .setResponseCode(200)
+                        .setBody(
+                                "{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"is_system\":true,\"subject_type\":\"client\",\"authorization_details_types\":[\"authorization_details_types\"],\"allow_all_scopes\":true}"));
+        GetClientGrantResponseContent response = client.clientGrants().get("id");
+        RecordedRequest request = server.takeRequest();
+        Assertions.assertNotNull(request);
+        Assertions.assertEquals("GET", request.getMethod());
+
+        // Validate response body
+        Assertions.assertNotNull(response, "Response should not be null");
+        String actualResponseJson = objectMapper.writeValueAsString(response);
+        String expectedResponseBody = ""
+                + "{\n"
+                + "  \"id\": \"id\",\n"
+                + "  \"client_id\": \"client_id\",\n"
+                + "  \"audience\": \"audience\",\n"
+                + "  \"scope\": [\n"
+                + "    \"scope\"\n"
+                + "  ],\n"
+                + "  \"organization_usage\": \"deny\",\n"
+                + "  \"allow_any_organization\": true,\n"
+                + "  \"is_system\": true,\n"
+                + "  \"subject_type\": \"client\",\n"
+                + "  \"authorization_details_types\": [\n"
+                + "    \"authorization_details_types\"\n"
+                + "  ],\n"
+                + "  \"allow_all_scopes\": true\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -177,7 +242,7 @@ public class ClientGrantsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"is_system\":true,\"subject_type\":\"client\",\"authorization_details_types\":[\"authorization_details_types\"]}"));
+                                "{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"is_system\":true,\"subject_type\":\"client\",\"authorization_details_types\":[\"authorization_details_types\"],\"allow_all_scopes\":true}"));
         UpdateClientGrantResponseContent response = client.clientGrants()
                 .update("id", UpdateClientGrantRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -230,7 +295,8 @@ public class ClientGrantsWireTest {
                 + "  \"subject_type\": \"client\",\n"
                 + "  \"authorization_details_types\": [\n"
                 + "    \"authorization_details_types\"\n"
-                + "  ]\n"
+                + "  ],\n"
+                + "  \"allow_all_scopes\": true\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);

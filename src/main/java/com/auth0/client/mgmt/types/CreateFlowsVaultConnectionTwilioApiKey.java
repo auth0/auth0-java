@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateFlowsVaultConnectionTwilioApiKey {
     private final String name;
 
-    private final String appId;
+    private final FlowsVaultConnectionAppIdTwilioEnum appId;
 
     private final FlowsVaultConnectioSetupTwilioApiKey setup;
 
@@ -29,7 +29,7 @@ public final class CreateFlowsVaultConnectionTwilioApiKey {
 
     private CreateFlowsVaultConnectionTwilioApiKey(
             String name,
-            String appId,
+            FlowsVaultConnectionAppIdTwilioEnum appId,
             FlowsVaultConnectioSetupTwilioApiKey setup,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -47,7 +47,7 @@ public final class CreateFlowsVaultConnectionTwilioApiKey {
     }
 
     @JsonProperty("app_id")
-    public String getAppId() {
+    public FlowsVaultConnectionAppIdTwilioEnum getAppId() {
         return appId;
     }
 
@@ -96,7 +96,7 @@ public final class CreateFlowsVaultConnectionTwilioApiKey {
     }
 
     public interface AppIdStage {
-        SetupStage appId(@NotNull String appId);
+        SetupStage appId(@NotNull FlowsVaultConnectionAppIdTwilioEnum appId);
     }
 
     public interface SetupStage {
@@ -111,7 +111,7 @@ public final class CreateFlowsVaultConnectionTwilioApiKey {
     public static final class Builder implements NameStage, AppIdStage, SetupStage, _FinalStage {
         private String name;
 
-        private String appId;
+        private FlowsVaultConnectionAppIdTwilioEnum appId;
 
         private FlowsVaultConnectioSetupTwilioApiKey setup;
 
@@ -142,7 +142,7 @@ public final class CreateFlowsVaultConnectionTwilioApiKey {
 
         @java.lang.Override
         @JsonSetter("app_id")
-        public SetupStage appId(@NotNull String appId) {
+        public SetupStage appId(@NotNull FlowsVaultConnectionAppIdTwilioEnum appId) {
             this.appId = Objects.requireNonNull(appId, "appId must not be null");
             return this;
         }

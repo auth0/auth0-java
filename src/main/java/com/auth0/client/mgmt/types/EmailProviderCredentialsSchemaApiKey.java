@@ -24,14 +24,14 @@ public final class EmailProviderCredentialsSchemaApiKey {
 
     private final Optional<String> domain;
 
-    private final Optional<String> region;
+    private final Optional<EmailMailgunRegionEnum> region;
 
     private final Map<String, Object> additionalProperties;
 
     private EmailProviderCredentialsSchemaApiKey(
             Optional<String> apiKey,
             Optional<String> domain,
-            Optional<String> region,
+            Optional<EmailMailgunRegionEnum> region,
             Map<String, Object> additionalProperties) {
         this.apiKey = apiKey;
         this.domain = domain;
@@ -56,7 +56,7 @@ public final class EmailProviderCredentialsSchemaApiKey {
     }
 
     @JsonProperty("region")
-    public Optional<String> getRegion() {
+    public Optional<EmailMailgunRegionEnum> getRegion() {
         return region;
     }
 
@@ -96,7 +96,7 @@ public final class EmailProviderCredentialsSchemaApiKey {
 
         private Optional<String> domain = Optional.empty();
 
-        private Optional<String> region = Optional.empty();
+        private Optional<EmailMailgunRegionEnum> region = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -139,12 +139,12 @@ public final class EmailProviderCredentialsSchemaApiKey {
         }
 
         @JsonSetter(value = "region", nulls = Nulls.SKIP)
-        public Builder region(Optional<String> region) {
+        public Builder region(Optional<EmailMailgunRegionEnum> region) {
             this.region = region;
             return this;
         }
 
-        public Builder region(String region) {
+        public Builder region(EmailMailgunRegionEnum region) {
             this.region = Optional.ofNullable(region);
             return this;
         }

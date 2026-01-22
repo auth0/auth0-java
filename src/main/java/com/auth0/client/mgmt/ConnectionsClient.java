@@ -27,9 +27,9 @@ public class ConnectionsClient {
 
     private final RawConnectionsClient rawClient;
 
-    protected final Supplier<ClientsClient> clientsClient;
-
     protected final Supplier<DirectoryProvisioningClient> directoryProvisioningClient;
+
+    protected final Supplier<ClientsClient> clientsClient;
 
     protected final Supplier<KeysClient> keysClient;
 
@@ -40,8 +40,8 @@ public class ConnectionsClient {
     public ConnectionsClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
         this.rawClient = new RawConnectionsClient(clientOptions);
-        this.clientsClient = Suppliers.memoize(() -> new ClientsClient(clientOptions));
         this.directoryProvisioningClient = Suppliers.memoize(() -> new DirectoryProvisioningClient(clientOptions));
+        this.clientsClient = Suppliers.memoize(() -> new ClientsClient(clientOptions));
         this.keysClient = Suppliers.memoize(() -> new KeysClient(clientOptions));
         this.scimConfigurationClient = Suppliers.memoize(() -> new ScimConfigurationClient(clientOptions));
         this.usersClient = Suppliers.memoize(() -> new UsersClient(clientOptions));
@@ -116,14 +116,16 @@ public class ConnectionsClient {
     }
 
     /**
-     * Creates a new connection according to the JSON object received in &lt;code&gt;body&lt;/code&gt;.&lt;br/&gt;
+     * Creates a new connection according to the JSON object received in &lt;code&gt;body&lt;/code&gt;.
+     * <p>&lt;b&gt;Note:&lt;/b&gt; If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.</p>
      */
     public CreateConnectionResponseContent create(CreateConnectionRequestContent request) {
         return this.rawClient.create(request).body();
     }
 
     /**
-     * Creates a new connection according to the JSON object received in &lt;code&gt;body&lt;/code&gt;.&lt;br/&gt;
+     * Creates a new connection according to the JSON object received in &lt;code&gt;body&lt;/code&gt;.
+     * <p>&lt;b&gt;Note:&lt;/b&gt; If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.</p>
      */
     public CreateConnectionResponseContent create(
             CreateConnectionRequestContent request, RequestOptions requestOptions) {
@@ -154,6 +156,7 @@ public class ConnectionsClient {
 
     /**
      * Removes a specific &lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;connection&lt;/a&gt; from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
+     * <p>&lt;b&gt;Note:&lt;/b&gt; If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent &lt;a href=&quot;https://auth0.com/docs/api/management/v2/connections/post-connections&quot;&gt;create connection&lt;/a&gt; requests, if they use an identical connection name.</p>
      */
     public void delete(String id) {
         this.rawClient.delete(id).body();
@@ -161,6 +164,7 @@ public class ConnectionsClient {
 
     /**
      * Removes a specific &lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;connection&lt;/a&gt; from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
+     * <p>&lt;b&gt;Note:&lt;/b&gt; If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent &lt;a href=&quot;https://auth0.com/docs/api/management/v2/connections/post-connections&quot;&gt;create connection&lt;/a&gt; requests, if they use an identical connection name.</p>
      */
     public void delete(String id, RequestOptions requestOptions) {
         this.rawClient.delete(id, requestOptions).body();
@@ -205,12 +209,12 @@ public class ConnectionsClient {
         this.rawClient.checkStatus(id, requestOptions).body();
     }
 
-    public ClientsClient clients() {
-        return this.clientsClient.get();
-    }
-
     public DirectoryProvisioningClient directoryProvisioning() {
         return this.directoryProvisioningClient.get();
+    }
+
+    public ClientsClient clients() {
+        return this.clientsClient.get();
     }
 
     public KeysClient keys() {

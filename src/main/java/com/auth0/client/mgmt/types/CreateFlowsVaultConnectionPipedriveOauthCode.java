@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateFlowsVaultConnectionPipedriveOauthCode {
     private final String name;
 
-    private final String appId;
+    private final FlowsVaultConnectionAppIdPipedriveEnum appId;
 
     private final FlowsVaultConnectioSetupOauthCode setup;
 
@@ -29,7 +29,7 @@ public final class CreateFlowsVaultConnectionPipedriveOauthCode {
 
     private CreateFlowsVaultConnectionPipedriveOauthCode(
             String name,
-            String appId,
+            FlowsVaultConnectionAppIdPipedriveEnum appId,
             FlowsVaultConnectioSetupOauthCode setup,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -47,7 +47,7 @@ public final class CreateFlowsVaultConnectionPipedriveOauthCode {
     }
 
     @JsonProperty("app_id")
-    public String getAppId() {
+    public FlowsVaultConnectionAppIdPipedriveEnum getAppId() {
         return appId;
     }
 
@@ -96,7 +96,7 @@ public final class CreateFlowsVaultConnectionPipedriveOauthCode {
     }
 
     public interface AppIdStage {
-        SetupStage appId(@NotNull String appId);
+        SetupStage appId(@NotNull FlowsVaultConnectionAppIdPipedriveEnum appId);
     }
 
     public interface SetupStage {
@@ -111,7 +111,7 @@ public final class CreateFlowsVaultConnectionPipedriveOauthCode {
     public static final class Builder implements NameStage, AppIdStage, SetupStage, _FinalStage {
         private String name;
 
-        private String appId;
+        private FlowsVaultConnectionAppIdPipedriveEnum appId;
 
         private FlowsVaultConnectioSetupOauthCode setup;
 
@@ -142,7 +142,7 @@ public final class CreateFlowsVaultConnectionPipedriveOauthCode {
 
         @java.lang.Override
         @JsonSetter("app_id")
-        public SetupStage appId(@NotNull String appId) {
+        public SetupStage appId(@NotNull FlowsVaultConnectionAppIdPipedriveEnum appId) {
             this.appId = Objects.requireNonNull(appId, "appId must not be null");
             return this;
         }

@@ -25,6 +25,10 @@ public final class FlowActionHubspotUpsertContact {
 
     private final Optional<String> alias;
 
+    private final FlowActionHubspotUpsertContactType type;
+
+    private final FlowActionHubspotUpsertContactAction action;
+
     private final Optional<Boolean> allowFailure;
 
     private final Optional<Boolean> maskOutput;
@@ -36,12 +40,16 @@ public final class FlowActionHubspotUpsertContact {
     private FlowActionHubspotUpsertContact(
             String id,
             Optional<String> alias,
+            FlowActionHubspotUpsertContactType type,
+            FlowActionHubspotUpsertContactAction action,
             Optional<Boolean> allowFailure,
             Optional<Boolean> maskOutput,
             FlowActionHubspotUpsertContactParams params,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.alias = alias;
+        this.type = type;
+        this.action = action;
         this.allowFailure = allowFailure;
         this.maskOutput = maskOutput;
         this.params = params;
@@ -59,13 +67,13 @@ public final class FlowActionHubspotUpsertContact {
     }
 
     @JsonProperty("type")
-    public String getType() {
-        return "HUBSPOT";
+    public FlowActionHubspotUpsertContactType getType() {
+        return type;
     }
 
     @JsonProperty("action")
-    public String getAction() {
-        return "UPSERT_CONTACT";
+    public FlowActionHubspotUpsertContactAction getAction() {
+        return action;
     }
 
     @JsonProperty("allow_failure")
@@ -97,6 +105,8 @@ public final class FlowActionHubspotUpsertContact {
     private boolean equalTo(FlowActionHubspotUpsertContact other) {
         return id.equals(other.id)
                 && alias.equals(other.alias)
+                && type.equals(other.type)
+                && action.equals(other.action)
                 && allowFailure.equals(other.allowFailure)
                 && maskOutput.equals(other.maskOutput)
                 && params.equals(other.params);
@@ -104,7 +114,8 @@ public final class FlowActionHubspotUpsertContact {
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.id, this.alias, this.allowFailure, this.maskOutput, this.params);
+        return Objects.hash(
+                this.id, this.alias, this.type, this.action, this.allowFailure, this.maskOutput, this.params);
     }
 
     @java.lang.Override
@@ -117,9 +128,17 @@ public final class FlowActionHubspotUpsertContact {
     }
 
     public interface IdStage {
-        ParamsStage id(@NotNull String id);
+        TypeStage id(@NotNull String id);
 
         Builder from(FlowActionHubspotUpsertContact other);
+    }
+
+    public interface TypeStage {
+        ActionStage type(@NotNull FlowActionHubspotUpsertContactType type);
+    }
+
+    public interface ActionStage {
+        ParamsStage action(@NotNull FlowActionHubspotUpsertContactAction action);
     }
 
     public interface ParamsStage {
@@ -143,8 +162,12 @@ public final class FlowActionHubspotUpsertContact {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements IdStage, ParamsStage, _FinalStage {
+    public static final class Builder implements IdStage, TypeStage, ActionStage, ParamsStage, _FinalStage {
         private String id;
+
+        private FlowActionHubspotUpsertContactType type;
+
+        private FlowActionHubspotUpsertContactAction action;
 
         private FlowActionHubspotUpsertContactParams params;
 
@@ -163,6 +186,8 @@ public final class FlowActionHubspotUpsertContact {
         public Builder from(FlowActionHubspotUpsertContact other) {
             id(other.getId());
             alias(other.getAlias());
+            type(other.getType());
+            action(other.getAction());
             allowFailure(other.getAllowFailure());
             maskOutput(other.getMaskOutput());
             params(other.getParams());
@@ -171,8 +196,22 @@ public final class FlowActionHubspotUpsertContact {
 
         @java.lang.Override
         @JsonSetter("id")
-        public ParamsStage id(@NotNull String id) {
+        public TypeStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter("type")
+        public ActionStage type(@NotNull FlowActionHubspotUpsertContactType type) {
+            this.type = Objects.requireNonNull(type, "type must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter("action")
+        public ParamsStage action(@NotNull FlowActionHubspotUpsertContactAction action) {
+            this.action = Objects.requireNonNull(action, "action must not be null");
             return this;
         }
 
@@ -225,7 +264,7 @@ public final class FlowActionHubspotUpsertContact {
         @java.lang.Override
         public FlowActionHubspotUpsertContact build() {
             return new FlowActionHubspotUpsertContact(
-                    id, alias, allowFailure, maskOutput, params, additionalProperties);
+                    id, alias, type, action, allowFailure, maskOutput, params, additionalProperties);
         }
     }
 }

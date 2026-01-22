@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateLogStreamSplunkRequestBody {
     private final Optional<String> name;
 
-    private final String type;
+    private final LogStreamSplunkEnum type;
 
     private final Optional<Boolean> isPriority;
 
@@ -40,7 +40,7 @@ public final class CreateLogStreamSplunkRequestBody {
 
     private CreateLogStreamSplunkRequestBody(
             Optional<String> name,
-            String type,
+            LogStreamSplunkEnum type,
             Optional<Boolean> isPriority,
             Optional<List<LogStreamFilter>> filters,
             Optional<LogStreamPiiConfig> piiConfig,
@@ -66,7 +66,7 @@ public final class CreateLogStreamSplunkRequestBody {
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public LogStreamSplunkEnum getType() {
         return type;
     }
 
@@ -141,7 +141,7 @@ public final class CreateLogStreamSplunkRequestBody {
     }
 
     public interface TypeStage {
-        SinkStage type(@NotNull String type);
+        SinkStage type(@NotNull LogStreamSplunkEnum type);
 
         Builder from(CreateLogStreamSplunkRequestBody other);
     }
@@ -188,7 +188,7 @@ public final class CreateLogStreamSplunkRequestBody {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements TypeStage, SinkStage, _FinalStage {
-        private String type;
+        private LogStreamSplunkEnum type;
 
         private LogStreamSplunkSink sink;
 
@@ -221,7 +221,7 @@ public final class CreateLogStreamSplunkRequestBody {
 
         @java.lang.Override
         @JsonSetter("type")
-        public SinkStage type(@NotNull String type) {
+        public SinkStage type(@NotNull LogStreamSplunkEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = X509CertificateCredential.Builder.class)
 public final class X509CertificateCredential {
-    private final String credentialType;
+    private final X509CertificateCredentialTypeEnum credentialType;
 
     private final Optional<String> name;
 
@@ -30,7 +30,10 @@ public final class X509CertificateCredential {
     private final Map<String, Object> additionalProperties;
 
     private X509CertificateCredential(
-            String credentialType, Optional<String> name, String pem, Map<String, Object> additionalProperties) {
+            X509CertificateCredentialTypeEnum credentialType,
+            Optional<String> name,
+            String pem,
+            Map<String, Object> additionalProperties) {
         this.credentialType = credentialType;
         this.name = name;
         this.pem = pem;
@@ -38,7 +41,7 @@ public final class X509CertificateCredential {
     }
 
     @JsonProperty("credential_type")
-    public String getCredentialType() {
+    public X509CertificateCredentialTypeEnum getCredentialType() {
         return credentialType;
     }
 
@@ -88,7 +91,7 @@ public final class X509CertificateCredential {
     }
 
     public interface CredentialTypeStage {
-        PemStage credentialType(@NotNull String credentialType);
+        PemStage credentialType(@NotNull X509CertificateCredentialTypeEnum credentialType);
 
         Builder from(X509CertificateCredential other);
     }
@@ -113,7 +116,7 @@ public final class X509CertificateCredential {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements CredentialTypeStage, PemStage, _FinalStage {
-        private String credentialType;
+        private X509CertificateCredentialTypeEnum credentialType;
 
         private String pem;
 
@@ -134,7 +137,7 @@ public final class X509CertificateCredential {
 
         @java.lang.Override
         @JsonSetter("credential_type")
-        public PemStage credentialType(@NotNull String credentialType) {
+        public PemStage credentialType(@NotNull X509CertificateCredentialTypeEnum credentialType) {
             this.credentialType = Objects.requireNonNull(credentialType, "credentialType must not be null");
             return this;
         }

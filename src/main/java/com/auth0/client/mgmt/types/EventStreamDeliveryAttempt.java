@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = EventStreamDeliveryAttempt.Builder.class)
 public final class EventStreamDeliveryAttempt {
-    private final String status;
+    private final EventStreamDeliveryStatusEnum status;
 
     private final OffsetDateTime timestamp;
 
@@ -31,7 +31,7 @@ public final class EventStreamDeliveryAttempt {
     private final Map<String, Object> additionalProperties;
 
     private EventStreamDeliveryAttempt(
-            String status,
+            EventStreamDeliveryStatusEnum status,
             OffsetDateTime timestamp,
             Optional<String> errorMessage,
             Map<String, Object> additionalProperties) {
@@ -42,7 +42,7 @@ public final class EventStreamDeliveryAttempt {
     }
 
     @JsonProperty("status")
-    public String getStatus() {
+    public EventStreamDeliveryStatusEnum getStatus() {
         return status;
     }
 
@@ -94,7 +94,7 @@ public final class EventStreamDeliveryAttempt {
     }
 
     public interface StatusStage {
-        TimestampStage status(@NotNull String status);
+        TimestampStage status(@NotNull EventStreamDeliveryStatusEnum status);
 
         Builder from(EventStreamDeliveryAttempt other);
     }
@@ -119,7 +119,7 @@ public final class EventStreamDeliveryAttempt {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements StatusStage, TimestampStage, _FinalStage {
-        private String status;
+        private EventStreamDeliveryStatusEnum status;
 
         private OffsetDateTime timestamp;
 
@@ -140,7 +140,7 @@ public final class EventStreamDeliveryAttempt {
 
         @java.lang.Override
         @JsonSetter("status")
-        public TimestampStage status(@NotNull String status) {
+        public TimestampStage status(@NotNull EventStreamDeliveryStatusEnum status) {
             this.status = Objects.requireNonNull(status, "status must not be null");
             return this;
         }

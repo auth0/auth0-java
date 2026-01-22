@@ -21,14 +21,17 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateFlowsVaultConnectionAirtableApiKey {
     private final String name;
 
-    private final String appId;
+    private final FlowsVaultConnectionAppIdAirtableEnum appId;
 
     private final FlowsVaultConnectioSetupApiKey setup;
 
     private final Map<String, Object> additionalProperties;
 
     private CreateFlowsVaultConnectionAirtableApiKey(
-            String name, String appId, FlowsVaultConnectioSetupApiKey setup, Map<String, Object> additionalProperties) {
+            String name,
+            FlowsVaultConnectionAppIdAirtableEnum appId,
+            FlowsVaultConnectioSetupApiKey setup,
+            Map<String, Object> additionalProperties) {
         this.name = name;
         this.appId = appId;
         this.setup = setup;
@@ -44,7 +47,7 @@ public final class CreateFlowsVaultConnectionAirtableApiKey {
     }
 
     @JsonProperty("app_id")
-    public String getAppId() {
+    public FlowsVaultConnectionAppIdAirtableEnum getAppId() {
         return appId;
     }
 
@@ -93,7 +96,7 @@ public final class CreateFlowsVaultConnectionAirtableApiKey {
     }
 
     public interface AppIdStage {
-        SetupStage appId(@NotNull String appId);
+        SetupStage appId(@NotNull FlowsVaultConnectionAppIdAirtableEnum appId);
     }
 
     public interface SetupStage {
@@ -108,7 +111,7 @@ public final class CreateFlowsVaultConnectionAirtableApiKey {
     public static final class Builder implements NameStage, AppIdStage, SetupStage, _FinalStage {
         private String name;
 
-        private String appId;
+        private FlowsVaultConnectionAppIdAirtableEnum appId;
 
         private FlowsVaultConnectioSetupApiKey setup;
 
@@ -139,7 +142,7 @@ public final class CreateFlowsVaultConnectionAirtableApiKey {
 
         @java.lang.Override
         @JsonSetter("app_id")
-        public SetupStage appId(@NotNull String appId) {
+        public SetupStage appId(@NotNull FlowsVaultConnectionAppIdAirtableEnum appId) {
             this.appId = Objects.requireNonNull(appId, "appId must not be null");
             return this;
         }

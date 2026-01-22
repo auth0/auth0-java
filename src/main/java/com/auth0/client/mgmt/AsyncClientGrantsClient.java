@@ -11,6 +11,7 @@ import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.ClientGrantResponseContent;
 import com.auth0.client.mgmt.types.CreateClientGrantRequestContent;
 import com.auth0.client.mgmt.types.CreateClientGrantResponseContent;
+import com.auth0.client.mgmt.types.GetClientGrantResponseContent;
 import com.auth0.client.mgmt.types.ListClientGrantsRequestParameters;
 import com.auth0.client.mgmt.types.UpdateClientGrantRequestContent;
 import com.auth0.client.mgmt.types.UpdateClientGrantResponseContent;
@@ -73,6 +74,22 @@ public class AsyncClientGrantsClient {
     public CompletableFuture<CreateClientGrantResponseContent> create(
             CreateClientGrantRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.create(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve a single &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grant&lt;/a&gt;, including the
+     * scopes associated with the application/API pair.
+     */
+    public CompletableFuture<GetClientGrantResponseContent> get(String id) {
+        return this.rawClient.get(id).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve a single &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grant&lt;/a&gt;, including the
+     * scopes associated with the application/API pair.
+     */
+    public CompletableFuture<GetClientGrantResponseContent> get(String id, RequestOptions requestOptions) {
+        return this.rawClient.get(id, requestOptions).thenApply(response -> response.body());
     }
 
     /**

@@ -6,6 +6,7 @@ import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreatePublicKeyDeviceCredentialRequestContent;
 import com.auth0.client.mgmt.types.CreatePublicKeyDeviceCredentialResponseContent;
 import com.auth0.client.mgmt.types.DeviceCredential;
+import com.auth0.client.mgmt.types.DeviceCredentialPublicKeyTypeEnum;
 import com.auth0.client.mgmt.types.DeviceCredentialTypeEnum;
 import com.auth0.client.mgmt.types.ListDeviceCredentialsRequestParameters;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -72,7 +73,7 @@ public class DeviceCredentialsWireTest {
         CreatePublicKeyDeviceCredentialResponseContent response = client.deviceCredentials()
                 .createPublicKey(CreatePublicKeyDeviceCredentialRequestContent.builder()
                         .deviceName("device_name")
-                        .type("public_key")
+                        .type(DeviceCredentialPublicKeyTypeEnum.PUBLIC_KEY)
                         .value("value")
                         .deviceId("device_id")
                         .build());

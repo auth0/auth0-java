@@ -19,20 +19,21 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = FlowsVaultConnectioSetupHttpBearer.Builder.class)
 public final class FlowsVaultConnectioSetupHttpBearer {
-    private final String type;
+    private final FlowsVaultConnectioSetupTypeBearerEnum type;
 
     private final String token;
 
     private final Map<String, Object> additionalProperties;
 
-    private FlowsVaultConnectioSetupHttpBearer(String type, String token, Map<String, Object> additionalProperties) {
+    private FlowsVaultConnectioSetupHttpBearer(
+            FlowsVaultConnectioSetupTypeBearerEnum type, String token, Map<String, Object> additionalProperties) {
         this.type = type;
         this.token = token;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public FlowsVaultConnectioSetupTypeBearerEnum getType() {
         return type;
     }
 
@@ -72,7 +73,7 @@ public final class FlowsVaultConnectioSetupHttpBearer {
     }
 
     public interface TypeStage {
-        TokenStage type(@NotNull String type);
+        TokenStage type(@NotNull FlowsVaultConnectioSetupTypeBearerEnum type);
 
         Builder from(FlowsVaultConnectioSetupHttpBearer other);
     }
@@ -87,7 +88,7 @@ public final class FlowsVaultConnectioSetupHttpBearer {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements TypeStage, TokenStage, _FinalStage {
-        private String type;
+        private FlowsVaultConnectioSetupTypeBearerEnum type;
 
         private String token;
 
@@ -105,7 +106,7 @@ public final class FlowsVaultConnectioSetupHttpBearer {
 
         @java.lang.Override
         @JsonSetter("type")
-        public TokenStage type(@NotNull String type) {
+        public TokenStage type(@NotNull FlowsVaultConnectioSetupTypeBearerEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
