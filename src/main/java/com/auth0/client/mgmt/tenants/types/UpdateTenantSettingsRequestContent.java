@@ -101,6 +101,8 @@ public final class UpdateTenantSettingsRequestContent {
 
     private final Optional<Boolean> enableAiGuide;
 
+    private final Optional<Boolean> phoneConsolidatedExperience;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateTenantSettingsRequestContent(
@@ -137,6 +139,7 @@ public final class UpdateTenantSettingsRequestContent {
             OptionalNullable<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt,
             Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile,
             Optional<Boolean> enableAiGuide,
+            Optional<Boolean> phoneConsolidatedExperience,
             Map<String, Object> additionalProperties) {
         this.changePassword = changePassword;
         this.deviceFlow = deviceFlow;
@@ -171,6 +174,7 @@ public final class UpdateTenantSettingsRequestContent {
         this.skipNonVerifiableCallbackUriConfirmationPrompt = skipNonVerifiableCallbackUriConfirmationPrompt;
         this.resourceParameterProfile = resourceParameterProfile;
         this.enableAiGuide = enableAiGuide;
+        this.phoneConsolidatedExperience = phoneConsolidatedExperience;
         this.additionalProperties = additionalProperties;
     }
 
@@ -459,6 +463,14 @@ public final class UpdateTenantSettingsRequestContent {
         return enableAiGuide;
     }
 
+    /**
+     * @return Whether Phone Consolidated Experience is enabled for this tenant.
+     */
+    @JsonProperty("phone_consolidated_experience")
+    public Optional<Boolean> getPhoneConsolidatedExperience() {
+        return phoneConsolidatedExperience;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("change_password")
     private OptionalNullable<TenantSettingsPasswordPage> _getChangePassword() {
@@ -583,7 +595,8 @@ public final class UpdateTenantSettingsRequestContent {
                 && skipNonVerifiableCallbackUriConfirmationPrompt.equals(
                         other.skipNonVerifiableCallbackUriConfirmationPrompt)
                 && resourceParameterProfile.equals(other.resourceParameterProfile)
-                && enableAiGuide.equals(other.enableAiGuide);
+                && enableAiGuide.equals(other.enableAiGuide)
+                && phoneConsolidatedExperience.equals(other.phoneConsolidatedExperience);
     }
 
     @java.lang.Override
@@ -621,7 +634,8 @@ public final class UpdateTenantSettingsRequestContent {
                 this.authorizationResponseIssParameterSupported,
                 this.skipNonVerifiableCallbackUriConfirmationPrompt,
                 this.resourceParameterProfile,
-                this.enableAiGuide);
+                this.enableAiGuide,
+                this.phoneConsolidatedExperience);
     }
 
     @java.lang.Override
@@ -701,6 +715,8 @@ public final class UpdateTenantSettingsRequestContent {
 
         private Optional<Boolean> enableAiGuide = Optional.empty();
 
+        private Optional<Boolean> phoneConsolidatedExperience = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -740,6 +756,7 @@ public final class UpdateTenantSettingsRequestContent {
             skipNonVerifiableCallbackUriConfirmationPrompt(other.getSkipNonVerifiableCallbackUriConfirmationPrompt());
             resourceParameterProfile(other.getResourceParameterProfile());
             enableAiGuide(other.getEnableAiGuide());
+            phoneConsolidatedExperience(other.getPhoneConsolidatedExperience());
             return this;
         }
 
@@ -1462,6 +1479,20 @@ public final class UpdateTenantSettingsRequestContent {
             return this;
         }
 
+        /**
+         * <p>Whether Phone Consolidated Experience is enabled for this tenant.</p>
+         */
+        @JsonSetter(value = "phone_consolidated_experience", nulls = Nulls.SKIP)
+        public Builder phoneConsolidatedExperience(Optional<Boolean> phoneConsolidatedExperience) {
+            this.phoneConsolidatedExperience = phoneConsolidatedExperience;
+            return this;
+        }
+
+        public Builder phoneConsolidatedExperience(Boolean phoneConsolidatedExperience) {
+            this.phoneConsolidatedExperience = Optional.ofNullable(phoneConsolidatedExperience);
+            return this;
+        }
+
         public UpdateTenantSettingsRequestContent build() {
             return new UpdateTenantSettingsRequestContent(
                     changePassword,
@@ -1497,6 +1528,7 @@ public final class UpdateTenantSettingsRequestContent {
                     skipNonVerifiableCallbackUriConfirmationPrompt,
                     resourceParameterProfile,
                     enableAiGuide,
+                    phoneConsolidatedExperience,
                     additionalProperties);
         }
     }

@@ -20,21 +20,23 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = FlowsVaultConnectioSetupOauthCode.Builder.class)
 public final class FlowsVaultConnectioSetupOauthCode {
-    private final Optional<String> type;
+    private final Optional<FlowsVaultConnectioSetupTypeOauthCodeEnum> type;
 
     private final Optional<String> code;
 
     private final Map<String, Object> additionalProperties;
 
     private FlowsVaultConnectioSetupOauthCode(
-            Optional<String> type, Optional<String> code, Map<String, Object> additionalProperties) {
+            Optional<FlowsVaultConnectioSetupTypeOauthCodeEnum> type,
+            Optional<String> code,
+            Map<String, Object> additionalProperties) {
         this.type = type;
         this.code = code;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("type")
-    public Optional<String> getType() {
+    public Optional<FlowsVaultConnectioSetupTypeOauthCodeEnum> getType() {
         return type;
     }
 
@@ -74,7 +76,7 @@ public final class FlowsVaultConnectioSetupOauthCode {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<String> type = Optional.empty();
+        private Optional<FlowsVaultConnectioSetupTypeOauthCodeEnum> type = Optional.empty();
 
         private Optional<String> code = Optional.empty();
 
@@ -90,12 +92,12 @@ public final class FlowsVaultConnectioSetupOauthCode {
         }
 
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
-        public Builder type(Optional<String> type) {
+        public Builder type(Optional<FlowsVaultConnectioSetupTypeOauthCodeEnum> type) {
             this.type = type;
             return this;
         }
 
-        public Builder type(String type) {
+        public Builder type(FlowsVaultConnectioSetupTypeOauthCodeEnum type) {
             this.type = Optional.ofNullable(type);
             return this;
         }

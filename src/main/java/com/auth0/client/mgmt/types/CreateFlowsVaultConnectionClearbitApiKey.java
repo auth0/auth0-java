@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateFlowsVaultConnectionClearbitApiKey {
     private final String name;
 
-    private final String appId;
+    private final FlowsVaultConnectionAppIdClearbitEnum appId;
 
     private final FlowsVaultConnectioSetupSecretApiKey setup;
 
@@ -29,7 +29,7 @@ public final class CreateFlowsVaultConnectionClearbitApiKey {
 
     private CreateFlowsVaultConnectionClearbitApiKey(
             String name,
-            String appId,
+            FlowsVaultConnectionAppIdClearbitEnum appId,
             FlowsVaultConnectioSetupSecretApiKey setup,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -47,7 +47,7 @@ public final class CreateFlowsVaultConnectionClearbitApiKey {
     }
 
     @JsonProperty("app_id")
-    public String getAppId() {
+    public FlowsVaultConnectionAppIdClearbitEnum getAppId() {
         return appId;
     }
 
@@ -96,7 +96,7 @@ public final class CreateFlowsVaultConnectionClearbitApiKey {
     }
 
     public interface AppIdStage {
-        SetupStage appId(@NotNull String appId);
+        SetupStage appId(@NotNull FlowsVaultConnectionAppIdClearbitEnum appId);
     }
 
     public interface SetupStage {
@@ -111,7 +111,7 @@ public final class CreateFlowsVaultConnectionClearbitApiKey {
     public static final class Builder implements NameStage, AppIdStage, SetupStage, _FinalStage {
         private String name;
 
-        private String appId;
+        private FlowsVaultConnectionAppIdClearbitEnum appId;
 
         private FlowsVaultConnectioSetupSecretApiKey setup;
 
@@ -142,7 +142,7 @@ public final class CreateFlowsVaultConnectionClearbitApiKey {
 
         @java.lang.Override
         @JsonSetter("app_id")
-        public SetupStage appId(@NotNull String appId) {
+        public SetupStage appId(@NotNull FlowsVaultConnectionAppIdClearbitEnum appId) {
             this.appId = Objects.requireNonNull(appId, "appId must not be null");
             return this;
         }

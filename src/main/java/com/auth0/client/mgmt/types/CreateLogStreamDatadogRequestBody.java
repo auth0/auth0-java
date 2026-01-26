@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateLogStreamDatadogRequestBody {
     private final Optional<String> name;
 
-    private final String type;
+    private final LogStreamDatadogEnum type;
 
     private final Optional<Boolean> isPriority;
 
@@ -40,7 +40,7 @@ public final class CreateLogStreamDatadogRequestBody {
 
     private CreateLogStreamDatadogRequestBody(
             Optional<String> name,
-            String type,
+            LogStreamDatadogEnum type,
             Optional<Boolean> isPriority,
             Optional<List<LogStreamFilter>> filters,
             Optional<LogStreamPiiConfig> piiConfig,
@@ -66,7 +66,7 @@ public final class CreateLogStreamDatadogRequestBody {
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public LogStreamDatadogEnum getType() {
         return type;
     }
 
@@ -141,7 +141,7 @@ public final class CreateLogStreamDatadogRequestBody {
     }
 
     public interface TypeStage {
-        SinkStage type(@NotNull String type);
+        SinkStage type(@NotNull LogStreamDatadogEnum type);
 
         Builder from(CreateLogStreamDatadogRequestBody other);
     }
@@ -188,7 +188,7 @@ public final class CreateLogStreamDatadogRequestBody {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements TypeStage, SinkStage, _FinalStage {
-        private String type;
+        private LogStreamDatadogEnum type;
 
         private LogStreamDatadogSink sink;
 
@@ -221,7 +221,7 @@ public final class CreateLogStreamDatadogRequestBody {
 
         @java.lang.Override
         @JsonSetter("type")
-        public SinkStage type(@NotNull String type) {
+        public SinkStage type(@NotNull LogStreamDatadogEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

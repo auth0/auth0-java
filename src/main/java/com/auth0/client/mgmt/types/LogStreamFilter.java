@@ -20,14 +20,14 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = LogStreamFilter.Builder.class)
 public final class LogStreamFilter {
-    private final Optional<String> type;
+    private final Optional<LogStreamFilterTypeEnum> type;
 
     private final Optional<LogStreamFilterGroupNameEnum> name;
 
     private final Map<String, Object> additionalProperties;
 
     private LogStreamFilter(
-            Optional<String> type,
+            Optional<LogStreamFilterTypeEnum> type,
             Optional<LogStreamFilterGroupNameEnum> name,
             Map<String, Object> additionalProperties) {
         this.type = type;
@@ -36,7 +36,7 @@ public final class LogStreamFilter {
     }
 
     @JsonProperty("type")
-    public Optional<String> getType() {
+    public Optional<LogStreamFilterTypeEnum> getType() {
         return type;
     }
 
@@ -76,7 +76,7 @@ public final class LogStreamFilter {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<String> type = Optional.empty();
+        private Optional<LogStreamFilterTypeEnum> type = Optional.empty();
 
         private Optional<LogStreamFilterGroupNameEnum> name = Optional.empty();
 
@@ -92,12 +92,12 @@ public final class LogStreamFilter {
         }
 
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
-        public Builder type(Optional<String> type) {
+        public Builder type(Optional<LogStreamFilterTypeEnum> type) {
             this.type = type;
             return this;
         }
 
-        public Builder type(String type) {
+        public Builder type(LogStreamFilterTypeEnum type) {
             this.type = Optional.ofNullable(type);
             return this;
         }

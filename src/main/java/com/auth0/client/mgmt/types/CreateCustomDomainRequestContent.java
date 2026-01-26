@@ -28,23 +28,26 @@ public final class CreateCustomDomainRequestContent {
 
     private final CustomDomainProvisioningTypeEnum type;
 
-    private final Optional<String> verificationMethod;
+    private final Optional<CustomDomainVerificationMethodEnum> verificationMethod;
 
-    private final Optional<String> tlsPolicy;
+    private final Optional<CustomDomainTlsPolicyEnum> tlsPolicy;
 
     private final OptionalNullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader;
 
     private final Optional<Map<String, OptionalNullable<String>>> domainMetadata;
+
+    private final Optional<String> relyingPartyIdentifier;
 
     private final Map<String, Object> additionalProperties;
 
     private CreateCustomDomainRequestContent(
             String domain,
             CustomDomainProvisioningTypeEnum type,
-            Optional<String> verificationMethod,
-            Optional<String> tlsPolicy,
+            Optional<CustomDomainVerificationMethodEnum> verificationMethod,
+            Optional<CustomDomainTlsPolicyEnum> tlsPolicy,
             OptionalNullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader,
             Optional<Map<String, OptionalNullable<String>>> domainMetadata,
+            Optional<String> relyingPartyIdentifier,
             Map<String, Object> additionalProperties) {
         this.domain = domain;
         this.type = type;
@@ -52,6 +55,7 @@ public final class CreateCustomDomainRequestContent {
         this.tlsPolicy = tlsPolicy;
         this.customClientIpHeader = customClientIpHeader;
         this.domainMetadata = domainMetadata;
+        this.relyingPartyIdentifier = relyingPartyIdentifier;
         this.additionalProperties = additionalProperties;
     }
 
@@ -69,12 +73,12 @@ public final class CreateCustomDomainRequestContent {
     }
 
     @JsonProperty("verification_method")
-    public Optional<String> getVerificationMethod() {
+    public Optional<CustomDomainVerificationMethodEnum> getVerificationMethod() {
         return verificationMethod;
     }
 
     @JsonProperty("tls_policy")
-    public Optional<String> getTlsPolicy() {
+    public Optional<CustomDomainTlsPolicyEnum> getTlsPolicy() {
         return tlsPolicy;
     }
 
@@ -87,6 +91,14 @@ public final class CreateCustomDomainRequestContent {
     @JsonProperty("domain_metadata")
     public Optional<Map<String, OptionalNullable<String>>> getDomainMetadata() {
         return domainMetadata;
+    }
+
+    /**
+     * @return Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not provided, the full domain will be used.
+     */
+    @JsonProperty("relying_party_identifier")
+    public Optional<String> getRelyingPartyIdentifier() {
+        return relyingPartyIdentifier;
     }
 
     @java.lang.Override
@@ -106,7 +118,8 @@ public final class CreateCustomDomainRequestContent {
                 && verificationMethod.equals(other.verificationMethod)
                 && tlsPolicy.equals(other.tlsPolicy)
                 && customClientIpHeader.equals(other.customClientIpHeader)
-                && domainMetadata.equals(other.domainMetadata);
+                && domainMetadata.equals(other.domainMetadata)
+                && relyingPartyIdentifier.equals(other.relyingPartyIdentifier);
     }
 
     @java.lang.Override
@@ -117,7 +130,8 @@ public final class CreateCustomDomainRequestContent {
                 this.verificationMethod,
                 this.tlsPolicy,
                 this.customClientIpHeader,
-                this.domainMetadata);
+                this.domainMetadata,
+                this.relyingPartyIdentifier);
     }
 
     @java.lang.Override
@@ -145,13 +159,13 @@ public final class CreateCustomDomainRequestContent {
     public interface _FinalStage {
         CreateCustomDomainRequestContent build();
 
-        _FinalStage verificationMethod(Optional<String> verificationMethod);
+        _FinalStage verificationMethod(Optional<CustomDomainVerificationMethodEnum> verificationMethod);
 
-        _FinalStage verificationMethod(String verificationMethod);
+        _FinalStage verificationMethod(CustomDomainVerificationMethodEnum verificationMethod);
 
-        _FinalStage tlsPolicy(Optional<String> tlsPolicy);
+        _FinalStage tlsPolicy(Optional<CustomDomainTlsPolicyEnum> tlsPolicy);
 
-        _FinalStage tlsPolicy(String tlsPolicy);
+        _FinalStage tlsPolicy(CustomDomainTlsPolicyEnum tlsPolicy);
 
         _FinalStage customClientIpHeader(OptionalNullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader);
 
@@ -164,6 +178,13 @@ public final class CreateCustomDomainRequestContent {
         _FinalStage domainMetadata(Optional<Map<String, OptionalNullable<String>>> domainMetadata);
 
         _FinalStage domainMetadata(Map<String, OptionalNullable<String>> domainMetadata);
+
+        /**
+         * <p>Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not provided, the full domain will be used.</p>
+         */
+        _FinalStage relyingPartyIdentifier(Optional<String> relyingPartyIdentifier);
+
+        _FinalStage relyingPartyIdentifier(String relyingPartyIdentifier);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -172,13 +193,15 @@ public final class CreateCustomDomainRequestContent {
 
         private CustomDomainProvisioningTypeEnum type;
 
+        private Optional<String> relyingPartyIdentifier = Optional.empty();
+
         private Optional<Map<String, OptionalNullable<String>>> domainMetadata = Optional.empty();
 
         private OptionalNullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader = OptionalNullable.absent();
 
-        private Optional<String> tlsPolicy = Optional.empty();
+        private Optional<CustomDomainTlsPolicyEnum> tlsPolicy = Optional.empty();
 
-        private Optional<String> verificationMethod = Optional.empty();
+        private Optional<CustomDomainVerificationMethodEnum> verificationMethod = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -193,6 +216,7 @@ public final class CreateCustomDomainRequestContent {
             tlsPolicy(other.getTlsPolicy());
             customClientIpHeader(other.getCustomClientIpHeader());
             domainMetadata(other.getDomainMetadata());
+            relyingPartyIdentifier(other.getRelyingPartyIdentifier());
             return this;
         }
 
@@ -212,6 +236,26 @@ public final class CreateCustomDomainRequestContent {
         @JsonSetter("type")
         public _FinalStage type(@NotNull CustomDomainProvisioningTypeEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
+            return this;
+        }
+
+        /**
+         * <p>Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not provided, the full domain will be used.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage relyingPartyIdentifier(String relyingPartyIdentifier) {
+            this.relyingPartyIdentifier = Optional.ofNullable(relyingPartyIdentifier);
+            return this;
+        }
+
+        /**
+         * <p>Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not provided, the full domain will be used.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "relying_party_identifier", nulls = Nulls.SKIP)
+        public _FinalStage relyingPartyIdentifier(Optional<String> relyingPartyIdentifier) {
+            this.relyingPartyIdentifier = relyingPartyIdentifier;
             return this;
         }
 
@@ -265,27 +309,27 @@ public final class CreateCustomDomainRequestContent {
         }
 
         @java.lang.Override
-        public _FinalStage tlsPolicy(String tlsPolicy) {
+        public _FinalStage tlsPolicy(CustomDomainTlsPolicyEnum tlsPolicy) {
             this.tlsPolicy = Optional.ofNullable(tlsPolicy);
             return this;
         }
 
         @java.lang.Override
         @JsonSetter(value = "tls_policy", nulls = Nulls.SKIP)
-        public _FinalStage tlsPolicy(Optional<String> tlsPolicy) {
+        public _FinalStage tlsPolicy(Optional<CustomDomainTlsPolicyEnum> tlsPolicy) {
             this.tlsPolicy = tlsPolicy;
             return this;
         }
 
         @java.lang.Override
-        public _FinalStage verificationMethod(String verificationMethod) {
+        public _FinalStage verificationMethod(CustomDomainVerificationMethodEnum verificationMethod) {
             this.verificationMethod = Optional.ofNullable(verificationMethod);
             return this;
         }
 
         @java.lang.Override
         @JsonSetter(value = "verification_method", nulls = Nulls.SKIP)
-        public _FinalStage verificationMethod(Optional<String> verificationMethod) {
+        public _FinalStage verificationMethod(Optional<CustomDomainVerificationMethodEnum> verificationMethod) {
             this.verificationMethod = verificationMethod;
             return this;
         }
@@ -299,6 +343,7 @@ public final class CreateCustomDomainRequestContent {
                     tlsPolicy,
                     customClientIpHeader,
                     domainMetadata,
+                    relyingPartyIdentifier,
                     additionalProperties);
         }
     }

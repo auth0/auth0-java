@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public final class PartialGroupsEnum {
     public static final PartialGroupsEnum SIGNUP_ID = new PartialGroupsEnum(Value.SIGNUP_ID, "signup-id");
 
+    public static final PartialGroupsEnum PASSKEYS = new PartialGroupsEnum(Value.PASSKEYS, "passkeys");
+
     public static final PartialGroupsEnum LOGIN = new PartialGroupsEnum(Value.LOGIN, "login");
 
     public static final PartialGroupsEnum SIGNUP_PASSWORD =
@@ -61,6 +63,8 @@ public final class PartialGroupsEnum {
         switch (value) {
             case SIGNUP_ID:
                 return visitor.visitSignupId();
+            case PASSKEYS:
+                return visitor.visitPasskeys();
             case LOGIN:
                 return visitor.visitLogin();
             case SIGNUP_PASSWORD:
@@ -86,6 +90,8 @@ public final class PartialGroupsEnum {
         switch (value) {
             case "signup-id":
                 return SIGNUP_ID;
+            case "passkeys":
+                return PASSKEYS;
             case "login":
                 return LOGIN;
             case "signup-password":
@@ -122,6 +128,8 @@ public final class PartialGroupsEnum {
 
         CUSTOMIZED_CONSENT,
 
+        PASSKEYS,
+
         UNKNOWN
     }
 
@@ -141,6 +149,8 @@ public final class PartialGroupsEnum {
         T visitSignupPassword();
 
         T visitCustomizedConsent();
+
+        T visitPasskeys();
 
         T visitUnknown(String unknownType);
     }

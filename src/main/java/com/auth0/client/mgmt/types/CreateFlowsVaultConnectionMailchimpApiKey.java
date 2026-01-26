@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateFlowsVaultConnectionMailchimpApiKey {
     private final String name;
 
-    private final String appId;
+    private final FlowsVaultConnectionAppIdMailchimpEnum appId;
 
     private final FlowsVaultConnectioSetupSecretApiKey setup;
 
@@ -29,7 +29,7 @@ public final class CreateFlowsVaultConnectionMailchimpApiKey {
 
     private CreateFlowsVaultConnectionMailchimpApiKey(
             String name,
-            String appId,
+            FlowsVaultConnectionAppIdMailchimpEnum appId,
             FlowsVaultConnectioSetupSecretApiKey setup,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -47,7 +47,7 @@ public final class CreateFlowsVaultConnectionMailchimpApiKey {
     }
 
     @JsonProperty("app_id")
-    public String getAppId() {
+    public FlowsVaultConnectionAppIdMailchimpEnum getAppId() {
         return appId;
     }
 
@@ -96,7 +96,7 @@ public final class CreateFlowsVaultConnectionMailchimpApiKey {
     }
 
     public interface AppIdStage {
-        SetupStage appId(@NotNull String appId);
+        SetupStage appId(@NotNull FlowsVaultConnectionAppIdMailchimpEnum appId);
     }
 
     public interface SetupStage {
@@ -111,7 +111,7 @@ public final class CreateFlowsVaultConnectionMailchimpApiKey {
     public static final class Builder implements NameStage, AppIdStage, SetupStage, _FinalStage {
         private String name;
 
-        private String appId;
+        private FlowsVaultConnectionAppIdMailchimpEnum appId;
 
         private FlowsVaultConnectioSetupSecretApiKey setup;
 
@@ -142,7 +142,7 @@ public final class CreateFlowsVaultConnectionMailchimpApiKey {
 
         @java.lang.Override
         @JsonSetter("app_id")
-        public SetupStage appId(@NotNull String appId) {
+        public SetupStage appId(@NotNull FlowsVaultConnectionAppIdMailchimpEnum appId) {
             this.appId = Objects.requireNonNull(appId, "appId must not be null");
             return this;
         }

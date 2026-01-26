@@ -26,9 +26,24 @@ import org.jetbrains.annotations.Nullable;
 public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCommon {
     private final Optional<List<String>> nonPersistentAttrs;
 
-    private final Optional<Boolean> adsenseManagement;
-
     private final Optional<List<String>> allowedAudiences;
+
+    private final Optional<String> clientId;
+
+    private final Optional<String> clientSecret;
+
+    private final Optional<List<String>> freeformScopes;
+
+    private final Optional<String> iconUrl;
+
+    private final Optional<List<String>> scope;
+
+    private final Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes;
+
+    private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+            upstreamParams;
+
+    private final Optional<Boolean> adsenseManagement;
 
     private final Optional<Boolean> analytics;
 
@@ -45,10 +60,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
     private final Optional<Boolean> calendarSettingsReadonly;
 
     private final Optional<Boolean> chromeWebStore;
-
-    private final OptionalNullable<String> clientId;
-
-    private final OptionalNullable<String> clientSecret;
 
     private final Optional<Boolean> contacts;
 
@@ -92,8 +103,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
 
     private final Optional<Boolean> email;
 
-    private final Optional<List<String>> freeformScopes;
-
     private final Optional<Boolean> gmail;
 
     private final Optional<Boolean> gmailCompose;
@@ -128,8 +137,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
 
     private final Optional<Boolean> googlePlus;
 
-    private final Optional<String> iconUrl;
-
     private final Optional<Boolean> latitudeBest;
 
     private final Optional<Boolean> latitudeCity;
@@ -144,18 +151,11 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
 
     private final Optional<Boolean> profile;
 
-    private final Optional<List<String>> scope;
-
-    private final Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes;
-
     private final Optional<Boolean> sites;
 
     private final Optional<Boolean> tasks;
 
     private final Optional<Boolean> tasksReadonly;
-
-    private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
-            upstreamParams;
 
     private final Optional<Boolean> urlShortener;
 
@@ -177,8 +177,15 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
 
     private ConnectionOptionsGoogleOAuth2(
             Optional<List<String>> nonPersistentAttrs,
-            Optional<Boolean> adsenseManagement,
             Optional<List<String>> allowedAudiences,
+            Optional<String> clientId,
+            Optional<String> clientSecret,
+            Optional<List<String>> freeformScopes,
+            Optional<String> iconUrl,
+            Optional<List<String>> scope,
+            Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes,
+            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
+            Optional<Boolean> adsenseManagement,
             Optional<Boolean> analytics,
             Optional<Boolean> blogger,
             Optional<Boolean> calendar,
@@ -187,8 +194,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
             Optional<Boolean> calendarEventsReadonly,
             Optional<Boolean> calendarSettingsReadonly,
             Optional<Boolean> chromeWebStore,
-            OptionalNullable<String> clientId,
-            OptionalNullable<String> clientSecret,
             Optional<Boolean> contacts,
             Optional<Boolean> contactsNew,
             Optional<Boolean> contactsOtherReadonly,
@@ -210,7 +215,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
             Optional<Boolean> driveReadonly,
             Optional<Boolean> driveScripts,
             Optional<Boolean> email,
-            Optional<List<String>> freeformScopes,
             Optional<Boolean> gmail,
             Optional<Boolean> gmailCompose,
             Optional<Boolean> gmailInsert,
@@ -228,7 +232,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
             Optional<Boolean> googleDrive,
             Optional<Boolean> googleDriveFiles,
             Optional<Boolean> googlePlus,
-            Optional<String> iconUrl,
             Optional<Boolean> latitudeBest,
             Optional<Boolean> latitudeCity,
             Optional<Boolean> moderator,
@@ -236,12 +239,9 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
             Optional<Boolean> orkut,
             Optional<Boolean> picasaWeb,
             Optional<Boolean> profile,
-            Optional<List<String>> scope,
-            Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes,
             Optional<Boolean> sites,
             Optional<Boolean> tasks,
             Optional<Boolean> tasksReadonly,
-            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
             Optional<Boolean> urlShortener,
             Optional<Boolean> webmasterTools,
             Optional<Boolean> youtube,
@@ -252,8 +252,15 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
             Optional<Boolean> youtubepartner,
             Map<String, Object> additionalProperties) {
         this.nonPersistentAttrs = nonPersistentAttrs;
-        this.adsenseManagement = adsenseManagement;
         this.allowedAudiences = allowedAudiences;
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+        this.freeformScopes = freeformScopes;
+        this.iconUrl = iconUrl;
+        this.scope = scope;
+        this.setUserRootAttributes = setUserRootAttributes;
+        this.upstreamParams = upstreamParams;
+        this.adsenseManagement = adsenseManagement;
         this.analytics = analytics;
         this.blogger = blogger;
         this.calendar = calendar;
@@ -262,8 +269,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
         this.calendarEventsReadonly = calendarEventsReadonly;
         this.calendarSettingsReadonly = calendarSettingsReadonly;
         this.chromeWebStore = chromeWebStore;
-        this.clientId = clientId;
-        this.clientSecret = clientSecret;
         this.contacts = contacts;
         this.contactsNew = contactsNew;
         this.contactsOtherReadonly = contactsOtherReadonly;
@@ -285,7 +290,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
         this.driveReadonly = driveReadonly;
         this.driveScripts = driveScripts;
         this.email = email;
-        this.freeformScopes = freeformScopes;
         this.gmail = gmail;
         this.gmailCompose = gmailCompose;
         this.gmailInsert = gmailInsert;
@@ -303,7 +307,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
         this.googleDrive = googleDrive;
         this.googleDriveFiles = googleDriveFiles;
         this.googlePlus = googlePlus;
-        this.iconUrl = iconUrl;
         this.latitudeBest = latitudeBest;
         this.latitudeCity = latitudeCity;
         this.moderator = moderator;
@@ -311,12 +314,9 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
         this.orkut = orkut;
         this.picasaWeb = picasaWeb;
         this.profile = profile;
-        this.scope = scope;
-        this.setUserRootAttributes = setUserRootAttributes;
         this.sites = sites;
         this.tasks = tasks;
         this.tasksReadonly = tasksReadonly;
-        this.upstreamParams = upstreamParams;
         this.urlShortener = urlShortener;
         this.webmasterTools = webmasterTools;
         this.youtube = youtube;
@@ -334,17 +334,56 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
         return nonPersistentAttrs;
     }
 
+    @JsonProperty("allowed_audiences")
+    public Optional<List<String>> getAllowedAudiences() {
+        return allowedAudiences;
+    }
+
+    @JsonProperty("client_id")
+    public Optional<String> getClientId() {
+        return clientId;
+    }
+
+    @JsonProperty("client_secret")
+    public Optional<String> getClientSecret() {
+        return clientSecret;
+    }
+
+    @JsonProperty("freeform_scopes")
+    public Optional<List<String>> getFreeformScopes() {
+        return freeformScopes;
+    }
+
+    @JsonProperty("icon_url")
+    public Optional<String> getIconUrl() {
+        return iconUrl;
+    }
+
+    @JsonProperty("scope")
+    public Optional<List<String>> getScope() {
+        return scope;
+    }
+
+    @JsonProperty("set_user_root_attributes")
+    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
+        return setUserRootAttributes;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("upstream_params")
+    public OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams() {
+        if (upstreamParams == null) {
+            return OptionalNullable.absent();
+        }
+        return upstreamParams;
+    }
+
     /**
      * @return View and manage user's ad applications, ad units, and channels in AdSense
      */
     @JsonProperty("adsense_management")
     public Optional<Boolean> getAdsenseManagement() {
         return adsenseManagement;
-    }
-
-    @JsonProperty("allowed_audiences")
-    public Optional<List<String>> getAllowedAudiences() {
-        return allowedAudiences;
     }
 
     /**
@@ -409,24 +448,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
     @JsonProperty("chrome_web_store")
     public Optional<Boolean> getChromeWebStore() {
         return chromeWebStore;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("client_id")
-    public OptionalNullable<String> getClientId() {
-        if (clientId == null) {
-            return OptionalNullable.absent();
-        }
-        return clientId;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("client_secret")
-    public OptionalNullable<String> getClientSecret() {
-        if (clientSecret == null) {
-            return OptionalNullable.absent();
-        }
-        return clientSecret;
     }
 
     /**
@@ -597,11 +618,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
         return email;
     }
 
-    @JsonProperty("freeform_scopes")
-    public Optional<List<String>> getFreeformScopes() {
-        return freeformScopes;
-    }
-
     /**
      * @return Full access to the account's mailboxes, including permanent deletion of threads and messages
      */
@@ -738,11 +754,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
         return googlePlus;
     }
 
-    @JsonProperty("icon_url")
-    public Optional<String> getIconUrl() {
-        return iconUrl;
-    }
-
     /**
      * @return View and manage user's best-available current location and location history in Google Latitude
      */
@@ -799,16 +810,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
         return profile;
     }
 
-    @JsonProperty("scope")
-    public Optional<List<String>> getScope() {
-        return scope;
-    }
-
-    @JsonProperty("set_user_root_attributes")
-    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
-        return setUserRootAttributes;
-    }
-
     /**
      * @return View and manage user's sites on Google Sites
      */
@@ -831,15 +832,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
     @JsonProperty("tasks_readonly")
     public Optional<Boolean> getTasksReadonly() {
         return tasksReadonly;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("upstream_params")
-    public OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams() {
-        if (upstreamParams == null) {
-            return OptionalNullable.absent();
-        }
-        return upstreamParams;
     }
 
     /**
@@ -907,18 +899,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("client_id")
-    private OptionalNullable<String> _getClientId() {
-        return clientId;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("client_secret")
-    private OptionalNullable<String> _getClientSecret() {
-        return clientSecret;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("upstream_params")
     private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
             _getUpstreamParams() {
@@ -938,8 +918,15 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
 
     private boolean equalTo(ConnectionOptionsGoogleOAuth2 other) {
         return nonPersistentAttrs.equals(other.nonPersistentAttrs)
-                && adsenseManagement.equals(other.adsenseManagement)
                 && allowedAudiences.equals(other.allowedAudiences)
+                && clientId.equals(other.clientId)
+                && clientSecret.equals(other.clientSecret)
+                && freeformScopes.equals(other.freeformScopes)
+                && iconUrl.equals(other.iconUrl)
+                && scope.equals(other.scope)
+                && setUserRootAttributes.equals(other.setUserRootAttributes)
+                && upstreamParams.equals(other.upstreamParams)
+                && adsenseManagement.equals(other.adsenseManagement)
                 && analytics.equals(other.analytics)
                 && blogger.equals(other.blogger)
                 && calendar.equals(other.calendar)
@@ -948,8 +935,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
                 && calendarEventsReadonly.equals(other.calendarEventsReadonly)
                 && calendarSettingsReadonly.equals(other.calendarSettingsReadonly)
                 && chromeWebStore.equals(other.chromeWebStore)
-                && clientId.equals(other.clientId)
-                && clientSecret.equals(other.clientSecret)
                 && contacts.equals(other.contacts)
                 && contactsNew.equals(other.contactsNew)
                 && contactsOtherReadonly.equals(other.contactsOtherReadonly)
@@ -971,7 +956,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
                 && driveReadonly.equals(other.driveReadonly)
                 && driveScripts.equals(other.driveScripts)
                 && email.equals(other.email)
-                && freeformScopes.equals(other.freeformScopes)
                 && gmail.equals(other.gmail)
                 && gmailCompose.equals(other.gmailCompose)
                 && gmailInsert.equals(other.gmailInsert)
@@ -989,7 +973,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
                 && googleDrive.equals(other.googleDrive)
                 && googleDriveFiles.equals(other.googleDriveFiles)
                 && googlePlus.equals(other.googlePlus)
-                && iconUrl.equals(other.iconUrl)
                 && latitudeBest.equals(other.latitudeBest)
                 && latitudeCity.equals(other.latitudeCity)
                 && moderator.equals(other.moderator)
@@ -997,12 +980,9 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
                 && orkut.equals(other.orkut)
                 && picasaWeb.equals(other.picasaWeb)
                 && profile.equals(other.profile)
-                && scope.equals(other.scope)
-                && setUserRootAttributes.equals(other.setUserRootAttributes)
                 && sites.equals(other.sites)
                 && tasks.equals(other.tasks)
                 && tasksReadonly.equals(other.tasksReadonly)
-                && upstreamParams.equals(other.upstreamParams)
                 && urlShortener.equals(other.urlShortener)
                 && webmasterTools.equals(other.webmasterTools)
                 && youtube.equals(other.youtube)
@@ -1017,8 +997,15 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
     public int hashCode() {
         return Objects.hash(
                 this.nonPersistentAttrs,
-                this.adsenseManagement,
                 this.allowedAudiences,
+                this.clientId,
+                this.clientSecret,
+                this.freeformScopes,
+                this.iconUrl,
+                this.scope,
+                this.setUserRootAttributes,
+                this.upstreamParams,
+                this.adsenseManagement,
                 this.analytics,
                 this.blogger,
                 this.calendar,
@@ -1027,8 +1014,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
                 this.calendarEventsReadonly,
                 this.calendarSettingsReadonly,
                 this.chromeWebStore,
-                this.clientId,
-                this.clientSecret,
                 this.contacts,
                 this.contactsNew,
                 this.contactsOtherReadonly,
@@ -1050,7 +1035,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
                 this.driveReadonly,
                 this.driveScripts,
                 this.email,
-                this.freeformScopes,
                 this.gmail,
                 this.gmailCompose,
                 this.gmailInsert,
@@ -1068,7 +1052,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
                 this.googleDrive,
                 this.googleDriveFiles,
                 this.googlePlus,
-                this.iconUrl,
                 this.latitudeBest,
                 this.latitudeCity,
                 this.moderator,
@@ -1076,12 +1059,9 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
                 this.orkut,
                 this.picasaWeb,
                 this.profile,
-                this.scope,
-                this.setUserRootAttributes,
                 this.sites,
                 this.tasks,
                 this.tasksReadonly,
-                this.upstreamParams,
                 this.urlShortener,
                 this.webmasterTools,
                 this.youtube,
@@ -1105,9 +1085,24 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
     public static final class Builder {
         private Optional<List<String>> nonPersistentAttrs = Optional.empty();
 
-        private Optional<Boolean> adsenseManagement = Optional.empty();
-
         private Optional<List<String>> allowedAudiences = Optional.empty();
+
+        private Optional<String> clientId = Optional.empty();
+
+        private Optional<String> clientSecret = Optional.empty();
+
+        private Optional<List<String>> freeformScopes = Optional.empty();
+
+        private Optional<String> iconUrl = Optional.empty();
+
+        private Optional<List<String>> scope = Optional.empty();
+
+        private Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes = Optional.empty();
+
+        private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
+                OptionalNullable.absent();
+
+        private Optional<Boolean> adsenseManagement = Optional.empty();
 
         private Optional<Boolean> analytics = Optional.empty();
 
@@ -1124,10 +1119,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
         private Optional<Boolean> calendarSettingsReadonly = Optional.empty();
 
         private Optional<Boolean> chromeWebStore = Optional.empty();
-
-        private OptionalNullable<String> clientId = OptionalNullable.absent();
-
-        private OptionalNullable<String> clientSecret = OptionalNullable.absent();
 
         private Optional<Boolean> contacts = Optional.empty();
 
@@ -1171,8 +1162,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
 
         private Optional<Boolean> email = Optional.empty();
 
-        private Optional<List<String>> freeformScopes = Optional.empty();
-
         private Optional<Boolean> gmail = Optional.empty();
 
         private Optional<Boolean> gmailCompose = Optional.empty();
@@ -1207,8 +1196,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
 
         private Optional<Boolean> googlePlus = Optional.empty();
 
-        private Optional<String> iconUrl = Optional.empty();
-
         private Optional<Boolean> latitudeBest = Optional.empty();
 
         private Optional<Boolean> latitudeCity = Optional.empty();
@@ -1223,18 +1210,11 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
 
         private Optional<Boolean> profile = Optional.empty();
 
-        private Optional<List<String>> scope = Optional.empty();
-
-        private Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes = Optional.empty();
-
         private Optional<Boolean> sites = Optional.empty();
 
         private Optional<Boolean> tasks = Optional.empty();
 
         private Optional<Boolean> tasksReadonly = Optional.empty();
-
-        private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
-                OptionalNullable.absent();
 
         private Optional<Boolean> urlShortener = Optional.empty();
 
@@ -1259,8 +1239,15 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
 
         public Builder from(ConnectionOptionsGoogleOAuth2 other) {
             nonPersistentAttrs(other.getNonPersistentAttrs());
-            adsenseManagement(other.getAdsenseManagement());
             allowedAudiences(other.getAllowedAudiences());
+            clientId(other.getClientId());
+            clientSecret(other.getClientSecret());
+            freeformScopes(other.getFreeformScopes());
+            iconUrl(other.getIconUrl());
+            scope(other.getScope());
+            setUserRootAttributes(other.getSetUserRootAttributes());
+            upstreamParams(other.getUpstreamParams());
+            adsenseManagement(other.getAdsenseManagement());
             analytics(other.getAnalytics());
             blogger(other.getBlogger());
             calendar(other.getCalendar());
@@ -1269,8 +1256,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
             calendarEventsReadonly(other.getCalendarEventsReadonly());
             calendarSettingsReadonly(other.getCalendarSettingsReadonly());
             chromeWebStore(other.getChromeWebStore());
-            clientId(other.getClientId());
-            clientSecret(other.getClientSecret());
             contacts(other.getContacts());
             contactsNew(other.getContactsNew());
             contactsOtherReadonly(other.getContactsOtherReadonly());
@@ -1292,7 +1277,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
             driveReadonly(other.getDriveReadonly());
             driveScripts(other.getDriveScripts());
             email(other.getEmail());
-            freeformScopes(other.getFreeformScopes());
             gmail(other.getGmail());
             gmailCompose(other.getGmailCompose());
             gmailInsert(other.getGmailInsert());
@@ -1310,7 +1294,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
             googleDrive(other.getGoogleDrive());
             googleDriveFiles(other.getGoogleDriveFiles());
             googlePlus(other.getGooglePlus());
-            iconUrl(other.getIconUrl());
             latitudeBest(other.getLatitudeBest());
             latitudeCity(other.getLatitudeCity());
             moderator(other.getModerator());
@@ -1318,12 +1301,9 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
             orkut(other.getOrkut());
             picasaWeb(other.getPicasaWeb());
             profile(other.getProfile());
-            scope(other.getScope());
-            setUserRootAttributes(other.getSetUserRootAttributes());
             sites(other.getSites());
             tasks(other.getTasks());
             tasksReadonly(other.getTasksReadonly());
-            upstreamParams(other.getUpstreamParams());
             urlShortener(other.getUrlShortener());
             webmasterTools(other.getWebmasterTools());
             youtube(other.getYoutube());
@@ -1346,6 +1326,122 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
             return this;
         }
 
+        @JsonSetter(value = "allowed_audiences", nulls = Nulls.SKIP)
+        public Builder allowedAudiences(Optional<List<String>> allowedAudiences) {
+            this.allowedAudiences = allowedAudiences;
+            return this;
+        }
+
+        public Builder allowedAudiences(List<String> allowedAudiences) {
+            this.allowedAudiences = Optional.ofNullable(allowedAudiences);
+            return this;
+        }
+
+        @JsonSetter(value = "client_id", nulls = Nulls.SKIP)
+        public Builder clientId(Optional<String> clientId) {
+            this.clientId = clientId;
+            return this;
+        }
+
+        public Builder clientId(String clientId) {
+            this.clientId = Optional.ofNullable(clientId);
+            return this;
+        }
+
+        @JsonSetter(value = "client_secret", nulls = Nulls.SKIP)
+        public Builder clientSecret(Optional<String> clientSecret) {
+            this.clientSecret = clientSecret;
+            return this;
+        }
+
+        public Builder clientSecret(String clientSecret) {
+            this.clientSecret = Optional.ofNullable(clientSecret);
+            return this;
+        }
+
+        @JsonSetter(value = "freeform_scopes", nulls = Nulls.SKIP)
+        public Builder freeformScopes(Optional<List<String>> freeformScopes) {
+            this.freeformScopes = freeformScopes;
+            return this;
+        }
+
+        public Builder freeformScopes(List<String> freeformScopes) {
+            this.freeformScopes = Optional.ofNullable(freeformScopes);
+            return this;
+        }
+
+        @JsonSetter(value = "icon_url", nulls = Nulls.SKIP)
+        public Builder iconUrl(Optional<String> iconUrl) {
+            this.iconUrl = iconUrl;
+            return this;
+        }
+
+        public Builder iconUrl(String iconUrl) {
+            this.iconUrl = Optional.ofNullable(iconUrl);
+            return this;
+        }
+
+        @JsonSetter(value = "scope", nulls = Nulls.SKIP)
+        public Builder scope(Optional<List<String>> scope) {
+            this.scope = scope;
+            return this;
+        }
+
+        public Builder scope(List<String> scope) {
+            this.scope = Optional.ofNullable(scope);
+            return this;
+        }
+
+        @JsonSetter(value = "set_user_root_attributes", nulls = Nulls.SKIP)
+        public Builder setUserRootAttributes(Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes) {
+            this.setUserRootAttributes = setUserRootAttributes;
+            return this;
+        }
+
+        public Builder setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes) {
+            this.setUserRootAttributes = Optional.ofNullable(setUserRootAttributes);
+            return this;
+        }
+
+        @JsonSetter(value = "upstream_params", nulls = Nulls.SKIP)
+        public Builder upstreamParams(
+                @Nullable
+                        OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+                                upstreamParams) {
+            this.upstreamParams = upstreamParams;
+            return this;
+        }
+
+        public Builder upstreamParams(
+                Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>> upstreamParams) {
+            this.upstreamParams = OptionalNullable.of(upstreamParams);
+            return this;
+        }
+
+        public Builder upstreamParams(
+                Optional<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams) {
+            if (upstreamParams.isPresent()) {
+                this.upstreamParams = OptionalNullable.of(upstreamParams.get());
+            } else {
+                this.upstreamParams = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder upstreamParams(
+                com.auth0.client.mgmt.core.Nullable<
+                                Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+                        upstreamParams) {
+            if (upstreamParams.isNull()) {
+                this.upstreamParams = OptionalNullable.ofNull();
+            } else if (upstreamParams.isEmpty()) {
+                this.upstreamParams = OptionalNullable.absent();
+            } else {
+                this.upstreamParams = OptionalNullable.of(upstreamParams.get());
+            }
+            return this;
+        }
+
         /**
          * <p>View and manage user's ad applications, ad units, and channels in AdSense</p>
          */
@@ -1357,17 +1453,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
 
         public Builder adsenseManagement(Boolean adsenseManagement) {
             this.adsenseManagement = Optional.ofNullable(adsenseManagement);
-            return this;
-        }
-
-        @JsonSetter(value = "allowed_audiences", nulls = Nulls.SKIP)
-        public Builder allowedAudiences(Optional<List<String>> allowedAudiences) {
-            this.allowedAudiences = allowedAudiences;
-            return this;
-        }
-
-        public Builder allowedAudiences(List<String> allowedAudiences) {
-            this.allowedAudiences = Optional.ofNullable(allowedAudiences);
             return this;
         }
 
@@ -1480,68 +1565,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
 
         public Builder chromeWebStore(Boolean chromeWebStore) {
             this.chromeWebStore = Optional.ofNullable(chromeWebStore);
-            return this;
-        }
-
-        @JsonSetter(value = "client_id", nulls = Nulls.SKIP)
-        public Builder clientId(@Nullable OptionalNullable<String> clientId) {
-            this.clientId = clientId;
-            return this;
-        }
-
-        public Builder clientId(String clientId) {
-            this.clientId = OptionalNullable.of(clientId);
-            return this;
-        }
-
-        public Builder clientId(Optional<String> clientId) {
-            if (clientId.isPresent()) {
-                this.clientId = OptionalNullable.of(clientId.get());
-            } else {
-                this.clientId = OptionalNullable.absent();
-            }
-            return this;
-        }
-
-        public Builder clientId(com.auth0.client.mgmt.core.Nullable<String> clientId) {
-            if (clientId.isNull()) {
-                this.clientId = OptionalNullable.ofNull();
-            } else if (clientId.isEmpty()) {
-                this.clientId = OptionalNullable.absent();
-            } else {
-                this.clientId = OptionalNullable.of(clientId.get());
-            }
-            return this;
-        }
-
-        @JsonSetter(value = "client_secret", nulls = Nulls.SKIP)
-        public Builder clientSecret(@Nullable OptionalNullable<String> clientSecret) {
-            this.clientSecret = clientSecret;
-            return this;
-        }
-
-        public Builder clientSecret(String clientSecret) {
-            this.clientSecret = OptionalNullable.of(clientSecret);
-            return this;
-        }
-
-        public Builder clientSecret(Optional<String> clientSecret) {
-            if (clientSecret.isPresent()) {
-                this.clientSecret = OptionalNullable.of(clientSecret.get());
-            } else {
-                this.clientSecret = OptionalNullable.absent();
-            }
-            return this;
-        }
-
-        public Builder clientSecret(com.auth0.client.mgmt.core.Nullable<String> clientSecret) {
-            if (clientSecret.isNull()) {
-                this.clientSecret = OptionalNullable.ofNull();
-            } else if (clientSecret.isEmpty()) {
-                this.clientSecret = OptionalNullable.absent();
-            } else {
-                this.clientSecret = OptionalNullable.of(clientSecret.get());
-            }
             return this;
         }
 
@@ -1839,17 +1862,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
             return this;
         }
 
-        @JsonSetter(value = "freeform_scopes", nulls = Nulls.SKIP)
-        public Builder freeformScopes(Optional<List<String>> freeformScopes) {
-            this.freeformScopes = freeformScopes;
-            return this;
-        }
-
-        public Builder freeformScopes(List<String> freeformScopes) {
-            this.freeformScopes = Optional.ofNullable(freeformScopes);
-            return this;
-        }
-
         /**
          * <p>Full access to the account's mailboxes, including permanent deletion of threads and messages</p>
          */
@@ -2088,17 +2100,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
             return this;
         }
 
-        @JsonSetter(value = "icon_url", nulls = Nulls.SKIP)
-        public Builder iconUrl(Optional<String> iconUrl) {
-            this.iconUrl = iconUrl;
-            return this;
-        }
-
-        public Builder iconUrl(String iconUrl) {
-            this.iconUrl = Optional.ofNullable(iconUrl);
-            return this;
-        }
-
         /**
          * <p>View and manage user's best-available current location and location history in Google Latitude</p>
          */
@@ -2197,28 +2198,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
             return this;
         }
 
-        @JsonSetter(value = "scope", nulls = Nulls.SKIP)
-        public Builder scope(Optional<List<String>> scope) {
-            this.scope = scope;
-            return this;
-        }
-
-        public Builder scope(List<String> scope) {
-            this.scope = Optional.ofNullable(scope);
-            return this;
-        }
-
-        @JsonSetter(value = "set_user_root_attributes", nulls = Nulls.SKIP)
-        public Builder setUserRootAttributes(Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes) {
-            this.setUserRootAttributes = setUserRootAttributes;
-            return this;
-        }
-
-        public Builder setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes) {
-            this.setUserRootAttributes = Optional.ofNullable(setUserRootAttributes);
-            return this;
-        }
-
         /**
          * <p>View and manage user's sites on Google Sites</p>
          */
@@ -2258,45 +2237,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
 
         public Builder tasksReadonly(Boolean tasksReadonly) {
             this.tasksReadonly = Optional.ofNullable(tasksReadonly);
-            return this;
-        }
-
-        @JsonSetter(value = "upstream_params", nulls = Nulls.SKIP)
-        public Builder upstreamParams(
-                @Nullable
-                        OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
-                                upstreamParams) {
-            this.upstreamParams = upstreamParams;
-            return this;
-        }
-
-        public Builder upstreamParams(
-                Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>> upstreamParams) {
-            this.upstreamParams = OptionalNullable.of(upstreamParams);
-            return this;
-        }
-
-        public Builder upstreamParams(
-                Optional<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams) {
-            if (upstreamParams.isPresent()) {
-                this.upstreamParams = OptionalNullable.of(upstreamParams.get());
-            } else {
-                this.upstreamParams = OptionalNullable.absent();
-            }
-            return this;
-        }
-
-        public Builder upstreamParams(
-                com.auth0.client.mgmt.core.Nullable<
-                                Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
-                        upstreamParams) {
-            if (upstreamParams.isNull()) {
-                this.upstreamParams = OptionalNullable.ofNull();
-            } else if (upstreamParams.isEmpty()) {
-                this.upstreamParams = OptionalNullable.absent();
-            } else {
-                this.upstreamParams = OptionalNullable.of(upstreamParams.get());
-            }
             return this;
         }
 
@@ -2415,8 +2355,15 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
         public ConnectionOptionsGoogleOAuth2 build() {
             return new ConnectionOptionsGoogleOAuth2(
                     nonPersistentAttrs,
-                    adsenseManagement,
                     allowedAudiences,
+                    clientId,
+                    clientSecret,
+                    freeformScopes,
+                    iconUrl,
+                    scope,
+                    setUserRootAttributes,
+                    upstreamParams,
+                    adsenseManagement,
                     analytics,
                     blogger,
                     calendar,
@@ -2425,8 +2372,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
                     calendarEventsReadonly,
                     calendarSettingsReadonly,
                     chromeWebStore,
-                    clientId,
-                    clientSecret,
                     contacts,
                     contactsNew,
                     contactsOtherReadonly,
@@ -2448,7 +2393,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
                     driveReadonly,
                     driveScripts,
                     email,
-                    freeformScopes,
                     gmail,
                     gmailCompose,
                     gmailInsert,
@@ -2466,7 +2410,6 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
                     googleDrive,
                     googleDriveFiles,
                     googlePlus,
-                    iconUrl,
                     latitudeBest,
                     latitudeCity,
                     moderator,
@@ -2474,12 +2417,9 @@ public final class ConnectionOptionsGoogleOAuth2 implements IConnectionOptionsCo
                     orkut,
                     picasaWeb,
                     profile,
-                    scope,
-                    setUserRootAttributes,
                     sites,
                     tasks,
                     tasksReadonly,
-                    upstreamParams,
                     urlShortener,
                     webmasterTools,
                     youtube,

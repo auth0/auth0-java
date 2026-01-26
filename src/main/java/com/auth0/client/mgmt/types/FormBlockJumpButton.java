@@ -21,9 +21,9 @@ import org.jetbrains.annotations.NotNull;
 public final class FormBlockJumpButton {
     private final String id;
 
-    private final String category;
+    private final FormComponentCategoryBlockConst category;
 
-    private final String type;
+    private final FormBlockTypeJumpButtonConst type;
 
     private final FormBlockJumpButtonConfig config;
 
@@ -31,8 +31,8 @@ public final class FormBlockJumpButton {
 
     private FormBlockJumpButton(
             String id,
-            String category,
-            String type,
+            FormComponentCategoryBlockConst category,
+            FormBlockTypeJumpButtonConst type,
             FormBlockJumpButtonConfig config,
             Map<String, Object> additionalProperties) {
         this.id = id;
@@ -48,12 +48,12 @@ public final class FormBlockJumpButton {
     }
 
     @JsonProperty("category")
-    public String getCategory() {
+    public FormComponentCategoryBlockConst getCategory() {
         return category;
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public FormBlockTypeJumpButtonConst getType() {
         return type;
     }
 
@@ -101,11 +101,11 @@ public final class FormBlockJumpButton {
     }
 
     public interface CategoryStage {
-        TypeStage category(@NotNull String category);
+        TypeStage category(@NotNull FormComponentCategoryBlockConst category);
     }
 
     public interface TypeStage {
-        ConfigStage type(@NotNull String type);
+        ConfigStage type(@NotNull FormBlockTypeJumpButtonConst type);
     }
 
     public interface ConfigStage {
@@ -120,9 +120,9 @@ public final class FormBlockJumpButton {
     public static final class Builder implements IdStage, CategoryStage, TypeStage, ConfigStage, _FinalStage {
         private String id;
 
-        private String category;
+        private FormComponentCategoryBlockConst category;
 
-        private String type;
+        private FormBlockTypeJumpButtonConst type;
 
         private FormBlockJumpButtonConfig config;
 
@@ -149,14 +149,14 @@ public final class FormBlockJumpButton {
 
         @java.lang.Override
         @JsonSetter("category")
-        public TypeStage category(@NotNull String category) {
+        public TypeStage category(@NotNull FormComponentCategoryBlockConst category) {
             this.category = Objects.requireNonNull(category, "category must not be null");
             return this;
         }
 
         @java.lang.Override
         @JsonSetter("type")
-        public ConfigStage type(@NotNull String type) {
+        public ConfigStage type(@NotNull FormBlockTypeJumpButtonConst type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

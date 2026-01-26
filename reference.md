@@ -831,7 +831,7 @@ client.clientGrants().list(
 <dl>
 <dd>
 
-**subjectType:** `Optional<ClientGrantSubjectTypeEnum>` — The type of application access the client grant allows. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href="https://www.okta.com/legal/"> Master Subscription Agreement.</a>
+**subjectType:** `Optional<ClientGrantSubjectTypeEnum>` — The type of application access the client grant allows.
     
 </dd>
 </dl>
@@ -939,7 +939,70 @@ client.clientGrants().create(
 <dl>
 <dd>
 
-**authorizationDetailsTypes:** `Optional<List<String>>` — Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href= "https://www.okta.com/legal/"> Master Subscription Agreement.</a>
+**authorizationDetailsTypes:** `Optional<List<String>>` — Types of authorization_details allowed for this client grant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**allowAllScopes:** `Optional<Boolean>` — If enabled, all scopes configured on the resource server are allowed for this grant.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.clientGrants.get(id) -> GetClientGrantResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a single <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grant</a>, including the
+scopes associated with the application/API pair.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.clientGrants().get("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The ID of the client grant to retrieve.
     
 </dd>
 </dl>
@@ -1084,7 +1147,15 @@ client.clientGrants().update(
 <dl>
 <dd>
 
-**authorizationDetailsTypes:** `Optional<List<String>>` — Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href= "https://www.okta.com/legal/"> Master Subscription Agreement.</a>
+**authorizationDetailsTypes:** `Optional<List<String>>` — Types of authorization_details allowed for this client grant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**allowAllScopes:** `Optional<Boolean>` — If enabled, all scopes configured on the resource server are allowed for this grant.
     
 </dd>
 </dl>
@@ -3064,7 +3135,9 @@ client.connections().list(
 <dl>
 <dd>
 
-Creates a new connection according to the JSON object received in <code>body</code>.<br/>
+Creates a new connection according to the JSON object received in <code>body</code>.
+
+<b>Note:</b> If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results. 
 </dd>
 </dl>
 </dd>
@@ -3286,6 +3359,8 @@ client.connections().get(
 <dd>
 
 Removes a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
+
+<b>Note:</b> If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent <a href="https://auth0.com/docs/api/management/v2/connections/post-connections">create connection</a> requests, if they use an identical connection name. 
 </dd>
 </dl>
 </dd>
@@ -3686,7 +3761,7 @@ client.customDomains().create(
 <dl>
 <dd>
 
-**verificationMethod:** `Optional<String>` 
+**verificationMethod:** `Optional<CustomDomainVerificationMethodEnum>` 
     
 </dd>
 </dl>
@@ -3694,7 +3769,7 @@ client.customDomains().create(
 <dl>
 <dd>
 
-**tlsPolicy:** `Optional<String>` 
+**tlsPolicy:** `Optional<CustomDomainTlsPolicyEnum>` 
     
 </dd>
 </dl>
@@ -3711,6 +3786,14 @@ client.customDomains().create(
 <dd>
 
 **domainMetadata:** `Optional<Map<String, Optional<String>>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**relyingPartyIdentifier:** `Optional<String>` — Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not provided, the full domain will be used.
     
 </dd>
 </dl>
@@ -3908,7 +3991,7 @@ client.customDomains().update(
 <dl>
 <dd>
 
-**tlsPolicy:** `Optional<String>` 
+**tlsPolicy:** `Optional<CustomDomainTlsPolicyEnum>` 
     
 </dd>
 </dl>
@@ -3925,6 +4008,14 @@ client.customDomains().update(
 <dd>
 
 **domainMetadata:** `Optional<Map<String, Optional<String>>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**relyingPartyIdentifier:** `Optional<String>` — Relying Party ID (rpId) to be used for Passkeys on this custom domain. Set to null to remove the rpId and fall back to using the full domain.
     
 </dd>
 </dl>
@@ -4223,7 +4314,7 @@ client.deviceCredentials().createPublicKey(
     CreatePublicKeyDeviceCredentialRequestContent
         .builder()
         .deviceName("device_name")
-        .type("public_key")
+        .type(DeviceCredentialPublicKeyTypeEnum.PUBLIC_KEY)
         .value("value")
         .deviceId("device_id")
         .build()
@@ -4250,7 +4341,7 @@ client.deviceCredentials().createPublicKey(
 <dl>
 <dd>
 
-**type:** `String` 
+**type:** `DeviceCredentialPublicKeyTypeEnum` 
     
 </dd>
 </dl>
@@ -4860,7 +4951,7 @@ client.eventStreams().create(
             .destination(
                 EventStreamWebhookDestination
                     .builder()
-                    .type("webhook")
+                    .type(EventStreamWebhookDestinationTypeEnum.WEBHOOK)
                     .configuration(
                         EventStreamWebhookConfiguration
                             .builder()
@@ -4869,7 +4960,7 @@ client.eventStreams().create(
                                 EventStreamWebhookAuthorizationResponse.of(
                                     EventStreamWebhookBasicAuth
                                         .builder()
-                                        .method("basic")
+                                        .method(EventStreamWebhookBasicAuthMethodEnum.BASIC)
                                         .username("username")
                                         .build()
                                 )
@@ -5195,7 +5286,7 @@ client.flows().list(
 <dl>
 <dd>
 
-**hydrate:** `Optional<String>` — hydration param
+**hydrate:** `Optional<FlowsListRequestHydrateItem>` — hydration param
     
 </dd>
 </dl>
@@ -6956,7 +7047,7 @@ client.logStreams().create(
     CreateLogStreamRequestContent.of(
         CreateLogStreamHttpRequestBody
             .builder()
-            .type("http")
+            .type(LogStreamHttpEnum.HTTP)
             .sink(
                 LogStreamHttpSink
                     .builder()
@@ -9032,7 +9123,7 @@ client.resourceServers().create(
 <dl>
 <dd>
 
-**consentPolicy:** `Optional<String>` 
+**consentPolicy:** `Optional<ResourceServerConsentPolicyEnum>` 
     
 </dd>
 </dl>
@@ -9327,7 +9418,7 @@ client.resourceServers().update(
 <dl>
 <dd>
 
-**consentPolicy:** `Optional<String>` 
+**consentPolicy:** `Optional<ResourceServerConsentPolicyEnum>` 
     
 </dd>
 </dl>
@@ -11502,7 +11593,7 @@ client.tokenExchangeProfiles().create(
         .name("name")
         .subjectTokenType("subject_token_type")
         .actionId("action_id")
-        .type("custom_authentication")
+        .type(TokenExchangeProfileTypeEnum.CUSTOM_AUTHENTICATION)
         .build()
 );
 ```
@@ -11543,7 +11634,7 @@ client.tokenExchangeProfiles().create(
 <dl>
 <dd>
 
-**type:** `String` 
+**type:** `TokenExchangeProfileTypeEnum` 
     
 </dd>
 </dl>
@@ -13714,6 +13805,519 @@ client.actions().executions().get("id");
 </dl>
 </details>
 
+## Actions Modules
+<details><summary><code>client.actions.modules.list() -> SyncPagingIterable&amp;lt;ActionModuleListItem&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of all Actions Modules with optional filtering and totals.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.actions().modules().list(
+    GetActionModulesRequestParameters
+        .builder()
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**page:** `Optional<Integer>` — Page index of the results to return. First page is 0.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**perPage:** `Optional<Integer>` — Number of results per page. Paging is disabled if parameter not sent.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.actions.modules.create(request) -> CreateActionModuleResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new Actions Module for reusable code across actions.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.actions().modules().create(
+    CreateActionModuleRequestContent
+        .builder()
+        .name("name")
+        .code("code")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `String` — The name of the action module.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**code:** `String` — The source code of the action module.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**secrets:** `Optional<List<ActionModuleSecretRequest>>` — The secrets to associate with the action module.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**dependencies:** `Optional<List<ActionModuleDependencyRequest>>` — The npm dependencies of the action module.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**apiVersion:** `Optional<String>` — The API version of the module.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**publish:** `Optional<Boolean>` — Whether to publish the module immediately after creation.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.actions.modules.get(id) -> GetActionModuleResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve details of a specific Actions Module by its unique identifier.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.actions().modules().get("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The ID of the action module to retrieve.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.actions.modules.delete(id)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Permanently delete an Actions Module. This will fail if the module is still in use by any actions.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.actions().modules().delete("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The ID of the Actions Module to delete.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.actions.modules.update(id, request) -> UpdateActionModuleResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update properties of an existing Actions Module, such as code, dependencies, or secrets.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.actions().modules().update(
+    "id",
+    UpdateActionModuleRequestContent
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The ID of the action module to update.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**code:** `Optional<String>` — The source code of the action module.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**secrets:** `Optional<List<ActionModuleSecretRequest>>` — The secrets to associate with the action module.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**dependencies:** `Optional<List<ActionModuleDependencyRequest>>` — The npm dependencies of the action module.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.actions.modules.listActions(id) -> SyncPagingIterable&amp;lt;ActionModuleAction&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists all actions that are using a specific Actions Module, showing which deployed action versions reference this Actions Module.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.actions().modules().listActions(
+    "id",
+    GetActionModuleActionsRequestParameters
+        .builder()
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The unique ID of the module.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `Optional<Integer>` — Page index of the results to return. First page is 0.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**perPage:** `Optional<Integer>` — Number of results per page.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.actions.modules.rollback(id, request) -> RollbackActionModuleResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Rolls back an Actions Module's draft to a previously created version. This action copies the code, dependencies, and secrets from the specified version into the current draft.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.actions().modules().rollback(
+    "id",
+    RollbackActionModuleRequestParameters
+        .builder()
+        .moduleVersionId("module_version_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The unique ID of the module to roll back.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**moduleVersionId:** `String` — The unique ID of the module version to roll back to.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Actions Triggers
 <details><summary><code>client.actions.triggers.list() -> ListActionTriggersResponseContent</code></summary>
 <dl>
@@ -13744,6 +14348,177 @@ Retrieve the set of triggers currently available within actions. A trigger is an
 ```java
 client.actions().triggers().list();
 ```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Actions Modules Versions
+<details><summary><code>client.actions.modules.versions.list(id) -> GetActionModuleVersionsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all published versions of a specific Actions Module.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.actions().modules().versions().list("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The unique ID of the module.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.actions.modules.versions.create(id) -> CreateActionModuleVersionResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a new immutable version of an Actions Module from the current draft version. This publishes the draft as a new version that can be referenced by actions, while maintaining the existing draft for continued development.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.actions().modules().versions().create("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The ID of the action module to create a version for.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.actions.modules.versions.get(id, versionId) -> GetActionModuleVersionResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the details of a specific, immutable version of an Actions Module.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.actions().modules().versions().get("id", "versionId");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The unique ID of the module.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**versionId:** `String` — The unique ID of the module version to retrieve.
+    
 </dd>
 </dl>
 </dd>
@@ -16762,8 +17537,8 @@ client.clients().connections().get(
 </dl>
 </details>
 
-## Connections Clients
-<details><summary><code>client.connections.clients.get(id) -> SyncPagingIterable&amp;lt;ConnectionEnabledClient&amp;gt;</code></summary>
+## Connections DirectoryProvisioning
+<details><summary><code>client.connections.directoryProvisioning.list() -> SyncPagingIterable&amp;lt;DirectoryProvisioning&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -16775,9 +17550,7 @@ client.clients().connections().get(
 <dl>
 <dd>
 
-Retrieve all clients that have the specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> enabled.
-
-<b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.
+Retrieve a list of directory provisioning configurations of a tenant.
 </dd>
 </dl>
 </dd>
@@ -16792,15 +17565,14 @@ Retrieve all clients that have the specified <a href="https://auth0.com/docs/aut
 <dd>
 
 ```java
-client.connections().clients().get(
-    "id",
-    GetConnectionEnabledClientsRequestParameters
+client.connections().directoryProvisioning().list(
+    ListDirectoryProvisioningsRequestParameters
         .builder()
-        .take(
-            OptionalNullable.of(1)
-        )
         .from(
             OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
         )
         .build()
 );
@@ -16818,7 +17590,7 @@ client.connections().clients().get(
 <dl>
 <dd>
 
-**id:** `String` — The id of the connection for which enabled clients are to be retrieved
+**from:** `Optional<String>` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -16830,14 +17602,6 @@ client.connections().clients().get(
     
 </dd>
 </dl>
-
-<dl>
-<dd>
-
-**from:** `Optional<String>` — Optional Id from which to start selection.
-    
-</dd>
-</dl>
 </dd>
 </dl>
 
@@ -16846,64 +17610,6 @@ client.connections().clients().get(
 </dl>
 </details>
 
-<details><summary><code>client.connections.clients.update(id, request)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.connections().clients().update(
-    "id",
-    Arrays.asList(
-        UpdateEnabledClientConnectionsRequestContentItem
-            .builder()
-            .clientId("client_id")
-            .status(true)
-            .build()
-    )
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `String` — The id of the connection to modify
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `List<UpdateEnabledClientConnectionsRequestContentItem>` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Connections DirectoryProvisioning
 <details><summary><code>client.connections.directoryProvisioning.get(id) -> GetDirectoryProvisioningResponseContent</code></summary>
 <dl>
 <dd>
@@ -17185,6 +17891,147 @@ client.connections().directoryProvisioning().getDefaultMapping("id");
 <dd>
 
 **id:** `String` — The id of the connection to retrieve its directory provisioning configuration
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Connections Clients
+<details><summary><code>client.connections.clients.get(id) -> SyncPagingIterable&amp;lt;ConnectionEnabledClient&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve all clients that have the specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> enabled.
+
+<b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.connections().clients().get(
+    "id",
+    GetConnectionEnabledClientsRequestParameters
+        .builder()
+        .take(
+            OptionalNullable.of(1)
+        )
+        .from(
+            OptionalNullable.of("from")
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The id of the connection for which enabled clients are to be retrieved
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `Optional<Integer>` — Number of results per page. Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `Optional<String>` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.connections.clients.update(id, request)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.connections().clients().update(
+    "id",
+    Arrays.asList(
+        UpdateEnabledClientConnectionsRequestContentItem
+            .builder()
+            .clientId("client_id")
+            .status(true)
+            .build()
+    )
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The id of the connection to modify
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `List<UpdateEnabledClientConnectionsRequestContentItem>` 
     
 </dd>
 </dl>
@@ -18542,7 +19389,7 @@ client.eventStreams().redeliveries().create(
 <dl>
 <dd>
 
-**statuses:** `Optional<List<String>>` — Filter by status
+**statuses:** `Optional<List<EventStreamDeliveryStatusEnum>>` — Filter by status
     
 </dd>
 </dl>
@@ -18728,7 +19575,7 @@ client.flows().executions().get(
 <dl>
 <dd>
 
-**hydrate:** `Optional<String>` — Hydration param
+**hydrate:** `Optional<ExecutionsGetRequestHydrateItem>` — Hydration param
     
 </dd>
 </dl>
@@ -18877,11 +19724,11 @@ client.flows().vault().connections().create(
             CreateFlowsVaultConnectionActivecampaignApiKey
                 .builder()
                 .name("name")
-                .appId("ACTIVECAMPAIGN")
+                .appId(FlowsVaultConnectionAppIdActivecampaignEnum.ACTIVECAMPAIGN)
                 .setup(
                     FlowsVaultConnectioSetupApiKeyWithBaseUrl
                         .builder()
-                        .type("API_KEY")
+                        .type(FlowsVaultConnectioSetupTypeApiKeyEnum.API_KEY)
                         .apiKey("api_key")
                         .baseUrl("base_url")
                         .build()
@@ -22827,7 +23674,7 @@ client.organizations().discoveryDomains().list(
 <dl>
 <dd>
 
-Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>. The <code>use_for_organization_discovery</code> field can be <code>true</code> or <code>false</code> (default: <code>true</code>).
+Create a new discovery domain for an organization.
 </dd>
 </dl>
 </dd>
@@ -22887,7 +23734,7 @@ client.organizations().discoveryDomains().create(
 <dl>
 <dd>
 
-**useForOrganizationDiscovery:** `Optional<Boolean>` — Indicates whether this discovery domain should be used for organization discovery.
+**useForOrganizationDiscovery:** `Optional<Boolean>` — Indicates whether this domain should be used for organization discovery.
     
 </dd>
 </dl>
@@ -23158,7 +24005,7 @@ client.organizations().discoveryDomains().update(
 <dl>
 <dd>
 
-**useForOrganizationDiscovery:** `Optional<Boolean>` — Indicates whether this discovery domain should be used for organization discovery.
+**useForOrganizationDiscovery:** `Optional<Boolean>` — Indicates whether this domain should be used for organization discovery.
     
 </dd>
 </dl>
@@ -25776,7 +26623,7 @@ Retrieves text customizations for a given self-service profile, language and Sel
 <dd>
 
 ```java
-client.selfServiceProfiles().customText().list("id", "en", "get-started");
+client.selfServiceProfiles().customText().list("id", SelfServiceProfileCustomTextLanguageEnum.EN, SelfServiceProfileCustomTextPageEnum.GET_STARTED);
 ```
 </dd>
 </dl>
@@ -25799,7 +26646,7 @@ client.selfServiceProfiles().customText().list("id", "en", "get-started");
 <dl>
 <dd>
 
-**language:** `String` — The language of the custom text.
+**language:** `SelfServiceProfileCustomTextLanguageEnum` — The language of the custom text.
     
 </dd>
 </dl>
@@ -25807,7 +26654,7 @@ client.selfServiceProfiles().customText().list("id", "en", "get-started");
 <dl>
 <dd>
 
-**page:** `String` — The page where the custom text is shown.
+**page:** `SelfServiceProfileCustomTextPageEnum` — The page where the custom text is shown.
     
 </dd>
 </dl>
@@ -25848,8 +26695,8 @@ Updates text customizations for a given self-service profile, language and Self 
 ```java
 client.selfServiceProfiles().customText().set(
     "id",
-    "en",
-    "get-started",
+    SelfServiceProfileCustomTextLanguageEnum.EN,
+    SelfServiceProfileCustomTextPageEnum.GET_STARTED,
     new HashMap<String, String>() {{
         put("key", "value");
     }}
@@ -25876,7 +26723,7 @@ client.selfServiceProfiles().customText().set(
 <dl>
 <dd>
 
-**language:** `String` — The language of the custom text.
+**language:** `SelfServiceProfileCustomTextLanguageEnum` — The language of the custom text.
     
 </dd>
 </dl>
@@ -25884,7 +26731,7 @@ client.selfServiceProfiles().customText().set(
 <dl>
 <dd>
 
-**page:** `String` — The page where the custom text is shown.
+**page:** `SelfServiceProfileCustomTextPageEnum` — The page where the custom text is shown.
     
 </dd>
 </dl>
@@ -26471,6 +27318,14 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dd>
 
 **enableAiGuide:** `Optional<Boolean>` — Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**phoneConsolidatedExperience:** `Optional<Boolean>` — Whether Phone Consolidated Experience is enabled for this tenant.
     
 </dd>
 </dl>
@@ -28216,7 +29071,7 @@ client.users().riskAssessments().clear(
         .builder()
         .connection("connection")
         .assessors(
-            Arrays.asList("new-device")
+            Arrays.asList(AssessorsTypeEnum.NEW_DEVICE)
         )
         .build()
 );
@@ -28250,7 +29105,7 @@ client.users().riskAssessments().clear(
 <dl>
 <dd>
 
-**assessors:** `List<String>` — List of assessors to clear.
+**assessors:** `List<AssessorsTypeEnum>` — List of assessors to clear.
     
 </dd>
 </dl>

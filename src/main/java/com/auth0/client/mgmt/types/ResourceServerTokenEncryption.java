@@ -19,21 +19,23 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ResourceServerTokenEncryption.Builder.class)
 public final class ResourceServerTokenEncryption {
-    private final String format;
+    private final ResourceServerTokenEncryptionFormatEnum format;
 
     private final ResourceServerTokenEncryptionKey encryptionKey;
 
     private final Map<String, Object> additionalProperties;
 
     private ResourceServerTokenEncryption(
-            String format, ResourceServerTokenEncryptionKey encryptionKey, Map<String, Object> additionalProperties) {
+            ResourceServerTokenEncryptionFormatEnum format,
+            ResourceServerTokenEncryptionKey encryptionKey,
+            Map<String, Object> additionalProperties) {
         this.format = format;
         this.encryptionKey = encryptionKey;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("format")
-    public String getFormat() {
+    public ResourceServerTokenEncryptionFormatEnum getFormat() {
         return format;
     }
 
@@ -72,7 +74,7 @@ public final class ResourceServerTokenEncryption {
     }
 
     public interface FormatStage {
-        EncryptionKeyStage format(@NotNull String format);
+        EncryptionKeyStage format(@NotNull ResourceServerTokenEncryptionFormatEnum format);
 
         Builder from(ResourceServerTokenEncryption other);
     }
@@ -87,7 +89,7 @@ public final class ResourceServerTokenEncryption {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements FormatStage, EncryptionKeyStage, _FinalStage {
-        private String format;
+        private ResourceServerTokenEncryptionFormatEnum format;
 
         private ResourceServerTokenEncryptionKey encryptionKey;
 
@@ -105,7 +107,7 @@ public final class ResourceServerTokenEncryption {
 
         @java.lang.Override
         @JsonSetter("format")
-        public EncryptionKeyStage format(@NotNull String format) {
+        public EncryptionKeyStage format(@NotNull ResourceServerTokenEncryptionFormatEnum format) {
             this.format = Objects.requireNonNull(format, "format must not be null");
             return this;
         }

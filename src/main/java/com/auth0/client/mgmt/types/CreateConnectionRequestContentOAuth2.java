@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = CreateConnectionRequestContentOAuth2.Builder.class)
@@ -36,6 +37,8 @@ public final class CreateConnectionRequestContentOAuth2 implements ICreateConnec
 
     private final Optional<Map<String, OptionalNullable<String>>> metadata;
 
+    private final CreateConnectionRequestContentOAuth2Strategy strategy;
+
     private final Optional<ConnectionOptionsOAuth2> options;
 
     private final Map<String, Object> additionalProperties;
@@ -48,6 +51,7 @@ public final class CreateConnectionRequestContentOAuth2 implements ICreateConnec
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
+            CreateConnectionRequestContentOAuth2Strategy strategy,
             Optional<ConnectionOptionsOAuth2> options,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -57,6 +61,7 @@ public final class CreateConnectionRequestContentOAuth2 implements ICreateConnec
         this.enabledClients = enabledClients;
         this.isDomainConnection = isDomainConnection;
         this.metadata = metadata;
+        this.strategy = strategy;
         this.options = options;
         this.additionalProperties = additionalProperties;
     }
@@ -104,8 +109,8 @@ public final class CreateConnectionRequestContentOAuth2 implements ICreateConnec
     }
 
     @JsonProperty("strategy")
-    public String getStrategy() {
-        return "oauth2";
+    public CreateConnectionRequestContentOAuth2Strategy getStrategy() {
+        return strategy;
     }
 
     @JsonProperty("options")
@@ -133,6 +138,7 @@ public final class CreateConnectionRequestContentOAuth2 implements ICreateConnec
                 && enabledClients.equals(other.enabledClients)
                 && isDomainConnection.equals(other.isDomainConnection)
                 && metadata.equals(other.metadata)
+                && strategy.equals(other.strategy)
                 && options.equals(other.options);
     }
 
@@ -146,6 +152,7 @@ public final class CreateConnectionRequestContentOAuth2 implements ICreateConnec
                 this.enabledClients,
                 this.isDomainConnection,
                 this.metadata,
+                this.strategy,
                 this.options);
     }
 
@@ -154,33 +161,78 @@ public final class CreateConnectionRequestContentOAuth2 implements ICreateConnec
         return ObjectMappers.stringify(this);
     }
 
-    public static Builder builder() {
+    public static StrategyStage builder() {
         return new Builder();
     }
 
+    public interface StrategyStage {
+        _FinalStage strategy(@NotNull CreateConnectionRequestContentOAuth2Strategy strategy);
+
+        Builder from(CreateConnectionRequestContentOAuth2 other);
+    }
+
+    public interface _FinalStage {
+        CreateConnectionRequestContentOAuth2 build();
+
+        _FinalStage name(Optional<String> name);
+
+        _FinalStage name(String name);
+
+        _FinalStage authentication(Optional<ConnectionAuthenticationPurpose> authentication);
+
+        _FinalStage authentication(ConnectionAuthenticationPurpose authentication);
+
+        _FinalStage connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts);
+
+        _FinalStage connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts);
+
+        _FinalStage displayName(Optional<String> displayName);
+
+        _FinalStage displayName(String displayName);
+
+        _FinalStage enabledClients(Optional<List<String>> enabledClients);
+
+        _FinalStage enabledClients(List<String> enabledClients);
+
+        _FinalStage isDomainConnection(Optional<Boolean> isDomainConnection);
+
+        _FinalStage isDomainConnection(Boolean isDomainConnection);
+
+        _FinalStage metadata(Optional<Map<String, OptionalNullable<String>>> metadata);
+
+        _FinalStage metadata(Map<String, OptionalNullable<String>> metadata);
+
+        _FinalStage options(Optional<ConnectionOptionsOAuth2> options);
+
+        _FinalStage options(ConnectionOptionsOAuth2 options);
+    }
+
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder {
-        private Optional<String> name = Optional.empty();
+    public static final class Builder implements StrategyStage, _FinalStage {
+        private CreateConnectionRequestContentOAuth2Strategy strategy;
 
-        private Optional<ConnectionAuthenticationPurpose> authentication = Optional.empty();
-
-        private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
-
-        private Optional<String> displayName = Optional.empty();
-
-        private Optional<List<String>> enabledClients = Optional.empty();
-
-        private Optional<Boolean> isDomainConnection = Optional.empty();
+        private Optional<ConnectionOptionsOAuth2> options = Optional.empty();
 
         private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
-        private Optional<ConnectionOptionsOAuth2> options = Optional.empty();
+        private Optional<Boolean> isDomainConnection = Optional.empty();
+
+        private Optional<List<String>> enabledClients = Optional.empty();
+
+        private Optional<String> displayName = Optional.empty();
+
+        private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
+
+        private Optional<ConnectionAuthenticationPurpose> authentication = Optional.empty();
+
+        private Optional<String> name = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
+        @java.lang.Override
         public Builder from(CreateConnectionRequestContentOAuth2 other) {
             name(other.getName());
             authentication(other.getAuthentication());
@@ -189,98 +241,123 @@ public final class CreateConnectionRequestContentOAuth2 implements ICreateConnec
             enabledClients(other.getEnabledClients());
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
+            strategy(other.getStrategy());
             options(other.getOptions());
             return this;
         }
 
-        @JsonSetter(value = "name", nulls = Nulls.SKIP)
-        public Builder name(Optional<String> name) {
-            this.name = name;
+        @java.lang.Override
+        @JsonSetter("strategy")
+        public _FinalStage strategy(@NotNull CreateConnectionRequestContentOAuth2Strategy strategy) {
+            this.strategy = Objects.requireNonNull(strategy, "strategy must not be null");
             return this;
         }
 
-        public Builder name(String name) {
-            this.name = Optional.ofNullable(name);
-            return this;
-        }
-
-        @JsonSetter(value = "authentication", nulls = Nulls.SKIP)
-        public Builder authentication(Optional<ConnectionAuthenticationPurpose> authentication) {
-            this.authentication = authentication;
-            return this;
-        }
-
-        public Builder authentication(ConnectionAuthenticationPurpose authentication) {
-            this.authentication = Optional.ofNullable(authentication);
-            return this;
-        }
-
-        @JsonSetter(value = "connected_accounts", nulls = Nulls.SKIP)
-        public Builder connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts) {
-            this.connectedAccounts = connectedAccounts;
-            return this;
-        }
-
-        public Builder connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts) {
-            this.connectedAccounts = Optional.ofNullable(connectedAccounts);
-            return this;
-        }
-
-        @JsonSetter(value = "display_name", nulls = Nulls.SKIP)
-        public Builder displayName(Optional<String> displayName) {
-            this.displayName = displayName;
-            return this;
-        }
-
-        public Builder displayName(String displayName) {
-            this.displayName = Optional.ofNullable(displayName);
-            return this;
-        }
-
-        @JsonSetter(value = "enabled_clients", nulls = Nulls.SKIP)
-        public Builder enabledClients(Optional<List<String>> enabledClients) {
-            this.enabledClients = enabledClients;
-            return this;
-        }
-
-        public Builder enabledClients(List<String> enabledClients) {
-            this.enabledClients = Optional.ofNullable(enabledClients);
-            return this;
-        }
-
-        @JsonSetter(value = "is_domain_connection", nulls = Nulls.SKIP)
-        public Builder isDomainConnection(Optional<Boolean> isDomainConnection) {
-            this.isDomainConnection = isDomainConnection;
-            return this;
-        }
-
-        public Builder isDomainConnection(Boolean isDomainConnection) {
-            this.isDomainConnection = Optional.ofNullable(isDomainConnection);
-            return this;
-        }
-
-        @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
-        public Builder metadata(Optional<Map<String, OptionalNullable<String>>> metadata) {
-            this.metadata = metadata;
-            return this;
-        }
-
-        public Builder metadata(Map<String, OptionalNullable<String>> metadata) {
-            this.metadata = Optional.ofNullable(metadata);
-            return this;
-        }
-
-        @JsonSetter(value = "options", nulls = Nulls.SKIP)
-        public Builder options(Optional<ConnectionOptionsOAuth2> options) {
-            this.options = options;
-            return this;
-        }
-
-        public Builder options(ConnectionOptionsOAuth2 options) {
+        @java.lang.Override
+        public _FinalStage options(ConnectionOptionsOAuth2 options) {
             this.options = Optional.ofNullable(options);
             return this;
         }
 
+        @java.lang.Override
+        @JsonSetter(value = "options", nulls = Nulls.SKIP)
+        public _FinalStage options(Optional<ConnectionOptionsOAuth2> options) {
+            this.options = options;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage metadata(Map<String, OptionalNullable<String>> metadata) {
+            this.metadata = Optional.ofNullable(metadata);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
+        public _FinalStage metadata(Optional<Map<String, OptionalNullable<String>>> metadata) {
+            this.metadata = metadata;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage isDomainConnection(Boolean isDomainConnection) {
+            this.isDomainConnection = Optional.ofNullable(isDomainConnection);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "is_domain_connection", nulls = Nulls.SKIP)
+        public _FinalStage isDomainConnection(Optional<Boolean> isDomainConnection) {
+            this.isDomainConnection = isDomainConnection;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage enabledClients(List<String> enabledClients) {
+            this.enabledClients = Optional.ofNullable(enabledClients);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "enabled_clients", nulls = Nulls.SKIP)
+        public _FinalStage enabledClients(Optional<List<String>> enabledClients) {
+            this.enabledClients = enabledClients;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage displayName(String displayName) {
+            this.displayName = Optional.ofNullable(displayName);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "display_name", nulls = Nulls.SKIP)
+        public _FinalStage displayName(Optional<String> displayName) {
+            this.displayName = displayName;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts) {
+            this.connectedAccounts = Optional.ofNullable(connectedAccounts);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "connected_accounts", nulls = Nulls.SKIP)
+        public _FinalStage connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts) {
+            this.connectedAccounts = connectedAccounts;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage authentication(ConnectionAuthenticationPurpose authentication) {
+            this.authentication = Optional.ofNullable(authentication);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "authentication", nulls = Nulls.SKIP)
+        public _FinalStage authentication(Optional<ConnectionAuthenticationPurpose> authentication) {
+            this.authentication = authentication;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage name(String name) {
+            this.name = Optional.ofNullable(name);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "name", nulls = Nulls.SKIP)
+        public _FinalStage name(Optional<String> name) {
+            this.name = name;
+            return this;
+        }
+
+        @java.lang.Override
         public CreateConnectionRequestContentOAuth2 build() {
             return new CreateConnectionRequestContentOAuth2(
                     name,
@@ -290,6 +367,7 @@ public final class CreateConnectionRequestContentOAuth2 implements ICreateConnec
                     enabledClients,
                     isDomainConnection,
                     metadata,
+                    strategy,
                     options,
                     additionalProperties);
         }

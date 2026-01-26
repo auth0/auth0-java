@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface IConnectionOptionsCommonSaml {
     Optional<String> getCert();
 
-    Optional<String> getDecryptionKey();
+    Optional<ConnectionDecryptionKeySaml> getDecryptionKey();
 
     Optional<ConnectionDigestAlgorithmEnumSaml> getDigestAlgorithm();
 

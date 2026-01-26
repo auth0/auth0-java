@@ -221,7 +221,8 @@ public class AsyncRawConnectionsClient {
     }
 
     /**
-     * Creates a new connection according to the JSON object received in &lt;code&gt;body&lt;/code&gt;.&lt;br/&gt;
+     * Creates a new connection according to the JSON object received in &lt;code&gt;body&lt;/code&gt;.
+     * <p>&lt;b&gt;Note:&lt;/b&gt; If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateConnectionResponseContent>> create(
             CreateConnectionRequestContent request) {
@@ -229,7 +230,8 @@ public class AsyncRawConnectionsClient {
     }
 
     /**
-     * Creates a new connection according to the JSON object received in &lt;code&gt;body&lt;/code&gt;.&lt;br/&gt;
+     * Creates a new connection according to the JSON object received in &lt;code&gt;body&lt;/code&gt;.
+     * <p>&lt;b&gt;Note:&lt;/b&gt; If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateConnectionResponseContent>> create(
             CreateConnectionRequestContent request, RequestOptions requestOptions) {
@@ -422,6 +424,7 @@ public class AsyncRawConnectionsClient {
 
     /**
      * Removes a specific &lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;connection&lt;/a&gt; from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
+     * <p>&lt;b&gt;Note:&lt;/b&gt; If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent &lt;a href=&quot;https://auth0.com/docs/api/management/v2/connections/post-connections&quot;&gt;create connection&lt;/a&gt; requests, if they use an identical connection name.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id) {
         return delete(id, null);
@@ -429,6 +432,7 @@ public class AsyncRawConnectionsClient {
 
     /**
      * Removes a specific &lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;connection&lt;/a&gt; from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
+     * <p>&lt;b&gt;Note:&lt;/b&gt; If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent &lt;a href=&quot;https://auth0.com/docs/api/management/v2/connections/post-connections&quot;&gt;create connection&lt;/a&gt; requests, if they use an identical connection name.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())

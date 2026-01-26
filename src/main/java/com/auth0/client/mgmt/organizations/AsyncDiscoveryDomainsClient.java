@@ -57,7 +57,7 @@ public class AsyncDiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
+     * Create a new discovery domain for an organization.
      */
     public CompletableFuture<CreateOrganizationDiscoveryDomainResponseContent> create(
             String id, CreateOrganizationDiscoveryDomainRequestContent request) {
@@ -65,7 +65,7 @@ public class AsyncDiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
+     * Create a new discovery domain for an organization.
      */
     public CompletableFuture<CreateOrganizationDiscoveryDomainResponseContent> create(
             String id, CreateOrganizationDiscoveryDomainRequestContent request, RequestOptions requestOptions) {

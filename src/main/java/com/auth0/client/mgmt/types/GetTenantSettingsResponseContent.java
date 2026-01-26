@@ -90,6 +90,8 @@ public final class GetTenantSettingsResponseContent {
 
     private final Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile;
 
+    private final Optional<Boolean> phoneConsolidatedExperience;
+
     private final Optional<Boolean> enableAiGuide;
 
     private final Map<String, Object> additionalProperties;
@@ -128,6 +130,7 @@ public final class GetTenantSettingsResponseContent {
             OptionalNullable<Boolean> authorizationResponseIssParameterSupported,
             OptionalNullable<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt,
             Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile,
+            Optional<Boolean> phoneConsolidatedExperience,
             Optional<Boolean> enableAiGuide,
             Map<String, Object> additionalProperties) {
         this.changePassword = changePassword;
@@ -163,6 +166,7 @@ public final class GetTenantSettingsResponseContent {
         this.authorizationResponseIssParameterSupported = authorizationResponseIssParameterSupported;
         this.skipNonVerifiableCallbackUriConfirmationPrompt = skipNonVerifiableCallbackUriConfirmationPrompt;
         this.resourceParameterProfile = resourceParameterProfile;
+        this.phoneConsolidatedExperience = phoneConsolidatedExperience;
         this.enableAiGuide = enableAiGuide;
         this.additionalProperties = additionalProperties;
     }
@@ -441,6 +445,14 @@ public final class GetTenantSettingsResponseContent {
     }
 
     /**
+     * @return Whether Phone Consolidated Experience is enabled for this tenant.
+     */
+    @JsonProperty("phone_consolidated_experience")
+    public Optional<Boolean> getPhoneConsolidatedExperience() {
+        return phoneConsolidatedExperience;
+    }
+
+    /**
      * @return Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.
      */
     @JsonProperty("enable_ai_guide")
@@ -554,6 +566,7 @@ public final class GetTenantSettingsResponseContent {
                 && skipNonVerifiableCallbackUriConfirmationPrompt.equals(
                         other.skipNonVerifiableCallbackUriConfirmationPrompt)
                 && resourceParameterProfile.equals(other.resourceParameterProfile)
+                && phoneConsolidatedExperience.equals(other.phoneConsolidatedExperience)
                 && enableAiGuide.equals(other.enableAiGuide);
     }
 
@@ -593,6 +606,7 @@ public final class GetTenantSettingsResponseContent {
                 this.authorizationResponseIssParameterSupported,
                 this.skipNonVerifiableCallbackUriConfirmationPrompt,
                 this.resourceParameterProfile,
+                this.phoneConsolidatedExperience,
                 this.enableAiGuide);
     }
 
@@ -673,6 +687,8 @@ public final class GetTenantSettingsResponseContent {
 
         private Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile = Optional.empty();
 
+        private Optional<Boolean> phoneConsolidatedExperience = Optional.empty();
+
         private Optional<Boolean> enableAiGuide = Optional.empty();
 
         @JsonAnySetter
@@ -714,6 +730,7 @@ public final class GetTenantSettingsResponseContent {
             authorizationResponseIssParameterSupported(other.getAuthorizationResponseIssParameterSupported());
             skipNonVerifiableCallbackUriConfirmationPrompt(other.getSkipNonVerifiableCallbackUriConfirmationPrompt());
             resourceParameterProfile(other.getResourceParameterProfile());
+            phoneConsolidatedExperience(other.getPhoneConsolidatedExperience());
             enableAiGuide(other.getEnableAiGuide());
             return this;
         }
@@ -1367,6 +1384,20 @@ public final class GetTenantSettingsResponseContent {
         }
 
         /**
+         * <p>Whether Phone Consolidated Experience is enabled for this tenant.</p>
+         */
+        @JsonSetter(value = "phone_consolidated_experience", nulls = Nulls.SKIP)
+        public Builder phoneConsolidatedExperience(Optional<Boolean> phoneConsolidatedExperience) {
+            this.phoneConsolidatedExperience = phoneConsolidatedExperience;
+            return this;
+        }
+
+        public Builder phoneConsolidatedExperience(Boolean phoneConsolidatedExperience) {
+            this.phoneConsolidatedExperience = Optional.ofNullable(phoneConsolidatedExperience);
+            return this;
+        }
+
+        /**
          * <p>Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.</p>
          */
         @JsonSetter(value = "enable_ai_guide", nulls = Nulls.SKIP)
@@ -1415,6 +1446,7 @@ public final class GetTenantSettingsResponseContent {
                     authorizationResponseIssParameterSupported,
                     skipNonVerifiableCallbackUriConfirmationPrompt,
                     resourceParameterProfile,
+                    phoneConsolidatedExperience,
                     enableAiGuide,
                     additionalProperties);
         }

@@ -14,6 +14,8 @@ import com.auth0.client.mgmt.errors.ForbiddenError;
 import com.auth0.client.mgmt.errors.NotFoundError;
 import com.auth0.client.mgmt.errors.TooManyRequestsError;
 import com.auth0.client.mgmt.errors.UnauthorizedError;
+import com.auth0.client.mgmt.types.SelfServiceProfileCustomTextLanguageEnum;
+import com.auth0.client.mgmt.types.SelfServiceProfileCustomTextPageEnum;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.IOException;
@@ -36,7 +38,8 @@ public class RawCustomTextClient {
     /**
      * Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
-    public ManagementApiHttpResponse<Map<String, String>> list(String id, String language, String page) {
+    public ManagementApiHttpResponse<Map<String, String>> list(
+            String id, SelfServiceProfileCustomTextLanguageEnum language, SelfServiceProfileCustomTextPageEnum page) {
         return list(id, language, page, null);
     }
 
@@ -44,14 +47,17 @@ public class RawCustomTextClient {
      * Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
     public ManagementApiHttpResponse<Map<String, String>> list(
-            String id, String language, String page, RequestOptions requestOptions) {
+            String id,
+            SelfServiceProfileCustomTextLanguageEnum language,
+            SelfServiceProfileCustomTextPageEnum page,
+            RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("self-service-profiles")
                 .addPathSegment(id)
                 .addPathSegments("custom-text")
-                .addPathSegment(language)
-                .addPathSegment(page)
+                .addPathSegment(language.toString())
+                .addPathSegment(page.toString())
                 .build();
         Request okhttpRequest = new Request.Builder()
                 .url(httpUrl)
@@ -102,7 +108,10 @@ public class RawCustomTextClient {
      * Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
     public ManagementApiHttpResponse<Map<String, String>> set(
-            String id, String language, String page, Map<String, String> request) {
+            String id,
+            SelfServiceProfileCustomTextLanguageEnum language,
+            SelfServiceProfileCustomTextPageEnum page,
+            Map<String, String> request) {
         return set(id, language, page, request, null);
     }
 
@@ -110,14 +119,18 @@ public class RawCustomTextClient {
      * Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
     public ManagementApiHttpResponse<Map<String, String>> set(
-            String id, String language, String page, Map<String, String> request, RequestOptions requestOptions) {
+            String id,
+            SelfServiceProfileCustomTextLanguageEnum language,
+            SelfServiceProfileCustomTextPageEnum page,
+            Map<String, String> request,
+            RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("self-service-profiles")
                 .addPathSegment(id)
                 .addPathSegments("custom-text")
-                .addPathSegment(language)
-                .addPathSegment(page)
+                .addPathSegment(language.toString())
+                .addPathSegment(page.toString())
                 .build();
         RequestBody body;
         try {

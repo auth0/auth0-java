@@ -25,11 +25,12 @@ import org.jetbrains.annotations.Nullable;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ExecutionsGetRequest.Builder.class)
 public final class ExecutionsGetRequest {
-    private final Optional<List<String>> hydrate;
+    private final Optional<List<ExecutionsGetRequestHydrateItem>> hydrate;
 
     private final Map<String, Object> additionalProperties;
 
-    private ExecutionsGetRequest(Optional<List<String>> hydrate, Map<String, Object> additionalProperties) {
+    private ExecutionsGetRequest(
+            Optional<List<ExecutionsGetRequestHydrateItem>> hydrate, Map<String, Object> additionalProperties) {
         this.hydrate = hydrate;
         this.additionalProperties = additionalProperties;
     }
@@ -38,7 +39,7 @@ public final class ExecutionsGetRequest {
      * @return Hydration param
      */
     @JsonIgnore
-    public Optional<List<String>> getHydrate() {
+    public Optional<List<ExecutionsGetRequestHydrateItem>> getHydrate() {
         if (hydrate == null) {
             return Optional.empty();
         }
@@ -47,7 +48,7 @@ public final class ExecutionsGetRequest {
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("hydrate")
-    private Optional<List<String>> _getHydrate() {
+    private Optional<List<ExecutionsGetRequestHydrateItem>> _getHydrate() {
         return hydrate;
     }
 
@@ -82,7 +83,7 @@ public final class ExecutionsGetRequest {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<List<String>> hydrate = Optional.empty();
+        private Optional<List<ExecutionsGetRequestHydrateItem>> hydrate = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -98,17 +99,17 @@ public final class ExecutionsGetRequest {
          * <p>Hydration param</p>
          */
         @JsonSetter(value = "hydrate", nulls = Nulls.SKIP)
-        public Builder hydrate(@Nullable Optional<List<String>> hydrate) {
+        public Builder hydrate(@Nullable Optional<List<ExecutionsGetRequestHydrateItem>> hydrate) {
             this.hydrate = hydrate;
             return this;
         }
 
-        public Builder hydrate(List<String> hydrate) {
+        public Builder hydrate(List<ExecutionsGetRequestHydrateItem> hydrate) {
             this.hydrate = Optional.ofNullable(hydrate);
             return this;
         }
 
-        public Builder hydrate(com.auth0.client.mgmt.core.Nullable<List<String>> hydrate) {
+        public Builder hydrate(com.auth0.client.mgmt.core.Nullable<List<ExecutionsGetRequestHydrateItem>> hydrate) {
             if (hydrate.isNull()) {
                 this.hydrate = null;
             } else if (hydrate.isEmpty()) {
@@ -119,7 +120,7 @@ public final class ExecutionsGetRequest {
             return this;
         }
 
-        public Builder hydrate(String hydrate) {
+        public Builder hydrate(ExecutionsGetRequestHydrateItem hydrate) {
             this.hydrate = Optional.of(Collections.singletonList(hydrate));
             return this;
         }

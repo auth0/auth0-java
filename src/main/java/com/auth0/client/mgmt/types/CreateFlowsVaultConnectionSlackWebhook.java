@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateFlowsVaultConnectionSlackWebhook {
     private final String name;
 
-    private final String appId;
+    private final FlowsVaultConnectionAppIdSlackEnum appId;
 
     private final FlowsVaultConnectioSetupWebhook setup;
 
@@ -29,7 +29,7 @@ public final class CreateFlowsVaultConnectionSlackWebhook {
 
     private CreateFlowsVaultConnectionSlackWebhook(
             String name,
-            String appId,
+            FlowsVaultConnectionAppIdSlackEnum appId,
             FlowsVaultConnectioSetupWebhook setup,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -47,7 +47,7 @@ public final class CreateFlowsVaultConnectionSlackWebhook {
     }
 
     @JsonProperty("app_id")
-    public String getAppId() {
+    public FlowsVaultConnectionAppIdSlackEnum getAppId() {
         return appId;
     }
 
@@ -96,7 +96,7 @@ public final class CreateFlowsVaultConnectionSlackWebhook {
     }
 
     public interface AppIdStage {
-        SetupStage appId(@NotNull String appId);
+        SetupStage appId(@NotNull FlowsVaultConnectionAppIdSlackEnum appId);
     }
 
     public interface SetupStage {
@@ -111,7 +111,7 @@ public final class CreateFlowsVaultConnectionSlackWebhook {
     public static final class Builder implements NameStage, AppIdStage, SetupStage, _FinalStage {
         private String name;
 
-        private String appId;
+        private FlowsVaultConnectionAppIdSlackEnum appId;
 
         private FlowsVaultConnectioSetupWebhook setup;
 
@@ -142,7 +142,7 @@ public final class CreateFlowsVaultConnectionSlackWebhook {
 
         @java.lang.Override
         @JsonSetter("app_id")
-        public SetupStage appId(@NotNull String appId) {
+        public SetupStage appId(@NotNull FlowsVaultConnectionAppIdSlackEnum appId) {
             this.appId = Objects.requireNonNull(appId, "appId must not be null");
             return this;
         }

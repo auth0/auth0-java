@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateFlowsVaultConnectionZapierWebhook {
     private final String name;
 
-    private final String appId;
+    private final FlowsVaultConnectionAppIdZapierEnum appId;
 
     private final FlowsVaultConnectioSetupWebhook setup;
 
@@ -29,7 +29,7 @@ public final class CreateFlowsVaultConnectionZapierWebhook {
 
     private CreateFlowsVaultConnectionZapierWebhook(
             String name,
-            String appId,
+            FlowsVaultConnectionAppIdZapierEnum appId,
             FlowsVaultConnectioSetupWebhook setup,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -47,7 +47,7 @@ public final class CreateFlowsVaultConnectionZapierWebhook {
     }
 
     @JsonProperty("app_id")
-    public String getAppId() {
+    public FlowsVaultConnectionAppIdZapierEnum getAppId() {
         return appId;
     }
 
@@ -96,7 +96,7 @@ public final class CreateFlowsVaultConnectionZapierWebhook {
     }
 
     public interface AppIdStage {
-        SetupStage appId(@NotNull String appId);
+        SetupStage appId(@NotNull FlowsVaultConnectionAppIdZapierEnum appId);
     }
 
     public interface SetupStage {
@@ -111,7 +111,7 @@ public final class CreateFlowsVaultConnectionZapierWebhook {
     public static final class Builder implements NameStage, AppIdStage, SetupStage, _FinalStage {
         private String name;
 
-        private String appId;
+        private FlowsVaultConnectionAppIdZapierEnum appId;
 
         private FlowsVaultConnectioSetupWebhook setup;
 
@@ -142,7 +142,7 @@ public final class CreateFlowsVaultConnectionZapierWebhook {
 
         @java.lang.Override
         @JsonSetter("app_id")
-        public SetupStage appId(@NotNull String appId) {
+        public SetupStage appId(@NotNull FlowsVaultConnectionAppIdZapierEnum appId) {
             this.appId = Objects.requireNonNull(appId, "appId must not be null");
             return this;
         }

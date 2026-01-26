@@ -25,6 +25,10 @@ public final class FlowActionJwtSignJwt {
 
     private final Optional<String> alias;
 
+    private final FlowActionJwtSignJwtType type;
+
+    private final FlowActionJwtSignJwtAction action;
+
     private final Optional<Boolean> allowFailure;
 
     private final Optional<Boolean> maskOutput;
@@ -36,12 +40,16 @@ public final class FlowActionJwtSignJwt {
     private FlowActionJwtSignJwt(
             String id,
             Optional<String> alias,
+            FlowActionJwtSignJwtType type,
+            FlowActionJwtSignJwtAction action,
             Optional<Boolean> allowFailure,
             Optional<Boolean> maskOutput,
             FlowActionJwtSignJwtParams params,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.alias = alias;
+        this.type = type;
+        this.action = action;
         this.allowFailure = allowFailure;
         this.maskOutput = maskOutput;
         this.params = params;
@@ -59,13 +67,13 @@ public final class FlowActionJwtSignJwt {
     }
 
     @JsonProperty("type")
-    public String getType() {
-        return "JWT";
+    public FlowActionJwtSignJwtType getType() {
+        return type;
     }
 
     @JsonProperty("action")
-    public String getAction() {
-        return "SIGN_JWT";
+    public FlowActionJwtSignJwtAction getAction() {
+        return action;
     }
 
     @JsonProperty("allow_failure")
@@ -97,6 +105,8 @@ public final class FlowActionJwtSignJwt {
     private boolean equalTo(FlowActionJwtSignJwt other) {
         return id.equals(other.id)
                 && alias.equals(other.alias)
+                && type.equals(other.type)
+                && action.equals(other.action)
                 && allowFailure.equals(other.allowFailure)
                 && maskOutput.equals(other.maskOutput)
                 && params.equals(other.params);
@@ -104,7 +114,8 @@ public final class FlowActionJwtSignJwt {
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.id, this.alias, this.allowFailure, this.maskOutput, this.params);
+        return Objects.hash(
+                this.id, this.alias, this.type, this.action, this.allowFailure, this.maskOutput, this.params);
     }
 
     @java.lang.Override
@@ -117,9 +128,17 @@ public final class FlowActionJwtSignJwt {
     }
 
     public interface IdStage {
-        ParamsStage id(@NotNull String id);
+        TypeStage id(@NotNull String id);
 
         Builder from(FlowActionJwtSignJwt other);
+    }
+
+    public interface TypeStage {
+        ActionStage type(@NotNull FlowActionJwtSignJwtType type);
+    }
+
+    public interface ActionStage {
+        ParamsStage action(@NotNull FlowActionJwtSignJwtAction action);
     }
 
     public interface ParamsStage {
@@ -143,8 +162,12 @@ public final class FlowActionJwtSignJwt {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements IdStage, ParamsStage, _FinalStage {
+    public static final class Builder implements IdStage, TypeStage, ActionStage, ParamsStage, _FinalStage {
         private String id;
+
+        private FlowActionJwtSignJwtType type;
+
+        private FlowActionJwtSignJwtAction action;
 
         private FlowActionJwtSignJwtParams params;
 
@@ -163,6 +186,8 @@ public final class FlowActionJwtSignJwt {
         public Builder from(FlowActionJwtSignJwt other) {
             id(other.getId());
             alias(other.getAlias());
+            type(other.getType());
+            action(other.getAction());
             allowFailure(other.getAllowFailure());
             maskOutput(other.getMaskOutput());
             params(other.getParams());
@@ -171,8 +196,22 @@ public final class FlowActionJwtSignJwt {
 
         @java.lang.Override
         @JsonSetter("id")
-        public ParamsStage id(@NotNull String id) {
+        public TypeStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter("type")
+        public ActionStage type(@NotNull FlowActionJwtSignJwtType type) {
+            this.type = Objects.requireNonNull(type, "type must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter("action")
+        public ParamsStage action(@NotNull FlowActionJwtSignJwtAction action) {
+            this.action = Objects.requireNonNull(action, "action must not be null");
             return this;
         }
 
@@ -224,7 +263,8 @@ public final class FlowActionJwtSignJwt {
 
         @java.lang.Override
         public FlowActionJwtSignJwt build() {
-            return new FlowActionJwtSignJwt(id, alias, allowFailure, maskOutput, params, additionalProperties);
+            return new FlowActionJwtSignJwt(
+                    id, alias, type, action, allowFailure, maskOutput, params, additionalProperties);
         }
     }
 }

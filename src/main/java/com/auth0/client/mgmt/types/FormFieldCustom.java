@@ -23,9 +23,9 @@ import org.jetbrains.annotations.NotNull;
 public final class FormFieldCustom {
     private final String id;
 
-    private final String category;
+    private final FormComponentCategoryFieldConst category;
 
-    private final String type;
+    private final FormFieldTypeCustomConst type;
 
     private final FormFieldCustomConfig config;
 
@@ -41,8 +41,8 @@ public final class FormFieldCustom {
 
     private FormFieldCustom(
             String id,
-            String category,
-            String type,
+            FormComponentCategoryFieldConst category,
+            FormFieldTypeCustomConst type,
             FormFieldCustomConfig config,
             Optional<String> label,
             Optional<String> hint,
@@ -66,12 +66,12 @@ public final class FormFieldCustom {
     }
 
     @JsonProperty("category")
-    public String getCategory() {
+    public FormComponentCategoryFieldConst getCategory() {
         return category;
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public FormFieldTypeCustomConst getType() {
         return type;
     }
 
@@ -144,11 +144,11 @@ public final class FormFieldCustom {
     }
 
     public interface CategoryStage {
-        TypeStage category(@NotNull String category);
+        TypeStage category(@NotNull FormComponentCategoryFieldConst category);
     }
 
     public interface TypeStage {
-        ConfigStage type(@NotNull String type);
+        ConfigStage type(@NotNull FormFieldTypeCustomConst type);
     }
 
     public interface ConfigStage {
@@ -179,9 +179,9 @@ public final class FormFieldCustom {
     public static final class Builder implements IdStage, CategoryStage, TypeStage, ConfigStage, _FinalStage {
         private String id;
 
-        private String category;
+        private FormComponentCategoryFieldConst category;
 
-        private String type;
+        private FormFieldTypeCustomConst type;
 
         private FormFieldCustomConfig config;
 
@@ -220,14 +220,14 @@ public final class FormFieldCustom {
 
         @java.lang.Override
         @JsonSetter("category")
-        public TypeStage category(@NotNull String category) {
+        public TypeStage category(@NotNull FormComponentCategoryFieldConst category) {
             this.category = Objects.requireNonNull(category, "category must not be null");
             return this;
         }
 
         @java.lang.Override
         @JsonSetter("type")
-        public ConfigStage type(@NotNull String type) {
+        public ConfigStage type(@NotNull FormFieldTypeCustomConst type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

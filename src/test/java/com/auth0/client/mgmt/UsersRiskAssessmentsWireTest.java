@@ -1,6 +1,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.types.AssessorsTypeEnum;
 import com.auth0.client.mgmt.users.types.ClearAssessorsRequestContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -42,7 +43,7 @@ public class UsersRiskAssessmentsWireTest {
                         "id",
                         ClearAssessorsRequestContent.builder()
                                 .connection("connection")
-                                .assessors(Arrays.asList("new-device"))
+                                .assessors(Arrays.asList(AssessorsTypeEnum.NEW_DEVICE))
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

@@ -21,14 +21,17 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateFlowsVaultConnectionJwtJwt {
     private final String name;
 
-    private final String appId;
+    private final FlowsVaultConnectionAppIdJwtEnum appId;
 
     private final FlowsVaultConnectioSetupJwt setup;
 
     private final Map<String, Object> additionalProperties;
 
     private CreateFlowsVaultConnectionJwtJwt(
-            String name, String appId, FlowsVaultConnectioSetupJwt setup, Map<String, Object> additionalProperties) {
+            String name,
+            FlowsVaultConnectionAppIdJwtEnum appId,
+            FlowsVaultConnectioSetupJwt setup,
+            Map<String, Object> additionalProperties) {
         this.name = name;
         this.appId = appId;
         this.setup = setup;
@@ -44,7 +47,7 @@ public final class CreateFlowsVaultConnectionJwtJwt {
     }
 
     @JsonProperty("app_id")
-    public String getAppId() {
+    public FlowsVaultConnectionAppIdJwtEnum getAppId() {
         return appId;
     }
 
@@ -92,7 +95,7 @@ public final class CreateFlowsVaultConnectionJwtJwt {
     }
 
     public interface AppIdStage {
-        SetupStage appId(@NotNull String appId);
+        SetupStage appId(@NotNull FlowsVaultConnectionAppIdJwtEnum appId);
     }
 
     public interface SetupStage {
@@ -107,7 +110,7 @@ public final class CreateFlowsVaultConnectionJwtJwt {
     public static final class Builder implements NameStage, AppIdStage, SetupStage, _FinalStage {
         private String name;
 
-        private String appId;
+        private FlowsVaultConnectionAppIdJwtEnum appId;
 
         private FlowsVaultConnectioSetupJwt setup;
 
@@ -138,7 +141,7 @@ public final class CreateFlowsVaultConnectionJwtJwt {
 
         @java.lang.Override
         @JsonSetter("app_id")
-        public SetupStage appId(@NotNull String appId) {
+        public SetupStage appId(@NotNull FlowsVaultConnectionAppIdJwtEnum appId) {
             this.appId = Objects.requireNonNull(appId, "appId must not be null");
             return this;
         }

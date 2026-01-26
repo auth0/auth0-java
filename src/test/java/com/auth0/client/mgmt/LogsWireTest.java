@@ -69,7 +69,7 @@ public class LogsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"date\":\"date\",\"type\":\"type\",\"description\":\"description\",\"connection\":\"connection\",\"connection_id\":\"connection_id\",\"client_id\":\"client_id\",\"client_name\":\"client_name\",\"ip\":\"ip\",\"hostname\":\"hostname\",\"user_id\":\"user_id\",\"user_name\":\"user_name\",\"audience\":\"audience\",\"scope\":\"scope\",\"strategy\":\"strategy\",\"strategy_type\":\"strategy_type\",\"log_id\":\"log_id\",\"isMobile\":true,\"details\":{\"key\":\"value\"},\"user_agent\":\"user_agent\",\"security_context\":{\"ja3\":\"ja3\",\"ja4\":\"ja4\"},\"location_info\":{\"country_code\":\"country_code\",\"country_code3\":\"country_code3\",\"country_name\":\"country_name\",\"city_name\":\"city_name\",\"latitude\":\"latitude\",\"longitude\":\"longitude\",\"time_zone\":\"time_zone\",\"continent_code\":\"continent_code\"}}"));
+                                "{\"date\":\"date\",\"type\":\"type\",\"description\":\"description\",\"connection\":\"connection\",\"connection_id\":\"connection_id\",\"client_id\":\"client_id\",\"client_name\":\"client_name\",\"ip\":\"ip\",\"hostname\":\"hostname\",\"user_id\":\"user_id\",\"user_name\":\"user_name\",\"audience\":\"audience\",\"scope\":\"scope\",\"strategy\":\"strategy\",\"strategy_type\":\"strategy_type\",\"log_id\":\"log_id\",\"isMobile\":true,\"details\":{\"key\":\"value\"},\"user_agent\":\"user_agent\",\"security_context\":{\"ja3\":\"ja3\",\"ja4\":\"ja4\"},\"location_info\":{\"country_code\":\"country_code\",\"country_code3\":\"country_code3\",\"country_name\":\"country_name\",\"city_name\":\"city_name\",\"latitude\":1.1,\"longitude\":1.1,\"time_zone\":\"time_zone\",\"continent_code\":\"continent_code\"}}"));
         GetLogResponseContent response = client.logs().get("id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -110,8 +110,8 @@ public class LogsWireTest {
                 + "    \"country_code3\": \"country_code3\",\n"
                 + "    \"country_name\": \"country_name\",\n"
                 + "    \"city_name\": \"city_name\",\n"
-                + "    \"latitude\": \"latitude\",\n"
-                + "    \"longitude\": \"longitude\",\n"
+                + "    \"latitude\": 1.1,\n"
+                + "    \"longitude\": 1.1,\n"
                 + "    \"time_zone\": \"time_zone\",\n"
                 + "    \"continent_code\": \"continent_code\"\n"
                 + "  }\n"

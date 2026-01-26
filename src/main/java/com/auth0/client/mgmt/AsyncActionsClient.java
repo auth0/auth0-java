@@ -4,6 +4,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.actions.AsyncExecutionsClient;
+import com.auth0.client.mgmt.actions.AsyncModulesClient;
 import com.auth0.client.mgmt.actions.AsyncTriggersClient;
 import com.auth0.client.mgmt.actions.AsyncVersionsClient;
 import com.auth0.client.mgmt.core.ClientOptions;
@@ -33,6 +34,8 @@ public class AsyncActionsClient {
 
     protected final Supplier<AsyncExecutionsClient> executionsClient;
 
+    protected final Supplier<AsyncModulesClient> modulesClient;
+
     protected final Supplier<AsyncTriggersClient> triggersClient;
 
     public AsyncActionsClient(ClientOptions clientOptions) {
@@ -40,6 +43,7 @@ public class AsyncActionsClient {
         this.rawClient = new AsyncRawActionsClient(clientOptions);
         this.versionsClient = Suppliers.memoize(() -> new AsyncVersionsClient(clientOptions));
         this.executionsClient = Suppliers.memoize(() -> new AsyncExecutionsClient(clientOptions));
+        this.modulesClient = Suppliers.memoize(() -> new AsyncModulesClient(clientOptions));
         this.triggersClient = Suppliers.memoize(() -> new AsyncTriggersClient(clientOptions));
     }
 
@@ -180,6 +184,10 @@ public class AsyncActionsClient {
 
     public AsyncExecutionsClient executions() {
         return this.executionsClient.get();
+    }
+
+    public AsyncModulesClient modules() {
+        return this.modulesClient.get();
     }
 
     public AsyncTriggersClient triggers() {

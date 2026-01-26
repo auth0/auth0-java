@@ -26,7 +26,7 @@ public final class CreateEventStreamRedeliveryResponseContent {
 
     private final Optional<OffsetDateTime> dateTo;
 
-    private final Optional<List<String>> statuses;
+    private final Optional<List<EventStreamDeliveryStatusEnum>> statuses;
 
     private final Optional<List<EventStreamEventTypeEnum>> eventTypes;
 
@@ -35,7 +35,7 @@ public final class CreateEventStreamRedeliveryResponseContent {
     private CreateEventStreamRedeliveryResponseContent(
             Optional<OffsetDateTime> dateFrom,
             Optional<OffsetDateTime> dateTo,
-            Optional<List<String>> statuses,
+            Optional<List<EventStreamDeliveryStatusEnum>> statuses,
             Optional<List<EventStreamEventTypeEnum>> eventTypes,
             Map<String, Object> additionalProperties) {
         this.dateFrom = dateFrom;
@@ -65,7 +65,7 @@ public final class CreateEventStreamRedeliveryResponseContent {
      * @return Filter by status
      */
     @JsonProperty("statuses")
-    public Optional<List<String>> getStatuses() {
+    public Optional<List<EventStreamDeliveryStatusEnum>> getStatuses() {
         return statuses;
     }
 
@@ -116,7 +116,7 @@ public final class CreateEventStreamRedeliveryResponseContent {
 
         private Optional<OffsetDateTime> dateTo = Optional.empty();
 
-        private Optional<List<String>> statuses = Optional.empty();
+        private Optional<List<EventStreamDeliveryStatusEnum>> statuses = Optional.empty();
 
         private Optional<List<EventStreamEventTypeEnum>> eventTypes = Optional.empty();
 
@@ -165,12 +165,12 @@ public final class CreateEventStreamRedeliveryResponseContent {
          * <p>Filter by status</p>
          */
         @JsonSetter(value = "statuses", nulls = Nulls.SKIP)
-        public Builder statuses(Optional<List<String>> statuses) {
+        public Builder statuses(Optional<List<EventStreamDeliveryStatusEnum>> statuses) {
             this.statuses = statuses;
             return this;
         }
 
-        public Builder statuses(List<String> statuses) {
+        public Builder statuses(List<EventStreamDeliveryStatusEnum> statuses) {
             this.statuses = Optional.ofNullable(statuses);
             return this;
         }

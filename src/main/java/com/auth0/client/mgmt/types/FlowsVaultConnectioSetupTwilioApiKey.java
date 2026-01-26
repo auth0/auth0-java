@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = FlowsVaultConnectioSetupTwilioApiKey.Builder.class)
 public final class FlowsVaultConnectioSetupTwilioApiKey {
-    private final String type;
+    private final FlowsVaultConnectioSetupTypeApiKeyEnum type;
 
     private final String accountId;
 
@@ -28,7 +28,10 @@ public final class FlowsVaultConnectioSetupTwilioApiKey {
     private final Map<String, Object> additionalProperties;
 
     private FlowsVaultConnectioSetupTwilioApiKey(
-            String type, String accountId, String apiKey, Map<String, Object> additionalProperties) {
+            FlowsVaultConnectioSetupTypeApiKeyEnum type,
+            String accountId,
+            String apiKey,
+            Map<String, Object> additionalProperties) {
         this.type = type;
         this.accountId = accountId;
         this.apiKey = apiKey;
@@ -36,7 +39,7 @@ public final class FlowsVaultConnectioSetupTwilioApiKey {
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public FlowsVaultConnectioSetupTypeApiKeyEnum getType() {
         return type;
     }
 
@@ -81,7 +84,7 @@ public final class FlowsVaultConnectioSetupTwilioApiKey {
     }
 
     public interface TypeStage {
-        AccountIdStage type(@NotNull String type);
+        AccountIdStage type(@NotNull FlowsVaultConnectioSetupTypeApiKeyEnum type);
 
         Builder from(FlowsVaultConnectioSetupTwilioApiKey other);
     }
@@ -100,7 +103,7 @@ public final class FlowsVaultConnectioSetupTwilioApiKey {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements TypeStage, AccountIdStage, ApiKeyStage, _FinalStage {
-        private String type;
+        private FlowsVaultConnectioSetupTypeApiKeyEnum type;
 
         private String accountId;
 
@@ -121,7 +124,7 @@ public final class FlowsVaultConnectioSetupTwilioApiKey {
 
         @java.lang.Override
         @JsonSetter("type")
-        public AccountIdStage type(@NotNull String type) {
+        public AccountIdStage type(@NotNull FlowsVaultConnectioSetupTypeApiKeyEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

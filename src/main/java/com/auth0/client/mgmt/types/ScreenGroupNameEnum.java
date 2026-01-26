@@ -840,11 +840,11 @@ public final class ScreenGroupNameEnum {
 
         ASYNC_APPROVAL_ERROR,
 
-        ASYNC_APPROVAL_WRONG_USER,
-
         ASYNC_APPROVAL_ACCEPTED,
 
         ASYNC_APPROVAL_DENIED,
+
+        ASYNC_APPROVAL_WRONG_USER,
 
         UNKNOWN
     }
@@ -1022,11 +1022,11 @@ public final class ScreenGroupNameEnum {
 
         T visitAsyncApprovalError();
 
-        T visitAsyncApprovalWrongUser();
-
         T visitAsyncApprovalAccepted();
 
         T visitAsyncApprovalDenied();
+
+        T visitAsyncApprovalWrongUser();
 
         T visitUnknown(String unknownType);
     }

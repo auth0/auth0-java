@@ -29,7 +29,7 @@ public final class CreateTokenExchangeProfileResponseContent {
 
     private final Optional<String> actionId;
 
-    private final Optional<String> type;
+    private final Optional<TokenExchangeProfileTypeEnum> type;
 
     private final Optional<OffsetDateTime> createdAt;
 
@@ -42,7 +42,7 @@ public final class CreateTokenExchangeProfileResponseContent {
             Optional<String> name,
             Optional<String> subjectTokenType,
             Optional<String> actionId,
-            Optional<String> type,
+            Optional<TokenExchangeProfileTypeEnum> type,
             Optional<OffsetDateTime> createdAt,
             Optional<OffsetDateTime> updatedAt,
             Map<String, Object> additionalProperties) {
@@ -89,7 +89,7 @@ public final class CreateTokenExchangeProfileResponseContent {
     }
 
     @JsonProperty("type")
-    public Optional<String> getType() {
+    public Optional<TokenExchangeProfileTypeEnum> getType() {
         return type;
     }
 
@@ -156,7 +156,7 @@ public final class CreateTokenExchangeProfileResponseContent {
 
         private Optional<String> actionId = Optional.empty();
 
-        private Optional<String> type = Optional.empty();
+        private Optional<TokenExchangeProfileTypeEnum> type = Optional.empty();
 
         private Optional<OffsetDateTime> createdAt = Optional.empty();
 
@@ -235,12 +235,12 @@ public final class CreateTokenExchangeProfileResponseContent {
         }
 
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
-        public Builder type(Optional<String> type) {
+        public Builder type(Optional<TokenExchangeProfileTypeEnum> type) {
             this.type = type;
             return this;
         }
 
-        public Builder type(String type) {
+        public Builder type(TokenExchangeProfileTypeEnum type) {
             this.type = Optional.ofNullable(type);
             return this;
         }

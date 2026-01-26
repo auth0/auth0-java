@@ -44,18 +44,20 @@ public final class UpdateFlowsVaultConnectionSetup {
         } else if (this.type == 5) {
             return visitor.visit((FlowsVaultConnectioSetupHttpBearer) this.value);
         } else if (this.type == 6) {
-            return visitor.visit((FlowsVaultConnectioSetupJwt) this.value);
+            return visitor.visit((FlowsVaultConnectionHttpBasicAuthSetup) this.value);
         } else if (this.type == 7) {
-            return visitor.visit((FlowsVaultConnectioSetupMailjetApiKey) this.value);
+            return visitor.visit((FlowsVaultConnectioSetupJwt) this.value);
         } else if (this.type == 8) {
-            return visitor.visit((FlowsVaultConnectioSetupToken) this.value);
+            return visitor.visit((FlowsVaultConnectioSetupMailjetApiKey) this.value);
         } else if (this.type == 9) {
-            return visitor.visit((FlowsVaultConnectioSetupWebhook) this.value);
+            return visitor.visit((FlowsVaultConnectioSetupToken) this.value);
         } else if (this.type == 10) {
-            return visitor.visit((FlowsVaultConnectioSetupStripeKeyPair) this.value);
+            return visitor.visit((FlowsVaultConnectioSetupWebhook) this.value);
         } else if (this.type == 11) {
-            return visitor.visit((FlowsVaultConnectioSetupOauthCode) this.value);
+            return visitor.visit((FlowsVaultConnectioSetupStripeKeyPair) this.value);
         } else if (this.type == 12) {
+            return visitor.visit((FlowsVaultConnectioSetupOauthCode) this.value);
+        } else if (this.type == 13) {
             return visitor.visit((FlowsVaultConnectioSetupTwilioApiKey) this.value);
         }
         throw new IllegalStateException("Failed to visit value. This should never happen.");
@@ -105,32 +107,36 @@ public final class UpdateFlowsVaultConnectionSetup {
         return new UpdateFlowsVaultConnectionSetup(value, 5);
     }
 
-    public static UpdateFlowsVaultConnectionSetup of(FlowsVaultConnectioSetupJwt value) {
+    public static UpdateFlowsVaultConnectionSetup of(FlowsVaultConnectionHttpBasicAuthSetup value) {
         return new UpdateFlowsVaultConnectionSetup(value, 6);
     }
 
-    public static UpdateFlowsVaultConnectionSetup of(FlowsVaultConnectioSetupMailjetApiKey value) {
+    public static UpdateFlowsVaultConnectionSetup of(FlowsVaultConnectioSetupJwt value) {
         return new UpdateFlowsVaultConnectionSetup(value, 7);
     }
 
-    public static UpdateFlowsVaultConnectionSetup of(FlowsVaultConnectioSetupToken value) {
+    public static UpdateFlowsVaultConnectionSetup of(FlowsVaultConnectioSetupMailjetApiKey value) {
         return new UpdateFlowsVaultConnectionSetup(value, 8);
     }
 
-    public static UpdateFlowsVaultConnectionSetup of(FlowsVaultConnectioSetupWebhook value) {
+    public static UpdateFlowsVaultConnectionSetup of(FlowsVaultConnectioSetupToken value) {
         return new UpdateFlowsVaultConnectionSetup(value, 9);
     }
 
-    public static UpdateFlowsVaultConnectionSetup of(FlowsVaultConnectioSetupStripeKeyPair value) {
+    public static UpdateFlowsVaultConnectionSetup of(FlowsVaultConnectioSetupWebhook value) {
         return new UpdateFlowsVaultConnectionSetup(value, 10);
     }
 
-    public static UpdateFlowsVaultConnectionSetup of(FlowsVaultConnectioSetupOauthCode value) {
+    public static UpdateFlowsVaultConnectionSetup of(FlowsVaultConnectioSetupStripeKeyPair value) {
         return new UpdateFlowsVaultConnectionSetup(value, 11);
     }
 
-    public static UpdateFlowsVaultConnectionSetup of(FlowsVaultConnectioSetupTwilioApiKey value) {
+    public static UpdateFlowsVaultConnectionSetup of(FlowsVaultConnectioSetupOauthCode value) {
         return new UpdateFlowsVaultConnectionSetup(value, 12);
+    }
+
+    public static UpdateFlowsVaultConnectionSetup of(FlowsVaultConnectioSetupTwilioApiKey value) {
+        return new UpdateFlowsVaultConnectionSetup(value, 13);
     }
 
     public interface Visitor<T> {
@@ -145,6 +151,8 @@ public final class UpdateFlowsVaultConnectionSetup {
         T visit(FlowsVaultConnectioSetupSecretApiKey value);
 
         T visit(FlowsVaultConnectioSetupHttpBearer value);
+
+        T visit(FlowsVaultConnectionHttpBasicAuthSetup value);
 
         T visit(FlowsVaultConnectioSetupJwt value);
 
@@ -194,6 +202,10 @@ public final class UpdateFlowsVaultConnectionSetup {
             }
             try {
                 return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupHttpBearer.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectionHttpBasicAuthSetup.class));
             } catch (RuntimeException e) {
             }
             try {

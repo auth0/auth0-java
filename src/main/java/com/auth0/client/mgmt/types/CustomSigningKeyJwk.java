@@ -26,9 +26,9 @@ public final class CustomSigningKeyJwk {
 
     private final Optional<String> kid;
 
-    private final Optional<String> use;
+    private final Optional<CustomSigningKeyUseEnum> use;
 
-    private final Optional<List<String>> keyOps;
+    private final Optional<List<CustomSigningKeyOperationEnum>> keyOps;
 
     private final Optional<CustomSigningKeyAlgorithmEnum> alg;
 
@@ -55,8 +55,8 @@ public final class CustomSigningKeyJwk {
     private CustomSigningKeyJwk(
             CustomSigningKeyTypeEnum kty,
             Optional<String> kid,
-            Optional<String> use,
-            Optional<List<String>> keyOps,
+            Optional<CustomSigningKeyUseEnum> use,
+            Optional<List<CustomSigningKeyOperationEnum>> keyOps,
             Optional<CustomSigningKeyAlgorithmEnum> alg,
             Optional<String> n,
             Optional<String> e,
@@ -99,7 +99,7 @@ public final class CustomSigningKeyJwk {
     }
 
     @JsonProperty("use")
-    public Optional<String> getUse() {
+    public Optional<CustomSigningKeyUseEnum> getUse() {
         return use;
     }
 
@@ -107,7 +107,7 @@ public final class CustomSigningKeyJwk {
      * @return Key operations
      */
     @JsonProperty("key_ops")
-    public Optional<List<String>> getKeyOps() {
+    public Optional<List<CustomSigningKeyOperationEnum>> getKeyOps() {
         return keyOps;
     }
 
@@ -257,16 +257,16 @@ public final class CustomSigningKeyJwk {
 
         _FinalStage kid(String kid);
 
-        _FinalStage use(Optional<String> use);
+        _FinalStage use(Optional<CustomSigningKeyUseEnum> use);
 
-        _FinalStage use(String use);
+        _FinalStage use(CustomSigningKeyUseEnum use);
 
         /**
          * <p>Key operations</p>
          */
-        _FinalStage keyOps(Optional<List<String>> keyOps);
+        _FinalStage keyOps(Optional<List<CustomSigningKeyOperationEnum>> keyOps);
 
-        _FinalStage keyOps(List<String> keyOps);
+        _FinalStage keyOps(List<CustomSigningKeyOperationEnum> keyOps);
 
         _FinalStage alg(Optional<CustomSigningKeyAlgorithmEnum> alg);
 
@@ -357,9 +357,9 @@ public final class CustomSigningKeyJwk {
 
         private Optional<CustomSigningKeyAlgorithmEnum> alg = Optional.empty();
 
-        private Optional<List<String>> keyOps = Optional.empty();
+        private Optional<List<CustomSigningKeyOperationEnum>> keyOps = Optional.empty();
 
-        private Optional<String> use = Optional.empty();
+        private Optional<CustomSigningKeyUseEnum> use = Optional.empty();
 
         private Optional<String> kid = Optional.empty();
 
@@ -585,7 +585,7 @@ public final class CustomSigningKeyJwk {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        public _FinalStage keyOps(List<String> keyOps) {
+        public _FinalStage keyOps(List<CustomSigningKeyOperationEnum> keyOps) {
             this.keyOps = Optional.ofNullable(keyOps);
             return this;
         }
@@ -595,20 +595,20 @@ public final class CustomSigningKeyJwk {
          */
         @java.lang.Override
         @JsonSetter(value = "key_ops", nulls = Nulls.SKIP)
-        public _FinalStage keyOps(Optional<List<String>> keyOps) {
+        public _FinalStage keyOps(Optional<List<CustomSigningKeyOperationEnum>> keyOps) {
             this.keyOps = keyOps;
             return this;
         }
 
         @java.lang.Override
-        public _FinalStage use(String use) {
+        public _FinalStage use(CustomSigningKeyUseEnum use) {
             this.use = Optional.ofNullable(use);
             return this;
         }
 
         @java.lang.Override
         @JsonSetter(value = "use", nulls = Nulls.SKIP)
-        public _FinalStage use(Optional<String> use) {
+        public _FinalStage use(Optional<CustomSigningKeyUseEnum> use) {
             this.use = use;
             return this;
         }

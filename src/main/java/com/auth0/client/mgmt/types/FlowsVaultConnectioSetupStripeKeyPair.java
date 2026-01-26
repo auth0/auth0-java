@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = FlowsVaultConnectioSetupStripeKeyPair.Builder.class)
 public final class FlowsVaultConnectioSetupStripeKeyPair {
-    private final String type;
+    private final FlowsVaultConnectioSetupTypeKeyPairEnum type;
 
     private final String privateKey;
 
@@ -28,7 +28,10 @@ public final class FlowsVaultConnectioSetupStripeKeyPair {
     private final Map<String, Object> additionalProperties;
 
     private FlowsVaultConnectioSetupStripeKeyPair(
-            String type, String privateKey, String publicKey, Map<String, Object> additionalProperties) {
+            FlowsVaultConnectioSetupTypeKeyPairEnum type,
+            String privateKey,
+            String publicKey,
+            Map<String, Object> additionalProperties) {
         this.type = type;
         this.privateKey = privateKey;
         this.publicKey = publicKey;
@@ -36,7 +39,7 @@ public final class FlowsVaultConnectioSetupStripeKeyPair {
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public FlowsVaultConnectioSetupTypeKeyPairEnum getType() {
         return type;
     }
 
@@ -81,7 +84,7 @@ public final class FlowsVaultConnectioSetupStripeKeyPair {
     }
 
     public interface TypeStage {
-        PrivateKeyStage type(@NotNull String type);
+        PrivateKeyStage type(@NotNull FlowsVaultConnectioSetupTypeKeyPairEnum type);
 
         Builder from(FlowsVaultConnectioSetupStripeKeyPair other);
     }
@@ -100,7 +103,7 @@ public final class FlowsVaultConnectioSetupStripeKeyPair {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements TypeStage, PrivateKeyStage, PublicKeyStage, _FinalStage {
-        private String type;
+        private FlowsVaultConnectioSetupTypeKeyPairEnum type;
 
         private String privateKey;
 
@@ -121,7 +124,7 @@ public final class FlowsVaultConnectioSetupStripeKeyPair {
 
         @java.lang.Override
         @JsonSetter("type")
-        public PrivateKeyStage type(@NotNull String type) {
+        public PrivateKeyStage type(@NotNull FlowsVaultConnectioSetupTypeKeyPairEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

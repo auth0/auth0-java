@@ -11,8 +11,10 @@ import com.auth0.client.mgmt.types.EventStreamResponseContent;
 import com.auth0.client.mgmt.types.EventStreamTestEventTypeEnum;
 import com.auth0.client.mgmt.types.EventStreamWebhookAuthorizationResponse;
 import com.auth0.client.mgmt.types.EventStreamWebhookBasicAuth;
+import com.auth0.client.mgmt.types.EventStreamWebhookBasicAuthMethodEnum;
 import com.auth0.client.mgmt.types.EventStreamWebhookConfiguration;
 import com.auth0.client.mgmt.types.EventStreamWebhookDestination;
+import com.auth0.client.mgmt.types.EventStreamWebhookDestinationTypeEnum;
 import com.auth0.client.mgmt.types.EventStreamsCreateRequest;
 import com.auth0.client.mgmt.types.GetEventStreamResponseContent;
 import com.auth0.client.mgmt.types.ListEventStreamsRequestParameters;
@@ -80,12 +82,12 @@ public class EventStreamsWireTest {
         CreateEventStreamResponseContent response = client.eventStreams()
                 .create(EventStreamsCreateRequest.of(CreateEventStreamWebHookRequestContent.builder()
                         .destination(EventStreamWebhookDestination.builder()
-                                .type("webhook")
+                                .type(EventStreamWebhookDestinationTypeEnum.WEBHOOK)
                                 .configuration(EventStreamWebhookConfiguration.builder()
                                         .webhookEndpoint("webhook_endpoint")
                                         .webhookAuthorization(EventStreamWebhookAuthorizationResponse.of(
                                                 EventStreamWebhookBasicAuth.builder()
-                                                        .method("basic")
+                                                        .method(EventStreamWebhookBasicAuthMethodEnum.BASIC)
                                                         .username("username")
                                                         .build()))
                                         .build())

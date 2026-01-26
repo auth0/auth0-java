@@ -55,7 +55,7 @@ public final class CreateOrganizationDiscoveryDomainRequestContent {
     }
 
     /**
-     * @return Indicates whether this discovery domain should be used for organization discovery.
+     * @return Indicates whether this domain should be used for organization discovery.
      */
     @JsonProperty("use_for_organization_discovery")
     public Optional<Boolean> getUseForOrganizationDiscovery() {
@@ -111,7 +111,7 @@ public final class CreateOrganizationDiscoveryDomainRequestContent {
         _FinalStage status(OrganizationDiscoveryDomainStatus status);
 
         /**
-         * <p>Indicates whether this discovery domain should be used for organization discovery.</p>
+         * <p>Indicates whether this domain should be used for organization discovery.</p>
          */
         _FinalStage useForOrganizationDiscovery(Optional<Boolean> useForOrganizationDiscovery);
 
@@ -152,7 +152,7 @@ public final class CreateOrganizationDiscoveryDomainRequestContent {
         }
 
         /**
-         * <p>Indicates whether this discovery domain should be used for organization discovery.</p>
+         * <p>Indicates whether this domain should be used for organization discovery.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -162,7 +162,7 @@ public final class CreateOrganizationDiscoveryDomainRequestContent {
         }
 
         /**
-         * <p>Indicates whether this discovery domain should be used for organization discovery.</p>
+         * <p>Indicates whether this domain should be used for organization discovery.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "use_for_organization_discovery", nulls = Nulls.SKIP)

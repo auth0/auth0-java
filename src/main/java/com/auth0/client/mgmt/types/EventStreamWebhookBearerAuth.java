@@ -19,17 +19,18 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = EventStreamWebhookBearerAuth.Builder.class)
 public final class EventStreamWebhookBearerAuth {
-    private final String method;
+    private final EventStreamWebhookBearerAuthMethodEnum method;
 
     private final Map<String, Object> additionalProperties;
 
-    private EventStreamWebhookBearerAuth(String method, Map<String, Object> additionalProperties) {
+    private EventStreamWebhookBearerAuth(
+            EventStreamWebhookBearerAuthMethodEnum method, Map<String, Object> additionalProperties) {
         this.method = method;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("method")
-    public String getMethod() {
+    public EventStreamWebhookBearerAuthMethodEnum getMethod() {
         return method;
     }
 
@@ -63,7 +64,7 @@ public final class EventStreamWebhookBearerAuth {
     }
 
     public interface MethodStage {
-        _FinalStage method(@NotNull String method);
+        _FinalStage method(@NotNull EventStreamWebhookBearerAuthMethodEnum method);
 
         Builder from(EventStreamWebhookBearerAuth other);
     }
@@ -74,7 +75,7 @@ public final class EventStreamWebhookBearerAuth {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements MethodStage, _FinalStage {
-        private String method;
+        private EventStreamWebhookBearerAuthMethodEnum method;
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -89,7 +90,7 @@ public final class EventStreamWebhookBearerAuth {
 
         @java.lang.Override
         @JsonSetter("method")
-        public _FinalStage method(@NotNull String method) {
+        public _FinalStage method(@NotNull EventStreamWebhookBearerAuthMethodEnum method) {
             this.method = Objects.requireNonNull(method, "method must not be null");
             return this;
         }

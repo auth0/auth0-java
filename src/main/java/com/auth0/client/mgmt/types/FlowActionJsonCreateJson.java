@@ -25,6 +25,10 @@ public final class FlowActionJsonCreateJson {
 
     private final Optional<String> alias;
 
+    private final FlowActionJsonCreateJsonType type;
+
+    private final FlowActionJsonCreateJsonAction action;
+
     private final Optional<Boolean> allowFailure;
 
     private final Optional<Boolean> maskOutput;
@@ -36,12 +40,16 @@ public final class FlowActionJsonCreateJson {
     private FlowActionJsonCreateJson(
             String id,
             Optional<String> alias,
+            FlowActionJsonCreateJsonType type,
+            FlowActionJsonCreateJsonAction action,
             Optional<Boolean> allowFailure,
             Optional<Boolean> maskOutput,
             FlowActionJsonCreateJsonParams params,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.alias = alias;
+        this.type = type;
+        this.action = action;
         this.allowFailure = allowFailure;
         this.maskOutput = maskOutput;
         this.params = params;
@@ -59,13 +67,13 @@ public final class FlowActionJsonCreateJson {
     }
 
     @JsonProperty("type")
-    public String getType() {
-        return "JSON";
+    public FlowActionJsonCreateJsonType getType() {
+        return type;
     }
 
     @JsonProperty("action")
-    public String getAction() {
-        return "CREATE_JSON";
+    public FlowActionJsonCreateJsonAction getAction() {
+        return action;
     }
 
     @JsonProperty("allow_failure")
@@ -97,6 +105,8 @@ public final class FlowActionJsonCreateJson {
     private boolean equalTo(FlowActionJsonCreateJson other) {
         return id.equals(other.id)
                 && alias.equals(other.alias)
+                && type.equals(other.type)
+                && action.equals(other.action)
                 && allowFailure.equals(other.allowFailure)
                 && maskOutput.equals(other.maskOutput)
                 && params.equals(other.params);
@@ -104,7 +114,8 @@ public final class FlowActionJsonCreateJson {
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.id, this.alias, this.allowFailure, this.maskOutput, this.params);
+        return Objects.hash(
+                this.id, this.alias, this.type, this.action, this.allowFailure, this.maskOutput, this.params);
     }
 
     @java.lang.Override
@@ -117,9 +128,17 @@ public final class FlowActionJsonCreateJson {
     }
 
     public interface IdStage {
-        ParamsStage id(@NotNull String id);
+        TypeStage id(@NotNull String id);
 
         Builder from(FlowActionJsonCreateJson other);
+    }
+
+    public interface TypeStage {
+        ActionStage type(@NotNull FlowActionJsonCreateJsonType type);
+    }
+
+    public interface ActionStage {
+        ParamsStage action(@NotNull FlowActionJsonCreateJsonAction action);
     }
 
     public interface ParamsStage {
@@ -143,8 +162,12 @@ public final class FlowActionJsonCreateJson {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements IdStage, ParamsStage, _FinalStage {
+    public static final class Builder implements IdStage, TypeStage, ActionStage, ParamsStage, _FinalStage {
         private String id;
+
+        private FlowActionJsonCreateJsonType type;
+
+        private FlowActionJsonCreateJsonAction action;
 
         private FlowActionJsonCreateJsonParams params;
 
@@ -163,6 +186,8 @@ public final class FlowActionJsonCreateJson {
         public Builder from(FlowActionJsonCreateJson other) {
             id(other.getId());
             alias(other.getAlias());
+            type(other.getType());
+            action(other.getAction());
             allowFailure(other.getAllowFailure());
             maskOutput(other.getMaskOutput());
             params(other.getParams());
@@ -171,8 +196,22 @@ public final class FlowActionJsonCreateJson {
 
         @java.lang.Override
         @JsonSetter("id")
-        public ParamsStage id(@NotNull String id) {
+        public TypeStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter("type")
+        public ActionStage type(@NotNull FlowActionJsonCreateJsonType type) {
+            this.type = Objects.requireNonNull(type, "type must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter("action")
+        public ParamsStage action(@NotNull FlowActionJsonCreateJsonAction action) {
+            this.action = Objects.requireNonNull(action, "action must not be null");
             return this;
         }
 
@@ -224,7 +263,8 @@ public final class FlowActionJsonCreateJson {
 
         @java.lang.Override
         public FlowActionJsonCreateJson build() {
-            return new FlowActionJsonCreateJson(id, alias, allowFailure, maskOutput, params, additionalProperties);
+            return new FlowActionJsonCreateJson(
+                    id, alias, type, action, allowFailure, maskOutput, params, additionalProperties);
         }
     }
 }

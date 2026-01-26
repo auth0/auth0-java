@@ -19,21 +19,23 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = EventStreamEventBridgeDestination.Builder.class)
 public final class EventStreamEventBridgeDestination {
-    private final String type;
+    private final EventStreamEventBridgeDestinationTypeEnum type;
 
     private final EventStreamEventBridgeConfiguration configuration;
 
     private final Map<String, Object> additionalProperties;
 
     private EventStreamEventBridgeDestination(
-            String type, EventStreamEventBridgeConfiguration configuration, Map<String, Object> additionalProperties) {
+            EventStreamEventBridgeDestinationTypeEnum type,
+            EventStreamEventBridgeConfiguration configuration,
+            Map<String, Object> additionalProperties) {
         this.type = type;
         this.configuration = configuration;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public EventStreamEventBridgeDestinationTypeEnum getType() {
         return type;
     }
 
@@ -72,7 +74,7 @@ public final class EventStreamEventBridgeDestination {
     }
 
     public interface TypeStage {
-        ConfigurationStage type(@NotNull String type);
+        ConfigurationStage type(@NotNull EventStreamEventBridgeDestinationTypeEnum type);
 
         Builder from(EventStreamEventBridgeDestination other);
     }
@@ -87,7 +89,7 @@ public final class EventStreamEventBridgeDestination {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements TypeStage, ConfigurationStage, _FinalStage {
-        private String type;
+        private EventStreamEventBridgeDestinationTypeEnum type;
 
         private EventStreamEventBridgeConfiguration configuration;
 
@@ -105,7 +107,7 @@ public final class EventStreamEventBridgeDestination {
 
         @java.lang.Override
         @JsonSetter("type")
-        public ConfigurationStage type(@NotNull String type) {
+        public ConfigurationStage type(@NotNull EventStreamEventBridgeDestinationTypeEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

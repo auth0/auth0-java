@@ -19,21 +19,23 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = EventStreamActionDestination.Builder.class)
 public final class EventStreamActionDestination {
-    private final String type;
+    private final EventStreamActionDestinationTypeEnum type;
 
     private final EventStreamActionConfiguration configuration;
 
     private final Map<String, Object> additionalProperties;
 
     private EventStreamActionDestination(
-            String type, EventStreamActionConfiguration configuration, Map<String, Object> additionalProperties) {
+            EventStreamActionDestinationTypeEnum type,
+            EventStreamActionConfiguration configuration,
+            Map<String, Object> additionalProperties) {
         this.type = type;
         this.configuration = configuration;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public EventStreamActionDestinationTypeEnum getType() {
         return type;
     }
 
@@ -72,7 +74,7 @@ public final class EventStreamActionDestination {
     }
 
     public interface TypeStage {
-        ConfigurationStage type(@NotNull String type);
+        ConfigurationStage type(@NotNull EventStreamActionDestinationTypeEnum type);
 
         Builder from(EventStreamActionDestination other);
     }
@@ -87,7 +89,7 @@ public final class EventStreamActionDestination {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements TypeStage, ConfigurationStage, _FinalStage {
-        private String type;
+        private EventStreamActionDestinationTypeEnum type;
 
         private EventStreamActionConfiguration configuration;
 
@@ -105,7 +107,7 @@ public final class EventStreamActionDestination {
 
         @java.lang.Override
         @JsonSetter("type")
-        public ConfigurationStage type(@NotNull String type) {
+        public ConfigurationStage type(@NotNull EventStreamActionDestinationTypeEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

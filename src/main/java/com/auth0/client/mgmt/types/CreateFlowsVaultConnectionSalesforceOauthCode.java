@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateFlowsVaultConnectionSalesforceOauthCode {
     private final String name;
 
-    private final String appId;
+    private final FlowsVaultConnectionAppIdSalesforceEnum appId;
 
     private final FlowsVaultConnectioSetupOauthCode setup;
 
@@ -29,7 +29,7 @@ public final class CreateFlowsVaultConnectionSalesforceOauthCode {
 
     private CreateFlowsVaultConnectionSalesforceOauthCode(
             String name,
-            String appId,
+            FlowsVaultConnectionAppIdSalesforceEnum appId,
             FlowsVaultConnectioSetupOauthCode setup,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -47,7 +47,7 @@ public final class CreateFlowsVaultConnectionSalesforceOauthCode {
     }
 
     @JsonProperty("app_id")
-    public String getAppId() {
+    public FlowsVaultConnectionAppIdSalesforceEnum getAppId() {
         return appId;
     }
 
@@ -96,7 +96,7 @@ public final class CreateFlowsVaultConnectionSalesforceOauthCode {
     }
 
     public interface AppIdStage {
-        SetupStage appId(@NotNull String appId);
+        SetupStage appId(@NotNull FlowsVaultConnectionAppIdSalesforceEnum appId);
     }
 
     public interface SetupStage {
@@ -111,7 +111,7 @@ public final class CreateFlowsVaultConnectionSalesforceOauthCode {
     public static final class Builder implements NameStage, AppIdStage, SetupStage, _FinalStage {
         private String name;
 
-        private String appId;
+        private FlowsVaultConnectionAppIdSalesforceEnum appId;
 
         private FlowsVaultConnectioSetupOauthCode setup;
 
@@ -142,7 +142,7 @@ public final class CreateFlowsVaultConnectionSalesforceOauthCode {
 
         @java.lang.Override
         @JsonSetter("app_id")
-        public SetupStage appId(@NotNull String appId) {
+        public SetupStage appId(@NotNull FlowsVaultConnectionAppIdSalesforceEnum appId) {
             this.appId = Objects.requireNonNull(appId, "appId must not be null");
             return this;
         }
