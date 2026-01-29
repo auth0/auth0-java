@@ -28,7 +28,7 @@ public final class GetBrandingPhoneProviderResponseContent {
 
     private final PhoneProviderNameEnum name;
 
-    private final Optional<String> channel;
+    private final Optional<PhoneProviderChannelEnum> channel;
 
     private final Optional<Boolean> disabled;
 
@@ -44,7 +44,7 @@ public final class GetBrandingPhoneProviderResponseContent {
             Optional<String> id,
             Optional<String> tenant,
             PhoneProviderNameEnum name,
-            Optional<String> channel,
+            Optional<PhoneProviderChannelEnum> channel,
             Optional<Boolean> disabled,
             Optional<PhoneProviderConfiguration> configuration,
             Optional<OffsetDateTime> createdAt,
@@ -80,7 +80,7 @@ public final class GetBrandingPhoneProviderResponseContent {
     }
 
     @JsonProperty("channel")
-    public Optional<String> getChannel() {
+    public Optional<PhoneProviderChannelEnum> getChannel() {
         return channel;
     }
 
@@ -178,9 +178,9 @@ public final class GetBrandingPhoneProviderResponseContent {
 
         _FinalStage tenant(String tenant);
 
-        _FinalStage channel(Optional<String> channel);
+        _FinalStage channel(Optional<PhoneProviderChannelEnum> channel);
 
-        _FinalStage channel(String channel);
+        _FinalStage channel(PhoneProviderChannelEnum channel);
 
         /**
          * <p>Whether the provider is enabled (false) or disabled (true).</p>
@@ -220,7 +220,7 @@ public final class GetBrandingPhoneProviderResponseContent {
 
         private Optional<Boolean> disabled = Optional.empty();
 
-        private Optional<String> channel = Optional.empty();
+        private Optional<PhoneProviderChannelEnum> channel = Optional.empty();
 
         private Optional<String> tenant = Optional.empty();
 
@@ -325,14 +325,14 @@ public final class GetBrandingPhoneProviderResponseContent {
         }
 
         @java.lang.Override
-        public _FinalStage channel(String channel) {
+        public _FinalStage channel(PhoneProviderChannelEnum channel) {
             this.channel = Optional.ofNullable(channel);
             return this;
         }
 
         @java.lang.Override
         @JsonSetter(value = "channel", nulls = Nulls.SKIP)
-        public _FinalStage channel(Optional<String> channel) {
+        public _FinalStage channel(Optional<PhoneProviderChannelEnum> channel) {
             this.channel = channel;
             return this;
         }

@@ -34,7 +34,7 @@ public final class UpdateConnectionRequestContentWindowsLive implements IConnect
 
     private final Optional<Map<String, OptionalNullable<String>>> metadata;
 
-    private final Optional<Map<String, Object>> options;
+    private final Optional<ConnectionOptionsWindowsLive> options;
 
     private final Map<String, Object> additionalProperties;
 
@@ -45,7 +45,7 @@ public final class UpdateConnectionRequestContentWindowsLive implements IConnect
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
-            Optional<Map<String, Object>> options,
+            Optional<ConnectionOptionsWindowsLive> options,
             Map<String, Object> additionalProperties) {
         this.authentication = authentication;
         this.connectedAccounts = connectedAccounts;
@@ -94,7 +94,7 @@ public final class UpdateConnectionRequestContentWindowsLive implements IConnect
     }
 
     @JsonProperty("options")
-    public Optional<Map<String, Object>> getOptions() {
+    public Optional<ConnectionOptionsWindowsLive> getOptions() {
         return options;
     }
 
@@ -155,7 +155,7 @@ public final class UpdateConnectionRequestContentWindowsLive implements IConnect
 
         private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
-        private Optional<Map<String, Object>> options = Optional.empty();
+        private Optional<ConnectionOptionsWindowsLive> options = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -240,12 +240,12 @@ public final class UpdateConnectionRequestContentWindowsLive implements IConnect
         }
 
         @JsonSetter(value = "options", nulls = Nulls.SKIP)
-        public Builder options(Optional<Map<String, Object>> options) {
+        public Builder options(Optional<ConnectionOptionsWindowsLive> options) {
             this.options = options;
             return this;
         }
 
-        public Builder options(Map<String, Object> options) {
+        public Builder options(ConnectionOptionsWindowsLive options) {
             this.options = Optional.ofNullable(options);
             return this;
         }

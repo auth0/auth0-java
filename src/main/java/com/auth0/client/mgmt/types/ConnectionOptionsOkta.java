@@ -24,7 +24,9 @@ import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionOptionsOkta.Builder.class)
-public final class ConnectionOptionsOkta implements IConnectionOptionsCommonOidc, IConnectionOptionsCommon {
+public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IConnectionOptionsCommonOidc {
+    private final Optional<List<String>> nonPersistentAttrs;
+
     private final Optional<String> authorizationEndpoint;
 
     private final String clientId;
@@ -66,17 +68,16 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommonOidc
 
     private final Optional<String> userinfoEndpoint;
 
-    private final Optional<List<String>> nonPersistentAttrs;
-
     private final Optional<ConnectionAttributeMapOkta> attributeMap;
 
     private final Optional<String> domain;
 
-    private final Optional<String> type;
+    private final Optional<ConnectionTypeEnumOkta> type;
 
     private final Map<String, Object> additionalProperties;
 
     private ConnectionOptionsOkta(
+            Optional<List<String>> nonPersistentAttrs,
             Optional<String> authorizationEndpoint,
             String clientId,
             Optional<String> clientSecret,
@@ -97,11 +98,11 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommonOidc
             OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg,
             OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
             Optional<String> userinfoEndpoint,
-            Optional<List<String>> nonPersistentAttrs,
             Optional<ConnectionAttributeMapOkta> attributeMap,
             Optional<String> domain,
-            Optional<String> type,
+            Optional<ConnectionTypeEnumOkta> type,
             Map<String, Object> additionalProperties) {
+        this.nonPersistentAttrs = nonPersistentAttrs;
         this.authorizationEndpoint = authorizationEndpoint;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
@@ -122,11 +123,16 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommonOidc
         this.tokenEndpointAuthSigningAlg = tokenEndpointAuthSigningAlg;
         this.upstreamParams = upstreamParams;
         this.userinfoEndpoint = userinfoEndpoint;
-        this.nonPersistentAttrs = nonPersistentAttrs;
         this.attributeMap = attributeMap;
         this.domain = domain;
         this.type = type;
         this.additionalProperties = additionalProperties;
+    }
+
+    @JsonProperty("non_persistent_attrs")
+    @java.lang.Override
+    public Optional<List<String>> getNonPersistentAttrs() {
+        return nonPersistentAttrs;
     }
 
     @JsonProperty("authorization_endpoint")
@@ -269,12 +275,6 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommonOidc
         return userinfoEndpoint;
     }
 
-    @JsonProperty("non_persistent_attrs")
-    @java.lang.Override
-    public Optional<List<String>> getNonPersistentAttrs() {
-        return nonPersistentAttrs;
-    }
-
     @JsonProperty("attribute_map")
     public Optional<ConnectionAttributeMapOkta> getAttributeMap() {
         return attributeMap;
@@ -286,7 +286,7 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommonOidc
     }
 
     @JsonProperty("type")
-    public Optional<String> getType() {
+    public Optional<ConnectionTypeEnumOkta> getType() {
         return type;
     }
 
@@ -333,7 +333,8 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommonOidc
     }
 
     private boolean equalTo(ConnectionOptionsOkta other) {
-        return authorizationEndpoint.equals(other.authorizationEndpoint)
+        return nonPersistentAttrs.equals(other.nonPersistentAttrs)
+                && authorizationEndpoint.equals(other.authorizationEndpoint)
                 && clientId.equals(other.clientId)
                 && clientSecret.equals(other.clientSecret)
                 && connectionSettings.equals(other.connectionSettings)
@@ -353,7 +354,6 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommonOidc
                 && tokenEndpointAuthSigningAlg.equals(other.tokenEndpointAuthSigningAlg)
                 && upstreamParams.equals(other.upstreamParams)
                 && userinfoEndpoint.equals(other.userinfoEndpoint)
-                && nonPersistentAttrs.equals(other.nonPersistentAttrs)
                 && attributeMap.equals(other.attributeMap)
                 && domain.equals(other.domain)
                 && type.equals(other.type);
@@ -362,6 +362,7 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommonOidc
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.nonPersistentAttrs,
                 this.authorizationEndpoint,
                 this.clientId,
                 this.clientSecret,
@@ -382,7 +383,6 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommonOidc
                 this.tokenEndpointAuthSigningAlg,
                 this.upstreamParams,
                 this.userinfoEndpoint,
-                this.nonPersistentAttrs,
                 this.attributeMap,
                 this.domain,
                 this.type);
@@ -405,6 +405,10 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommonOidc
 
     public interface _FinalStage {
         ConnectionOptionsOkta build();
+
+        _FinalStage nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs);
+
+        _FinalStage nonPersistentAttrs(List<String> nonPersistentAttrs);
 
         _FinalStage authorizationEndpoint(Optional<String> authorizationEndpoint);
 
@@ -526,10 +530,6 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommonOidc
 
         _FinalStage userinfoEndpoint(String userinfoEndpoint);
 
-        _FinalStage nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs);
-
-        _FinalStage nonPersistentAttrs(List<String> nonPersistentAttrs);
-
         _FinalStage attributeMap(Optional<ConnectionAttributeMapOkta> attributeMap);
 
         _FinalStage attributeMap(ConnectionAttributeMapOkta attributeMap);
@@ -538,22 +538,20 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommonOidc
 
         _FinalStage domain(String domain);
 
-        _FinalStage type(Optional<String> type);
+        _FinalStage type(Optional<ConnectionTypeEnumOkta> type);
 
-        _FinalStage type(String type);
+        _FinalStage type(ConnectionTypeEnumOkta type);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements ClientIdStage, _FinalStage {
         private String clientId;
 
-        private Optional<String> type = Optional.empty();
+        private Optional<ConnectionTypeEnumOkta> type = Optional.empty();
 
         private Optional<String> domain = Optional.empty();
 
         private Optional<ConnectionAttributeMapOkta> attributeMap = Optional.empty();
-
-        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
 
         private Optional<String> userinfoEndpoint = Optional.empty();
 
@@ -598,6 +596,8 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommonOidc
 
         private Optional<String> authorizationEndpoint = Optional.empty();
 
+        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -605,6 +605,7 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommonOidc
 
         @java.lang.Override
         public Builder from(ConnectionOptionsOkta other) {
+            nonPersistentAttrs(other.getNonPersistentAttrs());
             authorizationEndpoint(other.getAuthorizationEndpoint());
             clientId(other.getClientId());
             clientSecret(other.getClientSecret());
@@ -625,7 +626,6 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommonOidc
             tokenEndpointAuthSigningAlg(other.getTokenEndpointAuthSigningAlg());
             upstreamParams(other.getUpstreamParams());
             userinfoEndpoint(other.getUserinfoEndpoint());
-            nonPersistentAttrs(other.getNonPersistentAttrs());
             attributeMap(other.getAttributeMap());
             domain(other.getDomain());
             type(other.getType());
@@ -640,14 +640,14 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommonOidc
         }
 
         @java.lang.Override
-        public _FinalStage type(String type) {
+        public _FinalStage type(ConnectionTypeEnumOkta type) {
             this.type = Optional.ofNullable(type);
             return this;
         }
 
         @java.lang.Override
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
-        public _FinalStage type(Optional<String> type) {
+        public _FinalStage type(Optional<ConnectionTypeEnumOkta> type) {
             this.type = type;
             return this;
         }
@@ -675,19 +675,6 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommonOidc
         @JsonSetter(value = "attribute_map", nulls = Nulls.SKIP)
         public _FinalStage attributeMap(Optional<ConnectionAttributeMapOkta> attributeMap) {
             this.attributeMap = attributeMap;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage nonPersistentAttrs(List<String> nonPersistentAttrs) {
-            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
-        public _FinalStage nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
-            this.nonPersistentAttrs = nonPersistentAttrs;
             return this;
         }
 
@@ -1076,8 +1063,22 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommonOidc
         }
 
         @java.lang.Override
+        public _FinalStage nonPersistentAttrs(List<String> nonPersistentAttrs) {
+            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
+        public _FinalStage nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
+            this.nonPersistentAttrs = nonPersistentAttrs;
+            return this;
+        }
+
+        @java.lang.Override
         public ConnectionOptionsOkta build() {
             return new ConnectionOptionsOkta(
+                    nonPersistentAttrs,
                     authorizationEndpoint,
                     clientId,
                     clientSecret,
@@ -1098,7 +1099,6 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommonOidc
                     tokenEndpointAuthSigningAlg,
                     upstreamParams,
                     userinfoEndpoint,
-                    nonPersistentAttrs,
                     attributeMap,
                     domain,
                     type,

@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 public final class FormStep {
     private final String id;
 
-    private final String type;
+    private final FormNodeTypeStepConst type;
 
     private final Optional<FormNodeCoordinates> coordinates;
 
@@ -35,7 +35,7 @@ public final class FormStep {
 
     private FormStep(
             String id,
-            String type,
+            FormNodeTypeStepConst type,
             Optional<FormNodeCoordinates> coordinates,
             Optional<String> alias,
             Optional<FormStepConfig> config,
@@ -54,7 +54,7 @@ public final class FormStep {
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public FormNodeTypeStepConst getType() {
         return type;
     }
 
@@ -113,7 +113,7 @@ public final class FormStep {
     }
 
     public interface TypeStage {
-        _FinalStage type(@NotNull String type);
+        _FinalStage type(@NotNull FormNodeTypeStepConst type);
     }
 
     public interface _FinalStage {
@@ -136,7 +136,7 @@ public final class FormStep {
     public static final class Builder implements IdStage, TypeStage, _FinalStage {
         private String id;
 
-        private String type;
+        private FormNodeTypeStepConst type;
 
         private Optional<FormStepConfig> config = Optional.empty();
 
@@ -168,7 +168,7 @@ public final class FormStep {
 
         @java.lang.Override
         @JsonSetter("type")
-        public _FinalStage type(@NotNull String type) {
+        public _FinalStage type(@NotNull FormNodeTypeStepConst type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

@@ -5,6 +5,8 @@ package com.auth0.client.mgmt.selfserviceprofiles;
 
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
+import com.auth0.client.mgmt.types.SelfServiceProfileCustomTextLanguageEnum;
+import com.auth0.client.mgmt.types.SelfServiceProfileCustomTextPageEnum;
 import java.util.Map;
 
 public class CustomTextClient {
@@ -27,21 +29,30 @@ public class CustomTextClient {
     /**
      * Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
-    public Map<String, String> list(String id, String language, String page) {
+    public Map<String, String> list(
+            String id, SelfServiceProfileCustomTextLanguageEnum language, SelfServiceProfileCustomTextPageEnum page) {
         return this.rawClient.list(id, language, page).body();
     }
 
     /**
      * Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
-    public Map<String, String> list(String id, String language, String page, RequestOptions requestOptions) {
+    public Map<String, String> list(
+            String id,
+            SelfServiceProfileCustomTextLanguageEnum language,
+            SelfServiceProfileCustomTextPageEnum page,
+            RequestOptions requestOptions) {
         return this.rawClient.list(id, language, page, requestOptions).body();
     }
 
     /**
      * Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
-    public Map<String, String> set(String id, String language, String page, Map<String, String> request) {
+    public Map<String, String> set(
+            String id,
+            SelfServiceProfileCustomTextLanguageEnum language,
+            SelfServiceProfileCustomTextPageEnum page,
+            Map<String, String> request) {
         return this.rawClient.set(id, language, page, request).body();
     }
 
@@ -49,7 +60,11 @@ public class CustomTextClient {
      * Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
     public Map<String, String> set(
-            String id, String language, String page, Map<String, String> request, RequestOptions requestOptions) {
+            String id,
+            SelfServiceProfileCustomTextLanguageEnum language,
+            SelfServiceProfileCustomTextPageEnum page,
+            Map<String, String> request,
+            RequestOptions requestOptions) {
         return this.rawClient.set(id, language, page, request, requestOptions).body();
     }
 }

@@ -18,12 +18,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionResponseContentBitbucket.Builder.class)
 public final class ConnectionResponseContentBitbucket
         implements IConnectionResponseCommon, ICreateConnectionCommon, IConnectionCommon {
     private final Optional<String> id;
+
+    private final Optional<List<String>> realms;
 
     private final Optional<String> name;
 
@@ -39,12 +42,15 @@ public final class ConnectionResponseContentBitbucket
 
     private final Optional<Map<String, OptionalNullable<String>>> metadata;
 
-    private final Optional<ConnectionOptionsOAuth2Common> options;
+    private final ConnectionResponseContentBitbucketStrategy strategy;
+
+    private final Optional<ConnectionOptionsBitbucket> options;
 
     private final Map<String, Object> additionalProperties;
 
     private ConnectionResponseContentBitbucket(
             Optional<String> id,
+            Optional<List<String>> realms,
             Optional<String> name,
             Optional<ConnectionAuthenticationPurpose> authentication,
             Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
@@ -52,9 +58,11 @@ public final class ConnectionResponseContentBitbucket
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
-            Optional<ConnectionOptionsOAuth2Common> options,
+            ConnectionResponseContentBitbucketStrategy strategy,
+            Optional<ConnectionOptionsBitbucket> options,
             Map<String, Object> additionalProperties) {
         this.id = id;
+        this.realms = realms;
         this.name = name;
         this.authentication = authentication;
         this.connectedAccounts = connectedAccounts;
@@ -62,6 +70,7 @@ public final class ConnectionResponseContentBitbucket
         this.enabledClients = enabledClients;
         this.isDomainConnection = isDomainConnection;
         this.metadata = metadata;
+        this.strategy = strategy;
         this.options = options;
         this.additionalProperties = additionalProperties;
     }
@@ -70,6 +79,12 @@ public final class ConnectionResponseContentBitbucket
     @java.lang.Override
     public Optional<String> getId() {
         return id;
+    }
+
+    @JsonProperty("realms")
+    @java.lang.Override
+    public Optional<List<String>> getRealms() {
+        return realms;
     }
 
     @JsonProperty("name")
@@ -115,12 +130,12 @@ public final class ConnectionResponseContentBitbucket
     }
 
     @JsonProperty("strategy")
-    public String getStrategy() {
-        return "bitbucket";
+    public ConnectionResponseContentBitbucketStrategy getStrategy() {
+        return strategy;
     }
 
     @JsonProperty("options")
-    public Optional<ConnectionOptionsOAuth2Common> getOptions() {
+    public Optional<ConnectionOptionsBitbucket> getOptions() {
         return options;
     }
 
@@ -138,6 +153,7 @@ public final class ConnectionResponseContentBitbucket
 
     private boolean equalTo(ConnectionResponseContentBitbucket other) {
         return id.equals(other.id)
+                && realms.equals(other.realms)
                 && name.equals(other.name)
                 && authentication.equals(other.authentication)
                 && connectedAccounts.equals(other.connectedAccounts)
@@ -145,6 +161,7 @@ public final class ConnectionResponseContentBitbucket
                 && enabledClients.equals(other.enabledClients)
                 && isDomainConnection.equals(other.isDomainConnection)
                 && metadata.equals(other.metadata)
+                && strategy.equals(other.strategy)
                 && options.equals(other.options);
     }
 
@@ -152,6 +169,7 @@ public final class ConnectionResponseContentBitbucket
     public int hashCode() {
         return Objects.hash(
                 this.id,
+                this.realms,
                 this.name,
                 this.authentication,
                 this.connectedAccounts,
@@ -159,6 +177,7 @@ public final class ConnectionResponseContentBitbucket
                 this.enabledClients,
                 this.isDomainConnection,
                 this.metadata,
+                this.strategy,
                 this.options);
     }
 
@@ -167,37 +186,93 @@ public final class ConnectionResponseContentBitbucket
         return ObjectMappers.stringify(this);
     }
 
-    public static Builder builder() {
+    public static StrategyStage builder() {
         return new Builder();
     }
 
+    public interface StrategyStage {
+        _FinalStage strategy(@NotNull ConnectionResponseContentBitbucketStrategy strategy);
+
+        Builder from(ConnectionResponseContentBitbucket other);
+    }
+
+    public interface _FinalStage {
+        ConnectionResponseContentBitbucket build();
+
+        _FinalStage id(Optional<String> id);
+
+        _FinalStage id(String id);
+
+        _FinalStage realms(Optional<List<String>> realms);
+
+        _FinalStage realms(List<String> realms);
+
+        _FinalStage name(Optional<String> name);
+
+        _FinalStage name(String name);
+
+        _FinalStage authentication(Optional<ConnectionAuthenticationPurpose> authentication);
+
+        _FinalStage authentication(ConnectionAuthenticationPurpose authentication);
+
+        _FinalStage connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts);
+
+        _FinalStage connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts);
+
+        _FinalStage displayName(Optional<String> displayName);
+
+        _FinalStage displayName(String displayName);
+
+        _FinalStage enabledClients(Optional<List<String>> enabledClients);
+
+        _FinalStage enabledClients(List<String> enabledClients);
+
+        _FinalStage isDomainConnection(Optional<Boolean> isDomainConnection);
+
+        _FinalStage isDomainConnection(Boolean isDomainConnection);
+
+        _FinalStage metadata(Optional<Map<String, OptionalNullable<String>>> metadata);
+
+        _FinalStage metadata(Map<String, OptionalNullable<String>> metadata);
+
+        _FinalStage options(Optional<ConnectionOptionsBitbucket> options);
+
+        _FinalStage options(ConnectionOptionsBitbucket options);
+    }
+
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder {
-        private Optional<String> id = Optional.empty();
+    public static final class Builder implements StrategyStage, _FinalStage {
+        private ConnectionResponseContentBitbucketStrategy strategy;
 
-        private Optional<String> name = Optional.empty();
-
-        private Optional<ConnectionAuthenticationPurpose> authentication = Optional.empty();
-
-        private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
-
-        private Optional<String> displayName = Optional.empty();
-
-        private Optional<List<String>> enabledClients = Optional.empty();
-
-        private Optional<Boolean> isDomainConnection = Optional.empty();
+        private Optional<ConnectionOptionsBitbucket> options = Optional.empty();
 
         private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
-        private Optional<ConnectionOptionsOAuth2Common> options = Optional.empty();
+        private Optional<Boolean> isDomainConnection = Optional.empty();
+
+        private Optional<List<String>> enabledClients = Optional.empty();
+
+        private Optional<String> displayName = Optional.empty();
+
+        private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
+
+        private Optional<ConnectionAuthenticationPurpose> authentication = Optional.empty();
+
+        private Optional<String> name = Optional.empty();
+
+        private Optional<List<String>> realms = Optional.empty();
+
+        private Optional<String> id = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
+        @java.lang.Override
         public Builder from(ConnectionResponseContentBitbucket other) {
             id(other.getId());
+            realms(other.getRealms());
             name(other.getName());
             authentication(other.getAuthentication());
             connectedAccounts(other.getConnectedAccounts());
@@ -205,112 +280,153 @@ public final class ConnectionResponseContentBitbucket
             enabledClients(other.getEnabledClients());
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
+            strategy(other.getStrategy());
             options(other.getOptions());
             return this;
         }
 
-        @JsonSetter(value = "id", nulls = Nulls.SKIP)
-        public Builder id(Optional<String> id) {
-            this.id = id;
+        @java.lang.Override
+        @JsonSetter("strategy")
+        public _FinalStage strategy(@NotNull ConnectionResponseContentBitbucketStrategy strategy) {
+            this.strategy = Objects.requireNonNull(strategy, "strategy must not be null");
             return this;
         }
 
-        public Builder id(String id) {
-            this.id = Optional.ofNullable(id);
-            return this;
-        }
-
-        @JsonSetter(value = "name", nulls = Nulls.SKIP)
-        public Builder name(Optional<String> name) {
-            this.name = name;
-            return this;
-        }
-
-        public Builder name(String name) {
-            this.name = Optional.ofNullable(name);
-            return this;
-        }
-
-        @JsonSetter(value = "authentication", nulls = Nulls.SKIP)
-        public Builder authentication(Optional<ConnectionAuthenticationPurpose> authentication) {
-            this.authentication = authentication;
-            return this;
-        }
-
-        public Builder authentication(ConnectionAuthenticationPurpose authentication) {
-            this.authentication = Optional.ofNullable(authentication);
-            return this;
-        }
-
-        @JsonSetter(value = "connected_accounts", nulls = Nulls.SKIP)
-        public Builder connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts) {
-            this.connectedAccounts = connectedAccounts;
-            return this;
-        }
-
-        public Builder connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts) {
-            this.connectedAccounts = Optional.ofNullable(connectedAccounts);
-            return this;
-        }
-
-        @JsonSetter(value = "display_name", nulls = Nulls.SKIP)
-        public Builder displayName(Optional<String> displayName) {
-            this.displayName = displayName;
-            return this;
-        }
-
-        public Builder displayName(String displayName) {
-            this.displayName = Optional.ofNullable(displayName);
-            return this;
-        }
-
-        @JsonSetter(value = "enabled_clients", nulls = Nulls.SKIP)
-        public Builder enabledClients(Optional<List<String>> enabledClients) {
-            this.enabledClients = enabledClients;
-            return this;
-        }
-
-        public Builder enabledClients(List<String> enabledClients) {
-            this.enabledClients = Optional.ofNullable(enabledClients);
-            return this;
-        }
-
-        @JsonSetter(value = "is_domain_connection", nulls = Nulls.SKIP)
-        public Builder isDomainConnection(Optional<Boolean> isDomainConnection) {
-            this.isDomainConnection = isDomainConnection;
-            return this;
-        }
-
-        public Builder isDomainConnection(Boolean isDomainConnection) {
-            this.isDomainConnection = Optional.ofNullable(isDomainConnection);
-            return this;
-        }
-
-        @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
-        public Builder metadata(Optional<Map<String, OptionalNullable<String>>> metadata) {
-            this.metadata = metadata;
-            return this;
-        }
-
-        public Builder metadata(Map<String, OptionalNullable<String>> metadata) {
-            this.metadata = Optional.ofNullable(metadata);
-            return this;
-        }
-
-        @JsonSetter(value = "options", nulls = Nulls.SKIP)
-        public Builder options(Optional<ConnectionOptionsOAuth2Common> options) {
-            this.options = options;
-            return this;
-        }
-
-        public Builder options(ConnectionOptionsOAuth2Common options) {
+        @java.lang.Override
+        public _FinalStage options(ConnectionOptionsBitbucket options) {
             this.options = Optional.ofNullable(options);
             return this;
         }
 
+        @java.lang.Override
+        @JsonSetter(value = "options", nulls = Nulls.SKIP)
+        public _FinalStage options(Optional<ConnectionOptionsBitbucket> options) {
+            this.options = options;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage metadata(Map<String, OptionalNullable<String>> metadata) {
+            this.metadata = Optional.ofNullable(metadata);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
+        public _FinalStage metadata(Optional<Map<String, OptionalNullable<String>>> metadata) {
+            this.metadata = metadata;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage isDomainConnection(Boolean isDomainConnection) {
+            this.isDomainConnection = Optional.ofNullable(isDomainConnection);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "is_domain_connection", nulls = Nulls.SKIP)
+        public _FinalStage isDomainConnection(Optional<Boolean> isDomainConnection) {
+            this.isDomainConnection = isDomainConnection;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage enabledClients(List<String> enabledClients) {
+            this.enabledClients = Optional.ofNullable(enabledClients);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "enabled_clients", nulls = Nulls.SKIP)
+        public _FinalStage enabledClients(Optional<List<String>> enabledClients) {
+            this.enabledClients = enabledClients;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage displayName(String displayName) {
+            this.displayName = Optional.ofNullable(displayName);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "display_name", nulls = Nulls.SKIP)
+        public _FinalStage displayName(Optional<String> displayName) {
+            this.displayName = displayName;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts) {
+            this.connectedAccounts = Optional.ofNullable(connectedAccounts);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "connected_accounts", nulls = Nulls.SKIP)
+        public _FinalStage connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts) {
+            this.connectedAccounts = connectedAccounts;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage authentication(ConnectionAuthenticationPurpose authentication) {
+            this.authentication = Optional.ofNullable(authentication);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "authentication", nulls = Nulls.SKIP)
+        public _FinalStage authentication(Optional<ConnectionAuthenticationPurpose> authentication) {
+            this.authentication = authentication;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage name(String name) {
+            this.name = Optional.ofNullable(name);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "name", nulls = Nulls.SKIP)
+        public _FinalStage name(Optional<String> name) {
+            this.name = name;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage realms(List<String> realms) {
+            this.realms = Optional.ofNullable(realms);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "realms", nulls = Nulls.SKIP)
+        public _FinalStage realms(Optional<List<String>> realms) {
+            this.realms = realms;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage id(String id) {
+            this.id = Optional.ofNullable(id);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "id", nulls = Nulls.SKIP)
+        public _FinalStage id(Optional<String> id) {
+            this.id = id;
+            return this;
+        }
+
+        @java.lang.Override
         public ConnectionResponseContentBitbucket build() {
             return new ConnectionResponseContentBitbucket(
                     id,
+                    realms,
                     name,
                     authentication,
                     connectedAccounts,
@@ -318,6 +434,7 @@ public final class ConnectionResponseContentBitbucket
                     enabledClients,
                     isDomainConnection,
                     metadata,
+                    strategy,
                     options,
                     additionalProperties);
         }

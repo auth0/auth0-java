@@ -34,6 +34,8 @@ public final class CreateFlowsVaultConnectionHttp {
         if (this.type == 0) {
             return visitor.visit((CreateFlowsVaultConnectionHttpBearer) this.value);
         } else if (this.type == 1) {
+            return visitor.visit((CreateFlowsVaultConnectionHttpBasicAuth) this.value);
+        } else if (this.type == 2) {
             return visitor.visit((CreateFlowsVaultConnectionHttpUninitialized) this.value);
         }
         throw new IllegalStateException("Failed to visit value. This should never happen.");
@@ -63,12 +65,18 @@ public final class CreateFlowsVaultConnectionHttp {
         return new CreateFlowsVaultConnectionHttp(value, 0);
     }
 
-    public static CreateFlowsVaultConnectionHttp of(CreateFlowsVaultConnectionHttpUninitialized value) {
+    public static CreateFlowsVaultConnectionHttp of(CreateFlowsVaultConnectionHttpBasicAuth value) {
         return new CreateFlowsVaultConnectionHttp(value, 1);
+    }
+
+    public static CreateFlowsVaultConnectionHttp of(CreateFlowsVaultConnectionHttpUninitialized value) {
+        return new CreateFlowsVaultConnectionHttp(value, 2);
     }
 
     public interface Visitor<T> {
         T visit(CreateFlowsVaultConnectionHttpBearer value);
+
+        T visit(CreateFlowsVaultConnectionHttpBasicAuth value);
 
         T visit(CreateFlowsVaultConnectionHttpUninitialized value);
     }
@@ -84,6 +92,10 @@ public final class CreateFlowsVaultConnectionHttp {
             Object value = p.readValueAs(Object.class);
             try {
                 return of(ObjectMappers.JSON_MAPPER.convertValue(value, CreateFlowsVaultConnectionHttpBearer.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, CreateFlowsVaultConnectionHttpBasicAuth.class));
             } catch (RuntimeException e) {
             }
             try {

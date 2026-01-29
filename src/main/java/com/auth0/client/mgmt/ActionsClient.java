@@ -4,6 +4,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.actions.ExecutionsClient;
+import com.auth0.client.mgmt.actions.ModulesClient;
 import com.auth0.client.mgmt.actions.TriggersClient;
 import com.auth0.client.mgmt.actions.VersionsClient;
 import com.auth0.client.mgmt.core.ClientOptions;
@@ -32,6 +33,8 @@ public class ActionsClient {
 
     protected final Supplier<ExecutionsClient> executionsClient;
 
+    protected final Supplier<ModulesClient> modulesClient;
+
     protected final Supplier<TriggersClient> triggersClient;
 
     public ActionsClient(ClientOptions clientOptions) {
@@ -39,6 +42,7 @@ public class ActionsClient {
         this.rawClient = new RawActionsClient(clientOptions);
         this.versionsClient = Suppliers.memoize(() -> new VersionsClient(clientOptions));
         this.executionsClient = Suppliers.memoize(() -> new ExecutionsClient(clientOptions));
+        this.modulesClient = Suppliers.memoize(() -> new ModulesClient(clientOptions));
         this.triggersClient = Suppliers.memoize(() -> new TriggersClient(clientOptions));
     }
 
@@ -175,6 +179,10 @@ public class ActionsClient {
 
     public ExecutionsClient executions() {
         return this.executionsClient.get();
+    }
+
+    public ModulesClient modules() {
+        return this.modulesClient.get();
     }
 
     public TriggersClient triggers() {

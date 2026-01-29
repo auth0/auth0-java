@@ -23,9 +23,9 @@ import org.jetbrains.annotations.NotNull;
 public final class FormFieldTel {
     private final String id;
 
-    private final String category;
+    private final FormComponentCategoryFieldConst category;
 
-    private final String type;
+    private final FormFieldTypeTelConst type;
 
     private final Optional<FormFieldTelConfig> config;
 
@@ -41,8 +41,8 @@ public final class FormFieldTel {
 
     private FormFieldTel(
             String id,
-            String category,
-            String type,
+            FormComponentCategoryFieldConst category,
+            FormFieldTypeTelConst type,
             Optional<FormFieldTelConfig> config,
             Optional<String> label,
             Optional<String> hint,
@@ -66,12 +66,12 @@ public final class FormFieldTel {
     }
 
     @JsonProperty("category")
-    public String getCategory() {
+    public FormComponentCategoryFieldConst getCategory() {
         return category;
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public FormFieldTypeTelConst getType() {
         return type;
     }
 
@@ -144,11 +144,11 @@ public final class FormFieldTel {
     }
 
     public interface CategoryStage {
-        TypeStage category(@NotNull String category);
+        TypeStage category(@NotNull FormComponentCategoryFieldConst category);
     }
 
     public interface TypeStage {
-        _FinalStage type(@NotNull String type);
+        _FinalStage type(@NotNull FormFieldTypeTelConst type);
     }
 
     public interface _FinalStage {
@@ -179,9 +179,9 @@ public final class FormFieldTel {
     public static final class Builder implements IdStage, CategoryStage, TypeStage, _FinalStage {
         private String id;
 
-        private String category;
+        private FormComponentCategoryFieldConst category;
 
-        private String type;
+        private FormFieldTypeTelConst type;
 
         private Optional<Boolean> sensitive = Optional.empty();
 
@@ -220,14 +220,14 @@ public final class FormFieldTel {
 
         @java.lang.Override
         @JsonSetter("category")
-        public TypeStage category(@NotNull String category) {
+        public TypeStage category(@NotNull FormComponentCategoryFieldConst category) {
             this.category = Objects.requireNonNull(category, "category must not be null");
             return this;
         }
 
         @java.lang.Override
         @JsonSetter("type")
-        public _FinalStage type(@NotNull String type) {
+        public _FinalStage type(@NotNull FormFieldTypeTelConst type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

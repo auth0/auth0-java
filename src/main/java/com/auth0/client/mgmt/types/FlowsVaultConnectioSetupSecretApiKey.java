@@ -19,21 +19,21 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = FlowsVaultConnectioSetupSecretApiKey.Builder.class)
 public final class FlowsVaultConnectioSetupSecretApiKey {
-    private final String type;
+    private final FlowsVaultConnectioSetupTypeApiKeyEnum type;
 
     private final String secretKey;
 
     private final Map<String, Object> additionalProperties;
 
     private FlowsVaultConnectioSetupSecretApiKey(
-            String type, String secretKey, Map<String, Object> additionalProperties) {
+            FlowsVaultConnectioSetupTypeApiKeyEnum type, String secretKey, Map<String, Object> additionalProperties) {
         this.type = type;
         this.secretKey = secretKey;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public FlowsVaultConnectioSetupTypeApiKeyEnum getType() {
         return type;
     }
 
@@ -73,7 +73,7 @@ public final class FlowsVaultConnectioSetupSecretApiKey {
     }
 
     public interface TypeStage {
-        SecretKeyStage type(@NotNull String type);
+        SecretKeyStage type(@NotNull FlowsVaultConnectioSetupTypeApiKeyEnum type);
 
         Builder from(FlowsVaultConnectioSetupSecretApiKey other);
     }
@@ -88,7 +88,7 @@ public final class FlowsVaultConnectioSetupSecretApiKey {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements TypeStage, SecretKeyStage, _FinalStage {
-        private String type;
+        private FlowsVaultConnectioSetupTypeApiKeyEnum type;
 
         private String secretKey;
 
@@ -106,7 +106,7 @@ public final class FlowsVaultConnectioSetupSecretApiKey {
 
         @java.lang.Override
         @JsonSetter("type")
-        public SecretKeyStage type(@NotNull String type) {
+        public SecretKeyStage type(@NotNull FlowsVaultConnectioSetupTypeApiKeyEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

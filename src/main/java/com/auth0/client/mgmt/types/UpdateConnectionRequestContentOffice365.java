@@ -34,7 +34,7 @@ public final class UpdateConnectionRequestContentOffice365 implements IConnectio
 
     private final Optional<Map<String, OptionalNullable<String>>> metadata;
 
-    private final Optional<Map<String, Object>> options;
+    private final Optional<ConnectionOptionsOffice365> options;
 
     private final Optional<Boolean> showAsButton;
 
@@ -47,7 +47,7 @@ public final class UpdateConnectionRequestContentOffice365 implements IConnectio
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
-            Optional<Map<String, Object>> options,
+            Optional<ConnectionOptionsOffice365> options,
             Optional<Boolean> showAsButton,
             Map<String, Object> additionalProperties) {
         this.authentication = authentication;
@@ -98,7 +98,7 @@ public final class UpdateConnectionRequestContentOffice365 implements IConnectio
     }
 
     @JsonProperty("options")
-    public Optional<Map<String, Object>> getOptions() {
+    public Optional<ConnectionOptionsOffice365> getOptions() {
         return options;
     }
 
@@ -166,7 +166,7 @@ public final class UpdateConnectionRequestContentOffice365 implements IConnectio
 
         private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
-        private Optional<Map<String, Object>> options = Optional.empty();
+        private Optional<ConnectionOptionsOffice365> options = Optional.empty();
 
         private Optional<Boolean> showAsButton = Optional.empty();
 
@@ -254,12 +254,12 @@ public final class UpdateConnectionRequestContentOffice365 implements IConnectio
         }
 
         @JsonSetter(value = "options", nulls = Nulls.SKIP)
-        public Builder options(Optional<Map<String, Object>> options) {
+        public Builder options(Optional<ConnectionOptionsOffice365> options) {
             this.options = options;
             return this;
         }
 
-        public Builder options(Map<String, Object> options) {
+        public Builder options(ConnectionOptionsOffice365 options) {
             this.options = Optional.ofNullable(options);
             return this;
         }

@@ -23,9 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionOptionsOAuth2Common.Builder.class)
-public final class ConnectionOptionsOAuth2Common implements IConnectionOptionsCommon {
-    private final Optional<List<String>> nonPersistentAttrs;
-
+public final class ConnectionOptionsOAuth2Common implements IConnectionOptionsOAuth2Common, IConnectionOptionsCommon {
     private final Optional<String> clientId;
 
     private final Optional<String> clientSecret;
@@ -35,41 +33,40 @@ public final class ConnectionOptionsOAuth2Common implements IConnectionOptionsCo
 
     private final Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes;
 
+    private final Optional<List<String>> nonPersistentAttrs;
+
     private final Map<String, Object> additionalProperties;
 
     private ConnectionOptionsOAuth2Common(
-            Optional<List<String>> nonPersistentAttrs,
             Optional<String> clientId,
             Optional<String> clientSecret,
             OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
             Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes,
+            Optional<List<String>> nonPersistentAttrs,
             Map<String, Object> additionalProperties) {
-        this.nonPersistentAttrs = nonPersistentAttrs;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.upstreamParams = upstreamParams;
         this.setUserRootAttributes = setUserRootAttributes;
+        this.nonPersistentAttrs = nonPersistentAttrs;
         this.additionalProperties = additionalProperties;
     }
 
-    @JsonProperty("non_persistent_attrs")
-    @java.lang.Override
-    public Optional<List<String>> getNonPersistentAttrs() {
-        return nonPersistentAttrs;
-    }
-
     @JsonProperty("client_id")
+    @java.lang.Override
     public Optional<String> getClientId() {
         return clientId;
     }
 
     @JsonProperty("client_secret")
+    @java.lang.Override
     public Optional<String> getClientSecret() {
         return clientSecret;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("upstream_params")
+    @java.lang.Override
     public OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams() {
         if (upstreamParams == null) {
             return OptionalNullable.absent();
@@ -78,8 +75,15 @@ public final class ConnectionOptionsOAuth2Common implements IConnectionOptionsCo
     }
 
     @JsonProperty("set_user_root_attributes")
+    @java.lang.Override
     public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
         return setUserRootAttributes;
+    }
+
+    @JsonProperty("non_persistent_attrs")
+    @java.lang.Override
+    public Optional<List<String>> getNonPersistentAttrs() {
+        return nonPersistentAttrs;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -101,21 +105,21 @@ public final class ConnectionOptionsOAuth2Common implements IConnectionOptionsCo
     }
 
     private boolean equalTo(ConnectionOptionsOAuth2Common other) {
-        return nonPersistentAttrs.equals(other.nonPersistentAttrs)
-                && clientId.equals(other.clientId)
+        return clientId.equals(other.clientId)
                 && clientSecret.equals(other.clientSecret)
                 && upstreamParams.equals(other.upstreamParams)
-                && setUserRootAttributes.equals(other.setUserRootAttributes);
+                && setUserRootAttributes.equals(other.setUserRootAttributes)
+                && nonPersistentAttrs.equals(other.nonPersistentAttrs);
     }
 
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.nonPersistentAttrs,
                 this.clientId,
                 this.clientSecret,
                 this.upstreamParams,
-                this.setUserRootAttributes);
+                this.setUserRootAttributes,
+                this.nonPersistentAttrs);
     }
 
     @java.lang.Override
@@ -129,8 +133,6 @@ public final class ConnectionOptionsOAuth2Common implements IConnectionOptionsCo
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
-
         private Optional<String> clientId = Optional.empty();
 
         private Optional<String> clientSecret = Optional.empty();
@@ -140,28 +142,19 @@ public final class ConnectionOptionsOAuth2Common implements IConnectionOptionsCo
 
         private Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes = Optional.empty();
 
+        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
         public Builder from(ConnectionOptionsOAuth2Common other) {
-            nonPersistentAttrs(other.getNonPersistentAttrs());
             clientId(other.getClientId());
             clientSecret(other.getClientSecret());
             upstreamParams(other.getUpstreamParams());
             setUserRootAttributes(other.getSetUserRootAttributes());
-            return this;
-        }
-
-        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
-        public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
-            this.nonPersistentAttrs = nonPersistentAttrs;
-            return this;
-        }
-
-        public Builder nonPersistentAttrs(List<String> nonPersistentAttrs) {
-            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
+            nonPersistentAttrs(other.getNonPersistentAttrs());
             return this;
         }
 
@@ -237,13 +230,24 @@ public final class ConnectionOptionsOAuth2Common implements IConnectionOptionsCo
             return this;
         }
 
+        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
+        public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
+            this.nonPersistentAttrs = nonPersistentAttrs;
+            return this;
+        }
+
+        public Builder nonPersistentAttrs(List<String> nonPersistentAttrs) {
+            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
+            return this;
+        }
+
         public ConnectionOptionsOAuth2Common build() {
             return new ConnectionOptionsOAuth2Common(
-                    nonPersistentAttrs,
                     clientId,
                     clientSecret,
                     upstreamParams,
                     setUserRootAttributes,
+                    nonPersistentAttrs,
                     additionalProperties);
         }
     }

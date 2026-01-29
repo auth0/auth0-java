@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = FormFieldPaymentConfig.Builder.class)
 public final class FormFieldPaymentConfig {
-    private final Optional<String> provider;
+    private final Optional<FormFieldPaymentConfigProviderEnum> provider;
 
     private final FormFieldPaymentConfigCharge charge;
 
@@ -34,7 +34,7 @@ public final class FormFieldPaymentConfig {
     private final Map<String, Object> additionalProperties;
 
     private FormFieldPaymentConfig(
-            Optional<String> provider,
+            Optional<FormFieldPaymentConfigProviderEnum> provider,
             FormFieldPaymentConfigCharge charge,
             FormFieldPaymentConfigCredentials credentials,
             Optional<Map<String, Object>> customer,
@@ -49,7 +49,7 @@ public final class FormFieldPaymentConfig {
     }
 
     @JsonProperty("provider")
-    public Optional<String> getProvider() {
+    public Optional<FormFieldPaymentConfigProviderEnum> getProvider() {
         return provider;
     }
 
@@ -119,9 +119,9 @@ public final class FormFieldPaymentConfig {
     public interface _FinalStage {
         FormFieldPaymentConfig build();
 
-        _FinalStage provider(Optional<String> provider);
+        _FinalStage provider(Optional<FormFieldPaymentConfigProviderEnum> provider);
 
-        _FinalStage provider(String provider);
+        _FinalStage provider(FormFieldPaymentConfigProviderEnum provider);
 
         _FinalStage customer(Optional<Map<String, Object>> customer);
 
@@ -142,7 +142,7 @@ public final class FormFieldPaymentConfig {
 
         private Optional<Map<String, Object>> customer = Optional.empty();
 
-        private Optional<String> provider = Optional.empty();
+        private Optional<FormFieldPaymentConfigProviderEnum> provider = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -200,14 +200,14 @@ public final class FormFieldPaymentConfig {
         }
 
         @java.lang.Override
-        public _FinalStage provider(String provider) {
+        public _FinalStage provider(FormFieldPaymentConfigProviderEnum provider) {
             this.provider = Optional.ofNullable(provider);
             return this;
         }
 
         @java.lang.Override
         @JsonSetter(value = "provider", nulls = Nulls.SKIP)
-        public _FinalStage provider(Optional<String> provider) {
+        public _FinalStage provider(Optional<FormFieldPaymentConfigProviderEnum> provider) {
             this.provider = provider;
             return this;
         }

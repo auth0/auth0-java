@@ -21,7 +21,7 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = UserAttributeProfileUserId.Builder.class)
 public final class UserAttributeProfileUserId {
-    private final Optional<String> oidcMapping;
+    private final Optional<UserAttributeProfileUserIdOidcMappingEnum> oidcMapping;
 
     private final Optional<List<String>> samlMapping;
 
@@ -32,7 +32,7 @@ public final class UserAttributeProfileUserId {
     private final Map<String, Object> additionalProperties;
 
     private UserAttributeProfileUserId(
-            Optional<String> oidcMapping,
+            Optional<UserAttributeProfileUserIdOidcMappingEnum> oidcMapping,
             Optional<List<String>> samlMapping,
             Optional<String> scimMapping,
             Optional<UserAttributeProfileStrategyOverridesUserId> strategyOverrides,
@@ -45,7 +45,7 @@ public final class UserAttributeProfileUserId {
     }
 
     @JsonProperty("oidc_mapping")
-    public Optional<String> getOidcMapping() {
+    public Optional<UserAttributeProfileUserIdOidcMappingEnum> getOidcMapping() {
         return oidcMapping;
     }
 
@@ -101,7 +101,7 @@ public final class UserAttributeProfileUserId {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<String> oidcMapping = Optional.empty();
+        private Optional<UserAttributeProfileUserIdOidcMappingEnum> oidcMapping = Optional.empty();
 
         private Optional<List<String>> samlMapping = Optional.empty();
 
@@ -123,12 +123,12 @@ public final class UserAttributeProfileUserId {
         }
 
         @JsonSetter(value = "oidc_mapping", nulls = Nulls.SKIP)
-        public Builder oidcMapping(Optional<String> oidcMapping) {
+        public Builder oidcMapping(Optional<UserAttributeProfileUserIdOidcMappingEnum> oidcMapping) {
             this.oidcMapping = oidcMapping;
             return this;
         }
 
-        public Builder oidcMapping(String oidcMapping) {
+        public Builder oidcMapping(UserAttributeProfileUserIdOidcMappingEnum oidcMapping) {
             this.oidcMapping = Optional.ofNullable(oidcMapping);
             return this;
         }

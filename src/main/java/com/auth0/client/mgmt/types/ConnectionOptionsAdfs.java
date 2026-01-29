@@ -125,9 +125,6 @@ public final class ConnectionOptionsAdfs implements IConnectionOptionsCommon {
         return iconUrl;
     }
 
-    /**
-     * @return Previous certificate thumbprints kept for rollover compatibility.
-     */
     @JsonProperty("prev_thumbprints")
     public Optional<List<String>> getPrevThumbprints() {
         return prevThumbprints;
@@ -365,9 +362,6 @@ public final class ConnectionOptionsAdfs implements IConnectionOptionsCommon {
             return this;
         }
 
-        /**
-         * <p>Previous certificate thumbprints kept for rollover compatibility.</p>
-         */
         @JsonSetter(value = "prev_thumbprints", nulls = Nulls.SKIP)
         public Builder prevThumbprints(Optional<List<String>> prevThumbprints) {
             this.prevThumbprints = prevThumbprints;

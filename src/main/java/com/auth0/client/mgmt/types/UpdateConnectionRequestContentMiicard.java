@@ -34,7 +34,7 @@ public final class UpdateConnectionRequestContentMiicard implements IConnectionC
 
     private final Optional<Map<String, OptionalNullable<String>>> metadata;
 
-    private final Optional<ConnectionOptionsOAuth2Common> options;
+    private final Optional<ConnectionOptionsMiicard> options;
 
     private final Map<String, Object> additionalProperties;
 
@@ -45,7 +45,7 @@ public final class UpdateConnectionRequestContentMiicard implements IConnectionC
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
-            Optional<ConnectionOptionsOAuth2Common> options,
+            Optional<ConnectionOptionsMiicard> options,
             Map<String, Object> additionalProperties) {
         this.authentication = authentication;
         this.connectedAccounts = connectedAccounts;
@@ -94,7 +94,7 @@ public final class UpdateConnectionRequestContentMiicard implements IConnectionC
     }
 
     @JsonProperty("options")
-    public Optional<ConnectionOptionsOAuth2Common> getOptions() {
+    public Optional<ConnectionOptionsMiicard> getOptions() {
         return options;
     }
 
@@ -155,7 +155,7 @@ public final class UpdateConnectionRequestContentMiicard implements IConnectionC
 
         private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
-        private Optional<ConnectionOptionsOAuth2Common> options = Optional.empty();
+        private Optional<ConnectionOptionsMiicard> options = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -240,12 +240,12 @@ public final class UpdateConnectionRequestContentMiicard implements IConnectionC
         }
 
         @JsonSetter(value = "options", nulls = Nulls.SKIP)
-        public Builder options(Optional<ConnectionOptionsOAuth2Common> options) {
+        public Builder options(Optional<ConnectionOptionsMiicard> options) {
             this.options = options;
             return this;
         }
 
-        public Builder options(ConnectionOptionsOAuth2Common options) {
+        public Builder options(ConnectionOptionsMiicard options) {
             this.options = Optional.ofNullable(options);
             return this;
         }

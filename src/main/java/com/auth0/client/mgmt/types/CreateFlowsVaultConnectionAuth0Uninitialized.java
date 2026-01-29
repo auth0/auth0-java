@@ -21,12 +21,12 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateFlowsVaultConnectionAuth0Uninitialized {
     private final String name;
 
-    private final String appId;
+    private final FlowsVaultConnectionAppIdAuth0Enum appId;
 
     private final Map<String, Object> additionalProperties;
 
     private CreateFlowsVaultConnectionAuth0Uninitialized(
-            String name, String appId, Map<String, Object> additionalProperties) {
+            String name, FlowsVaultConnectionAppIdAuth0Enum appId, Map<String, Object> additionalProperties) {
         this.name = name;
         this.appId = appId;
         this.additionalProperties = additionalProperties;
@@ -41,7 +41,7 @@ public final class CreateFlowsVaultConnectionAuth0Uninitialized {
     }
 
     @JsonProperty("app_id")
-    public String getAppId() {
+    public FlowsVaultConnectionAppIdAuth0Enum getAppId() {
         return appId;
     }
 
@@ -85,7 +85,7 @@ public final class CreateFlowsVaultConnectionAuth0Uninitialized {
     }
 
     public interface AppIdStage {
-        _FinalStage appId(@NotNull String appId);
+        _FinalStage appId(@NotNull FlowsVaultConnectionAppIdAuth0Enum appId);
     }
 
     public interface _FinalStage {
@@ -96,7 +96,7 @@ public final class CreateFlowsVaultConnectionAuth0Uninitialized {
     public static final class Builder implements NameStage, AppIdStage, _FinalStage {
         private String name;
 
-        private String appId;
+        private FlowsVaultConnectionAppIdAuth0Enum appId;
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -124,7 +124,7 @@ public final class CreateFlowsVaultConnectionAuth0Uninitialized {
 
         @java.lang.Override
         @JsonSetter("app_id")
-        public _FinalStage appId(@NotNull String appId) {
+        public _FinalStage appId(@NotNull FlowsVaultConnectionAppIdAuth0Enum appId) {
             this.appId = Objects.requireNonNull(appId, "appId must not be null");
             return this;
         }

@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = PublicKeyCredential.Builder.class)
 public final class PublicKeyCredential {
-    private final String credentialType;
+    private final PublicKeyCredentialTypeEnum credentialType;
 
     private final Optional<String> name;
 
@@ -37,7 +37,7 @@ public final class PublicKeyCredential {
     private final Map<String, Object> additionalProperties;
 
     private PublicKeyCredential(
-            String credentialType,
+            PublicKeyCredentialTypeEnum credentialType,
             Optional<String> name,
             String pem,
             Optional<PublicKeyCredentialAlgorithmEnum> alg,
@@ -54,7 +54,7 @@ public final class PublicKeyCredential {
     }
 
     @JsonProperty("credential_type")
-    public String getCredentialType() {
+    public PublicKeyCredentialTypeEnum getCredentialType() {
         return credentialType;
     }
 
@@ -131,7 +131,7 @@ public final class PublicKeyCredential {
     }
 
     public interface CredentialTypeStage {
-        PemStage credentialType(@NotNull String credentialType);
+        PemStage credentialType(@NotNull PublicKeyCredentialTypeEnum credentialType);
 
         Builder from(PublicKeyCredential other);
     }
@@ -174,7 +174,7 @@ public final class PublicKeyCredential {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements CredentialTypeStage, PemStage, _FinalStage {
-        private String credentialType;
+        private PublicKeyCredentialTypeEnum credentialType;
 
         private String pem;
 
@@ -204,7 +204,7 @@ public final class PublicKeyCredential {
 
         @java.lang.Override
         @JsonSetter("credential_type")
-        public PemStage credentialType(@NotNull String credentialType) {
+        public PemStage credentialType(@NotNull PublicKeyCredentialTypeEnum credentialType) {
             this.credentialType = Objects.requireNonNull(credentialType, "credentialType must not be null");
             return this;
         }

@@ -26,14 +26,14 @@ public final class LogStreamPiiConfig {
 
     private final Optional<LogStreamPiiMethodEnum> method;
 
-    private final Optional<String> algorithm;
+    private final Optional<LogStreamPiiAlgorithmEnum> algorithm;
 
     private final Map<String, Object> additionalProperties;
 
     private LogStreamPiiConfig(
             List<LogStreamPiiLogFieldsEnum> logFields,
             Optional<LogStreamPiiMethodEnum> method,
-            Optional<String> algorithm,
+            Optional<LogStreamPiiAlgorithmEnum> algorithm,
             Map<String, Object> additionalProperties) {
         this.logFields = logFields;
         this.method = method;
@@ -52,7 +52,7 @@ public final class LogStreamPiiConfig {
     }
 
     @JsonProperty("algorithm")
-    public Optional<String> getAlgorithm() {
+    public Optional<LogStreamPiiAlgorithmEnum> getAlgorithm() {
         return algorithm;
     }
 
@@ -91,7 +91,7 @@ public final class LogStreamPiiConfig {
 
         private Optional<LogStreamPiiMethodEnum> method = Optional.empty();
 
-        private Optional<String> algorithm = Optional.empty();
+        private Optional<LogStreamPiiAlgorithmEnum> algorithm = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -138,12 +138,12 @@ public final class LogStreamPiiConfig {
         }
 
         @JsonSetter(value = "algorithm", nulls = Nulls.SKIP)
-        public Builder algorithm(Optional<String> algorithm) {
+        public Builder algorithm(Optional<LogStreamPiiAlgorithmEnum> algorithm) {
             this.algorithm = algorithm;
             return this;
         }
 
-        public Builder algorithm(String algorithm) {
+        public Builder algorithm(LogStreamPiiAlgorithmEnum algorithm) {
             this.algorithm = Optional.ofNullable(algorithm);
             return this;
         }

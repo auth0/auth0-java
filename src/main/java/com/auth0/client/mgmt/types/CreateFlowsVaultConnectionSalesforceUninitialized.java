@@ -21,12 +21,12 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateFlowsVaultConnectionSalesforceUninitialized {
     private final String name;
 
-    private final String appId;
+    private final FlowsVaultConnectionAppIdSalesforceEnum appId;
 
     private final Map<String, Object> additionalProperties;
 
     private CreateFlowsVaultConnectionSalesforceUninitialized(
-            String name, String appId, Map<String, Object> additionalProperties) {
+            String name, FlowsVaultConnectionAppIdSalesforceEnum appId, Map<String, Object> additionalProperties) {
         this.name = name;
         this.appId = appId;
         this.additionalProperties = additionalProperties;
@@ -41,7 +41,7 @@ public final class CreateFlowsVaultConnectionSalesforceUninitialized {
     }
 
     @JsonProperty("app_id")
-    public String getAppId() {
+    public FlowsVaultConnectionAppIdSalesforceEnum getAppId() {
         return appId;
     }
 
@@ -85,7 +85,7 @@ public final class CreateFlowsVaultConnectionSalesforceUninitialized {
     }
 
     public interface AppIdStage {
-        _FinalStage appId(@NotNull String appId);
+        _FinalStage appId(@NotNull FlowsVaultConnectionAppIdSalesforceEnum appId);
     }
 
     public interface _FinalStage {
@@ -96,7 +96,7 @@ public final class CreateFlowsVaultConnectionSalesforceUninitialized {
     public static final class Builder implements NameStage, AppIdStage, _FinalStage {
         private String name;
 
-        private String appId;
+        private FlowsVaultConnectionAppIdSalesforceEnum appId;
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -124,7 +124,7 @@ public final class CreateFlowsVaultConnectionSalesforceUninitialized {
 
         @java.lang.Override
         @JsonSetter("app_id")
-        public _FinalStage appId(@NotNull String appId) {
+        public _FinalStage appId(@NotNull FlowsVaultConnectionAppIdSalesforceEnum appId) {
             this.appId = Objects.requireNonNull(appId, "appId must not be null");
             return this;
         }

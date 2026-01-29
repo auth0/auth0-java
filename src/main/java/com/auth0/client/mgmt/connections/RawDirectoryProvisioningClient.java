@@ -3,6 +3,7 @@
  */
 package com.auth0.client.mgmt.connections;
 
+import com.auth0.client.mgmt.connections.types.ListDirectoryProvisioningsRequestParameters;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.ManagementApiException;
 import com.auth0.client.mgmt.core.ManagementApiHttpResponse;
@@ -10,7 +11,9 @@ import com.auth0.client.mgmt.core.ManagementException;
 import com.auth0.client.mgmt.core.MediaTypes;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
+import com.auth0.client.mgmt.core.QueryStringMapper;
 import com.auth0.client.mgmt.core.RequestOptions;
+import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.errors.BadRequestError;
 import com.auth0.client.mgmt.errors.ConflictError;
 import com.auth0.client.mgmt.errors.ForbiddenError;
@@ -19,12 +22,16 @@ import com.auth0.client.mgmt.errors.TooManyRequestsError;
 import com.auth0.client.mgmt.errors.UnauthorizedError;
 import com.auth0.client.mgmt.types.CreateDirectoryProvisioningRequestContent;
 import com.auth0.client.mgmt.types.CreateDirectoryProvisioningResponseContent;
+import com.auth0.client.mgmt.types.DirectoryProvisioning;
 import com.auth0.client.mgmt.types.GetDirectoryProvisioningDefaultMappingResponseContent;
 import com.auth0.client.mgmt.types.GetDirectoryProvisioningResponseContent;
+import com.auth0.client.mgmt.types.ListDirectoryProvisioningsResponseContent;
 import com.auth0.client.mgmt.types.UpdateDirectoryProvisioningRequestContent;
 import com.auth0.client.mgmt.types.UpdateDirectoryProvisioningResponseContent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -38,6 +45,90 @@ public class RawDirectoryProvisioningClient {
 
     public RawDirectoryProvisioningClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+    }
+
+    /**
+     * Retrieve a list of directory provisioning configurations of a tenant.
+     */
+    public ManagementApiHttpResponse<SyncPagingIterable<DirectoryProvisioning>> list() {
+        return list(ListDirectoryProvisioningsRequestParameters.builder().build());
+    }
+
+    /**
+     * Retrieve a list of directory provisioning configurations of a tenant.
+     */
+    public ManagementApiHttpResponse<SyncPagingIterable<DirectoryProvisioning>> list(
+            ListDirectoryProvisioningsRequestParameters request) {
+        return list(request, null);
+    }
+
+    /**
+     * Retrieve a list of directory provisioning configurations of a tenant.
+     */
+    public ManagementApiHttpResponse<SyncPagingIterable<DirectoryProvisioning>> list(
+            ListDirectoryProvisioningsRequestParameters request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("connections-directory-provisionings");
+        if (!request.getFrom().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "from", request.getFrom().orElse(null), false);
+        }
+        QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                ListDirectoryProvisioningsResponseContent parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                        responseBodyString, ListDirectoryProvisioningsResponseContent.class);
+                Optional<String> startingAfter = parsedResponse.getNext();
+                ListDirectoryProvisioningsRequestParameters nextRequest =
+                        ListDirectoryProvisioningsRequestParameters.builder()
+                                .from(request)
+                                .from(startingAfter)
+                                .build();
+                List<DirectoryProvisioning> result = parsedResponse.getDirectoryProvisionings();
+                return new ManagementApiHttpResponse<>(
+                        new SyncPagingIterable<DirectoryProvisioning>(
+                                startingAfter.isPresent(), result, parsedResponse, () -> list(
+                                                nextRequest, requestOptions)
+                                        .body()),
+                        response);
+            }
+            try {
+                switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 401:
+                        throw new UnauthorizedError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 403:
+                        throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 429:
+                        throw new TooManyRequestsError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                }
+            } catch (JsonProcessingException ignored) {
+                // unable to map error response, throwing generic error
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new ManagementApiException(
+                    "Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (IOException e) {
+            throw new ManagementException("Network error executing HTTP request", e);
+        }
     }
 
     /**

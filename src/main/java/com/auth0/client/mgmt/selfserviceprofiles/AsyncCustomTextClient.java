@@ -5,6 +5,8 @@ package com.auth0.client.mgmt.selfserviceprofiles;
 
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
+import com.auth0.client.mgmt.types.SelfServiceProfileCustomTextLanguageEnum;
+import com.auth0.client.mgmt.types.SelfServiceProfileCustomTextPageEnum;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
@@ -28,7 +30,8 @@ public class AsyncCustomTextClient {
     /**
      * Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
-    public CompletableFuture<Map<String, String>> list(String id, String language, String page) {
+    public CompletableFuture<Map<String, String>> list(
+            String id, SelfServiceProfileCustomTextLanguageEnum language, SelfServiceProfileCustomTextPageEnum page) {
         return this.rawClient.list(id, language, page).thenApply(response -> response.body());
     }
 
@@ -36,7 +39,10 @@ public class AsyncCustomTextClient {
      * Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
     public CompletableFuture<Map<String, String>> list(
-            String id, String language, String page, RequestOptions requestOptions) {
+            String id,
+            SelfServiceProfileCustomTextLanguageEnum language,
+            SelfServiceProfileCustomTextPageEnum page,
+            RequestOptions requestOptions) {
         return this.rawClient.list(id, language, page, requestOptions).thenApply(response -> response.body());
     }
 
@@ -44,7 +50,10 @@ public class AsyncCustomTextClient {
      * Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
     public CompletableFuture<Map<String, String>> set(
-            String id, String language, String page, Map<String, String> request) {
+            String id,
+            SelfServiceProfileCustomTextLanguageEnum language,
+            SelfServiceProfileCustomTextPageEnum page,
+            Map<String, String> request) {
         return this.rawClient.set(id, language, page, request).thenApply(response -> response.body());
     }
 
@@ -52,7 +61,11 @@ public class AsyncCustomTextClient {
      * Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
      */
     public CompletableFuture<Map<String, String>> set(
-            String id, String language, String page, Map<String, String> request, RequestOptions requestOptions) {
+            String id,
+            SelfServiceProfileCustomTextLanguageEnum language,
+            SelfServiceProfileCustomTextPageEnum page,
+            Map<String, String> request,
+            RequestOptions requestOptions) {
         return this.rawClient.set(id, language, page, request, requestOptions).thenApply(response -> response.body());
     }
 }

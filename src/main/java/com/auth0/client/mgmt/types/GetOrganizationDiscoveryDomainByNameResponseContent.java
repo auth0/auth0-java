@@ -74,7 +74,7 @@ public final class GetOrganizationDiscoveryDomainByNameResponseContent {
     }
 
     /**
-     * @return Indicates whether this domain should be used for organization discovery. Note: This field is only returned when the ss_org_dove_enabled feature flag is enabled for the tenant.
+     * @return Indicates whether this domain should be used for organization discovery.
      */
     @JsonProperty("use_for_organization_discovery")
     public Optional<Boolean> getUseForOrganizationDiscovery() {
@@ -176,7 +176,7 @@ public final class GetOrganizationDiscoveryDomainByNameResponseContent {
         GetOrganizationDiscoveryDomainByNameResponseContent build();
 
         /**
-         * <p>Indicates whether this domain should be used for organization discovery. Note: This field is only returned when the ss_org_dove_enabled feature flag is enabled for the tenant.</p>
+         * <p>Indicates whether this domain should be used for organization discovery.</p>
          */
         _FinalStage useForOrganizationDiscovery(Optional<Boolean> useForOrganizationDiscovery);
 
@@ -270,7 +270,7 @@ public final class GetOrganizationDiscoveryDomainByNameResponseContent {
         }
 
         /**
-         * <p>Indicates whether this domain should be used for organization discovery. Note: This field is only returned when the ss_org_dove_enabled feature flag is enabled for the tenant.</p>
+         * <p>Indicates whether this domain should be used for organization discovery.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -280,7 +280,7 @@ public final class GetOrganizationDiscoveryDomainByNameResponseContent {
         }
 
         /**
-         * <p>Indicates whether this domain should be used for organization discovery. Note: This field is only returned when the ss_org_dove_enabled feature flag is enabled for the tenant.</p>
+         * <p>Indicates whether this domain should be used for organization discovery.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "use_for_organization_discovery", nulls = Nulls.SKIP)

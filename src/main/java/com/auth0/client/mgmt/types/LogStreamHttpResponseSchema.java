@@ -27,7 +27,7 @@ public final class LogStreamHttpResponseSchema {
 
     private final Optional<LogStreamStatusEnum> status;
 
-    private final Optional<String> type;
+    private final Optional<LogStreamHttpEnum> type;
 
     private final Optional<Boolean> isPriority;
 
@@ -43,7 +43,7 @@ public final class LogStreamHttpResponseSchema {
             Optional<String> id,
             Optional<String> name,
             Optional<LogStreamStatusEnum> status,
-            Optional<String> type,
+            Optional<LogStreamHttpEnum> type,
             Optional<Boolean> isPriority,
             Optional<List<LogStreamFilter>> filters,
             Optional<LogStreamPiiConfig> piiConfig,
@@ -82,7 +82,7 @@ public final class LogStreamHttpResponseSchema {
     }
 
     @JsonProperty("type")
-    public Optional<String> getType() {
+    public Optional<LogStreamHttpEnum> getType() {
         return type;
     }
 
@@ -157,7 +157,7 @@ public final class LogStreamHttpResponseSchema {
 
         private Optional<LogStreamStatusEnum> status = Optional.empty();
 
-        private Optional<String> type = Optional.empty();
+        private Optional<LogStreamHttpEnum> type = Optional.empty();
 
         private Optional<Boolean> isPriority = Optional.empty();
 
@@ -224,12 +224,12 @@ public final class LogStreamHttpResponseSchema {
         }
 
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
-        public Builder type(Optional<String> type) {
+        public Builder type(Optional<LogStreamHttpEnum> type) {
             this.type = type;
             return this;
         }
 
-        public Builder type(String type) {
+        public Builder type(LogStreamHttpEnum type) {
             this.type = Optional.ofNullable(type);
             return this;
         }

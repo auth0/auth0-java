@@ -41,6 +41,10 @@ public final class FlowActionAuth0 {
             return visitor.visit((FlowActionAuth0SendRequest) this.value);
         } else if (this.type == 4) {
             return visitor.visit((FlowActionAuth0SendEmail) this.value);
+        } else if (this.type == 5) {
+            return visitor.visit((FlowActionAuth0SendSms) this.value);
+        } else if (this.type == 6) {
+            return visitor.visit((FlowActionAuth0MakeCall) this.value);
         }
         throw new IllegalStateException("Failed to visit value. This should never happen.");
     }
@@ -85,6 +89,14 @@ public final class FlowActionAuth0 {
         return new FlowActionAuth0(value, 4);
     }
 
+    public static FlowActionAuth0 of(FlowActionAuth0SendSms value) {
+        return new FlowActionAuth0(value, 5);
+    }
+
+    public static FlowActionAuth0 of(FlowActionAuth0MakeCall value) {
+        return new FlowActionAuth0(value, 6);
+    }
+
     public interface Visitor<T> {
         T visit(FlowActionAuth0CreateUser value);
 
@@ -95,6 +107,10 @@ public final class FlowActionAuth0 {
         T visit(FlowActionAuth0SendRequest value);
 
         T visit(FlowActionAuth0SendEmail value);
+
+        T visit(FlowActionAuth0SendSms value);
+
+        T visit(FlowActionAuth0MakeCall value);
     }
 
     static final class Deserializer extends StdDeserializer<FlowActionAuth0> {
@@ -123,6 +139,14 @@ public final class FlowActionAuth0 {
             }
             try {
                 return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionAuth0SendEmail.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionAuth0SendSms.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionAuth0MakeCall.class));
             } catch (RuntimeException e) {
             }
             throw new JsonParseException(p, "Failed to deserialize");

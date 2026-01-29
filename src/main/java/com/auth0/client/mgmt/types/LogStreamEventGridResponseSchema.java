@@ -27,7 +27,7 @@ public final class LogStreamEventGridResponseSchema {
 
     private final Optional<LogStreamStatusEnum> status;
 
-    private final Optional<String> type;
+    private final Optional<LogStreamEventGridEnum> type;
 
     private final Optional<Boolean> isPriority;
 
@@ -43,7 +43,7 @@ public final class LogStreamEventGridResponseSchema {
             Optional<String> id,
             Optional<String> name,
             Optional<LogStreamStatusEnum> status,
-            Optional<String> type,
+            Optional<LogStreamEventGridEnum> type,
             Optional<Boolean> isPriority,
             Optional<List<LogStreamFilter>> filters,
             Optional<LogStreamPiiConfig> piiConfig,
@@ -82,7 +82,7 @@ public final class LogStreamEventGridResponseSchema {
     }
 
     @JsonProperty("type")
-    public Optional<String> getType() {
+    public Optional<LogStreamEventGridEnum> getType() {
         return type;
     }
 
@@ -157,7 +157,7 @@ public final class LogStreamEventGridResponseSchema {
 
         private Optional<LogStreamStatusEnum> status = Optional.empty();
 
-        private Optional<String> type = Optional.empty();
+        private Optional<LogStreamEventGridEnum> type = Optional.empty();
 
         private Optional<Boolean> isPriority = Optional.empty();
 
@@ -224,12 +224,12 @@ public final class LogStreamEventGridResponseSchema {
         }
 
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
-        public Builder type(Optional<String> type) {
+        public Builder type(Optional<LogStreamEventGridEnum> type) {
             this.type = type;
             return this;
         }
 
-        public Builder type(String type) {
+        public Builder type(LogStreamEventGridEnum type) {
             this.type = Optional.ofNullable(type);
             return this;
         }

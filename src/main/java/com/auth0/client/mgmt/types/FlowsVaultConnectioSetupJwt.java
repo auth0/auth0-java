@@ -19,21 +19,23 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = FlowsVaultConnectioSetupJwt.Builder.class)
 public final class FlowsVaultConnectioSetupJwt {
-    private final String type;
+    private final FlowsVaultConnectioSetupTypeJwtEnum type;
 
     private final FlowsVaultConnectioSetupJwtAlgorithmEnum algorithm;
 
     private final Map<String, Object> additionalProperties;
 
     private FlowsVaultConnectioSetupJwt(
-            String type, FlowsVaultConnectioSetupJwtAlgorithmEnum algorithm, Map<String, Object> additionalProperties) {
+            FlowsVaultConnectioSetupTypeJwtEnum type,
+            FlowsVaultConnectioSetupJwtAlgorithmEnum algorithm,
+            Map<String, Object> additionalProperties) {
         this.type = type;
         this.algorithm = algorithm;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public FlowsVaultConnectioSetupTypeJwtEnum getType() {
         return type;
     }
 
@@ -72,7 +74,7 @@ public final class FlowsVaultConnectioSetupJwt {
     }
 
     public interface TypeStage {
-        AlgorithmStage type(@NotNull String type);
+        AlgorithmStage type(@NotNull FlowsVaultConnectioSetupTypeJwtEnum type);
 
         Builder from(FlowsVaultConnectioSetupJwt other);
     }
@@ -87,7 +89,7 @@ public final class FlowsVaultConnectioSetupJwt {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements TypeStage, AlgorithmStage, _FinalStage {
-        private String type;
+        private FlowsVaultConnectioSetupTypeJwtEnum type;
 
         private FlowsVaultConnectioSetupJwtAlgorithmEnum algorithm;
 
@@ -105,7 +107,7 @@ public final class FlowsVaultConnectioSetupJwt {
 
         @java.lang.Override
         @JsonSetter("type")
-        public AlgorithmStage type(@NotNull String type) {
+        public AlgorithmStage type(@NotNull FlowsVaultConnectioSetupTypeJwtEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

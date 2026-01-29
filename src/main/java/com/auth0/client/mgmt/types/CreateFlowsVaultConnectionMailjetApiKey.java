@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateFlowsVaultConnectionMailjetApiKey {
     private final String name;
 
-    private final String appId;
+    private final FlowsVaultConnectionAppIdMailjetEnum appId;
 
     private final FlowsVaultConnectioSetupMailjetApiKey setup;
 
@@ -29,7 +29,7 @@ public final class CreateFlowsVaultConnectionMailjetApiKey {
 
     private CreateFlowsVaultConnectionMailjetApiKey(
             String name,
-            String appId,
+            FlowsVaultConnectionAppIdMailjetEnum appId,
             FlowsVaultConnectioSetupMailjetApiKey setup,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -47,7 +47,7 @@ public final class CreateFlowsVaultConnectionMailjetApiKey {
     }
 
     @JsonProperty("app_id")
-    public String getAppId() {
+    public FlowsVaultConnectionAppIdMailjetEnum getAppId() {
         return appId;
     }
 
@@ -96,7 +96,7 @@ public final class CreateFlowsVaultConnectionMailjetApiKey {
     }
 
     public interface AppIdStage {
-        SetupStage appId(@NotNull String appId);
+        SetupStage appId(@NotNull FlowsVaultConnectionAppIdMailjetEnum appId);
     }
 
     public interface SetupStage {
@@ -111,7 +111,7 @@ public final class CreateFlowsVaultConnectionMailjetApiKey {
     public static final class Builder implements NameStage, AppIdStage, SetupStage, _FinalStage {
         private String name;
 
-        private String appId;
+        private FlowsVaultConnectionAppIdMailjetEnum appId;
 
         private FlowsVaultConnectioSetupMailjetApiKey setup;
 
@@ -142,7 +142,7 @@ public final class CreateFlowsVaultConnectionMailjetApiKey {
 
         @java.lang.Override
         @JsonSetter("app_id")
-        public SetupStage appId(@NotNull String appId) {
+        public SetupStage appId(@NotNull FlowsVaultConnectionAppIdMailjetEnum appId) {
             this.appId = Objects.requireNonNull(appId, "appId must not be null");
             return this;
         }

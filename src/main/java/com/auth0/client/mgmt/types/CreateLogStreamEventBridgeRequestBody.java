@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateLogStreamEventBridgeRequestBody {
     private final Optional<String> name;
 
-    private final String type;
+    private final LogStreamEventBridgeEnum type;
 
     private final Optional<Boolean> isPriority;
 
@@ -40,7 +40,7 @@ public final class CreateLogStreamEventBridgeRequestBody {
 
     private CreateLogStreamEventBridgeRequestBody(
             Optional<String> name,
-            String type,
+            LogStreamEventBridgeEnum type,
             Optional<Boolean> isPriority,
             Optional<List<LogStreamFilter>> filters,
             Optional<LogStreamPiiConfig> piiConfig,
@@ -66,7 +66,7 @@ public final class CreateLogStreamEventBridgeRequestBody {
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public LogStreamEventBridgeEnum getType() {
         return type;
     }
 
@@ -142,7 +142,7 @@ public final class CreateLogStreamEventBridgeRequestBody {
     }
 
     public interface TypeStage {
-        SinkStage type(@NotNull String type);
+        SinkStage type(@NotNull LogStreamEventBridgeEnum type);
 
         Builder from(CreateLogStreamEventBridgeRequestBody other);
     }
@@ -189,7 +189,7 @@ public final class CreateLogStreamEventBridgeRequestBody {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements TypeStage, SinkStage, _FinalStage {
-        private String type;
+        private LogStreamEventBridgeEnum type;
 
         private LogStreamEventBridgeSink sink;
 
@@ -222,7 +222,7 @@ public final class CreateLogStreamEventBridgeRequestBody {
 
         @java.lang.Override
         @JsonSetter("type")
-        public SinkStage type(@NotNull String type) {
+        public SinkStage type(@NotNull LogStreamEventBridgeEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

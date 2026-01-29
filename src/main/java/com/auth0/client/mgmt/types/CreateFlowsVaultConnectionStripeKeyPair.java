@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public final class CreateFlowsVaultConnectionStripeKeyPair {
     private final String name;
 
-    private final String appId;
+    private final FlowsVaultConnectionAppIdStripeEnum appId;
 
     private final FlowsVaultConnectioSetupStripeKeyPair setup;
 
@@ -29,7 +29,7 @@ public final class CreateFlowsVaultConnectionStripeKeyPair {
 
     private CreateFlowsVaultConnectionStripeKeyPair(
             String name,
-            String appId,
+            FlowsVaultConnectionAppIdStripeEnum appId,
             FlowsVaultConnectioSetupStripeKeyPair setup,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -47,7 +47,7 @@ public final class CreateFlowsVaultConnectionStripeKeyPair {
     }
 
     @JsonProperty("app_id")
-    public String getAppId() {
+    public FlowsVaultConnectionAppIdStripeEnum getAppId() {
         return appId;
     }
 
@@ -96,7 +96,7 @@ public final class CreateFlowsVaultConnectionStripeKeyPair {
     }
 
     public interface AppIdStage {
-        SetupStage appId(@NotNull String appId);
+        SetupStage appId(@NotNull FlowsVaultConnectionAppIdStripeEnum appId);
     }
 
     public interface SetupStage {
@@ -111,7 +111,7 @@ public final class CreateFlowsVaultConnectionStripeKeyPair {
     public static final class Builder implements NameStage, AppIdStage, SetupStage, _FinalStage {
         private String name;
 
-        private String appId;
+        private FlowsVaultConnectionAppIdStripeEnum appId;
 
         private FlowsVaultConnectioSetupStripeKeyPair setup;
 
@@ -142,7 +142,7 @@ public final class CreateFlowsVaultConnectionStripeKeyPair {
 
         @java.lang.Override
         @JsonSetter("app_id")
-        public SetupStage appId(@NotNull String appId) {
+        public SetupStage appId(@NotNull FlowsVaultConnectionAppIdStripeEnum appId) {
             this.appId = Objects.requireNonNull(appId, "appId must not be null");
             return this;
         }

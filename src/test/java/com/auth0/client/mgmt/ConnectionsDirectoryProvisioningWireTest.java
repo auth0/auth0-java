@@ -1,8 +1,11 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.client.mgmt.connections.types.ListDirectoryProvisioningsRequestParameters;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
+import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateDirectoryProvisioningResponseContent;
+import com.auth0.client.mgmt.types.DirectoryProvisioning;
 import com.auth0.client.mgmt.types.GetDirectoryProvisioningDefaultMappingResponseContent;
 import com.auth0.client.mgmt.types.GetDirectoryProvisioningResponseContent;
 import com.auth0.client.mgmt.types.UpdateDirectoryProvisioningResponseContent;
@@ -34,6 +37,29 @@ public class ConnectionsDirectoryProvisioningWireTest {
     @AfterEach
     public void teardown() throws Exception {
         server.shutdown();
+    }
+
+    @Test
+    public void testList() throws Exception {
+        server.enqueue(
+                new MockResponse()
+                        .setResponseCode(200)
+                        .setBody(
+                                "{\"directory_provisionings\":[{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}],\"next\":\"next\"}"));
+        SyncPagingIterable<DirectoryProvisioning> response = client.connections()
+                .directoryProvisioning()
+                .list(ListDirectoryProvisioningsRequestParameters.builder()
+                        .from(OptionalNullable.of("from"))
+                        .take(OptionalNullable.of(1))
+                        .build());
+        RecordedRequest request = server.takeRequest();
+        Assertions.assertNotNull(request);
+        Assertions.assertEquals("GET", request.getMethod());
+
+        // Validate response body
+        Assertions.assertNotNull(response, "Response should not be null");
+        // Pagination response validated via MockWebServer
+        // The SDK correctly parses the response into a SyncPagingIterable
     }
 
     @Test

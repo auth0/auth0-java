@@ -44,7 +44,7 @@ public final class UpdateResourceServerRequestContent {
 
     private final OptionalNullable<ResourceServerTokenEncryption> tokenEncryption;
 
-    private final OptionalNullable<String> consentPolicy;
+    private final OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy;
 
     private final Optional<List<Object>> authorizationDetails;
 
@@ -65,7 +65,7 @@ public final class UpdateResourceServerRequestContent {
             Optional<ResourceServerTokenDialectSchemaEnum> tokenDialect,
             Optional<Boolean> enforcePolicies,
             OptionalNullable<ResourceServerTokenEncryption> tokenEncryption,
-            OptionalNullable<String> consentPolicy,
+            OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy,
             Optional<List<Object>> authorizationDetails,
             OptionalNullable<ResourceServerProofOfPossession> proofOfPossession,
             Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization,
@@ -164,7 +164,7 @@ public final class UpdateResourceServerRequestContent {
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("consent_policy")
-    public OptionalNullable<String> getConsentPolicy() {
+    public OptionalNullable<ResourceServerConsentPolicyEnum> getConsentPolicy() {
         if (consentPolicy == null) {
             return OptionalNullable.absent();
         }
@@ -198,7 +198,7 @@ public final class UpdateResourceServerRequestContent {
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("consent_policy")
-    private OptionalNullable<String> _getConsentPolicy() {
+    private OptionalNullable<ResourceServerConsentPolicyEnum> _getConsentPolicy() {
         return consentPolicy;
     }
 
@@ -287,7 +287,7 @@ public final class UpdateResourceServerRequestContent {
 
         private OptionalNullable<ResourceServerTokenEncryption> tokenEncryption = OptionalNullable.absent();
 
-        private OptionalNullable<String> consentPolicy = OptionalNullable.absent();
+        private OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy = OptionalNullable.absent();
 
         private Optional<List<Object>> authorizationDetails = Optional.empty();
 
@@ -473,17 +473,17 @@ public final class UpdateResourceServerRequestContent {
         }
 
         @JsonSetter(value = "consent_policy", nulls = Nulls.SKIP)
-        public Builder consentPolicy(@Nullable OptionalNullable<String> consentPolicy) {
+        public Builder consentPolicy(@Nullable OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy) {
             this.consentPolicy = consentPolicy;
             return this;
         }
 
-        public Builder consentPolicy(String consentPolicy) {
+        public Builder consentPolicy(ResourceServerConsentPolicyEnum consentPolicy) {
             this.consentPolicy = OptionalNullable.of(consentPolicy);
             return this;
         }
 
-        public Builder consentPolicy(Optional<String> consentPolicy) {
+        public Builder consentPolicy(Optional<ResourceServerConsentPolicyEnum> consentPolicy) {
             if (consentPolicy.isPresent()) {
                 this.consentPolicy = OptionalNullable.of(consentPolicy.get());
             } else {
@@ -492,7 +492,8 @@ public final class UpdateResourceServerRequestContent {
             return this;
         }
 
-        public Builder consentPolicy(com.auth0.client.mgmt.core.Nullable<String> consentPolicy) {
+        public Builder consentPolicy(
+                com.auth0.client.mgmt.core.Nullable<ResourceServerConsentPolicyEnum> consentPolicy) {
             if (consentPolicy.isNull()) {
                 this.consentPolicy = OptionalNullable.ofNull();
             } else if (consentPolicy.isEmpty()) {

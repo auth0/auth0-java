@@ -28,9 +28,9 @@ public final class LogLocationInfo {
 
     private final Optional<String> cityName;
 
-    private final Optional<String> latitude;
+    private final Optional<Double> latitude;
 
-    private final Optional<String> longitude;
+    private final Optional<Double> longitude;
 
     private final Optional<String> timeZone;
 
@@ -43,8 +43,8 @@ public final class LogLocationInfo {
             Optional<String> countryCode3,
             Optional<String> countryName,
             Optional<String> cityName,
-            Optional<String> latitude,
-            Optional<String> longitude,
+            Optional<Double> latitude,
+            Optional<Double> longitude,
             Optional<String> timeZone,
             Optional<String> continentCode,
             Map<String, Object> additionalProperties) {
@@ -95,7 +95,7 @@ public final class LogLocationInfo {
      * @return Global latitude (horizontal) position.
      */
     @JsonProperty("latitude")
-    public Optional<String> getLatitude() {
+    public Optional<Double> getLatitude() {
         return latitude;
     }
 
@@ -103,7 +103,7 @@ public final class LogLocationInfo {
      * @return Global longitude (vertical) position.
      */
     @JsonProperty("longitude")
-    public Optional<String> getLongitude() {
+    public Optional<Double> getLongitude() {
         return longitude;
     }
 
@@ -177,9 +177,9 @@ public final class LogLocationInfo {
 
         private Optional<String> cityName = Optional.empty();
 
-        private Optional<String> latitude = Optional.empty();
+        private Optional<Double> latitude = Optional.empty();
 
-        private Optional<String> longitude = Optional.empty();
+        private Optional<Double> longitude = Optional.empty();
 
         private Optional<String> timeZone = Optional.empty();
 
@@ -262,12 +262,12 @@ public final class LogLocationInfo {
          * <p>Global latitude (horizontal) position.</p>
          */
         @JsonSetter(value = "latitude", nulls = Nulls.SKIP)
-        public Builder latitude(Optional<String> latitude) {
+        public Builder latitude(Optional<Double> latitude) {
             this.latitude = latitude;
             return this;
         }
 
-        public Builder latitude(String latitude) {
+        public Builder latitude(Double latitude) {
             this.latitude = Optional.ofNullable(latitude);
             return this;
         }
@@ -276,12 +276,12 @@ public final class LogLocationInfo {
          * <p>Global longitude (vertical) position.</p>
          */
         @JsonSetter(value = "longitude", nulls = Nulls.SKIP)
-        public Builder longitude(Optional<String> longitude) {
+        public Builder longitude(Optional<Double> longitude) {
             this.longitude = longitude;
             return this;
         }
 
-        public Builder longitude(String longitude) {
+        public Builder longitude(Double longitude) {
             this.longitude = Optional.ofNullable(longitude);
             return this;
         }

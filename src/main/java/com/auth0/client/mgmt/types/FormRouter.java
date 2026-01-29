@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 public final class FormRouter {
     private final String id;
 
-    private final String type;
+    private final FormNodeTypeRouterConst type;
 
     private final Optional<FormNodeCoordinates> coordinates;
 
@@ -35,7 +35,7 @@ public final class FormRouter {
 
     private FormRouter(
             String id,
-            String type,
+            FormNodeTypeRouterConst type,
             Optional<FormNodeCoordinates> coordinates,
             Optional<String> alias,
             Optional<FormRouterConfig> config,
@@ -54,7 +54,7 @@ public final class FormRouter {
     }
 
     @JsonProperty("type")
-    public String getType() {
+    public FormNodeTypeRouterConst getType() {
         return type;
     }
 
@@ -113,7 +113,7 @@ public final class FormRouter {
     }
 
     public interface TypeStage {
-        _FinalStage type(@NotNull String type);
+        _FinalStage type(@NotNull FormNodeTypeRouterConst type);
     }
 
     public interface _FinalStage {
@@ -136,7 +136,7 @@ public final class FormRouter {
     public static final class Builder implements IdStage, TypeStage, _FinalStage {
         private String id;
 
-        private String type;
+        private FormNodeTypeRouterConst type;
 
         private Optional<FormRouterConfig> config = Optional.empty();
 
@@ -168,7 +168,7 @@ public final class FormRouter {
 
         @java.lang.Override
         @JsonSetter("type")
-        public _FinalStage type(@NotNull String type) {
+        public _FinalStage type(@NotNull FormNodeTypeRouterConst type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
