@@ -5,7 +5,7 @@
 
 **Added**
 - Feat: Added Support for App Access Permission and Inbound User Directory GA [\#813](https://github.com/auth0/auth0-java/pull/813) ([fern-api[bot]](https://github.com/apps/fern-api))
-- :herb: Fern Regeneration -- January 13, 2026 [\#808](https://github.com/auth0/auth0-java/pull/808) ([fern-api[bot]](https://github.com/apps/fern-api))
+- Feat: Added Self Service Organization Domain Java Support [\#808](https://github.com/auth0/auth0-java/pull/808) ([fern-api[bot]](https://github.com/apps/fern-api))
 - Updated Readme [\#809](https://github.com/auth0/auth0-java/pull/809) ([tanya732](https://github.com/tanya732))
 
 ## [3.0.0](https://github.com/auth0/auth0-java/tree/3.0.0) (2026-01-09)
