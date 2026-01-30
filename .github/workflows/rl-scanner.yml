@@ -49,10 +49,8 @@ jobs:
         uses: ./.github/actions/get-version
 
       - name: Create tgz build artifact
-        env:
-          ARTIFACT_NAME: ${{ inputs.artifact-name }}
         run: |
-          tar -czvf $ARTIFACT_NAME *
+          tar -czvf ${{ inputs.artifact-name }} *
 
       - name: Run RL Scanner
         id: rl-scan-conclusion
