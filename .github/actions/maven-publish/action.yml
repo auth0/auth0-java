@@ -22,13 +22,11 @@ runs:
 
     - name: Setup Java
       shell: bash
-      env:
-        JAVA_VERSION: ${{ inputs.java-version }}
       run: |
         curl -s "https://get.sdkman.io" | bash
         source "/home/runner/.sdkman/bin/sdkman-init.sh"
         sdk list java
-        sdk install java $JAVA_VERSION && sdk default java $JAVA_VERSION
+        sdk install java ${{ inputs.java-version }} && sdk default java ${{ inputs.java-version }}
         export JAVA_HOME=${SDKMAN_DIR}/candidates/java/current
         echo "JAVA_HOME is set to $JAVA_HOME"
 
