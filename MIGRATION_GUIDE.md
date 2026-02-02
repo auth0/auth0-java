@@ -362,8 +362,8 @@ All types use immutable builders:
 // v3 type construction
 CreateUserRequestContent request = CreateUserRequestContent
     .builder()
-    .email("test@example.com")
     .connection("Username-Password-Authentication")
+    .email("test@example.com")
     .password("secure-password")
     .build();
 ```
