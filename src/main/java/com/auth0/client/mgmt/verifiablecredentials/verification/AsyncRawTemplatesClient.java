@@ -30,7 +30,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import okhttp3.Call;
@@ -102,7 +101,7 @@ public class AsyncRawTemplatesClient {
                                 ObjectMappers.JSON_MAPPER.readValue(
                                         responseBodyString,
                                         ListVerifiableCredentialTemplatesPaginatedResponseContent.class);
-                        Optional<String> startingAfter = parsedResponse.getNext();
+                        String startingAfter = parsedResponse.getNext().orElse(null);
                         ListVerifiableCredentialTemplatesRequestParameters nextRequest =
                                 ListVerifiableCredentialTemplatesRequestParameters.builder()
                                         .from(request)
@@ -112,7 +111,7 @@ public class AsyncRawTemplatesClient {
                                 parsedResponse.getTemplates().orElse(Collections.emptyList());
                         future.complete(new ManagementApiHttpResponse<>(
                                 new SyncPagingIterable<VerifiableCredentialTemplateResponse>(
-                                        startingAfter.isPresent(), result, parsedResponse, () -> {
+                                        !startingAfter.isEmpty(), result, parsedResponse, () -> {
                                             try {
                                                 return list(nextRequest, requestOptions)
                                                         .get()

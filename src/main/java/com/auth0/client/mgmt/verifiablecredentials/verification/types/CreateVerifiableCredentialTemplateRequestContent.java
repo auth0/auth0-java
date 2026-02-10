@@ -3,7 +3,9 @@
  */
 package com.auth0.client.mgmt.verifiablecredentials.verification.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.types.MdlPresentationRequest;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -18,6 +20,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = CreateVerifiableCredentialTemplateRequestContent.Builder.class)
@@ -30,7 +33,7 @@ public final class CreateVerifiableCredentialTemplateRequestContent {
 
     private final MdlPresentationRequest presentation;
 
-    private final Optional<String> customCertificateAuthority;
+    private final OptionalNullable<String> customCertificateAuthority;
 
     private final String wellKnownTrustedIssuers;
 
@@ -41,7 +44,7 @@ public final class CreateVerifiableCredentialTemplateRequestContent {
             String type,
             String dialect,
             MdlPresentationRequest presentation,
-            Optional<String> customCertificateAuthority,
+            OptionalNullable<String> customCertificateAuthority,
             String wellKnownTrustedIssuers,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -73,14 +76,24 @@ public final class CreateVerifiableCredentialTemplateRequestContent {
         return presentation;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("custom_certificate_authority")
-    public Optional<String> getCustomCertificateAuthority() {
+    public OptionalNullable<String> getCustomCertificateAuthority() {
+        if (customCertificateAuthority == null) {
+            return OptionalNullable.absent();
+        }
         return customCertificateAuthority;
     }
 
     @JsonProperty("well_known_trusted_issuers")
     public String getWellKnownTrustedIssuers() {
         return wellKnownTrustedIssuers;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("custom_certificate_authority")
+    private OptionalNullable<String> _getCustomCertificateAuthority() {
+        return customCertificateAuthority;
     }
 
     @java.lang.Override
@@ -149,9 +162,13 @@ public final class CreateVerifiableCredentialTemplateRequestContent {
     public interface _FinalStage {
         CreateVerifiableCredentialTemplateRequestContent build();
 
-        _FinalStage customCertificateAuthority(Optional<String> customCertificateAuthority);
+        _FinalStage customCertificateAuthority(@Nullable OptionalNullable<String> customCertificateAuthority);
 
         _FinalStage customCertificateAuthority(String customCertificateAuthority);
+
+        _FinalStage customCertificateAuthority(Optional<String> customCertificateAuthority);
+
+        _FinalStage customCertificateAuthority(com.auth0.client.mgmt.core.Nullable<String> customCertificateAuthority);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -172,7 +189,7 @@ public final class CreateVerifiableCredentialTemplateRequestContent {
 
         private String wellKnownTrustedIssuers;
 
-        private Optional<String> customCertificateAuthority = Optional.empty();
+        private OptionalNullable<String> customCertificateAuthority = OptionalNullable.absent();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -227,14 +244,37 @@ public final class CreateVerifiableCredentialTemplateRequestContent {
         }
 
         @java.lang.Override
+        public _FinalStage customCertificateAuthority(
+                com.auth0.client.mgmt.core.Nullable<String> customCertificateAuthority) {
+            if (customCertificateAuthority.isNull()) {
+                this.customCertificateAuthority = OptionalNullable.ofNull();
+            } else if (customCertificateAuthority.isEmpty()) {
+                this.customCertificateAuthority = OptionalNullable.absent();
+            } else {
+                this.customCertificateAuthority = OptionalNullable.of(customCertificateAuthority.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage customCertificateAuthority(Optional<String> customCertificateAuthority) {
+            if (customCertificateAuthority.isPresent()) {
+                this.customCertificateAuthority = OptionalNullable.of(customCertificateAuthority.get());
+            } else {
+                this.customCertificateAuthority = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage customCertificateAuthority(String customCertificateAuthority) {
-            this.customCertificateAuthority = Optional.ofNullable(customCertificateAuthority);
+            this.customCertificateAuthority = OptionalNullable.of(customCertificateAuthority);
             return this;
         }
 
         @java.lang.Override
         @JsonSetter(value = "custom_certificate_authority", nulls = Nulls.SKIP)
-        public _FinalStage customCertificateAuthority(Optional<String> customCertificateAuthority) {
+        public _FinalStage customCertificateAuthority(@Nullable OptionalNullable<String> customCertificateAuthority) {
             this.customCertificateAuthority = customCertificateAuthority;
             return this;
         }

@@ -9,10 +9,6 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface IConnectionCommon {
-    Optional<ConnectionAuthenticationPurpose> getAuthentication();
-
-    Optional<ConnectionConnectedAccountsPurpose> getConnectedAccounts();
-
     Optional<String> getDisplayName();
 
     Optional<List<String>> getEnabledClients();

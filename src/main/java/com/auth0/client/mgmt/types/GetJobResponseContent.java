@@ -41,6 +41,8 @@ public final class GetJobResponseContent {
 
     private final Optional<String> statusDetails;
 
+    private final Optional<GetJobSummary> summary;
+
     private final Map<String, Object> additionalProperties;
 
     private GetJobResponseContent(
@@ -54,6 +56,7 @@ public final class GetJobResponseContent {
             Optional<Integer> timeLeftSeconds,
             Optional<JobFileFormatEnum> format,
             Optional<String> statusDetails,
+            Optional<GetJobSummary> summary,
             Map<String, Object> additionalProperties) {
         this.status = status;
         this.type = type;
@@ -65,6 +68,7 @@ public final class GetJobResponseContent {
         this.timeLeftSeconds = timeLeftSeconds;
         this.format = format;
         this.statusDetails = statusDetails;
+        this.summary = summary;
         this.additionalProperties = additionalProperties;
     }
 
@@ -145,6 +149,11 @@ public final class GetJobResponseContent {
         return statusDetails;
     }
 
+    @JsonProperty("summary")
+    public Optional<GetJobSummary> getSummary() {
+        return summary;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -166,7 +175,8 @@ public final class GetJobResponseContent {
                 && percentageDone.equals(other.percentageDone)
                 && timeLeftSeconds.equals(other.timeLeftSeconds)
                 && format.equals(other.format)
-                && statusDetails.equals(other.statusDetails);
+                && statusDetails.equals(other.statusDetails)
+                && summary.equals(other.summary);
     }
 
     @java.lang.Override
@@ -181,7 +191,8 @@ public final class GetJobResponseContent {
                 this.percentageDone,
                 this.timeLeftSeconds,
                 this.format,
-                this.statusDetails);
+                this.statusDetails,
+                this.summary);
     }
 
     @java.lang.Override
@@ -264,6 +275,10 @@ public final class GetJobResponseContent {
         _FinalStage statusDetails(Optional<String> statusDetails);
 
         _FinalStage statusDetails(String statusDetails);
+
+        _FinalStage summary(Optional<GetJobSummary> summary);
+
+        _FinalStage summary(GetJobSummary summary);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -273,6 +288,8 @@ public final class GetJobResponseContent {
         private String type;
 
         private String id;
+
+        private Optional<GetJobSummary> summary = Optional.empty();
 
         private Optional<String> statusDetails = Optional.empty();
 
@@ -305,6 +322,7 @@ public final class GetJobResponseContent {
             timeLeftSeconds(other.getTimeLeftSeconds());
             format(other.getFormat());
             statusDetails(other.getStatusDetails());
+            summary(other.getSummary());
             return this;
         }
 
@@ -341,6 +359,19 @@ public final class GetJobResponseContent {
         @JsonSetter("id")
         public _FinalStage id(@NotNull String id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage summary(GetJobSummary summary) {
+            this.summary = Optional.ofNullable(summary);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "summary", nulls = Nulls.SKIP)
+        public _FinalStage summary(Optional<GetJobSummary> summary) {
+            this.summary = summary;
             return this;
         }
 
@@ -490,6 +521,7 @@ public final class GetJobResponseContent {
                     timeLeftSeconds,
                     format,
                     statusDetails,
+                    summary,
                     additionalProperties);
         }
     }

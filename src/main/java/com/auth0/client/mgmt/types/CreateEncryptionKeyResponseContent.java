@@ -3,7 +3,9 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -18,6 +20,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = CreateEncryptionKeyResponseContent.Builder.class)
@@ -32,9 +35,9 @@ public final class CreateEncryptionKeyResponseContent {
 
     private final OffsetDateTime updatedAt;
 
-    private final String parentKid;
+    private final OptionalNullable<String> parentKid;
 
-    private final Optional<String> publicKey;
+    private final OptionalNullable<String> publicKey;
 
     private final Map<String, Object> additionalProperties;
 
@@ -44,8 +47,8 @@ public final class CreateEncryptionKeyResponseContent {
             EncryptionKeyState state,
             OffsetDateTime createdAt,
             OffsetDateTime updatedAt,
-            String parentKid,
-            Optional<String> publicKey,
+            OptionalNullable<String> parentKid,
+            OptionalNullable<String> publicKey,
             Map<String, Object> additionalProperties) {
         this.kid = kid;
         this.type = type;
@@ -94,16 +97,36 @@ public final class CreateEncryptionKeyResponseContent {
     /**
      * @return ID of parent wrapping key
      */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("parent_kid")
-    public String getParentKid() {
+    public OptionalNullable<String> getParentKid() {
+        if (parentKid == null) {
+            return OptionalNullable.absent();
+        }
         return parentKid;
     }
 
     /**
      * @return Public key in PEM format
      */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("public_key")
-    public Optional<String> getPublicKey() {
+    public OptionalNullable<String> getPublicKey() {
+        if (publicKey == null) {
+            return OptionalNullable.absent();
+        }
+        return publicKey;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("parent_kid")
+    private OptionalNullable<String> _getParentKid() {
+        return parentKid;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("public_key")
+    private OptionalNullable<String> _getPublicKey() {
         return publicKey;
     }
 
@@ -172,30 +195,38 @@ public final class CreateEncryptionKeyResponseContent {
         /**
          * <p>Key update timestamp</p>
          */
-        ParentKidStage updatedAt(@NotNull OffsetDateTime updatedAt);
-    }
-
-    public interface ParentKidStage {
-        /**
-         * <p>ID of parent wrapping key</p>
-         */
-        _FinalStage parentKid(@NotNull String parentKid);
+        _FinalStage updatedAt(@NotNull OffsetDateTime updatedAt);
     }
 
     public interface _FinalStage {
         CreateEncryptionKeyResponseContent build();
 
         /**
+         * <p>ID of parent wrapping key</p>
+         */
+        _FinalStage parentKid(@Nullable OptionalNullable<String> parentKid);
+
+        _FinalStage parentKid(String parentKid);
+
+        _FinalStage parentKid(Optional<String> parentKid);
+
+        _FinalStage parentKid(com.auth0.client.mgmt.core.Nullable<String> parentKid);
+
+        /**
          * <p>Public key in PEM format</p>
          */
-        _FinalStage publicKey(Optional<String> publicKey);
+        _FinalStage publicKey(@Nullable OptionalNullable<String> publicKey);
 
         _FinalStage publicKey(String publicKey);
+
+        _FinalStage publicKey(Optional<String> publicKey);
+
+        _FinalStage publicKey(com.auth0.client.mgmt.core.Nullable<String> publicKey);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder
-            implements KidStage, TypeStage, StateStage, CreatedAtStage, UpdatedAtStage, ParentKidStage, _FinalStage {
+            implements KidStage, TypeStage, StateStage, CreatedAtStage, UpdatedAtStage, _FinalStage {
         private String kid;
 
         private EncryptionKeyType type;
@@ -206,9 +237,9 @@ public final class CreateEncryptionKeyResponseContent {
 
         private OffsetDateTime updatedAt;
 
-        private String parentKid;
+        private OptionalNullable<String> publicKey = OptionalNullable.absent();
 
-        private Optional<String> publicKey = Optional.empty();
+        private OptionalNullable<String> parentKid = OptionalNullable.absent();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -272,20 +303,38 @@ public final class CreateEncryptionKeyResponseContent {
          */
         @java.lang.Override
         @JsonSetter("updated_at")
-        public ParentKidStage updatedAt(@NotNull OffsetDateTime updatedAt) {
+        public _FinalStage updatedAt(@NotNull OffsetDateTime updatedAt) {
             this.updatedAt = Objects.requireNonNull(updatedAt, "updatedAt must not be null");
             return this;
         }
 
         /**
-         * <p>ID of parent wrapping key</p>
-         * <p>ID of parent wrapping key</p>
+         * <p>Public key in PEM format</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        @JsonSetter("parent_kid")
-        public _FinalStage parentKid(@NotNull String parentKid) {
-            this.parentKid = Objects.requireNonNull(parentKid, "parentKid must not be null");
+        public _FinalStage publicKey(com.auth0.client.mgmt.core.Nullable<String> publicKey) {
+            if (publicKey.isNull()) {
+                this.publicKey = OptionalNullable.ofNull();
+            } else if (publicKey.isEmpty()) {
+                this.publicKey = OptionalNullable.absent();
+            } else {
+                this.publicKey = OptionalNullable.of(publicKey.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>Public key in PEM format</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage publicKey(Optional<String> publicKey) {
+            if (publicKey.isPresent()) {
+                this.publicKey = OptionalNullable.of(publicKey.get());
+            } else {
+                this.publicKey = OptionalNullable.absent();
+            }
             return this;
         }
 
@@ -295,7 +344,7 @@ public final class CreateEncryptionKeyResponseContent {
          */
         @java.lang.Override
         public _FinalStage publicKey(String publicKey) {
-            this.publicKey = Optional.ofNullable(publicKey);
+            this.publicKey = OptionalNullable.of(publicKey);
             return this;
         }
 
@@ -304,8 +353,58 @@ public final class CreateEncryptionKeyResponseContent {
          */
         @java.lang.Override
         @JsonSetter(value = "public_key", nulls = Nulls.SKIP)
-        public _FinalStage publicKey(Optional<String> publicKey) {
+        public _FinalStage publicKey(@Nullable OptionalNullable<String> publicKey) {
             this.publicKey = publicKey;
+            return this;
+        }
+
+        /**
+         * <p>ID of parent wrapping key</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage parentKid(com.auth0.client.mgmt.core.Nullable<String> parentKid) {
+            if (parentKid.isNull()) {
+                this.parentKid = OptionalNullable.ofNull();
+            } else if (parentKid.isEmpty()) {
+                this.parentKid = OptionalNullable.absent();
+            } else {
+                this.parentKid = OptionalNullable.of(parentKid.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>ID of parent wrapping key</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage parentKid(Optional<String> parentKid) {
+            if (parentKid.isPresent()) {
+                this.parentKid = OptionalNullable.of(parentKid.get());
+            } else {
+                this.parentKid = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        /**
+         * <p>ID of parent wrapping key</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage parentKid(String parentKid) {
+            this.parentKid = OptionalNullable.of(parentKid);
+            return this;
+        }
+
+        /**
+         * <p>ID of parent wrapping key</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "parent_kid", nulls = Nulls.SKIP)
+        public _FinalStage parentKid(@Nullable OptionalNullable<String> parentKid) {
+            this.parentKid = parentKid;
             return this;
         }
 
