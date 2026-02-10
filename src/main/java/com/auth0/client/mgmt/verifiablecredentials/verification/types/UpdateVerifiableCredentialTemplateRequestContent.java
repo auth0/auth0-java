@@ -3,7 +3,9 @@
  */
 package com.auth0.client.mgmt.verifiablecredentials.verification.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.types.MdlPresentationRequest;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -17,31 +19,32 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = UpdateVerifiableCredentialTemplateRequestContent.Builder.class)
 public final class UpdateVerifiableCredentialTemplateRequestContent {
-    private final Optional<String> name;
+    private final OptionalNullable<String> name;
 
-    private final Optional<String> type;
+    private final OptionalNullable<String> type;
 
-    private final Optional<String> dialect;
+    private final OptionalNullable<String> dialect;
 
     private final Optional<MdlPresentationRequest> presentation;
 
-    private final Optional<String> wellKnownTrustedIssuers;
+    private final OptionalNullable<String> wellKnownTrustedIssuers;
 
-    private final Optional<Double> version;
+    private final OptionalNullable<Double> version;
 
     private final Map<String, Object> additionalProperties;
 
     private UpdateVerifiableCredentialTemplateRequestContent(
-            Optional<String> name,
-            Optional<String> type,
-            Optional<String> dialect,
+            OptionalNullable<String> name,
+            OptionalNullable<String> type,
+            OptionalNullable<String> dialect,
             Optional<MdlPresentationRequest> presentation,
-            Optional<String> wellKnownTrustedIssuers,
-            Optional<Double> version,
+            OptionalNullable<String> wellKnownTrustedIssuers,
+            OptionalNullable<Double> version,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.type = type;
@@ -52,18 +55,30 @@ public final class UpdateVerifiableCredentialTemplateRequestContent {
         this.additionalProperties = additionalProperties;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("name")
-    public Optional<String> getName() {
+    public OptionalNullable<String> getName() {
+        if (name == null) {
+            return OptionalNullable.absent();
+        }
         return name;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("type")
-    public Optional<String> getType() {
+    public OptionalNullable<String> getType() {
+        if (type == null) {
+            return OptionalNullable.absent();
+        }
         return type;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("dialect")
-    public Optional<String> getDialect() {
+    public OptionalNullable<String> getDialect() {
+        if (dialect == null) {
+            return OptionalNullable.absent();
+        }
         return dialect;
     }
 
@@ -72,13 +87,51 @@ public final class UpdateVerifiableCredentialTemplateRequestContent {
         return presentation;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("well_known_trusted_issuers")
-    public Optional<String> getWellKnownTrustedIssuers() {
+    public OptionalNullable<String> getWellKnownTrustedIssuers() {
+        if (wellKnownTrustedIssuers == null) {
+            return OptionalNullable.absent();
+        }
         return wellKnownTrustedIssuers;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("version")
-    public Optional<Double> getVersion() {
+    public OptionalNullable<Double> getVersion() {
+        if (version == null) {
+            return OptionalNullable.absent();
+        }
+        return version;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("name")
+    private OptionalNullable<String> _getName() {
+        return name;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("type")
+    private OptionalNullable<String> _getType() {
+        return type;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("dialect")
+    private OptionalNullable<String> _getDialect() {
+        return dialect;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("well_known_trusted_issuers")
+    private OptionalNullable<String> _getWellKnownTrustedIssuers() {
+        return wellKnownTrustedIssuers;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("version")
+    private OptionalNullable<Double> _getVersion() {
         return version;
     }
 
@@ -120,17 +173,17 @@ public final class UpdateVerifiableCredentialTemplateRequestContent {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<String> name = Optional.empty();
+        private OptionalNullable<String> name = OptionalNullable.absent();
 
-        private Optional<String> type = Optional.empty();
+        private OptionalNullable<String> type = OptionalNullable.absent();
 
-        private Optional<String> dialect = Optional.empty();
+        private OptionalNullable<String> dialect = OptionalNullable.absent();
 
         private Optional<MdlPresentationRequest> presentation = Optional.empty();
 
-        private Optional<String> wellKnownTrustedIssuers = Optional.empty();
+        private OptionalNullable<String> wellKnownTrustedIssuers = OptionalNullable.absent();
 
-        private Optional<Double> version = Optional.empty();
+        private OptionalNullable<Double> version = OptionalNullable.absent();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -148,35 +201,95 @@ public final class UpdateVerifiableCredentialTemplateRequestContent {
         }
 
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
-        public Builder name(Optional<String> name) {
+        public Builder name(@Nullable OptionalNullable<String> name) {
             this.name = name;
             return this;
         }
 
         public Builder name(String name) {
-            this.name = Optional.ofNullable(name);
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        public Builder name(Optional<String> name) {
+            if (name.isPresent()) {
+                this.name = OptionalNullable.of(name.get());
+            } else {
+                this.name = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder name(com.auth0.client.mgmt.core.Nullable<String> name) {
+            if (name.isNull()) {
+                this.name = OptionalNullable.ofNull();
+            } else if (name.isEmpty()) {
+                this.name = OptionalNullable.absent();
+            } else {
+                this.name = OptionalNullable.of(name.get());
+            }
             return this;
         }
 
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
-        public Builder type(Optional<String> type) {
+        public Builder type(@Nullable OptionalNullable<String> type) {
             this.type = type;
             return this;
         }
 
         public Builder type(String type) {
-            this.type = Optional.ofNullable(type);
+            this.type = OptionalNullable.of(type);
+            return this;
+        }
+
+        public Builder type(Optional<String> type) {
+            if (type.isPresent()) {
+                this.type = OptionalNullable.of(type.get());
+            } else {
+                this.type = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder type(com.auth0.client.mgmt.core.Nullable<String> type) {
+            if (type.isNull()) {
+                this.type = OptionalNullable.ofNull();
+            } else if (type.isEmpty()) {
+                this.type = OptionalNullable.absent();
+            } else {
+                this.type = OptionalNullable.of(type.get());
+            }
             return this;
         }
 
         @JsonSetter(value = "dialect", nulls = Nulls.SKIP)
-        public Builder dialect(Optional<String> dialect) {
+        public Builder dialect(@Nullable OptionalNullable<String> dialect) {
             this.dialect = dialect;
             return this;
         }
 
         public Builder dialect(String dialect) {
-            this.dialect = Optional.ofNullable(dialect);
+            this.dialect = OptionalNullable.of(dialect);
+            return this;
+        }
+
+        public Builder dialect(Optional<String> dialect) {
+            if (dialect.isPresent()) {
+                this.dialect = OptionalNullable.of(dialect.get());
+            } else {
+                this.dialect = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder dialect(com.auth0.client.mgmt.core.Nullable<String> dialect) {
+            if (dialect.isNull()) {
+                this.dialect = OptionalNullable.ofNull();
+            } else if (dialect.isEmpty()) {
+                this.dialect = OptionalNullable.absent();
+            } else {
+                this.dialect = OptionalNullable.of(dialect.get());
+            }
             return this;
         }
 
@@ -192,24 +305,64 @@ public final class UpdateVerifiableCredentialTemplateRequestContent {
         }
 
         @JsonSetter(value = "well_known_trusted_issuers", nulls = Nulls.SKIP)
-        public Builder wellKnownTrustedIssuers(Optional<String> wellKnownTrustedIssuers) {
+        public Builder wellKnownTrustedIssuers(@Nullable OptionalNullable<String> wellKnownTrustedIssuers) {
             this.wellKnownTrustedIssuers = wellKnownTrustedIssuers;
             return this;
         }
 
         public Builder wellKnownTrustedIssuers(String wellKnownTrustedIssuers) {
-            this.wellKnownTrustedIssuers = Optional.ofNullable(wellKnownTrustedIssuers);
+            this.wellKnownTrustedIssuers = OptionalNullable.of(wellKnownTrustedIssuers);
+            return this;
+        }
+
+        public Builder wellKnownTrustedIssuers(Optional<String> wellKnownTrustedIssuers) {
+            if (wellKnownTrustedIssuers.isPresent()) {
+                this.wellKnownTrustedIssuers = OptionalNullable.of(wellKnownTrustedIssuers.get());
+            } else {
+                this.wellKnownTrustedIssuers = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder wellKnownTrustedIssuers(com.auth0.client.mgmt.core.Nullable<String> wellKnownTrustedIssuers) {
+            if (wellKnownTrustedIssuers.isNull()) {
+                this.wellKnownTrustedIssuers = OptionalNullable.ofNull();
+            } else if (wellKnownTrustedIssuers.isEmpty()) {
+                this.wellKnownTrustedIssuers = OptionalNullable.absent();
+            } else {
+                this.wellKnownTrustedIssuers = OptionalNullable.of(wellKnownTrustedIssuers.get());
+            }
             return this;
         }
 
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
-        public Builder version(Optional<Double> version) {
+        public Builder version(@Nullable OptionalNullable<Double> version) {
             this.version = version;
             return this;
         }
 
         public Builder version(Double version) {
-            this.version = Optional.ofNullable(version);
+            this.version = OptionalNullable.of(version);
+            return this;
+        }
+
+        public Builder version(Optional<Double> version) {
+            if (version.isPresent()) {
+                this.version = OptionalNullable.of(version.get());
+            } else {
+                this.version = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder version(com.auth0.client.mgmt.core.Nullable<Double> version) {
+            if (version.isNull()) {
+                this.version = OptionalNullable.ofNull();
+            } else if (version.isEmpty()) {
+                this.version = OptionalNullable.absent();
+            } else {
+                this.version = OptionalNullable.of(version.get());
+            }
             return this;
         }
 

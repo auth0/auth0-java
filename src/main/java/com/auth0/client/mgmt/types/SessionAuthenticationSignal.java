@@ -55,7 +55,7 @@ public final class SessionAuthenticationSignal {
     /**
      * @return A specific MFA factor. Only present when &quot;name&quot; is set to &quot;mfa&quot;
      */
-    @JsonProperty("^type$")
+    @JsonProperty("type")
     public Optional<String> getType() {
         return type;
     }
@@ -137,7 +137,7 @@ public final class SessionAuthenticationSignal {
         /**
          * <p>A specific MFA factor. Only present when &quot;name&quot; is set to &quot;mfa&quot;</p>
          */
-        @JsonSetter(value = "^type$", nulls = Nulls.SKIP)
+        @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
             return this;

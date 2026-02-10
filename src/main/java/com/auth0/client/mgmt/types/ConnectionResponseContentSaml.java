@@ -23,16 +23,16 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionResponseContentSaml.Builder.class)
 public final class ConnectionResponseContentSaml
-        implements IConnectionResponseCommon, ICreateConnectionCommon, IConnectionCommon {
+        implements IConnectionPurposes, IConnectionResponseCommon, ICreateConnectionCommon, IConnectionCommon {
+    private final Optional<ConnectionAuthenticationPurpose> authentication;
+
+    private final Optional<ConnectionConnectedAccountsPurpose> connectedAccounts;
+
     private final Optional<String> id;
 
     private final Optional<List<String>> realms;
 
     private final Optional<String> name;
-
-    private final Optional<ConnectionAuthenticationPurpose> authentication;
-
-    private final Optional<ConnectionConnectedAccountsPurpose> connectedAccounts;
 
     private final Optional<String> displayName;
 
@@ -53,11 +53,11 @@ public final class ConnectionResponseContentSaml
     private final Map<String, Object> additionalProperties;
 
     private ConnectionResponseContentSaml(
+            Optional<ConnectionAuthenticationPurpose> authentication,
+            Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
             Optional<String> id,
             Optional<List<String>> realms,
             Optional<String> name,
-            Optional<ConnectionAuthenticationPurpose> authentication,
-            Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
             Optional<String> displayName,
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
@@ -67,11 +67,11 @@ public final class ConnectionResponseContentSaml
             Optional<String> provisioningTicketUrl,
             Optional<Boolean> showAsButton,
             Map<String, Object> additionalProperties) {
+        this.authentication = authentication;
+        this.connectedAccounts = connectedAccounts;
         this.id = id;
         this.realms = realms;
         this.name = name;
-        this.authentication = authentication;
-        this.connectedAccounts = connectedAccounts;
         this.displayName = displayName;
         this.enabledClients = enabledClients;
         this.isDomainConnection = isDomainConnection;
@@ -81,6 +81,18 @@ public final class ConnectionResponseContentSaml
         this.provisioningTicketUrl = provisioningTicketUrl;
         this.showAsButton = showAsButton;
         this.additionalProperties = additionalProperties;
+    }
+
+    @JsonProperty("authentication")
+    @java.lang.Override
+    public Optional<ConnectionAuthenticationPurpose> getAuthentication() {
+        return authentication;
+    }
+
+    @JsonProperty("connected_accounts")
+    @java.lang.Override
+    public Optional<ConnectionConnectedAccountsPurpose> getConnectedAccounts() {
+        return connectedAccounts;
     }
 
     @JsonProperty("id")
@@ -99,18 +111,6 @@ public final class ConnectionResponseContentSaml
     @java.lang.Override
     public Optional<String> getName() {
         return name;
-    }
-
-    @JsonProperty("authentication")
-    @java.lang.Override
-    public Optional<ConnectionAuthenticationPurpose> getAuthentication() {
-        return authentication;
-    }
-
-    @JsonProperty("connected_accounts")
-    @java.lang.Override
-    public Optional<ConnectionConnectedAccountsPurpose> getConnectedAccounts() {
-        return connectedAccounts;
     }
 
     @JsonProperty("display_name")
@@ -169,11 +169,11 @@ public final class ConnectionResponseContentSaml
     }
 
     private boolean equalTo(ConnectionResponseContentSaml other) {
-        return id.equals(other.id)
+        return authentication.equals(other.authentication)
+                && connectedAccounts.equals(other.connectedAccounts)
+                && id.equals(other.id)
                 && realms.equals(other.realms)
                 && name.equals(other.name)
-                && authentication.equals(other.authentication)
-                && connectedAccounts.equals(other.connectedAccounts)
                 && displayName.equals(other.displayName)
                 && enabledClients.equals(other.enabledClients)
                 && isDomainConnection.equals(other.isDomainConnection)
@@ -187,11 +187,11 @@ public final class ConnectionResponseContentSaml
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.authentication,
+                this.connectedAccounts,
                 this.id,
                 this.realms,
                 this.name,
-                this.authentication,
-                this.connectedAccounts,
                 this.displayName,
                 this.enabledClients,
                 this.isDomainConnection,
@@ -220,6 +220,14 @@ public final class ConnectionResponseContentSaml
     public interface _FinalStage {
         ConnectionResponseContentSaml build();
 
+        _FinalStage authentication(Optional<ConnectionAuthenticationPurpose> authentication);
+
+        _FinalStage authentication(ConnectionAuthenticationPurpose authentication);
+
+        _FinalStage connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts);
+
+        _FinalStage connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts);
+
         _FinalStage id(Optional<String> id);
 
         _FinalStage id(String id);
@@ -231,14 +239,6 @@ public final class ConnectionResponseContentSaml
         _FinalStage name(Optional<String> name);
 
         _FinalStage name(String name);
-
-        _FinalStage authentication(Optional<ConnectionAuthenticationPurpose> authentication);
-
-        _FinalStage authentication(ConnectionAuthenticationPurpose authentication);
-
-        _FinalStage connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts);
-
-        _FinalStage connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts);
 
         _FinalStage displayName(Optional<String> displayName);
 
@@ -287,15 +287,15 @@ public final class ConnectionResponseContentSaml
 
         private Optional<String> displayName = Optional.empty();
 
-        private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
-
-        private Optional<ConnectionAuthenticationPurpose> authentication = Optional.empty();
-
         private Optional<String> name = Optional.empty();
 
         private Optional<List<String>> realms = Optional.empty();
 
         private Optional<String> id = Optional.empty();
+
+        private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
+
+        private Optional<ConnectionAuthenticationPurpose> authentication = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -304,11 +304,11 @@ public final class ConnectionResponseContentSaml
 
         @java.lang.Override
         public Builder from(ConnectionResponseContentSaml other) {
+            authentication(other.getAuthentication());
+            connectedAccounts(other.getConnectedAccounts());
             id(other.getId());
             realms(other.getRealms());
             name(other.getName());
-            authentication(other.getAuthentication());
-            connectedAccounts(other.getConnectedAccounts());
             displayName(other.getDisplayName());
             enabledClients(other.getEnabledClients());
             isDomainConnection(other.getIsDomainConnection());
@@ -419,32 +419,6 @@ public final class ConnectionResponseContentSaml
         }
 
         @java.lang.Override
-        public _FinalStage connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts) {
-            this.connectedAccounts = Optional.ofNullable(connectedAccounts);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "connected_accounts", nulls = Nulls.SKIP)
-        public _FinalStage connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts) {
-            this.connectedAccounts = connectedAccounts;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage authentication(ConnectionAuthenticationPurpose authentication) {
-            this.authentication = Optional.ofNullable(authentication);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "authentication", nulls = Nulls.SKIP)
-        public _FinalStage authentication(Optional<ConnectionAuthenticationPurpose> authentication) {
-            this.authentication = authentication;
-            return this;
-        }
-
-        @java.lang.Override
         public _FinalStage name(String name) {
             this.name = Optional.ofNullable(name);
             return this;
@@ -484,13 +458,39 @@ public final class ConnectionResponseContentSaml
         }
 
         @java.lang.Override
+        public _FinalStage connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts) {
+            this.connectedAccounts = Optional.ofNullable(connectedAccounts);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "connected_accounts", nulls = Nulls.SKIP)
+        public _FinalStage connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts) {
+            this.connectedAccounts = connectedAccounts;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage authentication(ConnectionAuthenticationPurpose authentication) {
+            this.authentication = Optional.ofNullable(authentication);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "authentication", nulls = Nulls.SKIP)
+        public _FinalStage authentication(Optional<ConnectionAuthenticationPurpose> authentication) {
+            this.authentication = authentication;
+            return this;
+        }
+
+        @java.lang.Override
         public ConnectionResponseContentSaml build() {
             return new ConnectionResponseContentSaml(
+                    authentication,
+                    connectedAccounts,
                     id,
                     realms,
                     name,
-                    authentication,
-                    connectedAccounts,
                     displayName,
                     enabledClients,
                     isDomainConnection,

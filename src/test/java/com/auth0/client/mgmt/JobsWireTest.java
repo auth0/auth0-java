@@ -38,7 +38,7 @@ public class JobsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"status\":\"status\",\"type\":\"type\",\"created_at\":\"created_at\",\"id\":\"id\",\"connection_id\":\"connection_id\",\"location\":\"location\",\"percentage_done\":1,\"time_left_seconds\":1,\"format\":\"json\",\"status_details\":\"status_details\"}"));
+                                "{\"status\":\"status\",\"type\":\"type\",\"created_at\":\"created_at\",\"id\":\"id\",\"connection_id\":\"connection_id\",\"location\":\"location\",\"percentage_done\":1,\"time_left_seconds\":1,\"format\":\"json\",\"status_details\":\"status_details\",\"summary\":{\"failed\":1,\"updated\":1,\"inserted\":1,\"total\":1}}"));
         GetJobResponseContent response = client.jobs().get("id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -58,7 +58,13 @@ public class JobsWireTest {
                 + "  \"percentage_done\": 1,\n"
                 + "  \"time_left_seconds\": 1,\n"
                 + "  \"format\": \"json\",\n"
-                + "  \"status_details\": \"status_details\"\n"
+                + "  \"status_details\": \"status_details\",\n"
+                + "  \"summary\": {\n"
+                + "    \"failed\": 1,\n"
+                + "    \"updated\": 1,\n"
+                + "    \"inserted\": 1,\n"
+                + "    \"total\": 1\n"
+                + "  }\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);

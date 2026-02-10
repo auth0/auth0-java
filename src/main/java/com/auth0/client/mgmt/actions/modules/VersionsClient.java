@@ -3,11 +3,13 @@
  */
 package com.auth0.client.mgmt.actions.modules;
 
+import com.auth0.client.mgmt.actions.modules.types.GetActionModuleVersionsRequestParameters;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
+import com.auth0.client.mgmt.core.SyncPagingIterable;
+import com.auth0.client.mgmt.types.ActionModuleVersion;
 import com.auth0.client.mgmt.types.CreateActionModuleVersionResponseContent;
 import com.auth0.client.mgmt.types.GetActionModuleVersionResponseContent;
-import com.auth0.client.mgmt.types.GetActionModuleVersionsResponseContent;
 
 public class VersionsClient {
     protected final ClientOptions clientOptions;
@@ -29,15 +31,23 @@ public class VersionsClient {
     /**
      * List all published versions of a specific Actions Module.
      */
-    public GetActionModuleVersionsResponseContent list(String id) {
+    public SyncPagingIterable<ActionModuleVersion> list(String id) {
         return this.rawClient.list(id).body();
     }
 
     /**
      * List all published versions of a specific Actions Module.
      */
-    public GetActionModuleVersionsResponseContent list(String id, RequestOptions requestOptions) {
-        return this.rawClient.list(id, requestOptions).body();
+    public SyncPagingIterable<ActionModuleVersion> list(String id, GetActionModuleVersionsRequestParameters request) {
+        return this.rawClient.list(id, request).body();
+    }
+
+    /**
+     * List all published versions of a specific Actions Module.
+     */
+    public SyncPagingIterable<ActionModuleVersion> list(
+            String id, GetActionModuleVersionsRequestParameters request, RequestOptions requestOptions) {
+        return this.rawClient.list(id, request, requestOptions).body();
     }
 
     /**

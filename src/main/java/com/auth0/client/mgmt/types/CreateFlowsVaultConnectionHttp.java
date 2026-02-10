@@ -36,6 +36,10 @@ public final class CreateFlowsVaultConnectionHttp {
         } else if (this.type == 1) {
             return visitor.visit((CreateFlowsVaultConnectionHttpBasicAuth) this.value);
         } else if (this.type == 2) {
+            return visitor.visit((CreateFlowsVaultConnectionHttpApiKey) this.value);
+        } else if (this.type == 3) {
+            return visitor.visit((CreateFlowsVaultConnectionHttpOauthClientCredentials) this.value);
+        } else if (this.type == 4) {
             return visitor.visit((CreateFlowsVaultConnectionHttpUninitialized) this.value);
         }
         throw new IllegalStateException("Failed to visit value. This should never happen.");
@@ -69,14 +73,26 @@ public final class CreateFlowsVaultConnectionHttp {
         return new CreateFlowsVaultConnectionHttp(value, 1);
     }
 
-    public static CreateFlowsVaultConnectionHttp of(CreateFlowsVaultConnectionHttpUninitialized value) {
+    public static CreateFlowsVaultConnectionHttp of(CreateFlowsVaultConnectionHttpApiKey value) {
         return new CreateFlowsVaultConnectionHttp(value, 2);
+    }
+
+    public static CreateFlowsVaultConnectionHttp of(CreateFlowsVaultConnectionHttpOauthClientCredentials value) {
+        return new CreateFlowsVaultConnectionHttp(value, 3);
+    }
+
+    public static CreateFlowsVaultConnectionHttp of(CreateFlowsVaultConnectionHttpUninitialized value) {
+        return new CreateFlowsVaultConnectionHttp(value, 4);
     }
 
     public interface Visitor<T> {
         T visit(CreateFlowsVaultConnectionHttpBearer value);
 
         T visit(CreateFlowsVaultConnectionHttpBasicAuth value);
+
+        T visit(CreateFlowsVaultConnectionHttpApiKey value);
+
+        T visit(CreateFlowsVaultConnectionHttpOauthClientCredentials value);
 
         T visit(CreateFlowsVaultConnectionHttpUninitialized value);
     }
@@ -96,6 +112,15 @@ public final class CreateFlowsVaultConnectionHttp {
             }
             try {
                 return of(ObjectMappers.JSON_MAPPER.convertValue(value, CreateFlowsVaultConnectionHttpBasicAuth.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, CreateFlowsVaultConnectionHttpApiKey.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(
+                        value, CreateFlowsVaultConnectionHttpOauthClientCredentials.class));
             } catch (RuntimeException e) {
             }
             try {
