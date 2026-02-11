@@ -3,9 +3,7 @@
  */
 package com.auth0.client.mgmt.types;
 
-import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -19,65 +17,55 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionOptionsPaypal.Builder.class)
-public final class ConnectionOptionsPaypal implements IConnectionOptionsOAuth2Common, IConnectionOptionsCommon {
+public final class ConnectionOptionsPaypal implements IConnectionOptionsCommon {
+    private final Optional<List<String>> nonPersistentAttrs;
+
     private final Optional<String> clientId;
 
     private final Optional<String> clientSecret;
 
-    private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
-            upstreamParams;
+    private final Optional<List<String>> freeformScopes;
+
+    private final Optional<List<String>> scope;
 
     private final Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes;
 
-    private final Optional<List<String>> nonPersistentAttrs;
+    private final Optional<Boolean> address;
+
+    private final Optional<Boolean> email;
+
+    private final Optional<Boolean> phone;
+
+    private final Optional<Boolean> profile;
 
     private final Map<String, Object> additionalProperties;
 
     private ConnectionOptionsPaypal(
+            Optional<List<String>> nonPersistentAttrs,
             Optional<String> clientId,
             Optional<String> clientSecret,
-            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
+            Optional<List<String>> freeformScopes,
+            Optional<List<String>> scope,
             Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes,
-            Optional<List<String>> nonPersistentAttrs,
+            Optional<Boolean> address,
+            Optional<Boolean> email,
+            Optional<Boolean> phone,
+            Optional<Boolean> profile,
             Map<String, Object> additionalProperties) {
+        this.nonPersistentAttrs = nonPersistentAttrs;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
-        this.upstreamParams = upstreamParams;
+        this.freeformScopes = freeformScopes;
+        this.scope = scope;
         this.setUserRootAttributes = setUserRootAttributes;
-        this.nonPersistentAttrs = nonPersistentAttrs;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+        this.profile = profile;
         this.additionalProperties = additionalProperties;
-    }
-
-    @JsonProperty("client_id")
-    @java.lang.Override
-    public Optional<String> getClientId() {
-        return clientId;
-    }
-
-    @JsonProperty("client_secret")
-    @java.lang.Override
-    public Optional<String> getClientSecret() {
-        return clientSecret;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("upstream_params")
-    @java.lang.Override
-    public OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams() {
-        if (upstreamParams == null) {
-            return OptionalNullable.absent();
-        }
-        return upstreamParams;
-    }
-
-    @JsonProperty("set_user_root_attributes")
-    @java.lang.Override
-    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
-        return setUserRootAttributes;
     }
 
     @JsonProperty("non_persistent_attrs")
@@ -86,11 +74,61 @@ public final class ConnectionOptionsPaypal implements IConnectionOptionsOAuth2Co
         return nonPersistentAttrs;
     }
 
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("upstream_params")
-    private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
-            _getUpstreamParams() {
-        return upstreamParams;
+    @JsonProperty("client_id")
+    public Optional<String> getClientId() {
+        return clientId;
+    }
+
+    @JsonProperty("client_secret")
+    public Optional<String> getClientSecret() {
+        return clientSecret;
+    }
+
+    @JsonProperty("freeform_scopes")
+    public Optional<List<String>> getFreeformScopes() {
+        return freeformScopes;
+    }
+
+    @JsonProperty("scope")
+    public Optional<List<String>> getScope() {
+        return scope;
+    }
+
+    @JsonProperty("set_user_root_attributes")
+    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
+        return setUserRootAttributes;
+    }
+
+    /**
+     * @return When enabled, requests the 'address' scope from PayPal to access the user's address information.
+     */
+    @JsonProperty("address")
+    public Optional<Boolean> getAddress() {
+        return address;
+    }
+
+    /**
+     * @return When enabled, requests the 'email' scope from PayPal to access the user's email address.
+     */
+    @JsonProperty("email")
+    public Optional<Boolean> getEmail() {
+        return email;
+    }
+
+    /**
+     * @return When enabled, requests the 'phone' scope from PayPal to access the user's phone number.
+     */
+    @JsonProperty("phone")
+    public Optional<Boolean> getPhone() {
+        return phone;
+    }
+
+    /**
+     * @return When enabled, requests the 'profile' scope from PayPal to access basic profile information including first name, last name, date of birth, time zone, locale, and language. This scope is always enabled by the system.
+     */
+    @JsonProperty("profile")
+    public Optional<Boolean> getProfile() {
+        return profile;
     }
 
     @java.lang.Override
@@ -105,21 +143,31 @@ public final class ConnectionOptionsPaypal implements IConnectionOptionsOAuth2Co
     }
 
     private boolean equalTo(ConnectionOptionsPaypal other) {
-        return clientId.equals(other.clientId)
+        return nonPersistentAttrs.equals(other.nonPersistentAttrs)
+                && clientId.equals(other.clientId)
                 && clientSecret.equals(other.clientSecret)
-                && upstreamParams.equals(other.upstreamParams)
+                && freeformScopes.equals(other.freeformScopes)
+                && scope.equals(other.scope)
                 && setUserRootAttributes.equals(other.setUserRootAttributes)
-                && nonPersistentAttrs.equals(other.nonPersistentAttrs);
+                && address.equals(other.address)
+                && email.equals(other.email)
+                && phone.equals(other.phone)
+                && profile.equals(other.profile);
     }
 
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.nonPersistentAttrs,
                 this.clientId,
                 this.clientSecret,
-                this.upstreamParams,
+                this.freeformScopes,
+                this.scope,
                 this.setUserRootAttributes,
-                this.nonPersistentAttrs);
+                this.address,
+                this.email,
+                this.phone,
+                this.profile);
     }
 
     @java.lang.Override
@@ -133,16 +181,25 @@ public final class ConnectionOptionsPaypal implements IConnectionOptionsOAuth2Co
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
+
         private Optional<String> clientId = Optional.empty();
 
         private Optional<String> clientSecret = Optional.empty();
 
-        private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
-                OptionalNullable.absent();
+        private Optional<List<String>> freeformScopes = Optional.empty();
+
+        private Optional<List<String>> scope = Optional.empty();
 
         private Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes = Optional.empty();
 
-        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
+        private Optional<Boolean> address = Optional.empty();
+
+        private Optional<Boolean> email = Optional.empty();
+
+        private Optional<Boolean> phone = Optional.empty();
+
+        private Optional<Boolean> profile = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -150,11 +207,27 @@ public final class ConnectionOptionsPaypal implements IConnectionOptionsOAuth2Co
         private Builder() {}
 
         public Builder from(ConnectionOptionsPaypal other) {
+            nonPersistentAttrs(other.getNonPersistentAttrs());
             clientId(other.getClientId());
             clientSecret(other.getClientSecret());
-            upstreamParams(other.getUpstreamParams());
+            freeformScopes(other.getFreeformScopes());
+            scope(other.getScope());
             setUserRootAttributes(other.getSetUserRootAttributes());
-            nonPersistentAttrs(other.getNonPersistentAttrs());
+            address(other.getAddress());
+            email(other.getEmail());
+            phone(other.getPhone());
+            profile(other.getProfile());
+            return this;
+        }
+
+        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
+        public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
+            this.nonPersistentAttrs = nonPersistentAttrs;
+            return this;
+        }
+
+        public Builder nonPersistentAttrs(List<String> nonPersistentAttrs) {
+            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
             return this;
         }
 
@@ -180,42 +253,25 @@ public final class ConnectionOptionsPaypal implements IConnectionOptionsOAuth2Co
             return this;
         }
 
-        @JsonSetter(value = "upstream_params", nulls = Nulls.SKIP)
-        public Builder upstreamParams(
-                @Nullable
-                        OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
-                                upstreamParams) {
-            this.upstreamParams = upstreamParams;
+        @JsonSetter(value = "freeform_scopes", nulls = Nulls.SKIP)
+        public Builder freeformScopes(Optional<List<String>> freeformScopes) {
+            this.freeformScopes = freeformScopes;
             return this;
         }
 
-        public Builder upstreamParams(
-                Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>> upstreamParams) {
-            this.upstreamParams = OptionalNullable.of(upstreamParams);
+        public Builder freeformScopes(List<String> freeformScopes) {
+            this.freeformScopes = Optional.ofNullable(freeformScopes);
             return this;
         }
 
-        public Builder upstreamParams(
-                Optional<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams) {
-            if (upstreamParams.isPresent()) {
-                this.upstreamParams = OptionalNullable.of(upstreamParams.get());
-            } else {
-                this.upstreamParams = OptionalNullable.absent();
-            }
+        @JsonSetter(value = "scope", nulls = Nulls.SKIP)
+        public Builder scope(Optional<List<String>> scope) {
+            this.scope = scope;
             return this;
         }
 
-        public Builder upstreamParams(
-                com.auth0.client.mgmt.core.Nullable<
-                                Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
-                        upstreamParams) {
-            if (upstreamParams.isNull()) {
-                this.upstreamParams = OptionalNullable.ofNull();
-            } else if (upstreamParams.isEmpty()) {
-                this.upstreamParams = OptionalNullable.absent();
-            } else {
-                this.upstreamParams = OptionalNullable.of(upstreamParams.get());
-            }
+        public Builder scope(List<String> scope) {
+            this.scope = Optional.ofNullable(scope);
             return this;
         }
 
@@ -230,24 +286,74 @@ public final class ConnectionOptionsPaypal implements IConnectionOptionsOAuth2Co
             return this;
         }
 
-        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
-        public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
-            this.nonPersistentAttrs = nonPersistentAttrs;
+        /**
+         * <p>When enabled, requests the 'address' scope from PayPal to access the user's address information.</p>
+         */
+        @JsonSetter(value = "address", nulls = Nulls.SKIP)
+        public Builder address(Optional<Boolean> address) {
+            this.address = address;
             return this;
         }
 
-        public Builder nonPersistentAttrs(List<String> nonPersistentAttrs) {
-            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
+        public Builder address(Boolean address) {
+            this.address = Optional.ofNullable(address);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests the 'email' scope from PayPal to access the user's email address.</p>
+         */
+        @JsonSetter(value = "email", nulls = Nulls.SKIP)
+        public Builder email(Optional<Boolean> email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder email(Boolean email) {
+            this.email = Optional.ofNullable(email);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests the 'phone' scope from PayPal to access the user's phone number.</p>
+         */
+        @JsonSetter(value = "phone", nulls = Nulls.SKIP)
+        public Builder phone(Optional<Boolean> phone) {
+            this.phone = phone;
+            return this;
+        }
+
+        public Builder phone(Boolean phone) {
+            this.phone = Optional.ofNullable(phone);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests the 'profile' scope from PayPal to access basic profile information including first name, last name, date of birth, time zone, locale, and language. This scope is always enabled by the system.</p>
+         */
+        @JsonSetter(value = "profile", nulls = Nulls.SKIP)
+        public Builder profile(Optional<Boolean> profile) {
+            this.profile = profile;
+            return this;
+        }
+
+        public Builder profile(Boolean profile) {
+            this.profile = Optional.ofNullable(profile);
             return this;
         }
 
         public ConnectionOptionsPaypal build() {
             return new ConnectionOptionsPaypal(
+                    nonPersistentAttrs,
                     clientId,
                     clientSecret,
-                    upstreamParams,
+                    freeformScopes,
+                    scope,
                     setUserRootAttributes,
-                    nonPersistentAttrs,
+                    address,
+                    email,
+                    phone,
+                    profile,
                     additionalProperties);
         }
     }

@@ -15,8 +15,8 @@ import com.auth0.client.mgmt.errors.BadRequestError;
 import com.auth0.client.mgmt.errors.ForbiddenError;
 import com.auth0.client.mgmt.errors.TooManyRequestsError;
 import com.auth0.client.mgmt.errors.UnauthorizedError;
-import com.auth0.client.mgmt.flows.types.ExecutionsGetRequest;
-import com.auth0.client.mgmt.flows.types.ExecutionsListRequest;
+import com.auth0.client.mgmt.flows.types.GetFlowExecutionRequestParameters;
+import com.auth0.client.mgmt.flows.types.ListFlowExecutionsRequestParameters;
 import com.auth0.client.mgmt.types.FlowExecutionSummary;
 import com.auth0.client.mgmt.types.GetFlowExecutionResponseContent;
 import com.auth0.client.mgmt.types.ListFlowExecutionsPaginatedResponseContent;
@@ -40,16 +40,16 @@ public class RawExecutionsClient {
     }
 
     public ManagementApiHttpResponse<SyncPagingIterable<FlowExecutionSummary>> list(String flowId) {
-        return list(flowId, ExecutionsListRequest.builder().build());
+        return list(flowId, ListFlowExecutionsRequestParameters.builder().build());
     }
 
     public ManagementApiHttpResponse<SyncPagingIterable<FlowExecutionSummary>> list(
-            String flowId, ExecutionsListRequest request) {
+            String flowId, ListFlowExecutionsRequestParameters request) {
         return list(flowId, request, null);
     }
 
     public ManagementApiHttpResponse<SyncPagingIterable<FlowExecutionSummary>> list(
-            String flowId, ExecutionsListRequest request, RequestOptions requestOptions) {
+            String flowId, ListFlowExecutionsRequestParameters request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("flows")
@@ -77,7 +77,7 @@ public class RawExecutionsClient {
                 ListFlowExecutionsPaginatedResponseContent parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
                         responseBodyString, ListFlowExecutionsPaginatedResponseContent.class);
                 Optional<String> startingAfter = parsedResponse.getNext();
-                ExecutionsListRequest nextRequest = ExecutionsListRequest.builder()
+                ListFlowExecutionsRequestParameters nextRequest = ListFlowExecutionsRequestParameters.builder()
                         .from(request)
                         .from(startingAfter)
                         .build();
@@ -117,16 +117,20 @@ public class RawExecutionsClient {
     }
 
     public ManagementApiHttpResponse<GetFlowExecutionResponseContent> get(String flowId, String executionId) {
-        return get(flowId, executionId, ExecutionsGetRequest.builder().build());
+        return get(
+                flowId, executionId, GetFlowExecutionRequestParameters.builder().build());
     }
 
     public ManagementApiHttpResponse<GetFlowExecutionResponseContent> get(
-            String flowId, String executionId, ExecutionsGetRequest request) {
+            String flowId, String executionId, GetFlowExecutionRequestParameters request) {
         return get(flowId, executionId, request, null);
     }
 
     public ManagementApiHttpResponse<GetFlowExecutionResponseContent> get(
-            String flowId, String executionId, ExecutionsGetRequest request, RequestOptions requestOptions) {
+            String flowId,
+            String executionId,
+            GetFlowExecutionRequestParameters request,
+            RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("flows")

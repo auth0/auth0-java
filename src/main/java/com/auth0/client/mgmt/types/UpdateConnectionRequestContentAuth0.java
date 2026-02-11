@@ -22,10 +22,6 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = UpdateConnectionRequestContentAuth0.Builder.class)
 public final class UpdateConnectionRequestContentAuth0 implements IConnectionCommon {
-    private final Optional<ConnectionAuthenticationPurpose> authentication;
-
-    private final Optional<ConnectionConnectedAccountsPurpose> connectedAccounts;
-
     private final Optional<String> displayName;
 
     private final Optional<List<String>> enabledClients;
@@ -41,8 +37,6 @@ public final class UpdateConnectionRequestContentAuth0 implements IConnectionCom
     private final Map<String, Object> additionalProperties;
 
     private UpdateConnectionRequestContentAuth0(
-            Optional<ConnectionAuthenticationPurpose> authentication,
-            Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
             Optional<String> displayName,
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
@@ -50,8 +44,6 @@ public final class UpdateConnectionRequestContentAuth0 implements IConnectionCom
             Optional<ConnectionOptionsAuth0> options,
             Optional<List<String>> realms,
             Map<String, Object> additionalProperties) {
-        this.authentication = authentication;
-        this.connectedAccounts = connectedAccounts;
         this.displayName = displayName;
         this.enabledClients = enabledClients;
         this.isDomainConnection = isDomainConnection;
@@ -59,18 +51,6 @@ public final class UpdateConnectionRequestContentAuth0 implements IConnectionCom
         this.options = options;
         this.realms = realms;
         this.additionalProperties = additionalProperties;
-    }
-
-    @JsonProperty("authentication")
-    @java.lang.Override
-    public Optional<ConnectionAuthenticationPurpose> getAuthentication() {
-        return authentication;
-    }
-
-    @JsonProperty("connected_accounts")
-    @java.lang.Override
-    public Optional<ConnectionConnectedAccountsPurpose> getConnectedAccounts() {
-        return connectedAccounts;
     }
 
     @JsonProperty("display_name")
@@ -120,9 +100,7 @@ public final class UpdateConnectionRequestContentAuth0 implements IConnectionCom
     }
 
     private boolean equalTo(UpdateConnectionRequestContentAuth0 other) {
-        return authentication.equals(other.authentication)
-                && connectedAccounts.equals(other.connectedAccounts)
-                && displayName.equals(other.displayName)
+        return displayName.equals(other.displayName)
                 && enabledClients.equals(other.enabledClients)
                 && isDomainConnection.equals(other.isDomainConnection)
                 && metadata.equals(other.metadata)
@@ -133,8 +111,6 @@ public final class UpdateConnectionRequestContentAuth0 implements IConnectionCom
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.authentication,
-                this.connectedAccounts,
                 this.displayName,
                 this.enabledClients,
                 this.isDomainConnection,
@@ -154,10 +130,6 @@ public final class UpdateConnectionRequestContentAuth0 implements IConnectionCom
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<ConnectionAuthenticationPurpose> authentication = Optional.empty();
-
-        private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
-
         private Optional<String> displayName = Optional.empty();
 
         private Optional<List<String>> enabledClients = Optional.empty();
@@ -176,36 +148,12 @@ public final class UpdateConnectionRequestContentAuth0 implements IConnectionCom
         private Builder() {}
 
         public Builder from(UpdateConnectionRequestContentAuth0 other) {
-            authentication(other.getAuthentication());
-            connectedAccounts(other.getConnectedAccounts());
             displayName(other.getDisplayName());
             enabledClients(other.getEnabledClients());
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
             options(other.getOptions());
             realms(other.getRealms());
-            return this;
-        }
-
-        @JsonSetter(value = "authentication", nulls = Nulls.SKIP)
-        public Builder authentication(Optional<ConnectionAuthenticationPurpose> authentication) {
-            this.authentication = authentication;
-            return this;
-        }
-
-        public Builder authentication(ConnectionAuthenticationPurpose authentication) {
-            this.authentication = Optional.ofNullable(authentication);
-            return this;
-        }
-
-        @JsonSetter(value = "connected_accounts", nulls = Nulls.SKIP)
-        public Builder connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts) {
-            this.connectedAccounts = connectedAccounts;
-            return this;
-        }
-
-        public Builder connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts) {
-            this.connectedAccounts = Optional.ofNullable(connectedAccounts);
             return this;
         }
 
@@ -277,15 +225,7 @@ public final class UpdateConnectionRequestContentAuth0 implements IConnectionCom
 
         public UpdateConnectionRequestContentAuth0 build() {
             return new UpdateConnectionRequestContentAuth0(
-                    authentication,
-                    connectedAccounts,
-                    displayName,
-                    enabledClients,
-                    isDomainConnection,
-                    metadata,
-                    options,
-                    realms,
-                    additionalProperties);
+                    displayName, enabledClients, isDomainConnection, metadata, options, realms, additionalProperties);
         }
     }
 }
