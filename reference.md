@@ -5232,7 +5232,7 @@ client.eventStreams().test(
 
 ```java
 client.flows().list(
-    FlowsListRequest
+    ListFlowsRequestParameters
         .builder()
         .page(
             OptionalNullable.of(1)
@@ -5286,7 +5286,7 @@ client.flows().list(
 <dl>
 <dd>
 
-**hydrate:** `Optional<FlowsListRequestHydrateItem>` — hydration param
+**hydrate:** `Optional<ListFlowsRequestParametersHydrateEnum>` — hydration param
     
 </dd>
 </dl>
@@ -13738,7 +13738,7 @@ client.actions().versions().deploy(
 <dl>
 <dd>
 
-**request:** `Optional<DeployActionVersionRequestBodyParams>` 
+**request:** `Optional<DeployActionVersionRequestContent>` 
     
 </dd>
 </dl>
@@ -14359,7 +14359,7 @@ client.actions().triggers().list();
 </details>
 
 ## Actions Modules Versions
-<details><summary><code>client.actions.modules.versions.list(id) -> GetActionModuleVersionsResponseContent</code></summary>
+<details><summary><code>client.actions.modules.versions.list(id) -> SyncPagingIterable&amp;lt;ActionModuleVersion&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -14386,7 +14386,18 @@ List all published versions of a specific Actions Module.
 <dd>
 
 ```java
-client.actions().modules().versions().list("id");
+client.actions().modules().versions().list(
+    "id",
+    GetActionModuleVersionsRequestParameters
+        .builder()
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .build()
+);
 ```
 </dd>
 </dl>
@@ -14402,6 +14413,22 @@ client.actions().modules().versions().list("id");
 <dd>
 
 **id:** `String` — The unique ID of the module.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `Optional<Integer>` — Use this field to request a specific page of the list results.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**perPage:** `Optional<Integer>` — The maximum number of results to be returned by the server in a single response. 20 by default.
     
 </dd>
 </dl>
@@ -15155,7 +15182,7 @@ client.attackProtection().bruteForceProtection().update(
 <dl>
 <dd>
 
-**shields:** `Optional<List<UpdateBruteForceSettingsRequestContentShieldsItem>>` 
+**shields:** `Optional<List<BruteForceProtectionShieldsEnum>>` 
 
 Action to take when a brute force protection threshold is violated.
         Possible values: <code>block</code>, <code>user_notification</code>.
@@ -15174,10 +15201,7 @@ Action to take when a brute force protection threshold is violated.
 <dl>
 <dd>
 
-**mode:** `Optional<UpdateBruteForceSettingsRequestContentMode>` 
-
-Account Lockout: Determines whether or not IP address is used when counting failed attempts.
-          Possible values: <code>count_per_identifier_and_ip</code>, <code>count_per_identifier</code>.
+**mode:** `Optional<BruteForceProtectionModeEnum>` 
     
 </dd>
 </dl>
@@ -19473,7 +19497,7 @@ client.eventStreams().redeliveries().createById("id", "event_id");
 ```java
 client.flows().executions().list(
     "flow_id",
-    ExecutionsListRequest
+    ListFlowExecutionsRequestParameters
         .builder()
         .from(
             OptionalNullable.of("from")
@@ -19541,7 +19565,7 @@ client.flows().executions().list(
 client.flows().executions().get(
     "flow_id",
     "execution_id",
-    ExecutionsGetRequest
+    GetFlowExecutionRequestParameters
         .builder()
         .build()
 );
@@ -19575,7 +19599,7 @@ client.flows().executions().get(
 <dl>
 <dd>
 
-**hydrate:** `Optional<ExecutionsGetRequestHydrateItem>` — Hydration param
+**hydrate:** `Optional<GetFlowExecutionRequestParametersHydrateEnum>` — Hydration param
     
 </dd>
 </dl>
@@ -27217,7 +27241,7 @@ client.tenants().settings().update(
 <dl>
 <dd>
 
-**enabledLocales:** `Optional<List<UpdateTenantSettingsRequestContentEnabledLocalesItem>>` — Supported locales for the user interface
+**enabledLocales:** `Optional<List<TenantSettingsSupportedLocalesEnum>>` — Supported locales for the user interface
     
 </dd>
 </dl>

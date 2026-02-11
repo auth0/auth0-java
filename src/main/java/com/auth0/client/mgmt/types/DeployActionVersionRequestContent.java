@@ -18,14 +18,13 @@ import java.util.Objects;
 import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = DeployActionVersionRequestBodyParams.Builder.class)
-public final class DeployActionVersionRequestBodyParams {
+@JsonDeserialize(builder = DeployActionVersionRequestContent.Builder.class)
+public final class DeployActionVersionRequestContent {
     private final Optional<Boolean> updateDraft;
 
     private final Map<String, Object> additionalProperties;
 
-    private DeployActionVersionRequestBodyParams(
-            Optional<Boolean> updateDraft, Map<String, Object> additionalProperties) {
+    private DeployActionVersionRequestContent(Optional<Boolean> updateDraft, Map<String, Object> additionalProperties) {
         this.updateDraft = updateDraft;
         this.additionalProperties = additionalProperties;
     }
@@ -41,8 +40,7 @@ public final class DeployActionVersionRequestBodyParams {
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof DeployActionVersionRequestBodyParams
-                && equalTo((DeployActionVersionRequestBodyParams) other);
+        return other instanceof DeployActionVersionRequestContent && equalTo((DeployActionVersionRequestContent) other);
     }
 
     @JsonAnyGetter
@@ -50,7 +48,7 @@ public final class DeployActionVersionRequestBodyParams {
         return this.additionalProperties;
     }
 
-    private boolean equalTo(DeployActionVersionRequestBodyParams other) {
+    private boolean equalTo(DeployActionVersionRequestContent other) {
         return updateDraft.equals(other.updateDraft);
     }
 
@@ -77,7 +75,7 @@ public final class DeployActionVersionRequestBodyParams {
 
         private Builder() {}
 
-        public Builder from(DeployActionVersionRequestBodyParams other) {
+        public Builder from(DeployActionVersionRequestContent other) {
             updateDraft(other.getUpdateDraft());
             return this;
         }
@@ -96,8 +94,8 @@ public final class DeployActionVersionRequestBodyParams {
             return this;
         }
 
-        public DeployActionVersionRequestBodyParams build() {
-            return new DeployActionVersionRequestBodyParams(updateDraft, additionalProperties);
+        public DeployActionVersionRequestContent build() {
+            return new DeployActionVersionRequestContent(updateDraft, additionalProperties);
         }
     }
 }

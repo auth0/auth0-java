@@ -12,7 +12,9 @@ public interface IConnectionOptionsOAuth2Common extends IConnectionOptionsCommon
 
     Optional<String> getClientSecret();
 
-    OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams();
+    Optional<ConnectionScopeOAuth2> getScope();
 
     Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes();
+
+    OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams();
 }

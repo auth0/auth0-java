@@ -3,11 +3,13 @@
  */
 package com.auth0.client.mgmt.actions.modules;
 
+import com.auth0.client.mgmt.actions.modules.types.GetActionModuleVersionsRequestParameters;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
+import com.auth0.client.mgmt.core.SyncPagingIterable;
+import com.auth0.client.mgmt.types.ActionModuleVersion;
 import com.auth0.client.mgmt.types.CreateActionModuleVersionResponseContent;
 import com.auth0.client.mgmt.types.GetActionModuleVersionResponseContent;
-import com.auth0.client.mgmt.types.GetActionModuleVersionsResponseContent;
 import java.util.concurrent.CompletableFuture;
 
 public class AsyncVersionsClient {
@@ -30,15 +32,24 @@ public class AsyncVersionsClient {
     /**
      * List all published versions of a specific Actions Module.
      */
-    public CompletableFuture<GetActionModuleVersionsResponseContent> list(String id) {
+    public CompletableFuture<SyncPagingIterable<ActionModuleVersion>> list(String id) {
         return this.rawClient.list(id).thenApply(response -> response.body());
     }
 
     /**
      * List all published versions of a specific Actions Module.
      */
-    public CompletableFuture<GetActionModuleVersionsResponseContent> list(String id, RequestOptions requestOptions) {
-        return this.rawClient.list(id, requestOptions).thenApply(response -> response.body());
+    public CompletableFuture<SyncPagingIterable<ActionModuleVersion>> list(
+            String id, GetActionModuleVersionsRequestParameters request) {
+        return this.rawClient.list(id, request).thenApply(response -> response.body());
+    }
+
+    /**
+     * List all published versions of a specific Actions Module.
+     */
+    public CompletableFuture<SyncPagingIterable<ActionModuleVersion>> list(
+            String id, GetActionModuleVersionsRequestParameters request, RequestOptions requestOptions) {
+        return this.rawClient.list(id, request, requestOptions).thenApply(response -> response.body());
     }
 
     /**

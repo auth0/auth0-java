@@ -6,9 +6,9 @@ import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateFlowRequestContent;
 import com.auth0.client.mgmt.types.CreateFlowResponseContent;
 import com.auth0.client.mgmt.types.FlowSummary;
-import com.auth0.client.mgmt.types.FlowsListRequest;
 import com.auth0.client.mgmt.types.GetFlowRequestParameters;
 import com.auth0.client.mgmt.types.GetFlowResponseContent;
+import com.auth0.client.mgmt.types.ListFlowsRequestParameters;
 import com.auth0.client.mgmt.types.UpdateFlowRequestContent;
 import com.auth0.client.mgmt.types.UpdateFlowResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -49,7 +49,7 @@ public class FlowsWireTest {
                         .setBody(
                                 "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"flows\":[{\"id\":\"id\",\"name\":\"name\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"executed_at\":\"executed_at\"}]}"));
         SyncPagingIterable<FlowSummary> response = client.flows()
-                .list(FlowsListRequest.builder()
+                .list(ListFlowsRequestParameters.builder()
                         .page(OptionalNullable.of(1))
                         .perPage(OptionalNullable.of(1))
                         .includeTotals(OptionalNullable.of(true))

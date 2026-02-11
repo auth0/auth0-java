@@ -7,6 +7,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class SelfServiceProfileAllowedStrategyEnum {
+    public static final SelfServiceProfileAllowedStrategyEnum OKTA_SAMLP =
+            new SelfServiceProfileAllowedStrategyEnum(Value.OKTA_SAMLP, "okta-samlp");
+
     public static final SelfServiceProfileAllowedStrategyEnum PINGFEDERATE =
             new SelfServiceProfileAllowedStrategyEnum(Value.PINGFEDERATE, "pingfederate");
 
@@ -24,6 +27,9 @@ public final class SelfServiceProfileAllowedStrategyEnum {
 
     public static final SelfServiceProfileAllowedStrategyEnum WAAD =
             new SelfServiceProfileAllowedStrategyEnum(Value.WAAD, "waad");
+
+    public static final SelfServiceProfileAllowedStrategyEnum AUTH0SAMLP =
+            new SelfServiceProfileAllowedStrategyEnum(Value.AUTH0SAMLP, "auth0-samlp");
 
     public static final SelfServiceProfileAllowedStrategyEnum OIDC =
             new SelfServiceProfileAllowedStrategyEnum(Value.OIDC, "oidc");
@@ -64,6 +70,8 @@ public final class SelfServiceProfileAllowedStrategyEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
+            case OKTA_SAMLP:
+                return visitor.visitOktaSamlp();
             case PINGFEDERATE:
                 return visitor.visitPingfederate();
             case OKTA:
@@ -76,6 +84,8 @@ public final class SelfServiceProfileAllowedStrategyEnum {
                 return visitor.visitKeycloakSamlp();
             case WAAD:
                 return visitor.visitWaad();
+            case AUTH0SAMLP:
+                return visitor.visitAuth0Samlp();
             case OIDC:
                 return visitor.visitOidc();
             case ADFS:
@@ -89,6 +99,8 @@ public final class SelfServiceProfileAllowedStrategyEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static SelfServiceProfileAllowedStrategyEnum valueOf(String value) {
         switch (value) {
+            case "okta-samlp":
+                return OKTA_SAMLP;
             case "pingfederate":
                 return PINGFEDERATE;
             case "okta":
@@ -101,6 +113,8 @@ public final class SelfServiceProfileAllowedStrategyEnum {
                 return KEYCLOAK_SAMLP;
             case "waad":
                 return WAAD;
+            case "auth0-samlp":
+                return AUTH0SAMLP;
             case "oidc":
                 return OIDC;
             case "adfs":
@@ -123,6 +137,10 @@ public final class SelfServiceProfileAllowedStrategyEnum {
 
         OKTA,
 
+        AUTH0SAMLP,
+
+        OKTA_SAMLP,
+
         KEYCLOAK_SAMLP,
 
         PINGFEDERATE,
@@ -142,6 +160,10 @@ public final class SelfServiceProfileAllowedStrategyEnum {
         T visitAdfs();
 
         T visitOkta();
+
+        T visitAuth0Samlp();
+
+        T visitOktaSamlp();
 
         T visitKeycloakSamlp();
 

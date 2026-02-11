@@ -10,10 +10,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
@@ -23,14 +25,18 @@ public final class ResourceServerProofOfPossession {
 
     private final boolean required;
 
+    private final Optional<ResourceServerProofOfPossessionRequiredForEnum> requiredFor;
+
     private final Map<String, Object> additionalProperties;
 
     private ResourceServerProofOfPossession(
             ResourceServerProofOfPossessionMechanismEnum mechanism,
             boolean required,
+            Optional<ResourceServerProofOfPossessionRequiredForEnum> requiredFor,
             Map<String, Object> additionalProperties) {
         this.mechanism = mechanism;
         this.required = required;
+        this.requiredFor = requiredFor;
         this.additionalProperties = additionalProperties;
     }
 
@@ -47,6 +53,11 @@ public final class ResourceServerProofOfPossession {
         return required;
     }
 
+    @JsonProperty("required_for")
+    public Optional<ResourceServerProofOfPossessionRequiredForEnum> getRequiredFor() {
+        return requiredFor;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -59,12 +70,12 @@ public final class ResourceServerProofOfPossession {
     }
 
     private boolean equalTo(ResourceServerProofOfPossession other) {
-        return mechanism.equals(other.mechanism) && required == other.required;
+        return mechanism.equals(other.mechanism) && required == other.required && requiredFor.equals(other.requiredFor);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.mechanism, this.required);
+        return Objects.hash(this.mechanism, this.required, this.requiredFor);
     }
 
     @java.lang.Override
@@ -91,6 +102,10 @@ public final class ResourceServerProofOfPossession {
 
     public interface _FinalStage {
         ResourceServerProofOfPossession build();
+
+        _FinalStage requiredFor(Optional<ResourceServerProofOfPossessionRequiredForEnum> requiredFor);
+
+        _FinalStage requiredFor(ResourceServerProofOfPossessionRequiredForEnum requiredFor);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -98,6 +113,8 @@ public final class ResourceServerProofOfPossession {
         private ResourceServerProofOfPossessionMechanismEnum mechanism;
 
         private boolean required;
+
+        private Optional<ResourceServerProofOfPossessionRequiredForEnum> requiredFor = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -108,6 +125,7 @@ public final class ResourceServerProofOfPossession {
         public Builder from(ResourceServerProofOfPossession other) {
             mechanism(other.getMechanism());
             required(other.getRequired());
+            requiredFor(other.getRequiredFor());
             return this;
         }
 
@@ -131,8 +149,21 @@ public final class ResourceServerProofOfPossession {
         }
 
         @java.lang.Override
+        public _FinalStage requiredFor(ResourceServerProofOfPossessionRequiredForEnum requiredFor) {
+            this.requiredFor = Optional.ofNullable(requiredFor);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "required_for", nulls = Nulls.SKIP)
+        public _FinalStage requiredFor(Optional<ResourceServerProofOfPossessionRequiredForEnum> requiredFor) {
+            this.requiredFor = requiredFor;
+            return this;
+        }
+
+        @java.lang.Override
         public ResourceServerProofOfPossession build() {
-            return new ResourceServerProofOfPossession(mechanism, required, additionalProperties);
+            return new ResourceServerProofOfPossession(mechanism, required, requiredFor, additionalProperties);
         }
     }
 }

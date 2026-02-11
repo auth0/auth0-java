@@ -24,11 +24,9 @@ public final class OauthScope {
 
     public static final OauthScope READ_SCIM_CONFIG = new OauthScope(Value.READ_SCIM_CONFIG, "read:scim_config");
 
-    public static final OauthScope UPDATE_SCIM_CONFIG = new OauthScope(Value.UPDATE_SCIM_CONFIG, "update:scim_config");
-
     public static final OauthScope CREATE_RULES = new OauthScope(Value.CREATE_RULES, "create:rules");
 
-    public static final OauthScope READ_EXTENSIONS = new OauthScope(Value.READ_EXTENSIONS, "read:extensions");
+    public static final OauthScope UPDATE_SCIM_CONFIG = new OauthScope(Value.UPDATE_SCIM_CONFIG, "update:scim_config");
 
     public static final OauthScope READ_PROMPTS = new OauthScope(Value.READ_PROMPTS, "read:prompts");
 
@@ -43,13 +41,13 @@ public final class OauthScope {
 
     public static final OauthScope CREATE_ROLES = new OauthScope(Value.CREATE_ROLES, "create:roles");
 
+    public static final OauthScope DELETE_AUTHENTICATION_METHODS =
+            new OauthScope(Value.DELETE_AUTHENTICATION_METHODS, "delete:authentication_methods");
+
     public static final OauthScope CREATE_CONNECTIONS_KEYS =
             new OauthScope(Value.CREATE_CONNECTIONS_KEYS, "create:connections_keys");
 
     public static final OauthScope UPDATE_RULES = new OauthScope(Value.UPDATE_RULES, "update:rules");
-
-    public static final OauthScope DELETE_AUTHENTICATION_METHODS =
-            new OauthScope(Value.DELETE_AUTHENTICATION_METHODS, "delete:authentication_methods");
 
     public static final OauthScope UPDATE_FLOWS_VAULT_CONNECTIONS =
             new OauthScope(Value.UPDATE_FLOWS_VAULT_CONNECTIONS, "update:flows_vault_connections");
@@ -69,21 +67,13 @@ public final class OauthScope {
 
     public static final OauthScope DELETE_FLOWS = new OauthScope(Value.DELETE_FLOWS, "delete:flows");
 
-    public static final OauthScope READ_USER_APPLICATION_PASSWORDS =
-            new OauthScope(Value.READ_USER_APPLICATION_PASSWORDS, "read:user_application_passwords");
-
     public static final OauthScope DELETE_PHONE_PROVIDERS =
             new OauthScope(Value.DELETE_PHONE_PROVIDERS, "delete:phone_providers");
 
     public static final OauthScope DELETE_SELF_SERVICE_PROFILES =
             new OauthScope(Value.DELETE_SELF_SERVICE_PROFILES, "delete:self_service_profiles");
 
-    public static final OauthScope READ_TENANT_FEATURE_FLAGS =
-            new OauthScope(Value.READ_TENANT_FEATURE_FLAGS, "read:tenant_feature_flags");
-
     public static final OauthScope READ_GROUP_MEMBERS = new OauthScope(Value.READ_GROUP_MEMBERS, "read:group_members");
-
-    public static final OauthScope READ_INSIGHTS = new OauthScope(Value.READ_INSIGHTS, "read:insights");
 
     public static final OauthScope CREATE_SIGNING_KEYS =
             new OauthScope(Value.CREATE_SIGNING_KEYS, "create:signing_keys");
@@ -110,10 +100,10 @@ public final class OauthScope {
     public static final OauthScope READ_USER_IDP_TOKENS =
             new OauthScope(Value.READ_USER_IDP_TOKENS, "read:user_idp_tokens");
 
-    public static final OauthScope READ_HOOKS = new OauthScope(Value.READ_HOOKS, "read:hooks");
-
     public static final OauthScope READ_CUSTOM_SIGNING_KEYS =
             new OauthScope(Value.READ_CUSTOM_SIGNING_KEYS, "read:custom_signing_keys");
+
+    public static final OauthScope READ_HOOKS = new OauthScope(Value.READ_HOOKS, "read:hooks");
 
     public static final OauthScope CREATE_CURRENT_USER_DEVICE_CREDENTIALS =
             new OauthScope(Value.CREATE_CURRENT_USER_DEVICE_CREDENTIALS, "create:current_user_device_credentials");
@@ -159,12 +149,10 @@ public final class OauthScope {
     public static final OauthScope CREATE_CUSTOM_DOMAINS =
             new OauthScope(Value.CREATE_CUSTOM_DOMAINS, "create:custom_domains");
 
-    public static final OauthScope DELETE_ORGANIZATION_CONNECTIONS =
-            new OauthScope(Value.DELETE_ORGANIZATION_CONNECTIONS, "delete:organization_connections");
-
     public static final OauthScope READ_CURRENT_USER = new OauthScope(Value.READ_CURRENT_USER, "read:current_user");
 
-    public static final OauthScope UPDATE_SHIELDS = new OauthScope(Value.UPDATE_SHIELDS, "update:shields");
+    public static final OauthScope DELETE_ORGANIZATION_CONNECTIONS =
+            new OauthScope(Value.DELETE_ORGANIZATION_CONNECTIONS, "delete:organization_connections");
 
     public static final OauthScope READ_CLIENT_CREDENTIALS =
             new OauthScope(Value.READ_CLIENT_CREDENTIALS, "read:client_credentials");
@@ -175,27 +163,24 @@ public final class OauthScope {
     public static final OauthScope READ_ORGANIZATIONS_SUMMARY =
             new OauthScope(Value.READ_ORGANIZATIONS_SUMMARY, "read:organizations_summary");
 
-    public static final OauthScope READ_SCIM_TOKEN = new OauthScope(Value.READ_SCIM_TOKEN, "read:scim_token");
-
     public static final OauthScope DELETE_ORGANIZATIONS =
             new OauthScope(Value.DELETE_ORGANIZATIONS, "delete:organizations");
+
+    public static final OauthScope READ_SCIM_TOKEN = new OauthScope(Value.READ_SCIM_TOKEN, "read:scim_token");
 
     public static final OauthScope READ_CONNECTIONS = new OauthScope(Value.READ_CONNECTIONS, "read:connections");
 
     public static final OauthScope READ_SIGNING_KEYS = new OauthScope(Value.READ_SIGNING_KEYS, "read:signing_keys");
-
-    public static final OauthScope DELETE_TENANT_INVITATIONS =
-            new OauthScope(Value.DELETE_TENANT_INVITATIONS, "delete:tenant_invitations");
 
     public static final OauthScope DELETE_FEDERATED_CONNECTIONS_TOKENS =
             new OauthScope(Value.DELETE_FEDERATED_CONNECTIONS_TOKENS, "delete:federated_connections_tokens");
 
     public static final OauthScope DELETE_CONNECTIONS = new OauthScope(Value.DELETE_CONNECTIONS, "delete:connections");
 
-    public static final OauthScope CREATE_USERS = new OauthScope(Value.CREATE_USERS, "create:users");
-
     public static final OauthScope UPDATE_RESOURCE_SERVERS =
             new OauthScope(Value.UPDATE_RESOURCE_SERVERS, "update:resource_servers");
+
+    public static final OauthScope CREATE_USERS = new OauthScope(Value.CREATE_USERS, "create:users");
 
     public static final OauthScope READ_PHONE_TEMPLATES =
             new OauthScope(Value.READ_PHONE_TEMPLATES, "read:phone_templates");
@@ -226,16 +211,11 @@ public final class OauthScope {
     public static final OauthScope READ_DIRECTORY_PROVISIONINGS =
             new OauthScope(Value.READ_DIRECTORY_PROVISIONINGS, "read:directory_provisionings");
 
-    public static final OauthScope UPDATE_TENANT_MEMBERS =
-            new OauthScope(Value.UPDATE_TENANT_MEMBERS, "update:tenant_members");
-
     public static final OauthScope CREATE_AUTHENTICATION_METHODS =
             new OauthScope(Value.CREATE_AUTHENTICATION_METHODS, "create:authentication_methods");
 
     public static final OauthScope CREATE_PHONE_PROVIDERS =
             new OauthScope(Value.CREATE_PHONE_PROVIDERS, "create:phone_providers");
-
-    public static final OauthScope DELETE_GROUP_ROLES = new OauthScope(Value.DELETE_GROUP_ROLES, "delete:group_roles");
 
     public static final OauthScope DELETE_ORGANIZATION_CLIENT_GRANTS =
             new OauthScope(Value.DELETE_ORGANIZATION_CLIENT_GRANTS, "delete:organization_client_grants");
@@ -252,11 +232,6 @@ public final class OauthScope {
     public static final OauthScope UPDATE_EVENT_STREAMS =
             new OauthScope(Value.UPDATE_EVENT_STREAMS, "update:event_streams");
 
-    public static final OauthScope READ_INTEGRATIONS = new OauthScope(Value.READ_INTEGRATIONS, "read:integrations");
-
-    public static final OauthScope CREATE_TENANT_INVITATIONS =
-            new OauthScope(Value.CREATE_TENANT_INVITATIONS, "create:tenant_invitations");
-
     public static final OauthScope UPDATE_CUSTOM_SIGNING_KEYS =
             new OauthScope(Value.UPDATE_CUSTOM_SIGNING_KEYS, "update:custom_signing_keys");
 
@@ -266,21 +241,14 @@ public final class OauthScope {
 
     public static final OauthScope READ_CLIENTS = new OauthScope(Value.READ_CLIENTS, "read:clients");
 
-    public static final OauthScope READ_SHIELDS = new OauthScope(Value.READ_SHIELDS, "read:shields");
-
     public static final OauthScope DELETE_ENCRYPTION_KEYS =
             new OauthScope(Value.DELETE_ENCRYPTION_KEYS, "delete:encryption_keys");
-
-    public static final OauthScope CREATE_SHIELDS = new OauthScope(Value.CREATE_SHIELDS, "create:shields");
 
     public static final OauthScope UPDATE_USER_ATTRIBUTE_PROFILES =
             new OauthScope(Value.UPDATE_USER_ATTRIBUTE_PROFILES, "update:user_attribute_profiles");
 
     public static final OauthScope CREATE_CUSTOM_SIGNING_KEYS =
             new OauthScope(Value.CREATE_CUSTOM_SIGNING_KEYS, "create:custom_signing_keys");
-
-    public static final OauthScope DELETE_INTEGRATIONS =
-            new OauthScope(Value.DELETE_INTEGRATIONS, "delete:integrations");
 
     public static final OauthScope READ_CLIENT_KEYS = new OauthScope(Value.READ_CLIENT_KEYS, "read:client_keys");
 
@@ -293,15 +261,9 @@ public final class OauthScope {
     public static final OauthScope DELETE_VDCS_TEMPLATES =
             new OauthScope(Value.DELETE_VDCS_TEMPLATES, "delete:vdcs_templates");
 
-    public static final OauthScope CREATE_USER_APPLICATION_PASSWORDS =
-            new OauthScope(Value.CREATE_USER_APPLICATION_PASSWORDS, "create:user_application_passwords");
-
     public static final OauthScope READ_FLOWS = new OauthScope(Value.READ_FLOWS, "read:flows");
 
     public static final OauthScope READ_SESSIONS = new OauthScope(Value.READ_SESSIONS, "read:sessions");
-
-    public static final OauthScope CREATE_TEST_EMAIL_DISPATCH =
-            new OauthScope(Value.CREATE_TEST_EMAIL_DISPATCH, "create:test_email_dispatch");
 
     public static final OauthScope CREATE_ORGANIZATION_MEMBER_ROLES =
             new OauthScope(Value.CREATE_ORGANIZATION_MEMBER_ROLES, "create:organization_member_roles");
@@ -333,16 +295,8 @@ public final class OauthScope {
 
     public static final OauthScope UPDATE_CLIENTS = new OauthScope(Value.UPDATE_CLIENTS, "update:clients");
 
-    public static final OauthScope READ_SECURITY_METRICS =
-            new OauthScope(Value.READ_SECURITY_METRICS, "read:security_metrics");
-
-    public static final OauthScope RUN_CHECKS = new OauthScope(Value.RUN_CHECKS, "run:checks");
-
     public static final OauthScope DELETE_CLIENT_GRANTS =
             new OauthScope(Value.DELETE_CLIENT_GRANTS, "delete:client_grants");
-
-    public static final OauthScope UPDATE_DEVICE_CODES =
-            new OauthScope(Value.UPDATE_DEVICE_CODES, "update:device_codes");
 
     public static final OauthScope CREATE_ENCRYPTION_KEYS =
             new OauthScope(Value.CREATE_ENCRYPTION_KEYS, "create:encryption_keys");
@@ -369,9 +323,6 @@ public final class OauthScope {
     public static final OauthScope UPDATE_EMAIL_PROVIDER =
             new OauthScope(Value.UPDATE_EMAIL_PROVIDER, "update:email_provider");
 
-    public static final OauthScope READ_TENANT_MEMBERS =
-            new OauthScope(Value.READ_TENANT_MEMBERS, "read:tenant_members");
-
     public static final OauthScope DELETE_FLOWS_VAULT_CONNECTIONS =
             new OauthScope(Value.DELETE_FLOWS_VAULT_CONNECTIONS, "delete:flows_vault_connections");
 
@@ -380,8 +331,6 @@ public final class OauthScope {
 
     public static final OauthScope UPDATE_SELF_SERVICE_PROFILE_CUSTOM_TEXTS =
             new OauthScope(Value.UPDATE_SELF_SERVICE_PROFILE_CUSTOM_TEXTS, "update:self_service_profile_custom_texts");
-
-    public static final OauthScope READ_GROUP_ROLES = new OauthScope(Value.READ_GROUP_ROLES, "read:group_roles");
 
     public static final OauthScope DELETE_ORGANIZATION_DISCOVERY_DOMAINS =
             new OauthScope(Value.DELETE_ORGANIZATION_DISCOVERY_DOMAINS, "delete:organization_discovery_domains");
@@ -395,8 +344,6 @@ public final class OauthScope {
     public static final OauthScope UPDATE_VDCS_TEMPLATES =
             new OauthScope(Value.UPDATE_VDCS_TEMPLATES, "update:vdcs_templates");
 
-    public static final OauthScope DELETE_TENANTS = new OauthScope(Value.DELETE_TENANTS, "delete:tenants");
-
     public static final OauthScope CREATE_USER_ATTRIBUTE_PROFILES =
             new OauthScope(Value.CREATE_USER_ATTRIBUTE_PROFILES, "create:user_attribute_profiles");
 
@@ -408,23 +355,18 @@ public final class OauthScope {
     public static final OauthScope DELETE_CUSTOM_SIGNING_KEYS =
             new OauthScope(Value.DELETE_CUSTOM_SIGNING_KEYS, "delete:custom_signing_keys");
 
-    public static final OauthScope READ_DEVICE_CODES = new OauthScope(Value.READ_DEVICE_CODES, "read:device_codes");
-
     public static final OauthScope DELETE_RESOURCE_SERVERS =
             new OauthScope(Value.DELETE_RESOURCE_SERVERS, "delete:resource_servers");
 
     public static final OauthScope UPDATE_GUARDIAN_FACTORS =
             new OauthScope(Value.UPDATE_GUARDIAN_FACTORS, "update:guardian_factors");
 
-    public static final OauthScope READ_USERS = new OauthScope(Value.READ_USERS, "read:users");
-
     public static final OauthScope DELETE_ORGANIZATION_MEMBER_ROLES =
             new OauthScope(Value.DELETE_ORGANIZATION_MEMBER_ROLES, "delete:organization_member_roles");
 
-    public static final OauthScope UPDATE_BRANDING = new OauthScope(Value.UPDATE_BRANDING, "update:branding");
+    public static final OauthScope READ_USERS = new OauthScope(Value.READ_USERS, "read:users");
 
-    public static final OauthScope CREATE_INTEGRATIONS =
-            new OauthScope(Value.CREATE_INTEGRATIONS, "create:integrations");
+    public static final OauthScope UPDATE_BRANDING = new OauthScope(Value.UPDATE_BRANDING, "update:branding");
 
     public static final OauthScope DELETE_SSO_ACCESS_TICKETS =
             new OauthScope(Value.DELETE_SSO_ACCESS_TICKETS, "delete:sso_access_tickets");
@@ -450,12 +392,10 @@ public final class OauthScope {
     public static final OauthScope CREATE_NETWORK_ACLS =
             new OauthScope(Value.CREATE_NETWORK_ACLS, "create:network_acls");
 
-    public static final OauthScope CREATE_SCIM_TOKEN = new OauthScope(Value.CREATE_SCIM_TOKEN, "create:scim_token");
-
     public static final OauthScope DELETE_CUSTOM_DOMAINS =
             new OauthScope(Value.DELETE_CUSTOM_DOMAINS, "delete:custom_domains");
 
-    public static final OauthScope READ_EVENTS = new OauthScope(Value.READ_EVENTS, "read:events");
+    public static final OauthScope CREATE_SCIM_TOKEN = new OauthScope(Value.CREATE_SCIM_TOKEN, "create:scim_token");
 
     public static final OauthScope UPDATE_SESSIONS = new OauthScope(Value.UPDATE_SESSIONS, "update:sessions");
 
@@ -477,16 +417,13 @@ public final class OauthScope {
 
     public static final OauthScope DELETE_RULES = new OauthScope(Value.DELETE_RULES, "delete:rules");
 
-    public static final OauthScope UPDATE_TENANT_INVITATIONS =
-            new OauthScope(Value.UPDATE_TENANT_INVITATIONS, "update:tenant_invitations");
-
     public static final OauthScope READ_ORGANIZATION_MEMBER_ROLES =
             new OauthScope(Value.READ_ORGANIZATION_MEMBER_ROLES, "read:organization_member_roles");
 
-    public static final OauthScope UPDATE_FLOWS = new OauthScope(Value.UPDATE_FLOWS, "update:flows");
-
     public static final OauthScope READ_FEDERATED_CONNECTIONS_TOKENS =
             new OauthScope(Value.READ_FEDERATED_CONNECTIONS_TOKENS, "read:federated_connections_tokens");
+
+    public static final OauthScope UPDATE_FLOWS = new OauthScope(Value.UPDATE_FLOWS, "update:flows");
 
     public static final OauthScope CREATE_LOG_STREAMS = new OauthScope(Value.CREATE_LOG_STREAMS, "create:log_streams");
 
@@ -496,9 +433,6 @@ public final class OauthScope {
     public static final OauthScope CREATE_FLOWS_VAULT_CONNECTIONS =
             new OauthScope(Value.CREATE_FLOWS_VAULT_CONNECTIONS, "create:flows_vault_connections");
 
-    public static final OauthScope UPDATE_INTEGRATIONS =
-            new OauthScope(Value.UPDATE_INTEGRATIONS, "update:integrations");
-
     public static final OauthScope UPDATE_DIRECTORY_PROVISIONINGS =
             new OauthScope(Value.UPDATE_DIRECTORY_PROVISIONINGS, "update:directory_provisionings");
 
@@ -506,8 +440,6 @@ public final class OauthScope {
             new OauthScope(Value.DELETE_USER_ATTRIBUTE_PROFILES, "delete:user_attribute_profiles");
 
     public static final OauthScope READ_CLIENT_GRANTS = new OauthScope(Value.READ_CLIENT_GRANTS, "read:client_grants");
-
-    public static final OauthScope READ_ENTITLEMENTS = new OauthScope(Value.READ_ENTITLEMENTS, "read:entitlements");
 
     public static final OauthScope CREATE_TOKEN_EXCHANGE_PROFILES =
             new OauthScope(Value.CREATE_TOKEN_EXCHANGE_PROFILES, "create:token_exchange_profiles");
@@ -540,22 +472,20 @@ public final class OauthScope {
 
     public static final OauthScope CREATE_FLOWS = new OauthScope(Value.CREATE_FLOWS, "create:flows");
 
-    public static final OauthScope CREATE_GROUP_ROLES = new OauthScope(Value.CREATE_GROUP_ROLES, "create:group_roles");
-
     public static final OauthScope DELETE_HOOKS = new OauthScope(Value.DELETE_HOOKS, "delete:hooks");
-
-    public static final OauthScope READ_ORGANIZATIONS = new OauthScope(Value.READ_ORGANIZATIONS, "read:organizations");
 
     public static final OauthScope DELETE_CURRENT_USER =
             new OauthScope(Value.DELETE_CURRENT_USER, "delete:current_user");
 
-    public static final OauthScope DELETE_ROLES = new OauthScope(Value.DELETE_ROLES, "delete:roles");
+    public static final OauthScope READ_ORGANIZATIONS = new OauthScope(Value.READ_ORGANIZATIONS, "read:organizations");
 
-    public static final OauthScope UPDATE_PHONE_TEMPLATES =
-            new OauthScope(Value.UPDATE_PHONE_TEMPLATES, "update:phone_templates");
+    public static final OauthScope DELETE_ROLES = new OauthScope(Value.DELETE_ROLES, "delete:roles");
 
     public static final OauthScope READ_CONNECTION_PROFILES =
             new OauthScope(Value.READ_CONNECTION_PROFILES, "read:connection_profiles");
+
+    public static final OauthScope UPDATE_PHONE_TEMPLATES =
+            new OauthScope(Value.UPDATE_PHONE_TEMPLATES, "update:phone_templates");
 
     public static final OauthScope READ_STATS = new OauthScope(Value.READ_STATS, "read:stats");
 
@@ -622,8 +552,6 @@ public final class OauthScope {
 
     public static final OauthScope CREATE_HOOKS = new OauthScope(Value.CREATE_HOOKS, "create:hooks");
 
-    public static final OauthScope READ_CHECKS = new OauthScope(Value.READ_CHECKS, "read:checks");
-
     public static final OauthScope CREATE_CONNECTIONS = new OauthScope(Value.CREATE_CONNECTIONS, "create:connections");
 
     public static final OauthScope CREATE_EMAIL_TEMPLATES =
@@ -638,8 +566,6 @@ public final class OauthScope {
 
     public static final OauthScope DELETE_USERS = new OauthScope(Value.DELETE_USERS, "delete:users");
 
-    public static final OauthScope READ_ENTITY_COUNTS = new OauthScope(Value.READ_ENTITY_COUNTS, "read:entity_counts");
-
     public static final OauthScope CREATE_CLIENT_CREDENTIALS =
             new OauthScope(Value.CREATE_CLIENT_CREDENTIALS, "create:client_credentials");
 
@@ -648,11 +574,11 @@ public final class OauthScope {
 
     public static final OauthScope CREATE_ACTIONS = new OauthScope(Value.CREATE_ACTIONS, "create:actions");
 
-    public static final OauthScope DELETE_PHONE_TEMPLATES =
-            new OauthScope(Value.DELETE_PHONE_TEMPLATES, "delete:phone_templates");
-
     public static final OauthScope READ_EVENT_DELIVERIES =
             new OauthScope(Value.READ_EVENT_DELIVERIES, "read:event_deliveries");
+
+    public static final OauthScope DELETE_PHONE_TEMPLATES =
+            new OauthScope(Value.DELETE_PHONE_TEMPLATES, "delete:phone_templates");
 
     public static final OauthScope READ_REFRESH_TOKENS =
             new OauthScope(Value.READ_REFRESH_TOKENS, "read:refresh_tokens");
@@ -660,23 +586,10 @@ public final class OauthScope {
     public static final OauthScope UPDATE_EMAIL_TEMPLATES =
             new OauthScope(Value.UPDATE_EMAIL_TEMPLATES, "update:email_templates");
 
-    public static final OauthScope READ_OWNERS = new OauthScope(Value.READ_OWNERS, "read:owners");
-
-    public static final OauthScope DELETE_USER_APPLICATION_PASSWORDS =
-            new OauthScope(Value.DELETE_USER_APPLICATION_PASSWORDS, "delete:user_application_passwords");
-
     public static final OauthScope READ_ROLE_MEMBERS = new OauthScope(Value.READ_ROLE_MEMBERS, "read:role_members");
-
-    public static final OauthScope READ_TENANT_INVITATIONS =
-            new OauthScope(Value.READ_TENANT_INVITATIONS, "read:tenant_invitations");
-
-    public static final OauthScope DELETE_TENANT_MEMBERS =
-            new OauthScope(Value.DELETE_TENANT_MEMBERS, "delete:tenant_members");
 
     public static final OauthScope CREATE_ORGANIZATION_MEMBERS =
             new OauthScope(Value.CREATE_ORGANIZATION_MEMBERS, "create:organization_members");
-
-    public static final OauthScope DELETE_OWNERS = new OauthScope(Value.DELETE_OWNERS, "delete:owners");
 
     private final Value value;
 
@@ -721,12 +634,10 @@ public final class OauthScope {
                 return visitor.visitReadClientSummary();
             case READ_SCIM_CONFIG:
                 return visitor.visitReadScimConfig();
-            case UPDATE_SCIM_CONFIG:
-                return visitor.visitUpdateScimConfig();
             case CREATE_RULES:
                 return visitor.visitCreateRules();
-            case READ_EXTENSIONS:
-                return visitor.visitReadExtensions();
+            case UPDATE_SCIM_CONFIG:
+                return visitor.visitUpdateScimConfig();
             case READ_PROMPTS:
                 return visitor.visitReadPrompts();
             case CREATE_ORGANIZATION_DISCOVERY_DOMAINS:
@@ -737,12 +648,12 @@ public final class OauthScope {
                 return visitor.visitUpdatePhoneProviders();
             case CREATE_ROLES:
                 return visitor.visitCreateRoles();
+            case DELETE_AUTHENTICATION_METHODS:
+                return visitor.visitDeleteAuthenticationMethods();
             case CREATE_CONNECTIONS_KEYS:
                 return visitor.visitCreateConnectionsKeys();
             case UPDATE_RULES:
                 return visitor.visitUpdateRules();
-            case DELETE_AUTHENTICATION_METHODS:
-                return visitor.visitDeleteAuthenticationMethods();
             case UPDATE_FLOWS_VAULT_CONNECTIONS:
                 return visitor.visitUpdateFlowsVaultConnections();
             case READ_ENCRYPTION_KEYS:
@@ -757,18 +668,12 @@ public final class OauthScope {
                 return visitor.visitDeleteEventStreams();
             case DELETE_FLOWS:
                 return visitor.visitDeleteFlows();
-            case READ_USER_APPLICATION_PASSWORDS:
-                return visitor.visitReadUserApplicationPasswords();
             case DELETE_PHONE_PROVIDERS:
                 return visitor.visitDeletePhoneProviders();
             case DELETE_SELF_SERVICE_PROFILES:
                 return visitor.visitDeleteSelfServiceProfiles();
-            case READ_TENANT_FEATURE_FLAGS:
-                return visitor.visitReadTenantFeatureFlags();
             case READ_GROUP_MEMBERS:
                 return visitor.visitReadGroupMembers();
-            case READ_INSIGHTS:
-                return visitor.visitReadInsights();
             case CREATE_SIGNING_KEYS:
                 return visitor.visitCreateSigningKeys();
             case UPDATE_SIGNING_KEYS:
@@ -787,10 +692,10 @@ public final class OauthScope {
                 return visitor.visitUpdateRefreshTokens();
             case READ_USER_IDP_TOKENS:
                 return visitor.visitReadUserIdpTokens();
-            case READ_HOOKS:
-                return visitor.visitReadHooks();
             case READ_CUSTOM_SIGNING_KEYS:
                 return visitor.visitReadCustomSigningKeys();
+            case READ_HOOKS:
+                return visitor.visitReadHooks();
             case CREATE_CURRENT_USER_DEVICE_CREDENTIALS:
                 return visitor.visitCreateCurrentUserDeviceCredentials();
             case DELETE_BRANDING:
@@ -823,36 +728,32 @@ public final class OauthScope {
                 return visitor.visitReadOrganizationDiscoveryDomains();
             case CREATE_CUSTOM_DOMAINS:
                 return visitor.visitCreateCustomDomains();
-            case DELETE_ORGANIZATION_CONNECTIONS:
-                return visitor.visitDeleteOrganizationConnections();
             case READ_CURRENT_USER:
                 return visitor.visitReadCurrentUser();
-            case UPDATE_SHIELDS:
-                return visitor.visitUpdateShields();
+            case DELETE_ORGANIZATION_CONNECTIONS:
+                return visitor.visitDeleteOrganizationConnections();
             case READ_CLIENT_CREDENTIALS:
                 return visitor.visitReadClientCredentials();
             case CREATE_ORGANIZATIONS:
                 return visitor.visitCreateOrganizations();
             case READ_ORGANIZATIONS_SUMMARY:
                 return visitor.visitReadOrganizationsSummary();
-            case READ_SCIM_TOKEN:
-                return visitor.visitReadScimToken();
             case DELETE_ORGANIZATIONS:
                 return visitor.visitDeleteOrganizations();
+            case READ_SCIM_TOKEN:
+                return visitor.visitReadScimToken();
             case READ_CONNECTIONS:
                 return visitor.visitReadConnections();
             case READ_SIGNING_KEYS:
                 return visitor.visitReadSigningKeys();
-            case DELETE_TENANT_INVITATIONS:
-                return visitor.visitDeleteTenantInvitations();
             case DELETE_FEDERATED_CONNECTIONS_TOKENS:
                 return visitor.visitDeleteFederatedConnectionsTokens();
             case DELETE_CONNECTIONS:
                 return visitor.visitDeleteConnections();
-            case CREATE_USERS:
-                return visitor.visitCreateUsers();
             case UPDATE_RESOURCE_SERVERS:
                 return visitor.visitUpdateResourceServers();
+            case CREATE_USERS:
+                return visitor.visitCreateUsers();
             case READ_PHONE_TEMPLATES:
                 return visitor.visitReadPhoneTemplates();
             case UPDATE_ROLES:
@@ -875,14 +776,10 @@ public final class OauthScope {
                 return visitor.visitReadUserAttributeProfiles();
             case READ_DIRECTORY_PROVISIONINGS:
                 return visitor.visitReadDirectoryProvisionings();
-            case UPDATE_TENANT_MEMBERS:
-                return visitor.visitUpdateTenantMembers();
             case CREATE_AUTHENTICATION_METHODS:
                 return visitor.visitCreateAuthenticationMethods();
             case CREATE_PHONE_PROVIDERS:
                 return visitor.visitCreatePhoneProviders();
-            case DELETE_GROUP_ROLES:
-                return visitor.visitDeleteGroupRoles();
             case DELETE_ORGANIZATION_CLIENT_GRANTS:
                 return visitor.visitDeleteOrganizationClientGrants();
             case CREATE_SCIM_CONFIG:
@@ -895,10 +792,6 @@ public final class OauthScope {
                 return visitor.visitReadOrganizationMembers();
             case UPDATE_EVENT_STREAMS:
                 return visitor.visitUpdateEventStreams();
-            case READ_INTEGRATIONS:
-                return visitor.visitReadIntegrations();
-            case CREATE_TENANT_INVITATIONS:
-                return visitor.visitCreateTenantInvitations();
             case UPDATE_CUSTOM_SIGNING_KEYS:
                 return visitor.visitUpdateCustomSigningKeys();
             case READ_LOG_STREAMS:
@@ -907,18 +800,12 @@ public final class OauthScope {
                 return visitor.visitUpdateLogStreams();
             case READ_CLIENTS:
                 return visitor.visitReadClients();
-            case READ_SHIELDS:
-                return visitor.visitReadShields();
             case DELETE_ENCRYPTION_KEYS:
                 return visitor.visitDeleteEncryptionKeys();
-            case CREATE_SHIELDS:
-                return visitor.visitCreateShields();
             case UPDATE_USER_ATTRIBUTE_PROFILES:
                 return visitor.visitUpdateUserAttributeProfiles();
             case CREATE_CUSTOM_SIGNING_KEYS:
                 return visitor.visitCreateCustomSigningKeys();
-            case DELETE_INTEGRATIONS:
-                return visitor.visitDeleteIntegrations();
             case READ_CLIENT_KEYS:
                 return visitor.visitReadClientKeys();
             case CREATE_EMAIL_PROVIDER:
@@ -927,14 +814,10 @@ public final class OauthScope {
                 return visitor.visitUpdateNetworkAcls();
             case DELETE_VDCS_TEMPLATES:
                 return visitor.visitDeleteVdcsTemplates();
-            case CREATE_USER_APPLICATION_PASSWORDS:
-                return visitor.visitCreateUserApplicationPasswords();
             case READ_FLOWS:
                 return visitor.visitReadFlows();
             case READ_SESSIONS:
                 return visitor.visitReadSessions();
-            case CREATE_TEST_EMAIL_DISPATCH:
-                return visitor.visitCreateTestEmailDispatch();
             case CREATE_ORGANIZATION_MEMBER_ROLES:
                 return visitor.visitCreateOrganizationMemberRoles();
             case CREATE_DIRECTORY_PROVISIONINGS:
@@ -957,14 +840,8 @@ public final class OauthScope {
                 return visitor.visitReadOrganizationClientGrants();
             case UPDATE_CLIENTS:
                 return visitor.visitUpdateClients();
-            case READ_SECURITY_METRICS:
-                return visitor.visitReadSecurityMetrics();
-            case RUN_CHECKS:
-                return visitor.visitRunChecks();
             case DELETE_CLIENT_GRANTS:
                 return visitor.visitDeleteClientGrants();
-            case UPDATE_DEVICE_CODES:
-                return visitor.visitUpdateDeviceCodes();
             case CREATE_ENCRYPTION_KEYS:
                 return visitor.visitCreateEncryptionKeys();
             case UPDATE_ENCRYPTION_KEYS:
@@ -983,16 +860,12 @@ public final class OauthScope {
                 return visitor.visitReadLogs();
             case UPDATE_EMAIL_PROVIDER:
                 return visitor.visitUpdateEmailProvider();
-            case READ_TENANT_MEMBERS:
-                return visitor.visitReadTenantMembers();
             case DELETE_FLOWS_VAULT_CONNECTIONS:
                 return visitor.visitDeleteFlowsVaultConnections();
             case DELETE_NETWORK_ACLS:
                 return visitor.visitDeleteNetworkAcls();
             case UPDATE_SELF_SERVICE_PROFILE_CUSTOM_TEXTS:
                 return visitor.visitUpdateSelfServiceProfileCustomTexts();
-            case READ_GROUP_ROLES:
-                return visitor.visitReadGroupRoles();
             case DELETE_ORGANIZATION_DISCOVERY_DOMAINS:
                 return visitor.visitDeleteOrganizationDiscoveryDomains();
             case UPDATE_CLIENT_GRANTS:
@@ -1001,8 +874,6 @@ public final class OauthScope {
                 return visitor.visitReadEmailTemplates();
             case UPDATE_VDCS_TEMPLATES:
                 return visitor.visitUpdateVdcsTemplates();
-            case DELETE_TENANTS:
-                return visitor.visitDeleteTenants();
             case CREATE_USER_ATTRIBUTE_PROFILES:
                 return visitor.visitCreateUserAttributeProfiles();
             case CREATE_ORGANIZATION_INVITATIONS:
@@ -1011,20 +882,16 @@ public final class OauthScope {
                 return visitor.visitDeleteLogStreams();
             case DELETE_CUSTOM_SIGNING_KEYS:
                 return visitor.visitDeleteCustomSigningKeys();
-            case READ_DEVICE_CODES:
-                return visitor.visitReadDeviceCodes();
             case DELETE_RESOURCE_SERVERS:
                 return visitor.visitDeleteResourceServers();
             case UPDATE_GUARDIAN_FACTORS:
                 return visitor.visitUpdateGuardianFactors();
-            case READ_USERS:
-                return visitor.visitReadUsers();
             case DELETE_ORGANIZATION_MEMBER_ROLES:
                 return visitor.visitDeleteOrganizationMemberRoles();
+            case READ_USERS:
+                return visitor.visitReadUsers();
             case UPDATE_BRANDING:
                 return visitor.visitUpdateBranding();
-            case CREATE_INTEGRATIONS:
-                return visitor.visitCreateIntegrations();
             case DELETE_SSO_ACCESS_TICKETS:
                 return visitor.visitDeleteSsoAccessTickets();
             case UPDATE_ORGANIZATION_CONNECTIONS:
@@ -1043,12 +910,10 @@ public final class OauthScope {
                 return visitor.visitReadEventStreams();
             case CREATE_NETWORK_ACLS:
                 return visitor.visitCreateNetworkAcls();
-            case CREATE_SCIM_TOKEN:
-                return visitor.visitCreateScimToken();
             case DELETE_CUSTOM_DOMAINS:
                 return visitor.visitDeleteCustomDomains();
-            case READ_EVENTS:
-                return visitor.visitReadEvents();
+            case CREATE_SCIM_TOKEN:
+                return visitor.visitCreateScimToken();
             case UPDATE_SESSIONS:
                 return visitor.visitUpdateSessions();
             case DELETE_CONNECTION_PROFILES:
@@ -1065,30 +930,24 @@ public final class OauthScope {
                 return visitor.visitDeleteScimConfig();
             case DELETE_RULES:
                 return visitor.visitDeleteRules();
-            case UPDATE_TENANT_INVITATIONS:
-                return visitor.visitUpdateTenantInvitations();
             case READ_ORGANIZATION_MEMBER_ROLES:
                 return visitor.visitReadOrganizationMemberRoles();
-            case UPDATE_FLOWS:
-                return visitor.visitUpdateFlows();
             case READ_FEDERATED_CONNECTIONS_TOKENS:
                 return visitor.visitReadFederatedConnectionsTokens();
+            case UPDATE_FLOWS:
+                return visitor.visitUpdateFlows();
             case CREATE_LOG_STREAMS:
                 return visitor.visitCreateLogStreams();
             case CREATE_CONNECTION_PROFILES:
                 return visitor.visitCreateConnectionProfiles();
             case CREATE_FLOWS_VAULT_CONNECTIONS:
                 return visitor.visitCreateFlowsVaultConnections();
-            case UPDATE_INTEGRATIONS:
-                return visitor.visitUpdateIntegrations();
             case UPDATE_DIRECTORY_PROVISIONINGS:
                 return visitor.visitUpdateDirectoryProvisionings();
             case DELETE_USER_ATTRIBUTE_PROFILES:
                 return visitor.visitDeleteUserAttributeProfiles();
             case READ_CLIENT_GRANTS:
                 return visitor.visitReadClientGrants();
-            case READ_ENTITLEMENTS:
-                return visitor.visitReadEntitlements();
             case CREATE_TOKEN_EXCHANGE_PROFILES:
                 return visitor.visitCreateTokenExchangeProfiles();
             case READ_LOGS_USERS:
@@ -1113,20 +972,18 @@ public final class OauthScope {
                 return visitor.visitCreateRoleMembers();
             case CREATE_FLOWS:
                 return visitor.visitCreateFlows();
-            case CREATE_GROUP_ROLES:
-                return visitor.visitCreateGroupRoles();
             case DELETE_HOOKS:
                 return visitor.visitDeleteHooks();
-            case READ_ORGANIZATIONS:
-                return visitor.visitReadOrganizations();
             case DELETE_CURRENT_USER:
                 return visitor.visitDeleteCurrentUser();
+            case READ_ORGANIZATIONS:
+                return visitor.visitReadOrganizations();
             case DELETE_ROLES:
                 return visitor.visitDeleteRoles();
-            case UPDATE_PHONE_TEMPLATES:
-                return visitor.visitUpdatePhoneTemplates();
             case READ_CONNECTION_PROFILES:
                 return visitor.visitReadConnectionProfiles();
+            case UPDATE_PHONE_TEMPLATES:
+                return visitor.visitUpdatePhoneTemplates();
             case READ_STATS:
                 return visitor.visitReadStats();
             case READ_CUSTOM_DOMAINS:
@@ -1173,8 +1030,6 @@ public final class OauthScope {
                 return visitor.visitUpdatePrompts();
             case CREATE_HOOKS:
                 return visitor.visitCreateHooks();
-            case READ_CHECKS:
-                return visitor.visitReadChecks();
             case CREATE_CONNECTIONS:
                 return visitor.visitCreateConnections();
             case CREATE_EMAIL_TEMPLATES:
@@ -1187,36 +1042,24 @@ public final class OauthScope {
                 return visitor.visitUpdateHooks();
             case DELETE_USERS:
                 return visitor.visitDeleteUsers();
-            case READ_ENTITY_COUNTS:
-                return visitor.visitReadEntityCounts();
             case CREATE_CLIENT_CREDENTIALS:
                 return visitor.visitCreateClientCredentials();
             case UPDATE_CLIENT_CREDENTIALS:
                 return visitor.visitUpdateClientCredentials();
             case CREATE_ACTIONS:
                 return visitor.visitCreateActions();
-            case DELETE_PHONE_TEMPLATES:
-                return visitor.visitDeletePhoneTemplates();
             case READ_EVENT_DELIVERIES:
                 return visitor.visitReadEventDeliveries();
+            case DELETE_PHONE_TEMPLATES:
+                return visitor.visitDeletePhoneTemplates();
             case READ_REFRESH_TOKENS:
                 return visitor.visitReadRefreshTokens();
             case UPDATE_EMAIL_TEMPLATES:
                 return visitor.visitUpdateEmailTemplates();
-            case READ_OWNERS:
-                return visitor.visitReadOwners();
-            case DELETE_USER_APPLICATION_PASSWORDS:
-                return visitor.visitDeleteUserApplicationPasswords();
             case READ_ROLE_MEMBERS:
                 return visitor.visitReadRoleMembers();
-            case READ_TENANT_INVITATIONS:
-                return visitor.visitReadTenantInvitations();
-            case DELETE_TENANT_MEMBERS:
-                return visitor.visitDeleteTenantMembers();
             case CREATE_ORGANIZATION_MEMBERS:
                 return visitor.visitCreateOrganizationMembers();
-            case DELETE_OWNERS:
-                return visitor.visitDeleteOwners();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -1238,12 +1081,10 @@ public final class OauthScope {
                 return READ_CLIENT_SUMMARY;
             case "read:scim_config":
                 return READ_SCIM_CONFIG;
-            case "update:scim_config":
-                return UPDATE_SCIM_CONFIG;
             case "create:rules":
                 return CREATE_RULES;
-            case "read:extensions":
-                return READ_EXTENSIONS;
+            case "update:scim_config":
+                return UPDATE_SCIM_CONFIG;
             case "read:prompts":
                 return READ_PROMPTS;
             case "create:organization_discovery_domains":
@@ -1254,12 +1095,12 @@ public final class OauthScope {
                 return UPDATE_PHONE_PROVIDERS;
             case "create:roles":
                 return CREATE_ROLES;
+            case "delete:authentication_methods":
+                return DELETE_AUTHENTICATION_METHODS;
             case "create:connections_keys":
                 return CREATE_CONNECTIONS_KEYS;
             case "update:rules":
                 return UPDATE_RULES;
-            case "delete:authentication_methods":
-                return DELETE_AUTHENTICATION_METHODS;
             case "update:flows_vault_connections":
                 return UPDATE_FLOWS_VAULT_CONNECTIONS;
             case "read:encryption_keys":
@@ -1274,18 +1115,12 @@ public final class OauthScope {
                 return DELETE_EVENT_STREAMS;
             case "delete:flows":
                 return DELETE_FLOWS;
-            case "read:user_application_passwords":
-                return READ_USER_APPLICATION_PASSWORDS;
             case "delete:phone_providers":
                 return DELETE_PHONE_PROVIDERS;
             case "delete:self_service_profiles":
                 return DELETE_SELF_SERVICE_PROFILES;
-            case "read:tenant_feature_flags":
-                return READ_TENANT_FEATURE_FLAGS;
             case "read:group_members":
                 return READ_GROUP_MEMBERS;
-            case "read:insights":
-                return READ_INSIGHTS;
             case "create:signing_keys":
                 return CREATE_SIGNING_KEYS;
             case "update:signing_keys":
@@ -1304,10 +1139,10 @@ public final class OauthScope {
                 return UPDATE_REFRESH_TOKENS;
             case "read:user_idp_tokens":
                 return READ_USER_IDP_TOKENS;
-            case "read:hooks":
-                return READ_HOOKS;
             case "read:custom_signing_keys":
                 return READ_CUSTOM_SIGNING_KEYS;
+            case "read:hooks":
+                return READ_HOOKS;
             case "create:current_user_device_credentials":
                 return CREATE_CURRENT_USER_DEVICE_CREDENTIALS;
             case "delete:branding":
@@ -1340,36 +1175,32 @@ public final class OauthScope {
                 return READ_ORGANIZATION_DISCOVERY_DOMAINS;
             case "create:custom_domains":
                 return CREATE_CUSTOM_DOMAINS;
-            case "delete:organization_connections":
-                return DELETE_ORGANIZATION_CONNECTIONS;
             case "read:current_user":
                 return READ_CURRENT_USER;
-            case "update:shields":
-                return UPDATE_SHIELDS;
+            case "delete:organization_connections":
+                return DELETE_ORGANIZATION_CONNECTIONS;
             case "read:client_credentials":
                 return READ_CLIENT_CREDENTIALS;
             case "create:organizations":
                 return CREATE_ORGANIZATIONS;
             case "read:organizations_summary":
                 return READ_ORGANIZATIONS_SUMMARY;
-            case "read:scim_token":
-                return READ_SCIM_TOKEN;
             case "delete:organizations":
                 return DELETE_ORGANIZATIONS;
+            case "read:scim_token":
+                return READ_SCIM_TOKEN;
             case "read:connections":
                 return READ_CONNECTIONS;
             case "read:signing_keys":
                 return READ_SIGNING_KEYS;
-            case "delete:tenant_invitations":
-                return DELETE_TENANT_INVITATIONS;
             case "delete:federated_connections_tokens":
                 return DELETE_FEDERATED_CONNECTIONS_TOKENS;
             case "delete:connections":
                 return DELETE_CONNECTIONS;
-            case "create:users":
-                return CREATE_USERS;
             case "update:resource_servers":
                 return UPDATE_RESOURCE_SERVERS;
+            case "create:users":
+                return CREATE_USERS;
             case "read:phone_templates":
                 return READ_PHONE_TEMPLATES;
             case "update:roles":
@@ -1392,14 +1223,10 @@ public final class OauthScope {
                 return READ_USER_ATTRIBUTE_PROFILES;
             case "read:directory_provisionings":
                 return READ_DIRECTORY_PROVISIONINGS;
-            case "update:tenant_members":
-                return UPDATE_TENANT_MEMBERS;
             case "create:authentication_methods":
                 return CREATE_AUTHENTICATION_METHODS;
             case "create:phone_providers":
                 return CREATE_PHONE_PROVIDERS;
-            case "delete:group_roles":
-                return DELETE_GROUP_ROLES;
             case "delete:organization_client_grants":
                 return DELETE_ORGANIZATION_CLIENT_GRANTS;
             case "create:scim_config":
@@ -1412,10 +1239,6 @@ public final class OauthScope {
                 return READ_ORGANIZATION_MEMBERS;
             case "update:event_streams":
                 return UPDATE_EVENT_STREAMS;
-            case "read:integrations":
-                return READ_INTEGRATIONS;
-            case "create:tenant_invitations":
-                return CREATE_TENANT_INVITATIONS;
             case "update:custom_signing_keys":
                 return UPDATE_CUSTOM_SIGNING_KEYS;
             case "read:log_streams":
@@ -1424,18 +1247,12 @@ public final class OauthScope {
                 return UPDATE_LOG_STREAMS;
             case "read:clients":
                 return READ_CLIENTS;
-            case "read:shields":
-                return READ_SHIELDS;
             case "delete:encryption_keys":
                 return DELETE_ENCRYPTION_KEYS;
-            case "create:shields":
-                return CREATE_SHIELDS;
             case "update:user_attribute_profiles":
                 return UPDATE_USER_ATTRIBUTE_PROFILES;
             case "create:custom_signing_keys":
                 return CREATE_CUSTOM_SIGNING_KEYS;
-            case "delete:integrations":
-                return DELETE_INTEGRATIONS;
             case "read:client_keys":
                 return READ_CLIENT_KEYS;
             case "create:email_provider":
@@ -1444,14 +1261,10 @@ public final class OauthScope {
                 return UPDATE_NETWORK_ACLS;
             case "delete:vdcs_templates":
                 return DELETE_VDCS_TEMPLATES;
-            case "create:user_application_passwords":
-                return CREATE_USER_APPLICATION_PASSWORDS;
             case "read:flows":
                 return READ_FLOWS;
             case "read:sessions":
                 return READ_SESSIONS;
-            case "create:test_email_dispatch":
-                return CREATE_TEST_EMAIL_DISPATCH;
             case "create:organization_member_roles":
                 return CREATE_ORGANIZATION_MEMBER_ROLES;
             case "create:directory_provisionings":
@@ -1474,14 +1287,8 @@ public final class OauthScope {
                 return READ_ORGANIZATION_CLIENT_GRANTS;
             case "update:clients":
                 return UPDATE_CLIENTS;
-            case "read:security_metrics":
-                return READ_SECURITY_METRICS;
-            case "run:checks":
-                return RUN_CHECKS;
             case "delete:client_grants":
                 return DELETE_CLIENT_GRANTS;
-            case "update:device_codes":
-                return UPDATE_DEVICE_CODES;
             case "create:encryption_keys":
                 return CREATE_ENCRYPTION_KEYS;
             case "update:encryption_keys":
@@ -1500,16 +1307,12 @@ public final class OauthScope {
                 return READ_LOGS;
             case "update:email_provider":
                 return UPDATE_EMAIL_PROVIDER;
-            case "read:tenant_members":
-                return READ_TENANT_MEMBERS;
             case "delete:flows_vault_connections":
                 return DELETE_FLOWS_VAULT_CONNECTIONS;
             case "delete:network_acls":
                 return DELETE_NETWORK_ACLS;
             case "update:self_service_profile_custom_texts":
                 return UPDATE_SELF_SERVICE_PROFILE_CUSTOM_TEXTS;
-            case "read:group_roles":
-                return READ_GROUP_ROLES;
             case "delete:organization_discovery_domains":
                 return DELETE_ORGANIZATION_DISCOVERY_DOMAINS;
             case "update:client_grants":
@@ -1518,8 +1321,6 @@ public final class OauthScope {
                 return READ_EMAIL_TEMPLATES;
             case "update:vdcs_templates":
                 return UPDATE_VDCS_TEMPLATES;
-            case "delete:tenants":
-                return DELETE_TENANTS;
             case "create:user_attribute_profiles":
                 return CREATE_USER_ATTRIBUTE_PROFILES;
             case "create:organization_invitations":
@@ -1528,20 +1329,16 @@ public final class OauthScope {
                 return DELETE_LOG_STREAMS;
             case "delete:custom_signing_keys":
                 return DELETE_CUSTOM_SIGNING_KEYS;
-            case "read:device_codes":
-                return READ_DEVICE_CODES;
             case "delete:resource_servers":
                 return DELETE_RESOURCE_SERVERS;
             case "update:guardian_factors":
                 return UPDATE_GUARDIAN_FACTORS;
-            case "read:users":
-                return READ_USERS;
             case "delete:organization_member_roles":
                 return DELETE_ORGANIZATION_MEMBER_ROLES;
+            case "read:users":
+                return READ_USERS;
             case "update:branding":
                 return UPDATE_BRANDING;
-            case "create:integrations":
-                return CREATE_INTEGRATIONS;
             case "delete:sso_access_tickets":
                 return DELETE_SSO_ACCESS_TICKETS;
             case "update:organization_connections":
@@ -1560,12 +1357,10 @@ public final class OauthScope {
                 return READ_EVENT_STREAMS;
             case "create:network_acls":
                 return CREATE_NETWORK_ACLS;
-            case "create:scim_token":
-                return CREATE_SCIM_TOKEN;
             case "delete:custom_domains":
                 return DELETE_CUSTOM_DOMAINS;
-            case "read:events":
-                return READ_EVENTS;
+            case "create:scim_token":
+                return CREATE_SCIM_TOKEN;
             case "update:sessions":
                 return UPDATE_SESSIONS;
             case "delete:connection_profiles":
@@ -1582,30 +1377,24 @@ public final class OauthScope {
                 return DELETE_SCIM_CONFIG;
             case "delete:rules":
                 return DELETE_RULES;
-            case "update:tenant_invitations":
-                return UPDATE_TENANT_INVITATIONS;
             case "read:organization_member_roles":
                 return READ_ORGANIZATION_MEMBER_ROLES;
-            case "update:flows":
-                return UPDATE_FLOWS;
             case "read:federated_connections_tokens":
                 return READ_FEDERATED_CONNECTIONS_TOKENS;
+            case "update:flows":
+                return UPDATE_FLOWS;
             case "create:log_streams":
                 return CREATE_LOG_STREAMS;
             case "create:connection_profiles":
                 return CREATE_CONNECTION_PROFILES;
             case "create:flows_vault_connections":
                 return CREATE_FLOWS_VAULT_CONNECTIONS;
-            case "update:integrations":
-                return UPDATE_INTEGRATIONS;
             case "update:directory_provisionings":
                 return UPDATE_DIRECTORY_PROVISIONINGS;
             case "delete:user_attribute_profiles":
                 return DELETE_USER_ATTRIBUTE_PROFILES;
             case "read:client_grants":
                 return READ_CLIENT_GRANTS;
-            case "read:entitlements":
-                return READ_ENTITLEMENTS;
             case "create:token_exchange_profiles":
                 return CREATE_TOKEN_EXCHANGE_PROFILES;
             case "read:logs_users":
@@ -1630,20 +1419,18 @@ public final class OauthScope {
                 return CREATE_ROLE_MEMBERS;
             case "create:flows":
                 return CREATE_FLOWS;
-            case "create:group_roles":
-                return CREATE_GROUP_ROLES;
             case "delete:hooks":
                 return DELETE_HOOKS;
-            case "read:organizations":
-                return READ_ORGANIZATIONS;
             case "delete:current_user":
                 return DELETE_CURRENT_USER;
+            case "read:organizations":
+                return READ_ORGANIZATIONS;
             case "delete:roles":
                 return DELETE_ROLES;
-            case "update:phone_templates":
-                return UPDATE_PHONE_TEMPLATES;
             case "read:connection_profiles":
                 return READ_CONNECTION_PROFILES;
+            case "update:phone_templates":
+                return UPDATE_PHONE_TEMPLATES;
             case "read:stats":
                 return READ_STATS;
             case "read:custom_domains":
@@ -1690,8 +1477,6 @@ public final class OauthScope {
                 return UPDATE_PROMPTS;
             case "create:hooks":
                 return CREATE_HOOKS;
-            case "read:checks":
-                return READ_CHECKS;
             case "create:connections":
                 return CREATE_CONNECTIONS;
             case "create:email_templates":
@@ -1704,125 +1489,95 @@ public final class OauthScope {
                 return UPDATE_HOOKS;
             case "delete:users":
                 return DELETE_USERS;
-            case "read:entity_counts":
-                return READ_ENTITY_COUNTS;
             case "create:client_credentials":
                 return CREATE_CLIENT_CREDENTIALS;
             case "update:client_credentials":
                 return UPDATE_CLIENT_CREDENTIALS;
             case "create:actions":
                 return CREATE_ACTIONS;
-            case "delete:phone_templates":
-                return DELETE_PHONE_TEMPLATES;
             case "read:event_deliveries":
                 return READ_EVENT_DELIVERIES;
+            case "delete:phone_templates":
+                return DELETE_PHONE_TEMPLATES;
             case "read:refresh_tokens":
                 return READ_REFRESH_TOKENS;
             case "update:email_templates":
                 return UPDATE_EMAIL_TEMPLATES;
-            case "read:owners":
-                return READ_OWNERS;
-            case "delete:user_application_passwords":
-                return DELETE_USER_APPLICATION_PASSWORDS;
             case "read:role_members":
                 return READ_ROLE_MEMBERS;
-            case "read:tenant_invitations":
-                return READ_TENANT_INVITATIONS;
-            case "delete:tenant_members":
-                return DELETE_TENANT_MEMBERS;
             case "create:organization_members":
                 return CREATE_ORGANIZATION_MEMBERS;
-            case "delete:owners":
-                return DELETE_OWNERS;
             default:
                 return new OauthScope(Value.UNKNOWN, value);
         }
     }
 
     public enum Value {
-        READ_ACTIONS,
-
         CREATE_ACTIONS,
 
-        DELETE_ACTIONS,
+        READ_ACTIONS,
 
         UPDATE_ACTIONS,
+
+        DELETE_ACTIONS,
 
         READ_ANOMALY_BLOCKS,
 
         DELETE_ANOMALY_BLOCKS,
 
-        READ_SHIELDS,
-
-        CREATE_SHIELDS,
-
-        UPDATE_SHIELDS,
-
         READ_ATTACK_PROTECTION,
 
         UPDATE_ATTACK_PROTECTION,
+
+        CREATE_AUTHENTICATION_METHODS,
+
+        READ_AUTHENTICATION_METHODS,
+
+        UPDATE_AUTHENTICATION_METHODS,
+
+        DELETE_AUTHENTICATION_METHODS,
 
         READ_BRANDING,
 
         UPDATE_BRANDING,
 
-        READ_PHONE_PROVIDERS,
-
-        CREATE_PHONE_PROVIDERS,
-
-        UPDATE_PHONE_PROVIDERS,
-
-        DELETE_PHONE_PROVIDERS,
-
-        READ_PHONE_TEMPLATES,
-
-        CREATE_PHONE_TEMPLATES,
-
-        UPDATE_PHONE_TEMPLATES,
-
-        DELETE_PHONE_TEMPLATES,
-
         DELETE_BRANDING,
 
-        READ_CLIENT_GRANTS,
-
-        CREATE_CLIENT_GRANTS,
-
-        UPDATE_CLIENT_GRANTS,
-
-        DELETE_CLIENT_GRANTS,
-
-        READ_ORGANIZATION_CLIENT_GRANTS,
-
-        READ_CLIENTS,
-
-        READ_CLIENT_KEYS,
+        CREATE_CLIENT_CREDENTIALS,
 
         READ_CLIENT_CREDENTIALS,
-
-        READ_CLIENT_SUMMARY,
-
-        CREATE_CLIENTS,
-
-        CREATE_CLIENT_CREDENTIALS,
 
         UPDATE_CLIENT_CREDENTIALS,
 
         DELETE_CLIENT_CREDENTIALS,
 
-        UPDATE_CLIENTS,
+        CREATE_CLIENT_GRANTS,
+
+        READ_CLIENT_GRANTS,
+
+        UPDATE_CLIENT_GRANTS,
+
+        DELETE_CLIENT_GRANTS,
+
+        READ_CLIENT_KEYS,
 
         UPDATE_CLIENT_KEYS,
 
+        READ_CLIENT_SUMMARY,
+
         UPDATE_CLIENT_TOKEN_VAULT_PRIVILEGED_ACCESS,
+
+        CREATE_CLIENTS,
+
+        READ_CLIENTS,
+
+        UPDATE_CLIENTS,
 
         DELETE_CLIENTS,
 
-        READ_CONNECTIONS,
+        CREATE_CONNECTION_PROFILES,
 
         READ_CONNECTION_PROFILES,
-
-        CREATE_CONNECTION_PROFILES,
 
         UPDATE_CONNECTION_PROFILES,
 
@@ -1830,63 +1585,65 @@ public final class OauthScope {
 
         CREATE_CONNECTIONS,
 
-        READ_DIRECTORY_PROVISIONINGS,
+        READ_CONNECTIONS,
 
         UPDATE_CONNECTIONS,
 
         DELETE_CONNECTIONS,
 
-        CREATE_DIRECTORY_PROVISIONINGS,
-
-        UPDATE_DIRECTORY_PROVISIONINGS,
-
-        DELETE_DIRECTORY_PROVISIONINGS,
-
-        READ_USERS,
+        CREATE_CONNECTIONS_KEYS,
 
         READ_CONNECTIONS_KEYS,
 
-        CREATE_CONNECTIONS_KEYS,
-
         UPDATE_CONNECTIONS_KEYS,
 
-        READ_SCIM_CONFIG,
+        READ_CURRENT_USER,
 
-        CREATE_SCIM_CONFIG,
+        DELETE_CURRENT_USER,
 
-        UPDATE_SCIM_CONFIG,
+        CREATE_CURRENT_USER_DEVICE_CREDENTIALS,
 
-        DELETE_SCIM_CONFIG,
+        DELETE_CURRENT_USER_DEVICE_CREDENTIALS,
 
-        READ_SCIM_TOKEN,
+        UPDATE_CURRENT_USER_IDENTITIES,
 
-        CREATE_SCIM_TOKEN,
-
-        DELETE_SCIM_TOKEN,
-
-        DELETE_USERS,
-
-        READ_CUSTOM_DOMAINS,
+        UPDATE_CURRENT_USER_METADATA,
 
         CREATE_CUSTOM_DOMAINS,
+
+        READ_CUSTOM_DOMAINS,
 
         UPDATE_CUSTOM_DOMAINS,
 
         DELETE_CUSTOM_DOMAINS,
 
-        READ_DEVICE_CREDENTIALS,
+        CREATE_CUSTOM_SIGNING_KEYS,
 
-        CREATE_CURRENT_USER_DEVICE_CREDENTIALS,
+        READ_CUSTOM_SIGNING_KEYS,
+
+        UPDATE_CUSTOM_SIGNING_KEYS,
+
+        DELETE_CUSTOM_SIGNING_KEYS,
+
+        READ_DEVICE_CREDENTIALS,
 
         DELETE_DEVICE_CREDENTIALS,
 
-        DELETE_CURRENT_USER_DEVICE_CREDENTIALS,
+        CREATE_DIRECTORY_PROVISIONINGS,
 
-        UPDATE_DEVICE_CODES,
+        READ_DIRECTORY_PROVISIONINGS,
 
-        READ_DEVICE_CODES,
+        UPDATE_DIRECTORY_PROVISIONINGS,
 
-        CREATE_TEST_EMAIL_DISPATCH,
+        DELETE_DIRECTORY_PROVISIONINGS,
+
+        CREATE_EMAIL_PROVIDER,
+
+        READ_EMAIL_PROVIDER,
+
+        UPDATE_EMAIL_PROVIDER,
+
+        DELETE_EMAIL_PROVIDER,
 
         CREATE_EMAIL_TEMPLATES,
 
@@ -1894,55 +1651,53 @@ public final class OauthScope {
 
         UPDATE_EMAIL_TEMPLATES,
 
-        READ_EMAIL_PROVIDER,
+        CREATE_ENCRYPTION_KEYS,
 
-        CREATE_EMAIL_PROVIDER,
+        READ_ENCRYPTION_KEYS,
 
-        UPDATE_EMAIL_PROVIDER,
+        UPDATE_ENCRYPTION_KEYS,
 
-        DELETE_EMAIL_PROVIDER,
-
-        READ_ENTITLEMENTS,
-
-        READ_EVENT_STREAMS,
-
-        CREATE_EVENT_STREAMS,
-
-        UPDATE_EVENT_STREAMS,
-
-        DELETE_EVENT_STREAMS,
+        DELETE_ENCRYPTION_KEYS,
 
         READ_EVENT_DELIVERIES,
 
         UPDATE_EVENT_DELIVERIES,
 
-        READ_EVENTS,
+        CREATE_EVENT_STREAMS,
 
-        READ_EXTENSIONS,
+        READ_EVENT_STREAMS,
 
-        READ_FLOWS,
+        UPDATE_EVENT_STREAMS,
+
+        DELETE_EVENT_STREAMS,
+
+        READ_FEDERATED_CONNECTIONS_TOKENS,
+
+        DELETE_FEDERATED_CONNECTIONS_TOKENS,
 
         CREATE_FLOWS,
 
-        READ_FLOWS_VAULT_CONNECTIONS,
-
-        CREATE_FLOWS_VAULT_CONNECTIONS,
-
-        UPDATE_FLOWS_VAULT_CONNECTIONS,
-
-        DELETE_FLOWS_VAULT_CONNECTIONS,
-
-        READ_FLOWS_EXECUTIONS,
-
-        DELETE_FLOWS_EXECUTIONS,
+        READ_FLOWS,
 
         UPDATE_FLOWS,
 
         DELETE_FLOWS,
 
-        READ_FORMS,
+        READ_FLOWS_EXECUTIONS,
+
+        DELETE_FLOWS_EXECUTIONS,
+
+        CREATE_FLOWS_VAULT_CONNECTIONS,
+
+        READ_FLOWS_VAULT_CONNECTIONS,
+
+        UPDATE_FLOWS_VAULT_CONNECTIONS,
+
+        DELETE_FLOWS_VAULT_CONNECTIONS,
 
         CREATE_FORMS,
+
+        READ_FORMS,
 
         UPDATE_FORMS,
 
@@ -1952,15 +1707,9 @@ public final class OauthScope {
 
         DELETE_GRANTS,
 
-        READ_GROUPS,
-
         READ_GROUP_MEMBERS,
 
-        READ_GROUP_ROLES,
-
-        CREATE_GROUP_ROLES,
-
-        DELETE_GROUP_ROLES,
+        READ_GROUPS,
 
         CREATE_GUARDIAN_ENROLLMENT_TICKETS,
 
@@ -1972,59 +1721,17 @@ public final class OauthScope {
 
         UPDATE_GUARDIAN_FACTORS,
 
-        READ_MFA_POLICIES,
-
-        UPDATE_MFA_POLICIES,
+        CREATE_HOOKS,
 
         READ_HOOKS,
-
-        CREATE_HOOKS,
 
         UPDATE_HOOKS,
 
         DELETE_HOOKS,
 
-        READ_INSIGHTS,
-
-        READ_STATS,
-
-        READ_INTEGRATIONS,
-
-        CREATE_INTEGRATIONS,
-
-        UPDATE_INTEGRATIONS,
-
-        DELETE_INTEGRATIONS,
-
-        CREATE_USERS,
-
-        UPDATE_USERS,
-
-        READ_CUSTOM_SIGNING_KEYS,
-
-        CREATE_CUSTOM_SIGNING_KEYS,
-
-        UPDATE_CUSTOM_SIGNING_KEYS,
-
-        DELETE_CUSTOM_SIGNING_KEYS,
-
-        READ_ENCRYPTION_KEYS,
-
-        CREATE_ENCRYPTION_KEYS,
-
-        UPDATE_ENCRYPTION_KEYS,
-
-        DELETE_ENCRYPTION_KEYS,
-
-        READ_SIGNING_KEYS,
-
-        CREATE_SIGNING_KEYS,
-
-        UPDATE_SIGNING_KEYS,
+        CREATE_LOG_STREAMS,
 
         READ_LOG_STREAMS,
-
-        CREATE_LOG_STREAMS,
 
         UPDATE_LOG_STREAMS,
 
@@ -2034,33 +1741,25 @@ public final class OauthScope {
 
         READ_LOGS_USERS,
 
-        READ_TENANT_SETTINGS,
+        READ_MFA_POLICIES,
 
-        UPDATE_TENANT_SETTINGS,
-
-        READ_NETWORK_ACLS,
+        UPDATE_MFA_POLICIES,
 
         CREATE_NETWORK_ACLS,
+
+        READ_NETWORK_ACLS,
 
         UPDATE_NETWORK_ACLS,
 
         DELETE_NETWORK_ACLS,
 
-        READ_ORGANIZATIONS,
-
-        READ_ORGANIZATIONS_SUMMARY,
-
-        CREATE_ORGANIZATIONS,
-
-        CREATE_ORGANIZATION_CONNECTIONS,
-
-        UPDATE_ORGANIZATIONS,
-
-        DELETE_ORGANIZATIONS,
-
         CREATE_ORGANIZATION_CLIENT_GRANTS,
 
+        READ_ORGANIZATION_CLIENT_GRANTS,
+
         DELETE_ORGANIZATION_CLIENT_GRANTS,
+
+        CREATE_ORGANIZATION_CONNECTIONS,
 
         READ_ORGANIZATION_CONNECTIONS,
 
@@ -2068,39 +1767,61 @@ public final class OauthScope {
 
         DELETE_ORGANIZATION_CONNECTIONS,
 
-        READ_ORGANIZATION_DISCOVERY_DOMAINS,
-
         CREATE_ORGANIZATION_DISCOVERY_DOMAINS,
+
+        READ_ORGANIZATION_DISCOVERY_DOMAINS,
 
         UPDATE_ORGANIZATION_DISCOVERY_DOMAINS,
 
         DELETE_ORGANIZATION_DISCOVERY_DOMAINS,
 
-        READ_ORGANIZATION_INVITATIONS,
-
         CREATE_ORGANIZATION_INVITATIONS,
+
+        READ_ORGANIZATION_INVITATIONS,
 
         DELETE_ORGANIZATION_INVITATIONS,
 
-        READ_ORGANIZATION_MEMBERS,
-
-        CREATE_ORGANIZATION_MEMBERS,
-
-        DELETE_ORGANIZATION_MEMBERS,
+        CREATE_ORGANIZATION_MEMBER_ROLES,
 
         READ_ORGANIZATION_MEMBER_ROLES,
 
-        CREATE_ORGANIZATION_MEMBER_ROLES,
-
         DELETE_ORGANIZATION_MEMBER_ROLES,
+
+        CREATE_ORGANIZATION_MEMBERS,
+
+        READ_ORGANIZATION_MEMBERS,
+
+        DELETE_ORGANIZATION_MEMBERS,
+
+        CREATE_ORGANIZATIONS,
+
+        READ_ORGANIZATIONS,
+
+        UPDATE_ORGANIZATIONS,
+
+        DELETE_ORGANIZATIONS,
+
+        READ_ORGANIZATIONS_SUMMARY,
+
+        CREATE_PHONE_PROVIDERS,
+
+        READ_PHONE_PROVIDERS,
+
+        UPDATE_PHONE_PROVIDERS,
+
+        DELETE_PHONE_PROVIDERS,
+
+        CREATE_PHONE_TEMPLATES,
+
+        READ_PHONE_TEMPLATES,
+
+        UPDATE_PHONE_TEMPLATES,
+
+        DELETE_PHONE_TEMPLATES,
 
         READ_PROMPTS,
 
         UPDATE_PROMPTS,
-
-        READ_RESOURCE_SERVERS,
-
-        UPDATE_RESOURCE_SERVERS,
 
         READ_REFRESH_TOKENS,
 
@@ -2110,25 +1831,33 @@ public final class OauthScope {
 
         CREATE_RESOURCE_SERVERS,
 
+        READ_RESOURCE_SERVERS,
+
+        UPDATE_RESOURCE_SERVERS,
+
         DELETE_RESOURCE_SERVERS,
 
-        READ_ROLES,
+        CREATE_ROLE_MEMBERS,
+
+        READ_ROLE_MEMBERS,
+
+        DELETE_ROLE_MEMBERS,
 
         CREATE_ROLES,
+
+        READ_ROLES,
 
         UPDATE_ROLES,
 
         DELETE_ROLES,
 
-        READ_ROLE_MEMBERS,
-
-        CREATE_ROLE_MEMBERS,
+        CREATE_RULES,
 
         READ_RULES,
 
-        CREATE_RULES,
-
         UPDATE_RULES,
+
+        DELETE_RULES,
 
         READ_RULES_CONFIGS,
 
@@ -2136,25 +1865,31 @@ public final class OauthScope {
 
         DELETE_RULES_CONFIGS,
 
-        DELETE_RULES,
+        CREATE_SCIM_CONFIG,
 
-        READ_SECURITY_METRICS,
+        READ_SCIM_CONFIG,
 
-        READ_SELF_SERVICE_PROFILES,
+        UPDATE_SCIM_CONFIG,
 
-        CREATE_SELF_SERVICE_PROFILES,
+        DELETE_SCIM_CONFIG,
 
-        UPDATE_SELF_SERVICE_PROFILES,
+        CREATE_SCIM_TOKEN,
 
-        DELETE_SELF_SERVICE_PROFILES,
+        READ_SCIM_TOKEN,
+
+        DELETE_SCIM_TOKEN,
 
         READ_SELF_SERVICE_PROFILE_CUSTOM_TEXTS,
 
         UPDATE_SELF_SERVICE_PROFILE_CUSTOM_TEXTS,
 
-        CREATE_SSO_ACCESS_TICKETS,
+        CREATE_SELF_SERVICE_PROFILES,
 
-        DELETE_SSO_ACCESS_TICKETS,
+        READ_SELF_SERVICE_PROFILES,
+
+        UPDATE_SELF_SERVICE_PROFILES,
+
+        DELETE_SELF_SERVICE_PROFILES,
 
         READ_SESSIONS,
 
@@ -2162,47 +1897,33 @@ public final class OauthScope {
 
         DELETE_SESSIONS,
 
-        DELETE_TENANTS,
+        CREATE_SIGNING_KEYS,
 
-        RUN_CHECKS,
+        READ_SIGNING_KEYS,
 
-        READ_CHECKS,
+        UPDATE_SIGNING_KEYS,
 
-        READ_TENANT_FEATURE_FLAGS,
+        CREATE_SSO_ACCESS_TICKETS,
 
-        READ_TENANT_INVITATIONS,
+        DELETE_SSO_ACCESS_TICKETS,
 
-        CREATE_TENANT_INVITATIONS,
+        READ_STATS,
 
-        UPDATE_TENANT_INVITATIONS,
+        READ_TENANT_SETTINGS,
 
-        DELETE_TENANT_INVITATIONS,
-
-        READ_TENANT_MEMBERS,
-
-        UPDATE_TENANT_MEMBERS,
-
-        DELETE_TENANT_MEMBERS,
-
-        READ_OWNERS,
-
-        DELETE_OWNERS,
-
-        CREATE_USER_TICKETS,
-
-        READ_TOKEN_EXCHANGE_PROFILES,
+        UPDATE_TENANT_SETTINGS,
 
         CREATE_TOKEN_EXCHANGE_PROFILES,
+
+        READ_TOKEN_EXCHANGE_PROFILES,
 
         UPDATE_TOKEN_EXCHANGE_PROFILES,
 
         DELETE_TOKEN_EXCHANGE_PROFILES,
 
-        READ_ENTITY_COUNTS,
+        CREATE_USER_ATTRIBUTE_PROFILES,
 
         READ_USER_ATTRIBUTE_PROFILES,
-
-        CREATE_USER_ATTRIBUTE_PROFILES,
 
         UPDATE_USER_ATTRIBUTE_PROFILES,
 
@@ -2210,39 +1931,21 @@ public final class OauthScope {
 
         READ_USER_IDP_TOKENS,
 
-        READ_CURRENT_USER,
+        CREATE_USER_TICKETS,
+
+        CREATE_USERS,
+
+        READ_USERS,
+
+        UPDATE_USERS,
+
+        DELETE_USERS,
 
         UPDATE_USERS_APP_METADATA,
 
-        UPDATE_CURRENT_USER_METADATA,
-
-        DELETE_CURRENT_USER,
-
-        READ_USER_APPLICATION_PASSWORDS,
-
-        CREATE_USER_APPLICATION_PASSWORDS,
-
-        DELETE_USER_APPLICATION_PASSWORDS,
-
-        READ_AUTHENTICATION_METHODS,
-
-        UPDATE_AUTHENTICATION_METHODS,
-
-        CREATE_AUTHENTICATION_METHODS,
-
-        DELETE_AUTHENTICATION_METHODS,
-
-        READ_FEDERATED_CONNECTIONS_TOKENS,
-
-        DELETE_FEDERATED_CONNECTIONS_TOKENS,
-
-        UPDATE_CURRENT_USER_IDENTITIES,
-
-        DELETE_ROLE_MEMBERS,
+        CREATE_VDCS_TEMPLATES,
 
         READ_VDCS_TEMPLATES,
-
-        CREATE_VDCS_TEMPLATES,
 
         UPDATE_VDCS_TEMPLATES,
 
@@ -2252,89 +1955,71 @@ public final class OauthScope {
     }
 
     public interface Visitor<T> {
-        T visitReadActions();
-
         T visitCreateActions();
 
-        T visitDeleteActions();
+        T visitReadActions();
 
         T visitUpdateActions();
+
+        T visitDeleteActions();
 
         T visitReadAnomalyBlocks();
 
         T visitDeleteAnomalyBlocks();
 
-        T visitReadShields();
-
-        T visitCreateShields();
-
-        T visitUpdateShields();
-
         T visitReadAttackProtection();
 
         T visitUpdateAttackProtection();
+
+        T visitCreateAuthenticationMethods();
+
+        T visitReadAuthenticationMethods();
+
+        T visitUpdateAuthenticationMethods();
+
+        T visitDeleteAuthenticationMethods();
 
         T visitReadBranding();
 
         T visitUpdateBranding();
 
-        T visitReadPhoneProviders();
-
-        T visitCreatePhoneProviders();
-
-        T visitUpdatePhoneProviders();
-
-        T visitDeletePhoneProviders();
-
-        T visitReadPhoneTemplates();
-
-        T visitCreatePhoneTemplates();
-
-        T visitUpdatePhoneTemplates();
-
-        T visitDeletePhoneTemplates();
-
         T visitDeleteBranding();
 
-        T visitReadClientGrants();
-
-        T visitCreateClientGrants();
-
-        T visitUpdateClientGrants();
-
-        T visitDeleteClientGrants();
-
-        T visitReadOrganizationClientGrants();
-
-        T visitReadClients();
-
-        T visitReadClientKeys();
+        T visitCreateClientCredentials();
 
         T visitReadClientCredentials();
-
-        T visitReadClientSummary();
-
-        T visitCreateClients();
-
-        T visitCreateClientCredentials();
 
         T visitUpdateClientCredentials();
 
         T visitDeleteClientCredentials();
 
-        T visitUpdateClients();
+        T visitCreateClientGrants();
+
+        T visitReadClientGrants();
+
+        T visitUpdateClientGrants();
+
+        T visitDeleteClientGrants();
+
+        T visitReadClientKeys();
 
         T visitUpdateClientKeys();
 
+        T visitReadClientSummary();
+
         T visitUpdateClientTokenVaultPrivilegedAccess();
+
+        T visitCreateClients();
+
+        T visitReadClients();
+
+        T visitUpdateClients();
 
         T visitDeleteClients();
 
-        T visitReadConnections();
+        T visitCreateConnectionProfiles();
 
         T visitReadConnectionProfiles();
-
-        T visitCreateConnectionProfiles();
 
         T visitUpdateConnectionProfiles();
 
@@ -2342,63 +2027,65 @@ public final class OauthScope {
 
         T visitCreateConnections();
 
-        T visitReadDirectoryProvisionings();
+        T visitReadConnections();
 
         T visitUpdateConnections();
 
         T visitDeleteConnections();
 
-        T visitCreateDirectoryProvisionings();
-
-        T visitUpdateDirectoryProvisionings();
-
-        T visitDeleteDirectoryProvisionings();
-
-        T visitReadUsers();
+        T visitCreateConnectionsKeys();
 
         T visitReadConnectionsKeys();
 
-        T visitCreateConnectionsKeys();
-
         T visitUpdateConnectionsKeys();
 
-        T visitReadScimConfig();
+        T visitReadCurrentUser();
 
-        T visitCreateScimConfig();
+        T visitDeleteCurrentUser();
 
-        T visitUpdateScimConfig();
+        T visitCreateCurrentUserDeviceCredentials();
 
-        T visitDeleteScimConfig();
+        T visitDeleteCurrentUserDeviceCredentials();
 
-        T visitReadScimToken();
+        T visitUpdateCurrentUserIdentities();
 
-        T visitCreateScimToken();
-
-        T visitDeleteScimToken();
-
-        T visitDeleteUsers();
-
-        T visitReadCustomDomains();
+        T visitUpdateCurrentUserMetadata();
 
         T visitCreateCustomDomains();
+
+        T visitReadCustomDomains();
 
         T visitUpdateCustomDomains();
 
         T visitDeleteCustomDomains();
 
-        T visitReadDeviceCredentials();
+        T visitCreateCustomSigningKeys();
 
-        T visitCreateCurrentUserDeviceCredentials();
+        T visitReadCustomSigningKeys();
+
+        T visitUpdateCustomSigningKeys();
+
+        T visitDeleteCustomSigningKeys();
+
+        T visitReadDeviceCredentials();
 
         T visitDeleteDeviceCredentials();
 
-        T visitDeleteCurrentUserDeviceCredentials();
+        T visitCreateDirectoryProvisionings();
 
-        T visitUpdateDeviceCodes();
+        T visitReadDirectoryProvisionings();
 
-        T visitReadDeviceCodes();
+        T visitUpdateDirectoryProvisionings();
 
-        T visitCreateTestEmailDispatch();
+        T visitDeleteDirectoryProvisionings();
+
+        T visitCreateEmailProvider();
+
+        T visitReadEmailProvider();
+
+        T visitUpdateEmailProvider();
+
+        T visitDeleteEmailProvider();
 
         T visitCreateEmailTemplates();
 
@@ -2406,55 +2093,53 @@ public final class OauthScope {
 
         T visitUpdateEmailTemplates();
 
-        T visitReadEmailProvider();
+        T visitCreateEncryptionKeys();
 
-        T visitCreateEmailProvider();
+        T visitReadEncryptionKeys();
 
-        T visitUpdateEmailProvider();
+        T visitUpdateEncryptionKeys();
 
-        T visitDeleteEmailProvider();
-
-        T visitReadEntitlements();
-
-        T visitReadEventStreams();
-
-        T visitCreateEventStreams();
-
-        T visitUpdateEventStreams();
-
-        T visitDeleteEventStreams();
+        T visitDeleteEncryptionKeys();
 
         T visitReadEventDeliveries();
 
         T visitUpdateEventDeliveries();
 
-        T visitReadEvents();
+        T visitCreateEventStreams();
 
-        T visitReadExtensions();
+        T visitReadEventStreams();
 
-        T visitReadFlows();
+        T visitUpdateEventStreams();
+
+        T visitDeleteEventStreams();
+
+        T visitReadFederatedConnectionsTokens();
+
+        T visitDeleteFederatedConnectionsTokens();
 
         T visitCreateFlows();
 
-        T visitReadFlowsVaultConnections();
-
-        T visitCreateFlowsVaultConnections();
-
-        T visitUpdateFlowsVaultConnections();
-
-        T visitDeleteFlowsVaultConnections();
-
-        T visitReadFlowsExecutions();
-
-        T visitDeleteFlowsExecutions();
+        T visitReadFlows();
 
         T visitUpdateFlows();
 
         T visitDeleteFlows();
 
-        T visitReadForms();
+        T visitReadFlowsExecutions();
+
+        T visitDeleteFlowsExecutions();
+
+        T visitCreateFlowsVaultConnections();
+
+        T visitReadFlowsVaultConnections();
+
+        T visitUpdateFlowsVaultConnections();
+
+        T visitDeleteFlowsVaultConnections();
 
         T visitCreateForms();
+
+        T visitReadForms();
 
         T visitUpdateForms();
 
@@ -2464,15 +2149,9 @@ public final class OauthScope {
 
         T visitDeleteGrants();
 
-        T visitReadGroups();
-
         T visitReadGroupMembers();
 
-        T visitReadGroupRoles();
-
-        T visitCreateGroupRoles();
-
-        T visitDeleteGroupRoles();
+        T visitReadGroups();
 
         T visitCreateGuardianEnrollmentTickets();
 
@@ -2484,59 +2163,17 @@ public final class OauthScope {
 
         T visitUpdateGuardianFactors();
 
-        T visitReadMfaPolicies();
-
-        T visitUpdateMfaPolicies();
+        T visitCreateHooks();
 
         T visitReadHooks();
-
-        T visitCreateHooks();
 
         T visitUpdateHooks();
 
         T visitDeleteHooks();
 
-        T visitReadInsights();
-
-        T visitReadStats();
-
-        T visitReadIntegrations();
-
-        T visitCreateIntegrations();
-
-        T visitUpdateIntegrations();
-
-        T visitDeleteIntegrations();
-
-        T visitCreateUsers();
-
-        T visitUpdateUsers();
-
-        T visitReadCustomSigningKeys();
-
-        T visitCreateCustomSigningKeys();
-
-        T visitUpdateCustomSigningKeys();
-
-        T visitDeleteCustomSigningKeys();
-
-        T visitReadEncryptionKeys();
-
-        T visitCreateEncryptionKeys();
-
-        T visitUpdateEncryptionKeys();
-
-        T visitDeleteEncryptionKeys();
-
-        T visitReadSigningKeys();
-
-        T visitCreateSigningKeys();
-
-        T visitUpdateSigningKeys();
+        T visitCreateLogStreams();
 
         T visitReadLogStreams();
-
-        T visitCreateLogStreams();
 
         T visitUpdateLogStreams();
 
@@ -2546,33 +2183,25 @@ public final class OauthScope {
 
         T visitReadLogsUsers();
 
-        T visitReadTenantSettings();
+        T visitReadMfaPolicies();
 
-        T visitUpdateTenantSettings();
-
-        T visitReadNetworkAcls();
+        T visitUpdateMfaPolicies();
 
         T visitCreateNetworkAcls();
+
+        T visitReadNetworkAcls();
 
         T visitUpdateNetworkAcls();
 
         T visitDeleteNetworkAcls();
 
-        T visitReadOrganizations();
-
-        T visitReadOrganizationsSummary();
-
-        T visitCreateOrganizations();
-
-        T visitCreateOrganizationConnections();
-
-        T visitUpdateOrganizations();
-
-        T visitDeleteOrganizations();
-
         T visitCreateOrganizationClientGrants();
 
+        T visitReadOrganizationClientGrants();
+
         T visitDeleteOrganizationClientGrants();
+
+        T visitCreateOrganizationConnections();
 
         T visitReadOrganizationConnections();
 
@@ -2580,39 +2209,61 @@ public final class OauthScope {
 
         T visitDeleteOrganizationConnections();
 
-        T visitReadOrganizationDiscoveryDomains();
-
         T visitCreateOrganizationDiscoveryDomains();
+
+        T visitReadOrganizationDiscoveryDomains();
 
         T visitUpdateOrganizationDiscoveryDomains();
 
         T visitDeleteOrganizationDiscoveryDomains();
 
-        T visitReadOrganizationInvitations();
-
         T visitCreateOrganizationInvitations();
+
+        T visitReadOrganizationInvitations();
 
         T visitDeleteOrganizationInvitations();
 
-        T visitReadOrganizationMembers();
-
-        T visitCreateOrganizationMembers();
-
-        T visitDeleteOrganizationMembers();
+        T visitCreateOrganizationMemberRoles();
 
         T visitReadOrganizationMemberRoles();
 
-        T visitCreateOrganizationMemberRoles();
-
         T visitDeleteOrganizationMemberRoles();
+
+        T visitCreateOrganizationMembers();
+
+        T visitReadOrganizationMembers();
+
+        T visitDeleteOrganizationMembers();
+
+        T visitCreateOrganizations();
+
+        T visitReadOrganizations();
+
+        T visitUpdateOrganizations();
+
+        T visitDeleteOrganizations();
+
+        T visitReadOrganizationsSummary();
+
+        T visitCreatePhoneProviders();
+
+        T visitReadPhoneProviders();
+
+        T visitUpdatePhoneProviders();
+
+        T visitDeletePhoneProviders();
+
+        T visitCreatePhoneTemplates();
+
+        T visitReadPhoneTemplates();
+
+        T visitUpdatePhoneTemplates();
+
+        T visitDeletePhoneTemplates();
 
         T visitReadPrompts();
 
         T visitUpdatePrompts();
-
-        T visitReadResourceServers();
-
-        T visitUpdateResourceServers();
 
         T visitReadRefreshTokens();
 
@@ -2622,25 +2273,33 @@ public final class OauthScope {
 
         T visitCreateResourceServers();
 
+        T visitReadResourceServers();
+
+        T visitUpdateResourceServers();
+
         T visitDeleteResourceServers();
 
-        T visitReadRoles();
+        T visitCreateRoleMembers();
+
+        T visitReadRoleMembers();
+
+        T visitDeleteRoleMembers();
 
         T visitCreateRoles();
+
+        T visitReadRoles();
 
         T visitUpdateRoles();
 
         T visitDeleteRoles();
 
-        T visitReadRoleMembers();
-
-        T visitCreateRoleMembers();
+        T visitCreateRules();
 
         T visitReadRules();
 
-        T visitCreateRules();
-
         T visitUpdateRules();
+
+        T visitDeleteRules();
 
         T visitReadRulesConfigs();
 
@@ -2648,25 +2307,31 @@ public final class OauthScope {
 
         T visitDeleteRulesConfigs();
 
-        T visitDeleteRules();
+        T visitCreateScimConfig();
 
-        T visitReadSecurityMetrics();
+        T visitReadScimConfig();
 
-        T visitReadSelfServiceProfiles();
+        T visitUpdateScimConfig();
 
-        T visitCreateSelfServiceProfiles();
+        T visitDeleteScimConfig();
 
-        T visitUpdateSelfServiceProfiles();
+        T visitCreateScimToken();
 
-        T visitDeleteSelfServiceProfiles();
+        T visitReadScimToken();
+
+        T visitDeleteScimToken();
 
         T visitReadSelfServiceProfileCustomTexts();
 
         T visitUpdateSelfServiceProfileCustomTexts();
 
-        T visitCreateSsoAccessTickets();
+        T visitCreateSelfServiceProfiles();
 
-        T visitDeleteSsoAccessTickets();
+        T visitReadSelfServiceProfiles();
+
+        T visitUpdateSelfServiceProfiles();
+
+        T visitDeleteSelfServiceProfiles();
 
         T visitReadSessions();
 
@@ -2674,47 +2339,33 @@ public final class OauthScope {
 
         T visitDeleteSessions();
 
-        T visitDeleteTenants();
+        T visitCreateSigningKeys();
 
-        T visitRunChecks();
+        T visitReadSigningKeys();
 
-        T visitReadChecks();
+        T visitUpdateSigningKeys();
 
-        T visitReadTenantFeatureFlags();
+        T visitCreateSsoAccessTickets();
 
-        T visitReadTenantInvitations();
+        T visitDeleteSsoAccessTickets();
 
-        T visitCreateTenantInvitations();
+        T visitReadStats();
 
-        T visitUpdateTenantInvitations();
+        T visitReadTenantSettings();
 
-        T visitDeleteTenantInvitations();
-
-        T visitReadTenantMembers();
-
-        T visitUpdateTenantMembers();
-
-        T visitDeleteTenantMembers();
-
-        T visitReadOwners();
-
-        T visitDeleteOwners();
-
-        T visitCreateUserTickets();
-
-        T visitReadTokenExchangeProfiles();
+        T visitUpdateTenantSettings();
 
         T visitCreateTokenExchangeProfiles();
+
+        T visitReadTokenExchangeProfiles();
 
         T visitUpdateTokenExchangeProfiles();
 
         T visitDeleteTokenExchangeProfiles();
 
-        T visitReadEntityCounts();
+        T visitCreateUserAttributeProfiles();
 
         T visitReadUserAttributeProfiles();
-
-        T visitCreateUserAttributeProfiles();
 
         T visitUpdateUserAttributeProfiles();
 
@@ -2722,39 +2373,21 @@ public final class OauthScope {
 
         T visitReadUserIdpTokens();
 
-        T visitReadCurrentUser();
+        T visitCreateUserTickets();
+
+        T visitCreateUsers();
+
+        T visitReadUsers();
+
+        T visitUpdateUsers();
+
+        T visitDeleteUsers();
 
         T visitUpdateUsersAppMetadata();
 
-        T visitUpdateCurrentUserMetadata();
-
-        T visitDeleteCurrentUser();
-
-        T visitReadUserApplicationPasswords();
-
-        T visitCreateUserApplicationPasswords();
-
-        T visitDeleteUserApplicationPasswords();
-
-        T visitReadAuthenticationMethods();
-
-        T visitUpdateAuthenticationMethods();
-
-        T visitCreateAuthenticationMethods();
-
-        T visitDeleteAuthenticationMethods();
-
-        T visitReadFederatedConnectionsTokens();
-
-        T visitDeleteFederatedConnectionsTokens();
-
-        T visitUpdateCurrentUserIdentities();
-
-        T visitDeleteRoleMembers();
+        T visitCreateVdcsTemplates();
 
         T visitReadVdcsTemplates();
-
-        T visitCreateVdcsTemplates();
 
         T visitUpdateVdcsTemplates();
 

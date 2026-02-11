@@ -5,6 +5,7 @@ package com.auth0.client.mgmt.flows.types;
 
 import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.types.GetFlowExecutionRequestParametersHydrateEnum;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,14 +24,15 @@ import java.util.Optional;
 import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = ExecutionsGetRequest.Builder.class)
-public final class ExecutionsGetRequest {
-    private final Optional<List<ExecutionsGetRequestHydrateItem>> hydrate;
+@JsonDeserialize(builder = GetFlowExecutionRequestParameters.Builder.class)
+public final class GetFlowExecutionRequestParameters {
+    private final Optional<List<GetFlowExecutionRequestParametersHydrateEnum>> hydrate;
 
     private final Map<String, Object> additionalProperties;
 
-    private ExecutionsGetRequest(
-            Optional<List<ExecutionsGetRequestHydrateItem>> hydrate, Map<String, Object> additionalProperties) {
+    private GetFlowExecutionRequestParameters(
+            Optional<List<GetFlowExecutionRequestParametersHydrateEnum>> hydrate,
+            Map<String, Object> additionalProperties) {
         this.hydrate = hydrate;
         this.additionalProperties = additionalProperties;
     }
@@ -39,7 +41,7 @@ public final class ExecutionsGetRequest {
      * @return Hydration param
      */
     @JsonIgnore
-    public Optional<List<ExecutionsGetRequestHydrateItem>> getHydrate() {
+    public Optional<List<GetFlowExecutionRequestParametersHydrateEnum>> getHydrate() {
         if (hydrate == null) {
             return Optional.empty();
         }
@@ -48,14 +50,14 @@ public final class ExecutionsGetRequest {
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("hydrate")
-    private Optional<List<ExecutionsGetRequestHydrateItem>> _getHydrate() {
+    private Optional<List<GetFlowExecutionRequestParametersHydrateEnum>> _getHydrate() {
         return hydrate;
     }
 
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof ExecutionsGetRequest && equalTo((ExecutionsGetRequest) other);
+        return other instanceof GetFlowExecutionRequestParameters && equalTo((GetFlowExecutionRequestParameters) other);
     }
 
     @JsonAnyGetter
@@ -63,7 +65,7 @@ public final class ExecutionsGetRequest {
         return this.additionalProperties;
     }
 
-    private boolean equalTo(ExecutionsGetRequest other) {
+    private boolean equalTo(GetFlowExecutionRequestParameters other) {
         return hydrate.equals(other.hydrate);
     }
 
@@ -83,14 +85,14 @@ public final class ExecutionsGetRequest {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<List<ExecutionsGetRequestHydrateItem>> hydrate = Optional.empty();
+        private Optional<List<GetFlowExecutionRequestParametersHydrateEnum>> hydrate = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
-        public Builder from(ExecutionsGetRequest other) {
+        public Builder from(GetFlowExecutionRequestParameters other) {
             hydrate(other.getHydrate());
             return this;
         }
@@ -99,17 +101,18 @@ public final class ExecutionsGetRequest {
          * <p>Hydration param</p>
          */
         @JsonSetter(value = "hydrate", nulls = Nulls.SKIP)
-        public Builder hydrate(@Nullable Optional<List<ExecutionsGetRequestHydrateItem>> hydrate) {
+        public Builder hydrate(@Nullable Optional<List<GetFlowExecutionRequestParametersHydrateEnum>> hydrate) {
             this.hydrate = hydrate;
             return this;
         }
 
-        public Builder hydrate(List<ExecutionsGetRequestHydrateItem> hydrate) {
+        public Builder hydrate(List<GetFlowExecutionRequestParametersHydrateEnum> hydrate) {
             this.hydrate = Optional.ofNullable(hydrate);
             return this;
         }
 
-        public Builder hydrate(com.auth0.client.mgmt.core.Nullable<List<ExecutionsGetRequestHydrateItem>> hydrate) {
+        public Builder hydrate(
+                com.auth0.client.mgmt.core.Nullable<List<GetFlowExecutionRequestParametersHydrateEnum>> hydrate) {
             if (hydrate.isNull()) {
                 this.hydrate = null;
             } else if (hydrate.isEmpty()) {
@@ -120,13 +123,13 @@ public final class ExecutionsGetRequest {
             return this;
         }
 
-        public Builder hydrate(ExecutionsGetRequestHydrateItem hydrate) {
+        public Builder hydrate(GetFlowExecutionRequestParametersHydrateEnum hydrate) {
             this.hydrate = Optional.of(Collections.singletonList(hydrate));
             return this;
         }
 
-        public ExecutionsGetRequest build() {
-            return new ExecutionsGetRequest(hydrate, additionalProperties);
+        public GetFlowExecutionRequestParameters build() {
+            return new GetFlowExecutionRequestParameters(hydrate, additionalProperties);
         }
     }
 }
