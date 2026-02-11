@@ -6,18 +6,18 @@ package com.auth0.client.mgmt.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class UpdateBruteForceSettingsResponseContentShieldsItem {
-    public static final UpdateBruteForceSettingsResponseContentShieldsItem BLOCK =
-            new UpdateBruteForceSettingsResponseContentShieldsItem(Value.BLOCK, "block");
+public final class BruteForceProtectionShieldsEnum {
+    public static final BruteForceProtectionShieldsEnum BLOCK =
+            new BruteForceProtectionShieldsEnum(Value.BLOCK, "block");
 
-    public static final UpdateBruteForceSettingsResponseContentShieldsItem USER_NOTIFICATION =
-            new UpdateBruteForceSettingsResponseContentShieldsItem(Value.USER_NOTIFICATION, "user_notification");
+    public static final BruteForceProtectionShieldsEnum USER_NOTIFICATION =
+            new BruteForceProtectionShieldsEnum(Value.USER_NOTIFICATION, "user_notification");
 
     private final Value value;
 
     private final String string;
 
-    UpdateBruteForceSettingsResponseContentShieldsItem(Value value, String string) {
+    BruteForceProtectionShieldsEnum(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -35,8 +35,8 @@ public final class UpdateBruteForceSettingsResponseContentShieldsItem {
     @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
-                || (other instanceof UpdateBruteForceSettingsResponseContentShieldsItem
-                        && this.string.equals(((UpdateBruteForceSettingsResponseContentShieldsItem) other).string));
+                || (other instanceof BruteForceProtectionShieldsEnum
+                        && this.string.equals(((BruteForceProtectionShieldsEnum) other).string));
     }
 
     @java.lang.Override
@@ -57,14 +57,14 @@ public final class UpdateBruteForceSettingsResponseContentShieldsItem {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static UpdateBruteForceSettingsResponseContentShieldsItem valueOf(String value) {
+    public static BruteForceProtectionShieldsEnum valueOf(String value) {
         switch (value) {
             case "block":
                 return BLOCK;
             case "user_notification":
                 return USER_NOTIFICATION;
             default:
-                return new UpdateBruteForceSettingsResponseContentShieldsItem(Value.UNKNOWN, value);
+                return new BruteForceProtectionShieldsEnum(Value.UNKNOWN, value);
         }
     }
 

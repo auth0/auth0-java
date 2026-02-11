@@ -3,12 +3,15 @@
  */
 package com.auth0.client.mgmt.actions.modules;
 
+import com.auth0.client.mgmt.actions.modules.types.GetActionModuleVersionsRequestParameters;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.ManagementApiException;
 import com.auth0.client.mgmt.core.ManagementApiHttpResponse;
 import com.auth0.client.mgmt.core.ManagementException;
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.QueryStringMapper;
 import com.auth0.client.mgmt.core.RequestOptions;
+import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.errors.BadRequestError;
 import com.auth0.client.mgmt.errors.ConflictError;
 import com.auth0.client.mgmt.errors.ForbiddenError;
@@ -16,12 +19,16 @@ import com.auth0.client.mgmt.errors.NotFoundError;
 import com.auth0.client.mgmt.errors.PreconditionFailedError;
 import com.auth0.client.mgmt.errors.TooManyRequestsError;
 import com.auth0.client.mgmt.errors.UnauthorizedError;
+import com.auth0.client.mgmt.types.ActionModuleVersion;
 import com.auth0.client.mgmt.types.CreateActionModuleVersionResponseContent;
 import com.auth0.client.mgmt.types.GetActionModuleVersionResponseContent;
 import com.auth0.client.mgmt.types.GetActionModuleVersionsResponseContent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -43,32 +50,42 @@ public class AsyncRawVersionsClient {
     /**
      * List all published versions of a specific Actions Module.
      */
-    public CompletableFuture<ManagementApiHttpResponse<GetActionModuleVersionsResponseContent>> list(String id) {
-        return list(id, null);
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ActionModuleVersion>>> list(String id) {
+        return list(id, GetActionModuleVersionsRequestParameters.builder().build());
     }
 
     /**
      * List all published versions of a specific Actions Module.
      */
-    public CompletableFuture<ManagementApiHttpResponse<GetActionModuleVersionsResponseContent>> list(
-            String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ActionModuleVersion>>> list(
+            String id, GetActionModuleVersionsRequestParameters request) {
+        return list(id, request, null);
+    }
+
+    /**
+     * List all published versions of a specific Actions Module.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ActionModuleVersion>>> list(
+            String id, GetActionModuleVersionsRequestParameters request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("actions/modules")
                 .addPathSegment(id)
-                .addPathSegments("versions")
-                .build();
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .addPathSegments("versions");
+        QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage().orElse(0), false);
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "per_page", request.getPerPage().orElse(50), false);
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Accept", "application/json")
-                .build();
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
         OkHttpClient client = clientOptions.httpClient();
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<ManagementApiHttpResponse<GetActionModuleVersionsResponseContent>> future =
+        CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ActionModuleVersion>>> future =
                 new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
@@ -76,9 +93,28 @@ public class AsyncRawVersionsClient {
                 try (ResponseBody responseBody = response.body()) {
                     String responseBodyString = responseBody != null ? responseBody.string() : "{}";
                     if (response.isSuccessful()) {
+                        GetActionModuleVersionsResponseContent parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                                responseBodyString, GetActionModuleVersionsResponseContent.class);
+                        int newPageNumber = request.getPage()
+                                .map((Integer page) -> page + 1)
+                                .orElse(1);
+                        GetActionModuleVersionsRequestParameters nextRequest =
+                                GetActionModuleVersionsRequestParameters.builder()
+                                        .from(request)
+                                        .page(newPageNumber)
+                                        .build();
+                        List<ActionModuleVersion> result =
+                                parsedResponse.getVersions().orElse(Collections.emptyList());
                         future.complete(new ManagementApiHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBodyString, GetActionModuleVersionsResponseContent.class),
+                                new SyncPagingIterable<ActionModuleVersion>(true, result, parsedResponse, () -> {
+                                    try {
+                                        return list(id, nextRequest, requestOptions)
+                                                .get()
+                                                .body();
+                                    } catch (InterruptedException | ExecutionException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }),
                                 response));
                         return;
                     }

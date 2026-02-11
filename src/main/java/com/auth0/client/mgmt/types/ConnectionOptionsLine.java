@@ -23,50 +23,84 @@ import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionOptionsLine.Builder.class)
-public final class ConnectionOptionsLine implements IConnectionOptionsOAuth2Common, IConnectionOptionsCommon {
+public final class ConnectionOptionsLine implements IConnectionOptionsCommon {
+    private final Optional<List<String>> nonPersistentAttrs;
+
     private final Optional<String> clientId;
 
     private final Optional<String> clientSecret;
 
-    private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
-            upstreamParams;
+    private final Optional<List<String>> freeformScopes;
+
+    private final Optional<List<String>> scope;
 
     private final Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes;
 
-    private final Optional<List<String>> nonPersistentAttrs;
+    private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+            upstreamParams;
+
+    private final Optional<Boolean> email;
+
+    private final Optional<Boolean> profile;
 
     private final Map<String, Object> additionalProperties;
 
     private ConnectionOptionsLine(
+            Optional<List<String>> nonPersistentAttrs,
             Optional<String> clientId,
             Optional<String> clientSecret,
-            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
+            Optional<List<String>> freeformScopes,
+            Optional<List<String>> scope,
             Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes,
-            Optional<List<String>> nonPersistentAttrs,
+            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
+            Optional<Boolean> email,
+            Optional<Boolean> profile,
             Map<String, Object> additionalProperties) {
+        this.nonPersistentAttrs = nonPersistentAttrs;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
-        this.upstreamParams = upstreamParams;
+        this.freeformScopes = freeformScopes;
+        this.scope = scope;
         this.setUserRootAttributes = setUserRootAttributes;
-        this.nonPersistentAttrs = nonPersistentAttrs;
+        this.upstreamParams = upstreamParams;
+        this.email = email;
+        this.profile = profile;
         this.additionalProperties = additionalProperties;
     }
 
-    @JsonProperty("client_id")
+    @JsonProperty("non_persistent_attrs")
     @java.lang.Override
+    public Optional<List<String>> getNonPersistentAttrs() {
+        return nonPersistentAttrs;
+    }
+
+    @JsonProperty("client_id")
     public Optional<String> getClientId() {
         return clientId;
     }
 
     @JsonProperty("client_secret")
-    @java.lang.Override
     public Optional<String> getClientSecret() {
         return clientSecret;
     }
 
+    @JsonProperty("freeform_scopes")
+    public Optional<List<String>> getFreeformScopes() {
+        return freeformScopes;
+    }
+
+    @JsonProperty("scope")
+    public Optional<List<String>> getScope() {
+        return scope;
+    }
+
+    @JsonProperty("set_user_root_attributes")
+    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
+        return setUserRootAttributes;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("upstream_params")
-    @java.lang.Override
     public OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams() {
         if (upstreamParams == null) {
             return OptionalNullable.absent();
@@ -74,16 +108,20 @@ public final class ConnectionOptionsLine implements IConnectionOptionsOAuth2Comm
         return upstreamParams;
     }
 
-    @JsonProperty("set_user_root_attributes")
-    @java.lang.Override
-    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
-        return setUserRootAttributes;
+    /**
+     * @return Permission to request the user's email address from LINE. When enabled, adds the 'email' scope to OAuth requests. Note: LINE requires special approval to access user email addresses.
+     */
+    @JsonProperty("email")
+    public Optional<Boolean> getEmail() {
+        return email;
     }
 
-    @JsonProperty("non_persistent_attrs")
-    @java.lang.Override
-    public Optional<List<String>> getNonPersistentAttrs() {
-        return nonPersistentAttrs;
+    /**
+     * @return Permission to request the user's basic profile information from LINE. When enabled, adds the 'profile' scope to OAuth requests. LINE requires this scope to retrieve user display name, profile picture, and status message.
+     */
+    @JsonProperty("profile")
+    public Optional<Boolean> getProfile() {
+        return profile;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -105,21 +143,29 @@ public final class ConnectionOptionsLine implements IConnectionOptionsOAuth2Comm
     }
 
     private boolean equalTo(ConnectionOptionsLine other) {
-        return clientId.equals(other.clientId)
+        return nonPersistentAttrs.equals(other.nonPersistentAttrs)
+                && clientId.equals(other.clientId)
                 && clientSecret.equals(other.clientSecret)
-                && upstreamParams.equals(other.upstreamParams)
+                && freeformScopes.equals(other.freeformScopes)
+                && scope.equals(other.scope)
                 && setUserRootAttributes.equals(other.setUserRootAttributes)
-                && nonPersistentAttrs.equals(other.nonPersistentAttrs);
+                && upstreamParams.equals(other.upstreamParams)
+                && email.equals(other.email)
+                && profile.equals(other.profile);
     }
 
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.nonPersistentAttrs,
                 this.clientId,
                 this.clientSecret,
-                this.upstreamParams,
+                this.freeformScopes,
+                this.scope,
                 this.setUserRootAttributes,
-                this.nonPersistentAttrs);
+                this.upstreamParams,
+                this.email,
+                this.profile);
     }
 
     @java.lang.Override
@@ -133,16 +179,24 @@ public final class ConnectionOptionsLine implements IConnectionOptionsOAuth2Comm
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
+
         private Optional<String> clientId = Optional.empty();
 
         private Optional<String> clientSecret = Optional.empty();
 
-        private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
-                OptionalNullable.absent();
+        private Optional<List<String>> freeformScopes = Optional.empty();
+
+        private Optional<List<String>> scope = Optional.empty();
 
         private Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes = Optional.empty();
 
-        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
+        private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
+                OptionalNullable.absent();
+
+        private Optional<Boolean> email = Optional.empty();
+
+        private Optional<Boolean> profile = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -150,11 +204,26 @@ public final class ConnectionOptionsLine implements IConnectionOptionsOAuth2Comm
         private Builder() {}
 
         public Builder from(ConnectionOptionsLine other) {
+            nonPersistentAttrs(other.getNonPersistentAttrs());
             clientId(other.getClientId());
             clientSecret(other.getClientSecret());
-            upstreamParams(other.getUpstreamParams());
+            freeformScopes(other.getFreeformScopes());
+            scope(other.getScope());
             setUserRootAttributes(other.getSetUserRootAttributes());
-            nonPersistentAttrs(other.getNonPersistentAttrs());
+            upstreamParams(other.getUpstreamParams());
+            email(other.getEmail());
+            profile(other.getProfile());
+            return this;
+        }
+
+        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
+        public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
+            this.nonPersistentAttrs = nonPersistentAttrs;
+            return this;
+        }
+
+        public Builder nonPersistentAttrs(List<String> nonPersistentAttrs) {
+            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
             return this;
         }
 
@@ -177,6 +246,39 @@ public final class ConnectionOptionsLine implements IConnectionOptionsOAuth2Comm
 
         public Builder clientSecret(String clientSecret) {
             this.clientSecret = Optional.ofNullable(clientSecret);
+            return this;
+        }
+
+        @JsonSetter(value = "freeform_scopes", nulls = Nulls.SKIP)
+        public Builder freeformScopes(Optional<List<String>> freeformScopes) {
+            this.freeformScopes = freeformScopes;
+            return this;
+        }
+
+        public Builder freeformScopes(List<String> freeformScopes) {
+            this.freeformScopes = Optional.ofNullable(freeformScopes);
+            return this;
+        }
+
+        @JsonSetter(value = "scope", nulls = Nulls.SKIP)
+        public Builder scope(Optional<List<String>> scope) {
+            this.scope = scope;
+            return this;
+        }
+
+        public Builder scope(List<String> scope) {
+            this.scope = Optional.ofNullable(scope);
+            return this;
+        }
+
+        @JsonSetter(value = "set_user_root_attributes", nulls = Nulls.SKIP)
+        public Builder setUserRootAttributes(Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes) {
+            this.setUserRootAttributes = setUserRootAttributes;
+            return this;
+        }
+
+        public Builder setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes) {
+            this.setUserRootAttributes = Optional.ofNullable(setUserRootAttributes);
             return this;
         }
 
@@ -219,35 +321,45 @@ public final class ConnectionOptionsLine implements IConnectionOptionsOAuth2Comm
             return this;
         }
 
-        @JsonSetter(value = "set_user_root_attributes", nulls = Nulls.SKIP)
-        public Builder setUserRootAttributes(Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes) {
-            this.setUserRootAttributes = setUserRootAttributes;
+        /**
+         * <p>Permission to request the user's email address from LINE. When enabled, adds the 'email' scope to OAuth requests. Note: LINE requires special approval to access user email addresses.</p>
+         */
+        @JsonSetter(value = "email", nulls = Nulls.SKIP)
+        public Builder email(Optional<Boolean> email) {
+            this.email = email;
             return this;
         }
 
-        public Builder setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes) {
-            this.setUserRootAttributes = Optional.ofNullable(setUserRootAttributes);
+        public Builder email(Boolean email) {
+            this.email = Optional.ofNullable(email);
             return this;
         }
 
-        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
-        public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
-            this.nonPersistentAttrs = nonPersistentAttrs;
+        /**
+         * <p>Permission to request the user's basic profile information from LINE. When enabled, adds the 'profile' scope to OAuth requests. LINE requires this scope to retrieve user display name, profile picture, and status message.</p>
+         */
+        @JsonSetter(value = "profile", nulls = Nulls.SKIP)
+        public Builder profile(Optional<Boolean> profile) {
+            this.profile = profile;
             return this;
         }
 
-        public Builder nonPersistentAttrs(List<String> nonPersistentAttrs) {
-            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
+        public Builder profile(Boolean profile) {
+            this.profile = Optional.ofNullable(profile);
             return this;
         }
 
         public ConnectionOptionsLine build() {
             return new ConnectionOptionsLine(
+                    nonPersistentAttrs,
                     clientId,
                     clientSecret,
-                    upstreamParams,
+                    freeformScopes,
+                    scope,
                     setUserRootAttributes,
-                    nonPersistentAttrs,
+                    upstreamParams,
+                    email,
+                    profile,
                     additionalProperties);
         }
     }

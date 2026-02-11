@@ -6,8 +6,8 @@ package com.auth0.client.mgmt.flows;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
-import com.auth0.client.mgmt.flows.types.ExecutionsGetRequest;
-import com.auth0.client.mgmt.flows.types.ExecutionsListRequest;
+import com.auth0.client.mgmt.flows.types.GetFlowExecutionRequestParameters;
+import com.auth0.client.mgmt.flows.types.ListFlowExecutionsRequestParameters;
 import com.auth0.client.mgmt.types.FlowExecutionSummary;
 import com.auth0.client.mgmt.types.GetFlowExecutionResponseContent;
 import java.util.concurrent.CompletableFuture;
@@ -34,12 +34,12 @@ public class AsyncExecutionsClient {
     }
 
     public CompletableFuture<SyncPagingIterable<FlowExecutionSummary>> list(
-            String flowId, ExecutionsListRequest request) {
+            String flowId, ListFlowExecutionsRequestParameters request) {
         return this.rawClient.list(flowId, request).thenApply(response -> response.body());
     }
 
     public CompletableFuture<SyncPagingIterable<FlowExecutionSummary>> list(
-            String flowId, ExecutionsListRequest request, RequestOptions requestOptions) {
+            String flowId, ListFlowExecutionsRequestParameters request, RequestOptions requestOptions) {
         return this.rawClient.list(flowId, request, requestOptions).thenApply(response -> response.body());
     }
 
@@ -48,12 +48,15 @@ public class AsyncExecutionsClient {
     }
 
     public CompletableFuture<GetFlowExecutionResponseContent> get(
-            String flowId, String executionId, ExecutionsGetRequest request) {
+            String flowId, String executionId, GetFlowExecutionRequestParameters request) {
         return this.rawClient.get(flowId, executionId, request).thenApply(response -> response.body());
     }
 
     public CompletableFuture<GetFlowExecutionResponseContent> get(
-            String flowId, String executionId, ExecutionsGetRequest request, RequestOptions requestOptions) {
+            String flowId,
+            String executionId,
+            GetFlowExecutionRequestParameters request,
+            RequestOptions requestOptions) {
         return this.rawClient.get(flowId, executionId, request, requestOptions).thenApply(response -> response.body());
     }
 

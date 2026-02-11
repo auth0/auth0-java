@@ -6,18 +6,16 @@ package com.auth0.client.mgmt.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class GetBruteForceSettingsResponseContentShieldsItem {
-    public static final GetBruteForceSettingsResponseContentShieldsItem BLOCK =
-            new GetBruteForceSettingsResponseContentShieldsItem(Value.BLOCK, "block");
+public final class ConnectionSignupBehaviorEnum {
+    public static final ConnectionSignupBehaviorEnum ALLOW = new ConnectionSignupBehaviorEnum(Value.ALLOW, "allow");
 
-    public static final GetBruteForceSettingsResponseContentShieldsItem USER_NOTIFICATION =
-            new GetBruteForceSettingsResponseContentShieldsItem(Value.USER_NOTIFICATION, "user_notification");
+    public static final ConnectionSignupBehaviorEnum BLOCK = new ConnectionSignupBehaviorEnum(Value.BLOCK, "block");
 
     private final Value value;
 
     private final String string;
 
-    GetBruteForceSettingsResponseContentShieldsItem(Value value, String string) {
+    ConnectionSignupBehaviorEnum(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -35,8 +33,8 @@ public final class GetBruteForceSettingsResponseContentShieldsItem {
     @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
-                || (other instanceof GetBruteForceSettingsResponseContentShieldsItem
-                        && this.string.equals(((GetBruteForceSettingsResponseContentShieldsItem) other).string));
+                || (other instanceof ConnectionSignupBehaviorEnum
+                        && this.string.equals(((ConnectionSignupBehaviorEnum) other).string));
     }
 
     @java.lang.Override
@@ -46,10 +44,10 @@ public final class GetBruteForceSettingsResponseContentShieldsItem {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
+            case ALLOW:
+                return visitor.visitAllow();
             case BLOCK:
                 return visitor.visitBlock();
-            case USER_NOTIFICATION:
-                return visitor.visitUserNotification();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -57,29 +55,29 @@ public final class GetBruteForceSettingsResponseContentShieldsItem {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static GetBruteForceSettingsResponseContentShieldsItem valueOf(String value) {
+    public static ConnectionSignupBehaviorEnum valueOf(String value) {
         switch (value) {
+            case "allow":
+                return ALLOW;
             case "block":
                 return BLOCK;
-            case "user_notification":
-                return USER_NOTIFICATION;
             default:
-                return new GetBruteForceSettingsResponseContentShieldsItem(Value.UNKNOWN, value);
+                return new ConnectionSignupBehaviorEnum(Value.UNKNOWN, value);
         }
     }
 
     public enum Value {
-        BLOCK,
+        ALLOW,
 
-        USER_NOTIFICATION,
+        BLOCK,
 
         UNKNOWN
     }
 
     public interface Visitor<T> {
-        T visitBlock();
+        T visitAllow();
 
-        T visitUserNotification();
+        T visitBlock();
 
         T visitUnknown(String unknownType);
     }
