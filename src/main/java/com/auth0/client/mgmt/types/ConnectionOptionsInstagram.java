@@ -28,10 +28,12 @@ public final class ConnectionOptionsInstagram implements IConnectionOptionsOAuth
 
     private final Optional<String> clientSecret;
 
-    private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
-            upstreamParams;
+    private final Optional<ConnectionScopeOAuth2> scope;
 
     private final Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes;
+
+    private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+            upstreamParams;
 
     private final Optional<List<String>> nonPersistentAttrs;
 
@@ -40,14 +42,16 @@ public final class ConnectionOptionsInstagram implements IConnectionOptionsOAuth
     private ConnectionOptionsInstagram(
             Optional<String> clientId,
             Optional<String> clientSecret,
-            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
+            Optional<ConnectionScopeOAuth2> scope,
             Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes,
+            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
             Optional<List<String>> nonPersistentAttrs,
             Map<String, Object> additionalProperties) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
-        this.upstreamParams = upstreamParams;
+        this.scope = scope;
         this.setUserRootAttributes = setUserRootAttributes;
+        this.upstreamParams = upstreamParams;
         this.nonPersistentAttrs = nonPersistentAttrs;
         this.additionalProperties = additionalProperties;
     }
@@ -64,6 +68,18 @@ public final class ConnectionOptionsInstagram implements IConnectionOptionsOAuth
         return clientSecret;
     }
 
+    @JsonProperty("scope")
+    @java.lang.Override
+    public Optional<ConnectionScopeOAuth2> getScope() {
+        return scope;
+    }
+
+    @JsonProperty("set_user_root_attributes")
+    @java.lang.Override
+    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
+        return setUserRootAttributes;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("upstream_params")
     @java.lang.Override
@@ -72,12 +88,6 @@ public final class ConnectionOptionsInstagram implements IConnectionOptionsOAuth
             return OptionalNullable.absent();
         }
         return upstreamParams;
-    }
-
-    @JsonProperty("set_user_root_attributes")
-    @java.lang.Override
-    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
-        return setUserRootAttributes;
     }
 
     @JsonProperty("non_persistent_attrs")
@@ -107,8 +117,9 @@ public final class ConnectionOptionsInstagram implements IConnectionOptionsOAuth
     private boolean equalTo(ConnectionOptionsInstagram other) {
         return clientId.equals(other.clientId)
                 && clientSecret.equals(other.clientSecret)
-                && upstreamParams.equals(other.upstreamParams)
+                && scope.equals(other.scope)
                 && setUserRootAttributes.equals(other.setUserRootAttributes)
+                && upstreamParams.equals(other.upstreamParams)
                 && nonPersistentAttrs.equals(other.nonPersistentAttrs);
     }
 
@@ -117,8 +128,9 @@ public final class ConnectionOptionsInstagram implements IConnectionOptionsOAuth
         return Objects.hash(
                 this.clientId,
                 this.clientSecret,
-                this.upstreamParams,
+                this.scope,
                 this.setUserRootAttributes,
+                this.upstreamParams,
                 this.nonPersistentAttrs);
     }
 
@@ -137,10 +149,12 @@ public final class ConnectionOptionsInstagram implements IConnectionOptionsOAuth
 
         private Optional<String> clientSecret = Optional.empty();
 
-        private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
-                OptionalNullable.absent();
+        private Optional<ConnectionScopeOAuth2> scope = Optional.empty();
 
         private Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes = Optional.empty();
+
+        private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
+                OptionalNullable.absent();
 
         private Optional<List<String>> nonPersistentAttrs = Optional.empty();
 
@@ -152,8 +166,9 @@ public final class ConnectionOptionsInstagram implements IConnectionOptionsOAuth
         public Builder from(ConnectionOptionsInstagram other) {
             clientId(other.getClientId());
             clientSecret(other.getClientSecret());
-            upstreamParams(other.getUpstreamParams());
+            scope(other.getScope());
             setUserRootAttributes(other.getSetUserRootAttributes());
+            upstreamParams(other.getUpstreamParams());
             nonPersistentAttrs(other.getNonPersistentAttrs());
             return this;
         }
@@ -177,6 +192,28 @@ public final class ConnectionOptionsInstagram implements IConnectionOptionsOAuth
 
         public Builder clientSecret(String clientSecret) {
             this.clientSecret = Optional.ofNullable(clientSecret);
+            return this;
+        }
+
+        @JsonSetter(value = "scope", nulls = Nulls.SKIP)
+        public Builder scope(Optional<ConnectionScopeOAuth2> scope) {
+            this.scope = scope;
+            return this;
+        }
+
+        public Builder scope(ConnectionScopeOAuth2 scope) {
+            this.scope = Optional.ofNullable(scope);
+            return this;
+        }
+
+        @JsonSetter(value = "set_user_root_attributes", nulls = Nulls.SKIP)
+        public Builder setUserRootAttributes(Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes) {
+            this.setUserRootAttributes = setUserRootAttributes;
+            return this;
+        }
+
+        public Builder setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes) {
+            this.setUserRootAttributes = Optional.ofNullable(setUserRootAttributes);
             return this;
         }
 
@@ -219,17 +256,6 @@ public final class ConnectionOptionsInstagram implements IConnectionOptionsOAuth
             return this;
         }
 
-        @JsonSetter(value = "set_user_root_attributes", nulls = Nulls.SKIP)
-        public Builder setUserRootAttributes(Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes) {
-            this.setUserRootAttributes = setUserRootAttributes;
-            return this;
-        }
-
-        public Builder setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes) {
-            this.setUserRootAttributes = Optional.ofNullable(setUserRootAttributes);
-            return this;
-        }
-
         @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
         public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
             this.nonPersistentAttrs = nonPersistentAttrs;
@@ -245,8 +271,9 @@ public final class ConnectionOptionsInstagram implements IConnectionOptionsOAuth
             return new ConnectionOptionsInstagram(
                     clientId,
                     clientSecret,
-                    upstreamParams,
+                    scope,
                     setUserRootAttributes,
+                    upstreamParams,
                     nonPersistentAttrs,
                     additionalProperties);
         }

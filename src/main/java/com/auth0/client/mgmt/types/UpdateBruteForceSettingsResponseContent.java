@@ -23,11 +23,11 @@ import java.util.Optional;
 public final class UpdateBruteForceSettingsResponseContent {
     private final Optional<Boolean> enabled;
 
-    private final Optional<List<UpdateBruteForceSettingsResponseContentShieldsItem>> shields;
+    private final Optional<List<BruteForceProtectionShieldsEnum>> shields;
 
     private final Optional<List<String>> allowlist;
 
-    private final Optional<UpdateBruteForceSettingsResponseContentMode> mode;
+    private final Optional<BruteForceProtectionModeEnum> mode;
 
     private final Optional<Integer> maxAttempts;
 
@@ -35,9 +35,9 @@ public final class UpdateBruteForceSettingsResponseContent {
 
     private UpdateBruteForceSettingsResponseContent(
             Optional<Boolean> enabled,
-            Optional<List<UpdateBruteForceSettingsResponseContentShieldsItem>> shields,
+            Optional<List<BruteForceProtectionShieldsEnum>> shields,
             Optional<List<String>> allowlist,
-            Optional<UpdateBruteForceSettingsResponseContentMode> mode,
+            Optional<BruteForceProtectionModeEnum> mode,
             Optional<Integer> maxAttempts,
             Map<String, Object> additionalProperties) {
         this.enabled = enabled;
@@ -61,7 +61,7 @@ public final class UpdateBruteForceSettingsResponseContent {
      * Possible values: &lt;code&gt;block&lt;/code&gt;, &lt;code&gt;user_notification&lt;/code&gt;.
      */
     @JsonProperty("shields")
-    public Optional<List<UpdateBruteForceSettingsResponseContentShieldsItem>> getShields() {
+    public Optional<List<BruteForceProtectionShieldsEnum>> getShields() {
         return shields;
     }
 
@@ -73,12 +73,8 @@ public final class UpdateBruteForceSettingsResponseContent {
         return allowlist;
     }
 
-    /**
-     * @return Account Lockout: Determines whether or not IP address is used when counting failed attempts.
-     * Possible values: &lt;code&gt;count_per_identifier_and_ip&lt;/code&gt;, &lt;code&gt;count_per_identifier&lt;/code&gt;.
-     */
     @JsonProperty("mode")
-    public Optional<UpdateBruteForceSettingsResponseContentMode> getMode() {
+    public Optional<BruteForceProtectionModeEnum> getMode() {
         return mode;
     }
 
@@ -128,11 +124,11 @@ public final class UpdateBruteForceSettingsResponseContent {
     public static final class Builder {
         private Optional<Boolean> enabled = Optional.empty();
 
-        private Optional<List<UpdateBruteForceSettingsResponseContentShieldsItem>> shields = Optional.empty();
+        private Optional<List<BruteForceProtectionShieldsEnum>> shields = Optional.empty();
 
         private Optional<List<String>> allowlist = Optional.empty();
 
-        private Optional<UpdateBruteForceSettingsResponseContentMode> mode = Optional.empty();
+        private Optional<BruteForceProtectionModeEnum> mode = Optional.empty();
 
         private Optional<Integer> maxAttempts = Optional.empty();
 
@@ -169,12 +165,12 @@ public final class UpdateBruteForceSettingsResponseContent {
          * Possible values: &lt;code&gt;block&lt;/code&gt;, &lt;code&gt;user_notification&lt;/code&gt;.</p>
          */
         @JsonSetter(value = "shields", nulls = Nulls.SKIP)
-        public Builder shields(Optional<List<UpdateBruteForceSettingsResponseContentShieldsItem>> shields) {
+        public Builder shields(Optional<List<BruteForceProtectionShieldsEnum>> shields) {
             this.shields = shields;
             return this;
         }
 
-        public Builder shields(List<UpdateBruteForceSettingsResponseContentShieldsItem> shields) {
+        public Builder shields(List<BruteForceProtectionShieldsEnum> shields) {
             this.shields = Optional.ofNullable(shields);
             return this;
         }
@@ -193,17 +189,13 @@ public final class UpdateBruteForceSettingsResponseContent {
             return this;
         }
 
-        /**
-         * <p>Account Lockout: Determines whether or not IP address is used when counting failed attempts.
-         * Possible values: &lt;code&gt;count_per_identifier_and_ip&lt;/code&gt;, &lt;code&gt;count_per_identifier&lt;/code&gt;.</p>
-         */
         @JsonSetter(value = "mode", nulls = Nulls.SKIP)
-        public Builder mode(Optional<UpdateBruteForceSettingsResponseContentMode> mode) {
+        public Builder mode(Optional<BruteForceProtectionModeEnum> mode) {
             this.mode = mode;
             return this;
         }
 
-        public Builder mode(UpdateBruteForceSettingsResponseContentMode mode) {
+        public Builder mode(BruteForceProtectionModeEnum mode) {
             this.mode = Optional.ofNullable(mode);
             return this;
         }

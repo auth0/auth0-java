@@ -23,11 +23,24 @@ import java.util.Optional;
 public final class GetActionModuleVersionsResponseContent {
     private final Optional<List<ActionModuleVersion>> versions;
 
+    private final Optional<Integer> total;
+
+    private final Optional<Integer> page;
+
+    private final Optional<Integer> perPage;
+
     private final Map<String, Object> additionalProperties;
 
     private GetActionModuleVersionsResponseContent(
-            Optional<List<ActionModuleVersion>> versions, Map<String, Object> additionalProperties) {
+            Optional<List<ActionModuleVersion>> versions,
+            Optional<Integer> total,
+            Optional<Integer> page,
+            Optional<Integer> perPage,
+            Map<String, Object> additionalProperties) {
         this.versions = versions;
+        this.total = total;
+        this.page = page;
+        this.perPage = perPage;
         this.additionalProperties = additionalProperties;
     }
 
@@ -37,6 +50,30 @@ public final class GetActionModuleVersionsResponseContent {
     @JsonProperty("versions")
     public Optional<List<ActionModuleVersion>> getVersions() {
         return versions;
+    }
+
+    /**
+     * @return The total number of versions for this module.
+     */
+    @JsonProperty("total")
+    public Optional<Integer> getTotal() {
+        return total;
+    }
+
+    /**
+     * @return The page index of the returned results.
+     */
+    @JsonProperty("page")
+    public Optional<Integer> getPage() {
+        return page;
+    }
+
+    /**
+     * @return The number of results requested per page.
+     */
+    @JsonProperty("per_page")
+    public Optional<Integer> getPerPage() {
+        return perPage;
     }
 
     @java.lang.Override
@@ -52,12 +89,15 @@ public final class GetActionModuleVersionsResponseContent {
     }
 
     private boolean equalTo(GetActionModuleVersionsResponseContent other) {
-        return versions.equals(other.versions);
+        return versions.equals(other.versions)
+                && total.equals(other.total)
+                && page.equals(other.page)
+                && perPage.equals(other.perPage);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.versions);
+        return Objects.hash(this.versions, this.total, this.page, this.perPage);
     }
 
     @java.lang.Override
@@ -73,6 +113,12 @@ public final class GetActionModuleVersionsResponseContent {
     public static final class Builder {
         private Optional<List<ActionModuleVersion>> versions = Optional.empty();
 
+        private Optional<Integer> total = Optional.empty();
+
+        private Optional<Integer> page = Optional.empty();
+
+        private Optional<Integer> perPage = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -80,6 +126,9 @@ public final class GetActionModuleVersionsResponseContent {
 
         public Builder from(GetActionModuleVersionsResponseContent other) {
             versions(other.getVersions());
+            total(other.getTotal());
+            page(other.getPage());
+            perPage(other.getPerPage());
             return this;
         }
 
@@ -97,8 +146,50 @@ public final class GetActionModuleVersionsResponseContent {
             return this;
         }
 
+        /**
+         * <p>The total number of versions for this module.</p>
+         */
+        @JsonSetter(value = "total", nulls = Nulls.SKIP)
+        public Builder total(Optional<Integer> total) {
+            this.total = total;
+            return this;
+        }
+
+        public Builder total(Integer total) {
+            this.total = Optional.ofNullable(total);
+            return this;
+        }
+
+        /**
+         * <p>The page index of the returned results.</p>
+         */
+        @JsonSetter(value = "page", nulls = Nulls.SKIP)
+        public Builder page(Optional<Integer> page) {
+            this.page = page;
+            return this;
+        }
+
+        public Builder page(Integer page) {
+            this.page = Optional.ofNullable(page);
+            return this;
+        }
+
+        /**
+         * <p>The number of results requested per page.</p>
+         */
+        @JsonSetter(value = "per_page", nulls = Nulls.SKIP)
+        public Builder perPage(Optional<Integer> perPage) {
+            this.perPage = perPage;
+            return this;
+        }
+
+        public Builder perPage(Integer perPage) {
+            this.perPage = Optional.ofNullable(perPage);
+            return this;
+        }
+
         public GetActionModuleVersionsResponseContent build() {
-            return new GetActionModuleVersionsResponseContent(versions, additionalProperties);
+            return new GetActionModuleVersionsResponseContent(versions, total, page, perPage, additionalProperties);
         }
     }
 }

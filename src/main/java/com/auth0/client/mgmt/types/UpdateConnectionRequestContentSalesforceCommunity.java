@@ -22,10 +22,6 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = UpdateConnectionRequestContentSalesforceCommunity.Builder.class)
 public final class UpdateConnectionRequestContentSalesforceCommunity implements IConnectionCommon {
-    private final Optional<ConnectionAuthenticationPurpose> authentication;
-
-    private final Optional<ConnectionConnectedAccountsPurpose> connectedAccounts;
-
     private final Optional<String> displayName;
 
     private final Optional<List<String>> enabledClients;
@@ -34,39 +30,23 @@ public final class UpdateConnectionRequestContentSalesforceCommunity implements 
 
     private final Optional<Map<String, OptionalNullable<String>>> metadata;
 
-    private final Optional<ConnectionOptionsSalesforce> options;
+    private final Optional<ConnectionOptionsSalesforceCommunity> options;
 
     private final Map<String, Object> additionalProperties;
 
     private UpdateConnectionRequestContentSalesforceCommunity(
-            Optional<ConnectionAuthenticationPurpose> authentication,
-            Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
             Optional<String> displayName,
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
-            Optional<ConnectionOptionsSalesforce> options,
+            Optional<ConnectionOptionsSalesforceCommunity> options,
             Map<String, Object> additionalProperties) {
-        this.authentication = authentication;
-        this.connectedAccounts = connectedAccounts;
         this.displayName = displayName;
         this.enabledClients = enabledClients;
         this.isDomainConnection = isDomainConnection;
         this.metadata = metadata;
         this.options = options;
         this.additionalProperties = additionalProperties;
-    }
-
-    @JsonProperty("authentication")
-    @java.lang.Override
-    public Optional<ConnectionAuthenticationPurpose> getAuthentication() {
-        return authentication;
-    }
-
-    @JsonProperty("connected_accounts")
-    @java.lang.Override
-    public Optional<ConnectionConnectedAccountsPurpose> getConnectedAccounts() {
-        return connectedAccounts;
     }
 
     @JsonProperty("display_name")
@@ -94,7 +74,7 @@ public final class UpdateConnectionRequestContentSalesforceCommunity implements 
     }
 
     @JsonProperty("options")
-    public Optional<ConnectionOptionsSalesforce> getOptions() {
+    public Optional<ConnectionOptionsSalesforceCommunity> getOptions() {
         return options;
     }
 
@@ -111,9 +91,7 @@ public final class UpdateConnectionRequestContentSalesforceCommunity implements 
     }
 
     private boolean equalTo(UpdateConnectionRequestContentSalesforceCommunity other) {
-        return authentication.equals(other.authentication)
-                && connectedAccounts.equals(other.connectedAccounts)
-                && displayName.equals(other.displayName)
+        return displayName.equals(other.displayName)
                 && enabledClients.equals(other.enabledClients)
                 && isDomainConnection.equals(other.isDomainConnection)
                 && metadata.equals(other.metadata)
@@ -123,13 +101,7 @@ public final class UpdateConnectionRequestContentSalesforceCommunity implements 
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.authentication,
-                this.connectedAccounts,
-                this.displayName,
-                this.enabledClients,
-                this.isDomainConnection,
-                this.metadata,
-                this.options);
+                this.displayName, this.enabledClients, this.isDomainConnection, this.metadata, this.options);
     }
 
     @java.lang.Override
@@ -143,10 +115,6 @@ public final class UpdateConnectionRequestContentSalesforceCommunity implements 
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<ConnectionAuthenticationPurpose> authentication = Optional.empty();
-
-        private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
-
         private Optional<String> displayName = Optional.empty();
 
         private Optional<List<String>> enabledClients = Optional.empty();
@@ -155,7 +123,7 @@ public final class UpdateConnectionRequestContentSalesforceCommunity implements 
 
         private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
-        private Optional<ConnectionOptionsSalesforce> options = Optional.empty();
+        private Optional<ConnectionOptionsSalesforceCommunity> options = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -163,35 +131,11 @@ public final class UpdateConnectionRequestContentSalesforceCommunity implements 
         private Builder() {}
 
         public Builder from(UpdateConnectionRequestContentSalesforceCommunity other) {
-            authentication(other.getAuthentication());
-            connectedAccounts(other.getConnectedAccounts());
             displayName(other.getDisplayName());
             enabledClients(other.getEnabledClients());
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
             options(other.getOptions());
-            return this;
-        }
-
-        @JsonSetter(value = "authentication", nulls = Nulls.SKIP)
-        public Builder authentication(Optional<ConnectionAuthenticationPurpose> authentication) {
-            this.authentication = authentication;
-            return this;
-        }
-
-        public Builder authentication(ConnectionAuthenticationPurpose authentication) {
-            this.authentication = Optional.ofNullable(authentication);
-            return this;
-        }
-
-        @JsonSetter(value = "connected_accounts", nulls = Nulls.SKIP)
-        public Builder connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts) {
-            this.connectedAccounts = connectedAccounts;
-            return this;
-        }
-
-        public Builder connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts) {
-            this.connectedAccounts = Optional.ofNullable(connectedAccounts);
             return this;
         }
 
@@ -240,26 +184,19 @@ public final class UpdateConnectionRequestContentSalesforceCommunity implements 
         }
 
         @JsonSetter(value = "options", nulls = Nulls.SKIP)
-        public Builder options(Optional<ConnectionOptionsSalesforce> options) {
+        public Builder options(Optional<ConnectionOptionsSalesforceCommunity> options) {
             this.options = options;
             return this;
         }
 
-        public Builder options(ConnectionOptionsSalesforce options) {
+        public Builder options(ConnectionOptionsSalesforceCommunity options) {
             this.options = Optional.ofNullable(options);
             return this;
         }
 
         public UpdateConnectionRequestContentSalesforceCommunity build() {
             return new UpdateConnectionRequestContentSalesforceCommunity(
-                    authentication,
-                    connectedAccounts,
-                    displayName,
-                    enabledClients,
-                    isDomainConnection,
-                    metadata,
-                    options,
-                    additionalProperties);
+                    displayName, enabledClients, isDomainConnection, metadata, options, additionalProperties);
         }
     }
 }

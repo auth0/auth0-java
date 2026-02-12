@@ -71,7 +71,7 @@ public class ResourceServersWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\",\"description\":\"description\"}],\"signing_alg\":\"HS256\",\"signing_secret\":\"signing_secret\",\"allow_offline_access\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"name\":\"name\",\"alg\":\"RSA-OAEP-256\",\"kid\":\"kid\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"authorization_details\":[{\"key\":\"value\"}],\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true},\"subject_type_authorization\":{\"user\":{\"policy\":\"allow_all\"},\"client\":{\"policy\":\"deny_all\"}},\"client_id\":\"client_id\"}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\",\"description\":\"description\"}],\"signing_alg\":\"HS256\",\"signing_secret\":\"signing_secret\",\"allow_offline_access\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"name\":\"name\",\"alg\":\"RSA-OAEP-256\",\"kid\":\"kid\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"authorization_details\":[{\"key\":\"value\"}],\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true,\"required_for\":\"public_clients\"},\"subject_type_authorization\":{\"user\":{\"policy\":\"allow_all\"},\"client\":{\"policy\":\"deny_all\"}},\"client_id\":\"client_id\"}"));
         CreateResourceServerResponseContent response = client.resourceServers()
                 .create(CreateResourceServerRequestContent.builder()
                         .identifier("identifier")
@@ -149,7 +149,8 @@ public class ResourceServersWireTest {
                 + "  ],\n"
                 + "  \"proof_of_possession\": {\n"
                 + "    \"mechanism\": \"mtls\",\n"
-                + "    \"required\": true\n"
+                + "    \"required\": true,\n"
+                + "    \"required_for\": \"public_clients\"\n"
                 + "  },\n"
                 + "  \"subject_type_authorization\": {\n"
                 + "    \"user\": {\n"
@@ -198,7 +199,7 @@ public class ResourceServersWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\",\"description\":\"description\"}],\"signing_alg\":\"HS256\",\"signing_secret\":\"signing_secret\",\"allow_offline_access\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"name\":\"name\",\"alg\":\"RSA-OAEP-256\",\"kid\":\"kid\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"authorization_details\":[{\"key\":\"value\"}],\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true},\"subject_type_authorization\":{\"user\":{\"policy\":\"allow_all\"},\"client\":{\"policy\":\"deny_all\"}},\"client_id\":\"client_id\"}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\",\"description\":\"description\"}],\"signing_alg\":\"HS256\",\"signing_secret\":\"signing_secret\",\"allow_offline_access\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"name\":\"name\",\"alg\":\"RSA-OAEP-256\",\"kid\":\"kid\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"authorization_details\":[{\"key\":\"value\"}],\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true,\"required_for\":\"public_clients\"},\"subject_type_authorization\":{\"user\":{\"policy\":\"allow_all\"},\"client\":{\"policy\":\"deny_all\"}},\"client_id\":\"client_id\"}"));
         GetResourceServerResponseContent response = client.resourceServers()
                 .get(
                         "id",
@@ -249,7 +250,8 @@ public class ResourceServersWireTest {
                 + "  ],\n"
                 + "  \"proof_of_possession\": {\n"
                 + "    \"mechanism\": \"mtls\",\n"
-                + "    \"required\": true\n"
+                + "    \"required\": true,\n"
+                + "    \"required_for\": \"public_clients\"\n"
                 + "  },\n"
                 + "  \"subject_type_authorization\": {\n"
                 + "    \"user\": {\n"
@@ -307,7 +309,7 @@ public class ResourceServersWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\",\"description\":\"description\"}],\"signing_alg\":\"HS256\",\"signing_secret\":\"signing_secret\",\"allow_offline_access\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"name\":\"name\",\"alg\":\"RSA-OAEP-256\",\"kid\":\"kid\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"authorization_details\":[{\"key\":\"value\"}],\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true},\"subject_type_authorization\":{\"user\":{\"policy\":\"allow_all\"},\"client\":{\"policy\":\"deny_all\"}},\"client_id\":\"client_id\"}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\",\"description\":\"description\"}],\"signing_alg\":\"HS256\",\"signing_secret\":\"signing_secret\",\"allow_offline_access\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"name\":\"name\",\"alg\":\"RSA-OAEP-256\",\"kid\":\"kid\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"authorization_details\":[{\"key\":\"value\"}],\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true,\"required_for\":\"public_clients\"},\"subject_type_authorization\":{\"user\":{\"policy\":\"allow_all\"},\"client\":{\"policy\":\"deny_all\"}},\"client_id\":\"client_id\"}"));
         UpdateResourceServerResponseContent response = client.resourceServers()
                 .update("id", UpdateResourceServerRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -383,7 +385,8 @@ public class ResourceServersWireTest {
                 + "  ],\n"
                 + "  \"proof_of_possession\": {\n"
                 + "    \"mechanism\": \"mtls\",\n"
-                + "    \"required\": true\n"
+                + "    \"required\": true,\n"
+                + "    \"required_for\": \"public_clients\"\n"
                 + "  },\n"
                 + "  \"subject_type_authorization\": {\n"
                 + "    \"user\": {\n"

@@ -23,50 +23,101 @@ import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionOptionsTwitter.Builder.class)
-public final class ConnectionOptionsTwitter implements IConnectionOptionsOAuth2Common, IConnectionOptionsCommon {
+public final class ConnectionOptionsTwitter implements IConnectionOptionsCommon {
+    private final Optional<List<String>> nonPersistentAttrs;
+
     private final Optional<String> clientId;
 
     private final Optional<String> clientSecret;
 
-    private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
-            upstreamParams;
+    private final Optional<List<String>> freeformScopes;
+
+    private final Optional<ConnectionOptionsProtocolEnumTwitter> protocol;
+
+    private final Optional<List<String>> scope;
 
     private final Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes;
 
-    private final Optional<List<String>> nonPersistentAttrs;
+    private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+            upstreamParams;
+
+    private final Optional<Boolean> offlineAccess;
+
+    private final Optional<Boolean> profile;
+
+    private final Optional<Boolean> tweetRead;
+
+    private final Optional<Boolean> usersRead;
 
     private final Map<String, Object> additionalProperties;
 
     private ConnectionOptionsTwitter(
+            Optional<List<String>> nonPersistentAttrs,
             Optional<String> clientId,
             Optional<String> clientSecret,
-            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
+            Optional<List<String>> freeformScopes,
+            Optional<ConnectionOptionsProtocolEnumTwitter> protocol,
+            Optional<List<String>> scope,
             Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes,
-            Optional<List<String>> nonPersistentAttrs,
+            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
+            Optional<Boolean> offlineAccess,
+            Optional<Boolean> profile,
+            Optional<Boolean> tweetRead,
+            Optional<Boolean> usersRead,
             Map<String, Object> additionalProperties) {
+        this.nonPersistentAttrs = nonPersistentAttrs;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
-        this.upstreamParams = upstreamParams;
+        this.freeformScopes = freeformScopes;
+        this.protocol = protocol;
+        this.scope = scope;
         this.setUserRootAttributes = setUserRootAttributes;
-        this.nonPersistentAttrs = nonPersistentAttrs;
+        this.upstreamParams = upstreamParams;
+        this.offlineAccess = offlineAccess;
+        this.profile = profile;
+        this.tweetRead = tweetRead;
+        this.usersRead = usersRead;
         this.additionalProperties = additionalProperties;
     }
 
-    @JsonProperty("client_id")
+    @JsonProperty("non_persistent_attrs")
     @java.lang.Override
+    public Optional<List<String>> getNonPersistentAttrs() {
+        return nonPersistentAttrs;
+    }
+
+    @JsonProperty("client_id")
     public Optional<String> getClientId() {
         return clientId;
     }
 
     @JsonProperty("client_secret")
-    @java.lang.Override
     public Optional<String> getClientSecret() {
         return clientSecret;
     }
 
+    @JsonProperty("freeform_scopes")
+    public Optional<List<String>> getFreeformScopes() {
+        return freeformScopes;
+    }
+
+    @JsonProperty("protocol")
+    public Optional<ConnectionOptionsProtocolEnumTwitter> getProtocol() {
+        return protocol;
+    }
+
+    @JsonProperty("scope")
+    public Optional<List<String>> getScope() {
+        return scope;
+    }
+
+    @JsonProperty("set_user_root_attributes")
+    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
+        return setUserRootAttributes;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("upstream_params")
-    @java.lang.Override
     public OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams() {
         if (upstreamParams == null) {
             return OptionalNullable.absent();
@@ -74,16 +125,36 @@ public final class ConnectionOptionsTwitter implements IConnectionOptionsOAuth2C
         return upstreamParams;
     }
 
-    @JsonProperty("set_user_root_attributes")
-    @java.lang.Override
-    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
-        return setUserRootAttributes;
+    /**
+     * @return Request long-lived refresh tokens so your app can act on behalf of users even when they’re not actively signed in. Typical Twitter use case: keeping a background service synced without forcing users to reauthorize every session.
+     */
+    @JsonProperty("offline_access")
+    public Optional<Boolean> getOfflineAccess() {
+        return offlineAccess;
     }
 
-    @JsonProperty("non_persistent_attrs")
-    @java.lang.Override
-    public Optional<List<String>> getNonPersistentAttrs() {
-        return nonPersistentAttrs;
+    /**
+     * @return Pull account profile metadata such as display name, bio, location, and URL so downstream apps can prefill or personalize user experiences.
+     */
+    @JsonProperty("profile")
+    public Optional<Boolean> getProfile() {
+        return profile;
+    }
+
+    /**
+     * @return Allow the application to read a user’s public and protected Tweets—required for timelines, analytics, or moderation workflows.
+     */
+    @JsonProperty("tweet_read")
+    public Optional<Boolean> getTweetRead() {
+        return tweetRead;
+    }
+
+    /**
+     * @return Read non-Tweet user information (e.g., followers/following, account settings) to power relationship graphs or audience insights.
+     */
+    @JsonProperty("users_read")
+    public Optional<Boolean> getUsersRead() {
+        return usersRead;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -105,21 +176,35 @@ public final class ConnectionOptionsTwitter implements IConnectionOptionsOAuth2C
     }
 
     private boolean equalTo(ConnectionOptionsTwitter other) {
-        return clientId.equals(other.clientId)
+        return nonPersistentAttrs.equals(other.nonPersistentAttrs)
+                && clientId.equals(other.clientId)
                 && clientSecret.equals(other.clientSecret)
-                && upstreamParams.equals(other.upstreamParams)
+                && freeformScopes.equals(other.freeformScopes)
+                && protocol.equals(other.protocol)
+                && scope.equals(other.scope)
                 && setUserRootAttributes.equals(other.setUserRootAttributes)
-                && nonPersistentAttrs.equals(other.nonPersistentAttrs);
+                && upstreamParams.equals(other.upstreamParams)
+                && offlineAccess.equals(other.offlineAccess)
+                && profile.equals(other.profile)
+                && tweetRead.equals(other.tweetRead)
+                && usersRead.equals(other.usersRead);
     }
 
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.nonPersistentAttrs,
                 this.clientId,
                 this.clientSecret,
-                this.upstreamParams,
+                this.freeformScopes,
+                this.protocol,
+                this.scope,
                 this.setUserRootAttributes,
-                this.nonPersistentAttrs);
+                this.upstreamParams,
+                this.offlineAccess,
+                this.profile,
+                this.tweetRead,
+                this.usersRead);
     }
 
     @java.lang.Override
@@ -133,16 +218,30 @@ public final class ConnectionOptionsTwitter implements IConnectionOptionsOAuth2C
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
+
         private Optional<String> clientId = Optional.empty();
 
         private Optional<String> clientSecret = Optional.empty();
 
-        private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
-                OptionalNullable.absent();
+        private Optional<List<String>> freeformScopes = Optional.empty();
+
+        private Optional<ConnectionOptionsProtocolEnumTwitter> protocol = Optional.empty();
+
+        private Optional<List<String>> scope = Optional.empty();
 
         private Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes = Optional.empty();
 
-        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
+        private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
+                OptionalNullable.absent();
+
+        private Optional<Boolean> offlineAccess = Optional.empty();
+
+        private Optional<Boolean> profile = Optional.empty();
+
+        private Optional<Boolean> tweetRead = Optional.empty();
+
+        private Optional<Boolean> usersRead = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -150,11 +249,29 @@ public final class ConnectionOptionsTwitter implements IConnectionOptionsOAuth2C
         private Builder() {}
 
         public Builder from(ConnectionOptionsTwitter other) {
+            nonPersistentAttrs(other.getNonPersistentAttrs());
             clientId(other.getClientId());
             clientSecret(other.getClientSecret());
-            upstreamParams(other.getUpstreamParams());
+            freeformScopes(other.getFreeformScopes());
+            protocol(other.getProtocol());
+            scope(other.getScope());
             setUserRootAttributes(other.getSetUserRootAttributes());
-            nonPersistentAttrs(other.getNonPersistentAttrs());
+            upstreamParams(other.getUpstreamParams());
+            offlineAccess(other.getOfflineAccess());
+            profile(other.getProfile());
+            tweetRead(other.getTweetRead());
+            usersRead(other.getUsersRead());
+            return this;
+        }
+
+        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
+        public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
+            this.nonPersistentAttrs = nonPersistentAttrs;
+            return this;
+        }
+
+        public Builder nonPersistentAttrs(List<String> nonPersistentAttrs) {
+            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
             return this;
         }
 
@@ -177,6 +294,50 @@ public final class ConnectionOptionsTwitter implements IConnectionOptionsOAuth2C
 
         public Builder clientSecret(String clientSecret) {
             this.clientSecret = Optional.ofNullable(clientSecret);
+            return this;
+        }
+
+        @JsonSetter(value = "freeform_scopes", nulls = Nulls.SKIP)
+        public Builder freeformScopes(Optional<List<String>> freeformScopes) {
+            this.freeformScopes = freeformScopes;
+            return this;
+        }
+
+        public Builder freeformScopes(List<String> freeformScopes) {
+            this.freeformScopes = Optional.ofNullable(freeformScopes);
+            return this;
+        }
+
+        @JsonSetter(value = "protocol", nulls = Nulls.SKIP)
+        public Builder protocol(Optional<ConnectionOptionsProtocolEnumTwitter> protocol) {
+            this.protocol = protocol;
+            return this;
+        }
+
+        public Builder protocol(ConnectionOptionsProtocolEnumTwitter protocol) {
+            this.protocol = Optional.ofNullable(protocol);
+            return this;
+        }
+
+        @JsonSetter(value = "scope", nulls = Nulls.SKIP)
+        public Builder scope(Optional<List<String>> scope) {
+            this.scope = scope;
+            return this;
+        }
+
+        public Builder scope(List<String> scope) {
+            this.scope = Optional.ofNullable(scope);
+            return this;
+        }
+
+        @JsonSetter(value = "set_user_root_attributes", nulls = Nulls.SKIP)
+        public Builder setUserRootAttributes(Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes) {
+            this.setUserRootAttributes = setUserRootAttributes;
+            return this;
+        }
+
+        public Builder setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes) {
+            this.setUserRootAttributes = Optional.ofNullable(setUserRootAttributes);
             return this;
         }
 
@@ -219,35 +380,76 @@ public final class ConnectionOptionsTwitter implements IConnectionOptionsOAuth2C
             return this;
         }
 
-        @JsonSetter(value = "set_user_root_attributes", nulls = Nulls.SKIP)
-        public Builder setUserRootAttributes(Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes) {
-            this.setUserRootAttributes = setUserRootAttributes;
+        /**
+         * <p>Request long-lived refresh tokens so your app can act on behalf of users even when they’re not actively signed in. Typical Twitter use case: keeping a background service synced without forcing users to reauthorize every session.</p>
+         */
+        @JsonSetter(value = "offline_access", nulls = Nulls.SKIP)
+        public Builder offlineAccess(Optional<Boolean> offlineAccess) {
+            this.offlineAccess = offlineAccess;
             return this;
         }
 
-        public Builder setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes) {
-            this.setUserRootAttributes = Optional.ofNullable(setUserRootAttributes);
+        public Builder offlineAccess(Boolean offlineAccess) {
+            this.offlineAccess = Optional.ofNullable(offlineAccess);
             return this;
         }
 
-        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
-        public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
-            this.nonPersistentAttrs = nonPersistentAttrs;
+        /**
+         * <p>Pull account profile metadata such as display name, bio, location, and URL so downstream apps can prefill or personalize user experiences.</p>
+         */
+        @JsonSetter(value = "profile", nulls = Nulls.SKIP)
+        public Builder profile(Optional<Boolean> profile) {
+            this.profile = profile;
             return this;
         }
 
-        public Builder nonPersistentAttrs(List<String> nonPersistentAttrs) {
-            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
+        public Builder profile(Boolean profile) {
+            this.profile = Optional.ofNullable(profile);
+            return this;
+        }
+
+        /**
+         * <p>Allow the application to read a user’s public and protected Tweets—required for timelines, analytics, or moderation workflows.</p>
+         */
+        @JsonSetter(value = "tweet_read", nulls = Nulls.SKIP)
+        public Builder tweetRead(Optional<Boolean> tweetRead) {
+            this.tweetRead = tweetRead;
+            return this;
+        }
+
+        public Builder tweetRead(Boolean tweetRead) {
+            this.tweetRead = Optional.ofNullable(tweetRead);
+            return this;
+        }
+
+        /**
+         * <p>Read non-Tweet user information (e.g., followers/following, account settings) to power relationship graphs or audience insights.</p>
+         */
+        @JsonSetter(value = "users_read", nulls = Nulls.SKIP)
+        public Builder usersRead(Optional<Boolean> usersRead) {
+            this.usersRead = usersRead;
+            return this;
+        }
+
+        public Builder usersRead(Boolean usersRead) {
+            this.usersRead = Optional.ofNullable(usersRead);
             return this;
         }
 
         public ConnectionOptionsTwitter build() {
             return new ConnectionOptionsTwitter(
+                    nonPersistentAttrs,
                     clientId,
                     clientSecret,
-                    upstreamParams,
+                    freeformScopes,
+                    protocol,
+                    scope,
                     setUserRootAttributes,
-                    nonPersistentAttrs,
+                    upstreamParams,
+                    offlineAccess,
+                    profile,
+                    tweetRead,
+                    usersRead,
                     additionalProperties);
         }
     }

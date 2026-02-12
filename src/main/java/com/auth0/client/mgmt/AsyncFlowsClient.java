@@ -12,9 +12,9 @@ import com.auth0.client.mgmt.flows.vault.AsyncVaultClient;
 import com.auth0.client.mgmt.types.CreateFlowRequestContent;
 import com.auth0.client.mgmt.types.CreateFlowResponseContent;
 import com.auth0.client.mgmt.types.FlowSummary;
-import com.auth0.client.mgmt.types.FlowsListRequest;
 import com.auth0.client.mgmt.types.GetFlowRequestParameters;
 import com.auth0.client.mgmt.types.GetFlowResponseContent;
+import com.auth0.client.mgmt.types.ListFlowsRequestParameters;
 import com.auth0.client.mgmt.types.UpdateFlowRequestContent;
 import com.auth0.client.mgmt.types.UpdateFlowResponseContent;
 import java.util.concurrent.CompletableFuture;
@@ -47,12 +47,12 @@ public class AsyncFlowsClient {
         return this.rawClient.list().thenApply(response -> response.body());
     }
 
-    public CompletableFuture<SyncPagingIterable<FlowSummary>> list(FlowsListRequest request) {
+    public CompletableFuture<SyncPagingIterable<FlowSummary>> list(ListFlowsRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
 
     public CompletableFuture<SyncPagingIterable<FlowSummary>> list(
-            FlowsListRequest request, RequestOptions requestOptions) {
+            ListFlowsRequestParameters request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).thenApply(response -> response.body());
     }
 

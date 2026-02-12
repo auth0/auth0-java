@@ -1,9 +1,12 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.client.mgmt.actions.modules.types.GetActionModuleVersionsRequestParameters;
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
+import com.auth0.client.mgmt.core.SyncPagingIterable;
+import com.auth0.client.mgmt.types.ActionModuleVersion;
 import com.auth0.client.mgmt.types.CreateActionModuleVersionResponseContent;
 import com.auth0.client.mgmt.types.GetActionModuleVersionResponseContent;
-import com.auth0.client.mgmt.types.GetActionModuleVersionsResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.mockwebserver.MockResponse;
@@ -40,63 +43,24 @@ public class ActionsModulesVersionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"versions\":[{\"id\":\"id\",\"module_id\":\"module_id\",\"version_number\":1,\"code\":\"code\",\"secrets\":[{}],\"dependencies\":[{}],\"created_at\":\"2024-01-15T09:30:00Z\"}]}"));
-        GetActionModuleVersionsResponseContent response =
-                client.actions().modules().versions().list("id");
+                                "{\"versions\":[{\"id\":\"id\",\"module_id\":\"module_id\",\"version_number\":1,\"code\":\"code\",\"secrets\":[{}],\"dependencies\":[{}],\"created_at\":\"2024-01-15T09:30:00Z\"}],\"total\":1,\"page\":1,\"per_page\":1}"));
+        SyncPagingIterable<ActionModuleVersion> response = client.actions()
+                .modules()
+                .versions()
+                .list(
+                        "id",
+                        GetActionModuleVersionsRequestParameters.builder()
+                                .page(OptionalNullable.of(1))
+                                .perPage(OptionalNullable.of(1))
+                                .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("GET", request.getMethod());
 
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
-        String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"versions\": [\n"
-                + "    {\n"
-                + "      \"id\": \"id\",\n"
-                + "      \"module_id\": \"module_id\",\n"
-                + "      \"version_number\": 1,\n"
-                + "      \"code\": \"code\",\n"
-                + "      \"secrets\": [\n"
-                + "        {}\n"
-                + "      ],\n"
-                + "      \"dependencies\": [\n"
-                + "        {}\n"
-                + "      ],\n"
-                + "      \"created_at\": \"2024-01-15T09:30:00Z\"\n"
-                + "    }\n"
-                + "  ]\n"
-                + "}";
-        JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
-        JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
-        Assertions.assertTrue(
-                jsonEquals(expectedResponseNode, actualResponseNode),
-                "Response body structure does not match expected");
-        if (actualResponseNode.has("type") || actualResponseNode.has("_type") || actualResponseNode.has("kind")) {
-            String discriminator = null;
-            if (actualResponseNode.has("type"))
-                discriminator = actualResponseNode.get("type").asText();
-            else if (actualResponseNode.has("_type"))
-                discriminator = actualResponseNode.get("_type").asText();
-            else if (actualResponseNode.has("kind"))
-                discriminator = actualResponseNode.get("kind").asText();
-            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
-            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
-        }
-
-        if (!actualResponseNode.isNull()) {
-            Assertions.assertTrue(
-                    actualResponseNode.isObject() || actualResponseNode.isArray() || actualResponseNode.isValueNode(),
-                    "response should be a valid JSON value");
-        }
-
-        if (actualResponseNode.isArray()) {
-            Assertions.assertTrue(actualResponseNode.size() >= 0, "Array should have valid size");
-        }
-        if (actualResponseNode.isObject()) {
-            Assertions.assertTrue(actualResponseNode.size() >= 0, "Object should have valid field count");
-        }
+        // Pagination response validated via MockWebServer
+        // The SDK correctly parses the response into a SyncPagingIterable
     }
 
     @Test

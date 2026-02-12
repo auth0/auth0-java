@@ -9,7 +9,7 @@ import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.ActionVersion;
-import com.auth0.client.mgmt.types.DeployActionVersionRequestBodyParams;
+import com.auth0.client.mgmt.types.DeployActionVersionRequestContent;
 import com.auth0.client.mgmt.types.DeployActionVersionResponseContent;
 import com.auth0.client.mgmt.types.GetActionVersionResponseContent;
 import java.util.concurrent.CompletableFuture;
@@ -80,7 +80,7 @@ public class AsyncVersionsClient {
      * Performs the equivalent of a roll-back of an action to an earlier, specified version. Creates a new, deployed action version that is identical to the specified version. If this action is currently bound to a trigger, the system will begin executing the newly-created version immediately.
      */
     public CompletableFuture<DeployActionVersionResponseContent> deploy(
-            String actionId, String id, OptionalNullable<DeployActionVersionRequestBodyParams> request) {
+            String actionId, String id, OptionalNullable<DeployActionVersionRequestContent> request) {
         return this.rawClient.deploy(actionId, id, request).thenApply(response -> response.body());
     }
 
@@ -90,7 +90,7 @@ public class AsyncVersionsClient {
     public CompletableFuture<DeployActionVersionResponseContent> deploy(
             String actionId,
             String id,
-            OptionalNullable<DeployActionVersionRequestBodyParams> request,
+            OptionalNullable<DeployActionVersionRequestContent> request,
             RequestOptions requestOptions) {
         return this.rawClient.deploy(actionId, id, request, requestOptions).thenApply(response -> response.body());
     }

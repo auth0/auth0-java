@@ -26,10 +26,6 @@ public final class CreateConnectionRequestContentSalesforceCommunity
         implements ICreateConnectionCommon, IConnectionCommon {
     private final Optional<String> name;
 
-    private final Optional<ConnectionAuthenticationPurpose> authentication;
-
-    private final Optional<ConnectionConnectedAccountsPurpose> connectedAccounts;
-
     private final Optional<String> displayName;
 
     private final Optional<List<String>> enabledClients;
@@ -40,24 +36,20 @@ public final class CreateConnectionRequestContentSalesforceCommunity
 
     private final CreateConnectionRequestContentSalesforceCommunityStrategy strategy;
 
-    private final Optional<ConnectionOptionsSalesforce> options;
+    private final Optional<ConnectionOptionsSalesforceCommunity> options;
 
     private final Map<String, Object> additionalProperties;
 
     private CreateConnectionRequestContentSalesforceCommunity(
             Optional<String> name,
-            Optional<ConnectionAuthenticationPurpose> authentication,
-            Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
             Optional<String> displayName,
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
             CreateConnectionRequestContentSalesforceCommunityStrategy strategy,
-            Optional<ConnectionOptionsSalesforce> options,
+            Optional<ConnectionOptionsSalesforceCommunity> options,
             Map<String, Object> additionalProperties) {
         this.name = name;
-        this.authentication = authentication;
-        this.connectedAccounts = connectedAccounts;
         this.displayName = displayName;
         this.enabledClients = enabledClients;
         this.isDomainConnection = isDomainConnection;
@@ -71,18 +63,6 @@ public final class CreateConnectionRequestContentSalesforceCommunity
     @java.lang.Override
     public Optional<String> getName() {
         return name;
-    }
-
-    @JsonProperty("authentication")
-    @java.lang.Override
-    public Optional<ConnectionAuthenticationPurpose> getAuthentication() {
-        return authentication;
-    }
-
-    @JsonProperty("connected_accounts")
-    @java.lang.Override
-    public Optional<ConnectionConnectedAccountsPurpose> getConnectedAccounts() {
-        return connectedAccounts;
     }
 
     @JsonProperty("display_name")
@@ -115,7 +95,7 @@ public final class CreateConnectionRequestContentSalesforceCommunity
     }
 
     @JsonProperty("options")
-    public Optional<ConnectionOptionsSalesforce> getOptions() {
+    public Optional<ConnectionOptionsSalesforceCommunity> getOptions() {
         return options;
     }
 
@@ -133,8 +113,6 @@ public final class CreateConnectionRequestContentSalesforceCommunity
 
     private boolean equalTo(CreateConnectionRequestContentSalesforceCommunity other) {
         return name.equals(other.name)
-                && authentication.equals(other.authentication)
-                && connectedAccounts.equals(other.connectedAccounts)
                 && displayName.equals(other.displayName)
                 && enabledClients.equals(other.enabledClients)
                 && isDomainConnection.equals(other.isDomainConnection)
@@ -147,8 +125,6 @@ public final class CreateConnectionRequestContentSalesforceCommunity
     public int hashCode() {
         return Objects.hash(
                 this.name,
-                this.authentication,
-                this.connectedAccounts,
                 this.displayName,
                 this.enabledClients,
                 this.isDomainConnection,
@@ -179,14 +155,6 @@ public final class CreateConnectionRequestContentSalesforceCommunity
 
         _FinalStage name(String name);
 
-        _FinalStage authentication(Optional<ConnectionAuthenticationPurpose> authentication);
-
-        _FinalStage authentication(ConnectionAuthenticationPurpose authentication);
-
-        _FinalStage connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts);
-
-        _FinalStage connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts);
-
         _FinalStage displayName(Optional<String> displayName);
 
         _FinalStage displayName(String displayName);
@@ -203,16 +171,16 @@ public final class CreateConnectionRequestContentSalesforceCommunity
 
         _FinalStage metadata(Map<String, OptionalNullable<String>> metadata);
 
-        _FinalStage options(Optional<ConnectionOptionsSalesforce> options);
+        _FinalStage options(Optional<ConnectionOptionsSalesforceCommunity> options);
 
-        _FinalStage options(ConnectionOptionsSalesforce options);
+        _FinalStage options(ConnectionOptionsSalesforceCommunity options);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements StrategyStage, _FinalStage {
         private CreateConnectionRequestContentSalesforceCommunityStrategy strategy;
 
-        private Optional<ConnectionOptionsSalesforce> options = Optional.empty();
+        private Optional<ConnectionOptionsSalesforceCommunity> options = Optional.empty();
 
         private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
@@ -221,10 +189,6 @@ public final class CreateConnectionRequestContentSalesforceCommunity
         private Optional<List<String>> enabledClients = Optional.empty();
 
         private Optional<String> displayName = Optional.empty();
-
-        private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
-
-        private Optional<ConnectionAuthenticationPurpose> authentication = Optional.empty();
 
         private Optional<String> name = Optional.empty();
 
@@ -236,8 +200,6 @@ public final class CreateConnectionRequestContentSalesforceCommunity
         @java.lang.Override
         public Builder from(CreateConnectionRequestContentSalesforceCommunity other) {
             name(other.getName());
-            authentication(other.getAuthentication());
-            connectedAccounts(other.getConnectedAccounts());
             displayName(other.getDisplayName());
             enabledClients(other.getEnabledClients());
             isDomainConnection(other.getIsDomainConnection());
@@ -255,14 +217,14 @@ public final class CreateConnectionRequestContentSalesforceCommunity
         }
 
         @java.lang.Override
-        public _FinalStage options(ConnectionOptionsSalesforce options) {
+        public _FinalStage options(ConnectionOptionsSalesforceCommunity options) {
             this.options = Optional.ofNullable(options);
             return this;
         }
 
         @java.lang.Override
         @JsonSetter(value = "options", nulls = Nulls.SKIP)
-        public _FinalStage options(Optional<ConnectionOptionsSalesforce> options) {
+        public _FinalStage options(Optional<ConnectionOptionsSalesforceCommunity> options) {
             this.options = options;
             return this;
         }
@@ -320,32 +282,6 @@ public final class CreateConnectionRequestContentSalesforceCommunity
         }
 
         @java.lang.Override
-        public _FinalStage connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts) {
-            this.connectedAccounts = Optional.ofNullable(connectedAccounts);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "connected_accounts", nulls = Nulls.SKIP)
-        public _FinalStage connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts) {
-            this.connectedAccounts = connectedAccounts;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage authentication(ConnectionAuthenticationPurpose authentication) {
-            this.authentication = Optional.ofNullable(authentication);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "authentication", nulls = Nulls.SKIP)
-        public _FinalStage authentication(Optional<ConnectionAuthenticationPurpose> authentication) {
-            this.authentication = authentication;
-            return this;
-        }
-
-        @java.lang.Override
         public _FinalStage name(String name) {
             this.name = Optional.ofNullable(name);
             return this;
@@ -362,8 +298,6 @@ public final class CreateConnectionRequestContentSalesforceCommunity
         public CreateConnectionRequestContentSalesforceCommunity build() {
             return new CreateConnectionRequestContentSalesforceCommunity(
                     name,
-                    authentication,
-                    connectedAccounts,
                     displayName,
                     enabledClients,
                     isDomainConnection,

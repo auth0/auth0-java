@@ -3,7 +3,9 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -17,18 +19,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ListVerifiableCredentialTemplatesPaginatedResponseContent.Builder.class)
 public final class ListVerifiableCredentialTemplatesPaginatedResponseContent {
-    private final Optional<String> next;
+    private final OptionalNullable<String> next;
 
     private final Optional<List<VerifiableCredentialTemplateResponse>> templates;
 
     private final Map<String, Object> additionalProperties;
 
     private ListVerifiableCredentialTemplatesPaginatedResponseContent(
-            Optional<String> next,
+            OptionalNullable<String> next,
             Optional<List<VerifiableCredentialTemplateResponse>> templates,
             Map<String, Object> additionalProperties) {
         this.next = next;
@@ -39,14 +42,24 @@ public final class ListVerifiableCredentialTemplatesPaginatedResponseContent {
     /**
      * @return Opaque identifier for use with the &lt;i&gt;from&lt;/i&gt; query parameter for the next page of results.&lt;br/&gt;This identifier is valid for 24 hours.
      */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("next")
-    public Optional<String> getNext() {
+    public OptionalNullable<String> getNext() {
+        if (next == null) {
+            return OptionalNullable.absent();
+        }
         return next;
     }
 
     @JsonProperty("templates")
     public Optional<List<VerifiableCredentialTemplateResponse>> getTemplates() {
         return templates;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("next")
+    private OptionalNullable<String> _getNext() {
+        return next;
     }
 
     @java.lang.Override
@@ -81,7 +94,7 @@ public final class ListVerifiableCredentialTemplatesPaginatedResponseContent {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<String> next = Optional.empty();
+        private OptionalNullable<String> next = OptionalNullable.absent();
 
         private Optional<List<VerifiableCredentialTemplateResponse>> templates = Optional.empty();
 
@@ -100,13 +113,33 @@ public final class ListVerifiableCredentialTemplatesPaginatedResponseContent {
          * <p>Opaque identifier for use with the &lt;i&gt;from&lt;/i&gt; query parameter for the next page of results.&lt;br/&gt;This identifier is valid for 24 hours.</p>
          */
         @JsonSetter(value = "next", nulls = Nulls.SKIP)
-        public Builder next(Optional<String> next) {
+        public Builder next(@Nullable OptionalNullable<String> next) {
             this.next = next;
             return this;
         }
 
         public Builder next(String next) {
-            this.next = Optional.ofNullable(next);
+            this.next = OptionalNullable.of(next);
+            return this;
+        }
+
+        public Builder next(Optional<String> next) {
+            if (next.isPresent()) {
+                this.next = OptionalNullable.of(next.get());
+            } else {
+                this.next = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder next(com.auth0.client.mgmt.core.Nullable<String> next) {
+            if (next.isNull()) {
+                this.next = OptionalNullable.ofNull();
+            } else if (next.isEmpty()) {
+                this.next = OptionalNullable.absent();
+            } else {
+                this.next = OptionalNullable.of(next.get());
+            }
             return this;
         }
 

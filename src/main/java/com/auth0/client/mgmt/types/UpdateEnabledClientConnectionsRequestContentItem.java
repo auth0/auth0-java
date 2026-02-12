@@ -33,7 +33,7 @@ public final class UpdateEnabledClientConnectionsRequestContentItem {
     }
 
     /**
-     * @return The client_id of the client to be the subject to change status
+     * @return The client_id of the client whose status will be changed. Note that the limit per PATCH request is 50 clients.
      */
     @JsonProperty("client_id")
     public String getClientId() {
@@ -80,7 +80,7 @@ public final class UpdateEnabledClientConnectionsRequestContentItem {
 
     public interface ClientIdStage {
         /**
-         * <p>The client_id of the client to be the subject to change status</p>
+         * <p>The client_id of the client whose status will be changed. Note that the limit per PATCH request is 50 clients.</p>
          */
         StatusStage clientId(@NotNull String clientId);
 
@@ -117,8 +117,8 @@ public final class UpdateEnabledClientConnectionsRequestContentItem {
         }
 
         /**
-         * <p>The client_id of the client to be the subject to change status</p>
-         * <p>The client_id of the client to be the subject to change status</p>
+         * <p>The client_id of the client whose status will be changed. Note that the limit per PATCH request is 50 clients.</p>
+         * <p>The client_id of the client whose status will be changed. Note that the limit per PATCH request is 50 clients.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

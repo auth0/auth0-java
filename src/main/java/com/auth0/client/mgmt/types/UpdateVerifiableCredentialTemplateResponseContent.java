@@ -3,7 +3,9 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -17,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = UpdateVerifiableCredentialTemplateResponseContent.Builder.class)
@@ -31,9 +34,9 @@ public final class UpdateVerifiableCredentialTemplateResponseContent {
 
     private final Optional<MdlPresentationRequest> presentation;
 
-    private final Optional<String> customCertificateAuthority;
+    private final OptionalNullable<String> customCertificateAuthority;
 
-    private final Optional<String> wellKnownTrustedIssuers;
+    private final OptionalNullable<String> wellKnownTrustedIssuers;
 
     private final Optional<OffsetDateTime> createdAt;
 
@@ -47,8 +50,8 @@ public final class UpdateVerifiableCredentialTemplateResponseContent {
             Optional<String> type,
             Optional<String> dialect,
             Optional<MdlPresentationRequest> presentation,
-            Optional<String> customCertificateAuthority,
-            Optional<String> wellKnownTrustedIssuers,
+            OptionalNullable<String> customCertificateAuthority,
+            OptionalNullable<String> wellKnownTrustedIssuers,
             Optional<OffsetDateTime> createdAt,
             Optional<OffsetDateTime> updatedAt,
             Map<String, Object> additionalProperties) {
@@ -104,16 +107,24 @@ public final class UpdateVerifiableCredentialTemplateResponseContent {
     /**
      * @return The custom certificate authority.
      */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("custom_certificate_authority")
-    public Optional<String> getCustomCertificateAuthority() {
+    public OptionalNullable<String> getCustomCertificateAuthority() {
+        if (customCertificateAuthority == null) {
+            return OptionalNullable.absent();
+        }
         return customCertificateAuthority;
     }
 
     /**
      * @return The well-known trusted issuers, comma separated.
      */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("well_known_trusted_issuers")
-    public Optional<String> getWellKnownTrustedIssuers() {
+    public OptionalNullable<String> getWellKnownTrustedIssuers() {
+        if (wellKnownTrustedIssuers == null) {
+            return OptionalNullable.absent();
+        }
         return wellKnownTrustedIssuers;
     }
 
@@ -131,6 +142,18 @@ public final class UpdateVerifiableCredentialTemplateResponseContent {
     @JsonProperty("updated_at")
     public Optional<OffsetDateTime> getUpdatedAt() {
         return updatedAt;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("custom_certificate_authority")
+    private OptionalNullable<String> _getCustomCertificateAuthority() {
+        return customCertificateAuthority;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("well_known_trusted_issuers")
+    private OptionalNullable<String> _getWellKnownTrustedIssuers() {
+        return wellKnownTrustedIssuers;
     }
 
     @java.lang.Override
@@ -192,9 +215,9 @@ public final class UpdateVerifiableCredentialTemplateResponseContent {
 
         private Optional<MdlPresentationRequest> presentation = Optional.empty();
 
-        private Optional<String> customCertificateAuthority = Optional.empty();
+        private OptionalNullable<String> customCertificateAuthority = OptionalNullable.absent();
 
-        private Optional<String> wellKnownTrustedIssuers = Optional.empty();
+        private OptionalNullable<String> wellKnownTrustedIssuers = OptionalNullable.absent();
 
         private Optional<OffsetDateTime> createdAt = Optional.empty();
 
@@ -289,13 +312,34 @@ public final class UpdateVerifiableCredentialTemplateResponseContent {
          * <p>The custom certificate authority.</p>
          */
         @JsonSetter(value = "custom_certificate_authority", nulls = Nulls.SKIP)
-        public Builder customCertificateAuthority(Optional<String> customCertificateAuthority) {
+        public Builder customCertificateAuthority(@Nullable OptionalNullable<String> customCertificateAuthority) {
             this.customCertificateAuthority = customCertificateAuthority;
             return this;
         }
 
         public Builder customCertificateAuthority(String customCertificateAuthority) {
-            this.customCertificateAuthority = Optional.ofNullable(customCertificateAuthority);
+            this.customCertificateAuthority = OptionalNullable.of(customCertificateAuthority);
+            return this;
+        }
+
+        public Builder customCertificateAuthority(Optional<String> customCertificateAuthority) {
+            if (customCertificateAuthority.isPresent()) {
+                this.customCertificateAuthority = OptionalNullable.of(customCertificateAuthority.get());
+            } else {
+                this.customCertificateAuthority = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder customCertificateAuthority(
+                com.auth0.client.mgmt.core.Nullable<String> customCertificateAuthority) {
+            if (customCertificateAuthority.isNull()) {
+                this.customCertificateAuthority = OptionalNullable.ofNull();
+            } else if (customCertificateAuthority.isEmpty()) {
+                this.customCertificateAuthority = OptionalNullable.absent();
+            } else {
+                this.customCertificateAuthority = OptionalNullable.of(customCertificateAuthority.get());
+            }
             return this;
         }
 
@@ -303,13 +347,33 @@ public final class UpdateVerifiableCredentialTemplateResponseContent {
          * <p>The well-known trusted issuers, comma separated.</p>
          */
         @JsonSetter(value = "well_known_trusted_issuers", nulls = Nulls.SKIP)
-        public Builder wellKnownTrustedIssuers(Optional<String> wellKnownTrustedIssuers) {
+        public Builder wellKnownTrustedIssuers(@Nullable OptionalNullable<String> wellKnownTrustedIssuers) {
             this.wellKnownTrustedIssuers = wellKnownTrustedIssuers;
             return this;
         }
 
         public Builder wellKnownTrustedIssuers(String wellKnownTrustedIssuers) {
-            this.wellKnownTrustedIssuers = Optional.ofNullable(wellKnownTrustedIssuers);
+            this.wellKnownTrustedIssuers = OptionalNullable.of(wellKnownTrustedIssuers);
+            return this;
+        }
+
+        public Builder wellKnownTrustedIssuers(Optional<String> wellKnownTrustedIssuers) {
+            if (wellKnownTrustedIssuers.isPresent()) {
+                this.wellKnownTrustedIssuers = OptionalNullable.of(wellKnownTrustedIssuers.get());
+            } else {
+                this.wellKnownTrustedIssuers = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder wellKnownTrustedIssuers(com.auth0.client.mgmt.core.Nullable<String> wellKnownTrustedIssuers) {
+            if (wellKnownTrustedIssuers.isNull()) {
+                this.wellKnownTrustedIssuers = OptionalNullable.ofNull();
+            } else if (wellKnownTrustedIssuers.isEmpty()) {
+                this.wellKnownTrustedIssuers = OptionalNullable.absent();
+            } else {
+                this.wellKnownTrustedIssuers = OptionalNullable.of(wellKnownTrustedIssuers.get());
+            }
             return this;
         }
 

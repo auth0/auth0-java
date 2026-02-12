@@ -23,15 +23,15 @@ import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionOptionsEvernote.Builder.class)
-public final class ConnectionOptionsEvernote implements IConnectionOptionsOAuth2Common, IConnectionOptionsCommon {
+public final class ConnectionOptionsEvernote implements IConnectionOptionsOAuth1Common, IConnectionOptionsCommon {
     private final Optional<String> clientId;
 
     private final Optional<String> clientSecret;
 
+    private final Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes;
+
     private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
             upstreamParams;
-
-    private final Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes;
 
     private final Optional<List<String>> nonPersistentAttrs;
 
@@ -40,28 +40,40 @@ public final class ConnectionOptionsEvernote implements IConnectionOptionsOAuth2
     private ConnectionOptionsEvernote(
             Optional<String> clientId,
             Optional<String> clientSecret,
-            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
             Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes,
+            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
             Optional<List<String>> nonPersistentAttrs,
             Map<String, Object> additionalProperties) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
-        this.upstreamParams = upstreamParams;
         this.setUserRootAttributes = setUserRootAttributes;
+        this.upstreamParams = upstreamParams;
         this.nonPersistentAttrs = nonPersistentAttrs;
         this.additionalProperties = additionalProperties;
     }
 
+    /**
+     * @return OAuth 1.0 client identifier issued by the identity provider during application registration. This value identifies your Auth0 connection to the identity provider.
+     */
     @JsonProperty("client_id")
     @java.lang.Override
     public Optional<String> getClientId() {
         return clientId;
     }
 
+    /**
+     * @return OAuth 1.0 client secret issued by the identity provider during application registration. Used to authenticate your Auth0 connection when signing requests and exchanging request tokens and verifiers for access tokens. May be null for public clients.
+     */
     @JsonProperty("client_secret")
     @java.lang.Override
     public Optional<String> getClientSecret() {
         return clientSecret;
+    }
+
+    @JsonProperty("set_user_root_attributes")
+    @java.lang.Override
+    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
+        return setUserRootAttributes;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -72,12 +84,6 @@ public final class ConnectionOptionsEvernote implements IConnectionOptionsOAuth2
             return OptionalNullable.absent();
         }
         return upstreamParams;
-    }
-
-    @JsonProperty("set_user_root_attributes")
-    @java.lang.Override
-    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
-        return setUserRootAttributes;
     }
 
     @JsonProperty("non_persistent_attrs")
@@ -107,8 +113,8 @@ public final class ConnectionOptionsEvernote implements IConnectionOptionsOAuth2
     private boolean equalTo(ConnectionOptionsEvernote other) {
         return clientId.equals(other.clientId)
                 && clientSecret.equals(other.clientSecret)
-                && upstreamParams.equals(other.upstreamParams)
                 && setUserRootAttributes.equals(other.setUserRootAttributes)
+                && upstreamParams.equals(other.upstreamParams)
                 && nonPersistentAttrs.equals(other.nonPersistentAttrs);
     }
 
@@ -117,8 +123,8 @@ public final class ConnectionOptionsEvernote implements IConnectionOptionsOAuth2
         return Objects.hash(
                 this.clientId,
                 this.clientSecret,
-                this.upstreamParams,
                 this.setUserRootAttributes,
+                this.upstreamParams,
                 this.nonPersistentAttrs);
     }
 
@@ -137,10 +143,10 @@ public final class ConnectionOptionsEvernote implements IConnectionOptionsOAuth2
 
         private Optional<String> clientSecret = Optional.empty();
 
+        private Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes = Optional.empty();
+
         private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
                 OptionalNullable.absent();
-
-        private Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes = Optional.empty();
 
         private Optional<List<String>> nonPersistentAttrs = Optional.empty();
 
@@ -152,12 +158,15 @@ public final class ConnectionOptionsEvernote implements IConnectionOptionsOAuth2
         public Builder from(ConnectionOptionsEvernote other) {
             clientId(other.getClientId());
             clientSecret(other.getClientSecret());
-            upstreamParams(other.getUpstreamParams());
             setUserRootAttributes(other.getSetUserRootAttributes());
+            upstreamParams(other.getUpstreamParams());
             nonPersistentAttrs(other.getNonPersistentAttrs());
             return this;
         }
 
+        /**
+         * <p>OAuth 1.0 client identifier issued by the identity provider during application registration. This value identifies your Auth0 connection to the identity provider.</p>
+         */
         @JsonSetter(value = "client_id", nulls = Nulls.SKIP)
         public Builder clientId(Optional<String> clientId) {
             this.clientId = clientId;
@@ -169,6 +178,9 @@ public final class ConnectionOptionsEvernote implements IConnectionOptionsOAuth2
             return this;
         }
 
+        /**
+         * <p>OAuth 1.0 client secret issued by the identity provider during application registration. Used to authenticate your Auth0 connection when signing requests and exchanging request tokens and verifiers for access tokens. May be null for public clients.</p>
+         */
         @JsonSetter(value = "client_secret", nulls = Nulls.SKIP)
         public Builder clientSecret(Optional<String> clientSecret) {
             this.clientSecret = clientSecret;
@@ -177,6 +189,17 @@ public final class ConnectionOptionsEvernote implements IConnectionOptionsOAuth2
 
         public Builder clientSecret(String clientSecret) {
             this.clientSecret = Optional.ofNullable(clientSecret);
+            return this;
+        }
+
+        @JsonSetter(value = "set_user_root_attributes", nulls = Nulls.SKIP)
+        public Builder setUserRootAttributes(Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes) {
+            this.setUserRootAttributes = setUserRootAttributes;
+            return this;
+        }
+
+        public Builder setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes) {
+            this.setUserRootAttributes = Optional.ofNullable(setUserRootAttributes);
             return this;
         }
 
@@ -219,17 +242,6 @@ public final class ConnectionOptionsEvernote implements IConnectionOptionsOAuth2
             return this;
         }
 
-        @JsonSetter(value = "set_user_root_attributes", nulls = Nulls.SKIP)
-        public Builder setUserRootAttributes(Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes) {
-            this.setUserRootAttributes = setUserRootAttributes;
-            return this;
-        }
-
-        public Builder setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes) {
-            this.setUserRootAttributes = Optional.ofNullable(setUserRootAttributes);
-            return this;
-        }
-
         @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
         public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
             this.nonPersistentAttrs = nonPersistentAttrs;
@@ -245,8 +257,8 @@ public final class ConnectionOptionsEvernote implements IConnectionOptionsOAuth2
             return new ConnectionOptionsEvernote(
                     clientId,
                     clientSecret,
-                    upstreamParams,
                     setUserRootAttributes,
+                    upstreamParams,
                     nonPersistentAttrs,
                     additionalProperties);
         }

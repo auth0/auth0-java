@@ -21,15 +21,15 @@ import java.util.Optional;
 import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = ExecutionsListRequest.Builder.class)
-public final class ExecutionsListRequest {
+@JsonDeserialize(builder = ListFlowExecutionsRequestParameters.Builder.class)
+public final class ListFlowExecutionsRequestParameters {
     private final OptionalNullable<String> from;
 
     private final OptionalNullable<Integer> take;
 
     private final Map<String, Object> additionalProperties;
 
-    private ExecutionsListRequest(
+    private ListFlowExecutionsRequestParameters(
             OptionalNullable<String> from, OptionalNullable<Integer> take, Map<String, Object> additionalProperties) {
         this.from = from;
         this.take = take;
@@ -66,7 +66,8 @@ public final class ExecutionsListRequest {
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof ExecutionsListRequest && equalTo((ExecutionsListRequest) other);
+        return other instanceof ListFlowExecutionsRequestParameters
+                && equalTo((ListFlowExecutionsRequestParameters) other);
     }
 
     @JsonAnyGetter
@@ -74,7 +75,7 @@ public final class ExecutionsListRequest {
         return this.additionalProperties;
     }
 
-    private boolean equalTo(ExecutionsListRequest other) {
+    private boolean equalTo(ListFlowExecutionsRequestParameters other) {
         return from.equals(other.from) && take.equals(other.take);
     }
 
@@ -103,7 +104,7 @@ public final class ExecutionsListRequest {
 
         private Builder() {}
 
-        public Builder from(ExecutionsListRequest other) {
+        public Builder from(ListFlowExecutionsRequestParameters other) {
             from(other.getFrom());
             take(other.getTake());
             return this;
@@ -177,8 +178,8 @@ public final class ExecutionsListRequest {
             return this;
         }
 
-        public ExecutionsListRequest build() {
-            return new ExecutionsListRequest(from, take, additionalProperties);
+        public ListFlowExecutionsRequestParameters build() {
+            return new ListFlowExecutionsRequestParameters(from, take, additionalProperties);
         }
     }
 }

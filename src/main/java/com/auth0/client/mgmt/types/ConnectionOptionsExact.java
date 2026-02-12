@@ -23,67 +23,84 @@ import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionOptionsExact.Builder.class)
-public final class ConnectionOptionsExact implements IConnectionOptionsOAuth2Common, IConnectionOptionsCommon {
+public final class ConnectionOptionsExact implements IConnectionOptionsCommon {
+    private final Optional<List<String>> nonPersistentAttrs;
+
+    private final Optional<String> baseUrl;
+
     private final Optional<String> clientId;
 
     private final Optional<String> clientSecret;
 
-    private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
-            upstreamParams;
+    private final Optional<Boolean> profile;
 
     private final Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes;
 
-    private final Optional<List<String>> nonPersistentAttrs;
+    private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+            upstreamParams;
 
     private final Map<String, Object> additionalProperties;
 
     private ConnectionOptionsExact(
+            Optional<List<String>> nonPersistentAttrs,
+            Optional<String> baseUrl,
             Optional<String> clientId,
             Optional<String> clientSecret,
-            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
+            Optional<Boolean> profile,
             Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes,
-            Optional<List<String>> nonPersistentAttrs,
+            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
             Map<String, Object> additionalProperties) {
+        this.nonPersistentAttrs = nonPersistentAttrs;
+        this.baseUrl = baseUrl;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
-        this.upstreamParams = upstreamParams;
+        this.profile = profile;
         this.setUserRootAttributes = setUserRootAttributes;
-        this.nonPersistentAttrs = nonPersistentAttrs;
+        this.upstreamParams = upstreamParams;
         this.additionalProperties = additionalProperties;
-    }
-
-    @JsonProperty("client_id")
-    @java.lang.Override
-    public Optional<String> getClientId() {
-        return clientId;
-    }
-
-    @JsonProperty("client_secret")
-    @java.lang.Override
-    public Optional<String> getClientSecret() {
-        return clientSecret;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("upstream_params")
-    @java.lang.Override
-    public OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams() {
-        if (upstreamParams == null) {
-            return OptionalNullable.absent();
-        }
-        return upstreamParams;
-    }
-
-    @JsonProperty("set_user_root_attributes")
-    @java.lang.Override
-    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
-        return setUserRootAttributes;
     }
 
     @JsonProperty("non_persistent_attrs")
     @java.lang.Override
     public Optional<List<String>> getNonPersistentAttrs() {
         return nonPersistentAttrs;
+    }
+
+    @JsonProperty("baseUrl")
+    public Optional<String> getBaseUrl() {
+        return baseUrl;
+    }
+
+    @JsonProperty("client_id")
+    public Optional<String> getClientId() {
+        return clientId;
+    }
+
+    @JsonProperty("client_secret")
+    public Optional<String> getClientSecret() {
+        return clientSecret;
+    }
+
+    /**
+     * @return Enables retrieval of basic profile attributes from Exact Online including name, username, picture, email, gender, and language.
+     */
+    @JsonProperty("profile")
+    public Optional<Boolean> getProfile() {
+        return profile;
+    }
+
+    @JsonProperty("set_user_root_attributes")
+    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
+        return setUserRootAttributes;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("upstream_params")
+    public OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams() {
+        if (upstreamParams == null) {
+            return OptionalNullable.absent();
+        }
+        return upstreamParams;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -105,21 +122,25 @@ public final class ConnectionOptionsExact implements IConnectionOptionsOAuth2Com
     }
 
     private boolean equalTo(ConnectionOptionsExact other) {
-        return clientId.equals(other.clientId)
+        return nonPersistentAttrs.equals(other.nonPersistentAttrs)
+                && baseUrl.equals(other.baseUrl)
+                && clientId.equals(other.clientId)
                 && clientSecret.equals(other.clientSecret)
-                && upstreamParams.equals(other.upstreamParams)
+                && profile.equals(other.profile)
                 && setUserRootAttributes.equals(other.setUserRootAttributes)
-                && nonPersistentAttrs.equals(other.nonPersistentAttrs);
+                && upstreamParams.equals(other.upstreamParams);
     }
 
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.nonPersistentAttrs,
+                this.baseUrl,
                 this.clientId,
                 this.clientSecret,
-                this.upstreamParams,
+                this.profile,
                 this.setUserRootAttributes,
-                this.nonPersistentAttrs);
+                this.upstreamParams);
     }
 
     @java.lang.Override
@@ -133,16 +154,20 @@ public final class ConnectionOptionsExact implements IConnectionOptionsOAuth2Com
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
+
+        private Optional<String> baseUrl = Optional.empty();
+
         private Optional<String> clientId = Optional.empty();
 
         private Optional<String> clientSecret = Optional.empty();
 
-        private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
-                OptionalNullable.absent();
+        private Optional<Boolean> profile = Optional.empty();
 
         private Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes = Optional.empty();
 
-        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
+        private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
+                OptionalNullable.absent();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -150,11 +175,35 @@ public final class ConnectionOptionsExact implements IConnectionOptionsOAuth2Com
         private Builder() {}
 
         public Builder from(ConnectionOptionsExact other) {
+            nonPersistentAttrs(other.getNonPersistentAttrs());
+            baseUrl(other.getBaseUrl());
             clientId(other.getClientId());
             clientSecret(other.getClientSecret());
-            upstreamParams(other.getUpstreamParams());
+            profile(other.getProfile());
             setUserRootAttributes(other.getSetUserRootAttributes());
-            nonPersistentAttrs(other.getNonPersistentAttrs());
+            upstreamParams(other.getUpstreamParams());
+            return this;
+        }
+
+        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
+        public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
+            this.nonPersistentAttrs = nonPersistentAttrs;
+            return this;
+        }
+
+        public Builder nonPersistentAttrs(List<String> nonPersistentAttrs) {
+            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
+            return this;
+        }
+
+        @JsonSetter(value = "baseUrl", nulls = Nulls.SKIP)
+        public Builder baseUrl(Optional<String> baseUrl) {
+            this.baseUrl = baseUrl;
+            return this;
+        }
+
+        public Builder baseUrl(String baseUrl) {
+            this.baseUrl = Optional.ofNullable(baseUrl);
             return this;
         }
 
@@ -177,6 +226,31 @@ public final class ConnectionOptionsExact implements IConnectionOptionsOAuth2Com
 
         public Builder clientSecret(String clientSecret) {
             this.clientSecret = Optional.ofNullable(clientSecret);
+            return this;
+        }
+
+        /**
+         * <p>Enables retrieval of basic profile attributes from Exact Online including name, username, picture, email, gender, and language.</p>
+         */
+        @JsonSetter(value = "profile", nulls = Nulls.SKIP)
+        public Builder profile(Optional<Boolean> profile) {
+            this.profile = profile;
+            return this;
+        }
+
+        public Builder profile(Boolean profile) {
+            this.profile = Optional.ofNullable(profile);
+            return this;
+        }
+
+        @JsonSetter(value = "set_user_root_attributes", nulls = Nulls.SKIP)
+        public Builder setUserRootAttributes(Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes) {
+            this.setUserRootAttributes = setUserRootAttributes;
+            return this;
+        }
+
+        public Builder setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes) {
+            this.setUserRootAttributes = Optional.ofNullable(setUserRootAttributes);
             return this;
         }
 
@@ -219,35 +293,15 @@ public final class ConnectionOptionsExact implements IConnectionOptionsOAuth2Com
             return this;
         }
 
-        @JsonSetter(value = "set_user_root_attributes", nulls = Nulls.SKIP)
-        public Builder setUserRootAttributes(Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes) {
-            this.setUserRootAttributes = setUserRootAttributes;
-            return this;
-        }
-
-        public Builder setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes) {
-            this.setUserRootAttributes = Optional.ofNullable(setUserRootAttributes);
-            return this;
-        }
-
-        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
-        public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
-            this.nonPersistentAttrs = nonPersistentAttrs;
-            return this;
-        }
-
-        public Builder nonPersistentAttrs(List<String> nonPersistentAttrs) {
-            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
-            return this;
-        }
-
         public ConnectionOptionsExact build() {
             return new ConnectionOptionsExact(
+                    nonPersistentAttrs,
+                    baseUrl,
                     clientId,
                     clientSecret,
-                    upstreamParams,
+                    profile,
                     setUserRootAttributes,
-                    nonPersistentAttrs,
+                    upstreamParams,
                     additionalProperties);
         }
     }

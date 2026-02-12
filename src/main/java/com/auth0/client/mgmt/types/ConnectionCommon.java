@@ -22,10 +22,6 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionCommon.Builder.class)
 public final class ConnectionCommon implements IConnectionCommon {
-    private final Optional<ConnectionAuthenticationPurpose> authentication;
-
-    private final Optional<ConnectionConnectedAccountsPurpose> connectedAccounts;
-
     private final Optional<String> displayName;
 
     private final Optional<List<String>> enabledClients;
@@ -37,32 +33,16 @@ public final class ConnectionCommon implements IConnectionCommon {
     private final Map<String, Object> additionalProperties;
 
     private ConnectionCommon(
-            Optional<ConnectionAuthenticationPurpose> authentication,
-            Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
             Optional<String> displayName,
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
             Map<String, Object> additionalProperties) {
-        this.authentication = authentication;
-        this.connectedAccounts = connectedAccounts;
         this.displayName = displayName;
         this.enabledClients = enabledClients;
         this.isDomainConnection = isDomainConnection;
         this.metadata = metadata;
         this.additionalProperties = additionalProperties;
-    }
-
-    @JsonProperty("authentication")
-    @java.lang.Override
-    public Optional<ConnectionAuthenticationPurpose> getAuthentication() {
-        return authentication;
-    }
-
-    @JsonProperty("connected_accounts")
-    @java.lang.Override
-    public Optional<ConnectionConnectedAccountsPurpose> getConnectedAccounts() {
-        return connectedAccounts;
     }
 
     @JsonProperty("display_name")
@@ -101,9 +81,7 @@ public final class ConnectionCommon implements IConnectionCommon {
     }
 
     private boolean equalTo(ConnectionCommon other) {
-        return authentication.equals(other.authentication)
-                && connectedAccounts.equals(other.connectedAccounts)
-                && displayName.equals(other.displayName)
+        return displayName.equals(other.displayName)
                 && enabledClients.equals(other.enabledClients)
                 && isDomainConnection.equals(other.isDomainConnection)
                 && metadata.equals(other.metadata);
@@ -111,13 +89,7 @@ public final class ConnectionCommon implements IConnectionCommon {
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(
-                this.authentication,
-                this.connectedAccounts,
-                this.displayName,
-                this.enabledClients,
-                this.isDomainConnection,
-                this.metadata);
+        return Objects.hash(this.displayName, this.enabledClients, this.isDomainConnection, this.metadata);
     }
 
     @java.lang.Override
@@ -131,10 +103,6 @@ public final class ConnectionCommon implements IConnectionCommon {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<ConnectionAuthenticationPurpose> authentication = Optional.empty();
-
-        private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
-
         private Optional<String> displayName = Optional.empty();
 
         private Optional<List<String>> enabledClients = Optional.empty();
@@ -149,34 +117,10 @@ public final class ConnectionCommon implements IConnectionCommon {
         private Builder() {}
 
         public Builder from(ConnectionCommon other) {
-            authentication(other.getAuthentication());
-            connectedAccounts(other.getConnectedAccounts());
             displayName(other.getDisplayName());
             enabledClients(other.getEnabledClients());
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
-            return this;
-        }
-
-        @JsonSetter(value = "authentication", nulls = Nulls.SKIP)
-        public Builder authentication(Optional<ConnectionAuthenticationPurpose> authentication) {
-            this.authentication = authentication;
-            return this;
-        }
-
-        public Builder authentication(ConnectionAuthenticationPurpose authentication) {
-            this.authentication = Optional.ofNullable(authentication);
-            return this;
-        }
-
-        @JsonSetter(value = "connected_accounts", nulls = Nulls.SKIP)
-        public Builder connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts) {
-            this.connectedAccounts = connectedAccounts;
-            return this;
-        }
-
-        public Builder connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts) {
-            this.connectedAccounts = Optional.ofNullable(connectedAccounts);
             return this;
         }
 
@@ -226,13 +170,7 @@ public final class ConnectionCommon implements IConnectionCommon {
 
         public ConnectionCommon build() {
             return new ConnectionCommon(
-                    authentication,
-                    connectedAccounts,
-                    displayName,
-                    enabledClients,
-                    isDomainConnection,
-                    metadata,
-                    additionalProperties);
+                    displayName, enabledClients, isDomainConnection, metadata, additionalProperties);
         }
     }
 }

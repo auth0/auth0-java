@@ -22,10 +22,6 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = UpdateConnectionRequestContentOidc.Builder.class)
 public final class UpdateConnectionRequestContentOidc implements IConnectionCommon {
-    private final Optional<ConnectionAuthenticationPurpose> authentication;
-
-    private final Optional<ConnectionConnectedAccountsPurpose> connectedAccounts;
-
     private final Optional<String> displayName;
 
     private final Optional<List<String>> enabledClients;
@@ -36,41 +32,33 @@ public final class UpdateConnectionRequestContentOidc implements IConnectionComm
 
     private final Optional<ConnectionOptionsOidc> options;
 
+    private final Optional<ConnectionAuthenticationPurpose> authentication;
+
+    private final Optional<ConnectionConnectedAccountsPurposeXaa> connectedAccounts;
+
     private final Optional<Boolean> showAsButton;
 
     private final Map<String, Object> additionalProperties;
 
     private UpdateConnectionRequestContentOidc(
-            Optional<ConnectionAuthenticationPurpose> authentication,
-            Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
             Optional<String> displayName,
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
             Optional<ConnectionOptionsOidc> options,
+            Optional<ConnectionAuthenticationPurpose> authentication,
+            Optional<ConnectionConnectedAccountsPurposeXaa> connectedAccounts,
             Optional<Boolean> showAsButton,
             Map<String, Object> additionalProperties) {
-        this.authentication = authentication;
-        this.connectedAccounts = connectedAccounts;
         this.displayName = displayName;
         this.enabledClients = enabledClients;
         this.isDomainConnection = isDomainConnection;
         this.metadata = metadata;
         this.options = options;
+        this.authentication = authentication;
+        this.connectedAccounts = connectedAccounts;
         this.showAsButton = showAsButton;
         this.additionalProperties = additionalProperties;
-    }
-
-    @JsonProperty("authentication")
-    @java.lang.Override
-    public Optional<ConnectionAuthenticationPurpose> getAuthentication() {
-        return authentication;
-    }
-
-    @JsonProperty("connected_accounts")
-    @java.lang.Override
-    public Optional<ConnectionConnectedAccountsPurpose> getConnectedAccounts() {
-        return connectedAccounts;
     }
 
     @JsonProperty("display_name")
@@ -102,6 +90,16 @@ public final class UpdateConnectionRequestContentOidc implements IConnectionComm
         return options;
     }
 
+    @JsonProperty("authentication")
+    public Optional<ConnectionAuthenticationPurpose> getAuthentication() {
+        return authentication;
+    }
+
+    @JsonProperty("connected_accounts")
+    public Optional<ConnectionConnectedAccountsPurposeXaa> getConnectedAccounts() {
+        return connectedAccounts;
+    }
+
     @JsonProperty("show_as_button")
     public Optional<Boolean> getShowAsButton() {
         return showAsButton;
@@ -120,26 +118,26 @@ public final class UpdateConnectionRequestContentOidc implements IConnectionComm
     }
 
     private boolean equalTo(UpdateConnectionRequestContentOidc other) {
-        return authentication.equals(other.authentication)
-                && connectedAccounts.equals(other.connectedAccounts)
-                && displayName.equals(other.displayName)
+        return displayName.equals(other.displayName)
                 && enabledClients.equals(other.enabledClients)
                 && isDomainConnection.equals(other.isDomainConnection)
                 && metadata.equals(other.metadata)
                 && options.equals(other.options)
+                && authentication.equals(other.authentication)
+                && connectedAccounts.equals(other.connectedAccounts)
                 && showAsButton.equals(other.showAsButton);
     }
 
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.authentication,
-                this.connectedAccounts,
                 this.displayName,
                 this.enabledClients,
                 this.isDomainConnection,
                 this.metadata,
                 this.options,
+                this.authentication,
+                this.connectedAccounts,
                 this.showAsButton);
     }
 
@@ -154,10 +152,6 @@ public final class UpdateConnectionRequestContentOidc implements IConnectionComm
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<ConnectionAuthenticationPurpose> authentication = Optional.empty();
-
-        private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
-
         private Optional<String> displayName = Optional.empty();
 
         private Optional<List<String>> enabledClients = Optional.empty();
@@ -168,6 +162,10 @@ public final class UpdateConnectionRequestContentOidc implements IConnectionComm
 
         private Optional<ConnectionOptionsOidc> options = Optional.empty();
 
+        private Optional<ConnectionAuthenticationPurpose> authentication = Optional.empty();
+
+        private Optional<ConnectionConnectedAccountsPurposeXaa> connectedAccounts = Optional.empty();
+
         private Optional<Boolean> showAsButton = Optional.empty();
 
         @JsonAnySetter
@@ -176,36 +174,14 @@ public final class UpdateConnectionRequestContentOidc implements IConnectionComm
         private Builder() {}
 
         public Builder from(UpdateConnectionRequestContentOidc other) {
-            authentication(other.getAuthentication());
-            connectedAccounts(other.getConnectedAccounts());
             displayName(other.getDisplayName());
             enabledClients(other.getEnabledClients());
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
             options(other.getOptions());
+            authentication(other.getAuthentication());
+            connectedAccounts(other.getConnectedAccounts());
             showAsButton(other.getShowAsButton());
-            return this;
-        }
-
-        @JsonSetter(value = "authentication", nulls = Nulls.SKIP)
-        public Builder authentication(Optional<ConnectionAuthenticationPurpose> authentication) {
-            this.authentication = authentication;
-            return this;
-        }
-
-        public Builder authentication(ConnectionAuthenticationPurpose authentication) {
-            this.authentication = Optional.ofNullable(authentication);
-            return this;
-        }
-
-        @JsonSetter(value = "connected_accounts", nulls = Nulls.SKIP)
-        public Builder connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts) {
-            this.connectedAccounts = connectedAccounts;
-            return this;
-        }
-
-        public Builder connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts) {
-            this.connectedAccounts = Optional.ofNullable(connectedAccounts);
             return this;
         }
 
@@ -264,6 +240,28 @@ public final class UpdateConnectionRequestContentOidc implements IConnectionComm
             return this;
         }
 
+        @JsonSetter(value = "authentication", nulls = Nulls.SKIP)
+        public Builder authentication(Optional<ConnectionAuthenticationPurpose> authentication) {
+            this.authentication = authentication;
+            return this;
+        }
+
+        public Builder authentication(ConnectionAuthenticationPurpose authentication) {
+            this.authentication = Optional.ofNullable(authentication);
+            return this;
+        }
+
+        @JsonSetter(value = "connected_accounts", nulls = Nulls.SKIP)
+        public Builder connectedAccounts(Optional<ConnectionConnectedAccountsPurposeXaa> connectedAccounts) {
+            this.connectedAccounts = connectedAccounts;
+            return this;
+        }
+
+        public Builder connectedAccounts(ConnectionConnectedAccountsPurposeXaa connectedAccounts) {
+            this.connectedAccounts = Optional.ofNullable(connectedAccounts);
+            return this;
+        }
+
         @JsonSetter(value = "show_as_button", nulls = Nulls.SKIP)
         public Builder showAsButton(Optional<Boolean> showAsButton) {
             this.showAsButton = showAsButton;
@@ -277,13 +275,13 @@ public final class UpdateConnectionRequestContentOidc implements IConnectionComm
 
         public UpdateConnectionRequestContentOidc build() {
             return new UpdateConnectionRequestContentOidc(
-                    authentication,
-                    connectedAccounts,
                     displayName,
                     enabledClients,
                     isDomainConnection,
                     metadata,
                     options,
+                    authentication,
+                    connectedAccounts,
                     showAsButton,
                     additionalProperties);
         }

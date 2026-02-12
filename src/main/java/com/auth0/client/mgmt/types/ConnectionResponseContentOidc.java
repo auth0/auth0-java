@@ -30,10 +30,6 @@ public final class ConnectionResponseContentOidc
 
     private final Optional<String> name;
 
-    private final Optional<ConnectionAuthenticationPurpose> authentication;
-
-    private final Optional<ConnectionConnectedAccountsPurpose> connectedAccounts;
-
     private final Optional<String> displayName;
 
     private final Optional<List<String>> enabledClients;
@@ -43,6 +39,10 @@ public final class ConnectionResponseContentOidc
     private final Optional<Map<String, OptionalNullable<String>>> metadata;
 
     private final ConnectionResponseContentOidcStrategy strategy;
+
+    private final Optional<ConnectionAuthenticationPurpose> authentication;
+
+    private final Optional<ConnectionConnectedAccountsPurposeXaa> connectedAccounts;
 
     private final Optional<ConnectionOptionsOidc> options;
 
@@ -54,26 +54,26 @@ public final class ConnectionResponseContentOidc
             Optional<String> id,
             Optional<List<String>> realms,
             Optional<String> name,
-            Optional<ConnectionAuthenticationPurpose> authentication,
-            Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
             Optional<String> displayName,
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
             ConnectionResponseContentOidcStrategy strategy,
+            Optional<ConnectionAuthenticationPurpose> authentication,
+            Optional<ConnectionConnectedAccountsPurposeXaa> connectedAccounts,
             Optional<ConnectionOptionsOidc> options,
             Optional<Boolean> showAsButton,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.realms = realms;
         this.name = name;
-        this.authentication = authentication;
-        this.connectedAccounts = connectedAccounts;
         this.displayName = displayName;
         this.enabledClients = enabledClients;
         this.isDomainConnection = isDomainConnection;
         this.metadata = metadata;
         this.strategy = strategy;
+        this.authentication = authentication;
+        this.connectedAccounts = connectedAccounts;
         this.options = options;
         this.showAsButton = showAsButton;
         this.additionalProperties = additionalProperties;
@@ -95,18 +95,6 @@ public final class ConnectionResponseContentOidc
     @java.lang.Override
     public Optional<String> getName() {
         return name;
-    }
-
-    @JsonProperty("authentication")
-    @java.lang.Override
-    public Optional<ConnectionAuthenticationPurpose> getAuthentication() {
-        return authentication;
-    }
-
-    @JsonProperty("connected_accounts")
-    @java.lang.Override
-    public Optional<ConnectionConnectedAccountsPurpose> getConnectedAccounts() {
-        return connectedAccounts;
     }
 
     @JsonProperty("display_name")
@@ -138,6 +126,16 @@ public final class ConnectionResponseContentOidc
         return strategy;
     }
 
+    @JsonProperty("authentication")
+    public Optional<ConnectionAuthenticationPurpose> getAuthentication() {
+        return authentication;
+    }
+
+    @JsonProperty("connected_accounts")
+    public Optional<ConnectionConnectedAccountsPurposeXaa> getConnectedAccounts() {
+        return connectedAccounts;
+    }
+
     @JsonProperty("options")
     public Optional<ConnectionOptionsOidc> getOptions() {
         return options;
@@ -163,13 +161,13 @@ public final class ConnectionResponseContentOidc
         return id.equals(other.id)
                 && realms.equals(other.realms)
                 && name.equals(other.name)
-                && authentication.equals(other.authentication)
-                && connectedAccounts.equals(other.connectedAccounts)
                 && displayName.equals(other.displayName)
                 && enabledClients.equals(other.enabledClients)
                 && isDomainConnection.equals(other.isDomainConnection)
                 && metadata.equals(other.metadata)
                 && strategy.equals(other.strategy)
+                && authentication.equals(other.authentication)
+                && connectedAccounts.equals(other.connectedAccounts)
                 && options.equals(other.options)
                 && showAsButton.equals(other.showAsButton);
     }
@@ -180,13 +178,13 @@ public final class ConnectionResponseContentOidc
                 this.id,
                 this.realms,
                 this.name,
-                this.authentication,
-                this.connectedAccounts,
                 this.displayName,
                 this.enabledClients,
                 this.isDomainConnection,
                 this.metadata,
                 this.strategy,
+                this.authentication,
+                this.connectedAccounts,
                 this.options,
                 this.showAsButton);
     }
@@ -221,14 +219,6 @@ public final class ConnectionResponseContentOidc
 
         _FinalStage name(String name);
 
-        _FinalStage authentication(Optional<ConnectionAuthenticationPurpose> authentication);
-
-        _FinalStage authentication(ConnectionAuthenticationPurpose authentication);
-
-        _FinalStage connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts);
-
-        _FinalStage connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts);
-
         _FinalStage displayName(Optional<String> displayName);
 
         _FinalStage displayName(String displayName);
@@ -244,6 +234,14 @@ public final class ConnectionResponseContentOidc
         _FinalStage metadata(Optional<Map<String, OptionalNullable<String>>> metadata);
 
         _FinalStage metadata(Map<String, OptionalNullable<String>> metadata);
+
+        _FinalStage authentication(Optional<ConnectionAuthenticationPurpose> authentication);
+
+        _FinalStage authentication(ConnectionAuthenticationPurpose authentication);
+
+        _FinalStage connectedAccounts(Optional<ConnectionConnectedAccountsPurposeXaa> connectedAccounts);
+
+        _FinalStage connectedAccounts(ConnectionConnectedAccountsPurposeXaa connectedAccounts);
 
         _FinalStage options(Optional<ConnectionOptionsOidc> options);
 
@@ -262,6 +260,10 @@ public final class ConnectionResponseContentOidc
 
         private Optional<ConnectionOptionsOidc> options = Optional.empty();
 
+        private Optional<ConnectionConnectedAccountsPurposeXaa> connectedAccounts = Optional.empty();
+
+        private Optional<ConnectionAuthenticationPurpose> authentication = Optional.empty();
+
         private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
         private Optional<Boolean> isDomainConnection = Optional.empty();
@@ -269,10 +271,6 @@ public final class ConnectionResponseContentOidc
         private Optional<List<String>> enabledClients = Optional.empty();
 
         private Optional<String> displayName = Optional.empty();
-
-        private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
-
-        private Optional<ConnectionAuthenticationPurpose> authentication = Optional.empty();
 
         private Optional<String> name = Optional.empty();
 
@@ -290,13 +288,13 @@ public final class ConnectionResponseContentOidc
             id(other.getId());
             realms(other.getRealms());
             name(other.getName());
-            authentication(other.getAuthentication());
-            connectedAccounts(other.getConnectedAccounts());
             displayName(other.getDisplayName());
             enabledClients(other.getEnabledClients());
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
             strategy(other.getStrategy());
+            authentication(other.getAuthentication());
+            connectedAccounts(other.getConnectedAccounts());
             options(other.getOptions());
             showAsButton(other.getShowAsButton());
             return this;
@@ -332,6 +330,32 @@ public final class ConnectionResponseContentOidc
         @JsonSetter(value = "options", nulls = Nulls.SKIP)
         public _FinalStage options(Optional<ConnectionOptionsOidc> options) {
             this.options = options;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage connectedAccounts(ConnectionConnectedAccountsPurposeXaa connectedAccounts) {
+            this.connectedAccounts = Optional.ofNullable(connectedAccounts);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "connected_accounts", nulls = Nulls.SKIP)
+        public _FinalStage connectedAccounts(Optional<ConnectionConnectedAccountsPurposeXaa> connectedAccounts) {
+            this.connectedAccounts = connectedAccounts;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage authentication(ConnectionAuthenticationPurpose authentication) {
+            this.authentication = Optional.ofNullable(authentication);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "authentication", nulls = Nulls.SKIP)
+        public _FinalStage authentication(Optional<ConnectionAuthenticationPurpose> authentication) {
+            this.authentication = authentication;
             return this;
         }
 
@@ -388,32 +412,6 @@ public final class ConnectionResponseContentOidc
         }
 
         @java.lang.Override
-        public _FinalStage connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts) {
-            this.connectedAccounts = Optional.ofNullable(connectedAccounts);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "connected_accounts", nulls = Nulls.SKIP)
-        public _FinalStage connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts) {
-            this.connectedAccounts = connectedAccounts;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage authentication(ConnectionAuthenticationPurpose authentication) {
-            this.authentication = Optional.ofNullable(authentication);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "authentication", nulls = Nulls.SKIP)
-        public _FinalStage authentication(Optional<ConnectionAuthenticationPurpose> authentication) {
-            this.authentication = authentication;
-            return this;
-        }
-
-        @java.lang.Override
         public _FinalStage name(String name) {
             this.name = Optional.ofNullable(name);
             return this;
@@ -458,13 +456,13 @@ public final class ConnectionResponseContentOidc
                     id,
                     realms,
                     name,
-                    authentication,
-                    connectedAccounts,
                     displayName,
                     enabledClients,
                     isDomainConnection,
                     metadata,
                     strategy,
+                    authentication,
+                    connectedAccounts,
                     options,
                     showAsButton,
                     additionalProperties);

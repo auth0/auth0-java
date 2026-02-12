@@ -3,8 +3,8 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
-import com.auth0.client.mgmt.flows.types.ExecutionsGetRequest;
-import com.auth0.client.mgmt.flows.types.ExecutionsListRequest;
+import com.auth0.client.mgmt.flows.types.GetFlowExecutionRequestParameters;
+import com.auth0.client.mgmt.flows.types.ListFlowExecutionsRequestParameters;
 import com.auth0.client.mgmt.types.FlowExecutionSummary;
 import com.auth0.client.mgmt.types.GetFlowExecutionResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -48,7 +48,7 @@ public class FlowsExecutionsWireTest {
                 .executions()
                 .list(
                         "flow_id",
-                        ExecutionsListRequest.builder()
+                        ListFlowExecutionsRequestParameters.builder()
                                 .from(OptionalNullable.of("from"))
                                 .take(OptionalNullable.of(1))
                                 .build());
@@ -71,7 +71,10 @@ public class FlowsExecutionsWireTest {
                                 "{\"id\":\"id\",\"trace_id\":\"trace_id\",\"journey_id\":\"journey_id\",\"status\":\"status\",\"debug\":{\"key\":\"value\"},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"started_at\":\"2024-01-15T09:30:00Z\",\"ended_at\":\"2024-01-15T09:30:00Z\"}"));
         GetFlowExecutionResponseContent response = client.flows()
                 .executions()
-                .get("flow_id", "execution_id", ExecutionsGetRequest.builder().build());
+                .get(
+                        "flow_id",
+                        "execution_id",
+                        GetFlowExecutionRequestParameters.builder().build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("GET", request.getMethod());

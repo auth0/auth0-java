@@ -6,15 +6,18 @@ package com.auth0.client.mgmt.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class FlowsListRequestHydrateItem {
-    public static final FlowsListRequestHydrateItem FORM_COUNT =
-            new FlowsListRequestHydrateItem(Value.FORM_COUNT, "form_count");
+public final class ConnectionOptionsProtocolEnumTwitter {
+    public static final ConnectionOptionsProtocolEnumTwitter OAUTH1 =
+            new ConnectionOptionsProtocolEnumTwitter(Value.OAUTH1, "oauth1");
+
+    public static final ConnectionOptionsProtocolEnumTwitter OAUTH2 =
+            new ConnectionOptionsProtocolEnumTwitter(Value.OAUTH2, "oauth2");
 
     private final Value value;
 
     private final String string;
 
-    FlowsListRequestHydrateItem(Value value, String string) {
+    ConnectionOptionsProtocolEnumTwitter(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -32,8 +35,8 @@ public final class FlowsListRequestHydrateItem {
     @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
-                || (other instanceof FlowsListRequestHydrateItem
-                        && this.string.equals(((FlowsListRequestHydrateItem) other).string));
+                || (other instanceof ConnectionOptionsProtocolEnumTwitter
+                        && this.string.equals(((ConnectionOptionsProtocolEnumTwitter) other).string));
     }
 
     @java.lang.Override
@@ -43,8 +46,10 @@ public final class FlowsListRequestHydrateItem {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case FORM_COUNT:
-                return visitor.visitFormCount();
+            case OAUTH1:
+                return visitor.visitOauth1();
+            case OAUTH2:
+                return visitor.visitOauth2();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -52,23 +57,29 @@ public final class FlowsListRequestHydrateItem {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static FlowsListRequestHydrateItem valueOf(String value) {
+    public static ConnectionOptionsProtocolEnumTwitter valueOf(String value) {
         switch (value) {
-            case "form_count":
-                return FORM_COUNT;
+            case "oauth1":
+                return OAUTH1;
+            case "oauth2":
+                return OAUTH2;
             default:
-                return new FlowsListRequestHydrateItem(Value.UNKNOWN, value);
+                return new ConnectionOptionsProtocolEnumTwitter(Value.UNKNOWN, value);
         }
     }
 
     public enum Value {
-        FORM_COUNT,
+        OAUTH1,
+
+        OAUTH2,
 
         UNKNOWN
     }
 
     public interface Visitor<T> {
-        T visitFormCount();
+        T visitOauth1();
+
+        T visitOauth2();
 
         T visitUnknown(String unknownType);
     }

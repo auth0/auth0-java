@@ -20,10 +20,10 @@ import com.auth0.client.mgmt.errors.UnauthorizedError;
 import com.auth0.client.mgmt.types.CreateFlowRequestContent;
 import com.auth0.client.mgmt.types.CreateFlowResponseContent;
 import com.auth0.client.mgmt.types.FlowSummary;
-import com.auth0.client.mgmt.types.FlowsListRequest;
 import com.auth0.client.mgmt.types.GetFlowRequestParameters;
 import com.auth0.client.mgmt.types.GetFlowResponseContent;
 import com.auth0.client.mgmt.types.ListFlowsOffsetPaginatedResponseContent;
+import com.auth0.client.mgmt.types.ListFlowsRequestParameters;
 import com.auth0.client.mgmt.types.UpdateFlowRequestContent;
 import com.auth0.client.mgmt.types.UpdateFlowResponseContent;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -46,15 +46,15 @@ public class RawFlowsClient {
     }
 
     public ManagementApiHttpResponse<SyncPagingIterable<FlowSummary>> list() {
-        return list(FlowsListRequest.builder().build());
+        return list(ListFlowsRequestParameters.builder().build());
     }
 
-    public ManagementApiHttpResponse<SyncPagingIterable<FlowSummary>> list(FlowsListRequest request) {
+    public ManagementApiHttpResponse<SyncPagingIterable<FlowSummary>> list(ListFlowsRequestParameters request) {
         return list(request, null);
     }
 
     public ManagementApiHttpResponse<SyncPagingIterable<FlowSummary>> list(
-            FlowsListRequest request, RequestOptions requestOptions) {
+            ListFlowsRequestParameters request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("flows");
@@ -89,7 +89,7 @@ public class RawFlowsClient {
                         responseBodyString, ListFlowsOffsetPaginatedResponseContent.class);
                 int newPageNumber =
                         request.getPage().map((Integer page) -> page + 1).orElse(1);
-                FlowsListRequest nextRequest = FlowsListRequest.builder()
+                ListFlowsRequestParameters nextRequest = ListFlowsRequestParameters.builder()
                         .from(request)
                         .page(newPageNumber)
                         .build();

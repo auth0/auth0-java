@@ -22,11 +22,20 @@ import java.util.Optional;
 public final class ConnectionPasswordAuthenticationMethod {
     private final Optional<Boolean> enabled;
 
+    private final Optional<ConnectionApiBehaviorEnum> apiBehavior;
+
+    private final Optional<ConnectionSignupBehaviorEnum> signupBehavior;
+
     private final Map<String, Object> additionalProperties;
 
     private ConnectionPasswordAuthenticationMethod(
-            Optional<Boolean> enabled, Map<String, Object> additionalProperties) {
+            Optional<Boolean> enabled,
+            Optional<ConnectionApiBehaviorEnum> apiBehavior,
+            Optional<ConnectionSignupBehaviorEnum> signupBehavior,
+            Map<String, Object> additionalProperties) {
         this.enabled = enabled;
+        this.apiBehavior = apiBehavior;
+        this.signupBehavior = signupBehavior;
         this.additionalProperties = additionalProperties;
     }
 
@@ -36,6 +45,16 @@ public final class ConnectionPasswordAuthenticationMethod {
     @JsonProperty("enabled")
     public Optional<Boolean> getEnabled() {
         return enabled;
+    }
+
+    @JsonProperty("api_behavior")
+    public Optional<ConnectionApiBehaviorEnum> getApiBehavior() {
+        return apiBehavior;
+    }
+
+    @JsonProperty("signup_behavior")
+    public Optional<ConnectionSignupBehaviorEnum> getSignupBehavior() {
+        return signupBehavior;
     }
 
     @java.lang.Override
@@ -51,12 +70,14 @@ public final class ConnectionPasswordAuthenticationMethod {
     }
 
     private boolean equalTo(ConnectionPasswordAuthenticationMethod other) {
-        return enabled.equals(other.enabled);
+        return enabled.equals(other.enabled)
+                && apiBehavior.equals(other.apiBehavior)
+                && signupBehavior.equals(other.signupBehavior);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.enabled);
+        return Objects.hash(this.enabled, this.apiBehavior, this.signupBehavior);
     }
 
     @java.lang.Override
@@ -72,6 +93,10 @@ public final class ConnectionPasswordAuthenticationMethod {
     public static final class Builder {
         private Optional<Boolean> enabled = Optional.empty();
 
+        private Optional<ConnectionApiBehaviorEnum> apiBehavior = Optional.empty();
+
+        private Optional<ConnectionSignupBehaviorEnum> signupBehavior = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -79,6 +104,8 @@ public final class ConnectionPasswordAuthenticationMethod {
 
         public Builder from(ConnectionPasswordAuthenticationMethod other) {
             enabled(other.getEnabled());
+            apiBehavior(other.getApiBehavior());
+            signupBehavior(other.getSignupBehavior());
             return this;
         }
 
@@ -96,8 +123,31 @@ public final class ConnectionPasswordAuthenticationMethod {
             return this;
         }
 
+        @JsonSetter(value = "api_behavior", nulls = Nulls.SKIP)
+        public Builder apiBehavior(Optional<ConnectionApiBehaviorEnum> apiBehavior) {
+            this.apiBehavior = apiBehavior;
+            return this;
+        }
+
+        public Builder apiBehavior(ConnectionApiBehaviorEnum apiBehavior) {
+            this.apiBehavior = Optional.ofNullable(apiBehavior);
+            return this;
+        }
+
+        @JsonSetter(value = "signup_behavior", nulls = Nulls.SKIP)
+        public Builder signupBehavior(Optional<ConnectionSignupBehaviorEnum> signupBehavior) {
+            this.signupBehavior = signupBehavior;
+            return this;
+        }
+
+        public Builder signupBehavior(ConnectionSignupBehaviorEnum signupBehavior) {
+            this.signupBehavior = Optional.ofNullable(signupBehavior);
+            return this;
+        }
+
         public ConnectionPasswordAuthenticationMethod build() {
-            return new ConnectionPasswordAuthenticationMethod(enabled, additionalProperties);
+            return new ConnectionPasswordAuthenticationMethod(
+                    enabled, apiBehavior, signupBehavior, additionalProperties);
         }
     }
 }

@@ -22,12 +22,13 @@ import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = CreateConnectionRequestContentGitHub.Builder.class)
-public final class CreateConnectionRequestContentGitHub implements ICreateConnectionCommon, IConnectionCommon {
-    private final Optional<String> name;
-
+public final class CreateConnectionRequestContentGitHub
+        implements IConnectionPurposes, ICreateConnectionCommon, IConnectionCommon {
     private final Optional<ConnectionAuthenticationPurpose> authentication;
 
     private final Optional<ConnectionConnectedAccountsPurpose> connectedAccounts;
+
+    private final Optional<String> name;
 
     private final Optional<String> displayName;
 
@@ -44,9 +45,9 @@ public final class CreateConnectionRequestContentGitHub implements ICreateConnec
     private final Map<String, Object> additionalProperties;
 
     private CreateConnectionRequestContentGitHub(
-            Optional<String> name,
             Optional<ConnectionAuthenticationPurpose> authentication,
             Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
+            Optional<String> name,
             Optional<String> displayName,
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
@@ -54,9 +55,9 @@ public final class CreateConnectionRequestContentGitHub implements ICreateConnec
             CreateConnectionRequestContentGitHubStrategy strategy,
             Optional<ConnectionOptionsGitHub> options,
             Map<String, Object> additionalProperties) {
-        this.name = name;
         this.authentication = authentication;
         this.connectedAccounts = connectedAccounts;
+        this.name = name;
         this.displayName = displayName;
         this.enabledClients = enabledClients;
         this.isDomainConnection = isDomainConnection;
@@ -64,12 +65,6 @@ public final class CreateConnectionRequestContentGitHub implements ICreateConnec
         this.strategy = strategy;
         this.options = options;
         this.additionalProperties = additionalProperties;
-    }
-
-    @JsonProperty("name")
-    @java.lang.Override
-    public Optional<String> getName() {
-        return name;
     }
 
     @JsonProperty("authentication")
@@ -82,6 +77,12 @@ public final class CreateConnectionRequestContentGitHub implements ICreateConnec
     @java.lang.Override
     public Optional<ConnectionConnectedAccountsPurpose> getConnectedAccounts() {
         return connectedAccounts;
+    }
+
+    @JsonProperty("name")
+    @java.lang.Override
+    public Optional<String> getName() {
+        return name;
     }
 
     @JsonProperty("display_name")
@@ -131,9 +132,9 @@ public final class CreateConnectionRequestContentGitHub implements ICreateConnec
     }
 
     private boolean equalTo(CreateConnectionRequestContentGitHub other) {
-        return name.equals(other.name)
-                && authentication.equals(other.authentication)
+        return authentication.equals(other.authentication)
                 && connectedAccounts.equals(other.connectedAccounts)
+                && name.equals(other.name)
                 && displayName.equals(other.displayName)
                 && enabledClients.equals(other.enabledClients)
                 && isDomainConnection.equals(other.isDomainConnection)
@@ -145,9 +146,9 @@ public final class CreateConnectionRequestContentGitHub implements ICreateConnec
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.name,
                 this.authentication,
                 this.connectedAccounts,
+                this.name,
                 this.displayName,
                 this.enabledClients,
                 this.isDomainConnection,
@@ -174,10 +175,6 @@ public final class CreateConnectionRequestContentGitHub implements ICreateConnec
     public interface _FinalStage {
         CreateConnectionRequestContentGitHub build();
 
-        _FinalStage name(Optional<String> name);
-
-        _FinalStage name(String name);
-
         _FinalStage authentication(Optional<ConnectionAuthenticationPurpose> authentication);
 
         _FinalStage authentication(ConnectionAuthenticationPurpose authentication);
@@ -185,6 +182,10 @@ public final class CreateConnectionRequestContentGitHub implements ICreateConnec
         _FinalStage connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts);
 
         _FinalStage connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts);
+
+        _FinalStage name(Optional<String> name);
+
+        _FinalStage name(String name);
 
         _FinalStage displayName(Optional<String> displayName);
 
@@ -221,11 +222,11 @@ public final class CreateConnectionRequestContentGitHub implements ICreateConnec
 
         private Optional<String> displayName = Optional.empty();
 
+        private Optional<String> name = Optional.empty();
+
         private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
 
         private Optional<ConnectionAuthenticationPurpose> authentication = Optional.empty();
-
-        private Optional<String> name = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -234,9 +235,9 @@ public final class CreateConnectionRequestContentGitHub implements ICreateConnec
 
         @java.lang.Override
         public Builder from(CreateConnectionRequestContentGitHub other) {
-            name(other.getName());
             authentication(other.getAuthentication());
             connectedAccounts(other.getConnectedAccounts());
+            name(other.getName());
             displayName(other.getDisplayName());
             enabledClients(other.getEnabledClients());
             isDomainConnection(other.getIsDomainConnection());
@@ -319,6 +320,19 @@ public final class CreateConnectionRequestContentGitHub implements ICreateConnec
         }
 
         @java.lang.Override
+        public _FinalStage name(String name) {
+            this.name = Optional.ofNullable(name);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "name", nulls = Nulls.SKIP)
+        public _FinalStage name(Optional<String> name) {
+            this.name = name;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts) {
             this.connectedAccounts = Optional.ofNullable(connectedAccounts);
             return this;
@@ -345,24 +359,11 @@ public final class CreateConnectionRequestContentGitHub implements ICreateConnec
         }
 
         @java.lang.Override
-        public _FinalStage name(String name) {
-            this.name = Optional.ofNullable(name);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "name", nulls = Nulls.SKIP)
-        public _FinalStage name(Optional<String> name) {
-            this.name = name;
-            return this;
-        }
-
-        @java.lang.Override
         public CreateConnectionRequestContentGitHub build() {
             return new CreateConnectionRequestContentGitHub(
-                    name,
                     authentication,
                     connectedAccounts,
+                    name,
                     displayName,
                     enabledClients,
                     isDomainConnection,

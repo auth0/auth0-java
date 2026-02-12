@@ -23,50 +23,156 @@ import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionOptionsGitHub.Builder.class)
-public final class ConnectionOptionsGitHub implements IConnectionOptionsOAuth2Common, IConnectionOptionsCommon {
+public final class ConnectionOptionsGitHub implements IConnectionOptionsCommon {
+    private final Optional<List<String>> nonPersistentAttrs;
+
     private final Optional<String> clientId;
 
     private final Optional<String> clientSecret;
 
-    private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
-            upstreamParams;
+    private final Optional<List<String>> freeformScopes;
+
+    private final Optional<List<String>> scope;
 
     private final Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes;
 
-    private final Optional<List<String>> nonPersistentAttrs;
+    private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+            upstreamParams;
+
+    private final Optional<Boolean> adminOrg;
+
+    private final Optional<Boolean> adminPublicKey;
+
+    private final Optional<Boolean> adminRepoHook;
+
+    private final Optional<Boolean> deleteRepo;
+
+    private final Optional<Boolean> email;
+
+    private final Optional<Boolean> follow;
+
+    private final Optional<Boolean> gist;
+
+    private final Optional<Boolean> notifications;
+
+    private final Optional<Boolean> profile;
+
+    private final Optional<Boolean> publicRepo;
+
+    private final Optional<Boolean> readOrg;
+
+    private final Optional<Boolean> readPublicKey;
+
+    private final Optional<Boolean> readRepoHook;
+
+    private final Optional<Boolean> readUser;
+
+    private final Optional<Boolean> repo;
+
+    private final Optional<Boolean> repoDeployment;
+
+    private final Optional<Boolean> repoStatus;
+
+    private final Optional<Boolean> writeOrg;
+
+    private final Optional<Boolean> writePublicKey;
+
+    private final Optional<Boolean> writeRepoHook;
 
     private final Map<String, Object> additionalProperties;
 
     private ConnectionOptionsGitHub(
+            Optional<List<String>> nonPersistentAttrs,
             Optional<String> clientId,
             Optional<String> clientSecret,
-            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
+            Optional<List<String>> freeformScopes,
+            Optional<List<String>> scope,
             Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes,
-            Optional<List<String>> nonPersistentAttrs,
+            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
+            Optional<Boolean> adminOrg,
+            Optional<Boolean> adminPublicKey,
+            Optional<Boolean> adminRepoHook,
+            Optional<Boolean> deleteRepo,
+            Optional<Boolean> email,
+            Optional<Boolean> follow,
+            Optional<Boolean> gist,
+            Optional<Boolean> notifications,
+            Optional<Boolean> profile,
+            Optional<Boolean> publicRepo,
+            Optional<Boolean> readOrg,
+            Optional<Boolean> readPublicKey,
+            Optional<Boolean> readRepoHook,
+            Optional<Boolean> readUser,
+            Optional<Boolean> repo,
+            Optional<Boolean> repoDeployment,
+            Optional<Boolean> repoStatus,
+            Optional<Boolean> writeOrg,
+            Optional<Boolean> writePublicKey,
+            Optional<Boolean> writeRepoHook,
             Map<String, Object> additionalProperties) {
+        this.nonPersistentAttrs = nonPersistentAttrs;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
-        this.upstreamParams = upstreamParams;
+        this.freeformScopes = freeformScopes;
+        this.scope = scope;
         this.setUserRootAttributes = setUserRootAttributes;
-        this.nonPersistentAttrs = nonPersistentAttrs;
+        this.upstreamParams = upstreamParams;
+        this.adminOrg = adminOrg;
+        this.adminPublicKey = adminPublicKey;
+        this.adminRepoHook = adminRepoHook;
+        this.deleteRepo = deleteRepo;
+        this.email = email;
+        this.follow = follow;
+        this.gist = gist;
+        this.notifications = notifications;
+        this.profile = profile;
+        this.publicRepo = publicRepo;
+        this.readOrg = readOrg;
+        this.readPublicKey = readPublicKey;
+        this.readRepoHook = readRepoHook;
+        this.readUser = readUser;
+        this.repo = repo;
+        this.repoDeployment = repoDeployment;
+        this.repoStatus = repoStatus;
+        this.writeOrg = writeOrg;
+        this.writePublicKey = writePublicKey;
+        this.writeRepoHook = writeRepoHook;
         this.additionalProperties = additionalProperties;
     }
 
-    @JsonProperty("client_id")
+    @JsonProperty("non_persistent_attrs")
     @java.lang.Override
+    public Optional<List<String>> getNonPersistentAttrs() {
+        return nonPersistentAttrs;
+    }
+
+    @JsonProperty("client_id")
     public Optional<String> getClientId() {
         return clientId;
     }
 
     @JsonProperty("client_secret")
-    @java.lang.Override
     public Optional<String> getClientSecret() {
         return clientSecret;
     }
 
+    @JsonProperty("freeform_scopes")
+    public Optional<List<String>> getFreeformScopes() {
+        return freeformScopes;
+    }
+
+    @JsonProperty("scope")
+    public Optional<List<String>> getScope() {
+        return scope;
+    }
+
+    @JsonProperty("set_user_root_attributes")
+    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
+        return setUserRootAttributes;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("upstream_params")
-    @java.lang.Override
     public OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams() {
         if (upstreamParams == null) {
             return OptionalNullable.absent();
@@ -74,16 +180,164 @@ public final class ConnectionOptionsGitHub implements IConnectionOptionsOAuth2Co
         return upstreamParams;
     }
 
-    @JsonProperty("set_user_root_attributes")
-    @java.lang.Override
-    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
-        return setUserRootAttributes;
+    /**
+     * @return Requests the GitHub admin:org scope so Auth0 can fully manage organizations, teams, and memberships on behalf of the user.
+     */
+    @JsonProperty("admin_org")
+    public Optional<Boolean> getAdminOrg() {
+        return adminOrg;
     }
 
-    @JsonProperty("non_persistent_attrs")
-    @java.lang.Override
-    public Optional<List<String>> getNonPersistentAttrs() {
-        return nonPersistentAttrs;
+    /**
+     * @return Requests the admin:public_key scope to allow creating, updating, and deleting the user's SSH public keys.
+     */
+    @JsonProperty("admin_public_key")
+    public Optional<Boolean> getAdminPublicKey() {
+        return adminPublicKey;
+    }
+
+    /**
+     * @return Requests the admin:repo_hook scope so Auth0 can read, write, ping, and delete repository webhooks.
+     */
+    @JsonProperty("admin_repo_hook")
+    public Optional<Boolean> getAdminRepoHook() {
+        return adminRepoHook;
+    }
+
+    /**
+     * @return Requests the delete_repo scope so the user can remove repositories they administer while signing in through Auth0.
+     */
+    @JsonProperty("delete_repo")
+    public Optional<Boolean> getDeleteRepo() {
+        return deleteRepo;
+    }
+
+    /**
+     * @return Requests the user:email scope so Auth0 pulls addresses from GitHub's /user/emails endpoint and populates the profile.
+     */
+    @JsonProperty("email")
+    public Optional<Boolean> getEmail() {
+        return email;
+    }
+
+    /**
+     * @return Requests the user:follow scope to allow following or unfollowing GitHub users for the signed-in account.
+     */
+    @JsonProperty("follow")
+    public Optional<Boolean> getFollow() {
+        return follow;
+    }
+
+    /**
+     * @return Requests the gist scope so the application can create or update gists on behalf of the user.
+     */
+    @JsonProperty("gist")
+    public Optional<Boolean> getGist() {
+        return gist;
+    }
+
+    /**
+     * @return Requests the notifications scope to read GitHub inbox notifications; repo also implicitly grants this access.
+     */
+    @JsonProperty("notifications")
+    public Optional<Boolean> getNotifications() {
+        return notifications;
+    }
+
+    /**
+     * @return Controls the GitHub read:user call that returns the user's basic profile (name, avatar, profile URL) and is on by default for successful logins.
+     */
+    @JsonProperty("profile")
+    public Optional<Boolean> getProfile() {
+        return profile;
+    }
+
+    /**
+     * @return Requests the public_repo scope for read and write operations on public repositories, deployments, and statuses.
+     */
+    @JsonProperty("public_repo")
+    public Optional<Boolean> getPublicRepo() {
+        return publicRepo;
+    }
+
+    /**
+     * @return Requests the read:org scope so Auth0 can view organizations, teams, and membership lists without making changes.
+     */
+    @JsonProperty("read_org")
+    public Optional<Boolean> getReadOrg() {
+        return readOrg;
+    }
+
+    /**
+     * @return Requests the read:public_key scope so Auth0 can list and inspect the user's SSH public keys.
+     */
+    @JsonProperty("read_public_key")
+    public Optional<Boolean> getReadPublicKey() {
+        return readPublicKey;
+    }
+
+    /**
+     * @return Requests the read:repo_hook scope to read and ping repository webhooks.
+     */
+    @JsonProperty("read_repo_hook")
+    public Optional<Boolean> getReadRepoHook() {
+        return readRepoHook;
+    }
+
+    /**
+     * @return Requests the read:user scope to load extended profile information, implicitly covering user:email and user:follow.
+     */
+    @JsonProperty("read_user")
+    public Optional<Boolean> getReadUser() {
+        return readUser;
+    }
+
+    /**
+     * @return Requests the repo scope for read and write access to both public and private repositories, deployments, and statuses.
+     */
+    @JsonProperty("repo")
+    public Optional<Boolean> getRepo() {
+        return repo;
+    }
+
+    /**
+     * @return Requests the repo_deployment scope in order to read and write deployment statuses for repositories.
+     */
+    @JsonProperty("repo_deployment")
+    public Optional<Boolean> getRepoDeployment() {
+        return repoDeployment;
+    }
+
+    /**
+     * @return Requests the repo:status scope to manage commit statuses on public and private repositories.
+     */
+    @JsonProperty("repo_status")
+    public Optional<Boolean> getRepoStatus() {
+        return repoStatus;
+    }
+
+    /**
+     * @return Requests the write:org scope so Auth0 can change whether organization memberships are publicized.
+     */
+    @JsonProperty("write_org")
+    public Optional<Boolean> getWriteOrg() {
+        return writeOrg;
+    }
+
+    /**
+     * @return Requests the write:public_key scope to create or update SSH public keys for the user.
+     */
+    @JsonProperty("write_public_key")
+    public Optional<Boolean> getWritePublicKey() {
+        return writePublicKey;
+    }
+
+    /**
+     * @return Requests the write:repo_hook scope so Auth0 can read, create, update, and ping repository webhooks.
+     */
+    @JsonProperty("write_repo_hook")
+    public Optional<Boolean> getWriteRepoHook() {
+        return writeRepoHook;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -105,21 +359,65 @@ public final class ConnectionOptionsGitHub implements IConnectionOptionsOAuth2Co
     }
 
     private boolean equalTo(ConnectionOptionsGitHub other) {
-        return clientId.equals(other.clientId)
+        return nonPersistentAttrs.equals(other.nonPersistentAttrs)
+                && clientId.equals(other.clientId)
                 && clientSecret.equals(other.clientSecret)
-                && upstreamParams.equals(other.upstreamParams)
+                && freeformScopes.equals(other.freeformScopes)
+                && scope.equals(other.scope)
                 && setUserRootAttributes.equals(other.setUserRootAttributes)
-                && nonPersistentAttrs.equals(other.nonPersistentAttrs);
+                && upstreamParams.equals(other.upstreamParams)
+                && adminOrg.equals(other.adminOrg)
+                && adminPublicKey.equals(other.adminPublicKey)
+                && adminRepoHook.equals(other.adminRepoHook)
+                && deleteRepo.equals(other.deleteRepo)
+                && email.equals(other.email)
+                && follow.equals(other.follow)
+                && gist.equals(other.gist)
+                && notifications.equals(other.notifications)
+                && profile.equals(other.profile)
+                && publicRepo.equals(other.publicRepo)
+                && readOrg.equals(other.readOrg)
+                && readPublicKey.equals(other.readPublicKey)
+                && readRepoHook.equals(other.readRepoHook)
+                && readUser.equals(other.readUser)
+                && repo.equals(other.repo)
+                && repoDeployment.equals(other.repoDeployment)
+                && repoStatus.equals(other.repoStatus)
+                && writeOrg.equals(other.writeOrg)
+                && writePublicKey.equals(other.writePublicKey)
+                && writeRepoHook.equals(other.writeRepoHook);
     }
 
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.nonPersistentAttrs,
                 this.clientId,
                 this.clientSecret,
-                this.upstreamParams,
+                this.freeformScopes,
+                this.scope,
                 this.setUserRootAttributes,
-                this.nonPersistentAttrs);
+                this.upstreamParams,
+                this.adminOrg,
+                this.adminPublicKey,
+                this.adminRepoHook,
+                this.deleteRepo,
+                this.email,
+                this.follow,
+                this.gist,
+                this.notifications,
+                this.profile,
+                this.publicRepo,
+                this.readOrg,
+                this.readPublicKey,
+                this.readRepoHook,
+                this.readUser,
+                this.repo,
+                this.repoDeployment,
+                this.repoStatus,
+                this.writeOrg,
+                this.writePublicKey,
+                this.writeRepoHook);
     }
 
     @java.lang.Override
@@ -133,16 +431,60 @@ public final class ConnectionOptionsGitHub implements IConnectionOptionsOAuth2Co
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
+
         private Optional<String> clientId = Optional.empty();
 
         private Optional<String> clientSecret = Optional.empty();
 
-        private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
-                OptionalNullable.absent();
+        private Optional<List<String>> freeformScopes = Optional.empty();
+
+        private Optional<List<String>> scope = Optional.empty();
 
         private Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes = Optional.empty();
 
-        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
+        private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
+                OptionalNullable.absent();
+
+        private Optional<Boolean> adminOrg = Optional.empty();
+
+        private Optional<Boolean> adminPublicKey = Optional.empty();
+
+        private Optional<Boolean> adminRepoHook = Optional.empty();
+
+        private Optional<Boolean> deleteRepo = Optional.empty();
+
+        private Optional<Boolean> email = Optional.empty();
+
+        private Optional<Boolean> follow = Optional.empty();
+
+        private Optional<Boolean> gist = Optional.empty();
+
+        private Optional<Boolean> notifications = Optional.empty();
+
+        private Optional<Boolean> profile = Optional.empty();
+
+        private Optional<Boolean> publicRepo = Optional.empty();
+
+        private Optional<Boolean> readOrg = Optional.empty();
+
+        private Optional<Boolean> readPublicKey = Optional.empty();
+
+        private Optional<Boolean> readRepoHook = Optional.empty();
+
+        private Optional<Boolean> readUser = Optional.empty();
+
+        private Optional<Boolean> repo = Optional.empty();
+
+        private Optional<Boolean> repoDeployment = Optional.empty();
+
+        private Optional<Boolean> repoStatus = Optional.empty();
+
+        private Optional<Boolean> writeOrg = Optional.empty();
+
+        private Optional<Boolean> writePublicKey = Optional.empty();
+
+        private Optional<Boolean> writeRepoHook = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -150,11 +492,44 @@ public final class ConnectionOptionsGitHub implements IConnectionOptionsOAuth2Co
         private Builder() {}
 
         public Builder from(ConnectionOptionsGitHub other) {
+            nonPersistentAttrs(other.getNonPersistentAttrs());
             clientId(other.getClientId());
             clientSecret(other.getClientSecret());
-            upstreamParams(other.getUpstreamParams());
+            freeformScopes(other.getFreeformScopes());
+            scope(other.getScope());
             setUserRootAttributes(other.getSetUserRootAttributes());
-            nonPersistentAttrs(other.getNonPersistentAttrs());
+            upstreamParams(other.getUpstreamParams());
+            adminOrg(other.getAdminOrg());
+            adminPublicKey(other.getAdminPublicKey());
+            adminRepoHook(other.getAdminRepoHook());
+            deleteRepo(other.getDeleteRepo());
+            email(other.getEmail());
+            follow(other.getFollow());
+            gist(other.getGist());
+            notifications(other.getNotifications());
+            profile(other.getProfile());
+            publicRepo(other.getPublicRepo());
+            readOrg(other.getReadOrg());
+            readPublicKey(other.getReadPublicKey());
+            readRepoHook(other.getReadRepoHook());
+            readUser(other.getReadUser());
+            repo(other.getRepo());
+            repoDeployment(other.getRepoDeployment());
+            repoStatus(other.getRepoStatus());
+            writeOrg(other.getWriteOrg());
+            writePublicKey(other.getWritePublicKey());
+            writeRepoHook(other.getWriteRepoHook());
+            return this;
+        }
+
+        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
+        public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
+            this.nonPersistentAttrs = nonPersistentAttrs;
+            return this;
+        }
+
+        public Builder nonPersistentAttrs(List<String> nonPersistentAttrs) {
+            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
             return this;
         }
 
@@ -177,6 +552,39 @@ public final class ConnectionOptionsGitHub implements IConnectionOptionsOAuth2Co
 
         public Builder clientSecret(String clientSecret) {
             this.clientSecret = Optional.ofNullable(clientSecret);
+            return this;
+        }
+
+        @JsonSetter(value = "freeform_scopes", nulls = Nulls.SKIP)
+        public Builder freeformScopes(Optional<List<String>> freeformScopes) {
+            this.freeformScopes = freeformScopes;
+            return this;
+        }
+
+        public Builder freeformScopes(List<String> freeformScopes) {
+            this.freeformScopes = Optional.ofNullable(freeformScopes);
+            return this;
+        }
+
+        @JsonSetter(value = "scope", nulls = Nulls.SKIP)
+        public Builder scope(Optional<List<String>> scope) {
+            this.scope = scope;
+            return this;
+        }
+
+        public Builder scope(List<String> scope) {
+            this.scope = Optional.ofNullable(scope);
+            return this;
+        }
+
+        @JsonSetter(value = "set_user_root_attributes", nulls = Nulls.SKIP)
+        public Builder setUserRootAttributes(Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes) {
+            this.setUserRootAttributes = setUserRootAttributes;
+            return this;
+        }
+
+        public Builder setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes) {
+            this.setUserRootAttributes = Optional.ofNullable(setUserRootAttributes);
             return this;
         }
 
@@ -219,35 +627,315 @@ public final class ConnectionOptionsGitHub implements IConnectionOptionsOAuth2Co
             return this;
         }
 
-        @JsonSetter(value = "set_user_root_attributes", nulls = Nulls.SKIP)
-        public Builder setUserRootAttributes(Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes) {
-            this.setUserRootAttributes = setUserRootAttributes;
+        /**
+         * <p>Requests the GitHub admin:org scope so Auth0 can fully manage organizations, teams, and memberships on behalf of the user.</p>
+         */
+        @JsonSetter(value = "admin_org", nulls = Nulls.SKIP)
+        public Builder adminOrg(Optional<Boolean> adminOrg) {
+            this.adminOrg = adminOrg;
             return this;
         }
 
-        public Builder setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes) {
-            this.setUserRootAttributes = Optional.ofNullable(setUserRootAttributes);
+        public Builder adminOrg(Boolean adminOrg) {
+            this.adminOrg = Optional.ofNullable(adminOrg);
             return this;
         }
 
-        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
-        public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
-            this.nonPersistentAttrs = nonPersistentAttrs;
+        /**
+         * <p>Requests the admin:public_key scope to allow creating, updating, and deleting the user's SSH public keys.</p>
+         */
+        @JsonSetter(value = "admin_public_key", nulls = Nulls.SKIP)
+        public Builder adminPublicKey(Optional<Boolean> adminPublicKey) {
+            this.adminPublicKey = adminPublicKey;
             return this;
         }
 
-        public Builder nonPersistentAttrs(List<String> nonPersistentAttrs) {
-            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
+        public Builder adminPublicKey(Boolean adminPublicKey) {
+            this.adminPublicKey = Optional.ofNullable(adminPublicKey);
+            return this;
+        }
+
+        /**
+         * <p>Requests the admin:repo_hook scope so Auth0 can read, write, ping, and delete repository webhooks.</p>
+         */
+        @JsonSetter(value = "admin_repo_hook", nulls = Nulls.SKIP)
+        public Builder adminRepoHook(Optional<Boolean> adminRepoHook) {
+            this.adminRepoHook = adminRepoHook;
+            return this;
+        }
+
+        public Builder adminRepoHook(Boolean adminRepoHook) {
+            this.adminRepoHook = Optional.ofNullable(adminRepoHook);
+            return this;
+        }
+
+        /**
+         * <p>Requests the delete_repo scope so the user can remove repositories they administer while signing in through Auth0.</p>
+         */
+        @JsonSetter(value = "delete_repo", nulls = Nulls.SKIP)
+        public Builder deleteRepo(Optional<Boolean> deleteRepo) {
+            this.deleteRepo = deleteRepo;
+            return this;
+        }
+
+        public Builder deleteRepo(Boolean deleteRepo) {
+            this.deleteRepo = Optional.ofNullable(deleteRepo);
+            return this;
+        }
+
+        /**
+         * <p>Requests the user:email scope so Auth0 pulls addresses from GitHub's /user/emails endpoint and populates the profile.</p>
+         */
+        @JsonSetter(value = "email", nulls = Nulls.SKIP)
+        public Builder email(Optional<Boolean> email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder email(Boolean email) {
+            this.email = Optional.ofNullable(email);
+            return this;
+        }
+
+        /**
+         * <p>Requests the user:follow scope to allow following or unfollowing GitHub users for the signed-in account.</p>
+         */
+        @JsonSetter(value = "follow", nulls = Nulls.SKIP)
+        public Builder follow(Optional<Boolean> follow) {
+            this.follow = follow;
+            return this;
+        }
+
+        public Builder follow(Boolean follow) {
+            this.follow = Optional.ofNullable(follow);
+            return this;
+        }
+
+        /**
+         * <p>Requests the gist scope so the application can create or update gists on behalf of the user.</p>
+         */
+        @JsonSetter(value = "gist", nulls = Nulls.SKIP)
+        public Builder gist(Optional<Boolean> gist) {
+            this.gist = gist;
+            return this;
+        }
+
+        public Builder gist(Boolean gist) {
+            this.gist = Optional.ofNullable(gist);
+            return this;
+        }
+
+        /**
+         * <p>Requests the notifications scope to read GitHub inbox notifications; repo also implicitly grants this access.</p>
+         */
+        @JsonSetter(value = "notifications", nulls = Nulls.SKIP)
+        public Builder notifications(Optional<Boolean> notifications) {
+            this.notifications = notifications;
+            return this;
+        }
+
+        public Builder notifications(Boolean notifications) {
+            this.notifications = Optional.ofNullable(notifications);
+            return this;
+        }
+
+        /**
+         * <p>Controls the GitHub read:user call that returns the user's basic profile (name, avatar, profile URL) and is on by default for successful logins.</p>
+         */
+        @JsonSetter(value = "profile", nulls = Nulls.SKIP)
+        public Builder profile(Optional<Boolean> profile) {
+            this.profile = profile;
+            return this;
+        }
+
+        public Builder profile(Boolean profile) {
+            this.profile = Optional.ofNullable(profile);
+            return this;
+        }
+
+        /**
+         * <p>Requests the public_repo scope for read and write operations on public repositories, deployments, and statuses.</p>
+         */
+        @JsonSetter(value = "public_repo", nulls = Nulls.SKIP)
+        public Builder publicRepo(Optional<Boolean> publicRepo) {
+            this.publicRepo = publicRepo;
+            return this;
+        }
+
+        public Builder publicRepo(Boolean publicRepo) {
+            this.publicRepo = Optional.ofNullable(publicRepo);
+            return this;
+        }
+
+        /**
+         * <p>Requests the read:org scope so Auth0 can view organizations, teams, and membership lists without making changes.</p>
+         */
+        @JsonSetter(value = "read_org", nulls = Nulls.SKIP)
+        public Builder readOrg(Optional<Boolean> readOrg) {
+            this.readOrg = readOrg;
+            return this;
+        }
+
+        public Builder readOrg(Boolean readOrg) {
+            this.readOrg = Optional.ofNullable(readOrg);
+            return this;
+        }
+
+        /**
+         * <p>Requests the read:public_key scope so Auth0 can list and inspect the user's SSH public keys.</p>
+         */
+        @JsonSetter(value = "read_public_key", nulls = Nulls.SKIP)
+        public Builder readPublicKey(Optional<Boolean> readPublicKey) {
+            this.readPublicKey = readPublicKey;
+            return this;
+        }
+
+        public Builder readPublicKey(Boolean readPublicKey) {
+            this.readPublicKey = Optional.ofNullable(readPublicKey);
+            return this;
+        }
+
+        /**
+         * <p>Requests the read:repo_hook scope to read and ping repository webhooks.</p>
+         */
+        @JsonSetter(value = "read_repo_hook", nulls = Nulls.SKIP)
+        public Builder readRepoHook(Optional<Boolean> readRepoHook) {
+            this.readRepoHook = readRepoHook;
+            return this;
+        }
+
+        public Builder readRepoHook(Boolean readRepoHook) {
+            this.readRepoHook = Optional.ofNullable(readRepoHook);
+            return this;
+        }
+
+        /**
+         * <p>Requests the read:user scope to load extended profile information, implicitly covering user:email and user:follow.</p>
+         */
+        @JsonSetter(value = "read_user", nulls = Nulls.SKIP)
+        public Builder readUser(Optional<Boolean> readUser) {
+            this.readUser = readUser;
+            return this;
+        }
+
+        public Builder readUser(Boolean readUser) {
+            this.readUser = Optional.ofNullable(readUser);
+            return this;
+        }
+
+        /**
+         * <p>Requests the repo scope for read and write access to both public and private repositories, deployments, and statuses.</p>
+         */
+        @JsonSetter(value = "repo", nulls = Nulls.SKIP)
+        public Builder repo(Optional<Boolean> repo) {
+            this.repo = repo;
+            return this;
+        }
+
+        public Builder repo(Boolean repo) {
+            this.repo = Optional.ofNullable(repo);
+            return this;
+        }
+
+        /**
+         * <p>Requests the repo_deployment scope in order to read and write deployment statuses for repositories.</p>
+         */
+        @JsonSetter(value = "repo_deployment", nulls = Nulls.SKIP)
+        public Builder repoDeployment(Optional<Boolean> repoDeployment) {
+            this.repoDeployment = repoDeployment;
+            return this;
+        }
+
+        public Builder repoDeployment(Boolean repoDeployment) {
+            this.repoDeployment = Optional.ofNullable(repoDeployment);
+            return this;
+        }
+
+        /**
+         * <p>Requests the repo:status scope to manage commit statuses on public and private repositories.</p>
+         */
+        @JsonSetter(value = "repo_status", nulls = Nulls.SKIP)
+        public Builder repoStatus(Optional<Boolean> repoStatus) {
+            this.repoStatus = repoStatus;
+            return this;
+        }
+
+        public Builder repoStatus(Boolean repoStatus) {
+            this.repoStatus = Optional.ofNullable(repoStatus);
+            return this;
+        }
+
+        /**
+         * <p>Requests the write:org scope so Auth0 can change whether organization memberships are publicized.</p>
+         */
+        @JsonSetter(value = "write_org", nulls = Nulls.SKIP)
+        public Builder writeOrg(Optional<Boolean> writeOrg) {
+            this.writeOrg = writeOrg;
+            return this;
+        }
+
+        public Builder writeOrg(Boolean writeOrg) {
+            this.writeOrg = Optional.ofNullable(writeOrg);
+            return this;
+        }
+
+        /**
+         * <p>Requests the write:public_key scope to create or update SSH public keys for the user.</p>
+         */
+        @JsonSetter(value = "write_public_key", nulls = Nulls.SKIP)
+        public Builder writePublicKey(Optional<Boolean> writePublicKey) {
+            this.writePublicKey = writePublicKey;
+            return this;
+        }
+
+        public Builder writePublicKey(Boolean writePublicKey) {
+            this.writePublicKey = Optional.ofNullable(writePublicKey);
+            return this;
+        }
+
+        /**
+         * <p>Requests the write:repo_hook scope so Auth0 can read, create, update, and ping repository webhooks.</p>
+         */
+        @JsonSetter(value = "write_repo_hook", nulls = Nulls.SKIP)
+        public Builder writeRepoHook(Optional<Boolean> writeRepoHook) {
+            this.writeRepoHook = writeRepoHook;
+            return this;
+        }
+
+        public Builder writeRepoHook(Boolean writeRepoHook) {
+            this.writeRepoHook = Optional.ofNullable(writeRepoHook);
             return this;
         }
 
         public ConnectionOptionsGitHub build() {
             return new ConnectionOptionsGitHub(
+                    nonPersistentAttrs,
                     clientId,
                     clientSecret,
-                    upstreamParams,
+                    freeformScopes,
+                    scope,
                     setUserRootAttributes,
-                    nonPersistentAttrs,
+                    upstreamParams,
+                    adminOrg,
+                    adminPublicKey,
+                    adminRepoHook,
+                    deleteRepo,
+                    email,
+                    follow,
+                    gist,
+                    notifications,
+                    profile,
+                    publicRepo,
+                    readOrg,
+                    readPublicKey,
+                    readRepoHook,
+                    readUser,
+                    repo,
+                    repoDeployment,
+                    repoStatus,
+                    writeOrg,
+                    writePublicKey,
+                    writeRepoHook,
                     additionalProperties);
         }
     }

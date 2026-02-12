@@ -29,10 +29,6 @@ public final class ConnectionResponseCommon
 
     private final Optional<String> name;
 
-    private final Optional<ConnectionAuthenticationPurpose> authentication;
-
-    private final Optional<ConnectionConnectedAccountsPurpose> connectedAccounts;
-
     private final Optional<String> displayName;
 
     private final Optional<List<String>> enabledClients;
@@ -47,8 +43,6 @@ public final class ConnectionResponseCommon
             Optional<String> id,
             Optional<List<String>> realms,
             Optional<String> name,
-            Optional<ConnectionAuthenticationPurpose> authentication,
-            Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
             Optional<String> displayName,
             Optional<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
@@ -57,8 +51,6 @@ public final class ConnectionResponseCommon
         this.id = id;
         this.realms = realms;
         this.name = name;
-        this.authentication = authentication;
-        this.connectedAccounts = connectedAccounts;
         this.displayName = displayName;
         this.enabledClients = enabledClients;
         this.isDomainConnection = isDomainConnection;
@@ -82,18 +74,6 @@ public final class ConnectionResponseCommon
     @java.lang.Override
     public Optional<String> getName() {
         return name;
-    }
-
-    @JsonProperty("authentication")
-    @java.lang.Override
-    public Optional<ConnectionAuthenticationPurpose> getAuthentication() {
-        return authentication;
-    }
-
-    @JsonProperty("connected_accounts")
-    @java.lang.Override
-    public Optional<ConnectionConnectedAccountsPurpose> getConnectedAccounts() {
-        return connectedAccounts;
     }
 
     @JsonProperty("display_name")
@@ -135,8 +115,6 @@ public final class ConnectionResponseCommon
         return id.equals(other.id)
                 && realms.equals(other.realms)
                 && name.equals(other.name)
-                && authentication.equals(other.authentication)
-                && connectedAccounts.equals(other.connectedAccounts)
                 && displayName.equals(other.displayName)
                 && enabledClients.equals(other.enabledClients)
                 && isDomainConnection.equals(other.isDomainConnection)
@@ -149,8 +127,6 @@ public final class ConnectionResponseCommon
                 this.id,
                 this.realms,
                 this.name,
-                this.authentication,
-                this.connectedAccounts,
                 this.displayName,
                 this.enabledClients,
                 this.isDomainConnection,
@@ -174,10 +150,6 @@ public final class ConnectionResponseCommon
 
         private Optional<String> name = Optional.empty();
 
-        private Optional<ConnectionAuthenticationPurpose> authentication = Optional.empty();
-
-        private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
-
         private Optional<String> displayName = Optional.empty();
 
         private Optional<List<String>> enabledClients = Optional.empty();
@@ -195,8 +167,6 @@ public final class ConnectionResponseCommon
             id(other.getId());
             realms(other.getRealms());
             name(other.getName());
-            authentication(other.getAuthentication());
-            connectedAccounts(other.getConnectedAccounts());
             displayName(other.getDisplayName());
             enabledClients(other.getEnabledClients());
             isDomainConnection(other.getIsDomainConnection());
@@ -234,28 +204,6 @@ public final class ConnectionResponseCommon
 
         public Builder name(String name) {
             this.name = Optional.ofNullable(name);
-            return this;
-        }
-
-        @JsonSetter(value = "authentication", nulls = Nulls.SKIP)
-        public Builder authentication(Optional<ConnectionAuthenticationPurpose> authentication) {
-            this.authentication = authentication;
-            return this;
-        }
-
-        public Builder authentication(ConnectionAuthenticationPurpose authentication) {
-            this.authentication = Optional.ofNullable(authentication);
-            return this;
-        }
-
-        @JsonSetter(value = "connected_accounts", nulls = Nulls.SKIP)
-        public Builder connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts) {
-            this.connectedAccounts = connectedAccounts;
-            return this;
-        }
-
-        public Builder connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts) {
-            this.connectedAccounts = Optional.ofNullable(connectedAccounts);
             return this;
         }
 
@@ -305,16 +253,7 @@ public final class ConnectionResponseCommon
 
         public ConnectionResponseCommon build() {
             return new ConnectionResponseCommon(
-                    id,
-                    realms,
-                    name,
-                    authentication,
-                    connectedAccounts,
-                    displayName,
-                    enabledClients,
-                    isDomainConnection,
-                    metadata,
-                    additionalProperties);
+                    id, realms, name, displayName, enabledClients, isDomainConnection, metadata, additionalProperties);
         }
     }
 }

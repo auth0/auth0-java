@@ -23,65 +23,277 @@ import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionOptionsWindowsLive.Builder.class)
-public final class ConnectionOptionsWindowsLive implements IConnectionOptionsOAuth2Common, IConnectionOptionsCommon {
+public final class ConnectionOptionsWindowsLive implements IConnectionOptionsCommon {
+    private final Optional<List<String>> nonPersistentAttrs;
+
     private final Optional<String> clientId;
 
     private final Optional<String> clientSecret;
 
-    private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
-            upstreamParams;
+    private final Optional<List<String>> freeformScopes;
+
+    private final Optional<List<String>> scope;
 
     private final Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes;
 
-    private final Optional<List<String>> nonPersistentAttrs;
-
     private final Optional<Integer> strategyVersion;
+
+    private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+            upstreamParams;
+
+    private final Optional<Boolean> applications;
+
+    private final Optional<Boolean> applicationsCreate;
+
+    private final Optional<Boolean> basic;
+
+    private final Optional<Boolean> birthday;
+
+    private final Optional<Boolean> calendars;
+
+    private final Optional<Boolean> calendarsUpdate;
+
+    private final Optional<Boolean> contactsBirthday;
+
+    private final Optional<Boolean> contactsCalendars;
+
+    private final Optional<Boolean> contactsCreate;
+
+    private final Optional<Boolean> contactsPhotos;
+
+    private final Optional<Boolean> contactsSkydrive;
+
+    private final Optional<Boolean> directoryAccessasuserAll;
+
+    private final Optional<Boolean> directoryReadAll;
+
+    private final Optional<Boolean> directoryReadwriteAll;
+
+    private final Optional<Boolean> emails;
+
+    private final Optional<Boolean> eventsCreate;
+
+    private final Optional<Boolean> graphCalendars;
+
+    private final Optional<Boolean> graphCalendarsUpdate;
+
+    private final Optional<Boolean> graphContacts;
+
+    private final Optional<Boolean> graphContactsUpdate;
+
+    private final Optional<Boolean> graphDevice;
+
+    private final Optional<Boolean> graphDeviceCommand;
+
+    private final Optional<Boolean> graphEmails;
+
+    private final Optional<Boolean> graphEmailsUpdate;
+
+    private final Optional<Boolean> graphFiles;
+
+    private final Optional<Boolean> graphFilesAll;
+
+    private final Optional<Boolean> graphFilesAllUpdate;
+
+    private final Optional<Boolean> graphFilesUpdate;
+
+    private final Optional<Boolean> graphNotes;
+
+    private final Optional<Boolean> graphNotesCreate;
+
+    private final Optional<Boolean> graphNotesUpdate;
+
+    private final Optional<Boolean> graphTasks;
+
+    private final Optional<Boolean> graphTasksUpdate;
+
+    private final Optional<Boolean> graphUser;
+
+    private final Optional<Boolean> graphUserActivity;
+
+    private final Optional<Boolean> graphUserUpdate;
+
+    private final Optional<Boolean> groupReadAll;
+
+    private final Optional<Boolean> groupReadwriteAll;
+
+    private final Optional<Boolean> mailReadwriteAll;
+
+    private final Optional<Boolean> mailSend;
+
+    private final Optional<Boolean> messenger;
+
+    private final Optional<Boolean> offlineAccess;
+
+    private final Optional<Boolean> phoneNumbers;
+
+    private final Optional<Boolean> photos;
+
+    private final Optional<Boolean> postalAddresses;
+
+    private final Optional<Boolean> rolemanagementReadAll;
+
+    private final Optional<Boolean> rolemanagementReadwriteDirectory;
+
+    private final Optional<Boolean> share;
+
+    private final Optional<Boolean> signin;
+
+    private final Optional<Boolean> sitesReadAll;
+
+    private final Optional<Boolean> sitesReadwriteAll;
+
+    private final Optional<Boolean> skydrive;
+
+    private final Optional<Boolean> skydriveUpdate;
+
+    private final Optional<Boolean> teamReadbasicAll;
+
+    private final Optional<Boolean> teamReadwriteAll;
+
+    private final Optional<Boolean> userReadAll;
+
+    private final Optional<Boolean> userReadbasicAll;
+
+    private final Optional<Boolean> workProfile;
 
     private final Map<String, Object> additionalProperties;
 
     private ConnectionOptionsWindowsLive(
+            Optional<List<String>> nonPersistentAttrs,
             Optional<String> clientId,
             Optional<String> clientSecret,
-            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
+            Optional<List<String>> freeformScopes,
+            Optional<List<String>> scope,
             Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes,
-            Optional<List<String>> nonPersistentAttrs,
             Optional<Integer> strategyVersion,
+            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
+            Optional<Boolean> applications,
+            Optional<Boolean> applicationsCreate,
+            Optional<Boolean> basic,
+            Optional<Boolean> birthday,
+            Optional<Boolean> calendars,
+            Optional<Boolean> calendarsUpdate,
+            Optional<Boolean> contactsBirthday,
+            Optional<Boolean> contactsCalendars,
+            Optional<Boolean> contactsCreate,
+            Optional<Boolean> contactsPhotos,
+            Optional<Boolean> contactsSkydrive,
+            Optional<Boolean> directoryAccessasuserAll,
+            Optional<Boolean> directoryReadAll,
+            Optional<Boolean> directoryReadwriteAll,
+            Optional<Boolean> emails,
+            Optional<Boolean> eventsCreate,
+            Optional<Boolean> graphCalendars,
+            Optional<Boolean> graphCalendarsUpdate,
+            Optional<Boolean> graphContacts,
+            Optional<Boolean> graphContactsUpdate,
+            Optional<Boolean> graphDevice,
+            Optional<Boolean> graphDeviceCommand,
+            Optional<Boolean> graphEmails,
+            Optional<Boolean> graphEmailsUpdate,
+            Optional<Boolean> graphFiles,
+            Optional<Boolean> graphFilesAll,
+            Optional<Boolean> graphFilesAllUpdate,
+            Optional<Boolean> graphFilesUpdate,
+            Optional<Boolean> graphNotes,
+            Optional<Boolean> graphNotesCreate,
+            Optional<Boolean> graphNotesUpdate,
+            Optional<Boolean> graphTasks,
+            Optional<Boolean> graphTasksUpdate,
+            Optional<Boolean> graphUser,
+            Optional<Boolean> graphUserActivity,
+            Optional<Boolean> graphUserUpdate,
+            Optional<Boolean> groupReadAll,
+            Optional<Boolean> groupReadwriteAll,
+            Optional<Boolean> mailReadwriteAll,
+            Optional<Boolean> mailSend,
+            Optional<Boolean> messenger,
+            Optional<Boolean> offlineAccess,
+            Optional<Boolean> phoneNumbers,
+            Optional<Boolean> photos,
+            Optional<Boolean> postalAddresses,
+            Optional<Boolean> rolemanagementReadAll,
+            Optional<Boolean> rolemanagementReadwriteDirectory,
+            Optional<Boolean> share,
+            Optional<Boolean> signin,
+            Optional<Boolean> sitesReadAll,
+            Optional<Boolean> sitesReadwriteAll,
+            Optional<Boolean> skydrive,
+            Optional<Boolean> skydriveUpdate,
+            Optional<Boolean> teamReadbasicAll,
+            Optional<Boolean> teamReadwriteAll,
+            Optional<Boolean> userReadAll,
+            Optional<Boolean> userReadbasicAll,
+            Optional<Boolean> workProfile,
             Map<String, Object> additionalProperties) {
+        this.nonPersistentAttrs = nonPersistentAttrs;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
-        this.upstreamParams = upstreamParams;
+        this.freeformScopes = freeformScopes;
+        this.scope = scope;
         this.setUserRootAttributes = setUserRootAttributes;
-        this.nonPersistentAttrs = nonPersistentAttrs;
         this.strategyVersion = strategyVersion;
+        this.upstreamParams = upstreamParams;
+        this.applications = applications;
+        this.applicationsCreate = applicationsCreate;
+        this.basic = basic;
+        this.birthday = birthday;
+        this.calendars = calendars;
+        this.calendarsUpdate = calendarsUpdate;
+        this.contactsBirthday = contactsBirthday;
+        this.contactsCalendars = contactsCalendars;
+        this.contactsCreate = contactsCreate;
+        this.contactsPhotos = contactsPhotos;
+        this.contactsSkydrive = contactsSkydrive;
+        this.directoryAccessasuserAll = directoryAccessasuserAll;
+        this.directoryReadAll = directoryReadAll;
+        this.directoryReadwriteAll = directoryReadwriteAll;
+        this.emails = emails;
+        this.eventsCreate = eventsCreate;
+        this.graphCalendars = graphCalendars;
+        this.graphCalendarsUpdate = graphCalendarsUpdate;
+        this.graphContacts = graphContacts;
+        this.graphContactsUpdate = graphContactsUpdate;
+        this.graphDevice = graphDevice;
+        this.graphDeviceCommand = graphDeviceCommand;
+        this.graphEmails = graphEmails;
+        this.graphEmailsUpdate = graphEmailsUpdate;
+        this.graphFiles = graphFiles;
+        this.graphFilesAll = graphFilesAll;
+        this.graphFilesAllUpdate = graphFilesAllUpdate;
+        this.graphFilesUpdate = graphFilesUpdate;
+        this.graphNotes = graphNotes;
+        this.graphNotesCreate = graphNotesCreate;
+        this.graphNotesUpdate = graphNotesUpdate;
+        this.graphTasks = graphTasks;
+        this.graphTasksUpdate = graphTasksUpdate;
+        this.graphUser = graphUser;
+        this.graphUserActivity = graphUserActivity;
+        this.graphUserUpdate = graphUserUpdate;
+        this.groupReadAll = groupReadAll;
+        this.groupReadwriteAll = groupReadwriteAll;
+        this.mailReadwriteAll = mailReadwriteAll;
+        this.mailSend = mailSend;
+        this.messenger = messenger;
+        this.offlineAccess = offlineAccess;
+        this.phoneNumbers = phoneNumbers;
+        this.photos = photos;
+        this.postalAddresses = postalAddresses;
+        this.rolemanagementReadAll = rolemanagementReadAll;
+        this.rolemanagementReadwriteDirectory = rolemanagementReadwriteDirectory;
+        this.share = share;
+        this.signin = signin;
+        this.sitesReadAll = sitesReadAll;
+        this.sitesReadwriteAll = sitesReadwriteAll;
+        this.skydrive = skydrive;
+        this.skydriveUpdate = skydriveUpdate;
+        this.teamReadbasicAll = teamReadbasicAll;
+        this.teamReadwriteAll = teamReadwriteAll;
+        this.userReadAll = userReadAll;
+        this.userReadbasicAll = userReadbasicAll;
+        this.workProfile = workProfile;
         this.additionalProperties = additionalProperties;
-    }
-
-    @JsonProperty("client_id")
-    @java.lang.Override
-    public Optional<String> getClientId() {
-        return clientId;
-    }
-
-    @JsonProperty("client_secret")
-    @java.lang.Override
-    public Optional<String> getClientSecret() {
-        return clientSecret;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("upstream_params")
-    @java.lang.Override
-    public OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams() {
-        if (upstreamParams == null) {
-            return OptionalNullable.absent();
-        }
-        return upstreamParams;
-    }
-
-    @JsonProperty("set_user_root_attributes")
-    @java.lang.Override
-    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
-        return setUserRootAttributes;
     }
 
     @JsonProperty("non_persistent_attrs")
@@ -90,9 +302,507 @@ public final class ConnectionOptionsWindowsLive implements IConnectionOptionsOAu
         return nonPersistentAttrs;
     }
 
+    @JsonProperty("client_id")
+    public Optional<String> getClientId() {
+        return clientId;
+    }
+
+    @JsonProperty("client_secret")
+    public Optional<String> getClientSecret() {
+        return clientSecret;
+    }
+
+    @JsonProperty("freeform_scopes")
+    public Optional<List<String>> getFreeformScopes() {
+        return freeformScopes;
+    }
+
+    @JsonProperty("scope")
+    public Optional<List<String>> getScope() {
+        return scope;
+    }
+
+    @JsonProperty("set_user_root_attributes")
+    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
+        return setUserRootAttributes;
+    }
+
     @JsonProperty("strategy_version")
     public Optional<Integer> getStrategyVersion() {
         return strategyVersion;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("upstream_params")
+    public OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams() {
+        if (upstreamParams == null) {
+            return OptionalNullable.absent();
+        }
+        return upstreamParams;
+    }
+
+    /**
+     * @return When enabled, requests access to user's applications.
+     */
+    @JsonProperty("applications")
+    public Optional<Boolean> getApplications() {
+        return applications;
+    }
+
+    /**
+     * @return When enabled, requests permission to create applications.
+     */
+    @JsonProperty("applications_create")
+    public Optional<Boolean> getApplicationsCreate() {
+        return applicationsCreate;
+    }
+
+    /**
+     * @return When enabled, requests read access to user's basic profile information and contacts list.
+     */
+    @JsonProperty("basic")
+    public Optional<Boolean> getBasic() {
+        return basic;
+    }
+
+    /**
+     * @return When enabled, requests read access to user's birth day, month, and year.
+     */
+    @JsonProperty("birthday")
+    public Optional<Boolean> getBirthday() {
+        return birthday;
+    }
+
+    /**
+     * @return When enabled, requests read access to user's calendars and events.
+     */
+    @JsonProperty("calendars")
+    public Optional<Boolean> getCalendars() {
+        return calendars;
+    }
+
+    /**
+     * @return When enabled, requests read and write access to user's calendars and events.
+     */
+    @JsonProperty("calendars_update")
+    public Optional<Boolean> getCalendarsUpdate() {
+        return calendarsUpdate;
+    }
+
+    /**
+     * @return When enabled, requests read access to contacts' birth day and birth month.
+     */
+    @JsonProperty("contacts_birthday")
+    public Optional<Boolean> getContactsBirthday() {
+        return contactsBirthday;
+    }
+
+    /**
+     * @return When enabled, requests read access to user's calendars and shared calendars/events from others.
+     */
+    @JsonProperty("contacts_calendars")
+    public Optional<Boolean> getContactsCalendars() {
+        return contactsCalendars;
+    }
+
+    /**
+     * @return When enabled, requests permission to create new contacts in user's address book.
+     */
+    @JsonProperty("contacts_create")
+    public Optional<Boolean> getContactsCreate() {
+        return contactsCreate;
+    }
+
+    /**
+     * @return When enabled, requests read access to user's and shared albums, photos, videos, and audio.
+     */
+    @JsonProperty("contacts_photos")
+    public Optional<Boolean> getContactsPhotos() {
+        return contactsPhotos;
+    }
+
+    /**
+     * @return When enabled, requests read access to OneDrive files shared by other users.
+     */
+    @JsonProperty("contacts_skydrive")
+    public Optional<Boolean> getContactsSkydrive() {
+        return contactsSkydrive;
+    }
+
+    /**
+     * @return When enabled, allows the app to have the same access to information in the directory as the signed-in user.
+     */
+    @JsonProperty("directory_accessasuser_all")
+    public Optional<Boolean> getDirectoryAccessasuserAll() {
+        return directoryAccessasuserAll;
+    }
+
+    /**
+     * @return When enabled, allows the app to read data in your organization's directory, such as users, groups, and apps.
+     */
+    @JsonProperty("directory_read_all")
+    public Optional<Boolean> getDirectoryReadAll() {
+        return directoryReadAll;
+    }
+
+    /**
+     * @return When enabled, allows the app to read and write data in your organization's directory, such as users and groups.
+     */
+    @JsonProperty("directory_readwrite_all")
+    public Optional<Boolean> getDirectoryReadwriteAll() {
+        return directoryReadwriteAll;
+    }
+
+    /**
+     * @return When enabled, requests read access to personal, preferred, and business email addresses.
+     */
+    @JsonProperty("emails")
+    public Optional<Boolean> getEmails() {
+        return emails;
+    }
+
+    /**
+     * @return When enabled, requests permission to create events on user's default calendar.
+     */
+    @JsonProperty("events_create")
+    public Optional<Boolean> getEventsCreate() {
+        return eventsCreate;
+    }
+
+    /**
+     * @return When enabled, requests permission to read the user's calendars.
+     */
+    @JsonProperty("graph_calendars")
+    public Optional<Boolean> getGraphCalendars() {
+        return graphCalendars;
+    }
+
+    /**
+     * @return When enabled, requests permission to read and write the user's calendars.
+     */
+    @JsonProperty("graph_calendars_update")
+    public Optional<Boolean> getGraphCalendarsUpdate() {
+        return graphCalendarsUpdate;
+    }
+
+    /**
+     * @return When enabled, requests permission to read the user's contacts.
+     */
+    @JsonProperty("graph_contacts")
+    public Optional<Boolean> getGraphContacts() {
+        return graphContacts;
+    }
+
+    /**
+     * @return When enabled, requests permission to read and write the user's contacts.
+     */
+    @JsonProperty("graph_contacts_update")
+    public Optional<Boolean> getGraphContactsUpdate() {
+        return graphContactsUpdate;
+    }
+
+    /**
+     * @return When enabled, requests permission to read the user's device information.
+     */
+    @JsonProperty("graph_device")
+    public Optional<Boolean> getGraphDevice() {
+        return graphDevice;
+    }
+
+    /**
+     * @return When enabled, requests permission to send commands to the user's devices.
+     */
+    @JsonProperty("graph_device_command")
+    public Optional<Boolean> getGraphDeviceCommand() {
+        return graphDeviceCommand;
+    }
+
+    /**
+     * @return When enabled, requests permission to read the user's emails.
+     */
+    @JsonProperty("graph_emails")
+    public Optional<Boolean> getGraphEmails() {
+        return graphEmails;
+    }
+
+    /**
+     * @return When enabled, requests permission to read and write the user's emails.
+     */
+    @JsonProperty("graph_emails_update")
+    public Optional<Boolean> getGraphEmailsUpdate() {
+        return graphEmailsUpdate;
+    }
+
+    /**
+     * @return When enabled, requests permission to read the user's files.
+     */
+    @JsonProperty("graph_files")
+    public Optional<Boolean> getGraphFiles() {
+        return graphFiles;
+    }
+
+    /**
+     * @return When enabled, requests permission to read all files the user has access to.
+     */
+    @JsonProperty("graph_files_all")
+    public Optional<Boolean> getGraphFilesAll() {
+        return graphFilesAll;
+    }
+
+    /**
+     * @return When enabled, requests permission to read and write all files the user has access to.
+     */
+    @JsonProperty("graph_files_all_update")
+    public Optional<Boolean> getGraphFilesAllUpdate() {
+        return graphFilesAllUpdate;
+    }
+
+    /**
+     * @return When enabled, requests permission to read and write the user's files.
+     */
+    @JsonProperty("graph_files_update")
+    public Optional<Boolean> getGraphFilesUpdate() {
+        return graphFilesUpdate;
+    }
+
+    /**
+     * @return When enabled, requests permission to read the user's OneNote notebooks.
+     */
+    @JsonProperty("graph_notes")
+    public Optional<Boolean> getGraphNotes() {
+        return graphNotes;
+    }
+
+    /**
+     * @return When enabled, requests permission to create new OneNote notebooks.
+     */
+    @JsonProperty("graph_notes_create")
+    public Optional<Boolean> getGraphNotesCreate() {
+        return graphNotesCreate;
+    }
+
+    /**
+     * @return When enabled, requests permission to read and write the user's OneNote notebooks.
+     */
+    @JsonProperty("graph_notes_update")
+    public Optional<Boolean> getGraphNotesUpdate() {
+        return graphNotesUpdate;
+    }
+
+    /**
+     * @return When enabled, requests permission to read the user's tasks.
+     */
+    @JsonProperty("graph_tasks")
+    public Optional<Boolean> getGraphTasks() {
+        return graphTasks;
+    }
+
+    /**
+     * @return When enabled, requests permission to read and write the user's tasks.
+     */
+    @JsonProperty("graph_tasks_update")
+    public Optional<Boolean> getGraphTasksUpdate() {
+        return graphTasksUpdate;
+    }
+
+    /**
+     * @return When enabled, requests permission to read the user's profile.
+     */
+    @JsonProperty("graph_user")
+    public Optional<Boolean> getGraphUser() {
+        return graphUser;
+    }
+
+    /**
+     * @return When enabled, requests permission to read the user's activity history.
+     */
+    @JsonProperty("graph_user_activity")
+    public Optional<Boolean> getGraphUserActivity() {
+        return graphUserActivity;
+    }
+
+    /**
+     * @return When enabled, requests permission to read and write the user's profile.
+     */
+    @JsonProperty("graph_user_update")
+    public Optional<Boolean> getGraphUserUpdate() {
+        return graphUserUpdate;
+    }
+
+    /**
+     * @return When enabled, allows the app to read all group properties and memberships.
+     */
+    @JsonProperty("group_read_all")
+    public Optional<Boolean> getGroupReadAll() {
+        return groupReadAll;
+    }
+
+    /**
+     * @return When enabled, allows the app to create groups, read all group properties and memberships, update group properties and memberships, and delete groups.
+     */
+    @JsonProperty("group_readwrite_all")
+    public Optional<Boolean> getGroupReadwriteAll() {
+        return groupReadwriteAll;
+    }
+
+    /**
+     * @return When enabled, allows the app to create, read, update, and delete all mail in all mailboxes.
+     */
+    @JsonProperty("mail_readwrite_all")
+    public Optional<Boolean> getMailReadwriteAll() {
+        return mailReadwriteAll;
+    }
+
+    /**
+     * @return When enabled, allows the app to send mail as users in the organization.
+     */
+    @JsonProperty("mail_send")
+    public Optional<Boolean> getMailSend() {
+        return mailSend;
+    }
+
+    /**
+     * @return When enabled, requests access to user's Windows Live Messenger data.
+     */
+    @JsonProperty("messenger")
+    public Optional<Boolean> getMessenger() {
+        return messenger;
+    }
+
+    /**
+     * @return When enabled, requests a refresh token for offline access.
+     */
+    @JsonProperty("offline_access")
+    public Optional<Boolean> getOfflineAccess() {
+        return offlineAccess;
+    }
+
+    /**
+     * @return When enabled, requests read access to personal, business, and mobile phone numbers.
+     */
+    @JsonProperty("phone_numbers")
+    public Optional<Boolean> getPhoneNumbers() {
+        return phoneNumbers;
+    }
+
+    /**
+     * @return When enabled, requests read access to user's photos, videos, audio, and albums.
+     */
+    @JsonProperty("photos")
+    public Optional<Boolean> getPhotos() {
+        return photos;
+    }
+
+    /**
+     * @return When enabled, requests read access to personal and business postal addresses.
+     */
+    @JsonProperty("postal_addresses")
+    public Optional<Boolean> getPostalAddresses() {
+        return postalAddresses;
+    }
+
+    /**
+     * @return When enabled, allows the app to read the role-based access control (RBAC) settings for your company's directory.
+     */
+    @JsonProperty("rolemanagement_read_all")
+    public Optional<Boolean> getRolemanagementReadAll() {
+        return rolemanagementReadAll;
+    }
+
+    /**
+     * @return When enabled, allows the app to read and write the role-based access control (RBAC) settings for your company's directory.
+     */
+    @JsonProperty("rolemanagement_readwrite_directory")
+    public Optional<Boolean> getRolemanagementReadwriteDirectory() {
+        return rolemanagementReadwriteDirectory;
+    }
+
+    /**
+     * @return When enabled, requests permission to share content with other users.
+     */
+    @JsonProperty("share")
+    public Optional<Boolean> getShare() {
+        return share;
+    }
+
+    /**
+     * @return When enabled, provides single sign-in behavior for users already signed into their Microsoft account.
+     */
+    @JsonProperty("signin")
+    public Optional<Boolean> getSignin() {
+        return signin;
+    }
+
+    /**
+     * @return When enabled, allows the app to read documents and list items in all SharePoint site collections.
+     */
+    @JsonProperty("sites_read_all")
+    public Optional<Boolean> getSitesReadAll() {
+        return sitesReadAll;
+    }
+
+    /**
+     * @return When enabled, allows the app to create, read, update, and delete documents and list items in all SharePoint site collections.
+     */
+    @JsonProperty("sites_readwrite_all")
+    public Optional<Boolean> getSitesReadwriteAll() {
+        return sitesReadwriteAll;
+    }
+
+    /**
+     * @return When enabled, requests read access to user's files stored on OneDrive.
+     */
+    @JsonProperty("skydrive")
+    public Optional<Boolean> getSkydrive() {
+        return skydrive;
+    }
+
+    /**
+     * @return When enabled, requests read and write access to user's OneDrive files.
+     */
+    @JsonProperty("skydrive_update")
+    public Optional<Boolean> getSkydriveUpdate() {
+        return skydriveUpdate;
+    }
+
+    /**
+     * @return When enabled, allows the app to read the names and descriptions of all teams.
+     */
+    @JsonProperty("team_readbasic_all")
+    public Optional<Boolean> getTeamReadbasicAll() {
+        return teamReadbasicAll;
+    }
+
+    /**
+     * @return When enabled, allows the app to read and write all teams' information and change team membership.
+     */
+    @JsonProperty("team_readwrite_all")
+    public Optional<Boolean> getTeamReadwriteAll() {
+        return teamReadwriteAll;
+    }
+
+    /**
+     * @return When enabled, allows the app to read the full set of profile properties, reports, and managers of all users.
+     */
+    @JsonProperty("user_read_all")
+    public Optional<Boolean> getUserReadAll() {
+        return userReadAll;
+    }
+
+    /**
+     * @return When enabled, allows the app to read a basic set of profile properties of all users in the directory.
+     */
+    @JsonProperty("user_readbasic_all")
+    public Optional<Boolean> getUserReadbasicAll() {
+        return userReadbasicAll;
+    }
+
+    /**
+     * @return When enabled, requests read access to employer and work position information.
+     */
+    @JsonProperty("work_profile")
+    public Optional<Boolean> getWorkProfile() {
+        return workProfile;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -114,23 +824,143 @@ public final class ConnectionOptionsWindowsLive implements IConnectionOptionsOAu
     }
 
     private boolean equalTo(ConnectionOptionsWindowsLive other) {
-        return clientId.equals(other.clientId)
+        return nonPersistentAttrs.equals(other.nonPersistentAttrs)
+                && clientId.equals(other.clientId)
                 && clientSecret.equals(other.clientSecret)
-                && upstreamParams.equals(other.upstreamParams)
+                && freeformScopes.equals(other.freeformScopes)
+                && scope.equals(other.scope)
                 && setUserRootAttributes.equals(other.setUserRootAttributes)
-                && nonPersistentAttrs.equals(other.nonPersistentAttrs)
-                && strategyVersion.equals(other.strategyVersion);
+                && strategyVersion.equals(other.strategyVersion)
+                && upstreamParams.equals(other.upstreamParams)
+                && applications.equals(other.applications)
+                && applicationsCreate.equals(other.applicationsCreate)
+                && basic.equals(other.basic)
+                && birthday.equals(other.birthday)
+                && calendars.equals(other.calendars)
+                && calendarsUpdate.equals(other.calendarsUpdate)
+                && contactsBirthday.equals(other.contactsBirthday)
+                && contactsCalendars.equals(other.contactsCalendars)
+                && contactsCreate.equals(other.contactsCreate)
+                && contactsPhotos.equals(other.contactsPhotos)
+                && contactsSkydrive.equals(other.contactsSkydrive)
+                && directoryAccessasuserAll.equals(other.directoryAccessasuserAll)
+                && directoryReadAll.equals(other.directoryReadAll)
+                && directoryReadwriteAll.equals(other.directoryReadwriteAll)
+                && emails.equals(other.emails)
+                && eventsCreate.equals(other.eventsCreate)
+                && graphCalendars.equals(other.graphCalendars)
+                && graphCalendarsUpdate.equals(other.graphCalendarsUpdate)
+                && graphContacts.equals(other.graphContacts)
+                && graphContactsUpdate.equals(other.graphContactsUpdate)
+                && graphDevice.equals(other.graphDevice)
+                && graphDeviceCommand.equals(other.graphDeviceCommand)
+                && graphEmails.equals(other.graphEmails)
+                && graphEmailsUpdate.equals(other.graphEmailsUpdate)
+                && graphFiles.equals(other.graphFiles)
+                && graphFilesAll.equals(other.graphFilesAll)
+                && graphFilesAllUpdate.equals(other.graphFilesAllUpdate)
+                && graphFilesUpdate.equals(other.graphFilesUpdate)
+                && graphNotes.equals(other.graphNotes)
+                && graphNotesCreate.equals(other.graphNotesCreate)
+                && graphNotesUpdate.equals(other.graphNotesUpdate)
+                && graphTasks.equals(other.graphTasks)
+                && graphTasksUpdate.equals(other.graphTasksUpdate)
+                && graphUser.equals(other.graphUser)
+                && graphUserActivity.equals(other.graphUserActivity)
+                && graphUserUpdate.equals(other.graphUserUpdate)
+                && groupReadAll.equals(other.groupReadAll)
+                && groupReadwriteAll.equals(other.groupReadwriteAll)
+                && mailReadwriteAll.equals(other.mailReadwriteAll)
+                && mailSend.equals(other.mailSend)
+                && messenger.equals(other.messenger)
+                && offlineAccess.equals(other.offlineAccess)
+                && phoneNumbers.equals(other.phoneNumbers)
+                && photos.equals(other.photos)
+                && postalAddresses.equals(other.postalAddresses)
+                && rolemanagementReadAll.equals(other.rolemanagementReadAll)
+                && rolemanagementReadwriteDirectory.equals(other.rolemanagementReadwriteDirectory)
+                && share.equals(other.share)
+                && signin.equals(other.signin)
+                && sitesReadAll.equals(other.sitesReadAll)
+                && sitesReadwriteAll.equals(other.sitesReadwriteAll)
+                && skydrive.equals(other.skydrive)
+                && skydriveUpdate.equals(other.skydriveUpdate)
+                && teamReadbasicAll.equals(other.teamReadbasicAll)
+                && teamReadwriteAll.equals(other.teamReadwriteAll)
+                && userReadAll.equals(other.userReadAll)
+                && userReadbasicAll.equals(other.userReadbasicAll)
+                && workProfile.equals(other.workProfile);
     }
 
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.nonPersistentAttrs,
                 this.clientId,
                 this.clientSecret,
-                this.upstreamParams,
+                this.freeformScopes,
+                this.scope,
                 this.setUserRootAttributes,
-                this.nonPersistentAttrs,
-                this.strategyVersion);
+                this.strategyVersion,
+                this.upstreamParams,
+                this.applications,
+                this.applicationsCreate,
+                this.basic,
+                this.birthday,
+                this.calendars,
+                this.calendarsUpdate,
+                this.contactsBirthday,
+                this.contactsCalendars,
+                this.contactsCreate,
+                this.contactsPhotos,
+                this.contactsSkydrive,
+                this.directoryAccessasuserAll,
+                this.directoryReadAll,
+                this.directoryReadwriteAll,
+                this.emails,
+                this.eventsCreate,
+                this.graphCalendars,
+                this.graphCalendarsUpdate,
+                this.graphContacts,
+                this.graphContactsUpdate,
+                this.graphDevice,
+                this.graphDeviceCommand,
+                this.graphEmails,
+                this.graphEmailsUpdate,
+                this.graphFiles,
+                this.graphFilesAll,
+                this.graphFilesAllUpdate,
+                this.graphFilesUpdate,
+                this.graphNotes,
+                this.graphNotesCreate,
+                this.graphNotesUpdate,
+                this.graphTasks,
+                this.graphTasksUpdate,
+                this.graphUser,
+                this.graphUserActivity,
+                this.graphUserUpdate,
+                this.groupReadAll,
+                this.groupReadwriteAll,
+                this.mailReadwriteAll,
+                this.mailSend,
+                this.messenger,
+                this.offlineAccess,
+                this.phoneNumbers,
+                this.photos,
+                this.postalAddresses,
+                this.rolemanagementReadAll,
+                this.rolemanagementReadwriteDirectory,
+                this.share,
+                this.signin,
+                this.sitesReadAll,
+                this.sitesReadwriteAll,
+                this.skydrive,
+                this.skydriveUpdate,
+                this.teamReadbasicAll,
+                this.teamReadwriteAll,
+                this.userReadAll,
+                this.userReadbasicAll,
+                this.workProfile);
     }
 
     @java.lang.Override
@@ -144,18 +974,138 @@ public final class ConnectionOptionsWindowsLive implements IConnectionOptionsOAu
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
+
         private Optional<String> clientId = Optional.empty();
 
         private Optional<String> clientSecret = Optional.empty();
 
-        private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
-                OptionalNullable.absent();
+        private Optional<List<String>> freeformScopes = Optional.empty();
+
+        private Optional<List<String>> scope = Optional.empty();
 
         private Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes = Optional.empty();
 
-        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
-
         private Optional<Integer> strategyVersion = Optional.empty();
+
+        private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
+                OptionalNullable.absent();
+
+        private Optional<Boolean> applications = Optional.empty();
+
+        private Optional<Boolean> applicationsCreate = Optional.empty();
+
+        private Optional<Boolean> basic = Optional.empty();
+
+        private Optional<Boolean> birthday = Optional.empty();
+
+        private Optional<Boolean> calendars = Optional.empty();
+
+        private Optional<Boolean> calendarsUpdate = Optional.empty();
+
+        private Optional<Boolean> contactsBirthday = Optional.empty();
+
+        private Optional<Boolean> contactsCalendars = Optional.empty();
+
+        private Optional<Boolean> contactsCreate = Optional.empty();
+
+        private Optional<Boolean> contactsPhotos = Optional.empty();
+
+        private Optional<Boolean> contactsSkydrive = Optional.empty();
+
+        private Optional<Boolean> directoryAccessasuserAll = Optional.empty();
+
+        private Optional<Boolean> directoryReadAll = Optional.empty();
+
+        private Optional<Boolean> directoryReadwriteAll = Optional.empty();
+
+        private Optional<Boolean> emails = Optional.empty();
+
+        private Optional<Boolean> eventsCreate = Optional.empty();
+
+        private Optional<Boolean> graphCalendars = Optional.empty();
+
+        private Optional<Boolean> graphCalendarsUpdate = Optional.empty();
+
+        private Optional<Boolean> graphContacts = Optional.empty();
+
+        private Optional<Boolean> graphContactsUpdate = Optional.empty();
+
+        private Optional<Boolean> graphDevice = Optional.empty();
+
+        private Optional<Boolean> graphDeviceCommand = Optional.empty();
+
+        private Optional<Boolean> graphEmails = Optional.empty();
+
+        private Optional<Boolean> graphEmailsUpdate = Optional.empty();
+
+        private Optional<Boolean> graphFiles = Optional.empty();
+
+        private Optional<Boolean> graphFilesAll = Optional.empty();
+
+        private Optional<Boolean> graphFilesAllUpdate = Optional.empty();
+
+        private Optional<Boolean> graphFilesUpdate = Optional.empty();
+
+        private Optional<Boolean> graphNotes = Optional.empty();
+
+        private Optional<Boolean> graphNotesCreate = Optional.empty();
+
+        private Optional<Boolean> graphNotesUpdate = Optional.empty();
+
+        private Optional<Boolean> graphTasks = Optional.empty();
+
+        private Optional<Boolean> graphTasksUpdate = Optional.empty();
+
+        private Optional<Boolean> graphUser = Optional.empty();
+
+        private Optional<Boolean> graphUserActivity = Optional.empty();
+
+        private Optional<Boolean> graphUserUpdate = Optional.empty();
+
+        private Optional<Boolean> groupReadAll = Optional.empty();
+
+        private Optional<Boolean> groupReadwriteAll = Optional.empty();
+
+        private Optional<Boolean> mailReadwriteAll = Optional.empty();
+
+        private Optional<Boolean> mailSend = Optional.empty();
+
+        private Optional<Boolean> messenger = Optional.empty();
+
+        private Optional<Boolean> offlineAccess = Optional.empty();
+
+        private Optional<Boolean> phoneNumbers = Optional.empty();
+
+        private Optional<Boolean> photos = Optional.empty();
+
+        private Optional<Boolean> postalAddresses = Optional.empty();
+
+        private Optional<Boolean> rolemanagementReadAll = Optional.empty();
+
+        private Optional<Boolean> rolemanagementReadwriteDirectory = Optional.empty();
+
+        private Optional<Boolean> share = Optional.empty();
+
+        private Optional<Boolean> signin = Optional.empty();
+
+        private Optional<Boolean> sitesReadAll = Optional.empty();
+
+        private Optional<Boolean> sitesReadwriteAll = Optional.empty();
+
+        private Optional<Boolean> skydrive = Optional.empty();
+
+        private Optional<Boolean> skydriveUpdate = Optional.empty();
+
+        private Optional<Boolean> teamReadbasicAll = Optional.empty();
+
+        private Optional<Boolean> teamReadwriteAll = Optional.empty();
+
+        private Optional<Boolean> userReadAll = Optional.empty();
+
+        private Optional<Boolean> userReadbasicAll = Optional.empty();
+
+        private Optional<Boolean> workProfile = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -163,12 +1113,83 @@ public final class ConnectionOptionsWindowsLive implements IConnectionOptionsOAu
         private Builder() {}
 
         public Builder from(ConnectionOptionsWindowsLive other) {
+            nonPersistentAttrs(other.getNonPersistentAttrs());
             clientId(other.getClientId());
             clientSecret(other.getClientSecret());
-            upstreamParams(other.getUpstreamParams());
+            freeformScopes(other.getFreeformScopes());
+            scope(other.getScope());
             setUserRootAttributes(other.getSetUserRootAttributes());
-            nonPersistentAttrs(other.getNonPersistentAttrs());
             strategyVersion(other.getStrategyVersion());
+            upstreamParams(other.getUpstreamParams());
+            applications(other.getApplications());
+            applicationsCreate(other.getApplicationsCreate());
+            basic(other.getBasic());
+            birthday(other.getBirthday());
+            calendars(other.getCalendars());
+            calendarsUpdate(other.getCalendarsUpdate());
+            contactsBirthday(other.getContactsBirthday());
+            contactsCalendars(other.getContactsCalendars());
+            contactsCreate(other.getContactsCreate());
+            contactsPhotos(other.getContactsPhotos());
+            contactsSkydrive(other.getContactsSkydrive());
+            directoryAccessasuserAll(other.getDirectoryAccessasuserAll());
+            directoryReadAll(other.getDirectoryReadAll());
+            directoryReadwriteAll(other.getDirectoryReadwriteAll());
+            emails(other.getEmails());
+            eventsCreate(other.getEventsCreate());
+            graphCalendars(other.getGraphCalendars());
+            graphCalendarsUpdate(other.getGraphCalendarsUpdate());
+            graphContacts(other.getGraphContacts());
+            graphContactsUpdate(other.getGraphContactsUpdate());
+            graphDevice(other.getGraphDevice());
+            graphDeviceCommand(other.getGraphDeviceCommand());
+            graphEmails(other.getGraphEmails());
+            graphEmailsUpdate(other.getGraphEmailsUpdate());
+            graphFiles(other.getGraphFiles());
+            graphFilesAll(other.getGraphFilesAll());
+            graphFilesAllUpdate(other.getGraphFilesAllUpdate());
+            graphFilesUpdate(other.getGraphFilesUpdate());
+            graphNotes(other.getGraphNotes());
+            graphNotesCreate(other.getGraphNotesCreate());
+            graphNotesUpdate(other.getGraphNotesUpdate());
+            graphTasks(other.getGraphTasks());
+            graphTasksUpdate(other.getGraphTasksUpdate());
+            graphUser(other.getGraphUser());
+            graphUserActivity(other.getGraphUserActivity());
+            graphUserUpdate(other.getGraphUserUpdate());
+            groupReadAll(other.getGroupReadAll());
+            groupReadwriteAll(other.getGroupReadwriteAll());
+            mailReadwriteAll(other.getMailReadwriteAll());
+            mailSend(other.getMailSend());
+            messenger(other.getMessenger());
+            offlineAccess(other.getOfflineAccess());
+            phoneNumbers(other.getPhoneNumbers());
+            photos(other.getPhotos());
+            postalAddresses(other.getPostalAddresses());
+            rolemanagementReadAll(other.getRolemanagementReadAll());
+            rolemanagementReadwriteDirectory(other.getRolemanagementReadwriteDirectory());
+            share(other.getShare());
+            signin(other.getSignin());
+            sitesReadAll(other.getSitesReadAll());
+            sitesReadwriteAll(other.getSitesReadwriteAll());
+            skydrive(other.getSkydrive());
+            skydriveUpdate(other.getSkydriveUpdate());
+            teamReadbasicAll(other.getTeamReadbasicAll());
+            teamReadwriteAll(other.getTeamReadwriteAll());
+            userReadAll(other.getUserReadAll());
+            userReadbasicAll(other.getUserReadbasicAll());
+            workProfile(other.getWorkProfile());
+            return this;
+        }
+
+        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
+        public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
+            this.nonPersistentAttrs = nonPersistentAttrs;
+            return this;
+        }
+
+        public Builder nonPersistentAttrs(List<String> nonPersistentAttrs) {
+            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
             return this;
         }
 
@@ -191,6 +1212,50 @@ public final class ConnectionOptionsWindowsLive implements IConnectionOptionsOAu
 
         public Builder clientSecret(String clientSecret) {
             this.clientSecret = Optional.ofNullable(clientSecret);
+            return this;
+        }
+
+        @JsonSetter(value = "freeform_scopes", nulls = Nulls.SKIP)
+        public Builder freeformScopes(Optional<List<String>> freeformScopes) {
+            this.freeformScopes = freeformScopes;
+            return this;
+        }
+
+        public Builder freeformScopes(List<String> freeformScopes) {
+            this.freeformScopes = Optional.ofNullable(freeformScopes);
+            return this;
+        }
+
+        @JsonSetter(value = "scope", nulls = Nulls.SKIP)
+        public Builder scope(Optional<List<String>> scope) {
+            this.scope = scope;
+            return this;
+        }
+
+        public Builder scope(List<String> scope) {
+            this.scope = Optional.ofNullable(scope);
+            return this;
+        }
+
+        @JsonSetter(value = "set_user_root_attributes", nulls = Nulls.SKIP)
+        public Builder setUserRootAttributes(Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes) {
+            this.setUserRootAttributes = setUserRootAttributes;
+            return this;
+        }
+
+        public Builder setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes) {
+            this.setUserRootAttributes = Optional.ofNullable(setUserRootAttributes);
+            return this;
+        }
+
+        @JsonSetter(value = "strategy_version", nulls = Nulls.SKIP)
+        public Builder strategyVersion(Optional<Integer> strategyVersion) {
+            this.strategyVersion = strategyVersion;
+            return this;
+        }
+
+        public Builder strategyVersion(Integer strategyVersion) {
+            this.strategyVersion = Optional.ofNullable(strategyVersion);
             return this;
         }
 
@@ -233,47 +1298,886 @@ public final class ConnectionOptionsWindowsLive implements IConnectionOptionsOAu
             return this;
         }
 
-        @JsonSetter(value = "set_user_root_attributes", nulls = Nulls.SKIP)
-        public Builder setUserRootAttributes(Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes) {
-            this.setUserRootAttributes = setUserRootAttributes;
+        /**
+         * <p>When enabled, requests access to user's applications.</p>
+         */
+        @JsonSetter(value = "applications", nulls = Nulls.SKIP)
+        public Builder applications(Optional<Boolean> applications) {
+            this.applications = applications;
             return this;
         }
 
-        public Builder setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes) {
-            this.setUserRootAttributes = Optional.ofNullable(setUserRootAttributes);
+        public Builder applications(Boolean applications) {
+            this.applications = Optional.ofNullable(applications);
             return this;
         }
 
-        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
-        public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
-            this.nonPersistentAttrs = nonPersistentAttrs;
+        /**
+         * <p>When enabled, requests permission to create applications.</p>
+         */
+        @JsonSetter(value = "applications_create", nulls = Nulls.SKIP)
+        public Builder applicationsCreate(Optional<Boolean> applicationsCreate) {
+            this.applicationsCreate = applicationsCreate;
             return this;
         }
 
-        public Builder nonPersistentAttrs(List<String> nonPersistentAttrs) {
-            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
+        public Builder applicationsCreate(Boolean applicationsCreate) {
+            this.applicationsCreate = Optional.ofNullable(applicationsCreate);
             return this;
         }
 
-        @JsonSetter(value = "strategy_version", nulls = Nulls.SKIP)
-        public Builder strategyVersion(Optional<Integer> strategyVersion) {
-            this.strategyVersion = strategyVersion;
+        /**
+         * <p>When enabled, requests read access to user's basic profile information and contacts list.</p>
+         */
+        @JsonSetter(value = "basic", nulls = Nulls.SKIP)
+        public Builder basic(Optional<Boolean> basic) {
+            this.basic = basic;
             return this;
         }
 
-        public Builder strategyVersion(Integer strategyVersion) {
-            this.strategyVersion = Optional.ofNullable(strategyVersion);
+        public Builder basic(Boolean basic) {
+            this.basic = Optional.ofNullable(basic);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests read access to user's birth day, month, and year.</p>
+         */
+        @JsonSetter(value = "birthday", nulls = Nulls.SKIP)
+        public Builder birthday(Optional<Boolean> birthday) {
+            this.birthday = birthday;
+            return this;
+        }
+
+        public Builder birthday(Boolean birthday) {
+            this.birthday = Optional.ofNullable(birthday);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests read access to user's calendars and events.</p>
+         */
+        @JsonSetter(value = "calendars", nulls = Nulls.SKIP)
+        public Builder calendars(Optional<Boolean> calendars) {
+            this.calendars = calendars;
+            return this;
+        }
+
+        public Builder calendars(Boolean calendars) {
+            this.calendars = Optional.ofNullable(calendars);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests read and write access to user's calendars and events.</p>
+         */
+        @JsonSetter(value = "calendars_update", nulls = Nulls.SKIP)
+        public Builder calendarsUpdate(Optional<Boolean> calendarsUpdate) {
+            this.calendarsUpdate = calendarsUpdate;
+            return this;
+        }
+
+        public Builder calendarsUpdate(Boolean calendarsUpdate) {
+            this.calendarsUpdate = Optional.ofNullable(calendarsUpdate);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests read access to contacts' birth day and birth month.</p>
+         */
+        @JsonSetter(value = "contacts_birthday", nulls = Nulls.SKIP)
+        public Builder contactsBirthday(Optional<Boolean> contactsBirthday) {
+            this.contactsBirthday = contactsBirthday;
+            return this;
+        }
+
+        public Builder contactsBirthday(Boolean contactsBirthday) {
+            this.contactsBirthday = Optional.ofNullable(contactsBirthday);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests read access to user's calendars and shared calendars/events from others.</p>
+         */
+        @JsonSetter(value = "contacts_calendars", nulls = Nulls.SKIP)
+        public Builder contactsCalendars(Optional<Boolean> contactsCalendars) {
+            this.contactsCalendars = contactsCalendars;
+            return this;
+        }
+
+        public Builder contactsCalendars(Boolean contactsCalendars) {
+            this.contactsCalendars = Optional.ofNullable(contactsCalendars);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to create new contacts in user's address book.</p>
+         */
+        @JsonSetter(value = "contacts_create", nulls = Nulls.SKIP)
+        public Builder contactsCreate(Optional<Boolean> contactsCreate) {
+            this.contactsCreate = contactsCreate;
+            return this;
+        }
+
+        public Builder contactsCreate(Boolean contactsCreate) {
+            this.contactsCreate = Optional.ofNullable(contactsCreate);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests read access to user's and shared albums, photos, videos, and audio.</p>
+         */
+        @JsonSetter(value = "contacts_photos", nulls = Nulls.SKIP)
+        public Builder contactsPhotos(Optional<Boolean> contactsPhotos) {
+            this.contactsPhotos = contactsPhotos;
+            return this;
+        }
+
+        public Builder contactsPhotos(Boolean contactsPhotos) {
+            this.contactsPhotos = Optional.ofNullable(contactsPhotos);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests read access to OneDrive files shared by other users.</p>
+         */
+        @JsonSetter(value = "contacts_skydrive", nulls = Nulls.SKIP)
+        public Builder contactsSkydrive(Optional<Boolean> contactsSkydrive) {
+            this.contactsSkydrive = contactsSkydrive;
+            return this;
+        }
+
+        public Builder contactsSkydrive(Boolean contactsSkydrive) {
+            this.contactsSkydrive = Optional.ofNullable(contactsSkydrive);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, allows the app to have the same access to information in the directory as the signed-in user.</p>
+         */
+        @JsonSetter(value = "directory_accessasuser_all", nulls = Nulls.SKIP)
+        public Builder directoryAccessasuserAll(Optional<Boolean> directoryAccessasuserAll) {
+            this.directoryAccessasuserAll = directoryAccessasuserAll;
+            return this;
+        }
+
+        public Builder directoryAccessasuserAll(Boolean directoryAccessasuserAll) {
+            this.directoryAccessasuserAll = Optional.ofNullable(directoryAccessasuserAll);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, allows the app to read data in your organization's directory, such as users, groups, and apps.</p>
+         */
+        @JsonSetter(value = "directory_read_all", nulls = Nulls.SKIP)
+        public Builder directoryReadAll(Optional<Boolean> directoryReadAll) {
+            this.directoryReadAll = directoryReadAll;
+            return this;
+        }
+
+        public Builder directoryReadAll(Boolean directoryReadAll) {
+            this.directoryReadAll = Optional.ofNullable(directoryReadAll);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, allows the app to read and write data in your organization's directory, such as users and groups.</p>
+         */
+        @JsonSetter(value = "directory_readwrite_all", nulls = Nulls.SKIP)
+        public Builder directoryReadwriteAll(Optional<Boolean> directoryReadwriteAll) {
+            this.directoryReadwriteAll = directoryReadwriteAll;
+            return this;
+        }
+
+        public Builder directoryReadwriteAll(Boolean directoryReadwriteAll) {
+            this.directoryReadwriteAll = Optional.ofNullable(directoryReadwriteAll);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests read access to personal, preferred, and business email addresses.</p>
+         */
+        @JsonSetter(value = "emails", nulls = Nulls.SKIP)
+        public Builder emails(Optional<Boolean> emails) {
+            this.emails = emails;
+            return this;
+        }
+
+        public Builder emails(Boolean emails) {
+            this.emails = Optional.ofNullable(emails);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to create events on user's default calendar.</p>
+         */
+        @JsonSetter(value = "events_create", nulls = Nulls.SKIP)
+        public Builder eventsCreate(Optional<Boolean> eventsCreate) {
+            this.eventsCreate = eventsCreate;
+            return this;
+        }
+
+        public Builder eventsCreate(Boolean eventsCreate) {
+            this.eventsCreate = Optional.ofNullable(eventsCreate);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to read the user's calendars.</p>
+         */
+        @JsonSetter(value = "graph_calendars", nulls = Nulls.SKIP)
+        public Builder graphCalendars(Optional<Boolean> graphCalendars) {
+            this.graphCalendars = graphCalendars;
+            return this;
+        }
+
+        public Builder graphCalendars(Boolean graphCalendars) {
+            this.graphCalendars = Optional.ofNullable(graphCalendars);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to read and write the user's calendars.</p>
+         */
+        @JsonSetter(value = "graph_calendars_update", nulls = Nulls.SKIP)
+        public Builder graphCalendarsUpdate(Optional<Boolean> graphCalendarsUpdate) {
+            this.graphCalendarsUpdate = graphCalendarsUpdate;
+            return this;
+        }
+
+        public Builder graphCalendarsUpdate(Boolean graphCalendarsUpdate) {
+            this.graphCalendarsUpdate = Optional.ofNullable(graphCalendarsUpdate);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to read the user's contacts.</p>
+         */
+        @JsonSetter(value = "graph_contacts", nulls = Nulls.SKIP)
+        public Builder graphContacts(Optional<Boolean> graphContacts) {
+            this.graphContacts = graphContacts;
+            return this;
+        }
+
+        public Builder graphContacts(Boolean graphContacts) {
+            this.graphContacts = Optional.ofNullable(graphContacts);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to read and write the user's contacts.</p>
+         */
+        @JsonSetter(value = "graph_contacts_update", nulls = Nulls.SKIP)
+        public Builder graphContactsUpdate(Optional<Boolean> graphContactsUpdate) {
+            this.graphContactsUpdate = graphContactsUpdate;
+            return this;
+        }
+
+        public Builder graphContactsUpdate(Boolean graphContactsUpdate) {
+            this.graphContactsUpdate = Optional.ofNullable(graphContactsUpdate);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to read the user's device information.</p>
+         */
+        @JsonSetter(value = "graph_device", nulls = Nulls.SKIP)
+        public Builder graphDevice(Optional<Boolean> graphDevice) {
+            this.graphDevice = graphDevice;
+            return this;
+        }
+
+        public Builder graphDevice(Boolean graphDevice) {
+            this.graphDevice = Optional.ofNullable(graphDevice);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to send commands to the user's devices.</p>
+         */
+        @JsonSetter(value = "graph_device_command", nulls = Nulls.SKIP)
+        public Builder graphDeviceCommand(Optional<Boolean> graphDeviceCommand) {
+            this.graphDeviceCommand = graphDeviceCommand;
+            return this;
+        }
+
+        public Builder graphDeviceCommand(Boolean graphDeviceCommand) {
+            this.graphDeviceCommand = Optional.ofNullable(graphDeviceCommand);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to read the user's emails.</p>
+         */
+        @JsonSetter(value = "graph_emails", nulls = Nulls.SKIP)
+        public Builder graphEmails(Optional<Boolean> graphEmails) {
+            this.graphEmails = graphEmails;
+            return this;
+        }
+
+        public Builder graphEmails(Boolean graphEmails) {
+            this.graphEmails = Optional.ofNullable(graphEmails);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to read and write the user's emails.</p>
+         */
+        @JsonSetter(value = "graph_emails_update", nulls = Nulls.SKIP)
+        public Builder graphEmailsUpdate(Optional<Boolean> graphEmailsUpdate) {
+            this.graphEmailsUpdate = graphEmailsUpdate;
+            return this;
+        }
+
+        public Builder graphEmailsUpdate(Boolean graphEmailsUpdate) {
+            this.graphEmailsUpdate = Optional.ofNullable(graphEmailsUpdate);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to read the user's files.</p>
+         */
+        @JsonSetter(value = "graph_files", nulls = Nulls.SKIP)
+        public Builder graphFiles(Optional<Boolean> graphFiles) {
+            this.graphFiles = graphFiles;
+            return this;
+        }
+
+        public Builder graphFiles(Boolean graphFiles) {
+            this.graphFiles = Optional.ofNullable(graphFiles);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to read all files the user has access to.</p>
+         */
+        @JsonSetter(value = "graph_files_all", nulls = Nulls.SKIP)
+        public Builder graphFilesAll(Optional<Boolean> graphFilesAll) {
+            this.graphFilesAll = graphFilesAll;
+            return this;
+        }
+
+        public Builder graphFilesAll(Boolean graphFilesAll) {
+            this.graphFilesAll = Optional.ofNullable(graphFilesAll);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to read and write all files the user has access to.</p>
+         */
+        @JsonSetter(value = "graph_files_all_update", nulls = Nulls.SKIP)
+        public Builder graphFilesAllUpdate(Optional<Boolean> graphFilesAllUpdate) {
+            this.graphFilesAllUpdate = graphFilesAllUpdate;
+            return this;
+        }
+
+        public Builder graphFilesAllUpdate(Boolean graphFilesAllUpdate) {
+            this.graphFilesAllUpdate = Optional.ofNullable(graphFilesAllUpdate);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to read and write the user's files.</p>
+         */
+        @JsonSetter(value = "graph_files_update", nulls = Nulls.SKIP)
+        public Builder graphFilesUpdate(Optional<Boolean> graphFilesUpdate) {
+            this.graphFilesUpdate = graphFilesUpdate;
+            return this;
+        }
+
+        public Builder graphFilesUpdate(Boolean graphFilesUpdate) {
+            this.graphFilesUpdate = Optional.ofNullable(graphFilesUpdate);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to read the user's OneNote notebooks.</p>
+         */
+        @JsonSetter(value = "graph_notes", nulls = Nulls.SKIP)
+        public Builder graphNotes(Optional<Boolean> graphNotes) {
+            this.graphNotes = graphNotes;
+            return this;
+        }
+
+        public Builder graphNotes(Boolean graphNotes) {
+            this.graphNotes = Optional.ofNullable(graphNotes);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to create new OneNote notebooks.</p>
+         */
+        @JsonSetter(value = "graph_notes_create", nulls = Nulls.SKIP)
+        public Builder graphNotesCreate(Optional<Boolean> graphNotesCreate) {
+            this.graphNotesCreate = graphNotesCreate;
+            return this;
+        }
+
+        public Builder graphNotesCreate(Boolean graphNotesCreate) {
+            this.graphNotesCreate = Optional.ofNullable(graphNotesCreate);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to read and write the user's OneNote notebooks.</p>
+         */
+        @JsonSetter(value = "graph_notes_update", nulls = Nulls.SKIP)
+        public Builder graphNotesUpdate(Optional<Boolean> graphNotesUpdate) {
+            this.graphNotesUpdate = graphNotesUpdate;
+            return this;
+        }
+
+        public Builder graphNotesUpdate(Boolean graphNotesUpdate) {
+            this.graphNotesUpdate = Optional.ofNullable(graphNotesUpdate);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to read the user's tasks.</p>
+         */
+        @JsonSetter(value = "graph_tasks", nulls = Nulls.SKIP)
+        public Builder graphTasks(Optional<Boolean> graphTasks) {
+            this.graphTasks = graphTasks;
+            return this;
+        }
+
+        public Builder graphTasks(Boolean graphTasks) {
+            this.graphTasks = Optional.ofNullable(graphTasks);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to read and write the user's tasks.</p>
+         */
+        @JsonSetter(value = "graph_tasks_update", nulls = Nulls.SKIP)
+        public Builder graphTasksUpdate(Optional<Boolean> graphTasksUpdate) {
+            this.graphTasksUpdate = graphTasksUpdate;
+            return this;
+        }
+
+        public Builder graphTasksUpdate(Boolean graphTasksUpdate) {
+            this.graphTasksUpdate = Optional.ofNullable(graphTasksUpdate);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to read the user's profile.</p>
+         */
+        @JsonSetter(value = "graph_user", nulls = Nulls.SKIP)
+        public Builder graphUser(Optional<Boolean> graphUser) {
+            this.graphUser = graphUser;
+            return this;
+        }
+
+        public Builder graphUser(Boolean graphUser) {
+            this.graphUser = Optional.ofNullable(graphUser);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to read the user's activity history.</p>
+         */
+        @JsonSetter(value = "graph_user_activity", nulls = Nulls.SKIP)
+        public Builder graphUserActivity(Optional<Boolean> graphUserActivity) {
+            this.graphUserActivity = graphUserActivity;
+            return this;
+        }
+
+        public Builder graphUserActivity(Boolean graphUserActivity) {
+            this.graphUserActivity = Optional.ofNullable(graphUserActivity);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to read and write the user's profile.</p>
+         */
+        @JsonSetter(value = "graph_user_update", nulls = Nulls.SKIP)
+        public Builder graphUserUpdate(Optional<Boolean> graphUserUpdate) {
+            this.graphUserUpdate = graphUserUpdate;
+            return this;
+        }
+
+        public Builder graphUserUpdate(Boolean graphUserUpdate) {
+            this.graphUserUpdate = Optional.ofNullable(graphUserUpdate);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, allows the app to read all group properties and memberships.</p>
+         */
+        @JsonSetter(value = "group_read_all", nulls = Nulls.SKIP)
+        public Builder groupReadAll(Optional<Boolean> groupReadAll) {
+            this.groupReadAll = groupReadAll;
+            return this;
+        }
+
+        public Builder groupReadAll(Boolean groupReadAll) {
+            this.groupReadAll = Optional.ofNullable(groupReadAll);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, allows the app to create groups, read all group properties and memberships, update group properties and memberships, and delete groups.</p>
+         */
+        @JsonSetter(value = "group_readwrite_all", nulls = Nulls.SKIP)
+        public Builder groupReadwriteAll(Optional<Boolean> groupReadwriteAll) {
+            this.groupReadwriteAll = groupReadwriteAll;
+            return this;
+        }
+
+        public Builder groupReadwriteAll(Boolean groupReadwriteAll) {
+            this.groupReadwriteAll = Optional.ofNullable(groupReadwriteAll);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, allows the app to create, read, update, and delete all mail in all mailboxes.</p>
+         */
+        @JsonSetter(value = "mail_readwrite_all", nulls = Nulls.SKIP)
+        public Builder mailReadwriteAll(Optional<Boolean> mailReadwriteAll) {
+            this.mailReadwriteAll = mailReadwriteAll;
+            return this;
+        }
+
+        public Builder mailReadwriteAll(Boolean mailReadwriteAll) {
+            this.mailReadwriteAll = Optional.ofNullable(mailReadwriteAll);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, allows the app to send mail as users in the organization.</p>
+         */
+        @JsonSetter(value = "mail_send", nulls = Nulls.SKIP)
+        public Builder mailSend(Optional<Boolean> mailSend) {
+            this.mailSend = mailSend;
+            return this;
+        }
+
+        public Builder mailSend(Boolean mailSend) {
+            this.mailSend = Optional.ofNullable(mailSend);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests access to user's Windows Live Messenger data.</p>
+         */
+        @JsonSetter(value = "messenger", nulls = Nulls.SKIP)
+        public Builder messenger(Optional<Boolean> messenger) {
+            this.messenger = messenger;
+            return this;
+        }
+
+        public Builder messenger(Boolean messenger) {
+            this.messenger = Optional.ofNullable(messenger);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests a refresh token for offline access.</p>
+         */
+        @JsonSetter(value = "offline_access", nulls = Nulls.SKIP)
+        public Builder offlineAccess(Optional<Boolean> offlineAccess) {
+            this.offlineAccess = offlineAccess;
+            return this;
+        }
+
+        public Builder offlineAccess(Boolean offlineAccess) {
+            this.offlineAccess = Optional.ofNullable(offlineAccess);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests read access to personal, business, and mobile phone numbers.</p>
+         */
+        @JsonSetter(value = "phone_numbers", nulls = Nulls.SKIP)
+        public Builder phoneNumbers(Optional<Boolean> phoneNumbers) {
+            this.phoneNumbers = phoneNumbers;
+            return this;
+        }
+
+        public Builder phoneNumbers(Boolean phoneNumbers) {
+            this.phoneNumbers = Optional.ofNullable(phoneNumbers);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests read access to user's photos, videos, audio, and albums.</p>
+         */
+        @JsonSetter(value = "photos", nulls = Nulls.SKIP)
+        public Builder photos(Optional<Boolean> photos) {
+            this.photos = photos;
+            return this;
+        }
+
+        public Builder photos(Boolean photos) {
+            this.photos = Optional.ofNullable(photos);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests read access to personal and business postal addresses.</p>
+         */
+        @JsonSetter(value = "postal_addresses", nulls = Nulls.SKIP)
+        public Builder postalAddresses(Optional<Boolean> postalAddresses) {
+            this.postalAddresses = postalAddresses;
+            return this;
+        }
+
+        public Builder postalAddresses(Boolean postalAddresses) {
+            this.postalAddresses = Optional.ofNullable(postalAddresses);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, allows the app to read the role-based access control (RBAC) settings for your company's directory.</p>
+         */
+        @JsonSetter(value = "rolemanagement_read_all", nulls = Nulls.SKIP)
+        public Builder rolemanagementReadAll(Optional<Boolean> rolemanagementReadAll) {
+            this.rolemanagementReadAll = rolemanagementReadAll;
+            return this;
+        }
+
+        public Builder rolemanagementReadAll(Boolean rolemanagementReadAll) {
+            this.rolemanagementReadAll = Optional.ofNullable(rolemanagementReadAll);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, allows the app to read and write the role-based access control (RBAC) settings for your company's directory.</p>
+         */
+        @JsonSetter(value = "rolemanagement_readwrite_directory", nulls = Nulls.SKIP)
+        public Builder rolemanagementReadwriteDirectory(Optional<Boolean> rolemanagementReadwriteDirectory) {
+            this.rolemanagementReadwriteDirectory = rolemanagementReadwriteDirectory;
+            return this;
+        }
+
+        public Builder rolemanagementReadwriteDirectory(Boolean rolemanagementReadwriteDirectory) {
+            this.rolemanagementReadwriteDirectory = Optional.ofNullable(rolemanagementReadwriteDirectory);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests permission to share content with other users.</p>
+         */
+        @JsonSetter(value = "share", nulls = Nulls.SKIP)
+        public Builder share(Optional<Boolean> share) {
+            this.share = share;
+            return this;
+        }
+
+        public Builder share(Boolean share) {
+            this.share = Optional.ofNullable(share);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, provides single sign-in behavior for users already signed into their Microsoft account.</p>
+         */
+        @JsonSetter(value = "signin", nulls = Nulls.SKIP)
+        public Builder signin(Optional<Boolean> signin) {
+            this.signin = signin;
+            return this;
+        }
+
+        public Builder signin(Boolean signin) {
+            this.signin = Optional.ofNullable(signin);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, allows the app to read documents and list items in all SharePoint site collections.</p>
+         */
+        @JsonSetter(value = "sites_read_all", nulls = Nulls.SKIP)
+        public Builder sitesReadAll(Optional<Boolean> sitesReadAll) {
+            this.sitesReadAll = sitesReadAll;
+            return this;
+        }
+
+        public Builder sitesReadAll(Boolean sitesReadAll) {
+            this.sitesReadAll = Optional.ofNullable(sitesReadAll);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, allows the app to create, read, update, and delete documents and list items in all SharePoint site collections.</p>
+         */
+        @JsonSetter(value = "sites_readwrite_all", nulls = Nulls.SKIP)
+        public Builder sitesReadwriteAll(Optional<Boolean> sitesReadwriteAll) {
+            this.sitesReadwriteAll = sitesReadwriteAll;
+            return this;
+        }
+
+        public Builder sitesReadwriteAll(Boolean sitesReadwriteAll) {
+            this.sitesReadwriteAll = Optional.ofNullable(sitesReadwriteAll);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests read access to user's files stored on OneDrive.</p>
+         */
+        @JsonSetter(value = "skydrive", nulls = Nulls.SKIP)
+        public Builder skydrive(Optional<Boolean> skydrive) {
+            this.skydrive = skydrive;
+            return this;
+        }
+
+        public Builder skydrive(Boolean skydrive) {
+            this.skydrive = Optional.ofNullable(skydrive);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests read and write access to user's OneDrive files.</p>
+         */
+        @JsonSetter(value = "skydrive_update", nulls = Nulls.SKIP)
+        public Builder skydriveUpdate(Optional<Boolean> skydriveUpdate) {
+            this.skydriveUpdate = skydriveUpdate;
+            return this;
+        }
+
+        public Builder skydriveUpdate(Boolean skydriveUpdate) {
+            this.skydriveUpdate = Optional.ofNullable(skydriveUpdate);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, allows the app to read the names and descriptions of all teams.</p>
+         */
+        @JsonSetter(value = "team_readbasic_all", nulls = Nulls.SKIP)
+        public Builder teamReadbasicAll(Optional<Boolean> teamReadbasicAll) {
+            this.teamReadbasicAll = teamReadbasicAll;
+            return this;
+        }
+
+        public Builder teamReadbasicAll(Boolean teamReadbasicAll) {
+            this.teamReadbasicAll = Optional.ofNullable(teamReadbasicAll);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, allows the app to read and write all teams' information and change team membership.</p>
+         */
+        @JsonSetter(value = "team_readwrite_all", nulls = Nulls.SKIP)
+        public Builder teamReadwriteAll(Optional<Boolean> teamReadwriteAll) {
+            this.teamReadwriteAll = teamReadwriteAll;
+            return this;
+        }
+
+        public Builder teamReadwriteAll(Boolean teamReadwriteAll) {
+            this.teamReadwriteAll = Optional.ofNullable(teamReadwriteAll);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, allows the app to read the full set of profile properties, reports, and managers of all users.</p>
+         */
+        @JsonSetter(value = "user_read_all", nulls = Nulls.SKIP)
+        public Builder userReadAll(Optional<Boolean> userReadAll) {
+            this.userReadAll = userReadAll;
+            return this;
+        }
+
+        public Builder userReadAll(Boolean userReadAll) {
+            this.userReadAll = Optional.ofNullable(userReadAll);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, allows the app to read a basic set of profile properties of all users in the directory.</p>
+         */
+        @JsonSetter(value = "user_readbasic_all", nulls = Nulls.SKIP)
+        public Builder userReadbasicAll(Optional<Boolean> userReadbasicAll) {
+            this.userReadbasicAll = userReadbasicAll;
+            return this;
+        }
+
+        public Builder userReadbasicAll(Boolean userReadbasicAll) {
+            this.userReadbasicAll = Optional.ofNullable(userReadbasicAll);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests read access to employer and work position information.</p>
+         */
+        @JsonSetter(value = "work_profile", nulls = Nulls.SKIP)
+        public Builder workProfile(Optional<Boolean> workProfile) {
+            this.workProfile = workProfile;
+            return this;
+        }
+
+        public Builder workProfile(Boolean workProfile) {
+            this.workProfile = Optional.ofNullable(workProfile);
             return this;
         }
 
         public ConnectionOptionsWindowsLive build() {
             return new ConnectionOptionsWindowsLive(
+                    nonPersistentAttrs,
                     clientId,
                     clientSecret,
-                    upstreamParams,
+                    freeformScopes,
+                    scope,
                     setUserRootAttributes,
-                    nonPersistentAttrs,
                     strategyVersion,
+                    upstreamParams,
+                    applications,
+                    applicationsCreate,
+                    basic,
+                    birthday,
+                    calendars,
+                    calendarsUpdate,
+                    contactsBirthday,
+                    contactsCalendars,
+                    contactsCreate,
+                    contactsPhotos,
+                    contactsSkydrive,
+                    directoryAccessasuserAll,
+                    directoryReadAll,
+                    directoryReadwriteAll,
+                    emails,
+                    eventsCreate,
+                    graphCalendars,
+                    graphCalendarsUpdate,
+                    graphContacts,
+                    graphContactsUpdate,
+                    graphDevice,
+                    graphDeviceCommand,
+                    graphEmails,
+                    graphEmailsUpdate,
+                    graphFiles,
+                    graphFilesAll,
+                    graphFilesAllUpdate,
+                    graphFilesUpdate,
+                    graphNotes,
+                    graphNotesCreate,
+                    graphNotesUpdate,
+                    graphTasks,
+                    graphTasksUpdate,
+                    graphUser,
+                    graphUserActivity,
+                    graphUserUpdate,
+                    groupReadAll,
+                    groupReadwriteAll,
+                    mailReadwriteAll,
+                    mailSend,
+                    messenger,
+                    offlineAccess,
+                    phoneNumbers,
+                    photos,
+                    postalAddresses,
+                    rolemanagementReadAll,
+                    rolemanagementReadwriteDirectory,
+                    share,
+                    signin,
+                    sitesReadAll,
+                    sitesReadwriteAll,
+                    skydrive,
+                    skydriveUpdate,
+                    teamReadbasicAll,
+                    teamReadwriteAll,
+                    userReadAll,
+                    userReadbasicAll,
+                    workProfile,
                     additionalProperties);
         }
     }

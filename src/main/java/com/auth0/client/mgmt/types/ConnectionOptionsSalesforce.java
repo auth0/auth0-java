@@ -23,15 +23,21 @@ import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionOptionsSalesforce.Builder.class)
-public final class ConnectionOptionsSalesforce implements IConnectionOptionsOAuth2Common, IConnectionOptionsCommon {
+public final class ConnectionOptionsSalesforce implements IConnectionOptionsSalesforce, IConnectionOptionsCommon {
     private final Optional<String> clientId;
 
     private final Optional<String> clientSecret;
 
-    private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
-            upstreamParams;
+    private final Optional<List<String>> freeformScopes;
+
+    private final Optional<Boolean> profile;
+
+    private final Optional<List<String>> scope;
 
     private final Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes;
+
+    private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+            upstreamParams;
 
     private final Optional<List<String>> nonPersistentAttrs;
 
@@ -40,14 +46,20 @@ public final class ConnectionOptionsSalesforce implements IConnectionOptionsOAut
     private ConnectionOptionsSalesforce(
             Optional<String> clientId,
             Optional<String> clientSecret,
-            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
+            Optional<List<String>> freeformScopes,
+            Optional<Boolean> profile,
+            Optional<List<String>> scope,
             Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes,
+            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
             Optional<List<String>> nonPersistentAttrs,
             Map<String, Object> additionalProperties) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
-        this.upstreamParams = upstreamParams;
+        this.freeformScopes = freeformScopes;
+        this.profile = profile;
+        this.scope = scope;
         this.setUserRootAttributes = setUserRootAttributes;
+        this.upstreamParams = upstreamParams;
         this.nonPersistentAttrs = nonPersistentAttrs;
         this.additionalProperties = additionalProperties;
     }
@@ -64,6 +76,33 @@ public final class ConnectionOptionsSalesforce implements IConnectionOptionsOAut
         return clientSecret;
     }
 
+    @JsonProperty("freeform_scopes")
+    @java.lang.Override
+    public Optional<List<String>> getFreeformScopes() {
+        return freeformScopes;
+    }
+
+    /**
+     * @return When enabled, requests the Salesforce profile scope to retrieve basic user information including user_id, organization_id, username, display_name, email, status, photos, and URLs.
+     */
+    @JsonProperty("profile")
+    @java.lang.Override
+    public Optional<Boolean> getProfile() {
+        return profile;
+    }
+
+    @JsonProperty("scope")
+    @java.lang.Override
+    public Optional<List<String>> getScope() {
+        return scope;
+    }
+
+    @JsonProperty("set_user_root_attributes")
+    @java.lang.Override
+    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
+        return setUserRootAttributes;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("upstream_params")
     @java.lang.Override
@@ -72,12 +111,6 @@ public final class ConnectionOptionsSalesforce implements IConnectionOptionsOAut
             return OptionalNullable.absent();
         }
         return upstreamParams;
-    }
-
-    @JsonProperty("set_user_root_attributes")
-    @java.lang.Override
-    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
-        return setUserRootAttributes;
     }
 
     @JsonProperty("non_persistent_attrs")
@@ -107,8 +140,11 @@ public final class ConnectionOptionsSalesforce implements IConnectionOptionsOAut
     private boolean equalTo(ConnectionOptionsSalesforce other) {
         return clientId.equals(other.clientId)
                 && clientSecret.equals(other.clientSecret)
-                && upstreamParams.equals(other.upstreamParams)
+                && freeformScopes.equals(other.freeformScopes)
+                && profile.equals(other.profile)
+                && scope.equals(other.scope)
                 && setUserRootAttributes.equals(other.setUserRootAttributes)
+                && upstreamParams.equals(other.upstreamParams)
                 && nonPersistentAttrs.equals(other.nonPersistentAttrs);
     }
 
@@ -117,8 +153,11 @@ public final class ConnectionOptionsSalesforce implements IConnectionOptionsOAut
         return Objects.hash(
                 this.clientId,
                 this.clientSecret,
-                this.upstreamParams,
+                this.freeformScopes,
+                this.profile,
+                this.scope,
                 this.setUserRootAttributes,
+                this.upstreamParams,
                 this.nonPersistentAttrs);
     }
 
@@ -137,10 +176,16 @@ public final class ConnectionOptionsSalesforce implements IConnectionOptionsOAut
 
         private Optional<String> clientSecret = Optional.empty();
 
-        private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
-                OptionalNullable.absent();
+        private Optional<List<String>> freeformScopes = Optional.empty();
+
+        private Optional<Boolean> profile = Optional.empty();
+
+        private Optional<List<String>> scope = Optional.empty();
 
         private Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes = Optional.empty();
+
+        private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
+                OptionalNullable.absent();
 
         private Optional<List<String>> nonPersistentAttrs = Optional.empty();
 
@@ -152,8 +197,11 @@ public final class ConnectionOptionsSalesforce implements IConnectionOptionsOAut
         public Builder from(ConnectionOptionsSalesforce other) {
             clientId(other.getClientId());
             clientSecret(other.getClientSecret());
-            upstreamParams(other.getUpstreamParams());
+            freeformScopes(other.getFreeformScopes());
+            profile(other.getProfile());
+            scope(other.getScope());
             setUserRootAttributes(other.getSetUserRootAttributes());
+            upstreamParams(other.getUpstreamParams());
             nonPersistentAttrs(other.getNonPersistentAttrs());
             return this;
         }
@@ -177,6 +225,53 @@ public final class ConnectionOptionsSalesforce implements IConnectionOptionsOAut
 
         public Builder clientSecret(String clientSecret) {
             this.clientSecret = Optional.ofNullable(clientSecret);
+            return this;
+        }
+
+        @JsonSetter(value = "freeform_scopes", nulls = Nulls.SKIP)
+        public Builder freeformScopes(Optional<List<String>> freeformScopes) {
+            this.freeformScopes = freeformScopes;
+            return this;
+        }
+
+        public Builder freeformScopes(List<String> freeformScopes) {
+            this.freeformScopes = Optional.ofNullable(freeformScopes);
+            return this;
+        }
+
+        /**
+         * <p>When enabled, requests the Salesforce profile scope to retrieve basic user information including user_id, organization_id, username, display_name, email, status, photos, and URLs.</p>
+         */
+        @JsonSetter(value = "profile", nulls = Nulls.SKIP)
+        public Builder profile(Optional<Boolean> profile) {
+            this.profile = profile;
+            return this;
+        }
+
+        public Builder profile(Boolean profile) {
+            this.profile = Optional.ofNullable(profile);
+            return this;
+        }
+
+        @JsonSetter(value = "scope", nulls = Nulls.SKIP)
+        public Builder scope(Optional<List<String>> scope) {
+            this.scope = scope;
+            return this;
+        }
+
+        public Builder scope(List<String> scope) {
+            this.scope = Optional.ofNullable(scope);
+            return this;
+        }
+
+        @JsonSetter(value = "set_user_root_attributes", nulls = Nulls.SKIP)
+        public Builder setUserRootAttributes(Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes) {
+            this.setUserRootAttributes = setUserRootAttributes;
+            return this;
+        }
+
+        public Builder setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes) {
+            this.setUserRootAttributes = Optional.ofNullable(setUserRootAttributes);
             return this;
         }
 
@@ -219,17 +314,6 @@ public final class ConnectionOptionsSalesforce implements IConnectionOptionsOAut
             return this;
         }
 
-        @JsonSetter(value = "set_user_root_attributes", nulls = Nulls.SKIP)
-        public Builder setUserRootAttributes(Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes) {
-            this.setUserRootAttributes = setUserRootAttributes;
-            return this;
-        }
-
-        public Builder setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes) {
-            this.setUserRootAttributes = Optional.ofNullable(setUserRootAttributes);
-            return this;
-        }
-
         @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
         public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
             this.nonPersistentAttrs = nonPersistentAttrs;
@@ -245,8 +329,11 @@ public final class ConnectionOptionsSalesforce implements IConnectionOptionsOAut
             return new ConnectionOptionsSalesforce(
                     clientId,
                     clientSecret,
-                    upstreamParams,
+                    freeformScopes,
+                    profile,
+                    scope,
                     setUserRootAttributes,
+                    upstreamParams,
                     nonPersistentAttrs,
                     additionalProperties);
         }

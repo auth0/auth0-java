@@ -3,7 +3,9 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -17,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = FederatedConnectionTokenSet.Builder.class)
@@ -27,11 +30,11 @@ public final class FederatedConnectionTokenSet {
 
     private final Optional<String> scope;
 
-    private final Optional<OffsetDateTime> expiresAt;
+    private final OptionalNullable<OffsetDateTime> expiresAt;
 
     private final Optional<OffsetDateTime> issuedAt;
 
-    private final Optional<OffsetDateTime> lastUsedAt;
+    private final OptionalNullable<OffsetDateTime> lastUsedAt;
 
     private final Map<String, Object> additionalProperties;
 
@@ -39,9 +42,9 @@ public final class FederatedConnectionTokenSet {
             Optional<String> id,
             Optional<String> connection,
             Optional<String> scope,
-            Optional<OffsetDateTime> expiresAt,
+            OptionalNullable<OffsetDateTime> expiresAt,
             Optional<OffsetDateTime> issuedAt,
-            Optional<OffsetDateTime> lastUsedAt,
+            OptionalNullable<OffsetDateTime> lastUsedAt,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.connection = connection;
@@ -67,8 +70,12 @@ public final class FederatedConnectionTokenSet {
         return scope;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("expires_at")
-    public Optional<OffsetDateTime> getExpiresAt() {
+    public OptionalNullable<OffsetDateTime> getExpiresAt() {
+        if (expiresAt == null) {
+            return OptionalNullable.absent();
+        }
         return expiresAt;
     }
 
@@ -77,8 +84,24 @@ public final class FederatedConnectionTokenSet {
         return issuedAt;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("last_used_at")
-    public Optional<OffsetDateTime> getLastUsedAt() {
+    public OptionalNullable<OffsetDateTime> getLastUsedAt() {
+        if (lastUsedAt == null) {
+            return OptionalNullable.absent();
+        }
+        return lastUsedAt;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("expires_at")
+    private OptionalNullable<OffsetDateTime> _getExpiresAt() {
+        return expiresAt;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("last_used_at")
+    private OptionalNullable<OffsetDateTime> _getLastUsedAt() {
         return lastUsedAt;
     }
 
@@ -124,11 +147,11 @@ public final class FederatedConnectionTokenSet {
 
         private Optional<String> scope = Optional.empty();
 
-        private Optional<OffsetDateTime> expiresAt = Optional.empty();
+        private OptionalNullable<OffsetDateTime> expiresAt = OptionalNullable.absent();
 
         private Optional<OffsetDateTime> issuedAt = Optional.empty();
 
-        private Optional<OffsetDateTime> lastUsedAt = Optional.empty();
+        private OptionalNullable<OffsetDateTime> lastUsedAt = OptionalNullable.absent();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -179,13 +202,33 @@ public final class FederatedConnectionTokenSet {
         }
 
         @JsonSetter(value = "expires_at", nulls = Nulls.SKIP)
-        public Builder expiresAt(Optional<OffsetDateTime> expiresAt) {
+        public Builder expiresAt(@Nullable OptionalNullable<OffsetDateTime> expiresAt) {
             this.expiresAt = expiresAt;
             return this;
         }
 
         public Builder expiresAt(OffsetDateTime expiresAt) {
-            this.expiresAt = Optional.ofNullable(expiresAt);
+            this.expiresAt = OptionalNullable.of(expiresAt);
+            return this;
+        }
+
+        public Builder expiresAt(Optional<OffsetDateTime> expiresAt) {
+            if (expiresAt.isPresent()) {
+                this.expiresAt = OptionalNullable.of(expiresAt.get());
+            } else {
+                this.expiresAt = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder expiresAt(com.auth0.client.mgmt.core.Nullable<OffsetDateTime> expiresAt) {
+            if (expiresAt.isNull()) {
+                this.expiresAt = OptionalNullable.ofNull();
+            } else if (expiresAt.isEmpty()) {
+                this.expiresAt = OptionalNullable.absent();
+            } else {
+                this.expiresAt = OptionalNullable.of(expiresAt.get());
+            }
             return this;
         }
 
@@ -201,13 +244,33 @@ public final class FederatedConnectionTokenSet {
         }
 
         @JsonSetter(value = "last_used_at", nulls = Nulls.SKIP)
-        public Builder lastUsedAt(Optional<OffsetDateTime> lastUsedAt) {
+        public Builder lastUsedAt(@Nullable OptionalNullable<OffsetDateTime> lastUsedAt) {
             this.lastUsedAt = lastUsedAt;
             return this;
         }
 
         public Builder lastUsedAt(OffsetDateTime lastUsedAt) {
-            this.lastUsedAt = Optional.ofNullable(lastUsedAt);
+            this.lastUsedAt = OptionalNullable.of(lastUsedAt);
+            return this;
+        }
+
+        public Builder lastUsedAt(Optional<OffsetDateTime> lastUsedAt) {
+            if (lastUsedAt.isPresent()) {
+                this.lastUsedAt = OptionalNullable.of(lastUsedAt.get());
+            } else {
+                this.lastUsedAt = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder lastUsedAt(com.auth0.client.mgmt.core.Nullable<OffsetDateTime> lastUsedAt) {
+            if (lastUsedAt.isNull()) {
+                this.lastUsedAt = OptionalNullable.ofNull();
+            } else if (lastUsedAt.isEmpty()) {
+                this.lastUsedAt = OptionalNullable.absent();
+            } else {
+                this.lastUsedAt = OptionalNullable.of(lastUsedAt.get());
+            }
             return this;
         }
 

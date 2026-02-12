@@ -17,6 +17,7 @@ import com.auth0.client.mgmt.types.TenantSettingsMtls;
 import com.auth0.client.mgmt.types.TenantSettingsPasswordPage;
 import com.auth0.client.mgmt.types.TenantSettingsResourceParameterProfile;
 import com.auth0.client.mgmt.types.TenantSettingsSessions;
+import com.auth0.client.mgmt.types.TenantSettingsSupportedLocalesEnum;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -75,7 +76,7 @@ public final class UpdateTenantSettingsRequestContent {
 
     private final Optional<String> defaultRedirectionUri;
 
-    private final Optional<List<UpdateTenantSettingsRequestContentEnabledLocalesItem>> enabledLocales;
+    private final Optional<List<TenantSettingsSupportedLocalesEnum>> enabledLocales;
 
     private final OptionalNullable<SessionCookieSchema> sessionCookie;
 
@@ -126,7 +127,7 @@ public final class UpdateTenantSettingsRequestContent {
             Optional<String> sandboxVersion,
             Optional<String> legacySandboxVersion,
             Optional<String> defaultRedirectionUri,
-            Optional<List<UpdateTenantSettingsRequestContentEnabledLocalesItem>> enabledLocales,
+            Optional<List<TenantSettingsSupportedLocalesEnum>> enabledLocales,
             OptionalNullable<SessionCookieSchema> sessionCookie,
             OptionalNullable<TenantSettingsSessions> sessions,
             Optional<TenantOidcLogoutSettings> oidcLogout,
@@ -344,7 +345,7 @@ public final class UpdateTenantSettingsRequestContent {
      * @return Supported locales for the user interface
      */
     @JsonProperty("enabled_locales")
-    public Optional<List<UpdateTenantSettingsRequestContentEnabledLocalesItem>> getEnabledLocales() {
+    public Optional<List<TenantSettingsSupportedLocalesEnum>> getEnabledLocales() {
         return enabledLocales;
     }
 
@@ -689,7 +690,7 @@ public final class UpdateTenantSettingsRequestContent {
 
         private Optional<String> defaultRedirectionUri = Optional.empty();
 
-        private Optional<List<UpdateTenantSettingsRequestContentEnabledLocalesItem>> enabledLocales = Optional.empty();
+        private Optional<List<TenantSettingsSupportedLocalesEnum>> enabledLocales = Optional.empty();
 
         private OptionalNullable<SessionCookieSchema> sessionCookie = OptionalNullable.absent();
 
@@ -1127,13 +1128,12 @@ public final class UpdateTenantSettingsRequestContent {
          * <p>Supported locales for the user interface</p>
          */
         @JsonSetter(value = "enabled_locales", nulls = Nulls.SKIP)
-        public Builder enabledLocales(
-                Optional<List<UpdateTenantSettingsRequestContentEnabledLocalesItem>> enabledLocales) {
+        public Builder enabledLocales(Optional<List<TenantSettingsSupportedLocalesEnum>> enabledLocales) {
             this.enabledLocales = enabledLocales;
             return this;
         }
 
-        public Builder enabledLocales(List<UpdateTenantSettingsRequestContentEnabledLocalesItem> enabledLocales) {
+        public Builder enabledLocales(List<TenantSettingsSupportedLocalesEnum> enabledLocales) {
             this.enabledLocales = Optional.ofNullable(enabledLocales);
             return this;
         }

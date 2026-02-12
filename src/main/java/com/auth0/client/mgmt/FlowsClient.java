@@ -12,9 +12,9 @@ import com.auth0.client.mgmt.flows.vault.VaultClient;
 import com.auth0.client.mgmt.types.CreateFlowRequestContent;
 import com.auth0.client.mgmt.types.CreateFlowResponseContent;
 import com.auth0.client.mgmt.types.FlowSummary;
-import com.auth0.client.mgmt.types.FlowsListRequest;
 import com.auth0.client.mgmt.types.GetFlowRequestParameters;
 import com.auth0.client.mgmt.types.GetFlowResponseContent;
+import com.auth0.client.mgmt.types.ListFlowsRequestParameters;
 import com.auth0.client.mgmt.types.UpdateFlowRequestContent;
 import com.auth0.client.mgmt.types.UpdateFlowResponseContent;
 import java.util.function.Supplier;
@@ -46,11 +46,11 @@ public class FlowsClient {
         return this.rawClient.list().body();
     }
 
-    public SyncPagingIterable<FlowSummary> list(FlowsListRequest request) {
+    public SyncPagingIterable<FlowSummary> list(ListFlowsRequestParameters request) {
         return this.rawClient.list(request).body();
     }
 
-    public SyncPagingIterable<FlowSummary> list(FlowsListRequest request, RequestOptions requestOptions) {
+    public SyncPagingIterable<FlowSummary> list(ListFlowsRequestParameters request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).body();
     }
 

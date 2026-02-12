@@ -20,7 +20,7 @@ import com.auth0.client.mgmt.errors.NotFoundError;
 import com.auth0.client.mgmt.errors.TooManyRequestsError;
 import com.auth0.client.mgmt.errors.UnauthorizedError;
 import com.auth0.client.mgmt.types.ActionVersion;
-import com.auth0.client.mgmt.types.DeployActionVersionRequestBodyParams;
+import com.auth0.client.mgmt.types.DeployActionVersionRequestContent;
 import com.auth0.client.mgmt.types.DeployActionVersionResponseContent;
 import com.auth0.client.mgmt.types.GetActionVersionResponseContent;
 import com.auth0.client.mgmt.types.ListActionVersionsPaginatedResponseContent;
@@ -258,14 +258,14 @@ public class AsyncRawVersionsClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<DeployActionVersionResponseContent>> deploy(
             String actionId, String id) {
-        return deploy(actionId, id, OptionalNullable.<DeployActionVersionRequestBodyParams>absent());
+        return deploy(actionId, id, OptionalNullable.<DeployActionVersionRequestContent>absent());
     }
 
     /**
      * Performs the equivalent of a roll-back of an action to an earlier, specified version. Creates a new, deployed action version that is identical to the specified version. If this action is currently bound to a trigger, the system will begin executing the newly-created version immediately.
      */
     public CompletableFuture<ManagementApiHttpResponse<DeployActionVersionResponseContent>> deploy(
-            String actionId, String id, OptionalNullable<DeployActionVersionRequestBodyParams> request) {
+            String actionId, String id, OptionalNullable<DeployActionVersionRequestContent> request) {
         return deploy(actionId, id, request, null);
     }
 
@@ -275,7 +275,7 @@ public class AsyncRawVersionsClient {
     public CompletableFuture<ManagementApiHttpResponse<DeployActionVersionResponseContent>> deploy(
             String actionId,
             String id,
-            OptionalNullable<DeployActionVersionRequestBodyParams> request,
+            OptionalNullable<DeployActionVersionRequestContent> request,
             RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
