@@ -3,13 +3,12 @@
  */
 package com.auth0.client.mgmt.core;
 
+import com.auth0.net.Telemetry;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
-
-import com.auth0.net.Telemetry;
 import okhttp3.OkHttpClient;
 
 public final class ClientOptions {
@@ -36,7 +35,8 @@ public final class ClientOptions {
         this.headers = new HashMap<>();
         this.headers.putAll(headers);
 
-        Telemetry telemetry = new Telemetry("auth0-java", Telemetry.class.getPackage().getImplementationVersion());
+        Telemetry telemetry =
+                new Telemetry("auth0-java", Telemetry.class.getPackage().getImplementationVersion());
         if (telemetry.getValue() != null) {
             this.headers.put("Auth0-Client", telemetry.getValue());
         }
