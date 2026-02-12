@@ -1,5 +1,11 @@
 # Change Log
 
+## [3.2.0](https://github.com/auth0/auth0-java/tree/3.2.0) (2026-02-11)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/3.1.0...3.2.0)
+
+**Added**
+- Feat: Update shields field to enum in Patch Request payload and enabled_locales to enum in Update TenantSetting payload and Add pagination for Action Module Versions [\#825](https://github.com/auth0/auth0-java/pull/825) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [3.1.0](https://github.com/auth0/auth0-java/tree/3.1.0) (2026-01-30)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/3.0.0...3.1.0)
 
