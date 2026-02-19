@@ -3,6 +3,7 @@
  */
 package com.auth0.client.mgmt.core;
 
+import com.auth0.net.Telemetry;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -33,13 +34,12 @@ public final class ClientOptions {
         this.environment = environment;
         this.headers = new HashMap<>();
         this.headers.putAll(headers);
-        this.headers.putAll(new HashMap<String, String>() {
-            {
-                put("X-Fern-Language", "JAVA");
-                put("X-Fern-SDK-Name", "com.auth0.fern:api-sdk");
-                put("X-Fern-SDK-Version", "0.0.938");
-            }
-        });
+
+        Telemetry telemetry =
+                new Telemetry("auth0-java", Telemetry.class.getPackage().getImplementationVersion());
+        if (telemetry.getValue() != null) {
+            this.headers.put("Auth0-Client", telemetry.getValue());
+        }
         this.headerSuppliers = headerSuppliers;
         this.httpClient = httpClient;
         this.timeout = timeout;
