@@ -331,7 +331,7 @@ public final class UpdateClientRequestContent {
     }
 
     /**
-     * @return URLs that are valid to redirect to after logout from Auth0.
+     * @return URLs that are valid to redirect to after logout from Auth0
      */
     @JsonProperty("allowed_logout_urls")
     public Optional<List<String>> getAllowedLogoutUrls() {
@@ -1202,7 +1202,7 @@ public final class UpdateClientRequestContent {
         }
 
         /**
-         * <p>URLs that are valid to redirect to after logout from Auth0.</p>
+         * <p>URLs that are valid to redirect to after logout from Auth0</p>
          */
         @JsonSetter(value = "allowed_logout_urls", nulls = Nulls.SKIP)
         public Builder allowedLogoutUrls(Optional<List<String>> allowedLogoutUrls) {

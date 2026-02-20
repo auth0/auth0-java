@@ -3,7 +3,9 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -13,24 +15,68 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionOptionsOAuth1.Builder.class)
-public final class ConnectionOptionsOAuth1 {
+public final class ConnectionOptionsOAuth1 implements IConnectionOptionsCommon {
+    private final Optional<List<String>> nonPersistentAttrs;
+
+    private final Optional<String> accessTokenUrl;
+
     private final Optional<String> clientId;
 
     private final Optional<String> clientSecret;
 
+    private final Optional<String> requestTokenUrl;
+
+    private final Optional<ConnectionScriptsOAuth1> scripts;
+
+    private final Optional<ConnectionSignatureMethodOAuth1> signatureMethod;
+
+    private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+            upstreamParams;
+
+    private final Optional<String> userAuthorizationUrl;
+
     private final Map<String, Object> additionalProperties;
 
     private ConnectionOptionsOAuth1(
-            Optional<String> clientId, Optional<String> clientSecret, Map<String, Object> additionalProperties) {
+            Optional<List<String>> nonPersistentAttrs,
+            Optional<String> accessTokenUrl,
+            Optional<String> clientId,
+            Optional<String> clientSecret,
+            Optional<String> requestTokenUrl,
+            Optional<ConnectionScriptsOAuth1> scripts,
+            Optional<ConnectionSignatureMethodOAuth1> signatureMethod,
+            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
+            Optional<String> userAuthorizationUrl,
+            Map<String, Object> additionalProperties) {
+        this.nonPersistentAttrs = nonPersistentAttrs;
+        this.accessTokenUrl = accessTokenUrl;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
+        this.requestTokenUrl = requestTokenUrl;
+        this.scripts = scripts;
+        this.signatureMethod = signatureMethod;
+        this.upstreamParams = upstreamParams;
+        this.userAuthorizationUrl = userAuthorizationUrl;
         this.additionalProperties = additionalProperties;
+    }
+
+    @JsonProperty("non_persistent_attrs")
+    @java.lang.Override
+    public Optional<List<String>> getNonPersistentAttrs() {
+        return nonPersistentAttrs;
+    }
+
+    @JsonProperty("accessTokenURL")
+    public Optional<String> getAccessTokenUrl() {
+        return accessTokenUrl;
     }
 
     @JsonProperty("client_id")
@@ -41,6 +87,42 @@ public final class ConnectionOptionsOAuth1 {
     @JsonProperty("client_secret")
     public Optional<String> getClientSecret() {
         return clientSecret;
+    }
+
+    @JsonProperty("requestTokenURL")
+    public Optional<String> getRequestTokenUrl() {
+        return requestTokenUrl;
+    }
+
+    @JsonProperty("scripts")
+    public Optional<ConnectionScriptsOAuth1> getScripts() {
+        return scripts;
+    }
+
+    @JsonProperty("signatureMethod")
+    public Optional<ConnectionSignatureMethodOAuth1> getSignatureMethod() {
+        return signatureMethod;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("upstream_params")
+    public OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams() {
+        if (upstreamParams == null) {
+            return OptionalNullable.absent();
+        }
+        return upstreamParams;
+    }
+
+    @JsonProperty("userAuthorizationURL")
+    public Optional<String> getUserAuthorizationUrl() {
+        return userAuthorizationUrl;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("upstream_params")
+    private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+            _getUpstreamParams() {
+        return upstreamParams;
     }
 
     @java.lang.Override
@@ -55,12 +137,29 @@ public final class ConnectionOptionsOAuth1 {
     }
 
     private boolean equalTo(ConnectionOptionsOAuth1 other) {
-        return clientId.equals(other.clientId) && clientSecret.equals(other.clientSecret);
+        return nonPersistentAttrs.equals(other.nonPersistentAttrs)
+                && accessTokenUrl.equals(other.accessTokenUrl)
+                && clientId.equals(other.clientId)
+                && clientSecret.equals(other.clientSecret)
+                && requestTokenUrl.equals(other.requestTokenUrl)
+                && scripts.equals(other.scripts)
+                && signatureMethod.equals(other.signatureMethod)
+                && upstreamParams.equals(other.upstreamParams)
+                && userAuthorizationUrl.equals(other.userAuthorizationUrl);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.clientId, this.clientSecret);
+        return Objects.hash(
+                this.nonPersistentAttrs,
+                this.accessTokenUrl,
+                this.clientId,
+                this.clientSecret,
+                this.requestTokenUrl,
+                this.scripts,
+                this.signatureMethod,
+                this.upstreamParams,
+                this.userAuthorizationUrl);
     }
 
     @java.lang.Override
@@ -74,9 +173,24 @@ public final class ConnectionOptionsOAuth1 {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
+
+        private Optional<String> accessTokenUrl = Optional.empty();
+
         private Optional<String> clientId = Optional.empty();
 
         private Optional<String> clientSecret = Optional.empty();
+
+        private Optional<String> requestTokenUrl = Optional.empty();
+
+        private Optional<ConnectionScriptsOAuth1> scripts = Optional.empty();
+
+        private Optional<ConnectionSignatureMethodOAuth1> signatureMethod = Optional.empty();
+
+        private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
+                OptionalNullable.absent();
+
+        private Optional<String> userAuthorizationUrl = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -84,8 +198,37 @@ public final class ConnectionOptionsOAuth1 {
         private Builder() {}
 
         public Builder from(ConnectionOptionsOAuth1 other) {
+            nonPersistentAttrs(other.getNonPersistentAttrs());
+            accessTokenUrl(other.getAccessTokenUrl());
             clientId(other.getClientId());
             clientSecret(other.getClientSecret());
+            requestTokenUrl(other.getRequestTokenUrl());
+            scripts(other.getScripts());
+            signatureMethod(other.getSignatureMethod());
+            upstreamParams(other.getUpstreamParams());
+            userAuthorizationUrl(other.getUserAuthorizationUrl());
+            return this;
+        }
+
+        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
+        public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
+            this.nonPersistentAttrs = nonPersistentAttrs;
+            return this;
+        }
+
+        public Builder nonPersistentAttrs(List<String> nonPersistentAttrs) {
+            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
+            return this;
+        }
+
+        @JsonSetter(value = "accessTokenURL", nulls = Nulls.SKIP)
+        public Builder accessTokenUrl(Optional<String> accessTokenUrl) {
+            this.accessTokenUrl = accessTokenUrl;
+            return this;
+        }
+
+        public Builder accessTokenUrl(String accessTokenUrl) {
+            this.accessTokenUrl = Optional.ofNullable(accessTokenUrl);
             return this;
         }
 
@@ -111,8 +254,101 @@ public final class ConnectionOptionsOAuth1 {
             return this;
         }
 
+        @JsonSetter(value = "requestTokenURL", nulls = Nulls.SKIP)
+        public Builder requestTokenUrl(Optional<String> requestTokenUrl) {
+            this.requestTokenUrl = requestTokenUrl;
+            return this;
+        }
+
+        public Builder requestTokenUrl(String requestTokenUrl) {
+            this.requestTokenUrl = Optional.ofNullable(requestTokenUrl);
+            return this;
+        }
+
+        @JsonSetter(value = "scripts", nulls = Nulls.SKIP)
+        public Builder scripts(Optional<ConnectionScriptsOAuth1> scripts) {
+            this.scripts = scripts;
+            return this;
+        }
+
+        public Builder scripts(ConnectionScriptsOAuth1 scripts) {
+            this.scripts = Optional.ofNullable(scripts);
+            return this;
+        }
+
+        @JsonSetter(value = "signatureMethod", nulls = Nulls.SKIP)
+        public Builder signatureMethod(Optional<ConnectionSignatureMethodOAuth1> signatureMethod) {
+            this.signatureMethod = signatureMethod;
+            return this;
+        }
+
+        public Builder signatureMethod(ConnectionSignatureMethodOAuth1 signatureMethod) {
+            this.signatureMethod = Optional.ofNullable(signatureMethod);
+            return this;
+        }
+
+        @JsonSetter(value = "upstream_params", nulls = Nulls.SKIP)
+        public Builder upstreamParams(
+                @Nullable
+                        OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+                                upstreamParams) {
+            this.upstreamParams = upstreamParams;
+            return this;
+        }
+
+        public Builder upstreamParams(
+                Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>> upstreamParams) {
+            this.upstreamParams = OptionalNullable.of(upstreamParams);
+            return this;
+        }
+
+        public Builder upstreamParams(
+                Optional<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams) {
+            if (upstreamParams.isPresent()) {
+                this.upstreamParams = OptionalNullable.of(upstreamParams.get());
+            } else {
+                this.upstreamParams = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder upstreamParams(
+                com.auth0.client.mgmt.core.Nullable<
+                                Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+                        upstreamParams) {
+            if (upstreamParams.isNull()) {
+                this.upstreamParams = OptionalNullable.ofNull();
+            } else if (upstreamParams.isEmpty()) {
+                this.upstreamParams = OptionalNullable.absent();
+            } else {
+                this.upstreamParams = OptionalNullable.of(upstreamParams.get());
+            }
+            return this;
+        }
+
+        @JsonSetter(value = "userAuthorizationURL", nulls = Nulls.SKIP)
+        public Builder userAuthorizationUrl(Optional<String> userAuthorizationUrl) {
+            this.userAuthorizationUrl = userAuthorizationUrl;
+            return this;
+        }
+
+        public Builder userAuthorizationUrl(String userAuthorizationUrl) {
+            this.userAuthorizationUrl = Optional.ofNullable(userAuthorizationUrl);
+            return this;
+        }
+
         public ConnectionOptionsOAuth1 build() {
-            return new ConnectionOptionsOAuth1(clientId, clientSecret, additionalProperties);
+            return new ConnectionOptionsOAuth1(
+                    nonPersistentAttrs,
+                    accessTokenUrl,
+                    clientId,
+                    clientSecret,
+                    requestTokenUrl,
+                    scripts,
+                    signatureMethod,
+                    upstreamParams,
+                    userAuthorizationUrl,
+                    additionalProperties);
         }
     }
 }

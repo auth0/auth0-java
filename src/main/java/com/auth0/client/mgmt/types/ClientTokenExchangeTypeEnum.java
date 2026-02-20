@@ -10,6 +10,9 @@ public final class ClientTokenExchangeTypeEnum {
     public static final ClientTokenExchangeTypeEnum CUSTOM_AUTHENTICATION =
             new ClientTokenExchangeTypeEnum(Value.CUSTOM_AUTHENTICATION, "custom_authentication");
 
+    public static final ClientTokenExchangeTypeEnum ON_BEHALF_OF_TOKEN_EXCHANGE =
+            new ClientTokenExchangeTypeEnum(Value.ON_BEHALF_OF_TOKEN_EXCHANGE, "on_behalf_of_token_exchange");
+
     private final Value value;
 
     private final String string;
@@ -45,6 +48,8 @@ public final class ClientTokenExchangeTypeEnum {
         switch (value) {
             case CUSTOM_AUTHENTICATION:
                 return visitor.visitCustomAuthentication();
+            case ON_BEHALF_OF_TOKEN_EXCHANGE:
+                return visitor.visitOnBehalfOfTokenExchange();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -56,6 +61,8 @@ public final class ClientTokenExchangeTypeEnum {
         switch (value) {
             case "custom_authentication":
                 return CUSTOM_AUTHENTICATION;
+            case "on_behalf_of_token_exchange":
+                return ON_BEHALF_OF_TOKEN_EXCHANGE;
             default:
                 return new ClientTokenExchangeTypeEnum(Value.UNKNOWN, value);
         }
@@ -64,11 +71,15 @@ public final class ClientTokenExchangeTypeEnum {
     public enum Value {
         CUSTOM_AUTHENTICATION,
 
+        ON_BEHALF_OF_TOKEN_EXCHANGE,
+
         UNKNOWN
     }
 
     public interface Visitor<T> {
         T visitCustomAuthentication();
+
+        T visitOnBehalfOfTokenExchange();
 
         T visitUnknown(String unknownType);
     }
