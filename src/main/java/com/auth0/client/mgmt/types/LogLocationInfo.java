@@ -60,7 +60,7 @@ public final class LogLocationInfo {
     }
 
     /**
-     * @return Two-letter &lt;a href=&quot;https://www.iso.org/iso-3166-country-codes.html&quot;&gt;Alpha-2 ISO 3166-1&lt;/a&gt; country code.
+     * @return Two-letter <a href="https://www.iso.org/iso-3166-country-codes.html">Alpha-2 ISO 3166-1</a> country code.
      */
     @JsonProperty("country_code")
     public Optional<String> getCountryCode() {
@@ -68,7 +68,7 @@ public final class LogLocationInfo {
     }
 
     /**
-     * @return Three-letter &lt;a href=&quot;https://www.iso.org/iso-3166-country-codes.html&quot;&gt;Alpha-3 ISO 3166-1&lt;/a&gt; country code.
+     * @return Three-letter <a href="https://www.iso.org/iso-3166-country-codes.html">Alpha-3 ISO 3166-1</a> country code.
      */
     @JsonProperty("country_code3")
     public Optional<String> getCountryCode3() {
@@ -108,7 +108,7 @@ public final class LogLocationInfo {
     }
 
     /**
-     * @return Time zone name as found in the &lt;a href=&quot;https://www.iana.org/time-zones&quot;&gt;tz database&lt;/a&gt;.
+     * @return Time zone name as found in the <a href="https://www.iana.org/time-zones">tz database</a>.
      */
     @JsonProperty("time_zone")
     public Optional<String> getTimeZone() {
@@ -203,7 +203,7 @@ public final class LogLocationInfo {
         }
 
         /**
-         * <p>Two-letter &lt;a href=&quot;https://www.iso.org/iso-3166-country-codes.html&quot;&gt;Alpha-2 ISO 3166-1&lt;/a&gt; country code.</p>
+         * <p>Two-letter <a href="https://www.iso.org/iso-3166-country-codes.html">Alpha-2 ISO 3166-1</a> country code.</p>
          */
         @JsonSetter(value = "country_code", nulls = Nulls.SKIP)
         public Builder countryCode(Optional<String> countryCode) {
@@ -217,7 +217,7 @@ public final class LogLocationInfo {
         }
 
         /**
-         * <p>Three-letter &lt;a href=&quot;https://www.iso.org/iso-3166-country-codes.html&quot;&gt;Alpha-3 ISO 3166-1&lt;/a&gt; country code.</p>
+         * <p>Three-letter <a href="https://www.iso.org/iso-3166-country-codes.html">Alpha-3 ISO 3166-1</a> country code.</p>
          */
         @JsonSetter(value = "country_code3", nulls = Nulls.SKIP)
         public Builder countryCode3(Optional<String> countryCode3) {
@@ -287,7 +287,7 @@ public final class LogLocationInfo {
         }
 
         /**
-         * <p>Time zone name as found in the &lt;a href=&quot;https://www.iana.org/time-zones&quot;&gt;tz database&lt;/a&gt;.</p>
+         * <p>Time zone name as found in the <a href="https://www.iana.org/time-zones">tz database</a>.</p>
          */
         @JsonSetter(value = "time_zone", nulls = Nulls.SKIP)
         public Builder timeZone(Optional<String> timeZone) {
@@ -325,6 +325,16 @@ public final class LogLocationInfo {
                     timeZone,
                     continentCode,
                     additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

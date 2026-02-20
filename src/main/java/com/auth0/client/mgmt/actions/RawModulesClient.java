@@ -61,6 +61,13 @@ public class RawModulesClient {
     /**
      * Retrieve a paginated list of all Actions Modules with optional filtering and totals.
      */
+    public ManagementApiHttpResponse<SyncPagingIterable<ActionModuleListItem>> list(RequestOptions requestOptions) {
+        return list(GetActionModulesRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve a paginated list of all Actions Modules with optional filtering and totals.
+     */
     public ManagementApiHttpResponse<SyncPagingIterable<ActionModuleListItem>> list(
             GetActionModulesRequestParameters request) {
         return list(request, null);
@@ -77,6 +84,11 @@ public class RawModulesClient {
         QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage().orElse(0), false);
         QueryStringMapper.addQueryParameter(
                 httpUrl, "per_page", request.getPerPage().orElse(50), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -145,10 +157,14 @@ public class RawModulesClient {
      */
     public ManagementApiHttpResponse<CreateActionModuleResponseContent> create(
             CreateActionModuleRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("actions/modules")
-                .build();
+                .addPathSegments("actions/modules");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -157,7 +173,7 @@ public class RawModulesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -216,13 +232,17 @@ public class RawModulesClient {
      * Retrieve details of a specific Actions Module by its unique identifier.
      */
     public ManagementApiHttpResponse<GetActionModuleResponseContent> get(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("actions/modules")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -279,13 +299,17 @@ public class RawModulesClient {
      * Permanently delete an Actions Module. This will fail if the module is still in use by any actions.
      */
     public ManagementApiHttpResponse<Void> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("actions/modules")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -343,6 +367,14 @@ public class RawModulesClient {
      * Update properties of an existing Actions Module, such as code, dependencies, or secrets.
      */
     public ManagementApiHttpResponse<UpdateActionModuleResponseContent> update(
+            String id, RequestOptions requestOptions) {
+        return update(id, UpdateActionModuleRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update properties of an existing Actions Module, such as code, dependencies, or secrets.
+     */
+    public ManagementApiHttpResponse<UpdateActionModuleResponseContent> update(
             String id, UpdateActionModuleRequestContent request) {
         return update(id, request, null);
     }
@@ -352,11 +384,15 @@ public class RawModulesClient {
      */
     public ManagementApiHttpResponse<UpdateActionModuleResponseContent> update(
             String id, UpdateActionModuleRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("actions/modules")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -365,7 +401,7 @@ public class RawModulesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -427,6 +463,14 @@ public class RawModulesClient {
      * Lists all actions that are using a specific Actions Module, showing which deployed action versions reference this Actions Module.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<ActionModuleAction>> listActions(
+            String id, RequestOptions requestOptions) {
+        return listActions(id, GetActionModuleActionsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Lists all actions that are using a specific Actions Module, showing which deployed action versions reference this Actions Module.
+     */
+    public ManagementApiHttpResponse<SyncPagingIterable<ActionModuleAction>> listActions(
             String id, GetActionModuleActionsRequestParameters request) {
         return listActions(id, request, null);
     }
@@ -444,6 +488,11 @@ public class RawModulesClient {
         QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage().orElse(0), false);
         QueryStringMapper.addQueryParameter(
                 httpUrl, "per_page", request.getPerPage().orElse(50), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -515,12 +564,16 @@ public class RawModulesClient {
      */
     public ManagementApiHttpResponse<RollbackActionModuleResponseContent> rollback(
             String id, RollbackActionModuleRequestParameters request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("actions/modules")
                 .addPathSegment(id)
-                .addPathSegments("rollback")
-                .build();
+                .addPathSegments("rollback");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -529,7 +582,7 @@ public class RawModulesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

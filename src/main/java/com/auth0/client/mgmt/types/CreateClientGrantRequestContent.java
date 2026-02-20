@@ -182,6 +182,10 @@ public final class CreateClientGrantRequestContent {
     public interface _FinalStage {
         CreateClientGrantRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage organizationUsage(Optional<ClientGrantOrganizationUsageEnum> organizationUsage);
 
         _FinalStage organizationUsage(ClientGrantOrganizationUsageEnum organizationUsage);
@@ -397,6 +401,18 @@ public final class CreateClientGrantRequestContent {
                     authorizationDetailsTypes,
                     allowAllScopes,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

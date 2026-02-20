@@ -99,7 +99,7 @@ public final class ConnectionsGetRequest {
     }
 
     /**
-     * @return &lt;code&gt;true&lt;/code&gt; if the fields specified are to be included in the result, &lt;code&gt;false&lt;/code&gt; otherwise (defaults to &lt;code&gt;true&lt;/code&gt;)
+     * @return <code>true</code> if the fields specified are to be included in the result, <code>false</code> otherwise (defaults to <code>true</code>)
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("include_fields")
@@ -326,7 +326,7 @@ public final class ConnectionsGetRequest {
         }
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; if the fields specified are to be included in the result, &lt;code&gt;false&lt;/code&gt; otherwise (defaults to &lt;code&gt;true&lt;/code&gt;)</p>
+         * <p><code>true</code> if the fields specified are to be included in the result, <code>false</code> otherwise (defaults to <code>true</code>)</p>
          */
         @JsonSetter(value = "include_fields", nulls = Nulls.SKIP)
         public Builder includeFields(@Nullable OptionalNullable<Boolean> includeFields) {
@@ -361,6 +361,16 @@ public final class ConnectionsGetRequest {
 
         public ConnectionsGetRequest build() {
             return new ConnectionsGetRequest(strategy, from, take, fields, includeFields, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

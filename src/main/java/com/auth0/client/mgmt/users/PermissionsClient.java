@@ -38,6 +38,13 @@ public class PermissionsClient {
     /**
      * Retrieve all permissions associated with the user.
      */
+    public SyncPagingIterable<UserPermissionSchema> list(String id, RequestOptions requestOptions) {
+        return this.rawClient.list(id, requestOptions).body();
+    }
+
+    /**
+     * Retrieve all permissions associated with the user.
+     */
     public SyncPagingIterable<UserPermissionSchema> list(String id, ListUserPermissionsRequestParameters request) {
         return this.rawClient.list(id, request).body();
     }

@@ -189,5 +189,15 @@ public final class GetDailyStatsRequestParameters {
         public GetDailyStatsRequestParameters build() {
             return new GetDailyStatsRequestParameters(from, to, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

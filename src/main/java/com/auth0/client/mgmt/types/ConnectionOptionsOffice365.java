@@ -114,5 +114,15 @@ public final class ConnectionOptionsOffice365 {
         public ConnectionOptionsOffice365 build() {
             return new ConnectionOptionsOffice365(clientId, clientSecret, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

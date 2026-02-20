@@ -192,5 +192,15 @@ public final class ListUsersOffsetPaginatedResponseContent {
             return new ListUsersOffsetPaginatedResponseContent(
                     start, limit, length, total, users, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

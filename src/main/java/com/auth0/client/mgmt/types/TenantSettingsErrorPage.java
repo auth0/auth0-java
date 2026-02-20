@@ -40,7 +40,7 @@ public final class TenantSettingsErrorPage {
     }
 
     /**
-     * @return Custom Error HTML (&lt;a href='https://github.com/Shopify/liquid/wiki/Liquid-for-Designers'&gt;Liquid syntax&lt;/a&gt; is supported).
+     * @return Custom Error HTML (<a href='https://github.com/Shopify/liquid/wiki/Liquid-for-Designers'>Liquid syntax</a> is supported).
      */
     @JsonProperty("html")
     public Optional<String> getHtml() {
@@ -113,7 +113,7 @@ public final class TenantSettingsErrorPage {
         }
 
         /**
-         * <p>Custom Error HTML (&lt;a href='https://github.com/Shopify/liquid/wiki/Liquid-for-Designers'&gt;Liquid syntax&lt;/a&gt; is supported).</p>
+         * <p>Custom Error HTML (<a href='https://github.com/Shopify/liquid/wiki/Liquid-for-Designers'>Liquid syntax</a> is supported).</p>
          */
         @JsonSetter(value = "html", nulls = Nulls.SKIP)
         public Builder html(Optional<String> html) {
@@ -156,6 +156,16 @@ public final class TenantSettingsErrorPage {
 
         public TenantSettingsErrorPage build() {
             return new TenantSettingsErrorPage(html, showLogLink, url, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

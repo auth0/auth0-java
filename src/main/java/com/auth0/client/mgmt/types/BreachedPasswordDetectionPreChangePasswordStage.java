@@ -34,7 +34,7 @@ public final class BreachedPasswordDetectionPreChangePasswordStage {
 
     /**
      * @return Action to take when a breached password is detected during a password reset.
-     * Possible values: &lt;code&gt;block&lt;/code&gt;, &lt;code&gt;admin_notification&lt;/code&gt;.
+     * Possible values: <code>block</code>, <code>admin_notification</code>.
      */
     @JsonProperty("shields")
     public Optional<List<BreachedPasswordDetectionPreChangePasswordShieldsEnum>> getShields() {
@@ -87,7 +87,7 @@ public final class BreachedPasswordDetectionPreChangePasswordStage {
 
         /**
          * <p>Action to take when a breached password is detected during a password reset.
-         * Possible values: &lt;code&gt;block&lt;/code&gt;, &lt;code&gt;admin_notification&lt;/code&gt;.</p>
+         * Possible values: <code>block</code>, <code>admin_notification</code>.</p>
          */
         @JsonSetter(value = "shields", nulls = Nulls.SKIP)
         public Builder shields(Optional<List<BreachedPasswordDetectionPreChangePasswordShieldsEnum>> shields) {
@@ -102,6 +102,16 @@ public final class BreachedPasswordDetectionPreChangePasswordStage {
 
         public BreachedPasswordDetectionPreChangePasswordStage build() {
             return new BreachedPasswordDetectionPreChangePasswordStage(shields, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

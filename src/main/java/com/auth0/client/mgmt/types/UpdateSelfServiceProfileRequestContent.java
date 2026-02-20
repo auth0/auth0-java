@@ -79,7 +79,7 @@ public final class UpdateSelfServiceProfileRequestContent {
     }
 
     /**
-     * @return List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [<code>oidc</code>, <code>samlp</code>, <code>waad</code>, <code>google-apps</code>, <code>adfs</code>, <code>okta</code>, <code>keycloak-samlp</code>, <code>pingfederate</code>]
+     * @return List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [<code>oidc</code>, <code>samlp</code>, <code>waad</code>, <code>google-apps</code>, <code>adfs</code>, <code>okta</code>, <code>auth0-samlp</code>, <code>okta-samlp</code>, <code>keycloak-samlp</code>, <code>pingfederate</code>]
      */
     @JsonProperty("allowed_strategies")
     public Optional<List<SelfServiceProfileAllowedStrategyEnum>> getAllowedStrategies() {
@@ -272,7 +272,7 @@ public final class UpdateSelfServiceProfileRequestContent {
         }
 
         /**
-         * <p>List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [<code>oidc</code>, <code>samlp</code>, <code>waad</code>, <code>google-apps</code>, <code>adfs</code>, <code>okta</code>, <code>keycloak-samlp</code>, <code>pingfederate</code>]</p>
+         * <p>List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [<code>oidc</code>, <code>samlp</code>, <code>waad</code>, <code>google-apps</code>, <code>adfs</code>, <code>okta</code>, <code>auth0-samlp</code>, <code>okta-samlp</code>, <code>keycloak-samlp</code>, <code>pingfederate</code>]</p>
          */
         @JsonSetter(value = "allowed_strategies", nulls = Nulls.SKIP)
         public Builder allowedStrategies(Optional<List<SelfServiceProfileAllowedStrategyEnum>> allowedStrategies) {
@@ -361,6 +361,16 @@ public final class UpdateSelfServiceProfileRequestContent {
                     userAttributes,
                     userAttributeProfileId,
                     additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

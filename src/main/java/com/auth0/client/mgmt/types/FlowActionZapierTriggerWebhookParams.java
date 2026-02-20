@@ -85,6 +85,10 @@ public final class FlowActionZapierTriggerWebhookParams {
     public interface _FinalStage {
         FlowActionZapierTriggerWebhookParams build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage method(Optional<FlowActionZapierTriggerWebhookParamsMethod> method);
 
         _FinalStage method(FlowActionZapierTriggerWebhookParamsMethod method);
@@ -131,6 +135,18 @@ public final class FlowActionZapierTriggerWebhookParams {
         @java.lang.Override
         public FlowActionZapierTriggerWebhookParams build() {
             return new FlowActionZapierTriggerWebhookParams(connectionId, method, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

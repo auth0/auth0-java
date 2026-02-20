@@ -140,5 +140,15 @@ public final class GetGuardianFactorDuoSettingsResponseContent {
         public GetGuardianFactorDuoSettingsResponseContent build() {
             return new GetGuardianFactorDuoSettingsResponseContent(ikey, skey, host, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

@@ -86,6 +86,10 @@ public final class FormFieldPaymentConfigChargeOneOffOneOff {
 
     public interface _FinalStage {
         FormFieldPaymentConfigChargeOneOffOneOff build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -123,6 +127,18 @@ public final class FormFieldPaymentConfigChargeOneOffOneOff {
         @java.lang.Override
         public FormFieldPaymentConfigChargeOneOffOneOff build() {
             return new FormFieldPaymentConfigChargeOneOffOneOff(amount, currency, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

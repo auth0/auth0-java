@@ -47,14 +47,22 @@ public class RawClientGrantsClient {
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
+     * Retrieve a list of <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grants</a>, including the scopes associated with the application/API pair.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<ClientGrantResponseContent>> list() {
         return list(ListClientGrantsRequestParameters.builder().build());
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
+     * Retrieve a list of <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grants</a>, including the scopes associated with the application/API pair.
+     */
+    public ManagementApiHttpResponse<SyncPagingIterable<ClientGrantResponseContent>> list(
+            RequestOptions requestOptions) {
+        return list(ListClientGrantsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve a list of <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grants</a>, including the scopes associated with the application/API pair.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<ClientGrantResponseContent>> list(
             ListClientGrantsRequestParameters request) {
@@ -62,7 +70,7 @@ public class RawClientGrantsClient {
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
+     * Retrieve a list of <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grants</a>, including the scopes associated with the application/API pair.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<ClientGrantResponseContent>> list(
             ListClientGrantsRequestParameters request, RequestOptions requestOptions) {
@@ -92,6 +100,11 @@ public class RawClientGrantsClient {
         if (!request.getSubjectType().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "subject_type", request.getSubjectType().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -147,21 +160,25 @@ public class RawClientGrantsClient {
     }
 
     /**
-     * Create a client grant for a machine-to-machine login flow. To learn more, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow&quot;&gt;Client Credential Flow&lt;/a&gt;.
+     * Create a client grant for a machine-to-machine login flow. To learn more, read <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a>.
      */
     public ManagementApiHttpResponse<CreateClientGrantResponseContent> create(CreateClientGrantRequestContent request) {
         return create(request, null);
     }
 
     /**
-     * Create a client grant for a machine-to-machine login flow. To learn more, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow&quot;&gt;Client Credential Flow&lt;/a&gt;.
+     * Create a client grant for a machine-to-machine login flow. To learn more, read <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a>.
      */
     public ManagementApiHttpResponse<CreateClientGrantResponseContent> create(
             CreateClientGrantRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("client-grants")
-                .build();
+                .addPathSegments("client-grants");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -170,7 +187,7 @@ public class RawClientGrantsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -221,7 +238,7 @@ public class RawClientGrantsClient {
     }
 
     /**
-     * Retrieve a single &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grant&lt;/a&gt;, including the
+     * Retrieve a single <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grant</a>, including the
      * scopes associated with the application/API pair.
      */
     public ManagementApiHttpResponse<GetClientGrantResponseContent> get(String id) {
@@ -229,17 +246,21 @@ public class RawClientGrantsClient {
     }
 
     /**
-     * Retrieve a single &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grant&lt;/a&gt;, including the
+     * Retrieve a single <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grant</a>, including the
      * scopes associated with the application/API pair.
      */
     public ManagementApiHttpResponse<GetClientGrantResponseContent> get(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("client-grants")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -283,23 +304,27 @@ public class RawClientGrantsClient {
     }
 
     /**
-     * Delete the &lt;a href=&quot;https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow&quot;&gt;Client Credential Flow&lt;/a&gt; from your machine-to-machine application.
+     * Delete the <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a> from your machine-to-machine application.
      */
     public ManagementApiHttpResponse<Void> delete(String id) {
         return delete(id, null);
     }
 
     /**
-     * Delete the &lt;a href=&quot;https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow&quot;&gt;Client Credential Flow&lt;/a&gt; from your machine-to-machine application.
+     * Delete the <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a> from your machine-to-machine application.
      */
     public ManagementApiHttpResponse<Void> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("client-grants")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -351,6 +376,14 @@ public class RawClientGrantsClient {
      * Update a client grant.
      */
     public ManagementApiHttpResponse<UpdateClientGrantResponseContent> update(
+            String id, RequestOptions requestOptions) {
+        return update(id, UpdateClientGrantRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update a client grant.
+     */
+    public ManagementApiHttpResponse<UpdateClientGrantResponseContent> update(
             String id, UpdateClientGrantRequestContent request) {
         return update(id, request, null);
     }
@@ -360,11 +393,15 @@ public class RawClientGrantsClient {
      */
     public ManagementApiHttpResponse<UpdateClientGrantResponseContent> update(
             String id, UpdateClientGrantRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("client-grants")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -373,7 +410,7 @@ public class RawClientGrantsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

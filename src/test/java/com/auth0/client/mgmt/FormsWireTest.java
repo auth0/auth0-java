@@ -66,11 +66,9 @@ public class FormsWireTest {
 
     @Test
     public void testCreate() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"messages\":{\"errors\":{\"key\":\"value\"},\"custom\":{\"key\":\"value\"}},\"languages\":{\"primary\":\"primary\",\"default\":\"default\"},\"translations\":{\"key\":{\"key\":\"value\"}},\"nodes\":[{\"id\":\"id\",\"type\":\"FLOW\",\"coordinates\":{\"x\":1,\"y\":1},\"alias\":\"alias\",\"config\":{\"flow_id\":\"flow_id\"}}],\"start\":{\"hidden_fields\":[{\"key\":\"key\"}],\"next_node\":\"$ending\",\"coordinates\":{\"x\":1,\"y\":1}},\"ending\":{\"redirection\":{\"delay\":1,\"target\":\"target\"},\"after_submit\":{\"flow_id\":\"flow_id\"},\"coordinates\":{\"x\":1,\"y\":1},\"resume_flow\":true},\"style\":{\"css\":\"css\"},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"embedded_at\":\"embedded_at\",\"submitted_at\":\"submitted_at\"}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource("/wire-tests/FormsWireTest_testCreate_response.json")));
         CreateFormResponseContent response = client.forms()
                 .create(CreateFormRequestContent.builder().name("name").build());
         RecordedRequest request = server.takeRequest();
@@ -109,75 +107,7 @@ public class FormsWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"id\": \"id\",\n"
-                + "  \"name\": \"name\",\n"
-                + "  \"messages\": {\n"
-                + "    \"errors\": {\n"
-                + "      \"key\": \"value\"\n"
-                + "    },\n"
-                + "    \"custom\": {\n"
-                + "      \"key\": \"value\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"languages\": {\n"
-                + "    \"primary\": \"primary\",\n"
-                + "    \"default\": \"default\"\n"
-                + "  },\n"
-                + "  \"translations\": {\n"
-                + "    \"key\": {\n"
-                + "      \"key\": \"value\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"nodes\": [\n"
-                + "    {\n"
-                + "      \"id\": \"id\",\n"
-                + "      \"type\": \"FLOW\",\n"
-                + "      \"coordinates\": {\n"
-                + "        \"x\": 1,\n"
-                + "        \"y\": 1\n"
-                + "      },\n"
-                + "      \"alias\": \"alias\",\n"
-                + "      \"config\": {\n"
-                + "        \"flow_id\": \"flow_id\"\n"
-                + "      }\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"start\": {\n"
-                + "    \"hidden_fields\": [\n"
-                + "      {\n"
-                + "        \"key\": \"key\"\n"
-                + "      }\n"
-                + "    ],\n"
-                + "    \"next_node\": \"$ending\",\n"
-                + "    \"coordinates\": {\n"
-                + "      \"x\": 1,\n"
-                + "      \"y\": 1\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"ending\": {\n"
-                + "    \"redirection\": {\n"
-                + "      \"delay\": 1,\n"
-                + "      \"target\": \"target\"\n"
-                + "    },\n"
-                + "    \"after_submit\": {\n"
-                + "      \"flow_id\": \"flow_id\"\n"
-                + "    },\n"
-                + "    \"coordinates\": {\n"
-                + "      \"x\": 1,\n"
-                + "      \"y\": 1\n"
-                + "    },\n"
-                + "    \"resume_flow\": true\n"
-                + "  },\n"
-                + "  \"style\": {\n"
-                + "    \"css\": \"css\"\n"
-                + "  },\n"
-                + "  \"created_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "  \"updated_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "  \"embedded_at\": \"embedded_at\",\n"
-                + "  \"submitted_at\": \"submitted_at\"\n"
-                + "}";
+        String expectedResponseBody = TestResources.loadResource("/wire-tests/FormsWireTest_testCreate_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -211,11 +141,9 @@ public class FormsWireTest {
 
     @Test
     public void testGet() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"messages\":{\"errors\":{\"key\":\"value\"},\"custom\":{\"key\":\"value\"}},\"languages\":{\"primary\":\"primary\",\"default\":\"default\"},\"translations\":{\"key\":{\"key\":\"value\"}},\"nodes\":[{\"id\":\"id\",\"type\":\"FLOW\",\"coordinates\":{\"x\":1,\"y\":1},\"alias\":\"alias\",\"config\":{\"flow_id\":\"flow_id\"}}],\"start\":{\"hidden_fields\":[{\"key\":\"key\"}],\"next_node\":\"$ending\",\"coordinates\":{\"x\":1,\"y\":1}},\"ending\":{\"redirection\":{\"delay\":1,\"target\":\"target\"},\"after_submit\":{\"flow_id\":\"flow_id\"},\"coordinates\":{\"x\":1,\"y\":1},\"resume_flow\":true},\"style\":{\"css\":\"css\"},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"embedded_at\":\"embedded_at\",\"submitted_at\":\"submitted_at\"}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource("/wire-tests/FormsWireTest_testGet_response.json")));
         GetFormResponseContent response =
                 client.forms().get("id", GetFormRequestParameters.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -225,75 +153,7 @@ public class FormsWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"id\": \"id\",\n"
-                + "  \"name\": \"name\",\n"
-                + "  \"messages\": {\n"
-                + "    \"errors\": {\n"
-                + "      \"key\": \"value\"\n"
-                + "    },\n"
-                + "    \"custom\": {\n"
-                + "      \"key\": \"value\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"languages\": {\n"
-                + "    \"primary\": \"primary\",\n"
-                + "    \"default\": \"default\"\n"
-                + "  },\n"
-                + "  \"translations\": {\n"
-                + "    \"key\": {\n"
-                + "      \"key\": \"value\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"nodes\": [\n"
-                + "    {\n"
-                + "      \"id\": \"id\",\n"
-                + "      \"type\": \"FLOW\",\n"
-                + "      \"coordinates\": {\n"
-                + "        \"x\": 1,\n"
-                + "        \"y\": 1\n"
-                + "      },\n"
-                + "      \"alias\": \"alias\",\n"
-                + "      \"config\": {\n"
-                + "        \"flow_id\": \"flow_id\"\n"
-                + "      }\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"start\": {\n"
-                + "    \"hidden_fields\": [\n"
-                + "      {\n"
-                + "        \"key\": \"key\"\n"
-                + "      }\n"
-                + "    ],\n"
-                + "    \"next_node\": \"$ending\",\n"
-                + "    \"coordinates\": {\n"
-                + "      \"x\": 1,\n"
-                + "      \"y\": 1\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"ending\": {\n"
-                + "    \"redirection\": {\n"
-                + "      \"delay\": 1,\n"
-                + "      \"target\": \"target\"\n"
-                + "    },\n"
-                + "    \"after_submit\": {\n"
-                + "      \"flow_id\": \"flow_id\"\n"
-                + "    },\n"
-                + "    \"coordinates\": {\n"
-                + "      \"x\": 1,\n"
-                + "      \"y\": 1\n"
-                + "    },\n"
-                + "    \"resume_flow\": true\n"
-                + "  },\n"
-                + "  \"style\": {\n"
-                + "    \"css\": \"css\"\n"
-                + "  },\n"
-                + "  \"created_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "  \"updated_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "  \"embedded_at\": \"embedded_at\",\n"
-                + "  \"submitted_at\": \"submitted_at\"\n"
-                + "}";
+        String expectedResponseBody = TestResources.loadResource("/wire-tests/FormsWireTest_testGet_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -336,11 +196,9 @@ public class FormsWireTest {
 
     @Test
     public void testUpdate() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"messages\":{\"errors\":{\"key\":\"value\"},\"custom\":{\"key\":\"value\"}},\"languages\":{\"primary\":\"primary\",\"default\":\"default\"},\"translations\":{\"key\":{\"key\":\"value\"}},\"nodes\":[{\"id\":\"id\",\"type\":\"FLOW\",\"coordinates\":{\"x\":1,\"y\":1},\"alias\":\"alias\",\"config\":{\"flow_id\":\"flow_id\"}}],\"start\":{\"hidden_fields\":[{\"key\":\"key\"}],\"next_node\":\"$ending\",\"coordinates\":{\"x\":1,\"y\":1}},\"ending\":{\"redirection\":{\"delay\":1,\"target\":\"target\"},\"after_submit\":{\"flow_id\":\"flow_id\"},\"coordinates\":{\"x\":1,\"y\":1},\"resume_flow\":true},\"style\":{\"css\":\"css\"},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"embedded_at\":\"embedded_at\",\"submitted_at\":\"submitted_at\"}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource("/wire-tests/FormsWireTest_testUpdate_response.json")));
         UpdateFormResponseContent response =
                 client.forms().update("id", UpdateFormRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -379,75 +237,7 @@ public class FormsWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"id\": \"id\",\n"
-                + "  \"name\": \"name\",\n"
-                + "  \"messages\": {\n"
-                + "    \"errors\": {\n"
-                + "      \"key\": \"value\"\n"
-                + "    },\n"
-                + "    \"custom\": {\n"
-                + "      \"key\": \"value\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"languages\": {\n"
-                + "    \"primary\": \"primary\",\n"
-                + "    \"default\": \"default\"\n"
-                + "  },\n"
-                + "  \"translations\": {\n"
-                + "    \"key\": {\n"
-                + "      \"key\": \"value\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"nodes\": [\n"
-                + "    {\n"
-                + "      \"id\": \"id\",\n"
-                + "      \"type\": \"FLOW\",\n"
-                + "      \"coordinates\": {\n"
-                + "        \"x\": 1,\n"
-                + "        \"y\": 1\n"
-                + "      },\n"
-                + "      \"alias\": \"alias\",\n"
-                + "      \"config\": {\n"
-                + "        \"flow_id\": \"flow_id\"\n"
-                + "      }\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"start\": {\n"
-                + "    \"hidden_fields\": [\n"
-                + "      {\n"
-                + "        \"key\": \"key\"\n"
-                + "      }\n"
-                + "    ],\n"
-                + "    \"next_node\": \"$ending\",\n"
-                + "    \"coordinates\": {\n"
-                + "      \"x\": 1,\n"
-                + "      \"y\": 1\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"ending\": {\n"
-                + "    \"redirection\": {\n"
-                + "      \"delay\": 1,\n"
-                + "      \"target\": \"target\"\n"
-                + "    },\n"
-                + "    \"after_submit\": {\n"
-                + "      \"flow_id\": \"flow_id\"\n"
-                + "    },\n"
-                + "    \"coordinates\": {\n"
-                + "      \"x\": 1,\n"
-                + "      \"y\": 1\n"
-                + "    },\n"
-                + "    \"resume_flow\": true\n"
-                + "  },\n"
-                + "  \"style\": {\n"
-                + "    \"css\": \"css\"\n"
-                + "  },\n"
-                + "  \"created_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "  \"updated_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "  \"embedded_at\": \"embedded_at\",\n"
-                + "  \"submitted_at\": \"submitted_at\"\n"
-                + "}";
+        String expectedResponseBody = TestResources.loadResource("/wire-tests/FormsWireTest_testUpdate_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(

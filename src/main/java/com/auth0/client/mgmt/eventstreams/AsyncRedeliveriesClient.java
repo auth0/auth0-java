@@ -31,6 +31,11 @@ public class AsyncRedeliveriesClient {
     }
 
     public CompletableFuture<CreateEventStreamRedeliveryResponseContent> create(
+            String id, RequestOptions requestOptions) {
+        return this.rawClient.create(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<CreateEventStreamRedeliveryResponseContent> create(
             String id, CreateEventStreamRedeliveryRequestContent request) {
         return this.rawClient.create(id, request).thenApply(response -> response.body());
     }

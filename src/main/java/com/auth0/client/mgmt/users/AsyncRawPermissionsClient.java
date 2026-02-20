@@ -57,6 +57,14 @@ public class AsyncRawPermissionsClient {
      * Retrieve all permissions associated with the user.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<UserPermissionSchema>>> list(
+            String id, RequestOptions requestOptions) {
+        return list(id, ListUserPermissionsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve all permissions associated with the user.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<UserPermissionSchema>>> list(
             String id, ListUserPermissionsRequestParameters request) {
         return list(id, request, null);
     }
@@ -76,6 +84,11 @@ public class AsyncRawPermissionsClient {
         QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage().orElse(0), false);
         QueryStringMapper.addQueryParameter(
                 httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -181,12 +194,16 @@ public class AsyncRawPermissionsClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> create(
             String id, CreateUserPermissionsRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("users")
                 .addPathSegment(id)
-                .addPathSegments("permissions")
-                .build();
+                .addPathSegments("permissions");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -195,7 +212,7 @@ public class AsyncRawPermissionsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -271,12 +288,16 @@ public class AsyncRawPermissionsClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(
             String id, DeleteUserPermissionsRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("users")
                 .addPathSegment(id)
-                .addPathSegments("permissions")
-                .build();
+                .addPathSegments("permissions");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -285,7 +306,7 @@ public class AsyncRawPermissionsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

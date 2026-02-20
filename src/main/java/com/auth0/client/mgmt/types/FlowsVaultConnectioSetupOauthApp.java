@@ -127,6 +127,10 @@ public final class FlowsVaultConnectioSetupOauthApp {
     public interface _FinalStage {
         FlowsVaultConnectioSetupOauthApp build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage audience(Optional<String> audience);
 
         _FinalStage audience(String audience);
@@ -204,6 +208,18 @@ public final class FlowsVaultConnectioSetupOauthApp {
         public FlowsVaultConnectioSetupOauthApp build() {
             return new FlowsVaultConnectioSetupOauthApp(
                     type, clientId, clientSecret, domain, audience, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

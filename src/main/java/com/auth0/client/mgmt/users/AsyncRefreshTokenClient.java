@@ -38,6 +38,14 @@ public class AsyncRefreshTokenClient {
      * Retrieve details for a user's refresh tokens.
      */
     public CompletableFuture<SyncPagingIterable<RefreshTokenResponseContent>> list(
+            String userId, RequestOptions requestOptions) {
+        return this.rawClient.list(userId, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve details for a user's refresh tokens.
+     */
+    public CompletableFuture<SyncPagingIterable<RefreshTokenResponseContent>> list(
             String userId, ListRefreshTokensRequestParameters request) {
         return this.rawClient.list(userId, request).thenApply(response -> response.body());
     }

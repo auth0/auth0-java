@@ -52,6 +52,14 @@ public class AsyncRawConnectedAccountsClient {
      * Retrieve all connected accounts associated with the user.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ConnectedAccount>>> list(
+            String id, RequestOptions requestOptions) {
+        return list(id, GetUserConnectedAccountsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve all connected accounts associated with the user.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ConnectedAccount>>> list(
             String id, GetUserConnectedAccountsRequestParameters request) {
         return list(id, request, null);
     }
@@ -71,6 +79,11 @@ public class AsyncRawConnectedAccountsClient {
                     httpUrl, "from", request.getFrom().orElse(null), false);
         }
         QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)

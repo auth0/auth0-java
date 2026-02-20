@@ -54,6 +54,14 @@ public class RawVersionsClient {
      * Retrieve all of an action's versions. An action version is created whenever an action is deployed. An action version is immutable, once created.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<ActionVersion>> list(
+            String actionId, RequestOptions requestOptions) {
+        return list(actionId, ListActionVersionsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve all of an action's versions. An action version is created whenever an action is deployed. An action version is immutable, once created.
+     */
+    public ManagementApiHttpResponse<SyncPagingIterable<ActionVersion>> list(
             String actionId, ListActionVersionsRequestParameters request) {
         return list(actionId, request, null);
     }
@@ -71,6 +79,11 @@ public class RawVersionsClient {
         QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage().orElse(0), false);
         QueryStringMapper.addQueryParameter(
                 httpUrl, "per_page", request.getPerPage().orElse(50), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -138,15 +151,19 @@ public class RawVersionsClient {
      */
     public ManagementApiHttpResponse<GetActionVersionResponseContent> get(
             String actionId, String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("actions/actions")
                 .addPathSegment(actionId)
                 .addPathSegments("versions")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -203,6 +220,14 @@ public class RawVersionsClient {
      * Performs the equivalent of a roll-back of an action to an earlier, specified version. Creates a new, deployed action version that is identical to the specified version. If this action is currently bound to a trigger, the system will begin executing the newly-created version immediately.
      */
     public ManagementApiHttpResponse<DeployActionVersionResponseContent> deploy(
+            String actionId, String id, RequestOptions requestOptions) {
+        return deploy(actionId, id, OptionalNullable.<DeployActionVersionRequestContent>absent(), requestOptions);
+    }
+
+    /**
+     * Performs the equivalent of a roll-back of an action to an earlier, specified version. Creates a new, deployed action version that is identical to the specified version. If this action is currently bound to a trigger, the system will begin executing the newly-created version immediately.
+     */
+    public ManagementApiHttpResponse<DeployActionVersionResponseContent> deploy(
             String actionId, String id, OptionalNullable<DeployActionVersionRequestContent> request) {
         return deploy(actionId, id, request, null);
     }
@@ -215,14 +240,18 @@ public class RawVersionsClient {
             String id,
             OptionalNullable<DeployActionVersionRequestContent> request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("actions/actions")
                 .addPathSegment(actionId)
                 .addPathSegments("versions")
                 .addPathSegment(id)
-                .addPathSegments("deploy")
-                .build();
+                .addPathSegments("deploy");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create("", null);
@@ -234,7 +263,7 @@ public class RawVersionsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

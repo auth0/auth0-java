@@ -243,5 +243,15 @@ public final class DeviceCredential {
         public DeviceCredential build() {
             return new DeviceCredential(id, deviceName, deviceId, type, userId, clientId, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

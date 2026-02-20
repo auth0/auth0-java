@@ -10,9 +10,6 @@ public final class ResourceServerProofOfPossessionRequiredForEnum {
     public static final ResourceServerProofOfPossessionRequiredForEnum ALL_CLIENTS =
             new ResourceServerProofOfPossessionRequiredForEnum(Value.ALL_CLIENTS, "all_clients");
 
-    public static final ResourceServerProofOfPossessionRequiredForEnum CONFIDENTIAL_CLIENTS =
-            new ResourceServerProofOfPossessionRequiredForEnum(Value.CONFIDENTIAL_CLIENTS, "confidential_clients");
-
     public static final ResourceServerProofOfPossessionRequiredForEnum PUBLIC_CLIENTS =
             new ResourceServerProofOfPossessionRequiredForEnum(Value.PUBLIC_CLIENTS, "public_clients");
 
@@ -51,8 +48,6 @@ public final class ResourceServerProofOfPossessionRequiredForEnum {
         switch (value) {
             case ALL_CLIENTS:
                 return visitor.visitAllClients();
-            case CONFIDENTIAL_CLIENTS:
-                return visitor.visitConfidentialClients();
             case PUBLIC_CLIENTS:
                 return visitor.visitPublicClients();
             case UNKNOWN:
@@ -66,8 +61,6 @@ public final class ResourceServerProofOfPossessionRequiredForEnum {
         switch (value) {
             case "all_clients":
                 return ALL_CLIENTS;
-            case "confidential_clients":
-                return CONFIDENTIAL_CLIENTS;
             case "public_clients":
                 return PUBLIC_CLIENTS;
             default:
@@ -78,8 +71,6 @@ public final class ResourceServerProofOfPossessionRequiredForEnum {
     public enum Value {
         PUBLIC_CLIENTS,
 
-        CONFIDENTIAL_CLIENTS,
-
         ALL_CLIENTS,
 
         UNKNOWN
@@ -87,8 +78,6 @@ public final class ResourceServerProofOfPossessionRequiredForEnum {
 
     public interface Visitor<T> {
         T visitPublicClients();
-
-        T visitConfidentialClients();
 
         T visitAllClients();
 

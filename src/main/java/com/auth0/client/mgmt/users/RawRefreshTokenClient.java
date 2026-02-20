@@ -49,6 +49,14 @@ public class RawRefreshTokenClient {
      * Retrieve details for a user's refresh tokens.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<RefreshTokenResponseContent>> list(
+            String userId, RequestOptions requestOptions) {
+        return list(userId, ListRefreshTokensRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve details for a user's refresh tokens.
+     */
+    public ManagementApiHttpResponse<SyncPagingIterable<RefreshTokenResponseContent>> list(
             String userId, ListRefreshTokensRequestParameters request) {
         return list(userId, request, null);
     }
@@ -68,6 +76,11 @@ public class RawRefreshTokenClient {
                     httpUrl, "from", request.getFrom().orElse(null), false);
         }
         QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -135,14 +148,18 @@ public class RawRefreshTokenClient {
      * Delete all refresh tokens for a user.
      */
     public ManagementApiHttpResponse<Void> delete(String userId, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("users")
                 .addPathSegment(userId)
-                .addPathSegments("refresh-tokens")
-                .build();
+                .addPathSegments("refresh-tokens");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

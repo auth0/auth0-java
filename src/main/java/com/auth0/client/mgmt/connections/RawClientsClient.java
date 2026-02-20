@@ -41,16 +41,25 @@ public class RawClientsClient {
     }
 
     /**
-     * Retrieve all clients that have the specified &lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;connection&lt;/a&gt; enabled.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The first time you call this endpoint, omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value is included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, no further results are remaining.</p>
+     * Retrieve all clients that have the specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> enabled.
+     * <p><b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<ConnectionEnabledClient>> get(String id) {
         return get(id, GetConnectionEnabledClientsRequestParameters.builder().build());
     }
 
     /**
-     * Retrieve all clients that have the specified &lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;connection&lt;/a&gt; enabled.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The first time you call this endpoint, omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value is included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, no further results are remaining.</p>
+     * Retrieve all clients that have the specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> enabled.
+     * <p><b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.</p>
+     */
+    public ManagementApiHttpResponse<SyncPagingIterable<ConnectionEnabledClient>> get(
+            String id, RequestOptions requestOptions) {
+        return get(id, GetConnectionEnabledClientsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve all clients that have the specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> enabled.
+     * <p><b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<ConnectionEnabledClient>> get(
             String id, GetConnectionEnabledClientsRequestParameters request) {
@@ -58,8 +67,8 @@ public class RawClientsClient {
     }
 
     /**
-     * Retrieve all clients that have the specified &lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;connection&lt;/a&gt; enabled.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The first time you call this endpoint, omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value is included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, no further results are remaining.</p>
+     * Retrieve all clients that have the specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> enabled.
+     * <p><b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<ConnectionEnabledClient>> get(
             String id, GetConnectionEnabledClientsRequestParameters request, RequestOptions requestOptions) {
@@ -72,6 +81,11 @@ public class RawClientsClient {
         if (!request.getFrom().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "from", request.getFrom().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -139,12 +153,16 @@ public class RawClientsClient {
 
     public ManagementApiHttpResponse<Void> update(
             String id, List<UpdateEnabledClientConnectionsRequestContentItem> request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connections")
                 .addPathSegment(id)
-                .addPathSegments("clients")
-                .build();
+                .addPathSegments("clients");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -153,7 +171,7 @@ public class RawClientsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

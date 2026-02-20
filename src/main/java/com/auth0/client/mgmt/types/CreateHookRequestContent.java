@@ -138,6 +138,10 @@ public final class CreateHookRequestContent {
     public interface _FinalStage {
         CreateHookRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Whether this hook will be executed (true) or ignored (false).</p>
          */
@@ -244,6 +248,18 @@ public final class CreateHookRequestContent {
         @java.lang.Override
         public CreateHookRequestContent build() {
             return new CreateHookRequestContent(name, script, enabled, dependencies, triggerId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

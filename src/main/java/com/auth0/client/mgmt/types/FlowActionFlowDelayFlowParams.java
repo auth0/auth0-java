@@ -84,6 +84,10 @@ public final class FlowActionFlowDelayFlowParams {
     public interface _FinalStage {
         FlowActionFlowDelayFlowParams build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage units(Optional<FlowActionFlowDelayFlowParamsUnits> units);
 
         _FinalStage units(FlowActionFlowDelayFlowParamsUnits units);
@@ -130,6 +134,18 @@ public final class FlowActionFlowDelayFlowParams {
         @java.lang.Override
         public FlowActionFlowDelayFlowParams build() {
             return new FlowActionFlowDelayFlowParams(number, units, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

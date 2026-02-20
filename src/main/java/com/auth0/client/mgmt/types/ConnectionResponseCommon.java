@@ -255,5 +255,15 @@ public final class ConnectionResponseCommon
             return new ConnectionResponseCommon(
                     id, realms, name, displayName, enabledClients, isDomainConnection, metadata, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

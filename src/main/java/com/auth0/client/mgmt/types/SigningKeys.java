@@ -248,6 +248,10 @@ public final class SigningKeys {
     public interface _FinalStage {
         SigningKeys build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The public certificate of the signing key in pkcs7 format</p>
          */
@@ -547,6 +551,18 @@ public final class SigningKeys {
                     revoked,
                     revokedAt,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

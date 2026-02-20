@@ -103,6 +103,10 @@ public final class ResourceServerProofOfPossession {
     public interface _FinalStage {
         ResourceServerProofOfPossession build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage requiredFor(Optional<ResourceServerProofOfPossessionRequiredForEnum> requiredFor);
 
         _FinalStage requiredFor(ResourceServerProofOfPossessionRequiredForEnum requiredFor);
@@ -164,6 +168,18 @@ public final class ResourceServerProofOfPossession {
         @java.lang.Override
         public ResourceServerProofOfPossession build() {
             return new ResourceServerProofOfPossession(mechanism, required, requiredFor, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

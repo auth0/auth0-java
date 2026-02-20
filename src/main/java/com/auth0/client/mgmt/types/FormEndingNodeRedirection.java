@@ -82,6 +82,10 @@ public final class FormEndingNodeRedirection {
     public interface _FinalStage {
         FormEndingNodeRedirection build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage delay(Optional<Integer> delay);
 
         _FinalStage delay(Integer delay);
@@ -128,6 +132,18 @@ public final class FormEndingNodeRedirection {
         @java.lang.Override
         public FormEndingNodeRedirection build() {
             return new FormEndingNodeRedirection(delay, target, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

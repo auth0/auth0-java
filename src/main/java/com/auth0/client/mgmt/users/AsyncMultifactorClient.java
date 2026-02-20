@@ -26,28 +26,28 @@ public class AsyncMultifactorClient {
     }
 
     /**
-     * Invalidate all remembered browsers across all &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication&quot;&gt;authentication factors&lt;/a&gt; for a user.
+     * Invalidate all remembered browsers across all <a href="https://auth0.com/docs/multifactor-authentication">authentication factors</a> for a user.
      */
     public CompletableFuture<Void> invalidateRememberBrowser(String id) {
         return this.rawClient.invalidateRememberBrowser(id).thenApply(response -> response.body());
     }
 
     /**
-     * Invalidate all remembered browsers across all &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication&quot;&gt;authentication factors&lt;/a&gt; for a user.
+     * Invalidate all remembered browsers across all <a href="https://auth0.com/docs/multifactor-authentication">authentication factors</a> for a user.
      */
     public CompletableFuture<Void> invalidateRememberBrowser(String id, RequestOptions requestOptions) {
         return this.rawClient.invalidateRememberBrowser(id, requestOptions).thenApply(response -> response.body());
     }
 
     /**
-     * Remove a &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication&quot;&gt;multifactor&lt;/a&gt; authentication configuration from a user's account. This forces the user to manually reconfigure the multi-factor provider.
+     * Remove a <a href="https://auth0.com/docs/multifactor-authentication">multifactor</a> authentication configuration from a user's account. This forces the user to manually reconfigure the multi-factor provider.
      */
     public CompletableFuture<Void> deleteProvider(String id, UserMultifactorProviderEnum provider) {
         return this.rawClient.deleteProvider(id, provider).thenApply(response -> response.body());
     }
 
     /**
-     * Remove a &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication&quot;&gt;multifactor&lt;/a&gt; authentication configuration from a user's account. This forces the user to manually reconfigure the multi-factor provider.
+     * Remove a <a href="https://auth0.com/docs/multifactor-authentication">multifactor</a> authentication configuration from a user's account. This forces the user to manually reconfigure the multi-factor provider.
      */
     public CompletableFuture<Void> deleteProvider(
             String id, UserMultifactorProviderEnum provider, RequestOptions requestOptions) {

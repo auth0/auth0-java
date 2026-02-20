@@ -188,6 +188,10 @@ public final class CreateUserAuthenticationMethodRequestContent {
     public interface _FinalStage {
         CreateUserAuthenticationMethodRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A human-readable label to identify the authentication method.</p>
          */
@@ -457,6 +461,18 @@ public final class CreateUserAuthenticationMethodRequestContent {
                     publicKey,
                     relyingPartyIdentifier,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

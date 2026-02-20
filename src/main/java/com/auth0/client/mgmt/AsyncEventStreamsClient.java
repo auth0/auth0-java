@@ -48,6 +48,10 @@ public class AsyncEventStreamsClient {
         return this.rawClient.list().thenApply(response -> response.body());
     }
 
+    public CompletableFuture<SyncPagingIterable<EventStreamResponseContent>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
     public CompletableFuture<SyncPagingIterable<EventStreamResponseContent>> list(
             ListEventStreamsRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
@@ -85,6 +89,10 @@ public class AsyncEventStreamsClient {
 
     public CompletableFuture<UpdateEventStreamResponseContent> update(String id) {
         return this.rawClient.update(id).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<UpdateEventStreamResponseContent> update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).thenApply(response -> response.body());
     }
 
     public CompletableFuture<UpdateEventStreamResponseContent> update(

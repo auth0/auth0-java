@@ -154,6 +154,10 @@ public final class FormBlockResendButtonConfig {
     public interface _FinalStage {
         FormBlockResendButtonConfig build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage textAlignment(Optional<FormBlockResendButtonConfigTextAlignmentEnum> textAlignment);
 
         _FinalStage textAlignment(FormBlockResendButtonConfigTextAlignmentEnum textAlignment);
@@ -279,6 +283,18 @@ public final class FormBlockResendButtonConfig {
                     maxAttempts,
                     waitingTime,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

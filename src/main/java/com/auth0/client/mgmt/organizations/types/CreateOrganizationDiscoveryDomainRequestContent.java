@@ -106,6 +106,10 @@ public final class CreateOrganizationDiscoveryDomainRequestContent {
     public interface _FinalStage {
         CreateOrganizationDiscoveryDomainRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage status(Optional<OrganizationDiscoveryDomainStatus> status);
 
         _FinalStage status(OrganizationDiscoveryDomainStatus status);
@@ -188,6 +192,18 @@ public final class CreateOrganizationDiscoveryDomainRequestContent {
         public CreateOrganizationDiscoveryDomainRequestContent build() {
             return new CreateOrganizationDiscoveryDomainRequestContent(
                     domain, status, useForOrganizationDiscovery, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

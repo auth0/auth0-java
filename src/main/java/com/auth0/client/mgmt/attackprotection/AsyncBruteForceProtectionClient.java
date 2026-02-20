@@ -51,6 +51,13 @@ public class AsyncBruteForceProtectionClient {
     /**
      * Update the Brute-force Protection configuration of your tenant.
      */
+    public CompletableFuture<UpdateBruteForceSettingsResponseContent> update(RequestOptions requestOptions) {
+        return this.rawClient.update(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update the Brute-force Protection configuration of your tenant.
+     */
     public CompletableFuture<UpdateBruteForceSettingsResponseContent> update(
             UpdateBruteForceSettingsRequestContent request) {
         return this.rawClient.update(request).thenApply(response -> response.body());

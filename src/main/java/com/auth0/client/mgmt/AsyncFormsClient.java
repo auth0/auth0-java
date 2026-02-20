@@ -37,6 +37,10 @@ public class AsyncFormsClient {
         return this.rawClient.list().thenApply(response -> response.body());
     }
 
+    public CompletableFuture<SyncPagingIterable<FormSummary>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
     public CompletableFuture<SyncPagingIterable<FormSummary>> list(ListFormsRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
@@ -59,6 +63,10 @@ public class AsyncFormsClient {
         return this.rawClient.get(id).thenApply(response -> response.body());
     }
 
+    public CompletableFuture<GetFormResponseContent> get(String id, RequestOptions requestOptions) {
+        return this.rawClient.get(id, requestOptions).thenApply(response -> response.body());
+    }
+
     public CompletableFuture<GetFormResponseContent> get(String id, GetFormRequestParameters request) {
         return this.rawClient.get(id, request).thenApply(response -> response.body());
     }
@@ -78,6 +86,10 @@ public class AsyncFormsClient {
 
     public CompletableFuture<UpdateFormResponseContent> update(String id) {
         return this.rawClient.update(id).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<UpdateFormResponseContent> update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).thenApply(response -> response.body());
     }
 
     public CompletableFuture<UpdateFormResponseContent> update(String id, UpdateFormRequestContent request) {

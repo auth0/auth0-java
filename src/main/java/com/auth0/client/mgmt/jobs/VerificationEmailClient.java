@@ -26,7 +26,7 @@ public class VerificationEmailClient {
     }
 
     /**
-     * Send an email to the specified user that asks them to click a link to &lt;a href=&quot;https://auth0.com/docs/email/custom#verification-email&quot;&gt;verify their email address&lt;/a&gt;.
+     * Send an email to the specified user that asks them to click a link to <a href="https://auth0.com/docs/email/custom#verification-email">verify their email address</a>.
      * <p>Note: You must have the <code>Status</code> toggle enabled for the verification email template for the email to be sent.</p>
      */
     public CreateVerificationEmailResponseContent create(CreateVerificationEmailRequestContent request) {
@@ -34,7 +34,7 @@ public class VerificationEmailClient {
     }
 
     /**
-     * Send an email to the specified user that asks them to click a link to &lt;a href=&quot;https://auth0.com/docs/email/custom#verification-email&quot;&gt;verify their email address&lt;/a&gt;.
+     * Send an email to the specified user that asks them to click a link to <a href="https://auth0.com/docs/email/custom#verification-email">verify their email address</a>.
      * <p>Note: You must have the <code>Status</code> toggle enabled for the verification email template for the email to be sent.</p>
      */
     public CreateVerificationEmailResponseContent create(

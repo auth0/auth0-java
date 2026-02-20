@@ -34,6 +34,11 @@ public class AsyncClientGrantsClient {
     }
 
     public CompletableFuture<SyncPagingIterable<OrganizationClientGrant>> list(
+            String id, RequestOptions requestOptions) {
+        return this.rawClient.list(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<SyncPagingIterable<OrganizationClientGrant>> list(
             String id, ListOrganizationClientGrantsRequestParameters request) {
         return this.rawClient.list(id, request).thenApply(response -> response.body());
     }

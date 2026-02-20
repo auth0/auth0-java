@@ -43,6 +43,13 @@ public class AsyncNetworkAclsClient {
     /**
      * Get all access control list entries for your client.
      */
+    public CompletableFuture<SyncPagingIterable<NetworkAclsResponseContent>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Get all access control list entries for your client.
+     */
     public CompletableFuture<SyncPagingIterable<NetworkAclsResponseContent>> list(
             ListNetworkAclsRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
@@ -118,6 +125,13 @@ public class AsyncNetworkAclsClient {
      */
     public CompletableFuture<UpdateNetworkAclResponseContent> update(String id) {
         return this.rawClient.update(id).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update existing access control list for your client.
+     */
+    public CompletableFuture<UpdateNetworkAclResponseContent> update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).thenApply(response -> response.body());
     }
 
     /**

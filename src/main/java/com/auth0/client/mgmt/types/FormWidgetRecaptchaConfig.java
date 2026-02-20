@@ -82,6 +82,10 @@ public final class FormWidgetRecaptchaConfig {
 
     public interface _FinalStage {
         FormWidgetRecaptchaConfig build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -119,6 +123,18 @@ public final class FormWidgetRecaptchaConfig {
         @java.lang.Override
         public FormWidgetRecaptchaConfig build() {
             return new FormWidgetRecaptchaConfig(siteKey, secretKey, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -36,6 +36,10 @@ public class AsyncConnectionsClient {
         return this.rawClient.list().thenApply(response -> response.body());
     }
 
+    public CompletableFuture<SyncPagingIterable<FlowsVaultConnectionSummary>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
     public CompletableFuture<SyncPagingIterable<FlowsVaultConnectionSummary>> list(
             ListFlowsVaultConnectionsRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
@@ -74,6 +78,11 @@ public class AsyncConnectionsClient {
 
     public CompletableFuture<UpdateFlowsVaultConnectionResponseContent> update(String id) {
         return this.rawClient.update(id).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<UpdateFlowsVaultConnectionResponseContent> update(
+            String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).thenApply(response -> response.body());
     }
 
     public CompletableFuture<UpdateFlowsVaultConnectionResponseContent> update(

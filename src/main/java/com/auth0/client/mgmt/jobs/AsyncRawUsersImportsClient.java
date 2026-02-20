@@ -45,7 +45,7 @@ public class AsyncRawUsersImportsClient {
     }
 
     /**
-     * Import users from a &lt;a href=&quot;https://auth0.com/docs/users/references/bulk-import-database-schema-examples&quot;&gt;formatted file&lt;/a&gt; into a connection via a long-running job. When importing users, with or without upsert, the <code>email_verified</code> is set to <code>false</code> when the email address is added or updated. Users must verify their email address. To avoid this behavior, set <code>email_verified</code> to <code>true</code> in the imported data.
+     * Import users from a <a href="https://auth0.com/docs/users/references/bulk-import-database-schema-examples">formatted file</a> into a connection via a long-running job. When importing users, with or without upsert, the <code>email_verified</code> is set to <code>false</code> when the email address is added or updated. Users must verify their email address. To avoid this behavior, set <code>email_verified</code> to <code>true</code> in the imported data.
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateImportUsersResponseContent>> create(
             File users, CreateImportUsersRequestContent request) {
@@ -53,14 +53,18 @@ public class AsyncRawUsersImportsClient {
     }
 
     /**
-     * Import users from a &lt;a href=&quot;https://auth0.com/docs/users/references/bulk-import-database-schema-examples&quot;&gt;formatted file&lt;/a&gt; into a connection via a long-running job. When importing users, with or without upsert, the <code>email_verified</code> is set to <code>false</code> when the email address is added or updated. Users must verify their email address. To avoid this behavior, set <code>email_verified</code> to <code>true</code> in the imported data.
+     * Import users from a <a href="https://auth0.com/docs/users/references/bulk-import-database-schema-examples">formatted file</a> into a connection via a long-running job. When importing users, with or without upsert, the <code>email_verified</code> is set to <code>false</code> when the email address is added or updated. Users must verify their email address. To avoid this behavior, set <code>email_verified</code> to <code>true</code> in the imported data.
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateImportUsersResponseContent>> create(
             File users, CreateImportUsersRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("jobs/users-imports")
-                .build();
+                .addPathSegments("jobs/users-imports");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         MultipartBody.Builder multipartBodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         try {
             String usersMimeType = Files.probeContentType(users.toPath());
@@ -91,7 +95,7 @@ public class AsyncRawUsersImportsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", multipartBodyBuilder.build())
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -169,16 +173,15 @@ public class AsyncRawUsersImportsClient {
 
     public CompletableFuture<ManagementApiHttpResponse<CreateImportUsersResponseContent>> create(
             InputStream stream, String filename) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("jobs/users-imports")
-                .build();
+                .addPathSegments("jobs/users-imports");
         FileStream fs = new FileStream(stream, filename, null);
         MultipartBody.Builder multipartBodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         multipartBodyBuilder.addFormDataPart("users", filename, fs.toRequestBody());
         RequestBody body = multipartBodyBuilder.build();
         Request.Builder _requestBuilder = new Request.Builder();
-        _requestBuilder.url(httpUrl);
+        _requestBuilder.url(httpUrl.build());
         _requestBuilder.method("POST", body);
         _requestBuilder.headers(Headers.of(this.clientOptions.headers(null)));
         Request okhttpRequest = _requestBuilder.build();
@@ -252,16 +255,15 @@ public class AsyncRawUsersImportsClient {
 
     public CompletableFuture<ManagementApiHttpResponse<CreateImportUsersResponseContent>> create(
             InputStream stream, String filename, MediaType mediaType) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("jobs/users-imports")
-                .build();
+                .addPathSegments("jobs/users-imports");
         FileStream fs = new FileStream(stream, filename, mediaType);
         MultipartBody.Builder multipartBodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         multipartBodyBuilder.addFormDataPart("users", filename, fs.toRequestBody());
         RequestBody body = multipartBodyBuilder.build();
         Request.Builder _requestBuilder = new Request.Builder();
-        _requestBuilder.url(httpUrl);
+        _requestBuilder.url(httpUrl.build());
         _requestBuilder.method("POST", body);
         _requestBuilder.headers(Headers.of(this.clientOptions.headers(null)));
         Request okhttpRequest = _requestBuilder.build();
@@ -335,16 +337,20 @@ public class AsyncRawUsersImportsClient {
 
     public CompletableFuture<ManagementApiHttpResponse<CreateImportUsersResponseContent>> create(
             InputStream stream, String filename, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("jobs/users-imports")
-                .build();
+                .addPathSegments("jobs/users-imports");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         FileStream fs = new FileStream(stream, filename, null);
         MultipartBody.Builder multipartBodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         multipartBodyBuilder.addFormDataPart("users", filename, fs.toRequestBody());
         RequestBody body = multipartBodyBuilder.build();
         Request.Builder _requestBuilder = new Request.Builder();
-        _requestBuilder.url(httpUrl);
+        _requestBuilder.url(httpUrl.build());
         _requestBuilder.method("POST", body);
         _requestBuilder.headers(Headers.of(this.clientOptions.headers(requestOptions)));
         Request okhttpRequest = _requestBuilder.build();
@@ -421,16 +427,20 @@ public class AsyncRawUsersImportsClient {
 
     public CompletableFuture<ManagementApiHttpResponse<CreateImportUsersResponseContent>> create(
             InputStream stream, String filename, MediaType mediaType, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("jobs/users-imports")
-                .build();
+                .addPathSegments("jobs/users-imports");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         FileStream fs = new FileStream(stream, filename, mediaType);
         MultipartBody.Builder multipartBodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         multipartBodyBuilder.addFormDataPart("users", filename, fs.toRequestBody());
         RequestBody body = multipartBodyBuilder.build();
         Request.Builder _requestBuilder = new Request.Builder();
-        _requestBuilder.url(httpUrl);
+        _requestBuilder.url(httpUrl.build());
         _requestBuilder.method("POST", body);
         _requestBuilder.headers(Headers.of(this.clientOptions.headers(requestOptions)));
         Request okhttpRequest = _requestBuilder.build();

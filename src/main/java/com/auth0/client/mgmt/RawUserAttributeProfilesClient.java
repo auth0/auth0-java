@@ -58,6 +58,13 @@ public class RawUserAttributeProfilesClient {
     /**
      * Retrieve a list of User Attribute Profiles. This endpoint supports Checkpoint pagination.
      */
+    public ManagementApiHttpResponse<SyncPagingIterable<UserAttributeProfile>> list(RequestOptions requestOptions) {
+        return list(ListUserAttributeProfileRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve a list of User Attribute Profiles. This endpoint supports Checkpoint pagination.
+     */
     public ManagementApiHttpResponse<SyncPagingIterable<UserAttributeProfile>> list(
             ListUserAttributeProfileRequestParameters request) {
         return list(request, null);
@@ -76,6 +83,11 @@ public class RawUserAttributeProfilesClient {
                     httpUrl, "from", request.getFrom().orElse(null), false);
         }
         QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -146,10 +158,14 @@ public class RawUserAttributeProfilesClient {
      */
     public ManagementApiHttpResponse<CreateUserAttributeProfileResponseContent> create(
             CreateUserAttributeProfileRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("user-attribute-profiles")
-                .build();
+                .addPathSegments("user-attribute-profiles");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -158,7 +174,7 @@ public class RawUserAttributeProfilesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -218,12 +234,16 @@ public class RawUserAttributeProfilesClient {
      */
     public ManagementApiHttpResponse<ListUserAttributeProfileTemplateResponseContent> listTemplates(
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("user-attribute-profiles/templates")
-                .build();
+                .addPathSegments("user-attribute-profiles/templates");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -276,13 +296,17 @@ public class RawUserAttributeProfilesClient {
      */
     public ManagementApiHttpResponse<GetUserAttributeProfileTemplateResponseContent> getTemplate(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("user-attribute-profiles/templates")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -338,13 +362,17 @@ public class RawUserAttributeProfilesClient {
      */
     public ManagementApiHttpResponse<GetUserAttributeProfileResponseContent> get(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("user-attribute-profiles")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -399,13 +427,17 @@ public class RawUserAttributeProfilesClient {
      * Delete a single User Attribute Profile specified by ID.
      */
     public ManagementApiHttpResponse<Void> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("user-attribute-profiles")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -454,6 +486,14 @@ public class RawUserAttributeProfilesClient {
      * Update the details of a specific User attribute profile, such as name, user_id and user_attributes.
      */
     public ManagementApiHttpResponse<UpdateUserAttributeProfileResponseContent> update(
+            String id, RequestOptions requestOptions) {
+        return update(id, UpdateUserAttributeProfileRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update the details of a specific User attribute profile, such as name, user_id and user_attributes.
+     */
+    public ManagementApiHttpResponse<UpdateUserAttributeProfileResponseContent> update(
             String id, UpdateUserAttributeProfileRequestContent request) {
         return update(id, request, null);
     }
@@ -463,11 +503,15 @@ public class RawUserAttributeProfilesClient {
      */
     public ManagementApiHttpResponse<UpdateUserAttributeProfileResponseContent> update(
             String id, UpdateUserAttributeProfileRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("user-attribute-profiles")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -476,7 +520,7 @@ public class RawUserAttributeProfilesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

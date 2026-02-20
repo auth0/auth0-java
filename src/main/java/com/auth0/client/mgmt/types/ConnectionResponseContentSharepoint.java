@@ -210,6 +210,10 @@ public final class ConnectionResponseContentSharepoint
     public interface _FinalStage {
         ConnectionResponseContentSharepoint build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage authentication(Optional<ConnectionAuthenticationPurpose> authentication);
 
         _FinalStage authentication(ConnectionAuthenticationPurpose authentication);
@@ -469,6 +473,18 @@ public final class ConnectionResponseContentSharepoint
                     options,
                     showAsButton,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

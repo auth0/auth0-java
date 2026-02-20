@@ -154,6 +154,10 @@ public final class EventStreamDelivery {
     public interface _FinalStage {
         EventStreamDelivery build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Results of delivery attempts</p>
          */
@@ -287,6 +291,18 @@ public final class EventStreamDelivery {
         @java.lang.Override
         public EventStreamDelivery build() {
             return new EventStreamDelivery(id, eventStreamId, status, eventType, attempts, event, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -49,12 +49,16 @@ public class AsyncRawStatsClient {
      * Retrieve the number of active users that logged in during the last 30 days.
      */
     public CompletableFuture<ManagementApiHttpResponse<Double>> getActiveUsersCount(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("stats/active-users")
-                .build();
+                .addPathSegments("stats/active-users");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -122,6 +126,13 @@ public class AsyncRawStatsClient {
     /**
      * Retrieve the number of logins, signups and breached-password detections (subscription required) that occurred each day within a specified date range.
      */
+    public CompletableFuture<ManagementApiHttpResponse<List<DailyStats>>> getDaily(RequestOptions requestOptions) {
+        return getDaily(GetDailyStatsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve the number of logins, signups and breached-password detections (subscription required) that occurred each day within a specified date range.
+     */
     public CompletableFuture<ManagementApiHttpResponse<List<DailyStats>>> getDaily(
             GetDailyStatsRequestParameters request) {
         return getDaily(request, null);
@@ -141,6 +152,11 @@ public class AsyncRawStatsClient {
         }
         if (!request.getTo().isAbsent()) {
             QueryStringMapper.addQueryParameter(httpUrl, "to", request.getTo().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())

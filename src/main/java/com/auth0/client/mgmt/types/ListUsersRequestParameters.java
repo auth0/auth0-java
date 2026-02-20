@@ -98,7 +98,7 @@ public final class ListUsersRequestParameters {
     }
 
     /**
-     * @return Field to sort by. Use &lt;code&gt;field:order&lt;/code&gt; where order is &lt;code&gt;1&lt;/code&gt; for ascending and &lt;code&gt;-1&lt;/code&gt; for descending. e.g. &lt;code&gt;created_at:1&lt;/code&gt;
+     * @return Field to sort by. Use <code>field:order</code> where order is <code>1</code> for ascending and <code>-1</code> for descending. e.g. <code>created_at:1</code>
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("sort")
@@ -110,7 +110,7 @@ public final class ListUsersRequestParameters {
     }
 
     /**
-     * @return Connection filter. Only applies when using &lt;code&gt;search_engine=v1&lt;/code&gt;. To filter by connection with &lt;code&gt;search_engine=v2|v3&lt;/code&gt;, use &lt;code&gt;q=identities.connection:&quot;connection_name&quot;&lt;/code&gt;
+     * @return Connection filter. Only applies when using <code>search_engine=v1</code>. To filter by connection with <code>search_engine=v2|v3</code>, use <code>q=identities.connection:&quot;connection_name&quot;</code>
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("connection")
@@ -146,7 +146,7 @@ public final class ListUsersRequestParameters {
     }
 
     /**
-     * @return Query in &lt;a target='_new' href ='http://www.lucenetutorial.com/lucene-query-syntax.html'&gt;Lucene query string syntax&lt;/a&gt;. Some query types cannot be used on metadata fields, for details see &lt;a href='https://auth0.com/docs/users/search/v3/query-syntax#searchable-fields'&gt;Searchable Fields&lt;/a&gt;.
+     * @return Query in <a target='_new' href ='http://www.lucenetutorial.com/lucene-query-syntax.html'>Lucene query string syntax</a>. Some query types cannot be used on metadata fields, for details see <a href='https://auth0.com/docs/users/search/v3/query-syntax#searchable-fields'>Searchable Fields</a>.
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("q")
@@ -415,7 +415,7 @@ public final class ListUsersRequestParameters {
         }
 
         /**
-         * <p>Field to sort by. Use &lt;code&gt;field:order&lt;/code&gt; where order is &lt;code&gt;1&lt;/code&gt; for ascending and &lt;code&gt;-1&lt;/code&gt; for descending. e.g. &lt;code&gt;created_at:1&lt;/code&gt;</p>
+         * <p>Field to sort by. Use <code>field:order</code> where order is <code>1</code> for ascending and <code>-1</code> for descending. e.g. <code>created_at:1</code></p>
          */
         @JsonSetter(value = "sort", nulls = Nulls.SKIP)
         public Builder sort(@org.jetbrains.annotations.Nullable OptionalNullable<String> sort) {
@@ -449,7 +449,7 @@ public final class ListUsersRequestParameters {
         }
 
         /**
-         * <p>Connection filter. Only applies when using &lt;code&gt;search_engine=v1&lt;/code&gt;. To filter by connection with &lt;code&gt;search_engine=v2|v3&lt;/code&gt;, use &lt;code&gt;q=identities.connection:&quot;connection_name&quot;&lt;/code&gt;</p>
+         * <p>Connection filter. Only applies when using <code>search_engine=v1</code>. To filter by connection with <code>search_engine=v2|v3</code>, use <code>q=identities.connection:&quot;connection_name&quot;</code></p>
          */
         @JsonSetter(value = "connection", nulls = Nulls.SKIP)
         public Builder connection(@org.jetbrains.annotations.Nullable OptionalNullable<String> connection) {
@@ -551,7 +551,7 @@ public final class ListUsersRequestParameters {
         }
 
         /**
-         * <p>Query in &lt;a target='_new' href ='http://www.lucenetutorial.com/lucene-query-syntax.html'&gt;Lucene query string syntax&lt;/a&gt;. Some query types cannot be used on metadata fields, for details see &lt;a href='https://auth0.com/docs/users/search/v3/query-syntax#searchable-fields'&gt;Searchable Fields&lt;/a&gt;.</p>
+         * <p>Query in <a target='_new' href ='http://www.lucenetutorial.com/lucene-query-syntax.html'>Lucene query string syntax</a>. Some query types cannot be used on metadata fields, for details see <a href='https://auth0.com/docs/users/search/v3/query-syntax#searchable-fields'>Searchable Fields</a>.</p>
          */
         @JsonSetter(value = "q", nulls = Nulls.SKIP)
         public Builder q(@org.jetbrains.annotations.Nullable OptionalNullable<String> q) {
@@ -666,6 +666,16 @@ public final class ListUsersRequestParameters {
                     searchEngine,
                     primaryOrder,
                     additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -51,12 +51,16 @@ public class AsyncRawSettingsClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<GetGuardianFactorDuoSettingsResponseContent>> get(
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/duo/settings")
-                .build();
+                .addPathSegments("guardian/factors/duo/settings");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -128,6 +132,14 @@ public class AsyncRawSettingsClient {
      * Set the DUO account configuration and other properties specific to this factor.
      */
     public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorDuoSettingsResponseContent>> set(
+            RequestOptions requestOptions) {
+        return set(SetGuardianFactorDuoSettingsRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Set the DUO account configuration and other properties specific to this factor.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorDuoSettingsResponseContent>> set(
             SetGuardianFactorDuoSettingsRequestContent request) {
         return set(request, null);
     }
@@ -137,10 +149,14 @@ public class AsyncRawSettingsClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorDuoSettingsResponseContent>> set(
             SetGuardianFactorDuoSettingsRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/duo/settings")
-                .build();
+                .addPathSegments("guardian/factors/duo/settings");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -149,7 +165,7 @@ public class AsyncRawSettingsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -216,16 +232,25 @@ public class AsyncRawSettingsClient {
     }
 
     public CompletableFuture<ManagementApiHttpResponse<UpdateGuardianFactorDuoSettingsResponseContent>> update(
+            RequestOptions requestOptions) {
+        return update(UpdateGuardianFactorDuoSettingsRequestContent.builder().build(), requestOptions);
+    }
+
+    public CompletableFuture<ManagementApiHttpResponse<UpdateGuardianFactorDuoSettingsResponseContent>> update(
             UpdateGuardianFactorDuoSettingsRequestContent request) {
         return update(request, null);
     }
 
     public CompletableFuture<ManagementApiHttpResponse<UpdateGuardianFactorDuoSettingsResponseContent>> update(
             UpdateGuardianFactorDuoSettingsRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/duo/settings")
-                .build();
+                .addPathSegments("guardian/factors/duo/settings");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -234,7 +259,7 @@ public class AsyncRawSettingsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

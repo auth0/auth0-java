@@ -34,21 +34,28 @@ public class AsyncRulesClient {
     }
 
     /**
-     * Retrieve a filtered list of &lt;a href=&quot;https://auth0.com/docs/rules&quot;&gt;rules&lt;/a&gt;. Accepts a list of fields to include or exclude.
+     * Retrieve a filtered list of <a href="https://auth0.com/docs/rules">rules</a>. Accepts a list of fields to include or exclude.
      */
     public CompletableFuture<SyncPagingIterable<Rule>> list() {
         return this.rawClient.list().thenApply(response -> response.body());
     }
 
     /**
-     * Retrieve a filtered list of &lt;a href=&quot;https://auth0.com/docs/rules&quot;&gt;rules&lt;/a&gt;. Accepts a list of fields to include or exclude.
+     * Retrieve a filtered list of <a href="https://auth0.com/docs/rules">rules</a>. Accepts a list of fields to include or exclude.
+     */
+    public CompletableFuture<SyncPagingIterable<Rule>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve a filtered list of <a href="https://auth0.com/docs/rules">rules</a>. Accepts a list of fields to include or exclude.
      */
     public CompletableFuture<SyncPagingIterable<Rule>> list(ListRulesRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
 
     /**
-     * Retrieve a filtered list of &lt;a href=&quot;https://auth0.com/docs/rules&quot;&gt;rules&lt;/a&gt;. Accepts a list of fields to include or exclude.
+     * Retrieve a filtered list of <a href="https://auth0.com/docs/rules">rules</a>. Accepts a list of fields to include or exclude.
      */
     public CompletableFuture<SyncPagingIterable<Rule>> list(
             ListRulesRequestParameters request, RequestOptions requestOptions) {
@@ -56,16 +63,16 @@ public class AsyncRulesClient {
     }
 
     /**
-     * Create a &lt;a href=&quot;https://auth0.com/docs/rules#create-a-new-rule-using-the-management-api&quot;&gt;new rule&lt;/a&gt;.
-     * <p>Note: Changing a rule's stage of execution from the default &lt;code&gt;login_success&lt;/code&gt; can change the rule's function signature to have user omitted.</p>
+     * Create a <a href="https://auth0.com/docs/rules#create-a-new-rule-using-the-management-api">new rule</a>.
+     * <p>Note: Changing a rule's stage of execution from the default <code>login_success</code> can change the rule's function signature to have user omitted.</p>
      */
     public CompletableFuture<CreateRuleResponseContent> create(CreateRuleRequestContent request) {
         return this.rawClient.create(request).thenApply(response -> response.body());
     }
 
     /**
-     * Create a &lt;a href=&quot;https://auth0.com/docs/rules#create-a-new-rule-using-the-management-api&quot;&gt;new rule&lt;/a&gt;.
-     * <p>Note: Changing a rule's stage of execution from the default &lt;code&gt;login_success&lt;/code&gt; can change the rule's function signature to have user omitted.</p>
+     * Create a <a href="https://auth0.com/docs/rules#create-a-new-rule-using-the-management-api">new rule</a>.
+     * <p>Note: Changing a rule's stage of execution from the default <code>login_success</code> can change the rule's function signature to have user omitted.</p>
      */
     public CompletableFuture<CreateRuleResponseContent> create(
             CreateRuleRequestContent request, RequestOptions requestOptions) {
@@ -73,21 +80,28 @@ public class AsyncRulesClient {
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/rules&quot;&gt;rule&lt;/a&gt; details. Accepts a list of fields to include or exclude in the result.
+     * Retrieve <a href="https://auth0.com/docs/rules">rule</a> details. Accepts a list of fields to include or exclude in the result.
      */
     public CompletableFuture<GetRuleResponseContent> get(String id) {
         return this.rawClient.get(id).thenApply(response -> response.body());
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/rules&quot;&gt;rule&lt;/a&gt; details. Accepts a list of fields to include or exclude in the result.
+     * Retrieve <a href="https://auth0.com/docs/rules">rule</a> details. Accepts a list of fields to include or exclude in the result.
+     */
+    public CompletableFuture<GetRuleResponseContent> get(String id, RequestOptions requestOptions) {
+        return this.rawClient.get(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve <a href="https://auth0.com/docs/rules">rule</a> details. Accepts a list of fields to include or exclude in the result.
      */
     public CompletableFuture<GetRuleResponseContent> get(String id, GetRuleRequestParameters request) {
         return this.rawClient.get(id, request).thenApply(response -> response.body());
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/rules&quot;&gt;rule&lt;/a&gt; details. Accepts a list of fields to include or exclude in the result.
+     * Retrieve <a href="https://auth0.com/docs/rules">rule</a> details. Accepts a list of fields to include or exclude in the result.
      */
     public CompletableFuture<GetRuleResponseContent> get(
             String id, GetRuleRequestParameters request, RequestOptions requestOptions) {
@@ -113,6 +127,13 @@ public class AsyncRulesClient {
      */
     public CompletableFuture<UpdateRuleResponseContent> update(String id) {
         return this.rawClient.update(id).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update an existing rule.
+     */
+    public CompletableFuture<UpdateRuleResponseContent> update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).thenApply(response -> response.body());
     }
 
     /**

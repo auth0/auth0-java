@@ -52,6 +52,15 @@ public class RawBindingsClient {
      * Retrieve the actions that are bound to a trigger. Once an action is created and deployed, it must be attached (i.e. bound) to a trigger so that it will be executed as part of a flow. The list of actions returned reflects the order in which they will be executed during the appropriate flow.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<ActionBinding>> list(
+            String triggerId, RequestOptions requestOptions) {
+        return list(
+                triggerId, ListActionTriggerBindingsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve the actions that are bound to a trigger. Once an action is created and deployed, it must be attached (i.e. bound) to a trigger so that it will be executed as part of a flow. The list of actions returned reflects the order in which they will be executed during the appropriate flow.
+     */
+    public ManagementApiHttpResponse<SyncPagingIterable<ActionBinding>> list(
             String triggerId, ListActionTriggerBindingsRequestParameters request) {
         return list(triggerId, request, null);
     }
@@ -69,6 +78,11 @@ public class RawBindingsClient {
         QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage().orElse(0), false);
         QueryStringMapper.addQueryParameter(
                 httpUrl, "per_page", request.getPerPage().orElse(50), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -137,6 +151,15 @@ public class RawBindingsClient {
      * Update the actions that are bound (i.e. attached) to a trigger. Once an action is created and deployed, it must be attached (i.e. bound) to a trigger so that it will be executed as part of a flow. The order in which the actions are provided will determine the order in which they are executed.
      */
     public ManagementApiHttpResponse<UpdateActionBindingsResponseContent> updateMany(
+            String triggerId, RequestOptions requestOptions) {
+        return updateMany(
+                triggerId, UpdateActionBindingsRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update the actions that are bound (i.e. attached) to a trigger. Once an action is created and deployed, it must be attached (i.e. bound) to a trigger so that it will be executed as part of a flow. The order in which the actions are provided will determine the order in which they are executed.
+     */
+    public ManagementApiHttpResponse<UpdateActionBindingsResponseContent> updateMany(
             String triggerId, UpdateActionBindingsRequestContent request) {
         return updateMany(triggerId, request, null);
     }
@@ -146,12 +169,16 @@ public class RawBindingsClient {
      */
     public ManagementApiHttpResponse<UpdateActionBindingsResponseContent> updateMany(
             String triggerId, UpdateActionBindingsRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("actions/triggers")
                 .addPathSegment(triggerId)
-                .addPathSegments("bindings")
-                .build();
+                .addPathSegments("bindings");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -160,7 +187,7 @@ public class RawBindingsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

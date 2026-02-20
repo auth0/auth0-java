@@ -65,6 +65,13 @@ public class AsyncRefreshTokensClient {
     /**
      * Update a refresh token by its ID.
      */
+    public CompletableFuture<UpdateRefreshTokenResponseContent> update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update a refresh token by its ID.
+     */
     public CompletableFuture<UpdateRefreshTokenResponseContent> update(
             String id, UpdateRefreshTokenRequestContent request) {
         return this.rawClient.update(id, request).thenApply(response -> response.body());

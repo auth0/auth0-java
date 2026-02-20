@@ -50,6 +50,13 @@ public class BotDetectionClient {
     /**
      * Update the Bot Detection configuration of your tenant.
      */
+    public UpdateBotDetectionSettingsResponseContent update(RequestOptions requestOptions) {
+        return this.rawClient.update(requestOptions).body();
+    }
+
+    /**
+     * Update the Bot Detection configuration of your tenant.
+     */
     public UpdateBotDetectionSettingsResponseContent update(UpdateBotDetectionSettingsRequestContent request) {
         return this.rawClient.update(request).body();
     }

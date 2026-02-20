@@ -66,6 +66,14 @@ public class PushNotificationClient {
      * Overwrite all configuration details of the multi-factor authentication APNS provider associated with your tenant.
      */
     public SetGuardianFactorsProviderPushNotificationApnsResponseContent setApnsProvider(
+            RequestOptions requestOptions) {
+        return this.rawClient.setApnsProvider(requestOptions).body();
+    }
+
+    /**
+     * Overwrite all configuration details of the multi-factor authentication APNS provider associated with your tenant.
+     */
+    public SetGuardianFactorsProviderPushNotificationApnsResponseContent setApnsProvider(
             SetGuardianFactorsProviderPushNotificationApnsRequestContent request) {
         return this.rawClient.setApnsProvider(request).body();
     }
@@ -83,6 +91,14 @@ public class PushNotificationClient {
      */
     public UpdateGuardianFactorsProviderPushNotificationApnsResponseContent updateApnsProvider() {
         return this.rawClient.updateApnsProvider().body();
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+     */
+    public UpdateGuardianFactorsProviderPushNotificationApnsResponseContent updateApnsProvider(
+            RequestOptions requestOptions) {
+        return this.rawClient.updateApnsProvider(requestOptions).body();
     }
 
     /**
@@ -111,6 +127,13 @@ public class PushNotificationClient {
     /**
      * Overwrite all configuration details of the multi-factor authentication FCM provider associated with your tenant.
      */
+    public Map<String, Object> setFcmProvider(RequestOptions requestOptions) {
+        return this.rawClient.setFcmProvider(requestOptions).body();
+    }
+
+    /**
+     * Overwrite all configuration details of the multi-factor authentication FCM provider associated with your tenant.
+     */
     public Map<String, Object> setFcmProvider(SetGuardianFactorsProviderPushNotificationFcmRequestContent request) {
         return this.rawClient.setFcmProvider(request).body();
     }
@@ -128,6 +151,13 @@ public class PushNotificationClient {
      */
     public Map<String, Object> updateFcmProvider() {
         return this.rawClient.updateFcmProvider().body();
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+     */
+    public Map<String, Object> updateFcmProvider(RequestOptions requestOptions) {
+        return this.rawClient.updateFcmProvider(requestOptions).body();
     }
 
     /**
@@ -156,6 +186,13 @@ public class PushNotificationClient {
     /**
      * Overwrite all configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
      */
+    public Map<String, Object> setFcmv1Provider(RequestOptions requestOptions) {
+        return this.rawClient.setFcmv1Provider(requestOptions).body();
+    }
+
+    /**
+     * Overwrite all configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+     */
     public Map<String, Object> setFcmv1Provider(SetGuardianFactorsProviderPushNotificationFcmv1RequestContent request) {
         return this.rawClient.setFcmv1Provider(request).body();
     }
@@ -178,6 +215,13 @@ public class PushNotificationClient {
     /**
      * Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
      */
+    public Map<String, Object> updateFcmv1Provider(RequestOptions requestOptions) {
+        return this.rawClient.updateFcmv1Provider(requestOptions).body();
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+     */
     public Map<String, Object> updateFcmv1Provider(
             UpdateGuardianFactorsProviderPushNotificationFcmv1RequestContent request) {
         return this.rawClient.updateFcmv1Provider(request).body();
@@ -192,28 +236,35 @@ public class PushNotificationClient {
     }
 
     /**
-     * Retrieve configuration details for an AWS SNS push notification provider that has been enabled for MFA. To learn more, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa&quot;&gt;Configure Push Notifications for MFA&lt;/a&gt;.
+     * Retrieve configuration details for an AWS SNS push notification provider that has been enabled for MFA. To learn more, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa">Configure Push Notifications for MFA</a>.
      */
     public GetGuardianFactorsProviderSnsResponseContent getSnsProvider() {
         return this.rawClient.getSnsProvider().body();
     }
 
     /**
-     * Retrieve configuration details for an AWS SNS push notification provider that has been enabled for MFA. To learn more, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa&quot;&gt;Configure Push Notifications for MFA&lt;/a&gt;.
+     * Retrieve configuration details for an AWS SNS push notification provider that has been enabled for MFA. To learn more, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa">Configure Push Notifications for MFA</a>.
      */
     public GetGuardianFactorsProviderSnsResponseContent getSnsProvider(RequestOptions requestOptions) {
         return this.rawClient.getSnsProvider(requestOptions).body();
     }
 
     /**
-     * Configure the &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication/developer/sns-configuration&quot;&gt;AWS SNS push notification provider configuration&lt;/a&gt; (subscription required).
+     * Configure the <a href="https://auth0.com/docs/multifactor-authentication/developer/sns-configuration">AWS SNS push notification provider configuration</a> (subscription required).
      */
     public SetGuardianFactorsProviderPushNotificationSnsResponseContent setSnsProvider() {
         return this.rawClient.setSnsProvider().body();
     }
 
     /**
-     * Configure the &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication/developer/sns-configuration&quot;&gt;AWS SNS push notification provider configuration&lt;/a&gt; (subscription required).
+     * Configure the <a href="https://auth0.com/docs/multifactor-authentication/developer/sns-configuration">AWS SNS push notification provider configuration</a> (subscription required).
+     */
+    public SetGuardianFactorsProviderPushNotificationSnsResponseContent setSnsProvider(RequestOptions requestOptions) {
+        return this.rawClient.setSnsProvider(requestOptions).body();
+    }
+
+    /**
+     * Configure the <a href="https://auth0.com/docs/multifactor-authentication/developer/sns-configuration">AWS SNS push notification provider configuration</a> (subscription required).
      */
     public SetGuardianFactorsProviderPushNotificationSnsResponseContent setSnsProvider(
             SetGuardianFactorsProviderPushNotificationSnsRequestContent request) {
@@ -221,7 +272,7 @@ public class PushNotificationClient {
     }
 
     /**
-     * Configure the &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication/developer/sns-configuration&quot;&gt;AWS SNS push notification provider configuration&lt;/a&gt; (subscription required).
+     * Configure the <a href="https://auth0.com/docs/multifactor-authentication/developer/sns-configuration">AWS SNS push notification provider configuration</a> (subscription required).
      */
     public SetGuardianFactorsProviderPushNotificationSnsResponseContent setSnsProvider(
             SetGuardianFactorsProviderPushNotificationSnsRequestContent request, RequestOptions requestOptions) {
@@ -229,14 +280,22 @@ public class PushNotificationClient {
     }
 
     /**
-     * Configure the &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication/developer/sns-configuration&quot;&gt;AWS SNS push notification provider configuration&lt;/a&gt; (subscription required).
+     * Configure the <a href="https://auth0.com/docs/multifactor-authentication/developer/sns-configuration">AWS SNS push notification provider configuration</a> (subscription required).
      */
     public UpdateGuardianFactorsProviderPushNotificationSnsResponseContent updateSnsProvider() {
         return this.rawClient.updateSnsProvider().body();
     }
 
     /**
-     * Configure the &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication/developer/sns-configuration&quot;&gt;AWS SNS push notification provider configuration&lt;/a&gt; (subscription required).
+     * Configure the <a href="https://auth0.com/docs/multifactor-authentication/developer/sns-configuration">AWS SNS push notification provider configuration</a> (subscription required).
+     */
+    public UpdateGuardianFactorsProviderPushNotificationSnsResponseContent updateSnsProvider(
+            RequestOptions requestOptions) {
+        return this.rawClient.updateSnsProvider(requestOptions).body();
+    }
+
+    /**
+     * Configure the <a href="https://auth0.com/docs/multifactor-authentication/developer/sns-configuration">AWS SNS push notification provider configuration</a> (subscription required).
      */
     public UpdateGuardianFactorsProviderPushNotificationSnsResponseContent updateSnsProvider(
             UpdateGuardianFactorsProviderPushNotificationSnsRequestContent request) {
@@ -244,7 +303,7 @@ public class PushNotificationClient {
     }
 
     /**
-     * Configure the &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication/developer/sns-configuration&quot;&gt;AWS SNS push notification provider configuration&lt;/a&gt; (subscription required).
+     * Configure the <a href="https://auth0.com/docs/multifactor-authentication/developer/sns-configuration">AWS SNS push notification provider configuration</a> (subscription required).
      */
     public UpdateGuardianFactorsProviderPushNotificationSnsResponseContent updateSnsProvider(
             UpdateGuardianFactorsProviderPushNotificationSnsRequestContent request, RequestOptions requestOptions) {
@@ -252,14 +311,14 @@ public class PushNotificationClient {
     }
 
     /**
-     * Modify the push notification provider configured for your tenant. For more information, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa&quot;&gt;Configure Push Notifications for MFA&lt;/a&gt;.
+     * Modify the push notification provider configured for your tenant. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa">Configure Push Notifications for MFA</a>.
      */
     public GetGuardianFactorsProviderPushNotificationResponseContent getSelectedProvider() {
         return this.rawClient.getSelectedProvider().body();
     }
 
     /**
-     * Modify the push notification provider configured for your tenant. For more information, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa&quot;&gt;Configure Push Notifications for MFA&lt;/a&gt;.
+     * Modify the push notification provider configured for your tenant. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa">Configure Push Notifications for MFA</a>.
      */
     public GetGuardianFactorsProviderPushNotificationResponseContent getSelectedProvider(
             RequestOptions requestOptions) {
@@ -267,7 +326,7 @@ public class PushNotificationClient {
     }
 
     /**
-     * Modify the push notification provider configured for your tenant. For more information, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa&quot;&gt;Configure Push Notifications for MFA&lt;/a&gt;.
+     * Modify the push notification provider configured for your tenant. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa">Configure Push Notifications for MFA</a>.
      */
     public SetGuardianFactorsProviderPushNotificationResponseContent setProvider(
             SetGuardianFactorsProviderPushNotificationRequestContent request) {
@@ -275,7 +334,7 @@ public class PushNotificationClient {
     }
 
     /**
-     * Modify the push notification provider configured for your tenant. For more information, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa&quot;&gt;Configure Push Notifications for MFA&lt;/a&gt;.
+     * Modify the push notification provider configured for your tenant. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa">Configure Push Notifications for MFA</a>.
      */
     public SetGuardianFactorsProviderPushNotificationResponseContent setProvider(
             SetGuardianFactorsProviderPushNotificationRequestContent request, RequestOptions requestOptions) {

@@ -46,6 +46,13 @@ public class RawSettingsClient {
     /**
      * Retrieve tenant settings. A list of fields to include or exclude may also be specified.
      */
+    public ManagementApiHttpResponse<GetTenantSettingsResponseContent> get(RequestOptions requestOptions) {
+        return get(GetTenantSettingsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve tenant settings. A list of fields to include or exclude may also be specified.
+     */
     public ManagementApiHttpResponse<GetTenantSettingsResponseContent> get(GetTenantSettingsRequestParameters request) {
         return get(request, null);
     }
@@ -65,6 +72,11 @@ public class RawSettingsClient {
         if (!request.getIncludeFields().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "include_fields", request.getIncludeFields().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -120,6 +132,13 @@ public class RawSettingsClient {
     /**
      * Update settings for a tenant.
      */
+    public ManagementApiHttpResponse<UpdateTenantSettingsResponseContent> update(RequestOptions requestOptions) {
+        return update(UpdateTenantSettingsRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update settings for a tenant.
+     */
     public ManagementApiHttpResponse<UpdateTenantSettingsResponseContent> update(
             UpdateTenantSettingsRequestContent request) {
         return update(request, null);
@@ -130,10 +149,14 @@ public class RawSettingsClient {
      */
     public ManagementApiHttpResponse<UpdateTenantSettingsResponseContent> update(
             UpdateTenantSettingsRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("tenants/settings")
-                .build();
+                .addPathSegments("tenants/settings");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -142,7 +165,7 @@ public class RawSettingsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

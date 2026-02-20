@@ -46,8 +46,8 @@ public class AsyncRawLogStreamsClient {
     }
 
     /**
-     * Retrieve details on &lt;a href=&quot;https://auth0.com/docs/logs/streams&quot;&gt;log streams&lt;/a&gt;.
-     * <p>&lt;h5&gt;Sample Response&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;[{
+     * Retrieve details on <a href="https://auth0.com/docs/logs/streams">log streams</a>.
+     * <p><h5>Sample Response</h5><pre><code>[{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;eventbridge&quot;,
@@ -111,15 +111,15 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;datadogRegion&quot;: &quot;string&quot;,
      * 		&quot;datadogApiKey&quot;: &quot;string&quot;
      * 	}
-     * }]&lt;/code&gt;&lt;/pre&gt;</p>
+     * }]</code></pre></p>
      */
     public CompletableFuture<ManagementApiHttpResponse<List<LogStreamResponseSchema>>> list() {
         return list(null);
     }
 
     /**
-     * Retrieve details on &lt;a href=&quot;https://auth0.com/docs/logs/streams&quot;&gt;log streams&lt;/a&gt;.
-     * <p>&lt;h5&gt;Sample Response&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;[{
+     * Retrieve details on <a href="https://auth0.com/docs/logs/streams">log streams</a>.
+     * <p><h5>Sample Response</h5><pre><code>[{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;eventbridge&quot;,
@@ -183,16 +183,20 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;datadogRegion&quot;: &quot;string&quot;,
      * 		&quot;datadogApiKey&quot;: &quot;string&quot;
      * 	}
-     * }]&lt;/code&gt;&lt;/pre&gt;</p>
+     * }]</code></pre></p>
      */
     public CompletableFuture<ManagementApiHttpResponse<List<LogStreamResponseSchema>>> list(
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("log-streams")
-                .build();
+                .addPathSegments("log-streams");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -259,9 +263,9 @@ public class AsyncRawLogStreamsClient {
 
     /**
      * Create a log stream.
-     * <p>&lt;h5&gt;Log Stream Types&lt;/h5&gt; The &lt;code&gt;type&lt;/code&gt; of log stream being created determines the properties required in the &lt;code&gt;sink&lt;/code&gt; payload.
-     * &lt;h5&gt;HTTP Stream&lt;/h5&gt; For an &lt;code&gt;http&lt;/code&gt; Stream, the &lt;code&gt;sink&lt;/code&gt; properties are listed in the payload below
-     * Request: &lt;pre&gt;&lt;code&gt;{
+     * <p><h5>Log Stream Types</h5> The <code>type</code> of log stream being created determines the properties required in the <code>sink</code> payload.
+     * <h5>HTTP Stream</h5> For an <code>http</code> Stream, the <code>sink</code> properties are listed in the payload below
+     * Request: <pre><code>{
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;http&quot;,
      * 	&quot;sink&quot;: {
@@ -270,8 +274,8 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;httpContentFormat&quot;: &quot;JSONLINES|JSONARRAY&quot;,
      * 		&quot;httpAuthorization&quot;: &quot;string&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * Response: &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * Response: <pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;http&quot;,
@@ -282,17 +286,17 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;httpContentFormat&quot;: &quot;JSONLINES|JSONARRAY&quot;,
      * 		&quot;httpAuthorization&quot;: &quot;string&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Amazon EventBridge Stream&lt;/h5&gt; For an &lt;code&gt;eventbridge&lt;/code&gt; Stream, the &lt;code&gt;sink&lt;/code&gt; properties are listed in the payload below
-     * Request: &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Amazon EventBridge Stream</h5> For an <code>eventbridge</code> Stream, the <code>sink</code> properties are listed in the payload below
+     * Request: <pre><code>{
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;eventbridge&quot;,
      * 	&quot;sink&quot;: {
      * 		&quot;awsRegion&quot;: &quot;string&quot;,
      * 		&quot;awsAccountId&quot;: &quot;string&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * The response will include an additional field &lt;code&gt;awsPartnerEventSource&lt;/code&gt; in the &lt;code&gt;sink&lt;/code&gt;: &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * The response will include an additional field <code>awsPartnerEventSource</code> in the <code>sink</code>: <pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;eventbridge&quot;,
@@ -302,9 +306,9 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;awsRegion&quot;: &quot;string&quot;,
      * 		&quot;awsPartnerEventSource&quot;: &quot;string&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Azure Event Grid Stream&lt;/h5&gt; For an &lt;code&gt;Azure Event Grid&lt;/code&gt; Stream, the &lt;code&gt;sink&lt;/code&gt; properties are listed in the payload below
-     * Request: &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Azure Event Grid Stream</h5> For an <code>Azure Event Grid</code> Stream, the <code>sink</code> properties are listed in the payload below
+     * Request: <pre><code>{
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;eventgrid&quot;,
      * 	&quot;sink&quot;: {
@@ -312,8 +316,8 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;azureResourceGroup&quot;: &quot;string&quot;,
      * 		&quot;azureRegion&quot;: &quot;string&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * Response: &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * Response: <pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;http&quot;,
@@ -324,17 +328,17 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;azureRegion&quot;: &quot;string&quot;,
      * 		&quot;azurePartnerTopic&quot;: &quot;string&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Datadog Stream&lt;/h5&gt; For a &lt;code&gt;Datadog&lt;/code&gt; Stream, the &lt;code&gt;sink&lt;/code&gt; properties are listed in the payload below
-     * Request: &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Datadog Stream</h5> For a <code>Datadog</code> Stream, the <code>sink</code> properties are listed in the payload below
+     * Request: <pre><code>{
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;datadog&quot;,
      * 	&quot;sink&quot;: {
      * 		&quot;datadogRegion&quot;: &quot;string&quot;,
      * 		&quot;datadogApiKey&quot;: &quot;string&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * Response: &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * Response: <pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;datadog&quot;,
@@ -343,9 +347,9 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;datadogRegion&quot;: &quot;string&quot;,
      * 		&quot;datadogApiKey&quot;: &quot;string&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Splunk Stream&lt;/h5&gt; For a &lt;code&gt;Splunk&lt;/code&gt; Stream, the &lt;code&gt;sink&lt;/code&gt; properties are listed in the payload below
-     * Request: &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Splunk Stream</h5> For a <code>Splunk</code> Stream, the <code>sink</code> properties are listed in the payload below
+     * Request: <pre><code>{
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;splunk&quot;,
      * 	&quot;sink&quot;: {
@@ -354,8 +358,8 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;splunkPort&quot;: &quot;string&quot;,
      * 		&quot;splunkSecure&quot;: &quot;boolean&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * Response: &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * Response: <pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;splunk&quot;,
@@ -366,16 +370,16 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;splunkPort&quot;: &quot;string&quot;,
      * 		&quot;splunkSecure&quot;: &quot;boolean&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Sumo Logic Stream&lt;/h5&gt; For a &lt;code&gt;Sumo Logic&lt;/code&gt; Stream, the &lt;code&gt;sink&lt;/code&gt; properties are listed in the payload below
-     * Request: &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Sumo Logic Stream</h5> For a <code>Sumo Logic</code> Stream, the <code>sink</code> properties are listed in the payload below
+     * Request: <pre><code>{
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;sumo&quot;,
      * 	&quot;sink&quot;: {
      * 		&quot;sumoSourceAddress&quot;: &quot;string&quot;,
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * Response: &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * Response: <pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;sumo&quot;,
@@ -383,7 +387,7 @@ public class AsyncRawLogStreamsClient {
      * 	&quot;sink&quot;: {
      * 		&quot;sumoSourceAddress&quot;: &quot;string&quot;,
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;</p>
+     * }</code></pre></p>
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateLogStreamResponseContent>> create(
             CreateLogStreamRequestContent request) {
@@ -392,9 +396,9 @@ public class AsyncRawLogStreamsClient {
 
     /**
      * Create a log stream.
-     * <p>&lt;h5&gt;Log Stream Types&lt;/h5&gt; The &lt;code&gt;type&lt;/code&gt; of log stream being created determines the properties required in the &lt;code&gt;sink&lt;/code&gt; payload.
-     * &lt;h5&gt;HTTP Stream&lt;/h5&gt; For an &lt;code&gt;http&lt;/code&gt; Stream, the &lt;code&gt;sink&lt;/code&gt; properties are listed in the payload below
-     * Request: &lt;pre&gt;&lt;code&gt;{
+     * <p><h5>Log Stream Types</h5> The <code>type</code> of log stream being created determines the properties required in the <code>sink</code> payload.
+     * <h5>HTTP Stream</h5> For an <code>http</code> Stream, the <code>sink</code> properties are listed in the payload below
+     * Request: <pre><code>{
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;http&quot;,
      * 	&quot;sink&quot;: {
@@ -403,8 +407,8 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;httpContentFormat&quot;: &quot;JSONLINES|JSONARRAY&quot;,
      * 		&quot;httpAuthorization&quot;: &quot;string&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * Response: &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * Response: <pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;http&quot;,
@@ -415,17 +419,17 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;httpContentFormat&quot;: &quot;JSONLINES|JSONARRAY&quot;,
      * 		&quot;httpAuthorization&quot;: &quot;string&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Amazon EventBridge Stream&lt;/h5&gt; For an &lt;code&gt;eventbridge&lt;/code&gt; Stream, the &lt;code&gt;sink&lt;/code&gt; properties are listed in the payload below
-     * Request: &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Amazon EventBridge Stream</h5> For an <code>eventbridge</code> Stream, the <code>sink</code> properties are listed in the payload below
+     * Request: <pre><code>{
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;eventbridge&quot;,
      * 	&quot;sink&quot;: {
      * 		&quot;awsRegion&quot;: &quot;string&quot;,
      * 		&quot;awsAccountId&quot;: &quot;string&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * The response will include an additional field &lt;code&gt;awsPartnerEventSource&lt;/code&gt; in the &lt;code&gt;sink&lt;/code&gt;: &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * The response will include an additional field <code>awsPartnerEventSource</code> in the <code>sink</code>: <pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;eventbridge&quot;,
@@ -435,9 +439,9 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;awsRegion&quot;: &quot;string&quot;,
      * 		&quot;awsPartnerEventSource&quot;: &quot;string&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Azure Event Grid Stream&lt;/h5&gt; For an &lt;code&gt;Azure Event Grid&lt;/code&gt; Stream, the &lt;code&gt;sink&lt;/code&gt; properties are listed in the payload below
-     * Request: &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Azure Event Grid Stream</h5> For an <code>Azure Event Grid</code> Stream, the <code>sink</code> properties are listed in the payload below
+     * Request: <pre><code>{
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;eventgrid&quot;,
      * 	&quot;sink&quot;: {
@@ -445,8 +449,8 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;azureResourceGroup&quot;: &quot;string&quot;,
      * 		&quot;azureRegion&quot;: &quot;string&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * Response: &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * Response: <pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;http&quot;,
@@ -457,17 +461,17 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;azureRegion&quot;: &quot;string&quot;,
      * 		&quot;azurePartnerTopic&quot;: &quot;string&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Datadog Stream&lt;/h5&gt; For a &lt;code&gt;Datadog&lt;/code&gt; Stream, the &lt;code&gt;sink&lt;/code&gt; properties are listed in the payload below
-     * Request: &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Datadog Stream</h5> For a <code>Datadog</code> Stream, the <code>sink</code> properties are listed in the payload below
+     * Request: <pre><code>{
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;datadog&quot;,
      * 	&quot;sink&quot;: {
      * 		&quot;datadogRegion&quot;: &quot;string&quot;,
      * 		&quot;datadogApiKey&quot;: &quot;string&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * Response: &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * Response: <pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;datadog&quot;,
@@ -476,9 +480,9 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;datadogRegion&quot;: &quot;string&quot;,
      * 		&quot;datadogApiKey&quot;: &quot;string&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Splunk Stream&lt;/h5&gt; For a &lt;code&gt;Splunk&lt;/code&gt; Stream, the &lt;code&gt;sink&lt;/code&gt; properties are listed in the payload below
-     * Request: &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Splunk Stream</h5> For a <code>Splunk</code> Stream, the <code>sink</code> properties are listed in the payload below
+     * Request: <pre><code>{
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;splunk&quot;,
      * 	&quot;sink&quot;: {
@@ -487,8 +491,8 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;splunkPort&quot;: &quot;string&quot;,
      * 		&quot;splunkSecure&quot;: &quot;boolean&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * Response: &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * Response: <pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;splunk&quot;,
@@ -499,16 +503,16 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;splunkPort&quot;: &quot;string&quot;,
      * 		&quot;splunkSecure&quot;: &quot;boolean&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Sumo Logic Stream&lt;/h5&gt; For a &lt;code&gt;Sumo Logic&lt;/code&gt; Stream, the &lt;code&gt;sink&lt;/code&gt; properties are listed in the payload below
-     * Request: &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Sumo Logic Stream</h5> For a <code>Sumo Logic</code> Stream, the <code>sink</code> properties are listed in the payload below
+     * Request: <pre><code>{
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;sumo&quot;,
      * 	&quot;sink&quot;: {
      * 		&quot;sumoSourceAddress&quot;: &quot;string&quot;,
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * Response: &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * Response: <pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;sumo&quot;,
@@ -516,14 +520,18 @@ public class AsyncRawLogStreamsClient {
      * 	&quot;sink&quot;: {
      * 		&quot;sumoSourceAddress&quot;: &quot;string&quot;,
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt;</p>
+     * }</code></pre></p>
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateLogStreamResponseContent>> create(
             CreateLogStreamRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("log-streams")
-                .build();
+                .addPathSegments("log-streams");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -532,7 +540,7 @@ public class AsyncRawLogStreamsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -605,7 +613,7 @@ public class AsyncRawLogStreamsClient {
 
     /**
      * Retrieve a log stream configuration and status.
-     * <p>&lt;h5&gt;Sample responses&lt;/h5&gt;&lt;h5&gt;Amazon EventBridge Log Stream&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * <p><h5>Sample responses</h5><h5>Amazon EventBridge Log Stream</h5><pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;eventbridge&quot;,
@@ -615,7 +623,7 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;awsRegion&quot;: &quot;string&quot;,
      * 		&quot;awsPartnerEventSource&quot;: &quot;string&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt; &lt;h5&gt;HTTP Log Stream&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre> <h5>HTTP Log Stream</h5><pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;http&quot;,
@@ -626,7 +634,7 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;httpEndpoint&quot;: &quot;string&quot;,
      * 		&quot;httpAuthorization&quot;: &quot;string&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt; &lt;h5&gt;Datadog Log Stream&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre> <h5>Datadog Log Stream</h5><pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;datadog&quot;,
@@ -635,8 +643,8 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;datadogRegion&quot;: &quot;string&quot;,
      * 		&quot;datadogApiKey&quot;: &quot;string&quot;
      * 	}</p>
-     * <p>}&lt;/code&gt;&lt;/pre&gt;&lt;h5&gt;Mixpanel&lt;/h5&gt;</p>
-     * <pre><code>Request: &lt;pre&gt;&lt;code&gt;{
+     * <p>}</code></pre><h5>Mixpanel</h5></p>
+     * <pre><code>Request: <pre><code>{
      *   &quot;name&quot;: &quot;string&quot;,
      *   &quot;type&quot;: &quot;mixpanel&quot;,
      *   &quot;sink&quot;: {
@@ -645,10 +653,10 @@ public class AsyncRawLogStreamsClient {
      * 	&quot;mixpanelServiceAccountUsername&quot;: &quot;string&quot;,
      * 	&quot;mixpanelServiceAccountPassword&quot;: &quot;string&quot;
      *   }
-     * } &lt;/code&gt;&lt;/pre&gt;
+     * } </code></pre>
      *
      *
-     * Response: &lt;pre&gt;&lt;code&gt;{
+     * Response: <pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;mixpanel&quot;,
@@ -659,19 +667,19 @@ public class AsyncRawLogStreamsClient {
      * 	  &quot;mixpanelServiceAccountUsername&quot;: &quot;string&quot;,
      * 	  &quot;mixpanelServiceAccountPassword&quot;: &quot;string&quot; // the following is redacted on return
      * 	}
-     *   } &lt;/code&gt;&lt;/pre&gt;
+     *   } </code></pre>
      *
-     * &lt;h5&gt;Segment&lt;/h5&gt;
+     * <h5>Segment</h5>
      *
-     * Request: &lt;pre&gt;&lt;code&gt; {
+     * Request: <pre><code> {
      *   &quot;name&quot;: &quot;string&quot;,
      *   &quot;type&quot;: &quot;segment&quot;,
      *   &quot;sink&quot;: {
      * 	&quot;segmentWriteKey&quot;: &quot;string&quot;
      *   }
-     * }&lt;/code&gt;&lt;/pre&gt;
+     * }</code></pre>
      *
-     * Response: &lt;pre&gt;&lt;code&gt;{
+     * Response: <pre><code>{
      *   &quot;id&quot;: &quot;string&quot;,
      *   &quot;name&quot;: &quot;string&quot;,
      *   &quot;type&quot;: &quot;segment&quot;,
@@ -679,9 +687,9 @@ public class AsyncRawLogStreamsClient {
      *   &quot;sink&quot;: {
      * 	&quot;segmentWriteKey&quot;: &quot;string&quot;
      *   }
-     * } &lt;/code&gt;&lt;/pre&gt;
+     * } </code></pre>
      * </code></pre>
-     * <p>&lt;h5&gt;Splunk Log Stream&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * <p><h5>Splunk Log Stream</h5><pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;splunk&quot;,
@@ -692,7 +700,7 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;splunkPort&quot;: &quot;string&quot;,
      * 		&quot;splunkSecure&quot;: &quot;boolean&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt; &lt;h5&gt;Sumo Logic Log Stream&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre> <h5>Sumo Logic Log Stream</h5><pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;sumo&quot;,
@@ -700,10 +708,10 @@ public class AsyncRawLogStreamsClient {
      * 	&quot;sink&quot;: {
      * 		&quot;sumoSourceAddress&quot;: &quot;string&quot;,
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt; &lt;h5&gt;Status&lt;/h5&gt; The &lt;code&gt;status&lt;/code&gt; of a log stream maybe any of the following:
-     * 1. &lt;code&gt;active&lt;/code&gt; - Stream is currently enabled.
-     * 2. &lt;code&gt;paused&lt;/code&gt; - Stream is currently user disabled and will not attempt log delivery.
-     * 3. &lt;code&gt;suspended&lt;/code&gt; - Stream is currently disabled because of errors and will not attempt log delivery.</p>
+     * }</code></pre> <h5>Status</h5> The <code>status</code> of a log stream maybe any of the following:
+     * 1. <code>active</code> - Stream is currently enabled.
+     * 2. <code>paused</code> - Stream is currently user disabled and will not attempt log delivery.
+     * 3. <code>suspended</code> - Stream is currently disabled because of errors and will not attempt log delivery.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<GetLogStreamResponseContent>> get(String id) {
         return get(id, null);
@@ -711,7 +719,7 @@ public class AsyncRawLogStreamsClient {
 
     /**
      * Retrieve a log stream configuration and status.
-     * <p>&lt;h5&gt;Sample responses&lt;/h5&gt;&lt;h5&gt;Amazon EventBridge Log Stream&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * <p><h5>Sample responses</h5><h5>Amazon EventBridge Log Stream</h5><pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;eventbridge&quot;,
@@ -721,7 +729,7 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;awsRegion&quot;: &quot;string&quot;,
      * 		&quot;awsPartnerEventSource&quot;: &quot;string&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt; &lt;h5&gt;HTTP Log Stream&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre> <h5>HTTP Log Stream</h5><pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;http&quot;,
@@ -732,7 +740,7 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;httpEndpoint&quot;: &quot;string&quot;,
      * 		&quot;httpAuthorization&quot;: &quot;string&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt; &lt;h5&gt;Datadog Log Stream&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre> <h5>Datadog Log Stream</h5><pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;datadog&quot;,
@@ -741,8 +749,8 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;datadogRegion&quot;: &quot;string&quot;,
      * 		&quot;datadogApiKey&quot;: &quot;string&quot;
      * 	}</p>
-     * <p>}&lt;/code&gt;&lt;/pre&gt;&lt;h5&gt;Mixpanel&lt;/h5&gt;</p>
-     * <pre><code>Request: &lt;pre&gt;&lt;code&gt;{
+     * <p>}</code></pre><h5>Mixpanel</h5></p>
+     * <pre><code>Request: <pre><code>{
      *   &quot;name&quot;: &quot;string&quot;,
      *   &quot;type&quot;: &quot;mixpanel&quot;,
      *   &quot;sink&quot;: {
@@ -751,10 +759,10 @@ public class AsyncRawLogStreamsClient {
      * 	&quot;mixpanelServiceAccountUsername&quot;: &quot;string&quot;,
      * 	&quot;mixpanelServiceAccountPassword&quot;: &quot;string&quot;
      *   }
-     * } &lt;/code&gt;&lt;/pre&gt;
+     * } </code></pre>
      *
      *
-     * Response: &lt;pre&gt;&lt;code&gt;{
+     * Response: <pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;mixpanel&quot;,
@@ -765,19 +773,19 @@ public class AsyncRawLogStreamsClient {
      * 	  &quot;mixpanelServiceAccountUsername&quot;: &quot;string&quot;,
      * 	  &quot;mixpanelServiceAccountPassword&quot;: &quot;string&quot; // the following is redacted on return
      * 	}
-     *   } &lt;/code&gt;&lt;/pre&gt;
+     *   } </code></pre>
      *
-     * &lt;h5&gt;Segment&lt;/h5&gt;
+     * <h5>Segment</h5>
      *
-     * Request: &lt;pre&gt;&lt;code&gt; {
+     * Request: <pre><code> {
      *   &quot;name&quot;: &quot;string&quot;,
      *   &quot;type&quot;: &quot;segment&quot;,
      *   &quot;sink&quot;: {
      * 	&quot;segmentWriteKey&quot;: &quot;string&quot;
      *   }
-     * }&lt;/code&gt;&lt;/pre&gt;
+     * }</code></pre>
      *
-     * Response: &lt;pre&gt;&lt;code&gt;{
+     * Response: <pre><code>{
      *   &quot;id&quot;: &quot;string&quot;,
      *   &quot;name&quot;: &quot;string&quot;,
      *   &quot;type&quot;: &quot;segment&quot;,
@@ -785,9 +793,9 @@ public class AsyncRawLogStreamsClient {
      *   &quot;sink&quot;: {
      * 	&quot;segmentWriteKey&quot;: &quot;string&quot;
      *   }
-     * } &lt;/code&gt;&lt;/pre&gt;
+     * } </code></pre>
      * </code></pre>
-     * <p>&lt;h5&gt;Splunk Log Stream&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * <p><h5>Splunk Log Stream</h5><pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;splunk&quot;,
@@ -798,7 +806,7 @@ public class AsyncRawLogStreamsClient {
      * 		&quot;splunkPort&quot;: &quot;string&quot;,
      * 		&quot;splunkSecure&quot;: &quot;boolean&quot;
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt; &lt;h5&gt;Sumo Logic Log Stream&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre> <h5>Sumo Logic Log Stream</h5><pre><code>{
      * 	&quot;id&quot;: &quot;string&quot;,
      * 	&quot;name&quot;: &quot;string&quot;,
      * 	&quot;type&quot;: &quot;sumo&quot;,
@@ -806,20 +814,24 @@ public class AsyncRawLogStreamsClient {
      * 	&quot;sink&quot;: {
      * 		&quot;sumoSourceAddress&quot;: &quot;string&quot;,
      * 	}
-     * }&lt;/code&gt;&lt;/pre&gt; &lt;h5&gt;Status&lt;/h5&gt; The &lt;code&gt;status&lt;/code&gt; of a log stream maybe any of the following:
-     * 1. &lt;code&gt;active&lt;/code&gt; - Stream is currently enabled.
-     * 2. &lt;code&gt;paused&lt;/code&gt; - Stream is currently user disabled and will not attempt log delivery.
-     * 3. &lt;code&gt;suspended&lt;/code&gt; - Stream is currently disabled because of errors and will not attempt log delivery.</p>
+     * }</code></pre> <h5>Status</h5> The <code>status</code> of a log stream maybe any of the following:
+     * 1. <code>active</code> - Stream is currently enabled.
+     * 2. <code>paused</code> - Stream is currently user disabled and will not attempt log delivery.
+     * 3. <code>suspended</code> - Stream is currently disabled because of errors and will not attempt log delivery.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<GetLogStreamResponseContent>> get(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("log-streams")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -895,13 +907,17 @@ public class AsyncRawLogStreamsClient {
      * Delete a log stream.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("log-streams")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -970,40 +986,40 @@ public class AsyncRawLogStreamsClient {
 
     /**
      * Update a log stream.
-     * <p>&lt;h4&gt;Examples of how to use the PATCH endpoint.&lt;/h4&gt; The following fields may be updated in a PATCH operation: &lt;ul&gt;&lt;li&gt;name&lt;/li&gt;&lt;li&gt;status&lt;/li&gt;&lt;li&gt;sink&lt;/li&gt;&lt;/ul&gt; Note: For log streams of type &lt;code&gt;eventbridge&lt;/code&gt; and &lt;code&gt;eventgrid&lt;/code&gt;, updating the &lt;code&gt;sink&lt;/code&gt; is not permitted.
-     * &lt;h5&gt;Update the status of a log stream&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * <p><h4>Examples of how to use the PATCH endpoint.</h4> The following fields may be updated in a PATCH operation: <ul><li>name</li><li>status</li><li>sink</li></ul> Note: For log streams of type <code>eventbridge</code> and <code>eventgrid</code>, updating the <code>sink</code> is not permitted.
+     * <h5>Update the status of a log stream</h5><pre><code>{
      * 	&quot;status&quot;: &quot;active|paused&quot;
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Update the name of a log stream&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Update the name of a log stream</h5><pre><code>{
      * 	&quot;name&quot;: &quot;string&quot;
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Update the sink properties of a stream of type &lt;code&gt;http&lt;/code&gt;&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Update the sink properties of a stream of type <code>http</code></h5><pre><code>{
      *   &quot;sink&quot;: {
      *     &quot;httpEndpoint&quot;: &quot;string&quot;,
      *     &quot;httpContentType&quot;: &quot;string&quot;,
      *     &quot;httpContentFormat&quot;: &quot;JSONARRAY|JSONLINES&quot;,
      *     &quot;httpAuthorization&quot;: &quot;string&quot;
      *   }
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Update the sink properties of a stream of type &lt;code&gt;datadog&lt;/code&gt;&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Update the sink properties of a stream of type <code>datadog</code></h5><pre><code>{
      *   &quot;sink&quot;: {
      * 		&quot;datadogRegion&quot;: &quot;string&quot;,
      * 		&quot;datadogApiKey&quot;: &quot;string&quot;
      *   }
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Update the sink properties of a stream of type &lt;code&gt;splunk&lt;/code&gt;&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Update the sink properties of a stream of type <code>splunk</code></h5><pre><code>{
      *   &quot;sink&quot;: {
      *     &quot;splunkDomain&quot;: &quot;string&quot;,
      *     &quot;splunkToken&quot;: &quot;string&quot;,
      *     &quot;splunkPort&quot;: &quot;string&quot;,
      *     &quot;splunkSecure&quot;: &quot;boolean&quot;
      *   }
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Update the sink properties of a stream of type &lt;code&gt;sumo&lt;/code&gt;&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Update the sink properties of a stream of type <code>sumo</code></h5><pre><code>{
      *   &quot;sink&quot;: {
      *     &quot;sumoSourceAddress&quot;: &quot;string&quot;
      *   }
-     * }&lt;/code&gt;&lt;/pre&gt;</p>
+     * }</code></pre></p>
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateLogStreamResponseContent>> update(String id) {
         return update(id, UpdateLogStreamRequestContent.builder().build());
@@ -1011,40 +1027,82 @@ public class AsyncRawLogStreamsClient {
 
     /**
      * Update a log stream.
-     * <p>&lt;h4&gt;Examples of how to use the PATCH endpoint.&lt;/h4&gt; The following fields may be updated in a PATCH operation: &lt;ul&gt;&lt;li&gt;name&lt;/li&gt;&lt;li&gt;status&lt;/li&gt;&lt;li&gt;sink&lt;/li&gt;&lt;/ul&gt; Note: For log streams of type &lt;code&gt;eventbridge&lt;/code&gt; and &lt;code&gt;eventgrid&lt;/code&gt;, updating the &lt;code&gt;sink&lt;/code&gt; is not permitted.
-     * &lt;h5&gt;Update the status of a log stream&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * <p><h4>Examples of how to use the PATCH endpoint.</h4> The following fields may be updated in a PATCH operation: <ul><li>name</li><li>status</li><li>sink</li></ul> Note: For log streams of type <code>eventbridge</code> and <code>eventgrid</code>, updating the <code>sink</code> is not permitted.
+     * <h5>Update the status of a log stream</h5><pre><code>{
      * 	&quot;status&quot;: &quot;active|paused&quot;
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Update the name of a log stream&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Update the name of a log stream</h5><pre><code>{
      * 	&quot;name&quot;: &quot;string&quot;
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Update the sink properties of a stream of type &lt;code&gt;http&lt;/code&gt;&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Update the sink properties of a stream of type <code>http</code></h5><pre><code>{
      *   &quot;sink&quot;: {
      *     &quot;httpEndpoint&quot;: &quot;string&quot;,
      *     &quot;httpContentType&quot;: &quot;string&quot;,
      *     &quot;httpContentFormat&quot;: &quot;JSONARRAY|JSONLINES&quot;,
      *     &quot;httpAuthorization&quot;: &quot;string&quot;
      *   }
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Update the sink properties of a stream of type &lt;code&gt;datadog&lt;/code&gt;&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Update the sink properties of a stream of type <code>datadog</code></h5><pre><code>{
      *   &quot;sink&quot;: {
      * 		&quot;datadogRegion&quot;: &quot;string&quot;,
      * 		&quot;datadogApiKey&quot;: &quot;string&quot;
      *   }
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Update the sink properties of a stream of type &lt;code&gt;splunk&lt;/code&gt;&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Update the sink properties of a stream of type <code>splunk</code></h5><pre><code>{
      *   &quot;sink&quot;: {
      *     &quot;splunkDomain&quot;: &quot;string&quot;,
      *     &quot;splunkToken&quot;: &quot;string&quot;,
      *     &quot;splunkPort&quot;: &quot;string&quot;,
      *     &quot;splunkSecure&quot;: &quot;boolean&quot;
      *   }
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Update the sink properties of a stream of type &lt;code&gt;sumo&lt;/code&gt;&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Update the sink properties of a stream of type <code>sumo</code></h5><pre><code>{
      *   &quot;sink&quot;: {
      *     &quot;sumoSourceAddress&quot;: &quot;string&quot;
      *   }
-     * }&lt;/code&gt;&lt;/pre&gt;</p>
+     * }</code></pre></p>
+     */
+    public CompletableFuture<ManagementApiHttpResponse<UpdateLogStreamResponseContent>> update(
+            String id, RequestOptions requestOptions) {
+        return update(id, UpdateLogStreamRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update a log stream.
+     * <p><h4>Examples of how to use the PATCH endpoint.</h4> The following fields may be updated in a PATCH operation: <ul><li>name</li><li>status</li><li>sink</li></ul> Note: For log streams of type <code>eventbridge</code> and <code>eventgrid</code>, updating the <code>sink</code> is not permitted.
+     * <h5>Update the status of a log stream</h5><pre><code>{
+     * 	&quot;status&quot;: &quot;active|paused&quot;
+     * }</code></pre>
+     * <h5>Update the name of a log stream</h5><pre><code>{
+     * 	&quot;name&quot;: &quot;string&quot;
+     * }</code></pre>
+     * <h5>Update the sink properties of a stream of type <code>http</code></h5><pre><code>{
+     *   &quot;sink&quot;: {
+     *     &quot;httpEndpoint&quot;: &quot;string&quot;,
+     *     &quot;httpContentType&quot;: &quot;string&quot;,
+     *     &quot;httpContentFormat&quot;: &quot;JSONARRAY|JSONLINES&quot;,
+     *     &quot;httpAuthorization&quot;: &quot;string&quot;
+     *   }
+     * }</code></pre>
+     * <h5>Update the sink properties of a stream of type <code>datadog</code></h5><pre><code>{
+     *   &quot;sink&quot;: {
+     * 		&quot;datadogRegion&quot;: &quot;string&quot;,
+     * 		&quot;datadogApiKey&quot;: &quot;string&quot;
+     *   }
+     * }</code></pre>
+     * <h5>Update the sink properties of a stream of type <code>splunk</code></h5><pre><code>{
+     *   &quot;sink&quot;: {
+     *     &quot;splunkDomain&quot;: &quot;string&quot;,
+     *     &quot;splunkToken&quot;: &quot;string&quot;,
+     *     &quot;splunkPort&quot;: &quot;string&quot;,
+     *     &quot;splunkSecure&quot;: &quot;boolean&quot;
+     *   }
+     * }</code></pre>
+     * <h5>Update the sink properties of a stream of type <code>sumo</code></h5><pre><code>{
+     *   &quot;sink&quot;: {
+     *     &quot;sumoSourceAddress&quot;: &quot;string&quot;
+     *   }
+     * }</code></pre></p>
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateLogStreamResponseContent>> update(
             String id, UpdateLogStreamRequestContent request) {
@@ -1053,48 +1111,52 @@ public class AsyncRawLogStreamsClient {
 
     /**
      * Update a log stream.
-     * <p>&lt;h4&gt;Examples of how to use the PATCH endpoint.&lt;/h4&gt; The following fields may be updated in a PATCH operation: &lt;ul&gt;&lt;li&gt;name&lt;/li&gt;&lt;li&gt;status&lt;/li&gt;&lt;li&gt;sink&lt;/li&gt;&lt;/ul&gt; Note: For log streams of type &lt;code&gt;eventbridge&lt;/code&gt; and &lt;code&gt;eventgrid&lt;/code&gt;, updating the &lt;code&gt;sink&lt;/code&gt; is not permitted.
-     * &lt;h5&gt;Update the status of a log stream&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * <p><h4>Examples of how to use the PATCH endpoint.</h4> The following fields may be updated in a PATCH operation: <ul><li>name</li><li>status</li><li>sink</li></ul> Note: For log streams of type <code>eventbridge</code> and <code>eventgrid</code>, updating the <code>sink</code> is not permitted.
+     * <h5>Update the status of a log stream</h5><pre><code>{
      * 	&quot;status&quot;: &quot;active|paused&quot;
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Update the name of a log stream&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Update the name of a log stream</h5><pre><code>{
      * 	&quot;name&quot;: &quot;string&quot;
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Update the sink properties of a stream of type &lt;code&gt;http&lt;/code&gt;&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Update the sink properties of a stream of type <code>http</code></h5><pre><code>{
      *   &quot;sink&quot;: {
      *     &quot;httpEndpoint&quot;: &quot;string&quot;,
      *     &quot;httpContentType&quot;: &quot;string&quot;,
      *     &quot;httpContentFormat&quot;: &quot;JSONARRAY|JSONLINES&quot;,
      *     &quot;httpAuthorization&quot;: &quot;string&quot;
      *   }
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Update the sink properties of a stream of type &lt;code&gt;datadog&lt;/code&gt;&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Update the sink properties of a stream of type <code>datadog</code></h5><pre><code>{
      *   &quot;sink&quot;: {
      * 		&quot;datadogRegion&quot;: &quot;string&quot;,
      * 		&quot;datadogApiKey&quot;: &quot;string&quot;
      *   }
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Update the sink properties of a stream of type &lt;code&gt;splunk&lt;/code&gt;&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Update the sink properties of a stream of type <code>splunk</code></h5><pre><code>{
      *   &quot;sink&quot;: {
      *     &quot;splunkDomain&quot;: &quot;string&quot;,
      *     &quot;splunkToken&quot;: &quot;string&quot;,
      *     &quot;splunkPort&quot;: &quot;string&quot;,
      *     &quot;splunkSecure&quot;: &quot;boolean&quot;
      *   }
-     * }&lt;/code&gt;&lt;/pre&gt;
-     * &lt;h5&gt;Update the sink properties of a stream of type &lt;code&gt;sumo&lt;/code&gt;&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre>
+     * <h5>Update the sink properties of a stream of type <code>sumo</code></h5><pre><code>{
      *   &quot;sink&quot;: {
      *     &quot;sumoSourceAddress&quot;: &quot;string&quot;
      *   }
-     * }&lt;/code&gt;&lt;/pre&gt;</p>
+     * }</code></pre></p>
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateLogStreamResponseContent>> update(
             String id, UpdateLogStreamRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("log-streams")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -1103,7 +1165,7 @@ public class AsyncRawLogStreamsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

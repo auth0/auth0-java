@@ -34,6 +34,11 @@ public class AsyncExecutionsClient {
     }
 
     public CompletableFuture<SyncPagingIterable<FlowExecutionSummary>> list(
+            String flowId, RequestOptions requestOptions) {
+        return this.rawClient.list(flowId, requestOptions).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<SyncPagingIterable<FlowExecutionSummary>> list(
             String flowId, ListFlowExecutionsRequestParameters request) {
         return this.rawClient.list(flowId, request).thenApply(response -> response.body());
     }
@@ -45,6 +50,11 @@ public class AsyncExecutionsClient {
 
     public CompletableFuture<GetFlowExecutionResponseContent> get(String flowId, String executionId) {
         return this.rawClient.get(flowId, executionId).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<GetFlowExecutionResponseContent> get(
+            String flowId, String executionId, RequestOptions requestOptions) {
+        return this.rawClient.get(flowId, executionId, requestOptions).thenApply(response -> response.body());
     }
 
     public CompletableFuture<GetFlowExecutionResponseContent> get(

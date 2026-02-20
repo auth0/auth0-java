@@ -17,9 +17,11 @@ public interface IConnectionOptionsCommonOidc {
 
     Optional<ConnectionConnectionSettings> getConnectionSettings();
 
-    OptionalNullable<ConnectionFederatedConnectionsAccessTokens> getFederatedConnectionsAccessTokens();
-
     Optional<List<String>> getDomainAliases();
+
+    Optional<ConnectionDpopSigningAlgEnum> getDpopSigningAlg();
+
+    OptionalNullable<ConnectionFederatedConnectionsAccessTokens> getFederatedConnectionsAccessTokens();
 
     Optional<String> getIconUrl();
 

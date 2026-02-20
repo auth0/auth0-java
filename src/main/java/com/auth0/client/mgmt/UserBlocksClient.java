@@ -29,7 +29,7 @@ public class UserBlocksClient {
     }
 
     /**
-     * Retrieve details of all &lt;a href=&quot;https://auth0.com/docs/secure/attack-protection/brute-force-protection&quot;&gt;Brute-force Protection&lt;/a&gt; blocks for a user with the given identifier (username, phone number, or email).
+     * Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for a user with the given identifier (username, phone number, or email).
      */
     public ListUserBlocksByIdentifierResponseContent listByIdentifier(
             ListUserBlocksByIdentifierRequestParameters request) {
@@ -37,7 +37,7 @@ public class UserBlocksClient {
     }
 
     /**
-     * Retrieve details of all &lt;a href=&quot;https://auth0.com/docs/secure/attack-protection/brute-force-protection&quot;&gt;Brute-force Protection&lt;/a&gt; blocks for a user with the given identifier (username, phone number, or email).
+     * Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for a user with the given identifier (username, phone number, or email).
      */
     public ListUserBlocksByIdentifierResponseContent listByIdentifier(
             ListUserBlocksByIdentifierRequestParameters request, RequestOptions requestOptions) {
@@ -45,16 +45,16 @@ public class UserBlocksClient {
     }
 
     /**
-     * Remove all &lt;a href=&quot;https://auth0.com/docs/secure/attack-protection/brute-force-protection&quot;&gt;Brute-force Protection&lt;/a&gt; blocks for the user with the given identifier (username, phone number, or email).
-     * <p>Note: This endpoint does not unblock users that were &lt;a href=&quot;https://auth0.com/docs/user-profile#block-and-unblock-a-user&quot;&gt;blocked by a tenant administrator&lt;/a&gt;.</p>
+     * Remove all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given identifier (username, phone number, or email).
+     * <p>Note: This endpoint does not unblock users that were <a href="https://auth0.com/docs/user-profile#block-and-unblock-a-user">blocked by a tenant administrator</a>.</p>
      */
     public void deleteByIdentifier(DeleteUserBlocksByIdentifierRequestParameters request) {
         this.rawClient.deleteByIdentifier(request).body();
     }
 
     /**
-     * Remove all &lt;a href=&quot;https://auth0.com/docs/secure/attack-protection/brute-force-protection&quot;&gt;Brute-force Protection&lt;/a&gt; blocks for the user with the given identifier (username, phone number, or email).
-     * <p>Note: This endpoint does not unblock users that were &lt;a href=&quot;https://auth0.com/docs/user-profile#block-and-unblock-a-user&quot;&gt;blocked by a tenant administrator&lt;/a&gt;.</p>
+     * Remove all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given identifier (username, phone number, or email).
+     * <p>Note: This endpoint does not unblock users that were <a href="https://auth0.com/docs/user-profile#block-and-unblock-a-user">blocked by a tenant administrator</a>.</p>
      */
     public void deleteByIdentifier(
             DeleteUserBlocksByIdentifierRequestParameters request, RequestOptions requestOptions) {
@@ -62,21 +62,28 @@ public class UserBlocksClient {
     }
 
     /**
-     * Retrieve details of all &lt;a href=&quot;https://auth0.com/docs/secure/attack-protection/brute-force-protection&quot;&gt;Brute-force Protection&lt;/a&gt; blocks for the user with the given ID.
+     * Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given ID.
      */
     public ListUserBlocksResponseContent list(String id) {
         return this.rawClient.list(id).body();
     }
 
     /**
-     * Retrieve details of all &lt;a href=&quot;https://auth0.com/docs/secure/attack-protection/brute-force-protection&quot;&gt;Brute-force Protection&lt;/a&gt; blocks for the user with the given ID.
+     * Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given ID.
+     */
+    public ListUserBlocksResponseContent list(String id, RequestOptions requestOptions) {
+        return this.rawClient.list(id, requestOptions).body();
+    }
+
+    /**
+     * Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given ID.
      */
     public ListUserBlocksResponseContent list(String id, ListUserBlocksRequestParameters request) {
         return this.rawClient.list(id, request).body();
     }
 
     /**
-     * Retrieve details of all &lt;a href=&quot;https://auth0.com/docs/secure/attack-protection/brute-force-protection&quot;&gt;Brute-force Protection&lt;/a&gt; blocks for the user with the given ID.
+     * Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given ID.
      */
     public ListUserBlocksResponseContent list(
             String id, ListUserBlocksRequestParameters request, RequestOptions requestOptions) {
@@ -84,16 +91,16 @@ public class UserBlocksClient {
     }
 
     /**
-     * Remove all &lt;a href=&quot;https://auth0.com/docs/secure/attack-protection/brute-force-protection&quot;&gt;Brute-force Protection&lt;/a&gt; blocks for the user with the given ID.
-     * <p>Note: This endpoint does not unblock users that were &lt;a href=&quot;https://auth0.com/docs/user-profile#block-and-unblock-a-user&quot;&gt;blocked by a tenant administrator&lt;/a&gt;.</p>
+     * Remove all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given ID.
+     * <p>Note: This endpoint does not unblock users that were <a href="https://auth0.com/docs/user-profile#block-and-unblock-a-user">blocked by a tenant administrator</a>.</p>
      */
     public void delete(String id) {
         this.rawClient.delete(id).body();
     }
 
     /**
-     * Remove all &lt;a href=&quot;https://auth0.com/docs/secure/attack-protection/brute-force-protection&quot;&gt;Brute-force Protection&lt;/a&gt; blocks for the user with the given ID.
-     * <p>Note: This endpoint does not unblock users that were &lt;a href=&quot;https://auth0.com/docs/user-profile#block-and-unblock-a-user&quot;&gt;blocked by a tenant administrator&lt;/a&gt;.</p>
+     * Remove all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given ID.
+     * <p>Note: This endpoint does not unblock users that were <a href="https://auth0.com/docs/user-profile#block-and-unblock-a-user">blocked by a tenant administrator</a>.</p>
      */
     public void delete(String id, RequestOptions requestOptions) {
         this.rawClient.delete(id, requestOptions).body();

@@ -125,6 +125,10 @@ public final class FlowActionJwtSignJwtParams {
     public interface _FinalStage {
         FlowActionJwtSignJwtParams build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage payload(Optional<Map<String, Object>> payload);
 
         _FinalStage payload(Map<String, Object> payload);
@@ -252,6 +256,18 @@ public final class FlowActionJwtSignJwtParams {
         public FlowActionJwtSignJwtParams build() {
             return new FlowActionJwtSignJwtParams(
                     connectionId, payload, subject, issuer, audience, expiresIn, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

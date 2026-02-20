@@ -41,7 +41,7 @@ public class AsyncRawUserBlocksClient {
     }
 
     /**
-     * Retrieve details of all &lt;a href=&quot;https://auth0.com/docs/secure/attack-protection/brute-force-protection&quot;&gt;Brute-force Protection&lt;/a&gt; blocks for a user with the given identifier (username, phone number, or email).
+     * Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for a user with the given identifier (username, phone number, or email).
      */
     public CompletableFuture<ManagementApiHttpResponse<ListUserBlocksByIdentifierResponseContent>> listByIdentifier(
             ListUserBlocksByIdentifierRequestParameters request) {
@@ -49,7 +49,7 @@ public class AsyncRawUserBlocksClient {
     }
 
     /**
-     * Retrieve details of all &lt;a href=&quot;https://auth0.com/docs/secure/attack-protection/brute-force-protection&quot;&gt;Brute-force Protection&lt;/a&gt; blocks for a user with the given identifier (username, phone number, or email).
+     * Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for a user with the given identifier (username, phone number, or email).
      */
     public CompletableFuture<ManagementApiHttpResponse<ListUserBlocksByIdentifierResponseContent>> listByIdentifier(
             ListUserBlocksByIdentifierRequestParameters request, RequestOptions requestOptions) {
@@ -63,6 +63,11 @@ public class AsyncRawUserBlocksClient {
                     "consider_brute_force_enablement",
                     request.getConsiderBruteForceEnablement().orElse(null),
                     false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -132,8 +137,8 @@ public class AsyncRawUserBlocksClient {
     }
 
     /**
-     * Remove all &lt;a href=&quot;https://auth0.com/docs/secure/attack-protection/brute-force-protection&quot;&gt;Brute-force Protection&lt;/a&gt; blocks for the user with the given identifier (username, phone number, or email).
-     * <p>Note: This endpoint does not unblock users that were &lt;a href=&quot;https://auth0.com/docs/user-profile#block-and-unblock-a-user&quot;&gt;blocked by a tenant administrator&lt;/a&gt;.</p>
+     * Remove all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given identifier (username, phone number, or email).
+     * <p>Note: This endpoint does not unblock users that were <a href="https://auth0.com/docs/user-profile#block-and-unblock-a-user">blocked by a tenant administrator</a>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> deleteByIdentifier(
             DeleteUserBlocksByIdentifierRequestParameters request) {
@@ -141,8 +146,8 @@ public class AsyncRawUserBlocksClient {
     }
 
     /**
-     * Remove all &lt;a href=&quot;https://auth0.com/docs/secure/attack-protection/brute-force-protection&quot;&gt;Brute-force Protection&lt;/a&gt; blocks for the user with the given identifier (username, phone number, or email).
-     * <p>Note: This endpoint does not unblock users that were &lt;a href=&quot;https://auth0.com/docs/user-profile#block-and-unblock-a-user&quot;&gt;blocked by a tenant administrator&lt;/a&gt;.</p>
+     * Remove all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given identifier (username, phone number, or email).
+     * <p>Note: This endpoint does not unblock users that were <a href="https://auth0.com/docs/user-profile#block-and-unblock-a-user">blocked by a tenant administrator</a>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> deleteByIdentifier(
             DeleteUserBlocksByIdentifierRequestParameters request, RequestOptions requestOptions) {
@@ -150,6 +155,11 @@ public class AsyncRawUserBlocksClient {
                 .newBuilder()
                 .addPathSegments("user-blocks");
         QueryStringMapper.addQueryParameter(httpUrl, "identifier", request.getIdentifier(), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("DELETE", null)
@@ -214,14 +224,22 @@ public class AsyncRawUserBlocksClient {
     }
 
     /**
-     * Retrieve details of all &lt;a href=&quot;https://auth0.com/docs/secure/attack-protection/brute-force-protection&quot;&gt;Brute-force Protection&lt;/a&gt; blocks for the user with the given ID.
+     * Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given ID.
      */
     public CompletableFuture<ManagementApiHttpResponse<ListUserBlocksResponseContent>> list(String id) {
         return list(id, ListUserBlocksRequestParameters.builder().build());
     }
 
     /**
-     * Retrieve details of all &lt;a href=&quot;https://auth0.com/docs/secure/attack-protection/brute-force-protection&quot;&gt;Brute-force Protection&lt;/a&gt; blocks for the user with the given ID.
+     * Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given ID.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<ListUserBlocksResponseContent>> list(
+            String id, RequestOptions requestOptions) {
+        return list(id, ListUserBlocksRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given ID.
      */
     public CompletableFuture<ManagementApiHttpResponse<ListUserBlocksResponseContent>> list(
             String id, ListUserBlocksRequestParameters request) {
@@ -229,7 +247,7 @@ public class AsyncRawUserBlocksClient {
     }
 
     /**
-     * Retrieve details of all &lt;a href=&quot;https://auth0.com/docs/secure/attack-protection/brute-force-protection&quot;&gt;Brute-force Protection&lt;/a&gt; blocks for the user with the given ID.
+     * Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given ID.
      */
     public CompletableFuture<ManagementApiHttpResponse<ListUserBlocksResponseContent>> list(
             String id, ListUserBlocksRequestParameters request, RequestOptions requestOptions) {
@@ -243,6 +261,11 @@ public class AsyncRawUserBlocksClient {
                     "consider_brute_force_enablement",
                     request.getConsiderBruteForceEnablement().orElse(null),
                     false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -316,25 +339,29 @@ public class AsyncRawUserBlocksClient {
     }
 
     /**
-     * Remove all &lt;a href=&quot;https://auth0.com/docs/secure/attack-protection/brute-force-protection&quot;&gt;Brute-force Protection&lt;/a&gt; blocks for the user with the given ID.
-     * <p>Note: This endpoint does not unblock users that were &lt;a href=&quot;https://auth0.com/docs/user-profile#block-and-unblock-a-user&quot;&gt;blocked by a tenant administrator&lt;/a&gt;.</p>
+     * Remove all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given ID.
+     * <p>Note: This endpoint does not unblock users that were <a href="https://auth0.com/docs/user-profile#block-and-unblock-a-user">blocked by a tenant administrator</a>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id) {
         return delete(id, null);
     }
 
     /**
-     * Remove all &lt;a href=&quot;https://auth0.com/docs/secure/attack-protection/brute-force-protection&quot;&gt;Brute-force Protection&lt;/a&gt; blocks for the user with the given ID.
-     * <p>Note: This endpoint does not unblock users that were &lt;a href=&quot;https://auth0.com/docs/user-profile#block-and-unblock-a-user&quot;&gt;blocked by a tenant administrator&lt;/a&gt;.</p>
+     * Remove all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given ID.
+     * <p>Note: This endpoint does not unblock users that were <a href="https://auth0.com/docs/user-profile#block-and-unblock-a-user">blocked by a tenant administrator</a>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("user-blocks")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

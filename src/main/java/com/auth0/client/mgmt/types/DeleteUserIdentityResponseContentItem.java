@@ -85,7 +85,7 @@ public final class DeleteUserIdentityResponseContentItem {
     }
 
     /**
-     * @return &lt;code&gt;true&lt;/code&gt; if the identity provider is a social provider, &lt;code&gt;false&lt;/code&gt;s otherwise
+     * @return <code>true</code> if the identity provider is a social provider, <code>false</code>s otherwise
      */
     @JsonProperty("isSocial")
     public Optional<Boolean> getIsSocial() {
@@ -192,8 +192,12 @@ public final class DeleteUserIdentityResponseContentItem {
     public interface _FinalStage {
         DeleteUserIdentityResponseContentItem build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; if the identity provider is a social provider, &lt;code&gt;false&lt;/code&gt;s otherwise</p>
+         * <p><code>true</code> if the identity provider is a social provider, <code>false</code>s otherwise</p>
          */
         _FinalStage isSocial(Optional<Boolean> isSocial);
 
@@ -371,7 +375,7 @@ public final class DeleteUserIdentityResponseContentItem {
         }
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; if the identity provider is a social provider, &lt;code&gt;false&lt;/code&gt;s otherwise</p>
+         * <p><code>true</code> if the identity provider is a social provider, <code>false</code>s otherwise</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -381,7 +385,7 @@ public final class DeleteUserIdentityResponseContentItem {
         }
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; if the identity provider is a social provider, &lt;code&gt;false&lt;/code&gt;s otherwise</p>
+         * <p><code>true</code> if the identity provider is a social provider, <code>false</code>s otherwise</p>
          */
         @java.lang.Override
         @JsonSetter(value = "isSocial", nulls = Nulls.SKIP)
@@ -402,6 +406,18 @@ public final class DeleteUserIdentityResponseContentItem {
                     refreshToken,
                     profileData,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

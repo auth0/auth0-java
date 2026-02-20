@@ -209,6 +209,10 @@ public final class FlowExecutionSummary {
     public interface _FinalStage {
         FlowExecutionSummary build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Journey id</p>
          */
@@ -392,6 +396,18 @@ public final class FlowExecutionSummary {
         public FlowExecutionSummary build() {
             return new FlowExecutionSummary(
                     id, traceId, journeyId, status, createdAt, updatedAt, startedAt, endedAt, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

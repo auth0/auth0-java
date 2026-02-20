@@ -42,35 +42,42 @@ public class AsyncPromptsClient {
     }
 
     /**
-     * Retrieve details of the Universal Login configuration of your tenant. This includes the &lt;a href=&quot;https://auth0.com/docs/authenticate/login/auth0-universal-login/identifier-first&quot;&gt;Identifier First Authentication&lt;/a&gt; and &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa&quot;&gt;WebAuthn with Device Biometrics for MFA&lt;/a&gt; features.
+     * Retrieve details of the Universal Login configuration of your tenant. This includes the <a href="https://auth0.com/docs/authenticate/login/auth0-universal-login/identifier-first">Identifier First Authentication</a> and <a href="https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa">WebAuthn with Device Biometrics for MFA</a> features.
      */
     public CompletableFuture<GetSettingsResponseContent> getSettings() {
         return this.rawClient.getSettings().thenApply(response -> response.body());
     }
 
     /**
-     * Retrieve details of the Universal Login configuration of your tenant. This includes the &lt;a href=&quot;https://auth0.com/docs/authenticate/login/auth0-universal-login/identifier-first&quot;&gt;Identifier First Authentication&lt;/a&gt; and &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa&quot;&gt;WebAuthn with Device Biometrics for MFA&lt;/a&gt; features.
+     * Retrieve details of the Universal Login configuration of your tenant. This includes the <a href="https://auth0.com/docs/authenticate/login/auth0-universal-login/identifier-first">Identifier First Authentication</a> and <a href="https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa">WebAuthn with Device Biometrics for MFA</a> features.
      */
     public CompletableFuture<GetSettingsResponseContent> getSettings(RequestOptions requestOptions) {
         return this.rawClient.getSettings(requestOptions).thenApply(response -> response.body());
     }
 
     /**
-     * Update the Universal Login configuration of your tenant. This includes the &lt;a href=&quot;https://auth0.com/docs/authenticate/login/auth0-universal-login/identifier-first&quot;&gt;Identifier First Authentication&lt;/a&gt; and &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa&quot;&gt;WebAuthn with Device Biometrics for MFA&lt;/a&gt; features.
+     * Update the Universal Login configuration of your tenant. This includes the <a href="https://auth0.com/docs/authenticate/login/auth0-universal-login/identifier-first">Identifier First Authentication</a> and <a href="https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa">WebAuthn with Device Biometrics for MFA</a> features.
      */
     public CompletableFuture<UpdateSettingsResponseContent> updateSettings() {
         return this.rawClient.updateSettings().thenApply(response -> response.body());
     }
 
     /**
-     * Update the Universal Login configuration of your tenant. This includes the &lt;a href=&quot;https://auth0.com/docs/authenticate/login/auth0-universal-login/identifier-first&quot;&gt;Identifier First Authentication&lt;/a&gt; and &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa&quot;&gt;WebAuthn with Device Biometrics for MFA&lt;/a&gt; features.
+     * Update the Universal Login configuration of your tenant. This includes the <a href="https://auth0.com/docs/authenticate/login/auth0-universal-login/identifier-first">Identifier First Authentication</a> and <a href="https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa">WebAuthn with Device Biometrics for MFA</a> features.
+     */
+    public CompletableFuture<UpdateSettingsResponseContent> updateSettings(RequestOptions requestOptions) {
+        return this.rawClient.updateSettings(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update the Universal Login configuration of your tenant. This includes the <a href="https://auth0.com/docs/authenticate/login/auth0-universal-login/identifier-first">Identifier First Authentication</a> and <a href="https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa">WebAuthn with Device Biometrics for MFA</a> features.
      */
     public CompletableFuture<UpdateSettingsResponseContent> updateSettings(UpdateSettingsRequestContent request) {
         return this.rawClient.updateSettings(request).thenApply(response -> response.body());
     }
 
     /**
-     * Update the Universal Login configuration of your tenant. This includes the &lt;a href=&quot;https://auth0.com/docs/authenticate/login/auth0-universal-login/identifier-first&quot;&gt;Identifier First Authentication&lt;/a&gt; and &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa&quot;&gt;WebAuthn with Device Biometrics for MFA&lt;/a&gt; features.
+     * Update the Universal Login configuration of your tenant. This includes the <a href="https://auth0.com/docs/authenticate/login/auth0-universal-login/identifier-first">Identifier First Authentication</a> and <a href="https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa">WebAuthn with Device Biometrics for MFA</a> features.
      */
     public CompletableFuture<UpdateSettingsResponseContent> updateSettings(
             UpdateSettingsRequestContent request, RequestOptions requestOptions) {

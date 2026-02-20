@@ -44,6 +44,11 @@ public class RawExecutionsClient {
     }
 
     public ManagementApiHttpResponse<SyncPagingIterable<FlowExecutionSummary>> list(
+            String flowId, RequestOptions requestOptions) {
+        return list(flowId, ListFlowExecutionsRequestParameters.builder().build(), requestOptions);
+    }
+
+    public ManagementApiHttpResponse<SyncPagingIterable<FlowExecutionSummary>> list(
             String flowId, ListFlowExecutionsRequestParameters request) {
         return list(flowId, request, null);
     }
@@ -60,6 +65,11 @@ public class RawExecutionsClient {
                     httpUrl, "from", request.getFrom().orElse(null), false);
         }
         QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -122,6 +132,12 @@ public class RawExecutionsClient {
     }
 
     public ManagementApiHttpResponse<GetFlowExecutionResponseContent> get(
+            String flowId, String executionId, RequestOptions requestOptions) {
+        return get(
+                flowId, executionId, GetFlowExecutionRequestParameters.builder().build(), requestOptions);
+    }
+
+    public ManagementApiHttpResponse<GetFlowExecutionResponseContent> get(
             String flowId, String executionId, GetFlowExecutionRequestParameters request) {
         return get(flowId, executionId, request, null);
     }
@@ -140,6 +156,11 @@ public class RawExecutionsClient {
         if (request.getHydrate().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "hydrate", request.getHydrate().get(), true);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -190,15 +211,19 @@ public class RawExecutionsClient {
     }
 
     public ManagementApiHttpResponse<Void> delete(String flowId, String executionId, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("flows")
                 .addPathSegment(flowId)
                 .addPathSegments("executions")
-                .addPathSegment(executionId)
-                .build();
+                .addPathSegment(executionId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

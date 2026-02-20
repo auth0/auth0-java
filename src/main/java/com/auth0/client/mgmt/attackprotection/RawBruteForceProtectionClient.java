@@ -45,12 +45,16 @@ public class RawBruteForceProtectionClient {
      * Retrieve details of the Brute-force Protection configuration of your tenant.
      */
     public ManagementApiHttpResponse<GetBruteForceSettingsResponseContent> get(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("attack-protection/brute-force-protection")
-                .build();
+                .addPathSegments("attack-protection/brute-force-protection");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -101,6 +105,13 @@ public class RawBruteForceProtectionClient {
     /**
      * Update the Brute-force Protection configuration of your tenant.
      */
+    public ManagementApiHttpResponse<UpdateBruteForceSettingsResponseContent> update(RequestOptions requestOptions) {
+        return update(UpdateBruteForceSettingsRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update the Brute-force Protection configuration of your tenant.
+     */
     public ManagementApiHttpResponse<UpdateBruteForceSettingsResponseContent> update(
             UpdateBruteForceSettingsRequestContent request) {
         return update(request, null);
@@ -111,10 +122,14 @@ public class RawBruteForceProtectionClient {
      */
     public ManagementApiHttpResponse<UpdateBruteForceSettingsResponseContent> update(
             UpdateBruteForceSettingsRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("attack-protection/brute-force-protection")
-                .build();
+                .addPathSegments("attack-protection/brute-force-protection");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -123,7 +138,7 @@ public class RawBruteForceProtectionClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

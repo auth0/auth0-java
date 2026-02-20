@@ -213,5 +213,15 @@ public final class FlowActionStripeAddress {
         public FlowActionStripeAddress build() {
             return new FlowActionStripeAddress(line1, line2, postalCode, city, state, country, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

@@ -183,5 +183,15 @@ public final class UpdateHookRequestContent {
         public UpdateHookRequestContent build() {
             return new UpdateHookRequestContent(name, script, enabled, dependencies, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

@@ -31,6 +31,10 @@ public class AsyncOrganizationsClient {
         return this.rawClient.list(id).thenApply(response -> response.body());
     }
 
+    public CompletableFuture<SyncPagingIterable<Organization>> list(String id, RequestOptions requestOptions) {
+        return this.rawClient.list(id, requestOptions).thenApply(response -> response.body());
+    }
+
     public CompletableFuture<SyncPagingIterable<Organization>> list(
             String id, ListClientGrantOrganizationsRequestParameters request) {
         return this.rawClient.list(id, request).thenApply(response -> response.body());

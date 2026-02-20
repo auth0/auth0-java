@@ -125,5 +125,15 @@ public final class LogSecurityContext {
         public LogSecurityContext build() {
             return new LogSecurityContext(ja3, ja4, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

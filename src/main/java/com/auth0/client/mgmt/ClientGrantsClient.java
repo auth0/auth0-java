@@ -38,21 +38,28 @@ public class ClientGrantsClient {
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
+     * Retrieve a list of <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grants</a>, including the scopes associated with the application/API pair.
      */
     public SyncPagingIterable<ClientGrantResponseContent> list() {
         return this.rawClient.list().body();
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
+     * Retrieve a list of <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grants</a>, including the scopes associated with the application/API pair.
+     */
+    public SyncPagingIterable<ClientGrantResponseContent> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Retrieve a list of <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grants</a>, including the scopes associated with the application/API pair.
      */
     public SyncPagingIterable<ClientGrantResponseContent> list(ListClientGrantsRequestParameters request) {
         return this.rawClient.list(request).body();
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
+     * Retrieve a list of <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grants</a>, including the scopes associated with the application/API pair.
      */
     public SyncPagingIterable<ClientGrantResponseContent> list(
             ListClientGrantsRequestParameters request, RequestOptions requestOptions) {
@@ -60,14 +67,14 @@ public class ClientGrantsClient {
     }
 
     /**
-     * Create a client grant for a machine-to-machine login flow. To learn more, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow&quot;&gt;Client Credential Flow&lt;/a&gt;.
+     * Create a client grant for a machine-to-machine login flow. To learn more, read <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a>.
      */
     public CreateClientGrantResponseContent create(CreateClientGrantRequestContent request) {
         return this.rawClient.create(request).body();
     }
 
     /**
-     * Create a client grant for a machine-to-machine login flow. To learn more, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow&quot;&gt;Client Credential Flow&lt;/a&gt;.
+     * Create a client grant for a machine-to-machine login flow. To learn more, read <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a>.
      */
     public CreateClientGrantResponseContent create(
             CreateClientGrantRequestContent request, RequestOptions requestOptions) {
@@ -75,7 +82,7 @@ public class ClientGrantsClient {
     }
 
     /**
-     * Retrieve a single &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grant&lt;/a&gt;, including the
+     * Retrieve a single <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grant</a>, including the
      * scopes associated with the application/API pair.
      */
     public GetClientGrantResponseContent get(String id) {
@@ -83,7 +90,7 @@ public class ClientGrantsClient {
     }
 
     /**
-     * Retrieve a single &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grant&lt;/a&gt;, including the
+     * Retrieve a single <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grant</a>, including the
      * scopes associated with the application/API pair.
      */
     public GetClientGrantResponseContent get(String id, RequestOptions requestOptions) {
@@ -91,14 +98,14 @@ public class ClientGrantsClient {
     }
 
     /**
-     * Delete the &lt;a href=&quot;https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow&quot;&gt;Client Credential Flow&lt;/a&gt; from your machine-to-machine application.
+     * Delete the <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a> from your machine-to-machine application.
      */
     public void delete(String id) {
         this.rawClient.delete(id).body();
     }
 
     /**
-     * Delete the &lt;a href=&quot;https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow&quot;&gt;Client Credential Flow&lt;/a&gt; from your machine-to-machine application.
+     * Delete the <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a> from your machine-to-machine application.
      */
     public void delete(String id, RequestOptions requestOptions) {
         this.rawClient.delete(id, requestOptions).body();
@@ -109,6 +116,13 @@ public class ClientGrantsClient {
      */
     public UpdateClientGrantResponseContent update(String id) {
         return this.rawClient.update(id).body();
+    }
+
+    /**
+     * Update a client grant.
+     */
+    public UpdateClientGrantResponseContent update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).body();
     }
 
     /**

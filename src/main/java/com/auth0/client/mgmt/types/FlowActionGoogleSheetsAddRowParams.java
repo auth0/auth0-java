@@ -112,6 +112,10 @@ public final class FlowActionGoogleSheetsAddRowParams {
     public interface _FinalStage {
         FlowActionGoogleSheetsAddRowParams build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage sheetId(Optional<FlowActionGoogleSheetsAddRowParamsSheetId> sheetId);
 
         _FinalStage sheetId(FlowActionGoogleSheetsAddRowParamsSheetId sheetId);
@@ -189,6 +193,18 @@ public final class FlowActionGoogleSheetsAddRowParams {
         public FlowActionGoogleSheetsAddRowParams build() {
             return new FlowActionGoogleSheetsAddRowParams(
                     connectionId, spreadsheetId, sheetId, values, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

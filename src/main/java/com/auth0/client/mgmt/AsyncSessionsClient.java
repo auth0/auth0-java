@@ -65,6 +65,13 @@ public class AsyncSessionsClient {
     /**
      * Update session information.
      */
+    public CompletableFuture<UpdateSessionResponseContent> update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update session information.
+     */
     public CompletableFuture<UpdateSessionResponseContent> update(String id, UpdateSessionRequestContent request) {
         return this.rawClient.update(id, request).thenApply(response -> response.body());
     }

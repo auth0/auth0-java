@@ -124,6 +124,10 @@ public final class FlowActionAirtableListRecordsParams {
     public interface _FinalStage {
         FlowActionAirtableListRecordsParams build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage query(Optional<String> query);
 
         _FinalStage query(String query);
@@ -211,6 +215,18 @@ public final class FlowActionAirtableListRecordsParams {
         public FlowActionAirtableListRecordsParams build() {
             return new FlowActionAirtableListRecordsParams(
                     connectionId, baseId, tableName, query, view, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

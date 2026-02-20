@@ -106,6 +106,10 @@ public final class FormFieldCustomConfig {
     public interface _FinalStage {
         FormFieldCustomConfig build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage schema(Map<String, Object> schema);
 
         _FinalStage putAllSchema(Map<String, Object> schema);
@@ -205,6 +209,18 @@ public final class FormFieldCustomConfig {
         @java.lang.Override
         public FormFieldCustomConfig build() {
             return new FormFieldCustomConfig(schema, code, css, params, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

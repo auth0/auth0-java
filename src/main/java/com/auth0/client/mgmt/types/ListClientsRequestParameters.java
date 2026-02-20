@@ -154,7 +154,7 @@ public final class ListClientsRequestParameters {
     }
 
     /**
-     * @return Advanced Query in &lt;a href=&quot;http://www.lucenetutorial.com/lucene-query-syntax.html&quot;&gt;Lucene&lt;/a&gt; syntax.&lt;br /&gt;&lt;b&gt;Permitted Queries&lt;/b&gt;:&lt;br /&gt;&lt;ul&gt;&lt;li&gt;&lt;i&gt;client_grant.organization_id:{organization_id}&lt;/i&gt;&lt;/li&gt;&lt;li&gt;&lt;i&gt;client_grant.allow_any_organization:true&lt;/i&gt;&lt;/li&gt;&lt;/ul&gt;&lt;b&gt;Additional Restrictions&lt;/b&gt;:&lt;br /&gt;&lt;ul&gt;&lt;li&gt;Cannot be used in combination with other filters&lt;/li&gt;&lt;li&gt;Requires use of the &lt;i&gt;from&lt;/i&gt; and &lt;i&gt;take&lt;/i&gt; paging parameters (checkpoint paginatinon)&lt;/li&gt;&lt;li&gt;Reduced rate limits apply. See &lt;a href=&quot;https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public&quot;&gt;Rate Limit Configurations&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;i&gt;&lt;b&gt;Note&lt;/b&gt;: Recent updates may not be immediately reflected in query results&lt;/i&gt;
+     * @return Advanced Query in <a href="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene</a> syntax.<b>Permitted Queries</b>:<ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("q")
@@ -558,7 +558,7 @@ public final class ListClientsRequestParameters {
         }
 
         /**
-         * <p>Advanced Query in &lt;a href=&quot;http://www.lucenetutorial.com/lucene-query-syntax.html&quot;&gt;Lucene&lt;/a&gt; syntax.&lt;br /&gt;&lt;b&gt;Permitted Queries&lt;/b&gt;:&lt;br /&gt;&lt;ul&gt;&lt;li&gt;&lt;i&gt;client_grant.organization_id:{organization_id}&lt;/i&gt;&lt;/li&gt;&lt;li&gt;&lt;i&gt;client_grant.allow_any_organization:true&lt;/i&gt;&lt;/li&gt;&lt;/ul&gt;&lt;b&gt;Additional Restrictions&lt;/b&gt;:&lt;br /&gt;&lt;ul&gt;&lt;li&gt;Cannot be used in combination with other filters&lt;/li&gt;&lt;li&gt;Requires use of the &lt;i&gt;from&lt;/i&gt; and &lt;i&gt;take&lt;/i&gt; paging parameters (checkpoint paginatinon)&lt;/li&gt;&lt;li&gt;Reduced rate limits apply. See &lt;a href=&quot;https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public&quot;&gt;Rate Limit Configurations&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;i&gt;&lt;b&gt;Note&lt;/b&gt;: Recent updates may not be immediately reflected in query results&lt;/i&gt;</p>
+         * <p>Advanced Query in <a href="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene</a> syntax.<b>Permitted Queries</b>:<ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i></p>
          */
         @JsonSetter(value = "q", nulls = Nulls.SKIP)
         public Builder q(@Nullable OptionalNullable<String> q) {
@@ -603,6 +603,16 @@ public final class ListClientsRequestParameters {
                     appType,
                     q,
                     additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

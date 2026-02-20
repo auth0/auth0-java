@@ -43,6 +43,13 @@ public class GroupsClient {
     /**
      * List all groups in your tenant.
      */
+    public SyncPagingIterable<Group> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * List all groups in your tenant.
+     */
     public SyncPagingIterable<Group> list(ListGroupsRequestParameters request) {
         return this.rawClient.list(request).body();
     }

@@ -246,5 +246,15 @@ public final class OrganizationClientGrant {
             return new OrganizationClientGrant(
                     id, clientId, audience, scope, organizationUsage, allowAnyOrganization, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

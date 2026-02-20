@@ -52,6 +52,14 @@ public class AsyncBreachedPasswordDetectionClient {
      * Update details of the Breached Password Detection configuration of your tenant.
      */
     public CompletableFuture<UpdateBreachedPasswordDetectionSettingsResponseContent> update(
+            RequestOptions requestOptions) {
+        return this.rawClient.update(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update details of the Breached Password Detection configuration of your tenant.
+     */
+    public CompletableFuture<UpdateBreachedPasswordDetectionSettingsResponseContent> update(
             UpdateBreachedPasswordDetectionSettingsRequestContent request) {
         return this.rawClient.update(request).thenApply(response -> response.body());
     }

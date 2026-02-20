@@ -46,13 +46,17 @@ public class RawRefreshTokensClient {
      * Retrieve refresh token information.
      */
     public ManagementApiHttpResponse<GetRefreshTokenResponseContent> get(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("refresh-tokens")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -106,13 +110,17 @@ public class RawRefreshTokensClient {
      * Delete a refresh token by its ID.
      */
     public ManagementApiHttpResponse<Void> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("refresh-tokens")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -164,6 +172,14 @@ public class RawRefreshTokensClient {
      * Update a refresh token by its ID.
      */
     public ManagementApiHttpResponse<UpdateRefreshTokenResponseContent> update(
+            String id, RequestOptions requestOptions) {
+        return update(id, UpdateRefreshTokenRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update a refresh token by its ID.
+     */
+    public ManagementApiHttpResponse<UpdateRefreshTokenResponseContent> update(
             String id, UpdateRefreshTokenRequestContent request) {
         return update(id, request, null);
     }
@@ -173,11 +189,15 @@ public class RawRefreshTokensClient {
      */
     public ManagementApiHttpResponse<UpdateRefreshTokenResponseContent> update(
             String id, UpdateRefreshTokenRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("refresh-tokens")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -186,7 +206,7 @@ public class RawRefreshTokensClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

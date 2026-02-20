@@ -50,12 +50,16 @@ public class AsyncRawCaptchaClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<GetAttackProtectionCaptchaResponseContent>> get(
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("attack-protection/captcha")
-                .build();
+                .addPathSegments("attack-protection/captcha");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -132,6 +136,14 @@ public class AsyncRawCaptchaClient {
      * Update existing CAPTCHA configuration for your client.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateAttackProtectionCaptchaResponseContent>> update(
+            RequestOptions requestOptions) {
+        return update(UpdateAttackProtectionCaptchaRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update existing CAPTCHA configuration for your client.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<UpdateAttackProtectionCaptchaResponseContent>> update(
             UpdateAttackProtectionCaptchaRequestContent request) {
         return update(request, null);
     }
@@ -141,10 +153,14 @@ public class AsyncRawCaptchaClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateAttackProtectionCaptchaResponseContent>> update(
             UpdateAttackProtectionCaptchaRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("attack-protection/captcha")
-                .build();
+                .addPathSegments("attack-protection/captcha");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -153,7 +169,7 @@ public class AsyncRawCaptchaClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

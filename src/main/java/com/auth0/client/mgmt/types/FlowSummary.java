@@ -128,6 +128,10 @@ public final class FlowSummary {
     public interface _FinalStage {
         FlowSummary build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage executedAt(Optional<String> executedAt);
 
         _FinalStage executedAt(String executedAt);
@@ -204,6 +208,18 @@ public final class FlowSummary {
         @java.lang.Override
         public FlowSummary build() {
             return new FlowSummary(id, name, createdAt, updatedAt, executedAt, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

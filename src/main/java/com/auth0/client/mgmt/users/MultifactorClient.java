@@ -25,28 +25,28 @@ public class MultifactorClient {
     }
 
     /**
-     * Invalidate all remembered browsers across all &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication&quot;&gt;authentication factors&lt;/a&gt; for a user.
+     * Invalidate all remembered browsers across all <a href="https://auth0.com/docs/multifactor-authentication">authentication factors</a> for a user.
      */
     public void invalidateRememberBrowser(String id) {
         this.rawClient.invalidateRememberBrowser(id).body();
     }
 
     /**
-     * Invalidate all remembered browsers across all &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication&quot;&gt;authentication factors&lt;/a&gt; for a user.
+     * Invalidate all remembered browsers across all <a href="https://auth0.com/docs/multifactor-authentication">authentication factors</a> for a user.
      */
     public void invalidateRememberBrowser(String id, RequestOptions requestOptions) {
         this.rawClient.invalidateRememberBrowser(id, requestOptions).body();
     }
 
     /**
-     * Remove a &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication&quot;&gt;multifactor&lt;/a&gt; authentication configuration from a user's account. This forces the user to manually reconfigure the multi-factor provider.
+     * Remove a <a href="https://auth0.com/docs/multifactor-authentication">multifactor</a> authentication configuration from a user's account. This forces the user to manually reconfigure the multi-factor provider.
      */
     public void deleteProvider(String id, UserMultifactorProviderEnum provider) {
         this.rawClient.deleteProvider(id, provider).body();
     }
 
     /**
-     * Remove a &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication&quot;&gt;multifactor&lt;/a&gt; authentication configuration from a user's account. This forces the user to manually reconfigure the multi-factor provider.
+     * Remove a <a href="https://auth0.com/docs/multifactor-authentication">multifactor</a> authentication configuration from a user's account. This forces the user to manually reconfigure the multi-factor provider.
      */
     public void deleteProvider(String id, UserMultifactorProviderEnum provider, RequestOptions requestOptions) {
         this.rawClient.deleteProvider(id, provider, requestOptions).body();

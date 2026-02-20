@@ -154,6 +154,10 @@ public final class FlowActionHttpSendRequestParams {
     public interface _FinalStage {
         FlowActionHttpSendRequestParams build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage connectionId(Optional<String> connectionId);
 
         _FinalStage connectionId(String connectionId);
@@ -325,6 +329,18 @@ public final class FlowActionHttpSendRequestParams {
         public FlowActionHttpSendRequestParams build() {
             return new FlowActionHttpSendRequestParams(
                     connectionId, url, method, headers, basic, params, payload, contentType, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

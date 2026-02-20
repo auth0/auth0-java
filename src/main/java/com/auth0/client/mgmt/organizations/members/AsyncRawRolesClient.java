@@ -62,6 +62,19 @@ public class AsyncRawRolesClient {
      * <p>Users can be members of multiple Organizations with unique roles assigned for each membership. This action only returns the roles associated with the specified Organization; any roles assigned to the user within other Organizations are not included.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Role>>> list(
+            String id, String userId, RequestOptions requestOptions) {
+        return list(
+                id,
+                userId,
+                ListOrganizationMemberRolesRequestParameters.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Retrieve detailed list of roles assigned to a given user within the context of a specific Organization.
+     * <p>Users can be members of multiple Organizations with unique roles assigned for each membership. This action only returns the roles associated with the specified Organization; any roles assigned to the user within other Organizations are not included.</p>
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Role>>> list(
             String id, String userId, ListOrganizationMemberRolesRequestParameters request) {
         return list(id, userId, request, null);
     }
@@ -87,6 +100,11 @@ public class AsyncRawRolesClient {
                 httpUrl, "per_page", request.getPerPage().orElse(50), false);
         QueryStringMapper.addQueryParameter(
                 httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -174,7 +192,7 @@ public class AsyncRawRolesClient {
     }
 
     /**
-     * Assign one or more &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;roles&lt;/a&gt; to a user to determine their access for a specific Organization.
+     * Assign one or more <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> to a user to determine their access for a specific Organization.
      * <p>Users can be members of multiple Organizations with unique roles assigned for each membership. This action assigns roles to a user only for the specified Organization. Roles cannot be assigned to a user across multiple Organizations in the same call.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> assign(
@@ -183,7 +201,7 @@ public class AsyncRawRolesClient {
     }
 
     /**
-     * Assign one or more &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;roles&lt;/a&gt; to a user to determine their access for a specific Organization.
+     * Assign one or more <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> to a user to determine their access for a specific Organization.
      * <p>Users can be members of multiple Organizations with unique roles assigned for each membership. This action assigns roles to a user only for the specified Organization. Roles cannot be assigned to a user across multiple Organizations in the same call.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> assign(
@@ -191,14 +209,18 @@ public class AsyncRawRolesClient {
             String userId,
             AssignOrganizationMemberRolesRequestContent request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(id)
                 .addPathSegments("members")
                 .addPathSegment(userId)
-                .addPathSegments("roles")
-                .build();
+                .addPathSegments("roles");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -207,7 +229,7 @@ public class AsyncRawRolesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -276,7 +298,7 @@ public class AsyncRawRolesClient {
     }
 
     /**
-     * Remove one or more Organization-specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;roles&lt;/a&gt; from a given user.
+     * Remove one or more Organization-specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> from a given user.
      * <p>Users can be members of multiple Organizations with unique roles assigned for each membership. This action removes roles from a user in relation to the specified Organization. Roles assigned to the user within a different Organization cannot be managed in the same call.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(
@@ -285,7 +307,7 @@ public class AsyncRawRolesClient {
     }
 
     /**
-     * Remove one or more Organization-specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;roles&lt;/a&gt; from a given user.
+     * Remove one or more Organization-specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> from a given user.
      * <p>Users can be members of multiple Organizations with unique roles assigned for each membership. This action removes roles from a user in relation to the specified Organization. Roles assigned to the user within a different Organization cannot be managed in the same call.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(
@@ -293,14 +315,18 @@ public class AsyncRawRolesClient {
             String userId,
             DeleteOrganizationMemberRolesRequestContent request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(id)
                 .addPathSegments("members")
                 .addPathSegment(userId)
-                .addPathSegments("roles")
-                .build();
+                .addPathSegments("roles");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -309,7 +335,7 @@ public class AsyncRawRolesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
